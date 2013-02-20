@@ -1,0 +1,17 @@
+{
+  "name": "forces-and-motion-basics",
+  "version": "0.0.0",
+  "license": "GPL",
+  "dependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-requirejs": "~0.3.3",
+    "grunt-contrib-concat": "~0.1.2"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-requirejs": "~0.3.4",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-concat": "~0.1.2",
+    "grunt-contrib-uglify": "~0.1.1"
+  }
+}
