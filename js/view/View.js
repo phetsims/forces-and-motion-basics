@@ -14,7 +14,6 @@ define( [], function ( require ) {
   var blueFigure = new scenery.Image( pullFigureBlue0, {x: 100, y: 100, fontSize: 42} );
   blueFigure.addInputListener( new scenery.SimpleDragHandler( {allowTouchSnag: true} ) );
   scene.addChild( blueFigure );
-  scene.updateScene();
 
   scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
   scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
@@ -26,10 +25,12 @@ define( [], function ( require ) {
     var scale = Math.min( width / 981, height / 644 );
 
     scene.resize( width, height );
-    scene.updateScene();
     scene.setScale( scale );
+    render();
   };
   $( window ).resize( resize );
+
+  //Fit to the window and render the initial scene
   resize();
 
   function render() {
