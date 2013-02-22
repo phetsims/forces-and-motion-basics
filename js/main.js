@@ -1,4 +1,5 @@
 require( [ "i18n!../nls/forces-and-motion-basics-strings"], function ( Strings ) {
+  console.log( Strings );
   var scene = new scenery.Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: scenery.LayerType.SVG} );
   scene.addChild( new scenery.Text( "hi there", {x: 100, y: 100, fontSize: 42} ) );
 //  scene.addChild( arrow( tail, tip, {width: 50, fill: 'red', strokeWidth: 2 } ) );
