@@ -4,7 +4,7 @@ require( [ "i18n!../nls/forces-and-motion-basics-strings", "image!images/cart.pn
   scene.addChild( new scenery.Text( "hi there", {x: 100, y: 100, fontSize: 42} ) );
   scene.addChild( new scenery.Image( cart, {x: 100, y: 100, fontSize: 42} ) );
   var blueFigure = new scenery.Image( pullFigureBlue0, {x: 100, y: 100, fontSize: 42} );
-  blueFigure.addInputListener( new scenery.SimpleDragHandler( {} ) );
+  blueFigure.addInputListener( new scenery.SimpleDragHandler( {allowTouchSnag: true} ) );
   scene.addChild( blueFigure );
   scene.updateScene();
 
