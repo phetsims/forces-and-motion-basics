@@ -1,8 +1,8 @@
-require( [ "i18n!../nls/forces-and-motion-basics-strings"], function ( Strings ) {
+require( [ "i18n!../nls/forces-and-motion-basics-strings", "image!images/cart.png"], function ( Strings, cart ) {
   console.log( Strings );
   var scene = new scenery.Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: scenery.LayerType.SVG} );
   scene.addChild( new scenery.Text( "hi there", {x: 100, y: 100, fontSize: 42} ) );
-//  scene.addChild( arrow( tail, tip, {width: 50, fill: 'red', strokeWidth: 2 } ) );
+  scene.addChild( new scenery.Image( cart, {x: 100, y: 100, fontSize: 42} ) );
   scene.updateScene();
 
   var resize = function () {
@@ -13,7 +13,6 @@ require( [ "i18n!../nls/forces-and-motion-basics-strings"], function ( Strings )
 
     scene.resize( width, height );
     scene.updateScene();
-    console.log( "width", width, "height", height );
     scene.setScale( scale );
   };
   $( window ).resize( resize );
