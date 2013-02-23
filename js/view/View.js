@@ -11,6 +11,14 @@ define( function ( require ) {
 
     console.log( Strings );
     this.scene = new scenery.Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: scenery.LayerType.SVG} );
+
+    //Add a background, needs to get a gradient for the sky
+    this.scene.addChild( new scenery.Path(
+        {shape: scenery.Shape.rectangle( 0, 0, 1000, 1000 ),
+          x: 0,
+          y: 0,
+          fill: '#ffffff'
+        } ) );
     var misc = ['cart', 'rope', 'grass', 'go_up'];
     for ( var i = 0; i < misc.length; i++ ) {
       var cart = new scenery.Image( getImage( misc[i] ), {x: 100, y: 100, fontSize: 42} );
