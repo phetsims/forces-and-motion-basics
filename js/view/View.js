@@ -1,4 +1,4 @@
-define( [], function ( require ) {
+define( function ( require ) {
   var Strings = require( "i18n!../../nls/forces-and-motion-basics-strings" );
   var cart = require( "image!images/cart.png" );
   var pullFigureBlue0 = require( "image!images/pull_figure_BLUE_0.png" );
