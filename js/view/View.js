@@ -11,8 +11,12 @@ define( function ( require ) {
 
     console.log( Strings );
     this.scene = new scenery.Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: scenery.LayerType.SVG} );
-    this.scene.addChild( new scenery.Text( "hi there", {x: 100, y: 100, fontSize: 42} ) );
-    this.scene.addChild( new scenery.Image( getImage( 'cart' ), {x: 100, y: 100, fontSize: 42} ) );
+    var misc = ['cart', 'rope', 'grass', 'go_up'];
+    for ( var i = 0; i < misc.length; i++ ) {
+      var cart = new scenery.Image( getImage( misc[i] ), {x: 100, y: 100, fontSize: 42} );
+      cart.addInputListener( new scenery.SimpleDragHandler( {allowTouchSnag: true} ) );
+      this.scene.addChild( cart );
+    }
 
     var blueImageNames = ['pull_figure_small_BLUE_0', 'pull_figure_small_BLUE_0', 'pull_figure_BLUE_0', 'pull_figure_lrg_BLUE_0'];
     var redImageNames = ['pull_figure_small_RED_0', 'pull_figure_small_RED_0', 'pull_figure_RED_0', 'pull_figure_lrg_RED_0'];
@@ -35,7 +39,7 @@ define( function ( require ) {
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
     //Fit to the window and render the initial scene
-    $( window ).resize( this.resize );
+    $( window ).resize( function () { view.resize(); } );
     this.resize();
 
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
