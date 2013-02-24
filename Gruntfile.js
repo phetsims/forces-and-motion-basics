@@ -59,9 +59,18 @@ module.exports = function ( grunt ) {
                           define: true,
                           $: true
                         }
+                      },
+                      reload: {
+                        port: 6001,
+                        proxy: {
+                          host: 'localhost',
+                          port: 8080
+                        }
+                      },
+                      watch: {
+                        files: ['index.html', 'js/*.js', 'css/*.css'],
+                        tasks: ['reload']
                       }
-
-
                     } );
 
   // Default task.
@@ -69,4 +78,6 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks( 'grunt-contrib-requirejs' );
   grunt.loadNpmTasks( 'grunt-contrib-concat' );
   grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+  grunt.loadNpmTasks( 'grunt-reload' );
+  grunt.loadNpmTasks( 'grunt-contrib-watch' );
 };
