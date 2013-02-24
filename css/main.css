@@ -1,0 +1,7 @@
+/*Make all the buttons in a vertical button group the same width*/
+.v-button {
+  margin-top: 10px;
+  width: 100%;
+  display: block;
+  margin-left: 100px;
+}
