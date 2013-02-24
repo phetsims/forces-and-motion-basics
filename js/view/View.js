@@ -1,9 +1,6 @@
 define( function ( require ) {
 
   var Strings = require( "i18n!../../nls/forces-and-motion-basics-strings" );
-  var scenery = require( 'SCENERY/scenery' );
-  console.log( "scenery ", scenery );
-  var Layer = require( 'SCENERY/Layer' ); // uses Layer's prototype for inheritance
   var Shape = require( 'SCENERY/Shape' );
   var LayerType = require( 'SCENERY/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
