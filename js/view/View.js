@@ -4,14 +4,12 @@ define( function ( require ) {
   var scenery = require( 'SCENERY/scenery' );
   console.log( "scenery ", scenery );
   var Layer = require( 'SCENERY/Layer' ); // uses Layer's prototype for inheritance
-  require( 'SCENERY/RenderState' );
-  require( 'SCENERY/Shape' );
-  require( 'SCENERY/Trail' );
-  require( 'SCENERY/LayerType' );
-  require( 'SCENERY/Scene' );
-  require( 'SCENERY/Path' );
-  require( 'SCENERY/Image' );
-  require( 'SCENERY/SimpleDragHandler' );
+  var Shape = require( 'SCENERY/Shape' );
+  var LayerType = require( 'SCENERY/LayerType' );
+  var Scene = require( 'SCENERY/Scene' );
+  var Path = require( 'SCENERY/Path' );
+  var Image = require( 'SCENERY/Image' );//Will this collide with other Image type
+  var SimpleDragHandler = require( 'SCENERY/SimpleDragHandler' );
 
   function View( $images ) {
 
@@ -21,19 +19,19 @@ define( function ( require ) {
     }
 
     console.log( Strings );
-    this.scene = new scenery.Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: scenery.LayerType.SVG} );
+    this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: LayerType.SVG} );
 
     //Add a background, needs to get a gradient for the sky
-    this.scene.addChild( new scenery.Path(
-        {shape: scenery.Shape.rectangle( 0, 0, 1000, 1000 ),
+    this.scene.addChild( new Path(
+        {shape: Shape.rectangle( 0, 0, 1000, 1000 ),
           x: 0,
           y: 0,
           fill: '#ffffff'
         } ) );
     var misc = ['cart', 'rope', 'grass', 'go_up'];
     for ( var i = 0; i < misc.length; i++ ) {
-      var cart = new scenery.Image( getImage( misc[i] ), {x: 100, y: 100, fontSize: 42} );
-      cart.addInputListener( new scenery.SimpleDragHandler( {allowTouchSnag: true} ) );
+      var cart = new Image( getImage( misc[i] ), {x: 100, y: 100, fontSize: 42} );
+      cart.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
       this.scene.addChild( cart );
     }
 
@@ -45,8 +43,8 @@ define( function ( require ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
         var image = getImage( imageNames[i] );
         console.log( image );
-        var imageNode = new scenery.Image( image, {x: 100, y: 100, fontSize: 42} );
-        imageNode.addInputListener( new scenery.SimpleDragHandler( {allowTouchSnag: true} ) );
+        var imageNode = new Image( image, {x: 100, y: 100, fontSize: 42} );
+        imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
         view.scene.addChild( imageNode );
       }
     }
