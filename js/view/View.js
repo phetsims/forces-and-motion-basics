@@ -31,7 +31,6 @@ define( function ( require ) {
     function addImages( imageNames ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
         var image = getImage( imageNames[i] );
-        console.log( image );
         var imageNode = new Image( image, {x: 100, y: 100, fontSize: 42} );
         imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
         view.scene.addChild( imageNode );
