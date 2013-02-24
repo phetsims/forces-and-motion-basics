@@ -15,17 +15,9 @@ define( function ( require ) {
       return $images.parent().find( selector )[0];
     }
 
-    console.log( Strings );
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: LayerType.SVG} );
 
-    //Add a background, needs to get a gradient for the sky
-    this.scene.addChild( new Path(
-        {shape: Shape.rectangle( 0, 0, 1000, 1000 ),
-          x: 0,
-          y: 0,
-          fill: '#ffffff'
-        } ) );
-    var misc = ['cart', 'rope', 'grass', 'go_up'];
+    var misc = ['grass', 'rope', 'cart', 'go_up'];
     for ( var i = 0; i < misc.length; i++ ) {
       var cart = new Image( getImage( misc[i] ), {x: 100, y: 100, fontSize: 42} );
       cart.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
@@ -73,6 +65,24 @@ define( function ( require ) {
 
     this.scene.resize( width, height );
     this.scene.setScale( scale );
+
+    var groundHeight = height * scale / 2;
+
+    //Show the sky
+    $( "#sky" ).empty();
+    var paper = Raphael( document.getElementById( "sky" ), width, height );
+    var sky = paper.rect( 0, 0, width, height - groundHeight );
+    sky.attr( 'fill', '90-#cfecfc-#02ace4' );
+    sky.attr( 'stroke', '#fff' );
+
+    //ground color: c59a5b
+    //Show the ground
+    $( "#ground" ).empty();
+    var groundPaper = Raphael( document.getElementById( "ground" ), width, height );
+    var ground = groundPaper.rect( 0, height - groundHeight, width, groundHeight );
+    ground.attr( 'fill', '#c59a5b' );
+    ground.attr( 'stroke', '#fff' );
+
     this.render();
   };
 
