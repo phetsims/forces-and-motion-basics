@@ -5,12 +5,39 @@ module.exports = function ( grunt ) {
   grunt.initConfig( {
                       pkg: '<json:package.json>',
 
+                      jshint: {
+                        files: [ 'js/**/*.js' ],
+                        options: {
+                          curly: true,
+                          eqeqeq: true,
+                          immed: false,
+                          latedef: false,
+                          newcap: true,
+                          noarg: true,
+                          sub: true,
+                          undef: true,
+                          boss: true,
+                          eqnull: true,
+                          browser: true,
+                          node: true,
+                          jquery: true,
+                          expr: true,
+                          // Custom globals.
+                          "predef": [
 
-                      lint: {
-                        files: [
-//                                  'grunt.js',
-//                                  'app-easel/*.js'
-                        ]
+                            //Custom globals for requirejs
+                            "define",
+                            "require",
+
+                            //Custom global for request animation frame shim
+                            "requestAnimFrame"
+                          ]
+                        },
+                        globals: {
+                          Modernizr: true,
+                          define: true,
+                          $: true
+                        }
                       },
 
                       concat: {
@@ -37,29 +64,6 @@ module.exports = function ( grunt ) {
                         }
                       },
 
-                      jshint: {
-                        options: {
-                          curly: true,
-                          eqeqeq: true,
-                          immed: false,
-                          latedef: false,
-                          newcap: true,
-                          noarg: true,
-                          sub: true,
-                          undef: true,
-                          boss: true,
-                          eqnull: true,
-                          browser: true,
-                          node: true,
-                          jQuery: true,
-                          expr: true
-                        },
-                        globals: {
-                          Modernizr: true,
-                          define: true,
-                          $: true
-                        }
-                      },
                       reload: {
                         port: 6001,
                         proxy: {
@@ -68,13 +72,14 @@ module.exports = function ( grunt ) {
                         }
                       },
                       watch: {
-                        files: ['index.html', 'js/*.js', 'css/*.css'],
+                        files: ['index.html', 'js/**/*.js', 'css/*.css'],
                         tasks: ['reload']
                       }
                     } );
 
   // Default task.
-  grunt.registerTask( 'default', ['requirejs', 'concat', 'uglify'] );
+  grunt.registerTask( 'default', ['jshint', 'requirejs', 'concat', 'uglify'] );
+  grunt.loadNpmTasks( 'grunt-contrib-jshint' );
   grunt.loadNpmTasks( 'grunt-contrib-requirejs' );
   grunt.loadNpmTasks( 'grunt-contrib-concat' );
   grunt.loadNpmTasks( 'grunt-contrib-uglify' );
