@@ -1,6 +1,17 @@
 define( function ( require ) {
 
   var Strings = require( "i18n!../../nls/forces-and-motion-basics-strings" );
+  var scenery = require( 'SCENERY/scenery' );
+  console.log( "scenery ", scenery );
+  var Layer = require( 'SCENERY/Layer' ); // uses Layer's prototype for inheritance
+  require( 'SCENERY/RenderState' );
+  require( 'SCENERY/Shape' );
+  require( 'SCENERY/Trail' );
+  require( 'SCENERY/LayerType' );
+  require( 'SCENERY/Scene' );
+  require( 'SCENERY/Path' );
+  require( 'SCENERY/Image' );
+  require( 'SCENERY/SimpleDragHandler' );
 
   function View( $images ) {
 

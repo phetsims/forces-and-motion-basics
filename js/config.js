@@ -6,6 +6,11 @@ require.config( {
                     phetcommon: '../common/phetcommon/js',
                     PHETCOMMON_HTML: '../common/phetcommon/html',
 
+                    //Load scenery and its dependencies
+                    ASSERT: '../common/scenery/common/assert/js',
+                    DOT: '../common/scenery/common/dot/js',
+                    SCENERY: '../common/scenery/js',
+
                     easel: '../contrib/easel-0.5.0',
                     image: '../contrib/image-0.2.2',
                     jquery: '../contrib/jquery-1.9.1',
