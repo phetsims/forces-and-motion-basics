@@ -24,14 +24,24 @@ define( function ( require ) {
       this.scene.addChild( cart );
     }
 
-    var blueImageNames = ['pull_figure_small_BLUE_0', 'pull_figure_small_BLUE_0', 'pull_figure_BLUE_0', 'pull_figure_lrg_BLUE_0'];
-    var redImageNames = ['pull_figure_small_RED_0', 'pull_figure_small_RED_0', 'pull_figure_RED_0', 'pull_figure_lrg_RED_0'];
+    var blueImageNames = [
+      {image: 'pull_figure_small_BLUE_0'},
+      {image: 'pull_figure_small_BLUE_0'},
+      {image: 'pull_figure_BLUE_0'},
+      {image: 'pull_figure_lrg_BLUE_0', x: 13, y: 488 }
+    ];
+    var redImageNames = [
+      {image: 'pull_figure_small_RED_0'},
+      {image: 'pull_figure_small_RED_0'},
+      {image: 'pull_figure_RED_0'},
+      {image: 'pull_figure_lrg_RED_0', x: 839, y: 488 }
+    ];
     var view = this;
 
     function addImages( imageNames ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
-        var image = getImage( imageNames[i] );
-        var imageNode = new Image( image, {x: 100, y: 100, fontSize: 42} );
+        var image = getImage( imageNames[i].image );
+        var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42} );
         imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
         view.scene.addChild( imageNode );
       }
