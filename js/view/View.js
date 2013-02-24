@@ -17,24 +17,33 @@ define( function ( require ) {
 
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: LayerType.SVG} );
 
-    var misc = ['grass', 'rope', 'cart', 'go_up'];
+    var misc = [
+      {image: 'grass', x: 13, y: 368 },
+      {image: 'rope', x: 51, y: 277 },
+      {image: 'cart', x: 399, y: 221 },
+      {image: 'go_up', x: 420, y: 386 }
+    ];
+    var mygrass = null;
     for ( var i = 0; i < misc.length; i++ ) {
-      var cart = new Image( getImage( misc[i] ), {x: 100, y: 100, fontSize: 42} );
-      cart.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
-      this.scene.addChild( cart );
+      var imageNode = new Image( getImage( misc[i].image ), {x: misc[i].x, y: misc[i].y} );
+      imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
+      this.scene.addChild( imageNode );
+      if ( i == 0 ) {
+        mygrass = imageNode;
+      }
     }
 
     var blueImageNames = [
-      {image: 'pull_figure_small_BLUE_0'},
-      {image: 'pull_figure_small_BLUE_0'},
-      {image: 'pull_figure_BLUE_0'},
-      {image: 'pull_figure_lrg_BLUE_0', x: 13, y: 488 }
+      {image: 'pull_figure_small_BLUE_0', x: 260, y: 498 },
+      {image: 'pull_figure_small_BLUE_0', x: 198, y: 499 },
+      {image: 'pull_figure_BLUE_0', x: 132, y: 446 },
+      {image: 'pull_figure_lrg_BLUE_0', x: 34, y: 420  }
     ];
     var redImageNames = [
-      {image: 'pull_figure_small_RED_0'},
-      {image: 'pull_figure_small_RED_0'},
-      {image: 'pull_figure_RED_0'},
-      {image: 'pull_figure_lrg_RED_0', x: 839, y: 488 }
+      {image: 'pull_figure_small_RED_0', x: 624, y: 500 },
+      {image: 'pull_figure_small_RED_0', x: 684, y: 500 },
+      {image: 'pull_figure_RED_0', x: 756, y: 446 },
+      {image: 'pull_figure_lrg_RED_0', x: 838, y: 407  }
     ];
     var view = this;
 
@@ -75,7 +84,8 @@ define( function ( require ) {
     this.scene.resize( width, height );
     this.scene.setScale( scale );
 
-    var groundHeight = height * scale / 2;
+    var skyHeight = (376) * scale;
+    var groundHeight = height - skyHeight;
 
     //Show the sky
     $( "#sky" ).empty();
