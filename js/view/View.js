@@ -23,14 +23,8 @@ define( function ( require ) {
       {image: 'cart', x: 399, y: 221 },
       {image: 'go_up', x: 420, y: 386 }
     ];
-    var mygrass = null;
     for ( var i = 0; i < misc.length; i++ ) {
-      var imageNode = new Image( getImage( misc[i].image ), {x: misc[i].x, y: misc[i].y} );
-      imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
-      this.scene.addChild( imageNode );
-      if ( i == 0 ) {
-        mygrass = imageNode;
-      }
+      this.scene.addChild( new Image( getImage( misc[i].image ), {x: misc[i].x, y: misc[i].y} ) );
     }
 
     var blueImageNames = [
