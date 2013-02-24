@@ -87,18 +87,17 @@ define( function ( require ) {
     var skyHeight = (376) * scale;
     var groundHeight = height - skyHeight;
 
+    //Clear raphael layers and rebuild
+    $( "#background" ).empty();
+
     //Show the sky
-    $( "#sky" ).empty();
-    var paper = Raphael( document.getElementById( "sky" ), width, height );
-    var sky = paper.rect( 0, 0, width, height - groundHeight );
+    var paper = Raphael( document.getElementById( "background" ), width - 5, height - 5 );
+    var sky = paper.rect( 0, 0, width - 5, height - groundHeight );
     sky.attr( 'fill', '90-#cfecfc-#02ace4' );
     sky.attr( 'stroke', '#fff' );
 
-    //ground color: c59a5b
     //Show the ground
-    $( "#ground" ).empty();
-    var groundPaper = Raphael( document.getElementById( "ground" ), width, height );
-    var ground = groundPaper.rect( 0, height - groundHeight, width, groundHeight );
+    var ground = paper.rect( 0, height - groundHeight, width, groundHeight );
     ground.attr( 'fill', '#c59a5b' );
     ground.attr( 'stroke', '#fff' );
 
