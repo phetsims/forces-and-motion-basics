@@ -21,12 +21,27 @@ define( function ( require ) {
 
     var misc = [
       {image: 'grass', x: 13, y: 368 },
-      {image: 'rope', x: 51, y: 277 },
       {image: 'cart', x: 399, y: 221 }
     ];
     for ( var i = 0; i < misc.length; i++ ) {
       this.scene.addChild( new Image( getImage( misc[i].image ), {x: misc[i].x, y: misc[i].y} ) );
     }
+
+    var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 277 } );
+
+    var blueKnots = [10.0, 90.0, 170.0, 250.0];
+    var redKnots = _.map( blueKnots, function ( v ) {return getImage( 'rope' ).width - v;} );
+    console.log( blueKnots );
+    console.log( redKnots );
+    var knotWidth = 30;
+    for ( var i = 0; i < blueKnots.length; i++ ) {
+      this.scene.addChild( new Path( {shape: Shape.rect( blueKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 3} ) );
+    }
+    for ( var i = 0; i < redKnots.length; i++ ) {
+      this.scene.addChild( new Path( {shape: Shape.rect( redKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 3} ) );
+    }
+
+    this.scene.addChild( ropeNode );
 
     var goButtonImage = new Image( getImage( 'go_up' ), {x: 420, y: 386, cursor: 'pointer'} );
     goButtonImage.addInputListener(
