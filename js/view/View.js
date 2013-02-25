@@ -44,7 +44,7 @@ define( function ( require ) {
     function addImages( imageNames ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
         var image = getImage( imageNames[i].image );
-        var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42} );
+        var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42, cursor: 'pointer'} );
         imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
         view.scene.addChild( imageNode );
       }
