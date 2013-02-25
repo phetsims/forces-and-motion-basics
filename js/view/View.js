@@ -96,7 +96,7 @@ define( function ( require ) {
       } );
     }
 
-    function updateClosestKnot( pullerNode ) {
+    function highlightClosestKnot( pullerNode ) {
       _.each( knots, function ( knot ) {knot.visible = false} );
       var closestKnot = getClosestKnot( pullerNode );
 
@@ -116,16 +116,16 @@ define( function ( require ) {
         imageNode.addInputListener( new SimpleDragHandler(
             {
               allowTouchSnag: true,
-              start: function ( event ) {
+              start: function ( finger, trail, event ) {//TODO: remove first 2 args
                 var pullerNode = event.trail.lastNode();
                 if ( pullerNode.knot ) {
                   delete pullerNode.knot.puller;
                 }
                 delete pullerNode.knot;
               },
-              drag: function ( event ) {
+              drag: function ( finger, trail, event ) {//TODO: remove first 2 args
                 var pullerNode = event.trail.lastNode();
-                updateClosestKnot( pullerNode );
+                highlightClosestKnot( pullerNode );
               },
               end: function ( event ) {
                 _.each( knots, function ( knot ) {knot.visible = false} );
