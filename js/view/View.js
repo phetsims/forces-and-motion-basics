@@ -9,6 +9,8 @@ define( function ( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var red = "red";
+  var blue = "blue";
 
   function View( $images ) {
 
@@ -21,7 +23,7 @@ define( function ( require ) {
 
     this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
 
-    var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 277 } );
+    var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
 
     var blueKnots = [10.0, 90.0, 170.0, 250.0];
     var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
@@ -82,17 +84,20 @@ define( function ( require ) {
     ];
     var view = this;
 
-    function updateClosestKnot( pullerNode ) {
-      _.each( knots, function ( knot ) {knot.visible = false} );
-      var closestKnot = _.min( knots, function ( knot ) {
+    function getClosestKnot( pullerNode ) {
+      return _.min( knots, function ( knot ) {
         var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
         var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
         return Math.sqrt( dx2 + dy2 );
       } );
-      closestKnot.visible = true;
     }
 
-    function addImages( imageNames ) {
+    function updateClosestKnot( pullerNode ) {
+      _.each( knots, function ( knot ) {knot.visible = false} );
+      getClosestKnot( pullerNode ).visible = true;
+    }
+
+    function addImages( imageNames, type ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
         var image = getImage( imageNames[i].image );
         var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42, cursor: 'pointer'} );
@@ -104,14 +109,25 @@ define( function ( require ) {
               },
               end: function ( event ) {
                 _.each( knots, function ( knot ) {knot.visible = false} );
+                var pullerNode = event.trail.lastNode();
+                var closestKnot = getClosestKnot( pullerNode );
+                if ( type == red ) {
+                  pullerNode.x = closestKnot.centerX;
+                  pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
+                }
+                else {
+                  pullerNode.x = closestKnot.centerX - pullerNode.width;
+                  pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
+                }
               }
             } ) );
+        imageNode.pullerType = type;
         view.scene.addChild( imageNode );
       }
     }
 
-    addImages.call( this, blueImageNames );
-    addImages.call( this, redImageNames );
+    addImages.call( this, blueImageNames, blue );
+    addImages.call( this, redImageNames, red );
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
