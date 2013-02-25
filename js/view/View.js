@@ -2,11 +2,11 @@ define( function ( require ) {
   "use strict";
   var Strings = require( "i18n!../../nls/forces-and-motion-basics-strings" );
   var Shape = require( 'SCENERY/Shape' );
-  var LayerType = require( 'SCENERY/LayerType' );
+  var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
-  var Path = require( 'SCENERY/Path' );
-  var Image = require( 'SCENERY/Image' );//Will this collide with other Image type
-  var SimpleDragHandler = require( 'SCENERY/SimpleDragHandler' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   function View( $images ) {
 
@@ -15,7 +15,7 @@ define( function ( require ) {
       return $images.parent().find( selector )[0];
     }
 
-    this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, preferredSceneLayerType: LayerType.SVG} );
+    this.scene = new Scene( $( "#scene" ), {width: 200, height: 200} );
 
     var misc = [
       {image: 'grass', x: 13, y: 368 },
