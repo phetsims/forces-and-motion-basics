@@ -24,7 +24,10 @@ define( function ( require ) {
     var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 277 } );
 
     var blueKnots = [10.0, 90.0, 170.0, 250.0];
-    var redKnots = _.map( blueKnots, function ( v ) {return getImage( 'rope' ).width - v;} );
+    var ropeImage = getImage( 'rope' );
+    var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
+    var redKnots = _.map( blueKnots, function ( v ) {return ropeImageWidth - v;} );
+    console.log( "rope image width: " + ropeImage.width );
     console.log( blueKnots );
     console.log( redKnots );
     var knotWidth = 30;
