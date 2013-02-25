@@ -58,7 +58,7 @@ define( function ( require ) {
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
           }
         } );
-    var goButtonText = new Text( "Go!", {fontSize: '40px', backend: 'svg'} );
+    var goButtonText = new Text( Strings.go, {fontSize: '40px', backend: 'svg'} );
     goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
