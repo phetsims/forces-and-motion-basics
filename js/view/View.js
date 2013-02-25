@@ -33,11 +33,13 @@ define( function ( require ) {
     for ( var i = 0; i < blueKnots.length; i++ ) {
       var knot = new Path( {shape: Shape.rect( blueKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
       this.scene.addChild( knot );
+      knot.type = blue;
       knots.push( knot );
     }
     for ( var i = 0; i < redKnots.length; i++ ) {
       var knot = new Path( {shape: Shape.rect( redKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
       this.scene.addChild( knot );
+      knot.type = red;
       knots.push( knot );
     }
 
@@ -85,7 +87,9 @@ define( function ( require ) {
     var view = this;
 
     function getClosestKnot( pullerNode ) {
-      return _.min( knots, function ( knot ) {
+      var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.type;} );
+      filtered = _.filter( filtered, function ( knot ) {return knot.puller === undefined;} );
+      return _.min( filtered, function ( knot ) {
         var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
         var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
         return Math.sqrt( dx2 + dy2 );
@@ -94,7 +98,15 @@ define( function ( require ) {
 
     function updateClosestKnot( pullerNode ) {
       _.each( knots, function ( knot ) {knot.visible = false} );
-      getClosestKnot( pullerNode ).visible = true;
+      var closestKnot = getClosestKnot( pullerNode );
+
+      //TODO: why is this sometimes undefined
+      if ( closestKnot === undefined ) {
+        console.log( "closest knot undefined" );
+      }
+      if ( closestKnot !== undefined ) {
+        closestKnot.visible = true;
+      }
     }
 
     function addImages( imageNames, type ) {
@@ -104,13 +116,23 @@ define( function ( require ) {
         imageNode.addInputListener( new SimpleDragHandler(
             {
               allowTouchSnag: true,
+              start: function ( event ) {
+                var pullerNode = event.trail.lastNode();
+                if ( pullerNode.knot ) {
+                  delete pullerNode.knot.puller;
+                }
+                delete pullerNode.knot;
+              },
               drag: function ( event ) {
-                updateClosestKnot( event.trail.lastNode() );
+                var pullerNode = event.trail.lastNode();
+                updateClosestKnot( pullerNode );
               },
               end: function ( event ) {
                 _.each( knots, function ( knot ) {knot.visible = false} );
                 var pullerNode = event.trail.lastNode();
                 var closestKnot = getClosestKnot( pullerNode );
+                closestKnot.puller = pullerNode;
+                pullerNode.knot = closestKnot;
                 if ( type == red ) {
                   pullerNode.x = closestKnot.centerX;
                   pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
@@ -121,7 +143,7 @@ define( function ( require ) {
                 }
               }
             } ) );
-        imageNode.pullerType = type;
+        imageNode.type = type;
         view.scene.addChild( imageNode );
       }
     }
