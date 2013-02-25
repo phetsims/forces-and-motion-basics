@@ -19,13 +19,7 @@ define( function ( require ) {
 
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200} );
 
-    var misc = [
-      {image: 'grass', x: 13, y: 368 },
-      {image: 'cart', x: 399, y: 221 }
-    ];
-    for ( var i = 0; i < misc.length; i++ ) {
-      this.scene.addChild( new Image( getImage( misc[i].image ), {x: misc[i].x, y: misc[i].y} ) );
-    }
+    this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
 
     var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 277 } );
 
@@ -42,6 +36,7 @@ define( function ( require ) {
     }
 
     this.scene.addChild( ropeNode );
+    this.scene.addChild( new Image( getImage( 'cart' ), {x: 399, y: 221} ) );
 
     var goButtonImage = new Image( getImage( 'go_up' ), {x: 420, y: 386, cursor: 'pointer'} );
     goButtonImage.addInputListener(
