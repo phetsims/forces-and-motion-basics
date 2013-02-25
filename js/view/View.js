@@ -24,7 +24,6 @@ define( function ( require ) {
     var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 277 } );
 
     var blueKnots = [10.0, 90.0, 170.0, 250.0];
-    var ropeImage = getImage( 'rope' );
     var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
     var redKnots = _.map( blueKnots, function ( v ) {return ropeImageWidth - v;} );
     var knots = [];
@@ -97,9 +96,16 @@ define( function ( require ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
         var image = getImage( imageNames[i].image );
         var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42, cursor: 'pointer'} );
-        imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true, drag: function ( event ) {
-          updateClosestKnot( event.trail.lastNode() );
-        }} ) );
+        imageNode.addInputListener( new SimpleDragHandler(
+            {
+              allowTouchSnag: true,
+              drag: function ( event ) {
+                updateClosestKnot( event.trail.lastNode() );
+              },
+              end: function ( event ) {
+                _.each( knots, function ( knot ) {knot.visible = false} );
+              }
+            } ) );
         view.scene.addChild( imageNode );
       }
     }
