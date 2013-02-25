@@ -27,15 +27,17 @@ define( function ( require ) {
     var ropeImage = getImage( 'rope' );
     var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
     var redKnots = _.map( blueKnots, function ( v ) {return ropeImageWidth - v;} );
-    console.log( "rope image width: " + ropeImage.width );
-    console.log( blueKnots );
-    console.log( redKnots );
+    var knots = [];
     var knotWidth = 30;
     for ( var i = 0; i < blueKnots.length; i++ ) {
-      this.scene.addChild( new Path( {shape: Shape.rect( blueKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 3} ) );
+      var knot = new Path( {shape: Shape.rect( blueKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      this.scene.addChild( knot );
+      knots.push( knot );
     }
     for ( var i = 0; i < redKnots.length; i++ ) {
-      this.scene.addChild( new Path( {shape: Shape.rect( redKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 3} ) );
+      var knot = new Path( {shape: Shape.rect( redKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      this.scene.addChild( knot );
+      knots.push( knot );
     }
 
     this.scene.addChild( ropeNode );
@@ -81,11 +83,23 @@ define( function ( require ) {
     ];
     var view = this;
 
+    function updateClosestKnot( pullerNode ) {
+      _.each( knots, function ( knot ) {knot.visible = false} );
+      var closestKnot = _.min( knots, function ( knot ) {
+        var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
+        var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
+        return Math.sqrt( dx2 + dy2 );
+      } );
+      closestKnot.visible = true;
+    }
+
     function addImages( imageNames ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
         var image = getImage( imageNames[i].image );
         var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42, cursor: 'pointer'} );
-        imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true} ) );
+        imageNode.addInputListener( new SimpleDragHandler( {allowTouchSnag: true, drag: function ( event ) {
+          updateClosestKnot( event.trail.lastNode() );
+        }} ) );
         view.scene.addChild( imageNode );
       }
     }
