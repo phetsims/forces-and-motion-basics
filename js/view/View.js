@@ -6,6 +6,8 @@ define( function ( require ) {
   var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   function View( $images ) {
@@ -20,12 +22,37 @@ define( function ( require ) {
     var misc = [
       {image: 'grass', x: 13, y: 368 },
       {image: 'rope', x: 51, y: 277 },
-      {image: 'cart', x: 399, y: 221 },
-      {image: 'go_up', x: 420, y: 386 }
+      {image: 'cart', x: 399, y: 221 }
     ];
     for ( var i = 0; i < misc.length; i++ ) {
       this.scene.addChild( new Image( getImage( misc[i].image ), {x: misc[i].x, y: misc[i].y} ) );
     }
+
+    var goButtonImage = new Image( getImage( 'go_up' ), {x: 420, y: 386, cursor: 'pointer'} );
+    goButtonImage.addInputListener(
+        {
+          over: function ( event ) {
+            goButtonImage.image = getImage( 'go_hover' );
+            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+          },
+          out: function ( event ) {
+            goButtonImage.image = getImage( 'go_up' );
+            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+          },
+          down: function ( event ) {
+            goButtonImage.image = getImage( 'go_pressed' );
+            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+          },
+          up: function ( event ) {
+            goButtonImage.image = getImage( 'go_hover' );
+            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+          }
+        } );
+    var goButtonText = new Text( "Go!", {fontSize: '40px', backend: 'svg'} );
+    goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
+    goButtonText.y = goButtonImage.height / 2 + 7;
+    goButtonImage.addChild( goButtonText );
+    this.scene.addChild( goButtonImage );
 
     var blueImageNames = [
       {image: 'pull_figure_small_BLUE_0', x: 260, y: 498 },
