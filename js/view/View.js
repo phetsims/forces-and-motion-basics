@@ -32,7 +32,7 @@ define( function ( require ) {
       return $images.parent().find( selector )[0];
     }
 
-    this.scene = new Scene( $( "#scene" ), {width: 200, height: 200} );
+    this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
 
     this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
 
