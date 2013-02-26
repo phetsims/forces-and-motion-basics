@@ -10,13 +10,13 @@ define( function ( require ) {
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
-    var imageNode = this;
+    var pullerNode = this;
 
     model.watch( "running", watcher( function ( running ) {
-      imageNode.image = running ? pullImage : image;
+      pullerNode.image = running ? pullImage : image;
     } ) );
 
-    imageNode.addInputListener( new SimpleDragHandler(
+    pullerNode.addInputListener( new SimpleDragHandler(
         {
           allowTouchSnag: true,
           start: function ( finger, trail, event ) {//TODO: remove first 2 args
@@ -34,7 +34,7 @@ define( function ( require ) {
             options.end( event );
           }
         } ) );
-    imageNode.type = type;
+    pullerNode.type = type;
   }
 
   Inheritance.inheritPrototype( PullerNode, Image );
