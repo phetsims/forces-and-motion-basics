@@ -169,6 +169,9 @@ define( function ( require ) {
     function getTargetKnot( pullerNode ) {
       var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.type;} );
       filtered = _.filter( filtered, function ( knot ) {return knot.puller === undefined;} );
+      if ( filtered.length == 0 ) {
+        return null;
+      }
       var distance = function ( knot ) {
         var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
         var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
