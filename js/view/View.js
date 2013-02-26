@@ -154,19 +154,22 @@ define( function ( require ) {
     ];
     var view = this;
 
-    function getClosestKnot( pullerNode ) {
+    //Get the closest knot that is grabbable and within range
+    function getTargetKnot( pullerNode ) {
       var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.type;} );
       filtered = _.filter( filtered, function ( knot ) {return knot.puller === undefined;} );
-      return _.min( filtered, function ( knot ) {
+      var distance = function ( knot ) {
         var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
         var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
         return Math.sqrt( dx2 + dy2 );
-      } );
+      };
+      var closestAvailable = _.min( filtered, distance );
+      return distance( closestAvailable ) < 200 ? closestAvailable : null;
     }
 
     function highlightClosestKnot( pullerNode ) {
       _.each( knots, function ( knot ) {knot.visible = false} );
-      var closestKnot = getClosestKnot( pullerNode );
+      var closestKnot = getTargetKnot( pullerNode );
 
       //TODO: why is this sometimes undefined
       if ( closestKnot === undefined ) {
@@ -209,11 +212,12 @@ define( function ( require ) {
               drag: function ( finger, trail, event ) {//TODO: remove first 2 args
                 var pullerNode = event.trail.lastNode();
                 highlightClosestKnot( pullerNode );
+                updateForces();
               },
               end: function ( event ) {
                 _.each( knots, function ( knot ) {knot.visible = false} );
                 var pullerNode = event.trail.lastNode();
-                var closestKnot = getClosestKnot( pullerNode );
+                var closestKnot = getTargetKnot( pullerNode );
                 closestKnot.puller = pullerNode;
                 pullerNode.knot = closestKnot;
                 if ( type == red ) {
