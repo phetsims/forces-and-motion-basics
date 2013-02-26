@@ -139,7 +139,7 @@ define( function ( require ) {
           down: function ( event ) {
             goButtonImage.image = getImage( 'go_pressed' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
-            view.model.running = true;
+            view.model.running = !view.model.running;
           },
           up: function ( event ) {
             goButtonImage.image = getImage( 'go_hover' );
@@ -150,6 +150,18 @@ define( function ( require ) {
     goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
+
+    //Convenience adapter function for use with object.watch which just calls back with the new value.
+    function watcher( callback ) {
+      return function ( id, oldval, newval ) {
+        callback( newval );
+        return newval;
+      };
+    }
+
+    view.model.watch( "running", watcher( function ( running ) {
+      goButtonText.text = running ? Strings.pause : Strings.go;
+    } ) );
     this.scene.addChild( goButtonImage );
 
     var blueImageNames = [
