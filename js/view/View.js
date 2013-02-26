@@ -40,7 +40,7 @@ define( function ( require ) {
 
     this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
 
-    function arrowFunction( tailX, tailY, tipX, tipY, tailWidth, headWidth, headHeight ) {
+    function arrow( tailX, tailY, tipX, tipY, tailWidth, headWidth, headHeight ) {
       var arrowShape = new Shape();
       if ( tipX == tailX && tipY == tailY ) {
         return arrowShape;
@@ -80,7 +80,7 @@ define( function ( require ) {
       return arrowShape;
     }
 
-    this.sumArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
+    this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
 
     //Use object.watch polyfill for listener
     this.model.watch( "showSumOfForces", function ( id, oldval, newval ) {
@@ -88,8 +88,8 @@ define( function ( require ) {
       return newval;
     } );
 
-    this.leftArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
-    this.rightArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
+    this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
+    this.rightArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.scene.addChild( this.leftArrow );
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
@@ -214,9 +214,12 @@ define( function ( require ) {
 
     View.prototype.updateForces = function () {
       var x = this.cartNode.centerX;
-      this.leftArrow.shape = arrowFunction( x, 100, x + this.getLeftForce(), 100, 10, 40, 20 );
-      this.rightArrow.shape = arrowFunction( x, 100, x + this.getRightForce(), 100, 10, 40, 20 );
-      this.sumArrow.shape = arrowFunction( x, 50, x + this.getNetForce(), 50, 10, 40, 20 );
+      var tailWidth = 25;
+      var headWidth = 50;
+      var headHeight = 40;
+      this.leftArrow.shape = arrow( x, 100, x + this.getLeftForce(), 100, tailWidth, headWidth, headHeight );
+      this.rightArrow.shape = arrow( x, 100, x + this.getRightForce(), 100, tailWidth, headWidth, headHeight );
+      this.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     };
 
     function addImages( imageNames, type ) {
