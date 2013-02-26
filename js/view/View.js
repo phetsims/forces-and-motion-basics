@@ -14,14 +14,18 @@ define( function ( require ) {
   var red = "red";
   var blue = "blue";
 
-  var model = {showSumOfForces: true};
-
   function View( $images ) {
+    var view = this;
+    this.model = {
+      showSumOfForces: true,
+      running: false,
+      cart: {x: 0, v: 0}
+    };
     var handleClick = function () {
-      model.showSumOfForces = !model.showSumOfForces;
+      view.model.showSumOfForces = !view.model.showSumOfForces;
       var $icon = $( '.sum-of-forces-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
-      $icon.addClass( model.showSumOfForces ? "icon-check" : "icon-check-empty" );
+      $icon.addClass( view.model.showSumOfForces ? "icon-check" : "icon-check-empty" );
     };
     var $checkBox = $( '.sum-of-forces-checkbox' );
     $checkBox.bind( "touchstart", handleClick );
@@ -79,7 +83,7 @@ define( function ( require ) {
     this.sumArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
 
     //Use object.watch polyfill for listener
-    model.watch( "showSumOfForces", function ( id, oldval, newval ) {
+    this.model.watch( "showSumOfForces", function ( id, oldval, newval ) {
       view.sumArrow.visible = newval;
       return newval;
     } );
@@ -90,7 +94,7 @@ define( function ( require ) {
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
 
-    var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
+    view.ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
 
     var blueKnots = [10.0, 90.0, 170.0, 250.0];
     var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
@@ -98,20 +102,27 @@ define( function ( require ) {
     var knots = [];
     var knotWidth = 30;
     for ( var i = 0; i < blueKnots.length; i++ ) {
-      var knot = new Path( {shape: Shape.rect( blueKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      var knot = new Path( {shape: Shape.rect( blueKnots[i] + view.ropeNode.x - knotWidth / 2 + 1, view.ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
       this.scene.addChild( knot );
       knot.type = blue;
       knots.push( knot );
     }
     for ( var i = 0; i < redKnots.length; i++ ) {
-      var knot = new Path( {shape: Shape.rect( redKnots[i] + ropeNode.x - knotWidth / 2 + 1, ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      var knot = new Path( {shape: Shape.rect( redKnots[i] + view.ropeNode.x - knotWidth / 2 + 1, view.ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
       this.scene.addChild( knot );
       knot.type = red;
       knots.push( knot );
     }
 
-    this.scene.addChild( ropeNode );
+    this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( getImage( 'cart' ), {x: 399, y: 221} );
+
+    this.model.cart.watch( "x", function ( id, oldval, newval ) {
+      view.cartNode.x = newval + 399;
+      view.ropeNode.x = newval + 51;
+      return newval;
+    } );
+
     this.scene.addChild( this.cartNode );
 
     var goButtonImage = new Image( getImage( 'go_up' ), {x: 420, y: 386, cursor: 'pointer'} );
@@ -128,6 +139,7 @@ define( function ( require ) {
           down: function ( event ) {
             goButtonImage.image = getImage( 'go_pressed' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+            view.model.running = true;
           },
           up: function ( event ) {
             goButtonImage.image = getImage( 'go_hover' );
@@ -152,7 +164,6 @@ define( function ( require ) {
       {image: 'pull_figure_RED_0', x: 756, y: 446 },
       {image: 'pull_figure_lrg_RED_0', x: 838, y: 407  }
     ];
-    var view = this;
 
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
@@ -172,28 +183,38 @@ define( function ( require ) {
       var closestKnot = getTargetKnot( pullerNode );
 
       //TODO: why is this sometimes undefined
-      if ( closestKnot === undefined ) {
-        console.log( "closest knot undefined" );
+      if ( closestKnot === undefined || closestKnot == null ) {
       }
-      if ( closestKnot !== undefined ) {
+      else {
         closestKnot.visible = true;
       }
     }
 
-    function updateForces() {
+    View.prototype.getNetForce = function () {
+      return this.getLeftForce() + this.getRightForce();
+    };
+
+    View.prototype.getLeftForce = function () {
       var leftForce = 0;
-      var rightForce = 0;
-      //Sum left forces and right forces
       for ( var i = 0; i < knots.length; i++ ) {
-        var obj = knots[i];
-        leftForce += obj.puller === undefined ? 0 : obj.type == blue ? -100 : 0;
-        rightForce += obj.puller === undefined ? 0 : obj.type == red ? 100 : 0;
+        leftForce += knots[i].puller === undefined ? 0 : knots[i].type == blue ? -100 : 0;
       }
-      var x = view.cartNode.centerX;
-      view.leftArrow.shape = arrowFunction( x, 100, x + leftForce, 100, 10, 40, 20 );
-      view.rightArrow.shape = arrowFunction( x, 100, x + rightForce, 100, 10, 40, 20 );
-      view.sumArrow.shape = arrowFunction( x, 50, x + leftForce + rightForce, 50, 10, 40, 20 );
-    }
+      return leftForce;
+    };
+    View.prototype.getRightForce = function () {
+      var rightForce = 0;
+      for ( var i = 0; i < knots.length; i++ ) {
+        rightForce += knots[i].puller === undefined ? 0 : knots[i].type == red ? 100 : 0;
+      }
+      return rightForce;
+    };
+
+    View.prototype.updateForces = function () {
+      var x = this.cartNode.centerX;
+      this.leftArrow.shape = arrowFunction( x, 100, x + this.getLeftForce(), 100, 10, 40, 20 );
+      this.rightArrow.shape = arrowFunction( x, 100, x + this.getRightForce(), 100, 10, 40, 20 );
+      this.sumArrow.shape = arrowFunction( x, 50, x + this.getNetForce(), 50, 10, 40, 20 );
+    };
 
     function addImages( imageNames, type ) {
       for ( var i = 0; i < imageNames.length; i++ ) {
@@ -212,7 +233,7 @@ define( function ( require ) {
               drag: function ( finger, trail, event ) {//TODO: remove first 2 args
                 var pullerNode = event.trail.lastNode();
                 highlightClosestKnot( pullerNode );
-                updateForces();
+                view.updateForces();
               },
               end: function ( event ) {
                 _.each( knots, function ( knot ) {knot.visible = false} );
@@ -228,7 +249,7 @@ define( function ( require ) {
                   pullerNode.x = closestKnot.centerX - pullerNode.width;
                   pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
                 }
-                updateForces();
+                view.updateForces();
               }
             } ) );
         imageNode.type = type;
@@ -251,6 +272,7 @@ define( function ( require ) {
     // 60fps with the setTimeout fallback.
     (function animloop() {
       requestAnimFrame( animloop );
+      view.updatePhysics();
       view.render();
     })();
   }
@@ -282,6 +304,14 @@ define( function ( require ) {
     ground.attr( 'stroke', '#fff' );
 
     this.render();
+  };
+
+  View.prototype.updatePhysics = function () {
+    if ( this.model.running ) {
+      var netForce = this.getNetForce();
+      this.model.cart.v += netForce / 20000;
+      this.model.cart.x += this.model.cart.v;
+    }
   };
 
   View.prototype.render = function () {
