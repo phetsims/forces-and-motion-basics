@@ -64,10 +64,12 @@ define( function ( require ) {
       return arrowShape;
     }
 
+    this.sumArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
     this.scene.addChild( this.leftArrow );
     this.scene.addChild( this.rightArrow );
+    this.scene.addChild( this.sumArrow );
 
     var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
 
@@ -168,6 +170,7 @@ define( function ( require ) {
       var x = view.cartNode.centerX;
       view.leftArrow.shape = arrowFunction( x, 100, x + leftForce, 100, 10, 40, 20 );
       view.rightArrow.shape = arrowFunction( x, 100, x + rightForce, 100, 10, 40, 20 );
+      view.sumArrow.shape = arrowFunction( x, 50, x + leftForce + rightForce, 50, 10, 40, 20 );
     }
 
     function addImages( imageNames, type ) {
