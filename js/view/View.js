@@ -64,8 +64,10 @@ define( function ( require ) {
       return arrowShape;
     }
 
-    this.arrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
-    this.scene.addChild( this.arrow );
+    this.leftArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
+    this.rightArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
+    this.scene.addChild( this.leftArrow );
+    this.scene.addChild( this.rightArrow );
 
     var ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
 
@@ -155,14 +157,17 @@ define( function ( require ) {
     }
 
     function updateForces() {
-      var force = 0;
+      var leftForce = 0;
+      var rightForce = 0;
       //Sum left forces and right forces
       for ( var i = 0; i < knots.length; i++ ) {
         var obj = knots[i];
-        force += obj.puller === undefined ? 0 : obj.type == red ? 100 : -100;
+        leftForce += obj.puller === undefined ? 0 : obj.type == blue ? -100 : 0;
+        rightForce += obj.puller === undefined ? 0 : obj.type == red ? 100 : 0;
       }
       var x = view.cartNode.centerX;
-      view.arrow.shape = arrowFunction( x, 100, x + force, 100, 10, 40, 20 );
+      view.leftArrow.shape = arrowFunction( x, 100, x + leftForce, 100, 10, 40, 20 );
+      view.rightArrow.shape = arrowFunction( x, 100, x + rightForce, 100, 10, 40, 20 );
     }
 
     function addImages( imageNames, type ) {
