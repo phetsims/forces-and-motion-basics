@@ -11,9 +11,15 @@ define( function ( require ) {
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
     var pullerNode = this;
+    this.initY = y;
 
     watch( model, "running", function ( running ) {
-      pullerNode.image = model.running ? pullImage : image;
+      var knotted = (typeof pullerNode.knot !== 'undefined');
+      var pulling = model.running && knotted;
+      pullerNode.image = pulling ? pullImage : image;
+      if ( pulling || knotted ) {
+        pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
+      }
     } );
 
     pullerNode.addInputListener( new SimpleDragHandler(

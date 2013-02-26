@@ -9,7 +9,12 @@
  * FORK:
  * https://github.com/melanke/Watch.JS
  *
- * Modifications by SR Feb 2013
+ * Modifications by SR Feb 2013:
+ * load in AMD only for simplicity
+ *
+ * SRR.TODO:
+ * Call back listeners immediately to synchronize views.
+ * Provide changed value as 1st arg.
  */
 
 define( function () {

@@ -242,14 +242,8 @@ define( function ( require ) {
             var closestKnot = getTargetKnot( pullerNode );
             closestKnot.puller = pullerNode;
             pullerNode.knot = closestKnot;
-            if ( type == red ) {
-              pullerNode.x = closestKnot.centerX;
-              pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
-            }
-            else {
-              pullerNode.x = closestKnot.centerX - pullerNode.width;
-              pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
-            }
+            pullerNode.x = type == red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
+            pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
             view.updateForces();
           }
         } ) );
