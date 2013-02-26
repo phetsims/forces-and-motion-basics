@@ -12,6 +12,7 @@ define( function ( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Property = require( 'PHETCOMMON/model/property/Property' );
+  var watcher = require( 'util/watcher' );
   var red = "red";
   var blue = "blue";
 
@@ -151,14 +152,6 @@ define( function ( require ) {
     goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
-
-    //Convenience adapter function for use with object.watch which just calls back with the new value.
-    function watcher( callback ) {
-      return function ( id, oldval, newval ) {
-        callback( newval );
-        return newval;
-      };
-    }
 
     view.model.watch( "running", watcher( function ( running ) {
       goButtonText.text = running ? Strings.pause : Strings.go;

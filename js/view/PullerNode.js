@@ -4,18 +4,11 @@ define( function ( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Inheritance = require( 'PHETCOMMON/model/Inheritance' );
+  var watcher = require( 'util/watcher' );
 
   function PullerNode( image, pullImage, type, x, y, model, options ) {
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
-
-    //Convenience adapter function for use with object.watch which just calls back with the new value.
-    function watcher( callback ) {
-      return function ( id, oldval, newval ) {
-        callback( newval );
-        return newval;
-      };
-    }
 
     var imageNode = this;
 
