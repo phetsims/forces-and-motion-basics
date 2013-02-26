@@ -1,6 +1,7 @@
 define( function ( require ) {
   "use strict";
   var Strings = require( "i18n!../../nls/forces-and-motion-basics-strings" );
+  var PullerNode = require( "view/PullerNode" );
   var Shape = require( 'SCENERY/Shape' );
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
@@ -165,16 +166,16 @@ define( function ( require ) {
     this.scene.addChild( goButtonImage );
 
     var blueImageNames = [
-      {image: 'pull_figure_small_BLUE_0', x: 260, y: 498 },
-      {image: 'pull_figure_small_BLUE_0', x: 198, y: 499 },
-      {image: 'pull_figure_BLUE_0', x: 132, y: 446 },
-      {image: 'pull_figure_lrg_BLUE_0', x: 34, y: 420  }
+      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 260, y: 498 },
+      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 198, y: 499 },
+      {image: 'pull_figure_BLUE_0', pullImage: 'pull_figure_BLUE_3', x: 132, y: 446 },
+      {image: 'pull_figure_lrg_BLUE_0', pullImage: 'pull_figure_lrg_BLUE_3', x: 34, y: 420  }
     ];
     var redImageNames = [
-      {image: 'pull_figure_small_RED_0', x: 624, y: 500 },
-      {image: 'pull_figure_small_RED_0', x: 684, y: 500 },
-      {image: 'pull_figure_RED_0', x: 756, y: 446 },
-      {image: 'pull_figure_lrg_RED_0', x: 838, y: 407  }
+      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 624, y: 500 },
+      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 684, y: 500 },
+      {image: 'pull_figure_RED_0', pullImage: 'pull_figure_RED_3', x: 756, y: 446 },
+      {image: 'pull_figure_lrg_RED_0', pullImage: 'pull_figure_lrg_RED_3', x: 838, y: 407  }
     ];
 
     //Get the closest knot that is grabbable and within range
@@ -235,44 +236,31 @@ define( function ( require ) {
     };
 
     function addImages( imageNames, type ) {
-      for ( var i = 0; i < imageNames.length; i++ ) {
-        var image = getImage( imageNames[i].image );
-        var imageNode = new Image( image, {x: imageNames[i].x, y: imageNames[i].y, fontSize: 42, cursor: 'pointer'} );
-        imageNode.addInputListener( new SimpleDragHandler(
-            {
-              allowTouchSnag: true,
-              start: function ( finger, trail, event ) {//TODO: remove first 2 args
-                var pullerNode = event.trail.lastNode();
-                if ( pullerNode.knot ) {
-                  delete pullerNode.knot.puller;
-                }
-                delete pullerNode.knot;
-              },
-              drag: function ( finger, trail, event ) {//TODO: remove first 2 args
-                var pullerNode = event.trail.lastNode();
-                highlightClosestKnot( pullerNode );
-                view.updateForces();
-              },
-              end: function ( event ) {
-                _.each( knots, function ( knot ) {knot.visible = false} );
-                var pullerNode = event.trail.lastNode();
-                var closestKnot = getTargetKnot( pullerNode );
-                closestKnot.puller = pullerNode;
-                pullerNode.knot = closestKnot;
-                if ( type == red ) {
-                  pullerNode.x = closestKnot.centerX;
-                  pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
-                }
-                else {
-                  pullerNode.x = closestKnot.centerX - pullerNode.width;
-                  pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
-                }
-                view.updateForces();
-              }
-            } ) );
-        imageNode.type = type;
-        view.scene.addChild( imageNode );
-      }
+      _.each( imageNames, function ( imageName ) {
+        view.scene.addChild( new PullerNode( getImage( imageName.image ), getImage( imageName.pullImage ), type, imageName.x, imageName.y, view.model, {
+          drag: function ( pullerNode ) {
+            highlightClosestKnot( pullerNode );
+            view.updateForces();
+          },
+          end: function ( event ) {
+
+            _.each( knots, function ( knot ) {knot.visible = false} );
+            var pullerNode = event.trail.lastNode();
+            var closestKnot = getTargetKnot( pullerNode );
+            closestKnot.puller = pullerNode;
+            pullerNode.knot = closestKnot;
+            if ( type == red ) {
+              pullerNode.x = closestKnot.centerX;
+              pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
+            }
+            else {
+              pullerNode.x = closestKnot.centerX - pullerNode.width;
+              pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
+            }
+            view.updateForces();
+          }
+        } ) );
+      } );
     }
 
     addImages.call( this, blueImageNames, blue );
