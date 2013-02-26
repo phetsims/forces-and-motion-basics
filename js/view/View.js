@@ -12,7 +12,7 @@ define( function ( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var watcher = require( 'util/watcher' );
+  var watch = require( 'view/watch' );
   var red = "red";
   var blue = "blue";
 
@@ -85,9 +85,9 @@ define( function ( require ) {
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
 
     //Use object.watch polyfill for listener
-    this.model.watch( "showSumOfForces", function ( id, oldval, newval ) {
-      view.sumArrow.visible = newval;
-      return newval;
+
+    watch( this.model, "showSumOfForces", function () {
+      view.sumArrow.visible = view.model.showSumOfForces;
     } );
 
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -119,10 +119,9 @@ define( function ( require ) {
     this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( getImage( 'cart' ), {x: 399, y: 221} );
 
-    this.model.cart.watch( "x", function ( id, oldval, newval ) {
-      view.cartNode.x = newval + 399;
-      view.ropeNode.x = newval + 51;
-      return newval;
+    watch( this.model.cart, "x", function () {
+      view.cartNode.x = view.model.cart.x + 399;
+      view.ropeNode.x = view.model.cart.x + 51;
     } );
 
     this.scene.addChild( this.cartNode );
@@ -153,9 +152,9 @@ define( function ( require ) {
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
 
-    view.model.watch( "running", watcher( function ( running ) {
-      goButtonText.text = running ? Strings.pause : Strings.go;
-    } ) );
+    watch( view.model, "running", function () {
+      goButtonText.text = view.model.running ? Strings.pause : Strings.go;
+    } );
     this.scene.addChild( goButtonImage );
 
     var blueImageNames = [
