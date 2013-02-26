@@ -5,6 +5,7 @@ define( function ( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Inheritance = require( 'PHETCOMMON/model/Inheritance' );
   var watcher = require( 'util/watcher' );
+  var watch = require( 'util/watch' );
 
   function PullerNode( image, pullImage, type, x, y, model, options ) {
 
@@ -12,9 +13,7 @@ define( function ( require ) {
 
     var pullerNode = this;
 
-    model.watch( "running", watcher( function ( running ) {
-      pullerNode.image = running ? pullImage : image;
-    } ) );
+    watch( model, "running", function ( running ) { pullerNode.image = running ? pullImage : image; } );
 
     pullerNode.addInputListener( new SimpleDragHandler(
         {
@@ -27,8 +26,7 @@ define( function ( require ) {
             delete pullerNode.knot;
           },
           drag: function ( finger, trail, event ) {//TODO: remove first 2 args
-            var pullerNode = event.trail.lastNode();
-            options.drag( pullerNode );
+            options.drag( finger, trail, event );
           },
           end: function ( event ) {
             options.end( event );

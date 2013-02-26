@@ -231,7 +231,8 @@ define( function ( require ) {
     function addImages( imageNames, type ) {
       _.each( imageNames, function ( imageName ) {
         view.scene.addChild( new PullerNode( getImage( imageName.image ), getImage( imageName.pullImage ), type, imageName.x, imageName.y, view.model, {
-          drag: function ( pullerNode ) {
+          drag: function ( finger, trail, event ) {
+            var pullerNode = event.trail.lastNode();
             highlightClosestKnot( pullerNode );
             view.updateForces();
           },
