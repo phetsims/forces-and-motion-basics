@@ -3,7 +3,7 @@ require.config( {
 
                   paths: {
                     common: 'common',
-                    phetcommon: '../common/phetcommon/js',
+                    PHETCOMMON: '../common/phetcommon/js',
                     PHETCOMMON_HTML: '../common/phetcommon/html',
 
                     //Load scenery and its dependencies

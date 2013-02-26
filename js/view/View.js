@@ -10,11 +10,23 @@ define( function ( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Property = require( 'PHETCOMMON/model/property/Property' );
   var red = "red";
   var blue = "blue";
 
-  function View( $images ) {
+  var model = {showSumOfForces: true};
 
+  function View( $images ) {
+    var handleClick = function () {
+      model.showSumOfForces = !model.showSumOfForces;
+      var $icon = $( '.sum-of-forces-checkbox i' );
+      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
+      $icon.addClass( model.showSumOfForces ? "icon-check" : "icon-check-empty" );
+    };
+    var $checkBox = $( '.sum-of-forces-checkbox' );
+    $checkBox.bind( "touchstart", handleClick );
+    $checkBox.bind( "click", handleClick );
+    $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
     function getImage( name ) {
       var selector = 'img[src^="images/' + name + '"]';
       return $images.parent().find( selector )[0];
@@ -65,6 +77,13 @@ define( function ( require ) {
     }
 
     this.sumArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
+
+    //Use object.watch polyfill for listener
+    model.watch( "showSumOfForces", function ( id, oldval, newval ) {
+      view.sumArrow.visible = newval;
+      return newval;
+    } );
+
     this.leftArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {shape: new Shape(), fill: '#ff0000', stroke: '#000000', lineWidth: 1} );
     this.scene.addChild( this.leftArrow );
