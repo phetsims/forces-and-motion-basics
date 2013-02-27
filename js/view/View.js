@@ -37,23 +37,63 @@ define( function ( require ) {
       return getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
     }
 
-    this.model = {
-      showSumOfForces: true,
-      running: false,
-      cart: {x: 0, v: 0},
-      bluePullers: [
-        {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small },
-        {x: 198, y: 499, dragOffsetX: 20, type: blue, size: small },
-        {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium},
-        {x: 34, y: 420, dragOffsetX: 80, type: blue, size: large  }
-      ],
-      redPullers: [
-        {x: 624, y: 500, dragOffsetX: 10, type: red, size: small },
-        {x: 684, y: 500, dragOffsetX: 10, type: red, size: small },
-        {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium },
-        {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  }
-      ]
-    };
+    var Puller = Backbone.Model.extend( { defaults: { }, initialize: function () { } } );
+    var Pullers = Backbone.Collection.extend( { model: Puller } );
+    var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
+    var Model = Backbone.Model.extend(
+        {
+          defaults: {
+            showSumOfForces: true,
+            running: false
+          },
+          initialize: function () {
+            this.cart = new Cart();
+            this.pullers = new Pullers( [ new Puller( {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small } ),
+                                          new Puller( {x: 198, y: 499, dragOffsetX: 20, type: blue, size: small } ),
+                                          new Puller( {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium} ),
+                                          new Puller( {x: 34, y: 420, dragOffsetX: 80, type: blue, size: large  } ),
+                                          new Puller( {x: 624, y: 500, dragOffsetX: 10, type: red, size: small } ),
+                                          new Puller( {x: 684, y: 500, dragOffsetX: 10, type: red, size: small } ),
+                                          new Puller( {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium } ),
+                                          new Puller( {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  } )
+                                        ] );
+          }
+        } );
+    var model = new Model();
+    console.log( model );
+    console.log( model.toJSON() );
+
+//    var PullerModel = Backbone.Model.extend( {defaults: {hello: true}} );
+//    var puller1 = new PullerModel( {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small } );
+//    var puller2 = new PullerModel( {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small } );
+//    var PullerList = Backbone.Collection.extend( { model: PullerModel} );
+//    var Model = Backbone.Model.extend( {initialize: function () {
+//      this.pullerList = new PullerList( [puller1, puller2] );
+//    }} );
+//    var model = new Model();
+//    console.log( model.toJSON() );
+//    model.set( {bluePullers: bluePullerListModel} );
+
+    //Create models with nested attributes
+    var Model = Backbone.DeepModel.extend(
+        {defaults: {
+          showSumOfForces: true,
+          running: false,
+          cart: {x: 0, v: 0},
+          bluePullers: [
+            {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small },
+            {x: 198, y: 499, dragOffsetX: 20, type: blue, size: small },
+            {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium},
+            {x: 34, y: 420, dragOffsetX: 80, type: blue, size: large  }
+          ],
+          redPullers: [
+            {x: 624, y: 500, dragOffsetX: 10, type: red, size: small },
+            {x: 684, y: 500, dragOffsetX: 10, type: red, size: small },
+            {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium },
+            {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  }
+          ]
+        }} );
+    view.model = new Model();
 
     var initialModel = JSON.stringify( this.model, null, 2 );
 
@@ -62,19 +102,20 @@ define( function ( require ) {
     $checkBox.bind( "touchstart", handleClick );
     $checkBox.bind( "click", handleClick );
 
-    watch( view.model, 'showSumOfForces', function ( showSumOfForces ) {
+    this.model.bind( 'change:showSumOfForces', function ( model, showSumOfForces ) {
       var $icon = $( '.sum-of-forces-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
     } );
 
     var resetAll = function () {
-      var your_object = JSON.parse( initialModel );
-
-      view.model.showSumOfForces = initialModel.showSumOfForces;
-      view.model.running = initialModel.running;
-      view.model.cart.x = initialModel.cart.x;
-      view.model.cart.v = initialModel.cart.v;
+      view.model.clear().set( view.model.defaults );
+//      var your_object = JSON.parse( initialModel );
+//
+//      view.model.showSumOfForces = initialModel.showSumOfForces;
+//      view.model.running = initialModel.running;
+//      view.model.cart.x = initialModel.cart.attributes.x;
+//      view.model.cart.v = initialModel.cart.attributes.v;
     };
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', resetAll );
@@ -88,11 +129,16 @@ define( function ( require ) {
 
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
 
-    //Use object.watch polyfill for listener
-
-    watch( this.model, "showSumOfForces", function ( showSumOfForces ) {
+    this.model.bind( 'change:showSumOfForces', function ( model, showSumOfForces ) {
       view.sumArrow.visible = showSumOfForces;
+//      var $icon = $( '.sum-of-forces-checkbox i' );
+//      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
+//      $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
     } );
+
+//    watch( this.model, "showSumOfForces", function ( showSumOfForces ) {
+//      view.sumArrow.visible = showSumOfForces;
+//    } );
 
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -123,7 +169,7 @@ define( function ( require ) {
     this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( getImage( 'cart' ), {x: 399, y: 221} );
 
-    watch( this.model.cart, "x", function ( x ) {
+    this.model.bind( 'change:cart.x', function ( model, x ) {
       view.cartNode.x = x + 399;
       view.ropeNode.x = x + 51;
     } );
@@ -156,9 +202,9 @@ define( function ( require ) {
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
 
-    watch( view.model, "running", function ( running ) {
-      goButtonText.text = running ? Strings.pause : Strings.go;
-    } );
+//    watch( view.model, "running", function ( running ) {
+//      goButtonText.text = running ? Strings.pause : Strings.go;
+//    } );
     this.scene.addChild( goButtonImage );
 
     //Get the closest knot that is grabbable and within range
