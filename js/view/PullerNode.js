@@ -47,8 +47,7 @@ define( function ( require ) {
     pullerNode.addInputListener( new SimpleDragHandler(
         {
           allowTouchSnag: true,
-          start: function ( finger, trail, event ) {//TODO: remove first 2 args
-            var pullerNode = event.trail.lastNode();
+          start: function () {
             if ( pullerNode.knot ) {
               delete pullerNode.knot.puller;
             }
@@ -60,7 +59,7 @@ define( function ( require ) {
             updateImage( pullerNode.model, model.get( 'running' ) );
           },
           translate: function ( event ) {
-            pullerNode.puller.set( {x: event.newPosition.x, y: event.newPosition.y} );
+            pullerNode.puller.set( {x: event.position.x, y: event.position.y} );
           }
         } ) );
   }
