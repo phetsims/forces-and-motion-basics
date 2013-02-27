@@ -5,6 +5,8 @@ define( function ( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Inheritance = require( 'PHETCOMMON/model/Inheritance' );
   var watch = require( 'view/watch' );
+  var red = "red";
+  var blue = "blue";
 
   //dragOffsetX: How far to translate to the side if pulling with the pull image
   function PullerNode( image, pullImage, type, x, y, model, options, dragOffsetX ) {
@@ -13,12 +15,21 @@ define( function ( require ) {
 
     var pullerNode = this;
     this.initY = y;
+    this.initX = x;
+
+    function updateLocation() {
+      var knotted = (typeof pullerNode.knot !== 'undefined');
+      var pulling = model.running && knotted;
+      if ( knotted ) {
+        pullerNode.x = model.cart.x + pullerNode.knot.centerX + (pulling ? -dragOffsetX : 0) + (pullerNode.type == blue ? -60 : 0);
+        pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
+      }
+    }
 
     watch( model.cart, "x", function ( x ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
-      var pulling = model.running && knotted;
-      if ( pulling && knotted ) {
-        pullerNode.x = x + pullerNode.knot.centerX + (pulling ? -dragOffsetX : 0);
+      if ( knotted ) {
+        updateLocation();
       }
     } );
 
@@ -26,9 +37,7 @@ define( function ( require ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
-      if ( pulling || knotted ) {
-        pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
-      }
+      updateLocation();
     } );
 
     pullerNode.addInputListener( new SimpleDragHandler(
@@ -46,6 +55,7 @@ define( function ( require ) {
           },
           end: function ( event ) {
             options.end( event );
+            updateLocation();
           }
         } ) );
     pullerNode.type = type;

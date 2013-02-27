@@ -158,16 +158,16 @@ define( function ( require ) {
     this.scene.addChild( goButtonImage );
 
     var blueImageNames = [
-      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 260, y: 498 },
-      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 198, y: 499 },
-      {image: 'pull_figure_BLUE_0', pullImage: 'pull_figure_BLUE_3', x: 132, y: 446 },
-      {image: 'pull_figure_lrg_BLUE_0', pullImage: 'pull_figure_lrg_BLUE_3', x: 34, y: 420  }
+      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 260, y: 498, dragOffsetX: 20 },
+      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 198, y: 499, dragOffsetX: 20 },
+      {image: 'pull_figure_BLUE_0', pullImage: 'pull_figure_BLUE_3', x: 132, y: 446, dragOffsetX: 50 },
+      {image: 'pull_figure_lrg_BLUE_0', pullImage: 'pull_figure_lrg_BLUE_3', x: 34, y: 420, dragOffsetX: 80  }
     ];
     var redImageNames = [
-      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 624, y: 500 },
-      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 684, y: 500 },
-      {image: 'pull_figure_RED_0', pullImage: 'pull_figure_RED_3', x: 756, y: 446 },
-      {image: 'pull_figure_lrg_RED_0', pullImage: 'pull_figure_lrg_RED_3', x: 838, y: 407  }
+      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 624, y: 500, dragOffsetX: 10 },
+      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 684, y: 500, dragOffsetX: 10 },
+      {image: 'pull_figure_RED_0', pullImage: 'pull_figure_RED_3', x: 756, y: 446, dragOffsetX: 20 },
+      {image: 'pull_figure_lrg_RED_0', pullImage: 'pull_figure_lrg_RED_3', x: 838, y: 407, dragOffsetX: 30  }
     ];
 
     //Get the closest knot that is grabbable and within range
@@ -246,7 +246,7 @@ define( function ( require ) {
             pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
             view.updateForces();
           }
-        } ) );
+        }, imageName.dragOffsetX ) );
       } );
     }
 
