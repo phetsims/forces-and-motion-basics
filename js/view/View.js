@@ -36,7 +36,9 @@ define( function ( require ) {
       return getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
     }
 
-    var Puller = Backbone.Model.extend( { defaults: { }, initialize: function () { } } );
+    var Puller = Backbone.Model.extend( { defaults: { }, initialize: function () {
+      this.initAttributes = this.toJSON();//For resetting
+    } } );
     var Pullers = Backbone.Collection.extend( { model: Puller } );
     var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
     var Model = Backbone.Model.extend(
@@ -74,6 +76,7 @@ define( function ( require ) {
     var resetAll = function () {
       view.model.set( view.model.defaults ); //do not clear, which could remove children set in initialize
       view.model.cart.set( view.model.cart.defaults );
+      view.model.pullers.each( function ( puller ) { puller.set( puller.initAttributes ); } );
     };
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', resetAll );
@@ -162,7 +165,9 @@ define( function ( require ) {
 
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
-      var rightType = _.filter( knots, function ( knot ) {return knot.type == pullerNode.puller.get( "type" );} );
+      var rightType = _.filter( knots, function ( knot ) {
+        return knot.type == pullerNode.puller.get( "type" );
+      } );
       var filtered = _.filter( rightType, function ( knot ) {return knot.puller === undefined;} );
       if ( filtered.length == 0 ) {
         return null;
@@ -218,12 +223,11 @@ define( function ( require ) {
     };
 
     view.model.pullers.each( function ( puller ) {
+      puller.on( 'change:x change:y', function ( puller, x, y ) {
+        highlightClosestKnot( puller.node );
+        view.updateForces();
+      } );
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
-        drag: function ( finger, trail, event ) {
-          var pullerNode = event.trail.lastNode();
-          highlightClosestKnot( pullerNode );
-          view.updateForces();
-        },
         end: function ( event ) {
 
           _.each( knots, function ( knot ) {knot.visible = false} );

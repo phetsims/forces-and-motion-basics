@@ -10,12 +10,15 @@ define( function ( require ) {
   //dragOffsetX: How far to translate to the side if pulling with the pull image
   function PullerNode( puller, model, image, pullImage, options ) {
     this.puller = puller;
+    var pullerNode = this;
+    this.puller.node = this;//Wire up so node can be looked up by model element.
     var x = puller.get( 'x' );
     var y = puller.get( 'y' );
 
-    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
+    puller.on( 'change:x', function ( m, x ) { pullerNode.x = x;} );
+    puller.on( 'change:y', function ( m, y ) {pullerNode.y = y;} );
 
-    var pullerNode = this;
+    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
     function updateLocation() {
       var knotted = (typeof pullerNode.knot !== 'undefined');
@@ -50,12 +53,12 @@ define( function ( require ) {
             }
             delete pullerNode.knot;
           },
-          drag: function ( finger, trail, event ) {//TODO: remove first 2 args
-            options.drag( finger, trail, event );
-          },
           end: function ( event ) {
             options.end( event );
             updateLocation();
+          },
+          translate: function ( event ) {
+            pullerNode.puller.set( {x: event.newPosition.x, y: event.newPosition.y} );
           }
         } ) );
   }
