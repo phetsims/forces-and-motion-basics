@@ -21,7 +21,7 @@ define( function ( require ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.x = model.cart.get( 'x' ) + pullerNode.knot.centerX + (pulling ? -puller.get( "dragOffsetX" ) : 0) + (pullerNode.puller.get( 'type' ) == blue ? -60 : 0);
+        pullerNode.x = pullerNode.knot.centerX + (pulling ? -puller.get( "dragOffsetX" ) : 0) + (pullerNode.puller.get( 'type' ) == blue ? -60 : 0);
         pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
       }
     }

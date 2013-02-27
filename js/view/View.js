@@ -126,6 +126,9 @@ define( function ( require ) {
     this.model.cart.bind( 'change:x', function ( m, x ) {
       view.cartNode.x = x + 399;
       view.ropeNode.x = x + 51;
+      _.each( knots, function ( knot ) {
+        knot.x = x;
+      } );
     } );
 
     this.scene.addChild( this.cartNode );
