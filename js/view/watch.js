@@ -79,6 +79,7 @@ define( function () {
 
   var watch = function () {
 
+    //TODO: Add init callback for other watch types
     if ( isFunction( arguments[1] ) ) {
       watchAll.apply( this, arguments );
     }
@@ -86,7 +87,15 @@ define( function () {
       watchMany.apply( this, arguments );
     }
     else {
+      //arguments: obj, prop, watcher, level
       watchOne.apply( this, arguments );
+
+      //SRR: Send initial value with init action
+      var model = arguments[0];
+      var property = arguments[1];
+      var value = model[property];
+      var watcher = arguments[2];
+      watcher( model, property, 'init', value, value );
     }
 
   };

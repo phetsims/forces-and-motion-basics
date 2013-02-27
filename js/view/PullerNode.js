@@ -6,12 +6,22 @@ define( function ( require ) {
   var Inheritance = require( 'PHETCOMMON/model/Inheritance' );
   var watch = require( 'view/watch' );
 
-  function PullerNode( image, pullImage, type, x, y, model, options ) {
+  //dragOffsetX: How far to translate to the side if pulling with the pull image
+  function PullerNode( image, pullImage, type, x, y, model, options, dragOffsetX ) {
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
     var pullerNode = this;
     this.initY = y;
+
+    watch( model.cart, "x", function () {
+      var knotted = (typeof pullerNode.knot !== 'undefined');
+      var pulling = model.running && knotted;
+      if ( pulling && knotted ) {
+        var x = model.cart.x;
+        pullerNode.x = x + pullerNode.knot.centerX + (pulling ? -dragOffsetX : 0);
+      }
+    } );
 
     watch( model, "running", function ( running ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
