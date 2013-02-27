@@ -212,8 +212,9 @@ define( function ( require ) {
       return rightForce;
     };
 
+    var arrowTailX = view.cartNode.centerX;
     View.prototype.updateForces = function () {
-      var x = view.cartNode.centerX;
+      var x = arrowTailX;
       var tailWidth = 25;
       var headWidth = 50;
       var headHeight = 40;
