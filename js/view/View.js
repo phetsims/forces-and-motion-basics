@@ -23,15 +23,27 @@ define( function ( require ) {
       running: false,
       cart: {x: 0, v: 0}
     };
-    var handleClick = function () {
-      view.model.showSumOfForces = !view.model.showSumOfForces;
-      var $icon = $( '.sum-of-forces-checkbox i' );
-      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
-      $icon.addClass( view.model.showSumOfForces ? "icon-check" : "icon-check-empty" );
-    };
+    var handleClick = function () { view.model.showSumOfForces = !view.model.showSumOfForces; };
     var $checkBox = $( '.sum-of-forces-checkbox' );
     $checkBox.bind( "touchstart", handleClick );
     $checkBox.bind( "click", handleClick );
+
+    watch( view.model, 'showSumOfForces', function ( showSumOfForces ) {
+      var $icon = $( '.sum-of-forces-checkbox i' );
+      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
+      $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
+    } );
+
+    var resetAll = function () {
+      view.model.showSumOfForces = true;
+      view.model.running = false;
+      view.model.cart.x = 0;
+      view.model.cart.v = 0;
+    };
+    var $resetAllButton = $( '.reset-all-button' );
+    $resetAllButton.bind( 'touchstart', resetAll );
+    $resetAllButton.bind( 'click', resetAll );
+
     $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
     function getImage( name ) {
       var selector = 'img[src^="images/' + name + '"]';
