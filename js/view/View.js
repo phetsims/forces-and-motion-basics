@@ -86,8 +86,8 @@ define( function ( require ) {
 
     //Use object.watch polyfill for listener
 
-    watch( this.model, "showSumOfForces", function () {
-      view.sumArrow.visible = view.model.showSumOfForces;
+    watch( this.model, "showSumOfForces", function ( showSumOfForces ) {
+      view.sumArrow.visible = showSumOfForces;
     } );
 
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -119,9 +119,9 @@ define( function ( require ) {
     this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( getImage( 'cart' ), {x: 399, y: 221} );
 
-    watch( this.model.cart, "x", function () {
-      view.cartNode.x = view.model.cart.x + 399;
-      view.ropeNode.x = view.model.cart.x + 51;
+    watch( this.model.cart, "x", function ( x ) {
+      view.cartNode.x = x + 399;
+      view.ropeNode.x = x + 51;
     } );
 
     this.scene.addChild( this.cartNode );
@@ -152,8 +152,8 @@ define( function ( require ) {
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
 
-    watch( view.model, "running", function () {
-      goButtonText.text = view.model.running ? Strings.pause : Strings.go;
+    watch( view.model, "running", function ( running ) {
+      goButtonText.text = running ? Strings.pause : Strings.go;
     } );
     this.scene.addChild( goButtonImage );
 

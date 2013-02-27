@@ -14,18 +14,17 @@ define( function ( require ) {
     var pullerNode = this;
     this.initY = y;
 
-    watch( model.cart, "x", function () {
+    watch( model.cart, "x", function ( x ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = model.running && knotted;
       if ( pulling && knotted ) {
-        var x = model.cart.x;
         pullerNode.x = x + pullerNode.knot.centerX + (pulling ? -dragOffsetX : 0);
       }
     } );
 
     watch( model, "running", function ( running ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
-      var pulling = model.running && knotted;
+      var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
       if ( pulling || knotted ) {
         pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;

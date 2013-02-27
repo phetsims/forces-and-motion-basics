@@ -22,7 +22,6 @@ require( [ "view/View" ], function ( View ) {
   $( 'body' ).imagesLoaded( function ( $images, $proper, $broken ) {
     var view = new View( $images );
     $( "#overlay" ).remove();
-    $( "#images" ).remove();
     if ( !useDebugDiv ) {
       $( "debugDiv" ).remove();
     }

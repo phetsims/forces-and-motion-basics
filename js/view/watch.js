@@ -12,7 +12,7 @@
  * Modifications by SR Feb 2013:
  * load in AMD only for simplicity
  *
- * SRR.TODO:
+ * SRR.changes:
  * Call back listeners immediately to synchronize views.
  * Provide changed value as 1st arg.
  */
@@ -95,7 +95,7 @@ define( function () {
       var property = arguments[1];
       var value = model[property];
       var watcher = arguments[2];
-      watcher( model, property, 'init', value, value );
+      watcher( value, model, property, 'init', value, value );
     }
 
   };
@@ -246,7 +246,7 @@ define( function () {
 
       for ( var wr in obj.watchers[prop] ) {
         if ( isInt( wr ) ) {
-          obj.watchers[prop][wr].call( obj, prop, action, newval, oldval );
+          obj.watchers[prop][wr].call( obj, newval, prop, action, newval, oldval );
         }
       }
     };
@@ -325,7 +325,7 @@ define( function () {
         var subj = subjects[i];
 
         if ( subj.obj == obj && subj.prop == prop ) {
-          subj.watcher.call( obj, prop, action, value );
+          subj.watcher.call( obj, value, prop, action, value );
         }
 
       }
@@ -339,7 +339,8 @@ define( function () {
         var subj = subjects[i];
         var newSer = JSON.stringify( subj.obj[subj.prop] );
         if ( newSer != subj.serialized ) {
-          subj.watcher.call( subj.obj, subj.prop, subj.obj[subj.prop], JSON.parse( subj.serialized ) );
+          var newVal = subj.obj[subj.prop];
+          subj.watcher.call( subj.obj, newVal, subj.prop, newVal, JSON.parse( subj.serialized ) );
           subj.serialized = newSer;
         }
 
