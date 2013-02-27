@@ -36,12 +36,13 @@ define( function ( require ) {
       }
     } );
 
-    model.on( 'change:running', function ( m, running ) {
+    var updateImage = function ( m, running ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
       updateLocation();
-    } );
+    };
+    model.on( 'change:running', updateImage );
 
     pullerNode.addInputListener( new SimpleDragHandler(
         {
@@ -56,6 +57,7 @@ define( function ( require ) {
           end: function ( event ) {
             options.end( event );
             updateLocation();
+            updateImage( pullerNode.model, model.get( 'running' ) );
           },
           translate: function ( event ) {
             pullerNode.puller.set( {x: event.newPosition.x, y: event.newPosition.y} );
