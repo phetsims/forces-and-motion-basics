@@ -54,6 +54,9 @@ define( function ( require ) {
         {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  }
       ]
     };
+
+    var initialModel = JSON.stringify( this.model, null, 2 );
+
     var handleClick = function () { view.model.showSumOfForces = !view.model.showSumOfForces; };
     var $checkBox = $( '.sum-of-forces-checkbox' );
     $checkBox.bind( "touchstart", handleClick );
@@ -66,10 +69,12 @@ define( function ( require ) {
     } );
 
     var resetAll = function () {
-      view.model.showSumOfForces = true;
-      view.model.running = false;
-      view.model.cart.x = 0;
-      view.model.cart.v = 0;
+      var your_object = JSON.parse( initialModel );
+
+      view.model.showSumOfForces = initialModel.showSumOfForces;
+      view.model.running = initialModel.running;
+      view.model.cart.x = initialModel.cart.x;
+      view.model.cart.v = initialModel.cart.v;
     };
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', resetAll );
