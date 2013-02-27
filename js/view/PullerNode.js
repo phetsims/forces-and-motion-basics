@@ -1,4 +1,4 @@
-define( function ( require ) {
+define( function( require ) {
   "use strict";
 
   var Image = require( 'SCENERY/nodes/Image' );
@@ -15,8 +15,8 @@ define( function ( require ) {
     var x = puller.get( 'x' );
     var y = puller.get( 'y' );
 
-    puller.on( 'change:x', function ( m, x ) { pullerNode.x = x;} );
-    puller.on( 'change:y', function ( m, y ) {pullerNode.y = y;} );
+    puller.on( 'change:x', function( m, x ) { pullerNode.x = x;} );
+    puller.on( 'change:y', function( m, y ) { pullerNode.y = y;} );
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
@@ -29,14 +29,14 @@ define( function ( require ) {
       }
     }
 
-    model.cart.on( 'change:x', function ( m, x ) {
+    model.cart.on( 'change:x', function( m, x ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       if ( knotted ) {
         updateLocation();
       }
     } );
 
-    var updateImage = function ( m, running ) {
+    var updateImage = function( m, running ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
@@ -47,18 +47,18 @@ define( function ( require ) {
     pullerNode.addInputListener( new SimpleDragHandler(
         {
           allowTouchSnag: true,
-          start: function () {
+          start: function() {
             if ( pullerNode.knot ) {
               delete pullerNode.knot.puller;
             }
             delete pullerNode.knot;
           },
-          end: function ( event ) {
+          end: function( event ) {
             options.end( event );
             updateLocation();
             updateImage( pullerNode.model, model.get( 'running' ) );
           },
-          translate: function ( event ) {
+          translate: function( event ) {
             pullerNode.puller.set( {x: event.position.x, y: event.position.y} );
           }
         } ) );
