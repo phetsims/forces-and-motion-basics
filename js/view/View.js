@@ -76,7 +76,15 @@ define( function ( require ) {
     var resetAll = function () {
       view.model.set( view.model.defaults ); //do not clear, which could remove children set in initialize
       view.model.cart.set( view.model.cart.defaults );
-      view.model.pullers.each( function ( puller ) { puller.set( puller.initAttributes ); } );
+      view.model.pullers.each( function ( puller ) {
+        puller.set( puller.initAttributes );
+        if ( puller.node.knot ) {
+          delete puller.node.knot.puller;
+        }
+        delete puller.node.knot;
+      } );
+      hideKnots();
+      view.updateForces();
     };
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', resetAll );
@@ -146,7 +154,6 @@ define( function ( require ) {
             goButtonImage.image = getImage( 'go_pressed' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
             view.model.set( {running: !view.model.get( "running" )} );
-            view.model.running = !view.model.running;
           },
           up: function ( event ) {
             goButtonImage.image = getImage( 'go_hover' );
@@ -181,8 +188,12 @@ define( function ( require ) {
       return distance( closestAvailable ) < 200 ? closestAvailable : null;
     }
 
-    function highlightClosestKnot( pullerNode ) {
+    function hideKnots() {
       _.each( knots, function ( knot ) {knot.visible = false} );
+    }
+
+    function highlightClosestKnot( pullerNode ) {
+      hideKnots();
       var closestKnot = getTargetKnot( pullerNode );
 
       //TODO: why is this sometimes undefined
@@ -224,7 +235,7 @@ define( function ( require ) {
     };
 
     view.model.pullers.each( function ( puller ) {
-      puller.on( 'change:x change:y', function ( puller, x, y ) {
+      puller.on( 'change:x change:y', function ( puller ) {
         highlightClosestKnot( puller.node );
         view.updateForces();
       } );
@@ -290,7 +301,7 @@ define( function ( require ) {
   };
 
   View.prototype.updatePhysics = function () {
-    if ( this.model.running ) {
+    if ( this.model.get( 'running' ) ) {
       var netForce = this.getNetForce();
       var newV = this.model.cart.get( 'v' ) + netForce / 20000;
       this.model.cart.set( {v: newV,
