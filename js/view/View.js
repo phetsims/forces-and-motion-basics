@@ -72,13 +72,8 @@ define( function ( require ) {
     } );
 
     var resetAll = function () {
-      view.model.clear().set( view.model.defaults );
-//      var your_object = JSON.parse( initialModel );
-//
-//      view.model.showSumOfForces = initialModel.showSumOfForces;
-//      view.model.running = initialModel.running;
-//      view.model.cart.x = initialModel.cart.attributes.x;
-//      view.model.cart.v = initialModel.cart.attributes.v;
+      view.model.set( view.model.defaults ); //do not clear, which could remove children set in initialize
+      view.model.cart.set( view.model.cart.defaults );
     };
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', resetAll );
