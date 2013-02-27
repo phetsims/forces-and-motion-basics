@@ -4,16 +4,15 @@ define( function ( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Inheritance = require( 'PHETCOMMON/model/Inheritance' );
-  var watch = require( 'view/watch' );
   var red = "red";
   var blue = "blue";
 
   //dragOffsetX: How far to translate to the side if pulling with the pull image
   function PullerNode( puller, model, image, pullImage, options ) {
     this.puller = puller;
-    var x = puller.x;
-    var y = puller.y;
-    this.dragOffsetX = puller.dragOffsetX;
+    var x = puller.get( "x" );
+    var y = puller.get( "y" );
+    this.dragOffsetX = puller.get( "dragOffsetX" );
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
@@ -25,19 +24,19 @@ define( function ( require ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.x = model.cart.x + pullerNode.knot.centerX + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.type == blue ? -60 : 0);
+        pullerNode.x = model.cart.get( 'x' ) + pullerNode.knot.centerX + (pulling ? -puller.get( "dragOffsetX" ) : 0) + (pullerNode.type == blue ? -60 : 0);
         pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
       }
     }
 
-    watch( model.cart, "x", function ( x ) {
+    model.cart.on( 'change:x', function ( m, x ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       if ( knotted ) {
         updateLocation();
       }
     } );
 
-    watch( model, "running", function ( running ) {
+    model.on( 'change:running', function ( m, running ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;

@@ -12,7 +12,6 @@ define( function ( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var watch = require( 'view/watch' );
   var arrow = require( 'view/arrow' );
   var red = "red",
       blue = "blue",
@@ -28,8 +27,8 @@ define( function ( require ) {
     }
 
     function getPullerImage( puller, leaning ) {
-      var type = puller.type;
-      var size = puller.size;
+      var type = puller.get( "type" );
+      var size = puller.get( "size" );
       var sizeString = size == large ? "_lrg_" :
                        size == medium ? "_" :
                        "_small_";
@@ -59,45 +58,9 @@ define( function ( require ) {
                                         ] );
           }
         } );
-    var model = new Model();
-    console.log( model );
-    console.log( model.toJSON() );
-
-//    var PullerModel = Backbone.Model.extend( {defaults: {hello: true}} );
-//    var puller1 = new PullerModel( {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small } );
-//    var puller2 = new PullerModel( {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small } );
-//    var PullerList = Backbone.Collection.extend( { model: PullerModel} );
-//    var Model = Backbone.Model.extend( {initialize: function () {
-//      this.pullerList = new PullerList( [puller1, puller2] );
-//    }} );
-//    var model = new Model();
-//    console.log( model.toJSON() );
-//    model.set( {bluePullers: bluePullerListModel} );
-
-    //Create models with nested attributes
-    var Model = Backbone.DeepModel.extend(
-        {defaults: {
-          showSumOfForces: true,
-          running: false,
-          cart: {x: 0, v: 0},
-          bluePullers: [
-            {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small },
-            {x: 198, y: 499, dragOffsetX: 20, type: blue, size: small },
-            {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium},
-            {x: 34, y: 420, dragOffsetX: 80, type: blue, size: large  }
-          ],
-          redPullers: [
-            {x: 624, y: 500, dragOffsetX: 10, type: red, size: small },
-            {x: 684, y: 500, dragOffsetX: 10, type: red, size: small },
-            {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium },
-            {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  }
-          ]
-        }} );
     view.model = new Model();
 
-    var initialModel = JSON.stringify( this.model, null, 2 );
-
-    var handleClick = function () { view.model.showSumOfForces = !view.model.showSumOfForces; };
+    var handleClick = function () { view.model.set( {'showSumOfForces': !view.model.get( 'showSumOfForces' )} ); };
     var $checkBox = $( '.sum-of-forces-checkbox' );
     $checkBox.bind( "touchstart", handleClick );
     $checkBox.bind( "click", handleClick );
@@ -129,16 +92,7 @@ define( function ( require ) {
 
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
 
-    this.model.bind( 'change:showSumOfForces', function ( model, showSumOfForces ) {
-      view.sumArrow.visible = showSumOfForces;
-//      var $icon = $( '.sum-of-forces-checkbox i' );
-//      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
-//      $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
-    } );
-
-//    watch( this.model, "showSumOfForces", function ( showSumOfForces ) {
-//      view.sumArrow.visible = showSumOfForces;
-//    } );
+    this.model.on( 'change:showSumOfForces', function ( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
 
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -169,7 +123,7 @@ define( function ( require ) {
     this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( getImage( 'cart' ), {x: 399, y: 221} );
 
-    this.model.bind( 'change:cart.x', function ( model, x ) {
+    this.model.cart.bind( 'change:x', function ( m, x ) {
       view.cartNode.x = x + 399;
       view.ropeNode.x = x + 51;
     } );
@@ -190,6 +144,7 @@ define( function ( require ) {
           down: function ( event ) {
             goButtonImage.image = getImage( 'go_pressed' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+            view.model.set( {running: !view.model.get( "running" )} );
             view.model.running = !view.model.running;
           },
           up: function ( event ) {
@@ -202,15 +157,15 @@ define( function ( require ) {
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
 
-//    watch( view.model, "running", function ( running ) {
-//      goButtonText.text = running ? Strings.pause : Strings.go;
-//    } );
+    view.model.on( "change:running", function ( m, running ) {
+      goButtonText.text = running ? Strings.pause : Strings.go;
+    } );
     this.scene.addChild( goButtonImage );
 
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
-      var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.puller.type;} );
-      filtered = _.filter( filtered, function ( knot ) {return knot.puller === undefined;} );
+      var rightType = _.filter( knots, function ( knot ) {return knot.type == pullerNode.puller.get( "type" );} );
+      var filtered = _.filter( rightType, function ( knot ) {return knot.puller === undefined;} );
       if ( filtered.length == 0 ) {
         return null;
       }
@@ -264,31 +219,26 @@ define( function ( require ) {
       view.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     };
 
-    function addPullers( pullers ) {
-      _.each( pullers, function ( puller ) {
-        view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
-          drag: function ( finger, trail, event ) {
-            var pullerNode = event.trail.lastNode();
-            highlightClosestKnot( pullerNode );
-            view.updateForces();
-          },
-          end: function ( event ) {
+    view.model.pullers.each( function ( puller ) {
+      view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
+        drag: function ( finger, trail, event ) {
+          var pullerNode = event.trail.lastNode();
+          highlightClosestKnot( pullerNode );
+          view.updateForces();
+        },
+        end: function ( event ) {
 
-            _.each( knots, function ( knot ) {knot.visible = false} );
-            var pullerNode = event.trail.lastNode();
-            var closestKnot = getTargetKnot( pullerNode );
-            closestKnot.puller = pullerNode;
-            pullerNode.knot = closestKnot;
-            pullerNode.x = pullerNode.puller.type == red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
-            pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
-            view.updateForces();
-          }
-        } ) );
-      } );
-    }
-
-    addPullers.call( this, view.model.bluePullers );
-    addPullers.call( this, view.model.redPullers );
+          _.each( knots, function ( knot ) {knot.visible = false} );
+          var pullerNode = event.trail.lastNode();
+          var closestKnot = getTargetKnot( pullerNode );
+          closestKnot.puller = pullerNode;
+          pullerNode.knot = closestKnot;
+          pullerNode.x = pullerNode.puller.type == red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
+          pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
+          view.updateForces();
+        }
+      } ) );
+    } );
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
@@ -339,8 +289,9 @@ define( function ( require ) {
   View.prototype.updatePhysics = function () {
     if ( this.model.running ) {
       var netForce = this.getNetForce();
-      this.model.cart.v += netForce / 20000;
-      this.model.cart.x += this.model.cart.v;
+      var newV = this.model.cart.get( 'v' ) + netForce / 20000;
+      this.model.cart.set( {v: newV,
+                             x: this.model.cart.get( 'x' ) + newV} );
     }
   };
 
