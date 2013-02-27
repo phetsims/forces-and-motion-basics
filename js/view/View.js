@@ -21,7 +21,19 @@ define( function ( require ) {
     this.model = {
       showSumOfForces: true,
       running: false,
-      cart: {x: 0, v: 0}
+      cart: {x: 0, v: 0},
+      bluePullers: [
+        {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 260, y: 498, dragOffsetX: 20, type: blue },
+        {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 198, y: 499, dragOffsetX: 20, type: blue },
+        {image: 'pull_figure_BLUE_0', pullImage: 'pull_figure_BLUE_3', x: 132, y: 446, dragOffsetX: 50, type: blue },
+        {image: 'pull_figure_lrg_BLUE_0', pullImage: 'pull_figure_lrg_BLUE_3', x: 34, y: 420, dragOffsetX: 80, type: blue  }
+      ],
+      redPullers: [
+        {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 624, y: 500, dragOffsetX: 10, type: red },
+        {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 684, y: 500, dragOffsetX: 10, type: red },
+        {image: 'pull_figure_RED_0', pullImage: 'pull_figure_RED_3', x: 756, y: 446, dragOffsetX: 20, type: red },
+        {image: 'pull_figure_lrg_RED_0', pullImage: 'pull_figure_lrg_RED_3', x: 838, y: 407, dragOffsetX: 30, type: red  }
+      ]
     };
     var handleClick = function () { view.model.showSumOfForces = !view.model.showSumOfForces; };
     var $checkBox = $( '.sum-of-forces-checkbox' );
@@ -169,19 +181,6 @@ define( function ( require ) {
     } );
     this.scene.addChild( goButtonImage );
 
-    var blueImageNames = [
-      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 260, y: 498, dragOffsetX: 20 },
-      {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 198, y: 499, dragOffsetX: 20 },
-      {image: 'pull_figure_BLUE_0', pullImage: 'pull_figure_BLUE_3', x: 132, y: 446, dragOffsetX: 50 },
-      {image: 'pull_figure_lrg_BLUE_0', pullImage: 'pull_figure_lrg_BLUE_3', x: 34, y: 420, dragOffsetX: 80  }
-    ];
-    var redImageNames = [
-      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 624, y: 500, dragOffsetX: 10 },
-      {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 684, y: 500, dragOffsetX: 10 },
-      {image: 'pull_figure_RED_0', pullImage: 'pull_figure_RED_3', x: 756, y: 446, dragOffsetX: 20 },
-      {image: 'pull_figure_lrg_RED_0', pullImage: 'pull_figure_lrg_RED_3', x: 838, y: 407, dragOffsetX: 30  }
-    ];
-
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
       var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.type;} );
@@ -230,13 +229,13 @@ define( function ( require ) {
     };
 
     View.prototype.updateForces = function () {
-      var x = this.cartNode.centerX;
+      var x = view.cartNode.centerX;
       var tailWidth = 25;
       var headWidth = 50;
       var headHeight = 40;
-      this.leftArrow.shape = arrow( x, 100, x + this.getLeftForce(), 100, tailWidth, headWidth, headHeight );
-      this.rightArrow.shape = arrow( x, 100, x + this.getRightForce(), 100, tailWidth, headWidth, headHeight );
-      this.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
+      view.leftArrow.shape = arrow( x, 100, x + this.getLeftForce(), 100, tailWidth, headWidth, headHeight );
+      view.rightArrow.shape = arrow( x, 100, x + this.getRightForce(), 100, tailWidth, headWidth, headHeight );
+      view.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     };
 
     function addImages( imageNames, type ) {
@@ -262,8 +261,8 @@ define( function ( require ) {
       } );
     }
 
-    addImages.call( this, blueImageNames, blue );
-    addImages.call( this, redImageNames, red );
+    addImages.call( this, view.model.bluePullers, blue );
+    addImages.call( this, view.model.redPullers, red );
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
