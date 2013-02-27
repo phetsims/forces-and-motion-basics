@@ -49,10 +49,10 @@ define( function ( require ) {
           },
           initialize: function () {
             this.cart = new Cart();
-            this.pullers = new Pullers( [ new Puller( {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small } ),
-                                          new Puller( {x: 198, y: 499, dragOffsetX: 20, type: blue, size: small } ),
+            this.pullers = new Pullers( [ new Puller( {x: 260, y: 500, dragOffsetX: 20, type: blue, size: small } ),
+                                          new Puller( {x: 198, y: 500, dragOffsetX: 20, type: blue, size: small } ),
                                           new Puller( {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium} ),
-                                          new Puller( {x: 34, y: 420, dragOffsetX: 80, type: blue, size: large  } ),
+                                          new Puller( {x: 38, y: 407, dragOffsetX: 80, type: blue, size: large  } ),
                                           new Puller( {x: 624, y: 500, dragOffsetX: 10, type: red, size: small } ),
                                           new Puller( {x: 684, y: 500, dragOffsetX: 10, type: red, size: small } ),
                                           new Puller( {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium } ),
