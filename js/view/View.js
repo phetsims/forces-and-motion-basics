@@ -14,26 +14,45 @@ define( function ( require ) {
   var Property = require( 'PHETCOMMON/model/property/Property' );
   var watch = require( 'view/watch' );
   var arrow = require( 'view/arrow' );
-  var red = "red";
-  var blue = "blue";
+  var red = "red",
+      blue = "blue",
+      small = "small",
+      medium = "medium",
+      large = "large";
 
   function View( $images ) {
     var view = this;
+
+    function getImage( name ) {
+      var selector = 'img[src^="images/' + name + '"]';
+      return $images.parent().find( selector )[0];
+    }
+
+    function getPullerImage( puller, leaning ) {
+      var type = puller.type;
+      var size = puller.size;
+      var sizeString = size == large ? "_lrg_" :
+                       size == medium ? "_" :
+                       "_small_";
+      var colorString = type.toUpperCase();
+      return getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
+    }
+
     this.model = {
       showSumOfForces: true,
       running: false,
       cart: {x: 0, v: 0},
       bluePullers: [
-        {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 260, y: 498, dragOffsetX: 20, type: blue },
-        {image: 'pull_figure_small_BLUE_0', pullImage: 'pull_figure_small_BLUE_3', x: 198, y: 499, dragOffsetX: 20, type: blue },
-        {image: 'pull_figure_BLUE_0', pullImage: 'pull_figure_BLUE_3', x: 132, y: 446, dragOffsetX: 50, type: blue },
-        {image: 'pull_figure_lrg_BLUE_0', pullImage: 'pull_figure_lrg_BLUE_3', x: 34, y: 420, dragOffsetX: 80, type: blue  }
+        {x: 260, y: 498, dragOffsetX: 20, type: blue, size: small },
+        {x: 198, y: 499, dragOffsetX: 20, type: blue, size: small },
+        {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium},
+        {x: 34, y: 420, dragOffsetX: 80, type: blue, size: large  }
       ],
       redPullers: [
-        {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 624, y: 500, dragOffsetX: 10, type: red },
-        {image: 'pull_figure_small_RED_0', pullImage: 'pull_figure_small_RED_3', x: 684, y: 500, dragOffsetX: 10, type: red },
-        {image: 'pull_figure_RED_0', pullImage: 'pull_figure_RED_3', x: 756, y: 446, dragOffsetX: 20, type: red },
-        {image: 'pull_figure_lrg_RED_0', pullImage: 'pull_figure_lrg_RED_3', x: 838, y: 407, dragOffsetX: 30, type: red  }
+        {x: 624, y: 500, dragOffsetX: 10, type: red, size: small },
+        {x: 684, y: 500, dragOffsetX: 10, type: red, size: small },
+        {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium },
+        {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  }
       ]
     };
     var handleClick = function () { view.model.showSumOfForces = !view.model.showSumOfForces; };
@@ -58,10 +77,6 @@ define( function ( require ) {
     $resetAllButton.bind( 'click', resetAll );
 
     $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
-    function getImage( name ) {
-      var selector = 'img[src^="images/' + name + '"]';
-      return $images.parent().find( selector )[0];
-    }
 
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
 
@@ -199,9 +214,9 @@ define( function ( require ) {
       view.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     };
 
-    function addImages( imageNames, type ) {
-      _.each( imageNames, function ( imageName ) {
-        view.scene.addChild( new PullerNode( getImage( imageName.image ), getImage( imageName.pullImage ), type, imageName.x, imageName.y, view.model, {
+    function addImages( pullers, type ) {
+      _.each( pullers, function ( puller ) {
+        view.scene.addChild( new PullerNode( getPullerImage( puller, false ), getPullerImage( puller, true ), type, puller.x, puller.y, view.model, {
           drag: function ( finger, trail, event ) {
             var pullerNode = event.trail.lastNode();
             highlightClosestKnot( pullerNode );
@@ -218,7 +233,7 @@ define( function ( require ) {
             pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
             view.updateForces();
           }
-        }, imageName.dragOffsetX ) );
+        }, puller.dragOffsetX ) );
       } );
     }
 
