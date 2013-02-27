@@ -24,8 +24,7 @@ define( function ( require ) {
     var view = this;
 
     function getImage( name ) {
-      var selector = 'img[src^="images/' + name + '"]';
-      return $images.parent().find( selector )[0];
+      return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];
     }
 
     function getPullerImage( puller, leaning ) {
@@ -159,7 +158,7 @@ define( function ( require ) {
 
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
-      var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.type;} );
+      var filtered = _.filter( knots, function ( knot ) {return knot.type == pullerNode.puller.type;} );
       filtered = _.filter( filtered, function ( knot ) {return knot.puller === undefined;} );
       if ( filtered.length == 0 ) {
         return null;
@@ -214,9 +213,9 @@ define( function ( require ) {
       view.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     };
 
-    function addImages( pullers, type ) {
+    function addPullers( pullers ) {
       _.each( pullers, function ( puller ) {
-        view.scene.addChild( new PullerNode( getPullerImage( puller, false ), getPullerImage( puller, true ), type, puller.x, puller.y, view.model, {
+        view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
           drag: function ( finger, trail, event ) {
             var pullerNode = event.trail.lastNode();
             highlightClosestKnot( pullerNode );
@@ -229,16 +228,16 @@ define( function ( require ) {
             var closestKnot = getTargetKnot( pullerNode );
             closestKnot.puller = pullerNode;
             pullerNode.knot = closestKnot;
-            pullerNode.x = type == red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
+            pullerNode.x = pullerNode.puller.type == red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
             pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
             view.updateForces();
           }
-        }, puller.dragOffsetX ) );
+        } ) );
       } );
     }
 
-    addImages.call( this, view.model.bluePullers, blue );
-    addImages.call( this, view.model.redPullers, red );
+    addPullers.call( this, view.model.bluePullers );
+    addPullers.call( this, view.model.redPullers );
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size

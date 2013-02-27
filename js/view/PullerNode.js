@@ -9,7 +9,11 @@ define( function ( require ) {
   var blue = "blue";
 
   //dragOffsetX: How far to translate to the side if pulling with the pull image
-  function PullerNode( image, pullImage, type, x, y, model, options, dragOffsetX ) {
+  function PullerNode( puller, model, image, pullImage, options ) {
+    this.puller = puller;
+    var x = puller.x;
+    var y = puller.y;
+    this.dragOffsetX = puller.dragOffsetX;
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
@@ -21,7 +25,7 @@ define( function ( require ) {
       var knotted = (typeof pullerNode.knot !== 'undefined');
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.x = model.cart.x + pullerNode.knot.centerX + (pulling ? -dragOffsetX : 0) + (pullerNode.type == blue ? -60 : 0);
+        pullerNode.x = model.cart.x + pullerNode.knot.centerX + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.type == blue ? -60 : 0);
         pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
       }
     }
@@ -58,7 +62,6 @@ define( function ( require ) {
             updateLocation();
           }
         } ) );
-    pullerNode.type = type;
   }
 
   Inheritance.inheritPrototype( PullerNode, Image );
