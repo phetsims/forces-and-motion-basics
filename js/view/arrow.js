@@ -1,4 +1,4 @@
-define( function ( require ) {
+define( function( require ) {
   var Shape = require( 'SCENERY/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -36,7 +36,7 @@ define( function ( require ) {
 
     arrowShape.moveTo( points[0].x, points[0].y );
     var tail = _.tail( points );
-    _.each( tail, function ( element ) { arrowShape.lineTo( element.x, element.y ) } );
+    _.each( tail, function( element ) { arrowShape.lineTo( element.x, element.y ) } );
     arrowShape.close();
 
     return arrowShape;

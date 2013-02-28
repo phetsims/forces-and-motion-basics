@@ -17,7 +17,7 @@
  * Provide changed value as 1st arg.
  */
 
-define( function () {
+define( function() {
   //"use strict";
   var WatchJS = {
         noMore: false
@@ -26,24 +26,24 @@ define( function () {
       unwatchOne,
       callWatchers;
 
-  var isFunction = function ( functionToCheck ) {
+  var isFunction = function( functionToCheck ) {
     var getType = {};
     return functionToCheck && getType.toString.call( functionToCheck ) == '[object Function]';
   };
 
-  var isInt = function ( x ) {
+  var isInt = function( x ) {
     return x % 1 === 0;
   };
 
-  var isArray = function ( obj ) {
+  var isArray = function( obj ) {
     return Object.prototype.toString.call( obj ) === '[object Array]';
   };
 
-  var isModernBrowser = function () {
+  var isModernBrowser = function() {
     return Object.defineProperty || Object.prototype.__defineGetter__;
   };
 
-  var defineGetAndSet = function ( obj, propName, getter, setter ) {
+  var defineGetAndSet = function( obj, propName, getter, setter ) {
     try {
       Object.defineProperty( obj, propName, {
         get: getter,
@@ -63,7 +63,7 @@ define( function () {
     }
   };
 
-  var defineProp = function ( obj, propName, value ) {
+  var defineProp = function( obj, propName, value ) {
     try {
       Object.defineProperty( obj, propName, {
         enumerable: false,
@@ -77,7 +77,7 @@ define( function () {
     }
   };
 
-  var watch = function () {
+  var watch = function() {
 
     //TODO: Add init callback for other watch types
     if ( isFunction( arguments[1] ) ) {
@@ -101,7 +101,7 @@ define( function () {
   };
 
 
-  var watchAll = function ( obj, watcher, level ) {
+  var watchAll = function( obj, watcher, level ) {
 
     if ( obj instanceof String || (!(obj instanceof Object) && !isArray( obj )) ) { //accepts only objects and array (not string)
       return;
@@ -125,7 +125,7 @@ define( function () {
   };
 
 
-  var watchMany = function ( obj, props, watcher, level ) {
+  var watchMany = function( obj, props, watcher, level ) {
 
     for ( var prop in props ) { //watch each attribute of "props" if is an object
       watchOne( obj, props[prop], watcher, level );
@@ -133,7 +133,7 @@ define( function () {
 
   };
 
-  var watchOne = function ( obj, prop, watcher, level ) {
+  var watchOne = function( obj, prop, watcher, level ) {
 
     if ( isFunction( obj[prop] ) ) { //dont watch if it is a function
       return;
@@ -150,7 +150,7 @@ define( function () {
 
   };
 
-  var unwatch = function () {
+  var unwatch = function() {
 
     if ( isFunction( arguments[1] ) ) {
       unwatchAll.apply( this, arguments );
@@ -164,7 +164,7 @@ define( function () {
 
   };
 
-  var unwatchAll = function ( obj, watcher ) {
+  var unwatchAll = function( obj, watcher ) {
 
     if ( obj instanceof String || (!(obj instanceof Object) && !isArray( obj )) ) { //accepts only objects and array (not string)
       return;
@@ -188,7 +188,7 @@ define( function () {
   };
 
 
-  var unwatchMany = function ( obj, props, watcher ) {
+  var unwatchMany = function( obj, props, watcher ) {
 
     for ( var prop2 in props ) { //watch each attribute of "props" if is an object
       unwatchOne( obj, props[prop2], watcher );
@@ -197,7 +197,7 @@ define( function () {
 
   if ( isModernBrowser() ) {
 
-    defineWatcher = function ( obj, prop, watcher ) {
+    defineWatcher = function( obj, prop, watcher ) {
 
       var val = obj[prop];
 
@@ -215,12 +215,12 @@ define( function () {
       obj.watchers[prop].push( watcher ); //add the new watcher in the watchers array
 
 
-      var getter = function () {
+      var getter = function() {
         return val;
       };
 
 
-      var setter = function ( newval ) {
+      var setter = function( newval ) {
         var oldval = val;
         val = newval;
 
@@ -242,7 +242,7 @@ define( function () {
 
     };
 
-    callWatchers = function ( obj, prop, action, newval, oldval ) {
+    callWatchers = function( obj, prop, action, newval, oldval ) {
 
       for ( var wr in obj.watchers[prop] ) {
         if ( isInt( wr ) ) {
@@ -253,8 +253,8 @@ define( function () {
 
     // @todo code related to "watchFunctions" is certainly buggy
     var methodNames = ['pop', 'push', 'reverse', 'shift', 'sort', 'slice', 'unshift'];
-    var defineArrayMethodWatcher = function ( obj, prop, original, methodName ) {
-      defineProp( obj[prop], methodName, function () {
+    var defineArrayMethodWatcher = function( obj, prop, original, methodName ) {
+      defineProp( obj[prop], methodName, function() {
         var response = original.apply( obj[prop], arguments );
         watchOne( obj, obj[prop] );
         if ( methodName !== 'slice' ) {
@@ -264,7 +264,7 @@ define( function () {
       } );
     };
 
-    var watchFunctions = function ( obj, prop ) {
+    var watchFunctions = function( obj, prop ) {
 
       if ( (!obj[prop]) || (obj[prop] instanceof String) || (!isArray( obj[prop] )) ) {
         return;
@@ -277,7 +277,7 @@ define( function () {
 
     };
 
-    unwatchOne = function ( obj, prop, watcher ) {
+    unwatchOne = function( obj, prop, watcher ) {
       for ( var i in obj.watchers[prop] ) {
         var w = obj.watchers[prop][i];
 
@@ -295,7 +295,7 @@ define( function () {
 
     var subjects = [];
 
-    defineWatcher = function ( obj, prop, watcher ) {
+    defineWatcher = function( obj, prop, watcher ) {
 
       subjects.push( {
                        obj: obj,
@@ -306,7 +306,7 @@ define( function () {
 
     };
 
-    unwatchOne = function ( obj, prop, watcher ) {
+    unwatchOne = function( obj, prop, watcher ) {
 
       for ( var i in subjects ) {
         var subj = subjects[i];
@@ -319,7 +319,7 @@ define( function () {
 
     };
 
-    callWatchers = function ( obj, prop, action, value ) {
+    callWatchers = function( obj, prop, action, value ) {
 
       for ( var i in subjects ) {
         var subj = subjects[i];
@@ -332,7 +332,7 @@ define( function () {
 
     };
 
-    var loop = function () {
+    var loop = function() {
 
       for ( var i in subjects ) {
 
