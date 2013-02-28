@@ -113,14 +113,16 @@ define( function( require ) {
     var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
     var knots = [];
     var knotWidth = 30;
+    var dx = 14;
+    var dy = 10;
     for ( var i = 0; i < blueKnots.length; i++ ) {
-      var knot = new Path( {shape: Shape.rect( blueKnots[i] + view.ropeNode.x - knotWidth / 2 + 1, view.ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      var knot = new Path( {shape: Shape.circle( blueKnots[i] + view.ropeNode.x - knotWidth / 2 + dx, view.ropeNode.y + dy, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
       this.scene.addChild( knot );
       knot.type = blue;
       knots.push( knot );
     }
     for ( var i = 0; i < redKnots.length; i++ ) {
-      var knot = new Path( {shape: Shape.rect( redKnots[i] + view.ropeNode.x - knotWidth / 2 + 1, view.ropeNode.y - 4, knotWidth, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      var knot = new Path( {shape: Shape.circle( redKnots[i] + view.ropeNode.x - knotWidth / 2 + dx, view.ropeNode.y + dy, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
       this.scene.addChild( knot );
       knot.type = red;
       knots.push( knot );
