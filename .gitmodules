@@ -1,6 +1,0 @@
-[submodule "common/phetcommon"]
-	path = common/phetcommon
-	url = https://github.com/phetsims/phetcommon
-[submodule "contrib/i18n"]
-	path = contrib/i18n
-	url = https://github.com/phetsims/i18n.git
