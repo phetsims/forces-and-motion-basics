@@ -3,20 +3,20 @@ require.config( {
 
                   paths: {
                     common: 'common',
-                    PHETCOMMON: '../common/phetcommon/js',
-                    PHETCOMMON_HTML: '../common/phetcommon/html',
+                    PHETCOMMON: '../../phetcommon/js',
+                    PHETCOMMON_HTML: '../../phetcommon/html',
 
                     //Load scenery and its dependencies
-                    ASSERT: '../common/scenery/common/assert/js',
-                    DOT: '../common/scenery/common/dot/js',
-                    SCENERY: '../common/scenery/js',
+                    ASSERT: '../../scenery/common/assert/js',
+                    DOT: '../../scenery/common/dot/js',
+                    SCENERY: '../../scenery/js',
 
                     easel: '../contrib/easel-0.5.0',
                     image: '../contrib/image-0.2.2',
                     jquery: '../contrib/jquery-1.9.1',
                     underscore: '../contrib/underscore-1.4.2',
                     tpl: "../contrib/tpl-0.2",
-                    i18n: "../contrib/i18n/i18n"
+                    i18n: "../../i18n/i18n"
                   },
 
                   shim: {
