@@ -105,7 +105,6 @@ define( function( require ) {
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
     this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
-    this.sumArrow.renderer = 'svg';
     this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -245,19 +244,9 @@ define( function( require ) {
       view.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     };
 
-    view.scene.addChild( new Path( {shape: (function( x, y, width, height, arcw, arch ) {
-      var shape = new Shape();
-      shape.moveTo( x + arcw, y );
-      shape.lineTo( x + width - arcw, y );
-      shape.lineTo( x + width, y + arch );
-      shape.lineTo( x + width, y + height - arch );
-      shape.lineTo( x + width - arcw, y + height );
-      shape.lineTo( x + arcw, y + height );
-      shape.lineTo( x, y + height - arch );
-      shape.lineTo( x, y + arch );
-      shape.lineTo( x + arcw, y );
-      return shape;
-    })( 10, 10, 100, 100, 10, 10 ), fill: '#7dc673', stroke: '#000000', lineWidth: 1} ) );
+    //Add toolbox backgrounds for the pullers
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     view.model.pullers.each( function( puller ) {
       puller.on( 'change:x change:y', function( puller ) {
