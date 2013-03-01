@@ -45,7 +45,8 @@ define( function( require ) {
         {
           defaults: {
             showSumOfForces: true,
-            running: false
+            running: false,
+            volumeOn: false
           },
           initialize: function() {
             this.cart = new Cart();
@@ -90,11 +91,21 @@ define( function( require ) {
     $resetAllButton.bind( 'touchstart', resetAll );
     $resetAllButton.bind( 'click', resetAll );
 
+    var $volumeButton = $( '.volume-button' );
+    var volumeButtonEvent = function() { view.model.set( 'volumeOn', !view.model.get( 'volumeOn' ) ); };//This pattern looks like it could be factored out.
+    view.model.on( 'change:volumeOn', function( m, volumeOn ) {
+      $volumeButton.find( 'i' ).removeClass( 'icon-volume-up' ).removeClass( 'icon-volume-off' ).addClass( volumeOn ? 'icon-volume-up' : 'icon-volume-off' );
+    } );
+    view.model.trigger( 'change:volumeOn' );
+    $volumeButton.bind( 'touchstart', volumeButtonEvent );
+    $volumeButton.bind( 'click', volumeButtonEvent );
+
     $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
 
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
     this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
+    this.sumArrow.renderer = 'svg';
     this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
