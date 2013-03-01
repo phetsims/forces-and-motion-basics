@@ -40,7 +40,17 @@ define( function( require ) {
       this.initAttributes = this.toJSON();//For resetting
     } } );
     var Pullers = Backbone.Collection.extend( { model: Puller } );
+
+    var Knot = Backbone.Model.extend( { defaults: { }, initialize: function() {
+      this.initAttributes = this.toJSON();//For resetting
+    } } );
+    var Knots = Backbone.Collection.extend( { model: Knot } );
+
     var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
+
+    var blueKnots = [10.0, 90.0, 170.0, 250.0];
+    var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
+    var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
     var Model = Backbone.Model.extend(
         {
           defaults: {
@@ -59,6 +69,14 @@ define( function( require ) {
                                           new Puller( {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium } ),
                                           new Puller( {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  } )
                                         ] );
+            this.knots = new Knots( [ new Knot( {x: blueKnots[0], type: blue} ),
+                                      new Knot( {x: blueKnots[1], type: blue} ),
+                                      new Knot( {x: blueKnots[2], type: blue} ),
+                                      new Knot( {x: blueKnots[3], type: blue} ),
+                                      new Knot( {x: redKnots[0], type: red} ),
+                                      new Knot( {x: redKnots[1], type: red} ),
+                                      new Knot( {x: redKnots[2], type: red} ),
+                                      new Knot( {x: redKnots[3], type: red} ) ] );
           }
         } );
     view.model = new Model();
@@ -115,9 +133,6 @@ define( function( require ) {
 
     view.ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
 
-    var blueKnots = [10.0, 90.0, 170.0, 250.0];
-    var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
-    var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
     var knots = [];
     var knotWidth = 30;
     var dx = 14;
