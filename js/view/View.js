@@ -147,7 +147,7 @@ define( function( require ) {
 
     this.scene.addChild( this.cartNode );
 
-    var goButtonImage = new Image( getImage( 'go_up' ), {x: 420, y: 386, cursor: 'pointer'} );
+    var goButtonImage = new Image( getImage( 'go_up' ), {x: 420, y: 400, cursor: 'pointer'} );
     goButtonImage.addInputListener(
         {
           over: function( event ) {
