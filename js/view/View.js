@@ -103,7 +103,8 @@ define( function( require ) {
     $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
 
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
-    this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: 368} ) );
+    var grassY = 368;
+    this.scene.addChild( new Image( getImage( 'grass' ), {x: 13, y: grassY} ) );
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
     this.leftArrow = new Path( {shape: new Shape(), fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -179,6 +180,8 @@ define( function( require ) {
       goButtonText.y = goButtonImage.height / 2 + 7;
     } );
     this.scene.addChild( goButtonImage );
+
+    view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
