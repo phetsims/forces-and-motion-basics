@@ -3,7 +3,7 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Inheritance = require( 'PHETCOMMON/model/Inheritance' );
+  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
   var red = "red";
   var blue = "blue";
 
