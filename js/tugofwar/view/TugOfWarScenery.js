@@ -15,6 +15,7 @@ define( function( require ) {
   var arrow = require( 'tugofwar/view/arrow' );
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
+  var GoButton = require( 'tugofwar/view/GoButton' );
   var red = "red",
       blue = "blue",
       small = "small",
@@ -25,7 +26,7 @@ define( function( require ) {
     this.model = model;
     var tugOfWarScenery = this;
     var view = this;
-    var getImage = view.getImage;
+    var getImage = topView.getImage;
 
     function getPullerImage( puller, leaning ) {
       var type = puller.get( "type" );
@@ -70,39 +71,8 @@ define( function( require ) {
     } );
 
     this.scene.addChild( this.cartNode );
-
-    var goButtonImage = new Image( topView.getImage( 'go_up' ), {x: 420, y: 400, cursor: 'pointer'} );
-    goButtonImage.addInputListener(
-        {
-          over: function( event ) {
-            goButtonImage.image = topView.getImage( 'go_hover' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
-          },
-          out: function( event ) {
-            goButtonImage.image = topView.getImage( 'go_up' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
-          },
-          down: function( event ) {
-            goButtonImage.image = topView.getImage( 'go_pressed' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
-            view.model.set( {running: !view.model.get( "running" )} );
-          },
-          up: function( event ) {
-            goButtonImage.image = topView.getImage( 'go_hover' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
-          }
-        } );
-    var goButtonText = new Text( Strings.go, {fontSize: '34px', backend: 'svg'} );
-    goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
-    goButtonText.y = goButtonImage.height / 2 + 7;
-    goButtonImage.addChild( goButtonText );
-
-    view.model.on( "change:running", function( m, running ) {
-      goButtonText.text = running ? Strings.pause : Strings.go;
-      goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
-      goButtonText.y = goButtonImage.height / 2 + 7;
-    } );
-    this.scene.addChild( goButtonImage );
+    console.log( getImage );
+    this.scene.addChild( new GoButton( getImage, this.model ) );
 
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
