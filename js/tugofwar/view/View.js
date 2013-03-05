@@ -91,6 +91,7 @@ define( function( require ) {
     view.ropeNode = new Image( getImage( 'rope' ), {x: 51, y: 263 } );
 
     var knots = [];
+    view.knots = knots;
     var knotWidth = 30;
     var dx = 14;
     var dy = 10;
@@ -111,6 +112,7 @@ define( function( require ) {
 
     this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( getImage( 'cart' ), {x: 399, y: 221} );
+    view.arrowTailX = view.cartNode.centerX;
 
     this.model.cart.bind( 'change:x', function( m, x ) {
       view.cartNode.x = x + 399;
@@ -156,70 +158,6 @@ define( function( require ) {
     this.scene.addChild( goButtonImage );
 
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
-
-    //Get the closest knot that is grabbable and within range
-    View.prototype.getTargetKnot = function( pullerNode ) {
-      var rightType = _.filter( knots, function( knot ) {
-        return knot.type === pullerNode.puller.get( "type" );
-      } );
-      var filtered = _.filter( rightType, function( knot ) {return knot.puller === undefined;} );
-      if ( filtered.length === 0 ) {
-        return null;
-      }
-      var distance = function( knot ) {
-        var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
-        var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
-        return Math.sqrt( dx2 + dy2 );
-      };
-      var closestAvailable = _.min( filtered, distance );
-      return distance( closestAvailable ) < 200 ? closestAvailable : null;
-    }
-
-    View.prototype.hideKnots = function() {
-      _.each( knots, function( knot ) {knot.visible = false;} );
-    };
-
-    View.prototype.highlightClosestKnot = function( pullerNode ) {
-      view.hideKnots();
-      var closestKnot = view.getTargetKnot( pullerNode );
-
-      //TODO: why is this sometimes undefined
-      if ( closestKnot === undefined || closestKnot == null ) {
-      }
-      else {
-        closestKnot.visible = true;
-      }
-    };
-
-    View.prototype.getNetForce = function() {
-      return this.getLeftForce() + this.getRightForce();
-    };
-
-    View.prototype.getLeftForce = function() {
-      var leftForce = 0;
-      for ( var i = 0; i < knots.length; i++ ) {
-        leftForce += knots[i].puller === undefined ? 0 : knots[i].type === blue ? -100 : 0;
-      }
-      return leftForce;
-    };
-    View.prototype.getRightForce = function() {
-      var rightForce = 0;
-      for ( var i = 0; i < knots.length; i++ ) {
-        rightForce += knots[i].puller === undefined ? 0 : knots[i].type === red ? 100 : 0;
-      }
-      return rightForce;
-    };
-
-    var arrowTailX = view.cartNode.centerX;
-    View.prototype.updateForces = function() {
-      var x = arrowTailX;
-      var tailWidth = 25;
-      var headWidth = 50;
-      var headHeight = 40;
-      view.leftArrow.shape = arrow( x, 100, x + this.getLeftForce(), 100, tailWidth, headWidth, headHeight );
-      view.rightArrow.shape = arrow( x, 100, x + this.getRightForce(), 100, tailWidth, headWidth, headHeight );
-      view.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
-    };
 
     //Add toolbox backgrounds for the pullers
     view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
@@ -305,6 +243,63 @@ define( function( require ) {
     },
     render: function() {
       this.scene.updateScene();
+    },
+    //Get the closest knot that is grabbable and within range
+    getTargetKnot: function( pullerNode ) {
+      var rightType = _.filter( this.knots, function( knot ) {
+        return knot.type === pullerNode.puller.get( "type" );
+      } );
+      var filtered = _.filter( rightType, function( knot ) {return knot.puller === undefined;} );
+      if ( filtered.length === 0 ) {
+        return null;
+      }
+      var distance = function( knot ) {
+        var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
+        var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
+        return Math.sqrt( dx2 + dy2 );
+      };
+      var closestAvailable = _.min( filtered, distance );
+      return distance( closestAvailable ) < 200 ? closestAvailable : null;
+    },
+    hideKnots: function() {_.each( this.knots, function( knot ) {knot.visible = false;} );},
+    highlightClosestKnot: function( pullerNode ) {
+      this.hideKnots();
+      var closestKnot = this.getTargetKnot( pullerNode );
+
+      //TODO: why is this sometimes undefined
+      if ( closestKnot === undefined || closestKnot == null ) {
+      }
+      else {
+        closestKnot.visible = true;
+      }
+    },
+    getNetForce: function() {
+      return this.getLeftForce() + this.getRightForce();
+    },
+
+    getLeftForce: function() {
+      var leftForce = 0;
+      for ( var i = 0; i < this.knots.length; i++ ) {
+        leftForce += this.knots[i].puller === undefined ? 0 : this.knots[i].type === blue ? -100 : 0;
+      }
+      return leftForce;
+    },
+    getRightForce: function() {
+      var rightForce = 0;
+      for ( var i = 0; i < this.knots.length; i++ ) {
+        rightForce += this.knots[i].puller === undefined ? 0 : this.knots[i].type === red ? 100 : 0;
+      }
+      return rightForce;
+    },
+
+    updateForces: function() {
+      var x = this.arrowTailX;
+      var tailWidth = 25;
+      var headWidth = 50;
+      var headHeight = 40;
+      this.leftArrow.shape = arrow( x, 100, x + this.getLeftForce(), 100, tailWidth, headWidth, headHeight );
+      this.rightArrow.shape = arrow( x, 100, x + this.getRightForce(), 100, tailWidth, headWidth, headHeight );
+      this.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
     }
   };
 
