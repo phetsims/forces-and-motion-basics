@@ -21,6 +21,8 @@ define( function( require ) {
 
   function ControlPanel( model, view ) {
     this.model = model;
+    this.view = view;
+    var controlPanel = this;
 
     var handleClick = function() { view.model.set( {'showSumOfForces': !view.model.get( 'showSumOfForces' )} ); };
     var $checkBox = $( '.sum-of-forces-checkbox' );
@@ -33,34 +35,20 @@ define( function( require ) {
       $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
     } );
 
-    var resetAll = function() {
-      view.model.set( view.model.defaults ); //do not clear, which could remove children set in initialize
-      view.model.cart.set( view.model.cart.defaults );
-      view.model.pullers.each( function( puller ) {
-        puller.set( puller.initAttributes );
-        if ( puller.node.knot ) {
-          delete puller.node.knot.puller;
-        }
-        delete puller.node.knot;
-      } );
-      view.hideKnots();
-      view.updateForces();
-    };
     var $resetAllButton = $( '.reset-all-button' );
-    $resetAllButton.bind( 'touchstart', resetAll );
-    $resetAllButton.bind( 'click', resetAll );
+    $resetAllButton.bind( 'touchstart', model.resetAll.bind( model ) );
+    $resetAllButton.bind( 'click', model.resetAll.bind( model ) );
 
     var $volumeButton = $( '.volume-button' );
     var volumeButtonEvent = function() { view.model.set( 'volumeOn', !view.model.get( 'volumeOn' ) ); };//This pattern looks like it could be factored out.
-    view.model.on( 'change:volumeOn', function( m, volumeOn ) {
+    model.on( 'change:volumeOn', function( m, volumeOn ) {
       $volumeButton.find( 'i' ).removeClass( 'icon-volume-up' ).removeClass( 'icon-volume-off' ).addClass( volumeOn ? 'icon-volume-up' : 'icon-volume-off' );
     } );
-    view.model.trigger( 'change:volumeOn' );
+    model.trigger( 'change:volumeOn' );
     $volumeButton.bind( 'touchstart', volumeButtonEvent );
     $volumeButton.bind( 'click', volumeButtonEvent );
 
     $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
-
   }
 
   return ControlPanel;

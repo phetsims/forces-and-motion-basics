@@ -49,6 +49,18 @@ define( function( require ) {
                                     new Knot( {x: redKnots[1], type: red} ),
                                     new Knot( {x: redKnots[2], type: red} ),
                                     new Knot( {x: redKnots[3], type: red} ) ] );
+        },
+        resetAll: function() {
+          this.set( this.defaults ); //do not clear, which could remove children set in initialize
+          this.cart.set( this.cart.defaults );
+          this.pullers.each( function( puller ) {
+            puller.set( puller.initAttributes );
+            if ( puller.node.knot ) {
+              delete puller.node.knot.puller;
+            }
+            delete puller.node.knot;
+          } );
+          this.trigger( 'reset-all' );
         }
       } );
 } );
