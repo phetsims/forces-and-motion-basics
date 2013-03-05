@@ -1,4 +1,4 @@
-require( [ "view/View" ], function( View ) {
+require( [ "tugofwar/view/View" ], function( View ) {
   "use strict";
 
   var useDebugDiv = false;

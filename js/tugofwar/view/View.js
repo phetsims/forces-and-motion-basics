@@ -1,7 +1,7 @@
 define( function( require ) {
   "use strict";
-  var Strings = require( "i18n!../../nls/forces-and-motion-basics-strings" );
-  var PullerNode = require( "view/PullerNode" );
+  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
+  var PullerNode = require( "tugofwar/view/PullerNode" );
   var Shape = require( 'SCENERY/Shape' );
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
@@ -12,7 +12,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var arrow = require( 'view/arrow' );
+  var arrow = require( 'tugofwar/view/arrow' );
   var red = "red",
       blue = "blue",
       small = "small",
