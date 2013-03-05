@@ -19,7 +19,7 @@ define( function( require ) {
       medium = "medium",
       large = "large";
 
-  function View( $images ) {
+  function View( $images, model ) {
     var view = this;
 
     function getImage( name ) {
@@ -36,50 +36,7 @@ define( function( require ) {
       return getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
     }
 
-    var Puller = Backbone.Model.extend( { defaults: { }, initialize: function() {
-      this.initAttributes = this.toJSON();//For resetting
-    } } );
-    var Pullers = Backbone.Collection.extend( { model: Puller } );
-
-    var Knot = Backbone.Model.extend( { defaults: { }, initialize: function() {
-      this.initAttributes = this.toJSON();//For resetting
-    } } );
-    var Knots = Backbone.Collection.extend( { model: Knot } );
-
-    var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
-
-    var blueKnots = [10.0, 90.0, 170.0, 250.0];
-    var ropeImageWidth = 880;
-    var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
-    var Model = Backbone.Model.extend(
-        {
-          defaults: {
-            showSumOfForces: true,
-            running: false,
-            volumeOn: false
-          },
-          initialize: function() {
-            this.cart = new Cart();
-            this.pullers = new Pullers( [ new Puller( {x: 260, y: 500, dragOffsetX: 20, type: blue, size: small } ),
-                                          new Puller( {x: 198, y: 500, dragOffsetX: 20, type: blue, size: small } ),
-                                          new Puller( {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium} ),
-                                          new Puller( {x: 38, y: 407, dragOffsetX: 80, type: blue, size: large  } ),
-                                          new Puller( {x: 624, y: 500, dragOffsetX: 10, type: red, size: small } ),
-                                          new Puller( {x: 684, y: 500, dragOffsetX: 10, type: red, size: small } ),
-                                          new Puller( {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium } ),
-                                          new Puller( {x: 838, y: 407, dragOffsetX: 30, type: red, size: large  } )
-                                        ] );
-            this.knots = new Knots( [ new Knot( {x: blueKnots[0], type: blue} ),
-                                      new Knot( {x: blueKnots[1], type: blue} ),
-                                      new Knot( {x: blueKnots[2], type: blue} ),
-                                      new Knot( {x: blueKnots[3], type: blue} ),
-                                      new Knot( {x: redKnots[0], type: red} ),
-                                      new Knot( {x: redKnots[1], type: red} ),
-                                      new Knot( {x: redKnots[2], type: red} ),
-                                      new Knot( {x: redKnots[3], type: red} ) ] );
-          }
-        } );
-    view.model = new Model();
+    view.model = model;
 
     var handleClick = function() { view.model.set( {'showSumOfForces': !view.model.get( 'showSumOfForces' )} ); };
     var $checkBox = $( '.sum-of-forces-checkbox' );
@@ -145,11 +102,11 @@ define( function( require ) {
       knots.push( knot );
     }
 
-    for ( var blueKnotIndex = 0; blueKnotIndex < blueKnots.length; blueKnotIndex++ ) {
-      addKnot( blueKnots[blueKnotIndex], blue );
+    for ( var blueKnotIndex = 0; blueKnotIndex < view.model.get( 'blueKnots' ).length; blueKnotIndex++ ) {
+      addKnot( view.model.get( 'blueKnots' )[blueKnotIndex], blue );
     }
-    for ( var redKnotIndex = 0; redKnotIndex < redKnots.length; redKnotIndex++ ) {
-      addKnot( redKnots[redKnotIndex], red );
+    for ( var redKnotIndex = 0; redKnotIndex < view.model.get( 'redKnots' ).length; redKnotIndex++ ) {
+      addKnot( view.model.get( 'redKnots' )[redKnotIndex], red );
     }
 
     this.scene.addChild( view.ropeNode );
@@ -331,8 +288,9 @@ define( function( require ) {
     ground.attr( 'fill', '#c59a5b' );
     ground.attr( 'stroke', '#fff' );
 
-    $( '.tab-icons' ).css( {left: width / 2 - $( '.tab-icons' ).width() / 2, bottom: 3} );
-    $( '.icon-home' ).css( {left: width / 2 + $( '.tab-icons' ).width() / 2, bottom: 3} );
+    var $tabIcons = $( '.tab-icons' );
+    $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
+    $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
 
     this.render();
   };
