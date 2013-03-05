@@ -1,18 +1,5 @@
 define( function( require ) {
   "use strict";
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
-  var PullerNode = require( "tugofwar/view/PullerNode" );
-  var Shape = require( 'SCENERY/Shape' );
-  var LayerType = require( 'SCENERY/layers/LayerType' );
-  var Scene = require( 'SCENERY/Scene' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
-  var arrow = require( 'tugofwar/view/arrow' );
   var red = "red",
       blue = "blue",
       small = "small",
@@ -34,7 +21,7 @@ define( function( require ) {
   var blueKnots = [10.0, 90.0, 170.0, 250.0];
   var ropeImageWidth = 880;
   var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
-  var Model = Backbone.Model.extend(
+  return Backbone.Model.extend(
       {
         defaults: {
           showSumOfForces: true,
@@ -64,6 +51,4 @@ define( function( require ) {
                                     new Knot( {x: redKnots[3], type: red} ) ] );
         }
       } );
-
-  return Model;
 } );

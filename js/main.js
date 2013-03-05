@@ -1,4 +1,4 @@
-require( [ "tugofwar/view/View", "tugofwar/model/Model" ], function( View, Model ) {
+require( [ "tugofwar/view/View", "tugofwar/model/TugOfWarModel" ], function( View, TugOfWarModel ) {
   "use strict";
 
   var useDebugDiv = false;
@@ -20,7 +20,7 @@ require( [ "tugofwar/view/View", "tugofwar/model/Model" ], function( View, Model
 
   //Don't load the view until all images available.  Maybe future versions could optimize this by making the image loading dependencies more granular.
   $( 'body' ).imagesLoaded( function( $images, $proper, $broken ) {
-    var model = new Model();
+    var model = new TugOfWarModel();
     var view = new View( $images, model );
     $( "#overlay" ).remove();
     if ( !useDebugDiv ) {
