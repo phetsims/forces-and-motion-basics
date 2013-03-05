@@ -4,6 +4,6 @@ Ported from http://phet.colorado.edu/en/simulation/forces-and-motion-basics
 
 When checking out from git, you will need to check out a copy of other github dependencies as siblings into the same directory as forces-and-motion-basics.
 The directory structure will look like:
-forces-and-motion-basics/
-scenery/
-i18n/
+* forces-and-motion-basics/
+* scenery/
+* i18n/
