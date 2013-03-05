@@ -22,6 +22,7 @@ define( function( require ) {
 
   function TugOfWarScenery( model, topView ) {
     this.model = model;
+    var tugOfWarScenery = this;
     var view = this;
     var getImage = view.getImage;
 
@@ -155,7 +156,7 @@ define( function( require ) {
     // 60fps with the setTimeout fallback.
     (function animloop() {
       requestAnimFrame( animloop );
-      view.updatePhysics();
+      model.step( tugOfWarScenery.getNetForce() );
       view.render();
     })();
   }
@@ -192,14 +193,6 @@ define( function( require ) {
       $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
 
       this.render();
-    },
-    updatePhysics: function() {
-      if ( this.model.get( 'running' ) ) {
-        var netForce = this.getNetForce();
-        var newV = this.model.cart.get( 'v' ) + netForce / 20000;
-        this.model.cart.set( {v: newV,
-                               x: this.model.cart.get( 'x' ) + newV} );
-      }
     },
     render: function() {
       this.scene.updateScene();

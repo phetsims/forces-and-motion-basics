@@ -61,6 +61,12 @@ define( function( require ) {
             delete puller.node.knot;
           } );
           this.trigger( 'reset-all' );
+        },
+        step: function( netForce ) {
+          if ( this.get( 'running' ) ) {
+            var newV = this.cart.get( 'v' ) + netForce / 20000;
+            this.cart.set( {v: newV, x: this.cart.get( 'x' ) + newV} );
+          }
         }
       } );
 } );
