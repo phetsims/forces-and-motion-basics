@@ -8,36 +8,34 @@ define( function( require ) {
   var blue = "blue";
 
   //dragOffsetX: How far to translate to the side if pulling with the pull image
-  function PullerNode( puller, model, image, pullImage, options ) {
+  function PullerNode( puller, model, image, pullImage ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
     var x = puller.get( 'x' );
     var y = puller.get( 'y' );
 
-    puller.on( 'change:x', function( m, x ) { pullerNode.x = x;} );
-    puller.on( 'change:y', function( m, y ) { pullerNode.y = y;} );
-
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
     function updateLocation() {
-      var knotted = (typeof pullerNode.knot !== 'undefined');
-      var pulling = model.running && knotted;
+      var knotted = puller.has( 'knot' );
+      var pulling = model.get( 'running' ) && knotted;
       if ( knotted ) {
-        pullerNode.x = pullerNode.knot.centerX + (pulling ? -puller.get( "dragOffsetX" ) : 0) + (pullerNode.puller.get( 'type' ) === blue ? -60 : 0);
-        pullerNode.y = pullerNode.knot.centerY - pullerNode.height + 100;
+        pullerNode.x = puller.get( 'knot' ).get( 'x' ) + (pulling ? -puller.get( 'dragOffsetX' ) : 0) + (pullerNode.puller.get( 'type' ) === blue ? -60 : 0);
+        pullerNode.y = puller.get( 'knot' ).get( 'y' ) - pullerNode.height + 100;
+      }
+      else {
+        pullerNode.x = puller.get( 'x' );
+        pullerNode.y = puller.get( 'y' );
       }
     }
 
-    model.cart.on( 'change:x', function( m, x ) {
-      var knotted = (typeof pullerNode.knot !== 'undefined');
-      if ( knotted ) {
-        updateLocation();
-      }
+    puller.on( 'change:y change:x knot-moved', function( m, y ) {
+      updateLocation();
     } );
 
     var updateImage = function( m, running ) {
-      var knotted = (typeof pullerNode.knot !== 'undefined');
+      var knotted = puller.has( 'knot' );
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
       updateLocation();
@@ -48,14 +46,12 @@ define( function( require ) {
         {
           allowTouchSnag: true,
           start: function() {
-            if ( pullerNode.knot ) {
-              delete pullerNode.knot.puller;
-            }
-            delete pullerNode.knot;
+            puller.disconnect();
+            puller.set( 'dragging', true );
           },
           end: function( event ) {
-            options.end( event );
             updateLocation();
+            puller.set( 'dragging', false );
             updateImage( pullerNode.model, model.get( 'running' ) );
           },
           translate: function( event ) {

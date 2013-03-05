@@ -14,6 +14,7 @@ define( function( require ) {
   var Property = require( 'PHETCOMMON/model/property/Property' );
   var arrow = require( 'tugofwar/view/arrow' );
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
+  var KnotNode = require( 'tugofwar/view/KnotNode' );
   var red = "red",
       blue = "blue",
       small = "small",
@@ -51,36 +52,21 @@ define( function( require ) {
 
     view.ropeNode = new Image( topView.getImage( 'rope' ), {x: 51, y: 263 } );
 
-    var knots = [];
-    view.knots = knots;
-    var knotWidth = 30;
-    var dx = 14;
-    var dy = 10;
-
-    function addKnot( knotItem, type ) {
-      var knot = new Path( {shape: Shape.circle( knotItem + view.ropeNode.x - knotWidth / 2 + dx, view.ropeNode.y + dy, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
-      view.scene.addChild( knot );
-      knot.type = type;
-      knots.push( knot );
-    }
-
-    for ( var blueKnotIndex = 0; blueKnotIndex < view.model.get( 'blueKnots' ).length; blueKnotIndex++ ) {
-      addKnot( view.model.get( 'blueKnots' )[blueKnotIndex], blue );
-    }
-    for ( var redKnotIndex = 0; redKnotIndex < view.model.get( 'redKnots' ).length; redKnotIndex++ ) {
-      addKnot( view.model.get( 'redKnots' )[redKnotIndex], red );
-    }
+    model.knots.each( function( knot ) {
+      var knotNode = new KnotNode( knot );
+      view.scene.addChild( knotNode );
+    } );
 
     this.scene.addChild( view.ropeNode );
     this.cartNode = new Image( topView.getImage( 'cart' ), {x: 399, y: 221} );
     view.arrowTailX = view.cartNode.centerX;
 
-    this.model.cart.bind( 'change:x', function( m, x ) {
+    this.model.cart.on( 'change:x', function( m, x ) {
       view.cartNode.x = x + 399;
       view.ropeNode.x = x + 51;
-      _.each( knots, function( knot ) {
-        knot.x = x;
-      } );
+//      _.each( knotNodes, function( knot ) {
+//        knot.x = x;
+//      } );
     } );
 
     this.scene.addChild( this.cartNode );
@@ -129,19 +115,7 @@ define( function( require ) {
         view.highlightClosestKnot( puller.node );
         view.updateForces();
       } );
-      view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
-        end: function( event ) {
-
-          _.each( knots, function( knot ) {knot.visible = false;} );
-          var pullerNode = event.trail.lastNode();
-          var closestKnot = view.getTargetKnot( pullerNode );
-          closestKnot.puller = pullerNode;
-          pullerNode.knot = closestKnot;
-          pullerNode.x = pullerNode.puller.type === red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
-          pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
-          view.updateForces();
-        }
-      } ) );
+      view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
@@ -156,7 +130,7 @@ define( function( require ) {
     // 60fps with the setTimeout fallback.
     (function animloop() {
       requestAnimFrame( animloop );
-      model.step( tugOfWarScenery.getNetForce() );
+      model.step();
       view.render();
     })();
   }
@@ -199,7 +173,7 @@ define( function( require ) {
     },
     //Get the closest knot that is grabbable and within range
     getTargetKnot: function( pullerNode ) {
-      var rightType = _.filter( this.knots, function( knot ) {
+      var rightType = _.filter( this.knotNodes, function( knot ) {
         return knot.type === pullerNode.puller.get( "type" );
       } );
       var filtered = _.filter( rightType, function( knot ) {return knot.puller === undefined;} );
@@ -214,7 +188,7 @@ define( function( require ) {
       var closestAvailable = _.min( filtered, distance );
       return distance( closestAvailable ) < 200 ? closestAvailable : null;
     },
-    hideKnots: function() {_.each( this.knots, function( knot ) {knot.visible = false;} );},
+    hideKnots: function() {_.each( this.knotNodes, function( knot ) {knot.visible = false;} );},
     highlightClosestKnot: function( pullerNode ) {
       this.hideKnots();
       var closestKnot = this.getTargetKnot( pullerNode );
@@ -226,33 +200,14 @@ define( function( require ) {
         closestKnot.visible = true;
       }
     },
-    getNetForce: function() {
-      return this.getLeftForce() + this.getRightForce();
-    },
-
-    getLeftForce: function() {
-      var leftForce = 0;
-      for ( var i = 0; i < this.knots.length; i++ ) {
-        leftForce += this.knots[i].puller === undefined ? 0 : this.knots[i].type === blue ? -100 : 0;
-      }
-      return leftForce;
-    },
-    getRightForce: function() {
-      var rightForce = 0;
-      for ( var i = 0; i < this.knots.length; i++ ) {
-        rightForce += this.knots[i].puller === undefined ? 0 : this.knots[i].type === red ? 100 : 0;
-      }
-      return rightForce;
-    },
-
     updateForces: function() {
       var x = this.arrowTailX;
       var tailWidth = 25;
       var headWidth = 50;
       var headHeight = 40;
-      this.leftArrow.shape = arrow( x, 100, x + this.getLeftForce(), 100, tailWidth, headWidth, headHeight );
-      this.rightArrow.shape = arrow( x, 100, x + this.getRightForce(), 100, tailWidth, headWidth, headHeight );
-      this.sumArrow.shape = arrow( x, 40, x + this.getNetForce(), 40, tailWidth, headWidth, headHeight );
+      this.leftArrow.shape = arrow( x, 100, x + this.model.getLeftForce(), 100, tailWidth, headWidth, headHeight );
+      this.rightArrow.shape = arrow( x, 100, x + this.model.getRightForce(), 100, tailWidth, headWidth, headHeight );
+      this.sumArrow.shape = arrow( x, 40, x + this.model.getNetForce(), 40, tailWidth, headWidth, headHeight );
     }
   };
 
