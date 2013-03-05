@@ -1,12 +1,13 @@
 //Draw an arrow from the tail to the tip with the specified tail width, and head dimensions.
 define( function( require ) {
+  "use strict";
   var Shape = require( 'SCENERY/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
   //All parameters are Number
   function arrow( tailX, tailY, tipX, tipY, tailWidth, headWidth, headHeight ) {
     var arrowShape = new Shape();
-    if ( tipX == tailX && tipY == tailY ) {
+    if ( tipX === tailX && tipY === tailY ) {
       return arrowShape;
     }
     var vector = new Vector2( tipX - tailX, tipY - tailY );
@@ -38,7 +39,7 @@ define( function( require ) {
 
     arrowShape.moveTo( points[0].x, points[0].y );
     var tail = _.tail( points );
-    _.each( tail, function( element ) { arrowShape.lineTo( element.x, element.y ) } );
+    _.each( tail, function( element ) { arrowShape.lineTo( element.x, element.y ); } );
     arrowShape.close();
 
     return arrowShape;

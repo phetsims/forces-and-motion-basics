@@ -29,8 +29,8 @@ define( function( require ) {
     function getPullerImage( puller, leaning ) {
       var type = puller.get( "type" );
       var size = puller.get( "size" );
-      var sizeString = size == large ? "_lrg_" :
-                       size == medium ? "_" :
+      var sizeString = size === large ? "_lrg_" :
+                       size === medium ? "_" :
                        "_small_";
       var colorString = type.toUpperCase();
       return getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
@@ -49,7 +49,7 @@ define( function( require ) {
     var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
 
     var blueKnots = [10.0, 90.0, 170.0, 250.0];
-    var ropeImageWidth = 880;//TODO: How to dynamically get width of rope image?  When I do ropeImage.width, I get different values based on browser/scale.
+    var ropeImageWidth = 880;
     var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
     var Model = Backbone.Model.extend(
         {
@@ -203,10 +203,10 @@ define( function( require ) {
     //Get the closest knot that is grabbable and within range
     function getTargetKnot( pullerNode ) {
       var rightType = _.filter( knots, function( knot ) {
-        return knot.type == pullerNode.puller.get( "type" );
+        return knot.type === pullerNode.puller.get( "type" );
       } );
       var filtered = _.filter( rightType, function( knot ) {return knot.puller === undefined;} );
-      if ( filtered.length == 0 ) {
+      if ( filtered.length === 0 ) {
         return null;
       }
       var distance = function( knot ) {
@@ -219,7 +219,7 @@ define( function( require ) {
     }
 
     function hideKnots() {
-      _.each( knots, function( knot ) {knot.visible = false} );
+      _.each( knots, function( knot ) {knot.visible = false;} );
     }
 
     function highlightClosestKnot( pullerNode ) {
@@ -241,14 +241,14 @@ define( function( require ) {
     View.prototype.getLeftForce = function() {
       var leftForce = 0;
       for ( var i = 0; i < knots.length; i++ ) {
-        leftForce += knots[i].puller === undefined ? 0 : knots[i].type == blue ? -100 : 0;
+        leftForce += knots[i].puller === undefined ? 0 : knots[i].type === blue ? -100 : 0;
       }
       return leftForce;
     };
     View.prototype.getRightForce = function() {
       var rightForce = 0;
       for ( var i = 0; i < knots.length; i++ ) {
-        rightForce += knots[i].puller === undefined ? 0 : knots[i].type == red ? 100 : 0;
+        rightForce += knots[i].puller === undefined ? 0 : knots[i].type === red ? 100 : 0;
       }
       return rightForce;
     };
@@ -276,12 +276,12 @@ define( function( require ) {
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
         end: function( event ) {
 
-          _.each( knots, function( knot ) {knot.visible = false} );
+          _.each( knots, function( knot ) {knot.visible = false;} );
           var pullerNode = event.trail.lastNode();
           var closestKnot = getTargetKnot( pullerNode );
           closestKnot.puller = pullerNode;
           pullerNode.knot = closestKnot;
-          pullerNode.x = pullerNode.puller.type == red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
+          pullerNode.x = pullerNode.puller.type === red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
           pullerNode.y = closestKnot.centerY - pullerNode.height + 100;
           view.updateForces();
         }
@@ -321,7 +321,7 @@ define( function( require ) {
     $( "#background" ).empty();
 
     //Show the sky
-    var paper = Raphael( document.getElementById( "background" ), width - 5, height - 5 );
+    var paper = new Raphael( document.getElementById( "background" ), width - 5, height - 5 );
     var sky = paper.rect( 0, 0, width - 5, height - groundHeight );
     sky.attr( 'fill', '90-#cfecfc-#02ace4' );
     sky.attr( 'stroke', '#fff' );

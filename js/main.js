@@ -3,8 +3,8 @@ require( [ "view/View" ], function( View ) {
 
   var useDebugDiv = false;
   if ( useDebugDiv ) {
-    if ( typeof console != "undefined" ) {
-      if ( typeof console.log != 'undefined' ) {
+    if ( typeof console !== "undefined" ) {
+      if ( typeof console.log !== 'undefined' ) {
         console.olog = console.log;
       }
       else {
