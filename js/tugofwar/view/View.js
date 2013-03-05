@@ -262,50 +262,50 @@ define( function( require ) {
     })();
   }
 
-  View.prototype.resize = function() {
-    var width = $( window ).width();
-    var height = $( window ).height() - 50;//leave room for the tab bar
+  View.prototype = {
+    resize: function() {
+      var width = $( window ).width();
+      var height = $( window ).height() - 50;//leave room for the tab bar
 
-    var scale = Math.min( width / 981, height / 644 );
+      var scale = Math.min( width / 981, height / 644 );
 
-    this.scene.resize( width, height );
-    this.scene.setScale( scale );
+      this.scene.resize( width, height );
+      this.scene.setScale( scale );
 
-    var skyHeight = (376) * scale;
-    var groundHeight = height - skyHeight;
+      var skyHeight = (376) * scale;
+      var groundHeight = height - skyHeight;
 
-    //Clear raphael layers and rebuild
-    $( "#background" ).empty();
+      //Clear raphael layers and rebuild
+      $( "#background" ).empty();
 
-    //Show the sky
-    var paper = new Raphael( document.getElementById( "background" ), width - 5, height - 5 );
-    var sky = paper.rect( 0, 0, width - 5, height - groundHeight );
-    sky.attr( 'fill', '90-#cfecfc-#02ace4' );
-    sky.attr( 'stroke', '#fff' );
+      //Show the sky
+      var paper = new Raphael( document.getElementById( "background" ), width - 5, height - 5 );
+      var sky = paper.rect( 0, 0, width - 5, height - groundHeight );
+      sky.attr( 'fill', '90-#cfecfc-#02ace4' );
+      sky.attr( 'stroke', '#fff' );
 
-    //Show the ground
-    var ground = paper.rect( 0, height - groundHeight, width, groundHeight );
-    ground.attr( 'fill', '#c59a5b' );
-    ground.attr( 'stroke', '#fff' );
+      //Show the ground
+      var ground = paper.rect( 0, height - groundHeight, width, groundHeight );
+      ground.attr( 'fill', '#c59a5b' );
+      ground.attr( 'stroke', '#fff' );
 
-    var $tabIcons = $( '.tab-icons' );
-    $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
-    $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
+      var $tabIcons = $( '.tab-icons' );
+      $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
+      $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
 
-    this.render();
-  };
-
-  View.prototype.updatePhysics = function() {
-    if ( this.model.get( 'running' ) ) {
-      var netForce = this.getNetForce();
-      var newV = this.model.cart.get( 'v' ) + netForce / 20000;
-      this.model.cart.set( {v: newV,
-                             x: this.model.cart.get( 'x' ) + newV} );
+      this.render();
+    },
+    updatePhysics: function() {
+      if ( this.model.get( 'running' ) ) {
+        var netForce = this.getNetForce();
+        var newV = this.model.cart.get( 'v' ) + netForce / 20000;
+        this.model.cart.set( {v: newV,
+                               x: this.model.cart.get( 'x' ) + newV} );
+      }
+    },
+    render: function() {
+      this.scene.updateScene();
     }
-  };
-
-  View.prototype.render = function() {
-    this.scene.updateScene();
   };
 
   window.requestAnimFrame = (function() {
