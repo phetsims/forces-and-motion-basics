@@ -9,7 +9,7 @@ define( function( require ) {
 
   function KnotNode( knot ) {
     var knotNode = this;
-    Path.call( this, {shape: Shape.circle( knot.get( 'x' ), knot.get( 'y' ), knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+    Path.call( this, {shape: Shape.circle( 0, 0, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.get( 'x' ), y: knot.get( 'y' )} );
     knot.on( 'change:visible', function( m, visible ) { knotNode.visible = visible; } );
     knot.on( 'change:x', function( m, x ) { knotNode.x = x; } );
   }
