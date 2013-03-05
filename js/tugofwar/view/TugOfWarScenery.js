@@ -36,7 +36,6 @@ define( function( require ) {
     }
 
     view.model = model;
-    view.controlPanel = new ControlPanel( model, view );
 
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
     var grassY = 368;
