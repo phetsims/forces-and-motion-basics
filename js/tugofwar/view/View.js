@@ -307,7 +307,7 @@ define( function( require ) {
 
   View.prototype.resize = function() {
     var width = $( window ).width();
-    var height = $( window ).height();
+    var height = $( window ).height() - 50;//leave room for the tab bar
 
     var scale = Math.min( width / 981, height / 644 );
 
@@ -330,6 +330,9 @@ define( function( require ) {
     var ground = paper.rect( 0, height - groundHeight, width, groundHeight );
     ground.attr( 'fill', '#c59a5b' );
     ground.attr( 'stroke', '#fff' );
+
+    $( '.tab-icons' ).css( {left: width / 2 - $( '.tab-icons' ).width() / 2, bottom: 3} );
+    $( '.icon-home' ).css( {left: width / 2 + $( '.tab-icons' ).width() / 2, bottom: 3} );
 
     this.render();
   };
