@@ -137,17 +137,19 @@ define( function( require ) {
     var knotWidth = 30;
     var dx = 14;
     var dy = 10;
-    for ( var i = 0; i < blueKnots.length; i++ ) {
-      var knot = new Path( {shape: Shape.circle( blueKnots[i] + view.ropeNode.x - knotWidth / 2 + dx, view.ropeNode.y + dy, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
-      this.scene.addChild( knot );
-      knot.type = blue;
+
+    function addKnot( knotItem, type ) {
+      var knot = new Path( {shape: Shape.circle( knotItem + view.ropeNode.x - knotWidth / 2 + dx, view.ropeNode.y + dy, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
+      view.scene.addChild( knot );
+      knot.type = type;
       knots.push( knot );
     }
-    for ( var i = 0; i < redKnots.length; i++ ) {
-      var knot = new Path( {shape: Shape.circle( redKnots[i] + view.ropeNode.x - knotWidth / 2 + dx, view.ropeNode.y + dy, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false} );
-      this.scene.addChild( knot );
-      knot.type = red;
-      knots.push( knot );
+
+    for ( var blueKnotIndex = 0; blueKnotIndex < blueKnots.length; blueKnotIndex++ ) {
+      addKnot( blueKnots[blueKnotIndex], blue );
+    }
+    for ( var redKnotIndex = 0; redKnotIndex < redKnots.length; redKnotIndex++ ) {
+      addKnot( redKnots[redKnotIndex], red );
     }
 
     this.scene.addChild( view.ropeNode );
