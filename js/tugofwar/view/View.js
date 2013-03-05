@@ -158,7 +158,7 @@ define( function( require ) {
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
     //Get the closest knot that is grabbable and within range
-    function getTargetKnot( pullerNode ) {
+    View.prototype.getTargetKnot = function( pullerNode ) {
       var rightType = _.filter( knots, function( knot ) {
         return knot.type === pullerNode.puller.get( "type" );
       } );
@@ -181,7 +181,7 @@ define( function( require ) {
 
     View.prototype.highlightClosestKnot = function( pullerNode ) {
       view.hideKnots();
-      var closestKnot = getTargetKnot( pullerNode );
+      var closestKnot = view.getTargetKnot( pullerNode );
 
       //TODO: why is this sometimes undefined
       if ( closestKnot === undefined || closestKnot == null ) {
@@ -235,7 +235,7 @@ define( function( require ) {
 
           _.each( knots, function( knot ) {knot.visible = false;} );
           var pullerNode = event.trail.lastNode();
-          var closestKnot = getTargetKnot( pullerNode );
+          var closestKnot = view.getTargetKnot( pullerNode );
           closestKnot.puller = pullerNode;
           pullerNode.knot = closestKnot;
           pullerNode.x = pullerNode.puller.type === red ? closestKnot.centerX : closestKnot.centerX - pullerNode.width;
