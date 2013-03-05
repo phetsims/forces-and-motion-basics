@@ -19,8 +19,8 @@ define( function( require ) {
   var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
 
   var blueKnots = [10.0, 90.0, 170.0, 250.0];
-  var ropeImageWidth = 880;
-  var redKnots = _.map( blueKnots, function( v ) {return ropeImageWidth - v;} );
+  var ropeWidth = 880;
+  var redKnots = _.map( blueKnots, function( v ) {return ropeWidth - v;} );
   return Backbone.Model.extend(
       {
         defaults: {

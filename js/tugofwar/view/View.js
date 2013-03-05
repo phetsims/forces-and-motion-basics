@@ -59,7 +59,7 @@ define( function( require ) {
         }
         delete puller.node.knot;
       } );
-      hideKnots();
+      view.hideKnots();
       view.updateForces();
     };
     var $resetAllButton = $( '.reset-all-button' );
@@ -175,12 +175,12 @@ define( function( require ) {
       return distance( closestAvailable ) < 200 ? closestAvailable : null;
     }
 
-    function hideKnots() {
+    View.prototype.hideKnots = function() {
       _.each( knots, function( knot ) {knot.visible = false;} );
-    }
+    };
 
-    function highlightClosestKnot( pullerNode ) {
-      hideKnots();
+    View.prototype.highlightClosestKnot = function( pullerNode ) {
+      view.hideKnots();
       var closestKnot = getTargetKnot( pullerNode );
 
       //TODO: why is this sometimes undefined
@@ -189,7 +189,7 @@ define( function( require ) {
       else {
         closestKnot.visible = true;
       }
-    }
+    };
 
     View.prototype.getNetForce = function() {
       return this.getLeftForce() + this.getRightForce();
@@ -227,7 +227,7 @@ define( function( require ) {
 
     view.model.pullers.each( function( puller ) {
       puller.on( 'change:x change:y', function( puller ) {
-        highlightClosestKnot( puller.node );
+        view.highlightClosestKnot( puller.node );
         view.updateForces();
       } );
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
