@@ -11,6 +11,8 @@ define( function( require ) {
                                         //For resetting
                                         initialize: function() {
                                           this.initAttributes = this.toJSON();
+                                          this.initX = this.get( 'x' );
+                                          this.initY = this.get( 'y' );
                                         },
                                         disconnect: function() {
                                           this.set( 'knot', null );
@@ -71,6 +73,11 @@ define( function( require ) {
                 //try to snap to a knot
                 if ( knot ) {
                   puller.set( {x: knot.get( 'x' ), y: knot.get( 'y' ), knot: knot} );
+                }
+
+                //Or go back home
+                else {
+                  puller.set( {x: puller.initX, y: puller.initY} );
                 }
 
                 model.set( 'numberPullersAttached', model.countAttachedPullers() );
@@ -160,5 +167,7 @@ define( function( require ) {
           } );
           return sum;
         }
-      } );
-} );
+      } )
+      ;
+} )
+;
