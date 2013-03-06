@@ -12,7 +12,7 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this, {x: 420, y: 100} );
     this.addChild( new Text( model.cart.get( 'x' ) < 0 ? "Blue Team Wins" : "Red Team Wins", {fontSize: '34px', backend: 'svg'} ) );
-    //Do it once, to remove as a listener.
+    //Do it once, to remove as a listener since flag node gets recreated when another game won
     model.once( 'reset-all', function() {flagNode.detach();} );
   }
 
