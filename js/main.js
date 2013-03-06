@@ -27,4 +27,16 @@ require( [ "tugofwar/view/View", "tugofwar/model/TugOfWarModel" ], function( Vie
       $( "debugDiv" ).remove();
     }
   } );
+
+  for ( var i = 1; i <= 4; i++ ) {
+    //Function scope to capture index
+    (function( index ) {
+      var selector = '#tab' + index + '-icon';
+      console.log( selector );
+      $( selector ).click( function() {
+        $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
+        $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
+      } );
+    })( i );
+  }
 } );

@@ -68,30 +68,38 @@
   <img src="images/go_hover.png"/>
   <img src="images/go_pressed.png"/>
 </div>
-<div id="background" style="position:absolute"></div>
-<div id="scene" style="position:absolute;"></div>
-<div id="controls" style="position:absolute; margin: 0; padding: 0; right: 2px; top: 2px; width: 180px;">
-  <div class="btn-group btn-group-vertical" style="position:relative; margin: 0; padding: 0">
-    <button class="btn v-button sum-of-forces-checkbox"><p style="font-size: 12pt;font-weight:bold;">
-      <i class="icon-check-empty" style="float:left; margin-right: 5px; font-size: larger;"></i>
-      Sum of Forces</p></button>
-    <button class="btn v-button"><p style="font-size: 12pt;font-weight:bold;">
-      <i class="icon-check-empty" style="float:left; margin-right: 5px;font-size: larger;"></i>
-      Values
-    </p></button>
+<div class="tabs" style="position:absolute; width: 100%;height:100%">
+  <div class="tab1" style="position:absolute; width: 100%;height:100%">
+    <div id="background" style="position:absolute; width: 100%;height:100%"></div>
+    <div id="scene" style="position:absolute;"></div>
+    <div id="controls" style="position:absolute; margin: 0; padding: 0; right: 2px; top: 2px; width: 180px;">
+      <div class="btn-group btn-group-vertical" style="position:relative; margin: 0; padding: 0">
+        <button class="btn v-button sum-of-forces-checkbox"><p style="font-size: 12pt;font-weight:bold;">
+          <i class="icon-check-empty" style="float:left; margin-right: 5px; font-size: larger;"></i>
+          Sum of Forces</p></button>
+        <button class="btn v-button"><p style="font-size: 12pt;font-weight:bold;">
+          <i class="icon-check-empty" style="float:left; margin-right: 5px;font-size: larger;"></i>
+          Values
+        </p></button>
+      </div>
+      <button class="btn btn-warning reset-all-button" style="margin-top: 5px; margin-left: 5px;"><i class="icon-refresh icon-2x"></i></button>
+      <button class="btn volume-button" style="margin-top: 5px; margin-left: 35px"><i class="icon-volume-off icon-2x"></i></button>
+    </div>
   </div>
-  <button class="btn btn-warning reset-all-button" style="margin-top: 5px; margin-left: 5px;"><i class="icon-refresh icon-2x"></i></button>
-  <button class="btn volume-button" style="margin-top: 5px; margin-left: 35px"><i class="icon-volume-off icon-2x"></i></button>
-</div>
+  <div class="tab1">
+    <!--<div id="background" style="position:absolute"></div>-->
+    <!--<div id="scene" style="position:absolute;"></div>-->
+  </div>
 
+</div>
 <div class="tab-bar">
   <p class="tab-name">Tug of War </p>
 </div>
 <div class="tab-icons">
-  <img class="selected" src="images/Tug_Icon.png">
-  <img class="unselected" src="images/Motion_icon.png">
-  <img class="unselected" src="images/Friction_Icon.png">
-  <img class="unselected" src="images/Acceleration_Icon.png">
+  <img class="selected" id="tab1-icon" src="images/Tug_Icon.png">
+  <img class="unselected" id="tab2-icon" src="images/Motion_icon.png">
+  <img class="unselected" id="tab3-icon" src="images/Friction_Icon.png">
+  <img class="unselected" id="tab4-icon" src="images/Acceleration_Icon.png">
 </div>
 <div><i class="icon-home icon-3x" style="color:#b2b4b6"></i></div>
 

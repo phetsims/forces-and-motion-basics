@@ -129,10 +129,10 @@ define( function( require ) {
       //Clear raphael layers and rebuild
       $( "#background" ).empty();
 
-      this.skyNode.shape = Shape.rect( 0, 0, 981 / scale, 376 );
-      this.skyNode.fill = new LinearGradient( 0, 0, 0, height - groundHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+      this.skyNode.shape = Shape.rect( 0, 0, width / scale, 376 );
+      this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      this.groundNode.shape = Shape.rect( 0, 376, 981 / scale, groundHeight / scale );
+      this.groundNode.shape = Shape.rect( 0, 376, width / scale, groundHeight / scale );
 
       var $tabIcons = $( '.tab-icons' );
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
