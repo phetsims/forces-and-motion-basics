@@ -13,10 +13,14 @@ define( function( require ) {
                                           this.initAttributes = this.toJSON();
                                           this.initX = this.get( 'x' );
                                           this.initY = this.get( 'y' );
+                                          this.force = this.get( 'size' ) === small ? 10 * 5 :
+                                                       this.get( 'size' ) === medium ? 20 * 5 :
+                                                       this.get( 'size' ) === large ? 30 * 5 :
+                                                       NaN;
+                                          console.log( "force", this.force );
                                         },
-                                        disconnect: function() {
-                                          this.set( 'knot', null );
-                                        }} );
+                                        disconnect: function() {this.set( 'knot', null );}
+                                      } );
   var Pullers = Backbone.Collection.extend( { defaults: {knot: null}, model: Puller } );
 
   var Knot = Backbone.Model.extend( {
@@ -158,7 +162,7 @@ define( function( require ) {
 
           this.pullers.each( function( puller ) {
             if ( puller.get( 'type' ) == blue && puller.has( 'knot' ) ) {
-              sum -= 100;
+              sum -= puller.force;
             }
           } );
           return sum;
@@ -168,7 +172,7 @@ define( function( require ) {
 
           this.pullers.each( function( puller ) {
             if ( puller.get( 'type' ) == red && puller.has( 'knot' ) ) {
-              sum += 100;
+              sum += puller.force;
             }
           } );
           return sum;
