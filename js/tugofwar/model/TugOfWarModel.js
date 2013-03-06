@@ -12,7 +12,9 @@ define( function( require ) {
                                         initialize: function() {
                                           this.initAttributes = this.toJSON();
                                         },
-                                        disconnect: function() {}} );
+                                        disconnect: function() {
+                                          this.set( 'knot', null );
+                                        }} );
   var Pullers = Backbone.Collection.extend( { defaults: {knot: null}, model: Puller } );
 
   var Knot = Backbone.Model.extend( {
@@ -99,7 +101,7 @@ define( function( require ) {
           };
           var target = _.min( filter, distance );
           var distanceToTarget = distance( target );
-          if ( distanceToTarget < 300 ) {
+          if ( distanceToTarget < 150 ) {
             return target;
           }
           else {
