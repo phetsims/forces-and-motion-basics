@@ -1,6 +1,5 @@
 define( function( require ) {
   "use strict";
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var PullerNode = require( "tugofwar/view/PullerNode" );
   var Shape = require( 'SCENERY/Shape' );
   var LayerType = require( 'SCENERY/layers/LayerType' );

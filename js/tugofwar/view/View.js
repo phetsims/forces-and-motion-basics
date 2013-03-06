@@ -1,6 +1,5 @@
 define( function( require ) {
   "use strict";
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var TugOfWarScenery = require( 'tugofwar/view/TugOfWarScenery' );
 
