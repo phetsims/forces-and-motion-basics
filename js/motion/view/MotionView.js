@@ -6,6 +6,22 @@ define( function( require ) {
   function MotionView( $images, model, $tab ) {
     var view = this;
 
+    var property = model.property( 'appliedForce' );
+    var value = property.get();
+    var setAppliedForce = property.set;
+    var getAppliedForce = property.get;
+    console.log( value );
+    property.set( 123 );
+    console.log( property.get() );
+    setAppliedForce( 33 );
+    console.log( property.get() );
+    console.log( getAppliedForce() );
+
+    property.addListener( function( newVal ) {
+      console.log( "new val = " + newVal );
+    } );
+    setAppliedForce( 321 );
+
     view.getImage = function( name ) {return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];};
 
     view.model = model;
