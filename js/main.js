@@ -32,7 +32,6 @@ require( [ "tugofwar/view/View", "tugofwar/model/TugOfWarModel" ], function( Vie
     //Function scope to capture index
     (function( index ) {
       var selector = '#tab' + index + '-icon';
-      console.log( selector );
       var handleClick = function() {
         $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
         $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
