@@ -65,13 +65,9 @@ define( function( require ) {
     this.model.cart.on( 'change:x', function( m, x ) {
       view.cartNode.x = x + 399;
       view.ropeNode.x = x + 51;
-//      _.each( knotNodes, function( knot ) {
-//        knot.x = x;
-//      } );
     } );
 
     this.scene.addChild( this.cartNode );
-    console.log( getImage );
     this.scene.addChild( new GoButton( getImage, this.model ) );
 
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );

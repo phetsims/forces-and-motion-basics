@@ -63,9 +63,12 @@ define( function( require ) {
             puller.on( 'change:x change:y', function() { model.updateVisibleKnots(); } );
             puller.on( 'change:dragging', function( puller, dragging ) {
               if ( !dragging ) {
-                var knot = model.closestKnot( puller );
+                var knot = model.getTargetKnot( puller );
+
                 //try to snap to a knot
-                puller.set( {x: knot.get( 'x' ), y: knot.get( 'y' ), knot: knot} );
+                if ( knot ) {
+                  puller.set( {x: knot.get( 'x' ), y: knot.get( 'y' ), knot: knot} );
+                }
               }
             } );
           } );
@@ -75,17 +78,26 @@ define( function( require ) {
           this.knots.each( function( knot ) {knot.set( 'visible', false );} );
           this.pullers.each( function( puller ) {
             if ( puller.get( 'dragging' ) ) {
-              var knot = model.closestKnot( puller );
-              knot.set( 'visible', true );
+              var knot = model.getTargetKnot( puller );
+              if ( knot ) {
+                knot.set( 'visible', true );
+              }
             }
           } );
         },
-        closestKnot: function( puller ) {
+        getTargetKnot: function( puller ) {
           var filter = this.knots.filter( function( knot ) {return knot.get( 'type' ) === puller.get( 'type' );} );
-          var closest = _.min( filter, function( knot ) {
-            return Math.abs( knot.get( 'x' ) - puller.get( 'x' ) );
-          } );
-          return closest;
+          var distance = function( knot ) {
+            return Math.sqrt( Math.pow( knot.get( 'x' ) - puller.get( 'x' ), 2 ) + Math.pow( knot.get( 'y' ) - puller.get( 'y' ), 2 ) );
+          };
+          var target = _.min( filter, distance );
+          var distanceToTarget = distance( target );
+          if ( distanceToTarget < 300 ) {
+            return target;
+          }
+          else {
+            return null;
+          }
         },
         resetAll: function() {
           this.set( this.defaults ); //do not clear, which could remove children set in initialize
