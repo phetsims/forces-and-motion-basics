@@ -33,10 +33,12 @@ require( [ "tugofwar/view/View", "tugofwar/model/TugOfWarModel" ], function( Vie
     (function( index ) {
       var selector = '#tab' + index + '-icon';
       console.log( selector );
-      $( selector ).click( function() {
+      var handleClick = function() {
         $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
         $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
-      } );
+      };
+      $( selector ).bind( 'click', handleClick );
+      $( selector ).bind( 'touchstart', handleClick );
     })( i );
   }
 } );
