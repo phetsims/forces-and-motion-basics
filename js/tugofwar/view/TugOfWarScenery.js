@@ -127,9 +127,6 @@ define( function( require ) {
       var skyHeight = (376) * scale;
       var groundHeight = height - skyHeight;
 
-      //Clear raphael layers and rebuild
-      $( "#background" ).empty();
-
       this.skyNode.shape = Shape.rect( 0, 0, width / scale, 376 );
       this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
