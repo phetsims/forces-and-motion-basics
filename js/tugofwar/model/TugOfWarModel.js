@@ -103,11 +103,6 @@ define( function( require ) {
               }
             }
           } );
-
-          model.set( 'visible', !model.get( 'visible' ) );
-          model.set( {visible: true, x: 234} );
-          model.visible = !model.visible;
-
         },
         getPuller: function( knot ) {
           var find = this.pullers.find( function( puller ) {return puller.get( 'knot' ) === knot;} );
@@ -133,9 +128,7 @@ define( function( require ) {
         resetAll: function() {
           this.set( this.defaults ); //do not clear, which could remove children set in initialize
           this.cart.set( this.cart.defaults );
-          this.pullers.each( function( puller ) {
-            puller.set( puller.initAttributes );
-          } );
+          this.pullers.each( function( puller ) { puller.set( puller.initAttributes ); } );
           this.trigger( 'reset-all' );
           this.knots.each( function( knot ) {knot.set( 'x', knot.initX );} );
           this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );

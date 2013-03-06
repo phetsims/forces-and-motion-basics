@@ -32,7 +32,6 @@ define( function( require ) {
       this.scenery.updateForces();
     },
     resetAll: function() {
-      this.scenery.hideKnots();
       this.scenery.updateForces();
     }
   };
