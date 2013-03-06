@@ -28,6 +28,12 @@ require( [ "tugofwar/view/View", "tugofwar/model/TugOfWarModel" ], function( Vie
     }
   } );
 
+  function setSelectedTab( index ) {
+    var $tabs = $( '.tabs' );
+    $tabs.children().hide();
+    $tabs.children( '.tab' + index ).show();
+  }
+
   for ( var i = 1; i <= 4; i++ ) {
     //Function scope to capture index
     (function( index ) {
@@ -35,6 +41,7 @@ require( [ "tugofwar/view/View", "tugofwar/model/TugOfWarModel" ], function( Vie
       var handleClick = function() {
         $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
         $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
+        setSelectedTab( index );
       };
       $( selector ).bind( 'click', handleClick );
       $( selector ).bind( 'touchstart', handleClick );

@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/main.css"/>
 
   <script type="text/javascript" src="contrib/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="contrib/jquery.transit.min.js"></script>
   <script type="text/javascript" src="contrib/underscore-1.4.2.js"></script>
   <script type="text/javascript" src="contrib/json2.js"></script>
   <script type="text/javascript" src="contrib/bootstrap/js/bootstrap.js"></script>
@@ -86,9 +87,22 @@
       <button class="btn volume-button" style="margin-top: 5px; margin-left: 35px"><i class="icon-volume-off icon-2x"></i></button>
     </div>
   </div>
-  <div class="tab1">
-    <!--<div id="background" style="position:absolute"></div>-->
-    <!--<div id="scene" style="position:absolute;"></div>-->
+  <div class="tab2" style="position:absolute; width: 100%;height:100%">
+    <div class="background" style="position:absolute; width: 100%;height:100%"></div>
+    <div class="scene" style="position:absolute;"></div>
+    <div class="controls" style="position:absolute; margin: 0; padding: 0; right: 2px; top: 2px; width: 180px;">
+      <div class="btn-group btn-group-vertical" style="position:relative; margin: 0; padding: 0">
+        <button class="btn v-button sum-of-forces-checkbox"><p style="font-size: 12pt;font-weight:bold;">
+          <i class="icon-check-empty" style="float:left; margin-right: 5px; font-size: larger;"></i>
+          Sum of Forces</p></button>
+        <button class="btn v-button show-values-checkbox"><p style="font-size: 12pt;font-weight:bold;">
+          <i class="icon-check-empty" style="float:left; margin-right: 5px;font-size: larger;"></i>
+          Values
+        </p></button>
+      </div>
+      <button class="btn btn-warning reset-all-button" style="margin-top: 5px; margin-left: 5px;"><i class="icon-refresh icon-2x"></i></button>
+      <button class="btn volume-button" style="margin-top: 5px; margin-left: 35px"><i class="icon-volume-off icon-2x"></i></button>
+    </div>
   </div>
 
 </div>
