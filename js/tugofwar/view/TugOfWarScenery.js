@@ -23,7 +23,7 @@ define( function( require ) {
       medium = "medium",
       large = "large";
 
-  function TugOfWarScenery( model, topView ) {
+  function TugOfWarScenery( model, topView, $tab ) {
     this.model = model;
     var tugOfWarScenery = this;
     var view = this;
@@ -42,7 +42,7 @@ define( function( require ) {
     view.model = model;
 
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
+    this.scene = new Scene( $tab.find( ".scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
     this.skyNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: skyGradient} );
     this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
     this.scene.addChild( this.skyNode );

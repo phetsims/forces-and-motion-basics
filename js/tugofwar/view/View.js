@@ -3,7 +3,7 @@ define( function( require ) {
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var TugOfWarScenery = require( 'tugofwar/view/TugOfWarScenery' );
 
-  function View( $images, model ) {
+  function View( $images, model, $tab ) {
     var view = this;
 
     model.on( 'change:state', function( m, state ) {
@@ -16,7 +16,7 @@ define( function( require ) {
 
     view.model = model;
     view.controlPanel = new ControlPanel( model, view );
-    view.scenery = new TugOfWarScenery( model, view );
+    view.scenery = new TugOfWarScenery( model, view, $tab );
 
     view.model.on( 'reset-all', function() {
       view.resetAll();
