@@ -39,6 +39,7 @@ define( function( require ) {
       {
         defaults: {
           showSumOfForces: false,
+          showValues: false,
           running: false,
           volumeOn: false,
           blueKnots: blueKnots,

@@ -34,8 +34,21 @@ define( function( require ) {
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
     };
-    this.model.bind( 'change:showSumOfForces', updateSumForcesCheckBox );
+    this.model.on( 'change:showSumOfForces', updateSumForcesCheckBox );
     updateSumForcesCheckBox( model, model.get( 'showSumOfForces' ) );
+
+    var handleShowValuesClick = function() { view.model.set( 'showValues', !view.model.get( 'showValues' ) ); };
+    var $checkBox2 = $( '.show-values-checkbox' );
+    $checkBox2.bind( "touchstart", handleShowValuesClick );
+    $checkBox2.bind( "click", handleShowValuesClick );
+
+    var updateShowValuesCheckBox = function( model, showValues ) {
+      var $icon = $( '.show-values-checkbox i' );
+      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
+      $icon.addClass( showValues ? "icon-check" : "icon-check-empty" );
+    };
+    this.model.on( 'change:showValues', updateShowValuesCheckBox );
+    updateShowValuesCheckBox( model, model.get( 'showValues' ) );
 
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', model.resetAll.bind( model ) );
