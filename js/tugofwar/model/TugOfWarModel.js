@@ -40,7 +40,8 @@ define( function( require ) {
           volumeOn: false,
           blueKnots: blueKnots,
           redKnots: redKnots,
-          numberPullersAttached: 0
+          numberPullersAttached: 0,
+          state: 'experimenting'
         },
         initialize: function() {
           this.cart = new Cart();
@@ -142,6 +143,11 @@ define( function( require ) {
             this.pullers.each( function( puller ) {
               puller.trigger( 'knot-moved' );
             } );
+
+            if ( this.cart.get( 'x' ) > 200 || this.cart.get( 'x' ) < -200 ) {
+              this.set( 'running', false );
+              this.set( 'state', 'completed' );
+            }
           }
         },
         getNetForce: function() {

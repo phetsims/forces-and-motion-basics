@@ -35,13 +35,14 @@ define( function( require ) {
     goButtonText.y = goButtonImage.height / 2 + 7;
     goButtonImage.addChild( goButtonText );
 
-    model.on( "change:running", function( m, running ) {
-      goButtonText.text = running ? Strings.pause : Strings.go;
+    model.on( "change:running change:state change:numberPullersAttached", function() {
+      goButtonText.text = model.get( 'running' ) ? Strings.pause : Strings.go;
       goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
       goButtonText.y = goButtonImage.height / 2 + 7;
+
+      goButtonImage.visible = model.get( 'numberPullersAttached' ) > 0 && model.get( 'state' ) !== 'completed';
     } );
 
-    model.on( 'change:numberPullersAttached', function( m, numberAttached ) { goButtonImage.visible = numberAttached > 0; } );
     model.trigger( 'change:numberPullersAttached' );
   }
 
