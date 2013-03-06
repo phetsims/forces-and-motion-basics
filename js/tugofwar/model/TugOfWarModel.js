@@ -92,12 +92,10 @@ define( function( require ) {
           this.cart.set( this.cart.defaults );
           this.pullers.each( function( puller ) {
             puller.set( puller.initAttributes );
-            if ( puller.node.knot ) {
-              delete puller.node.knot.puller;
-            }
-            delete puller.node.knot;
           } );
           this.trigger( 'reset-all' );
+          this.knots.each( function( knot ) {knot.set( 'x', knot.initX );} );
+          this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
         },
         step: function() {
           if ( this.get( 'running' ) ) {
