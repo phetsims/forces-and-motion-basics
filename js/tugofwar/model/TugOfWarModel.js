@@ -85,7 +85,6 @@ define( function( require ) {
           var closest = _.min( filter, function( knot ) {
             return Math.abs( knot.get( 'x' ) - puller.get( 'x' ) );
           } );
-          console.log( "closest", closest );
           return closest;
         },
         resetAll: function() {
