@@ -29,11 +29,13 @@ define( function( require ) {
     $checkBox.bind( "touchstart", handleClick );
     $checkBox.bind( "click", handleClick );
 
-    this.model.bind( 'change:showSumOfForces', function( model, showSumOfForces ) {
+    var updateSumForcesCheckBox = function( model, showSumOfForces ) {
       var $icon = $( '.sum-of-forces-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
-    } );
+    };
+    this.model.bind( 'change:showSumOfForces', updateSumForcesCheckBox );
+    updateSumForcesCheckBox( model, model.get( 'showSumOfForces' ) );
 
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', model.resetAll.bind( model ) );
@@ -47,8 +49,6 @@ define( function( require ) {
     model.trigger( 'change:volumeOn' );
     $volumeButton.bind( 'touchstart', volumeButtonEvent );
     $volumeButton.bind( 'click', volumeButtonEvent );
-
-    $( '.sum-of-forces-checkbox i' ).removeClass( "icon-check-empty" ).addClass( "icon-check" );
   }
 
   return ControlPanel;

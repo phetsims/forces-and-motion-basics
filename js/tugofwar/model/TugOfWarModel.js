@@ -38,7 +38,7 @@ define( function( require ) {
   return Backbone.Model.extend(
       {
         defaults: {
-          showSumOfForces: true,
+          showSumOfForces: false,
           running: false,
           volumeOn: false,
           blueKnots: blueKnots,
