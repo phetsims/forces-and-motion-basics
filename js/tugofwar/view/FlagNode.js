@@ -12,9 +12,8 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this, {x: 420, y: 100} );
     this.addChild( new Text( model.cart.get( 'x' ) < 0 ? "Blue Team Wins" : "Red Team Wins", {fontSize: '34px', backend: 'svg'} ) );
-    model.once( 'reset-all', function() {//Do it once, to remove as a listener.
-      flagNode.detach();
-    } );
+    //Do it once, to remove as a listener.
+    model.once( 'reset-all', function() {flagNode.detach();} );
   }
 
   Inheritance.inheritPrototype( FlagNode, Node );
