@@ -24,10 +24,10 @@ define( function( require ) {
     this.view = view;
     var controlPanel = this;
 
-    var handleClick = function() { view.model.set( {'showSumOfForces': !view.model.get( 'showSumOfForces' )} ); };
+    var handleShowSumOfForcesClick = function() { view.model.set( {'showSumOfForces': !view.model.get( 'showSumOfForces' )} ); };
     var $checkBox = $( '.sum-of-forces-checkbox' );
-    $checkBox.bind( "touchstart", handleClick );
-    $checkBox.bind( "click", handleClick );
+    $checkBox.bind( "touchstart", handleShowSumOfForcesClick );
+    $checkBox.bind( "click", handleShowSumOfForcesClick );
 
     var updateSumForcesCheckBox = function( model, showSumOfForces ) {
       var $icon = $( '.sum-of-forces-checkbox i' );
