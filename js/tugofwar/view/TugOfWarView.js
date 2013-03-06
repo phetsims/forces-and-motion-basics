@@ -3,7 +3,7 @@ define( function( require ) {
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var TugOfWarScenery = require( 'tugofwar/view/TugOfWarScenery' );
 
-  function View( $images, model, $tab ) {
+  function TugOfWarView( $images, model, $tab ) {
     var view = this;
 
     model.on( 'change:state', function( m, state ) {
@@ -23,7 +23,7 @@ define( function( require ) {
     } );
   }
 
-  View.prototype = {
+  TugOfWarView.prototype = {
     render: function() {
       this.scenery.scene.updateScene();
     },
@@ -46,5 +46,5 @@ define( function( require ) {
            };
   })();
 
-  return View;
+  return TugOfWarView;
 } );
