@@ -7,7 +7,7 @@ define( function( require ) {
     var view = this;
 
     model.on( 'change:state', function( m, state ) {
-      if ( state === 'completed' ) {
+      if ( state === 'completed' && m.get( 'volumeOn' ) ) {
         var sound = new Howl( {urls: ['./audio/golf-clap.wav', './audio/golf-clap.ogg']} ).play();
       }
     } );
