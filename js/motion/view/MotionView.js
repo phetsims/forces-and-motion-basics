@@ -9,7 +9,7 @@ define( function( require ) {
     view.getImage = function( name ) {return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];};
 
     view.model = model;
-    view.controlPanel = new ControlPanel( model, view );
+//    view.controlPanel = new ControlPanel( model, view );
     view.scenery = new MotionScenery( model, view, $tab );
 
     view.model.on( 'reset-all', function() {
