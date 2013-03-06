@@ -16,6 +16,7 @@ define( function( require ) {
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var FlagNode = require( 'tugofwar/view/FlagNode' );
   var red = "red",
       blue = "blue",
       small = "small",
@@ -87,6 +88,12 @@ define( function( require ) {
         view.updateForces();
       } );
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+    } );
+
+    model.on( 'change:state', function( m, state ) {
+      if ( state === 'completed' ) {
+        tugOfWarScenery.scene.addChild( new FlagNode( model ) );
+      }
     } );
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
