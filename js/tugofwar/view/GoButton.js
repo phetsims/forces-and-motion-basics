@@ -40,6 +40,9 @@ define( function( require ) {
       goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
       goButtonText.y = goButtonImage.height / 2 + 7;
     } );
+
+    model.on( 'change:numberPullersAttached', function( m, numberAttached ) { goButtonImage.visible = numberAttached > 0; } );
+    model.trigger( 'change:numberPullersAttached' );
   }
 
   Inheritance.inheritPrototype( GoButton, Image );

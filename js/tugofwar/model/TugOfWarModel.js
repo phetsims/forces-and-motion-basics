@@ -37,7 +37,8 @@ define( function( require ) {
           running: false,
           volumeOn: false,
           blueKnots: blueKnots,
-          redKnots: redKnots
+          redKnots: redKnots,
+          numberPullersAttached: 0
         },
         initialize: function() {
           this.cart = new Cart();
@@ -71,9 +72,14 @@ define( function( require ) {
                 if ( knot ) {
                   puller.set( {x: knot.get( 'x' ), y: knot.get( 'y' ), knot: knot} );
                 }
+
+                model.set( 'numberPullersAttached', model.countAttachedPullers() );
               }
             } );
           } );
+        },
+        countAttachedPullers: function() {
+          return this.pullers.filter(function( puller ) {return puller.has( 'knot' );} ).length;
         },
         updateVisibleKnots: function() {
           var model = this;
