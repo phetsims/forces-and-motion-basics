@@ -103,6 +103,11 @@ define( function( require ) {
               }
             }
           } );
+
+          model.set( 'visible', !model.get( 'visible' ) );
+          model.set( {visible: true, x: 234} );
+          model.visible = !model.visible;
+
         },
         getPuller: function( knot ) {
           var find = this.pullers.find( function( puller ) {return puller.get( 'knot' ) === knot;} );

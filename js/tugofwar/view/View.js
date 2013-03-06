@@ -7,6 +7,12 @@ define( function( require ) {
   function View( $images, model ) {
     var view = this;
 
+    model.on( 'change:state', function( m, state ) {
+      if ( state === 'completed' ) {
+        var sound = new Howl( {urls: ['./audio/golf-clap.wav', './audio/golf-clap.ogg']} ).play();
+      }
+    } );
+
     view.getImage = function( name ) {return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];};
 
     view.model = model;
