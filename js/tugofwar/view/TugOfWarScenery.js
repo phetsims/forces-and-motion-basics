@@ -16,6 +16,7 @@ define( function( require ) {
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var red = "red",
       blue = "blue",
       small = "small",
@@ -40,7 +41,12 @@ define( function( require ) {
 
     view.model = model;
 
+    var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.scene = new Scene( $( "#scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
+    this.skyNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: skyGradient} );
+    this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
+    this.scene.addChild( this.skyNode );
+    this.scene.addChild( this.groundNode );
     var grassY = 368;
     this.scene.addChild( new Image( topView.getImage( 'grass' ), {x: 13, y: grassY} ) );
     this.sumArrow = new Path( {shape: new Shape(), fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
@@ -79,7 +85,6 @@ define( function( require ) {
 
     view.model.pullers.each( function( puller ) {
       puller.on( 'change:x change:y', function( puller ) {
-        view.highlightClosestKnot( puller.node );
         view.updateForces();
       } );
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
@@ -118,16 +123,10 @@ define( function( require ) {
       //Clear raphael layers and rebuild
       $( "#background" ).empty();
 
-      //Show the sky
-      var paper = new Raphael( document.getElementById( "background" ), width - 5, height - 5 );
-      var sky = paper.rect( 0, 0, width - 5, height - groundHeight );
-      sky.attr( 'fill', '90-#cfecfc-#02ace4' );
-      sky.attr( 'stroke', '#fff' );
+      this.skyNode.shape = Shape.rect( 0, 0, 981 / scale, 376 );
+      this.skyNode.fill = new LinearGradient( 0, 0, 0, height - groundHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      //Show the ground
-      var ground = paper.rect( 0, height - groundHeight, width, groundHeight );
-      ground.attr( 'fill', '#c59a5b' );
-      ground.attr( 'stroke', '#fff' );
+      this.groundNode.shape = Shape.rect( 0, 376, 981 / scale, groundHeight / scale );
 
       var $tabIcons = $( '.tab-icons' );
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
@@ -137,35 +136,6 @@ define( function( require ) {
     },
     render: function() {
       this.scene.updateScene();
-    },
-    //Get the closest knot that is grabbable and within range
-    getTargetKnot: function( pullerNode ) {
-      var rightType = _.filter( this.knotNodes, function( knot ) {
-        return knot.type === pullerNode.puller.get( "type" );
-      } );
-      var filtered = _.filter( rightType, function( knot ) {return knot.puller === undefined;} );
-      if ( filtered.length === 0 ) {
-        return null;
-      }
-      var distance = function( knot ) {
-        var dx2 = Math.pow( pullerNode.centerX - knot.centerX, 2 );
-        var dy2 = Math.pow( pullerNode.centerY - knot.centerY, 2 );
-        return Math.sqrt( dx2 + dy2 );
-      };
-      var closestAvailable = _.min( filtered, distance );
-      return distance( closestAvailable ) < 200 ? closestAvailable : null;
-    },
-    hideKnots: function() {_.each( this.knotNodes, function( knot ) {knot.visible = false;} );},
-    highlightClosestKnot: function( pullerNode ) {
-      this.hideKnots();
-      var closestKnot = this.getTargetKnot( pullerNode );
-
-      //TODO: why is this sometimes undefined
-      if ( closestKnot === undefined || closestKnot == null ) {
-      }
-      else {
-        closestKnot.visible = true;
-      }
     },
     updateForces: function() {
       var x = this.arrowTailX;

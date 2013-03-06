@@ -17,7 +17,6 @@ define( function( require ) {
                                                        this.get( 'size' ) === medium ? 20 * 5 :
                                                        this.get( 'size' ) === large ? 30 * 5 :
                                                        NaN;
-                                          console.log( "force", this.force );
                                         },
                                         disconnect: function() {this.set( 'knot', null );}
                                       } );
