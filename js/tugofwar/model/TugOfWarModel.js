@@ -85,8 +85,15 @@ define( function( require ) {
             }
           } );
         },
+        getPuller: function( knot ) {
+          var find = this.pullers.find( function( puller ) {return puller.get( 'knot' ) === knot;} );
+          return typeof(find) != "undefined" ? find : null;
+        },
         getTargetKnot: function( puller ) {
-          var filter = this.knots.filter( function( knot ) {return knot.get( 'type' ) === puller.get( 'type' );} );
+          var model = this;
+          var filter = this.knots.filter( function( knot ) {
+            return knot.get( 'type' ) === puller.get( 'type' ) && model.getPuller( knot ) === null;
+          } );
           var distance = function( knot ) {
             return Math.sqrt( Math.pow( knot.get( 'x' ) - puller.get( 'x' ), 2 ) + Math.pow( knot.get( 'y' ) - puller.get( 'y' ), 2 ) );
           };
