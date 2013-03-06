@@ -1,5 +1,17 @@
-require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel" ], function( TugOfWarView, TugOfWarModel ) {
+require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
+           "motion/view/MotionView"], function( TugOfWarView, TugOfWarModel, MotionView ) {
   "use strict";
+
+  window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame ||
+           window.webkitRequestAnimationFrame ||
+           window.mozRequestAnimationFrame ||
+           window.oRequestAnimationFrame ||
+           window.msRequestAnimationFrame ||
+           function( callback ) {
+             window.setTimeout( callback, 1000 / 60 );
+           };
+  })();
 
   var useDebugDiv = false;
   if ( useDebugDiv ) {
@@ -18,10 +30,16 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel" ], funct
     };
   }
 
+  var views = [];
+  var $tab2;
+
   //Don't load the view until all images available.  Maybe future versions could optimize this by making the image loading dependencies more granular.
   $( 'body' ).imagesLoaded( function( $images, $proper, $broken ) {
     var model = new TugOfWarModel();
-    var view = new TugOfWarView( $images, model, $( '.tab1' ) );
+    views.push( new TugOfWarView( $images, model, $( '.tab1' ) ) );
+    views.push( new MotionView( $images, model, $( '.tab2' ) ) );
+
+    $tab2 = $( '.tab2' ).detach();
     $( "#overlay" ).remove();
     if ( !useDebugDiv ) {
       $( "debugDiv" ).remove();
@@ -32,6 +50,9 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel" ], funct
     var $tabs = $( '.tabs' );
     $tabs.children().hide();
     $tabs.children( '.tab' + index ).show();
+    if ( index == 2 ) {
+      $tab2.appendTo( $tabs );
+    }
   }
 
   for ( var i = 1; i <= 4; i++ ) {
