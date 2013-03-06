@@ -70,6 +70,7 @@ define( function( require ) {
     this.scene.addChild( this.cartNode );
     this.scene.addChild( new GoButton( getImage, this.model ) );
 
+    //Black caret below the cart
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
