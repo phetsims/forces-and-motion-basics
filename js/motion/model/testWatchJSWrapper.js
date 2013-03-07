@@ -1,7 +1,8 @@
 define( function( require ) {
-  var Model = require( "motion/model/Model" );
-  var watch = require( "view/watch" );
   "use strict";
+  var SwatchJS = require( 'motion/model/SwatchJS' );
+  var Model = require( "motion/model/Model" );
+  var watch = SwatchJS.swatch;
 
   return function() {
     console.log( "Testing model" );
@@ -95,12 +96,10 @@ define( function( require ) {
       };
     }
 
-    watch( state, 'appliedForce', function( newAppliedForce ) {
-      console.log( "new applied force: " + newAppliedForce );
+    watch( state, 'appliedForce', function( prop, action, oldValue, newValue ) {
+      console.log( "new applied force: " + newValue );
     } );
-    watch( state, function( any ) {
-      console.log( any );
-    } );
+
     state.appliedForce = 3;
     state.userInfo.name = "Moe";
     state.animal.species = "anteater";
@@ -206,5 +205,14 @@ define( function( require ) {
     var getAge = ageProperty.get;
     setAge( 49 );
     console.log( "using the simplified getter: " + getAge() );
+
+    console.log( "*************" );
+    var person = {name: 'Meg', age: '99'};
+    watch( person, 'age', function( age ) {
+      console.log( "person's age: " + age );
+    } );
+    person.age = 100;
+    person.age = 100;
+    person.age = 101;
   };
 } );
