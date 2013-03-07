@@ -1,36 +1,12 @@
 define( function( require ) {
   "use strict";
-  function MotionModel() {
-    this.listeners = [];
-    this.state = {
-      stack: [],
-      appliedForce: 0,
-      friction: 0,
-      velocity: 0,
-      position: 0,
-      showForce: true,
-      showSumOfForces: false,
-      showValues: false,
-      showSpeed: true,
-      showMasses: false,
-      showAcceleration: false,
-      running: true,
-      items: [
-        {image: 'fridge.png', weight: 100, x: 100, y: 100, dragging: false},
-        {image: 'crate.png', weight: 100, x: 200, y: 100, dragging: false},
-        {image: 'crate.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'girl.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'man.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
-      ]
-    };
-
-    //TODO: write a function that provides property or other interface to these objects
+  function MotionModel( parent, state ) {
+    this.state = state;
+    this.parent = parent;
   }
 
   MotionModel.prototype = {
-
+    listeners: [],
     //TODO: These methods held over from backbone prototype, needs to be deleted
     on: function() {},
     trigger: function() {},
@@ -67,6 +43,11 @@ define( function( require ) {
         set: this.setter( propertyName ),
         addListener: this.addListener( propertyName )
       };
+    },
+
+    //Returns a model wrapper for one of the child elements
+    get: function( propertyName ) {
+      return new MotionModel( this, this.state[propertyName] );
     }
   };
   return MotionModel;

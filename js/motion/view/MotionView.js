@@ -22,6 +22,17 @@ define( function( require ) {
     } );
     setAppliedForce( 321 );
 
+    var item0 = model.property( 'items' ).get()[0];
+    console.log( item0 );
+
+//    var item0position = model.property( 'items[0].position' );
+
+    //Get a wrapper for a submodel, which can use property interface, etc.
+    var submodel = model.get( 'userInfo' );
+    console.log( submodel );
+    var name = submodel.property( 'name' );
+    console.log( name.get() );
+
     view.getImage = function( name ) {return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];};
 
     view.model = model;

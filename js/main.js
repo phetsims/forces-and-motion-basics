@@ -37,7 +37,30 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   $( 'body' ).imagesLoaded( function( $images, $proper, $broken ) {
     views.push( new TugOfWarView( $images, new TugOfWarModel(), $( '.tab1' ) ) );
 
-    views.push( new MotionView( $images, new MotionModel(), $( '.tab2' ) ) );
+    views.push( new MotionView( $images, new MotionModel( null, {
+      stack: [],
+      appliedForce: 0,
+      friction: 0,
+      velocity: 0,
+      position: 0,
+      showForce: true,
+      showSumOfForces: false,
+      showValues: false,
+      showSpeed: true,
+      showMasses: false,
+      showAcceleration: false,
+      running: true,
+      userInfo: {name: "Larry", hair: "Curly", corners: 3},
+      items: [
+        {image: 'fridge.png', weight: 100, x: 100, y: 100, dragging: false},
+        {image: 'crate.png', weight: 100, x: 200, y: 100, dragging: false},
+        {image: 'crate.png', weight: 100, x: 300, y: 100, dragging: false},
+        {image: 'girl.png', weight: 100, x: 300, y: 100, dragging: false},
+        {image: 'man.png', weight: 100, x: 300, y: 100, dragging: false},
+        {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
+        {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
+      ]
+    } ), $( '.tab2' ) ) );
 
     $tab2 = $( '.tab2' ).detach();
     $( "#overlay" ).remove();
