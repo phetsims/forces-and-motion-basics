@@ -1,9 +1,10 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           "motion/model/Model", "motion/model/testModel"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, Model, testModel ) {
+           "motion/model/Model", "motion/model/testModel", "motion/model/testWatchJSWrapper"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, Model, testModel, testWatchJSWrapper ) {
   "use strict";
 
-  testModel();
+//  testModel();
+  testWatchJSWrapper();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
