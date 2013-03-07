@@ -1,6 +1,6 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           "motion/model/testSwatch"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch ) {
+           "motion/model/testSwatch", 'PHETCOMMON/util/ImagesLoader'], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, ImagesLoader ) {
   "use strict";
 
 //  testSwatch();
@@ -36,10 +36,11 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   var views = [];
   var $tab2;
 
-  //Don't load the view until all images available.  Maybe future versions could optimize this by making the image loading dependencies more granular.
-  $( 'body' ).imagesLoaded( function( $images, $proper, $broken ) {
-    views.push( new TugOfWarView( $images, new TugOfWarModel(), $( '.tab1' ) ) );
-    views.push( new MotionView( $images, motionModel, $( '.tab2' ) ) );
+  // after images are loaded...
+  new ImagesLoader( function( imageLoader ) {
+
+    views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $( '.tab1' ) ) );
+    views.push( new MotionView( imageLoader, motionModel, $( '.tab2' ) ) );
 
     $tab2 = $( '.tab2' ).detach();
     $( "#overlay" ).remove();

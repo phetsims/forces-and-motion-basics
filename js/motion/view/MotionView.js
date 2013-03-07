@@ -3,13 +3,14 @@ define( function( require ) {
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var MotionScenery = require( 'motion/view/MotionScenery' );
 
-  function MotionView( $images, model, $tab ) {
+  function MotionView( imageLoader, model, $tab ) {
     var view = this;
-    view.getImage = function( name ) {return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];};
+    view.imageLoader = imageLoader;
+    view.getImage = function( name ) {return imageLoader.getImage( name );};
 
     view.model = model;
 //    view.controlPanel = new ControlPanel( model, view );
-    view.scenery = new MotionScenery( model, view, $tab );
+    view.scenery = new MotionScenery( model, view, $tab, imageLoader );
 
     view.model.on( 'reset-all', function() {
       view.resetAll();

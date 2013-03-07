@@ -3,16 +3,17 @@ define( function( require ) {
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var TugOfWarScenery = require( 'tugofwar/view/TugOfWarScenery' );
 
-  function TugOfWarView( $images, model, $tab ) {
+  function TugOfWarView( imageLoader, model, $tab ) {
     var view = this;
 
+    view.imageLoader = imageLoader;
     model.on( 'change:state', function( m, state ) {
       if ( state === 'completed' && m.get( 'volumeOn' ) ) {
         var sound = new Howl( {urls: ['./audio/golf-clap.wav', './audio/golf-clap.ogg']} ).play();
       }
     } );
 
-    view.getImage = function( name ) {return $images.parent().find( 'img[src^="images/' + name + '"]' )[0];};
+    view.getImage = function( name ) {return imageLoader.getImage( name );};
 
     view.model = model;
     view.controlPanel = new ControlPanel( model, view );

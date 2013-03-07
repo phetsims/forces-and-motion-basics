@@ -17,11 +17,13 @@ define( function( require ) {
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
+  var ItemNode = require( 'motion/view/ItemNode' );
 
-  function TugOfWarScenery( model, topView, $tab ) {
+  function TugOfWarScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
     var tugOfWarScenery = this;
     var view = this;
+    view.imageLoader = imageLoader;
     var getImage = topView.getImage;
 
     view.model = model;
@@ -49,6 +51,11 @@ define( function( require ) {
 
     this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
+
+    for ( var i = 0; i < model.items.length; i++ ) {
+      var item = model.items[i];
+      this.scene.addChild( new ItemNode( model, item, view.imageLoader.getImage( item.image ) ) );
+    }
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
