@@ -3,8 +3,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/model/testSwatch"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch ) {
   "use strict";
 
-//  testModel();
-  testSwatch();
+//  testSwatch();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
@@ -47,6 +46,9 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     if ( !useDebugDiv ) {
       $( "debugDiv" ).remove();
     }
+
+    //Start in Tab 2 for debugging
+    setSelectedTab( 2 );
   } );
 
   function setSelectedTab( index ) {

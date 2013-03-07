@@ -21,7 +21,12 @@ define( function( require ) {
       {image: 'man.png', weight: 100, x: 300, y: 100, dragging: false},
       {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
       {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
-    ], step: function() {}, on: function() {}
+    ], step: function() {
+      var dt = 1;
+      this.velocity = 1;
+      this.position = this.position + this.velocity * dt;
+//      console.log( "p = " + this.position );
+    }, on: function() {}
   };
 } )
 ;
