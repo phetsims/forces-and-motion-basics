@@ -1,6 +1,9 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
-           "motion/view/MotionView", "motion/model/MotionModel"], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel ) {
+           "motion/view/MotionView", "motion/model/MotionModel",
+           "motion/model/Model", "motion/model/testModel"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, Model, testModel ) {
   "use strict";
+
+  testModel();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
@@ -36,31 +39,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   //Don't load the view until all images available.  Maybe future versions could optimize this by making the image loading dependencies more granular.
   $( 'body' ).imagesLoaded( function( $images, $proper, $broken ) {
     views.push( new TugOfWarView( $images, new TugOfWarModel(), $( '.tab1' ) ) );
-
-    views.push( new MotionView( $images, new MotionModel( null, {
-      stack: [],
-      appliedForce: 0,
-      friction: 0,
-      velocity: 0,
-      position: 0,
-      showForce: true,
-      showSumOfForces: false,
-      showValues: false,
-      showSpeed: true,
-      showMasses: false,
-      showAcceleration: false,
-      running: true,
-      userInfo: {name: "Larry", hair: "Curly", corners: 3},
-      items: [
-        {image: 'fridge.png', weight: 100, x: 100, y: 100, dragging: false},
-        {image: 'crate.png', weight: 100, x: 200, y: 100, dragging: false},
-        {image: 'crate.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'girl.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'man.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
-        {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
-      ]
-    } ), $( '.tab2' ) ) );
+    views.push( new MotionView( $images, new Model( null, motionModel ), $( '.tab2' ) ) );
 
     $tab2 = $( '.tab2' ).detach();
     $( "#overlay" ).remove();
