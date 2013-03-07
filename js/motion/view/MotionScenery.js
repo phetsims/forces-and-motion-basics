@@ -1,7 +1,7 @@
 define( function( require ) {
   "use strict";
   var PullerNode = require( "tugofwar/view/PullerNode" );
-  var Shape = require( 'SCENERY/Shape' );
+  var Shape = require( 'SCENERY/shapes/Shape' );
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
