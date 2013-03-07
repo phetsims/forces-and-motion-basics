@@ -21,6 +21,7 @@ define( function( require ) {
       {image: 'man.png', weight: 100, x: 300, y: 100, dragging: false},
       {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
       {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
-    ]
+    ], step: function() {}, on: function() {}
   };
-} );
+} )
+;

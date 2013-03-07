@@ -1,10 +1,10 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           "motion/model/Model", "motion/model/testModel", "motion/model/testWatchJSWrapper"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, Model, testModel, testWatchJSWrapper ) {
+           "motion/model/testSwatch"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch ) {
   "use strict";
 
 //  testModel();
-  testWatchJSWrapper();
+  testSwatch();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
@@ -40,7 +40,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   //Don't load the view until all images available.  Maybe future versions could optimize this by making the image loading dependencies more granular.
   $( 'body' ).imagesLoaded( function( $images, $proper, $broken ) {
     views.push( new TugOfWarView( $images, new TugOfWarModel(), $( '.tab1' ) ) );
-    views.push( new MotionView( $images, new Model( null, motionModel ), $( '.tab2' ) ) );
+    views.push( new MotionView( $images, motionModel, $( '.tab2' ) ) );
 
     $tab2 = $( '.tab2' ).detach();
     $( "#overlay" ).remove();
