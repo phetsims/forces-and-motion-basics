@@ -4,6 +4,15 @@ define( function( require ) {
   return function() {
     console.log( "Testing model" );
 
+
+    function Animal( name, age, species ) {
+      this.name = name;
+      this.age = age;
+      this.species = species;
+    }
+
+    var bongo = new Animal( 'bongo', 23, 'bear' );
+
     var state = {
       stack: [],
       appliedForce: 0,
@@ -26,7 +35,8 @@ define( function( require ) {
         {image: 'man.png', weight: 100, x: 300, y: 100, dragging: false},
         {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
         {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
-      ]
+      ],
+      animal: bongo
     };
 
     var model = new Model( null, state );
@@ -56,6 +66,11 @@ define( function( require ) {
     var submodel = model.get( 'userInfo' );
     console.log( submodel );
     var name = submodel.property( 'name' );
+
+    name.addListener( function( newName ) {
+      console.log( "new name = " + newName );
+    } );
     console.log( name.get() );
+    name.set( "Barbara" );
   };
 } );

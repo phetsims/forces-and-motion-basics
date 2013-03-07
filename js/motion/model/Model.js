@@ -27,7 +27,10 @@ define( function( require ) {
       var model = this;
       return function( value ) {
         model.state[propertyName] = value;
-        model.triggerChange( propertyName );//TODO: make sure value actually different
+
+        //TODO: make sure value actually different
+        //TODO: signify change on parent
+        model.triggerChange( propertyName );
       };
     },
     addListener: function( propertyName ) {
