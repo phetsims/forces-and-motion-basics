@@ -161,5 +161,50 @@ define( function( require ) {
     visibilityState.showRedObjects = true;
     visibilityState.showCircles = true;
     visibilityState.showRedObjects = true;
+
+    console.log( "==========" );
+
+    //Define a class for something that will be in the model
+    function Electron( moving, velocity ) {
+      this.moving = moving;
+      this.velocity = velocity;
+    }
+
+    Electron.prototype = {
+      maximizeVelocity: function() {
+        this.velocity = 2.9979E8;
+      }
+    };
+
+    //Define the entire model
+    var model = {
+      paused: true,
+      electron: new Electron( true, 100.0 ),
+      user: {name: "Larry", age: 47}
+    };
+
+    //Demonstrate watching simple values, with no duplicate messages
+    watch( model, 'paused', function( paused ) {console.log( "Paused: " + paused )} );
+    model.paused = false;
+    model.paused = false;
+
+    //Demonstrate watching a sub-component of the model, without having to know the root of the model
+    watch( model.user, 'name', function( name ) {console.log( "The name is: " + name )} );
+    model.user.name = "Larrison";
+
+    //Demonstrate the ability to watch user-defined classes (instead of just object literals)
+    //And to integrate with object specific setters
+    watch( model.electron, 'velocity', function( velocity ) {console.log( "velocity = " + velocity );} );
+    model.electron.maximizeVelocity();
+
+    //Demonstrate property interface
+    var ageProperty = property( model.user, 'age' );
+    ageProperty.addListener( function( age ) {console.log( "age is now: " + age );} );
+    ageProperty.set( 48 );
+    console.log( "getting the age: " + ageProperty.get() );
+    var setAge = ageProperty.set;
+    var getAge = ageProperty.get;
+    setAge( 49 );
+    console.log( "using the simplified getter: " + getAge() );
   };
 } );
