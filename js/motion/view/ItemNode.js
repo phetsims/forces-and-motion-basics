@@ -18,9 +18,9 @@ define( function( require ) {
     this.addChild( new Image( image ) );
 
     //add listener to assist in initial layout
-//    this.addInputListener( new SimpleDragHandler( {drag: function() {
+    this.addInputListener( new SimpleDragHandler( {drag: function() {
 //      console.log( "{x:" + itemNode.x.toFixed( 0 ) + ", y: " + itemNode.y.toFixed( 0 ) + "}" );
-//    }} ) );
+    }} ) );
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );

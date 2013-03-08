@@ -103,15 +103,6 @@ define( function( require ) {
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();
-
-    //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-    // place the rAF *before* the render() to assure as close to
-    // 60fps with the setTimeout fallback.
-    (function animloop() {
-      requestAnimFrame( animloop );
-      model.step();
-      view.render();
-    })();
   }
 
   TugOfWarScenery.prototype = {

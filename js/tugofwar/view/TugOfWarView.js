@@ -23,14 +23,15 @@ define( function( require ) {
   }
 
   TugOfWarView.prototype = {
-    render: function() {
-      this.scenery.scene.updateScene();
-    },
     updateForces: function() {
       this.scenery.updateForces();
     },
     resetAll: function() {
       this.scenery.updateForces();
+    },
+    step: function() {
+      this.model.step();
+      this.scenery.scene.updateScene();
     }
   };
 

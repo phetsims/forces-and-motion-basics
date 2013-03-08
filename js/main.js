@@ -30,7 +30,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   var views = [];
   var $tab2;
 
-  var simModel = {selectedTabIndex: 0};
+  var selectedTabIndex = 0;
 
   //Wait until images are loaded, then launch the sim and show the initial tab
   new ImagesLoader( function( imageLoader ) {
@@ -46,15 +46,26 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
 
     //Start in Tab 2 for debugging
 //    setSelectedTab( 2 );
+
+    //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    // place the rAF *before* the render() to assure as close to
+    // 60fps with the setTimeout fallback.
+    (function animloop() {
+      requestAnimFrame( animloop );
+      if ( typeof views[selectedTabIndex] != 'undefined' ) {
+        views[selectedTabIndex].step();
+      }
+    })();
   } );
 
-  function setSelectedTab( index ) {
+  function setSelectedTab( tabName ) {
     var $tabs = $( '.tabs' );
     $tabs.children().hide();
-    $tabs.children( '.tab' + index ).show();
-    if ( index == 2 ) {
+    $tabs.children( '.tab' + tabName ).show();
+    if ( tabName == 2 ) {
       $tab2.appendTo( $tabs );
     }
+    selectedTabIndex = tabName - 1;
   }
 
   for ( var i = 1; i <= 4; i++ ) {

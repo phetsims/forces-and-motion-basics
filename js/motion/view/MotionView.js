@@ -18,14 +18,15 @@ define( function( require ) {
   }
 
   MotionView.prototype = {
-    render: function() {
-      this.scenery.scene.updateScene();
-    },
     updateForces: function() {
       this.scenery.updateForces();
     },
     resetAll: function() {
       this.scenery.updateForces();
+    },
+    step: function() {
+      this.model.step();
+      this.scenery.scene.updateScene();
     }
   };
 
