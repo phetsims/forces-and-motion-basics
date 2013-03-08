@@ -10,7 +10,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
   var arrow = require( 'tugofwar/view/arrow' );
   var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
@@ -18,6 +17,8 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var ItemNode = require( 'motion/view/ItemNode' );
+  var HSlider = require( 'motion/view/HSlider' );
+  var property = require( 'motion/model/Property' );
 
   function TugOfWarScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
@@ -59,6 +60,10 @@ define( function( require ) {
 
     var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {x: 395, y: 342} );
     this.scene.addChild( skateboardImage );
+
+    var fakemodel = {amount: 50};
+    var slider = new HSlider( 0, 100, 200, property( fakemodel, 'amount' ), {x: 400, y: 400} );
+    this.scene.addChild( slider );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
