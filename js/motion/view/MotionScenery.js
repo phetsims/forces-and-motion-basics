@@ -57,6 +57,9 @@ define( function( require ) {
       this.scene.addChild( new ItemNode( model, item, view.imageLoader.getImage( item.image ) ) );
     }
 
+    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {x: 395, y: 342} );
+    this.scene.addChild( skateboardImage );
+
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();

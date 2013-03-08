@@ -19,7 +19,7 @@ define( function( require ) {
 
     //add listener to assist in initial layout
     this.addInputListener( new SimpleDragHandler( {drag: function() {
-      console.log( "{x:" + itemNode.x + ", y: " + itemNode.y + "}" );
+      console.log( "{x:" + itemNode.x.toFixed( 0 ) + ", y: " + itemNode.y.toFixed( 0 ) + "}" );
     }} ) );
   }
 
