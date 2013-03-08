@@ -3,3 +3,4 @@ node_modules
 dist
 common/scenery
 Thumbs.db
+deploy-output/
