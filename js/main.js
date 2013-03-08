@@ -3,8 +3,6 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/model/testSwatch", 'PHETCOMMON/util/ImagesLoader'], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, ImagesLoader ) {
   "use strict";
 
-//  testSwatch();
-
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
            window.webkitRequestAnimationFrame ||
@@ -16,17 +14,13 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            };
   })();
 
+  //Code to show console output in a div, requires a #debugDiv in the HTML
   var useDebugDiv = false;
   if ( useDebugDiv ) {
     if ( typeof console !== "undefined" ) {
-      if ( typeof console.log !== 'undefined' ) {
-        console.olog = console.log;
-      }
-      else {
-        console.olog = function() {};
-      }
+      if ( typeof console.log !== 'undefined' ) { console.olog = console.log; }
+      else { console.olog = function() {}; }
     }
-
     console.log = function( message ) {
       console.olog( message );
       $( '#debugDiv' ).append( '<p>' + message + '</p>' );
@@ -36,7 +30,9 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   var views = [];
   var $tab2;
 
-  // after images are loaded...
+  var simModel = {selectedTabIndex: 0};
+
+  //Wait until images are loaded, then launch the sim and show the initial tab
   new ImagesLoader( function( imageLoader ) {
 
     views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $( '.tab1' ) ) );
@@ -49,7 +45,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     }
 
     //Start in Tab 2 for debugging
-    setSelectedTab( 2 );
+//    setSelectedTab( 2 );
   } );
 
   function setSelectedTab( index ) {

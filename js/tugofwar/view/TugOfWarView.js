@@ -19,9 +19,7 @@ define( function( require ) {
     view.controlPanel = new ControlPanel( model, view );
     view.scenery = new TugOfWarScenery( model, view, $tab );
 
-    view.model.on( 'reset-all', function() {
-      view.resetAll();
-    } );
+    view.model.on( 'reset-all', function() { view.resetAll(); } );
   }
 
   TugOfWarView.prototype = {
