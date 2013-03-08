@@ -97,7 +97,7 @@ define( function( require ) {
       }
     } );
 
-    this.scene.initializeFullscreenEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
+    this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
     //Fit to the window and render the initial scene

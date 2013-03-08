@@ -23,17 +23,16 @@ define( function( require ) {
     this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 2 ), fill: 'red'} ) );
 
     //The knob
-    var knob = new Path( {shape: Shape.rect( 0, 0, 44, 44 ), fill: 'blue', cursor: 'pointer', allowTouchSnag: true} );
+    var knob = new Path( {shape: Shape.rect( 0, 0, 44, 44 ), fill: 'blue', cursor: 'pointer', renderer: 'svg'} );
 
-    knob.addInputListener( new SimpleDragHandler( {translate: function( options ) {
-      var x = Math.min( Math.max( options.position.x, 0 ), width );
-      property.set( linear( 0, width, min, max, x ) );
-    }} ) );
+    knob.addInputListener( new SimpleDragHandler( {allowTouchSnag: true, translate: function( options ) {
+                                                    var x = Math.min( Math.max( options.position.x, 0 ), width );
+                                                    property.set( linear( 0, width, min, max, x ) );
+                                                  }}
+    ) );
     this.addChild( knob );
 
-    property.addListener( function( value ) {
-      knob.x = linear( min, max, 0, width, value );
-    } );
+    property.addListener( function( value ) { knob.x = linear( min, max, 0, width, value ); } );
   }
 
   Inheritance.inheritPrototype( HSlider, Node );
