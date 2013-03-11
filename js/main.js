@@ -52,7 +52,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     // 60fps with the setTimeout fallback.
     (function animloop() {
       requestAnimFrame( animloop );
-      if ( typeof views[selectedTabIndex] != 'undefined' ) {
+      if ( typeof views[selectedTabIndex] !== 'undefined' ) {
         views[selectedTabIndex].step();
       }
     })();
@@ -62,23 +62,20 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     var $tabs = $( '.tabs' );
     $tabs.children().hide();
     $tabs.children( '.tab' + tabName ).show();
-    if ( tabName == 2 ) {
+    if ( tabName === 2 ) {
       $tab2.appendTo( $tabs );
     }
     selectedTabIndex = tabName - 1;
   }
 
-  for ( var i = 1; i <= 4; i++ ) {
-    //Function scope to capture index
-    (function( index ) {
-      var selector = '#tab' + index + '-icon';
-      var handleClick = function() {
-        $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
-        $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
-        setSelectedTab( index );
-      };
-      $( selector ).bind( 'click', handleClick );
-      $( selector ).bind( 'touchstart', handleClick );
-    })( i );
-  }
+  _.each( [1, 2, 3, 4], function( index ) {
+    var selector = '#tab' + index + '-icon';
+    var handleClick = function() {
+      $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
+      $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
+      setSelectedTab( index );
+    };
+    $( selector ).bind( 'click', handleClick );
+    $( selector ).bind( 'touchstart', handleClick );
+  } );
 } );

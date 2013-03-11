@@ -2,6 +2,7 @@ define( function( require ) {
   "use strict";
 
   var Image = require( 'SCENERY/nodes/Image' );
+  var DOM = require( 'SCENERY/nodes/DOM' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -10,6 +11,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
+  var sliderKnob = require( 'tpl!../../../svg/slider-knob.svg' );
 
   //If value1 lies within (min1,max1), find value2 that lies proportionately between (min2,max2) 
   function linear( min1, max1, min2, max2, value1 ) {
@@ -33,6 +35,24 @@ define( function( require ) {
     this.addChild( knob );
 
     property.addListener( function( value ) { knob.x = linear( min, max, 0, width, value ); } );
+
+//    //Instantiate the template
+//    var knobSVGText = sliderKnob();
+//
+//    //Append to the DOM
+//    $( 'body' ).append( $( knobSVGText ) );
+//
+//    //Lookup the new item and append to the scenery
+//    var svgKnob = new DOM( $( 'body' ).find( 'svg' ), {cursor: 'pointer'} );
+//    svgKnob.scale=0.2;
+//    svgKnob.addInputListener( new SimpleDragHandler( {allowTouchSnag: true, translate: function( options ) {
+//                                                       var x = Math.min( Math.max( options.position.x, 0 ), width );
+//                                                       property.set( linear( 0, width, min, max, x ) );
+//                                                     }}
+//    ) );
+//    this.addChild( svgKnob );
+//
+//    property.addListener( function( value ) { svgKnob.x = linear( min, max, 0, width, value ); } );
   }
 
   Inheritance.inheritPrototype( HSlider, Node );

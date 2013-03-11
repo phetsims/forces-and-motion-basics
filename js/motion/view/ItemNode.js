@@ -13,8 +13,7 @@ define( function( require ) {
 
   function ItemNode( model, item, image ) {
     var itemNode = this;
-    Node.call( this, {x: item.x, y: item.y} );
-    console.log( item );
+    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer'} );
     this.addChild( new Image( image ) );
 
     //add listener to assist in initial layout

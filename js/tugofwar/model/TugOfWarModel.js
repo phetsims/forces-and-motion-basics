@@ -107,7 +107,7 @@ define( function( require ) {
         },
         getPuller: function( knot ) {
           var find = this.pullers.find( function( puller ) {return puller.get( 'knot' ) === knot;} );
-          return typeof(find) != "undefined" ? find : null;
+          return typeof(find) !== "undefined" ? find : null;
         },
         getTargetKnot: function( puller ) {
           var model = this;
@@ -159,7 +159,7 @@ define( function( require ) {
           var sum = 0;
 
           this.pullers.each( function( puller ) {
-            if ( puller.get( 'type' ) == blue && puller.has( 'knot' ) ) {
+            if ( puller.get( 'type' ) === blue && puller.has( 'knot' ) ) {
               sum -= puller.force;
             }
           } );
@@ -169,7 +169,7 @@ define( function( require ) {
           var sum = 0;
 
           this.pullers.each( function( puller ) {
-            if ( puller.get( 'type' ) == red && puller.has( 'knot' ) ) {
+            if ( puller.get( 'type' ) === red && puller.has( 'knot' ) ) {
               sum += puller.force;
             }
           } );

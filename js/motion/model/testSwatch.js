@@ -10,13 +10,13 @@ define( function( require ) {
       this.name = name;
       this.age = age;
       this.species = species;
-      this.class = "Animal";
+      this.type = "Animal";
     }
 
     Animal.prototype = {
       toJSON: function() {
         var replacement = {};
-        replacement.class = 'Animal';
+        replacement.type = 'Animal';
         replacement.name = this.name;
         replacement.age = this.age;
         replacement.species = this.species;
@@ -122,10 +122,10 @@ define( function( require ) {
       }
       else {
 //        console.log( "k/v", k, v );
-        if ( typeof v.class !== 'undefined' ) {
-          console.log( "it has class" );
-          var c = v.class;
-          console.log( "class = ", c );
+        if ( typeof v.type !== 'undefined' ) {
+          console.log( "it has type" );
+          var c = v.type;
+          console.log( "type = ", c );
           if ( c === "Animal" ) {
             return new Animal( v.name, v.age, v.species );
           }
@@ -182,12 +182,12 @@ define( function( require ) {
     };
 
     //Demonstrate watching simple values, with no duplicate messages
-    watch( model, 'paused', function( paused ) {console.log( "Paused: " + paused )} );
+    watch( model, 'paused', function( paused ) {console.log( "Paused: " + paused );} );
     model.paused = false;
     model.paused = false;
 
     //Demonstrate watching a sub-component of the model, without having to know the root of the model
-    watch( model.user, 'name', function( name ) {console.log( "The name is: " + name )} );
+    watch( model.user, 'name', function( name ) {console.log( "The name is: " + name );} );
     model.user.name = "Larrison";
 
     //Demonstrate the ability to watch user-defined classes (instead of just object literals)
