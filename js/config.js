@@ -10,6 +10,7 @@ require.config( {
                     ASSERT: '../../scenery/common/assert/js',
                     DOT: '../../scenery/common/dot/js',
                     SCENERY: '../../scenery/js',
+                    KITE: '../../kite/js',
 
                     easel: '../contrib/easel-0.5.0',
                     image: '../contrib/image-0.2.2',

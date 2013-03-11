@@ -2,7 +2,7 @@ define( function( require ) {
   "use strict";
 
   var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'SCENERY/shapes/Shape' );
+  var Shape = require( 'KITE/Shape' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
 
   var knotWidth = 20;
