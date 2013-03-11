@@ -7,6 +7,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -49,6 +50,18 @@ define( function( require ) {
     this.scene.addChild( this.groundNode );
     var grassY = 368;
     this.scene.addChild( new Image( topView.getImage( 'grass' ), {x: 13, y: grassY} ) );
+
+    this.cartNode = new Image( topView.getImage( 'cart' ), {x: 399, y: 221} );
+    //Black caret below the cart
+    view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
+
+    //Add toolbox backgrounds for the pullers
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+
+    //Split into another canvas to speed up rendering
+    this.scene.addChild( new Node( {layerSplit: true} ) );
+
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
     this.model.trigger( 'change:showSumOfForces' );
@@ -66,7 +79,6 @@ define( function( require ) {
     } );
 
     this.scene.addChild( view.ropeNode );
-    this.cartNode = new Image( topView.getImage( 'cart' ), {x: 399, y: 221} );
     view.arrowTailX = view.cartNode.centerX;
 
     this.model.cart.on( 'change:x', function( m, x ) {
@@ -76,13 +88,6 @@ define( function( require ) {
 
     this.scene.addChild( this.cartNode );
     this.scene.addChild( new GoButton( getImage, this.model ) );
-
-    //Black caret below the cart
-    view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
-
-    //Add toolbox backgrounds for the pullers
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     view.model.pullers.each( function( puller ) {
       puller.on( 'change:x change:y', function( puller ) {

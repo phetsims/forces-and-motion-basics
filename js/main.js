@@ -45,7 +45,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     }
 
     //Start in Tab 2 for debugging
-    setSelectedTab( 2 );
+//    setSelectedTab( 2 );
 
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     // place the rAF *before* the render() to assure as close to
