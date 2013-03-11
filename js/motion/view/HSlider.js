@@ -23,7 +23,7 @@ define( function( require ) {
     this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 2 ), fill: 'red'} ) );
 
     //The knob
-    var knob = new Path( {shape: Shape.rect( 0, 0, 44, 44 ), fill: 'blue', cursor: 'pointer', renderer: 'svg'} );
+    var knob = new Path( {shape: Shape.rect( -22, -22, 44, 44 ), fill: 'blue', cursor: 'pointer', renderer: 'svg'} );
 
     knob.addInputListener( new SimpleDragHandler( {allowTouchSnag: true, translate: function( options ) {
                                                     var x = Math.min( Math.max( options.position.x, 0 ), width );
