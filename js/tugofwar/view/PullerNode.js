@@ -48,6 +48,7 @@ define( function( require ) {
           start: function() {
             puller.disconnect();
             puller.set( 'dragging', true );
+            pullerNode.moveToFront();
           },
           end: function( event ) {
             updateLocation();
