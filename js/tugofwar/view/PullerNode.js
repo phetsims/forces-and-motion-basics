@@ -53,10 +53,7 @@ define( function( require ) {
             updateLocation();
             puller.set( 'dragging', false );
             updateImage( pullerNode.model, model.get( 'running' ) );
-          },
-          translate: function( event ) {
-            pullerNode.puller.set( {x: event.position.x, y: event.position.y} );
-          }
+          }, translate: function( event ) { pullerNode.puller.set( {x: event.position.x, y: event.position.y} ); }
         } ) );
   }
 

@@ -89,10 +89,9 @@ define( function( require ) {
     this.scene.addChild( this.cartNode );
     this.scene.addChild( new GoButton( getImage, this.model ) );
 
+    //Update the forces when the number of attached pullers changes
+    model.on( 'change:numberPullersAttached', view.updateForces.bind( view ) );
     view.model.pullers.each( function( puller ) {
-      puller.on( 'change:x change:y', function( puller ) {
-        view.updateForces();
-      } );
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
