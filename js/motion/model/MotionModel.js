@@ -27,8 +27,7 @@ define( function( require ) {
     ], step: function() {
       var dt = 1;
       this.velocity = 1;
-      this.position = this.position + this.velocity * dt;
-//      console.log( "p = " + this.position );
+//      this.position = this.position + this.velocity * dt;
     }, on: function() {}
   };
 } )
