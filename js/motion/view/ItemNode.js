@@ -14,23 +14,10 @@ define( function( require ) {
 
   function ItemNode( model, item, image ) {
     var itemNode = this;
-    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer'} );
+    Node.call( this, {x: item.position.x, y: item.position.y, cursor: 'pointer'} );
     this.addChild( new Image( image ) );
-
-    //add listener to assist in initial layout
-//    this.addInputListener( new SimpleDragHandler( {drag: function() {
-//      console.log( "{x:" + itemNode.x.toFixed( 0 ) + ", y: " + itemNode.y.toFixed( 0 ) + "}" );
-//    }} ) );
-    this.addInputListener( new SimpleDragHandler( {translate: function( options ) {
-      item.x = options.position.x;
-      item.y = options.position.y;
-    }} ) );
-
-    //TODO: using swatch.js for this causes 2 callbacks for every delta?  Could be inefficient on mobile.
-    swatch( item, ['x', 'y'], function() {
-      itemNode.x = item.x;
-      itemNode.y = item.y;
-    } );
+    this.addInputListener( new SimpleDragHandler( {translate: function( options ) { item.position = options.position; }} ) );
+    swatch( item, 'position', function( p ) { itemNode.setTranslation( p ); } );
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );
