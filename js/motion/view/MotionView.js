@@ -1,6 +1,5 @@
 define( function( require ) {
   "use strict";
-  var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var MotionScenery = require( 'motion/view/MotionScenery' );
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
@@ -16,7 +15,6 @@ define( function( require ) {
     view.getImage = function( name ) {return imageLoader.getImage( name );};
 
     view.model = model;
-//    view.controlPanel = new ControlPanel( model, view );
     var initialModel = jQuery.extend( true, {}, view.model );
 
     //Update the model by setting values from the specified model
@@ -24,7 +22,7 @@ define( function( require ) {
       //set initial model to model
       for ( var obj in src ) {
         var oldVal = dst[obj];
-        if ( typeof oldVal === 'number' || typeof oldVal === 'string' ) {
+        if ( typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
           dst[obj] = src[obj];
         }
         callWatchers( dst, obj, "set", src[obj], oldVal );
@@ -44,16 +42,21 @@ define( function( require ) {
 //      console.log(JSON.stringify(view.model));
     }
 
-    var $resetAllButton = $( '.playback-button' );
-    $resetAllButton.bind( 'touchstart', playbackEvent );
-    $resetAllButton.bind( 'click', playbackEvent );
+    var $playbackButton = $( '.playback-button' );
+    $playbackButton.bind( 'touchstart', playbackEvent );
+    $playbackButton.bind( 'click', playbackEvent );
     view.scenery = new MotionScenery( model, view, $tab, imageLoader );
+
+    function reset() { setModel( initialModel, view.model ); }
+
+    var $resetButton = $( '.reset-all-button' );
+    $resetButton.bind( 'touchstart', reset );
+    $resetButton.bind( 'click', reset );
 
     view.model.on( 'reset-all', function() {
       view.resetAll();
     } );
 
-//
     watch( view.model, function( property, action, newValue, oldValue, path ) {
 ////      console.log( "something changed", arguments, JSON.stringify( path ) );
 //
