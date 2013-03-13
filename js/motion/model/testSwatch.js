@@ -1,7 +1,9 @@
 define( function( require ) {
   "use strict";
   var SwatchJS = require( 'motion/model/SwatchJS' );
-  var watch = SwatchJS.swatch;
+  var WatchJS = require( 'watch' );
+  var watch = WatchJS.watch;
+  var swatch = SwatchJS.swatch;
 
   return function() {
     console.log( "Testing model" );
@@ -91,14 +93,14 @@ define( function( require ) {
       return {
         get: function() { return model[key]; },
         set: function( newValue ) { model[key] = newValue; },
-        addListener: function( listener ) { watch( model, key, listener ); },
+        addListener: function( listener ) { swatch( model, key, listener ); },
 
         //Boolean 'and' this with another boolean property
         and: function( other ) { return new AndProperty( this, other ); }
       };
     }
 
-    watch( state, 'appliedForce', function( prop, action, oldValue, newValue ) {
+    swatch( state, 'appliedForce', function( prop, action, oldValue, newValue ) {
       console.log( "new applied force: " + newValue );
     } );
 
@@ -113,7 +115,7 @@ define( function( require ) {
     userInfo.corners = 100;
 
     //Test composition
-    watch( userInfo, 'hair', function( newHair ) {
+    swatch( userInfo, 'hair', function( newHair ) {
       console.log( "new hair = " + newHair );
     } );
     userInfo.hair = "yellow";
@@ -185,17 +187,17 @@ define( function( require ) {
     };
 
     //Demonstrate watching simple values, with no duplicate messages
-    watch( model, 'paused', function( paused ) {console.log( "Paused: " + paused );} );
+    swatch( model, 'paused', function( paused ) {console.log( "Paused: " + paused );} );
     model.paused = false;
     model.paused = false;
 
     //Demonstrate watching a sub-component of the model, without having to know the root of the model
-    watch( model.user, 'name', function( name ) {console.log( "The name is: " + name );} );
+    swatch( model.user, 'name', function( name ) {console.log( "The name is: " + name );} );
     model.user.name = "Larrison";
 
     //Demonstrate the ability to watch user-defined classes (instead of just object literals)
     //And to integrate with object specific setters
-    watch( model.electron, 'velocity', function( velocity ) {console.log( "velocity = " + velocity );} );
+    swatch( model.electron, 'velocity', function( velocity ) {console.log( "velocity = " + velocity );} );
     model.electron.maximizeVelocity();
 
     //Demonstrate property interface
@@ -210,7 +212,7 @@ define( function( require ) {
 
     console.log( "*************" );
     var person = {name: 'Meg', age: '99'};
-    watch( person, 'age', function( age ) {
+    swatch( person, 'age', function( age ) {
       console.log( "person's age: " + age );
     } );
     person.age = 100;
@@ -219,17 +221,25 @@ define( function( require ) {
 
     //Notice that 2 events are fired, one for x and one for y.  I do not know how such things could be "batched".  They are batched by default in Backbone if you use the set({}) method style.
     console.log( "###########" );
-    watch( state.items[0], ['x', 'y'], function() {
+    swatch( state.items[0], ['x', 'y'], function() {
       console.log( "x/y changed, x = " + state.items[0].x + ", y = " + state.items[0].y );
     } );
     state.items[0].x = state.items[0].x + 1;
     state.items[0].y = state.items[0].y + 1;
 
     //For our case, you can alternatively convert to non-primitive
-    watch( state.compositeItems[0], 'position', function( newPosition ) {
+    swatch( state.compositeItems[0], 'position', function( newPosition ) {
       console.log( "position changed, newPosition = ", newPosition.x, newPosition.y );
     } );
     state.compositeItems[0].position = {x: 999, y: 123};
+
+    console.log( "????????????" );
+    debugger;
+    watch( state, function() {
+      debugger;
+      console.log( "any changes" );
+    } );
+    state.compositeItems[0].position = {x: 3, y: 4};
   };
 
 } )
