@@ -50,6 +50,9 @@ define( function( require ) {
         {image: 'trash.png', weight: 100, x: 300, y: 100, dragging: false},
         {image: 'gift.png', weight: 100, x: 300, y: 100, dragging: false}
       ],
+      compositeItems: [
+        {image: 'fridge.png', weight: 100, position: {x: 100, y: 100}, dragging: false}
+      ],
       animal: new Animal( 'bongo', 23, 'bear' )
     };
 
@@ -213,5 +216,21 @@ define( function( require ) {
     person.age = 100;
     person.age = 100;
     person.age = 101;
+
+    //Notice that 2 events are fired, one for x and one for y.  I do not know how such things could be "batched".  They are batched by default in Backbone if you use the set({}) method style.
+    console.log( "###########" );
+    watch( state.items[0], ['x', 'y'], function() {
+      console.log( "x/y changed, x = " + state.items[0].x + ", y = " + state.items[0].y );
+    } );
+    state.items[0].x = state.items[0].x + 1;
+    state.items[0].y = state.items[0].y + 1;
+
+    //For our case, you can alternatively convert to non-primitive
+    watch( state.compositeItems[0], 'position', function( newPosition ) {
+      console.log( "position changed, newPosition = ", newPosition.x, newPosition.y );
+    } );
+    state.compositeItems[0].position = {x: 999, y: 123};
   };
-} );
+
+} )
+;
