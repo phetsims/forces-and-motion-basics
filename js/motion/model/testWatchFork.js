@@ -56,13 +56,45 @@ define( function( require ) {
       animal: new Animal( 'bongo', 23, 'bear' )
     };
 
-    watch( state, function() {
-      console.log( "something changed", arguments );
+    //Deep copy the initial model
+    //See http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-a-javascript-object
+    var m = jQuery.extend( true, {}, state );
+
+    var log = [];
+    watch( state, function( property, action, newValue, oldValue, path ) {
+      console.log( "something changed", arguments, JSON.stringify( path ) );
+
+      log.push( {path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
+      console.log( JSON.stringify( log ) );
     } );
 
     state.appliedForce = 3;
     state.userInfo.name = "Moe";
     state.animal.species = "anteater";
     state.items[4].weight = state.items[4].weight * 2;
+    state.items[3].weight = state.items[3].weight * 2;
+
+    watch( m, function() {
+      console.log( "new model changed!!!!!!!", arguments );
+    } );
+    for ( var i = 0; i < log.length; i++ ) {
+      var obj = log[i];
+      console.log( "procesing log element ", i );
+      console.log( " start model = ", JSON.stringify( m ) );
+      console.log( "log item :", JSON.stringify( obj ) );
+      var path = obj.path;
+      if ( path === "root" ) {
+        m[obj.property] = obj.newValue;
+      }
+      else {
+        var item = m;
+        for ( var k = 0; k < path.length; k++ ) {
+          var pathElement = path[k];
+          item = item[pathElement];
+        }
+        item[obj.property] = obj.newValue;
+      }
+      console.log( "Updated model", JSON.stringify( m ) );
+    }
   };
 } );
