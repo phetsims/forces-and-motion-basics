@@ -3,7 +3,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/model/testSwatch", 'motion/model/testWatchFork', 'PHETCOMMON/util/ImagesLoader'], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, testWatchFork, ImagesLoader ) {
   "use strict";
 
-  testWatchFork();
+//  testWatchFork();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
