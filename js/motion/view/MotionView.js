@@ -8,6 +8,7 @@ define( function( require ) {
   var playback = false;
   var log = [];
   var logIndex = 0;
+  var playbackTime = 0;
 
   function MotionView( imageLoader, model, $tab ) {
     var view = this;
@@ -38,6 +39,7 @@ define( function( require ) {
 
 //      console.log(JSON.stringify(view.model));
       setModel( initialModel, view.model );
+      playbackTime = log[0].time;
 //      view.model.items[0].position = {x: 0, y: 0};
 //      console.log(JSON.stringify(view.model));
     }
@@ -55,7 +57,7 @@ define( function( require ) {
     watch( view.model, function( property, action, newValue, oldValue, path ) {
 ////      console.log( "something changed", arguments, JSON.stringify( path ) );
 //
-      log.push( {path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
+      log.push( {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
 ////      console.log( JSON.stringify( log ) );
     } );
   }
@@ -69,23 +71,40 @@ define( function( require ) {
     },
     step: function() {
       if ( playback ) {
-        var m = this.model;
-        var obj = log[logIndex];
-        var path = obj.path;
-        if ( path === "root" ) {
-          m[obj.property] = obj.newValue;
+
+        if ( logIndex >= log.length ) {
+          playback = false;
         }
-        else {
-          var item = m;
-          for ( var k = 0; k < path.length; k++ ) {
-            var pathElement = path[k];
-            item = item[pathElement];
+        var m = this.model;
+
+        while ( logIndex < log.length ) {
+          //find any events that passed in this time frame
+          var time = log[logIndex].time;
+          if ( time < playbackTime ) {
+
+            var obj = log[logIndex];
+            var path = obj.path;
+            if ( path === "root" ) {
+              m[obj.property] = obj.newValue;
+            }
+            else {
+              var item = m;
+              for ( var k = 0; k < path.length; k++ ) {
+                var pathElement = path[k];
+                item = item[pathElement];
+              }
+              item[obj.property] = obj.newValue;
+            }
+
+            logIndex++;
           }
-          item[obj.property] = obj.newValue;
+          else {
+            break;
+          }
         }
 
         this.scenery.scene.updateScene();
-        logIndex++;
+        playbackTime += 17;//ms between frames at 60fps
       }
       else {
         this.model.step();
