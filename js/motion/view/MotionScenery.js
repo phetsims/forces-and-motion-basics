@@ -5,6 +5,7 @@ define( function( require ) {
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -37,6 +38,15 @@ define( function( require ) {
     this.scene.addChild( this.groundNode );
     var grassY = 368;
     this.scene.addChild( new Image( topView.getImage( 'grass' ), {x: 13, y: grassY} ) );
+
+
+    //Add toolbox backgrounds for the pullers
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+
+    //Split into another canvas to speed up rendering
+    this.scene.addChild( new Node( {layerSplit: true} ) );
+
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
 //    this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
 //    this.model.trigger( 'change:showSumOfForces' );
@@ -45,10 +55,6 @@ define( function( require ) {
     this.scene.addChild( this.leftArrow );
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
-
-    //Add toolbox backgrounds for the pullers
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size

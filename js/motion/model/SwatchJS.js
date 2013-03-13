@@ -18,6 +18,8 @@ define( function( require ) {
       watch( model, attribute, function( prop, action, newValue, oldValue ) {
         listener( newValue, prop, action, oldValue );
       } );
+
+      //TODO: if attribute is an array, iterate over all
       listener( model[attribute], attribute, 'init', model[attribute] );//todo: 2nd arg may be wrong
     }
   };

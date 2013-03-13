@@ -10,6 +10,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
+  var swatch = require( 'motion/model/SwatchJS' ).swatch;
 
   function ItemNode( model, item, image ) {
     var itemNode = this;
@@ -17,9 +18,19 @@ define( function( require ) {
     this.addChild( new Image( image ) );
 
     //add listener to assist in initial layout
-    this.addInputListener( new SimpleDragHandler( {drag: function() {
+//    this.addInputListener( new SimpleDragHandler( {drag: function() {
 //      console.log( "{x:" + itemNode.x.toFixed( 0 ) + ", y: " + itemNode.y.toFixed( 0 ) + "}" );
+//    }} ) );
+    this.addInputListener( new SimpleDragHandler( {translate: function( options ) {
+      item.x = options.position.x;
+      item.y = options.position.y;
     }} ) );
+
+    //TODO: using swatch.js for this causes 2 callbacks for every delta?  Could be inefficient on mobile.
+    swatch( item, ['x', 'y'], function() {
+      itemNode.x = item.x;
+      itemNode.y = item.y;
+    } );
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );
