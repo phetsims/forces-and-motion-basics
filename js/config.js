@@ -18,7 +18,7 @@ require.config( {
                     underscore: '../contrib/underscore-1.4.2',
                     tpl: "../contrib/tpl-0.2",
                     i18n: "../../i18n/i18n",
-                    watch: "../contrib/watch",
+                    watch: "../../Watch.JS/src/watch",
                     imagesloaded: "../../phetcommon/contrib/jquery.imagesloaded-2.1.1"
                   },
 

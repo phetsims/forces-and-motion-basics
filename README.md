@@ -7,3 +7,6 @@ The directory structure will look like:
 * forces-and-motion-basics/
 * scenery/
 * i18n/
+* Watch.JS/
+
+These repos are all phetsims repos.

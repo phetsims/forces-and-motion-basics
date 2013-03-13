@@ -234,9 +234,7 @@ define( function( require ) {
     state.compositeItems[0].position = {x: 999, y: 123};
 
     console.log( "????????????" );
-    debugger;
     watch( state, function() {
-      debugger;
       console.log( "any changes" );
     } );
     state.compositeItems[0].position = {x: 3, y: 4};
