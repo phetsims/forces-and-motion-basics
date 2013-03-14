@@ -67,8 +67,7 @@ define( function( require ) {
     var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {x: 395, y: 342} );
     this.scene.addChild( skateboardImage );
 
-    var fakemodel = {amount: 50};
-    var slider = new HSlider( 0, 100, 200, property( fakemodel, 'amount' ), {x: 400, y: 400} );
+    var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 400} );
     this.scene.addChild( slider );
 
     //Fit to the window and render the initial scene
