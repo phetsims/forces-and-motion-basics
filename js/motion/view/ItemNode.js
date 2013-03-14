@@ -17,7 +17,13 @@ define( function( require ) {
     var itemNode = this;
     Node.call( this, {x: item.position.x, y: item.position.y, cursor: 'pointer'} );
     this.addChild( new Image( image ) );
-    this.addInputListener( new SimpleDragHandler( {translate: function( options ) { item.position = options.position; }} ) );
+    this.addInputListener( new SimpleDragHandler( {
+                                                    translate: function( options ) { item.position = options.position; },
+                                                    end: function() {
+                                                      console.log( "dropped" );
+                                                      item.animateTo( 0, 0 );
+                                                    }
+                                                  } ) );
     watch( item, 'position', function( a, b, p ) { itemNode.setTranslation( p ); } );
   }
 

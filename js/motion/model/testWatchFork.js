@@ -56,6 +56,13 @@ define( function( require ) {
       animal: new Animal( 'bongo', 23, 'bear' )
     };
 
+    watch( state.compositeItems[0].position, 'x', function( a, b, x ) {
+      console.log( "position changed :", x );
+    } );
+
+    state.compositeItems[0].position.x = 3;
+    state.compositeItems[0].position = {x: 99, y: 101};
+
     //Deep copy the initial model
     //See http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-a-javascript-object
     var m = jQuery.extend( true, {}, state );
