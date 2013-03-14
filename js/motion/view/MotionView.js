@@ -19,27 +19,31 @@ define( function( require ) {
 
     //Update the model by setting values from the specified model
     function setModel( src, dst ) {
+
       //set initial model to model
       for ( var obj in src ) {
+
         var oldVal = dst[obj];
         if ( typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
           dst[obj] = src[obj];
+          callWatchers( dst, obj, "set", src[obj], oldVal );
         }
-        callWatchers( dst, obj, "set", src[obj], oldVal );
+
         if ( typeof src[obj] === 'object' ) {
+          var oldVal = dst[obj];
           setModel( src[obj], dst[obj] );
+
+          //Support composite strategy like position:{x:100,y:100} so that it looks like we called model.position = {};
+          callWatchers( dst, obj, "set", src[obj], oldVal );
         }
       }
     }
 
     function playbackEvent() {
       playback = true;
-
-//      console.log(JSON.stringify(view.model));
-      setModel( initialModel, view.model );
       playbackTime = log[0].time;
-//      view.model.items[0].position = {x: 0, y: 0};
-//      console.log(JSON.stringify(view.model));
+
+      setModel( initialModel, view.model );
     }
 
     var $playbackButton = $( '.playback-button' );
@@ -47,7 +51,9 @@ define( function( require ) {
     $playbackButton.bind( 'click', playbackEvent );
     view.scenery = new MotionScenery( model, view, $tab, imageLoader );
 
-    function reset() { setModel( initialModel, view.model ); }
+    function reset() {
+      setModel( initialModel, view.model );
+    }
 
     var $resetButton = $( '.reset-all-button' );
     $resetButton.bind( 'touchstart', reset );
@@ -58,10 +64,14 @@ define( function( require ) {
     } );
 
     watch( view.model, function( property, action, newValue, oldValue, path ) {
-////      console.log( "something changed", arguments, JSON.stringify( path ) );
-//
-      log.push( {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
-////      console.log( JSON.stringify( log ) );
+      if ( !playback ) {
+        console.log( "Pushing log for newVaul", JSON.stringify( newValue ) );
+        log.push( {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
+      }
+    } );
+
+    watch( view.model.items[0], 'position', function( a, b, p ) {
+      console.error( "position changed to y=", JSON.stringify( p ) );
     } );
   }
 
@@ -74,16 +84,14 @@ define( function( require ) {
     },
     step: function() {
       if ( playback ) {
-
-        if ( logIndex >= log.length ) {
-          playback = false;
-        }
         var m = this.model;
 
         while ( logIndex < log.length ) {
           //find any events that passed in this time frame
           var time = log[logIndex].time;
           if ( time < playbackTime ) {
+
+            console.log( "playing back log index: " + logIndex + ", time=" + time, 'logentry = ', JSON.stringify( log[logIndex].newValue ) );
 
             var obj = log[logIndex];
             var path = obj.path;
