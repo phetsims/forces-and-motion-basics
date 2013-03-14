@@ -20,8 +20,7 @@ define( function( require ) {
     this.addInputListener( new SimpleDragHandler( {
                                                     translate: function( options ) { item.position = options.position; },
                                                     end: function() {
-                                                      console.log( "dropped" );
-                                                      item.animateTo( 0, 0 );
+                                                      item.animateTo( 480 - itemNode.width / 2, 350 - itemNode.height );
                                                     }
                                                   } ) );
     watch( item, 'position', function( a, b, p ) { itemNode.setTranslation( p ); } );
