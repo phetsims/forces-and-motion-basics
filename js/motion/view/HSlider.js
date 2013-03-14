@@ -11,7 +11,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
-  var sliderKnob = require( 'tpl!../../../svg/handle_blue_top_grip_flat_gradient.svg' );
+  var sliderKnob = require( 'tpl!../../../svg/handle_blue_top_grip_flat_gradient_3.svg' );
 
   //If value1 lies within (min1,max1), find value2 that lies proportionately between (min2,max2) 
   function linear( min1, max1, min2, max2, value1 ) {
