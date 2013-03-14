@@ -39,7 +39,7 @@ define( function( require ) {
         if ( item.animating.enabled ) {
           var current = new Vector2( item.position.x, item.position.y );
           var destination = new Vector2( item.animating.x, item.animating.y );
-          item.position = current.blend( destination, 0.3 );
+          item.position = current.blend( destination, 0.1 );
           if ( item.position.distance( destination ) < 1 ) {
             item.animating = {enabled: false, x: 0, y: 0};
           }

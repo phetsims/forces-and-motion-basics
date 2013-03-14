@@ -65,14 +65,14 @@ define( function( require ) {
 
     watch( view.model, function( property, action, newValue, oldValue, path ) {
       if ( !playback ) {
-        console.log( "Pushing log for newVaul", JSON.stringify( newValue ) );
+//        console.log( "Pushing log for newVaul", JSON.stringify( newValue ) );
         log.push( {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
       }
     } );
 
-    watch( view.model.items[0], 'position', function( a, b, p ) {
-      console.error( "position changed to y=", JSON.stringify( p ) );
-    } );
+//    watch( view.model.items[0], 'position', function( a, b, p ) {
+//      console.error( "position changed to y=", JSON.stringify( p ) );
+//    } );
   }
 
   MotionView.prototype = {
