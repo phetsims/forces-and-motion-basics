@@ -13,7 +13,7 @@ define( function( require ) {
     var view = this;
     view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};
-
+    window.phet = {model: model};
     view.model = model;
 
     //Make a deep copy of the initial model to get the initial values.  I tried using jQuery.extend( true, {}, view.model ); but it copied references and they were changing

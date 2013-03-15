@@ -16,6 +16,11 @@ define( function( require ) {
     showMasses: false,
     showAcceleration: false,
     running: true,
+
+    //TODO: Convert this to es5 getter, but will require making sure that watch.js doesn't overwrite it
+    getTopOfStack: function() {
+      return 350 - this.stack.length * 100;
+    },
     items: [
       new Item( 'fridge.png', 100, 41, 476 ),
       new Item( 'crate.png', 100, 195, 495 ),

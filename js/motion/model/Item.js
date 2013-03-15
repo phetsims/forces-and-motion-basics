@@ -11,12 +11,12 @@ define( function( require ) {
     this.position = {x: x, y: y};
     this.initialPositionJSON = JSON.stringify( this.position );
     this.dragging = false;
-    this.animating = {enabled: false, x: 0, y: 0};
+    this.animating = {enabled: false, x: 0, y: 0, end: null};
   }
 
   Item.prototype = {
-    animateTo: function( x, y ) { this.animating = {enabled: true, x: x, y: y}; },
-    animateHome: function( x, y ) {
+    animateTo: function( x, y, end ) { this.animating = {enabled: true, x: x, y: y, end: end}; },
+    animateHome: function() {
       var initialPosition = JSON.parse( this.initialPositionJSON );
       this.animateTo( initialPosition.x, initialPosition.y );
     },
@@ -26,7 +26,10 @@ define( function( require ) {
         var destination = new Vector2( this.animating.x, this.animating.y );
         this.position = current.blend( destination, 0.1 );
         if ( this.position.distance( destination ) < 1 ) {
-          this.animating = {enabled: false, x: 0, y: 0};
+          if ( this.animating.end ) {
+            this.animating.end();
+          }
+          this.animating = {enabled: false, x: 0, y: 0, end: null};
         }
       }
     }
