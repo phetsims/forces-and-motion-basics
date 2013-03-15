@@ -2,8 +2,10 @@ define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
   var Item = require( 'motion/model/Item' );
+  var WatchJS = require( 'watch' );
+  var watch = WatchJS.watch;
 
-  return {
+  var model = {
     stack: [],
     appliedForce: 0,
     friction: 0,
@@ -38,5 +40,6 @@ define( function( require ) {
 //      this.position = this.position + this.velocity * dt;
     }
   };
+  return model;
 } )
 ;

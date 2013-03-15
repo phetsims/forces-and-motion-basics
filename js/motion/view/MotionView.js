@@ -67,6 +67,9 @@ define( function( require ) {
 
     watch( view.model, function( property, action, newValue, oldValue, path ) {
       if ( !playback ) {
+        if ( action !== 'set' ) {
+          console.log( path, property, action, newValue );
+        }
         var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
 //        console.log( "Pushing log item inde:", log.length, "logitem: ", JSON.stringify( logItem ) );
         log.push( logItem );

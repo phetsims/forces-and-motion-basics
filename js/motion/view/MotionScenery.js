@@ -20,6 +20,8 @@ define( function( require ) {
   var ItemNode = require( 'motion/view/ItemNode' );
   var HSlider = require( 'motion/view/HSlider' );
   var property = require( 'motion/model/Property' );
+  var WatchJS = require( 'watch' );
+  var watch = WatchJS.watch;
 
   function TugOfWarScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
@@ -76,16 +78,26 @@ define( function( require ) {
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();
+
+    //Upper items should fall if an item removed from beneath
+    watch( model, 'stack', function( property, action, newValue, oldValue ) {
+      if ( action === 'splice' ) {
+        if ( view.model.stack.length > 0 ) {
+          var itemNode = view.getItemNode( view.model.stack[0] );
+          itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - itemNode.height );
+        }
+      }
+    } );
   }
 
   TugOfWarScenery.prototype = {
     getItemNode: function( item ) {
       for ( var i = 0; i < this.itemNodes.length; i++ ) {
-        var itemNode = this.itemNodes[i];
-        if ( itemNode.item === item ) {
-          return itemNode;
+        if ( this.itemNodes[i].item === item ) {
+          return this.itemNodes[i];
         }
       }
+      debugger;
       throw new Error( "Couldn't find itemNode for item" );
     },
     get topOfStack() {
