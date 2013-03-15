@@ -86,8 +86,7 @@ define( function( require ) {
 
           var sumHeight = 0;
           for ( var i = 0; i < view.model.stack.length; i++ ) {
-            var stackItem = view.model.stack[i];
-            var itemNode = view.getItemNode( stackItem );
+            var itemNode = view.getItemNode( view.model.stack[i] );
             sumHeight += itemNode.height;
             itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - sumHeight );
           }
