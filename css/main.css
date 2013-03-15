@@ -56,3 +56,11 @@
 .unselected {
   opacity: 0.6;
 }
+
+#brick {
+  background-image: url('../images/brick-tile.png');
+  background-repeat: repeat-x;
+  width: 2000px;
+  height: 200px;
+  overflow: hidden;
+}

@@ -7,6 +7,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var DOM = require( 'SCENERY/nodes/DOM' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -40,8 +41,16 @@ define( function( require ) {
     this.scene.addChild( this.skyNode );
     this.scene.addChild( this.groundNode );
     var grassY = 368;
-    this.scene.addChild( new Image( topView.getImage( 'grass' ), {x: 13, y: grassY} ) );
 
+    var brickDOM = new DOM( $( '#brick' ) );
+    view.brickDOM = brickDOM;
+    brickDOM.x = 100;
+    brickDOM.y = 368 + 8;
+    brickDOM.scale = 1;
+    this.scene.addChild( brickDOM );
+    var updateBrick = function( property, action, newValue, oldValue ) { brickDOM.x = -newValue % (120); };
+    watch( model, 'position', updateBrick );
+    updateBrick( 0, 0, 0, 0 );
 
     //Add toolbox backgrounds for the pullers
     view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
@@ -76,7 +85,7 @@ define( function( require ) {
     var pusher = new PusherNode( model, topView, imageLoader );
     this.scene.addChild( pusher );
 
-    var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 400} );
+    var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 450} );
     this.scene.addChild( slider );
 
     //Fit to the window and render the initial scene
@@ -137,6 +146,8 @@ define( function( require ) {
       var $tabIcons = $( '.tab-icons' );
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
       $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
+
+      $( '#brick' ).css( {width: width / scale + 120 * 2} );
 
       this.render();
     },

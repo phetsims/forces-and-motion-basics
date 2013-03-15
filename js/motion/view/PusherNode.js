@@ -44,6 +44,7 @@ define( function( require ) {
 
     this.addInputListener( new SimpleDragHandler(
         {
+          allowTouchSnag: true,
           translate: function( options ) {
             var newAppliedForce = model.appliedForce + options.delta.x / 3.0;
             model.appliedForce = Math.max( -100, Math.min( 100, newAppliedForce ) );

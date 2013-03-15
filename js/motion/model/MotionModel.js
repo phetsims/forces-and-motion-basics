@@ -34,11 +34,13 @@ define( function( require ) {
       new Item( 'mystery-object-01.png', 100, 800, 590 )
     ], step: function() {
       var dt = 1;
-      this.velocity = 1;
+      var mass = 1000;
+      var acceleration = this.appliedForce / mass;
+      this.velocity = this.velocity + acceleration * dt;
+      this.position = this.position + this.velocity * dt;
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].step();
       }
-//      this.position = this.position + this.velocity * dt;
     }
   };
   return model;
