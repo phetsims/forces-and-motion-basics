@@ -18,34 +18,35 @@ define( function( require ) {
     this.item = item;
     Node.call( this, {x: item.position.x, y: item.position.y, cursor: 'pointer'} );
     this.addChild( new Image( image ) );
-    this.addInputListener( new SimpleDragHandler( {
-                                                    translate: function( options ) {
+    this.addInputListener( new SimpleDragHandler(
+        {
+          translate: function( options ) {
 
-                                                      //Don't allow the user to translate the object while it is animating
-                                                      if ( !item.animating.enabled ) {
-                                                        item.position = options.position;
-                                                      }
-                                                    },
+            //Don't allow the user to translate the object while it is animating
+            if ( !item.animating.enabled ) {
+              item.position = options.position;
+            }
+          },
 
-                                                    //When picking up an object, remove it from the stack.
-                                                    start: function() {
-                                                      var index = model.stack.indexOf( item );
-                                                      if ( index >= 0 ) {
-                                                        model.stack.splice( index, 1 );
-                                                      }
-                                                    },
-                                                    end: function() {
+          //When picking up an object, remove it from the stack.
+          start: function() {
+            var index = model.stack.indexOf( item );
+            if ( index >= 0 ) {
+              model.stack.splice( index, 1 );
+            }
+          },
+          end: function() {
 
-                                                      //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-                                                      if ( item.position.y < 350 ) {
-                                                        item.animateTo( 480 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
-                                                        model.stack.push( item );
-                                                      }
-                                                      else {
-                                                        item.animateHome();
-                                                      }
-                                                    }
-                                                  } ) );
+            //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
+            if ( item.position.y < 350 ) {
+              item.animateTo( 480 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
+              model.stack.push( item );
+            }
+            else {
+              item.animateHome();
+            }
+          }
+        } ) );
     watch( item, 'position', function( a, b, p ) { itemNode.setTranslation( p ); } );
   }
 
