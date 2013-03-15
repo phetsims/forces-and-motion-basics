@@ -83,8 +83,14 @@ define( function( require ) {
     watch( model, 'stack', function( property, action, newValue, oldValue ) {
       if ( action === 'splice' ) {
         if ( view.model.stack.length > 0 ) {
-          var itemNode = view.getItemNode( view.model.stack[0] );
-          itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - itemNode.height );
+
+          var sumHeight = 0;
+          for ( var i = 0; i < view.model.stack.length; i++ ) {
+            var stackItem = view.model.stack[i];
+            var itemNode = view.getItemNode( stackItem );
+            sumHeight += itemNode.height;
+            itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - sumHeight );
+          }
         }
       }
     } );
