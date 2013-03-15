@@ -13,8 +13,9 @@ define( function( require ) {
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
 
-  function ItemNode( model, item, image ) {
+  function ItemNode( model, scenery, item, image ) {
     var itemNode = this;
+    this.item = item;
     Node.call( this, {x: item.position.x, y: item.position.y, cursor: 'pointer'} );
     this.addChild( new Image( image ) );
     this.addInputListener( new SimpleDragHandler( {
@@ -25,11 +26,20 @@ define( function( require ) {
                                                         item.position = options.position;
                                                       }
                                                     },
+
+                                                    //When picking up an object, remove it from the stack.
+                                                    start: function() {
+                                                      var index = model.stack.indexOf( item );
+                                                      if ( index >= 0 ) {
+                                                        model.stack.splice( index, 1 );
+                                                      }
+                                                    },
                                                     end: function() {
 
                                                       //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
                                                       if ( item.position.y < 350 ) {
-                                                        item.animateTo( 480 - itemNode.width / 2, model.topOfStack - itemNode.height, function() {model.stack.push( item );} );
+                                                        item.animateTo( 480 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
+                                                        model.stack.push( item );
                                                       }
                                                       else {
                                                         item.animateHome();

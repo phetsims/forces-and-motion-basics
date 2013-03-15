@@ -58,10 +58,13 @@ define( function( require ) {
 
     this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
+    this.itemNodes = [];
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
-      this.scene.addChild( new ItemNode( model, item, view.imageLoader.getImage( item.image ) ) );
+      var itemNode = new ItemNode( model, view, item, view.imageLoader.getImage( item.image ) );
+      this.itemNodes.push( itemNode );
+      this.scene.addChild( itemNode );
     }
 
     var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {x: 395, y: 342} );
@@ -76,6 +79,23 @@ define( function( require ) {
   }
 
   TugOfWarScenery.prototype = {
+    getItemNode: function( item ) {
+      for ( var i = 0; i < this.itemNodes.length; i++ ) {
+        var itemNode = this.itemNodes[i];
+        if ( itemNode.item === item ) {
+          return itemNode;
+        }
+      }
+      throw new Error( "Couldn't find itemNode for item" );
+    },
+    get topOfStack() {
+      var sum = 0;
+      for ( var i = 0; i < this.model.stack.length; i++ ) {
+        var itemView = this.getItemNode( this.model.stack[i] );
+        sum = sum + itemView.height;
+      }
+      return 350 - sum;
+    },
     resize: function() {
       var width = $( window ).width();
       var height = $( window ).height() - 50;//leave room for the tab bar

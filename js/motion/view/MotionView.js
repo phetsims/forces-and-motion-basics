@@ -27,8 +27,12 @@ define( function( require ) {
 
         var oldVal = dst[obj];
         if ( typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
-          dst[obj] = src[obj];
-          callWatchers( dst, obj, "set", src[obj], oldVal );
+          //Make sure it has a setter
+          var d = Object.getOwnPropertyDescriptor( dst, obj );
+          if ( d && d.set ) {
+            dst[obj] = src[obj];
+            callWatchers( dst, obj, "set", src[obj], oldVal );
+          }
         }
 
         if ( typeof src[obj] === 'object' ) {
@@ -68,10 +72,6 @@ define( function( require ) {
         log.push( logItem );
       }
     } );
-
-//    watch( view.model.items[0], 'position', function( a, b, p ) {
-//      console.error( "position changed to y=", JSON.stringify( p ) );
-//    } );
   }
 
   MotionView.prototype = {
