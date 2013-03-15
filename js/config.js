@@ -7,8 +7,8 @@ require.config( {
                     PHETCOMMON_HTML: '../../phetcommon/html',
 
                     //Load scenery and its dependencies
-                    ASSERT: '../../scenery/common/assert/js',
-                    DOT: '../../scenery/common/dot/js',
+                    ASSERT: '../../assert/js',
+                    DOT: '../../dot/js',
                     SCENERY: '../../scenery/js',
                     KITE: '../../kite/js',
 
