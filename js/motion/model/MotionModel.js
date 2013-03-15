@@ -3,10 +3,6 @@ define( function( require ) {
   var Vector2 = require( "DOT/Vector2" );
   var Item = require( 'motion/model/Item' );
 
-  function animateTo( x, y ) {
-    this.animating = {enabled: true, x: x, y: y};
-  }
-
   return {
     stack: [],
     appliedForce: 0,
@@ -20,7 +16,6 @@ define( function( require ) {
     showMasses: false,
     showAcceleration: false,
     running: true,
-    userInfo: {name: "Larry", hair: "Curly", corners: 3},
     items: [
 
       //Combine x and y into a position object so x/y can be observed as a batch using watch.js (no other reason)
@@ -37,14 +32,7 @@ define( function( require ) {
       this.velocity = 1;
       for ( var i = 0; i < this.items.length; i++ ) {
         var item = this.items[i];
-        if ( item.animating.enabled ) {
-          var current = new Vector2( item.position.x, item.position.y );
-          var destination = new Vector2( item.animating.x, item.animating.y );
-          item.position = current.blend( destination, 0.1 );
-          if ( item.position.distance( destination ) < 1 ) {
-            item.animating = {enabled: false, x: 0, y: 0};
-          }
-        }
+        item.step();
       }
 //      this.position = this.position + this.velocity * dt;
     }, on: function() {}
