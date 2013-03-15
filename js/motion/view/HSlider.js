@@ -46,10 +46,14 @@ define( function( require ) {
     var svgKnob = new DOM( $( 'body' ).find( 'svg' ), {cursor: 'pointer'} );
 //    svgKnob.scale = 2;
     svgKnob.y = -svgKnob.height / 2;
-    svgKnob.addInputListener( new SimpleDragHandler( {allowTouchSnag: true, translate: function( options ) {
-                                                       var x = Math.min( Math.max( options.position.x, 0 ), width ) + svgKnob.width / 2;
-                                                       property.set( linear( 0, width, min, max, x ) );
-                                                     }}
+    svgKnob.addInputListener( new SimpleDragHandler( {allowTouchSnag: true,
+                                                       translate: function( options ) {
+                                                         var x = Math.min( Math.max( options.position.x, 0 ), width ) + svgKnob.width / 2;
+                                                         property.set( linear( 0, width, min, max, x ) );
+                                                       },
+                                                       end: function() {
+                                                         property.set( 0 );
+                                                       }}
     ) );
     this.addChild( svgKnob );
 

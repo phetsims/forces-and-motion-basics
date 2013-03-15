@@ -8,6 +8,7 @@ define( function( require ) {
   var model = {
     stack: [],
     appliedForce: 0,
+    pusherX: 0,
     friction: 0,
     velocity: 0,
     position: 0,

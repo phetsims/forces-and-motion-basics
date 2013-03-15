@@ -18,6 +18,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var ItemNode = require( 'motion/view/ItemNode' );
+  var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
   var property = require( 'motion/model/Property' );
   var WatchJS = require( 'watch' );
@@ -71,6 +72,9 @@ define( function( require ) {
 
     var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {x: 395, y: 342} );
     this.scene.addChild( skateboardImage );
+
+    var pusher = new PusherNode( model, topView, imageLoader );
+    this.scene.addChild( pusher );
 
     var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 400} );
     this.scene.addChild( slider );
