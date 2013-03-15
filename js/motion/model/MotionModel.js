@@ -1,6 +1,7 @@
 define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
+  var Item = require( 'motion/model/Item' );
 
   function animateTo( x, y ) {
     this.animating = {enabled: true, x: x, y: y};
@@ -24,13 +25,13 @@ define( function( require ) {
 
       //Combine x and y into a position object so x/y can be observed as a batch using watch.js (no other reason)
       //Note that since position is set as a composite, listeners attached to individual x and y parameters may be dropped.  So do not add listeners to x & y, just observe position as a composite
-      {image: 'fridge.png', weight: 100, position: {x: 41, y: 476}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}},
-      {image: 'crate.png', weight: 100, position: {x: 195, y: 495}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}},
-      {image: 'crate.png', weight: 100, position: {x: 114, y: 496}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}},
-      {image: 'girl-standing.png', weight: 100, position: {x: 632, y: 450}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}},
-      {image: 'man-standing.png', weight: 100, position: {x: 719, y: 365}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}},
-      {image: 'trash-can.png', weight: 100, position: {x: 851, y: 511}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}},
-      {image: 'mystery-object-01.png', weight: 100, position: {x: 796, y: 586}, dragging: false, animateTo: animateTo, animating: {enabled: false, x: 0, y: 0}}
+      new Item( 'fridge.png', 100, 41, 476 ),
+      new Item( 'crate.png', 100, 195, 495 ),
+      new Item( 'crate.png', 100, 114, 495 ),
+      new Item( 'girl-standing.png', 100, 632, 450 ),
+      new Item( 'man-standing.png', 100, 719, 365 ),
+      new Item( 'trash-can.png', 100, 851, 511 ),
+      new Item( 'mystery-object-01.png', 100, 796, 586 )
     ], step: function() {
       var dt = 1;
       this.velocity = 1;
