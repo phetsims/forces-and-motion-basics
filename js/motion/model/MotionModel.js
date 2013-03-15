@@ -36,7 +36,7 @@ define( function( require ) {
         this.items[i].step();
       }
 //      this.position = this.position + this.velocity * dt;
-    }, on: function() {}
+    }
   };
 } )
 ;
