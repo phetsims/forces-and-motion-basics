@@ -1,8 +1,10 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           "motion/model/testSwatch", 'motion/model/testWatchFork', 'PHETCOMMON/util/ImagesLoader'], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, testWatchFork, ImagesLoader ) {
+           "motion/model/testSwatch", 'motion/model/testWatchFork',
+           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, testWatchFork, ImagesLoader, Strings ) {
   "use strict";
 
+  console.log( Strings );
 //  testWatchFork();
 
   window.requestAnimFrame = (function() {
