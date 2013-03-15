@@ -23,7 +23,7 @@ define( function( require ) {
       new Item( 'girl-standing.png', 100, 632, 450 ),
       new Item( 'man-standing.png', 100, 719, 365 ),
       new Item( 'trash-can.png', 100, 851, 511 ),
-      new Item( 'mystery-object-01.png', 100, 796, 586 )
+      new Item( 'mystery-object-01.png', 100, 800, 590 )
     ], step: function() {
       var dt = 1;
       this.velocity = 1;

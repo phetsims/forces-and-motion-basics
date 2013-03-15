@@ -15,7 +15,9 @@ define( function( require ) {
     view.getImage = function( name ) {return imageLoader.getImage( name );};
 
     view.model = model;
-    var initialModel = jQuery.extend( true, {}, view.model );
+
+    //Make a deep copy of the initial model to get the initial values.  I tried using jQuery.extend( true, {}, view.model ); but it copied references and they were changing
+    var initialModel = JSON.parse( JSON.stringify( view.model ) );
 
     //Update the model by setting values from the specified model
     function setModel( src, dst ) {
@@ -59,14 +61,11 @@ define( function( require ) {
     $resetButton.bind( 'touchstart', reset );
     $resetButton.bind( 'click', reset );
 
-    view.model.on( 'reset-all', function() {
-      view.resetAll();
-    } );
-
     watch( view.model, function( property, action, newValue, oldValue, path ) {
       if ( !playback ) {
-//        console.log( "Pushing log for newVaul", JSON.stringify( newValue ) );
-        log.push( {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: newValue, oldValue: oldValue } );
+        var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
+//        console.log( "Pushing log item inde:", log.length, "logitem: ", JSON.stringify( logItem ) );
+        log.push( logItem );
       }
     } );
 
@@ -91,12 +90,12 @@ define( function( require ) {
           var time = log[logIndex].time;
           if ( time < playbackTime ) {
 
-            console.log( "playing back log index: " + logIndex + ", time=" + time, 'logentry = ', JSON.stringify( log[logIndex].newValue ) );
+//            console.log( "playing back log index: " + logIndex + ", time=" + time, 'logentry = ', JSON.stringify( log[logIndex].newValue ) );
 
             var obj = log[logIndex];
             var path = obj.path;
             if ( path === "root" ) {
-              m[obj.property] = obj.newValue;
+              m[obj.property] = JSON.parse( obj.newValue );
             }
             else {
               var item = m;
@@ -104,7 +103,7 @@ define( function( require ) {
                 var pathElement = path[k];
                 item = item[pathElement];
               }
-              item[obj.property] = obj.newValue;
+              item[obj.property] = JSON.parse( obj.newValue );
             }
 
             logIndex++;
