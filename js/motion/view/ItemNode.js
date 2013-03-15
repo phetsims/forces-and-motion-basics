@@ -18,9 +18,22 @@ define( function( require ) {
     Node.call( this, {x: item.position.x, y: item.position.y, cursor: 'pointer'} );
     this.addChild( new Image( image ) );
     this.addInputListener( new SimpleDragHandler( {
-                                                    translate: function( options ) { item.position = options.position; },
+                                                    translate: function( options ) {
+
+                                                      //Don't allow the user to translate the object while it is animating
+                                                      if ( !item.animating.enabled ) {
+                                                        item.position = options.position;
+                                                      }
+                                                    },
                                                     end: function() {
-                                                      item.animateTo( 480 - itemNode.width / 2, 350 - itemNode.height );
+
+                                                      //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
+                                                      if ( item.position.y < 350 ) {
+                                                        item.animateTo( 480 - itemNode.width / 2, 350 - itemNode.height );
+                                                      }
+                                                      else {
+                                                        item.animateHome();
+                                                      }
                                                     }
                                                   } ) );
     watch( item, 'position', function( a, b, p ) { itemNode.setTranslation( p ); } );

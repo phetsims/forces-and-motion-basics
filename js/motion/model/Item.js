@@ -9,12 +9,17 @@ define( function( require ) {
     //Combine x and y into a position object so x/y can be observed as a batch using watch.js (no other reason)
     //Note that since position is set as a composite, listeners attached to individual x and y parameters may be dropped.  So do not add listeners to x & y, just observe position as a composite
     this.position = {x: x, y: y};
+    this.initialPositionJSON = JSON.stringify( this.position );
     this.dragging = false;
     this.animating = {enabled: false, x: 0, y: 0};
   }
 
   Item.prototype = {
     animateTo: function( x, y ) { this.animating = {enabled: true, x: x, y: y}; },
+    animateHome: function( x, y ) {
+      var initialPosition = JSON.parse( this.initialPositionJSON );
+      this.animateTo( initialPosition.x, initialPosition.y );
+    },
     step: function() {
       if ( this.animating.enabled ) {
         var current = new Vector2( this.position.x, this.position.y );
