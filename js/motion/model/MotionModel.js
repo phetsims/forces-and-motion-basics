@@ -17,8 +17,8 @@ define( function( require ) {
     showAcceleration: false,
     running: true,
 
-    //TODO: Convert this to es5 getter, but will require making sure that watch.js doesn't overwrite it
-    getTopOfStack: function() {
+    //Note, using this as an es5 getter requires changes to watch.js so the getter is not overriden.
+    get topOfStack() {
       return 350 - this.stack.length * 100;
     },
     items: [
