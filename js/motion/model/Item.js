@@ -5,6 +5,9 @@ define( function( require ) {
   function Item( image, weight, x, y ) {
     this.image = image;
     this.weight = weight;
+
+    //Combine x and y into a position object so x/y can be observed as a batch using watch.js (no other reason)
+    //Note that since position is set as a composite, listeners attached to individual x and y parameters may be dropped.  So do not add listeners to x & y, just observe position as a composite
     this.position = {x: x, y: y};
     this.dragging = false;
     this.animating = {enabled: false, x: 0, y: 0};

@@ -17,9 +17,6 @@ define( function( require ) {
     showAcceleration: false,
     running: true,
     items: [
-
-      //Combine x and y into a position object so x/y can be observed as a batch using watch.js (no other reason)
-      //Note that since position is set as a composite, listeners attached to individual x and y parameters may be dropped.  So do not add listeners to x & y, just observe position as a composite
       new Item( 'fridge.png', 100, 41, 476 ),
       new Item( 'crate.png', 100, 195, 495 ),
       new Item( 'crate.png', 100, 114, 495 ),
@@ -31,8 +28,7 @@ define( function( require ) {
       var dt = 1;
       this.velocity = 1;
       for ( var i = 0; i < this.items.length; i++ ) {
-        var item = this.items[i];
-        item.step();
+        this.items[i].step();
       }
 //      this.position = this.position + this.velocity * dt;
     }, on: function() {}
