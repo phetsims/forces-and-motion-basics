@@ -72,6 +72,12 @@ define( function( require ) {
         }
         var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
 //        console.log( "Pushing log item inde:", log.length, "logitem: ", JSON.stringify( logItem ) );
+//        var param = $.param(logItem);
+//        console.log(param);
+//
+//        var img = new Image();
+//        img.src="http://simian.colorado.edu/__utm.gif?"+param;
+////        $.post( 'http://simian.colorado.edu/'+param);//origin error on chrome
         log.push( logItem );
       }
     } );

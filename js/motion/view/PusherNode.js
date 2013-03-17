@@ -26,14 +26,21 @@ define( function( require ) {
       imageNode.image = imageLoader.getImage( appliedForce == 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
       if ( appliedForce > 0 ) {
 
+        //Show the pusher facing to the right//TODO: This is buggy
+        imageNode.setScale( 1, 1 );
+
         //Workaround for buggy setScale, see dot#2
-        imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+//        imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+
         itemNode.x = 200;
       }
       else {
 
+        //Show the pusher facing to the left//TODO: This is buggy
+        imageNode.setScale( -1, 1 );
+
         //Workaround for buggy setScale, see dot#2
-        imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
+//        imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         itemNode.x = 700;
       }
       itemNode.y = 350 - itemNode.height + 30;
