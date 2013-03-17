@@ -19,6 +19,5 @@ window.phet.getLocaleQuery = (function() {
       }
     }
   }
-  console.log("locale="+value);
   return value;
 });
