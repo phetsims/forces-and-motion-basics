@@ -7,7 +7,7 @@ if ( !window.phet ) {
   window.phet = {};
 }
 window.phet.getLocaleQuery = (function() {
-  var value;
+  var value = "en_US";
   if ( typeof window != 'undefined' && window.location.search ) {
     // look for first occurrence of "locale" query parameter
     var params = window.location.search.slice( 1 ).split( "&" );
@@ -19,5 +19,6 @@ window.phet.getLocaleQuery = (function() {
       }
     }
   }
+  console.log("locale="+value);
   return value;
 });
