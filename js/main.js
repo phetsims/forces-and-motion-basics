@@ -1,7 +1,7 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
            "motion/util/testSwatch", 'motion/util/testWatchFork',
-           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, testWatchFork, ImagesLoader, Strings ) {
+           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings"], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, testSwatch, testWatchFork, ImagesLoader, Strings ) {
   "use strict";
 
   console.log( Strings );
@@ -40,7 +40,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   new ImagesLoader( function( imageLoader ) {
 
     views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $( '.tab1' ) ) );
-    views.push( new MotionView( imageLoader, motionModel, $( '.tab2' ) ) );
+    views.push( new MotionView( imageLoader, new MotionModel(), $( '.tab2' ) ) );
 
     $tab2 = $( '.tab2' ).detach();
     $( "#overlay" ).remove();

@@ -10,9 +10,9 @@ define( function( require ) {
   var resetPlaybackTime = false; //Temporary flag used to reset the playback time when switching to a new set of log entries
   var getLogEntry = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
 
-  function MotionView( imageLoader, Model, $tab ) {
-    var model = Model.model;
-    Model.view = this;
+  function MotionView( imageLoader, motionModel, $tab ) {
+    var model = motionModel.state;
+    motionModel.view = this;
     var view = this;
     view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};
@@ -31,8 +31,8 @@ define( function( require ) {
     $playbackButton.bind( 'click', startPlayback );
 
     var $resetButton = $( '.reset-all-button' );
-    $resetButton.bind( 'touchstart', model.reset.bind( model ) );
-    $resetButton.bind( 'click', model.reset.bind( model ) );
+    $resetButton.bind( 'touchstart', motionModel.reset.bind( motionModel ) );
+    $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
 
     view.scenery = new MotionScenery( model, view, $tab, imageLoader );
 
