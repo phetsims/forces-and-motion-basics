@@ -62,6 +62,25 @@ define( function( require ) {
     watch( model, 'position', updateBrick );
     updateBrick( 0, 0, 0, 0 );
 
+    var mountainLayer = new Node( {scale: 0.3, x: 0, y: 320} );
+    mountainLayer.addChild( new Image( imageLoader.getImage( 'mountains.png' ), {renderer: 'svg'} ) );
+    mountainLayer.addChild( new Image( imageLoader.getImage( 'mountains.png' ), {x: 2000, renderer: 'svg'} ) );
+    this.scene.addChild( mountainLayer );
+    var updateMountains = function( property, action, newValue, oldValue ) {
+      var distanceScale = 10;
+      var layerWidth = mountainLayer.width * distanceScale;
+      var x = -(newValue % layerWidth);
+
+      //Prevent it from showing gaps when animating to the left
+      if ( x > 0 ) {
+        x = x - layerWidth;
+      }
+      mountainLayer.x = x / distanceScale;
+    };
+    updateMountains( 0, 0, 0, 0 );
+
+    watch( model, 'position', updateMountains );
+
     //Add toolbox backgrounds for the pullers
     view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
     view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
