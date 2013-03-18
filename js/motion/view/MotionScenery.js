@@ -91,21 +91,6 @@ define( function( require ) {
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();
-
-    //Upper items should fall if an item removed from beneath
-    watch( model, 'stack', function( property, action, newValue, oldValue ) {
-      if ( action === 'splice' ) {
-        if ( view.model.stack.length > 0 ) {
-
-          var sumHeight = 0;
-          for ( var i = 0; i < view.model.stack.length; i++ ) {
-            var itemNode = view.getItemNode( view.model.stack[i] );
-            sumHeight += itemNode.height;
-            itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - sumHeight );
-          }
-        }
-      }
-    } );
   }
 
   TugOfWarScenery.prototype = {

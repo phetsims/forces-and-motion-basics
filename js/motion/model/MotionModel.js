@@ -44,6 +44,22 @@ define( function( require ) {
     }, reset: function() {setModel( initialModel, this );}
   };
 
+  //Upper items should fall if an item removed from beneath
+  //Uses the view to get item dimensions.
+  watch( model, 'stack', function( property, action, newValue, oldValue ) {
+    if ( action === 'splice' ) {
+      if ( model.stack.length > 0 ) {
+
+        var sumHeight = 0;
+        for ( var i = 0; i < model.stack.length; i++ ) {
+          var itemNode = entireModel.view.scenery.getItemNode( model.stack[i] );
+          sumHeight += itemNode.height;
+          itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - sumHeight );
+        }
+      }
+    }
+  } );
+
   //Update the model by setting values from the specified model
   function setModel( src, dst ) {
 
@@ -72,5 +88,6 @@ define( function( require ) {
 
   //Make a deep copy of the initial model to get the initial values.  I tried using jQuery.extend( true, {}, view.model ); but it copied references and they were changing
   var initialModel = JSON.parse( JSON.stringify( model ) );
-  return {model: model, initialModel: initialModel};
+  var entireModel = {model: model, initialModel: initialModel, view: null};//View will be filled in by the view
+  return entireModel;
 } );

@@ -12,6 +12,7 @@ define( function( require ) {
 
   function MotionView( imageLoader, Model, $tab ) {
     var model = Model.model;
+    Model.view = this;
     var view = this;
     view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};
