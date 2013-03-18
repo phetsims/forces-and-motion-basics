@@ -58,7 +58,6 @@ define( function( require ) {
         x = x - brickWidth;
       }
       brickDOM.x = x;
-      console.log( brickDOM.x );
     };
     watch( model, 'position', updateBrick );
     updateBrick( 0, 0, 0, 0 );
