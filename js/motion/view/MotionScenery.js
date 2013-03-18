@@ -62,24 +62,17 @@ define( function( require ) {
     watch( model, 'position', updateBrick );
     updateBrick( 0, 0, 0, 0 );
 
-    var mountainLayer = new Node( {scale: 0.3, x: 0, y: 320} );
-    mountainLayer.addChild( new Image( imageLoader.getImage( 'mountains.png' ), {renderer: 'svg'} ) );
-    mountainLayer.addChild( new Image( imageLoader.getImage( 'mountains.png' ), {x: 2000, renderer: 'svg'} ) );
-    this.scene.addChild( mountainLayer );
-    var updateMountains = function( property, action, newValue, oldValue ) {
+    var addMountain = function( offset ) {
       var distanceScale = 10;
-      var layerWidth = mountainLayer.width * distanceScale;
-      var x = -(newValue % layerWidth);
-
-      //Prevent it from showing gaps when animating to the left
-      if ( x > 0 ) {
-        x = x - layerWidth;
-      }
-      mountainLayer.x = x / distanceScale;
+      var mountain = new Image( imageLoader.getImage( 'mountains.png' ), {scale: 0.3, y: 320, renderer: 'svg'} );
+      view.scene.addChild( mountain );
+      var updateMountain = function( property, action, newValue, oldValue ) { mountain.x = -(newValue / distanceScale + offset) % 1500 + 1500 - mountain.width; };
+      updateMountain( 0, 0, 0, 0 );
+      watch( model, 'position', updateMountain );
     };
-    updateMountains( 0, 0, 0, 0 );
-
-    watch( model, 'position', updateMountains );
+    addMountain( 100 );
+    addMountain( 600 );
+    addMountain( 1200 );
 
     //Add toolbox backgrounds for the pullers
     view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
