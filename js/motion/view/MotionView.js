@@ -7,6 +7,7 @@ define( function( require ) {
   var log = [];
   var logIndex = 0;
   var playbackTime = 0;
+  var resetPlaybackTime = false;
   var getLogEntry = true;
 
   function MotionView( imageLoader, Model, $tab ) {
@@ -43,15 +44,18 @@ define( function( require ) {
       } );
       socket.on( 'clientIDs', function( data ) {
         console.log( 'client IDs', data );
-      } );
 
-      if ( getLogEntry ) {
-        socket.emit( 'get log entry' );
-      }
-      socket.on( 'deliver log entry', function( logEntry ) {
-        console.log( "deliver log entry" );
-        console.log( logEntry );
-        log.push( logEntry );
+        if ( getLogEntry ) {
+          socket.emit( 'get log entry', {clientID: data.clientIDs[1]} );
+          resetPlaybackTime = true;
+        }
+        socket.on( 'deliver log entry', function( logEntry ) {
+          log.push( logEntry );
+          if ( resetPlaybackTime ) {
+            playbackTime = logEntry.time;
+            resetPlaybackTime = false;
+          }
+        } );
       } );
     }
 
@@ -84,7 +88,7 @@ define( function( require ) {
         while ( logIndex < log.length ) {
           //find any events that passed in this time frame
           var time = log[logIndex].time;
-          if ( time < playbackTime || getLogEntry ) {
+          if ( time < playbackTime ) {
 
             var logEntry = log[logIndex];
             var path = logEntry.path;
@@ -101,9 +105,6 @@ define( function( require ) {
             }
 
             logIndex++;
-            if ( getLogEntry ) {
-              break;
-            }
           }
           else {
             break;
