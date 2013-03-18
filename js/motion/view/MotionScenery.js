@@ -62,20 +62,20 @@ define( function( require ) {
     watch( model, 'position', updateBrick );
     updateBrick( 0, 0, 0, 0 );
 
-    var addBackgroundSprite = function( offset, imageName, distanceScale, y ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: 0.3, y: y, renderer: 'canvas'} );
+    var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'canvas'} );
       view.scene.addChild( sprite );
       var update = function( property, action, newValue, oldValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; };
       update( 0, 0, 0, 0 );
       watch( model, 'position', update );
     };
-    addBackgroundSprite( 100, 'mountains.png', 10, 320 );
-    addBackgroundSprite( 600, 'mountains.png', 10, 320 );
-    addBackgroundSprite( 1200, 'mountains.png', 10, 320 );
+    addBackgroundSprite( 100, 'mountains.png', 10, 320, 0.3 );
+    addBackgroundSprite( 600, 'mountains.png', 10, 320, 0.3 );
+    addBackgroundSprite( 1200, 'mountains.png', 10, 320, 0.3 );
 
-    addBackgroundSprite( 100, 'cloud1.png', 5, 10 );
-    addBackgroundSprite( 600, 'cloud1.png', 5, 30 );
-    addBackgroundSprite( 1200, 'cloud1.png', 5, 5 );
+    addBackgroundSprite( 100, 'cloud1.png', 5, 10, 0.6 );
+    addBackgroundSprite( 600, 'cloud1.png', 5, -30, 0.7 );
+    addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.5 );
 
     //Add toolbox backgrounds for the pullers
     view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
