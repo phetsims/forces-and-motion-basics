@@ -42,13 +42,24 @@ define( function( require ) {
     this.scene.addChild( this.groundNode );
     var grassY = 368;
 
+    //TODO: Consider using scenery.Pattern instead of background-repeat: repeat-x;
     var brickDOM = new DOM( $( '#brick' ) );
     view.brickDOM = brickDOM;
     brickDOM.x = 100;
     brickDOM.y = 368 + 8;
     brickDOM.scale = 1;
     this.scene.addChild( brickDOM );
-    var updateBrick = function( property, action, newValue, oldValue ) { brickDOM.x = -newValue % (120); };
+    var brickWidth = 120;
+    var updateBrick = function( property, action, newValue, oldValue ) {
+      var x = -(newValue % brickWidth);
+
+      //Prevent it from showing gaps when animating to the left
+      if ( x > 0 ) {
+        x = x - brickWidth;
+      }
+      brickDOM.x = x;
+      console.log( brickDOM.x );
+    };
     watch( model, 'position', updateBrick );
     updateBrick( 0, 0, 0, 0 );
 
@@ -132,7 +143,7 @@ define( function( require ) {
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
       $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
 
-      $( '#brick' ).css( {width: width / scale + 120 * 2} );
+//      $( '#brick' ).css( {width: width / scale + 120 * 2} );
 
       this.render();
     },
