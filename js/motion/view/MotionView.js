@@ -7,8 +7,8 @@ define( function( require ) {
   var log = [];
   var logIndex = 0;
   var playbackTime = 0;
-  var resetPlaybackTime = false;
-  var getLogEntry = true;
+  var resetPlaybackTime = false; //Temporary flag used to reset the playback time when switching to a new set of log entries
+  var getLogEntry = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
 
   function MotionView( imageLoader, Model, $tab ) {
     var model = Model.model;
@@ -63,9 +63,6 @@ define( function( require ) {
 
     watch( view.model, function( property, action, newValue, oldValue, path ) {
       if ( !playback && !getLogEntry ) {
-        if ( action !== 'set' ) {
-          console.log( path, property, action, newValue );
-        }
         var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
         log.push( logItem );
 
