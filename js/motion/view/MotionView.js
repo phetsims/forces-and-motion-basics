@@ -8,7 +8,7 @@ define( function( require ) {
   var log = [];
   var logIndex = 0;
   var playbackTime = 0;
-  var getLogEntry = true;
+  var getLogEntry = false;
 
   function MotionView( imageLoader, model, $tab ) {
     var view = this;
@@ -72,6 +72,10 @@ define( function( require ) {
       socket.on( 'news', function( data ) {
         console.log( data );
       } );
+      socket.on( 'clientIDs', function( data ) {
+        console.log( 'client IDs', data );
+      } );
+
       if ( getLogEntry ) {
         socket.emit( 'get log entry' );
       }
