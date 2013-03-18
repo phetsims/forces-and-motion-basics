@@ -8,7 +8,7 @@ define( function( require ) {
   var log = [];
   var logIndex = 0;
   var playbackTime = 0;
-  var getLogEntry = false;
+  var getLogEntry = true;
 
   function MotionView( imageLoader, model, $tab ) {
     var view = this;
@@ -67,7 +67,8 @@ define( function( require ) {
     $resetButton.bind( 'click', reset );
 
     if ( typeof io != 'undefined' ) {
-      var socket = io.connect( 'http://simian.colorado.edu:44100' );
+//      var socket = io.connect( 'http://simian.colorado.edu:44100' );
+      var socket = io.connect( 'http://192.168.1.7:44100' );
       socket.on( 'news', function( data ) {
         console.log( data );
       } );
