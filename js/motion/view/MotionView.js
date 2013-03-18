@@ -17,7 +17,7 @@ define( function( require ) {
     window.phet = {model: model};
     view.model = model;
 
-    function playbackEvent() {
+    function startPlayback() {
       playback = true;
       playbackTime = log[0].time;
 
@@ -25,14 +25,16 @@ define( function( require ) {
     }
 
     var $playbackButton = $( '.playback-button' );
-    $playbackButton.bind( 'touchstart', playbackEvent );
-    $playbackButton.bind( 'click', playbackEvent );
-    view.scenery = new MotionScenery( model, view, $tab, imageLoader );
+    $playbackButton.bind( 'touchstart', startPlayback );
+    $playbackButton.bind( 'click', startPlayback );
 
     var $resetButton = $( '.reset-all-button' );
     $resetButton.bind( 'touchstart', model.reset.bind( model ) );
     $resetButton.bind( 'click', model.reset.bind( model ) );
 
+    view.scenery = new MotionScenery( model, view, $tab, imageLoader );
+
+    //Connect to server for sending or delivering log events
     if ( typeof io != 'undefined' ) {
 //      var socket = io.connect( 'http://simian.colorado.edu:44100' );
       var socket = io.connect( 'http://192.168.1.7:44100' );
@@ -59,13 +61,6 @@ define( function( require ) {
           console.log( path, property, action, newValue );
         }
         var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
-//        console.log( "Pushing log item inde:", log.length, "logitem: ", JSON.stringify( logItem ) );
-//        var param = $.param(logItem);
-//        console.log(param);
-//
-//        var img = new Image();
-//        img.src="http://simian.colorado.edu/__utm.gif?"+param;
-////        $.post( 'http://simian.colorado.edu/'+param);//origin error on chrome
         log.push( logItem );
 
         if ( !getLogEntry && typeof socket !== "undefined" ) {
@@ -90,8 +85,6 @@ define( function( require ) {
           //find any events that passed in this time frame
           var time = log[logIndex].time;
           if ( time < playbackTime || getLogEntry ) {
-
-//            console.log( "playing back log index: " + logIndex + ", time=" + time, 'logentry = ', JSON.stringify( log[logIndex].newValue ) );
 
             var logEntry = log[logIndex];
             var path = logEntry.path;
