@@ -45,6 +45,8 @@ define( function( require ) {
       socket.on( 'clientIDs', function( data ) {
         console.log( 'client IDs', data );
 
+        //TODO: Show client IDs in a GUI and let the user select one.
+
         if ( getLogEntry ) {
           socket.emit( 'get log entry', {clientID: data.clientIDs[1]} );
           resetPlaybackTime = true;
@@ -87,6 +89,7 @@ define( function( require ) {
 
         while ( logIndex < log.length ) {
           //find any events that passed in this time frame
+          //Note, may handle multiple events before calling scene.updateScene()
           var time = log[logIndex].time;
           if ( time < playbackTime ) {
 
