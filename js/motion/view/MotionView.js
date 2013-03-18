@@ -12,7 +12,10 @@ define( function( require ) {
 
   function MotionView( imageLoader, motionModel, $tab ) {
     var model = motionModel.state;
-    motionModel.view = this;
+    motionModel.getSize = function( item ) {
+      var itemNode = motionModel.view.scenery.getItemNode( item );
+      return {width: itemNode.width, height: itemNode.height};
+    };
     var view = this;
     view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};

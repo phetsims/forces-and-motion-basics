@@ -7,7 +7,15 @@ define( function( require ) {
 
   function MotionModel() {
     var motionModel = this;
-    this.view = null;//filled in by the view for callbacks
+
+    //Context for getting the size of items
+    //filled in by the view for callbacks to get the size of objects
+    //This approach has the following features: 
+    // ensure values 100% consistent
+    // logic not duplicated 
+    // no performance cost on startup or headaches with IE
+    //It does have the drawbacks of (a) must be wired up to work properly and (b) some view leakage into the model
+    this.getSize = null;
     this.state = {
       stack: [],
       appliedForce: 0,
@@ -56,9 +64,9 @@ define( function( require ) {
 
           var sumHeight = 0;
           for ( var i = 0; i < motionModel.state.stack.length; i++ ) {
-            var itemNode = motionModel.view.scenery.getItemNode( motionModel.state.stack[i] );
-            sumHeight += itemNode.height;
-            itemNode.item.animateTo( 480 - itemNode.width / 2, 350 - sumHeight );
+            var size = motionModel.getSize( motionModel.state.stack[i] );
+            sumHeight += size.height;
+            motionModel.state.stack[i].animateTo( 480 - size.width / 2, 350 - sumHeight );
           }
         }
       }
