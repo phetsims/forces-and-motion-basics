@@ -41,8 +41,36 @@ define( function( require ) {
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].step();
       }
-    }
+    }, reset: function() {setModel( initialModel, this );}
   };
-  return model;
-} )
-;
+
+  //Update the model by setting values from the specified model
+  function setModel( src, dst ) {
+
+    //set initial model to model
+    for ( var obj in src ) {
+
+      var oldVal = dst[obj];
+      if ( typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
+        //Make sure it has a setter
+        var d = Object.getOwnPropertyDescriptor( dst, obj );
+        if ( d && d.set ) {
+          dst[obj] = src[obj];
+          callWatchers( dst, obj, "set", src[obj], oldVal );
+        }
+      }
+
+      if ( typeof src[obj] === 'object' ) {
+        var oldVal = dst[obj];
+        setModel( src[obj], dst[obj] );
+
+        //Support composite strategy like position:{x:100,y:100} so that it looks like we called model.position = {};
+        callWatchers( dst, obj, "set", src[obj], oldVal );
+      }
+    }
+  }
+
+  //Make a deep copy of the initial model to get the initial values.  I tried using jQuery.extend( true, {}, view.model ); but it copied references and they were changing
+  var initialModel = JSON.parse( JSON.stringify( model ) );
+  return {model: model, initialModel: initialModel};
+} );

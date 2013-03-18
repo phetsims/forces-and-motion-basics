@@ -3,54 +3,25 @@ define( function( require ) {
   var MotionScenery = require( 'motion/view/MotionScenery' );
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
-  var callWatchers = WatchJS.callWatchers;
   var playback = false;
   var log = [];
   var logIndex = 0;
   var playbackTime = 0;
-  var getLogEntry = false;
+  var getLogEntry = true;
 
-  function MotionView( imageLoader, model, $tab ) {
+  function MotionView( imageLoader, Model, $tab ) {
+    var model = Model.model;
     var view = this;
     view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};
     window.phet = {model: model};
     view.model = model;
 
-    //Make a deep copy of the initial model to get the initial values.  I tried using jQuery.extend( true, {}, view.model ); but it copied references and they were changing
-    var initialModel = JSON.parse( JSON.stringify( view.model ) );
-
-    //Update the model by setting values from the specified model
-    function setModel( src, dst ) {
-
-      //set initial model to model
-      for ( var obj in src ) {
-
-        var oldVal = dst[obj];
-        if ( typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
-          //Make sure it has a setter
-          var d = Object.getOwnPropertyDescriptor( dst, obj );
-          if ( d && d.set ) {
-            dst[obj] = src[obj];
-            callWatchers( dst, obj, "set", src[obj], oldVal );
-          }
-        }
-
-        if ( typeof src[obj] === 'object' ) {
-          var oldVal = dst[obj];
-          setModel( src[obj], dst[obj] );
-
-          //Support composite strategy like position:{x:100,y:100} so that it looks like we called model.position = {};
-          callWatchers( dst, obj, "set", src[obj], oldVal );
-        }
-      }
-    }
-
     function playbackEvent() {
       playback = true;
       playbackTime = log[0].time;
 
-      setModel( initialModel, view.model );
+      model.reset();
     }
 
     var $playbackButton = $( '.playback-button' );
@@ -58,13 +29,9 @@ define( function( require ) {
     $playbackButton.bind( 'click', playbackEvent );
     view.scenery = new MotionScenery( model, view, $tab, imageLoader );
 
-    function reset() {
-      setModel( initialModel, view.model );
-    }
-
     var $resetButton = $( '.reset-all-button' );
-    $resetButton.bind( 'touchstart', reset );
-    $resetButton.bind( 'click', reset );
+    $resetButton.bind( 'touchstart', model.reset.bind( model ) );
+    $resetButton.bind( 'click', model.reset.bind( model ) );
 
     if ( typeof io != 'undefined' ) {
 //      var socket = io.connect( 'http://simian.colorado.edu:44100' );
