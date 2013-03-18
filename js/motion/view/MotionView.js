@@ -48,7 +48,7 @@ define( function( require ) {
         //TODO: Show client IDs in a GUI and let the user select one.
 
         if ( getLogEntry ) {
-          socket.emit( 'get log entry', {clientID: data.clientIDs[1]} );
+          socket.emit( 'get log', {clientID: data.clientIDs[1]} );
           resetPlaybackTime = true;
         }
         socket.on( 'deliver log entry', function( logEntry ) {
