@@ -11,22 +11,20 @@ define( function( require ) {
   var getLogEntry = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
 
   function MotionView( imageLoader, motionModel, $tab ) {
-    var model = motionModel.state;
+    var view = this;
+    this.motionModel = motionModel;
     motionModel.getSize = function( item ) {
-      var itemNode = motionModel.view.scenery.getItemNode( item );
+      var itemNode = view.scenery.getItemNode( item );
       return {width: itemNode.width, height: itemNode.height};
     };
-    var view = this;
     view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};
-    window.phet = {model: model};
-    view.model = model;
 
     function startPlayback() {
       playback = true;
       playbackTime = log[0].time;
 
-      model.reset();
+      view.motionModel.reset();
     }
 
     var $playbackButton = $( '.playback-button' );
@@ -37,7 +35,7 @@ define( function( require ) {
     $resetButton.bind( 'touchstart', motionModel.reset.bind( motionModel ) );
     $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
 
-    view.scenery = new MotionScenery( model, view, $tab, imageLoader );
+    view.scenery = new MotionScenery( motionModel.state, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
     if ( typeof io != 'undefined' ) {
@@ -65,7 +63,7 @@ define( function( require ) {
       } );
     }
 
-    watch( view.model, function( property, action, newValue, oldValue, path ) {
+    watch( motionModel.state, function( property, action, newValue, oldValue, path ) {
       if ( !playback && !getLogEntry ) {
         var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
         log.push( logItem );
@@ -86,7 +84,7 @@ define( function( require ) {
     },
     step: function() {
       if ( playback || getLogEntry ) {
-        var m = this.model;
+        var m = this.motionModel.state;
 
         while ( logIndex < log.length ) {
           //find any events that passed in this time frame
@@ -119,7 +117,7 @@ define( function( require ) {
         playbackTime += 17;//ms between frames at 60fps
       }
       else {
-        this.model.step();
+        this.motionModel.state.step();
         this.scenery.scene.updateScene();
       }
 
