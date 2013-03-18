@@ -1,7 +1,7 @@
 /*Property interface that uses WatchJS and provides get/set/addListener*/
 define( function( require ) {
   "use strict";
-  var swatch = require( 'motion/model/SwatchJS' ).swatch;
+  var swatch = require( 'motion/util/SwatchJS' ).swatch;
 
   //Create a property abstraction around a model for the given key
   function property( model, key ) {

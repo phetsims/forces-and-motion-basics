@@ -21,7 +21,7 @@ define( function( require ) {
   var ItemNode = require( 'motion/view/ItemNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
-  var property = require( 'motion/model/Property' );
+  var property = require( 'motion/util/Property' );
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
 

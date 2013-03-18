@@ -1,6 +1,6 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           "motion/model/testSwatch", 'motion/model/testWatchFork',
+           "motion/util/testSwatch", 'motion/util/testWatchFork',
            'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings"], function( TugOfWarView, TugOfWarModel, MotionView, motionModel, testSwatch, testWatchFork, ImagesLoader, Strings ) {
   "use strict";
 

@@ -1,6 +1,6 @@
 define( function( require ) {
   "use strict";
-  var SwatchJS = require( 'motion/model/SwatchJS' );
+  var SwatchJS = require( 'motion/util/SwatchJS' );
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
   var swatch = SwatchJS.swatch;
