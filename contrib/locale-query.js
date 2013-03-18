@@ -13,6 +13,7 @@
  *       }
  *     }
  * 4. Specify the locale in your URL like this: "http://path/to/my/sim.html?locale=fr
+ * 5. Note: this file must be loaded before requirejs is started up, and this file cannot be loaded as an AMD module
  *
  * @author: Sam Reid, PhET
  */
