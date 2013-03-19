@@ -3,6 +3,7 @@ define( function( require ) {
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
+  var sync = WatchJS.sync;
 
   function MotionControlPanel( $tab, motionModel, imageLoader ) {
     var state = motionModel.state;
@@ -11,13 +12,11 @@ define( function( require ) {
     $checkBox.bind( "touchstart", toggle );
     $checkBox.bind( "click", toggle );
 
-    var update = function() {
+    sync( state, 'showForce', function() {
       var $icon = $checkBox.find( 'i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( state.showForce ? "icon-check" : "icon-check-empty" );
-    };
-    watch( state, 'showForce', update );
-    update();
+    } );
   }
 
   return MotionControlPanel;

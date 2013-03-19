@@ -37,13 +37,13 @@ define( function( require ) {
                                                          var x = Math.min( Math.max( options.position.x, 0 ), width ) + svgKnob.width / 2;
                                                          property.set( linear( 0, width, min, max, x ) );
                                                        },
-                                                       end: function() {
-                                                         property.set( 0 );
-                                                       }}
+                                                       end: function() { property.set( 0 ); }}
     ) );
     this.addChild( svgKnob );
 
-    property.addListener( function( value ) { svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2; } );
+    property.addListener( function( property, action, value, oldValue ) {
+      svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2;
+    } );
   }
 
   Inheritance.inheritPrototype( HSlider, Node );
