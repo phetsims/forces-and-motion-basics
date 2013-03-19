@@ -7,16 +7,24 @@ define( function( require ) {
 
   function MotionControlPanel( $tab, motionModel, imageLoader ) {
     var state = motionModel.state;
-    var toggle = function() { state.showForce = !state.showForce; };
-    var $checkBox = $tab.find( '.show-force-checkbox' );
-    $checkBox.bind( "touchstart", toggle );
-    $checkBox.bind( "click", toggle );
 
-    sync( state, 'showForce', function() {
-      var $icon = $checkBox.find( 'i' );
-      $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
-      $icon.addClass( state.showForce ? "icon-check" : "icon-check-empty" );
-    } );
+    function wireUpCheckBox( state, attribute, selector ) {
+      var toggle = function() { state[attribute] = !state[attribute]; };
+      var $checkBox = $tab.find( selector );
+      $checkBox.bind( "touchstart", toggle );
+      $checkBox.bind( "click", toggle );
+
+      sync( state, attribute, function() {
+        var $icon = $checkBox.find( 'i' );
+        $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
+        $icon.addClass( state[attribute] ? "icon-check" : "icon-check-empty" );
+      } );
+    }
+
+    wireUpCheckBox( state, 'showForce', '.show-force-checkbox' );
+    wireUpCheckBox( state, 'showValues', '.show-values-checkbox' );
+    wireUpCheckBox( state, 'showMasses', '.show-masses-checkbox' );
+    wireUpCheckBox( state, 'showSpeed', '.show-speed-checkbox' );
   }
 
   return MotionControlPanel;

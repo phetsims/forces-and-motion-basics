@@ -26,7 +26,7 @@ define( function( require ) {
       showForce: true,
       showValues: false,
       showSumOfForces: false,
-      showSpeed: true,
+      showSpeed: false,
       showMasses: false,
       showAcceleration: false,
       running: true,
