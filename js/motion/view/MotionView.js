@@ -10,6 +10,7 @@ define( function( require ) {
   var playbackTime = 0;
   var resetPlaybackTime = false; //Temporary flag used to reset the playback time when switching to a new set of log entries
   var getLogEntry = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
+  var sendMessagesToServer = false;
 
   function MotionView( imageLoader, motionModel, $tab ) {
     var view = this;
@@ -40,7 +41,7 @@ define( function( require ) {
     view.scenery = new MotionScenery( motionModel.state, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
-    if ( typeof io != 'undefined' ) {
+    if ( typeof io != 'undefined' && (sendMessagesToServer || getLogEntry) ) {
 //      var socket = io.connect( 'http://simian.colorado.edu:44100' );
       var socket = io.connect( 'http://192.168.1.7:44100' );
       socket.on( 'news', function( data ) {
@@ -70,7 +71,7 @@ define( function( require ) {
         var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
         log.push( logItem );
 
-        if ( !getLogEntry && typeof socket !== "undefined" ) {
+        if ( !getLogEntry && sendMessagesToServer && typeof socket !== "undefined" ) {
           socket.emit( 'post log entry', logItem );
         }
       }
