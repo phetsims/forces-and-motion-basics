@@ -43,6 +43,7 @@ define( function( require ) {
     var grassY = 368;
 
     //TODO: Consider using scenery.Pattern instead of background-repeat: repeat-x;
+    //TODO: or use the same pattern we used for the clouds and mountains 
     var brickDOM = new DOM( $( '#brick' ) );
     view.brickDOM = brickDOM;
     brickDOM.x = 100;
@@ -113,6 +114,8 @@ define( function( require ) {
     var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 450} );
     this.scene.addChild( slider );
 
+    watch( model, 'appliedForce', this.updateForces.bind( this ) );
+
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();
@@ -165,13 +168,14 @@ define( function( require ) {
       this.scene.updateScene();
     },
     updateForces: function() {
-      var x = this.arrowTailX;
+      var tailX = 981 / 2;
+      var tailY = 280;
       var tailWidth = 25;
       var headWidth = 50;
       var headHeight = 40;
-//      this.leftArrow.shape = arrow( x, 100, x + this.model.getLeftForce(), 100, tailWidth, headWidth, headHeight );
-//      this.rightArrow.shape = arrow( x, 100, x + this.model.getRightForce(), 100, tailWidth, headWidth, headHeight );
-//      this.sumArrow.shape = arrow( x, 40, x + this.model.getNetForce(), 40, tailWidth, headWidth, headHeight );
+//      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
+//      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
+      this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
     }
   };
 
