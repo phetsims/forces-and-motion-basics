@@ -85,7 +85,7 @@ define( function( require ) {
       for ( var obj in src ) {
 
         var oldVal = dst[obj];
-        if ( typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
+        if ( typeof oldVal === 'boolean' || typeof oldVal === 'number' || typeof oldVal === 'string' || typeof oldVal === 'number' ) {
           //Make sure it has a setter
           var d = Object.getOwnPropertyDescriptor( dst, obj );
           if ( d && d.set ) {
