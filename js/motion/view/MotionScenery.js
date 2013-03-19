@@ -64,7 +64,7 @@ define( function( require ) {
     updateBrick( 0, 0, 0, 0 );
 
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'canvas'} );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
       view.scene.addChild( sprite );
       var update = function( property, action, newValue, oldValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; };
       update( 0, 0, 0, 0 );
