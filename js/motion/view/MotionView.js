@@ -1,6 +1,7 @@
 define( function( require ) {
   "use strict";
   var MotionScenery = require( 'motion/view/MotionScenery' );
+  var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
   var playback = false;
@@ -12,6 +13,7 @@ define( function( require ) {
 
   function MotionView( imageLoader, motionModel, $tab ) {
     var view = this;
+    var controlPanel = new MotionControlPanel( $tab, motionModel, imageLoader );
     this.motionModel = motionModel;
     motionModel.getSize = function( item ) {
       var itemNode = view.scenery.getItemNode( item );

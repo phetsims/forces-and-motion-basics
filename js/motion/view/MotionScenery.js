@@ -85,15 +85,6 @@ define( function( require ) {
     //Split into another canvas to speed up rendering
     this.scene.addChild( new Node( {layerSplit: true} ) );
 
-    this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
-//    this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
-//    this.model.trigger( 'change:showSumOfForces' );
-    this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.scene.addChild( this.leftArrow );
-    this.scene.addChild( this.rightArrow );
-    this.scene.addChild( this.sumArrow );
-
     this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
     this.itemNodes = [];
@@ -113,6 +104,16 @@ define( function( require ) {
 
     var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 450} );
     this.scene.addChild( slider );
+
+    this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
+    this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
+    this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
+    this.scene.addChild( this.leftArrow );
+    this.scene.addChild( this.rightArrow );
+    this.scene.addChild( this.sumArrow );
+
+    //TODO: this needs auto callbacks to sync
+    watch( model, 'showForce', function() { view.sumArrow.visible = model.showForce; } );
 
     watch( model, 'appliedForce', this.updateForces.bind( this ) );
 
