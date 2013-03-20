@@ -39,7 +39,20 @@ define( function( require ) {
     } );
     model.position = 123;
 
+    //Demonstrate resetting the model.
     console.log( "Resetting!" );
     model.reset();
+
+    //Demonstrate the property interface.  Imagine a checkbox that just takes an argument of type property (of boolean)
+    console.log( "Testing property interface." );
+    var property = model.property( 'paused' );
+    var createCheckBox = function( property ) {
+      //add listener to sync the check box view with the model
+      property.addListener( function( model, value ) {
+        console.log( "checkbox state updated, new value is " + value + ", which is the same as " + property.get() );
+      } );
+    };
+    createCheckBox( property );
+    property.set( true );
   };
 } );

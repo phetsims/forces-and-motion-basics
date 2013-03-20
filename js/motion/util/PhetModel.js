@@ -5,7 +5,7 @@ define( function( require ) {
   //ES5 getters and setters for all properties that exist on initialization, including defaults and initialize arguments.
   //TODO: Store initial state as immutable JSON string for reset and add reset method
   //TODO: Eliminate the need for subclasses to call initializeFinished
-  //TODO: Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter
+  //TODO: Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter.  Note: adapting to different function signature could make it difficult to remove listeners.
   //TODO: Add automated tests
   var PhetModel = Backbone.Model.extend(
       {
@@ -22,7 +22,7 @@ define( function( require ) {
           return {
             get: function() { return model[key]; },
             set: function( newValue ) { model[key] = newValue; },
-            addListener: function( listener ) { model.sync( key, listener ); }
+            addListener: function( listener ) { model.sync( key, listener ); } //TODO: should this be renamed to sync?
           };
         },
         initializeFinished: function() {
@@ -49,6 +49,8 @@ define( function( require ) {
             createProperty( attribute );
           }
         },
+
+        //TODO: automatically detect attached child models that are PhetModel type and call reset on them too.
         reset: function() {
           this.set( this.initialState );
         }
