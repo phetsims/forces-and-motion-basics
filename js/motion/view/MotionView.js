@@ -70,7 +70,7 @@ define( function( require ) {
           var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
           var logItem = {time: Date.now(), path: 'root', property: attribute, action: "change", newValue: JSON.stringify( motionModel[attribute] ), oldValue: "???"};
           log.push( logItem );
-          console.log( logItem );
+//          console.log( logItem );
         }
       }
     } );
@@ -83,7 +83,7 @@ define( function( require ) {
               var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
               var logItem = {time: Date.now(), path: ['items', i.toFixed( 0 )], property: attribute, action: "change", newValue: JSON.stringify( motionModel.items[i][attribute] ), oldValue: "???"};
               log.push( logItem );
-              console.log( logItem );
+//              console.log( logItem );
             }
           }
         } );
