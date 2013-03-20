@@ -15,10 +15,10 @@ define( function( require ) {
             position: 0
           },
 
-          //To wire up ES5 getters and setters for all defaults and all values
-          //And to store the initial state, call initializeFinished at the end of your initialize block
-          //TODO: alleviate the need for calling initializeFinished in subclasses
-          initialize: function() {this.initializeFinished();}
+          //Demonstrate a custom init function and ability to get es5 getters of non-default attributes in the init
+          init: function() {
+            console.log( "init called, with color: " + this.color );
+          }
         } );
 
     //Instantiate a model, and specify some values for this instance

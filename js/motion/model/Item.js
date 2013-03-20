@@ -7,7 +7,7 @@ define( function( require ) {
         dragging: false,
         animating: {enabled: false, x: 0, y: 0, end: null}
       },
-        initialize: function( parameters ) {
+        init: function( parameters ) {
           Object.defineProperty( Item.prototype, "position", {get: function() {
             return {x: this.x, y: this.y};
           }, set: function( value ) {
@@ -17,7 +17,6 @@ define( function( require ) {
           //TODO: Stringify for immutability?
           this.initX = parameters.x;
           this.initY = parameters.y;
-          this.initializeFinished();
         },
         reset: function() {
           this.set( this.defaults );

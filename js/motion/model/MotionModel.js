@@ -32,9 +32,6 @@ define( function( require ) {
           new Item( {image: 'trash-can.png', weight: 100, x: 851, y: 511 } ), //TODO: can we bring back hashless constructor?
           new Item( {image: 'mystery-object-01.png', weight: 100, x: 800, y: 590 } )
         ] },
-        initialize: function() {
-          this.initializeFinished();
-        },
 
         //Upper items should fall if an item removed from beneath
         //Uses the view to get item dimensions.

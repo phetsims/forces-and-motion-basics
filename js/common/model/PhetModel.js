@@ -4,7 +4,6 @@ define( function( require ) {
   //Sync method, which adds a listener and calls it back immediately.  Useful for syncing a view with the model when wired up
   //Property interface, which provides a property interface {get/set/sync} abstraction for reuse
   //ES5 getters and setters for all properties that exist on initialization, including defaults and initialize arguments.
-  //TODO: Eliminate the need for subclasses to call initializeFinished
   //TODO: Store initial state JSON as JSON.stringify string for immutability
   //TODO: Add automated tests
   //TODO (Maybe): Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter.  Note: adapting to different function signature could make it difficult to remove listeners.
@@ -27,12 +26,24 @@ define( function( require ) {
           };
         },
 
+        //PhetModel subclasses should declare init() instead of initialize so that initializeFinished can be called afterwards.
+        initialize: function() {
+
+          //Generate es5 getters and setters before init called so that subclasses can use es5 in their init methods.
+          this.generateGettersAndSetters();
+          if ( typeof this.init !== "undefined" ) {
+            this.init.apply( this, Array.prototype.slice.call( arguments, 0 ) );
+          }
+
+          //Store initial state after constructor finished.
+          this.initialState = this.toJSON();//TODO: Stringify so it cannot be modified?
+        },
+
         //When initialize is finished, call this method which will do the following:
         // 1. create ES5 getters and setters for each property
         // 2. store the initial state for reset
-        initializeFinished: function() {
+        generateGettersAndSetters: function() {
           var model = this;
-          this.initialState = this.toJSON();//TODO: Stringify so it cannot be modified?
 
           //Taken from https://gist.github.com/dandean/1292057, same as in github/Atlas
           function createProperty( name ) {

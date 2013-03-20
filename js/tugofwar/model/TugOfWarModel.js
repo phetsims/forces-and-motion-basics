@@ -10,15 +10,14 @@ define( function( require ) {
   var Puller = PhetModel.extend( { defaults: { dragging: false, knot: null},
 
                                    //For resetting
-                                   initialize: function() {
+                                   init: function() {
                                      this.initAttributes = this.toJSON();
-                                     this.initX = this.get( 'x' );
-                                     this.initY = this.get( 'y' );
-                                     this.force = this.get( 'size' ) === small ? 10 * 5 :
-                                                  this.get( 'size' ) === medium ? 20 * 5 :
-                                                  this.get( 'size' ) === large ? 30 * 5 :
+                                     this.initX = this.x;
+                                     this.initY = this.y;
+                                     this.force = this.size === small ? 10 * 5 :
+                                                  this.size === medium ? 20 * 5 :
+                                                  this.size === large ? 30 * 5 :
                                                   NaN;
-                                     this.initializeFinished();
                                    },
                                    disconnect: function() {this.knot = null;}
                                  } );
@@ -26,14 +25,13 @@ define( function( require ) {
 
   var Knot = PhetModel.extend( {
                                  defaults: { y: 275, visible: false},
-                                 initialize: function() {
+                                 init: function() {
                                    this.initAttributes = this.toJSON();//For resetting
-                                   this.initX = this.get( 'x' );
-                                   this.initializeFinished();
+                                   this.initX = this.x;
                                  } } );
   var Knots = Backbone.Collection.extend( { model: Knot } );
 
-  var Cart = PhetModel.extend( {defaults: {x: 0, v: 0}, initialize: function() {this.initializeFinished();}} );
+  var Cart = PhetModel.extend( {defaults: {x: 0, v: 0}, initialize: function() {this.generateGettersAndSetters();}} );
 
   var blueKnots = _.map( [10.0, 90.0, 170.0, 250.0], function( v ) {return v + 50;} );
   var ropeWidth = 880;
@@ -50,7 +48,7 @@ define( function( require ) {
           numberPullersAttached: 0,
           state: 'experimenting'
         },
-        initialize: function() {
+        init: function() {
           this.cart = new Cart();
           this.pullers = new Pullers( [ new Puller( {x: 260, y: 500, dragOffsetX: 20, type: blue, size: small } ),
                                         new Puller( {x: 198, y: 500, dragOffsetX: 20, type: blue, size: small } ),
@@ -92,7 +90,6 @@ define( function( require ) {
               }
             } );
           } );
-          this.initializeFinished();
         },
         countAttachedPullers: function() {
           return this.pullers.filter(function( puller ) {return puller.has( 'knot' );} ).length;
