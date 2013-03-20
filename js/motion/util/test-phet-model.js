@@ -43,7 +43,8 @@ define( function( require ) {
     console.log( "Resetting!" );
     model.reset();
 
-    //Demonstrate the property interface.  Imagine a checkbox that just takes an argument of type property (of boolean)
+    //Demonstrate the property interface.  Imagine a checkbox that just takes an argument of type property (of boolean) 
+    // and doesn't want to know what model or property it came from (or even that it came from backbone or phetmodel)
     console.log( "Testing property interface." );
     var property = model.property( 'paused' );
     var createCheckBox = function( property ) {
