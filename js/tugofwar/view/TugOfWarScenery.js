@@ -116,8 +116,9 @@ define( function( require ) {
 
       var scale = Math.min( width / 981, height / 644 );
 
+      this.scene.resetTransform();
       this.scene.resize( width, height );
-      this.scene.setScale( scale );
+      this.scene.scale( scale );
 
       var skyHeight = (376) * scale;
       var groundHeight = height - skyHeight;
