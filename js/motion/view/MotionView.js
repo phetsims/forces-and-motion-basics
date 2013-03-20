@@ -2,8 +2,6 @@ define( function( require ) {
   "use strict";
   var MotionScenery = require( 'motion/view/MotionScenery' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
-  var WatchJS = require( 'watch' );
-  var watch = WatchJS.watch;
   var playback = false;
   var log = [];
   var logIndex = 0;
@@ -92,16 +90,10 @@ define( function( require ) {
       })( i );
     }
 
-//    watch( motionModel.state, function( property, action, newValue, oldValue, path ) {
-//      if ( !playback && !getLogEntry ) {
-//        var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
-//        log.push( logItem );
-//
+    //TODO: coalesce log functions and add remote logging
 //        if ( !getLogEntry && sendMessagesToServer && typeof socket !== "undefined" ) {
 //          socket.emit( 'post log entry', logItem );
 //        }
-//      }
-//    } );
   }
 
   MotionView.prototype = {

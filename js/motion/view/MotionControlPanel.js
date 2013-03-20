@@ -1,9 +1,5 @@
 define( function( require ) {
   "use strict";
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
-  var WatchJS = require( 'watch' );
-  var watch = WatchJS.watch;
-  var sync = WatchJS.sync;
 
   function MotionControlPanel( $tab, model, imageLoader ) {
 

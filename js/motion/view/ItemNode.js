@@ -9,9 +9,6 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
-  var WatchJS = require( 'watch' );
-  var watch = WatchJS.watch;
 
   function ItemNode( model, scenery, item, image ) {
     var itemNode = this;
