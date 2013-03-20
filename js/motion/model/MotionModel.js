@@ -2,8 +2,9 @@ define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
   var Item = require( 'motion/model/Item' );
+  var PhetModel = require( 'motion/util/PhetModel' );
 
-  var MotionModel = Backbone.Model.extend(
+  var MotionModel = PhetModel.extend(
       {defaults: { stack: [],
         appliedForce: 0,
         pusherX: 0,
@@ -32,38 +33,7 @@ define( function( require ) {
           new Item( {image: 'mystery-object-01.png', weight: 100, x: 800, y: 590 } )
         ] },
         initialize: function() {
-
-          function propit( name ) {
-            Object.defineProperty( MotionModel.prototype, name, {
-              // Getter proxies to Model#get()...
-              get: function() { return this.get( name ); },
-              // Setter proxies to Model#set(attributes)
-              set: function( value ) {
-                var data = {};
-                data[name] = value;
-                this.set( data );
-              },
-              // Make it configurable and enumerable so it's easy to override...
-              configurable: true,
-              enumerable: true
-            } );
-          }
-
-          //TODO: Factor this out
-          propit( 'pusherX' );
-          propit( 'items' );
-          propit( 'appliedForce' );
-          propit( 'friction' );
-          propit( 'velocity' );
-          propit( 'position' );
-          propit( 'showForce' );
-          propit( 'showValues' );
-          propit( 'showSumOfForces' );
-          propit( 'showSpeed' );
-          propit( 'showMasses' );
-          propit( 'showAcceleration' );
-          propit( 'running' );
-          propit( 'stack' );
+          this.initializeFinished();
         },
 
         //Upper items should fall if an item removed from beneath
@@ -91,29 +61,11 @@ define( function( require ) {
           }
         },
         reset: function() {
-//          this.clear().set( this.defaults );//see http://stackoverflow.com/questions/6889457/easiest-way-to-reset-backbones-model-to-initial-defaults
-          this.set( this.defaults );   //TODO: may need to clear values or handle initialize parameters if they are introduced
+          this.set( this.defaults );   //TODO: may need to clear values or handle initialize parameters if they are introduced, see http://stackoverflow.com/questions/6889457/easiest-way-to-reset-backbones-model-to-initial-defaults
           for ( var i = 0; i < this.items.length; i++ ) {
             this.items[i].reset();
           }
           this.stack = [];
-        },
-
-        //Add a listener and automatically call it back
-        sync: function( key, listener, thisRef ) {
-          this.on( 'change:' + key, listener, thisRef );
-          if ( typeof thisRef === "undefined" ) {listener( this, this[key] );}
-          else {listener.call( thisRef, this, this[key] );} //Follow backbone pattern of passing the this instead of calling bind  
-        },
-
-        //Get a property for one of the backbone model attributes
-        property: function( key ) {
-          var model = this;
-          return {
-            get: function() { return model[key]; },
-            set: function( newValue ) { model[key] = newValue; },
-            addListener: function( listener ) { model.sync( key, listener ); }
-          };
         }
       } );
 
