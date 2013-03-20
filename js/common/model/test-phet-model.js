@@ -49,7 +49,7 @@ define( function( require ) {
     var property = model.property( 'paused' );
     var createCheckBox = function( property ) {
       //add listener to sync the check box view with the model
-      property.addListener( function( model, value ) {
+      property.sync( function( model, value ) {
         console.log( "checkbox state updated, new value is " + value + ", which is the same as " + property.get() );
       } );
     };

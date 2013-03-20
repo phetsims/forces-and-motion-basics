@@ -1,12 +1,12 @@
 define( function( require ) {
   //PhET Model extends Backbone model by adding the following features:
   //Sync method, which adds a listener and calls it back immediately.  Useful for syncing a view with the model when wired up
-  //Property interface, which provides a property interface {get/set/addListener} abstraction for reuse
+  //Property interface, which provides a property interface {get/set/sync} abstraction for reuse
   //ES5 getters and setters for all properties that exist on initialization, including defaults and initialize arguments.
-  //TODO: Store initial state as immutable JSON string for reset and add reset method
   //TODO: Eliminate the need for subclasses to call initializeFinished
-  //TODO: Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter.  Note: adapting to different function signature could make it difficult to remove listeners.
+  //TODO: Store initial state JSON as JSON.stringify string for immutability
   //TODO: Add automated tests
+  //TODO (Maybe): Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter.  Note: adapting to different function signature could make it difficult to remove listeners.
   var PhetModel = Backbone.Model.extend(
       {
         //Add a listener and automatically call it back.  Unlike BackboneModel.on('change:x change:y') style, this only works for a single value
@@ -16,13 +16,13 @@ define( function( require ) {
           else {listener.call( thisRef, this, this[key] );} //Follow backbone pattern of passing the this instead of calling bind  
         },
 
-        //Get a property interface for one of the backbone model attributes, which provides get/set/addListener methods
+        //Get a property interface for one of the backbone model attributes, which provides get/set/sync methods
         property: function( key ) {
           var model = this;
           return {
             get: function() { return model[key]; },
             set: function( newValue ) { model[key] = newValue; },
-            addListener: function( listener ) { model.sync( key, listener ); } //TODO: should this be renamed to sync?
+            sync: function( listener ) { model.sync( key, listener );}
           };
         },
 
