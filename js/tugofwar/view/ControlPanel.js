@@ -24,42 +24,37 @@ define( function( require ) {
     this.view = view;
     var controlPanel = this;
 
-    var handleShowSumOfForcesClick = function() { view.model.set( {'showSumOfForces': !view.model.get( 'showSumOfForces' )} ); };
+    var handleShowSumOfForcesClick = function() { model.showSumOfForces = !model.showSumOfForces; };
     var $checkBox = $( '.sum-of-forces-checkbox' );
     $checkBox.bind( "touchstart", handleShowSumOfForcesClick );
     $checkBox.bind( "click", handleShowSumOfForcesClick );
 
-    var updateSumForcesCheckBox = function( model, showSumOfForces ) {
+    this.model.sync( 'showSumOfForces', function( model, showSumOfForces ) {
       var $icon = $( '.sum-of-forces-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
-    };
-    this.model.on( 'change:showSumOfForces', updateSumForcesCheckBox );
-    updateSumForcesCheckBox( model, model.get( 'showSumOfForces' ) );
+    } );
 
-    var handleShowValuesClick = function() { view.model.set( 'showValues', !view.model.get( 'showValues' ) ); };
+    var handleShowValuesClick = function() { model.showValues = !model.showValues; };
     var $checkBox2 = $( '.show-values-checkbox' );
     $checkBox2.bind( "touchstart", handleShowValuesClick );
     $checkBox2.bind( "click", handleShowValuesClick );
 
-    var updateShowValuesCheckBox = function( model, showValues ) {
+    this.model.sync( 'showValues', function( model, showValues ) {
       var $icon = $( '.show-values-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showValues ? "icon-check" : "icon-check-empty" );
-    };
-    this.model.on( 'change:showValues', updateShowValuesCheckBox );
-    updateShowValuesCheckBox( model, model.get( 'showValues' ) );
+    } );
 
     var $resetAllButton = $( '.reset-all-button' );
     $resetAllButton.bind( 'touchstart', model.resetAll.bind( model ) );
     $resetAllButton.bind( 'click', model.resetAll.bind( model ) );
 
     var $volumeButton = $( '.volume-button' );
-    var volumeButtonEvent = function() { view.model.set( 'volumeOn', !view.model.get( 'volumeOn' ) ); };//This pattern looks like it could be factored out.
-    model.on( 'change:volumeOn', function( m, volumeOn ) {
+    var volumeButtonEvent = function() { view.model.volumeOn = !view.model.volumeOn };//This pattern looks like it could be factored out.
+    model.sync( 'volumeOn', function( m, volumeOn ) {
       $volumeButton.find( 'i' ).removeClass( 'icon-volume-up' ).removeClass( 'icon-volume-off' ).addClass( volumeOn ? 'icon-volume-up' : 'icon-volume-off' );
     } );
-    model.trigger( 'change:volumeOn' );
     $volumeButton.bind( 'touchstart', volumeButtonEvent );
     $volumeButton.bind( 'click', volumeButtonEvent );
   }

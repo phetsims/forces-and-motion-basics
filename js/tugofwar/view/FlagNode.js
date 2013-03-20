@@ -14,7 +14,7 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this, {x: 981 / 2, y: 100} );
 
-    var text = new Text( model.cart.get( 'x' ) < 0 ? "Blue Team Wins" : "Red Team Wins", {fontSize: '34px', backend: 'svg'} );
+    var text = new Text( model.cart.x < 0 ? "Blue Team Wins" : "Red Team Wins", {fontSize: '34px', backend: 'svg'} );
     text.centerX = 0;
     text.centerY = 0;
     var path = new Path( {shape: Shape.rect( 0, 0, text.width * 2, text.height * 3 ), fill: 'yellow'} );

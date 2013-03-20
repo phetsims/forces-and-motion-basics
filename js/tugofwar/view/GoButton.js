@@ -23,7 +23,7 @@ define( function( require ) {
           down: function( event ) {
             goButtonImage.image = getImage( 'go_pressed' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
-            model.set( {running: !model.get( "running" )} );
+            model.running = !model.running;
           },
           up: function( event ) {
             goButtonImage.image = getImage( 'go_hover' );
@@ -36,11 +36,11 @@ define( function( require ) {
     goButtonImage.addChild( goButtonText );
 
     model.on( "change:running change:state change:numberPullersAttached", function() {
-      goButtonText.text = model.get( 'running' ) ? Strings.pause : Strings.go;
+      goButtonText.text = model.running ? Strings.pause : Strings.go;
       goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
       goButtonText.y = goButtonImage.height / 2 + 7;
 
-      goButtonImage.visible = model.get( 'numberPullersAttached' ) > 0 && model.get( 'state' ) !== 'completed';
+      goButtonImage.visible = model.numberPullersAttached > 0 && model.state !== 'completed';
     } );
 
     model.trigger( 'change:numberPullersAttached' );

@@ -8,7 +8,7 @@ define( function( require ) {
 
     view.imageLoader = imageLoader;
     model.on( 'change:state', function( m, state ) {
-      if ( state === 'completed' && m.get( 'volumeOn' ) ) {
+      if ( state === 'completed' && m.volumeOn ) {
         var sound = new Howl( {urls: ['./audio/golf-clap.wav', './audio/golf-clap.ogg']} ).play();
       }
     } );

@@ -12,21 +12,21 @@ define( function( require ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
-    var x = puller.get( 'x' );
-    var y = puller.get( 'y' );
+    var x = puller.x;
+    var y = puller.y;
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
 
     function updateLocation() {
       var knotted = puller.has( 'knot' );
-      var pulling = model.get( 'running' ) && knotted;
+      var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.x = puller.get( 'knot' ).get( 'x' ) + (pulling ? -puller.get( 'dragOffsetX' ) : 0) + (pullerNode.puller.get( 'type' ) === blue ? -60 : 0);
-        pullerNode.y = puller.get( 'knot' ).get( 'y' ) - pullerNode.height + 100;
+        pullerNode.x = puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0);
+        pullerNode.y = puller.knot.y - pullerNode.height + 100;
       }
       else {
-        pullerNode.x = puller.get( 'x' );
-        pullerNode.y = puller.get( 'y' );
+        pullerNode.x = puller.x;
+        pullerNode.y = puller.y;
       }
     }
 
@@ -47,7 +47,7 @@ define( function( require ) {
           allowTouchSnag: true,
           start: function() {
             puller.disconnect();
-            puller.set( 'dragging', true );
+            puller.dragging = true;
 
             //Comment out moveToFront while it is causing flickering on the ipad
 //            pullerNode.moveToFront();
@@ -55,7 +55,7 @@ define( function( require ) {
           end: function( event ) {
             updateLocation();
             puller.set( 'dragging', false );
-            updateImage( pullerNode.model, model.get( 'running' ) );
+            updateImage( pullerNode.model, model.running );
           }, translate: function( event ) { pullerNode.puller.set( {x: event.position.x, y: event.position.y} ); }
         } ) );
   }

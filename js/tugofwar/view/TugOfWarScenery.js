@@ -31,8 +31,8 @@ define( function( require ) {
     var getImage = topView.getImage;
 
     function getPullerImage( puller, leaning ) {
-      var type = puller.get( "type" );
-      var size = puller.get( "size" );
+      var type = puller.type;
+      var size = puller.size;
       var sizeString = size === large ? "_lrg_" :
                        size === medium ? "_" :
                        "_small_";
@@ -63,8 +63,7 @@ define( function( require ) {
     this.scene.addChild( new Node( {layerSplit: true} ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
-    this.model.on( 'change:showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
-    this.model.trigger( 'change:showSumOfForces' );
+    this.model.sync( 'showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.scene.addChild( this.leftArrow );
@@ -90,7 +89,7 @@ define( function( require ) {
     this.scene.addChild( new GoButton( getImage, this.model ) );
 
     //Update the forces when the number of attached pullers changes
-    model.on( 'change:numberPullersAttached', view.updateForces.bind( view ) );
+    model.sync( 'numberPullersAttached', view.updateForces, view );
     view.model.pullers.each( function( puller ) {
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );

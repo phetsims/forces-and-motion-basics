@@ -1,41 +1,44 @@
 define( function( require ) {
   "use strict";
+  var PhetModel = require( 'common/model/PhetModel' );
   var red = "red",
       blue = "blue",
       small = "small",
       medium = "medium",
       large = "large";
 
-  var Puller = Backbone.Model.extend( { defaults: { dragging: false, knot: null},
+  var Puller = PhetModel.extend( { defaults: { dragging: false, knot: null},
 
-                                        //For resetting
-                                        initialize: function() {
-                                          this.initAttributes = this.toJSON();
-                                          this.initX = this.get( 'x' );
-                                          this.initY = this.get( 'y' );
-                                          this.force = this.get( 'size' ) === small ? 10 * 5 :
-                                                       this.get( 'size' ) === medium ? 20 * 5 :
-                                                       this.get( 'size' ) === large ? 30 * 5 :
-                                                       NaN;
-                                        },
-                                        disconnect: function() {this.set( 'knot', null );}
-                                      } );
+                                   //For resetting
+                                   initialize: function() {
+                                     this.initAttributes = this.toJSON();
+                                     this.initX = this.get( 'x' );
+                                     this.initY = this.get( 'y' );
+                                     this.force = this.get( 'size' ) === small ? 10 * 5 :
+                                                  this.get( 'size' ) === medium ? 20 * 5 :
+                                                  this.get( 'size' ) === large ? 30 * 5 :
+                                                  NaN;
+                                     this.initializeFinished();
+                                   },
+                                   disconnect: function() {this.knot = null;}
+                                 } );
   var Pullers = Backbone.Collection.extend( { defaults: {knot: null}, model: Puller } );
 
-  var Knot = Backbone.Model.extend( {
-                                      defaults: { y: 275},
-                                      initialize: function() {
-                                        this.initAttributes = this.toJSON();//For resetting
-                                        this.initX = this.get( 'x' );
-                                      } } );
+  var Knot = PhetModel.extend( {
+                                 defaults: { y: 275, visible: false},
+                                 initialize: function() {
+                                   this.initAttributes = this.toJSON();//For resetting
+                                   this.initX = this.get( 'x' );
+                                   this.initializeFinished();
+                                 } } );
   var Knots = Backbone.Collection.extend( { model: Knot } );
 
-  var Cart = Backbone.Model.extend( {defaults: {x: 0, v: 0}} );
+  var Cart = PhetModel.extend( {defaults: {x: 0, v: 0}, initialize: function() {this.initializeFinished();}} );
 
   var blueKnots = _.map( [10.0, 90.0, 170.0, 250.0], function( v ) {return v + 50;} );
   var ropeWidth = 880;
   var redKnots = _.map( blueKnots, function( v ) {return ropeWidth - v;} );
-  return Backbone.Model.extend(
+  return PhetModel.extend(
       {
         defaults: {
           showSumOfForces: false,
@@ -77,7 +80,7 @@ define( function( require ) {
 
                 //try to snap to a knot
                 if ( knot ) {
-                  puller.set( {x: knot.get( 'x' ), y: knot.get( 'y' ), knot: knot} );
+                  puller.set( {x: knot.x, y: knot.y, knot: knot} );
                 }
 
                 //Or go back home
@@ -85,22 +88,23 @@ define( function( require ) {
                   puller.set( {x: puller.initX, y: puller.initY} );
                 }
 
-                model.set( 'numberPullersAttached', model.countAttachedPullers() );
+                model.numberPullersAttached = model.countAttachedPullers();
               }
             } );
           } );
+          this.initializeFinished();
         },
         countAttachedPullers: function() {
           return this.pullers.filter(function( puller ) {return puller.has( 'knot' );} ).length;
         },
         updateVisibleKnots: function() {
           var model = this;
-          this.knots.each( function( knot ) {knot.set( 'visible', false );} );
+          this.knots.each( function( knot ) {knot.visible = false;} );
           this.pullers.each( function( puller ) {
             if ( puller.get( 'dragging' ) ) {
               var knot = model.getTargetKnot( puller );
               if ( knot ) {
-                knot.set( 'visible', true );
+                knot.visible = true;
               }
             }
           } );
@@ -115,7 +119,7 @@ define( function( require ) {
             return knot.get( 'type' ) === puller.get( 'type' ) && model.getPuller( knot ) === null;
           } );
           var distance = function( knot ) {
-            return Math.sqrt( Math.pow( knot.get( 'x' ) - puller.get( 'x' ), 2 ) + Math.pow( knot.get( 'y' ) - puller.get( 'y' ), 2 ) );
+            return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
           };
           var target = _.min( filter, distance );
           var distanceToTarget = distance( target );
@@ -131,24 +135,24 @@ define( function( require ) {
           this.cart.set( this.cart.defaults );
           this.pullers.each( function( puller ) { puller.set( puller.initAttributes ); } );
           this.trigger( 'reset-all' );
-          this.knots.each( function( knot ) {knot.set( 'x', knot.initX );} );
+          this.knots.each( function( knot ) {knot.x = knot.initX;} );
           this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
         },
         step: function() {
-          if ( this.get( 'running' ) ) {
-            var newV = this.cart.get( 'v' ) + this.getNetForce() / 20000;
-            var newX = this.cart.get( 'x' ) + newV;
+          if ( this.running ) {
+            var newV = this.cart.v + this.getNetForce() / 20000;
+            var newX = this.cart.x + newV;
             this.cart.set( {v: newV, x: newX} );
             this.knots.each( function( knot ) {
-              knot.set( 'x', knot.initX + newX );
+              knot.x = knot.initX + newX;
             } );
             this.pullers.each( function( puller ) {
               puller.trigger( 'knot-moved' );
             } );
 
-            if ( this.cart.get( 'x' ) > 200 || this.cart.get( 'x' ) < -200 ) {
-              this.set( 'running', false );
-              this.set( 'state', 'completed' );
+            if ( this.cart.x > 200 || this.cart.x < -200 ) {
+              this.running = false;
+              this.state = 'completed';
             }
           }
         },
@@ -159,7 +163,7 @@ define( function( require ) {
           var sum = 0;
 
           this.pullers.each( function( puller ) {
-            if ( puller.get( 'type' ) === blue && puller.has( 'knot' ) ) {
+            if ( puller.type === blue && puller.has( 'knot' ) ) {
               sum -= puller.force;
             }
           } );
@@ -169,7 +173,7 @@ define( function( require ) {
           var sum = 0;
 
           this.pullers.each( function( puller ) {
-            if ( puller.get( 'type' ) === red && puller.has( 'knot' ) ) {
+            if ( puller.type === red && puller.has( 'knot' ) ) {
               sum += puller.force;
             }
           } );
