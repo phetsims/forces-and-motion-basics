@@ -8,7 +8,7 @@ require.config( {
                       locale: window.phetcommon.locale
                     }
                   },
-                  deps: ['main'],
+                  deps: ['app'],
 
                   paths: {
                     common: 'common',
