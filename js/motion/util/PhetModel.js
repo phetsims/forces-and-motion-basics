@@ -6,6 +6,7 @@ define( function( require ) {
   //TODO: Store initial state as immutable JSON string for reset and add reset method
   //TODO: Eliminate the need for subclasses to call initializeFinished
   //TODO: Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter
+  //TODO: Add automated tests
   var PhetModel = Backbone.Model.extend(
       {
         //Add a listener and automatically call it back
@@ -26,6 +27,7 @@ define( function( require ) {
         },
         initializeFinished: function() {
           var model = this;
+          this.initialState = this.toJSON();//TODO: Stringify so it cannot be modified?
 
           function createProperty( name ) {
             Object.defineProperty( Object.getPrototypeOf( model ), name, {
@@ -46,6 +48,9 @@ define( function( require ) {
           for ( var attribute in this.attributes ) {
             createProperty( attribute );
           }
+        },
+        reset: function() {
+          this.set( this.initialState );
         }
       } );
   return PhetModel;

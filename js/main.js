@@ -1,7 +1,8 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings"], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings ) {
+           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'motion/util/test-phet-model'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, testPhetModel ) {
   "use strict";
+  testPhetModel();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||
