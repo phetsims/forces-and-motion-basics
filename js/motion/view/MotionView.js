@@ -27,7 +27,7 @@ define( function( require ) {
       playback = true;
       playbackTime = log[0].time;
 
-      view.motionModel.reset();
+      motionModel.reset();
     }
 
     var $playbackButton = $( '.playback-button' );
@@ -67,13 +67,30 @@ define( function( require ) {
     }
 
     motionModel.on( 'all', function( event, model, a1, a2 ) {
-      if ( event.lastIndexOf( 'change:' ) >= 0 ) {
-        var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
-        var logItem = {time: Date.now(), path: 'root', property: attribute, action: "change", newValue: motionModel[attribute], oldValue: "???"};
-        log.push( logItem );
-        console.log( logItem );
+      if ( !playback ) {
+        if ( event.lastIndexOf( 'change:' ) >= 0 ) {
+          var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
+          var logItem = {time: Date.now(), path: 'root', property: attribute, action: "change", newValue: JSON.stringify( motionModel[attribute] ), oldValue: "???"};
+          log.push( logItem );
+          console.log( logItem );
+        }
       }
     } );
+
+    for ( var i = 0; i < motionModel.items.length; i++ ) {
+      (function( i ) {
+        motionModel.items[i].on( 'all', function( event, model, a1, a2 ) {
+          if ( !playback ) {
+            if ( event.lastIndexOf( 'change:' ) >= 0 ) {
+              var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
+              var logItem = {time: Date.now(), path: ['items', i.toFixed( 0 )], property: attribute, action: "change", newValue: JSON.stringify( motionModel.items[i][attribute] ), oldValue: "???"};
+              log.push( logItem );
+              console.log( logItem );
+            }
+          }
+        } );
+      })( i );
+    }
 
 //    watch( motionModel.state, function( property, action, newValue, oldValue, path ) {
 //      if ( !playback && !getLogEntry ) {
@@ -107,7 +124,9 @@ define( function( require ) {
             var logEntry = log[logIndex];
             var path = logEntry.path;
             if ( path === "root" ) {
-              m[logEntry.property] = JSON.parse( logEntry.newValue );
+              if ( typeof logEntry.newValue !== "undefined" ) {
+                m[logEntry.property] = JSON.parse( logEntry.newValue );
+              }
             }
             else {
               var item = m;
