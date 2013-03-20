@@ -25,7 +25,7 @@ define( function( require ) {
   var WatchJS = require( 'watch' );
   var watch = WatchJS.watch;
 
-  function TugOfWarScenery( model, topView, $tab, imageLoader ) {
+  function MotionScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
     var tugOfWarScenery = this;
     var view = this;
@@ -112,7 +112,7 @@ define( function( require ) {
     this.resize();
   }
 
-  TugOfWarScenery.prototype = {
+  MotionScenery.prototype = {
     getItemNode: function( item ) {
       for ( var i = 0; i < this.itemNodes.length; i++ ) {
         if ( this.itemNodes[i].item === item ) {
@@ -170,5 +170,5 @@ define( function( require ) {
     }
   };
 
-  return TugOfWarScenery;
+  return MotionScenery;
 } );
