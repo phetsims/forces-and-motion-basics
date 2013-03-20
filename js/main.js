@@ -1,42 +1,82 @@
-require.config( {
-                  config: {
-                    //Set the config for the i18n
-                    //module ID
-                    i18n: {
+require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
+           "motion/view/MotionView", "motion/model/MotionModel",
+           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'motion/util/test-phet-model'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, testPhetModel ) {
+  "use strict";
+  testPhetModel();
 
-                      //Specify the locale using a query parameter
-                      locale: window.phetcommon.locale
-                    }
-                  },
-                  deps: ['app'],
+  window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame ||
+           window.webkitRequestAnimationFrame ||
+           window.mozRequestAnimationFrame ||
+           window.oRequestAnimationFrame ||
+           window.msRequestAnimationFrame ||
+           function( callback ) {
+             window.setTimeout( callback, 1000 / 60 );
+           };
+  })();
 
-                  paths: {
-                    common: 'common',
-                    PHETCOMMON: '../../phetcommon/js',
-                    PHETCOMMON_HTML: '../../phetcommon/html',
+  //Code to show console output in a div, requires a #debugDiv in the HTML
+  var useDebugDiv = false;
+  if ( useDebugDiv ) {
+    if ( typeof console !== "undefined" ) {
+      if ( typeof console.log !== 'undefined' ) { console.olog = console.log; }
+      else { console.olog = function() {}; }
+    }
+    console.log = function( message ) {
+      console.olog( message );
+      $( '#debugDiv' ).append( '<p>' + message + '</p>' );
+    };
+  }
 
-                    //Load scenery and its dependencies
-                    ASSERT: '../../assert/js',
-                    DOT: '../../dot/js',
-                    SCENERY: '../../scenery/js',
-                    KITE: '../../kite/js',
+  var views = [];
+  var $tab2;
 
-                    easel: '../contrib/easel-0.5.0',
-                    image: '../contrib/image-0.2.2',
-                    jquery: '../contrib/jquery-1.9.1',
-                    underscore: '../contrib/underscore-1.4.2',
-                    tpl: "../contrib/tpl-0.2",
-                    i18n: "../contrib/i18n",
-                    watch: "../../Watch.JS/src/watch",
-                    imagesloaded: "../../phetcommon/contrib/jquery.imagesloaded-2.1.1"
-                  },
+  var selectedTabIndex = 0;
 
-                  shim: {
-                    underscore: { exports: "_" },
-                    easel: { exports: "createjs" },
-                    jquery: { exports: "$" },
-                    numeric: {exports: "numeric"}
-                  },
+  //Wait until images are loaded, then launch the sim and show the initial tab
+  new ImagesLoader( function( imageLoader ) {
 
-                  urlArgs: new Date().getTime() // add cache buster query string to make browser refresh actually reload everything
-                } );
+    views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $( '.tab1' ) ) );
+    views.push( new MotionView( imageLoader, new MotionModel(), $( '.tab2' ) ) );
+
+    $tab2 = $( '.tab2' ).detach();
+    $( "#overlay" ).remove();
+    if ( !useDebugDiv ) {
+      $( "debugDiv" ).remove();
+    }
+
+    //Start in Tab 2 for debugging
+    setSelectedTab( 2 );
+
+    //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+    // place the rAF *before* the render() to assure as close to
+    // 60fps with the setTimeout fallback.
+    (function animloop() {
+      requestAnimFrame( animloop );
+      if ( typeof views[selectedTabIndex] !== 'undefined' ) {
+        views[selectedTabIndex].step();
+      }
+    })();
+  } );
+
+  function setSelectedTab( tabName ) {
+    var $tabs = $( '.tabs' );
+    $tabs.children().hide();
+    $tabs.children( '.tab' + tabName ).show();
+    if ( tabName === 2 ) {
+      $tab2.appendTo( $tabs );
+    }
+    selectedTabIndex = tabName - 1;
+  }
+
+  _.each( [1, 2, 3, 4], function( index ) {
+    var selector = '#tab' + index + '-icon';
+    var handleClick = function() {
+      $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
+      $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
+      setSelectedTab( index );
+    };
+    $( selector ).bind( 'click', handleClick );
+    $( selector ).bind( 'touchstart', handleClick );
+  } );
+} );
