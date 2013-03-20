@@ -5,26 +5,25 @@ define( function( require ) {
   var watch = WatchJS.watch;
   var sync = WatchJS.sync;
 
-  function MotionControlPanel( $tab, motionModel, imageLoader ) {
-    var state = motionModel.state;
+  function MotionControlPanel( $tab, model, imageLoader ) {
 
-    function wireUpCheckBox( state, attribute, selector ) {
-      var toggle = function() { state[attribute] = !state[attribute]; };
+    function wireUpCheckBox( model, attribute, selector ) {
+      var toggle = function() { model[attribute] = !model[attribute]; };
       var $checkBox = $tab.find( selector );
       $checkBox.bind( "touchstart", toggle );
       $checkBox.bind( "click", toggle );
 
-      sync( state, attribute, function() {
+      model.sync( attribute, function( m, value ) {
         var $icon = $checkBox.find( 'i' );
         $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
-        $icon.addClass( state[attribute] ? "icon-check" : "icon-check-empty" );
+        $icon.addClass( model[attribute] ? "icon-check" : "icon-check-empty" );
       } );
     }
 
-    wireUpCheckBox( state, 'showForce', '.show-force-checkbox' );
-    wireUpCheckBox( state, 'showValues', '.show-values-checkbox' );
-    wireUpCheckBox( state, 'showMasses', '.show-masses-checkbox' );
-    wireUpCheckBox( state, 'showSpeed', '.show-speed-checkbox' );
+    wireUpCheckBox( model, 'showForce', '.show-force-checkbox' );
+    wireUpCheckBox( model, 'showValues', '.show-values-checkbox' );
+    wireUpCheckBox( model, 'showMasses', '.show-masses-checkbox' );
+    wireUpCheckBox( model, 'showSpeed', '.show-speed-checkbox' );
   }
 
   return MotionControlPanel;

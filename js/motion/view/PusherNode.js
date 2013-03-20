@@ -18,7 +18,7 @@ define( function( require ) {
     var itemNode = this;
     Node.call( this, {x: model.pusherX, y: 350, cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
-    var updatePosition = function( a, b, appliedForce ) {
+    var updatePosition = function( m, appliedForce ) {
       var index = Math.round( Math.abs( (appliedForce / 100 * 14) ) );
       if ( index > 14 ) {
         index = 14;
@@ -40,8 +40,7 @@ define( function( require ) {
       itemNode.y = 350 - itemNode.height + 30;
     };
     this.addChild( imageNode );
-    watch( model, 'appliedForce', updatePosition );
-    updatePosition( 0, 0, model.appliedForce );
+    model.sync( 'appliedForce', updatePosition );
 
     this.addInputListener( new SimpleDragHandler(
         {

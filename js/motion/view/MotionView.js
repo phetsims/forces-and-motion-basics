@@ -38,7 +38,7 @@ define( function( require ) {
     $resetButton.bind( 'touchstart', motionModel.reset.bind( motionModel ) );
     $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
 
-    view.scenery = new MotionScenery( motionModel.state, view, $tab, imageLoader );
+    view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
     if ( typeof io != 'undefined' && (sendMessagesToServer || getLogEntry) ) {
@@ -66,16 +66,16 @@ define( function( require ) {
       } );
     }
 
-    watch( motionModel.state, function( property, action, newValue, oldValue, path ) {
-      if ( !playback && !getLogEntry ) {
-        var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
-        log.push( logItem );
-
-        if ( !getLogEntry && sendMessagesToServer && typeof socket !== "undefined" ) {
-          socket.emit( 'post log entry', logItem );
-        }
-      }
-    } );
+//    watch( motionModel.state, function( property, action, newValue, oldValue, path ) {
+//      if ( !playback && !getLogEntry ) {
+//        var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
+//        log.push( logItem );
+//
+//        if ( !getLogEntry && sendMessagesToServer && typeof socket !== "undefined" ) {
+//          socket.emit( 'post log entry', logItem );
+//        }
+//      }
+//    } );
   }
 
   MotionView.prototype = {
@@ -120,7 +120,7 @@ define( function( require ) {
         playbackTime += 17;//ms between frames at 60fps
       }
       else {
-        this.motionModel.state.step();
+        this.motionModel.step();
         this.scenery.scene.updateScene();
       }
 

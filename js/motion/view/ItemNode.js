@@ -16,15 +16,14 @@ define( function( require ) {
   function ItemNode( model, scenery, item, image ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.position.x, y: item.position.y, cursor: 'pointer'} );
-    this.addChild( new Image( image ) );
+    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer'} );
+    this.addChild( new Image( image, {} ) );
     this.addInputListener( new SimpleDragHandler(
         {
           translate: function( options ) {
-
             //Don't allow the user to translate the object while it is animating
-            if ( !item.animating.enabled ) {
-              item.position = options.position;
+            if ( !item.animating.enabled ) {//todo is this calling es5 getter?
+              item.position = options.position;//es5 setter
             }
           },
 
@@ -32,13 +31,13 @@ define( function( require ) {
           start: function() {
             var index = model.stack.indexOf( item );
             if ( index >= 0 ) {
-              model.stack.splice( index, 1 );
+              model.spliceStack( index );
             }
           },
           end: function() {
 
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-            if ( item.position.y < 350 ) {
+            if ( item.y < 350 ) {
               item.animateTo( 480 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
               model.stack.push( item );
             }
@@ -47,7 +46,7 @@ define( function( require ) {
             }
           }
         } ) );
-    watch( item, 'position', function( a, b, p ) { itemNode.setTranslation( p ); } );
+    item.on( 'change:x change:y', function() { itemNode.setTranslation( item.x, item.y ); } );//TODO: verify the change is batched and not duplicated
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );

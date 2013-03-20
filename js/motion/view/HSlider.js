@@ -41,7 +41,7 @@ define( function( require ) {
     ) );
     this.addChild( svgKnob );
 
-    property.addListener( function( property, action, value, oldValue ) {
+    property.addListener( function( model, value ) {
       svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2;
     } );
   }

@@ -51,24 +51,16 @@ define( function( require ) {
     brickDOM.scale = 1;
     this.scene.addChild( brickDOM );
     var brickWidth = 120;
-    var updateBrick = function( property, action, newValue, oldValue ) {
+    model.sync( 'position', function( m, newValue ) {
       var x = -(newValue % brickWidth);
-
-      //Prevent it from showing gaps when animating to the left
-      if ( x > 0 ) {
-        x = x - brickWidth;
-      }
+      if ( x > 0 ) { x = x - brickWidth; }//Prevent it from showing gaps when animating to the left
       brickDOM.x = x;
-    };
-    watch( model, 'position', updateBrick );
-    updateBrick( 0, 0, 0, 0 );
+    } );
 
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
       view.scene.addChild( sprite );
-      var update = function( property, action, newValue, oldValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; };
-      update( 0, 0, 0, 0 );
-      watch( model, 'position', update );
+      model.sync( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; } );
     };
     addBackgroundSprite( 100, 'mountains.png', 10, 320, 0.3 );
     addBackgroundSprite( 600, 'mountains.png', 10, 320, 0.3 );
@@ -102,7 +94,7 @@ define( function( require ) {
     var pusher = new PusherNode( model, topView, imageLoader );
     this.scene.addChild( pusher );
 
-    var slider = new HSlider( -100, 100, 200, property( model, 'appliedForce' ), {x: 400, y: 450} );
+    var slider = new HSlider( -100, 100, 200, model.property( 'appliedForce' ), {x: 400, y: 450} );
     this.scene.addChild( slider );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
@@ -112,10 +104,8 @@ define( function( require ) {
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
 
-    //TODO: this needs auto callbacks to sync
-    watch( model, 'showForce', function() { view.sumArrow.visible = model.showForce; } );
-
-    watch( model, 'appliedForce', this.updateForces.bind( this ) );
+    model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
+    model.sync( 'appliedForce', this.updateForces, this );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );

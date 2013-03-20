@@ -1,38 +1,69 @@
 define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
+  var Item = Backbone.Model.extend(
+      {
+        defaults: {
+          dragging: false,
+          animating: {enabled: false, x: 0, y: 0, end: null}
+        },
 
-  function Item( image, weight, x, y ) {
-    this.image = image;
-    this.weight = weight;
+        initialize: function( parameters ) {
 
-    //Combine x and y into a position object so x/y can be observed as a batch using watch.js (no other reason)
-    //Note that since position is set as a composite, listeners attached to individual x and y parameters may be dropped.  So do not add listeners to x & y, just observe position as a composite
-    this.position = {x: x, y: y};
-    this.initialPositionJSON = JSON.stringify( this.position );
-    this.dragging = false;
-    this.animating = {enabled: false, x: 0, y: 0, end: null};
+          //TODO: Stringify for immutability?
+          this.initX = parameters.x;
+          this.initY = parameters.y;
+        },
+        reset: function() {
+          this.set( this.defaults );
+          this.animateHome();
+        },
+        animateTo: function( x, y, end ) { this.animating = {enabled: true, x: x, y: y, end: end}; },
+        animateHome: function() {
+          this.animateTo( this.initX, this.initY );
+        },
+        step: function() {
+          if ( this.animating.enabled ) {
+            var current = new Vector2( this.position.x, this.position.y );
+            var destination = new Vector2( this.animating.x, this.animating.y );
+            var position = current.blend( destination, 0.1 );
+            this.position = position;
+            if ( position.distance( destination ) < 1 ) {
+              if ( this.animating.end ) {
+                this.animating.end();
+              }
+              this.animating = {enabled: false, x: 0, y: 0, end: null};
+            }
+          }
+        }
+      } );
+
+  function propit( name ) {
+    Object.defineProperty( Item.prototype, name, {
+      // Getter proxies to Model#get()...
+      get: function() { return this.get( name ); },
+      // Setter proxies to Model#set(attributes)
+      set: function( value ) {
+        var data = {};
+        data[name] = value;
+        this.set( data );
+      },
+      // Make it configurable and enumerable so it's easy to override...
+      configurable: true,
+      enumerable: true
+    } );
   }
 
-  Item.prototype = {
-    animateTo: function( x, y, end ) { this.animating = {enabled: true, x: x, y: y, end: end}; },
-    animateHome: function() {
-      var initialPosition = JSON.parse( this.initialPositionJSON );
-      this.animateTo( initialPosition.x, initialPosition.y );
-    },
-    step: function() {
-      if ( this.animating.enabled ) {
-        var current = new Vector2( this.position.x, this.position.y );
-        var destination = new Vector2( this.animating.x, this.animating.y );
-        this.position = current.blend( destination, 0.1 );
-        if ( this.position.distance( destination ) < 1 ) {
-          if ( this.animating.end ) {
-            this.animating.end();
-          }
-          this.animating = {enabled: false, x: 0, y: 0, end: null};
-        }
-      }
-    }
-  };
+  Object.defineProperty( Item.prototype, "position", {get: function() {
+    return {x: this.x, y: this.y};
+  }, set: function( value ) {
+    this.set( {x: value.x, y: value.y} );
+  }, configurable: true, enumerable: true} );
+
+  propit( 'x' );
+  propit( 'y' );
+  propit( 'image' );
+  propit( 'animating' );
+
   return Item;
 } );
