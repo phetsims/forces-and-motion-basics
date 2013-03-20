@@ -9,6 +9,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -21,6 +22,7 @@ define( function( require ) {
   var ItemNode = require( 'motion/view/ItemNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
+  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
 
   function MotionScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
@@ -91,8 +93,10 @@ define( function( require ) {
     var pusher = new PusherNode( model, topView, imageLoader );
     this.scene.addChild( pusher );
 
-    var slider = new HSlider( -100, 100, 200, model.property( 'appliedForce' ), {x: 400, y: 450} );
-    this.scene.addChild( slider );
+    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '28px', backend: 'svg'} );
+    var slider = new HSlider( -100, 100, 200, model.property( 'appliedForce' ), {} );
+    var textBox = new DOM( $( '<form class="navbar-form pull-right "><input type="text" class="span1 applied-force-text-input" value="0.0"></form>' ) );
+    this.scene.addChild( new VBox( {children: [sliderLabel, slider, textBox], x: 400, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );

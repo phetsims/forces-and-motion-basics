@@ -64,3 +64,7 @@
   height: 200px;
   overflow: hidden;
 }
+
+.applied-force-text-input {
+  text-align: right;
+}
