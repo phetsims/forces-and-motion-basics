@@ -66,6 +66,15 @@ define( function( require ) {
       } );
     }
 
+    motionModel.on( 'all', function( event, model, a1, a2 ) {
+      if ( event.lastIndexOf( 'change:' ) >= 0 ) {
+        var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
+        var logItem = {time: Date.now(), path: 'root', property: attribute, action: "change", newValue: motionModel[attribute], oldValue: "???"};
+        log.push( logItem );
+        console.log( logItem );
+      }
+    } );
+
 //    watch( motionModel.state, function( property, action, newValue, oldValue, path ) {
 //      if ( !playback && !getLogEntry ) {
 //        var logItem = {time: Date.now(), path: path === undefined ? "root" : path, property: property, action: action, newValue: JSON.stringify( newValue ), oldValue: JSON.stringify( oldValue ) };
@@ -87,7 +96,7 @@ define( function( require ) {
     },
     step: function() {
       if ( playback || getLogEntry ) {
-        var m = this.motionModel.state;
+        var m = this.motionModel;
 
         while ( logIndex < log.length ) {
           //find any events that passed in this time frame
