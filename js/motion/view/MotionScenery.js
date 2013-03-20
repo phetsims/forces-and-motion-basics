@@ -116,7 +116,6 @@ define( function( require ) {
           return this.itemNodes[i];
         }
       }
-      debugger;
       throw new Error( "Couldn't find itemNode for item" );
     },
     get topOfStack() {

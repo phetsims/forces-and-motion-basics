@@ -1,5 +1,6 @@
 //Demonstration of usage of PhetModel, see documentation for PhetModel
 define( function( require ) {
+  "use strict";
   var PhetModel = require( 'common/model/PhetModel' );
   return function() {
 

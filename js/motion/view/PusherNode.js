@@ -20,7 +20,7 @@ define( function( require ) {
       if ( index > 14 ) {
         index = 14;
       }
-      imageNode.image = imageLoader.getImage( appliedForce == 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
+      imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
       if ( appliedForce > 0 ) {
 
         //Workaround for buggy setScale, see dot#2

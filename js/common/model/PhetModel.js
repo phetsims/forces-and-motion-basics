@@ -1,4 +1,5 @@
 define( function( require ) {
+  "use strict";
   //PhET Model extends Backbone model by adding the following features:
   //Sync method, which adds a listener and calls it back immediately.  Useful for syncing a view with the model when wired up
   //Property interface, which provides a property interface {get/set/sync} abstraction for reuse

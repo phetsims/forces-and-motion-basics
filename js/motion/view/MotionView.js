@@ -39,7 +39,7 @@ define( function( require ) {
     view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
-    if ( typeof io != 'undefined' && (sendMessagesToServer || getLogEntry) ) {
+    if ( typeof io !== 'undefined' && (sendMessagesToServer || getLogEntry) ) {
 //      var socket = io.connect( 'http://simian.colorado.edu:44100' );
       var socket = io.connect( 'http://192.168.1.7:44100' );
       socket.on( 'news', function( data ) {
