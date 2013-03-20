@@ -2,7 +2,7 @@ define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
   var Item = require( 'motion/model/Item' );
-  var PhetModel = require( 'motion/util/PhetModel' );
+  var PhetModel = require( 'common/model/PhetModel' );
 
   var MotionModel = PhetModel.extend(
       {defaults: { stack: [],

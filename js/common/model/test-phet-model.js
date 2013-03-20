@@ -1,6 +1,6 @@
 //Demonstration of usage of PhetModel, see documentation for PhetModel
 define( function( require ) {
-  var PhetModel = require( 'motion/util/PhetModel' );
+  var PhetModel = require( 'common/model/PhetModel' );
   return function() {
 
     //Creates a model 'class' which can be instantiated.
