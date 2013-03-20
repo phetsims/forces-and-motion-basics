@@ -104,7 +104,7 @@ define( function( require ) {
     var slider = new HSlider( -100, 100, 200, model.property( 'appliedForce' ), {} );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ) );
     this.scene.addChild( new VBox( {children: [sliderLabel, slider, textBox], x: 400, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} ) );
-    model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 2 ) );} );
+    model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
     model.sync( 'appliedForce', function() {
