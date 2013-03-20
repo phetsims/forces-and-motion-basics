@@ -93,11 +93,6 @@ define( function( require ) {
     var pusher = new PusherNode( model, topView, imageLoader );
     this.scene.addChild( pusher );
 
-    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '28px', backend: 'svg'} );
-    var slider = new HSlider( -100, 100, 200, model.property( 'appliedForce' ), {} );
-    var textBox = new DOM( $( '<form class="navbar-form pull-right "><input type="text" class="span1 applied-force-text-input" value="0.0"></form>' ) );
-    this.scene.addChild( new VBox( {children: [sliderLabel, slider, textBox], x: 400, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} ) );
-
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -105,8 +100,24 @@ define( function( require ) {
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
 
+    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '28px', backend: 'svg'} );
+    var slider = new HSlider( -100, 100, 200, model.property( 'appliedForce' ), {} );
+    var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ) );
+    this.scene.addChild( new VBox( {children: [sliderLabel, slider, textBox], x: 400, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} ) );
+    model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 2 ) );} );
+
     model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
-    model.sync( 'appliedForce', this.updateForces, this );
+    model.sync( 'appliedForce', function() {
+                  var tailX = 981 / 2;
+                  var tailY = 280;
+                  var tailWidth = 25;
+                  var headWidth = 50;
+                  var headHeight = 40;
+//      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
+//      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
+                  this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
+                }
+        , this );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
@@ -157,18 +168,7 @@ define( function( require ) {
     },
     render: function() {
       this.scene.updateScene();
-    },
-    updateForces: function() {
-      var tailX = 981 / 2;
-      var tailY = 280;
-      var tailWidth = 25;
-      var headWidth = 50;
-      var headHeight = 40;
-//      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
-//      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
-      this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
-    }
-  };
+    }};
 
   return MotionScenery;
 } );
