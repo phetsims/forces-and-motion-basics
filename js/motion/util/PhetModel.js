@@ -3,8 +3,9 @@ define( function( require ) {
   //Sync method, which adds a listener and calls it back immediately.  Useful for syncing a view with the model when wired up
   //Property interface, which provides a property interface {get/set/addListener} abstraction for reuse
   //ES5 getters and setters for all properties that exist on initialization, including defaults and initialize arguments.
-  //TODO: Store initial state as immutable JSON string
+  //TODO: Store initial state as immutable JSON string for reset and add reset method
   //TODO: Eliminate the need for subclasses to call initializeFinished
+  //TODO: Provide an alternative 'sync' method (or modify 'sync') that provides new value as 1st parameter
   var PhetModel = Backbone.Model.extend(
       {
         //Add a listener and automatically call it back
