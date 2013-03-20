@@ -8,6 +8,7 @@ module.exports = function( grunt ) {
                       jshint: {
                         files: [ 'js/**/*.js' ],
                         options: {
+                          es5: true,
                           curly: true,
                           eqeqeq: true,
                           immed: false,
@@ -32,6 +33,7 @@ module.exports = function( grunt ) {
                             "Backbone",
                             "Raphael",
                             "Howl",
+                            "io",
 
                             //Custom global for request animation frame shim
                             "requestAnimFrame"

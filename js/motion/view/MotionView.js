@@ -75,19 +75,20 @@ define( function( require ) {
       }
     } );
 
-    for ( var i = 0; i < motionModel.items.length; i++ ) {
-      (function( i ) {
-        motionModel.items[i].on( 'all', function( event, model, a1, a2 ) {
-          if ( !playback ) {
-            if ( event.lastIndexOf( 'change:' ) >= 0 ) {
-              var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
-              var logItem = {time: Date.now(), path: ['items', i.toFixed( 0 )], property: attribute, action: "change", newValue: JSON.stringify( motionModel.items[i][attribute] ), oldValue: "???"};
-              log.push( logItem );
+    var createItemLogger = function( i ) {
+      motionModel.items[i].on( 'all', function( event, model, a1, a2 ) {
+        if ( !playback ) {
+          if ( event.lastIndexOf( 'change:' ) >= 0 ) {
+            var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
+            var logItem = {time: Date.now(), path: ['items', i.toFixed( 0 )], property: attribute, action: "change", newValue: JSON.stringify( motionModel.items[i][attribute] ), oldValue: "???"};
+            log.push( logItem );
 //              console.log( logItem );
-            }
           }
-        } );
-      })( i );
+        }
+      } );
+    };
+    for ( var i = 0; i < motionModel.items.length; i++ ) {
+      createItemLogger( i );
     }
 
     //TODO: coalesce log functions and add remote logging

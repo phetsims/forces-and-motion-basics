@@ -51,7 +51,7 @@ define( function( require ) {
     $resetAllButton.bind( 'click', model.resetAll.bind( model ) );
 
     var $volumeButton = $( '.volume-button' );
-    var volumeButtonEvent = function() { view.model.volumeOn = !view.model.volumeOn };//This pattern looks like it could be factored out.
+    var volumeButtonEvent = function() { view.model.volumeOn = !view.model.volumeOn; };//This pattern looks like it could be factored out.
     model.sync( 'volumeOn', function( m, volumeOn ) {
       $volumeButton.find( 'i' ).removeClass( 'icon-volume-up' ).removeClass( 'icon-volume-off' ).addClass( volumeOn ? 'icon-volume-up' : 'icon-volume-off' );
     } );
