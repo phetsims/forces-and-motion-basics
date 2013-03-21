@@ -100,18 +100,18 @@ define( function( require ) {
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
 
-    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '28px', backend: 'svg'} );
+    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '28px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 250, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
     var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: 981 / 2, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
+    this.scene.addChild( vbox );//text box only seems to work if addedlast
+    model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
-    var unitsLabel = new Text( Strings.newtons, {fontSize: '25px', backend: 'svg'} );
+    var unitsLabel = new Text( Strings.newtons, {fontSize: '25px', renderer: 'svg'} );
     unitsLabel.x = textBox.x + textBox.width + vbox.x;
     unitsLabel.centerY = textBox.centerY + vbox.y;
     this.scene.addChild( unitsLabel );
-    this.scene.addChild( vbox );//text box only seems to work if addedlast
-    model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
     model.sync( 'appliedForce', function() {
