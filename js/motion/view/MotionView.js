@@ -7,8 +7,8 @@ define( function( require ) {
   var logIndex = 0;
   var playbackTime = 0;
   var resetPlaybackTime = false; //Temporary flag used to reset the playback time when switching to a new set of log entries
-  var getLogEntry = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
-  var sendMessagesToServer = true;
+  var readServer = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
+  var sendMessagesToServer = false;
 
   function MotionView( imageLoader, motionModel, $tab ) {
     var view = this;
@@ -39,7 +39,7 @@ define( function( require ) {
     view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
-    if ( typeof io !== 'undefined' && (sendMessagesToServer || getLogEntry) ) {
+    if ( typeof io !== 'undefined' && (sendMessagesToServer || readServer) ) {
 //      var socket = io.connect( 'http://simian.colorado.edu:44100' );
       var socket = io.connect( 'http://192.168.1.7:44100' );
       socket.on( 'news', function( data ) {
@@ -50,8 +50,8 @@ define( function( require ) {
 
         //TODO: Show client IDs in a GUI and let the user select one.
 
-        if ( getLogEntry ) {
-          socket.emit( 'get log', {clientID: data.clientIDs[1]} );
+        if ( readServer ) {
+          socket.emit( 'get log', {clientID: data.clientIDs[2]} );
           resetPlaybackTime = true;
         }
         socket.on( 'deliver log entry', function( logEntry ) {
@@ -80,16 +80,16 @@ define( function( require ) {
             var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
             var logItem = {time: Date.now(), path: path, property: attribute, action: "change", newValue: JSON.stringify( model[attribute] ), oldValue: model.previous( attribute )};
             log.push( logItem );
-//            console.log( logItem );
+            //console.log( logItem );
+
+            //Send it to the server
+            if ( !readServer && sendMessagesToServer && typeof socket !== "undefined" ) {
+              socket.emit( 'post log entry', logItem );
+            }
           }
         }
       } );
     } );
-
-    //TODO: add remote logging
-//        if ( !getLogEntry && sendMessagesToServer && typeof socket !== "undefined" ) {
-//          socket.emit( 'post log entry', logItem );
-//        }
   }
 
   MotionView.prototype = {
@@ -100,7 +100,7 @@ define( function( require ) {
       this.scenery.updateForces();
     },
     step: function() {
-      if ( playback || getLogEntry ) {
+      if ( playback || readServer ) {
         var m = this.motionModel;
 
         while ( logIndex < log.length ) {
