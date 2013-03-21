@@ -24,9 +24,6 @@ define( function( require ) {
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
 
-  var WIDTH = 981,
-      HEIGHT = 644;
-
   function MotionScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
     var tugOfWarScenery = this;
@@ -34,6 +31,8 @@ define( function( require ) {
     view.imageLoader = imageLoader;
     var getImage = topView.getImage;
 
+    view.WIDTH = 981;
+    view.HEIGHT = 644;
     view.model = model;
 
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
@@ -74,8 +73,8 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 220;
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 10, HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Path( {shape: Shape.roundRect( WIDTH - 10 - 300, HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.scene.addChild( new Node( {layerSplit: true} ) );
@@ -91,7 +90,7 @@ define( function( require ) {
       this.scene.addChild( itemNode );
     }
 
-    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: WIDTH / 2, y: 342} );
+    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: view.WIDTH / 2, y: 342} );
     this.scene.addChild( skateboardImage );
 
     var pusher = new PusherNode( model, topView, imageLoader );
@@ -107,7 +106,7 @@ define( function( require ) {
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
-    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
+    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
     this.scene.addChild( vbox );//text box only seems to work if addedlast
     model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 

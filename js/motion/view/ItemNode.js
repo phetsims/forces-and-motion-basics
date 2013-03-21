@@ -35,7 +35,7 @@ define( function( require ) {
 
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
             if ( item.y < 350 ) {
-              item.animateTo( 480 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
+              item.animateTo( scenery.WIDTH / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
               model.stack.push( item );
             }
             else {
