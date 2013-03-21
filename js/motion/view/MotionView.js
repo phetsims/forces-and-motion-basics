@@ -65,6 +65,7 @@ define( function( require ) {
     }
 
     //Aggregate all the models to watch and log
+    //TODO: consider automatically infer this by inspecting the model
     var modelsToWatch = [];
     modelsToWatch.push( {model: motionModel, path: 'root'} );
     for ( var k = 0; k < motionModel.items.length; k++ ) {
