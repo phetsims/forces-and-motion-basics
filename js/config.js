@@ -20,6 +20,7 @@ require.config( {
                     DOT: '../../dot/js',
                     SCENERY: '../../scenery/js',
                     KITE: '../../kite/js',
+                    PHET_CORE: '../../phet-core/js',
 
                     easel: '../contrib/easel-0.5.0',
                     image: '../contrib/image-0.2.2',
