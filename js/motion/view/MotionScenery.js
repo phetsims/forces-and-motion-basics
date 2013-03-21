@@ -91,7 +91,7 @@ define( function( require ) {
       this.scene.addChild( itemNode );
     }
 
-    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {x: 395, y: 342} );
+    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: WIDTH / 2, y: 342} );
     this.scene.addChild( skateboardImage );
 
     var pusher = new PusherNode( model, topView, imageLoader );
@@ -105,9 +105,9 @@ define( function( require ) {
     this.scene.addChild( this.sumArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -100, 100, 250, model.property( 'appliedForce' ) );
+    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
-    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: WIDTH / 2, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
+    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
     this.scene.addChild( vbox );//text box only seems to work if addedlast
     model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
@@ -116,7 +116,9 @@ define( function( require ) {
     unitsLabel.x = textBox.x + textBox.width + vbox.x + 10;
     unitsLabel.centerY = textBox.centerY + vbox.y;
     this.scene.addChild( unitsLabel );
-    this.scene.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
+
+    //Show a line that indicates the center of the layout
+//    this.scene.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
 
     model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
     model.sync( 'appliedForce', function() {
