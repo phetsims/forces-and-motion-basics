@@ -23,14 +23,16 @@ define( function( require ) {
         get topOfStack() {
           return 350 - this.stack.length * 100;
         },
+
+        //TODO: can we bring back hashless constructor?
         items: [
-          new Item( {image: 'fridge.png', weight: 100, x: 41, y: 476} ),
-          new Item( {image: 'crate.png', weight: 100, x: 195, y: 495} ),
-          new Item( {image: 'crate.png', weight: 100, x: 114, y: 495 } ),
-          new Item( {image: 'girl-standing.png', weight: 100, x: 632, y: 450} ),
-          new Item( {image: 'man-standing.png', weight: 100, x: 719, y: 365} ),
-          new Item( {image: 'trash-can.png', weight: 100, x: 851, y: 511 } ), //TODO: can we bring back hashless constructor?
-          new Item( {image: 'mystery-object-01.png', weight: 100, x: 800, y: 590 } )
+          new Item( {image: 'fridge.png', weight: 100, x: 41, y: 476, scale: 0.8} ),
+          new Item( {image: 'crate.png', weight: 100, x: 195, y: 495, scale: 0.6} ),
+          new Item( {image: 'crate.png', weight: 100, x: 114, y: 495, scale: 0.6} ),
+          new Item( {image: 'girl-standing.png', weight: 100, x: 632, y: 450, scale: 0.9} ),
+          new Item( {image: 'man-standing.png', weight: 100, x: 719, y: 365, scale: 0.9} ),
+          new Item( {image: 'trash-can.png', weight: 100, x: 851, y: 511, scale: 1.0} ),
+          new Item( {image: 'mystery-object-01.png', weight: 100, x: 800, y: 590, scale: 0.9} )
         ] },
 
         //Upper items should fall if an item removed from beneath

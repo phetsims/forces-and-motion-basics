@@ -13,7 +13,7 @@ define( function( require ) {
   function ItemNode( model, scenery, item, image ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer'} );
+    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.scale} );
     this.addChild( new Image( image, {} ) );
     this.addInputListener( new SimpleDragHandler(
         {

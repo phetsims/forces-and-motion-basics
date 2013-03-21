@@ -7,7 +7,7 @@ define( function( require ) {
         dragging: false,
         animating: {enabled: false, x: 0, y: 0, end: null}
       },
-        init: function( parameters ) {
+        init: function( options ) {
           Object.defineProperty( Item.prototype, "position", {get: function() {
             return {x: this.x, y: this.y};
           }, set: function( value ) {
@@ -15,17 +15,15 @@ define( function( require ) {
           }, configurable: true, enumerable: true} );
 
           //TODO: Stringify for immutability?
-          this.initX = parameters.x;
-          this.initY = parameters.y;
+          this.initX = options.x;
+          this.initY = options.y;
         },
         reset: function() {
           this.set( this.defaults );
           this.position = {x: this.initX, y: this.initY};
         },
         animateTo: function( x, y, end ) { this.animating = {enabled: true, x: x, y: y, end: end}; },
-        animateHome: function() {
-          this.animateTo( this.initX, this.initY );
-        },
+        animateHome: function() { this.animateTo( this.initX, this.initY ); },
         step: function() {
           if ( this.animating.enabled ) {
             var current = new Vector2( this.position.x, this.position.y );
