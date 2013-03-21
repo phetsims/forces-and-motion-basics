@@ -24,6 +24,9 @@ define( function( require ) {
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
 
+  var WIDTH = 981,
+      HEIGHT = 644;
+
   function MotionScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
     var tugOfWarScenery = this;
@@ -70,8 +73,6 @@ define( function( require ) {
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.5 );
 
     //Add toolbox backgrounds for the pullers
-    var WIDTH = 981,
-        HEIGHT = 644;
     var boxHeight = 220;
     view.scene.addChild( new Path( {shape: Shape.roundRect( 10, HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
     view.scene.addChild( new Path( {shape: Shape.roundRect( WIDTH - 10 - 300, HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
@@ -103,18 +104,19 @@ define( function( require ) {
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
 
-    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '28px', renderer: 'svg'} );
+    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 250, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
-    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: 981 / 2, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
+    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: WIDTH / 2, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
     this.scene.addChild( vbox );//text box only seems to work if addedlast
     model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
-    var unitsLabel = new Text( Strings.newtons, {fontSize: '25px', renderer: 'svg'} );
-    unitsLabel.x = textBox.x + textBox.width + vbox.x;
+    var unitsLabel = new Text( Strings.newtons, {fontSize: '22px', renderer: 'svg'} );
+    unitsLabel.x = textBox.x + textBox.width + vbox.x + 10;
     unitsLabel.centerY = textBox.centerY + vbox.y;
     this.scene.addChild( unitsLabel );
+    this.scene.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
 
     model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
     model.sync( 'appliedForce', function() {
