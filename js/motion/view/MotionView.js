@@ -8,7 +8,7 @@ define( function( require ) {
   var playbackTime = 0;
   var resetPlaybackTime = false; //Temporary flag used to reset the playback time when switching to a new set of log entries
   var getLogEntry = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
-  var sendMessagesToServer = false;
+  var sendMessagesToServer = true;
 
   function MotionView( imageLoader, motionModel, $tab ) {
     var view = this;
@@ -64,34 +64,29 @@ define( function( require ) {
       } );
     }
 
-    motionModel.on( 'all', function( event, model, a1, a2 ) {
-      if ( !playback ) {
-        if ( event.lastIndexOf( 'change:' ) >= 0 ) {
-          var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
-          var logItem = {time: Date.now(), path: 'root', property: attribute, action: "change", newValue: JSON.stringify( motionModel[attribute] ), oldValue: "???"};
-          log.push( logItem );
-//          console.log( logItem );
-        }
-      }
-    } );
+    //Aggregate all the models to watch and log
+    var modelsToWatch = [];
+    modelsToWatch.push( {model: motionModel, path: 'root'} );
+    for ( var k = 0; k < motionModel.items.length; k++ ) {
+      modelsToWatch.push( {model: motionModel.items[k], path: ['items', k.toFixed( 0 )]} );
+    }
 
-    var createItemLogger = function( i ) {
-      motionModel.items[i].on( 'all', function( event, model, a1, a2 ) {
+    _.each( modelsToWatch, function( element ) {
+      var model = element.model;
+      var path = element.path;
+      model.on( 'all', function( event, model, a1, a2 ) {
         if ( !playback ) {
           if ( event.lastIndexOf( 'change:' ) >= 0 ) {
             var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
-            var logItem = {time: Date.now(), path: ['items', i.toFixed( 0 )], property: attribute, action: "change", newValue: JSON.stringify( motionModel.items[i][attribute] ), oldValue: "???"};
+            var logItem = {time: Date.now(), path: path, property: attribute, action: "change", newValue: JSON.stringify( model[attribute] ), oldValue: model.previous( attribute )};
             log.push( logItem );
-//              console.log( logItem );
+//            console.log( logItem );
           }
         }
       } );
-    };
-    for ( var i = 0; i < motionModel.items.length; i++ ) {
-      createItemLogger( i );
-    }
+    } );
 
-    //TODO: coalesce log functions and add remote logging
+    //TODO: add remote logging
 //        if ( !getLogEntry && sendMessagesToServer && typeof socket !== "undefined" ) {
 //          socket.emit( 'post log entry', logItem );
 //        }
