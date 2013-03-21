@@ -2,6 +2,7 @@ define( function( require ) {
   "use strict";
 
   var Image = require( 'SCENERY/nodes/Image' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -20,8 +21,25 @@ define( function( require ) {
   function HSlider( min, max, width, property, options ) {
     Node.call( this, options );
 
+    //TODO: turn these into parameters
+    var numDivisions = 8; //e.g. divide the ruler into 1/8ths
+    var numTicks = numDivisions + 1; //ticks on the end
+    var isMajor = function( tickIndex ) { return tickIndex % 2 == 0; };
+    var hasLabel = function( tickIndex ) { return tickIndex % 4 == 0; };
+
+    for ( var i = 0; i < numTicks; i++ ) {
+      var x1 = linear( 0, 1, 0, width, i / (numTicks - 1) );
+      var tick = new Path( {shape: Shape.lineSegment( {x: x1, y: 0}, {x: x1, y: isMajor( i ) ? 30 : 15} ), stroke: 'black', strokeWidth: 1} );
+
+      this.addChild( tick );
+      if ( hasLabel( i ) ) {
+        var label = new Text( linear( 0, 1, min, max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
+        this.addChild( label );
+      }
+    }
+
     //The track
-    this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 4 ), stroke: 'black', strokeWidth: 1, fill: 'gray'} ) );
+    this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 6 ), stroke: 'black', strokeWidth: 1, fill: 'white'} ) );
 
     //Instantiate the template
     var knobSVGText = sliderKnob();
@@ -32,18 +50,17 @@ define( function( require ) {
     //Lookup the new item and append to the scenery
     var svgKnob = new DOM( $( 'body' ).find( '#Layer_1' ), {cursor: 'pointer'} );
     svgKnob.y = -svgKnob.height / 2;
-    svgKnob.addInputListener( new SimpleDragHandler( {allowTouchSnag: true,
-                                                       translate: function( options ) {
-                                                         var x = Math.min( Math.max( options.position.x, 0 ), width ) + svgKnob.width / 2;
-                                                         property.set( linear( 0, width, min, max, x ) );
-                                                       },
-                                                       end: function() { property.set( 0 ); }}
+    svgKnob.addInputListener( new SimpleDragHandler(
+        {allowTouchSnag: true,
+          translate: function( options ) {
+            var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
+            property.set( linear( 0, width, min, max, x ) );
+          },
+          end: function() { property.set( 0 ); }}
     ) );
     this.addChild( svgKnob );
 
-    property.sync( function( model, value ) {
-      svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2;
-    } );
+    property.sync( function( model, value ) { svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2; } );
   }
 
   Inheritance.inheritPrototype( HSlider, Node );
