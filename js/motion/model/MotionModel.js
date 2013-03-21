@@ -18,11 +18,7 @@ define( function( require ) {
         showMasses: false,
         showAcceleration: false,
         running: true,
-
-        //Note, using this as an es5 getter requires changes to watch.js so the getter is not overriden.
-        get topOfStack() {
-          return 350 - this.stack.length * 100;
-        },
+        get topOfStack() { return 350 - this.stack.length * 100; },
 
         //TODO: can we bring back hashless constructor?
         items: [
