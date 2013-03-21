@@ -2,9 +2,9 @@ define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
   var Item = require( 'motion/model/Item' );
-  var PhetModel = require( 'common/model/PhetModel' );
+  var Fort = require( 'FORT/Fort' );
 
-  var MotionModel = PhetModel.extend(
+  var MotionModel = Fort.Model.extend(
       {defaults: { stack: [],
         appliedForce: 0,
         pusherX: 0,

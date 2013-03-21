@@ -1,42 +1,42 @@
 define( function( require ) {
   "use strict";
-  var PhetModel = require( 'common/model/PhetModel' );
+  var Fort = require( 'FORT/Fort' );
   var red = "red",
       blue = "blue",
       small = "small",
       medium = "medium",
       large = "large";
 
-  var Puller = PhetModel.extend( { defaults: { dragging: false, knot: null},
+  var Puller = Fort.Model.extend( { defaults: { dragging: false, knot: null},
 
-                                   //For resetting
-                                   init: function() {
-                                     this.initAttributes = this.toJSON();
-                                     this.initX = this.x;
-                                     this.initY = this.y;
-                                     this.force = this.size === small ? 10 * 5 :
-                                                  this.size === medium ? 20 * 5 :
-                                                  this.size === large ? 30 * 5 :
-                                                  NaN;
-                                   },
-                                   disconnect: function() {this.knot = null;}
-                                 } );
+                                    //For resetting
+                                    init: function() {
+                                      this.initAttributes = this.toJSON();
+                                      this.initX = this.x;
+                                      this.initY = this.y;
+                                      this.force = this.size === small ? 10 * 5 :
+                                                   this.size === medium ? 20 * 5 :
+                                                   this.size === large ? 30 * 5 :
+                                                   NaN;
+                                    },
+                                    disconnect: function() {this.knot = null;}
+                                  } );
   var Pullers = Backbone.Collection.extend( { defaults: {knot: null}, model: Puller } );
 
-  var Knot = PhetModel.extend( {
-                                 defaults: { y: 275, visible: false},
-                                 init: function() {
-                                   this.initAttributes = this.toJSON();//For resetting
-                                   this.initX = this.x;
-                                 } } );
+  var Knot = Fort.Model.extend( {
+                                  defaults: { y: 275, visible: false},
+                                  init: function() {
+                                    this.initAttributes = this.toJSON();//For resetting
+                                    this.initX = this.x;
+                                  } } );
   var Knots = Backbone.Collection.extend( { model: Knot } );
 
-  var Cart = PhetModel.extend( {defaults: {x: 0, v: 0}, initialize: function() {this.generateGettersAndSetters();}} );
+  var Cart = Fort.Model.extend( {defaults: {x: 0, v: 0}, initialize: function() {this.generateGettersAndSetters();}} );
 
   var blueKnots = _.map( [10.0, 90.0, 170.0, 250.0], function( v ) {return v + 50;} );
   var ropeWidth = 880;
   var redKnots = _.map( blueKnots, function( v ) {return ropeWidth - v;} );
-  return PhetModel.extend(
+  return Fort.Model.extend(
       {
         defaults: {
           showSumOfForces: false,

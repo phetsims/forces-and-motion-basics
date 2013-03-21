@@ -15,12 +15,13 @@ require.config( {
                     PHETCOMMON: '../../phetcommon/js',
                     PHETCOMMON_HTML: '../../phetcommon/html',
 
-                    //Load scenery and its dependencies
+                    //Load dependencies from sibling directories
                     ASSERT: '../../assert/js',
                     DOT: '../../dot/js',
                     SCENERY: '../../scenery/js',
                     KITE: '../../kite/js',
                     PHET_CORE: '../../phet-core/js',
+                    FORT: '../../fort/js',
 
                     easel: '../contrib/easel-0.5.0',
                     image: '../contrib/image-0.2.2',

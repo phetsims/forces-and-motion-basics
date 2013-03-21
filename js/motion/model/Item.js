@@ -1,8 +1,8 @@
 define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
-  var PhetModel = require( 'common/model/PhetModel' );
-  var Item = PhetModel.extend(
+  var Fort = require( 'FORT/Fort' );
+  var Item = Fort.Model.extend(
       { defaults: {
         dragging: false,
         animating: {enabled: false, x: 0, y: 0, end: null}
