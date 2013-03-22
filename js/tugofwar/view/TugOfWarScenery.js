@@ -63,7 +63,7 @@ define( function( require ) {
     this.scene.addChild( new Node( {layerSplit: true} ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
-    this.model.sync( 'showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
+    this.model.link( 'showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.scene.addChild( this.leftArrow );
@@ -89,7 +89,7 @@ define( function( require ) {
     this.scene.addChild( new GoButton( getImage, this.model ) );
 
     //Update the forces when the number of attached pullers changes
-    model.sync( 'numberPullersAttached', view.updateForces, view );
+    model.link( 'numberPullersAttached', view.updateForces, view );
     view.model.pullers.each( function( puller ) {
       view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );

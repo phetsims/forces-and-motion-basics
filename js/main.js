@@ -2,6 +2,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
            'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'FORT/examples'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, fortExamples ) {
   "use strict";
+  fortExamples();
 
   window.requestAnimFrame = (function() {
     return window.requestAnimationFrame ||

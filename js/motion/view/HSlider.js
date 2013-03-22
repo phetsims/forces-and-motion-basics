@@ -60,7 +60,7 @@ define( function( require ) {
     ) );
     this.addChild( svgKnob );
 
-    property.sync( function( model, value ) { svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2; } );
+    property.link( function( model, value ) { svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2; } );
   }
 
   Inheritance.inheritPrototype( HSlider, Node );

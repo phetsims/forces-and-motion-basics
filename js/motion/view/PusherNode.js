@@ -37,7 +37,7 @@ define( function( require ) {
       itemNode.y = 350 - itemNode.height + 30;
     };
     this.addChild( imageNode );
-    model.sync( 'appliedForce', updatePosition );
+    model.link( 'appliedForce', updatePosition );
 
     this.addInputListener( new SimpleDragHandler(
         {

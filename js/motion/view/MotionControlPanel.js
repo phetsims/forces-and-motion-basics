@@ -9,7 +9,7 @@ define( function( require ) {
       $checkBox.bind( "touchstart", toggle );
       $checkBox.bind( "click", toggle );
 
-      model.sync( attribute, function( m, value ) {
+      model.link( attribute, function( m, value ) {
         var $icon = $checkBox.find( 'i' );
         $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
         $icon.addClass( model[attribute] ? "icon-check" : "icon-check-empty" );

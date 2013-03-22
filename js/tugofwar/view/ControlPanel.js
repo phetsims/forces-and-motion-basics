@@ -29,7 +29,7 @@ define( function( require ) {
     $checkBox.bind( "touchstart", handleShowSumOfForcesClick );
     $checkBox.bind( "click", handleShowSumOfForcesClick );
 
-    this.model.sync( 'showSumOfForces', function( model, showSumOfForces ) {
+    this.model.link( 'showSumOfForces', function( model, showSumOfForces ) {
       var $icon = $( '.sum-of-forces-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showSumOfForces ? "icon-check" : "icon-check-empty" );
@@ -40,7 +40,7 @@ define( function( require ) {
     $checkBox2.bind( "touchstart", handleShowValuesClick );
     $checkBox2.bind( "click", handleShowValuesClick );
 
-    this.model.sync( 'showValues', function( model, showValues ) {
+    this.model.link( 'showValues', function( model, showValues ) {
       var $icon = $( '.show-values-checkbox i' );
       $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
       $icon.addClass( showValues ? "icon-check" : "icon-check-empty" );
@@ -52,7 +52,7 @@ define( function( require ) {
 
     var $volumeButton = $( '.volume-button' );
     var volumeButtonEvent = function() { view.model.volumeOn = !view.model.volumeOn; };//This pattern looks like it could be factored out.
-    model.sync( 'volumeOn', function( m, volumeOn ) {
+    model.link( 'volumeOn', function( m, volumeOn ) {
       $volumeButton.find( 'i' ).removeClass( 'icon-volume-up' ).removeClass( 'icon-volume-off' ).addClass( volumeOn ? 'icon-volume-up' : 'icon-volume-off' );
     } );
     $volumeButton.bind( 'touchstart', volumeButtonEvent );

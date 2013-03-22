@@ -52,7 +52,7 @@ define( function( require ) {
     brickDOM.scale = 1;
     this.scene.addChild( brickDOM );
     var brickWidth = 120;
-    model.sync( 'position', function( m, newValue ) {
+    model.link( 'position', function( m, newValue ) {
       var x = -(newValue % brickWidth);
       if ( x > 0 ) { x = x - brickWidth; }//Prevent it from showing gaps when animating to the left
       brickDOM.x = x;
@@ -61,7 +61,7 @@ define( function( require ) {
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
       view.scene.addChild( sprite );
-      model.sync( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; } );
+      model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; } );
     };
     addBackgroundSprite( 100, 'mountains.png', 10, 320, 0.3 );
     addBackgroundSprite( 600, 'mountains.png', 10, 320, 0.3 );
@@ -108,7 +108,7 @@ define( function( require ) {
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
     var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
     this.scene.addChild( vbox );//text box only seems to work if addedlast
-    model.sync( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
+    model.link( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
     var unitsLabel = new Text( Strings.newtons, {fontSize: '22px', renderer: 'svg'} );
@@ -119,8 +119,8 @@ define( function( require ) {
     //Show a line that indicates the center of the layout
 //    this.scene.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
 
-    model.sync( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
-    model.sync( 'appliedForce', function() {
+    model.link( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
+    model.link( 'appliedForce', function() {
                   var tailX = 981 / 2;
                   var tailY = 280;
                   var tailWidth = 25;
