@@ -36,7 +36,7 @@ module.exports = function( grunt ) {
                             "io",
 
                             //Custom global for request animation frame shim
-                            "requestAnimFrame"
+                            "requestAnimationFrame"
                           ]
                         },
                         globals: {

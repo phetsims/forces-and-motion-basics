@@ -106,7 +106,7 @@ define( function( require ) {
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
-    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom == textBox ? -20 : 8; }} );
+    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
     this.scene.addChild( vbox );//text box only seems to work if addedlast
     model.link( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
@@ -129,8 +129,7 @@ define( function( require ) {
 //      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
 //      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
                   this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
-                }
-        , this );
+                } , this );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );

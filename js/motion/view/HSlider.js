@@ -24,8 +24,8 @@ define( function( require ) {
     //TODO: turn these into parameters
     var numDivisions = 8; //e.g. divide the ruler into 1/8ths
     var numTicks = numDivisions + 1; //ticks on the end
-    var isMajor = function( tickIndex ) { return tickIndex % 2 == 0; };
-    var hasLabel = function( tickIndex ) { return tickIndex % 4 == 0; };
+    var isMajor = function( tickIndex ) { return tickIndex % 2 === 0; };
+    var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
 
     for ( var i = 0; i < numTicks; i++ ) {
       var x1 = linear( 0, 1, 0, width, i / (numTicks - 1) );
