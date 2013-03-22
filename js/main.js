@@ -1,19 +1,10 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'FORT/examples'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, fortExamples ) {
+           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'FORT/examples',
+           'SCENERY/util/Util'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, fortExamples, Util ) {
   "use strict";
   fortExamples();
-
-  window.requestAnimFrame = (function() {
-    return window.requestAnimationFrame ||
-           window.webkitRequestAnimationFrame ||
-           window.mozRequestAnimationFrame ||
-           window.oRequestAnimationFrame ||
-           window.msRequestAnimationFrame ||
-           function( callback ) {
-             window.setTimeout( callback, 1000 / 60 );
-           };
-  })();
+  Util.polyfillRequestAnimationFrame();
 
   //Code to show console output in a div, requires a #debugDiv in the HTML
   var useDebugDiv = false;
@@ -51,8 +42,8 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     // place the rAF *before* the render() to assure as close to
     // 60fps with the setTimeout fallback.
-    (function animloop() {
-      requestAnimFrame( animloop );
+    (function animationLoop() {
+      requestAnimationFrame( animationLoop );
       if ( typeof views[selectedTabIndex] !== 'undefined' ) {
         views[selectedTabIndex].step();
       }
