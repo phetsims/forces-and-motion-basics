@@ -25,8 +25,8 @@ define( function( require ) {
           new Item( {image: 'fridge.png', weight: 100, x: 26, y: 490, scale: 0.8} ),
           new Item( {image: 'crate.png', weight: 100, x: 117, y: 532, scale: 0.6} ),
           new Item( {image: 'crate.png', weight: 100, x: 214, y: 533, scale: 0.6} ),
-          new Item( {image: 'girl-standing.png', weight: 100, x: 684, y: 450, scale: 0.9} ),
-          new Item( {image: 'man-standing.png', weight: 100, x: 747, y: 379, scale: 0.9} ),
+          new Item( {image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 100, x: 684, y: 450, scale: 0.9} ),
+          new Item( {image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 100, x: 747, y: 379, scale: 0.9} ),
           new Item( {image: 'mystery-object-01.png', weight: 100, x: 826, y: 593, scale: 0.9} ),
           new Item( {image: 'trash-can.png', weight: 100, x: 884, y: 508, scale: 1.0} )
         ] },

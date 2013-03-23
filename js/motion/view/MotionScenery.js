@@ -85,7 +85,7 @@ define( function( require ) {
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
-      var itemNode = new ItemNode( model, view, item, view.imageLoader.getImage( item.image ) );
+      var itemNode = new ItemNode( model, view, item, view.imageLoader.getImage( item.image ), view.imageLoader.getImage( item.imageSitting ), view.imageLoader.getImage( item.imageHolding ) );
       this.itemNodes.push( itemNode );
       this.scene.addChild( itemNode );
     }
@@ -121,15 +121,15 @@ define( function( require ) {
 
     model.link( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
     model.link( 'appliedForce', function() {
-                  var tailX = 981 / 2;
-                  var tailY = 280;
-                  var tailWidth = 25;
-                  var headWidth = 50;
-                  var headHeight = 40;
+      var tailX = 981 / 2;
+      var tailY = 280;
+      var tailWidth = 25;
+      var headWidth = 50;
+      var headHeight = 40;
 //      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
 //      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
-                  this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
-                } , this );
+      this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
+    }, this );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );

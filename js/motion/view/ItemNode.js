@@ -10,14 +10,30 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
 
-  function ItemNode( model, scenery, item, image ) {
+  function ItemNode( model, scenery, item, image, imageSitting, imageHolding ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.scale} );
-    this.addChild( new Image( image, {} ) );
+    var imageNode = new Image( image );
+    this.addChild( imageNode );
+
+    item.on( 'change:onBoard change:holding', function( m, onBoard ) {
+      if ( item.armsUp && typeof imageHolding !== 'undefined' ) {
+        imageNode.image = imageHolding;
+      }
+      else if ( onBoard && typeof imageSitting !== 'undefined' ) {
+        imageNode.image = imageSitting;
+      }
+      else {
+        imageNode.image = image;
+      }
+    } );
+
     this.addInputListener( new SimpleDragHandler(
         {
           translate: function( options ) {
+            item.onBoard = false;
+
             //Don't allow the user to translate the object while it is animating
             if ( !item.animating.enabled ) {//todo is this calling es5 getter?
               item.position = options.position;//es5 setter
@@ -35,6 +51,7 @@ define( function( require ) {
 
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
             if ( item.y < 350 ) {
+              item.onBoard = true;
               item.animateTo( scenery.WIDTH / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
               model.stack.push( item );
             }
