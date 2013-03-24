@@ -81,7 +81,6 @@ define( function( require ) {
             var attribute = event.substring( event.lastIndexOf( ':' ) + 1 );
             var logItem = {time: Date.now(), path: path, property: attribute, action: "change", newValue: JSON.stringify( model[attribute] ), oldValue: model.previous( attribute )};
             log.push( logItem );
-            //console.log( logItem );
 
             //Send it to the server
             if ( !readServer && sendMessagesToServer && typeof socket !== "undefined" ) {
@@ -122,6 +121,9 @@ define( function( require ) {
               for ( var k = 0; k < path.length; k++ ) {
                 var pathElement = path[k];
                 item = item[pathElement];
+              }
+              if ( typeof item === 'undefined' ) {
+                debugger;
               }
               item[logEntry.property] = JSON.parse( logEntry.newValue );
             }

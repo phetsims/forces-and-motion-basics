@@ -3,7 +3,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'FORT/examples',
            'SCENERY/util/Util'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, fortExamples, Util ) {
   "use strict";
-  fortExamples();
+//  fortExamples();
   Util.polyfillRequestAnimationFrame();
 
   //Code to show console output in a div, requires a #debugDiv in the HTML

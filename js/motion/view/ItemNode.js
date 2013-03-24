@@ -16,9 +16,9 @@ define( function( require ) {
     Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.scale} );
     var imageNode = new Image( image );
     this.addChild( imageNode );
-
-    item.on( 'change:onBoard change:holding', function( m, onBoard ) {
-      if ( item.armsUp && typeof imageHolding !== 'undefined' ) {
+    var listener = function() {
+      var onBoard = item.onBoard;
+      if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && onBoard) ) {
         imageNode.image = imageHolding;
       }
       else if ( onBoard && typeof imageSitting !== 'undefined' ) {
@@ -27,7 +27,10 @@ define( function( require ) {
       else {
         imageNode.image = image;
       }
-    } );
+    };
+    item.on( 'change:onBoard', listener );
+    model.on( 'draggingItemsChanged', listener );
+    model.on( 'stackChanged', listener );
 
     this.addInputListener( new SimpleDragHandler(
         {
@@ -42,18 +45,20 @@ define( function( require ) {
 
           //When picking up an object, remove it from the stack.
           start: function() {
+            item.dragging = true;
             var index = model.stack.indexOf( item );
             if ( index >= 0 ) {
               model.spliceStack( index );
             }
           },
           end: function() {
-
+            item.dragging = false;
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
             if ( item.y < 350 ) {
               item.onBoard = true;
               item.animateTo( scenery.WIDTH / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
               model.stack.push( item );
+              model.trigger( 'stackChanged' );
             }
             else {
               item.animateHome();

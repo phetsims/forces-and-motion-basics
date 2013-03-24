@@ -8,12 +8,15 @@ define( function( require ) {
         animating: {enabled: false, x: 0, y: 0, end: null},
 
         //Flag for whether the item is on the skateboard
-        onBoard: false,
-
-        //Arms up if another item in the model is being dragged and can potentially be put on the item
-        armsUp: false
+        onBoard: false
       },
+        armsUp: function() {
+          return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
+        },
         init: function( options ) {
+
+          var item = this;
+          this.context = options.context;
           Object.defineProperty( Item.prototype, "position", {get: function() {
             return {x: this.x, y: this.y};
           }, set: function( value ) {
