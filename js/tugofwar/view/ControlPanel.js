@@ -26,7 +26,6 @@ define( function( require ) {
 
     var handleShowSumOfForcesClick = function() { model.showSumOfForces = !model.showSumOfForces; };
     var $checkBox = $( '.sum-of-forces-checkbox' );
-    $checkBox.bind( "touchstart", handleShowSumOfForcesClick );
     $checkBox.bind( "click", handleShowSumOfForcesClick );
 
     this.model.link( 'showSumOfForces', function( model, showSumOfForces ) {
@@ -37,7 +36,6 @@ define( function( require ) {
 
     var handleShowValuesClick = function() { model.showValues = !model.showValues; };
     var $checkBox2 = $( '.show-values-checkbox' );
-    $checkBox2.bind( "touchstart", handleShowValuesClick );
     $checkBox2.bind( "click", handleShowValuesClick );
 
     this.model.link( 'showValues', function( model, showValues ) {
@@ -47,7 +45,6 @@ define( function( require ) {
     } );
 
     var $resetAllButton = $( '.reset-all-button' );
-    $resetAllButton.bind( 'touchstart', model.resetAll.bind( model ) );
     $resetAllButton.bind( 'click', model.resetAll.bind( model ) );
 
     var $volumeButton = $( '.volume-button' );
@@ -55,7 +52,6 @@ define( function( require ) {
     model.link( 'volumeOn', function( m, volumeOn ) {
       $volumeButton.find( 'i' ).removeClass( 'icon-volume-up' ).removeClass( 'icon-volume-off' ).addClass( volumeOn ? 'icon-volume-up' : 'icon-volume-off' );
     } );
-    $volumeButton.bind( 'touchstart', volumeButtonEvent );
     $volumeButton.bind( 'click', volumeButtonEvent );
   }
 

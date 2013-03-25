@@ -29,11 +29,9 @@ define( function( require ) {
     }
 
     var $playbackButton = $( '.playback-button' );
-    $playbackButton.bind( 'touchstart', startPlayback );
     $playbackButton.bind( 'click', startPlayback );
 
     var $resetButton = $( '.reset-all-button' );
-    $resetButton.bind( 'touchstart', motionModel.reset.bind( motionModel ) );
     $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
 
     view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );

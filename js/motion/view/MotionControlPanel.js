@@ -6,7 +6,6 @@ define( function( require ) {
     function wireUpCheckBox( model, attribute, selector ) {
       var toggle = function() { model[attribute] = !model[attribute]; };
       var $checkBox = $tab.find( selector );
-      $checkBox.bind( "touchstart", toggle );
       $checkBox.bind( "click", toggle );
 
       model.link( attribute, function( m, value ) {

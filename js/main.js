@@ -4,6 +4,8 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            'SCENERY/util/Util'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, fortExamples, Util ) {
   "use strict";
 //  fortExamples();
+  new FastClick( document.body );
+
   Util.polyfillRequestAnimationFrame();
 
   //Code to show console output in a div, requires a #debugDiv in the HTML
@@ -68,6 +70,5 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
       setSelectedTab( index );
     };
     $( selector ).bind( 'click', handleClick );
-    $( selector ).bind( 'touchstart', handleClick );
   } );
 } );
