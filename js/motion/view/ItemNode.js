@@ -13,7 +13,7 @@ define( function( require ) {
   function ItemNode( model, scenery, item, image, imageSitting, imageHolding ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.scale} );
+    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale} );
     var imageNode = new Image( image );
     this.addChild( imageNode );
     var listener = function() {
@@ -56,7 +56,7 @@ define( function( require ) {
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
             if ( item.y < 350 ) {
               item.onBoard = true;
-              item.animateTo( scenery.WIDTH / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height );
+              item.animateTo( scenery.WIDTH / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height, 'stack' );
               model.stack.push( item );
               model.trigger( 'stackChanged' );
             }
@@ -65,9 +65,13 @@ define( function( require ) {
             }
           }
         } ) );
-    item.on( 'change:x change:y', function() {
+    item.on( 'change:x change:y change:interactionScale', function() {
       if ( item.x !== itemNode.x || item.y !== itemNode.y ) {
         itemNode.setTranslation( item.x, item.y );
+      }
+      var scale = item.imageScale * item.interactionScale;
+      if ( scale !== itemNode.getScaleVector().x ) {
+        itemNode.setScaleMagnitude( scale );
       }
     } );//TODO: verify the change is batched and not duplicated
   }

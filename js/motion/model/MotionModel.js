@@ -44,7 +44,7 @@ define( function( require ) {
             for ( var i = 0; i < this.stack.length; i++ ) {
               var size = this.getSize( this.stack[i] );
               sumHeight += size.height;
-              this.stack[i].animateTo( 480 - size.width / 2, 350 - sumHeight );
+              this.stack[i].animateTo( 480 - size.width / 2, 350 - sumHeight, 'stack' );
             }
           }
           this.trigger( 'stackChanged' );
@@ -81,13 +81,13 @@ define( function( require ) {
           //TODO: can we bring back hashless constructor?
           //TODO: Switch to backbone collection.
           this.items = [
-            new Item( {context: this, image: 'fridge.png', weight: 100, x: 26, y: 490, scale: 0.8} ),
-            new Item( {context: this, image: 'crate.png', weight: 100, x: 117, y: 532, scale: 0.6} ),
-            new Item( {context: this, image: 'crate.png', weight: 100, x: 214, y: 533, scale: 0.6} ),
-            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 100, x: 684, y: 450, scale: 0.9} ),
-            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 100, x: 747, y: 379, scale: 0.9} ),
-            new Item( {context: this, image: 'mystery-object-01.png', weight: 100, x: 826, y: 593, scale: 0.9} ),
-            new Item( {context: this, image: 'trash-can.png', weight: 100, x: 884, y: 508, scale: 1.0} )
+            new Item( {context: this, image: 'fridge.png', weight: 100, x: 26, y: 490, imageScale: 0.8} ),
+            new Item( {context: this, image: 'crate.png', weight: 100, x: 117, y: 532, imageScale: 0.6} ),
+            new Item( {context: this, image: 'crate.png', weight: 100, x: 214, y: 533, imageScale: 0.6} ),
+            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 100, x: 684, y: 450, imageScale: 0.9} ),
+            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 100, x: 747, y: 379, imageScale: 0.9} ),
+            new Item( {context: this, image: 'mystery-object-01.png', weight: 100, x: 826, y: 593, imageScale: 0.9} ),
+            new Item( {context: this, image: 'trash-can.png', weight: 100, x: 884, y: 508, imageScale: 1.0} )
           ];
 
           for ( var i = 0; i < this.items.length; i++ ) {
