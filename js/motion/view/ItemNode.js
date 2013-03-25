@@ -65,7 +65,11 @@ define( function( require ) {
             }
           }
         } ) );
-    item.on( 'change:x change:y', function() { itemNode.setTranslation( item.x, item.y ); } );//TODO: verify the change is batched and not duplicated
+    item.on( 'change:x change:y', function() {
+      if ( item.x !== itemNode.x || item.y !== itemNode.y ) {
+        itemNode.setTranslation( item.x, item.y );
+      }
+    } );//TODO: verify the change is batched and not duplicated
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );

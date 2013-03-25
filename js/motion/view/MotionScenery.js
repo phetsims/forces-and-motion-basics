@@ -63,13 +63,13 @@ define( function( require ) {
       view.scene.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; } );
     };
-    addBackgroundSprite( 100, 'mountains.png', 10, 320, 0.3 );
-    addBackgroundSprite( 600, 'mountains.png', 10, 320, 0.3 );
-    addBackgroundSprite( 1200, 'mountains.png', 10, 320, 0.3 );
+    addBackgroundSprite( 100, 'mountains.png', 10, 320, 1 );
+    addBackgroundSprite( 600, 'mountains.png', 10, 320, 1 );
+    addBackgroundSprite( 1200, 'mountains.png', 10, 320, 1 );
 
-    addBackgroundSprite( 100, 'cloud1.png', 5, 10, 0.6 );
-    addBackgroundSprite( 600, 'cloud1.png', 5, -30, 0.7 );
-    addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.5 );
+    addBackgroundSprite( 100, 'cloud1.png', 5, 10, 1 );
+    addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
+    addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 220;

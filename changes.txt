@@ -1,1 +1,2 @@
+Improved performance by decreasing image scales
 Use FastClick and remove extraneous calls to touchstart 
