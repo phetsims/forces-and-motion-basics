@@ -41,14 +41,13 @@ define( function( require ) {
     this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
     this.scene.addChild( this.skyNode );
     this.scene.addChild( this.groundNode );
-    var grassY = 368;
 
     //TODO: Consider using scenery.Pattern instead of background-repeat: repeat-x;
     //TODO: or use the same pattern we used for the clouds and mountains 
     var brickDOM = new DOM( $( '#brick' ) );
     view.brickDOM = brickDOM;
     brickDOM.x = 100;
-    brickDOM.y = 368 + 8;
+    brickDOM.y = 400 + 8;
     brickDOM.scale = 1;
     this.scene.addChild( brickDOM );
     var brickWidth = 120;
@@ -63,9 +62,10 @@ define( function( require ) {
       view.scene.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; } );
     };
-    addBackgroundSprite( 100, 'mountains.png', 10, 320, 1 );
-    addBackgroundSprite( 600, 'mountains.png', 10, 320, 1 );
-    addBackgroundSprite( 1200, 'mountains.png', 10, 320, 1 );
+    var mountainY = 353;
+    addBackgroundSprite( 100, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( 600, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( 1200, 'mountains.png', 10, mountainY, 1 );
 
     addBackgroundSprite( 100, 'cloud1.png', 5, 10, 1 );
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
@@ -90,7 +90,7 @@ define( function( require ) {
       this.scene.addChild( itemNode );
     }
 
-    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: view.WIDTH / 2, y: 342} );
+    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: view.WIDTH / 2, y: 372} );
     this.scene.addChild( skateboardImage );
 
     var pusher = new PusherNode( model, topView, imageLoader );
@@ -106,7 +106,7 @@ define( function( require ) {
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
-    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 450, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
+    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 465, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
     this.scene.addChild( vbox );//text box only seems to work if addedlast
     model.link( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
@@ -151,7 +151,7 @@ define( function( require ) {
         var itemView = this.getItemNode( this.model.stack[i] );
         sum = sum + itemView.height;
       }
-      return 350 - sum;
+      return 380 - sum;
     },
     resize: function() {
       var width = $( window ).width();
@@ -162,13 +162,13 @@ define( function( require ) {
       this.scene.resize( width, height );
       this.scene.scale( scale );
 
-      var skyHeight = (376) * scale;
+      var skyHeight = (412) * scale;
       var groundHeight = height - skyHeight;
 
-      this.skyNode.shape = Shape.rect( 0, 0, width / scale, 376 );
+      this.skyNode.shape = Shape.rect( 0, 0, width / scale, 412 );
       this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      this.groundNode.shape = Shape.rect( 0, 376, width / scale, groundHeight / scale );
+      this.groundNode.shape = Shape.rect( 0, 412, width / scale, groundHeight / scale );
 
       var $tabIcons = $( '.tab-icons' );
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );

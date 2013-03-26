@@ -13,7 +13,7 @@ define( function( require ) {
 
   function ItemNode( model, view, imageLoader ) {
     var itemNode = this;
-    Node.call( this, {x: model.pusherX, y: 350, cursor: 'pointer'} );
+    Node.call( this, {cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     var updatePosition = function( m, appliedForce ) {
       var index = Math.round( Math.abs( (appliedForce / 100 * 14) ) );
@@ -34,7 +34,7 @@ define( function( require ) {
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         itemNode.x = 700;
       }
-      itemNode.y = 350 - itemNode.height + 30;
+      itemNode.y = 382 - itemNode.height + 30;
     };
     this.addChild( imageNode );
     model.link( 'appliedForce', updatePosition );
