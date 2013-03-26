@@ -174,8 +174,6 @@ define( function( require ) {
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
       $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
 
-//      $( '#brick' ).css( {width: width / scale + 120 * 2} );
-
       this.render();
     },
     render: function() {
