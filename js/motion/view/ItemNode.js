@@ -75,8 +75,16 @@ define( function( require ) {
       }
     } );//TODO: verify the change is batched and not duplicated
 
-//    var massLabel = new Text( item.weight );
-//    this.addChild( massLabel );
+    var massLabel = new Text( item.weight + ' kg', {fontSize: '18px'} );
+    var roundRect = new Path( {shape: Shape.roundRect( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10 ), fill: 'white', stroke: 'gray', renderer: 'svg'} );
+    roundRect.centerX = massLabel.centerX;
+    roundRect.centerY = massLabel.centerY;
+    var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
+    this.addChild( labelNode );
+    labelNode.bottom = this.height / item.imageScale - 50;
+    labelNode.centerX = this.width / 2 / item.imageScale;
+
+    showMassesProperty.link( function( m, showMasses ) { labelNode.visible = showMasses; } );
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );
