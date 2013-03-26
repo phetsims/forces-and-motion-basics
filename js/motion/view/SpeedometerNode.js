@@ -9,16 +9,10 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var linear = require( 'DOT/Util' ).linear;
 
   var ANGLE_PER_TICK = Math.PI * 2 / 4 / 8;
   var NUM_TICKS = ( 8 + 2 ) * 2 + 1;
-
-  //Linearly interpolate and evaluate a new point that lies on the same line
-  //Arguments are in the form x1=>y1, x2=>y2, x3=> ???
-  //TODO: put in math util or dot
-  function linear( x1, y1, x2, y2, x3 ) {
-    return (y2 - y1) / (x2 - x1) * (x3 - x1 ) + y1;
-  }
 
   function SpeedometerNode( velocityProperty, options ) {
     Node.call( this, options );
