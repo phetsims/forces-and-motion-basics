@@ -23,6 +23,7 @@ define( function( require ) {
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
+  var SpeedometerNode = require( "motion/view/SpeedometerNode" );
 
   function MotionScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
@@ -132,6 +133,10 @@ define( function( require ) {
 //      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
       this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
     }, this );
+
+    //Create the speedometer.  Specify the location after construction so we can set the 'top'
+    var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: view.WIDTH / 2, top: 2} );
+    this.scene.addChild( speedometerNode );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );

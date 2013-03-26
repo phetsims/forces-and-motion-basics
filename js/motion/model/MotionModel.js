@@ -12,7 +12,10 @@ define( function( require ) {
         appliedForce: 0,
         pusherX: 0,
         friction: 0,
+
+        //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
         velocity: 0,
+
         position: 0,
         showForce: true,
         showValues: false,
