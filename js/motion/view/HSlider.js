@@ -12,11 +12,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
   var sliderKnob = require( 'tpl!../../../svg/handle_blue_top_grip_flat_gradient_3.svg' );
-
-  //If value1 lies within (min1,max1), find value2 that lies proportionately between (min2,max2) 
-  function linear( min1, max1, min2, max2, value1 ) {
-    return (max2 - min2) / (max1 - min1) * (value1 - min1 ) + min2;
-  }
+  var linear = require( 'DOT/Util' ).linear;
 
   function HSlider( min, max, width, property, options ) {
     Node.call( this, options );
@@ -28,12 +24,12 @@ define( function( require ) {
     var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
 
     for ( var i = 0; i < numTicks; i++ ) {
-      var x1 = linear( 0, 1, 0, width, i / (numTicks - 1) );
+      var x1 = linear( 0, 0, 1, width, i / (numTicks - 1) );
       var tick = new Path( {shape: Shape.lineSegment( {x: x1, y: 0}, {x: x1, y: isMajor( i ) ? 30 : 15} ), stroke: 'black', strokeWidth: 1} );
 
       this.addChild( tick );
       if ( hasLabel( i ) ) {
-        var label = new Text( linear( 0, 1, min, max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
+        var label = new Text( linear( 0, min, 1, max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
         this.addChild( label );
       }
     }
@@ -54,13 +50,13 @@ define( function( require ) {
         {allowTouchSnag: true,
           translate: function( options ) {
             var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
-            property.set( linear( 0, width, min, max, x ) );
+            property.set( linear( 0, min, width, max, x ) );
           },
           end: function() { property.set( 0 ); }}
     ) );
     this.addChild( svgKnob );
 
-    property.link( function( model, value ) { svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2; } );
+    property.link( function( model, value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
   }
 
   Inheritance.inheritPrototype( HSlider, Node );
