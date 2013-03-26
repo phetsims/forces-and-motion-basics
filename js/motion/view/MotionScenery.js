@@ -136,7 +136,8 @@ define( function( require ) {
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: view.WIDTH / 2, top: 2} );
-    model.link( 'showSpeed', function( m, showSpeed ) { speedometerNode.visible = showSpeed; } );
+//    model.link( 'showSpeed', function( m, showSpeed ) { speedometerNode.visible = showSpeed; } );
+    model.link( 'showSpeed', speedometerNode, 'visible' );
     this.scene.addChild( speedometerNode );
 
     //Fit to the window and render the initial scene
