@@ -28,6 +28,9 @@ define( function( require ) {
     var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );
     this.addChild( needle );
 
+    this.label = new Text( "Speed", {fontSize: 28} ).mutate( {centerX: 0, centerY: -radius / 3} );
+    this.addChild( this.label );
+
     var pin = new Path( {shape: Shape.circle( 0, 0, 2 ), fill: 'black'} );
     this.addChild( pin );
 
