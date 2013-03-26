@@ -48,7 +48,7 @@ define( function( require ) {
             var destination = new Vector2( this.animating.x, this.animating.y );
             var position = current.blend( destination, 0.1 );
             this.position = position;
-            if ( position.distance( destination ) < 1 ) {
+            if ( position.distance( destination ) < 1 && this.interactionScale === 1.0 ) {
               if ( this.animating.end ) {
                 this.animating.end();
               }
