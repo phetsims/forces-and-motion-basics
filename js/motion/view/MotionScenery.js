@@ -85,7 +85,9 @@ define( function( require ) {
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
-      var itemNode = new ItemNode( model, view, item, view.imageLoader.getImage( item.image ), view.imageLoader.getImage( item.imageSitting ), view.imageLoader.getImage( item.imageHolding ) );
+      var itemNode = new ItemNode( model, view, item, view.imageLoader.getImage( item.image ),
+                                   view.imageLoader.getImage( item.imageSitting ), view.imageLoader.getImage( item.imageHolding ),
+                                   model.property( 'showMasses' ) );
       this.itemNodes.push( itemNode );
       this.scene.addChild( itemNode );
     }

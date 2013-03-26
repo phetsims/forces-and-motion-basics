@@ -10,7 +10,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
 
-  function ItemNode( model, scenery, item, image, imageSitting, imageHolding ) {
+  function ItemNode( model, scenery, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale} );
@@ -74,6 +74,9 @@ define( function( require ) {
         itemNode.setScaleMagnitude( scale );
       }
     } );//TODO: verify the change is batched and not duplicated
+
+//    var massLabel = new Text( item.weight );
+//    this.addChild( massLabel );
   }
 
   Inheritance.inheritPrototype( ItemNode, Node );
