@@ -13,9 +13,11 @@ define( function( require ) {
   var ANGLE_PER_TICK = Math.PI * 2 / 4 / 8;
   var NUM_TICKS = ( 8 + 2 ) * 2 + 1;
 
+  //Linearly interpolate and evaluate a new point that lies on the same line
+  //Arguments are in the form x1=>y1, x2=>y2, x3=> ???
   //TODO: put in math util or dot
-  function linear( min1, max1, min2, max2, value1 ) {
-    return (max2 - min2) / (max1 - min1) * (value1 - min1 ) + min2;
+  function linear( x1, y1, x2, y2, x3 ) {
+    return (y2 - y1) / (x2 - x1) * (x3 - x1 ) + y1;
   }
 
   function SpeedometerNode( velocityProperty, options ) {
@@ -36,7 +38,7 @@ define( function( require ) {
     velocityProperty.link( function( model, velocity ) {
       needle.resetTransform();
 
-      var needleAngle = linear( 0, 20, startAngle, endAngle, Math.abs( velocity ) );
+      var needleAngle = linear( 0, startAngle, 20, endAngle, Math.abs( velocity ) );
       needle.rotateAround( {x: 0, y: 0}, needleAngle );
     } );
 
