@@ -32,7 +32,7 @@ define( function( require ) {
     this.addChild( pin );
 
     var totalAngle = (NUM_TICKS - 1) * ANGLE_PER_TICK;
-    var startAngle = -Math.PI / 4 - totalAngle / 2;
+    var startAngle = -1 / 2 * Math.PI - totalAngle / 2;
     var endAngle = startAngle + totalAngle;
 
     velocityProperty.link( function( model, velocity ) {
