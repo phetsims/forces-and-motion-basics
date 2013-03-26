@@ -63,7 +63,7 @@ define( function( require ) {
     this.scene.addChild( new Node( {layerSplit: true} ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
-    this.model.link( 'showSumOfForces', function( m, showSumOfForces ) { view.sumArrow.visible = showSumOfForces; } );
+    this.model.link( 'showSumOfForces', view.sumArrow, 'visible' );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.scene.addChild( this.leftArrow );

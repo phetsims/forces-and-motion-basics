@@ -122,7 +122,7 @@ define( function( require ) {
     //Show a line that indicates the center of the layout
 //    this.scene.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
 
-    model.link( 'showForce', function() {view.sumArrow.visible = model.showForce;} );
+    model.link( 'showForce', view.sumArrow, 'visible' );
     model.link( 'appliedForce', function() {
       var tailX = 981 / 2;
       var tailY = 280;
@@ -136,7 +136,6 @@ define( function( require ) {
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: view.WIDTH / 2, top: 2} );
-//    model.link( 'showSpeed', function( m, showSpeed ) { speedometerNode.visible = showSpeed; } );
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.scene.addChild( speedometerNode );
 
