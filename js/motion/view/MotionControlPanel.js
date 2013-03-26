@@ -8,7 +8,7 @@ define( function( require ) {
       var $checkBox = $tab.find( selector );
       $checkBox.bind( "click", toggle );
 
-      model.link( attribute, function( m, value ) {
+      model.link( attribute, function() {
         var $icon = $checkBox.find( 'i' );
         $icon.removeClass( "icon-check-empty" ).removeClass( "icon-check" );
         $icon.addClass( model[attribute] ? "icon-check" : "icon-check-empty" );
