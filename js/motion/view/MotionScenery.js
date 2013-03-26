@@ -72,7 +72,7 @@ define( function( require ) {
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
     //Add toolbox backgrounds for the pullers
-    var boxHeight = 220;
+    var boxHeight = 180;
     view.scene.addChild( new Path( {shape: Shape.roundRect( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
     view.scene.addChild( new Path( {shape: Shape.roundRect( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
