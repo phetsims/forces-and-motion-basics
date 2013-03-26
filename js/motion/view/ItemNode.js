@@ -16,7 +16,7 @@ define( function( require ) {
     Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale} );
     var imageNode = new Image( image );
     this.addChild( imageNode );
-    var listener = function() {
+    var updateImage = function() {
       var onBoard = item.onBoard;
       if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && onBoard) ) {
         imageNode.image = imageHolding;
@@ -27,10 +27,12 @@ define( function( require ) {
       else {
         imageNode.image = image;
       }
+      itemNode.labelNode.bottom = imageNode.height - 2;
+      itemNode.labelNode.centerX = imageNode.width / 2;
     };
-    item.on( 'change:onBoard', listener );
-    model.on( 'draggingItemsChanged', listener );
-    model.on( 'stackChanged', listener );
+    item.on( 'change:onBoard', updateImage );
+    model.on( 'draggingItemsChanged', updateImage );
+    model.on( 'stackChanged', updateImage );
 
     this.addInputListener( new SimpleDragHandler(
         {
@@ -81,8 +83,8 @@ define( function( require ) {
     roundRect.centerY = massLabel.centerY;
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.addChild( labelNode );
-    labelNode.bottom = this.height / item.imageScale - 50;
-    labelNode.centerX = this.width / 2 / item.imageScale;
+    this.labelNode = labelNode;
+    updateImage();
 
     showMassesProperty.link( function( m, showMasses ) { labelNode.visible = showMasses; } );
   }
