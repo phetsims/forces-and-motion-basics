@@ -28,24 +28,19 @@ define( function( require ) {
           }, set: function( value ) {
             this.set( {x: value.x, y: value.y} );
           }, configurable: true, enumerable: true} );
-
-          //TODO: Stringify for immutability?
-          this.initX = options.x;
-          this.initY = options.y;
         },
         reset: function() {
-          this.set( this.defaults );
-          this.position = {x: this.initX, y: this.initY};
+          Fort.Model.prototype.reset.call( this );
         },
         animateTo: function( x, y, destination ) { this.animating = {enabled: true, x: x, y: y, destination: destination}; },
-        animateHome: function() { this.animateTo( this.initX, this.initY, 'home' ); },
+        animateHome: function() { this.animateTo( this.initialState.x, this.initialState.y, 'home' ); },
         step: function() {
           if ( this.dragging ) {
-            this.interactionScale = Math.min( this.interactionScale + 0.04, 1.3 );
+            this.interactionScale = Math.min( this.interactionScale + 0.06, 1.3 );
           }
           else {
             if ( this.animating.destination === 'home' ) {
-              this.interactionScale = Math.max( this.interactionScale - 0.04, 1.0 );
+              this.interactionScale = Math.max( this.interactionScale - 0.06, 1.0 );
             }
           }
           if ( this.animating.enabled ) {

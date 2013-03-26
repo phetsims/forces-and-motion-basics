@@ -82,12 +82,12 @@ define( function( require ) {
           //TODO: Switch to backbone collection.
           this.items = [
             new Item( {context: this, image: 'fridge.png', weight: 100, x: 26, y: 490, imageScale: 0.8} ),
-            new Item( {context: this, image: 'crate.png', weight: 100, x: 117, y: 532, imageScale: 0.6} ),
-            new Item( {context: this, image: 'crate.png', weight: 100, x: 214, y: 533, imageScale: 0.6} ),
-            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 100, x: 684, y: 450, imageScale: 0.9} ),
-            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 100, x: 747, y: 379, imageScale: 0.9} ),
-            new Item( {context: this, image: 'mystery-object-01.png', weight: 100, x: 826, y: 593, imageScale: 0.9} ),
-            new Item( {context: this, image: 'trash-can.png', weight: 100, x: 884, y: 508, imageScale: 1.0} )
+            new Item( {context: this, image: 'crate.png', weight: 100, x: 117, y: 550, imageScale: 0.5} ),
+            new Item( {context: this, image: 'crate.png', weight: 100, x: 214, y: 550, imageScale: 0.5} ),
+            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 100, x: 684, y: 510, imageScale: 0.6} ),
+            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 100, x: 747, y: 460, imageScale: 0.6} ),
+            new Item( {context: this, image: 'mystery-object-01.png', weight: 100, x: 826, y: 580, imageScale: 0.9} ),
+            new Item( {context: this, image: 'trash-can.png', weight: 100, x: 884, y: 518, imageScale: 0.8} )
           ];
 
           for ( var i = 0; i < this.items.length; i++ ) {
