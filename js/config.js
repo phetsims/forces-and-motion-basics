@@ -19,6 +19,7 @@ require.config( {
                     ASSERT: '../../assert/js',
                     DOT: '../../dot/js',
                     SCENERY: '../../scenery/js',
+                    SCENERY_PHET: '../../scenery-phet/js',
                     KITE: '../../kite/js',
                     PHET_CORE: '../../phet-core/js',
                     FORT: '../../fort/js',

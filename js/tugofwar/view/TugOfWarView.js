@@ -35,5 +35,17 @@ define( function( require ) {
     }
   };
 
+  //Resize when the tab becomes active to make sure it has the right size.
+  Object.defineProperty( TugOfWarView.prototype, 'active', {
+    get: function() {return this._active;},
+    set: function( active ) {
+      this._active = active;
+      this.scenery.resize();
+      console.log( "active changed: " + active );
+    },
+    configurable: true,
+    enumerable: true
+  } );
+
   return TugOfWarView;
 } );

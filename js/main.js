@@ -1,7 +1,8 @@
 require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView", "motion/model/MotionModel",
-           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'FORT/examples',
-           'SCENERY/util/Util'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, ImagesLoader, Strings, fortExamples, Util ) {
+           'SCENERY/nodes/Image',
+           'PHETCOMMON/util/ImagesLoader', "i18n!../nls/forces-and-motion-basics-strings", 'FORT/examples', 'FORT/Fort',
+           'SCENERY/util/Util', 'SCENERY_PHET/NavigationBar'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar ) {
   "use strict";
 //  fortExamples();
   new FastClick( document.body );
@@ -39,13 +40,25 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     }
 
     //Start in Tab 2 for debugging
-    setSelectedTab( 2 );
+    var appModel = new Fort.Model( {selectedTab: 1} );
+
+    appModel.link( 'selectedTab', function( m, value ) {
+      setSelectedTab( value + 1 );
+    } );
+
+    var navigationBar = new NavigationBar( $( '.navigation-bar' ), [
+      {name: "Tug of War", icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) )},
+      {name: "Friction", icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) )},
+      {name: "Friction", icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) )},
+      {name: "Acceleration", icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) )}
+    ], appModel.property( 'selectedTab' ) );
 
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     // place the rAF *before* the render() to assure as close to
     // 60fps with the setTimeout fallback.
     (function animationLoop() {
       requestAnimationFrame( animationLoop );
+      navigationBar.updateScene();
       if ( typeof views[selectedTabIndex] !== 'undefined' ) {
         views[selectedTabIndex].step();
       }
@@ -53,6 +66,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   } );
 
   function setSelectedTab( tabName ) {
+    views[selectedTabIndex].active = false;
     var $tabs = $( '.tabs' );
     $tabs.children().hide();
     $tabs.children( '.tab' + tabName ).show();
@@ -60,15 +74,6 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
       $tab2.appendTo( $tabs );
     }
     selectedTabIndex = tabName - 1;
+    views[selectedTabIndex].active = true;
   }
-
-  _.each( [1, 2, 3, 4], function( index ) {
-    var selector = '#tab' + index + '-icon';
-    var handleClick = function() {
-      $( '.tab-icons' ).children().removeClass( 'selected' ).addClass( 'unselected' );
-      $( selector ).removeClass( 'unselected' ).addClass( 'selected' );
-      setSelectedTab( index );
-    };
-    $( selector ).bind( 'click', handleClick );
-  } );
 } );

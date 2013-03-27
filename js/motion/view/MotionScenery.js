@@ -163,7 +163,7 @@ define( function( require ) {
     },
     resize: function() {
       var width = $( window ).width();
-      var height = $( window ).height() - 50;//leave room for the tab bar
+      var height = $( window ).height() - 40;//leave room for the tab bar
 
       var scale = Math.min( width / 981, height / 644 );
       this.scene.resetTransform();
