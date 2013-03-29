@@ -25,7 +25,7 @@ define( function( require ) {
 
     for ( var i = 0; i < numTicks; i++ ) {
       var x1 = linear( 0, 0, 1, width, i / (numTicks - 1) );
-      var tick = new Path( {shape: Shape.lineSegment( {x: x1, y: 0}, {x: x1, y: isMajor( i ) ? 30 : 15} ), stroke: 'black', strokeWidth: 1} );
+      var tick = new Path( {shape: Shape.lineSegment( {x: x1, y: 0}, {x: x1, y: isMajor( i ) ? 30 : 15} ), stroke: 'black', lineWidth: 1} );
 
       this.addChild( tick );
       if ( hasLabel( i ) ) {
@@ -35,7 +35,7 @@ define( function( require ) {
     }
 
     //The track
-    this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 6 ), stroke: 'black', strokeWidth: 1, fill: 'white'} ) );
+    this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 6 ), stroke: 'black', lineWidth: 1, fill: 'white'} ) );
 
     //Instantiate the template
     var knobSVGText = sliderKnob();
