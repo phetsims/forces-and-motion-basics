@@ -43,27 +43,14 @@ define( function( require ) {
     this.scene.addChild( this.skyNode );
     this.scene.addChild( this.groundNode );
 
-    //TODO: Consider using scenery.Pattern instead of background-repeat: repeat-x;
-    //TODO: or use the same pattern we used for the clouds and mountains 
-    var brickDOM = new DOM( $( '#brick' ) );
-    view.brickDOM = brickDOM;
-    brickDOM.x = 100;
-    brickDOM.y = 400 + 8;
-    brickDOM.scale = 1;
-    this.scene.addChild( brickDOM );
-    var brickWidth = 120;
-    model.link( 'position', function( m, newValue ) {
-      var x = -(newValue % brickWidth);
-      if ( x > 0 ) { x = x - brickWidth; }//Prevent it from showing gaps when animating to the left
-      brickDOM.x = x;
-    } );
-
+    var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
       view.scene.addChild( sprite );
-      model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % 1500 + 1500 - sprite.width; } );
+      model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     var mountainY = 353;
+
     addBackgroundSprite( 100, 'mountains.png', 10, mountainY, 1 );
     addBackgroundSprite( 600, 'mountains.png', 10, mountainY, 1 );
     addBackgroundSprite( 1200, 'mountains.png', 10, mountainY, 1 );
@@ -71,6 +58,11 @@ define( function( require ) {
     addBackgroundSprite( 100, 'cloud1.png', 5, 10, 1 );
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
+
+    //TODO: Consider using scenery.Pattern or creating larger tiles for performance improvement
+    for ( var k = 0; k < 15; k++ ) {
+      addBackgroundSprite( 120 * k, 'brick-tile.png', 1, 408, 1 );
+    }
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 180;

@@ -23,17 +23,23 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   }
 
   var views = [];
-  var $tab2;
+  var $tab = [];
 
   var selectedTabIndex = 0;
 
   //Wait until images are loaded, then launch the sim and show the initial tab
   new ImagesLoader( function( imageLoader ) {
 
-    views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $( '.tab1' ) ) );
-    views.push( new MotionView( imageLoader, new MotionModel(), $( '.tab2' ) ) );
+    $tab.push( $( '.tab1' ).detach() );
+    $tab.push( $( '.tab2' ).detach() );
+    $tab.push( $( '.tab3' ).detach() );
+    $tab.push( $( '.tab4' ).detach() );
 
-    $tab2 = $( '.tab2' ).detach();
+    views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $tab[0] ) );
+    views.push( new MotionView( imageLoader, new MotionModel(), $tab[1] ) );
+    views.push( new MotionView( imageLoader, new MotionModel(), $tab[2] ) );
+    views.push( new MotionView( imageLoader, new MotionModel(), $tab[3] ) );
+
     $( "#overlay" ).remove();
     if ( !useDebugDiv ) {
       $( "debugDiv" ).remove();
@@ -42,9 +48,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     //Start in Tab 2 for debugging
     var appModel = new Fort.Model( {selectedTab: 1} );
 
-    appModel.link( 'selectedTab', function( m, value ) {
-      setSelectedTab( value + 1 );
-    } );
+    appModel.link( 'selectedTab', function( m, value ) { setSelectedTab( value ); } );
 
     var navigationBar = new NavigationBar( $( '.navigation-bar' ), [
       {name: "Tug of War", icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) )},
@@ -65,14 +69,17 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     })();
   } );
 
-  function setSelectedTab( tabName ) {
+  function setSelectedTab( tabIndex ) {
+    for ( var i = 0; i < $tab.length; i++ ) {
+      $tab[i].detach();
+    }
+
+    var tabName = tabIndex + 1;
     views[selectedTabIndex].active = false;
     var $tabs = $( '.tabs' );
     $tabs.children().hide();
     $tabs.children( '.tab' + tabName ).show();
-    if ( tabName === 2 ) {
-      $tab2.appendTo( $tabs );
-    }
+    $tab[tabIndex].appendTo( $tabs );
     selectedTabIndex = tabName - 1;
     views[selectedTabIndex].active = true;
   }
