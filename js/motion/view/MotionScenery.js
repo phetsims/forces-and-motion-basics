@@ -18,12 +18,14 @@ define( function( require ) {
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Pattern = require( 'SCENERY/util/Pattern' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var ItemNode = require( 'motion/view/ItemNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
+  var brickTemplate = require( 'tpl!../../../svg/brick.svg' );
 
   function MotionScenery( model, topView, $tab, imageLoader ) {
     this.model = model;
@@ -59,10 +61,13 @@ define( function( require ) {
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
-    //TODO: Consider using scenery.Pattern or creating larger tiles for performance improvement
-    for ( var k = 0; k < 15; k++ ) {
-      addBackgroundSprite( 120 * k, 'brick-tile.png', 1, 408, 1 );
-    }
+    var addBackgroundSprite2 = function( image, offset, imageName, distanceScale, y, scale ) {
+      var sprite = new Image( image, {scale: 4, y: mountainY + 50, renderer: 'svg'} );
+      view.scene.addChild( sprite );
+      model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
+    };
+    addBackgroundSprite2( $( '.mybrick' )[0], 0, '', 1, 0, 1 );
+    addBackgroundSprite2( $( '.mybrick2' )[0], 1000, '', 1, 0, 1 );
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 180;

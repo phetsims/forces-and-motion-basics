@@ -6,7 +6,6 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
   "use strict";
 
   var main = {};
-//  fortExamples();
   new FastClick( document.body );
 
   Util.polyfillRequestAnimationFrame();
@@ -52,8 +51,8 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
 
     views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $tabs[0] ) );
     views.push( new MotionView( imageLoader, new MotionModel(), $tabs[1] ) );
-    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[2] ) );
-    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[3] ) );
+//    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[2] ) );
+//    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[3] ) );
 
     $( "#overlay" ).remove();
     if ( !useDebugDiv ) {
