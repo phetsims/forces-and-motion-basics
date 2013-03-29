@@ -78,9 +78,7 @@ require( [ "tugofwar/view/TugOfWarView", "tugofwar/model/TugOfWarModel",
     (function animationLoop() {
       requestAnimationFrame( animationLoop );
       navigationBar.updateScene();
-      if ( typeof views[selectedTabIndex] !== 'undefined' ) {
-        views[selectedTabIndex].step();
-      }
+      views[selectedTabIndex].step();
     })();
   } );
 } );
