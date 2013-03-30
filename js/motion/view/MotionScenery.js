@@ -62,7 +62,7 @@ define( function( require ) {
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
     var addBackgroundSprite2 = function( image, offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( image, {scale: 4, y: mountainY + 50, renderer: 'svg'} );
+      var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg'} );
       view.scene.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
