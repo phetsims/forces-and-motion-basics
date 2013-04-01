@@ -139,10 +139,10 @@ define( function( require ) {
     this.scene.addChild( speedometerNode );
 
     var controlPanel = new VBox( {children: [
-      new Button( new Text( 'Show Forces', {fontSize: '22px', x: 50, y: 50} ), function() {model.showForces = !model.showForces;} ),
-      new Button( new Text( 'Friction', {fontSize: '22px', x: 50, y: 50} ) ),
-      new Button( new Text( 'Reset All', {fontSize: '22px', x: 50, y: 50} ) ),
-      new Button( new Text( 'Reset All', {fontSize: '22px', x: 50, y: 50} ) )]} );
+      new Button( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), function() {model.showForces = !model.showForces;} ),
+      new Button( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ) ),
+      new Button( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ) ),
+      new Button( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ) )]} );
     this.scene.addChild( controlPanel );
 
     //Use the font awesome reset button icon, but have to wait for font awesome to load first

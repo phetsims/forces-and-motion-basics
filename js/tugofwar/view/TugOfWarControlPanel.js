@@ -7,7 +7,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var ToggleButton = require( 'SUN/ToggleButton' );
   var Button = require( 'SUN/Button' );
   var CheckBoxIcon = require( 'SUN/CheckBoxIcon' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
@@ -16,7 +16,7 @@ define( function( require ) {
     Node.call( this, options );
 
     function checkBoxItem( propertyName, text ) {
-      return new CheckBox( new HBox( {spacing: 10, children: [new CheckBoxIcon( model.property( propertyName ) ), new Text( text, {fontSize: '22px'} )]} ), {}, model.property( propertyName ) );
+      return new ToggleButton( new HBox( {spacing: 10, children: [new CheckBoxIcon( model.property( propertyName ) ), new Text( text, {fontSize: '22px'} )]} ), {}, model.property( propertyName ) );
     }
 
     var controlPanel = new VBox( {align: 'left', children: [
