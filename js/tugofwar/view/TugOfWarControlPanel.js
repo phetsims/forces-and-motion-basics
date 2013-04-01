@@ -2,27 +2,20 @@ define( function( require ) {
   "use strict";
 
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var DOM = require( 'SCENERY/nodes/DOM' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ToggleButton = require( 'SUN/ToggleButton' );
   var Button = require( 'SUN/Button' );
-  var CheckBoxIcon = require( 'SUN/CheckBoxIcon' );
+  var CheckBox = require( 'SUN/CheckBox' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
 
   function TugOfWarControlPanel( model, options ) {
     Node.call( this, options );
 
-    function checkBoxItem( propertyName, text ) {
-      return new ToggleButton( new HBox( {spacing: 10, children: [new CheckBoxIcon( model.property( propertyName ) ), new Text( text, {fontSize: '22px'} )]} ), {}, model.property( propertyName ) );
-    }
-
     var controlPanel = new VBox( {align: 'left', children: [
-      checkBoxItem( 'showSumOfForces', "Sum of Forces" ),
-      checkBoxItem( 'showValues', "Values" ),
-      checkBoxItem( 'volumeOn', "Sound" )
+      new CheckBox( new Text( "Sum of Forces", {fontSize: '22px'} ), {}, model.property( 'showSumOfForces' ) ),
+      new CheckBox( new Text( "Values", {fontSize: '22px'} ), {}, model.property( 'showValues' ) ),
+      new CheckBox( new Text( "Sound", {fontSize: '22px'} ), {}, model.property( 'volumeOn' ) )
     ]} );
     this.addChild( controlPanel );
 

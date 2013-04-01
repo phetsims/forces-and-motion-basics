@@ -25,6 +25,7 @@ define( function( require ) {
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
   var Button = require( 'SUN/Button' );
+  var CheckBox = require( 'SUN/CheckBox' );
 
   function MotionScenery( model, imageLoader ) {
     this.model = model;
@@ -138,15 +139,15 @@ define( function( require ) {
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.scene.addChild( speedometerNode );
 
-    var controlPanel = new VBox( {children: [
-      new Button( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), function() {model.showForces = !model.showForces;} ),
-      new Button( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ) ),
-      new Button( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ) ),
-      new Button( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ) )]} );
+    var controlPanel = new VBox( {align: 'left', children: [
+      new CheckBox( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showForce' ) ),
+      new CheckBox( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showValues' ) ),
+      new CheckBox( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showMasses' ) ),
+      new CheckBox( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSpeed' ) )]} );
     this.scene.addChild( controlPanel );
 
-    //Use the font awesome reset button icon, but have to wait for font awesome to load first
-    var resetButton = new Button( new DOM( $( '<i class="icon-refresh" style="color:#ffffff; font-size:2.5em"></i>' ) ) ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).
+        mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.scene.addChild( resetButton );
 
     //Fit to the window and render the initial scene
