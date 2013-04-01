@@ -6,6 +6,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var DOM = require( 'SCENERY/nodes/DOM' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Button = require( 'SUN/Button' );
   var CheckBoxIcon = require( 'SUN/CheckBoxIcon' );
@@ -25,7 +26,7 @@ define( function( require ) {
     ]} );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new DOM( $( '<i class="icon-refresh" style="color:#000000; font-size:2.5em"></i>' ) ), {}, model.reset.bind( model ) ).
+    var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
   }

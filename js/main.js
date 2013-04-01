@@ -19,14 +19,6 @@ require( [ "tugofwar/model/TugOfWarModel",
 
   $( 'body' ).append( '<p>Hello</p>' );
   console.log( "started" );
-  var chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
-  var fontReady = !chrome;
-  if ( chrome ) {
-    console.log( "chrome" );
-    var t = new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} );
-    var initTWidth = t.approximateCanvasWidth();
-    console.log( initTWidth );
-  }
 
   new FastClick( document.body );
 
@@ -63,7 +55,7 @@ require( [ "tugofwar/model/TugOfWarModel",
     homeScreen = new HomeScreen( imageLoader );
 
     tabs = [
-//      new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
+      new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
       new MotionScenery( new MotionModel(), imageLoader ).scene
 //      new MotionScenery( new MotionModel(), imageLoader ).scene,
 //      new MotionScenery( new MotionModel(), imageLoader ).scene
@@ -102,6 +94,7 @@ require( [ "tugofwar/model/TugOfWarModel",
     //Fit to the window and render the initial scene
     $( window ).resize( resize );
     resize();
+    console.log( "init finished" );
   }
 
   //Wait until images are loaded, then launch the sim and show the initial tab
@@ -114,15 +107,7 @@ require( [ "tugofwar/model/TugOfWarModel",
     (function animationLoop() {
       requestAnimationFrame( animationLoop );
 
-      //Trick to make sure font awesome has loaded
-      if ( !fontReady ) {
-        console.log( t.approximateCanvasWidth() );
-        if ( t.approximateCanvasWidth() != initTWidth ) {
-          fontReady = true;
-        }
-      }
-
-      if ( !inited && fontReady ) {
+      if ( !inited ) {
         init();
         inited = true;
       }
