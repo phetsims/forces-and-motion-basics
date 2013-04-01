@@ -5,6 +5,7 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var DOM = require( 'SCENERY/nodes/DOM' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Button = require( 'SUN/Button' );
   var CheckBoxIcon = require( 'SUN/CheckBoxIcon' );
@@ -24,7 +25,7 @@ define( function( require ) {
     ]} );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} ), {}, model.reset.bind( model ) ).
+    var resetButton = new Button( new DOM( $( '<i class="icon-refresh" style="color:#000000; font-size:2.5em"></i>' ) ), {}, model.reset.bind( model ) ).
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
   }

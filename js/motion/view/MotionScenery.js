@@ -146,9 +146,8 @@ define( function( require ) {
       new Button( new Text( 'Reset All', {fontSize: '22px', x: 50, y: 50} ) )]} );
     this.scene.addChild( controlPanel );
 
-    //TODO: use the font awesome reset button icon, but have to wait for font awesome to load first
-//    var resetButton = new Button( new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '22px', x: 50, y: 50} ) );
-    var resetButton = new Button( new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} ) ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    //Use the font awesome reset button icon, but have to wait for font awesome to load first
+    var resetButton = new Button( new DOM( $( '<i class="icon-refresh" style="color:#ffffff; font-size:2.5em"></i>' ) ) ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.scene.addChild( resetButton );
 
     //Fit to the window and render the initial scene

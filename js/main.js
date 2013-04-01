@@ -16,7 +16,17 @@ require( [ "tugofwar/model/TugOfWarModel",
            'tugofwar/view/TugOfWarScenery'
          ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionScenery, TugOfWarScenery ) {
   "use strict";
-  var t = new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} );
+
+  $( 'body' ).append( '<p>Hello</p>' );
+  console.log( "started" );
+  var chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
+  var fontReady = !chrome;
+  if ( chrome ) {
+    console.log( "chrome" );
+    var t = new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} );
+    var initTWidth = t.approximateCanvasWidth();
+    console.log( initTWidth );
+  }
 
   new FastClick( document.body );
 
@@ -53,10 +63,10 @@ require( [ "tugofwar/model/TugOfWarModel",
     homeScreen = new HomeScreen( imageLoader );
 
     tabs = [
-      new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
-      new MotionScenery( new MotionModel(), imageLoader ).scene,
-      new MotionScenery( new MotionModel(), imageLoader ).scene,
+//      new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
       new MotionScenery( new MotionModel(), imageLoader ).scene
+//      new MotionScenery( new MotionModel(), imageLoader ).scene,
+//      new MotionScenery( new MotionModel(), imageLoader ).scene
     ];
 
     $( "#overlay" ).remove();
@@ -105,11 +115,18 @@ require( [ "tugofwar/model/TugOfWarModel",
       requestAnimationFrame( animationLoop );
 
       //Trick to make sure font awesome has loaded
-      if ( !inited && t.approximateSVGBounds().width > 28 ) {
+      if ( !fontReady ) {
+        console.log( t.approximateCanvasWidth() );
+        if ( t.approximateCanvasWidth() != initTWidth ) {
+          fontReady = true;
+        }
+      }
+
+      if ( !inited && fontReady ) {
         init();
         inited = true;
       }
-      else if ( tabs ) {
+      if ( inited ) {
         tabs[appModel.tab].model.step();
         scene.updateScene();
       }
