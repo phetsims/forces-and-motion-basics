@@ -37,6 +37,11 @@ define( function( require ) {
     view.HEIGHT = 644;
     view.model = model;
 
+    model.getSize = function( item ) {
+      var itemNode = view.getItemNode( item );
+      return {width: itemNode.width, height: itemNode.height};
+    };
+
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.scene = new Node();
     this.scene.model = model;//Wire up so main.js can step the model
