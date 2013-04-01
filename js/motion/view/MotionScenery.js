@@ -14,7 +14,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var arrow = require( 'tugofwar/view/arrow' );
-  var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );

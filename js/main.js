@@ -56,9 +56,9 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     tabs = [
       new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
+      new MotionScenery( new MotionModel(), imageLoader ).scene,
+      new MotionScenery( new MotionModel(), imageLoader ).scene,
       new MotionScenery( new MotionModel(), imageLoader ).scene
-//      new MotionScenery( new MotionModel(), imageLoader ).scene,
-//      new MotionScenery( new MotionModel(), imageLoader ).scene
     ];
 
     $( "#overlay" ).remove();

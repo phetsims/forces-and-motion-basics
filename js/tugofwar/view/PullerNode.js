@@ -15,7 +15,7 @@ define( function( require ) {
     var x = puller.x;
     var y = puller.y;
 
-    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
+    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', renderer: 'svg', rendererOptions: {cssTransform: true}} );
 
     function updateLocation() {
       var knotted = puller.has( 'knot' );

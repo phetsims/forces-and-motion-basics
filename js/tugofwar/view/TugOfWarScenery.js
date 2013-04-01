@@ -13,7 +13,6 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Property = require( 'PHETCOMMON/model/property/Property' );
   var arrow = require( 'tugofwar/view/arrow' );
-  var ControlPanel = require( 'tugofwar/view/ControlPanel' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
