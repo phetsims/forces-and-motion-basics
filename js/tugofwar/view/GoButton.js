@@ -3,6 +3,7 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
@@ -30,15 +31,20 @@ define( function( require ) {
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
           }
         } );
-    var goButtonText = new Text( Strings.go, {fontSize: '34px', renderer: 'svg'} );
-    goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
-    goButtonText.y = goButtonImage.height / 2 + 7;
-    goButtonImage.addChild( goButtonText );
+
+    //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on ipad3
+    var goText = new Text( Strings.go, {fontSize: '34px', renderer: 'canvas'} );
+    var pauseText = new Text( Strings.pause, {fontSize: '34px', renderer: 'canvas'} );
+    var textContainer = new Node( {children: [goText]} );
+    textContainer.x = goButtonImage.width / 2 - textContainer.width / 2 - 5;
+    textContainer.y = goButtonImage.height / 2 + 7;
+    goButtonImage.addChild( textContainer );
 
     model.on( "change:running change:state change:numberPullersAttached", function() {
-      goButtonText.text = model.running ? Strings.pause : Strings.go;
-      goButtonText.x = goButtonImage.width / 2 - goButtonText.width / 2 - 5;
-      goButtonText.y = goButtonImage.height / 2 + 7;
+      var child = model.running ? pauseText : goText;
+      textContainer.children = [child];
+      textContainer.x = goButtonImage.width / 2 - child.width / 2 - 5;
+      textContainer.y = goButtonImage.height / 2 + 7;
 
       goButtonImage.visible = model.numberPullersAttached > 0 && model.state !== 'completed';
     } );
