@@ -5,7 +5,7 @@ require.config( {
                     i18n: {
 
                       //Specify the locale using a query parameter
-                      locale: window.phetcommon.locale
+                      locale: 'en_US'
                     }
                   },
                   deps: ['main'],

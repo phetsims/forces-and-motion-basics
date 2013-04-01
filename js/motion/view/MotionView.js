@@ -121,7 +121,7 @@ define( function( require ) {
                 item = item[pathElement];
               }
               if ( typeof item === 'undefined' ) {
-                debugger;
+                console.log( "undefined" );
               }
               item[logEntry.property] = JSON.parse( logEntry.newValue );
             }

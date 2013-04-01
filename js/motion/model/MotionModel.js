@@ -65,7 +65,7 @@ define( function( require ) {
         isItemStackedAbove: function( item ) {
 //          return true;
           var index = _.indexOf( this.stack, item );
-          if ( index == -1 ) {
+          if ( index === -1 ) {
             return false;
           }
           return index < this.stack.length - 1;
@@ -93,11 +93,13 @@ define( function( require ) {
             new Item( {context: this, image: 'trash-can.png', weight: 100, x: 884, y: 518, imageScale: 0.8} )
           ];
 
+          var f = function() {
+            motionModel.trigger( 'draggingItemsChanged' );
+          };
+
           for ( var i = 0; i < this.items.length; i++ ) {
             var item = this.items[i];
-            item.on( 'change:dragging', function() {
-              motionModel.trigger( 'draggingItemsChanged' );
-            } );
+            item.on( 'change:dragging', f );
           }
         }
       } );

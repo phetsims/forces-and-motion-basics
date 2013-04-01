@@ -34,6 +34,7 @@ module.exports = function( grunt ) {
                             "Raphael",
                             "Howl",
                             "io",
+                            "FastClick",
 
                             //Custom global for request animation frame shim
                             "requestAnimationFrame"

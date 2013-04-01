@@ -105,11 +105,11 @@ require( [ "tugofwar/model/TugOfWarModel",
       requestAnimationFrame( animationLoop );
 
       //Trick to make sure font awesome has loaded
-      if ( !inited && t.approximateSVGBounds().width >= 28 ) {
+      if ( !inited && t.approximateSVGBounds().width > 28 ) {
         init();
         inited = true;
       }
-      else {
+      else if ( tabs ) {
         tabs[appModel.tab].model.step();
         scene.updateScene();
       }
