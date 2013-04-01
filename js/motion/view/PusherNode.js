@@ -11,7 +11,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
 
-  function ItemNode( model, view, imageLoader ) {
+  function ItemNode( model, imageLoader ) {
     var itemNode = this;
     Node.call( this, {cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );

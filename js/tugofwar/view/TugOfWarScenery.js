@@ -18,17 +18,18 @@ define( function( require ) {
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
+  var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var red = "red",
       blue = "blue",
       small = "small",
       medium = "medium",
       large = "large";
 
-  function TugOfWarScenery( model, topView, $tab ) {
+  function TugOfWarScenery( model, imageLoader ) {
     this.model = model;
     var tugOfWarScenery = this;
     var view = this;
-    var getImage = topView.getImage;
+    var getImage = imageLoader.getImage;
 
     function getPullerImage( puller, leaning ) {
       var type = puller.type;
@@ -37,21 +38,22 @@ define( function( require ) {
                        size === medium ? "_" :
                        "_small_";
       var colorString = type.toUpperCase();
-      return topView.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
+      return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
     }
 
     view.model = model;
 
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.scene = new Scene( $tab.find( ".scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
+    this.scene = new Node();
+    this.scene.model = model;//Wire up so that main.js can step the model
     this.skyNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: skyGradient} );
     this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
     this.scene.addChild( this.skyNode );
     this.scene.addChild( this.groundNode );
     var grassY = 368;
-    this.scene.addChild( new Image( topView.getImage( 'grass' ), {x: 13, y: grassY} ) );
+    this.scene.addChild( new Image( imageLoader.getImage( 'grass' ), {x: 13, y: grassY} ) );
 
-    this.cartNode = new Image( topView.getImage( 'cart' ), {x: 399, y: 221} );
+    this.cartNode = new Image( imageLoader.getImage( 'cart' ), {x: 399, y: 221} );
     //Black caret below the cart
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
@@ -70,7 +72,7 @@ define( function( require ) {
     this.scene.addChild( this.rightArrow );
     this.scene.addChild( this.sumArrow );
 
-    view.ropeNode = new Image( topView.getImage( 'rope' ), {x: 51, y: 263 } );
+    view.ropeNode = new Image( imageLoader.getImage( 'rope' ), {x: 51, y: 263 } );
 
     model.knots.each( function( knot ) {
       var knotNode = new KnotNode( knot );
@@ -88,6 +90,8 @@ define( function( require ) {
     this.scene.addChild( this.cartNode );
     this.scene.addChild( new GoButton( getImage, this.model ) );
 
+    this.scene.addChild( new TugOfWarControlPanel( this.model ) );
+
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', view.updateForces, view );
     view.model.pullers.each( function( puller ) {
@@ -99,9 +103,6 @@ define( function( require ) {
         tugOfWarScenery.scene.addChild( new FlagNode( model ) );
       }
     } );
-
-    this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
-    this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
@@ -116,7 +117,7 @@ define( function( require ) {
       var scale = Math.min( width / 981, height / 644 );
 
       this.scene.resetTransform();
-      this.scene.resize( width, height );
+//      this.scene.resize( width, height );
       this.scene.scale( scale );
 
       var skyHeight = (376) * scale;
@@ -126,15 +127,6 @@ define( function( require ) {
       this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
       this.groundNode.shape = Shape.rect( 0, 376, width / scale, groundHeight / scale );
-
-      var $tabIcons = $( '.tab-icons' );
-      $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
-      $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
-
-      this.render();
-    },
-    render: function() {
-      this.scene.updateScene();
     },
     updateForces: function() {
       var x = this.arrowTailX;

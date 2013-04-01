@@ -25,21 +25,21 @@ define( function( require ) {
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
-  var brickTemplate = require( 'tpl!../../../svg/brick.svg' );
+  var Button = require( 'SUN/Button' );
 
-  function MotionScenery( model, topView, $tab, imageLoader ) {
+  function MotionScenery( model, imageLoader ) {
     this.model = model;
     var tugOfWarScenery = this;
     var view = this;
     view.imageLoader = imageLoader;
-    var getImage = topView.getImage;
 
     view.WIDTH = 981;
     view.HEIGHT = 644;
     view.model = model;
 
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.scene = new Scene( $tab.find( ".scene" ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
+    this.scene = new Node();
+    this.scene.model = model;//Wire up so main.js can step the model
     this.skyNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: skyGradient} );
     this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
     this.scene.addChild( this.skyNode );
@@ -62,23 +62,21 @@ define( function( require ) {
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
     var addBackgroundSprite2 = function( image, offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg'} );
+      var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg', scale: 4, rendererOptions: {cssTransform: true}} );
       view.scene.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     addBackgroundSprite2( $( '.mybrick' )[0], 0, '', 1, 0, 1 );
-    addBackgroundSprite2( $( '.mybrick2' )[0], 1000, '', 1, 0, 1 );
+    addBackgroundSprite2( $( '.mybrick' )[0], 1000, '', 1, 0, 1 );
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 180;
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Path( {shape: Shape.roundRect( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    view.scene.addChild( new Path( {shape: Shape.roundRect( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
     //Split into another canvas to speed up rendering
     this.scene.addChild( new Node( {layerSplit: true} ) );
 
-    this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
-    this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
     this.itemNodes = [];
 
     for ( var i = 0; i < model.items.length; i++ ) {
@@ -93,7 +91,7 @@ define( function( require ) {
     var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: view.WIDTH / 2, y: 372} );
     this.scene.addChild( skateboardImage );
 
-    var pusher = new PusherNode( model, topView, imageLoader );
+    var pusher = new PusherNode( model, imageLoader );
     this.scene.addChild( pusher );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
@@ -136,6 +134,18 @@ define( function( require ) {
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.scene.addChild( speedometerNode );
 
+    var controlPanel = new VBox( {children: [
+      new Button( new Text( 'Show Forces', {fontSize: '22px', x: 50, y: 50} ), function() {model.showForces = !model.showForces;} ),
+      new Button( new Text( 'Friction', {fontSize: '22px', x: 50, y: 50} ) ),
+      new Button( new Text( 'Reset All', {fontSize: '22px', x: 50, y: 50} ) ),
+      new Button( new Text( 'Reset All', {fontSize: '22px', x: 50, y: 50} ) )]} );
+    this.scene.addChild( controlPanel );
+
+    //TODO: use the font awesome reset button icon, but have to wait for font awesome to load first
+//    var resetButton = new Button( new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '22px', x: 50, y: 50} ) );
+    var resetButton = new Button( new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} ) ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    this.scene.addChild( resetButton );
+
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();
@@ -164,8 +174,8 @@ define( function( require ) {
 
       var scale = Math.min( width / 981, height / 644 );
       this.scene.resetTransform();
-      this.scene.resize( width, height );
       this.scene.scale( scale );
+      //TODO: center in the available width
 
       var skyHeight = (412) * scale;
       var groundHeight = height - skyHeight;
@@ -182,7 +192,7 @@ define( function( require ) {
       this.render();
     },
     render: function() {
-      this.scene.updateScene();
+//      this.scene.updateScene();
     }};
 
   return MotionScenery;

@@ -1,2 +1,3 @@
+Switched to more central use of scenery, including switching to sun widgets instead of bootstrap widgets
 Improved performance by decreasing image scales
 Use FastClick and remove extraneous calls to touchstart 

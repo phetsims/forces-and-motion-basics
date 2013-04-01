@@ -1,5 +1,4 @@
-require( [ "tugofwar/view/TugOfWarView",
-           "tugofwar/model/TugOfWarModel",
+require( [ "tugofwar/model/TugOfWarModel",
            "motion/view/MotionView",
            "motion/model/MotionModel",
            'SCENERY/nodes/Image',
@@ -9,10 +8,16 @@ require( [ "tugofwar/view/TugOfWarView",
            'FORT/Fort',
            'SCENERY/util/Util',
            'SCENERY_PHET/NavigationBar',
-           'SCENERY_PHET/HomeScreen'], function( TugOfWarView, TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen ) {
+           'SCENERY_PHET/HomeScreen',
+           'SCENERY/Scene',
+           'SCENERY/nodes/Text',
+           'SCENERY/nodes/Node',
+           'motion/view/MotionScenery',
+           'tugofwar/view/TugOfWarScenery'
+         ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionScenery, TugOfWarScenery ) {
   "use strict";
+  var t = new Text( '\uf021', {fontFamily: 'FontAwesome', fontSize: '36px', x: 50, y: 50, renderer: 'svg'} );
 
-  var main = {};
   new FastClick( document.body );
 
   Util.polyfillRequestAnimationFrame();
@@ -30,72 +35,84 @@ require( [ "tugofwar/view/TugOfWarView",
     };
   }
 
-  var views = [];
-  var $tabs = [];
-  var $homeScreen = null;
-  var homeScreenView = null;
+  var homeScreen = null;
+  var imageLoader = null;
+  var inited = false;
+  var scene = null;
+  var tabs = null;
+  var appModel = new Fort.Model( {home: false, tab: 0} );
 
-  var selectedTabIndex = 0;
+  function init() {
 
-  main.setSelectedTab = function( tabIndex ) {
-    for ( var i = 0; i < $tabs.length; i++ ) {
-      $tabs[i].detach();
-    }
-
-    var tabName = tabIndex + 1;
-    views[selectedTabIndex].active = false;
-    var $tabContainer = $( '.tabs' );
-    $tabs[tabIndex].appendTo( $tabContainer );
-    selectedTabIndex = tabName - 1;
-    views[selectedTabIndex].active = true;
-  };
-
-  //Wait until images are loaded, then launch the sim and show the initial tab
-  new ImagesLoader( function( imageLoader ) {
+    scene = new Scene( $( '.scene' ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
+    scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
+    scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
     //Start in Tab 2 for debugging
-    var appModel = new Fort.Model( {selectedTab: 0} );
 
-    $tabs.push( $( '.tab1' ).detach() );
-    $tabs.push( $( '.tab2' ).detach() );
-    $tabs.push( $( '.tab3' ).detach() );
-    $tabs.push( $( '.tab4' ).detach() );
-    $homeScreen = $( '.home-screen' ).detach();
-    homeScreenView = new HomeScreen( imageLoader, $homeScreen.find( '.home-screen-scene' ) );
-    views.push( new TugOfWarView( imageLoader, new TugOfWarModel(), $tabs[0] ) );
-    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[1] ) );
-    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[2] ) );
-    views.push( new MotionView( imageLoader, new MotionModel(), $tabs[3] ) );
+    homeScreen = new HomeScreen( imageLoader );
 
-    appModel.link( 'selectedTab', main, 'setSelectedTab' );
-    var selectedTabProperty = appModel.property( 'selectedTab' );
+    tabs = [
+      new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
+      new MotionScenery( new MotionModel(), imageLoader ).scene,
+      new MotionScenery( new MotionModel(), imageLoader ).scene,
+      new MotionScenery( new MotionModel(), imageLoader ).scene
+    ];
 
     $( "#overlay" ).remove();
     if ( !useDebugDiv ) {
       $( "debugDiv" ).remove();
     }
 
-    var navigationBar = new NavigationBar( $( '.navigation-bar' ), [
-      {name: "Tug of War", icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) )},
-      {name: "Motion", icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) )},
-      {name: "Friction", icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) )},
-      {name: "Acceleration", icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) )}
-    ], selectedTabProperty, function() {
-      for ( var i = 0; i < $tabs.length; i++ ) {
-        $tabs[i].detach();
-        $( '.navigation-bar' ).detach();
-        $homeScreen.appendTo( $( 'body' ) );
-        homeScreenView.handleResize();
-      }
-    } );
+    var navigationBar = new NavigationBar(
+        [
+          {name: "Tug of War", icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) )},
+          {name: "Motion", icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) )},
+          {name: "Friction", icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) )},
+          {name: "Acceleration", icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) )}
+        ], appModel );
+    var tabNode = new Node();
+    var tabContainer = new Node();
+    tabNode.addChild( navigationBar );
+    tabNode.addChild( tabContainer );
+    scene.addChild( tabNode );
+
+    var updateTabs = function( m ) { tabContainer.children = m.home ? [] : [tabs[m.tab]]; };
+    appModel.on( 'change', updateTabs );
+    updateTabs( appModel );
+    scene.addChild( navigationBar );
+
+    function resize() {
+      var width = $( window ).width();
+      var height = $( window ).height();
+
+      navigationBar.bottom = height;
+    }
+
+    //Fit to the window and render the initial scene
+    $( window ).resize( resize );
+    resize();
+  }
+
+  //Wait until images are loaded, then launch the sim and show the initial tab
+  new ImagesLoader( function( loader ) {
+    imageLoader = loader;
 
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     // place the rAF *before* the render() to assure as close to
     // 60fps with the setTimeout fallback.
     (function animationLoop() {
       requestAnimationFrame( animationLoop );
-      navigationBar.updateScene();
-      views[selectedTabIndex].step();
+
+      //Trick to make sure font awesome has loaded
+      if ( !inited && t.approximateSVGBounds().width >= 28 ) {
+        init();
+        inited = true;
+      }
+      else {
+        tabs[appModel.tab].model.step();
+        scene.updateScene();
+      }
     })();
   } );
 } );

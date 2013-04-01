@@ -13,7 +13,7 @@ define( function( require ) {
   function ItemNode( model, scenery, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale} );
+    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
     var imageNode = new Image( image );
     this.addChild( imageNode );
     var updateImage = function() {
