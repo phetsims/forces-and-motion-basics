@@ -39,7 +39,7 @@ require( [ "tugofwar/model/TugOfWarModel",
   var inited = false;
   var scene = null;
   var tabs = null;
-  var appModel = new Fort.Model( {home: false, tab: 0} );
+  var appModel = new Fort.Model( {home: true, tab: 0} );
 
   function init() {
 
@@ -49,7 +49,13 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     //Start in Tab 2 for debugging
 
-    homeScreen = new HomeScreen( "Forces and Motion: Basics" );
+    var tabWrappers = [
+      {name: "Tug of War", icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) )},
+      {name: "Motion", icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) )},
+      {name: "Friction", icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) )},
+      {name: "Acceleration", icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) )}
+    ];
+    homeScreen = new HomeScreen( "Forces and Motion: Basics", tabWrappers, appModel );
 
     tabs = [
       new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
@@ -63,13 +69,7 @@ require( [ "tugofwar/model/TugOfWarModel",
       $( "debugDiv" ).remove();
     }
 
-    var navigationBar = new NavigationBar(
-        [
-          {name: "Tug of War", icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) )},
-          {name: "Motion", icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) )},
-          {name: "Friction", icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) )},
-          {name: "Acceleration", icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) )}
-        ], appModel );
+    var navigationBar = new NavigationBar( tabWrappers, appModel );
 
     var root = new Node(); //root: homeScreen | tabNode
     var tabNode = new Node(); //tabNode: navigationBar tabContainer
