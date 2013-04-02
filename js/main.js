@@ -112,7 +112,11 @@ require( [ "tugofwar/model/TugOfWarModel",
         inited = true;
       }
       if ( inited ) {
-        tabs[appModel.tab].model.step();
+
+        //Update the tab, but not if the user is on the home screen
+        if ( !appModel.home ) {
+          tabs[appModel.tab].model.step();
+        }
         scene.updateScene();
       }
     })();
