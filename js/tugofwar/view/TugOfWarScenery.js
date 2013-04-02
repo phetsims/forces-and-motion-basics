@@ -60,8 +60,8 @@ define( function( require ) {
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
-    view.scene.addChild( new Rectangle( 25, 400, 300, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Rectangle( 623, 400, 300, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Rectangle( 25, 390, 300, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Rectangle( 623, 390, 300, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.scene.addChild( new Node( {layerSplit: true} ) );
