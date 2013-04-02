@@ -37,9 +37,11 @@ require( [ "tugofwar/model/TugOfWarModel",
   var homeScreen = null;
   var imageLoader = null;
   var inited = false;
+  var inited2 = false;
   var scene = null;
   var tabs = null;
-  var appModel = new Fort.Model( {home: true, tab: 0} );
+  var appModel = new Fort.Model( {home: false, tab: 0} );
+  var tabContainer = null;
 
   function init() {
 
@@ -57,13 +59,6 @@ require( [ "tugofwar/model/TugOfWarModel",
     ];
     homeScreen = new HomeScreen( "Forces and Motion: Basics", tabWrappers, appModel );
 
-    tabs = [
-      new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
-      new MotionScenery( new MotionModel(), imageLoader ).scene,
-      new MotionScenery( new MotionModel(), imageLoader ).scene,
-      new MotionScenery( new MotionModel(), imageLoader ).scene
-    ];
-
     $( "#overlay" ).remove();
     if ( !useDebugDiv ) {
       $( "debugDiv" ).remove();
@@ -73,15 +68,11 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     var root = new Node(); //root: homeScreen | tabNode
     var tabNode = new Node(); //tabNode: navigationBar tabContainer
-    var tabContainer = new Node();//tabContainer: sceneForTab 
+    tabContainer = new Node();//tabContainer: sceneForTab 
     tabNode.addChild( navigationBar );
     tabNode.addChild( tabContainer );
     scene.addChild( root );
 
-    //Start in a tab
-    root.children = [tabNode];
-
-    appModel.link( 'tab', function( m, tab ) { tabContainer.children = [tabs[tab]]; } );
     appModel.link( 'home', function( m, home ) { root.children = [home ? homeScreen : tabNode];} );
 
     function resize() {
@@ -110,11 +101,27 @@ require( [ "tugofwar/model/TugOfWarModel",
       if ( !inited ) {
         init();
         inited = true;
+        scene.updateScene();
       }
-      if ( inited ) {
+
+      //Load the modules lazily, makes the startup time on iPad3 go from 14 sec to 4 sec to see the home screen
+      else if ( inited && !inited2 ) {
+        tabs = [
+          new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
+          new MotionScenery( new MotionModel(), imageLoader ).scene,
+          new MotionScenery( new MotionModel(), imageLoader ).scene,
+          new MotionScenery( new MotionModel(), imageLoader ).scene
+        ];
+
+        appModel.link( 'tab', function( m, tab ) { tabContainer.children = [tabs[tab]]; } );
+        inited2 = true;
+        scene.updateScene();
+        console.log( "init2 finished" );
+      }
+      else if ( inited && inited2 ) {
 
         //Update the tab, but not if the user is on the home screen
-        if ( !appModel.home ) {
+        if ( !appModel.home && tabs ) {
           tabs[appModel.tab].model.step();
         }
         scene.updateScene();
