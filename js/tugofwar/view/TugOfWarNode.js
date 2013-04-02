@@ -12,6 +12,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var red = "red",
       blue = "blue",
       small = "small",
@@ -19,9 +20,9 @@ define( function( require ) {
       large = "large";
 
   function TugOfWarScenery( model, imageLoader ) {
-    this.model = model;
     var tugOfWarScenery = this;
-    var view = this;
+    this.model = model;
+    Node.call( this );
     var getImage = imageLoader.getImage;
 
     function getPullerImage( puller, leaning ) {
@@ -34,85 +35,82 @@ define( function( require ) {
       return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
     }
 
-    view.model = model;
-
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.scene = new Node();
-    this.scene.model = model;//Wire up so that main.js can step the model
+    this.model = model;//Wire up so that main.js can step the model
 
     this.skyNode = new Rectangle( 0, 0, 100, 100, {fill: skyGradient} );
     this.groundNode = new Rectangle( 0, 0, 100, 100, { fill: '#c59a5b'} );
 
-    this.scene.addChild( this.skyNode );
-    this.scene.addChild( this.groundNode );
+    this.addChild( this.skyNode );
+    this.addChild( this.groundNode );
     var grassY = 368;
-    this.scene.addChild( new Image( imageLoader.getImage( 'grass' ), {x: 13, y: grassY} ) );
+    this.addChild( new Image( imageLoader.getImage( 'grass' ), {x: 13, y: grassY} ) );
 
     this.cartNode = new Image( imageLoader.getImage( 'cart' ), {x: 399, y: 221} );
     //Black caret below the cart
-    view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
+    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.cartNode.centerX, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
-    view.scene.addChild( new Rectangle( 25, 390, 300, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Rectangle( 623, 390, 300, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 25, 390, 300, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 623, 390, 300, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
-    this.scene.addChild( new Node( {layerSplit: true} ) );
+    this.addChild( new Node( {layerSplit: true} ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
-    this.model.link( 'showSumOfForces', view.sumArrow, 'visible' );
+    this.model.link( 'showSumOfForces', this.sumArrow, 'visible' );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.scene.addChild( this.leftArrow );
-    this.scene.addChild( this.rightArrow );
-    this.scene.addChild( this.sumArrow );
+    this.addChild( this.leftArrow );
+    this.addChild( this.rightArrow );
+    this.addChild( this.sumArrow );
 
-    view.ropeNode = new Image( imageLoader.getImage( 'rope' ), {x: 51, y: 263 } );
+    this.ropeNode = new Image( imageLoader.getImage( 'rope' ), {x: 51, y: 263 } );
 
     model.knots.each( function( knot ) {
       var knotNode = new KnotNode( knot );
-      view.scene.addChild( knotNode );
+      tugOfWarScenery.addChild( knotNode );
     } );
 
-    this.scene.addChild( view.ropeNode );
-    view.arrowTailX = view.cartNode.centerX;
+    this.addChild( this.ropeNode );
+    this.arrowTailX = this.cartNode.centerX;
 
     this.model.cart.on( 'change:x', function( m, x ) {
-      view.cartNode.x = x + 399;
-      view.ropeNode.x = x + 51;
+      tugOfWarScenery.cartNode.x = x + 399;
+      tugOfWarScenery.ropeNode.x = x + 51;
     } );
 
-    this.scene.addChild( this.cartNode );
-    this.scene.addChild( new GoButton( getImage, this.model ) );
+    this.addChild( this.cartNode );
+    this.addChild( new GoButton( getImage, this.model ) );
 
-    this.scene.addChild( new TugOfWarControlPanel( this.model ) );
+    this.addChild( new TugOfWarControlPanel( this.model ) );
 
     //Update the forces when the number of attached pullers changes
-    model.link( 'numberPullersAttached', view.updateForces, view );
-    view.model.pullers.each( function( puller ) {
-      view.scene.addChild( new PullerNode( puller, view.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+    model.link( 'numberPullersAttached', this.updateForces, this );
+    this.model.pullers.each( function( puller ) {
+      tugOfWarScenery.addChild( new PullerNode( puller, tugOfWarScenery.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
     model.on( 'change:state', function( m, state ) {
       if ( state === 'completed' ) {
-        tugOfWarScenery.scene.addChild( new FlagNode( model ) );
+        tugOfWarScenery.addChild( new FlagNode( model ) );
       }
     } );
 
     //Fit to the window and render the initial scene
-    $( window ).resize( function() { view.resize(); } );
+    $( window ).resize( function() { tugOfWarScenery.resize(); } );
     this.resize();
   }
 
-  TugOfWarScenery.prototype = {
+  inherit( TugOfWarScenery, Node, {
     resize: function() {
       var width = $( window ).width();
       var height = $( window ).height() - 40;//leave room for the tab bar
 
       var scale = Math.min( width / 981, height / 644 );
 
-      this.scene.resetTransform();
-      this.scene.scale( scale );
+      this.resetTransform();
+      this.scale( scale );
 
       var skyHeight = (376) * scale;
       var groundHeight = height - skyHeight;
@@ -131,7 +129,6 @@ define( function( require ) {
       this.rightArrow.shape = arrow( x, 100, x + this.model.getRightForce(), 100, tailWidth, headWidth, headHeight );
       this.sumArrow.shape = arrow( x, 40, x + this.model.getNetForce(), 40, tailWidth, headWidth, headHeight );
     }
-  };
-
+  } );
   return TugOfWarScenery;
 } );

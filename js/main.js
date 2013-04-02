@@ -13,8 +13,8 @@ require( [ "tugofwar/model/TugOfWarModel",
            'SCENERY/nodes/Text',
            'SCENERY/nodes/Node',
            'motion/view/MotionScenery',
-           'tugofwar/view/TugOfWarScenery'
-         ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionScenery, TugOfWarScenery ) {
+           'tugofwar/view/TugOfWarNode'
+         ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionScenery, TugOfWarNode ) {
   "use strict";
 
   new FastClick( document.body );
@@ -107,7 +107,7 @@ require( [ "tugofwar/model/TugOfWarModel",
       //Load the modules lazily, makes the startup time on iPad3 go from 14 sec to 4 sec to see the home screen
       else if ( inited && !inited2 ) {
         tabs = [
-          new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
+          new TugOfWarNode( new TugOfWarModel(), imageLoader ),
           new MotionScenery( new MotionModel(), imageLoader ).scene,
           new MotionScenery( new MotionModel(), imageLoader ).scene,
           new MotionScenery( new MotionModel(), imageLoader ).scene
