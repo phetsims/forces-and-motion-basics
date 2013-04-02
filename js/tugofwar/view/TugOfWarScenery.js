@@ -2,17 +2,10 @@ define( function( require ) {
   "use strict";
   var PullerNode = require( "tugofwar/view/PullerNode" );
   var Shape = require( 'KITE/Shape' );
-  var LayerType = require( 'SCENERY/layers/LayerType' );
-  var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
   var arrow = require( 'tugofwar/view/arrow' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
