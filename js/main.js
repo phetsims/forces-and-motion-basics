@@ -17,9 +17,6 @@ require( [ "tugofwar/model/TugOfWarModel",
          ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionScenery, TugOfWarScenery ) {
   "use strict";
 
-  $( 'body' ).append( '<p>Hello</p>' );
-  console.log( "started" );
-
   new FastClick( document.body );
 
   Util.polyfillRequestAnimationFrame();
@@ -52,7 +49,7 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     //Start in Tab 2 for debugging
 
-    homeScreen = new HomeScreen( imageLoader );
+    homeScreen = new HomeScreen( "Forces and Motion: Basics" );
 
     tabs = [
       new TugOfWarScenery( new TugOfWarModel(), imageLoader ).scene,
