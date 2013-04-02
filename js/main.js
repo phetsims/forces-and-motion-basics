@@ -73,16 +73,19 @@ require( [ "tugofwar/model/TugOfWarModel",
           {name: "Friction", icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) )},
           {name: "Acceleration", icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) )}
         ], appModel );
-    var tabNode = new Node();
-    var tabContainer = new Node();
+
+    var root = new Node(); //root: homeScreen | tabNode
+    var tabNode = new Node(); //tabNode: navigationBar tabContainer
+    var tabContainer = new Node();//tabContainer: sceneForTab 
     tabNode.addChild( navigationBar );
     tabNode.addChild( tabContainer );
-    scene.addChild( tabNode );
+    scene.addChild( root );
 
-    var updateTabs = function( m ) { tabContainer.children = m.home ? [] : [tabs[m.tab]]; };
-    appModel.on( 'change', updateTabs );
-    updateTabs( appModel );
-    scene.addChild( navigationBar );
+    //Start in a tab
+    root.children = [tabNode];
+
+    appModel.link( 'tab', function( m, tab ) { tabContainer.children = [tabs[tab]]; } );
+    appModel.link( 'home', function( m, home ) { root.children = [home ? homeScreen : tabNode];} );
 
     function resize() {
       var width = $( window ).width();
