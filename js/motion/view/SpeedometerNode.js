@@ -8,7 +8,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
 
   var ANGLE_PER_TICK = Math.PI * 2 / 4 / 8;
@@ -48,7 +48,7 @@ define( function( require ) {
     }
   }
 
-  Inheritance.inheritPrototype( SpeedometerNode, Node );
+  inherit( SpeedometerNode, Node );
 
   return SpeedometerNode;
 } );

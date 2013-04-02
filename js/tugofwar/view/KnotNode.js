@@ -3,7 +3,7 @@ define( function( require ) {
 
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   var knotWidth = 20;
 
@@ -14,7 +14,7 @@ define( function( require ) {
     knot.on( 'change:x', function( m, x ) { knotNode.x = x; } );
   }
 
-  Inheritance.inheritPrototype( KnotNode, Path );
+  inherit( KnotNode, Path );
 
   return KnotNode;
 } );

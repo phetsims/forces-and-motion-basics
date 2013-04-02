@@ -5,7 +5,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
 
   function GoButton( getImage, model ) {
@@ -52,7 +52,7 @@ define( function( require ) {
     model.trigger( 'change:numberPullersAttached' );
   }
 
-  Inheritance.inheritPrototype( GoButton, Image );
+  inherit( GoButton, Image );
 
   return GoButton;
 } );

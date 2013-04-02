@@ -7,7 +7,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Button = require( 'SUN/Button' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   function TugOfWarControlPanel( model, options ) {
     Node.call( this, options );
@@ -24,7 +24,7 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  Inheritance.inheritPrototype( TugOfWarControlPanel, Node );
+  inherit( TugOfWarControlPanel, Node );
 
   return TugOfWarControlPanel;
 } );

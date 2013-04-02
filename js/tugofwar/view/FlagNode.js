@@ -7,7 +7,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
 
   function FlagNode( model ) {
@@ -26,7 +26,7 @@ define( function( require ) {
     model.once( 'reset-all', function() {flagNode.detach();} );
   }
 
-  Inheritance.inheritPrototype( FlagNode, Node );
+  inherit( FlagNode, Node );
 
   return FlagNode;
 } );

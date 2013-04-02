@@ -10,7 +10,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Inheritance = require( 'PHETCOMMON/util/Inheritance' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var sliderKnob = require( 'tpl!../../../svg/handle_blue_top_grip_flat_gradient_3.svg' );
   var linear = require( 'DOT/Util' ).linear;
 
@@ -59,7 +59,7 @@ define( function( require ) {
     property.link( function( model, value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
   }
 
-  Inheritance.inheritPrototype( HSlider, Node );
+  inherit( HSlider, Node );
 
   return HSlider;
 } );
