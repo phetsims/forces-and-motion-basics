@@ -5,6 +5,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -35,7 +36,7 @@ define( function( require ) {
     }
 
     //The track
-    this.addChild( new Path( {shape: Shape.rect( 0, 0, width, 6 ), stroke: 'black', lineWidth: 1, fill: 'white'} ) );
+    this.addChild( new Rectangle( 0, 0, width, 6, {stroke: 'black', lineWidth: 1, fill: 'white'} ) );
 
     //Instantiate the template
     var knobSVGText = sliderKnob();

@@ -5,6 +5,7 @@ define( function( require ) {
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var DOM = require( 'SCENERY/nodes/DOM' );
@@ -45,8 +46,9 @@ define( function( require ) {
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.scene = new Node();
     this.scene.model = model;//Wire up so main.js can step the model
-    this.skyNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: skyGradient} );
-    this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
+
+    this.skyNode = new Rectangle( 0, 0, 100, 100, {fill: skyGradient} );
+    this.groundNode = new Rectangle( 0, 0, 100, 100, {fill: '#c59a5b'} );
     this.scene.addChild( this.skyNode );
     this.scene.addChild( this.groundNode );
 
@@ -76,8 +78,8 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 180;
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
-    view.scene.addChild( new Path( {shape: Shape.roundRect( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    view.scene.addChild( new Rectangle( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    view.scene.addChild( new Rectangle( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
     //Split into another canvas to speed up rendering
     this.scene.addChild( new Node( {layerSplit: true} ) );
@@ -184,10 +186,10 @@ define( function( require ) {
       var skyHeight = (412) * scale;
       var groundHeight = height - skyHeight;
 
-      this.skyNode.shape = Shape.rect( 0, 0, width / scale, 412 );
+      this.skyNode.mutate( {rectWidth: width / scale, rectHeight: 412} );
       this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      this.groundNode.shape = Shape.rect( 0, 412, width / scale, groundHeight / scale );
+      this.groundNode.mutate( {rectX: 0, rectY: 412, rectWidth: width / scale, rectHeight: groundHeight / scale } );
 
       var $tabIcons = $( '.tab-icons' );
       $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );

@@ -5,6 +5,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -17,7 +18,7 @@ define( function( require ) {
     var text = new Text( model.cart.x < 0 ? "Blue Team Wins" : "Red Team Wins", {fontSize: '34px', renderer: 'svg'} );
     text.centerX = 0;
     text.centerY = 0;
-    var path = new Path( {shape: Shape.rect( 0, 0, text.width * 2, text.height * 3 ), fill: 'yellow'} );
+    var path = new Rectangle( 0, 0, text.width * 2, text.height * 3, 20, 20, {fill: 'yellow'} );
     path.centerX = 0;
     path.centerY = 0;
     this.addChild( path );

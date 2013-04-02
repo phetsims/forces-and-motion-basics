@@ -3,6 +3,7 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -78,9 +79,8 @@ define( function( require ) {
     } );//TODO: verify the change is batched and not duplicated
 
     var massLabel = new Text( item.weight + ' kg', {fontSize: '18px'} );
-    var roundRect = new Path( {shape: Shape.roundRect( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10 ), fill: 'white', stroke: 'gray'} );
-    roundRect.centerX = massLabel.centerX;
-    roundRect.centerY = massLabel.centerY;
+    var roundRect = new Rectangle( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10, {fill: 'white', stroke: 'gray'} ).
+        mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.addChild( labelNode );
     this.labelNode = labelNode;

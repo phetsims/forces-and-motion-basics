@@ -5,6 +5,7 @@ define( function( require ) {
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -45,8 +46,10 @@ define( function( require ) {
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.scene = new Node();
     this.scene.model = model;//Wire up so that main.js can step the model
-    this.skyNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: skyGradient} );
-    this.groundNode = new Path( {shape: Shape.rect( 0, 0, 100, 100 ), fill: '#c59a5b'} );
+
+    this.skyNode = new Rectangle( 0, 0, 100, 100, {fill: skyGradient} );
+    this.groundNode = new Rectangle( 0, 0, 100, 100, { fill: '#c59a5b'} );
+
     this.scene.addChild( this.skyNode );
     this.scene.addChild( this.groundNode );
     var grassY = 368;
@@ -57,8 +60,8 @@ define( function( require ) {
     view.scene.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: view.cartNode.centerX, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 25, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    view.scene.addChild( new Path( {shape: Shape.roundRect( 623, 400, 300, 250, 10, 10 ), fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Rectangle( 25, 400, 300, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    view.scene.addChild( new Rectangle( 623, 400, 300, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.scene.addChild( new Node( {layerSplit: true} ) );
@@ -121,10 +124,10 @@ define( function( require ) {
       var skyHeight = (376) * scale;
       var groundHeight = height - skyHeight;
 
-      this.skyNode.shape = Shape.rect( 0, 0, width / scale, 376 );
+      this.skyNode.mutate( {rectX: 0, rectY: 0, rectWidth: width / scale, rectHeight: 376} );
       this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      this.groundNode.shape = Shape.rect( 0, 376, width / scale, groundHeight / scale );
+      this.groundNode.mutate( {rectX: 0, rectY: 376, rectWidth: width / scale, rectHeight: groundHeight / scale} );
     },
     updateForces: function() {
       var x = this.arrowTailX;

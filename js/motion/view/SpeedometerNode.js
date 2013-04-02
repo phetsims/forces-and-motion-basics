@@ -2,6 +2,7 @@ define( function( require ) {
   "use strict";
 
   var Image = require( 'SCENERY/nodes/Image' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -17,7 +18,7 @@ define( function( require ) {
   function SpeedometerNode( velocityProperty, options ) {
     Node.call( this, options );
     var radius = 100;
-    this.addChild( new Path( {shape: Shape.circle( 0, 0, radius ), fill: 'white', stroke: '#555555', lineWidth: 2} ) );
+    this.addChild( new Circle( radius, {fill: 'white', stroke: '#555555', lineWidth: 2} ) );
 
     var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );
     this.addChild( needle );
@@ -25,7 +26,7 @@ define( function( require ) {
     this.label = new Text( "Speed", {fontSize: 28} ).mutate( {centerX: 0, centerY: -radius / 3} );
     this.addChild( this.label );
 
-    var pin = new Path( {shape: Shape.circle( 0, 0, 2 ), fill: 'black'} );
+    var pin = new Circle( 2, {fill: 'black'} );
     this.addChild( pin );
 
     var totalAngle = (NUM_TICKS - 1) * ANGLE_PER_TICK;
