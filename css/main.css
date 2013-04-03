@@ -1,82 +1,8 @@
-/*Make all the buttons in a vertical button group the same width*/
-.v-button {
-  margin-top: 10px;
-  width: 100%;
-  display: block;
-  margin-left: 100px;
-}
-
-.tab-bar {
-  position: absolute;
-  height: 50px;
-  width: 100%;
-  background: #000000;
-  bottom: 0;
-}
-
-.tab-name {
-  padding-top: 12px;
-  padding-left: 12px;
-  font-size: 2.5em;
-  color: #ffffff;
-  display: block;
-}
-
-.tab-icons {
-  position: absolute;
-  width: 300px;
-  display: block;
-  background: #000000;
-}
-
-.icon-home {
-  position: absolute;
-}
-
-.tab-icons img {
-  width: auto; /* you can use % */
-  height: 44px;
-}
-
-.right-tab-controls {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  display: block;
-}
-
-.phet-logo {
-  position: absolute;
-  bottom: 5px;
-  color: #ffff00;
-  font-size: 2.5em;
-  right: 55px;
-}
-
-.unselected {
-  opacity: 0.6;
-}
-
-#brick {
-  background-image: url('../images/brick-tile.png');
-  background-repeat: repeat-x;
-  width: 2000px;
-  height: 200px;
-  overflow: hidden;
-}
-
-.applied-force-text-input {
-  text-align: right;
-}
-
-.home-screen-scene {
-  background: #000000;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
 .scene {
   background: #000000;
   position: absolute;
+}
+
+body {
+  margin: 0;
 }
