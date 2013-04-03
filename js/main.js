@@ -12,9 +12,9 @@ require( [ "tugofwar/model/TugOfWarModel",
            'SCENERY/Scene',
            'SCENERY/nodes/Text',
            'SCENERY/nodes/Node',
-           'motion/view/MotionScenery',
+           'motion/view/MotionNode',
            'tugofwar/view/TugOfWarNode'
-         ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionScenery, TugOfWarNode ) {
+         ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node, MotionNode, TugOfWarNode ) {
   "use strict";
 
   new FastClick( document.body );
@@ -110,9 +110,9 @@ require( [ "tugofwar/model/TugOfWarModel",
       else if ( inited && !inited2 ) {
         tabs = [
           new TugOfWarNode( new TugOfWarModel(), imageLoader ),
-          new MotionScenery( new MotionModel( {tab: 'motion'} ), imageLoader ).scene,
-          new MotionScenery( new MotionModel( {tab: 'friction'} ), imageLoader ).scene,
-          new MotionScenery( new MotionModel( {tab: 'acceleration'} ), imageLoader ).scene
+          new MotionNode( new MotionModel( {tab: 'motion'} ), imageLoader ),
+          new MotionNode( new MotionModel( {tab: 'friction'} ), imageLoader ),
+          new MotionNode( new MotionModel( {tab: 'acceleration'} ), imageLoader )
         ];
 
         appModel.link( 'tab', function( m, tab ) { tabContainer.children = [tabs[tab]]; } );

@@ -16,10 +16,12 @@ define( function( require ) {
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
   var Button = require( 'SUN/Button' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
 
-  function MotionScenery( model, imageLoader ) {
+  function MotionNode( model, imageLoader ) {
     this.model = model;
+    Node.call( this );
     var view = this;
     view.imageLoader = imageLoader;
 
@@ -33,18 +35,17 @@ define( function( require ) {
     };
 
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.scene = new Node();
-    this.scene.model = model;//Wire up so main.js can step the model
+    this.model = model;//Wire up so main.js can step the model
 
     this.skyNode = new Rectangle( 0, 0, 100, 100, {fill: skyGradient} );
     this.groundNode = new Rectangle( 0, 0, 100, 100, {fill: '#c59a5b'} );
-    this.scene.addChild( this.skyNode );
-    this.scene.addChild( this.groundNode );
+    this.addChild( this.skyNode );
+    this.addChild( this.groundNode );
 
     var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
-      view.scene.addChild( sprite );
+      view.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     var mountainY = 353;
@@ -59,7 +60,7 @@ define( function( require ) {
 
     var addBackgroundSprite2 = function( image, offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg', scale: 4, rendererOptions: {cssTransform: true}} );
-      view.scene.addChild( sprite );
+      view.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     addBackgroundSprite2( $( '.mybrick' )[0], 0, '', 1, 0, 1 );
@@ -67,11 +68,11 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 180;
-    view.scene.addChild( new Rectangle( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
-    view.scene.addChild( new Rectangle( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
     //Split into another canvas to speed up rendering
-    this.scene.addChild( new Node( {layerSplit: true} ) );
+    this.addChild( new Node( {layerSplit: true} ) );
 
     this.itemNodes = [];
 
@@ -81,37 +82,37 @@ define( function( require ) {
                                    view.imageLoader.getImage( item.imageSitting ), view.imageLoader.getImage( item.imageHolding ),
                                    model.property( 'showMasses' ) );
       this.itemNodes.push( itemNode );
-      this.scene.addChild( itemNode );
+      this.addChild( itemNode );
     }
 
     var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: view.WIDTH / 2, y: 372} );
-    this.scene.addChild( skateboardImage );
+    this.addChild( skateboardImage );
 
     var pusher = new PusherNode( model, imageLoader );
-    this.scene.addChild( pusher );
+    this.addChild( pusher );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.scene.addChild( this.leftArrow );
-    this.scene.addChild( this.rightArrow );
-    this.scene.addChild( this.sumArrow );
+    this.addChild( this.leftArrow );
+    this.addChild( this.rightArrow );
+    this.addChild( this.sumArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
     var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 465, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
-    this.scene.addChild( vbox );//text box only seems to work if addedlast
+    this.addChild( vbox );//text box only seems to work if addedlast
     model.link( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
     var unitsLabel = new Text( Strings.newtons, {fontSize: '22px', renderer: 'svg'} );
     unitsLabel.x = textBox.x + textBox.width + vbox.x + 10;
     unitsLabel.centerY = textBox.centerY + vbox.y;
-    this.scene.addChild( unitsLabel );
+    this.addChild( unitsLabel );
 
     //Show a line that indicates the center of the layout
-//    this.scene.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
+//    this.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
 
     model.link( 'showForce', view.sumArrow, 'visible' );
     model.link( 'appliedForce', function() {
@@ -128,7 +129,7 @@ define( function( require ) {
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: view.WIDTH / 2, top: 2} );
     model.link( 'showSpeed', speedometerNode, 'visible' );
-    this.scene.addChild( speedometerNode );
+    this.addChild( speedometerNode );
 
     var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showForce' ) );
     var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSumOfForces' ) );
@@ -140,18 +141,49 @@ define( function( require ) {
                                    children: model.tab === 'motion' ?
                                              [ forceCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
                                              [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox]} );
-    this.scene.addChild( controlPanel );
+    if ( model.tab !== 'motion' ) {
+      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ) );
+      controlPanel.addChild( frictionSlider );
+    }
+    this.addChild( controlPanel );
 
     var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
-    this.scene.addChild( resetButton );
+    this.addChild( resetButton );
 
     //Fit to the window and render the initial scene
     $( window ).resize( function() { view.resize(); } );
     this.resize();
   }
 
-  MotionScenery.prototype = {
+  inherit( MotionNode, Node, {    resize: function() {
+    var width = $( window ).width();
+    var height = $( window ).height() - 40;//leave room for the tab bar
+
+    var scale = Math.min( width / 981, height / 644 );
+    this.resetTransform();
+    this.scale( scale );
+    //TODO: center in the available width
+
+    var skyHeight = (412) * scale;
+    var groundHeight = height - skyHeight;
+
+    this.skyNode.mutate( {rectWidth: width / scale, rectHeight: 412} );
+    this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+
+    this.groundNode.mutate( {rectX: 0, rectY: 412, rectWidth: width / scale, rectHeight: groundHeight / scale } );
+
+    var $tabIcons = $( '.tab-icons' );
+    $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
+    $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
+  }, get topOfStack() {
+    var sum = 0;
+    for ( var i = 0; i < this.model.stack.length; i++ ) {
+      var itemView = this.getItemNode( this.model.stack[i] );
+      sum = sum + itemView.height;
+    }
+    return 380 - sum;
+  },
     getItemNode: function( item ) {
       for ( var i = 0; i < this.itemNodes.length; i++ ) {
         if ( this.itemNodes[i].item === item ) {
@@ -159,41 +191,8 @@ define( function( require ) {
         }
       }
       throw new Error( "Couldn't find itemNode for item" );
-    },
-    get topOfStack() {
-      var sum = 0;
-      for ( var i = 0; i < this.model.stack.length; i++ ) {
-        var itemView = this.getItemNode( this.model.stack[i] );
-        sum = sum + itemView.height;
-      }
-      return 380 - sum;
-    },
-    resize: function() {
-      var width = $( window ).width();
-      var height = $( window ).height() - 40;//leave room for the tab bar
+    }
+  } );
 
-      var scale = Math.min( width / 981, height / 644 );
-      this.scene.resetTransform();
-      this.scene.scale( scale );
-      //TODO: center in the available width
-
-      var skyHeight = (412) * scale;
-      var groundHeight = height - skyHeight;
-
-      this.skyNode.mutate( {rectWidth: width / scale, rectHeight: 412} );
-      this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-
-      this.groundNode.mutate( {rectX: 0, rectY: 412, rectWidth: width / scale, rectHeight: groundHeight / scale } );
-
-      var $tabIcons = $( '.tab-icons' );
-      $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
-      $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
-
-      this.render();
-    },
-    render: function() {
-//      this.scene.updateScene();
-    }};
-
-  return MotionScenery;
+  return MotionNode;
 } );

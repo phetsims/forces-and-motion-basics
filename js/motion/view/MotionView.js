@@ -1,6 +1,6 @@
 define( function( require ) {
   "use strict";
-  var MotionScenery = require( 'motion/view/MotionScenery' );
+//  var MotionScenery = require( 'motion/view/MotionScenery' );
   var playback = false;
   var log = [];
   var logIndex = 0;
@@ -32,7 +32,7 @@ define( function( require ) {
     var $resetButton = $( '.reset-all-button' );
     $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
 
-    view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );
+//    view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
     if ( typeof io !== 'undefined' && (sendMessagesToServer || readServer) ) {
