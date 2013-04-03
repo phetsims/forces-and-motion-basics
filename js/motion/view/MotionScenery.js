@@ -20,7 +20,6 @@ define( function( require ) {
 
   function MotionScenery( model, imageLoader ) {
     this.model = model;
-    var tugOfWarScenery = this;
     var view = this;
     view.imageLoader = imageLoader;
 
