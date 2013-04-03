@@ -64,8 +64,8 @@ define( function( require ) {
       view.addChild( sprite );
       model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
-    addBackgroundSprite2( $( '.mybrick' )[0], 0, '', 1, 0, 1 );
-    addBackgroundSprite2( $( '.mybrick' )[0], 1000, '', 1, 0, 1 );
+    addBackgroundSprite2( imageLoader.getImage( 'brick-repeat.svg' ), 0, '', 1, 0, 1 );
+    addBackgroundSprite2( imageLoader.getImage( 'brick-repeat.svg' ), 1000, '', 1, 0, 1 );
 
     //Add toolbox backgrounds for the pullers
     var boxHeight = 180;
@@ -100,7 +100,7 @@ define( function( require ) {
     this.addChild( this.sumArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) );
+    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), imageLoader );
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
     var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 465, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
     this.addChild( vbox );//text box only seems to work if addedlast
@@ -132,7 +132,7 @@ define( function( require ) {
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
-    var controlPanel = new MotionControlPanel( model );
+    var controlPanel = new MotionControlPanel( model, imageLoader );
     this.addChild( controlPanel );
 
     var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).

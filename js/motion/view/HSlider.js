@@ -12,10 +12,9 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var sliderKnob = require( 'tpl!../../../svg/handle_blue_top_grip_flat_gradient_3.svg' );
   var linear = require( 'DOT/Util' ).linear;
 
-  function HSlider( min, max, width, property, options ) {
+  function HSlider( min, max, width, property, imageLoader, options ) {
     Node.call( this, options );
 
     //TODO: turn these into parameters
@@ -38,14 +37,8 @@ define( function( require ) {
     //The track
     this.addChild( new Rectangle( 0, 0, width, 6, {stroke: 'black', lineWidth: 1, fill: 'white'} ) );
 
-    //Instantiate the template
-    var knobSVGText = sliderKnob();
-
-    //Append to the DOM
-    $( 'body' ).append( $( knobSVGText ) );
-
     //Lookup the new item and append to the scenery
-    var svgKnob = new DOM( $( 'body' ).find( '#Layer_1' ), {cursor: 'pointer'} );
+    var svgKnob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ) );
     svgKnob.y = -svgKnob.height / 2;
     svgKnob.addInputListener( new SimpleDragHandler(
         {allowTouchSnag: true,

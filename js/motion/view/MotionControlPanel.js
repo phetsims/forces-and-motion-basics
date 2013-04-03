@@ -10,7 +10,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
 
-  function MotionControlPanel( model ) {
+  function MotionControlPanel( model, imageLoader ) {
     Node.call( this );
 
     var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showForce' ) );
@@ -27,7 +27,7 @@ define( function( require ) {
                                              [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox, accelerationCheckBox]
                                  } );
     if ( model.tab !== 'motion' ) {
-      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ) ).mutate( {left: 5, top: controlPanel.bottom + 5} );
+      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ), imageLoader ).mutate( {left: 5, top: controlPanel.bottom + 5} );
       controlPanel.addChild( frictionSlider );
     }
     this.addChild( controlPanel );
