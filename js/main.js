@@ -49,6 +49,8 @@ require( [ "tugofwar/model/TugOfWarModel",
     scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
+    window.accessibilityScene = new Scene( $( '.accessibility-scene' ) );
+
     //Start in Tab 2 for debugging
 
     var tabWrappers = [

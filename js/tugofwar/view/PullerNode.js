@@ -2,6 +2,8 @@ define( function( require ) {
   "use strict";
 
   var Image = require( 'SCENERY/nodes/Image' );
+  var DOM = require( 'SCENERY/nodes/DOM' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var red = "red";
@@ -58,6 +60,16 @@ define( function( require ) {
             updateImage( pullerNode.model, model.running );
           }, translate: function( event ) { pullerNode.puller.set( {x: event.position.x, y: event.position.y} ); }
         } ) );
+
+    this.focusRectangle = new Rectangle( 0, 0, this.width, this.height, 10, 10, {stroke: 'black', lineWidth: 3, visible: false} );
+    this.addChild( this.focusRectangle );
+
+    //Add accessibility peer
+    this.peer = new DOM( $( '<input type="button">' ), { interactive: true} );
+    var $elm = $( this.peer.element );
+    $elm.click( function() {puller.y = 100;} );
+    $elm.focusin( function() { pullerNode.focusRectangle.visible = true;} );
+    $elm.focusout( function() { pullerNode.focusRectangle.visible = false;} );
   }
 
   inherit( PullerNode, Image );
