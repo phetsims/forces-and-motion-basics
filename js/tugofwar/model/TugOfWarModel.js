@@ -127,8 +127,8 @@ define( function( require ) {
             return null;
           }
         },
-        resetAll: function() {
-          this.set( this.defaults ); //do not clear, which could remove children set in initialize
+        reset: function() {
+          Fort.Model.prototype.reset.call( this );
           this.cart.set( this.cart.defaults );
           this.pullers.each( function( puller ) { puller.set( puller.initAttributes ); } );
           this.trigger( 'reset-all' );
