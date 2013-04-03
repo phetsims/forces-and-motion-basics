@@ -18,6 +18,7 @@ define( function( require ) {
   var Button = require( 'SUN/Button' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
+  var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
 
   function MotionNode( model, imageLoader ) {
     this.model = model;
@@ -131,24 +132,7 @@ define( function( require ) {
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
-    var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showForce' ) );
-    var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSumOfForces' ) );
-    var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showValues' ) );
-    var massesCheckBox = new CheckBox( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showMasses' ) );
-    var speedCheckBox = new CheckBox( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSpeed' ) );
-    var accelerationCheckBox = new CheckBox( new Text( 'Acceleration', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showAcceleration' ) );
-
-    var controlPanel = new VBox( {align: 'left',
-                                   children: model.tab === 'motion' ?
-                                             [ forceCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
-                                             model.tab === 'friction' ?
-                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
-                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox, accelerationCheckBox]
-                                 } );
-    if ( model.tab !== 'motion' ) {
-      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ) ).mutate( {left: 5, top: controlPanel.bottom + 5} );
-      controlPanel.addChild( frictionSlider );
-    }
+    var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
     var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).
