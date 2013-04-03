@@ -1,7 +1,6 @@
 define( function( require ) {
   "use strict";
   var MotionScenery = require( 'motion/view/MotionScenery' );
-  var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var playback = false;
   var log = [];
   var logIndex = 0;
@@ -12,7 +11,6 @@ define( function( require ) {
 
   function MotionView( imageLoader, motionModel, $tab ) {
     var view = this;
-    var controlPanel = new MotionControlPanel( $tab, motionModel, imageLoader );
     this.motionModel = motionModel;
     motionModel.getSize = function( item ) {
       var itemNode = view.scenery.getItemNode( item );

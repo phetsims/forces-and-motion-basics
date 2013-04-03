@@ -3,10 +3,10 @@ define( function( require ) {
   var Vector2 = require( "DOT/Vector2" );
   var Item = require( 'motion/model/Item' );
   var Fort = require( 'FORT/Fort' );
+  var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
 
   var MotionModel = Fort.Model.extend(
       {defaults: {
-
         //TODO: Turn stack into a backbone collection
         stack: [],
         appliedForce: 0,
@@ -79,9 +79,9 @@ define( function( require ) {
           this.trigger( 'stackChanged' );
         },
         init: function() {
-
+          //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
+          assert && assert( this.has( 'tab' ) );
           var motionModel = this;
-          //TODO: can we bring back hashless constructor?
           //TODO: Switch to backbone collection.
           this.items = [
             new Item( {context: this, image: 'fridge.png', weight: 200, x: 26, y: 490, imageScale: 0.8} ),

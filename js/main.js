@@ -110,9 +110,9 @@ require( [ "tugofwar/model/TugOfWarModel",
       else if ( inited && !inited2 ) {
         tabs = [
           new TugOfWarNode( new TugOfWarModel(), imageLoader ),
-          new MotionScenery( new MotionModel(), imageLoader ).scene,
-          new MotionScenery( new MotionModel(), imageLoader ).scene,
-          new MotionScenery( new MotionModel(), imageLoader ).scene
+          new MotionScenery( new MotionModel( {tab: 'motion'} ), imageLoader ).scene,
+          new MotionScenery( new MotionModel( {tab: 'friction'} ), imageLoader ).scene,
+          new MotionScenery( new MotionModel( {tab: 'acceleration'} ), imageLoader ).scene
         ];
 
         appModel.link( 'tab', function( m, tab ) { tabContainer.children = [tabs[tab]]; } );

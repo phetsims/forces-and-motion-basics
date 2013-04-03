@@ -1,9 +1,7 @@
 define( function( require ) {
   "use strict";
   var PullerNode = require( "tugofwar/view/PullerNode" );
-  var Shape = require( 'KITE/Shape' );
   var LayerType = require( 'SCENERY/layers/LayerType' );
-  var Scene = require( 'SCENERY/Scene' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -11,14 +9,10 @@ define( function( require ) {
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var arrow = require( 'tugofwar/view/arrow' );
-  var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Pattern = require( 'SCENERY/util/Pattern' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var ItemNode = require( 'motion/view/ItemNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
@@ -141,11 +135,16 @@ define( function( require ) {
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.scene.addChild( speedometerNode );
 
-    var controlPanel = new VBox( {align: 'left', children: [
-      new CheckBox( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showForce' ) ),
-      new CheckBox( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showValues' ) ),
-      new CheckBox( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showMasses' ) ),
-      new CheckBox( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSpeed' ) )]} );
+    var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showForce' ) );
+    var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSumOfForces' ) );
+    var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showValues' ) );
+    var massesCheckBox = new CheckBox( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showMasses' ) );
+    var speedCheckBox = new CheckBox( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSpeed' ) );
+
+    var controlPanel = new VBox( {align: 'left',
+                                   children: model.tab === 'motion' ?
+                                             [ forceCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
+                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox]} );
     this.scene.addChild( controlPanel );
 
     var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).
