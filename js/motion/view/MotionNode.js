@@ -136,13 +136,17 @@ define( function( require ) {
     var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showValues' ) );
     var massesCheckBox = new CheckBox( new Text( 'Masses', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showMasses' ) );
     var speedCheckBox = new CheckBox( new Text( 'Speed', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showSpeed' ) );
+    var accelerationCheckBox = new CheckBox( new Text( 'Acceleration', {fontSize: '22px', x: 50, y: 50} ), {}, model.property( 'showAcceleration' ) );
 
     var controlPanel = new VBox( {align: 'left',
                                    children: model.tab === 'motion' ?
                                              [ forceCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
-                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox]} );
+                                             model.tab === 'friction' ?
+                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
+                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox, accelerationCheckBox]
+                                 } );
     if ( model.tab !== 'motion' ) {
-      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ) );
+      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ) ).mutate( {left: 5, top: controlPanel.bottom + 5} );
       controlPanel.addChild( frictionSlider );
     }
     this.addChild( controlPanel );
