@@ -62,7 +62,10 @@ define( function( require ) {
             updateLocation();
             puller.dragging = false;
             updateImage( pullerNode.model, model.running );
-          }, translate: function( event ) { pullerNode.puller.set( {x: event.position.x, y: event.position.y} ); }
+          },
+          translate: function( event ) {
+            pullerNode.puller.set( {x: event.position.x, y: event.position.y} );
+          }
         } ) );
 
     this.focusRectangle = new Rectangle( 0, 0, this.width, this.height, 10, 10, {stroke: 'black', lineWidth: 3, visible: false} );
@@ -71,7 +74,19 @@ define( function( require ) {
     //Add accessibility peer
     this.peer = new DOM( $( '<input type="button">' ), { interactive: true} );
     var $elm = $( this.peer.element );
-    $elm.click( function() {puller.y = 100;} );
+    $elm.click( function() {
+      if ( puller.knot ) {
+        puller.disconnect();
+        puller.set( {x: puller.initX, y: puller.initY} );
+        model.numberPullersAttached = model.countAttachedPullers();
+      }
+      else {
+        puller.disconnect();
+        var knot = model.getClosestOpenKnot( puller );
+        puller.set( {x: knot.x, y: knot.y, knot: knot} );
+        model.numberPullersAttached = model.countAttachedPullers();
+      }
+    } );
     $elm.focusin( function() { pullerNode.focusRectangle.visible = true;} );
     $elm.focusout( function() { pullerNode.focusRectangle.visible = false;} );
   }

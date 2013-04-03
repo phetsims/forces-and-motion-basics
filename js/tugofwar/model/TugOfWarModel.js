@@ -112,15 +112,22 @@ define( function( require ) {
           var find = this.pullers.find( function( puller ) {return puller.get( 'knot' ) === knot;} );
           return typeof(find) !== "undefined" ? find : null;
         },
-        getTargetKnot: function( puller ) {
+        getClosestOpenKnot: function( puller ) {
           var model = this;
-          var filter = this.knots.filter( function( knot ) {
-            return knot.get( 'type' ) === puller.get( 'type' ) && model.getPuller( knot ) === null;
-          } );
           var distance = function( knot ) {
             return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
           };
+          var filter = this.knots.filter( function( knot ) {
+            return knot.get( 'type' ) === puller.get( 'type' ) && model.getPuller( knot ) === null;
+          } );
           var target = _.min( filter, distance );
+          return target;
+        },
+        getTargetKnot: function( puller ) {
+          var distance = function( knot ) {
+            return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
+          };
+          var target = this.getClosestOpenKnot( puller );
           var distanceToTarget = distance( target );
           if ( distanceToTarget < 150 ) {
             return target;
