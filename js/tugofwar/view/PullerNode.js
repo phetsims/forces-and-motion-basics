@@ -40,6 +40,10 @@ define( function( require ) {
       var knotted = puller.has( 'knot' );
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
+
+      //Reshape the focus rect when image changes
+      pullerNode.focusRectangle.rectWidth = pullerNode.image.width;
+      pullerNode.focusRectangle.rectHeight = pullerNode.image.height;
       updateLocation();
     };
     model.on( 'change:running', updateImage );
@@ -56,7 +60,7 @@ define( function( require ) {
           },
           end: function( event ) {
             updateLocation();
-            puller.set( 'dragging', false );
+            puller.dragging = false;
             updateImage( pullerNode.model, model.running );
           }, translate: function( event ) { pullerNode.puller.set( {x: event.position.x, y: event.position.y} ); }
         } ) );
