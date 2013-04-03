@@ -50,10 +50,12 @@ define( function( require ) {
         },
         init: function() {
           this.cart = new Cart();
-          this.pullers = new Pullers( [ new Puller( {x: 260, y: 500, dragOffsetX: 20, type: blue, size: small } ),
-                                        new Puller( {x: 198, y: 500, dragOffsetX: 20, type: blue, size: small } ),
-                                        new Puller( {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium} ),
+          //Create the pullers from left to right so the tab order will be as expected.
+          this.pullers = new Pullers( [
                                         new Puller( {x: 38, y: 407, dragOffsetX: 80, type: blue, size: large  } ),
+                                        new Puller( {x: 132, y: 446, dragOffsetX: 50, type: blue, size: medium} ),
+                                        new Puller( {x: 198, y: 500, dragOffsetX: 20, type: blue, size: small } ),
+                                        new Puller( {x: 260, y: 500, dragOffsetX: 20, type: blue, size: small } ),
                                         new Puller( {x: 624, y: 500, dragOffsetX: 10, type: red, size: small } ),
                                         new Puller( {x: 684, y: 500, dragOffsetX: 10, type: red, size: small } ),
                                         new Puller( {x: 756, y: 446, dragOffsetX: 20, type: red, size: medium } ),
