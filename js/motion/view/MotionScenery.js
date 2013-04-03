@@ -1,6 +1,5 @@
 define( function( require ) {
   "use strict";
-  var PullerNode = require( "tugofwar/view/PullerNode" );
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -9,11 +8,8 @@ define( function( require ) {
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
   var arrow = require( 'tugofwar/view/arrow' );
-  var GoButton = require( 'tugofwar/view/GoButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var FlagNode = require( 'tugofwar/view/FlagNode' );
   var ItemNode = require( 'motion/view/ItemNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
