@@ -38,7 +38,7 @@ define( function( require ) {
     this.addChild( new Rectangle( 0, 0, width, 6, {stroke: 'black', lineWidth: 1, fill: 'white'} ) );
 
     //Lookup the new item and append to the scenery
-    var svgKnob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ) );
+    var svgKnob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ), {cursor: 'pointer'} );
     svgKnob.y = -svgKnob.height / 2;
     svgKnob.addInputListener( new SimpleDragHandler(
         {allowTouchSnag: true,
