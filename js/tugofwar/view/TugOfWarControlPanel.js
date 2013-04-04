@@ -13,9 +13,9 @@ define( function( require ) {
     Node.call( this, options );
 
     var controlPanel = new VBox( {align: 'left', children: [
-      new CheckBox( new Text( "Sum of Forces", {fontSize: '22px'} ), {}, model.property( 'showSumOfForces' ) ),
-      new CheckBox( new Text( "Values", {fontSize: '22px'} ), {}, model.property( 'showValues' ) ),
-      new CheckBox( new Text( "Sound", {fontSize: '22px'} ), {}, model.property( 'volumeOn' ) )
+      new CheckBox( new Text( "Sum of Forces", {fontSize: '22px'} ), model.property( 'showSumOfForces' ) ),
+      new CheckBox( new Text( "Values", {fontSize: '22px'} ), model.property( 'showValues' ) ),
+      new CheckBox( new Text( "Sound", {fontSize: '22px'} ), model.property( 'volumeOn' ) )
     ]} );
     this.addChild( controlPanel );
 
