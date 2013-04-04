@@ -10,24 +10,24 @@ define( function( require ) {
 
   function GoButton( getImage, model ) {
     var goButtonImage = this;
-    Image.call( this, getImage( 'go_up' ), {x: 420, y: 400, cursor: 'pointer'} );
+    Image.call( this, getImage( 'go_up.png' ), {x: 420, y: 400, cursor: 'pointer'} );
     goButtonImage.addInputListener(
         {
           over: function( event ) {
-            goButtonImage.image = getImage( 'go_hover' );
+            goButtonImage.image = getImage( 'go_hover.png' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
           },
           out: function( event ) {
-            goButtonImage.image = getImage( 'go_up' );
+            goButtonImage.image = getImage( 'go_up.png' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
           },
           down: function( event ) {
-            goButtonImage.image = getImage( 'go_pressed' );
+            goButtonImage.image = getImage( 'go_pressed.png' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
             model.running = !model.running;
           },
           up: function( event ) {
-            goButtonImage.image = getImage( 'go_hover' );
+            goButtonImage.image = getImage( 'go_hover.png' );
             goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
           }
         } );

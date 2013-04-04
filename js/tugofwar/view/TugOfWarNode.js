@@ -32,7 +32,7 @@ define( function( require ) {
                        size === medium ? "_" :
                        "_small_";
       var colorString = type.toUpperCase();
-      return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) );
+      return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) + ".png" );
     }
 
     var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
@@ -44,9 +44,9 @@ define( function( require ) {
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
     var grassY = 368;
-    this.addChild( new Image( imageLoader.getImage( 'grass' ), {x: 13, y: grassY} ) );
+    this.addChild( new Image( imageLoader.getImage( 'grass.png' ), {x: 13, y: grassY} ) );
 
-    this.cartNode = new Image( imageLoader.getImage( 'cart' ), {x: 399, y: 221} );
+    this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
     //Black caret below the cart
     this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.cartNode.centerX, y: grassY + 10} ) );
 
@@ -65,7 +65,7 @@ define( function( require ) {
     this.addChild( this.rightArrow );
     this.addChild( this.sumArrow );
 
-    this.ropeNode = new Image( imageLoader.getImage( 'rope' ), {x: 51, y: 263 } );
+    this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
     model.knots.each( function( knot ) {
       var knotNode = new KnotNode( knot );
