@@ -27,8 +27,9 @@ define( function( require ) {
                                              [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox, accelerationCheckBox]
                                  } );
     if ( model.tab !== 'motion' ) {
-      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ), imageLoader ).mutate( {left: 5, top: controlPanel.bottom + 5} );
-      controlPanel.addChild( frictionSlider );
+      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ), imageLoader );
+      var frictionLabel = new Text( 'Friction', {fontSize: '22px'} );
+      controlPanel.addChild( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ).mutate( {left: 5, top: controlPanel.bottom + 5} ) );
     }
     this.addChild( controlPanel );
   }
