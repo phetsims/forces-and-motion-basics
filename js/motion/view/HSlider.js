@@ -11,6 +11,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
 
@@ -25,7 +26,7 @@ define( function( require ) {
 
     for ( var i = 0; i < numTicks; i++ ) {
       var x1 = linear( 0, 0, 1, width, i / (numTicks - 1) );
-      var tick = new Path( {shape: Shape.lineSegment( {x: x1, y: 0}, {x: x1, y: isMajor( i ) ? 30 : 15} ), stroke: 'black', lineWidth: 1} );
+      var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? 30 : 15 ) ), stroke: 'black', lineWidth: 1} );
 
       this.addChild( tick );
       if ( hasLabel( i ) ) {
