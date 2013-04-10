@@ -16,9 +16,10 @@ define( function( require ) {
   function TugOfWarControlPanel( model, imageLoader, options ) {
     Node.call( this, options );
 
+    var fontSize = '19px';
     var controlPanel = new VBox( {align: 'left', children: [
-      new CheckBox( new Text( "Sum of Forces", {fontSize: '22px'} ), model.property( 'showSumOfForces' ) ),
-      new CheckBox( new Text( "Values", {fontSize: '22px'} ), model.property( 'showValues' ) )
+      new CheckBox( new Text( "Sum of Forces", {fontSize: fontSize} ), model.property( 'showSumOfForces' ) ),
+      new CheckBox( new Text( "Values", {fontSize: fontSize} ), model.property( 'showValues' ) )
     ]} );
     this.addChild( controlPanel );
 

@@ -83,7 +83,7 @@ define( function( require ) {
     this.addChild( this.cartNode );
     this.addChild( new GoButton( getImage, this.model ) );
 
-    this.addChild( new TugOfWarControlPanel( this.model, imageLoader ) );
+    this.addChild( new TugOfWarControlPanel( this.model, imageLoader ).mutate( {right: 981 - 5, top: 5} ) );
 
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', this.updateForces, this );

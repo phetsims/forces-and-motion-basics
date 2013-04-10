@@ -13,7 +13,7 @@ define( function( require ) {
   function MotionControlPanel( model, imageLoader ) {
     Node.call( this );
 
-    var fontSize = '18px';
+    var fontSize = '19px';
     var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showForce' ) );
     var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showSumOfForces' ) );
     var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showValues' ) );
@@ -32,7 +32,7 @@ define( function( require ) {
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
       controlPanel.addChild( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ).mutate( {left: 5, top: controlPanel.bottom + 5} ) );
     }
-    this.addChild( controlPanel );
+    this.addChild( controlPanel.mutate( { left: 981 - controlPanel.width - 5, top: 5} ) );
   }
 
   inherit( MotionControlPanel, Node );
