@@ -109,10 +109,10 @@ require( [ "tugofwar/model/TugOfWarModel",
       //Load the modules lazily, makes the startup time on iPad3 go from 14 sec to 4 sec to see the home screen
       else if ( inited && !inited2 ) {
         tabs = [
-          new TugOfWarNode( new TugOfWarModel(), imageLoader ),
+//          new TugOfWarNode( new TugOfWarModel(), imageLoader ),
           new MotionNode( new MotionModel( {tab: 'motion'} ), imageLoader ),
-          new MotionNode( new MotionModel( {tab: 'friction'} ), imageLoader ),
-          new MotionNode( new MotionModel( {tab: 'acceleration'} ), imageLoader )
+//          new MotionNode( new MotionModel( {tab: 'friction'} ), imageLoader ),
+//          new MotionNode( new MotionModel( {tab: 'acceleration'} ), imageLoader )
         ];
 
         appModel.link( 'tab', function( tab ) { tabContainer.children = [tabs[tab]]; } );
