@@ -23,7 +23,7 @@ define( function( require ) {
     ]} );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new FontAwesomeNode( 'refresh' ), {}, model.reset.bind( model ) );
+    var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) );
     var soundButton = new ToggleButton( new ToggleNode( new FontAwesomeNode( 'volume_off' ),
                                                         new FontAwesomeNode( 'volume_up' ),
                                                         model.property( 'volumeOn' ) ), model.property( 'volumeOn' ) );

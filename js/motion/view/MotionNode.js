@@ -138,7 +138,7 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model, imageLoader );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new FontAwesomeNode( 'refresh' ), {}, model.reset.bind( model ) ).
+    var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) ).
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
