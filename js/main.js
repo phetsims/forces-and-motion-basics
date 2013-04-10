@@ -75,7 +75,7 @@ require( [ "tugofwar/model/TugOfWarModel",
     tabNode.addChild( tabContainer );
     scene.addChild( root );
 
-    appModel.link( 'home', function( m, home ) { root.children = [home ? homeScreen : tabNode];} );
+    appModel.link( 'home', function( home ) { root.children = [home ? homeScreen : tabNode];} );
 
     function resize() {
       var width = $( window ).width();
@@ -115,7 +115,7 @@ require( [ "tugofwar/model/TugOfWarModel",
           new MotionNode( new MotionModel( {tab: 'acceleration'} ), imageLoader )
         ];
 
-        appModel.link( 'tab', function( m, tab ) { tabContainer.children = [tabs[tab]]; } );
+        appModel.link( 'tab', function( tab ) { tabContainer.children = [tabs[tab]]; } );
         inited2 = true;
         scene.updateScene();
         console.log( "init2 finished" );

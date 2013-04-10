@@ -86,7 +86,7 @@ define( function( require ) {
     this.labelNode = labelNode;
     updateImage();
 
-    showMassesProperty.link( function( m, showMasses ) { labelNode.visible = showMasses; } );
+    showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
   }
 
   inherit( ItemNode, Node );

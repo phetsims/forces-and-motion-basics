@@ -15,7 +15,7 @@ define( function( require ) {
     var itemNode = this;
     Node.call( this, {cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
-    var updatePosition = function( m, appliedForce ) {
+    var updatePosition = function( appliedForce ) {
       var index = Math.round( Math.abs( (appliedForce / 100 * 14) ) );
       if ( index > 14 ) {
         index = 14;

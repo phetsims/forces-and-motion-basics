@@ -48,7 +48,7 @@ define( function( require ) {
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
       view.addChild( sprite );
-      model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
+      model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     var mountainY = 353;
 
@@ -63,7 +63,7 @@ define( function( require ) {
     var addBackgroundSprite2 = function( image, offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg', scale: 4, rendererOptions: {cssTransform: true}} );
       view.addChild( sprite );
-      model.link( 'position', function( m, newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
+      model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     addBackgroundSprite2( imageLoader.getImage( 'brick-repeat.svg' ), 0, '', 1, 0, 1 );
     addBackgroundSprite2( imageLoader.getImage( 'brick-repeat.svg' ), 1000, '', 1, 0, 1 );
@@ -107,7 +107,7 @@ define( function( require ) {
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
     var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 465, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
     this.addChild( vbox );//text box only seems to work if addedlast
-    model.link( 'appliedForce', function( m, value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
+    model.link( 'appliedForce', function( value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
     var unitsLabel = new Text( Strings.newtons, {fontSize: '22px', renderer: 'svg'} );

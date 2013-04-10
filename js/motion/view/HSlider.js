@@ -51,7 +51,7 @@ define( function( require ) {
     ) );
     this.addChild( svgKnob );
 
-    property.link( function( model, value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
+    property.link( function( value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
   }
 
   inherit( HSlider, Node );

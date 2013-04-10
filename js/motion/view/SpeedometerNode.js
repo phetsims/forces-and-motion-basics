@@ -33,7 +33,7 @@ define( function( require ) {
     var startAngle = -1 / 2 * Math.PI - totalAngle / 2;
     var endAngle = startAngle + totalAngle;
 
-    velocityProperty.link( function( model, velocity ) {
+    velocityProperty.link( function( velocity ) {
       needle.resetTransform();
 
       var needleAngle = linear( 0, startAngle, 20, endAngle, Math.abs( velocity ) );
