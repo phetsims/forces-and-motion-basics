@@ -11,6 +11,7 @@ define( function( require ) {
   var ToggleNode = require( 'SUN/ToggleNode' );
   var CheckBox = require( 'SUN/CheckBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
 
   function TugOfWarControlPanel( model, imageLoader, options ) {
     Node.call( this, options );
@@ -21,9 +22,9 @@ define( function( require ) {
     ]} );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) );
-    var soundButton = new ToggleButton( new ToggleNode( new Image( imageLoader.getImage( 'icon-volume-off.svg' ), {scale: 0.025} ),
-                                                        new Image( imageLoader.getImage( 'icon-volume-up.svg' ), {scale: 0.025} ),
+    var resetButton = new Button( new FontAwesomeNode( 'refresh' ), {}, model.reset.bind( model ) );
+    var soundButton = new ToggleButton( new ToggleNode( new FontAwesomeNode( 'volume_off' ),
+                                                        new FontAwesomeNode( 'volume_up' ),
                                                         model.property( 'volumeOn' ) ), model.property( 'volumeOn' ) );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} ) );
   }

@@ -19,6 +19,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
 
   function MotionNode( model, imageLoader ) {
     this.model = model;
@@ -137,7 +138,7 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model, imageLoader );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new Image( $( '.phet-icon-refresh' )[0], {scale: 0.025} ), {}, model.reset.bind( model ) ).
+    var resetButton = new Button( new FontAwesomeNode( 'refresh' ), {}, model.reset.bind( model ) ).
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
