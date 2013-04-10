@@ -45,9 +45,9 @@ define( function( require ) {
         {allowTouchSnag: true,
           translate: function( options ) {
             var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
-            property.set( linear( 0, min, width, max, x ) );
+            property.value = linear( 0, min, width, max, x );
           },
-          end: function() { property.set( 0 ); }}
+          end: function() { property.value = 0; }}
     ) );
     this.addChild( svgKnob );
 
