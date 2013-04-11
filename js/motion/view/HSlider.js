@@ -16,27 +16,17 @@ define( function( require ) {
   var linear = require( 'DOT/Util' ).linear;
 
   function HSlider( min, max, width, property, imageLoader, options ) {
+    this.min = min;
+    this.max = max;
+    this.sliderWidth = width;
+    this.trackHeight = 6;
     Node.call( this, options );
 
-    //TODO: turn these into parameters
-    var numDivisions = 8; //e.g. divide the ruler into 1/8ths
-    var numTicks = numDivisions + 1; //ticks on the end
-    var isMajor = function( tickIndex ) { return tickIndex % 2 === 0; };
-    var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
-
-    for ( var i = 0; i < numTicks; i++ ) {
-      var x1 = linear( 0, 0, 1, width, i / (numTicks - 1) );
-      var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? 30 : 15 ) ), stroke: 'black', lineWidth: 1} );
-
-      this.addChild( tick );
-      if ( hasLabel( i ) ) {
-        var label = new Text( linear( 0, min, 1, max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
-        this.addChild( label );
-      }
-    }
+    this.ticksLayer = new Node();
+    this.addChild( this.ticksLayer );
 
     //The track
-    this.addChild( new Rectangle( 0, 0, width, 6, {stroke: 'black', lineWidth: 1, fill: 'white'} ) );
+    this.addChild( new Rectangle( 0, 0, width, this.trackHeight, {stroke: 'black', lineWidth: 1, fill: 'white'} ) );
 
     //Lookup the new item and append to the scenery
     var svgKnob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ), {cursor: 'pointer'} );
@@ -54,7 +44,35 @@ define( function( require ) {
     property.link( function( value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
   }
 
-  inherit( HSlider, Node );
+  inherit( HSlider, Node, {
+    addNormalTicks: function() {
+      //TODO: turn these into parameters
+      var numDivisions = 8; //e.g. divide the ruler into 1/8ths
+      var numTicks = numDivisions + 1; //ticks on the end
+      var isMajor = function( tickIndex ) { return tickIndex % 2 === 0; };
+      var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
+
+      for ( var i = 0; i < numTicks; i++ ) {
+        var x1 = linear( this.min, 0, this.max, this.sliderWidth, i / (numTicks - 1) * (this.max - this.min) + this.min );
+        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? 30 : 15 ) ), stroke: 'black', lineWidth: 1} );
+
+        this.ticksLayer.addChild( tick );
+        if ( hasLabel( i ) ) {
+          var label = new Text( linear( 0, this.min, 1, this.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
+          this.ticksLayer.addChild( label );
+        }
+      }
+      return this;
+    },
+
+    //Add the tick for the specified value, so that the node will be centered on the location specified and just at the edge of the track.
+    addTick: function( value, tickAndLabelNode ) {
+      tickAndLabelNode.centerX = linear( 0, 0, 1, this.sliderWidth, value );
+      tickAndLabelNode.top = this.trackHeight + 1;
+      this.ticksLayer.addChild( tickAndLabelNode );
+      return this;
+    }
+  } );
 
   return HSlider;
 } );

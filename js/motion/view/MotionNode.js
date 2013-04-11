@@ -103,7 +103,7 @@ define( function( require ) {
     this.addChild( this.sumArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), imageLoader );
+    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), imageLoader ).addNormalTicks();
     var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
     var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 465, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
     this.addChild( vbox );//text box only seems to work if addedlast

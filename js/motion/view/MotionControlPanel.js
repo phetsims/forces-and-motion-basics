@@ -1,8 +1,11 @@
 define( function( require ) {
   "use strict";
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
@@ -28,7 +31,15 @@ define( function( require ) {
                                              [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox, accelerationCheckBox]
                                  } );
     if ( model.tab !== 'motion' ) {
-      var frictionSlider = new HSlider( -100, 100, 300, model.property( 'friction' ), imageLoader );
+
+      var createTick = function( label ) {
+        return new VBox( {spacing: 10, children: [
+          new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', lineWidth: 1} ),
+          new Text( label )
+        ]} );
+      };
+
+      var frictionSlider = new HSlider( 0, 2, 150, model.property( 'friction' ), imageLoader ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
       controlPanel.addChild( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ).mutate( {left: 5, top: controlPanel.bottom + 5} ) );
     }
