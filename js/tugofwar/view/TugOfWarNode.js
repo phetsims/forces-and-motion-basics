@@ -51,8 +51,8 @@ define( function( require ) {
     this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.cartNode.centerX, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
-    this.addChild( new Rectangle( 25, 390, 300, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    this.addChild( new Rectangle( 623, 390, 300, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 25, 390, 324, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 630, 390, 324, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
@@ -108,6 +108,7 @@ define( function( require ) {
       var height = $( window ).height() - 40;//leave room for the tab bar
 
       var scale = Math.min( width / 981, height / 644 );
+      console.log( 'scale', scale );
 
       this.resetTransform();
       this.scale( scale );
