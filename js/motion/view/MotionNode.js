@@ -104,15 +104,20 @@ define( function( require ) {
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), imageLoader ).addNormalTicks();
-    var textBox = new DOM( $( '<input type="text" class="span1 applied-force-text-input" >' ), { interactive: true } );
-    var vbox = new VBox( {children: [sliderLabel, slider, textBox], centerX: view.WIDTH / 2 - 18, y: 465, spacing: function( top, bottom ) { return bottom === textBox ? -20 : 8; }} );
+    var vbox = new VBox( {children: [sliderLabel, slider], centerX: view.WIDTH / 2 - 18, y: 465, spacing: 8} );
     this.addChild( vbox );//text box only seems to work if addedlast
-    model.link( 'appliedForce', function( value ) { $( '.applied-force-text-input' ).val( value.toFixed( 0 ) );} );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
-    var unitsLabel = new Text( Strings.newtons, {fontSize: '22px', renderer: 'svg'} );
-    unitsLabel.x = textBox.x + textBox.width + vbox.x + 10;
-    unitsLabel.centerY = textBox.centerY + vbox.y;
+    var readout = new Text( '???', {fontSize: '22px'} );
+    var unitsLabel = new Text( Strings.newtons, {fontSize: '22px'} );
+    readout.top = vbox.bottom + 10;
+    model.link( 'appliedForce', function( appliedForce ) {
+      readout.text = appliedForce.toFixed( 0 );
+      readout.centerX = view.WIDTH / 2 + 2;
+      unitsLabel.x = readout.right + 10;
+    } );
+    unitsLabel.centerY = readout.centerY;
+    this.addChild( readout );
     this.addChild( unitsLabel );
 
     //Show a line that indicates the center of the layout
