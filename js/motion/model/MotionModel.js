@@ -84,13 +84,14 @@ define( function( require ) {
           var motionModel = this;
           //TODO: Switch to backbone collection.
           this.items = [
-            new Item( {context: this, image: 'fridge.png', weight: 200, x: 26, y: 490, imageScale: 0.8} ),
-            new Item( {context: this, image: 'crate.png', weight: 50, x: 117, y: 550, imageScale: 0.5} ),
-            new Item( {context: this, image: 'crate.png', weight: 50, x: 214, y: 550, imageScale: 0.5} ),
+            new Item( {context: this, image: 'fridge.png', weight: 200, x: 25, y: 478, imageScale: 0.8} ),
+            new Item( {context: this, image: 'crate.png', weight: 50, x: 126, y: 550 - 18 + 2, imageScale: 0.5} ),
+            new Item( {context: this, image: 'crate.png', weight: 50, x: 218, y: 550 - 18 + 2, imageScale: 0.5} ),
             new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 40, x: 684, y: 510, imageScale: 0.6} ),
             new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 80, x: 747, y: 460, imageScale: 0.6} ),
-            new Item( {context: this, image: 'mystery-object-01.png', weight: 50, x: 826, y: 580, imageScale: 0.9} ),
-            new Item( {context: this, image: 'trash-can.png', weight: 100, x: 884, y: 518, imageScale: 0.8} )
+            new Item( {context: this, image: 'trash-can.png', weight: 100, x: 826 - 10, y: 518 + 11 + 12, imageScale: 0.7} ),
+            new Item( {context: this, image: 'mystery-object-01.png', weight: 50, x: 880 + 10 - 2, y: 580 + 2, imageScale: 1.1} )
+
           ];
 
           var f = function() {
