@@ -17,12 +17,12 @@ define( function( require ) {
     Node.call( this );
 
     var fontSize = '19px';
-    var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showForce' ) );
-    var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showSumOfForces' ) );
-    var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showValues' ) );
-    var massesCheckBox = new CheckBox( new Text( 'Masses', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showMasses' ) );
-    var speedCheckBox = new CheckBox( new Text( 'Speed', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showSpeed' ) );
-    var accelerationCheckBox = new CheckBox( new Text( 'Acceleration', {fontSize: fontSize, x: 50, y: 50} ), model.property( 'showAcceleration' ) );
+    var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: fontSize} ), model.property( 'showForce' ) );
+    var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: fontSize} ), model.property( 'showSumOfForces' ) );
+    var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: fontSize} ), model.property( 'showValues' ) );
+    var massesCheckBox = new CheckBox( new Text( 'Masses', {fontSize: fontSize} ), model.property( 'showMasses' ) );
+    var speedCheckBox = new CheckBox( new Text( 'Speed', {fontSize: fontSize} ), model.property( 'showSpeed' ) );
+    var accelerationCheckBox = new CheckBox( new Text( 'Acceleration', {fontSize: fontSize} ), model.property( 'showAcceleration' ) );
     var controlPanel = new VBox( {align: 'left',
                                    children: model.tab === 'motion' ?
                                              [ forceCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
