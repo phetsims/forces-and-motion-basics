@@ -12,15 +12,16 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
   function TugOfWarControlPanel( model, imageLoader, options ) {
     Node.call( this, options );
 
     var fontSize = '19px';
-    var controlPanel = new VBox( {align: 'left', children: [
-      new CheckBox( new Text( "Sum of Forces", {fontSize: fontSize} ), model.property( 'showSumOfForces' ) ),
-      new CheckBox( new Text( "Values", {fontSize: fontSize} ), model.property( 'showValues' ) )
-    ]} );
+    var controlPanel = new VerticalCheckBoxGroup( [
+                                                    {content: new Text( "Sum of Forces", {fontSize: fontSize} ), property: model.property( 'showSumOfForces' )},
+                                                    {content: new Text( "Values", {fontSize: fontSize} ), property: model.property( 'showValues' )}
+                                                  ] );
     this.addChild( controlPanel );
 
     var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) );
