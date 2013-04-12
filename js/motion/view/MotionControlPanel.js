@@ -12,23 +12,47 @@ define( function( require ) {
   var Button = require( 'SUN/Button' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
+  var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
   function MotionControlPanel( model, imageLoader ) {
     Node.call( this );
 
     var fontSize = '19px';
-    var forceCheckBox = new CheckBox( new Text( 'Force', {fontSize: fontSize} ), model.property( 'showForce' ) );
-    var sumOfForcesCheckBox = new CheckBox( new Text( 'Sum of Forces', {fontSize: fontSize} ), model.property( 'showSumOfForces' ) );
-    var valuesCheckBox = new CheckBox( new Text( 'Values', {fontSize: fontSize} ), model.property( 'showValues' ) );
-    var massesCheckBox = new CheckBox( new Text( 'Masses', {fontSize: fontSize} ), model.property( 'showMasses' ) );
-    var speedCheckBox = new CheckBox( new Text( 'Speed', {fontSize: fontSize} ), model.property( 'showSpeed' ) );
-    var accelerationCheckBox = new CheckBox( new Text( 'Acceleration', {fontSize: fontSize} ), model.property( 'showAcceleration' ) );
+
+    var toElement = function( text, propertyName ) {
+      return {
+        content: new Text( text, {fontSize: fontSize} ),
+        property: model.property( propertyName )
+      };
+    };
+
     var controlPanel = new VBox( {align: 'left',
                                    children: model.tab === 'motion' ?
-                                             [ forceCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
+                                             [new VerticalCheckBoxGroup(
+                                                 [
+                                                   toElement( 'Force', 'showForce' ),
+                                                   toElement( 'Values', 'showValues' ),
+                                                   toElement( 'Masses', 'showMasses' ),
+                                                   toElement( 'Speed', 'showSpeed' )
+                                                 ] )] :
                                              model.tab === 'friction' ?
-                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox] :
-                                             [ forceCheckBox, sumOfForcesCheckBox, valuesCheckBox, massesCheckBox, speedCheckBox, accelerationCheckBox]
+                                             [new VerticalCheckBoxGroup(
+                                                 [
+                                                   toElement( 'Force', 'showForce' ),
+                                                   toElement( 'Sum of Forces', 'showSumOfForces' ),
+                                                   toElement( 'Values', 'showValues' ),
+                                                   toElement( 'Masses', 'showMasses' ),
+                                                   toElement( 'Speed', 'showSpeed' )
+                                                 ] )] :
+                                             [new VerticalCheckBoxGroup(
+                                                 [
+                                                   toElement( 'Force', 'showForce' ),
+                                                   toElement( 'Sum of Forces', 'showSumOfForces' ),
+                                                   toElement( 'Values', 'showValues' ),
+                                                   toElement( 'Masses', 'showMasses' ),
+                                                   toElement( 'Speed', 'showSpeed' ),
+                                                   toElement( 'Acceleration', 'showAcceleration' )
+                                                 ] )]
                                  } );
     if ( model.tab !== 'motion' ) {
 
