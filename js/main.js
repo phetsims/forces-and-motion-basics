@@ -36,8 +36,6 @@ require( [ "tugofwar/model/TugOfWarModel",
 
   var homeScreen = null;
   var imageLoader = null;
-  var inited = false;
-  var inited2 = false;
   var scene = null;
   var tabs = null;
   var appModel = new Fort.Model( {home: false, tab: 0} );
@@ -101,12 +99,23 @@ require( [ "tugofwar/model/TugOfWarModel",
     //Fit to the window and render the initial scene
     $( window ).resize( resize );
     resize();
-    console.log( "init finished" );
   }
 
   //Wait until images are loaded, then launch the sim and show the initial tab
   new ImagesLoader( function( loader ) {
     imageLoader = loader;
+    init();
+
+    //Load the modules lazily, makes the startup time on iPad3 go from 14 sec to 4 sec to see the home screen
+    tabs = [
+      new TugOfWarNode( new TugOfWarModel(), imageLoader ),
+      new MotionNode( new MotionModel( {tab: 'motion'} ), imageLoader ),
+      new MotionNode( new MotionModel( {tab: 'friction'} ), imageLoader ),
+      new MotionNode( new MotionModel( {tab: 'acceleration'} ), imageLoader )
+    ];
+
+    appModel.link( 'tab', function( tab ) { tabContainer.children = [tabs[tab]]; } );
+    scene.updateScene();
 
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     // place the rAF *before* the render() to assure as close to
@@ -114,34 +123,11 @@ require( [ "tugofwar/model/TugOfWarModel",
     (function animationLoop() {
       requestAnimationFrame( animationLoop );
 
-      if ( !inited ) {
-        init();
-        inited = true;
-        scene.updateScene();
+      //Update the tab, but not if the user is on the home screen
+      if ( !appModel.home ) {
+        tabs[appModel.tab].model.step();
       }
-
-      //Load the modules lazily, makes the startup time on iPad3 go from 14 sec to 4 sec to see the home screen
-      else if ( inited && !inited2 ) {
-        tabs = [
-          new TugOfWarNode( new TugOfWarModel(), imageLoader ),
-          new MotionNode( new MotionModel( {tab: 'motion'} ), imageLoader ),
-          new MotionNode( new MotionModel( {tab: 'friction'} ), imageLoader ),
-          new MotionNode( new MotionModel( {tab: 'acceleration'} ), imageLoader )
-        ];
-
-        appModel.link( 'tab', function( tab ) { tabContainer.children = [tabs[tab]]; } );
-        inited2 = true;
-        scene.updateScene();
-        console.log( "init2 finished" );
-      }
-      else if ( inited && inited2 ) {
-
-        //Update the tab, but not if the user is on the home screen
-        if ( !appModel.home && tabs ) {
-          tabs[appModel.tab].model.step();
-        }
-        scene.updateScene();
-      }
+      scene.updateScene();
     })();
   } );
 } );

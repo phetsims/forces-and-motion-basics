@@ -108,7 +108,6 @@ define( function( require ) {
       var height = 644 - 40;//leave room for the tab bar
 
       var scale = Math.min( width / 981, height / 644 );
-      console.log( 'scale', scale );
 
       this.resetTransform();
       this.scale( scale );
