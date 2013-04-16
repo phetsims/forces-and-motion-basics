@@ -104,8 +104,8 @@ define( function( require ) {
 
   inherit( TugOfWarScenery, Node, {
     resize: function() {
-      var width = $( window ).width();
-      var height = $( window ).height() - 40;//leave room for the tab bar
+      var width = 981;
+      var height = 644 - 40;//leave room for the tab bar
 
       var scale = Math.min( width / 981, height / 644 );
       console.log( 'scale', scale );

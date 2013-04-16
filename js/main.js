@@ -66,7 +66,7 @@ require( [ "tugofwar/model/TugOfWarModel",
       $( "debugDiv" ).remove();
     }
 
-    var navigationBar = new NavigationBar( tabWrappers, appModel );
+    var navigationBar = new NavigationBar( tabWrappers, appModel ).mutate( {bottom: 644} );
 
     var root = new Node(); //root: homeScreen | tabNode
     var tabNode = new Node(); //tabNode: navigationBar tabContainer
@@ -79,9 +79,23 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     function resize() {
       var width = $( window ).width();
-      var height = $( window ).height();
+      var height = $( window ).height();//leave room for the tab bar
 
-      navigationBar.bottom = height;
+      var scale = Math.min( width / 981, height / 644 );
+      scene.resetTransform();
+      scene.setScaleMagnitude( scale );
+
+      //center vertically
+      if ( scale === width / 981 ) {
+        var padding = height - 644 * scale;
+        scene.translate( 0, padding / 2 / scale );
+      }
+
+      //center horizontally
+      else if ( scale === height / 644 ) {
+        var padding = width - 981 * scale;
+        scene.translate( padding / 2 / scale, 0 );
+      }
     }
 
     //Fit to the window and render the initial scene

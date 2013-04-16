@@ -152,9 +152,9 @@ define( function( require ) {
     this.resize();
   }
 
-  inherit( MotionNode, Node, {    resize: function() {
-    var width = $( window ).width();
-    var height = $( window ).height() - 40;//leave room for the tab bar
+  inherit( MotionNode, Node, {resize: function() {
+    var width = 981;
+    var height = 644 - 40;//leave room for the tab bar
 
     var scale = Math.min( width / 981, height / 644 );
     this.resetTransform();
@@ -168,10 +168,6 @@ define( function( require ) {
     this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
     this.groundNode.mutate( {rectX: 0, rectY: 412, rectWidth: width / scale, rectHeight: groundHeight / scale } );
-
-    var $tabIcons = $( '.tab-icons' );
-    $tabIcons.css( {left: width / 2 - $tabIcons.width() / 2, bottom: 3} );
-    $( '.icon-home' ).css( {left: width / 2 + $tabIcons.width() / 2, bottom: 3} );
   }, get topOfStack() {
     var sum = 0;
     for ( var i = 0; i < this.model.stack.length; i++ ) {
