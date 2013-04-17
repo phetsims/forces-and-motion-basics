@@ -22,13 +22,13 @@ define( function( require ) {
       medium = "medium",
       large = "large";
 
-  function TugOfWarScenery( model ) {
+  function TugOfWarTab( model ) {
 
     //Fit to the window and render the initial scene
     var width = LayoutConstants.TAB_WIDTH;
     var height = LayoutConstants.TAB_HEIGHT;//leave room for the tab bar
 
-    var tugOfWarScenery = this;
+    var tugOfWarTab = this;
     this.model = model;
     Node.call( this );
     var getImage = imageLoader.getImage;
@@ -45,15 +45,16 @@ define( function( require ) {
 
     this.model = model;//Wire up so that main.js can step the model
 
-    var skyHeight = (376);
+    var skyHeight = 376;
+    var grassY = 368;
     var groundHeight = height - skyHeight;
 
-    this.skyNode = new Rectangle( 0, 0, width, 376, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
+    //allow the sky to go off the screen in case the window is larger than the sim aspect ratio
+    this.skyNode = new Rectangle( 0, -376, width, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
     this.groundNode = new Rectangle( 0, 376, width, groundHeight, { fill: '#c59a5b'} );
 
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
-    var grassY = 368;
     this.addChild( new Image( imageLoader.getImage( 'grass.png' ), {x: 13, y: grassY} ) );
 
     this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
@@ -80,16 +81,15 @@ define( function( require ) {
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
     model.knots.each( function( knot ) {
-      var knotNode = new KnotNode( knot );
-      tugOfWarScenery.addChild( knotNode );
+      tugOfWarTab.addChild( new KnotNode( knot ) );
     } );
 
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
 
     this.model.cart.on( 'change:x', function( m, x ) {
-      tugOfWarScenery.cartNode.x = x + 399;
-      tugOfWarScenery.ropeNode.x = x + 51;
+      tugOfWarTab.cartNode.x = x + 399;
+      tugOfWarTab.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
@@ -100,17 +100,17 @@ define( function( require ) {
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', this.updateForces, this );
     this.model.pullers.each( function( puller ) {
-      tugOfWarScenery.addChild( new PullerNode( puller, tugOfWarScenery.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+      tugOfWarTab.addChild( new PullerNode( puller, tugOfWarTab.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
     model.on( 'change:state', function( m, state ) {
       if ( state === 'completed' ) {
-        tugOfWarScenery.addChild( new FlagNode( model ) );
+        tugOfWarTab.addChild( new FlagNode( model ) );
       }
     } );
   }
 
-  inherit( TugOfWarScenery, Node, {
+  inherit( TugOfWarTab, Node, {
     updateForces: function() {
       var x = this.arrowTailX;
       var tailWidth = 25;
@@ -121,5 +121,5 @@ define( function( require ) {
       this.sumArrow.shape = arrow( x, 40, x + this.model.getNetForce(), 40, tailWidth, headWidth, headHeight );
     }
   } );
-  return TugOfWarScenery;
+  return TugOfWarTab;
 } );
