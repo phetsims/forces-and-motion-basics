@@ -94,8 +94,17 @@ define( function( require ) {
       this.addChild( itemNode );
     }
 
+    this.getItemNode = function( item ) {
+      for ( var i = 0; i < this.itemNodes.length; i++ ) {
+        if ( this.itemNodes[i].item === item ) {
+          return this.itemNodes[i];
+        }
+      }
+      throw new Error( "Couldn't find itemNode for item", item );
+    };
+
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: Layout.width / 2, y: 315 + 12} ) );
-    this.addChild( new PusherNode( model ) );
+    this.addChild( new PusherNode( model, this ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -158,14 +167,6 @@ define( function( require ) {
         sum = sum + itemView.height;
       }
       return 380 - sum - 42 - 3;
-    },
-    getItemNode: function( item ) {
-      for ( var i = 0; i < this.itemNodes.length; i++ ) {
-        if ( this.itemNodes[i].item === item ) {
-          return this.itemNodes[i];
-        }
-      }
-      throw new Error( "Couldn't find itemNode for item" );
     }
   } );
 

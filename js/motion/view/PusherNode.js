@@ -11,8 +11,9 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
+  var Layout = require( 'SCENERY_PHET/Layout' );
 
-  function PusherNode( model ) {
+  function PusherNode( model, motionTab ) {
     var pusherNode = this;
     Node.call( this, {cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
@@ -23,18 +24,20 @@ define( function( require ) {
         index = 14;
       }
       imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
+      console.log( model.stack.length );
+      var delta = model.stack.length > 0 ? motionTab.getItemNode( model.stack[0] ).width / 2 : 100;
       if ( appliedForce > 0 ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
-        pusherNode.x = 200;
+        pusherNode.x = Layout.width / 2 - imageNode.width - delta;
       }
       else {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
-        pusherNode.x = 700;
+        pusherNode.x = Layout.width / 2 + imageNode.width + delta;
       }
       pusherNode.y = 362 - pusherNode.height;
     } );
