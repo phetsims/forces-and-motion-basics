@@ -29,8 +29,8 @@ define( function( require ) {
     var view = this;
     view.imageLoader = imageLoader;
 
-    view.WIDTH = Layout.WIDTH;
-    view.HEIGHT = Layout.HEIGHT;
+    view.WIDTH = Layout.width;
+    view.HEIGHT = Layout.height;
     view.model = model;
 
     model.getSize = function( item ) {

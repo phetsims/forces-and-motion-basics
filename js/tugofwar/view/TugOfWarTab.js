@@ -25,8 +25,8 @@ define( function( require ) {
   function TugOfWarTab( model ) {
 
     //Fit to the window and render the initial scene
-    var width = Layout.WIDTH;
-    var height = Layout.HEIGHT;
+    var width = Layout.width;
+    var height = Layout.height;
 
     var tugOfWarTab = this;
     this.model = model;
@@ -60,12 +60,12 @@ define( function( require ) {
     this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
 
     //Black caret below the cart
-    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: Layout.WIDTH / 2, y: grassY + 10} ) );
+    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: Layout.width / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
     var toolboxHeight = 216;
-    this.addChild( new Rectangle( 25, Layout.HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    this.addChild( new Rectangle( 630, Layout.HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 25, Layout.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 630, Layout.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );

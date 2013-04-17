@@ -51,7 +51,7 @@ define( function( require ) {
     } );
 
     model.trigger( 'change:numberPullersAttached' );
-    this.centerX = Layout.WIDTH / 2;
+    this.centerX = Layout.width / 2;
   }
 
   inherit( GoButton, Image );
