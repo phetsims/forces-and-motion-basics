@@ -15,7 +15,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
-  function TugOfWarControlPanel( model, imageLoader, options ) {
+  function TugOfWarControlPanel( model, options ) {
     Node.call( this, options );
 
     var fontSize = '19px';

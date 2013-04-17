@@ -28,7 +28,6 @@ define( function( require ) {
     this.model = model;
     Node.call( this );
     var view = this;
-    view.imageLoader = imageLoader;
     view.model = model;
 
     var width = Layout.width;
@@ -87,16 +86,16 @@ define( function( require ) {
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
       var itemNode = new ItemNode( model, view, item,
-                                   view.imageLoader.getImage( item.image ),
-                                   view.imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),
-                                   view.imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
+                                   imageLoader.getImage( item.image ),
+                                   imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),
+                                   imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
                                    model.property( 'showMasses' ) );
       this.itemNodes.push( itemNode );
       this.addChild( itemNode );
     }
 
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: Layout.width / 2, y: 315 + 12} ) );
-    this.addChild( new PusherNode( model, imageLoader ) );
+    this.addChild( new PusherNode( model ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -106,7 +105,7 @@ define( function( require ) {
     this.addChild( this.sumArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), imageLoader ).addNormalTicks();
+    var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) ).addNormalTicks();
     var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: Layout.width / 2 - 18, y: 465, spacing: 8} );
     this.addChild( sliderControl );//text box only seems to work if addedlast
 
@@ -143,7 +142,7 @@ define( function( require ) {
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
-    var controlPanel = new MotionControlPanel( model, imageLoader );
+    var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
     var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) ).

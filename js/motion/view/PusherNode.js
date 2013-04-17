@@ -10,8 +10,9 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var imageLoader = require( 'imageLoader' );
 
-  function PusherNode( model, imageLoader ) {
+  function PusherNode( model ) {
     var pusherNode = this;
     Node.call( this, {cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
@@ -35,7 +36,7 @@ define( function( require ) {
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = 700;
       }
-      pusherNode.y = 382 - pusherNode.height + 30;
+      pusherNode.y = 362 - pusherNode.height;
     } );
 
     this.addInputListener( new SimpleDragHandler(

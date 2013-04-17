@@ -1,5 +1,8 @@
 define( function( require ) {
   "use strict";
+
+  var imageLoader = require( 'imageLoader' );
+
 //  var MotionScenery = require( 'motion/view/MotionScenery' );
   var playback = false;
   var log = [];
@@ -9,14 +12,13 @@ define( function( require ) {
   var readServer = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
   var sendMessagesToServer = false;
 
-  function MotionView( imageLoader, motionModel, $tab ) {
+  function MotionView( motionModel, $tab ) {
     var view = this;
     this.motionModel = motionModel;
     motionModel.getSize = function( item ) {
       var itemNode = view.scenery.getItemNode( item );
       return {width: itemNode.width, height: itemNode.height};
     };
-    view.imageLoader = imageLoader;
     view.getImage = function( name ) {return imageLoader.getImage( name );};
 
     function startPlayback() {
@@ -31,8 +33,6 @@ define( function( require ) {
 
     var $resetButton = $( '.reset-all-button' );
     $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
-
-//    view.scenery = new MotionScenery( motionModel, view, $tab, imageLoader );
 
     //Connect to server for sending or delivering log events
     if ( typeof io !== 'undefined' && (sendMessagesToServer || readServer) ) {

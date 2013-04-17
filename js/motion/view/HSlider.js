@@ -14,8 +14,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
+  var imageLoader = require( 'imageLoader' );
 
-  function HSlider( min, max, width, property, imageLoader, options ) {
+  function HSlider( min, max, width, property, options ) {
     this.min = min;
     this.max = max;
     this.sliderWidth = width;

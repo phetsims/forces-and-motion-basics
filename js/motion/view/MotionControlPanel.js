@@ -15,7 +15,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
-  function MotionControlPanel( model, imageLoader ) {
+  function MotionControlPanel( model ) {
     Node.call( this );
 
     var fontSize = '19px';
@@ -64,7 +64,7 @@ define( function( require ) {
         ]} );
       };
 
-      var frictionSlider = new HSlider( 0, 2, 150, model.property( 'friction' ), imageLoader ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
+      var frictionSlider = new HSlider( 0, 2, 150, model.property( 'friction' ) ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
       controlPanel.addChild( new PanelNode( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ), {left: 5, top: controlPanel.bottom + 5} ) );
     }
