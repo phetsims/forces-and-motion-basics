@@ -14,6 +14,7 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
+  var LayoutConstants = require( 'LayoutConstants' );
 
   var red = "red",
       blue = "blue",
@@ -22,6 +23,11 @@ define( function( require ) {
       large = "large";
 
   function TugOfWarScenery( model ) {
+
+    //Fit to the window and render the initial scene
+    var width = LayoutConstants.TAB_WIDTH;
+    var height = LayoutConstants.TAB_HEIGHT;//leave room for the tab bar
+
     var tugOfWarScenery = this;
     this.model = model;
     Node.call( this );
@@ -37,11 +43,13 @@ define( function( require ) {
       return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) + ".png" );
     }
 
-    var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.model = model;//Wire up so that main.js can step the model
 
-    this.skyNode = new Rectangle( 0, 0, 100, 100, {fill: skyGradient} );
-    this.groundNode = new Rectangle( 0, 0, 100, 100, { fill: '#c59a5b'} );
+    var skyHeight = (376);
+    var groundHeight = height - skyHeight;
+
+    this.skyNode = new Rectangle( 0, 0, width, 376, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
+    this.groundNode = new Rectangle( 0, 376, width, groundHeight, { fill: '#c59a5b'} );
 
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
@@ -49,12 +57,14 @@ define( function( require ) {
     this.addChild( new Image( imageLoader.getImage( 'grass.png' ), {x: 13, y: grassY} ) );
 
     this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
+
     //Black caret below the cart
-    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.cartNode.centerX, y: grassY + 10} ) );
+    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: LayoutConstants.TAB_WIDTH / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
-    this.addChild( new Rectangle( 25, 390, 324, 250, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    this.addChild( new Rectangle( 630, 390, 324, 250, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    var toolboxHeight = 216;
+    this.addChild( new Rectangle( 25, LayoutConstants.TAB_HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 630, LayoutConstants.TAB_HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
@@ -98,30 +108,9 @@ define( function( require ) {
         tugOfWarScenery.addChild( new FlagNode( model ) );
       }
     } );
-
-    //Fit to the window and render the initial scene
-    $( window ).resize( function() { tugOfWarScenery.resize(); } );
-    this.resize();
   }
 
   inherit( TugOfWarScenery, Node, {
-    resize: function() {
-      var width = 981;
-      var height = 644 - 40;//leave room for the tab bar
-
-      var scale = Math.min( width / 981, height / 644 );
-
-      this.resetTransform();
-      this.scale( scale );
-
-      var skyHeight = (376) * scale;
-      var groundHeight = height - skyHeight;
-
-      this.skyNode.mutate( {rectX: 0, rectY: 0, rectWidth: width / scale, rectHeight: 376} );
-      this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-
-      this.groundNode.mutate( {rectX: 0, rectY: 376, rectWidth: width / scale, rectHeight: groundHeight / scale} );
-    },
     updateForces: function() {
       var x = this.arrowTailX;
       var tailWidth = 25;

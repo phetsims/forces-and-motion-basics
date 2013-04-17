@@ -8,10 +8,12 @@ define( function( require ) {
   var HomeScreen = require( 'SCENERY_PHET/HomeScreen' );
   var Scene = require( 'SCENERY/Scene' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var LayoutConstants = require( 'LayoutConstants' );
 
   //Default size to use, which will be scaled up and down isometrically
-  var HEIGHT = 644;
-  var WIDTH = 981;
+
+  var HEIGHT = LayoutConstants.HEIGHT;
+  var WIDTH = LayoutConstants.WIDTH;
 
   function Sim( name, tabs ) {
     var sim = this;
