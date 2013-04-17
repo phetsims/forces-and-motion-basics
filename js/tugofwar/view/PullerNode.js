@@ -17,7 +17,8 @@ define( function( require ) {
     var x = puller.x;
     var y = puller.y;
 
-    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer'} );
+    var scale = 0.86;
+    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: scale} );
 
     function updateLocation() {
       var knotted = puller.has( 'knot' );

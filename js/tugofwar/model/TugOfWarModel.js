@@ -51,21 +51,21 @@ define( function( require ) {
         init: function() {
           this.cart = new Cart();
           //Create the pullers from left to right so the tab order will be as expected.
-          var dy = -9;
+          var dy = -14;
 
           var bluePullers = [new Puller( {x: 38, y: 407 + dy + 1, dragOffsetX: 80, type: blue, size: large  } ),
-            new Puller( {x: 132 - 5, y: 446 + dy, dragOffsetX: 50, type: blue, size: medium} ),
-            new Puller( {x: 198 + 10, y: 500 + dy, dragOffsetX: 20, type: blue, size: small } ),
-            new Puller( {x: 260 + 15, y: 500 + dy, dragOffsetX: 20, type: blue, size: small } )];
+            new Puller( {x: 132 - 5, y: 446 + dy - 6, dragOffsetX: 50, type: blue, size: medium} ),
+            new Puller( {x: 198 + 10, y: 500 + dy - 13, dragOffsetX: 20, type: blue, size: small } ),
+            new Puller( {x: 260 + 18, y: 500 + dy - 13, dragOffsetX: 20, type: blue, size: small } )];
 
           this.pullers = new Pullers( [bluePullers[0],
                                         bluePullers[1],
                                         bluePullers[2],
                                         bluePullers[3],
-                                        new Puller( {x: 624 + 19, y: bluePullers[3].y, dragOffsetX: 10, type: red, size: small } ),
-                                        new Puller( {x: 684 + 28, y: bluePullers[2].y, dragOffsetX: 10, type: red, size: small } ),
-                                        new Puller( {x: 756 - 4 + 32, y: bluePullers[1].y, dragOffsetX: 20, type: red, size: medium } ),
-                                        new Puller( {x: 838 - 8 + 25, y: bluePullers[0].y, dragOffsetX: 30, type: red, size: large  } )
+                                        new Puller( {x: 624 + 19 + 5, y: bluePullers[3].y, dragOffsetX: 10, type: red, size: small } ),
+                                        new Puller( {x: 684 + 28 + 5, y: bluePullers[2].y, dragOffsetX: 10, type: red, size: small } ),
+                                        new Puller( {x: 756 - 4 + 32 + 5, y: bluePullers[1].y, dragOffsetX: 20, type: red, size: medium } ),
+                                        new Puller( {x: 838 - 8 + 25 + 5, y: bluePullers[0].y, dragOffsetX: 30, type: red, size: large  } )
                                       ] );
           this.knots = new Knots( [ new Knot( {x: 62 + 80 * 0, type: blue} ),
                                     new Knot( {x: 62 + 80 * 1, type: blue} ),
