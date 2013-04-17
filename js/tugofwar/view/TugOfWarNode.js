@@ -13,13 +13,15 @@ define( function( require ) {
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var imageLoader = require( 'imageLoader' );
+
   var red = "red",
       blue = "blue",
       small = "small",
       medium = "medium",
       large = "large";
 
-  function TugOfWarScenery( model, imageLoader ) {
+  function TugOfWarScenery( model ) {
     var tugOfWarScenery = this;
     this.model = model;
     Node.call( this );

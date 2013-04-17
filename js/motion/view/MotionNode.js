@@ -20,8 +20,9 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var imageLoader = require( 'imageLoader' );
 
-  function MotionNode( model, imageLoader ) {
+  function MotionNode( model ) {
     this.model = model;
     Node.call( this );
     var view = this;
