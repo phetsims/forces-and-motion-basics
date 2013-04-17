@@ -13,7 +13,7 @@ define( function( require ) {
   var ItemNode = require( 'motion/view/ItemNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
+  var Strings = require( 'Strings' );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
   var Button = require( 'SUN/Button' );
   var inherit = require( 'PHET_CORE/inherit' );

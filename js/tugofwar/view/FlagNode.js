@@ -9,7 +9,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( "i18n!../../../nls/forces-and-motion-basics-strings" );
+  var Strings = require( 'Strings' );
 
   function FlagNode( model ) {
     var flagNode = this;
