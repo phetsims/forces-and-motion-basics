@@ -1,5 +1,7 @@
+//Main class that represents one simulation, including the tabs, home screen, play area, etc.
 define( function( require ) {
   "use strict";
+
   var Fort = require( 'FORT/Fort' );
   var Util = require( 'SCENERY/util/Util' );
   var NavigationBar = require( 'SCENERY_PHET/NavigationBar' );
@@ -7,53 +9,54 @@ define( function( require ) {
   var Scene = require( 'SCENERY/Scene' );
   var Node = require( 'SCENERY/nodes/Node' );
 
+  //Default size to use, which will be scaled up and down isometrically
   var HEIGHT = 644;
   var WIDTH = 981;
 
-  function Sim( options ) {
-    var options = options || {};
-    var tabs = options.tabs || [];
-
+  function Sim( name, tabs ) {
+    var sim = this;
+    this.tabs = tabs;
     new FastClick( document.body );
 
     Util.polyfillRequestAnimationFrame();
 
-    var appModel = new Fort.Model( {home: false, tab: 0} );
+    this.appModel = new Fort.Model( {home: false, tab: 0} );
 
-    var scene = new Scene( $( '.scene' ), {width: WIDTH, height: HEIGHT, allowDevicePixelRatioScaling: true} );
-    scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
-    scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
+    this.scene = new Scene( $( '.scene' ), {width: WIDTH, height: HEIGHT, allowDevicePixelRatioScaling: true} );
+    this.scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
+    this.scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
-    var homeScreen = new HomeScreen( "Forces and Motion: Basics", tabs, appModel );
+    var homeScreen = new HomeScreen( name, tabs, this.appModel );
 
-    var navigationBar = new NavigationBar( tabs, appModel ).mutate( {bottom: HEIGHT} );
+    var navigationBar = new NavigationBar( tabs, this.appModel ).mutate( {bottom: HEIGHT} );
 
     var root = new Node(); //root: homeScreen | tabNode
     var tabNode = new Node(); //tabNode: navigationBar tabContainer
     var tabContainer = new Node();//tabContainer: sceneForTab 
     tabNode.addChild( navigationBar );
     tabNode.addChild( tabContainer );
-    scene.addChild( root );
+    this.scene.addChild( root );
 
-    appModel.link( 'home', function( home ) { root.children = [home ? homeScreen : tabNode];} );
+    this.appModel.link( 'home', function( home ) { root.children = [home ? homeScreen : tabNode];} );
 
     function resize() {
       var width = $( window ).width();
       var height = $( window ).height();//leave room for the tab bar
 
       var scale = Math.min( width / WIDTH, height / HEIGHT );
-      scene.resetTransform();
-      scene.setScaleMagnitude( scale );
+      sim.scene.resetTransform();
+      sim.scene.setScaleMagnitude( scale );
 
       //center vertically
       if ( scale === width / WIDTH ) {
-        scene.translate( 0, (height - HEIGHT * scale) / 2 / scale );
+        sim.scene.translate( 0, (height - HEIGHT * scale) / 2 / scale );
       }
 
       //center horizontally
       else if ( scale === height / HEIGHT ) {
-        scene.translate( (width - WIDTH * scale) / 2 / scale, 0 );
+        sim.scene.translate( (width - WIDTH * scale) / 2 / scale, 0 );
       }
+      sim.scene.updateScene();
     }
 
     //Fit to the window and render the initial scene
@@ -65,9 +68,12 @@ define( function( require ) {
       tabs[i].instance = tabs[i].create();
     }
 
-    appModel.link( 'tab', function( tabIndex ) { tabContainer.children = [tabs[tabIndex].instance]; } );
-    scene.updateScene();
+    this.appModel.link( 'tab', function( tabIndex ) { tabContainer.children = [tabs[tabIndex].instance]; } );
+    this.scene.updateScene();
+  }
 
+  Sim.prototype.start = function() {
+    var sim = this;
     //http://paulirish.com/2011/requestanimationframe-for-smart-animating/
     // place the rAF *before* the render() to assure as close to
     // 60fps with the setTimeout fallback.
@@ -75,14 +81,12 @@ define( function( require ) {
       requestAnimationFrame( animationLoop );
 
       //Update the tab, but not if the user is on the home screen
-      if ( !appModel.home ) {
-        tabs[appModel.tab].instance.model.step();
+      if ( !sim.appModel.home ) {
+        sim.tabs[sim.appModel.tab].instance.model.step();
       }
-      scene.updateScene();
+      sim.scene.updateScene();
     })();
-  }
-
-  Sim.prototype.start = function() {};
+  };
 
   return Sim;
 } );
