@@ -1,19 +1,11 @@
-define( [ "tugofwar/model/TugOfWarModel",
-          "motion/view/MotionView",
-          "motion/model/MotionModel",
-          'SCENERY/nodes/Image',
-          'PHETCOMMON/util/ImagesLoader',
-          "i18n!../nls/forces-and-motion-basics-strings",
-          'FORT/examples',
-          'FORT/Fort',
-          'SCENERY/util/Util',
-          'SCENERY_PHET/NavigationBar',
-          'SCENERY_PHET/HomeScreen',
-          'SCENERY/Scene',
-          'SCENERY/nodes/Text',
-          'SCENERY/nodes/Node'
-        ], function( TugOfWarModel, MotionView, MotionModel, Image, ImagesLoader, Strings, fortExamples, Fort, Util, NavigationBar, HomeScreen, Scene, Text, Node ) {
+define( function( require ) {
   "use strict";
+  var Fort = require( 'FORT/Fort' );
+  var Util = require( 'SCENERY/util/Util' );
+  var NavigationBar = require( 'SCENERY_PHET/NavigationBar' );
+  var HomeScreen = require( 'SCENERY_PHET/HomeScreen' );
+  var Scene = require( 'SCENERY/Scene' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   function Sim( options ) {
     var options = options || {};
