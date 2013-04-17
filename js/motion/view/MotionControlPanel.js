@@ -31,28 +31,28 @@ define( function( require ) {
                                    children: model.tab === 'motion' ?
                                              [new VerticalCheckBoxGroup(
                                                  [
-                                                   toElement( 'Force', 'showForce' ),
-                                                   toElement( 'Values', 'showValues' ),
-                                                   toElement( 'Masses', 'showMasses' ),
-                                                   toElement( 'Speed', 'showSpeed' )
+                                                   toElement( Strings.force, 'showForce' ),
+                                                   toElement( Strings.values, 'showValues' ),
+                                                   toElement( Strings.masses, 'showMasses' ),
+                                                   toElement( Strings.speed, 'showSpeed' )
                                                  ] )] :
                                              model.tab === 'friction' ?
                                              [new VerticalCheckBoxGroup(
                                                  [
-                                                   toElement( 'Force', 'showForce' ),
-                                                   toElement( 'Sum of Forces', 'showSumOfForces' ),
-                                                   toElement( 'Values', 'showValues' ),
-                                                   toElement( 'Masses', 'showMasses' ),
-                                                   toElement( 'Speed', 'showSpeed' )
+                                                   toElement( Strings.force, 'showForce' ),
+                                                   toElement( Strings.sumOfForces, 'showSumOfForces' ),
+                                                   toElement( Strings.values, 'showValues' ),
+                                                   toElement( Strings.masses, 'showMasses' ),
+                                                   toElement( Strings.speed, 'showSpeed' )
                                                  ] )] :
                                              [new VerticalCheckBoxGroup(
                                                  [
-                                                   toElement( 'Force', 'showForce' ),
-                                                   toElement( 'Sum of Forces', 'showSumOfForces' ),
-                                                   toElement( 'Values', 'showValues' ),
-                                                   toElement( 'Masses', 'showMasses' ),
-                                                   toElement( 'Speed', 'showSpeed' ),
-                                                   toElement( 'Acceleration', 'showAcceleration' )
+                                                   toElement( Strings.force, 'showForce' ),
+                                                   toElement( Strings.sumOfForces, 'showSumOfForces' ),
+                                                   toElement( Strings.values, 'showValues' ),
+                                                   toElement( Strings.masses, 'showMasses' ),
+                                                   toElement( Strings.speed, 'showSpeed' ),
+                                                   toElement( Strings.acceleration, 'showAcceleration' )
                                                  ] )]
                                  } );
     if ( model.tab !== 'motion' ) {

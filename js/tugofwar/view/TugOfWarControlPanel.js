@@ -11,6 +11,7 @@ define( function( require ) {
   var ToggleNode = require( 'SUN/ToggleNode' );
   var CheckBox = require( 'SUN/CheckBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Strings = require( 'Strings' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
 
@@ -19,8 +20,8 @@ define( function( require ) {
 
     var fontSize = '19px';
     var controlPanel = new VerticalCheckBoxGroup( [
-                                                    {content: new Text( "Sum of Forces", {fontSize: fontSize} ), property: model.property( 'showSumOfForces' )},
-                                                    {content: new Text( "Values", {fontSize: fontSize} ), property: model.property( 'showValues' )}
+                                                    {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.property( 'showSumOfForces' )},
+                                                    {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.property( 'showValues' )}
                                                   ] );
     this.addChild( controlPanel );
 
