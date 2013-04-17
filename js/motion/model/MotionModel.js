@@ -4,6 +4,7 @@ define( function( require ) {
   var Item = require( 'motion/model/Item' );
   var Fort = require( 'FORT/Fort' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
+  var Layout = require( 'SCENERY_PHET/Layout' );
 
   var MotionModel = Fort.Model.extend(
       {defaults: {
@@ -47,7 +48,7 @@ define( function( require ) {
             for ( var i = 0; i < this.stack.length; i++ ) {
               var size = this.getSize( this.stack[i] );
               sumHeight += size.height;
-              this.stack[i].animateTo( 480 - size.width / 2, 350 - sumHeight, 'stack' );
+              this.stack[i].animateTo( Layout.width / 2 - size.width / 2, 380 - 42 - 3 - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
             }
           }
           this.trigger( 'stackChanged' );
