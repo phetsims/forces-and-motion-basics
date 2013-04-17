@@ -11,11 +11,12 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function ItemNode( model, imageLoader ) {
-    var itemNode = this;
+  function PusherNode( model, imageLoader ) {
+    var pusherNode = this;
     Node.call( this, {cursor: 'pointer'} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
-    var updatePosition = function( appliedForce ) {
+    this.addChild( imageNode );
+    model.link( 'appliedForce', function( appliedForce ) {
       var index = Math.round( Math.abs( (appliedForce / 100 * 14) ) );
       if ( index > 14 ) {
         index = 14;
@@ -26,18 +27,16 @@ define( function( require ) {
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
-        itemNode.x = 200;
+        pusherNode.x = 200;
       }
       else {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
-        itemNode.x = 700;
+        pusherNode.x = 700;
       }
-      itemNode.y = 382 - itemNode.height + 30;
-    };
-    this.addChild( imageNode );
-    model.link( 'appliedForce', updatePosition );
+      pusherNode.y = 382 - pusherNode.height + 30;
+    } );
 
     this.addInputListener( new SimpleDragHandler(
         {
@@ -55,7 +54,7 @@ define( function( require ) {
         } ) );
   }
 
-  inherit( ItemNode, Node );
+  inherit( PusherNode, Node );
 
-  return ItemNode;
+  return PusherNode;
 } );
