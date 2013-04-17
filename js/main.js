@@ -4,7 +4,7 @@ require( [ "tugofwar/model/TugOfWarModel",
            'PHETCOMMON/util/ImagesLoader',
            'motion/view/MotionTab',
            'tugofwar/view/TugOfWarTab',
-           'Sim',
+           'SCENERY_PHET/Sim',
            'imageLoader',
            'Strings'
          ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTab, TugOfWarTab, Sim, imageLoader, Strings ) {

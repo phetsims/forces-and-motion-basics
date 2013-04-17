@@ -14,7 +14,7 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
-  var LayoutConstants = require( 'LayoutConstants' );
+  var LayoutConstants = require( 'SCENERY_PHET/LayoutConstants' );
 
   var red = "red",
       blue = "blue",
