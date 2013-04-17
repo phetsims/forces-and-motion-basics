@@ -22,7 +22,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
 
-  function MotionNode( model ) {
+  function MotionTab( model ) {
     this.model = model;
     Node.call( this );
     var view = this;
@@ -153,7 +153,7 @@ define( function( require ) {
     this.resize();
   }
 
-  inherit( MotionNode, Node, {resize: function() {
+  inherit( MotionTab, Node, {resize: function() {
     var width = 981;
     var height = 644 - 40;//leave room for the tab bar
 
@@ -187,5 +187,5 @@ define( function( require ) {
     }
   } );
 
-  return MotionNode;
+  return MotionTab;
 } );
