@@ -28,7 +28,7 @@ define( function( require ) {
 
     var homeScreen = new HomeScreen( name, tabs, this.appModel );
 
-    var navigationBar = new NavigationBar( tabs, this.appModel ).mutate( {bottom: HEIGHT} );
+    var navigationBar = new NavigationBar( tabs, this.appModel ).mutate( {bottom: HEIGHT - 2} );//TODO: this padding amount is copied in NavigationBar 
 
     var root = new Node(); //root: homeScreen | tabNode
     var tabNode = new Node(); //tabNode: navigationBar tabContainer
