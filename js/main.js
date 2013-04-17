@@ -16,7 +16,7 @@ require( [ "tugofwar/model/TugOfWarModel",
     imageLoader.getImage = loader.getImage;
 
     //Create and start the sim
-    new Sim( "Forces and Motion: Basics", [
+    new Sim( Strings['forces-and-motion-basics.name'], [
       {name: Strings.tugOfWar, icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) ), create: function() {return new TugOfWarTab( new TugOfWarModel() );}},
       {name: Strings.motion, icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'motion'} ) );}},
       {name: Strings.friction, icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'friction'} ) );}},
