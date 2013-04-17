@@ -49,9 +49,9 @@ define( function( require ) {
     var grassY = 368;
     var groundHeight = height - skyHeight;
 
-    //allow the sky to go off the screen in case the window is larger than the sim aspect ratio
-    this.skyNode = new Rectangle( 0, -376, width, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
-    this.groundNode = new Rectangle( 0, 376, width, groundHeight, { fill: '#c59a5b'} );
+    //allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
+    this.skyNode = new Rectangle( -width, -376, width * 3, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
+    this.groundNode = new Rectangle( -width, 376, width * 3, groundHeight, { fill: '#c59a5b'} );
 
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
