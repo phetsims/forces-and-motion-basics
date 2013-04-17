@@ -21,6 +21,7 @@ define( function( require ) {
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
+  var Layout = require( 'SCENERY_PHET/Layout' );
 
   function MotionTab( model ) {
     this.model = model;
@@ -28,8 +29,8 @@ define( function( require ) {
     var view = this;
     view.imageLoader = imageLoader;
 
-    view.WIDTH = 981;
-    view.HEIGHT = 644;
+    view.WIDTH = Layout.WIDTH;
+    view.HEIGHT = Layout.HEIGHT;
     view.model = model;
 
     model.getSize = function( item ) {
@@ -61,15 +62,15 @@ define( function( require ) {
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
-    var addBackgroundSprite2 = function( image, offset, imageName, distanceScale, y, scale ) {
+    var addBrick = function( image, offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg', scale: 4, rendererOptions: {cssTransform: true}} );
       view.addChild( sprite );
       model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
-    addBackgroundSprite2( imageLoader.getImage( 'brick-repeat.svg' ), 0, '', 1, 0, 1 );
-    addBackgroundSprite2( imageLoader.getImage( 'brick-repeat.svg' ), 1000, '', 1, 0, 1 );
+    addBrick( imageLoader.getImage( 'brick-repeat.svg' ), 0, '', 1, 0, 1 );
+    addBrick( imageLoader.getImage( 'brick-repeat.svg' ), 1000, '', 1, 0, 1 );
 
-    //Add toolbox backgrounds for the pullers
+    //Add toolbox backgrounds for the objects
     var boxHeight = 180;
     this.addChild( new Rectangle( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
     this.addChild( new Rectangle( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
@@ -148,12 +149,6 @@ define( function( require ) {
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
-    //Fit to the window and render the initial scene
-    $( window ).resize( function() { view.resize(); } );
-    this.resize();
-  }
-
-  inherit( MotionTab, Node, {resize: function() {
     var width = 981;
     var height = 644 - 40;//leave room for the tab bar
 
@@ -169,14 +164,17 @@ define( function( require ) {
     this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
     this.groundNode.mutate( {rectX: 0, rectY: 412, rectWidth: width / scale, rectHeight: groundHeight / scale } );
-  }, get topOfStack() {
-    var sum = 0;
-    for ( var i = 0; i < this.model.stack.length; i++ ) {
-      var itemView = this.getItemNode( this.model.stack[i] );
-      sum = sum + itemView.height;
-    }
-    return 380 - sum;
-  },
+  }
+
+  inherit( MotionTab, Node, {
+    get topOfStack() {
+      var sum = 0;
+      for ( var i = 0; i < this.model.stack.length; i++ ) {
+        var itemView = this.getItemNode( this.model.stack[i] );
+        sum = sum + itemView.height;
+      }
+      return 380 - sum;
+    },
     getItemNode: function( item ) {
       for ( var i = 0; i < this.itemNodes.length; i++ ) {
         if ( this.itemNodes[i].item === item ) {

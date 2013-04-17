@@ -7,7 +7,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
-  var LayoutConstants = require( 'SCENERY_PHET/LayoutConstants' );
+  var Layout = require( 'SCENERY_PHET/Layout' );
 
   function GoButton( getImage, model ) {
     var goButtonImage = this;
@@ -51,7 +51,7 @@ define( function( require ) {
     } );
 
     model.trigger( 'change:numberPullersAttached' );
-    this.centerX = LayoutConstants.TAB_WIDTH / 2;
+    this.centerX = Layout.WIDTH / 2;
   }
 
   inherit( GoButton, Image );

@@ -14,7 +14,7 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
-  var LayoutConstants = require( 'SCENERY_PHET/LayoutConstants' );
+  var Layout = require( 'SCENERY_PHET/Layout' );
 
   var red = "red",
       blue = "blue",
@@ -25,8 +25,8 @@ define( function( require ) {
   function TugOfWarTab( model ) {
 
     //Fit to the window and render the initial scene
-    var width = LayoutConstants.TAB_WIDTH;
-    var height = LayoutConstants.TAB_HEIGHT;//leave room for the tab bar
+    var width = Layout.WIDTH;
+    var height = Layout.HEIGHT;
 
     var tugOfWarTab = this;
     this.model = model;
@@ -60,12 +60,12 @@ define( function( require ) {
     this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
 
     //Black caret below the cart
-    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: LayoutConstants.TAB_WIDTH / 2, y: grassY + 10} ) );
+    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: Layout.WIDTH / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
     var toolboxHeight = 216;
-    this.addChild( new Rectangle( 25, LayoutConstants.TAB_HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    this.addChild( new Rectangle( 630, LayoutConstants.TAB_HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 25, Layout.HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 630, Layout.HEIGHT - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
