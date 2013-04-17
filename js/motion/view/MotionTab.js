@@ -34,7 +34,7 @@ define( function( require ) {
     var width = Layout.width;
     var height = Layout.height;
 
-    var skyHeight = 350 + 12;
+    var skyHeight = 362;
     var groundHeight = height - skyHeight;
 
     model.getSize = function( item ) {
@@ -45,14 +45,14 @@ define( function( require ) {
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.model = model;//Wire up so main.js can step the model
 
-    this.skyNode = new Rectangle( 0, 0, width, skyHeight, {fill: skyGradient} );
-    this.groundNode = new Rectangle( 0, skyHeight, width, groundHeight, {fill: '#c59a5b'} );
+    this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient} );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight, {fill: '#c59a5b'} );
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
 
     var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: {cssTransform: true}} );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'canvas', rendererOptions: {cssTransform: true}} );
       view.addChild( sprite );
       model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
