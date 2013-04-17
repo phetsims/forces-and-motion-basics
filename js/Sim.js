@@ -7,6 +7,9 @@ define( function( require ) {
   var Scene = require( 'SCENERY/Scene' );
   var Node = require( 'SCENERY/nodes/Node' );
 
+  var HEIGHT = 644;
+  var WIDTH = 981;
+
   function Sim( options ) {
     var options = options || {};
     var tabs = options.tabs || [];
@@ -17,13 +20,13 @@ define( function( require ) {
 
     var appModel = new Fort.Model( {home: false, tab: 0} );
 
-    var scene = new Scene( $( '.scene' ), {width: 200, height: 200, allowDevicePixelRatioScaling: true} );
+    var scene = new Scene( $( '.scene' ), {width: WIDTH, height: HEIGHT, allowDevicePixelRatioScaling: true} );
     scene.initializeStandaloneEvents(); // sets up listeners on the document with preventDefault(), and forwards those events to our scene
     scene.resizeOnWindowResize(); // the scene gets resized to the full screen size
 
     var homeScreen = new HomeScreen( "Forces and Motion: Basics", tabs, appModel );
 
-    var navigationBar = new NavigationBar( tabs, appModel ).mutate( {bottom: 644} );
+    var navigationBar = new NavigationBar( tabs, appModel ).mutate( {bottom: HEIGHT} );
 
     var root = new Node(); //root: homeScreen | tabNode
     var tabNode = new Node(); //tabNode: navigationBar tabContainer
@@ -38,18 +41,18 @@ define( function( require ) {
       var width = $( window ).width();
       var height = $( window ).height();//leave room for the tab bar
 
-      var scale = Math.min( width / 981, height / 644 );
+      var scale = Math.min( width / WIDTH, height / HEIGHT );
       scene.resetTransform();
       scene.setScaleMagnitude( scale );
 
       //center vertically
-      if ( scale === width / 981 ) {
-        scene.translate( 0, (height - 644 * scale) / 2 / scale );
+      if ( scale === width / WIDTH ) {
+        scene.translate( 0, (height - HEIGHT * scale) / 2 / scale );
       }
 
       //center horizontally
-      else if ( scale === height / 644 ) {
-        scene.translate( (width - 981 * scale) / 2 / scale, 0 );
+      else if ( scale === height / HEIGHT ) {
+        scene.translate( (width - WIDTH * scale) / 2 / scale, 0 );
       }
     }
 
