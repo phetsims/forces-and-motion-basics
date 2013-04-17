@@ -34,8 +34,29 @@
  * locale pieces into each other, then finally sets the context.defined value
  * for the nls/fr-fr/colors bundle to be that mixed in locale.
  */
-(function () {
+(function() {
   'use strict';
+
+  //PhET.SRR Added this code on 11/27/2012
+  //PhET.CM Modified this code on 11/28/2012
+  //Look for a query parameter of the form "locale=value", where the format of value is described in RFC 4646.
+  //The value of this parameter will be used to override the browser's language.
+  //Adapted from http://geekswithblogs.net/PhubarBaz/archive/2011/11/21/getting-query-parameters-in-javascript.aspx
+  var localeQueryParameter = (function() {
+    var value;
+    if ( typeof window != 'undefined' && window.location.search ) {
+      // look for first occurrence of "locale" query parameter
+      var params = window.location.search.slice( 1 ).split( "&" );
+      for ( var i = 0; i < params.length; i++ ) {
+        var nameValuePair = params[i].split( "=" );
+        if ( nameValuePair[0] === 'locale' ) {
+          value = decodeURI( nameValuePair[1] ).toLowerCase();
+          break;
+        }
+      }
+    }
+    return value;
+  }());
 
   //regexp for reconstructing the master bundle name from parts of the regexp match
   //nlsRegExp.exec("foo/bar/baz/nls/en-ca/foo") gives:
@@ -48,19 +69,19 @@
   //Helper function to avoid repeating code. Lots of arguments in the
   //desire to stay functional and support RequireJS contexts without having
   //to know about the RequireJS contexts.
-  function addPart(locale, master, needed, toLoad, prefix, suffix) {
-    if (master[locale]) {
-      needed.push(locale);
-      if (master[locale] === true || master[locale] === 1) {
-        toLoad.push(prefix + locale + '/' + suffix);
+  function addPart( locale, master, needed, toLoad, prefix, suffix ) {
+    if ( master[locale] ) {
+      needed.push( locale );
+      if ( master[locale] === true || master[locale] === 1 ) {
+        toLoad.push( prefix + locale + '/' + suffix );
       }
     }
   }
 
-  function addIfExists(req, locale, toLoad, prefix, suffix) {
+  function addIfExists( req, locale, toLoad, prefix, suffix ) {
     var fullName = prefix + locale + '/' + suffix;
-    if (require._fileExists(req.toUrl(fullName + '.js'))) {
-      toLoad.push(fullName);
+    if ( require._fileExists( req.toUrl( fullName + '.js' ) ) ) {
+      toLoad.push( fullName );
     }
   }
 
@@ -71,18 +92,19 @@
    * Object.prototype names, but the uses of mixin here seem unlikely to
    * trigger a problem related to that.
    */
-  function mixin(target, source, force) {
+  function mixin( target, source, force ) {
     var prop;
-    for (prop in source) {
-      if (source.hasOwnProperty(prop) && (!target.hasOwnProperty(prop) || force)) {
+    for ( prop in source ) {
+      if ( source.hasOwnProperty( prop ) && (!target.hasOwnProperty( prop ) || force) ) {
         target[prop] = source[prop];
-      } else if (typeof source[prop] === 'object') {
-        mixin(target[prop], source[prop], force);
+      }
+      else if ( typeof source[prop] === 'object' ) {
+        mixin( target[prop], source[prop], force );
       }
     }
   }
 
-  define(['module'], function (module) {
+  define( ['module'], function( module ) {
     var masterConfig = module.config ? module.config() : {};
 
     return {
@@ -90,19 +112,19 @@
       /**
        * Called when a dependency needs to be loaded.
        */
-      load: function (name, req, onLoad, config) {
+      load: function( name, req, onLoad, config ) {
         config = config || {};
 
-        if (config.locale) {
+        if ( config.locale ) {
           masterConfig.locale = config.locale;
         }
 
         var masterName,
-            match = nlsRegExp.exec(name),
+            match = nlsRegExp.exec( name ),
             prefix = match[1],
             locale = match[4],
             suffix = match[5],
-            parts = locale.split("-"),
+            parts = locale.split( "-" ),
             toLoad = [],
             value = {},
             i, part, current = "";
@@ -110,71 +132,79 @@
         //If match[5] is blank, it means this is the top bundle definition,
         //so it does not have to be handled. Locale-specific requests
         //will have a match[4] value but no match[5]
-        if (match[5]) {
+        if ( match[5] ) {
           //locale-specific bundle
           prefix = match[1];
           masterName = prefix + suffix;
-        } else {
+        }
+        else {
           //Top-level bundle.
           masterName = name;
           suffix = match[4];
           locale = masterConfig.locale;
-          if (!locale) {
+          if ( !locale ) {
             locale = masterConfig.locale =
                      typeof navigator === "undefined" ? "root" :
                      (navigator.language ||
                       navigator.userLanguage || "root").toLowerCase();
           }
-          parts = locale.split("-");
-        }
-
-        if (config.isBuild) {
-          //Check for existence of all locale possible files and
-          //require them if exist.
-          toLoad.push(masterName);
-          addIfExists(req, "root", toLoad, prefix, suffix);
-          for (i = 0; i < parts.length; i++) {
-            part = parts[i];
-            current += (current ? "-" : "") + part;
-            addIfExists(req, current, toLoad, prefix, suffix);
+          //PhET.CM added this block on 11/28/2012
+          //Override the browser's language using the optional query parameter.
+          if ( typeof localeQueryParameter === 'string' ) {
+            locale = localeQueryParameter;
           }
 
-          req(toLoad, function () {
+          parts = locale.split( "-" );
+        }
+
+        if ( config.isBuild ) {
+          //Check for existence of all locale possible files and
+          //require them if exist.
+          toLoad.push( masterName );
+          addIfExists( req, "root", toLoad, prefix, suffix );
+          for ( i = 0; i < parts.length; i++ ) {
+            part = parts[i];
+            current += (current ? "-" : "") + part;
+            addIfExists( req, current, toLoad, prefix, suffix );
+          }
+
+          req( toLoad, function() {
             onLoad();
-          });
-        } else {
+          } );
+        }
+        else {
           //First, fetch the master bundle, it knows what locales are available.
-          req([masterName], function (master) {
+          req( [masterName], function( master ) {
             //Figure out the best fit
             var needed = [],
                 part;
 
             //Always allow for root, then do the rest of the locale parts.
-            addPart("root", master, needed, toLoad, prefix, suffix);
-            for (i = 0; i < parts.length; i++) {
+            addPart( "root", master, needed, toLoad, prefix, suffix );
+            for ( i = 0; i < parts.length; i++ ) {
               part = parts[i];
               current += (current ? "-" : "") + part;
-              addPart(current, master, needed, toLoad, prefix, suffix);
+              addPart( current, master, needed, toLoad, prefix, suffix );
             }
 
             //Load all the parts missing.
-            req(toLoad, function () {
+            req( toLoad, function() {
               var i, partBundle, part;
-              for (i = needed.length - 1; i > -1 && needed[i]; i--) {
+              for ( i = needed.length - 1; i > -1 && needed[i]; i-- ) {
                 part = needed[i];
                 partBundle = master[part];
-                if (partBundle === true || partBundle === 1) {
-                  partBundle = req(prefix + part + '/' + suffix);
+                if ( partBundle === true || partBundle === 1 ) {
+                  partBundle = req( prefix + part + '/' + suffix );
                 }
-                mixin(value, partBundle);
+                mixin( value, partBundle );
               }
 
               //All done, notify the loader.
-              onLoad(value);
-            });
-          });
+              onLoad( value );
+            } );
+          } );
         }
       }
     };
-  });
+  } );
 }());
