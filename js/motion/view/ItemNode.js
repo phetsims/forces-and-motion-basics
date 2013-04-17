@@ -10,6 +10,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Layout = require( "SCENERY_PHET/Layout" );
 
   function ItemNode( model, scenery, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
@@ -59,7 +60,7 @@ define( function( require ) {
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
             if ( item.y < 350 ) {
               item.onBoard = true;
-              item.animateTo( scenery.WIDTH / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height, 'stack' );
+              item.animateTo( Layout.width / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height, 'stack' );
               model.stack.push( item );
               model.trigger( 'stackChanged' );
             }

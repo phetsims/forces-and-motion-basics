@@ -1,6 +1,7 @@
 define( function( require ) {
   "use strict";
   var LayerType = require( 'SCENERY/layers/LayerType' );
+  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -28,21 +29,24 @@ define( function( require ) {
     Node.call( this );
     var view = this;
     view.imageLoader = imageLoader;
-
-    view.WIDTH = Layout.width;
-    view.HEIGHT = Layout.height;
     view.model = model;
+
+    var width = Layout.width;
+    var height = Layout.height;
+
+    var skyHeight = 350 + 12;
+    var groundHeight = height - skyHeight;
 
     model.getSize = function( item ) {
       var itemNode = view.getItemNode( item );
       return {width: itemNode.width, height: itemNode.height};
     };
 
-    var skyGradient = new LinearGradient( 0, 0, 0, 100 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+    var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.model = model;//Wire up so main.js can step the model
 
-    this.skyNode = new Rectangle( 0, 0, 100, 100, {fill: skyGradient} );
-    this.groundNode = new Rectangle( 0, 0, 100, 100, {fill: '#c59a5b'} );
+    this.skyNode = new Rectangle( 0, 0, width, skyHeight, {fill: skyGradient} );
+    this.groundNode = new Rectangle( 0, skyHeight, width, groundHeight, {fill: '#c59a5b'} );
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
 
@@ -52,7 +56,7 @@ define( function( require ) {
       view.addChild( sprite );
       model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
-    var mountainY = 353;
+    var mountainY = 353 - 54 + 12;
 
     addBackgroundSprite( 100, 'mountains.png', 10, mountainY, 1 );
     addBackgroundSprite( 600, 'mountains.png', 10, mountainY, 1 );
@@ -72,8 +76,8 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    this.addChild( new Rectangle( 10, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
-    this.addChild( new Rectangle( view.WIDTH - 10 - 300, view.HEIGHT - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( 10, Layout.height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( Layout.width - 10 - 300, Layout.height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
@@ -91,11 +95,8 @@ define( function( require ) {
       this.addChild( itemNode );
     }
 
-    var skateboardImage = new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: view.WIDTH / 2, y: 372} );
-    this.addChild( skateboardImage );
-
-    var pusher = new PusherNode( model, imageLoader );
-    this.addChild( pusher );
+    this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: Layout.width / 2, y: 315 + 12} ) );
+    this.addChild( new PusherNode( model, imageLoader ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
@@ -106,16 +107,16 @@ define( function( require ) {
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), imageLoader ).addNormalTicks();
-    var vbox = new VBox( {children: [sliderLabel, slider], centerX: view.WIDTH / 2 - 18, y: 465, spacing: 8} );
-    this.addChild( vbox );//text box only seems to work if addedlast
+    var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: Layout.width / 2 - 18, y: 465, spacing: 8} );
+    this.addChild( sliderControl );//text box only seems to work if addedlast
 
-    //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to vbox
+    //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
     var readout = new Text( '???', {fontSize: '22px'} );
     var unitsLabel = new Text( Strings.newtons, {fontSize: '22px'} );
-    readout.top = vbox.bottom + 10;
+    readout.top = sliderControl.bottom + 10;
     model.link( 'appliedForce', function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 );
-      readout.centerX = view.WIDTH / 2 + 2;
+      readout.centerX = Layout.width / 2 + 2;
       unitsLabel.x = readout.right + 10;
     } );
     unitsLabel.centerY = readout.centerY;
@@ -123,7 +124,7 @@ define( function( require ) {
     this.addChild( unitsLabel );
 
     //Show a line that indicates the center of the layout
-//    this.addChild( new Path( {shape: Shape.lineSegment( WIDTH / 2, 0, WIDTH / 2, HEIGHT ), stroke: 'black', lineWidth: 1} ) );
+//    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );
 
     model.link( 'showForce', view.sumArrow, 'visible' );
     model.link( 'appliedForce', function() {
@@ -138,7 +139,7 @@ define( function( require ) {
     }, this );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: view.WIDTH / 2, top: 2} );
+    var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: Layout.width / 2, top: 2} );
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
@@ -148,22 +149,6 @@ define( function( require ) {
     var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) ).
         mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
-
-    var width = 981;
-    var height = 644 - 40;//leave room for the tab bar
-
-    var scale = Math.min( width / 981, height / 644 );
-    this.resetTransform();
-    this.scale( scale );
-    //TODO: center in the available width
-
-    var skyHeight = (412) * scale;
-    var groundHeight = height - skyHeight;
-
-    this.skyNode.mutate( {rectWidth: width / scale, rectHeight: 412} );
-    this.skyNode.fill = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-
-    this.groundNode.mutate( {rectX: 0, rectY: 412, rectWidth: width / scale, rectHeight: groundHeight / scale } );
   }
 
   inherit( MotionTab, Node, {
@@ -173,7 +158,7 @@ define( function( require ) {
         var itemView = this.getItemNode( this.model.stack[i] );
         sum = sum + itemView.height;
       }
-      return 380 - sum;
+      return 380 - sum - 42 - 3;
     },
     getItemNode: function( item ) {
       for ( var i = 0; i < this.itemNodes.length; i++ ) {
