@@ -89,8 +89,8 @@ define( function( require ) {
             new Item( {context: this, image: 'fridge.png', weight: 200, x: 25, y: 478 + dy, imageScale: 0.8} ),
             new Item( {context: this, image: 'crate.png', weight: 50, x: 126, y: 550 - 18 + 2 + dy, imageScale: 0.5} ),
             new Item( {context: this, image: 'crate.png', weight: 50, x: 218, y: 550 - 18 + 2 + dy, imageScale: 0.5} ),
-            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 40, x: 684, y: 510 + dy, imageScale: 0.6} ),
-            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 80, x: 747, y: 460 + dy, imageScale: 0.6} ),
+            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", weight: 40, x: 684, y: 510 + dy, imageScale: 0.6, pusherInset: 16} ),
+            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", weight: 80, x: 747, y: 460 + dy, imageScale: 0.6, pusherInset: 10} ),
             new Item( {context: this, image: 'trash-can.png', weight: 100, x: 826 - 10, y: 518 + 11 + 12 + dy, imageScale: 0.7} ),
             new Item( {context: this, image: 'mystery-object-01.png', weight: 50, x: 880 + 10 - 2, y: 580 + 2 + dy, imageScale: 1.1} )
           ];

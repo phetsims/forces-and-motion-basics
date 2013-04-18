@@ -15,29 +15,30 @@ define( function( require ) {
 
   function PusherNode( model, motionTab ) {
     var pusherNode = this;
-    Node.call( this, {cursor: 'pointer'} );
+    var scale = 0.85;
+    Node.call( this, {cursor: 'pointer', scale: scale} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
     model.link( 'appliedForce', function( appliedForce ) {
-      var index = Math.round( Math.abs( (appliedForce / 100 * 14) ) );
-      if ( index > 14 ) {
-        index = 14;
-      }
+      var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
       imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
       console.log( model.stack.length );
-      var delta = model.stack.length > 0 ? motionTab.getItemNode( model.stack[0] ).width / 2 : 100;
+      var delta = model.stack.length > 0 ? (motionTab.getItemNode( model.stack[0] ).width / 2 - model.stack[0].pusherInset) : 100;
       if ( appliedForce > 0 ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
-        pusherNode.x = Layout.width / 2 - imageNode.width - delta;
+        pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
       }
-      else {
+      else if ( appliedForce < 0 ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
-        pusherNode.x = Layout.width / 2 + imageNode.width + delta;
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale + delta;
+      }
+      else {
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale + 100;//TODO: have the pusher move with the ground
       }
       pusherNode.y = 362 - pusherNode.height;
     } );

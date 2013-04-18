@@ -58,8 +58,8 @@ define( function( require ) {
     var mountainY = 353 - 54 + 12;
 
     addBackgroundSprite( 100, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundSprite( 600, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundSprite( 1200, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( 300, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( 700, 'mountains.png', 10, mountainY, 1 );
 
     addBackgroundSprite( 100, 'cloud1.png', 5, 10, 1 );
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );

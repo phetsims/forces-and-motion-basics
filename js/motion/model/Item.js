@@ -4,6 +4,7 @@ define( function( require ) {
   var Fort = require( 'FORT/Fort' );
   var Item = Fort.Model.extend(
       { defaults: {
+        pusherInset: 0,
         dragging: false,
         animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
 
