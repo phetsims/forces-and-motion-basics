@@ -22,7 +22,6 @@ define( function( require ) {
     model.link( 'appliedForce', function( appliedForce ) {
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
       imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
-      console.log( model.stack.length );
       var delta = model.stack.length > 0 ? (motionTab.getItemNode( model.stack[0] ).width / 2 - model.stack[0].pusherInset) : 100;
       if ( appliedForce > 0 ) {
 
