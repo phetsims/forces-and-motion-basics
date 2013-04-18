@@ -17,10 +17,10 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     //Create and start the sim
     new Sim( Strings['forces-and-motion-basics.name'], [
-//      {name: Strings.tugOfWar, icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) ), create: function() {return new TugOfWarTab( new TugOfWarModel() );}},
+      {name: Strings.tugOfWar, icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) ), create: function() {return new TugOfWarTab( new TugOfWarModel() );}},
       {name: Strings.motion, icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'motion'} ) );}},
-//      {name: Strings.friction, icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'friction'} ) );}},
-//      {name: Strings.acceleration, icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'acceleration'} ) );}}
-    ], { home: false, tab: 0} ).start();
+      {name: Strings.friction, icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'friction'} ) );}},
+      {name: Strings.acceleration, icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ), create: function() {return new MotionTab( new MotionModel( {tab: 'acceleration'} ) );}}
+    ], { home: true, tab: 0} ).start();
   } );
 } );
