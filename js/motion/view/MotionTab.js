@@ -23,10 +23,11 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'SCENERY_PHET/Layout' );
+  var Tab = require( 'SCENERY_PHET/Tab' );
 
   function MotionTab( model ) {
     this.model = model;
-    Node.call( this );
+    Tab.call( this );
     var view = this;
     view.model = model;
 
@@ -45,7 +46,7 @@ define( function( require ) {
     this.model = model;//Wire up so main.js can step the model
 
     this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient} );
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight, {fill: '#c59a5b'} );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b'} );
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
 
@@ -159,7 +160,7 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  inherit( MotionTab, Node, {
+  inherit( MotionTab, Tab, {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
@@ -167,7 +168,9 @@ define( function( require ) {
         sum = sum + itemView.height;
       }
       return 380 - sum - 42 - 3;
-    }
+    },
+    layoutWidth: 981,
+    layoutHeight: 604
   } );
 
   return MotionTab;

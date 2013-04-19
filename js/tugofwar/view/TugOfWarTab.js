@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'SCENERY_PHET/Layout' );
+  var Tab = require( 'SCENERY_PHET/Tab' );
 
   var red = "red",
       blue = "blue",
@@ -30,7 +31,7 @@ define( function( require ) {
 
     var tugOfWarTab = this;
     this.model = model;
-    Node.call( this );
+    Tab.call( this );
     var getImage = imageLoader.getImage;
 
     function getPullerImage( puller, leaning ) {
@@ -51,7 +52,7 @@ define( function( require ) {
 
     //allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     this.skyNode = new Rectangle( -width, -376, width * 3, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
-    this.groundNode = new Rectangle( -width, 376, width * 3, groundHeight, { fill: '#c59a5b'} );
+    this.groundNode = new Rectangle( -width, 376, width * 3, groundHeight * 2, { fill: '#c59a5b'} );
 
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
@@ -110,7 +111,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( TugOfWarTab, Node, {
+  inherit( TugOfWarTab, Tab, {
     updateForces: function() {
       var x = this.arrowTailX;
       var tailWidth = 25;
@@ -119,7 +120,9 @@ define( function( require ) {
       this.leftArrow.shape = arrow( x, 100, x + this.model.getLeftForce(), 100, tailWidth, headWidth, headHeight );
       this.rightArrow.shape = arrow( x, 100, x + this.model.getRightForce(), 100, tailWidth, headWidth, headHeight );
       this.sumArrow.shape = arrow( x, 40, x + this.model.getNetForce(), 40, tailWidth, headWidth, headHeight );
-    }
+    },
+    layoutWidth: 981,
+    layoutHeight: 604
   } );
   return TugOfWarTab;
 } );
