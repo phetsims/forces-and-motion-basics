@@ -25,7 +25,7 @@ define( function( require ) {
   var Layout = require( 'SCENERY_PHET/Layout' );
   var PlayArea = require( 'SCENERY_PHET/PlayArea' );
 
-  function MotionTab( model ) {
+  function MotionPlayArea( model ) {
     this.model = model;
     PlayArea.call( this );
     var view = this;
@@ -160,7 +160,7 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  inherit( MotionTab, PlayArea, {
+  inherit( MotionPlayArea, PlayArea, {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
@@ -173,5 +173,5 @@ define( function( require ) {
     layoutHeight: 604
   } );
 
-  return MotionTab;
+  return MotionPlayArea;
 } );

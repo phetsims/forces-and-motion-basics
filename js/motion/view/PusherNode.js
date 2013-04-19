@@ -13,7 +13,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'SCENERY_PHET/Layout' );
 
-  function PusherNode( model, motionTab ) {
+  function PusherNode( model, motionPlayArea ) {
     var pusherNode = this;
     var scale = 0.85;
     Node.call( this, {cursor: 'pointer', scale: scale} );
@@ -22,7 +22,7 @@ define( function( require ) {
     model.link( 'appliedForce', function( appliedForce ) {
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
       imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
-      var delta = model.stack.length > 0 ? (motionTab.getItemNode( model.stack[0] ).width / 2 - model.stack[0].pusherInset) : 100;
+      var delta = model.stack.length > 0 ? (motionPlayArea.getItemNode( model.stack[0] ).width / 2 - model.stack[0].pusherInset) : 100;
       if ( appliedForce > 0 ) {
 
         //Workaround for buggy setScale, see dot#2
