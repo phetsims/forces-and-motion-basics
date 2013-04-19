@@ -23,13 +23,13 @@ define( function( require ) {
       medium = "medium",
       large = "large";
 
-  function TugOfWarTab( model ) {
+  function TugOfWarPlayArea( model ) {
 
     //Fit to the window and render the initial scene
     var width = Layout.width;
     var height = Layout.height;
 
-    var tugOfWarTab = this;
+    var tugOfWarPlayArea = this;
     this.model = model;
     PlayArea.call( this );
     var getImage = imageLoader.getImage;
@@ -82,15 +82,15 @@ define( function( require ) {
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
     model.knots.each( function( knot ) {
-      tugOfWarTab.addChild( new KnotNode( knot ) );
+      tugOfWarPlayArea.addChild( new KnotNode( knot ) );
     } );
 
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
 
     this.model.cart.on( 'change:x', function( m, x ) {
-      tugOfWarTab.cartNode.x = x + 399;
-      tugOfWarTab.ropeNode.x = x + 51;
+      tugOfWarPlayArea.cartNode.x = x + 399;
+      tugOfWarPlayArea.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
@@ -101,17 +101,17 @@ define( function( require ) {
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', this.updateForces, this );
     this.model.pullers.each( function( puller ) {
-      tugOfWarTab.addChild( new PullerNode( puller, tugOfWarTab.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+      tugOfWarPlayArea.addChild( new PullerNode( puller, tugOfWarPlayArea.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
     model.on( 'change:state', function( m, state ) {
       if ( state === 'completed' ) {
-        tugOfWarTab.addChild( new FlagNode( model ) );
+        tugOfWarPlayArea.addChild( new FlagNode( model ) );
       }
     } );
   }
 
-  inherit( TugOfWarTab, PlayArea, {
+  inherit( TugOfWarPlayArea, PlayArea, {
     updateForces: function() {
       var x = this.arrowTailX;
       var tailWidth = 25;
@@ -124,5 +124,5 @@ define( function( require ) {
     layoutWidth: 981,
     layoutHeight: 604
   } );
-  return TugOfWarTab;
+  return TugOfWarPlayArea;
 } );

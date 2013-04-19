@@ -3,11 +3,11 @@ require( [ "tugofwar/model/TugOfWarModel",
            'SCENERY/nodes/Image',
            'PHETCOMMON/util/ImagesLoader',
            'motion/view/MotionPlayArea',
-           'tugofwar/view/TugOfWarTab',
+           'tugofwar/view/TugOfWarPlayArea',
            'SCENERY_PHET/Sim',
            'imageLoader',
            'Strings'
-         ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionPlayArea, TugOfWarTab, Sim, imageLoader, Strings ) {
+         ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionPlayArea, TugOfWarPlayArea, Sim, imageLoader, Strings ) {
   "use strict";
 
   new ImagesLoader( function( loader ) {
@@ -21,7 +21,7 @@ require( [ "tugofwar/model/TugOfWarModel",
       { name: Strings.tugOfWar,
         icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) ),
         createModel: function() {return new TugOfWarModel();},
-        createView: function( model ) {return new TugOfWarTab( model );}
+        createView: function( model ) {return new TugOfWarPlayArea( model );}
       },
 
       { name: Strings.motion,
