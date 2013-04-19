@@ -24,6 +24,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'SCENERY_PHET/Layout' );
   var PlayArea = require( 'SCENERY_PHET/PlayArea' );
+  var Bounds2 = require( 'DOT/Bounds2' );
 
   function MotionPlayArea( model ) {
     this.model = model;
@@ -169,8 +170,7 @@ define( function( require ) {
       }
       return 380 - sum - 42 - 3;
     },
-    layoutWidth: 981,
-    layoutHeight: 604
+    layoutBounds: new Bounds2( 0, 0, 981, 604 )
   } );
 
   return MotionPlayArea;
