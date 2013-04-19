@@ -15,7 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'SCENERY_PHET/Layout' );
-  var Tab = require( 'SCENERY_PHET/Tab' );
+  var PlayArea = require( 'SCENERY_PHET/PlayArea' );
 
   var red = "red",
       blue = "blue",
@@ -31,7 +31,7 @@ define( function( require ) {
 
     var tugOfWarTab = this;
     this.model = model;
-    Tab.call( this );
+    PlayArea.call( this );
     var getImage = imageLoader.getImage;
 
     function getPullerImage( puller, leaning ) {
@@ -111,7 +111,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( TugOfWarTab, Tab, {
+  inherit( TugOfWarTab, PlayArea, {
     updateForces: function() {
       var x = this.arrowTailX;
       var tailWidth = 25;

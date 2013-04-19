@@ -23,11 +23,11 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'SCENERY_PHET/Layout' );
-  var Tab = require( 'SCENERY_PHET/Tab' );
+  var PlayArea = require( 'SCENERY_PHET/PlayArea' );
 
   function MotionTab( model ) {
     this.model = model;
-    Tab.call( this );
+    PlayArea.call( this );
     var view = this;
     view.model = model;
 
@@ -160,7 +160,7 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  inherit( MotionTab, Tab, {
+  inherit( MotionTab, PlayArea, {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
