@@ -4,7 +4,7 @@ define( function( require ) {
   var Item = require( 'motion/model/Item' );
   var Fort = require( 'FORT/Fort' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
-  var Layout = require( 'SCENERY_PHET/Layout' );
+  var Layout = require( 'JOIST/Layout' );
 
   var MotionModel = Fort.Model.extend(
       {defaults: {

@@ -22,7 +22,7 @@ define( function( require ) {
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
-  var PlayArea = require( 'SCENERY_PHET/PlayArea' );
+  var PlayArea = require( 'JOIST/PlayArea' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   function MotionPlayArea( model ) {

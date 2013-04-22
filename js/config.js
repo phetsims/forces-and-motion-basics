@@ -24,6 +24,7 @@ require.config( {
                     PHET_CORE: '../../phet-core/js',
                     FORT: '../../fort/js',
                     SUN: '../../sun/js',
+                    JOIST: '../../joist/js',
 
                     easel: '../contrib/easel-0.5.0',
                     image: '../contrib/image-0.2.2',

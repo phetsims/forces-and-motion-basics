@@ -11,7 +11,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
-  var Layout = require( 'SCENERY_PHET/Layout' );
+  var Layout = require( 'JOIST/Layout' );
 
   function PusherNode( model, motionPlayArea ) {
     var pusherNode = this;
