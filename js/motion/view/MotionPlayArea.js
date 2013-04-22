@@ -22,18 +22,18 @@ define( function( require ) {
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
-  var Layout = require( 'SCENERY_PHET/Layout' );
   var PlayArea = require( 'SCENERY_PHET/PlayArea' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   function MotionPlayArea( model ) {
     this.model = model;
     PlayArea.call( this );
+    this.layoutBounds = new Bounds2( 0, 0, 981, 604 );
     var view = this;
     view.model = model;
 
-    var width = Layout.width;
-    var height = Layout.height;
+    var width = this.layoutBounds.width;
+    var height = this.layoutBounds.height;
 
     var skyHeight = 362;
     var groundHeight = height - skyHeight;
@@ -77,8 +77,8 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    this.addChild( new Rectangle( 10, Layout.height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
-    this.addChild( new Rectangle( Layout.width - 10 - 300, Layout.height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
@@ -105,7 +105,7 @@ define( function( require ) {
       throw new Error( "Couldn't find itemNode for item", item );
     };
 
-    this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: Layout.width / 2, y: 315 + 12} ) );
+    this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     this.addChild( new PusherNode( model, this ) );
 
     this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
@@ -117,7 +117,7 @@ define( function( require ) {
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) ).addNormalTicks();
-    var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: Layout.width / 2 - 18, y: 465, spacing: 8} );
+    var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
     this.addChild( sliderControl );//text box only seems to work if addedlast
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
@@ -126,7 +126,7 @@ define( function( require ) {
     readout.top = sliderControl.bottom + 10;
     model.link( 'appliedForce', function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 );
-      readout.centerX = Layout.width / 2 + 2;
+      readout.centerX = width / 2 + 2;
       unitsLabel.x = readout.right + 10;
     } );
     unitsLabel.centerY = readout.centerY;
@@ -149,7 +149,7 @@ define( function( require ) {
     }, this );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: Layout.width / 2, top: 2} );
+    var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: width / 2, top: 2} );
     model.link( 'showSpeed', speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
@@ -169,8 +169,7 @@ define( function( require ) {
         sum = sum + itemView.height;
       }
       return 380 - sum - 42 - 3;
-    },
-    layoutBounds: new Bounds2( 0, 0, 981, 604 )
+    }
   } );
 
   return MotionPlayArea;
