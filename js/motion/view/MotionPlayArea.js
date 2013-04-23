@@ -22,12 +22,12 @@ define( function( require ) {
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
-  var PlayArea = require( 'JOIST/PlayArea' );
+  var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
   function MotionPlayArea( model ) {
     this.model = model;
-    PlayArea.call( this );
+    TabView.call( this );
     this.layoutBounds = new Bounds2( 0, 0, 981, 604 );
     var view = this;
     view.model = model;
@@ -161,7 +161,7 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  inherit( MotionPlayArea, PlayArea, {
+  inherit( MotionPlayArea, TabView, {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
