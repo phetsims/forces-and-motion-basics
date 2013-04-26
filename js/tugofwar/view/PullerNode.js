@@ -43,8 +43,6 @@ define( function( require ) {
       pullerNode.image = pulling ? pullImage : image;
 
       //Reshape the focus rect when image changes
-      pullerNode.focusRectangle.rectWidth = pullerNode.image.width;
-      pullerNode.focusRectangle.rectHeight = pullerNode.image.height;
       updateLocation();
     };
     model.on( 'change:running', updateImage );
@@ -69,11 +67,9 @@ define( function( require ) {
           }
         } ) );
 
-    this.focusRectangle = new Rectangle( 0, 0, this.width, this.height, 10, 10, {stroke: 'black', lineWidth: 3, visible: false} );
-    this.addChild( this.focusRectangle );
-
     //Add accessibility peer
     this.peer = new DOM( $( '<input type="button">' ), { interactive: true} );
+    this.peer.origin=this;
     var $elm = $( this.peer.element );
     $elm.click( function() {
       if ( puller.knot ) {
@@ -88,8 +84,6 @@ define( function( require ) {
         model.numberPullersAttached = model.countAttachedPullers();
       }
     } );
-    $elm.focusin( function() { pullerNode.focusRectangle.visible = true;} );
-    $elm.focusout( function() { pullerNode.focusRectangle.visible = false;} );
   }
 
   inherit( PullerNode, Image );
