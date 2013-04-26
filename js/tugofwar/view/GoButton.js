@@ -4,6 +4,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var AccessibilityPeer = require( 'SCENERY/nodes/AccessibilityPeer' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
@@ -52,6 +53,9 @@ define( function( require ) {
 
     model.trigger( 'change:numberPullersAttached' );
     this.centerX = Layout.width / 2;
+
+    //Add accessibility peer
+    this.peer = new AccessibilityPeer( this, '<input type="button">', {click: function() {model.running = !model.running;}} );
   }
 
   inherit( GoButton, Image );
