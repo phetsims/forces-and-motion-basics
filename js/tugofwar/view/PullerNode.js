@@ -3,6 +3,7 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var DOM = require( 'SCENERY/nodes/DOM' );
+  var AccessibilityPeer = require( 'SCENERY/util/AccessibilityPeer' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -68,10 +69,7 @@ define( function( require ) {
         } ) );
 
     //Add accessibility peer
-    this.peer = new DOM( $( '<input type="button">' ), { interactive: true} );
-    this.peer.origin=this;
-    var $elm = $( this.peer.element );
-    $elm.click( function() {
+    this.accessibilityPeer = new AccessibilityPeer(this,'<input type="button">',{click:function() {
       if ( puller.knot ) {
         puller.disconnect();
         puller.set( {x: puller.initX, y: puller.initY} );
@@ -83,7 +81,7 @@ define( function( require ) {
         puller.set( {x: knot.x, y: knot.y, knot: knot} );
         model.numberPullersAttached = model.countAttachedPullers();
       }
-    } );
+    }});
   }
 
   inherit( PullerNode, Image );
