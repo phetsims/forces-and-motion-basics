@@ -21,6 +21,8 @@ define( function( require ) {
     this.max = max;
     this.sliderWidth = width;
     this.trackHeight = 6;
+    options = options || {};
+    options.renderer = 'svg';
     Node.call( this, options );
 
     this.ticksLayer = new Node();
