@@ -31,9 +31,6 @@ define( function( require ) {
     var $playbackButton = $( '.playback-button' );
     $playbackButton.bind( 'click', startPlayback );
 
-    var $resetButton = $( '.reset-all-button' );
-    $resetButton.bind( 'click', motionModel.reset.bind( motionModel ) );
-
     //Connect to server for sending or delivering log events
     if ( typeof io !== 'undefined' && (sendMessagesToServer || readServer) ) {
 //      var socket = io.connect( 'http://simian.colorado.edu:44100' );

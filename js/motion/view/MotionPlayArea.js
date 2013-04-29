@@ -1,5 +1,6 @@
 define( function( require ) {
   "use strict";
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var LayerType = require( 'SCENERY/layers/LayerType' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -156,8 +157,7 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) ).
-        mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButton( model.reset.bind( model ) ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
   }
 
