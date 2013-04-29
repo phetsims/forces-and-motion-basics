@@ -35,8 +35,8 @@ define( function( require ) {
         } );
 
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on ipad3
-    var goText = new Text( Strings.go, {fontSize: '34px', renderer: 'canvas'} );
-    var pauseText = new Text( Strings.pause, {fontSize: '34px', renderer: 'canvas'} );
+    var goText = new Text( Strings.go, {fontSize: '34px'} );
+    var pauseText = new Text( Strings.pause, {fontSize: '34px'} );
     var textContainer = new Node( {children: [goText]} );
     textContainer.x = goButtonImage.width / 2 - textContainer.width / 2 - 5;
     textContainer.y = goButtonImage.height / 2 + 7;
