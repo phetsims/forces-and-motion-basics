@@ -6,9 +6,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Button = require( 'SUN/Button' );
-  var ToggleButton = require( 'SUN/ToggleButton' );
-  var ToggleNode = require( 'SUN/ToggleNode' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var CheckBox = require( 'SUN/CheckBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
@@ -25,10 +24,8 @@ define( function( require ) {
                                                   ] );
     this.addChild( controlPanel );
 
-    var resetButton = new Button( new FontAwesomeNode( 'refresh', {fill: '#fff'} ), {}, model.reset.bind( model ) );
-    var soundButton = new ToggleButton( new ToggleNode( new FontAwesomeNode( 'volume_off' ),
-                                                        new FontAwesomeNode( 'volume_up' ),
-                                                        model.property( 'volumeOn' ) ), model.property( 'volumeOn' ) );
+    var resetButton = new ResetAllButton( model.reset.bind( model ) );
+    var soundButton = new SoundToggleButton( model.property( 'volumeOn' ) );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} ) );
   }
 
