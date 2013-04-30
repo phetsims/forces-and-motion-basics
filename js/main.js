@@ -6,8 +6,9 @@ require( [ "tugofwar/model/TugOfWarModel",
            'tugofwar/view/TugOfWarPlayArea',
            'JOIST/Sim',
            'imageLoader',
-           'Strings'
-         ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionPlayArea, TugOfWarPlayArea, Sim, imageLoader, Strings ) {
+           'Strings',
+           'logs/testLog'
+         ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionPlayArea, TugOfWarPlayArea, Sim, imageLoader, Strings, testLog ) {
   "use strict";
 
   new ImagesLoader( function( loader ) {
@@ -39,6 +40,8 @@ require( [ "tugofwar/model/TugOfWarModel",
         createModel: function() {return new MotionModel( {tab: 'acceleration'} );},
         createView: function( model ) {return new MotionPlayArea( model );}}
 
-    ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} ).start();
+    ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} )
+        .start();
+//        .startPlayback( testLog );
   } );
 } );
