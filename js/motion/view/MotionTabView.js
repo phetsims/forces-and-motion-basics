@@ -26,7 +26,7 @@ define( function( require ) {
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
-  function MotionPlayArea( model ) {
+  function MotionTabView( model ) {
     this.model = model;
     TabView.call( this );
     this.layoutBounds = new Bounds2( 0, 0, 981, 604 );
@@ -161,7 +161,7 @@ define( function( require ) {
     this.addChild( resetButton );
   }
 
-  inherit( MotionPlayArea, TabView, {
+  inherit( MotionTabView, TabView, {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
@@ -172,5 +172,5 @@ define( function( require ) {
     }
   } );
 
-  return MotionPlayArea;
+  return MotionTabView;
 } );
