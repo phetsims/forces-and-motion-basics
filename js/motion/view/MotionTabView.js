@@ -25,6 +25,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var profiler = require( 'PHET_CORE/profiler' );
 
   function MotionTabView( model ) {
     this.model = model;
@@ -159,6 +160,11 @@ define( function( require ) {
 
     var resetButton = new ResetAllButton( model.reset.bind( model ) ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
+
+    //This code shows the results of the profiler, useful on iPad where it is more difficult to collect metrics
+//    var text = new Text( 'profiler', {top: 100, left: 100} );
+//    profiler.addListener( function( summary ) {text.text = summary;} );
+//    this.addChild( text );
   }
 
   inherit( MotionTabView, TabView, {
