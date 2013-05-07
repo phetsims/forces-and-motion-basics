@@ -10,7 +10,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Layout = require( "JOIST/Layout" );
+  var Layout = require( 'Layout' );
 
   function ItemNode( model, scenery, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;

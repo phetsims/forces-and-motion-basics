@@ -8,7 +8,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
-  var Layout = require( 'JOIST/Layout' );
+  var Layout = require( 'Layout' );
 
   function GoButton( getImage, model ) {
     var goButtonImage = this;

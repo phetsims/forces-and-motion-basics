@@ -14,7 +14,7 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
-  var Layout = require( 'JOIST/Layout' );
+  var Layout = require( 'Layout' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
 
