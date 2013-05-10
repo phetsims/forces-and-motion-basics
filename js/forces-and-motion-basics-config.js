@@ -1,14 +1,5 @@
 require.config( {
-                  config: {
-                    //Set the config for the i18n
-                    //module ID
-                    i18n: {
-
-                      //Specify the locale using a query parameter
-                      locale: 'en_US'
-                    }
-                  },
-                  deps: ['main'],
+                  deps: ['forces-and-motion-basics-main'],
 
                   paths: {
                     common: 'common',

@@ -11,7 +11,7 @@ require( [ "tugofwar/model/TugOfWarModel",
          ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, testLog ) {
   "use strict";
 
-  new ImagesLoader( function( loader ) {
+  var loader = new ImagesLoader( function( loader ) {
 
     //Initialize the image loader
     imageLoader.getImage = loader.getImage;
