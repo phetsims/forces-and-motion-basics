@@ -3,3 +3,4 @@ dist
 common/scenery
 Thumbs.db
 deploy-output/
+build
