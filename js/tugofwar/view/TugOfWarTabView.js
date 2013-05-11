@@ -95,7 +95,14 @@ define( function( require ) {
     } );
 
     this.addChild( this.cartNode );
-    this.addChild( new GoButton( getImage, this.model ) );
+
+    //Add the go button, but only if there is a puller attached
+    var goButtonContainer = new Node();
+    var goButton = new GoButton( getImage, this.model );
+    this.addChild( goButtonContainer );
+    model.on( "change:running change:state change:numberPullersAttached", function() {
+      goButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goButton] : [];
+    } );
 
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 

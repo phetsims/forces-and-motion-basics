@@ -46,8 +46,6 @@ define( function( require ) {
       textContainer.children = [child];
       textContainer.x = goButtonImage.width / 2 - child.width / 2 - 5;
       textContainer.y = goButtonImage.height / 2 + 7;
-
-      goButtonImage.visible = model.numberPullersAttached > 0 && model.state !== 'completed';
     } );
 
     model.trigger( 'change:numberPullersAttached' );
