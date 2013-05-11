@@ -24,12 +24,12 @@ define( function( require ) {
       var knotted = puller.has( 'knot' );
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.x = puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0);
-        pullerNode.y = puller.knot.y - pullerNode.height + 100;
+        pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
+                                   puller.knot.y - pullerNode.height + 100
+        )
       }
       else {
-        pullerNode.x = puller.x;
-        pullerNode.y = puller.y;
+        pullerNode.setTranslation( puller.x, puller.y );
       }
     }
 
@@ -68,7 +68,7 @@ define( function( require ) {
         } ) );
 
     //Add accessibility peer
-    this.addPeer( '<input type="button">' ,{click:function() {
+    this.addPeer( '<input type="button">', {click: function() {
       if ( puller.knot ) {
         puller.disconnect();
         puller.set( {x: puller.initX, y: puller.initY} );
@@ -80,7 +80,7 @@ define( function( require ) {
         puller.set( {x: knot.x, y: knot.y, knot: knot} );
         model.numberPullersAttached = model.countAttachedPullers();
       }
-    }});
+    }} );
   }
 
   inherit( PullerNode, Image );
