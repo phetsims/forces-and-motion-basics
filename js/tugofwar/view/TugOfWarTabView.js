@@ -104,13 +104,13 @@ define( function( require ) {
       goButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goButton] : [];
     } );
 
-    this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
-
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', this.updateForces, this );
     this.model.pullers.each( function( puller ) {
       tugOfWarTabView.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
+
+    this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
     model.on( 'change:state', function( m, state ) {
       if ( state === 'completed' ) {
