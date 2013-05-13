@@ -26,7 +26,7 @@ define( function( require ) {
       if ( knotted ) {
         pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
                                    puller.knot.y - pullerNode.height + 100
-        )
+        );
       }
       else {
         pullerNode.setTranslation( puller.x, puller.y );

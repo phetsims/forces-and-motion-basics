@@ -1,5 +1,6 @@
 require.config( {
                   deps: ['forces-and-motion-basics-main'],
+//                  config: { i18n: { locale: 'en_US' } },
 
                   paths: {
                     common: 'common',
@@ -17,12 +18,12 @@ require.config( {
                     SUN: '../../sun/js',
                     JOIST: '../../joist/js',
 
-                    easel: '../contrib/easel-0.5.0',
-                    image: '../contrib/image-0.2.2',
-                    jquery: '../contrib/jquery-1.9.1',
-                    underscore: '../contrib/underscore-1.4.2',
-                    tpl: "../contrib/tpl-0.2",
-                    i18n: "../contrib/i18n",
+                    easel: '../lib/easel-0.5.0',
+                    image: '../lib/image-0.2.2',
+                    jquery: '../lib/jquery-1.9.1',
+                    underscore: '../lib/underscore-1.4.2',
+                    tpl: "../lib/tpl-0.2",
+                    i18n: "../lib/i18n",
                     watch: "../../Watch.JS/src/watch",
                     imagesloaded: "../../phetcommon/contrib/jquery.imagesloaded-2.1.1"
                   },

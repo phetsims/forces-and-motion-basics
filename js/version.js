@@ -5,5 +5,5 @@
  * TODO: generate this file a build time, reading package.json
  */
 define( function( require ) {
-  return function() { return "0.0.0.1"; }
+  return function() { return "0.0.0.1"; };
 } );
