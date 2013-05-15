@@ -46,7 +46,8 @@ define( function( require ) {
           blueKnots: blueKnots,
           redKnots: redKnots,
           numberPullersAttached: 0,
-          state: 'experimenting'
+          state: 'experimenting',
+          time: 0
         },
         init: function() {
           this.cart = new Cart();
@@ -150,7 +151,7 @@ define( function( require ) {
           this.knots.each( function( knot ) {knot.x = knot.initX;} );
           this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
         },
-        step: function() {
+        step: function( dt ) {
           if ( this.running ) {
             var newV = this.cart.v + this.getNetForce() / 20000;
             var newX = this.cart.x + newV;
@@ -167,6 +168,8 @@ define( function( require ) {
               this.state = 'completed';
             }
           }
+          this.time = this.time + dt;
+          this.trigger( 'step' );
         },
         getNetForce: function() {
           return this.getLeftForce() + this.getRightForce();

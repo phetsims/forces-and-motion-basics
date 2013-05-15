@@ -45,8 +45,6 @@ define( function( require ) {
       return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) + ".png" );
     }
 
-    this.model = model;//Wire up so that main.js can step the model
-
     var skyHeight = 376;
     var grassY = 368;
     var groundHeight = height - skyHeight;
@@ -82,9 +80,7 @@ define( function( require ) {
 
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
-    model.knots.each( function( knot ) {
-      tugOfWarTabView.addChild( new KnotNode( knot ) );
-    } );
+    model.knots.each( function( knot ) { tugOfWarTabView.addChild( new KnotNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
@@ -112,11 +108,9 @@ define( function( require ) {
 
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
-    model.on( 'change:state', function( m, state ) {
-      if ( state === 'completed' ) {
-        tugOfWarTabView.addChild( new FlagNode( model ) );
-      }
-    } );
+    function showFlagNode() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ) }
+
+    model.on( 'change:state', function( m, state ) { if ( state === 'completed' ) { showFlagNode(); } } );
   }
 
   inherit( TugOfWarTabView, TabView, {
