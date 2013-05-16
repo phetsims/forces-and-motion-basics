@@ -144,12 +144,16 @@ define( function( require ) {
           }
         },
         reset: function() {
+
+          //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
+          this.pullers.each( function( puller ) {puller.unset( 'knot' );} );
+
           Fort.Model.prototype.reset.call( this );
           this.cart.set( this.cart.defaults );
           this.pullers.each( function( puller ) { puller.set( puller.initAttributes ); } );
-          this.trigger( 'reset-all' );
           this.knots.each( function( knot ) {knot.x = knot.initX;} );
           this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
+          this.trigger( 'reset-all' );
         },
         step: function( dt ) {
           if ( this.running ) {
