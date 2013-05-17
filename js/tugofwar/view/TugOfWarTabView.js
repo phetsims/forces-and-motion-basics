@@ -108,7 +108,7 @@ define( function( require ) {
 
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
-    function showFlagNode() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ) }
+    function showFlagNode() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ); }
 
     model.on( 'change:state', function( m, state ) { if ( state === 'completed' ) { showFlagNode(); } } );
   }
