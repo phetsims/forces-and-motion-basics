@@ -153,6 +153,18 @@ define( function( require ) {
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: width / 2, top: 2} );
     model.link( 'showSpeed', speedometerNode, 'visible' );
+
+    //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
+    model.on( 'stackChanged', function() {
+      if ( model.stack.length > 2 && speedometerNode.isCentered ) {
+        speedometerNode.isCentered = false;
+        new TWEEN.Tween( speedometerNode ).to( { left: 50}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+      }
+      else if ( model.stack.length <= 2 && !speedometerNode.isCentered ) {
+        speedometerNode.isCentered = true;
+        new TWEEN.Tween( speedometerNode ).to( { x: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+      }
+    } );
     this.addChild( speedometerNode );
 
     var controlPanel = new MotionControlPanel( model );
