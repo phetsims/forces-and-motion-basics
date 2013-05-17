@@ -8,7 +8,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( 'Strings' );
-  var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var Button = require( 'SUN/Button' );
   var PanelNode = require( 'SUN/PanelNode' );
   var inherit = require( 'PHET_CORE/inherit' );
