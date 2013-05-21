@@ -3,6 +3,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Pattern = require( 'SCENERY/util/Pattern' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -62,24 +63,13 @@ define( function( require ) {
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
-    //Use tiles to create a buffered image of the ground texture
-    var nodes = [];
-    var numTiles = 12;
-    for ( var tileIndex = 0; tileIndex < numTiles; tileIndex++ ) {
-      nodes.push( new Image( imageLoader.getImage( 'brick-tile.png' ) ) );
-    }
-    var image = new HBox( {children: nodes, spacing: 0} );
-    image.toImage( function( im ) {
-      var sprite = new Image( im, { y: mountainY + 50, renderer: 'canvas', scale: 1} );
-      motionTabView.addChild( sprite );
-
-      //Store variables to improve performance on callback
-      var mod = sprite.width / numTiles;
-      var offset = motionTabView.layoutBounds.width / 2 - sprite.width / 2;
-
-      //Shift the ground to create the illusion of motion, while not letting the edges show onscreen
-      model.link( 'position', function( position ) { sprite.x = -position % mod + offset; } );
-    } );
+    //We tested that Pattern has superior performance to a large cached image
+    var tile = imageLoader.getImage( 'brick-tile.png' );
+    var ground = new Rectangle( 0, mountainY + 50, tile.width * 12, tile.height, {fill: new Pattern( tile )} );
+    var mod = ground.width / 12;
+    var offset = motionTabView.layoutBounds.width / 2 - ground.width / 2;
+    model.link( 'position', function( position ) { ground.x = -position % mod + offset; } );
+    this.addChild( ground );
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
