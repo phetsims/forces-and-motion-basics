@@ -51,7 +51,7 @@ define( function( require ) {
 
     var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'css', rendererOptions: {cssTransform: true}} );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
       motionTabView.addChild( sprite );
       model.link( 'position', function( position ) { sprite.x = -(position / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
