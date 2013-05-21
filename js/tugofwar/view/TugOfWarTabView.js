@@ -70,10 +70,18 @@ define( function( require ) {
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
 
-    this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
+    this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1, lineDash: [ 10, 5 ]} );
     this.model.link( 'showSumOfForces', this.sumArrow, 'visible' );
-    this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
+    this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1, lineDash: [ 10, 5]} );
+    this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1, lineDash: [ 10, 5]} );
+
+    //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
+    this.model.link( 'running', function( running ) {
+      [tugOfWarTabView.sumArrow, tugOfWarTabView.leftArrow, tugOfWarTabView.rightArrow].forEach( function( arrow ) {
+        arrow.lineDash = running ? null : [ 10, 5 ];
+      } );
+    } );
+
     this.addChild( this.leftArrow );
     this.addChild( this.rightArrow );
     this.addChild( this.sumArrow );
