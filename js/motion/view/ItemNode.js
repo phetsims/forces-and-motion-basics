@@ -82,7 +82,6 @@ define( function( require ) {
     var massLabel = new Text( item.weight + ' kg', {fontSize: '18px'} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
-    this.addChild( labelNode );
     this.labelNode = labelNode;
     updateImage();
 

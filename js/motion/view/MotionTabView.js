@@ -7,6 +7,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var arrow = require( 'tugofwar/view/arrow' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'motion/view/ItemNode' );
@@ -47,7 +48,7 @@ define( function( require ) {
 
     var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'canvas', rendererOptions: {cssTransform: true}} );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'css', rendererOptions: {cssTransform: true}} );
       motionTabView.addChild( sprite );
       model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
@@ -61,13 +62,24 @@ define( function( require ) {
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
 
-    var addBrick = function( image, offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg', scale: 4, rendererOptions: {cssTransform: true}} );
+    //Use tiles to create a buffered image of the ground texture
+    var nodes = [];
+    var numTiles = 12;
+    for ( var tileIndex = 0; tileIndex < numTiles; tileIndex++ ) {
+      nodes.push( new Image( imageLoader.getImage( 'brick-tile.png' ) ) );
+    }
+    var image = new HBox( {children: nodes, spacing: 0} );
+    image.toImage( function( im ) {
+      var sprite = new Image( im, { y: mountainY + 50, renderer: 'canvas', scale: 1} );
       motionTabView.addChild( sprite );
-      model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
-    };
-    addBrick( imageLoader.getImage( 'brick-repeat.svg' ), 0, '', 1, 0, 1 );
-    addBrick( imageLoader.getImage( 'brick-repeat.svg' ), 1000, '', 1, 0, 1 );
+
+      //Store variables to improve performance on callback
+      var mod = sprite.width / numTiles;
+      var offset = motionTabView.layoutBounds.width / 2 - sprite.width / 2;
+
+      //Shift the ground to create the illusion of motion, while not letting the edges show onscreen
+      model.link( 'position', function( position ) { sprite.x = -position % mod + offset; } );
+    } );
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
