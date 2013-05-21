@@ -9,7 +9,7 @@ define( function( require ) {
   var MotionModel = Fort.Model.extend(
       {defaults: {
         //TODO: Turn stack into a backbone collection
-        stack: [],
+        stack: null, //Array: Initialized in the constructor so that stack instance will not be shared across MotionModel instances.
         appliedForce: 0,
         pusherX: 0,
         friction: 0,
@@ -78,6 +78,10 @@ define( function( require ) {
           this.trigger( 'stackChanged' );
         },
         init: function() {
+
+          //Initialize the stack array in the constructor rather than in the defaults so that stack instance will not be shared across MotionModel instances.
+          this.stack = [];
+
           //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
           assert && assert( this.has( 'tab' ) );
           var motionModel = this;
@@ -104,5 +108,6 @@ define( function( require ) {
         }
       } );
 
+  window.MotionModel = MotionModel;
   return MotionModel;
 } );
