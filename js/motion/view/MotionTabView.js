@@ -24,8 +24,8 @@ define( function( require ) {
     this.model = model;
     TabView.call( this );
     this.layoutBounds = new Bounds2( 0, 0, 981, 604 );
-    var view = this;
-    view.model = model;
+    var motionTabView = this;
+    motionTabView.model = model;
 
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
@@ -48,7 +48,7 @@ define( function( require ) {
     var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'canvas', rendererOptions: {cssTransform: true}} );
-      view.addChild( sprite );
+      motionTabView.addChild( sprite );
       model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     var mountainY = 353 - 54 + 12;
@@ -63,7 +63,7 @@ define( function( require ) {
 
     var addBrick = function( image, offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( image, { y: mountainY + 50, renderer: 'svg', scale: 4, rendererOptions: {cssTransform: true}} );
-      view.addChild( sprite );
+      motionTabView.addChild( sprite );
       model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
     addBrick( imageLoader.getImage( 'brick-repeat.svg' ), 0, '', 1, 0, 1 );
@@ -81,7 +81,7 @@ define( function( require ) {
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
-      var itemNode = new ItemNode( model, view, item,
+      var itemNode = new ItemNode( model, motionTabView, item,
                                    imageLoader.getImage( item.image ),
                                    imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),
                                    imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
@@ -124,7 +124,7 @@ define( function( require ) {
     //Show a line that indicates the center of the layout
 //    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );
 
-    model.link( 'showForce', view.sumArrow, 'visible' );
+    model.link( 'showForce', motionTabView.sumArrow, 'visible' );
     model.link( 'appliedForce', function() {
       var tailX = 981 / 2;
       var tailY = 280;

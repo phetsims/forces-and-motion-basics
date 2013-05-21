@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Layout = require( 'Layout' );
 
-  function ItemNode( model, scenery, item, image, imageSitting, imageHolding, showMassesProperty ) {
+  function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
@@ -60,7 +60,7 @@ define( function( require ) {
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
             if ( item.y < 350 ) {
               item.onBoard = true;
-              item.animateTo( Layout.width / 2 - itemNode.width / 2, scenery.topOfStack - itemNode.height, 'stack' );
+              item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
               model.stack.push( item );
               model.trigger( 'stackChanged' );
             }
