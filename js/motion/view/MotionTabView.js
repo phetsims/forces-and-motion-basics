@@ -34,8 +34,7 @@ define( function( require ) {
     var groundHeight = height - skyHeight;
 
     model.getSize = function( item ) {
-      var itemNode = view.getItemNode( item );
-      return {width: itemNode.width, height: itemNode.height};
+      return {width: item.view.width, height: item.view.height};
     };
 
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
@@ -88,17 +87,11 @@ define( function( require ) {
                                    imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
                                    model.property( 'showMasses' ) );
       this.itemNodes.push( itemNode );
+
+      //Provide a reference from the item model to its view so that view dimensions can be looked up easily
+      item.view = itemNode;
       this.addChild( itemNode );
     }
-
-    this.getItemNode = function( item ) {
-      for ( var i = 0; i < this.itemNodes.length; i++ ) {
-        if ( this.itemNodes[i].item === item ) {
-          return this.itemNodes[i];
-        }
-      }
-      throw new Error( "Couldn't find itemNode for item", item );
-    };
 
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     this.addChild( new PusherNode( model, this ) );
@@ -176,8 +169,7 @@ define( function( require ) {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
-        var itemView = this.getItemNode( this.model.stack[i] );
-        sum = sum + itemView.height;
+        sum = sum + this.model.stack[i].view.height;
       }
       return 380 - sum - 42 - 3;
     }

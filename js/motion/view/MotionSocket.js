@@ -14,8 +14,7 @@ define( function( require ) {
   function MotionView( motionModel, $tab ) {
     var view = this;
     motionModel.getSize = function( item ) {
-      var itemNode = view.scenery.getItemNode( item );
-      return {width: itemNode.width, height: itemNode.height};
+      return {width: item.view.width, height: item.view.height};
     };
     view.getImage = function( name ) {return imageLoader.getImage( name );};
 
