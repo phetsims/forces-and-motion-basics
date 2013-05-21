@@ -1,13 +1,10 @@
 define( function( require ) {
   "use strict";
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var LayerType = require( 'SCENERY/layers/LayerType' );
-  var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var DOM = require( 'SCENERY/nodes/DOM' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var arrow = require( 'tugofwar/view/arrow' );
@@ -17,15 +14,11 @@ define( function( require ) {
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( 'Strings' );
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
-  var Button = require( 'SUN/Button' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var CheckBox = require( 'SUN/CheckBox' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var imageLoader = require( 'imageLoader' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var profiler = require( 'PHET_CORE/profiler' );
 
   function MotionTabView( model ) {
     this.model = model;
