@@ -25,7 +25,6 @@ define( function( require ) {
         showMasses: false,
         showAcceleration: false,
         running: true,
-        get topOfStack() { return 350 - this.stack.length * 100; },
         draggingItems: function() {
           var draggingItems = [];
           for ( var i = 0; i < this.items.length; i++ ) {
