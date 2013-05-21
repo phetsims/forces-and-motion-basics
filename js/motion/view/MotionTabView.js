@@ -47,6 +47,8 @@ define( function( require ) {
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
 
+    this.addChild( new Node( {layerSplit: true} ) );
+
     var modWidth = 120 * 15;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'css', rendererOptions: {cssTransform: true}} );
