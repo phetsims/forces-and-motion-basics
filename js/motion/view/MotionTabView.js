@@ -50,10 +50,10 @@ define( function( require ) {
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'css', rendererOptions: {cssTransform: true}} );
       motionTabView.addChild( sprite );
-      model.link( 'position', function( newValue ) { sprite.x = -(newValue / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
+      model.link( 'position', function( position ) { sprite.x = -(position / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
     };
-    var mountainY = 353 - 54 + 12;
 
+    var mountainY = 311;
     addBackgroundSprite( 100, 'mountains.png', 10, mountainY, 1 );
     addBackgroundSprite( 300, 'mountains.png', 10, mountainY, 1 );
     addBackgroundSprite( 700, 'mountains.png', 10, mountainY, 1 );
