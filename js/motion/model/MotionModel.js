@@ -52,6 +52,37 @@ define( function( require ) {
           }
           this.trigger( 'stackChanged' );
         },
+        getSign: function( value ) { return value > 0 ? 1 : value < 0 ? -1 : 0; },
+
+        //TODO: Test this
+        getFrictionForce: function( appliedForce ) {
+          var g = 10.0;
+          var mass = 100;
+          if ( !this.friction ) { return 0.0; }
+          var frictionForce = Math.abs( this.friction ) * this.getSign( this.friction ) * mass * g;
+
+          //Friction force only applies above this velocity
+          var velocityThreshold = 1E-12;
+          if ( Math.abs( this.velocity ) <= velocityThreshold && Math.abs( frictionForce ) > Math.abs( appliedForce ) ) {
+            frictionForce = appliedForce;
+          }
+          else if ( Math.abs( this.velocity ) > velocityThreshold ) {
+            frictionForce = this.getSign( this.velocity ) * this.friction * mass * g;
+          }
+          return -frictionForce;
+        },
+
+        //TODO: Test this
+        updateForces: function() {
+          //The first part of stepInTime is to compute and set the forces.  But this is factored out because the forces must also be updated
+          //When the user changes the friction force or mass while the sim is paused.
+          var appliedForce = this.appliedForce;
+          var frictionForce = this.getFrictionForce( appliedForce );
+          this.frictionForce = frictionForce;
+          var sumOfForces = frictionForce + appliedForce;
+          this.sumOfForces = sumOfForces;
+          return sumOfForces;
+        },
         step: function() {
           var dt = 1;
           var mass = 1000;
