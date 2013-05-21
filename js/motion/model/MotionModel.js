@@ -63,7 +63,6 @@ define( function( require ) {
           }
         },
         isItemStackedAbove: function( item ) {
-//          return true;
           var index = _.indexOf( this.stack, item );
           if ( index === -1 ) {
             return false;
