@@ -12,9 +12,17 @@ define( function( require ) {
   var arrow = require( 'tugofwar/view/arrow' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function ReadoutArrow( options ) {
+  /**
+   *
+   * @param fill the color of the arrow
+   * @param options 'labelPosition' where the label text should be {side|*top}
+   * @constructor
+   */
+  function ReadoutArrow( fill, options ) {
+    this.options = options;
     Node.call( this );
-    this.arrowNode = new Path( options );
+
+    this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
     this.valueNode = new Text( '110N', {font: new Font( { weight: 'bold', size: 16 } )} );
     this.labelNode = new Text( 'Applied Force', {font: new Font( { weight: 'bold', size: 16 } )} );
     this.addChild( this.arrowNode );
@@ -36,11 +44,30 @@ define( function( require ) {
         var headWidth = 50;
         var headHeight = 40;
         this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
-        this.valueNode.center = this.arrowNode.center;
-        this.labelNode.centerX = this.arrowNode.centerX;
-        this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
-        if ( this.valueNode.width + 5 > this.arrowNode.width ) {
-          this.valueNode.top = this.labelNode.bottom;
+
+        if ( this.options.labelPosition === 'side' ) {
+          if ( value > 0 ) {
+            this.labelNode.left = this.arrowNode.right + 5;
+          }
+          else {
+            this.labelNode.right = this.arrowNode.left - 5;
+          }
+          this.labelNode.centerY = this.arrowNode.centerY;
+
+          this.valueNode.center = this.arrowNode.center;
+
+          if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+            this.valueNode.top = this.labelNode.bottom;
+            this.valueNode.centerX = this.labelNode.centerX;
+          }
+        }
+        else {
+          this.valueNode.center = this.arrowNode.center;
+          this.labelNode.centerX = this.arrowNode.centerX;
+          this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
+          if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+            this.valueNode.top = this.labelNode.bottom;
+          }
         }
       }
     }

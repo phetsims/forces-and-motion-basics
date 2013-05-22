@@ -74,7 +74,7 @@ define( function( require ) {
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     this.addChild( new PusherNode( model, this ) );
 
-    this.sumArrow = new ReadoutArrow( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
+    this.sumArrow = new ReadoutArrow( '#7dc673', {labelPosition: 'side'} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.addChild( this.leftArrow );
