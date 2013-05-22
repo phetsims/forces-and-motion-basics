@@ -20,21 +20,28 @@ define( function( require ) {
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
+    this.setValue( 0 );
   }
 
   inherit( ReadoutArrow, Node, {
     setValue: function( value ) {
-      var tailX = 981 / 2;
-      var tailY = 280;
-      var tailWidth = 25;
-      var headWidth = 50;
-      var headHeight = 40;
-      this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
-      this.valueNode.center = this.arrowNode.center;
-      this.labelNode.centerX = this.arrowNode.centerX;
-      this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
-      if ( this.valueNode.width + 5 > this.arrowNode.width ) {
-        this.valueNode.top = this.labelNode.bottom;
+      var hidden = Math.abs( value ) < 1E-6;
+      this.arrowNode.visible = !hidden;
+      this.valueNode.visible = !hidden;
+      this.labelNode.visible = !hidden;
+      if ( !hidden ) {
+        var tailX = 981 / 2;
+        var tailY = 280;
+        var tailWidth = 25;
+        var headWidth = 50;
+        var headHeight = 40;
+        this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+        this.valueNode.center = this.arrowNode.center;
+        this.labelNode.centerX = this.arrowNode.centerX;
+        this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
+        if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+          this.valueNode.top = this.labelNode.bottom;
+        }
       }
     }
   } );
