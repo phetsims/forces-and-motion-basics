@@ -20,6 +20,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var ReadoutArrow = require( 'common/view/ReadoutArrow' );
 
   function MotionTabView( model ) {
     this.model = model;
@@ -73,7 +74,7 @@ define( function( require ) {
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     this.addChild( new PusherNode( model, this ) );
 
-    this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
+    this.sumArrow = new ReadoutArrow( {fill: '#7dc673', stroke: '#000000', lineWidth: 1} );
     this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
     this.addChild( this.leftArrow );
@@ -102,15 +103,10 @@ define( function( require ) {
 //    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );
 
     model.link( 'showForce', motionTabView.sumArrow, 'visible' );
-    model.link( 'appliedForce', function() {
-      var tailX = 981 / 2;
-      var tailY = 280;
-      var tailWidth = 25;
-      var headWidth = 50;
-      var headHeight = 40;
+    model.link( 'appliedForce', function( appliedForce ) {
 //      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
 //      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
-      this.sumArrow.shape = arrow( tailX, tailY, tailX + this.model.appliedForce, tailY, tailWidth, headWidth, headHeight );
+      this.sumArrow.setValue( appliedForce );
     }, this );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
