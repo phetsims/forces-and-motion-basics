@@ -3,12 +3,10 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Pattern = require( 'SCENERY/util/Pattern' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var arrow = require( 'tugofwar/view/arrow' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'motion/view/ItemNode' );
@@ -18,6 +16,7 @@ define( function( require ) {
   var SpeedometerNode = require( "motion/view/SpeedometerNode" );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
+  var MovingBackgroundNode = require( 'motion/view/MovingBackgroundNode' );
   var imageLoader = require( 'imageLoader' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -48,63 +47,7 @@ define( function( require ) {
     this.addChild( this.groundNode );
 
     this.addChild( new Node( {layerSplit: true} ) );
-
-    var modWidth = 120 * 15;
-    var L = modWidth / 2;
-    var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
-      motionTabView.addChild( sprite );
-      var centering = motionTabView.layoutBounds.width / 2 - sprite.width / 2;
-      model.link( 'position', function( position ) {
-        var a = -position / distanceScale + offset;
-
-        //A function that maps values as such:
-        //0=>0
-        //1=>1
-        //-1 => -1
-        //L+a => -L+a
-        //-L-a => L-a
-        if ( a < -L ) {
-          //put 'a' between -L and +L by adding an integral number of 2L
-          //How many 2L to add to put a back above -L?
-          //2L*n+ a >= -L
-          //2L*n >= -L - a
-          //n >= -(L+a)/2L
-          var n = Math.ceil( -(L + a) / 2 / L );
-          var z = n * 2 * L + a;
-          sprite.x = z + centering;
-        }
-        else if ( a < L ) {
-          sprite.x = a + centering;
-        }
-        else {
-          //Put 'a' between -L and +L by subtracting an integral number of 2L
-          //a - 2*L*n <= L
-          //-2L*n <= L - a
-          //n >= (L-a)/2L
-          var n = Math.floor( (L + a) / 2 / L );
-          var z = a - 2 * L * n;
-          sprite.x = z + centering;
-        }
-      } );
-    };
-
-    var mountainY = 311;
-    addBackgroundSprite( L / 2, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundSprite( L, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundSprite( -L / 3, 'mountains.png', 10, mountainY, 1 );
-
-    addBackgroundSprite( 100, 'cloud1.png', 5, 10, 1 );
-    addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
-    addBackgroundSprite( 1200, 'cloud1.png', 5, 5, 0.9 );
-
-    //We tested that Pattern has superior performance to a large cached image
-    var tile = imageLoader.getImage( 'brick-tile.png' );
-    var ground = new Rectangle( 0, mountainY + 50, tile.width * 12, tile.height, {fill: new Pattern( tile )} );
-    var mod = ground.width / 12;
-    var offset = motionTabView.layoutBounds.width / 2 - ground.width / 2;
-    model.link( 'position', function( position ) { ground.x = -position % mod + offset; } );
-    this.addChild( ground );
+    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ) );
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
