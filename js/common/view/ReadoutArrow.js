@@ -33,6 +33,9 @@ define( function( require ) {
       this.valueNode.center = this.arrowNode.center;
       this.labelNode.centerX = this.arrowNode.centerX;
       this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
+      if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+        this.valueNode.top = this.labelNode.bottom;
+      }
     }
   } );
 
