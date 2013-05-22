@@ -50,16 +50,49 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true} ) );
 
     var modWidth = 120 * 15;
+    var L = modWidth / 2;
     var addBackgroundSprite = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
       motionTabView.addChild( sprite );
-      model.link( 'position', function( position ) { sprite.x = -(position / distanceScale + offset) % modWidth + modWidth - sprite.width; } );
+      var centering = motionTabView.layoutBounds.width / 2 - sprite.width / 2;
+      model.link( 'position', function( position ) {
+        var a = -position / distanceScale + offset;
+
+        //A function that maps values as such:
+        //0=>0
+        //1=>1
+        //-1 => -1
+        //L+a => -L+a
+        //-L-a => L-a
+        if ( a < -L ) {
+          //put 'a' between -L and +L by adding an integral number of 2L
+          //How many 2L to add to put a back above -L?
+          //2L*n+ a >= -L
+          //2L*n >= -L - a
+          //n >= -(L+a)/2L
+          var n = Math.ceil( -(L + a) / 2 / L );
+          var z = n * 2 * L + a;
+          sprite.x = z + centering;
+        }
+        else if ( a < L ) {
+          sprite.x = a + centering;
+        }
+        else {
+          //Put 'a' between -L and +L by subtracting an integral number of 2L
+          //a - 2*L*n <= L
+          //-2L*n <= L - a
+          //n >= (L-a)/2L
+          var n = Math.floor( (L + a) / 2 / L );
+          var z = a - 2 * L * n;
+          sprite.x = z + centering;
+        }
+      } );
     };
 
     var mountainY = 311;
-    addBackgroundSprite( 100, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundSprite( 300, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundSprite( 700, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( L / 2, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( L, 'mountains.png', 10, mountainY, 1 );
+    addBackgroundSprite( -L / 3, 'mountains.png', 10, mountainY, 1 );
 
     addBackgroundSprite( 100, 'cloud1.png', 5, 10, 1 );
     addBackgroundSprite( 600, 'cloud1.png', 5, -30, 1 );
