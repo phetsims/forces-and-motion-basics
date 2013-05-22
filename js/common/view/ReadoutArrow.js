@@ -18,8 +18,9 @@ define( function( require ) {
    * @param options 'labelPosition' where the label text should be {side|*top}
    * @constructor
    */
-  function ReadoutArrow( fill, options ) {
+  function ReadoutArrow( fill, showValuesProperty, options ) {
     this.options = options;
+    this.showValuesProperty = showValuesProperty;
     Node.call( this );
 
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
@@ -35,7 +36,7 @@ define( function( require ) {
     setValue: function( value ) {
       var hidden = Math.abs( value ) < 1E-6;
       this.arrowNode.visible = !hidden;
-      this.valueNode.visible = !hidden;
+      this.valueNode.visible = !hidden && this.showValuesProperty.value;
       this.labelNode.visible = !hidden;
       if ( !hidden ) {
         var tailX = 981 / 2;
