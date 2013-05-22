@@ -6,14 +6,20 @@
 define( function( require ) {
   "use strict";
   var Path = require( 'SCENERY/nodes/Path' );
+  var Font = require( 'SCENERY/util/Font' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var arrow = require( 'tugofwar/view/arrow' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function ReadoutArrow( options ) {
     Node.call( this );
-    this.arrowPath = new Path( options );
-    this.addChild( this.arrowPath );
+    this.arrowNode = new Path( options );
+    this.valueNode = new Text( '110N', {font: new Font( { weight: 'bold', size: 16 } )} );
+    this.labelNode = new Text( 'Applied Force', {font: new Font( { weight: 'bold', size: 16 } )} );
+    this.addChild( this.arrowNode );
+    this.addChild( this.valueNode );
+    this.addChild( this.labelNode );
   }
 
   inherit( ReadoutArrow, Node, {
@@ -23,7 +29,10 @@ define( function( require ) {
       var tailWidth = 25;
       var headWidth = 50;
       var headHeight = 40;
-      this.arrowPath.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+      this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+      this.valueNode.center = this.arrowNode.center;
+      this.labelNode.centerX = this.arrowNode.centerX;
+      this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
     }
   } );
 
