@@ -18,14 +18,15 @@ define( function( require ) {
    * @param options 'labelPosition' where the label text should be {side|*top}
    * @constructor
    */
-  function ReadoutArrow( fill, showValuesProperty, options ) {
+  function ReadoutArrow( label, fill, tailY, showValuesProperty, options ) {
     this.options = options;
     this.showValuesProperty = showValuesProperty;
+    this.tailY = tailY;
     Node.call( this );
 
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
     this.valueNode = new Text( '110N', {font: new Font( { weight: 'bold', size: 16 } )} );
-    this.labelNode = new Text( 'Applied Force', {font: new Font( { weight: 'bold', size: 16 } )} );
+    this.labelNode = new Text( label, {font: new Font( { weight: 'bold', size: 16 } )} );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
@@ -40,7 +41,7 @@ define( function( require ) {
       this.labelNode.visible = !hidden;
       if ( !hidden ) {
         var tailX = 981 / 2;
-        var tailY = 280;
+        var tailY = this.tailY;
         var tailWidth = 25;
         var headWidth = 50;
         var headHeight = 40;

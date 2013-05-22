@@ -16,6 +16,7 @@ define( function( require ) {
 
         //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
         velocity: 0,
+        sumOfForces: 0,
 
         position: 0,
         showForce: true,
@@ -86,6 +87,7 @@ define( function( require ) {
         step: function() {
           var dt = 1;
           var mass = 1000;
+          this.sumOfForces = this.appliedForce;
           var acceleration = this.appliedForce / mass;
           this.velocity = this.velocity + acceleration * dt;
           this.position = this.position + this.velocity * dt;

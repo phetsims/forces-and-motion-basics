@@ -74,12 +74,10 @@ define( function( require ) {
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     this.addChild( new PusherNode( model, this ) );
 
-    this.sumArrow = new ReadoutArrow( '#7dc673', model.property( 'showValues' ), {labelPosition: 'side'} );
-    this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1} );
-    this.addChild( this.leftArrow );
-    this.addChild( this.rightArrow );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', 230, model.property( 'showValues' ), {labelPosition: 'top'} );
+    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', 280, model.property( 'showValues' ), {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
+    this.addChild( this.appliedForceArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ) ).addNormalTicks();
@@ -102,12 +100,12 @@ define( function( require ) {
     //Show a line that indicates the center of the layout
 //    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );
 
-    model.link( 'showForce', motionTabView.sumArrow, 'visible' );
-    model.link( 'appliedForce', function( appliedForce ) {
-//      this.leftArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
-//      this.rightArrow.shape = arrow( x, 100, x + this.model.appliedForce, 100, tailWidth, headWidth, headHeight );
-      this.sumArrow.setValue( appliedForce );
-    }, this );
+    var updateSumOfForcesVisible = function() { motionTabView.sumArrow.visible = model.showForce && model.showSumOfForces; };
+    model.on( 'change:showForce change:showSumOfForces', updateSumOfForcesVisible );
+    updateSumOfForcesVisible();
+    model.link( 'showForce', motionTabView.appliedForceArrow, 'visible' );
+    model.link( 'appliedForce', function( appliedForce ) { this.appliedForceArrow.setValue( appliedForce ); }, this );//TODO: change to string based link style with ES5
+    model.link( 'sumOfForces', function( sumOfForces ) { this.sumArrow.setValue( sumOfForces ); }, this );//TODO: change to string based link style with ES5
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: width / 2, top: 2} );
