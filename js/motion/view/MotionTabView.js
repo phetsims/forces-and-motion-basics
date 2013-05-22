@@ -111,9 +111,6 @@ define( function( require ) {
     this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
     this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
-    //Split into another canvas to speed up rendering
-    this.addChild( new Node( {layerSplit: true} ) );
-
     this.itemNodes = [];
 
     for ( var i = 0; i < model.items.length; i++ ) {
