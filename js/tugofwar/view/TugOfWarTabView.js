@@ -79,7 +79,7 @@ define( function( require ) {
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.link( 'running', function( running ) {
       [tugOfWarTabView.sumArrow, tugOfWarTabView.leftArrow, tugOfWarTabView.rightArrow].forEach( function( arrow ) {
-        arrow.lineDash = running ? null : [ 10, 5 ];
+        arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
 

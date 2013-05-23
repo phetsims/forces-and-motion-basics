@@ -36,6 +36,7 @@ define( function( require ) {
   }
 
   inherit( ReadoutArrow, Node, {
+    setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
     setValue: function( value ) {
       this.value = value;
       this.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
