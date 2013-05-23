@@ -18,9 +18,10 @@ define( function( require ) {
    * @param options 'labelPosition' where the label text should be {side|*top}
    * @constructor
    */
-  function ReadoutArrow( label, fill, tailY, showValuesProperty, options ) {
-    this.options = options;
+  function ReadoutArrow( label, fill, tailX, tailY, showValuesProperty, options ) {
+    this.options = _.extend( {labelPosition: 'top'}, options );
     this.showValuesProperty = showValuesProperty;
+    this.tailX = tailX;
     this.tailY = tailY;
     Node.call( this );
 
@@ -31,22 +32,29 @@ define( function( require ) {
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
     this.setValue( 0 );
+    showValuesProperty.link( this, 'update' );
   }
 
   inherit( ReadoutArrow, Node, {
     setValue: function( value ) {
+      this.value = value;
+      this.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
+      this.update();
+    },
+    update: function() {
+      var value = this.value;
       var hidden = Math.abs( value ) < 1E-6;
+      this.hidden = hidden;
       this.arrowNode.visible = !hidden;
       this.valueNode.visible = !hidden && this.showValuesProperty.value;
       this.labelNode.visible = !hidden;
       if ( !hidden ) {
-        var tailX = 981 / 2;
+        var tailX = this.tailX;
         var tailY = this.tailY;
         var tailWidth = 25;
         var headWidth = 50;
         var headHeight = 40;
         this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
-
         if ( this.options.labelPosition === 'side' ) {
           if ( value > 0 ) {
             this.labelNode.left = this.arrowNode.right + 5;

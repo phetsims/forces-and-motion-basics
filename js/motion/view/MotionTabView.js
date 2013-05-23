@@ -74,8 +74,8 @@ define( function( require ) {
     this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     this.addChild( new PusherNode( model, this ) );
 
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', 230, model.property( 'showValues' ), {labelPosition: 'top'} );
-    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', 280, model.property( 'showValues' ), {labelPosition: 'side'} );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.property( 'showValues' ), {labelPosition: 'top'} );
+    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.property( 'showValues' ), {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
 

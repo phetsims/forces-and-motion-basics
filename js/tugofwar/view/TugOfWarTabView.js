@@ -17,6 +17,7 @@ define( function( require ) {
   var Layout = require( 'Layout' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var ReadoutArrow = require( 'common/view/ReadoutArrow' );
 
   var red = "red",
       blue = "blue",
@@ -70,10 +71,10 @@ define( function( require ) {
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
 
-    this.sumArrow = new Path( {fill: '#7dc673', stroke: '#000000', lineWidth: 1, lineDash: [ 10, 5 ]} );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.property( 'showValues' ), {lineDash: [ 10, 5 ], labelPosition: 'top'} );
     this.model.link( 'showSumOfForces', this.sumArrow, 'visible' );
-    this.leftArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1, lineDash: [ 10, 5]} );
-    this.rightArrow = new Path( {fill: '#bf8b63', stroke: '#000000', lineWidth: 1, lineDash: [ 10, 5]} );
+    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.property( 'showValues' ), {lineDash: [ 10, 5], labelPosition: 'side'} );
+    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.property( 'showValues' ), {lineDash: [ 10, 5], labelPosition: 'side'} );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.link( 'running', function( running ) {
@@ -123,13 +124,9 @@ define( function( require ) {
 
   inherit( TugOfWarTabView, TabView, {
     updateForces: function() {
-      var x = this.arrowTailX;
-      var tailWidth = 25;
-      var headWidth = 50;
-      var headHeight = 40;
-      this.leftArrow.shape = arrow( x, 100, x + this.model.getLeftForce(), 100, tailWidth, headWidth, headHeight );
-      this.rightArrow.shape = arrow( x, 100, x + this.model.getRightForce(), 100, tailWidth, headWidth, headHeight );
-      this.sumArrow.shape = arrow( x, 40, x + this.model.getNetForce(), 40, tailWidth, headWidth, headHeight );
+      this.leftArrow.setValue( this.model.getLeftForce() );
+      this.rightArrow.setValue( this.model.getRightForce() );
+      this.sumArrow.setValue( this.model.getNetForce() );
     },
     layoutBounds: new Bounds2( 0, 0, 981, 604 )
   } );
