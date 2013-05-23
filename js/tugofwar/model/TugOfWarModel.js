@@ -150,6 +150,9 @@ define( function( require ) {
           this.knots.each( function( knot ) {knot.x = knot.initX;} );
           this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
           this.running = false;
+          this.started = false;
+          this.state = 'experimenting';
+          this.trigger( 'cart-returned' );
         },
         reset: function() {
 

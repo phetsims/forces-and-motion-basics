@@ -26,6 +26,7 @@ define( function( require ) {
 
     //Do it once, to remove as a listener since flag node gets recreated when another game won
     model.once( 'reset-all', function() {flagNode.detach();} );
+    model.once( 'cart-returned', function() {flagNode.detach();} );
 
     var updateFlagShape = function() {
       var shape = new Shape();
