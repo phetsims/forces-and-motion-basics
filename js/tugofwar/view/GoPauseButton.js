@@ -9,27 +9,27 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var Layout = require( 'Layout' );
 
-  function GoButton( getImage, model ) {
-    var goButtonImage = this;
+  function GoPauseButton( getImage, model ) {
+    var goPauseButton = this;
     Image.call( this, getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
-    goButtonImage.addInputListener(
+    goPauseButton.addInputListener(
         {
           over: function( event ) {
-            goButtonImage.image = getImage( 'go_hover.png' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+            goPauseButton.image = getImage( 'go_hover.png' );
+            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           },
           out: function( event ) {
-            goButtonImage.image = getImage( 'go_up.png' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+            goPauseButton.image = getImage( 'go_up.png' );
+            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           },
           down: function( event ) {
-            goButtonImage.image = getImage( 'go_pressed.png' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+            goPauseButton.image = getImage( 'go_pressed.png' );
+            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
             model.running = !model.running;
           },
           up: function( event ) {
-            goButtonImage.image = getImage( 'go_hover.png' );
-            goButtonImage.invalidateSelf( new Bounds2( 0, 0, goButtonImage.image.width, goButtonImage.image.height ) );
+            goPauseButton.image = getImage( 'go_hover.png' );
+            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           }
         } );
 
@@ -37,15 +37,15 @@ define( function( require ) {
     var goText = new Text( Strings.go, {fontSize: '34px'} );
     var pauseText = new Text( Strings.pause, {fontSize: '34px'} );
     var textContainer = new Node( {children: [goText]} );
-    textContainer.x = goButtonImage.width / 2 - textContainer.width / 2 - 5;
-    textContainer.y = goButtonImage.height / 2 + 7;
-    goButtonImage.addChild( textContainer );
+    textContainer.x = goPauseButton.width / 2 - textContainer.width / 2 - 5;
+    textContainer.y = goPauseButton.height / 2 + 7;
+    goPauseButton.addChild( textContainer );
 
     model.on( "change:running change:state change:numberPullersAttached", function() {
       var child = model.running ? pauseText : goText;
       textContainer.children = [child];
-      textContainer.x = goButtonImage.width / 2 - child.width / 2 - 5;
-      textContainer.y = goButtonImage.height / 2 + 7;
+      textContainer.x = goPauseButton.width / 2 - child.width / 2 - 5;
+      textContainer.y = goPauseButton.height / 2 + 7;
     } );
 
     model.trigger( 'change:numberPullersAttached' );
@@ -55,7 +55,7 @@ define( function( require ) {
     this.addPeer( '<input type="button">', {click: function() {model.running = !model.running;}} );
   }
 
-  inherit( GoButton, Image );
+  inherit( GoPauseButton, Image );
 
-  return GoButton;
+  return GoPauseButton;
 } );
