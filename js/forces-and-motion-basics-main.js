@@ -24,10 +24,9 @@ require( [ "tugofwar/model/TugOfWarModel",
         createModel: function() {return new TugOfWarModel();},
         createView: function( model ) {return new TugOfWarTabView( model );}
       },
-
       { name: Strings.motion,
         icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ),
-        createModel: function() {return new MotionModel( {tab: 'motion'} );},
+        createModel: function() {return new MotionModel( {tab: 'motion', skateboard: true} );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.friction,
