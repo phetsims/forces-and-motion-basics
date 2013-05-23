@@ -39,6 +39,7 @@ define( function( require ) {
   return Fort.Model.extend(
       {
         defaults: {
+          started: false,
           showSumOfForces: false,
           showValues: false,
           running: false,
@@ -99,6 +100,7 @@ define( function( require ) {
               }
             } );
           } );
+          this.link( 'running', function( running ) { if ( running ) { model.started = true; }} );
         },
         countAttachedPullers: function() {
           return this.pullers.filter(function( puller ) {return puller.has( 'knot' );} ).length;
@@ -142,6 +144,11 @@ define( function( require ) {
           else {
             return null;
           }
+        },
+        returnCart: function() {
+          this.cart.set( this.cart.defaults );
+          this.knots.each( function( knot ) {knot.x = knot.initX;} );
+          this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
         },
         reset: function() {
 

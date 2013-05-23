@@ -9,6 +9,7 @@ define( function( require ) {
   var arrow = require( 'tugofwar/view/arrow' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoPauseButton = require( 'tugofwar/view/GoPauseButton' );
+  var ReturnButton = require( 'tugofwar/view/ReturnButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
@@ -103,11 +104,14 @@ define( function( require ) {
 
     //Add the go button, but only if there is a puller attached
     var goPauseButtonContainer = new Node();
-    var goButton = new GoPauseButton( getImage, this.model );
+    var goPauseButton = new GoPauseButton( getImage, this.model );
     this.addChild( goPauseButtonContainer );
     model.on( "change:running change:state change:numberPullersAttached", function() {
-      goPauseButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goButton] : [];
+      goPauseButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goPauseButton] : [];
     } );
+
+    var returnButton = new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} );
+    this.addChild( returnButton );
 
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', this.updateForces, this );
