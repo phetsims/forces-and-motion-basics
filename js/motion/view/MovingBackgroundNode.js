@@ -24,6 +24,7 @@ define( function( require ) {
       var centering = layoutCenterX - sprite.width / 2;
       model.link( 'position', function( position ) {
         var a = -position / distanceScale + offset;
+        var n, z;
 
         //A function that maps values as such:
         //0=>0
@@ -37,8 +38,8 @@ define( function( require ) {
           //2L*n+ a >= -L
           //2L*n >= -L - a
           //n >= -(L+a)/2L
-          var n = Math.ceil( -(L + a) / 2 / L );
-          var z = n * 2 * L + a;
+          n = Math.ceil( -(L + a) / 2 / L );
+          z = n * 2 * L + a;
           sprite.x = z + centering;
         }
         else if ( a < L ) {
@@ -49,8 +50,8 @@ define( function( require ) {
           //a - 2*L*n <= L
           //-2L*n <= L - a
           //n >= (L-a)/2L
-          var n = Math.floor( (L + a) / 2 / L );
-          var z = a - 2 * L * n;
+          n = Math.floor( (L + a) / 2 / L );
+          z = a - 2 * L * n;
           sprite.x = z + centering;
         }
       } );
