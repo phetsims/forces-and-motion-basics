@@ -71,7 +71,9 @@ define( function( require ) {
       this.addChild( itemNode );
     }
 
-    this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
+    if ( model.skateboard ) {
+      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
+    }
     this.addChild( new PusherNode( model, this ) );
 
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.property( 'showValues' ), {labelPosition: 'top'} );
