@@ -15,7 +15,7 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? "Blue Team Wins" : "Red Team Wins", {fontSize: '32px', fill: 'white'} );
+    var text = new Text( model.cart.x < 0 ? "Blue Wins!" : "Red Wins!", {fontSize: '32px', fill: 'white'} );
     text.centerX = 0;
     text.centerY = 0;
     var path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2} );
@@ -29,7 +29,7 @@ define( function( require ) {
 
     var updateFlagShape = function() {
       var shape = new Shape();
-      var maxX = 250;
+      var maxX = 220;
       var maxY = 75;
       var dy = ( 7 * Math.sin( model.time * 6 ) );
       var dx = ( 2 * Math.sin( model.time * 5 ) ) + 10;
