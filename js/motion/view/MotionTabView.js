@@ -144,7 +144,8 @@ define( function( require ) {
       for ( var i = 0; i < this.model.stack.length; i++ ) {
         sum = sum + this.model.stack[i].view.height;
       }
-      return 380 - sum - 42 - 3;
+      var n = this.model.skateboard ? 335 : 360;
+      return n - sum;
     }
   } );
 
