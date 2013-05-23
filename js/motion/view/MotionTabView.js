@@ -127,7 +127,7 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
-    var resetButton = new ResetAllButton( model.reset.bind( model ) ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButton( model.reset.bind( model ) ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
     //This code shows the results of the profiler, useful on iPad where it is more difficult to collect metrics
