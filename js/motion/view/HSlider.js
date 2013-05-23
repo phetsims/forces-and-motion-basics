@@ -17,13 +17,15 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
 
   function HSlider( min, max, width, property, options ) {
+    var slider = this;
+    this.options = _.extend( {zeroOnRelease: false}, options || {} );
     this.min = min;
     this.max = max;
     this.sliderWidth = width;
     this.trackHeight = 6;
-    options = options || {};
-    options.renderer = 'svg';
-    Node.call( this, options );
+
+    this.options.renderer = 'svg';
+    Node.call( this, this.options );
 
     this.ticksLayer = new Node();
     this.addChild( this.ticksLayer );
@@ -40,7 +42,11 @@ define( function( require ) {
             var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
             property.value = linear( 0, min, width, max, x );
           },
-          end: function() { property.value = 0; }}
+          end: function() {
+            if ( slider.options.zeroOnRelease ) {
+              property.value = 0;
+            }
+          }}
     ) );
     this.addChild( svgKnob );
 
