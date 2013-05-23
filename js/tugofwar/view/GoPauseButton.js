@@ -15,20 +15,20 @@ define( function( require ) {
     goPauseButton.addInputListener(
         {
           over: function( event ) {
-            goPauseButton.image = getImage( 'go_hover.png' );
+            goPauseButton.image = getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
             goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           },
           out: function( event ) {
-            goPauseButton.image = getImage( 'go_up.png' );
+            goPauseButton.image = getImage( model.running ? 'stop_up.png' : 'go_up.png' );
             goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           },
           down: function( event ) {
-            goPauseButton.image = getImage( 'go_pressed.png' );
+            goPauseButton.image = getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
             goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
             model.running = !model.running;
           },
           up: function( event ) {
-            goPauseButton.image = getImage( 'go_hover.png' );
+            goPauseButton.image = getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
             goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           }
         } );
