@@ -12,27 +12,26 @@ define( function( require ) {
   function GoPauseButton( getImage, model ) {
     var goPauseButton = this;
     Image.call( this, getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
+    function updateOut() {
+      goPauseButton.image = getImage( model.running ? 'stop_up.png' : 'go_up.png' );
+    }
+
     goPauseButton.addInputListener(
         {
           over: function( event ) {
             goPauseButton.image = getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
-            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           },
-          out: function( event ) {
-            goPauseButton.image = getImage( model.running ? 'stop_up.png' : 'go_up.png' );
-            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
-          },
+          out: updateOut,
           down: function( event ) {
             goPauseButton.image = getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
-            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
             model.running = !model.running;
           },
           up: function( event ) {
             goPauseButton.image = getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
-            goPauseButton.invalidateSelf( new Bounds2( 0, 0, goPauseButton.image.width, goPauseButton.image.height ) );
           }
         } );
 
+    model.link( 'running', updateOut );
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on ipad3
     var goText = new Text( Strings.go, {fontSize: '34px'} );
     var pauseText = new Text( Strings.pause, {fontSize: '34px'} );

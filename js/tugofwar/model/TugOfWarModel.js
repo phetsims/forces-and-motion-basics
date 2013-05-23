@@ -149,6 +149,7 @@ define( function( require ) {
           this.cart.set( this.cart.defaults );
           this.knots.each( function( knot ) {knot.x = knot.initX;} );
           this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
+          this.running = false;
         },
         reset: function() {
 
