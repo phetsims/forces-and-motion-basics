@@ -27,6 +27,7 @@ define( function( require ) {
         skateboard: false,
 
         position: 0,
+        pusherPosition: 100, //Start to the right of the box by this many pixels
         showForce: true,
         showValues: false,
         showSumOfForces: false,
