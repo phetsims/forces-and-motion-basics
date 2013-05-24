@@ -11,6 +11,7 @@ define( function( require ) {
         //TODO: Turn stack into a backbone collection
         stack: null, //Array: Initialized in the constructor so that stack instance will not be shared across MotionModel instances.
         appliedForce: 0,
+        frictionForce: 0,
         pusherX: 0,
         friction: 0,
 
@@ -59,8 +60,8 @@ define( function( require ) {
         //TODO: Test this
         getFrictionForce: function( appliedForce ) {
           var g = 10.0;
-          var mass = 100;
-          if ( !this.friction ) { return 0.0; }
+          var mass = 5;
+          if ( this.friction === 0.0 ) { return 0.0; }
           var frictionForce = Math.abs( this.friction ) * this.getSign( this.friction ) * mass * g;
 
           //Friction force only applies above this velocity
@@ -78,18 +79,15 @@ define( function( require ) {
         updateForces: function() {
           //The first part of stepInTime is to compute and set the forces.  But this is factored out because the forces must also be updated
           //When the user changes the friction force or mass while the sim is paused.
-          var appliedForce = this.appliedForce;
-          var frictionForce = this.getFrictionForce( appliedForce );
+          var frictionForce = this.getFrictionForce( this.appliedForce );
           this.frictionForce = frictionForce;
-          var sumOfForces = frictionForce + appliedForce;
-          this.sumOfForces = sumOfForces;
-          return sumOfForces;
+          this.sumOfForces = frictionForce + this.appliedForce;
         },
         step: function() {
           var dt = 1;
           var mass = 1000;
-          this.sumOfForces = this.appliedForce;
-          var acceleration = this.appliedForce / mass;
+          this.updateForces();
+          var acceleration = this.sumOfForces / mass;
           this.velocity = this.velocity + acceleration * dt;
           this.position = this.position + this.velocity * dt;
           for ( var i = 0; i < this.items.length; i++ ) {

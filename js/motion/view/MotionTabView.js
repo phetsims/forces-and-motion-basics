@@ -78,8 +78,10 @@ define( function( require ) {
 
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.property( 'showValues' ), {labelPosition: 'top'} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.property( 'showValues' ), {labelPosition: 'side'} );
+    this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.property( 'showValues' ), {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
+    this.addChild( this.frictionArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.property( 'appliedForce' ), {zeroOnRelease: true} ).addNormalTicks();
@@ -105,9 +107,13 @@ define( function( require ) {
     var updateSumOfForcesVisible = function() { motionTabView.sumArrow.visible = model.showForce && model.showSumOfForces; };
     model.on( 'change:showForce change:showSumOfForces', updateSumOfForcesVisible );
     updateSumOfForcesVisible();
+
     model.link( 'showForce', motionTabView.appliedForceArrow, 'visible' );
+
+    //TODO: move this code to ReadoutArrow
     model.link( 'appliedForce', function( appliedForce ) { this.appliedForceArrow.setValue( appliedForce ); }, this );//TODO: change to string based link style with ES5
     model.link( 'sumOfForces', function( sumOfForces ) { this.sumArrow.setValue( sumOfForces ); }, this );//TODO: change to string based link style with ES5
+    model.link( 'frictionForce', function( frictionForce ) { this.frictionArrow.setValue( frictionForce ); }, this );//TODO: change to string based link style with ES5
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.property( 'velocity' ) ).mutate( {x: width / 2, top: 2} );
