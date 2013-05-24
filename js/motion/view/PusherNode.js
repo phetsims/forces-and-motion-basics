@@ -57,11 +57,8 @@ define( function( require ) {
             model.appliedForce = Math.max( -100, Math.min( 100, newAppliedForce ) );
           },
 
-          start: function() {
-          },
-          end: function() {
-            model.appliedForce = 0;
-          }
+          start: function() {},
+          end: function() { model.appliedForce = 0; }
         } ) );
   }
 
