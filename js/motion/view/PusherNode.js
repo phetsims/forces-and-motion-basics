@@ -23,6 +23,7 @@ define( function( require ) {
 
       //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
       var fallingLeft = false;
+
       var appliedForce = model.appliedForce;
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
       var maxSpeedExceeded = model.speed >= 20;
