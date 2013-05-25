@@ -20,11 +20,28 @@ define( function( require ) {
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
     var update = function() {
+
+      //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
+      var fallingLeft = false;
       var appliedForce = model.appliedForce;
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
-      imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
+      var maxSpeedExceeded = model.speed >= 20;
+      if ( !maxSpeedExceeded ) {
+        imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
+      }
+      else {
+        imageNode.image = imageLoader.getImage( 'pusher_fall_down.png' );
+        if ( pusherNode.lastAppliedForce > 0 ) {
+          imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
+        }
+        else {
+          imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+          fallingLeft = true;
+        }
+      }
+
       var delta = model.stack.length > 0 ? (model.stack[0].view.width / 2 - model.stack[0].pusherInset) : 100;
-      if ( appliedForce > 0 ) {
+      if ( appliedForce > 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
@@ -32,7 +49,7 @@ define( function( require ) {
         pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
         model.pusherPosition = -delta + model.position - imageNode.width;
       }
-      else if ( appliedForce < 0 ) {
+      else if ( appliedForce < 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
@@ -40,11 +57,12 @@ define( function( require ) {
         model.pusherPosition = delta + model.position;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position + model.pusherPosition;
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position + model.pusherPosition + (fallingLeft ? -imageNode.width : 0)
       }
 
       //Keep the feet on the ground
       pusherNode.y = 362 - pusherNode.height;
+      pusherNode.lastAppliedForce = appliedForce;
     };
     model.link( 'appliedForce', update );
     model.link( 'position', update );

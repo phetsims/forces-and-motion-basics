@@ -21,12 +21,13 @@ define( function( require ) {
         pusherX: 0,
         friction: 0,
 
-        //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-        velocity: 0,
         sumOfForces: 0,
         skateboard: false,
 
         position: 0,
+        speed: 0,
+        //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
+        velocity: 0,
         pusherPosition: 100, //Start to the right of the box by this many pixels
         showForce: true,
         showValues: false,
