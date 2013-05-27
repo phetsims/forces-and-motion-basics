@@ -1,13 +1,9 @@
 define( function( require ) {
   "use strict";
 
-  var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'Strings' );
-  var Layout = require( 'Layout' );
   var Button = require( 'SUN/Button' );
   var Font = require( 'SCENERY/util/Font' );
 
