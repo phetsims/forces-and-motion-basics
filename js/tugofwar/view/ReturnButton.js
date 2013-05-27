@@ -8,11 +8,16 @@ define( function( require ) {
   var Font = require( 'SCENERY/util/Font' );
 
   function ReturnButton( model, options ) {
+    var returnButton = this;
     Node.call( this );
 
-    this.addChild( new Button( new Text( 'Return', {font: new Font( { weight: 'bold', size: 16 } )} ), model.returnCart.bind( model ), {fill: '#ffd438'} ) );
+    var button = new Button( new Text( 'Return', {font: new Font( { weight: 'bold', size: 16 } )} ), model.returnCart.bind( model ), {fill: '#ffd438'} );
+    this.addChild( button );
     this.mutate( options );
-    model.link( 'started', this, 'visible' );
+
+    //TODO: When peers automatically are added and removed on visibility changed, use model.link( 'started', this, 'visible' ); 
+//    model.link( 'started', this, 'visible' );
+    model.link( 'started', function() { returnButton.children = model.started ? [button] : []; } );
   }
 
   inherit( ReturnButton, Node );
