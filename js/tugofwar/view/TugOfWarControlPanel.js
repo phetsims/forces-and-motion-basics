@@ -19,8 +19,8 @@ define( function( require ) {
 
     var fontSize = '19px';
     var controlPanel = new VerticalCheckBoxGroup( [
-                                                    {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.property( 'showSumOfForces' )},
-                                                    {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.property( 'showValues' )}
+                                                    {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.property( 'showSumOfForces' ), label: Strings.sumOfForces},
+                                                    {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.property( 'showValues' ), label: Strings.values}
                                                   ] );
     this.addChild( controlPanel );
 
