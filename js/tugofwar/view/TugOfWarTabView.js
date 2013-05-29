@@ -127,12 +127,12 @@ define( function( require ) {
     model.on( 'change:state', function( m, state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
 
-    var textProperty = new Fort.Model( {text: 'hello'} ).property( 'text' );
+    var textProperty = Fort.property( '' );
     model.on( "change:numberPullersAttached", function() {
       textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
                            'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
                            'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
-                           model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left';
+                           (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
     this.addLiveRegion( textProperty );
     textProperty.link( function( value ) { console.log( value ); } );
