@@ -19,6 +19,7 @@ define( function( require ) {
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
+  var Fort = require( 'FORT/Fort' );
 
   var red = "red",
       blue = "blue",
@@ -124,6 +125,17 @@ define( function( require ) {
     function showFlagNode() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ); }
 
     model.on( 'change:state', function( m, state ) { if ( state === 'completed' ) { showFlagNode(); } } );
+
+
+    var textProperty = new Fort.Model( {text: 'hello'} ).property( 'text' );
+    model.on( "change:numberPullersAttached", function() {
+      textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
+                           'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
+                           'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
+                           model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left';
+    } );
+    this.addLiveRegion( textProperty );
+    textProperty.link( function( value ) { console.log( value ); } );
   }
 
   inherit( TugOfWarTabView, TabView, {
