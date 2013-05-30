@@ -20,6 +20,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
   var Fort = require( 'FORT/Fort' );
+  var property = require( 'FORT/property' );
 
   var red = "red",
       blue = "blue",
@@ -127,7 +128,7 @@ define( function( require ) {
     model.on( 'change:state', function( m, state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
 
-    var textProperty = Fort.property( '' );
+    var textProperty = property( '' );
     model.on( "change:numberPullersAttached", function() {
       textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
                            'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
