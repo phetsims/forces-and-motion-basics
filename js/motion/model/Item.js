@@ -21,8 +21,6 @@ define( function( require ) {
           return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
         },
         init: function( options ) {
-
-          var item = this;
           this.context = options.context;
           Object.defineProperty( Item.prototype, "position", {get: function() {
             return {x: this.x, y: this.y};
