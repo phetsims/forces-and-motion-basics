@@ -32,6 +32,7 @@ define( function( require ) {
         } );
 
     model.running.link( updateOut );
+
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on ipad3
     var goText = new Text( Strings.go, {fontSize: '34px'} );
     var pauseText = new Text( Strings.pause, {fontSize: '34px'} );
