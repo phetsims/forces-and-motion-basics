@@ -10,24 +10,25 @@ define( function( require ) {
   var Layout = require( 'Layout' );
 
   function GoPauseButton( getImage, model ) {
+    var values = model.values;
     var goPauseButton = this;
     Image.call( this, getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
     function updateOut() {
-      goPauseButton.image = getImage( model.running.value ? 'stop_up.png' : 'go_up.png' );
+      goPauseButton.image = getImage( values.running ? 'stop_up.png' : 'go_up.png' );
     }
 
     goPauseButton.addInputListener(
         {
           over: function( event ) {
-            goPauseButton.image = getImage( model.running.value ? 'stop_hover.png' : 'go_hover.png' );
+            goPauseButton.image = getImage( values.running ? 'stop_hover.png' : 'go_hover.png' );
           },
           out: updateOut,
           down: function( event ) {
-            goPauseButton.image = getImage( model.running.value ? 'stop_pressed.png' : 'go_pressed.png' );
-            model.running.value = !model.running.value;
+            goPauseButton.image = getImage( values.running ? 'stop_pressed.png' : 'go_pressed.png' );
+            values.running = !values.running;
           },
           up: function( event ) {
-            goPauseButton.image = getImage( model.running.value ? 'stop_hover.png' : 'go_hover.png' );
+            goPauseButton.image = getImage( values.running ? 'stop_hover.png' : 'go_hover.png' );
           }
         } );
 
@@ -42,7 +43,7 @@ define( function( require ) {
     goPauseButton.addChild( textContainer );
 
     var update = function() {
-      var child = model.running.value ? pauseText : goText;
+      var child = values.running ? pauseText : goText;
       textContainer.children = [child];
       textContainer.x = goPauseButton.width / 2 - child.width / 2 - 5;
       textContainer.y = goPauseButton.height / 2 + 7;
@@ -54,7 +55,7 @@ define( function( require ) {
     this.centerX = Layout.width / 2;
 
     //Add accessibility peer
-    this.addPeer( '<input type="button">', {click: function() {model.running.value = !model.running.value;}} );
+    this.addPeer( '<input type="button">', {click: function() {values.running = !values.running;}} );
   }
 
   inherit( GoPauseButton, Image );
