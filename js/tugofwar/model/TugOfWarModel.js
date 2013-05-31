@@ -36,7 +36,7 @@ define( function( require ) {
           //Create the pullers from left to right so the tab order will be as expected.
           var dy = -14;
 
-          var bluePullers = [new Puller( 38, 407 + dy + 1 + 30, blue, large, 80 ),
+          var bluePullers = [new Puller( 38, 407 + dy + 1, blue, large, 80 ),
             new Puller( 132 - 5, 446 + dy - 6, blue, medium, 50 ),
             new Puller( 198 + 10, 500 + dy - 13, blue, small, 20 ),
             new Puller( 260 + 18, 500 + dy - 13, blue, small, 20 )];
