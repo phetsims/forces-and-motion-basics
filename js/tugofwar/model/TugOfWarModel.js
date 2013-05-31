@@ -6,14 +6,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Puller = require( 'tugofwar/model/Puller' );
   var Knot = require( 'tugofwar/model/Knot' );
+  var Cart = require( 'tugofwar/model/Cart' );
 
   var red = "red",
       blue = "blue",
       small = "small",
       medium = "medium",
       large = "large";
-
-  var Cart = Fort.Model.extend( {defaults: {x: 0, v: 0}, initialize: function() {this.generateGettersAndSetters();}} );
 
   var blueKnots = _.map( [10.0, 90.0, 170.0, 250.0], function( v ) {return v + 50;} );
   var ropeWidth = 880;
@@ -132,7 +131,7 @@ define( function( require ) {
           }
         },
         returnCart: function() {
-          this.cart.set( this.cart.defaults );
+          this.cart.reset();
           this.knots.forEach( function( knot ) {knot.reset();} );
           this.running = false;
           this.started = false;
@@ -145,21 +144,21 @@ define( function( require ) {
           this.pullers.forEach( function( puller ) {puller.knot.value = null;} );
 
           Fort.Model.prototype.reset.call( this );
-          this.cart.set( this.cart.defaults );
+          this.cart.reset();
           this.pullers.forEach( function( puller ) { puller.reset(); } );
           this.knots.forEach( function( knot ) {knot.reset();} );
           this.trigger( 'reset-all' );
         },
         step: function( dt ) {
           if ( this.running ) {
-            var newV = this.cart.v + this.getNetForce() / 20000;
-            var newX = this.cart.x + newV;
+            var newV = this.cart.v.value + this.getNetForce() / 20000;
+            var newX = this.cart.x.value + newV;
             this.cart.set( {v: newV, x: newX} );
             this.knots.forEach( function( knot ) {
               knot.x.value = knot.initX + newX;
             } );
 
-            if ( this.cart.x > 200 || this.cart.x < -200 ) {
+            if ( this.cart.x.value > 200 || this.cart.x.value < -200 ) {
               this.running = false;
               this.state = 'completed';
             }

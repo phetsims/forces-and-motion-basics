@@ -1,7 +1,6 @@
 define( function( require ) {
   "use strict";
-  var Fort = require( 'FORT/Fort' );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
+
   var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 

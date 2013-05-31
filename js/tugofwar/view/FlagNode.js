@@ -15,10 +15,10 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? "Blue Wins!" : "Red Wins!", {fontSize: '32px', fill: 'white'} );
+    var text = new Text( model.cart.x.value < 0 ? "Blue Wins!" : "Red Wins!", {fontSize: '32px', fill: 'white'} );
     text.centerX = 0;
     text.centerY = 0;
-    var path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2} );
+    var path = new Path( {fill: model.cart.x.value < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2} );
     path.centerX = 0;
     path.centerY = 0;
     this.addChild( path );

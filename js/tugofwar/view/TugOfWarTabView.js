@@ -97,7 +97,7 @@ define( function( require ) {
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
 
-    this.model.cart.on( 'change:x', function( m, x ) {
+    this.model.cart.x.link( function( m, x ) {
       tugOfWarTabView.cartNode.x = x + 399;
       tugOfWarTabView.ropeNode.x = x + 51;
     } );
