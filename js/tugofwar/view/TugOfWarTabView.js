@@ -19,8 +19,7 @@ define( function( require ) {
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
-  var Fort = require( 'FORT/Fort' );
-  var property = require( 'FORT/property' );
+  var Property = require( 'PHETCOMMON/model/property/Property' );
 
   var red = "red",
       blue = "blue",
@@ -129,7 +128,7 @@ define( function( require ) {
 
     model.state.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
-    var textProperty = property( '' );
+    var textProperty = new Property( '' );
     model.numberPullersAttached.link( function() {
       textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
                            'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
