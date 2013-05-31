@@ -92,7 +92,7 @@ define( function( require ) {
 
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
-    model.knots.each( function( knot ) { tugOfWarTabView.addChild( new KnotNode( knot ) ); } );
+    model.knots.forEach( function( knot ) { tugOfWarTabView.addChild( new KnotNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
@@ -136,7 +136,6 @@ define( function( require ) {
                            (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
     this.addLiveRegion( textProperty );
-    textProperty.link( function( value ) { console.log( value ); } );
   }
 
   inherit( TugOfWarTabView, TabView, {

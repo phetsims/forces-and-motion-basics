@@ -9,9 +9,9 @@ define( function( require ) {
 
   function KnotNode( knot ) {
     var knotNode = this;
-    Path.call( this, {shape: Shape.circle( 0, 0, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.x, y: knot.y} );
-    knot.on( 'change:visible', function( m, visible ) { knotNode.visible = visible; } );
-    knot.on( 'change:x', function( m, x ) { knotNode.x = x; } );
+    Path.call( this, {shape: Shape.circle( 0, 0, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.x.value, y: knot.y} );
+    knot.visible.link( function( visible ) { knotNode.visible = visible; } );
+    knot.x.link( function( x ) { knotNode.x = x; } );
   }
 
   inherit( KnotNode, Path );

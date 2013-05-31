@@ -79,7 +79,7 @@ define( function( require ) {
       else {
         puller.disconnect();
         var knot = model.getClosestOpenKnot( puller );
-        puller.set( {x: knot.x, y: knot.y, knot: knot} );
+        puller.set( {x: knot.x.value, y: knot.y, knot: knot} );
         model.numberPullersAttached = model.countAttachedPullers();
       }
     }} );

@@ -46,7 +46,6 @@ define( function( require ) {
     updateFlagShape();
     text.centerX = path.centerX;
     text.centerY = path.centerY;
-    console.log( "width=", this.width, 'centerx ', centerX );
     this.centerX = centerX;
     this.top = top;
   }

@@ -4,6 +4,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Puller( x, y, type, size, dragOffsetX ) {
+    var puller = this;
 
     //Create the properties and mix them in
     PropertySet.call( this, {dragging: false, knot: null, x: x, y: y} );
@@ -16,6 +17,16 @@ define( function( require ) {
                  this.size === 'medium' ? 20 * 5 :
                  this.size === 'large' ? 30 * 5 :
                  NaN;
+    var listener = function( knotX ) { puller.x.value = knotX; };
+
+    this.knot.link( function( newKnot, oldKnot ) {
+      if ( oldKnot ) {
+        oldKnot.x.unlink( listener );
+      }
+      if ( newKnot ) {
+        newKnot.x.link( listener );
+      }
+    } );
   }
 
   inherit( Puller, PropertySet, {
