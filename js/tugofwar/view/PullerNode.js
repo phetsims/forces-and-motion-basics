@@ -14,31 +14,31 @@ define( function( require ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
-    var x = puller.x;
-    var y = puller.y;
+    var x = puller.x.value;
+    var y = puller.y.value;
 
     var scale = 0.86;
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: scale} );
 
     function updateLocation() {
-      var knotted = puller.has( 'knot' );
+      var knotted = puller.knot.value;
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
+        pullerNode.setTranslation( puller.knot.value.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
                                    puller.knot.y - pullerNode.height + 100
         );
       }
       else {
-        pullerNode.setTranslation( puller.x, puller.y );
+        pullerNode.setTranslation( puller.x.value, puller.y.value );
       }
     }
 
-    puller.on( 'change:y change:x knot-moved', function( m, y ) {
-      updateLocation();
-    } );
+    puller.x.link( updateLocation );
+    puller.y.link( updateLocation );
+    //TODO: Handle knot-moved event
 
     var updateImage = function( m, running ) {
-      var knotted = puller.has( 'knot' );
+      var knotted = puller.knot.value;
       var pulling = running && knotted;
       pullerNode.image = pulling ? pullImage : image;
 
@@ -52,18 +52,20 @@ define( function( require ) {
           allowTouchSnag: true,
           start: function() {
             puller.disconnect();
-            puller.dragging = true;
+            puller.dragging.value = true;
 
-            //Comment out moveToFront while it is causing flickering on the ipad
+            //TODO: Commented out moveToFront while it is causing flickering on the ipad
 //            pullerNode.moveToFront();
           },
           end: function( event ) {
             updateLocation();
-            puller.dragging = false;
+            puller.dragging.value = false;
             updateImage( pullerNode.model, model.running );
           },
           translate: function( event ) {
-            pullerNode.puller.set( {x: event.position.x, y: event.position.y} );
+            //TODO: join into one setter to improve speed, by using vector2?
+            pullerNode.puller.x.value = event.position.x;
+            pullerNode.puller.y.value = event.position.y;
           }
         } ) );
 

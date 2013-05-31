@@ -1,27 +1,16 @@
 define( function( require ) {
   "use strict";
   var Fort = require( 'FORT/Fort' );
+  var Property = require( 'PHETCOMMON/model/property/Property' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Puller = require( 'tugofwar/model/Puller' );
+
   var red = "red",
       blue = "blue",
       small = "small",
       medium = "medium",
       large = "large";
-
-  var Puller = Fort.Model.extend( { defaults: { dragging: false, knot: null},
-
-                                    //For resetting
-                                    init: function() {
-                                      this.initAttributes = this.toJSON();
-                                      this.initX = this.x;
-                                      this.initY = this.y;
-                                      this.force = this.size === small ? 10 * 5 :
-                                                   this.size === medium ? 20 * 5 :
-                                                   this.size === large ? 30 * 5 :
-                                                   NaN;
-                                    },
-                                    disconnect: function() {this.knot = null;}
-                                  } );
-  var Pullers = Backbone.Collection.extend( { defaults: {knot: null}, model: Puller } );
 
   var Knot = Fort.Model.extend( {
                                   defaults: { y: 275, visible: false},
@@ -55,20 +44,21 @@ define( function( require ) {
           //Create the pullers from left to right so the tab order will be as expected.
           var dy = -14;
 
-          var bluePullers = [new Puller( {x: 38, y: 407 + dy + 1, dragOffsetX: 80, type: blue, size: large  } ),
-            new Puller( {x: 132 - 5, y: 446 + dy - 6, dragOffsetX: 50, type: blue, size: medium} ),
-            new Puller( {x: 198 + 10, y: 500 + dy - 13, dragOffsetX: 20, type: blue, size: small } ),
-            new Puller( {x: 260 + 18, y: 500 + dy - 13, dragOffsetX: 20, type: blue, size: small } )];
+          var bluePullers = [new Puller( 38, 407 + dy + 1 + 30, blue, large, 80 ),
+            new Puller( 132 - 5, 446 + dy - 6, blue, medium, 50 ),
+            new Puller( 198 + 10, 500 + dy - 13, blue, small, 20 ),
+            new Puller( 260 + 18, 500 + dy - 13, blue, small, 20 )];
 
-          this.pullers = new Pullers( [bluePullers[0],
-                                        bluePullers[1],
-                                        bluePullers[2],
-                                        bluePullers[3],
-                                        new Puller( {x: 624 + 19 + 5, y: bluePullers[3].y, dragOffsetX: 10, type: red, size: small } ),
-                                        new Puller( {x: 684 + 28 + 5, y: bluePullers[2].y, dragOffsetX: 10, type: red, size: small } ),
-                                        new Puller( {x: 756 - 4 + 32 + 5, y: bluePullers[1].y, dragOffsetX: 20, type: red, size: medium } ),
-                                        new Puller( {x: 838 - 8 + 25 + 5, y: bluePullers[0].y, dragOffsetX: 30, type: red, size: large  } )
-                                      ] );
+          this.pullers = [
+            bluePullers[0],
+            bluePullers[1],
+            bluePullers[2],
+            bluePullers[3],
+            new Puller( 624 + 19 + 5, bluePullers[3].y.value, red, small, 10 ),
+            new Puller( 684 + 28 + 5, bluePullers[2].y.value, red, small, 10 ),
+            new Puller( 756 - 4 + 32 + 5, bluePullers[1].y.value, red, medium, 20 ),
+            new Puller( 838 - 8 + 25 + 5, bluePullers[0].y.value, red, large, 30 )
+          ];
           this.knots = new Knots( [ new Knot( {x: 62 + 80 * 0, type: blue} ),
                                     new Knot( {x: 62 + 80 * 1, type: blue} ),
                                     new Knot( {x: 62 + 80 * 2, type: blue} ),
@@ -80,20 +70,26 @@ define( function( require ) {
           var model = this;
 
           //When any puller is dragged, update the closest knots to be visible
-          this.pullers.each( function( puller ) {
-            puller.on( 'change:x change:y', function() { model.updateVisibleKnots(); } );
-            puller.on( 'change:dragging', function( puller, dragging ) {
+          this.pullers.forEach( function( puller ) {
+            puller.x.link( model.updateVisibleKnots.bind( model ) );
+            puller.y.link( model.updateVisibleKnots.bind( model ) );
+            puller.dragging.link( function( dragging ) {
+              console.log( dragging );
               if ( !dragging ) {
                 var knot = model.getTargetKnot( puller );
 
                 //try to snap to a knot
                 if ( knot ) {
+                  puller.x.value = knot.x;
+                  puller.y.value = knot.y;
+                  puller.knot.value = knot;
                   puller.set( {x: knot.x, y: knot.y, knot: knot} );
                 }
 
                 //Or go back home
                 else {
-                  puller.set( {x: puller.initX, y: puller.initY} );
+                  puller.x.reset();
+                  puller.y.reset();
                 }
 
                 model.numberPullersAttached = model.countAttachedPullers();
@@ -103,13 +99,13 @@ define( function( require ) {
           this.link( 'running', function( running ) { if ( running ) { model.started = true; }} );
         },
         countAttachedPullers: function() {
-          return this.pullers.filter(function( puller ) {return puller.has( 'knot' );} ).length;
+          return this.pullers.filter(function( puller ) {return puller.knot.value;} ).length;
         },
         updateVisibleKnots: function() {
           var model = this;
           this.knots.each( function( knot ) {knot.visible = false;} );
-          this.pullers.each( function( puller ) {
-            if ( puller.get( 'dragging' ) ) {
+          this.pullers.forEach( function( puller ) {
+            if ( puller.dragging.value ) {
               var knot = model.getTargetKnot( puller );
               if ( knot ) {
                 knot.visible = true;
@@ -118,23 +114,24 @@ define( function( require ) {
           } );
         },
         getPuller: function( knot ) {
-          var find = this.pullers.find( function( puller ) {return puller.get( 'knot' ) === knot;} );
+          var find = _.find( this.pullers, function( puller ) {return puller.knot.value === knot;} );
           return typeof(find) !== "undefined" ? find : null;
         },
         getClosestOpenKnot: function( puller ) {
           var model = this;
           var distance = function( knot ) {
-            return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
+            return Math.sqrt( Math.pow( knot.x - puller.x.value, 2 ) + Math.pow( knot.y - puller.y.value, 2 ) );
           };
           var filter = this.knots.filter( function( knot ) {
-            return knot.get( 'type' ) === puller.get( 'type' ) && model.getPuller( knot ) === null;
+            return knot.get( 'type' ) === puller.type && model.getPuller( knot ) === null;
           } );
           var target = _.min( filter, distance );
+          console.log( target );
           return target;
         },
         getTargetKnot: function( puller ) {
           var distance = function( knot ) {
-            return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
+            return Math.sqrt( Math.pow( knot.x - puller.x.value, 2 ) + Math.pow( knot.y - puller.y.value, 2 ) );
           };
           var target = this.getClosestOpenKnot( puller );
           var distanceToTarget = distance( target );
@@ -148,7 +145,7 @@ define( function( require ) {
         returnCart: function() {
           this.cart.set( this.cart.defaults );
           this.knots.each( function( knot ) {knot.x = knot.initX;} );
-          this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
+          this.pullers.forEach( function( puller ) {puller.trigger( 'knot-moved' );} );
           this.running = false;
           this.started = false;
           this.state = 'experimenting';
@@ -157,13 +154,13 @@ define( function( require ) {
         reset: function() {
 
           //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
-          this.pullers.each( function( puller ) {puller.unset( 'knot' );} );
+          this.pullers.forEach( function( puller ) {puller.knot.value = null;} );
 
           Fort.Model.prototype.reset.call( this );
           this.cart.set( this.cart.defaults );
-          this.pullers.each( function( puller ) { puller.set( puller.initAttributes ); } );
-          this.knots.each( function( knot ) {knot.x = knot.initX;} );
-          this.pullers.each( function( puller ) {puller.trigger( 'knot-moved' );} );
+          this.pullers.forEach( function( puller ) { puller.reset(); } );
+          this.knots.forEach( function( knot ) {knot.x = knot.initX;} );
+          this.pullers.forEach( function( puller ) {puller.trigger( 'knot-moved' );} );
           this.trigger( 'reset-all' );
         },
         step: function( dt ) {
@@ -174,7 +171,7 @@ define( function( require ) {
             this.knots.each( function( knot ) {
               knot.x = knot.initX + newX;
             } );
-            this.pullers.each( function( puller ) {
+            this.pullers.forEach( function( puller ) {
               puller.trigger( 'knot-moved' );
             } );
 
@@ -192,9 +189,11 @@ define( function( require ) {
         getLeftForce: function() {
           var sum = 0;
 
-          this.pullers.each( function( puller ) {
-            if ( puller.type === blue && puller.has( 'knot' ) ) {
+          this.pullers.forEach( function( puller ) {
+            if ( puller.type === blue && puller.knot.value ) {
               sum -= puller.force;
+              console.log( sum );
+              if ( isNaN( sum ) ) { throw new Error( 'nan' ); }
             }
           } );
           return sum;
@@ -202,14 +201,12 @@ define( function( require ) {
         getRightForce: function() {
           var sum = 0;
 
-          this.pullers.each( function( puller ) {
-            if ( puller.type === red && puller.has( 'knot' ) ) {
+          this.pullers.forEach( function( puller ) {
+            if ( puller.type === red && puller.knot.value ) {
               sum += puller.force;
             }
           } );
           return sum;
         }
-      } )
-      ;
-} )
-;
+      } );
+} );

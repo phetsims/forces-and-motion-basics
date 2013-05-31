@@ -117,7 +117,7 @@ define( function( require ) {
 
     //Update the forces when the number of attached pullers changes
     model.link( 'numberPullersAttached', this.updateForces, this );
-    this.model.pullers.each( function( puller ) {
+    this.model.pullers.forEach( function( puller ) {
       tugOfWarTabView.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
