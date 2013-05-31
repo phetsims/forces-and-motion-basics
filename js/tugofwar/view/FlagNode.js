@@ -32,8 +32,8 @@ define( function( require ) {
       var shape = new Shape();
       var maxX = 220;
       var maxY = 75;
-      var dy = ( 7 * Math.sin( model.time * 6 ) );
-      var dx = ( 2 * Math.sin( model.time * 5 ) ) + 10;
+      var dy = ( 7 * Math.sin( model.time.value * 6 ) );
+      var dx = ( 2 * Math.sin( model.time.value * 5 ) ) + 10;
       shape.moveTo( 0, 0 );
       shape.cubicCurveTo( maxX / 3 + dx, 25 + dy, 2 * maxX / 3 + dx, -25 - dy, maxX + dx, dy / 2 );
       shape.lineTo( maxX + dx, maxY + dy / 2 );
@@ -42,7 +42,7 @@ define( function( require ) {
       shape.close();
       path.shape = shape;
     };
-    model.on( 'step', updateFlagShape );
+    model.time.link( updateFlagShape );
     updateFlagShape();
     text.centerX = path.centerX;
     text.centerY = path.centerY;

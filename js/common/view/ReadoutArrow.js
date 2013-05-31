@@ -32,7 +32,7 @@ define( function( require ) {
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
     this.setValue( 0 );
-    showValuesProperty.link( this, 'update' );
+    showValuesProperty.link( this.update.bind( this ) );
   }
 
   inherit( ReadoutArrow, Node, {

@@ -22,7 +22,7 @@ define( function( require ) {
 
     function updateLocation() {
       var knotted = puller.knot.value;
-      var pulling = model.running && knotted;
+      var pulling = model.running.value && knotted;
       if ( knotted ) {
         pullerNode.setTranslation( puller.knot.value.x.value + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
                                    puller.knot.value.y - pullerNode.height + 100 );
@@ -36,15 +36,15 @@ define( function( require ) {
     puller.y.link( updateLocation );
     //TODO: Handle knot-moved event
 
-    var updateImage = function( m, running ) {
+    var updateImage = function() {
       var knotted = puller.knot.value;
-      var pulling = running && knotted;
+      var pulling = model.running.value && knotted;
       pullerNode.image = pulling ? pullImage : image;
 
       //Reshape the focus rect when image changes
       updateLocation();
     };
-    model.on( 'change:running', updateImage );
+    model.running.link( updateImage );
 
     pullerNode.addInputListener( new SimpleDragHandler(
         {
@@ -59,7 +59,7 @@ define( function( require ) {
           end: function( event ) {
             updateLocation();
             puller.dragging.value = false;
-            updateImage( pullerNode.model, model.running );
+            updateImage();
           },
           translate: function( event ) {
             //TODO: join into one setter to improve speed, by using vector2?
@@ -73,13 +73,13 @@ define( function( require ) {
       if ( puller.knot ) {
         puller.disconnect();
         puller.set( {x: puller.initX, y: puller.initY} );
-        model.numberPullersAttached = model.countAttachedPullers();
+        model.numberPullersAttached.value = model.countAttachedPullers();
       }
       else {
         puller.disconnect();
         var knot = model.getClosestOpenKnot( puller );
         puller.set( {x: knot.x.value, y: knot.y, knot: knot} );
-        model.numberPullersAttached = model.countAttachedPullers();
+        model.numberPullersAttached.value = model.countAttachedPullers();
       }
     }} );
   }

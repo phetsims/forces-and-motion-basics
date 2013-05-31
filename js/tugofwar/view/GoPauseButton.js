@@ -13,25 +13,25 @@ define( function( require ) {
     var goPauseButton = this;
     Image.call( this, getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
     function updateOut() {
-      goPauseButton.image = getImage( model.running ? 'stop_up.png' : 'go_up.png' );
+      goPauseButton.image = getImage( model.running.value ? 'stop_up.png' : 'go_up.png' );
     }
 
     goPauseButton.addInputListener(
         {
           over: function( event ) {
-            goPauseButton.image = getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+            goPauseButton.image = getImage( model.running.value ? 'stop_hover.png' : 'go_hover.png' );
           },
           out: updateOut,
           down: function( event ) {
-            goPauseButton.image = getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
-            model.running = !model.running;
+            goPauseButton.image = getImage( model.running.value ? 'stop_pressed.png' : 'go_pressed.png' );
+            model.running.value = !model.running.value;
           },
           up: function( event ) {
-            goPauseButton.image = getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+            goPauseButton.image = getImage( model.running.value ? 'stop_hover.png' : 'go_hover.png' );
           }
         } );
 
-    model.link( 'running', updateOut );
+    model.running.link( updateOut );
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on ipad3
     var goText = new Text( Strings.go, {fontSize: '34px'} );
     var pauseText = new Text( Strings.pause, {fontSize: '34px'} );
@@ -40,18 +40,20 @@ define( function( require ) {
     textContainer.y = goPauseButton.height / 2 + 7;
     goPauseButton.addChild( textContainer );
 
-    model.on( "change:running change:state change:numberPullersAttached", function() {
-      var child = model.running ? pauseText : goText;
+    var update = function() {
+      var child = model.running.value ? pauseText : goText;
       textContainer.children = [child];
       textContainer.x = goPauseButton.width / 2 - child.width / 2 - 5;
       textContainer.y = goPauseButton.height / 2 + 7;
-    } );
+    };
+    model.running.link( update );
+    model.state.link( update );
+    model.numberPullersAttached.link( update );
 
-    model.trigger( 'change:numberPullersAttached' );
     this.centerX = Layout.width / 2;
 
     //Add accessibility peer
-    this.addPeer( '<input type="button">', {click: function() {model.running = !model.running;}} );
+    this.addPeer( '<input type="button">', {click: function() {model.running.value = !model.running.value;}} );
   }
 
   inherit( GoPauseButton, Image );
