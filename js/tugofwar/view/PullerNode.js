@@ -24,8 +24,8 @@ define( function( require ) {
       var knotted = puller.knot.value;
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.setTranslation( puller.knot.value.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
-                                   puller.knot.y - pullerNode.height + 100 );
+        pullerNode.setTranslation( puller.knot.value.x.value + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
+                                   puller.knot.value.y - pullerNode.height + 100 );
       }
       else {
         pullerNode.setTranslation( puller.x.value, puller.y.value );

@@ -17,14 +17,19 @@ define( function( require ) {
                  this.size === 'medium' ? 20 * 5 :
                  this.size === 'large' ? 30 * 5 :
                  NaN;
-    var listener = function( knotX ) { puller.x.value = knotX; };
 
+    //Move with the knot
+    var updateX = function( knotX ) { puller.x.value = knotX; };
+
+    //When the knot changes, wire up as a listener to the new knot
     this.knot.link( function( newKnot, oldKnot ) {
       if ( oldKnot ) {
-        oldKnot.x.unlink( listener );
+        oldKnot.x.unlink( updateX );
       }
+
+      //Synchronize our location with the knot.
       if ( newKnot ) {
-        newKnot.x.link( listener );
+        newKnot.x.link( updateX );
       }
     } );
   }
