@@ -91,7 +91,7 @@ define( function( require ) {
     this.running.link( function( running ) { if ( running ) { model.started.value = true; }} );
   }
 
-  inherit( TugOfWarModel, PropertySet, {
+  return inherit( TugOfWarModel, PropertySet, {
     countAttachedPullers: function() {
       return this.pullers.filter(function( puller ) {return puller.knot.value;} ).length;
     },
@@ -153,6 +153,7 @@ define( function( require ) {
       this.pullers.forEach( function( puller ) { puller.reset(); } );
       this.knots.forEach( function( knot ) {knot.reset();} );
       this.trigger( 'reset-all' );
+      this.numberPullersAttached.value = 0;
     },
     step: function( dt ) {
       if ( this.running.value ) {
@@ -179,7 +180,6 @@ define( function( require ) {
       this.pullers.forEach( function( puller ) {
         if ( puller.type === blue && puller.knot.value ) {
           sum -= puller.force;
-          if ( isNaN( sum ) ) { throw new Error( 'nan' ); }
         }
       } );
       return sum;
@@ -195,6 +195,4 @@ define( function( require ) {
       return sum;
     }
   } );
-
-  return TugOfWarModel;
 } );
