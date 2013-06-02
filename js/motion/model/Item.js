@@ -34,9 +34,6 @@ define( function( require ) {
     armsUp: function() {
       return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
     },
-    reset: function() {
-      Fort.Model.prototype.reset.call( this );
-    },
     animateTo: function( x, y, destination ) {
       this.animating.value = {enabled: true, x: x, y: y, destination: destination};
     },
@@ -56,7 +53,10 @@ define( function( require ) {
         var current = new Vector2( this.x.value, this.y.value );
         var destination = new Vector2( this.animating.value.x, this.animating.value.y );
         var position = current.blend( destination, 0.1 );
-        this.position = position;
+
+        //TODO: batch these for performance
+        this.x.value = position.x;
+        this.y.value = position.y;
         if ( position.distance( destination ) < 1 && this.interactionScale.value === 1.3 ) {
           if ( this.animating.value.end ) {
             this.animating.value.end();

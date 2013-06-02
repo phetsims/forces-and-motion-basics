@@ -26,17 +26,17 @@ require( [ "tugofwar/model/TugOfWarModel",
       },
       { name: Strings.motion,
         icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ),
-        createModel: function() {return new MotionModel( {tab: 'motion', skateboard: true} );},
+        createModel: function() {return new MotionModel( 'motion', true );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.friction,
         icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ),
-        createModel: function() {return new MotionModel( {tab: 'friction'} );},
+        createModel: function() {return new MotionModel( 'friction', false );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.acceleration,
         icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ),
-        createModel: function() {return new MotionModel( {tab: 'acceleration'} );},
+        createModel: function() {return new MotionModel( 'acceleration', false );},
         createView: function( model ) {return new MotionTabView( model );}}
 
     ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} )

@@ -22,7 +22,7 @@ define( function( require ) {
     var addBackgroundNode = function( offset, node, distanceScale ) {
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
-      model.link( 'position', function( position ) {
+      model.position.link( function( position ) {
         var a = -position / distanceScale + offset;
         var n, z;
 
@@ -75,7 +75,7 @@ define( function( require ) {
     var ground = new Rectangle( 0, mountainY + 50, tile.width * 12, tile.height, {fill: new Pattern( tile )} );
     var mod = ground.width / 12;
     var offset = layoutCenterX - ground.width / 2;
-    model.link( 'position', function( position ) { ground.x = -position % mod + offset; } );
+    model.position.link( function( position ) { ground.x = -position % mod + offset; } );
     this.addChild( ground );
 
     //Add the gravel and ice
@@ -90,7 +90,7 @@ define( function( require ) {
         var maxFriction = 2;
         var width = 800;
         var height = 5;
-        var numSpecks = linear( maxFriction * 0.1, 0, maxFriction, 500 * 1.15, model.friction );
+        var numSpecks = linear( maxFriction * 0.1, 0, maxFriction, 500 * 1.15, model.friction.value );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
         //Save computation, esp. for older machines
@@ -115,7 +115,7 @@ define( function( require ) {
 //        movingBackgroundNode.addChild( node );
         movingBackgroundNode.lastNumSpecks = numSpecks;
       };
-      model.link( 'friction', updateGravelImage );
+      model.friction.link( updateGravelImage );
     }
   }
 
