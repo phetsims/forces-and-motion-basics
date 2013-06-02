@@ -72,7 +72,6 @@ define( function( require ) {
         itemNode.setTranslation( item.x.value, item.y.value );
       }
       var scale = item.imageScale.value * item.interactionScale.value;
-      console.log( scale );
       if ( scale !== itemNode.getScaleVector().x ) {
         itemNode.setScaleMagnitude( scale );
       }

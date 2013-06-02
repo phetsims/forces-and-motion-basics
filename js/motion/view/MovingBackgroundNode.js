@@ -92,7 +92,6 @@ define( function( require ) {
         var height = 5;
         var numSpecks = linear( maxFriction * 0.1, 0, maxFriction, 500 * 1.15, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
-        console.log( numSpecks );
 
         //Save computation, esp. for older machines
         if ( numSpecks == movingBackgroundNode.lastNumSpecks ) {return;}
