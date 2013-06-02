@@ -14,6 +14,7 @@ require.config( {
                     SCENERY_PHET: '../../scenery-phet/js',
                     KITE: '../../kite/js',
                     PHET_CORE: '../../phet-core/js',
+                    FORT: '../../fort/js',
                     SUN: '../../sun/js',
                     JOIST: '../../joist/js',
 
