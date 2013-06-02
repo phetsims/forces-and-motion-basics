@@ -63,7 +63,7 @@ define( function( require ) {
       var item = model.items[i];
       var itemNode = new ItemNode( model, motionTabView, item,
                                    imageLoader.getImage( item.image ),
-                                   imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),
+                                   imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),//TODO: use ||
                                    imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
                                    model.property( 'showMasses' ) );
       this.itemNodes.push( itemNode );

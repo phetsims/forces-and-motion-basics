@@ -15,11 +15,10 @@ define( function( require ) {
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
+    Node.call( this, {x: item.x.value, y: item.y.value, cursor: 'pointer', scale: item.imageScale.value} );
     var imageNode = new Image( image );
-    this.addChild( imageNode );
     var updateImage = function() {
-      var onBoard = item.onBoard;
+      var onBoard = item.onBoard.value;
       if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && onBoard) ) {
         imageNode.image = imageHolding;
       }
@@ -32,34 +31,33 @@ define( function( require ) {
       itemNode.labelNode.bottom = imageNode.height - 2;
       itemNode.labelNode.centerX = imageNode.width / 2;
     };
-    item.on( 'change:onBoard', updateImage );
     model.on( 'draggingItemsChanged', updateImage );
     model.on( 'stackChanged', updateImage );
 
     this.addInputListener( new SimpleDragHandler(
         {
           translate: function( options ) {
-            item.onBoard = false;
+            item.onBoard.value = false;
 
             //Don't allow the user to translate the object while it is animating
-            if ( !item.animating.enabled ) {//todo is this calling es5 getter?
+            if ( !item.animating.value.enabled ) {//todo is this calling es5 getter?
               item.position = options.position;//es5 setter
             }
           },
 
           //When picking up an object, remove it from the stack.
           start: function() {
-            item.dragging = true;
+            item.dragging.value = true;
             var index = model.stack.indexOf( item );
             if ( index >= 0 ) {
               model.spliceStack( index );
             }
           },
           end: function() {
-            item.dragging = false;
+            item.dragging.value = false;
             //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-            if ( item.y < 350 ) {
-              item.onBoard = true;
+            if ( item.y.value < 350 ) {
+              item.onBoard.value = true;
               item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
               model.stack.push( item );
               model.trigger( 'stackChanged' );
@@ -69,21 +67,27 @@ define( function( require ) {
             }
           }
         } ) );
-    item.on( 'change:x change:y change:interactionScale', function() {
-      if ( item.x !== itemNode.x || item.y !== itemNode.y ) {
-        itemNode.setTranslation( item.x, item.y );
+    var update = function() {
+      if ( item.x.value !== itemNode.x || item.y.value !== itemNode.y ) {
+        itemNode.setTranslation( item.x.value, item.y.value );
       }
-      var scale = item.imageScale * item.interactionScale;
+      var scale = item.imageScale.value * item.interactionScale.value;
+      console.log( scale );
       if ( scale !== itemNode.getScaleVector().x ) {
         itemNode.setScaleMagnitude( scale );
       }
-    } );//TODO: verify the change is batched and not duplicated
+    };
 
     var massLabel = new Text( item.mass + ' kg', {fontSize: '18px'} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
-    var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
+    var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale.value, renderer: 'svg', rendererOptions: {cssTransform: true}} );
     this.labelNode = labelNode;
-    updateImage();
+
+    //TODO: unbatch these
+    item.x.link( update );
+    item.y.link( update );
+    item.interactionScale.link( update );
+    item.onBoard.link( updateImage );
 
     //Work around a scenery bug that makes an invisible node show if its parent is added to the scene
     //TODO: Isolate and fix that scenery bug

@@ -42,7 +42,7 @@ define( function( require ) {
           var draggingItems = [];
           for ( var i = 0; i < this.items.length; i++ ) {
             var item = this.items[i];
-            if ( item.dragging ) {
+            if ( item.dragging.value ) {
               draggingItems.push( item );
             }
           }
@@ -169,13 +169,13 @@ define( function( require ) {
           //TODO: Switch to backbone collection.
           var dy = -39;
           this.items = [
-            new Item( {context: this, image: 'fridge.png', mass: 200, x: 25, y: 478 + dy, imageScale: 0.8} ),
-            new Item( {context: this, image: 'crate.png', mass: 50, x: 126, y: 550 - 18 + 2 + dy, imageScale: 0.5} ),
-            new Item( {context: this, image: 'crate.png', mass: 50, x: 218, y: 550 - 18 + 2 + dy, imageScale: 0.5} ),
-            new Item( {context: this, image: 'girl-standing.png', imageSitting: "girl-sitting.png", imageHolding: "girl-holding.png", mass: 40, x: 684, y: 510 + dy, imageScale: 0.6, pusherInset: 16} ),
-            new Item( {context: this, image: 'man-standing.png', imageSitting: "man-sitting.png", imageHolding: "man-holding.png", mass: 80, x: 747, y: 460 + dy, imageScale: 0.6, pusherInset: 10} ),
-            new Item( {context: this, image: 'trash-can.png', mass: 100, x: 826 - 10, y: 518 + 11 + 12 + dy, imageScale: 0.7} ),
-            new Item( {context: this, image: 'mystery-object-01.png', mass: 50, x: 880 + 10 - 2, y: 580 + 2 + dy, imageScale: 1.1} )
+            new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
+            new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
+            new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
+            new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
+            new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
+            new Item( this, 'trash-can.png', 100, 826 - 10, 518 + 11 + 12 + dy, 0.7 ),
+            new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
           ];
 
           var f = function() {
@@ -183,8 +183,7 @@ define( function( require ) {
           };
 
           for ( var i = 0; i < this.items.length; i++ ) {
-            var item = this.items[i];
-            item.on( 'change:dragging', f );
+            this.items[i].dragging.link( f );
           }
         }
       } );
