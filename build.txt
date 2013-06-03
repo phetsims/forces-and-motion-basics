@@ -1,4 +1,0 @@
-#Build file for Forces and Motion: Basics
-
-phetcommon master HEAD
-scenery master HEAD
