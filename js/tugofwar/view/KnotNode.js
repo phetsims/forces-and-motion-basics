@@ -11,7 +11,7 @@ define( function( require ) {
     var knotNode = this;
     Path.call( this, {shape: Shape.circle( 0, 0, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.x.value, y: knot.y} );
     knot.visible.link( function( visible ) { knotNode.visible = visible; } );
-    knot.x.link( function( x ) { knotNode.x = x; } );
+    knot.x.link( function( x ) { knotNode.x = x; } );//TODO: Candidate for simplified link
   }
 
   inherit( KnotNode, Path );
