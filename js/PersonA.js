@@ -16,7 +16,7 @@ define( function( require ) {
   }
 
   Person.prototype = {
-    getOlder: function() {
+    nextYear: function() {
       this.age.value = this.age.value + 1;
     },
     reset: function() {

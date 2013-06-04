@@ -13,7 +13,7 @@ define( function( require ) {
   }
 
   inherit( Person, PropertySet, {
-    getOlder: function() {
+    nextYear: function() {
       this.age.value = this.age.value + 1;
     }
   } );

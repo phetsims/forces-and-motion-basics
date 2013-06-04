@@ -11,7 +11,7 @@ define( function( require ) {
     //lodash extend doesn't support es5
     getBMI: function() {
       return this.weight / this.height / this.height;
-    }, getOlder: function() {
+    }, nextYear: function() {
       this.age = this.age + 1;
     }} );
 
