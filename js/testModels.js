@@ -4,6 +4,7 @@ define( function( require ) {
   var PersonA = require( 'PersonA' );
   var PersonB = require( 'PersonB' );
   var PersonC = require( 'PersonC' );
+  var PersonE = require( 'PersonE' );
 
   return function() {
     //Property based implementation, get values with model.property.value
@@ -33,6 +34,7 @@ define( function( require ) {
     clara.set( {weight: clara.weight.value + 1, height: clara.height.value + 1} );
     clara.reset();
 
+    //Use PropertySetValues for access
     var david = new PersonC( 'david', 123456, 31, 150, 80, true );
     david.age.link( function( age ) {console.log( 'current age is ', age );} );
     david.nextYear();
@@ -44,12 +46,20 @@ define( function( require ) {
 
     //Possible alternative, uses ageProperty for link, age for value
     //Not implemented yet so this part won't run
-    var ethan = new PersonC( 'ethan', 123456, 31, 150, 80, true );
+    var ethan = new PersonE( 'ethan', 123456, 31, 150, 80, true );
     ethan.ageProperty.link( function( age ) {console.log( 'current age is ', age );} );
     ethan.nextYear();
     console.log( "his name is ", d.name, ' and his weight to height ratio is', d.weight / d.height );
     console.log( 'bmi', ethan.bmi );//When adding derived properties, could create ES5 getter for the value, and *property for the property
-    ethan.set( {weight: d.weight + 1, height: d.height + 1} );
+    ethan.set( {weight: ethan.weight + 1, height: ethan.height + 1} );
+    ethan.reset();
+    ethan.height = 1;
+    ethan.weight = 100;
+    ethan.bmiProperty.link( function( bmi ) {console.log( "ethan's bmi: " + bmi );} );
+    ethan.weight = 100;
+    ethan.weight = 101; //Check against duplicate notifications
+    ethan.weight = 101;
+    ethan.weight = 102;
     ethan.reset();
   }
 } );
