@@ -22,10 +22,10 @@ define( function( require ) {
   var Property = require( 'PHETCOMMON/model/property/Property' );
 
   var red = "red",
-      blue = "blue",
-      small = "small",
-      medium = "medium",
-      large = "large";
+    blue = "blue",
+    small = "small",
+    medium = "medium",
+    large = "large";
 
   function TugOfWarTabView( model ) {
 

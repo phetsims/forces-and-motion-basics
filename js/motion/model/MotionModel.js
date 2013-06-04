@@ -132,7 +132,7 @@ define( function( require ) {
     },
     changedDirection: function( a, b ) {
       return sign( a ) === 'negative' && sign( b ) === 'positive'
-          || sign( b ) === 'negative' && sign( a ) === 'positive';
+        || sign( b ) === 'negative' && sign( a ) === 'positive';
     },
     step: function( dt ) {
       dt = dt * 20;//TODO: Remove this.

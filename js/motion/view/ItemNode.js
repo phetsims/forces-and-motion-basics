@@ -34,39 +34,38 @@ define( function( require ) {
     model.on( 'draggingItemsChanged', updateImage );
     model.on( 'stackChanged', updateImage );
 
-    this.addInputListener( new SimpleDragHandler(
-        {
-          translate: function( options ) {
-            item.onBoard.value = false;
+    this.addInputListener( new SimpleDragHandler( {
+      translate: function( options ) {
+        item.onBoard.value = false;
 
-            //Don't allow the user to translate the object while it is animating
-            if ( !item.animating.value.enabled ) {//todo is this calling es5 getter?
-              item.position = options.position;//es5 setter
-            }
-          },
+        //Don't allow the user to translate the object while it is animating
+        if ( !item.animating.value.enabled ) {//todo is this calling es5 getter?
+          item.position = options.position;//es5 setter
+        }
+      },
 
-          //When picking up an object, remove it from the stack.
-          start: function() {
-            item.dragging.value = true;
-            var index = model.stack.indexOf( item );
-            if ( index >= 0 ) {
-              model.spliceStack( index );
-            }
-          },
-          end: function() {
-            item.dragging.value = false;
-            //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-            if ( item.y.value < 350 ) {
-              item.onBoard.value = true;
-              item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
-              model.stack.push( item );
-              model.trigger( 'stackChanged' );
-            }
-            else {
-              item.animateHome();
-            }
-          }
-        } ) );
+      //When picking up an object, remove it from the stack.
+      start: function() {
+        item.dragging.value = true;
+        var index = model.stack.indexOf( item );
+        if ( index >= 0 ) {
+          model.spliceStack( index );
+        }
+      },
+      end: function() {
+        item.dragging.value = false;
+        //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
+        if ( item.y.value < 350 ) {
+          item.onBoard.value = true;
+          item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
+          model.stack.push( item );
+          model.trigger( 'stackChanged' );
+        }
+        else {
+          item.animateHome();
+        }
+      }
+    } ) );
     var update = function() {
       if ( item.x.value !== itemNode.x || item.y.value !== itemNode.y ) {
         itemNode.setTranslation( item.x.value, item.y.value );

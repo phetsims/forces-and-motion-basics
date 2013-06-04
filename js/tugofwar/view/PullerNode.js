@@ -25,7 +25,7 @@ define( function( require ) {
       var pulling = model.running.value && knotted;
       if ( knotted ) {
         pullerNode.setTranslation( puller.knot.value.x.value + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
-                                   puller.knot.value.y - pullerNode.height + 100 );
+          puller.knot.value.y - pullerNode.height + 100 );
       }
       else {
         pullerNode.setTranslation( puller.x.value, puller.y.value );
@@ -47,26 +47,26 @@ define( function( require ) {
     model.running.link( updateImage );
 
     pullerNode.addInputListener( new SimpleDragHandler(
-        {
-          allowTouchSnag: true,
-          start: function() {
-            puller.disconnect();
-            puller.dragging.value = true;
+      {
+        allowTouchSnag: true,
+        start: function() {
+          puller.disconnect();
+          puller.dragging.value = true;
 
-            //TODO: Commented out moveToFront while it is causing flickering on the ipad
+          //TODO: Commented out moveToFront while it is causing flickering on the ipad
 //            pullerNode.moveToFront();
-          },
-          end: function( event ) {
-            updateLocation();
-            puller.dragging.value = false;
-            updateImage();
-          },
-          translate: function( event ) {
-            //TODO: join into one setter to improve speed, by using vector2?
-            pullerNode.puller.x.value = event.position.x;
-            pullerNode.puller.y.value = event.position.y;
-          }
-        } ) );
+        },
+        end: function( event ) {
+          updateLocation();
+          puller.dragging.value = false;
+          updateImage();
+        },
+        translate: function( event ) {
+          //TODO: join into one setter to improve speed, by using vector2?
+          pullerNode.puller.x.value = event.position.x;
+          pullerNode.puller.y.value = event.position.y;
+        }
+      } ) );
 
     //Add accessibility peer
     this.addPeer( '<input type="button">', {click: function() {

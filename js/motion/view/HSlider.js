@@ -36,17 +36,17 @@ define( function( require ) {
     //Lookup the new item and append to the scenery
     var svgKnob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ), {cursor: 'pointer'} );
     svgKnob.y = -svgKnob.height / 2;
-    svgKnob.addInputListener( new SimpleDragHandler(
-        {allowTouchSnag: true,
-          translate: function( options ) {
-            var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
-            property.value = linear( 0, min, width, max, x );
-          },
-          end: function() {
-            if ( slider.options.zeroOnRelease ) {
-              property.value = 0;
-            }
-          }}
+    svgKnob.addInputListener( new SimpleDragHandler( {
+        allowTouchSnag: true,
+        translate: function( options ) {
+          var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
+          property.value = linear( 0, min, width, max, x );
+        },
+        end: function() {
+          if ( slider.options.zeroOnRelease ) {
+            property.value = 0;
+          }
+        }}
     ) );
     this.addChild( svgKnob );
 

@@ -62,10 +62,10 @@ define( function( require ) {
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
       var itemNode = new ItemNode( model, motionTabView, item,
-                                   imageLoader.getImage( item.image ),
-                                   imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),//TODO: use ||
-                                   imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
-                                   model.showMasses );
+        imageLoader.getImage( item.image ),
+        imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),//TODO: use ||
+        imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
+        model.showMasses );
       this.itemNodes.push( itemNode );
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily

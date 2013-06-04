@@ -17,20 +17,19 @@ define( function( require ) {
       goPauseButton.image = getImage( values.running ? 'stop_up.png' : 'go_up.png' );
     }
 
-    goPauseButton.addInputListener(
-        {
-          over: function( event ) {
-            goPauseButton.image = getImage( values.running ? 'stop_hover.png' : 'go_hover.png' );
-          },
-          out: updateOut,
-          down: function( event ) {
-            goPauseButton.image = getImage( values.running ? 'stop_pressed.png' : 'go_pressed.png' );
-            values.running = !values.running;
-          },
-          up: function( event ) {
-            goPauseButton.image = getImage( values.running ? 'stop_hover.png' : 'go_hover.png' );
-          }
-        } );
+    goPauseButton.addInputListener( {
+      over: function( event ) {
+        goPauseButton.image = getImage( values.running ? 'stop_hover.png' : 'go_hover.png' );
+      },
+      out: updateOut,
+      down: function( event ) {
+        goPauseButton.image = getImage( values.running ? 'stop_pressed.png' : 'go_pressed.png' );
+        values.running = !values.running;
+      },
+      up: function( event ) {
+        goPauseButton.image = getImage( values.running ? 'stop_hover.png' : 'go_hover.png' );
+      }
+    } );
 
     model.running.link( updateOut );
 

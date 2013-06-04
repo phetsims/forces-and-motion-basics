@@ -8,10 +8,10 @@ define( function( require ) {
   var Cart = require( 'tugofwar/model/Cart' );
 
   var red = "red",
-      blue = "blue",
-      small = "small",
-      medium = "medium",
-      large = "large";
+    blue = "blue",
+    small = "small",
+    medium = "medium",
+    large = "large";
 
   function TugOfWarModel() {
     PropertySet.call( this, {

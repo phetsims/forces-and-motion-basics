@@ -68,17 +68,16 @@ define( function( require ) {
     model.appliedForce.link( update );
     model.position.link( update );
 
-    this.addInputListener( new SimpleDragHandler(
-        {
-          allowTouchSnag: true,
-          translate: function( options ) {
-            var newAppliedForce = model.appliedForce.value + options.delta.x / 3.0;
-            model.appliedForce.value = Math.max( -100, Math.min( 100, newAppliedForce ) );
-          },
+    this.addInputListener( new SimpleDragHandler( {
+      allowTouchSnag: true,
+      translate: function( options ) {
+        var newAppliedForce = model.appliedForce.value + options.delta.x / 3.0;
+        model.appliedForce.value = Math.max( -100, Math.min( 100, newAppliedForce ) );
+      },
 
-          start: function() {},
-          end: function() { model.appliedForce.value = 0; }
-        } ) );
+      start: function() {},
+      end: function() { model.appliedForce.value = 0; }
+    } ) );
   }
 
   inherit( PusherNode, Node );

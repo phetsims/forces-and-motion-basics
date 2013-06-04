@@ -1,14 +1,15 @@
 require( [ "tugofwar/model/TugOfWarModel",
-           "motion/model/MotionModel",
-           'SCENERY/nodes/Image',
-           'PHETCOMMON/util/ImagesLoader',
-           'motion/view/MotionTabView',
-           'tugofwar/view/TugOfWarTabView',
-           'JOIST/Sim',
-           'imageLoader',
-           'Strings',
-           'logs/testLog'
-         ], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, testLog ) {
+  "motion/model/MotionModel",
+  'SCENERY/nodes/Image',
+  'PHETCOMMON/util/ImagesLoader',
+  'motion/view/MotionTabView',
+  'tugofwar/view/TugOfWarTabView',
+  'JOIST/Sim',
+  'imageLoader',
+  'Strings',
+  'logs/testLog',
+  'testModels'
+], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, testLog, testModels ) {
   "use strict";
 
   var loader = new ImagesLoader( function( loader ) {
@@ -40,7 +41,9 @@ require( [ "tugofwar/model/TugOfWarModel",
         createView: function( model ) {return new MotionTabView( model );}}
 
     ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} )
-        .start();
+      .start();
 //        .startPlayback( testLog );
+
+    testModels();
   } );
 } );
