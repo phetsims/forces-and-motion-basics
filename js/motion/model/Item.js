@@ -14,7 +14,7 @@ define( function( require ) {
     this.sittingImage = sittingImage;
     this.holdingImage = holdingImage;
 
-    PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset, dragging: false, animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
+    PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
       //Flag for whether the item is on the skateboard
       onBoard: false,
 

@@ -13,7 +13,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'Layout' );
 
-  function PusherNode( model, motionPlayArea ) {
+  function PusherNode( model ) {
     var pusherNode = this;
     var scale = 0.85;
     Node.call( this, {cursor: 'pointer', scale: scale} );
@@ -41,7 +41,7 @@ define( function( require ) {
         }
       }
 
-      var delta = model.stack.length > 0 ? (model.stack[0].view.width / 2 - model.stack[0].pusherInset) : 100;
+      var delta = model.stack.length > 0 ? (model.stack[0].view.width / 2 - model.stack[0].pusherInset.value) : 100;
       if ( appliedForce > 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
