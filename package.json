@@ -1,6 +1,6 @@
 {
   "name": "forces-and-motion-basics",
-  "version": "0.0.0-20",
+  "version": "0.0.0-21",
   "resourceDirs": "images audio",
   "include": "../phetcommon/css/phetcommon.css ../phetcommon/js/util/check-assertions.js ../phetcommon/js/util/check-accessibility.js ../phetcommon/js/util/query-parameters.js ../phetcommon/js/util/update-locale.js ../tween.js/src/Tween.js",
   "phetLibs": "beers-law-lab assert dot joist kite phet-core phetcommon scenery scenery-phet sun",
