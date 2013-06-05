@@ -6,5 +6,5 @@
  */
 define( function( require ) {
   'use strict';
-  return function() { return "0.0.0-19"; };
+  return function() { return "0.0.0-20"; };
 } );
