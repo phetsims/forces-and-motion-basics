@@ -74,7 +74,7 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true} ) );
 
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
-    this.model.showSumOfForcesProperty.link( function( visible ) {tugOfWarTabView.sumArrow.visible = visible} );
+    this.model.showSumOfForcesProperty.link( function( visible ) {tugOfWarTabView.sumArrow.visible = visible;} );
     this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
     this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
 
@@ -145,8 +145,10 @@ define( function( require ) {
     //user event or not).
     //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
     //Note: right now this requires the user to touch the screen at least twice before audio can be played
+
+    //Detect mobile safari, see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
     function isMobileSafari() {
-      return navigator.userAgent.match( /(iPod|iPhone|iPad)/ ) && navigator.userAgent.match( /AppleWebKit/ )
+      return navigator.userAgent.match( /(iPod|iPhone|iPad)/ ) && navigator.userAgent.match( /AppleWebKit/ );
     }
 
     if ( isMobileSafari() ) {

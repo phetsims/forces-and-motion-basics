@@ -131,8 +131,8 @@ define( function( require ) {
       return sum;
     },
     changedDirection: function( a, b ) {
-      return sign( a ) === 'negative' && sign( b ) === 'positive'
-        || sign( b ) === 'negative' && sign( a ) === 'positive';
+      return sign( a ) === 'negative' && sign( b ) === 'positive' ||
+             sign( b ) === 'negative' && sign( a ) === 'positive';
     },
     step: function( dt ) {
       dt = dt * 20;//TODO: Remove this.
@@ -140,7 +140,7 @@ define( function( require ) {
       this.updateForces();
 
       var mass = this.getStackMass();
-      this.acceleration = mass != 0 ? this.sumOfForces / mass : 0.0;
+      this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
 
       var newVelocity = this.velocity + this.acceleration * dt;
 
@@ -164,7 +164,7 @@ define( function( require ) {
                         this.velocity <= -MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
                         'WITHIN_ALLOWED_RANGE';
 
-      if ( this._speedValue != 'WITHIN_ALLOWED_RANGE' ) {
+      if ( this._speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
         this.lastOutOfRange = {time: Date.now(), speedValue: this._speedValue };
         this.speedValue = this._speedValue;
       }

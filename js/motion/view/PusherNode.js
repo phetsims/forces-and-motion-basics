@@ -58,7 +58,7 @@ define( function( require ) {
         model.pusherPosition = delta + model.position;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position + model.pusherPosition + (fallingLeft ? -imageNode.width : 0)
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position + model.pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
 
       //Keep the feet on the ground

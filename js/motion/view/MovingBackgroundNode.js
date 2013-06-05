@@ -94,7 +94,7 @@ define( function( require ) {
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
         //Save computation, esp. for older machines
-        if ( numSpecks == movingBackgroundNode.lastNumSpecks ) {return;}
+        if ( numSpecks === movingBackgroundNode.lastNumSpecks ) {return;}
 
         var node = new Node();
         for ( var i = 0; i < numSpecks / 2; i++ ) {
