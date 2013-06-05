@@ -40,34 +40,7 @@ require( [ "tugofwar/model/TugOfWarModel",
         createModel: function() {return new MotionModel( 'acceleration', false );},
         createView: function( model ) {return new MotionTabView( model );}}
 
-    ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} )
+    ], { showHomeScreen: true, tab: 0} )
       .start();
-
-    var p = new Property( 'hello' );
-    p.link( function( string ) {console.log( "the string is : " + string );} );
-    p.lazyLink( function( string ) {console.log( "LAZYstring is : " + string );} );
-    p.value = 'bye';
-
-    console.log( "######" );
-    var person = new PropertySet( {name: 'larry', age: 100} );
-    var handle = person.multilink( ['name', 'age'], function( name, age ) {
-      console.log( "person is " + name + ", with " + age );
-    } );
-
-    person.name = 'Super Larry';
-    person.age = '101';
-    person.unmultilink( handle );
-    person.name = 'Supreme Larrymundo';
-
-    console.log( p.toString() );
-    console.log( person.toString() );
-
-    person.addProperty( 'lastName', 'Jenkins' );
-    console.log( person.lastName );
-    person.lastNameProperty.link( function( lastName ) {console.log( "last name is " + lastName );} );
-    person.lastName = 'Jefferson';
-    console.log( person.toString() );
-    person.removeProperty( 'lastName' );//TODO?
-    console.log( person.toString() );
   } );
 } );
