@@ -6,8 +6,10 @@ require( [ "tugofwar/model/TugOfWarModel",
   'tugofwar/view/TugOfWarTabView',
   'JOIST/Sim',
   'imageLoader',
-  'Strings'
-], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings ) {
+  'Strings',
+  'PHETCOMMON/model/property/Property',
+  'PHETCOMMON/model/property/PropertySet'
+], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, Property, PropertySet ) {
   "use strict";
 
   var loader = new ImagesLoader( function( loader ) {
@@ -41,5 +43,30 @@ require( [ "tugofwar/model/TugOfWarModel",
     ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} )
       .start();
 
+    var p = new Property( 'hello' );
+    p.link( function( string ) {console.log( "the string is : " + string );} );
+    p.lazyLink( function( string ) {console.log( "LAZYstring is : " + string );} );
+    p.value = 'bye';
+
+    console.log( "######" )
+    var person = new PropertySet( {name: 'larry', age: 100} );
+    var handle = person.multilink( ['name', 'age'], function( name, age ) {
+      console.log( "person is " + name + ", with " + age );
+    } );
+
+    person.name = 'Super Larry';
+    person.age = '101';
+    person.unmultilink( handle );
+    person.name = 'Supreme Larrymundo';
+
+    console.log( p.toString() );
+    console.log( person.toString() );
+
+    person.addProperty( 'lastName', 'Jenkins' );
+    console.log( person.lastName );
+    person.lastNameProperty.link( function( lastName ) {console.log( "last name is " + lastName );} );
+    person.lastName = 'Jefferson';
+    console.log( person.toString() );
+//    person.removeProperty('lastName');//TODO?
   } );
 } );
