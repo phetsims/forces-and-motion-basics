@@ -80,8 +80,8 @@ define( function( require ) {
 
           //Or go back home
           else {
-            puller.x.reset();
-            puller.y.reset();
+            puller.xProperty.reset();
+            puller.yProperty.reset();
           }
 
           model.numberPullersAttached = model.countAttachedPullers();

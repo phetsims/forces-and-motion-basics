@@ -24,7 +24,7 @@ define( function( require ) {
     //When the knot changes, wire up as a listener to the new knot
     this.knotProperty.link( function( newKnot, oldKnot ) {
       if ( oldKnot ) {
-        oldKnot.x.unlink( updateX );
+        oldKnot.xProperty.unlink( updateX );
       }
 
       //Synchronize our location with the knot.
