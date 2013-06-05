@@ -48,7 +48,7 @@ require( [ "tugofwar/model/TugOfWarModel",
     p.lazyLink( function( string ) {console.log( "LAZYstring is : " + string );} );
     p.value = 'bye';
 
-    console.log( "######" )
+    console.log( "######" );
     var person = new PropertySet( {name: 'larry', age: 100} );
     var handle = person.multilink( ['name', 'age'], function( name, age ) {
       console.log( "person is " + name + ", with " + age );
@@ -67,6 +67,8 @@ require( [ "tugofwar/model/TugOfWarModel",
     person.lastNameProperty.link( function( lastName ) {console.log( "last name is " + lastName );} );
     person.lastName = 'Jefferson';
     console.log( person.toString() );
-//    person.removeProperty('lastName');//TODO?
+    person.removeProperty( 'lastName' );//TODO?
+    console.log( person.toString() );
+    debugger;
   } );
 } );
