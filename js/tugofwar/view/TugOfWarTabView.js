@@ -136,6 +136,39 @@ define( function( require ) {
                      (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
     this.addLiveRegion( textProperty );
+
+
+    //On iOS, we must play an audio file from a thread initiated by a user event such as touchstart.
+    //This is impossible with scenery, since all scenery events are batched and dispatched from animation
+    //Also, there was a quirky bug where the 1st event wasn't getting invoked here, so wait for the 2nd one
+    //then play a blank audio file. This will enable audio for the rest of the app (whether from
+    //user event or not).
+    //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
+    //Note: right now this requires the user to touch the screen at least twice before audio can be played
+    function isMobileSafari() {
+      return navigator.userAgent.match( /(iPod|iPhone|iPad)/ ) && navigator.userAgent.match( /AppleWebKit/ )
+    }
+
+    if ( isMobileSafari() ) {
+      var count = 0;
+      var play = function( e ) {
+        var sound = new Howl( { urls: ['audio/empty.ogg', 'audio/empty.wav'] } ).play();
+        count++;
+        if ( count >= 2 ) {
+          window.removeEventListener( 'touchstart', play, false );
+        }
+      };
+      window.addEventListener( 'touchstart', play, false );
+    }
+
+    //Play audio golf clap when game completed
+    model.stateProperty.link( function( state ) {
+      if ( state === 'completed' && model.volumeOn ) {
+        var sound = new Howl( {
+          urls: ['audio/golf-clap.ogg', 'audio/golf-clap.wav']
+        } ).play();
+      }
+    } );
   }
 
   inherit( TugOfWarTabView, TabView, {
