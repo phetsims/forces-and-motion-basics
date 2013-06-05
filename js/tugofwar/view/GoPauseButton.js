@@ -40,15 +40,13 @@ define( function( require ) {
     textContainer.y = goPauseButton.height / 2 + 7;
     goPauseButton.addChild( textContainer );
 
-    var update = function() {
-      var child = model.running ? pauseText : goText;
-      textContainer.children = [child];
-      textContainer.x = goPauseButton.width / 2 - child.width / 2 - 5;
+    model.multilink( ['running', 'state', 'numberPullersAttached'], function( running, state ) {
+      var text = running ? pauseText : goText;
+      textContainer.children = [text];
+      textContainer.x = goPauseButton.width / 2 - text.width / 2 - 5;
       textContainer.y = goPauseButton.height / 2 + 7;
-    };
-    model.runningProperty.link( update );
-    model.stateProperty.link( update );
-    model.numberPullersAttachedProperty.link( update );
+      goPauseButton.visible = (state !== 'completed');
+    } );
 
     this.centerX = Layout.width / 2;
 
