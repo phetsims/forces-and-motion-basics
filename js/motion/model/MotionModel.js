@@ -181,7 +181,7 @@ define( function( require ) {
       return index < this.stack.length - 1;
     },
     reset: function() {
-      this.set( this.defaults );   //TODO: may need to clear values or handle initialize parameters if they are introduced, see http://stackoverflow.com/questions/6889457/easiest-way-to-reset-backbones-model-to-initial-defaults
+      PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].reset();
       }
