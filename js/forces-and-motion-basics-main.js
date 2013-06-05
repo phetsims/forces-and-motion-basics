@@ -69,6 +69,5 @@ require( [ "tugofwar/model/TugOfWarModel",
     console.log( person.toString() );
     person.removeProperty( 'lastName' );//TODO?
     console.log( person.toString() );
-    debugger;
   } );
 } );
