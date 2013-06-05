@@ -2,7 +2,7 @@ define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Item( context, image, mass, x, y, imageScale, pusherInset /*optional*/, sittingImage, holdingImage ) {
@@ -14,7 +14,7 @@ define( function( require ) {
     this.sittingImage = sittingImage;
     this.holdingImage = holdingImage;
 
-    PropertySetB.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
+    PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
       //Flag for whether the item is on the skateboard
       onBoard: false,
 
@@ -28,7 +28,7 @@ define( function( require ) {
     this.context = context;
   }
 
-  inherit( Item, PropertySetB, {
+  inherit( Item, PropertySet, {
     get position() {return {x: this.x, y: this.y};},
     set position( position ) {this.set( {x: position.x, y: position.y} )},
     armsUp: function() {

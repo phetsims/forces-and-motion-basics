@@ -1,13 +1,13 @@
 define( function( require ) {
   "use strict";
-  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Puller( x, y, type, size, dragOffsetX ) {
     var puller = this;
 
     //Create the properties and mix them in
-    PropertySetB.call( this, {dragging: false, knot: null, x: x, y: y} );
+    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y} );
 
     //Create the constants
     this.dragOffsetX = dragOffsetX;
@@ -34,7 +34,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( Puller, PropertySetB, {
+  inherit( Puller, PropertySet, {
     disconnect: function() {this.knot = null;}
   } );
 

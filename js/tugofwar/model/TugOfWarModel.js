@@ -1,7 +1,7 @@
 define( function( require ) {
   "use strict";
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Puller = require( 'tugofwar/model/Puller' );
   var Knot = require( 'tugofwar/model/Knot' );
@@ -14,7 +14,7 @@ define( function( require ) {
     large = "large";
 
   function TugOfWarModel() {
-    PropertySetB.call( this, {
+    PropertySet.call( this, {
       started: false,
       showSumOfForces: false,
       showValues: false,
@@ -91,7 +91,7 @@ define( function( require ) {
     this.runningProperty.link( function( running ) { if ( running ) { model.started = true; }} );
   }
 
-  return inherit( TugOfWarModel, PropertySetB, {
+  return inherit( TugOfWarModel, PropertySet, {
     countAttachedPullers: function() {
       return this.pullers.filter(function( puller ) {return puller.knot;} ).length;
     },
@@ -144,7 +144,7 @@ define( function( require ) {
       this.trigger( 'cart-returned' );
     },
     reset: function() {
-      PropertySetB.prototype.reset.call( this );
+      PropertySet.prototype.reset.call( this );
 
       //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
       this.pullers.forEach( function( puller ) {puller.knot = null;} );

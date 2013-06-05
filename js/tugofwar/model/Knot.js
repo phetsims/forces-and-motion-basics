@@ -1,17 +1,17 @@
 define( function( require ) {
   "use strict";
 
-  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Knot( x, type ) {
-    PropertySetB.call( this, {x: x, visible: false} );
+    PropertySet.call( this, {x: x, visible: false} );
     this.initX = x;
     this.y = 275;
     this.type = type;
   }
 
-  inherit( Knot, PropertySetB );
+  inherit( Knot, PropertySet );
 
   return Knot;
 } );

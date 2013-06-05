@@ -5,7 +5,7 @@ define( function( require ) {
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var Layout = require( 'Layout' );
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function sign( value ) {
@@ -17,7 +17,7 @@ define( function( require ) {
   function MotionModel( tab, skateboard ) {
     this.tab = tab;
     this.skateboard = skateboard;
-    PropertySetB.call( this, {
+    PropertySet.call( this, {
       appliedForce: 0,
       frictionForce: 0,
       friction: 0,
@@ -67,7 +67,7 @@ define( function( require ) {
     }
   }
 
-  return inherit( MotionModel, PropertySetB, {
+  return inherit( MotionModel, PropertySet, {
 
     draggingItems: function() {
       var draggingItems = [];

@@ -1,14 +1,14 @@
 define( function( require ) {
   "use strict";
 
-  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
+  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Cart() {
-    PropertySetB.call( this, {x: 0, v: 0} );
+    PropertySet.call( this, {x: 0, v: 0} );
   }
 
-  inherit( Cart, PropertySetB );
+  inherit( Cart, PropertySet );
 
   return Cart;
 } );
