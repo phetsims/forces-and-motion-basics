@@ -15,10 +15,10 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this );
 
-    var text = new Text( model.cart.x.value < 0 ? "Blue Wins!" : "Red Wins!", {fontSize: '32px', fill: 'white'} );
+    var text = new Text( model.cart.x < 0 ? "Blue Wins!" : "Red Wins!", {fontSize: '32px', fill: 'white'} );
     text.centerX = 0;
     text.centerY = 0;
-    var path = new Path( {fill: model.cart.x.value < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2} );
+    var path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2} );
     path.centerX = 0;
     path.centerY = 0;
     this.addChild( path );
@@ -32,8 +32,8 @@ define( function( require ) {
       var shape = new Shape();
       var maxX = 220;
       var maxY = 75;
-      var dy = ( 7 * Math.sin( model.time.value * 6 ) );
-      var dx = ( 2 * Math.sin( model.time.value * 5 ) ) + 10;
+      var dy = ( 7 * Math.sin( model.time * 6 ) );
+      var dx = ( 2 * Math.sin( model.time * 5 ) ) + 10;
       shape.moveTo( 0, 0 );
       shape.cubicCurveTo( maxX / 3 + dx, 25 + dy, 2 * maxX / 3 + dx, -25 - dy, maxX + dx, dy / 2 );
       shape.lineTo( maxX + dx, maxY + dy / 2 );
@@ -42,7 +42,7 @@ define( function( require ) {
       shape.close();
       path.shape = shape;
     };
-    model.time.link( updateFlagShape );
+    model.timeProperty.link( updateFlagShape );
     updateFlagShape();
     text.centerX = path.centerX;
     text.centerY = path.centerY;

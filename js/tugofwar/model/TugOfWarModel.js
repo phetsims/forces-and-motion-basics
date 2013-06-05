@@ -1,7 +1,7 @@
 define( function( require ) {
   "use strict";
   var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
+  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Puller = require( 'tugofwar/model/Puller' );
   var Knot = require( 'tugofwar/model/Knot' );
@@ -14,7 +14,7 @@ define( function( require ) {
     large = "large";
 
   function TugOfWarModel() {
-    PropertySet.call( this, {
+    PropertySetB.call( this, {
       started: false,
       showSumOfForces: false,
       showValues: false,
@@ -42,10 +42,10 @@ define( function( require ) {
       bluePullers[1],
       bluePullers[2],
       bluePullers[3],
-      new Puller( 624 + 19 + 5, bluePullers[3].y.value, red, small, 10 ),
-      new Puller( 684 + 28 + 5, bluePullers[2].y.value, red, small, 10 ),
-      new Puller( 756 - 4 + 32 + 5, bluePullers[1].y.value, red, medium, 20 ),
-      new Puller( 838 - 8 + 25 + 5, bluePullers[0].y.value, red, large, 30 )
+      new Puller( 624 + 19 + 5, bluePullers[3].y, red, small, 10 ),
+      new Puller( 684 + 28 + 5, bluePullers[2].y, red, small, 10 ),
+      new Puller( 756 - 4 + 32 + 5, bluePullers[1].y, red, medium, 20 ),
+      new Puller( 838 - 8 + 25 + 5, bluePullers[0].y, red, large, 30 )
     ];
     this.knots = [
       new Knot( 62 + 80 * 0, blue ),
@@ -60,9 +60,9 @@ define( function( require ) {
 
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
-      puller.x.link( model.updateVisibleKnots.bind( model ) );
-      puller.y.link( model.updateVisibleKnots.bind( model ) );
-      puller.dragging.link( function( dragging, oldDragging ) {
+      puller.xProperty.link( model.updateVisibleKnots.bind( model ) );
+      puller.yProperty.link( model.updateVisibleKnots.bind( model ) );
+      puller.draggingProperty.link( function( dragging, oldDragging ) {
 
         //Bail on init, only want to handle when the puller is dropped
         //TODO: could use events like trigger for this
@@ -75,7 +75,7 @@ define( function( require ) {
 
           //try to snap to a knot
           if ( knot ) {
-            puller.set( {x: knot.x.value, y: knot.y, knot: knot} );
+            puller.set( {x: knot.x, y: knot.y, knot: knot} );
           }
 
           //Or go back home
@@ -84,37 +84,37 @@ define( function( require ) {
             puller.y.reset();
           }
 
-          model.numberPullersAttached.value = model.countAttachedPullers();
+          model.numberPullersAttached = model.countAttachedPullers();
         }
       } );
     } );
-    this.running.link( function( running ) { if ( running ) { model.started.value = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { model.started = true; }} );
   }
 
-  return inherit( TugOfWarModel, PropertySet, {
+  return inherit( TugOfWarModel, PropertySetB, {
     countAttachedPullers: function() {
-      return this.pullers.filter(function( puller ) {return puller.knot.value;} ).length;
+      return this.pullers.filter(function( puller ) {return puller.knot;} ).length;
     },
     updateVisibleKnots: function() {
       var model = this;
-      this.knots.forEach( function( knot ) {knot.visible.value = false;} );
+      this.knots.forEach( function( knot ) {knot.visible = false;} );
       this.pullers.forEach( function( puller ) {
-        if ( puller.dragging.value ) {
+        if ( puller.dragging ) {
           var knot = model.getTargetKnot( puller );
           if ( knot ) {
-            knot.visible.value = true;
+            knot.visible = true;
           }
         }
       } );
     },
     getPuller: function( knot ) {
-      var find = _.find( this.pullers, function( puller ) {return puller.knot.value === knot;} );
+      var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
       return typeof(find) !== "undefined" ? find : null;
     },
     getClosestOpenKnot: function( puller ) {
       var model = this;
       var distance = function( knot ) {
-        return Math.sqrt( Math.pow( knot.x.value - puller.x.value, 2 ) + Math.pow( knot.y - puller.y.value, 2 ) );
+        return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
       };
       var filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type && model.getPuller( knot ) === null;
@@ -124,7 +124,7 @@ define( function( require ) {
     },
     getTargetKnot: function( puller ) {
       var distance = function( knot ) {
-        return Math.sqrt( Math.pow( knot.x.value - puller.x.value, 2 ) + Math.pow( knot.y - puller.y.value, 2 ) );
+        return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
       };
       var target = this.getClosestOpenKnot( puller );
       var distanceToTarget = distance( target );
@@ -138,16 +138,16 @@ define( function( require ) {
     returnCart: function() {
       this.cart.reset();
       this.knots.forEach( function( knot ) {knot.reset();} );
-      this.running.value = false;
-      this.started.value = false;
-      this.state.value = 'experimenting';
+      this.running = false;
+      this.started = false;
+      this.state = 'experimenting';
       this.trigger( 'cart-returned' );
     },
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      PropertySetB.prototype.reset.call( this );
 
       //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
-      this.pullers.forEach( function( puller ) {puller.knot.value = null;} );
+      this.pullers.forEach( function( puller ) {puller.knot = null;} );
 
       this.cart.reset();
       this.pullers.forEach( function( puller ) { puller.reset(); } );
@@ -156,24 +156,24 @@ define( function( require ) {
 
       //Wacky workaround to make sure the arrows get the notification last after all forces have been updated.
       //TODO: Switch to use an event trigger
-      this.numberPullersAttached.value = 1;
-      this.numberPullersAttached.value = 0;
+      this.numberPullersAttached = 1;
+      this.numberPullersAttached = 0;
     },
     step: function( dt ) {
-      if ( this.running.value ) {
-        var newV = this.cart.v.value + this.getNetForce() / 20000;
-        var newX = this.cart.x.value + newV;
+      if ( this.running ) {
+        var newV = this.cart.v + this.getNetForce() / 20000;
+        var newX = this.cart.x + newV;
         this.cart.set( {v: newV, x: newX} );
         this.knots.forEach( function( knot ) {
-          knot.x.value = knot.initX + newX;
+          knot.x = knot.initX + newX;
         } );
 
-        if ( this.cart.x.value > 200 || this.cart.x.value < -200 ) {
-          this.running.value = false;
-          this.state.value = 'completed';
+        if ( this.cart.x > 200 || this.cart.x < -200 ) {
+          this.running = false;
+          this.state = 'completed';
         }
       }
-      this.time.value = this.time.value + dt;
+      this.time = this.time + dt;
     },
     getNetForce: function() {
       return this.getLeftForce() + this.getRightForce();
@@ -182,7 +182,7 @@ define( function( require ) {
       var sum = 0;
 
       this.pullers.forEach( function( puller ) {
-        if ( puller.type === blue && puller.knot.value ) {
+        if ( puller.type === blue && puller.knot ) {
           sum -= puller.force;
         }
       } );
@@ -192,7 +192,7 @@ define( function( require ) {
       var sum = 0;
 
       this.pullers.forEach( function( puller ) {
-        if ( puller.type === red && puller.knot.value ) {
+        if ( puller.type === red && puller.knot ) {
           sum += puller.force;
         }
       } );

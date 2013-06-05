@@ -24,9 +24,9 @@ define( function( require ) {
       //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
       var fallingLeft = false;
 
-      var appliedForce = model.appliedForce.value;
+      var appliedForce = model.appliedForce;
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
-      var maxSpeedExceeded = model.speed.value >= 20;
+      var maxSpeedExceeded = model.speed >= 20;
       if ( !maxSpeedExceeded ) {
         imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
       }
@@ -41,42 +41,42 @@ define( function( require ) {
         }
       }
 
-      var delta = model.stack.length > 0 ? (model.stack[0].view.width / 2 - model.stack[0].pusherInset.value) : 100;
+      var delta = model.stack.length > 0 ? (model.stack[0].view.width / 2 - model.stack[0].pusherInset) : 100;
       if ( appliedForce > 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
         pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
-        model.pusherPosition.value = -delta + model.position.value - imageNode.width;
+        model.pusherPosition = -delta + model.position - imageNode.width;
       }
       else if ( appliedForce < 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = Layout.width / 2 + imageNode.width * scale + delta;
-        model.pusherPosition.value = delta + model.position.value;
+        model.pusherPosition = delta + model.position;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position.value + model.pusherPosition.value + (fallingLeft ? -imageNode.width : 0)
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position + model.pusherPosition + (fallingLeft ? -imageNode.width : 0)
       }
 
       //Keep the feet on the ground
       pusherNode.y = 362 - pusherNode.height;
       pusherNode.lastAppliedForce = appliedForce;
     };
-    model.appliedForce.link( update );
-    model.position.link( update );
+    model.appliedForceProperty.link( update );
+    model.positionProperty.link( update );
 
     this.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
       translate: function( options ) {
-        var newAppliedForce = model.appliedForce.value + options.delta.x / 3.0;
-        model.appliedForce.value = Math.max( -100, Math.min( 100, newAppliedForce ) );
+        var newAppliedForce = model.appliedForce + options.delta.x / 3.0;
+        model.appliedForce = Math.max( -100, Math.min( 100, newAppliedForce ) );
       },
 
       start: function() {},
-      end: function() { model.appliedForce.value = 0; }
+      end: function() { model.appliedForce = 0; }
     } ) );
   }
 

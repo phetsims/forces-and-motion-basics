@@ -14,57 +14,57 @@ define( function( require ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
-    var x = puller.x.value;
-    var y = puller.y.value;
+    var x = puller.x;
+    var y = puller.y;
 
     var scale = 0.86;
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: scale} );
 
     function updateLocation() {
-      var knotted = puller.knot.value;
-      var pulling = model.running.value && knotted;
+      var knotted = puller.knot;
+      var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.setTranslation( puller.knot.value.x.value + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
-          puller.knot.value.y - pullerNode.height + 100 );
+        pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
+          puller.knot.y - pullerNode.height + 100 );
       }
       else {
-        pullerNode.setTranslation( puller.x.value, puller.y.value );
+        pullerNode.setTranslation( puller.x, puller.y );
       }
     }
 
-    puller.x.link( updateLocation );
-    puller.y.link( updateLocation );
+    puller.xProperty.link( updateLocation );
+    puller.yProperty.link( updateLocation );
     //TODO: Handle knot-moved event
 
     var updateImage = function() {
-      var knotted = puller.knot.value;
-      var pulling = model.running.value && knotted;
+      var knotted = puller.knot;
+      var pulling = model.running && knotted;
       pullerNode.image = pulling ? pullImage : image;
 
       //Reshape the focus rect when image changes
       updateLocation();
     };
-    model.running.link( updateImage );
+    model.runningProperty.link( updateImage );
 
     pullerNode.addInputListener( new SimpleDragHandler(
       {
         allowTouchSnag: true,
         start: function() {
           puller.disconnect();
-          puller.dragging.value = true;
+          puller.dragging = true;
 
           //TODO: Commented out moveToFront while it is causing flickering on the ipad
 //            pullerNode.moveToFront();
         },
         end: function( event ) {
           updateLocation();
-          puller.dragging.value = false;
+          puller.dragging = false;
           updateImage();
         },
         translate: function( event ) {
           //TODO: join into one setter to improve speed, by using vector2?
-          pullerNode.puller.x.value = event.position.x;
-          pullerNode.puller.y.value = event.position.y;
+          pullerNode.puller.x = event.position.x;
+          pullerNode.puller.y = event.position.y;
         }
       } ) );
 
@@ -73,13 +73,13 @@ define( function( require ) {
       if ( puller.knot ) {
         puller.disconnect();
         puller.set( {x: puller.initX, y: puller.initY} );
-        model.numberPullersAttached.value = model.countAttachedPullers();
+        model.numberPullersAttached = model.countAttachedPullers();
       }
       else {
         puller.disconnect();
         var knot = model.getClosestOpenKnot( puller );
-        puller.set( {x: knot.x.value, y: knot.y, knot: knot} );
-        model.numberPullersAttached.value = model.countAttachedPullers();
+        puller.set( {x: knot.x, y: knot.y, knot: knot} );
+        model.numberPullersAttached = model.countAttachedPullers();
       }
     }} );
   }

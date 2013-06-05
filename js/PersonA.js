@@ -12,7 +12,7 @@ define( function( require ) {
     this.weight = new Property( weight );
     this.height = new Property( height );
     this.happy = new Property( happy );
-    this.bmi = new DerivedProperty( this.weight, this.height, function( weight, height ) {return weight / height / height;} );
+    this.bmi = new DerivedProperty( [this.weight, this.height], function( weight, height ) {return weight / height / height;} );
   }
 
   Person.prototype = {

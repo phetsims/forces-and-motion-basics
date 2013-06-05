@@ -1,13 +1,13 @@
 define( function( require ) {
   "use strict";
-  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
+  var PropertySetB = require( 'PHETCOMMON/model/property/PropertySetB' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Puller( x, y, type, size, dragOffsetX ) {
     var puller = this;
 
     //Create the properties and mix them in
-    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y} );
+    PropertySetB.call( this, {dragging: false, knot: null, x: x, y: y} );
 
     //Create the constants
     this.dragOffsetX = dragOffsetX;
@@ -19,23 +19,23 @@ define( function( require ) {
                  NaN;
 
     //Move with the knot
-    var updateX = function( knotX ) { puller.x.value = knotX; };
+    var updateX = function( knotX ) { puller.x = knotX; };
 
     //When the knot changes, wire up as a listener to the new knot
-    this.knot.link( function( newKnot, oldKnot ) {
+    this.knotProperty.link( function( newKnot, oldKnot ) {
       if ( oldKnot ) {
         oldKnot.x.unlink( updateX );
       }
 
       //Synchronize our location with the knot.
       if ( newKnot ) {
-        newKnot.x.link( updateX );
+        newKnot.xProperty.link( updateX );
       }
     } );
   }
 
-  inherit( Puller, PropertySet, {
-    disconnect: function() {this.knot.value = null;}
+  inherit( Puller, PropertySetB, {
+    disconnect: function() {this.knot = null;}
   } );
 
   return Puller;

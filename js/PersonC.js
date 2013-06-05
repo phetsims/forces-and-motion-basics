@@ -9,7 +9,7 @@ define( function( require ) {
   function Person( name, ssn, age, weight, height, happy ) {
     this.ssn = ssn;
     PropertySet.call( this, {name: name, age: age, weight: weight, height: height, happy: happy} );
-    this.bmi = new DerivedProperty( this.weight, this.height, function( weight, height ) {return weight / height / height;} );
+    this.bmi = new DerivedProperty( [this.weight, this.height], function( weight, height ) {return weight / height / height;} );
   }
 
   inherit( Person, PropertySet, {

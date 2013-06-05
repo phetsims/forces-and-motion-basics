@@ -17,7 +17,7 @@ define( function( require ) {
 
     //TODO: When peers automatically are added and removed on visibility changed, use model.link( 'started', this, 'visible' ); 
 //    model.link( 'started', this, 'visible' );
-    model.started.link( function( started ) { returnButton.children = started ? [button] : []; } );
+    model.startedProperty.link( function( started ) { returnButton.children = started ? [button] : []; } );
   }
 
   inherit( ReturnButton, Node );

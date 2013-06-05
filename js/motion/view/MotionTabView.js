@@ -65,7 +65,7 @@ define( function( require ) {
         imageLoader.getImage( item.image ),
         imageLoader.getImage( item.imageSitting ? item.imageSitting : item.image ),//TODO: use ||
         imageLoader.getImage( item.imageHolding ? item.imageHolding : item.image ),
-        model.showMasses );
+        model.showMassesProperty );
       this.itemNodes.push( itemNode );
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
@@ -77,15 +77,15 @@ define( function( require ) {
       this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     }
 
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.showValues, {labelPosition: 'top'} );
-    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.showValues, {labelPosition: 'side'} );
-    this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.showValues, {labelPosition: 'side'} );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.showValuesProperty, {labelPosition: 'top'} );
+    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.showValuesProperty, {labelPosition: 'side'} );
+    this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.showValuesProperty, {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -100, 100, 300, model.appliedForce, {zeroOnRelease: true} ).addNormalTicks();
+    var slider = new HSlider( -100, 100, 300, model.appliedForceProperty, {zeroOnRelease: true} ).addNormalTicks();
     var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
     this.addChild( sliderControl );//text box only seems to work if added last
 
@@ -93,7 +93,7 @@ define( function( require ) {
     var readout = new Text( '???', {fontSize: '22px'} );
     var unitsLabel = new Text( Strings.newtons, {fontSize: '22px'} );
     readout.top = sliderControl.bottom + 10;
-    model.appliedForce.link( function( appliedForce ) {
+    model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 );
       readout.centerX = width / 2 + 2;
       unitsLabel.x = readout.right + 10;
@@ -105,20 +105,20 @@ define( function( require ) {
     //Show a line that indicates the center of the layout
 //    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );
 
-    var updateSumOfForcesVisible = function() { motionTabView.sumArrow.visible = model.showForce.value && model.showSumOfForces.value; };
+    var updateSumOfForcesVisible = function() { motionTabView.sumArrow.visible = model.showForce && model.showSumOfForces; };
     model.on( 'change:showForce change:showSumOfForces', updateSumOfForcesVisible );
     updateSumOfForcesVisible();
 
-    model.showForce.link( function( showForce ) {motionTabView.appliedForceArrow.visible = showForce;} );
+    model.showForceProperty.link( function( showForce ) {motionTabView.appliedForceArrow.visible = showForce;} );
 
     //TODO: move this code to ReadoutArrow
-    model.appliedForce.link( function( appliedForce ) { motionTabView.appliedForceArrow.setValue( appliedForce ); } );//TODO: change to string based link style with ES5
-    model.sumOfForces.link( function( sumOfForces ) { motionTabView.sumArrow.setValue( sumOfForces ); } );//TODO: change to string based link style with ES5
-    model.frictionForce.link( function( frictionForce ) { motionTabView.frictionArrow.setValue( frictionForce ); } );//TODO: change to string based link style with ES5
+    model.appliedForceProperty.link( function( appliedForce ) { motionTabView.appliedForceArrow.setValue( appliedForce ); } );//TODO: change to string based link style with ES5
+    model.sumOfForcesProperty.link( function( sumOfForces ) { motionTabView.sumArrow.setValue( sumOfForces ); } );//TODO: change to string based link style with ES5
+    model.frictionForceProperty.link( function( frictionForce ) { motionTabView.frictionArrow.setValue( frictionForce ); } );//TODO: change to string based link style with ES5
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocity ).mutate( {x: width / 2, top: 2} );
-    model.showSpeed.link( function( showSpeed ) {speedometerNode.visible = showSpeed;} );
+    var speedometerNode = new SpeedometerNode( model.velocityProperty ).mutate( {x: width / 2, top: 2} );
+    model.showSpeedProperty.link( function( showSpeed ) {speedometerNode.visible = showSpeed;} );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     model.on( 'stackChanged', function() {

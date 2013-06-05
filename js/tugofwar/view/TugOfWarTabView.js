@@ -73,13 +73,13 @@ define( function( require ) {
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
 
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.showValues, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
-    this.model.showSumOfForces.link( function( visible ) {tugOfWarTabView.sumArrow.visible = visible} );
-    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValues, {lineDash: [ 10, 5], labelPosition: 'side'} );
-    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValues, {lineDash: [ 10, 5], labelPosition: 'side'} );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
+    this.model.showSumOfForcesProperty.link( function( visible ) {tugOfWarTabView.sumArrow.visible = visible} );
+    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
+    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
-    this.model.running.link( function( running ) {
+    this.model.runningProperty.link( function( running ) {
       [tugOfWarTabView.sumArrow, tugOfWarTabView.leftArrow, tugOfWarTabView.rightArrow].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
@@ -96,7 +96,7 @@ define( function( require ) {
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
 
-    this.model.cart.x.link( function( x ) {
+    this.model.cart.xProperty.link( function( x ) {
       tugOfWarTabView.cartNode.x = x + 399;
       tugOfWarTabView.ropeNode.x = x + 51;
     } );
@@ -108,16 +108,16 @@ define( function( require ) {
     var goPauseButton = new GoPauseButton( getImage, this.model );
     this.addChild( goPauseButtonContainer );
     var update = function() {
-      goPauseButtonContainer.children = model.numberPullersAttached.value > 0 && model.state.value !== 'completed' ? [goPauseButton] : [];
+      goPauseButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goPauseButton] : [];
     };
-    model.running.link( update );
-    model.numberPullersAttached.link( update );
+    model.runningProperty.link( update );
+    model.numberPullersAttachedProperty.link( update );
 
     var returnButton = new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} );
     this.addChild( returnButton );
 
     //Update the forces when the number of attached pullers changes
-    model.numberPullersAttached.link( this.updateForces.bind( this ) );
+    model.numberPullersAttachedProperty.link( this.updateForces.bind( this ) );
     this.model.pullers.forEach( function( puller ) {
       tugOfWarTabView.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
@@ -126,14 +126,14 @@ define( function( require ) {
 
     function showFlagNode() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ); }
 
-    model.state.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
+    model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
     var textProperty = new Property( '' );
-    model.numberPullersAttached.link( function() {
-      textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
-                           'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
-                           'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
-                           (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
+    model.numberPullersAttachedProperty.link( function() {
+      textProperty = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
+                     'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
+                     'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
+                     (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
     this.addLiveRegion( textProperty );
   }

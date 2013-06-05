@@ -19,13 +19,13 @@ define( function( require ) {
 
     var fontSize = '19px';
     var controlPanel = new VerticalCheckBoxGroup( [
-      {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.showSumOfForces, label: Strings.sumOfForces},
-      {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.showValues, label: Strings.values}
+      {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
+      {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.showValuesProperty, label: Strings.values}
     ] );
     this.addChild( controlPanel );
 
     var resetButton = new ResetAllButton( model.reset.bind( model ) );
-    var soundButton = new SoundToggleButton( model.volumeOn );
+    var soundButton = new SoundToggleButton( model.volumeOnProperty );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} ) );
   }
 

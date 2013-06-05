@@ -22,7 +22,7 @@ define( function( require ) {
     var toElement = function( text, propertyName ) {
       return {
         content: new Text( text, {fontSize: fontSize} ),
-        property: model[propertyName]
+        property: model[propertyName + 'Property']
       };
     };
 
@@ -64,7 +64,7 @@ define( function( require ) {
         ]} );
       };
 
-      var frictionSlider = new HSlider( 0, 2, 150, model.friction, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
+      var frictionSlider = new HSlider( 0, 2, 150, model.frictionProperty, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
       controlPanel.addChild( new PanelNode( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ), {left: 5, top: controlPanel.bottom + 5} ) );
     }
