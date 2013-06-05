@@ -6,10 +6,8 @@ require( [ "tugofwar/model/TugOfWarModel",
   'tugofwar/view/TugOfWarTabView',
   'JOIST/Sim',
   'imageLoader',
-  'Strings',
-  'logs/testLog',
-  'testModels'
-], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, testLog, testModels ) {
+  'Strings'
+], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings ) {
   "use strict";
 
   var loader = new ImagesLoader( function( loader ) {
@@ -42,8 +40,6 @@ require( [ "tugofwar/model/TugOfWarModel",
 
     ], { showHomeScreen: false, tab: 0, navigationBarInFront: true, accessibility: true} )
       .start();
-//        .startPlayback( testLog );
 
-    testModels();
   } );
 } );
