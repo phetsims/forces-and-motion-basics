@@ -73,6 +73,13 @@ define( function( require ) {
                               velocity < 0 ? 'left' :
                               'none';
     } );
+
+    //Applied force should drop to zero if max speed reached
+    this.speedValueProperty.link( function( speedValue ) {
+      if ( speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
+        motionModel.appliedForce = 0;
+      }
+    } );
   }
 
   return inherit( PropertySet, MotionModel, {
