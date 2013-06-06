@@ -20,7 +20,6 @@ require.config( {
     image: '../lib/image-0.2.2',
     jquery: '../lib/jquery-1.9.1',
     underscore: '../lib/underscore-1.4.2',
-    tpl: "../lib/tpl-0.2",
     i18n: "../lib/i18n"
   },
 
