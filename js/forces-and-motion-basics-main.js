@@ -34,17 +34,17 @@ require( [ "tugofwar/model/TugOfWarModel",
       },
       { name: Strings.motion,
         icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ),
-        createModel: function() {return new MotionModel( 'motion', true );},
+        createModel: function() {return new MotionModel( 'motion', true, false );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.friction,
         icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ),
-        createModel: function() {return new MotionModel( 'friction', false );},
+        createModel: function() {return new MotionModel( 'friction', false, false );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.acceleration,
         icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ),
-        createModel: function() {return new MotionModel( 'acceleration', false );},
+        createModel: function() {return new MotionModel( 'acceleration', false, true );},
         createView: function( model ) {return new MotionTabView( model );}}
 
     ], { showHomeScreen: false, tabIndex: 1} )

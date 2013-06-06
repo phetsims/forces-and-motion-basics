@@ -14,7 +14,7 @@ define( function( require ) {
            'zero';
   }
 
-  function MotionModel( tab, skateboard ) {
+  function MotionModel( tab, skateboard, accelerometer ) {
     this.tab = tab;
     this.skateboard = skateboard;
     PropertySet.call( this, {
@@ -47,15 +47,22 @@ define( function( require ) {
     var motionModel = this;
     //TODO: Switch to backbone collection.
     var dy = -39;
-    this.items = [
-      new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
-      new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
-      new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
-      new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
-      new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
-      new Item( this, 'trash-can.png', 100, 826 - 10, 518 + 11 + 12 + dy, 0.7 ),
-      new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
-    ];
+    this.items = accelerometer ?
+                 [
+                   new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
+                   new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
+                   new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
+                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
+                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" )
+                 ] :
+                 [ new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
+                   new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
+                   new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
+                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
+                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
+                   new Item( this, 'trash-can.png', 100, 826 - 10, 518 + 11 + 12 + dy, 0.7 ),
+                   new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
+                 ];
 
     //Mix in backbone events for trigger, on, once, etc.
     _.extend( this, Backbone.Events );
