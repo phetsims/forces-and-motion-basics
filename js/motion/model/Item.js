@@ -6,6 +6,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage ) {
+    var item = this;
     this.initialX = x;
     this.initialY = y;
     this.image = image;
@@ -14,7 +15,7 @@ define( function( require ) {
     this.sittingImage = sittingImage;
     this.holdingImage = holdingImage;
 
-    PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
+    PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, direction: 'left', animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
       //Flag for whether the item is on the skateboard
       onBoard: false,
 
@@ -26,6 +27,13 @@ define( function( require ) {
     } );
 
     this.context = context;
+    this.context.directionProperty.link( function( direction ) {
+
+      //only change directions if on the board, and always choose one of left/right, and only for people
+      if ( item.onBoard && direction !== 'none' && sittingImage ) {
+        item.direction = direction;
+      }
+    } );
   }
 
   inherit( PropertySet, Item, {

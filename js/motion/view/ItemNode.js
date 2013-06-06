@@ -9,6 +9,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Layout = require( 'Layout' );
 
@@ -73,13 +74,17 @@ define( function( require ) {
     this.labelNode = labelNode;
 
     //TODO: batch x & y as a Vector2
-    item.multilink( ['x', 'y', 'interactionScale'], function( x, y, interactionScale ) {
-      if ( x !== itemNode.x || y !== itemNode.y ) {
-        itemNode.setTranslation( item.x, item.y );
-      }
+    item.multilink( ['x', 'y', 'interactionScale', 'direction'], function( x, y, interactionScale, direction ) {
+
+      //TODO: this will probably be much faster if we can just apply the change in one step
+      itemNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+      itemNode.setTranslation( item.x, item.y );
       var scale = item.imageScale * interactionScale;
-      if ( scale !== itemNode.getScaleVector().x ) {
-        itemNode.setScaleMagnitude( scale );
+      itemNode.setScaleMagnitude( scale );
+
+      if ( direction === 'right' ) {
+        itemNode.scale( -1, 1 );
+        itemNode.translate( -itemNode.width / scale, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );

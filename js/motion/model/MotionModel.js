@@ -36,7 +36,10 @@ define( function( require ) {
       showMasses: false,
       showAcceleration: false,
       speedValue: 'WITHIN_ALLOWED_RANGE',
-      _speedValue: 'WITHIN_ALLOWED_RANGE'} );
+      _speedValue: 'WITHIN_ALLOWED_RANGE',
+      movingRight: true,
+      direction: 'none'
+    } );
 
     this.stack = [];//TODO: Could put this is the property list and use immutable array ops.  Would provide notifications (and we could stop using trigger('stackChanged') for it.)
     //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
@@ -54,7 +57,6 @@ define( function( require ) {
       new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
     ];
 
-
     //Mix in backbone events for trigger, on, once, etc.
     _.extend( this, Backbone.Events );
 
@@ -65,6 +67,12 @@ define( function( require ) {
     for ( var i = 0; i < this.items.length; i++ ) {
       this.items[i].draggingProperty.link( f );
     }
+
+    this.velocityProperty.link( function( velocity ) {
+      motionModel.direction = velocity > 0 ? 'right' :
+                              velocity < 0 ? 'left' :
+                              'none';
+    } );
   }
 
   return inherit( PropertySet, MotionModel, {
