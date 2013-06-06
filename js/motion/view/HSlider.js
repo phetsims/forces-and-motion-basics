@@ -53,7 +53,7 @@ define( function( require ) {
     property.link( function( value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
   }
 
-  inherit( HSlider, Node, {
+  inherit( Node, HSlider, {
     addNormalTicks: function() {
       //TODO: turn these into parameters
       var numDivisions = 8; //e.g. divide the ruler into 1/8ths

@@ -11,7 +11,7 @@ define( function( require ) {
     this.type = type;
   }
 
-  inherit( Knot, PropertySet );
+  inherit( PropertySet, Knot );
 
   return Knot;
 } );

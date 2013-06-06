@@ -20,7 +20,7 @@ define( function( require ) {
     model.startedProperty.link( function( started ) { returnButton.children = started ? [button] : []; } );
   }
 
-  inherit( ReturnButton, Node );
+  inherit( Node, ReturnButton );
 
   return ReturnButton;
 } );

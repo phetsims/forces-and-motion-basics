@@ -35,7 +35,7 @@ define( function( require ) {
     showValuesProperty.link( this.update.bind( this ) );
   }
 
-  inherit( ReadoutArrow, Node, {
+  inherit( Node, ReadoutArrow, {
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
     setValue: function( value ) {
       this.value = value;

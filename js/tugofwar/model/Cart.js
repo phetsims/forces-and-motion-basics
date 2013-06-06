@@ -8,7 +8,7 @@ define( function( require ) {
     PropertySet.call( this, {x: 0, v: 0} );
   }
 
-  inherit( Cart, PropertySet );
+  inherit( PropertySet, Cart );
 
   return Cart;
 } );

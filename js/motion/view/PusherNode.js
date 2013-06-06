@@ -80,7 +80,7 @@ define( function( require ) {
     } ) );
   }
 
-  inherit( PusherNode, Node );
+  inherit( Node, PusherNode );
 
   return PusherNode;
 } );

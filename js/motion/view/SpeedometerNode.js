@@ -51,7 +51,7 @@ define( function( require ) {
     }
   }
 
-  inherit( SpeedometerNode, Node );
+  inherit( Node, SpeedometerNode );
 
   return SpeedometerNode;
 } );

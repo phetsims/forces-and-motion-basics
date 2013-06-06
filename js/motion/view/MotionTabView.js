@@ -145,7 +145,7 @@ define( function( require ) {
 //    this.addChild( text );
   }
 
-  inherit( MotionTabView, TabView, {
+  inherit( TabView, MotionTabView, {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {

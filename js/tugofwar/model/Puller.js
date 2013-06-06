@@ -34,7 +34,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( Puller, PropertySet, {
+  inherit( PropertySet, Puller, {
     disconnect: function() {this.knot = null;}
   } );
 

@@ -28,7 +28,7 @@ define( function( require ) {
     this.context = context;
   }
 
-  inherit( Item, PropertySet, {
+  inherit( PropertySet, Item, {
     get position() {return {x: this.x, y: this.y};},
     set position( position ) {this.set( {x: position.x, y: position.y} );},
     armsUp: function() {

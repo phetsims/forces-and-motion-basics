@@ -91,7 +91,7 @@ define( function( require ) {
     this.runningProperty.link( function( running ) { if ( running ) { model.started = true; }} );
   }
 
-  return inherit( TugOfWarModel, PropertySet, {
+  return inherit( PropertySet, TugOfWarModel, {
     countAttachedPullers: function() {
       return this.pullers.filter(function( puller ) {return puller.knot;} ).length;
     },

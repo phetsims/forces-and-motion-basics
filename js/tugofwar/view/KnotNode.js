@@ -14,7 +14,7 @@ define( function( require ) {
     knot.xProperty.link( function( x ) { knotNode.x = x; } );//TODO: Candidate for simplified link
   }
 
-  inherit( KnotNode, Path );
+  inherit( Path, KnotNode );
 
   return KnotNode;
 } );

@@ -50,7 +50,7 @@ define( function( require ) {
     this.top = top;
   }
 
-  inherit( FlagNode, Node );
+  inherit( Node, FlagNode );
 
   return FlagNode;
 } );

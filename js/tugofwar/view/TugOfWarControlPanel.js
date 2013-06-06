@@ -29,7 +29,7 @@ define( function( require ) {
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} ) );
   }
 
-  inherit( TugOfWarControlPanel, Node );
+  inherit( Node, TugOfWarControlPanel );
 
   return TugOfWarControlPanel;
 } );

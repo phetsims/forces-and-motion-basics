@@ -84,7 +84,7 @@ define( function( require ) {
     }} );
   }
 
-  inherit( PullerNode, Image );
+  inherit( Image, PullerNode );
 
   return PullerNode;
 } );

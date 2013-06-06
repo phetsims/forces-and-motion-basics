@@ -67,7 +67,7 @@ define( function( require ) {
     }
   }
 
-  return inherit( MotionModel, PropertySet, {
+  return inherit( PropertySet, MotionModel, {
 
     draggingItems: function() {
       var draggingItems = [];

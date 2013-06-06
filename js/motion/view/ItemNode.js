@@ -93,7 +93,7 @@ define( function( require ) {
     showMassesProperty.link( function( showMasses ) { itemNode.children = showMasses ? [imageNode, labelNode] : [imageNode]; } );
   }
 
-  inherit( ItemNode, Node );
+  inherit( Node, ItemNode );
 
   return ItemNode;
 } );

@@ -54,7 +54,7 @@ define( function( require ) {
     this.addPeer( '<input type="button">', {click: function() {model.running = !model.running;}} );
   }
 
-  inherit( GoPauseButton, Image );
+  inherit( Image, GoPauseButton );
 
   return GoPauseButton;
 } );

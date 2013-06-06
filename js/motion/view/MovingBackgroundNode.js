@@ -119,7 +119,7 @@ define( function( require ) {
     }
   }
 
-  inherit( MovingBackgroundNode, Node );
+  inherit( Node, MovingBackgroundNode );
 
   return MovingBackgroundNode;
 } );

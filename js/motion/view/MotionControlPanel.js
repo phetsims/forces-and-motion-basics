@@ -71,7 +71,7 @@ define( function( require ) {
     this.addChild( controlPanel.mutate( { left: 981 - controlPanel.width - 5, top: 5} ) );
   }
 
-  inherit( MotionControlPanel, Node );
+  inherit( Node, MotionControlPanel );
 
   return MotionControlPanel;
 } );

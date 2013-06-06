@@ -173,7 +173,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( TugOfWarTabView, TabView, {
+  inherit( TabView, TugOfWarTabView, {
     updateForces: function() {
       this.leftArrow.setValue( this.model.getLeftForce() );
       this.rightArrow.setValue( this.model.getRightForce() );
