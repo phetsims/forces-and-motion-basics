@@ -66,25 +66,22 @@ define( function( require ) {
         }
       }
     } ) );
-    var update = function() {
-      if ( item.x !== itemNode.x || item.y !== itemNode.y ) {
-        itemNode.setTranslation( item.x, item.y );
-      }
-      var scale = item.imageScale * item.interactionScale;
-      if ( scale !== itemNode.getScaleVector().x ) {
-        itemNode.setScaleMagnitude( scale );
-      }
-    };
 
     var massLabel = new Text( item.mass + ' kg', {fontSize: '18px'} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
     this.labelNode = labelNode;
 
-    //TODO: unbatch these
-    item.xProperty.link( update );
-    item.yProperty.link( update );
-    item.interactionScaleProperty.link( update );
+    //TODO: batch x & y as a Vector2
+    item.multilink( ['x', 'y', 'interactionScale'], function( x, y, interactionScale ) {
+      if ( x !== itemNode.x || y !== itemNode.y ) {
+        itemNode.setTranslation( item.x, item.y );
+      }
+      var scale = item.imageScale * interactionScale;
+      if ( scale !== itemNode.getScaleVector().x ) {
+        itemNode.setScaleMagnitude( scale );
+      }
+    } );
     item.onBoardProperty.link( updateImage );
 
     //Work around a scenery bug that makes an invisible node show if its parent is added to the scene
