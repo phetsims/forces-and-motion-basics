@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var linear = require( 'DOT/Util' ).linear;
+  var Matrix3 = require( 'DOT/Matrix3' );
 
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
@@ -72,7 +73,12 @@ define( function( require ) {
 
     //We tested that Pattern has superior performance to a large cached image
     var tile = imageLoader.getImage( 'brick-tile.png' );
-    var ground = new Rectangle( 0, mountainY + 50, tile.width * 12, tile.height, {fill: new Pattern( tile )} );
+
+    //offset the pattern so that the it aligns with the brick image
+    var tilePattern = new Pattern( tile );
+    var patternOffsetY = 2;
+    tilePattern.setTransformMatrix( Matrix3.translation( 0, -patternOffsetY ) );
+    var ground = new Rectangle( 0, mountainY + 50 + patternOffsetY, tile.width * 12, tile.height, {fill: tilePattern} );
     var mod = ground.width / 12;
     var offset = layoutCenterX - ground.width / 2;
     model.positionProperty.link( function( position ) { ground.x = -position % mod + offset; } );
