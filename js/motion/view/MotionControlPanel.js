@@ -9,6 +9,7 @@ define( function( require ) {
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( 'Strings' );
   var Button = require( 'SUN/Button' );
+  var Property = require( 'AXON/Property' );
   var PanelNode = require( 'SUN/PanelNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
@@ -64,7 +65,7 @@ define( function( require ) {
         ]} );
       };
 
-      var frictionSlider = new HSlider( 0, 2, 150, model.frictionProperty, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
+      var frictionSlider = new HSlider( 0, 2, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
       controlPanel.addChild( new PanelNode( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ), {left: 5, top: controlPanel.bottom + 5} ) );
     }

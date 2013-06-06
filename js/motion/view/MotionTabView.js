@@ -85,7 +85,7 @@ define( function( require ) {
     this.addChild( this.frictionArrow );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -100, 100, 300, model.appliedForceProperty, {zeroOnRelease: true} ).addNormalTicks();
+    var slider = new HSlider( -100, 100, 300, model.appliedForceProperty, model.speedValueProperty, {zeroOnRelease: true} ).addNormalTicks();
     var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
     this.addChild( sliderControl );//text box only seems to work if added last
 

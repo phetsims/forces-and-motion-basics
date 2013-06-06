@@ -16,9 +16,15 @@ define( function( require ) {
   var linear = require( 'DOT/Util' ).linear;
   var imageLoader = require( 'imageLoader' );
 
-  function HSlider( min, max, width, property, options ) {
+  function HSlider( min, max, width, property, speedValueProperty, options ) {
     var slider = this;
     this.options = _.extend( {zeroOnRelease: false}, options || {} );
+
+    speedValueProperty.link( function( speedValue ) {
+      if ( speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
+        dragHandler.endDrag();//drop the mouse
+      }
+    } );
     this.min = min;
     this.max = max;
     this.sliderWidth = width;
@@ -36,7 +42,7 @@ define( function( require ) {
     //Lookup the new item and append to the scenery
     var svgKnob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ), {cursor: 'pointer'} );
     svgKnob.y = -svgKnob.height / 2;
-    svgKnob.addInputListener( new SimpleDragHandler( {
+    var dragHandler = new SimpleDragHandler( {
         allowTouchSnag: true,
         translate: function( options ) {
           var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
@@ -47,7 +53,8 @@ define( function( require ) {
             property.value = 0;
           }
         }}
-    ) );
+    );
+    svgKnob.addInputListener( dragHandler );
     this.addChild( svgKnob );
 
     property.link( function( value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
