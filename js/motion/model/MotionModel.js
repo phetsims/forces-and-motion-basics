@@ -4,8 +4,8 @@ define( function( require ) {
   var Item = require( 'motion/model/Item' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var Layout = require( 'Layout' );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function sign( value ) {

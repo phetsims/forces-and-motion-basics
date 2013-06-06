@@ -1,7 +1,7 @@
 define( function( require ) {
   "use strict";
-  var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Puller = require( 'tugofwar/model/Puller' );
   var Knot = require( 'tugofwar/model/Knot' );

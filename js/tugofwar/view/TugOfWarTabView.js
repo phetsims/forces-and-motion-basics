@@ -19,7 +19,7 @@ define( function( require ) {
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
+  var Property = require( 'AXON/Property' );
 
   var red = "red",
     blue = "blue",

@@ -1,13 +1,13 @@
 require( [ "tugofwar/model/TugOfWarModel",
   "motion/model/MotionModel",
   'SCENERY/nodes/Image',
-  'PHETCOMMON/util/ImagesLoader',
   'motion/view/MotionTabView',
   'tugofwar/view/TugOfWarTabView',
   'JOIST/Sim',
   'imageLoader',
-  'Strings', 'JOIST/SimLauncher'
-], function( TugOfWarModel, MotionModel, Image, ImagesLoader, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher ) {
+  'Strings',
+  'JOIST/SimLauncher'
+], function( TugOfWarModel, MotionModel, Image, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher ) {
   "use strict";
 
   SimLauncher.launch( 'Acceleration_Icon.png brick-tile.png cart.png cloud1.png crate.png ' +

@@ -1,8 +1,8 @@
 define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );
-  var Property = require( 'PHETCOMMON/model/property/Property' );
-  var PropertySet = require( 'PHETCOMMON/model/property/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Item( context, image, mass, x, y, imageScale, pusherInset /*optional*/, sittingImage, holdingImage ) {

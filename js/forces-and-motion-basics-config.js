@@ -3,12 +3,10 @@ require.config( {
 //                  config: { i18n: { locale: 'en_US' } },
 
   paths: {
-    common: 'common',
-    PHETCOMMON: '../../phetcommon/js',
-    PHETCOMMON_HTML: '../../phetcommon/html',
 
     //Load dependencies from sibling directories
     ASSERT: '../../assert/js',
+    AXON: '../../axon/js',
     DOT: '../../dot/js',
     SCENERY: '../../scenery/js',
     SCENERY_PHET: '../../scenery-phet/js',
@@ -23,14 +21,11 @@ require.config( {
     jquery: '../lib/jquery-1.9.1',
     underscore: '../lib/underscore-1.4.2',
     tpl: "../lib/tpl-0.2",
-    i18n: "../lib/i18n",
-    watch: "../../Watch.JS/src/watch",
-    imagesloaded: "../../phetcommon/contrib/jquery.imagesloaded-2.1.1"
+    i18n: "../lib/i18n"
   },
 
   shim: {
     underscore: { exports: "_" },
-    easel: { exports: "createjs" },
     jquery: { exports: "$" },
     numeric: {exports: "numeric"}
   },
