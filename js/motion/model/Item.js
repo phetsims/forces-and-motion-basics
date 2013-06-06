@@ -5,7 +5,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function Item( context, image, mass, x, y, imageScale, pusherInset /*optional*/, sittingImage, holdingImage ) {
+  function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage ) {
     this.initialX = x;
     this.initialY = y;
     this.image = image;
