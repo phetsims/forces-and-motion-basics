@@ -19,14 +19,13 @@ define( function( require ) {
     Node.call( this, {cursor: 'pointer', scale: scale} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
-    var update = function() {
+    model.multilink( ['appliedForce', 'position', 'speed', 'pusherPosition'], function( appliedForce, position, speed, pusherPosition ) {
 
       //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
       var fallingLeft = false;
 
-      var appliedForce = model.appliedForce;
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
-      var maxSpeedExceeded = model.speed >= 20;
+      var maxSpeedExceeded = speed >= 20;
       if ( !maxSpeedExceeded ) {
         imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
       }
@@ -48,25 +47,23 @@ define( function( require ) {
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
         pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
-        model.pusherPosition = -delta + model.position - imageNode.width;
+        model.pusherPosition = -delta + position - imageNode.width;
       }
       else if ( appliedForce < 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = Layout.width / 2 + imageNode.width * scale + delta;
-        model.pusherPosition = delta + model.position;
+        model.pusherPosition = delta + position;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - model.position + model.pusherPosition + (fallingLeft ? -imageNode.width : 0);
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale - position + pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
 
       //Keep the feet on the ground
       pusherNode.y = 362 - pusherNode.height;
       pusherNode.lastAppliedForce = appliedForce;
-    };
-    model.appliedForceProperty.link( update );
-    model.positionProperty.link( update );
+    } );
 
     this.addInputListener( new SimpleDragHandler( {
       allowTouchSnag: true,
