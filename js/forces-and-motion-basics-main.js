@@ -47,7 +47,7 @@ require( [ "tugofwar/model/TugOfWarModel",
         createModel: function() {return new MotionModel( 'acceleration', false, true );},
         createView: function( model ) {return new MotionTabView( model );}}
 
-    ], { showHomeScreen: false, tabIndex: 1} )
+    ], { showHomeScreen: false, tabIndex: 3} )
       .start();
   } );
 } );
