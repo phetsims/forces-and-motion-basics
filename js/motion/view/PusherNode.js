@@ -62,7 +62,11 @@ define( function( require ) {
 
       //Keep the feet on the ground
       pusherNode.y = 362 - pusherNode.height;
-      pusherNode.lastAppliedForce = appliedForce;
+
+      //Track the direction of the last nonzero applied force for showing the fallen pusher
+      if ( appliedForce !== 0 ) {
+        pusherNode.lastAppliedForce = appliedForce;
+      }
     } );
 
     this.addInputListener( new SimpleDragHandler( {
