@@ -83,8 +83,8 @@ define( function( require ) {
       itemNode.setScaleMagnitude( scale );
 
       if ( direction === 'right' ) {
-        itemNode.scale( -1, 1 );
-        itemNode.translate( -itemNode.width / scale, 0 );
+        imageNode.scale( -1, 1 );
+        imageNode.translate( -imageNode.width / scale, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );
