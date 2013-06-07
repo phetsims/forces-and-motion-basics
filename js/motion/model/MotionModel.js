@@ -53,7 +53,8 @@ define( function( require ) {
                    new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
                    new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
                    new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
-                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" )
+                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
+                   new Item( this, 'water-bucket.png', 80, 747, 460 + dy, 0.6 )
                  ] :
                  [ new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
                    new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
