@@ -10,6 +10,7 @@ define( function( require ) {
   var arrow = require( 'tugofwar/view/arrow' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'motion/view/ItemNode' );
+  var WaterBucketNode = require( 'motion/view/WaterBucketNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( 'Strings' );
@@ -61,7 +62,8 @@ define( function( require ) {
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
-      var itemNode = new ItemNode( model, motionTabView, item,
+      var constructor = item.bucket ? WaterBucketNode : ItemNode;
+      var itemNode = new constructor( model, motionTabView, item,
         imageLoader.getImage( item.image ),
         imageLoader.getImage( item.sittingImage || item.image ),//TODO: use ||
         imageLoader.getImage( item.holdingImage || item.image ),

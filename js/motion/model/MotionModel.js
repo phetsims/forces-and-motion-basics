@@ -38,7 +38,8 @@ define( function( require ) {
       speedValue: 'WITHIN_ALLOWED_RANGE',
       _speedValue: 'WITHIN_ALLOWED_RANGE',
       movingRight: true,
-      direction: 'none'
+      direction: 'none',
+      time: 0
     } );
 
     this.stack = [];//TODO: Could put this is the property list and use immutable array ops.  Would provide notifications (and we could stop using trigger('stackChanged') for it.)
@@ -47,6 +48,8 @@ define( function( require ) {
     var motionModel = this;
     //TODO: Switch to backbone collection.
     var dy = -39;
+    var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + dy, 0.78 );
+    bucket.bucket = true;
     this.items = accelerometer ?
                  [
                    new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
@@ -54,7 +57,7 @@ define( function( require ) {
                    new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
                    new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
                    new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
-                   new Item( this, 'water-bucket.png', 100, 845, 547 + dy, 0.78 )
+                   bucket
                  ] :
                  [ new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
                    new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
@@ -159,6 +162,7 @@ define( function( require ) {
     },
     step: function( dt ) {
       dt = dt * 20;//TODO: Remove this.
+      this.time = this.time + dt;
       var MAX_SPEED = 20;
       this.updateForces();
 
