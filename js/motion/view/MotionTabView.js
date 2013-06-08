@@ -114,9 +114,10 @@ define( function( require ) {
     model.on( 'change:showForce change:showSumOfForces', updateSumOfForcesVisible );
     updateSumOfForcesVisible();
 
-    model.showForceProperty.link( function( showForce ) {motionTabView.appliedForceArrow.visible = showForce;} );
+    model.showForceProperty.linkAttribute( motionTabView.appliedForceArrow, 'visible' );
 
     //TODO: move this code to ReadoutArrow
+    model.appliedForceProperty.link( function( appliedForce ) { motionTabView.appliedForceArrow.setValue( appliedForce ); } );//TODO: change to string based link style with ES5
     model.appliedForceProperty.link( function( appliedForce ) { motionTabView.appliedForceArrow.setValue( appliedForce ); } );//TODO: change to string based link style with ES5
     model.sumOfForcesProperty.link( function( sumOfForces ) { motionTabView.sumArrow.setValue( sumOfForces ); } );//TODO: change to string based link style with ES5
     model.frictionForceProperty.link( function( frictionForce ) { motionTabView.frictionArrow.setValue( frictionForce ); } );//TODO: change to string based link style with ES5
