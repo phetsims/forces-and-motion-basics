@@ -148,7 +148,9 @@ define( function( require ) {
 //    this.addChild( text );
 
     if ( model.accelerometer ) {
-      this.addChild( new AccelerometerNode( model.accelerationProperty, {centerX: width / 2, y: 100} ) );
+      var accelerometerNode = new AccelerometerNode( model.accelerationProperty, {centerX: width / 2, y: 100} );
+      model.showAccelerationProperty.linkAttribute( accelerometerNode, 'visible' );
+      this.addChild( accelerometerNode );
     }
   }
 
