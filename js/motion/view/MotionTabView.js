@@ -150,16 +150,15 @@ define( function( require ) {
 
     if ( model.accelerometer ) {
 
-      //TODO: would be nice to find a way to inline accelerometerNode instead of duplicating it
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
-      var labelAndAccelerometer = new VBox( {children: [new Text( 'Acceleration', {font: new FAMBFont( 18 )} ), accelerometerNode]} );
+      var labelAndAccelerometer = new VBox( {spacing: -18, children: [new Text( 'Acceleration', {font: new FAMBFont( 18 )} ), accelerometerNode]} );
       var tickLabel = function( label, tick ) {
         console.log( tick.centerX, tick.bottom );
-        return new Text( label, {font: new FAMBFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30} );
+        return new Text( label, {font: new FAMBFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30 - 18} );
       };
       var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
         tickLabel( '0', accelerometerNode.ticks[2] ),
-        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 100} );
+        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 150 + 18} );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
