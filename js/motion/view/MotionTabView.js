@@ -83,6 +83,7 @@ define( function( require ) {
     }
 
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top'} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( a, b ) {motionTabView.sumArrow.visible = a && b;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side'} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
@@ -109,10 +110,6 @@ define( function( require ) {
 
     //Show a line that indicates the center of the layout
 //    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );
-
-    var updateSumOfForcesVisible = function() { motionTabView.sumArrow.visible = model.showForce && model.showSumOfForces; };
-    model.on( 'change:showForce change:showSumOfForces', updateSumOfForcesVisible );
-    updateSumOfForcesVisible();
 
     model.showForceProperty.linkAttribute( motionTabView.appliedForceArrow, 'visible' );
 
