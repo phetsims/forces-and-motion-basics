@@ -30,23 +30,23 @@ define( function( require ) {
     var controlPanel = new VBox( {
       align: 'left',
       children: model.tab === 'motion' ?
-                [new VerticalCheckBoxGroup(
+                [new PanelNode( new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.force, 'showForce' ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed' )
-                  ] )] :
+                  ] ), {fill: 'e3e980'} )] :
                 model.tab === 'friction' ?
-                [new VerticalCheckBoxGroup(
+                [new PanelNode( new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.force, 'showForce' ),
                     toElement( Strings.sumOfForces, 'showSumOfForces' ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed' )
-                  ] )] :
-                [new VerticalCheckBoxGroup(
+                  ] ), {fill: 'e3e980'} )] :
+                [new PanelNode( new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.force, 'showForce' ),
                     toElement( Strings.sumOfForces, 'showSumOfForces' ),
@@ -54,7 +54,7 @@ define( function( require ) {
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed' ),
                     toElement( Strings.acceleration, 'showAcceleration' )
-                  ] )]
+                  ] ), {fill: 'e3e980'} )]
     } );
     if ( model.tab !== 'motion' ) {
 
