@@ -1,14 +1,11 @@
 define( function( require ) {
   "use strict";
 
-  var Image = require( 'SCENERY/nodes/Image' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
 
@@ -18,13 +15,13 @@ define( function( require ) {
   function SpeedometerNode( velocityProperty, options ) {
     this.isCentered = true;
     Node.call( this, options );
-    var radius = 100;
+    var radius = 75;
     this.addChild( new Circle( radius, {fill: 'white', stroke: '#555555', lineWidth: 2} ) );
 
     var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );
     this.addChild( needle );
 
-    this.label = new Text( "Speed", {fontSize: 28} ).mutate( {centerX: 0, centerY: -radius / 3} );
+    this.label = new Text( "Speed", {fontSize: 20} ).mutate( {centerX: 0, centerY: -radius / 3} );
     this.addChild( this.label );
 
     var pin = new Circle( 2, {fill: 'black'} );
@@ -44,7 +41,7 @@ define( function( require ) {
 
     for ( var i = 0; i < NUM_TICKS; i++ ) {
       var tickAngle = i * ANGLE_PER_TICK + startAngle;
-      var tickLength = i % 2 === 0 ? 20 : 10;
+      var tickLength = i % 2 === 0 ? 10 : 5;
       var lineWidth = i % 2 === 0 ? 2 : 1;
       var tick = new Path( {shape: Shape.lineSegment( (radius - tickLength) * Math.cos( tickAngle ), (radius - tickLength) * Math.sin( tickAngle ), radius * Math.cos( tickAngle ), radius * Math.sin( tickAngle ) ), stroke: 'gray', lineWidth: lineWidth} );
       this.addChild( tick );
