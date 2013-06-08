@@ -69,7 +69,7 @@ define( function( require ) {
       var constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new constructor( model, motionTabView, item,
         imageLoader.getImage( item.image ),
-        imageLoader.getImage( item.sittingImage || item.image ),//TODO: use ||
+        imageLoader.getImage( item.sittingImage || item.image ),
         imageLoader.getImage( item.holdingImage || item.image ),
         model.showMassesProperty );
       this.itemNodes.push( itemNode );
