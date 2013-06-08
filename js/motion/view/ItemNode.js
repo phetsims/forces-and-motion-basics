@@ -40,7 +40,7 @@ define( function( require ) {
         item.onBoard = false;
 
         //Don't allow the user to translate the object while it is animating
-        if ( !item.animating.enabled ) {//todo is this calling es5 getter?
+        if ( !item.animating.enabled ) {
           item.position = options.position;//es5 setter
         }
       },

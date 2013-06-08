@@ -118,7 +118,7 @@ define( function( require ) {
         for ( var i = 0; i < this.stack.length; i++ ) {
           var size = this.getSize( this.stack[i] );
           sumHeight += size.height;
-          this.stack[i].animateTo( Layout.width / 2 - size.width / 2, 380 - 42 - 3 - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack[i].animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
       this.trigger( 'stackChanged' );
