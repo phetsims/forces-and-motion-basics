@@ -15,7 +15,8 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   function AccelerometerNode( accelerationProperty, options ) {
-
+    options = options || {};
+    this.ticks = [];
     Node.call( this );
     var height = 15;
     var barWidth = 170;
@@ -55,16 +56,21 @@ define( function( require ) {
     var majorTickInset = 6;
     var minorTickInset = 7;
     var line = Shape.lineSegment;
-    this.addChild( new Path( {shape: line( 0, majorTickInset, 0, height - majorTickInset ), stroke: 'black'} ) );
-    this.addChild( new Path( {shape: line( barWidth / 4, minorTickInset, barWidth / 4, height - minorTickInset ), stroke: 'black' } ) );
-    this.addChild( new Path( {shape: line( barWidth / 2, majorTickInset, barWidth / 2, height - majorTickInset ), stroke: 'black' } ) );
-    this.addChild( new Path( {shape: line( 3 * barWidth / 4, minorTickInset, 3 * barWidth / 4, height - minorTickInset ), stroke: 'black' } ) );
-    this.addChild( new Path( {shape: line( barWidth, majorTickInset, barWidth, height - majorTickInset ), stroke: 'black' } ) );
+    this.addTick( new Path( {shape: line( 0, majorTickInset, 0, height - majorTickInset ), stroke: 'black'} ) );
+    this.addTick( new Path( {shape: line( barWidth / 4, minorTickInset, barWidth / 4, height - minorTickInset ), stroke: 'black' } ) );
+    this.addTick( new Path( {shape: line( barWidth / 2, majorTickInset, barWidth / 2, height - majorTickInset ), stroke: 'black' } ) );
+    this.addTick( new Path( {shape: line( 3 * barWidth / 4, minorTickInset, 3 * barWidth / 4, height - minorTickInset ), stroke: 'black' } ) );
+    this.addTick( new Path( {shape: line( barWidth, majorTickInset, barWidth, height - majorTickInset ), stroke: 'black' } ) );
 
     this.mutate( options );
   }
 
-  inherit( Node, AccelerometerNode );
+  inherit( Node, AccelerometerNode, {
+    addTick: function( child ) {
+      this.addChild( child );
+      this.ticks.push( child );
+    }
+  } );
 
   return AccelerometerNode;
 } );
