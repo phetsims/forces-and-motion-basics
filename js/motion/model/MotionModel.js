@@ -17,6 +17,7 @@ define( function( require ) {
   function MotionModel( tab, skateboard, accelerometer ) {
     this.tab = tab;
     this.skateboard = skateboard;
+    this.accelerometer = accelerometer;
     PropertySet.call( this, {
       appliedForce: 0,
       frictionForce: 0,
@@ -28,6 +29,7 @@ define( function( require ) {
       speed: 0,
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
+      acceleration: 0,
       pusherPosition: 100, //Start to the right of the box by this many pixels
       showForce: true,
       showValues: false,

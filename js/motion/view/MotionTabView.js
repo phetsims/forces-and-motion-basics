@@ -22,6 +22,7 @@ define( function( require ) {
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
+  var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
 
   function MotionTabView( model ) {
     this.model = model;
@@ -145,6 +146,10 @@ define( function( require ) {
 //    var text = new Text( 'profiler', {top: 100, left: 100} );
 //    profiler.addListener( function( summary ) {text.text = summary;} );
 //    this.addChild( text );
+
+    if ( model.accelerometer ) {
+      this.addChild( new AccelerometerNode( model.accelerationProperty, {centerX: width / 2, y: 100} ) );
+    }
   }
 
   inherit( TabView, MotionTabView, {
