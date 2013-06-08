@@ -73,10 +73,10 @@ define( function( require ) {
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
 
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
-    this.model.showSumOfForcesProperty.link( function( visible ) {tugOfWarTabView.sumArrow.visible = visible;} );
-    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
-    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
+    this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
+    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
+    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
@@ -116,8 +116,6 @@ define( function( require ) {
     var returnButton = new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} );
     this.addChild( returnButton );
 
-    //Update the forces when the number of attached pullers changes
-    model.numberPullersAttachedProperty.link( this.updateForces.bind( this ) );
     this.model.pullers.forEach( function( puller ) {
       tugOfWarTabView.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
@@ -174,11 +172,6 @@ define( function( require ) {
   }
 
   inherit( TabView, TugOfWarTabView, {
-    updateForces: function() {
-      this.leftArrow.setValue( this.model.getLeftForce() );
-      this.rightArrow.setValue( this.model.getRightForce() );
-      this.sumArrow.setValue( this.model.getNetForce() );
-    },
     layoutBounds: new Bounds2( 0, 0, 981, 604 )
   } );
   return TugOfWarTabView;

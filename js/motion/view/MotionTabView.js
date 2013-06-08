@@ -82,9 +82,9 @@ define( function( require ) {
       this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
     }
 
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.showValuesProperty, {labelPosition: 'top'} );
-    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.showValuesProperty, {labelPosition: 'side'} );
-    this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.showValuesProperty, {labelPosition: 'side'} );
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top'} );
+    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side'} );
+    this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
@@ -115,12 +115,6 @@ define( function( require ) {
     updateSumOfForcesVisible();
 
     model.showForceProperty.linkAttribute( motionTabView.appliedForceArrow, 'visible' );
-
-    //TODO: move this code to ReadoutArrow
-    model.appliedForceProperty.link( function( appliedForce ) { motionTabView.appliedForceArrow.setValue( appliedForce ); } );//TODO: change to string based link style with ES5
-    model.appliedForceProperty.link( function( appliedForce ) { motionTabView.appliedForceArrow.setValue( appliedForce ); } );//TODO: change to string based link style with ES5
-    model.sumOfForcesProperty.link( function( sumOfForces ) { motionTabView.sumArrow.setValue( sumOfForces ); } );//TODO: change to string based link style with ES5
-    model.frictionForceProperty.link( function( frictionForce ) { motionTabView.frictionArrow.setValue( frictionForce ); } );//TODO: change to string based link style with ES5
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.velocityProperty ).mutate( {x: width / 2, top: 2} );

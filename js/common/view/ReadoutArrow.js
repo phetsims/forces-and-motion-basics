@@ -18,7 +18,8 @@ define( function( require ) {
    * @param options 'labelPosition' where the label text should be {side|*top}
    * @constructor
    */
-  function ReadoutArrow( label, fill, tailX, tailY, showValuesProperty, options ) {
+  function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, options ) {
+    var readoutArrow = this;
     this.options = _.extend( {labelPosition: 'top'}, options );
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
@@ -31,17 +32,16 @@ define( function( require ) {
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
-    this.setValue( 0 );
+    valueProperty.link( function( value ) {
+      readoutArrow.value = value;
+      readoutArrow.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
+      readoutArrow.update();
+    } );//TODO: inline this
     showValuesProperty.link( this.update.bind( this ) );
   }
 
   inherit( Node, ReadoutArrow, {
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
-    setValue: function( value ) {
-      this.value = value;
-      this.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
-      this.update();
-    },
     update: function() {
       var value = this.value;
       var hidden = Math.abs( value ) < 1E-6;

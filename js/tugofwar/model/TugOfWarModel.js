@@ -14,6 +14,7 @@ define( function( require ) {
     large = "large";
 
   function TugOfWarModel() {
+    var tugOfWarModel = this;
     PropertySet.call( this, {
       started: false,
       showSumOfForces: false,
@@ -22,7 +23,10 @@ define( function( require ) {
       volumeOn: false,
       numberPullersAttached: 0,
       state: 'experimenting',
-      time: 0
+      time: 0,
+      netForce: 0,
+      leftForce: 0,
+      rightForce: 0
     } );
 
     //Mix in backbone events for trigger, on, once, etc.
@@ -89,6 +93,10 @@ define( function( require ) {
       } );
     } );
     this.runningProperty.link( function( running ) { if ( running ) { model.started = true; }} );
+
+    this.numberPullersAttachedProperty.link( function() {tugOfWarModel.netForce = tugOfWarModel.getNetForce();} );
+    this.numberPullersAttachedProperty.link( function() {tugOfWarModel.leftForce = tugOfWarModel.getLeftForce();} );
+    this.numberPullersAttachedProperty.link( function() {tugOfWarModel.rightForce = tugOfWarModel.getRightForce();} );
   }
 
   return inherit( PropertySet, TugOfWarModel, {
