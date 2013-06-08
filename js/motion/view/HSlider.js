@@ -46,7 +46,7 @@ define( function( require ) {
         allowTouchSnag: true,
         translate: function( options ) {
           var x = Math.min( Math.max( options.position.x, -svgKnob.width / 2 ), width - svgKnob.width / 2 ) + svgKnob.width / 2;
-          property.value = linear( 0, min, width, max, x );
+          property.value = linear( 0, width, min, max, x );
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
@@ -57,7 +57,7 @@ define( function( require ) {
     svgKnob.addInputListener( dragHandler );
     this.addChild( svgKnob );
 
-    property.link( function( value ) { svgKnob.x = linear( min, 0, max, width, value ) - svgKnob.width / 2; } );
+    property.link( function( value ) { svgKnob.x = linear( min, max, 0, width, value ) - svgKnob.width / 2; } );
   }
 
   inherit( Node, HSlider, {
@@ -69,12 +69,12 @@ define( function( require ) {
       var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
 
       for ( var i = 0; i < numTicks; i++ ) {
-        var x1 = linear( this.min, 0, this.max, this.sliderWidth, i / (numTicks - 1) * (this.max - this.min) + this.min );
+        var x1 = linear( this.min, this.max, 0, this.sliderWidth, i / (numTicks - 1) * (this.max - this.min) + this.min );
         var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? 30 : 15 ) ), stroke: 'black', lineWidth: 1} );
 
         this.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
-          var label = new Text( linear( 0, this.min, 1, this.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
+          var label = new Text( linear( 0, 1, this.min, this.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
           this.ticksLayer.addChild( label );
         }
       }
@@ -83,7 +83,7 @@ define( function( require ) {
 
     //Add the tick for the specified value, so that the node will be centered on the location specified and just at the edge of the track.
     addTick: function( value, tickAndLabelNode ) {
-      tickAndLabelNode.centerX = linear( 0, 0, 1, this.sliderWidth, value );
+      tickAndLabelNode.centerX = linear( 0, 1, 0, this.sliderWidth, value );
       tickAndLabelNode.top = this.trackHeight + 1;
       this.ticksLayer.addChild( tickAndLabelNode );
       return this;

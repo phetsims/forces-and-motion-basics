@@ -38,7 +38,7 @@ define( function( require ) {
       needle.resetTransform();
 
       //TODO: factor out max speed constant
-      var needleAngle = linear( 0, startAngle, 20, endAngle, Math.abs( velocity ) );
+      var needleAngle = linear( 0, 20, startAngle, endAngle, Math.abs( velocity ) );
       needle.rotateAround( {x: 0, y: 0}, needleAngle );
     } );
 

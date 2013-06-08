@@ -35,11 +35,11 @@ define( function( require ) {
       var padY = 9;
       var s = image.width / 98.0;
 
-      var leftLineX = function( x ) {return linear( 0, ( 1 + padX ) * s, 1, ( 10 + padX ) * s, x )};
-      var leftLineY = function( x ) {return linear( 0, ( 9 - padY ) * s, 1, ( 102 - padY ) * s, x )};
+      var leftLineX = function( x ) {return linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x )};
+      var leftLineY = function( x ) {return linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x )};
 
-      var rightLineX = function( x ) {return linear( 1, ( 87 - padX ) * s, 0, ( 96 - padX ) * s, x )};
-      var rightLineY = function( x ) {return linear( 1, ( 102 - padY ) * s, 0, ( 9 - padY ) * s, x )};
+      var rightLineX = function( x ) {return linear( 1, 0, ( 87 - padX ) * s, ( 96 - padX ) * s, x )};
+      var rightLineY = function( x ) {return linear( 1, 0, ( 102 - padY ) * s, ( 9 - padY ) * s, x )};
 
       var min = 0.5; //Water level when acceleration = 0
       var sum = 0.0;
