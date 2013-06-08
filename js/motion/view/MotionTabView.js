@@ -24,6 +24,7 @@ define( function( require ) {
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
   var FAMBFont = require( 'common/view/FAMBFont' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
+  var Property = require( 'AXON/Property' );
 
   function MotionTabView( model ) {
     this.model = model;
@@ -125,14 +126,22 @@ define( function( require ) {
     model.showSpeedProperty.link( function( showSpeed ) {speedometerNode.visible = showSpeed;} );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
+    var itemsCentered = new Property( true );
     model.on( 'stackChanged', function() {
-      if ( model.stack.length > 2 && speedometerNode.isCentered ) {
-        speedometerNode.isCentered = false;
-        new TWEEN.Tween( speedometerNode ).to( { left: 50}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+      if ( model.stack.length > 2 && itemsCentered.value ) {
+        itemsCentered.value = false;
+        new TWEEN.Tween( speedometerNode ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+        if ( accelerometerNode ) {
+          new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+        }
       }
-      else if ( model.stack.length <= 2 && !speedometerNode.isCentered ) {
-        speedometerNode.isCentered = true;
+      else if ( model.stack.length <= 2 && !itemsCentered.value ) {
+        itemsCentered.value = true;
+
         new TWEEN.Tween( speedometerNode ).to( { x: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+        if ( accelerometerNode ) {
+          new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+        }
       }
     } );
     this.addChild( speedometerNode );

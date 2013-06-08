@@ -13,7 +13,6 @@ define( function( require ) {
   var NUM_TICKS = ( 8 + 2 ) * 2 + 1;
 
   function SpeedometerNode( velocityProperty, options ) {
-    this.isCentered = true;
     Node.call( this, options );
     var radius = 75;
     this.addChild( new Circle( radius, {fill: 'white', stroke: '#555555', lineWidth: 2} ) );
