@@ -2,6 +2,7 @@ define( function( require ) {
   "use strict";
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Font = require( 'SCENERY/util/Font' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -83,12 +84,15 @@ define( function( require ) {
     }
 
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top'} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( a, b ) {motionTabView.sumArrow.visible = a && b;} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionTabView.sumArrow.visible = showForce && showSumOfForces;} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 185} );
+    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionTabView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side'} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side'} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
+    this.addChild( this.sumOfForcesText );
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -100, 100, 300, model.appliedForceProperty, model.speedValueProperty, {zeroOnRelease: true} ).addNormalTicks();
