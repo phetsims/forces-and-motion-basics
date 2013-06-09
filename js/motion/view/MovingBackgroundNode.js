@@ -12,8 +12,8 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var linear = require( 'DOT/Util' ).linear;
   var Matrix3 = require( 'DOT/Matrix3' );
+  var MotionConstants = require( 'motion/MotionConstants' );
 
-  var scale = 40;//How much to translate model coordinates into view pixels for translating the background ground
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
     this.model = model;
@@ -25,7 +25,7 @@ define( function( require ) {
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
       model.positionProperty.link( function( position ) {
-        var a = -position / distanceScale * scale + offset;
+        var a = -position / distanceScale * MotionConstants.positionScale + offset;
         var n, z;
 
         //A function that maps values as such:
@@ -82,7 +82,7 @@ define( function( require ) {
     var ground = new Rectangle( 0, mountainY + 50 + patternOffsetY, tile.width * 12, tile.height, {fill: tilePattern} );
     var mod = ground.width / 12;
     var offset = layoutCenterX - ground.width / 2;
-    model.positionProperty.link( function( position ) { ground.x = -position * scale % mod + offset; } );
+    model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( ground );
 
     //Add the gravel and ice

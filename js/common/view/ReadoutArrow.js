@@ -11,6 +11,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var arrow = require( 'tugofwar/view/arrow' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MotionConstants = require( 'motion/MotionConstants' );
 
   /**
    *
@@ -36,7 +37,7 @@ define( function( require ) {
       readoutArrow.value = value;
       readoutArrow.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
       readoutArrow.update();
-    } );//TODO: inline this
+    } );
     showValuesProperty.link( this.update.bind( this ) );
   }
 

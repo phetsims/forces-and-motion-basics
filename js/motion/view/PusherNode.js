@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var Layout = require( 'Layout' );
+  var MotionConstants = require( 'motion/MotionConstants' );
 
   function PusherNode( model ) {
     var pusherNode = this;
@@ -47,17 +48,17 @@ define( function( require ) {
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
         pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
-        model.pusherPosition = -delta + position * 40 - imageNode.width;
+        model.pusherPosition = -delta + position * MotionConstants.positionScale - imageNode.width;
       }
       else if ( appliedForce < 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = Layout.width / 2 + imageNode.width * scale + delta;
-        model.pusherPosition = delta + position * 40;
+        model.pusherPosition = delta + position * MotionConstants.positionScale;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - position * 40 + pusherPosition + (fallingLeft ? -imageNode.width : 0);
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale - position * MotionConstants.positionScale + pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
 
       //Keep the feet on the ground
