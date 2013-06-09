@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, options ) {
     var readoutArrow = this;
-    this.options = _.extend( {labelPosition: 'top'}, options );
+    this.options = _.extend( {labelPosition: 'top', arrowScale: 1}, options );
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
     this.tailY = tailY;
@@ -44,7 +44,7 @@ define( function( require ) {
   inherit( Node, ReadoutArrow, {
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
     update: function() {
-      var value = this.value;
+      var value = this.value * this.options.arrowScale;
       var hidden = Math.abs( value ) < 1E-6;
       this.hidden = hidden;
       this.arrowNode.visible = !hidden;

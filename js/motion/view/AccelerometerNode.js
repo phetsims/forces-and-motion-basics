@@ -27,7 +27,7 @@ define( function( require ) {
     this.addChild( background );
 
     //In Java: Tweaked to get 10m/s/s to line up with 1st tick
-    var scale = 4.22 * 10;//TODO: Remove the factor of 20
+    var scale = 4.22 * 2; //TODO: what is causing this scale factor of 2?
 
     var bar = new Rectangle( barWidth / 2, 0, 25, height, {fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(248,194,216)' ).addColorStop( 1, 'rgb(154,105,127)' )} );
     accelerationProperty.link( function( acceleration ) {
