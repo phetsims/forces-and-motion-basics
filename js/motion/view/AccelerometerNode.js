@@ -32,7 +32,6 @@ define( function( require ) {
     var bar = new Rectangle( barWidth / 2, 0, 25, height, {fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(248,194,216)' ).addColorStop( 1, 'rgb(154,105,127)' )} );
     accelerationProperty.link( function( acceleration ) {
       var scaled = acceleration * scale;
-      console.log( scaled );
       if ( acceleration > 0 ) {
         bar.setRect( barWidth / 2, 0, scaled, height );
       }

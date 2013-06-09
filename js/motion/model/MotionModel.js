@@ -30,7 +30,7 @@ define( function( require ) {
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
-      pusherPosition: 100, //Start to the right of the box by this many pixels
+      pusherPosition: 100 / 40, //Start to the right of the box by this many pixels
       showForce: true,
       showValues: false,
       showSumOfForces: false,
@@ -163,7 +163,6 @@ define( function( require ) {
              sign( b ) === 'negative' && sign( a ) === 'positive';
     },
     step: function( dt ) {
-      dt = dt * 20;//TODO: Remove this.
       this.time = this.time + dt;
       var MAX_SPEED = 20;
       this.updateForces();
