@@ -47,17 +47,17 @@ define( function( require ) {
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
         pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
-        model.pusherPosition = -delta + position - imageNode.width;
+        model.pusherPosition = -delta + position * 40 - imageNode.width;
       }
       else if ( appliedForce < 0 && !maxSpeedExceeded ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = Layout.width / 2 + imageNode.width * scale + delta;
-        model.pusherPosition = delta + position;
+        model.pusherPosition = delta + position * 40;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - position + pusherPosition + (fallingLeft ? -imageNode.width : 0);
+        pusherNode.x = Layout.width / 2 + imageNode.width * scale - position * 40 + pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
 
       //Keep the feet on the ground
