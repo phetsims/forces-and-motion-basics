@@ -43,14 +43,11 @@ define( function( require ) {
 
       var min = 0.5; //Water level when acceleration = 0
       var sum = 0.0;
-      history.forEach( function( item ) {
-        sum = sum + item;
-      } );
+      history.forEach( function( item ) { sum = sum + item; } );
       var composite = sum / history.length;
 
       //TODO: water shouldn't move when in toolbox
-      var delta = -composite / 50;
-//      var delta = model.isInStack( this ) ? -composite / 50 : 0;
+      var delta = model.isInStack( item ) ? -composite / 50 : 0;
       var path = new Shape();
       path.moveTo( leftLineX( min + delta ), leftLineY( min + delta ) );
       path.lineTo( leftLineX( 1 ), leftLineY( 1 ) );

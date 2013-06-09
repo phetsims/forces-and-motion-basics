@@ -201,6 +201,7 @@ define( function( require ) {
         this.items[i].step();
       }
     },
+    isInStack: function( item ) { return _.indexOf( this.stack, item ) >= 0; },
     isItemStackedAbove: function( item ) {
       var index = _.indexOf( this.stack, item );
       if ( index === -1 ) {
