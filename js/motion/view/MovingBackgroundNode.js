@@ -121,6 +121,7 @@ define( function( require ) {
         var numSpecks = linear( MotionConstants.maxFriction * 0.1, MotionConstants.maxFriction, 0, 400, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
+        //Use the same seed so it will look like the gravel is "building up" instead of "scrambling"
         Math.seedrandom( 'standardseed' );
         var node = new Node();
         for ( var i = 0; i < numSpecks / 2; i++ ) {

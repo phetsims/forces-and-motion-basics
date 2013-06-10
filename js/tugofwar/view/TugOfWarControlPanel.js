@@ -13,6 +13,7 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
+  var PanelNode = require( 'SUN/PanelNode' );
 
   function TugOfWarControlPanel( model, options ) {
     Node.call( this, options );
@@ -22,7 +23,7 @@ define( function( require ) {
       {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
       {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.showValuesProperty, label: Strings.values}
     ] );
-    this.addChild( controlPanel );
+    this.addChild( new PanelNode( controlPanel, {fill: '#e3e980'} ) );
 
     var resetButton = new ResetAllButton( model.reset.bind( model ) );
     var soundButton = new SoundToggleButton( model.volumeOnProperty );
