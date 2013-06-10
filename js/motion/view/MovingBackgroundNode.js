@@ -77,6 +77,7 @@ define( function( require ) {
 
     //We tested that Pattern has superior performance to a large cached image
     var tile = imageLoader.getImage( 'brick-tile.png' );
+    var tileWidth = tile.width;
 
     //offset the pattern so that the it aligns with the brick image
     var tilePattern = new Pattern( tile );
@@ -88,18 +89,20 @@ define( function( require ) {
     model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( ground );
 
+    var gravel = new Rectangle( 0, mountainY + 50 - 5, tile.width * 12, 5 );
+    model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.positionScale % mod + offset; } );
+    this.addChild( gravel );
+
     //Add the gravel and ice
     if ( !model.skateboard ) {
 
       movingBackgroundNode.lastNumSpecks = 0;
-      var gravelParent = new Node( {y: mountainY + 45} );
-      addBackgroundNode( 0, gravelParent, 1 );
 
       var updateGravelImage = function() {
         var maxFriction = 2;
-        var width = 800;
+        var width = tileWidth;
         var height = 5;
-        var numSpecks = linear( maxFriction * 0.1, maxFriction, 0, 500 * 1.15, model.friction );
+        var numSpecks = linear( maxFriction * 0.1, maxFriction, 0, 300, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
         //Save computation, esp. for older machines
@@ -117,11 +120,10 @@ define( function( require ) {
         for ( i = 0; i < numSpecks / 10; i++ ) {
           node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
         }
-//        node.toImage( function( image ) {
-//          gravelParent.children = [new Image( image )];
-//        } );
-        gravelParent.children = [node];
-//        movingBackgroundNode.addChild( node );
+        node.toImage( function( image ) {
+          gravel.fill = new Pattern( image );
+          gravel.fill.setTransformMatrix( Matrix3.translation( 0, 2 ) );//TODO: why?
+        } );
         movingBackgroundNode.lastNumSpecks = numSpecks;
       };
       model.frictionProperty.link( updateGravelImage );
