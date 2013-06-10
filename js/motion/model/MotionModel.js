@@ -15,14 +15,14 @@ define( function( require ) {
            'zero';
   }
 
-  function MotionModel( tab, skateboard, accelerometer ) {
+  function MotionModel( tab, skateboard, accelerometer, friction ) {
     this.tab = tab;
     this.skateboard = skateboard;
     this.accelerometer = accelerometer;
     PropertySet.call( this, {
       appliedForce: 0,
       frictionForce: 0,
-      friction: 0,
+      friction: friction,
 
       sumOfForces: 0,
 

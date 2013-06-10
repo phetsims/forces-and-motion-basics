@@ -6,8 +6,9 @@ require( [ "tugofwar/model/TugOfWarModel",
   'JOIST/Sim',
   'imageLoader',
   'Strings',
-  'JOIST/SimLauncher'
-], function( TugOfWarModel, MotionModel, Image, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher ) {
+  'JOIST/SimLauncher',
+  'motion/MotionConstants'
+], function( TugOfWarModel, MotionModel, Image, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher, MotionConstants ) {
   "use strict";
 
   SimLauncher.launch( imageLoader, function() {
@@ -21,17 +22,17 @@ require( [ "tugofwar/model/TugOfWarModel",
       },
       { name: Strings.motion,
         icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ),
-        createModel: function() {return new MotionModel( 'motion', true, false );},
+        createModel: function() {return new MotionModel( 'motion', true, false, 0 );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.friction,
         icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ),
-        createModel: function() {return new MotionModel( 'friction', false, false );},
+        createModel: function() {return new MotionModel( 'friction', false, false, MotionConstants.maxFriction / 2 );},
         createView: function( model ) {return new MotionTabView( model );}},
 
       { name: Strings.acceleration,
         icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ),
-        createModel: function() {return new MotionModel( 'acceleration', false, true );},
+        createModel: function() {return new MotionModel( 'acceleration', false, true, MotionConstants.maxFriction / 2 );},
         createView: function( model ) {return new MotionTabView( model );}}
 
     ], { showHomeScreen: false, tabIndex: 3} )

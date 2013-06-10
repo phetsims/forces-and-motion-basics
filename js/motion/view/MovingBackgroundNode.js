@@ -86,20 +86,12 @@ define( function( require ) {
     var tilePattern = new Pattern( tile );
     var ground = new Rectangle( 0, 0, tile.width * 12, tile.height, {fill: tilePattern, y: mountainY + 50 } );
 
-//    var groundOriginMarker = new Rectangle( 0, mountainY + 50 + patternOffsetY, tile.width * 12, tile.height, {stroke: 'black'} );
-//    ground.addChild(groundOriginMarker);
-
-    var xAxis = new Path( {shape: Shape.lineSegment( 10, 0, -10, 0 ), stroke: 'red'} );
-    var yAxis = new Path( {shape: Shape.lineSegment( 0, -10, 0, 10 ), stroke: 'red'} );
-    ground.addChild( xAxis );
-    ground.addChild( yAxis );
-
     var mod = ground.width / 12;
     var offset = layoutCenterX - ground.width / 2;
     model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( ground );
 
-    var gravel = new Rectangle( 0, 0, tile.width * 12, 5, {y: mountainY + 50 - 5} );
+    var gravel = new Rectangle( 0, 0, tile.width * 12, 4, {y: mountainY + 50 - 2} );
     model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( gravel );
 
@@ -113,7 +105,7 @@ define( function( require ) {
       model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
       //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
-      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
+//      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
       var ice1 = addBackgroundImage( 100, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
       var ice2 = addBackgroundImage( -300, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
@@ -124,15 +116,12 @@ define( function( require ) {
       movingBackgroundNode.lastNumSpecks = 0;
 
       model.frictionProperty.link( function() {
-        var maxFriction = 2;
         var width = tileWidth;
-        var height = 5;
-        var numSpecks = linear( maxFriction * 0.1, maxFriction, 0, 300, model.friction );
+        var height = 3;
+        var numSpecks = linear( MotionConstants.maxFriction * 0.1, MotionConstants.maxFriction, 0, 400, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-        //Save computation, esp. for older machines
-        if ( numSpecks === movingBackgroundNode.lastNumSpecks ) {return;}
-
+        Math.seedrandom( 'standardseed' );
         var node = new Node();
         for ( var i = 0; i < numSpecks / 2; i++ ) {
           node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
@@ -146,7 +135,6 @@ define( function( require ) {
           node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
         }
         node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, width, height );
-        movingBackgroundNode.lastNumSpecks = numSpecks;
       } );
     }
   }
