@@ -107,8 +107,12 @@ define( function( require ) {
 
       var iceOverlay = new Rectangle( -200, mountainY + 50, tile.width * 12, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
       var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
+      var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
       this.addChild( iceOverlay );
       model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
+
+      //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
+      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
       movingBackgroundNode.lastNumSpecks = 0;
 
