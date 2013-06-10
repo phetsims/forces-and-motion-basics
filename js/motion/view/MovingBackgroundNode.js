@@ -62,10 +62,11 @@ define( function( require ) {
           node.x = z + centering;
         }
       } );
+      return node;
     };
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
-      addBackgroundNode( offset, sprite, distanceScale );
+      return addBackgroundNode( offset, sprite, distanceScale );
     };
 
     var mountainY = 311;
@@ -113,6 +114,12 @@ define( function( require ) {
 
       //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
       model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
+
+      var ice1 = addBackgroundImage( 100, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
+      var ice2 = addBackgroundImage( -300, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
+
+      model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
+      model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
 
       movingBackgroundNode.lastNumSpecks = 0;
 

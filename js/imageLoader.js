@@ -21,6 +21,7 @@ define( function( require ) {
       'go_up.png',
       'grass.png',
       'ice_overlay.png',
+      'icicle.png',
       'man-holding.png',
       'man-sitting.png',
       'man-standing.png',
