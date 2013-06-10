@@ -24,7 +24,7 @@ define( function( require ) {
     var addBackgroundNode = function( offset, node, distanceScale ) {
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
-      if ( centering == Number.POSITIVE_INFINITY ) {
+      if ( centering === Number.POSITIVE_INFINITY ) {
         centering = 0;
       }
       model.positionProperty.link( function( position ) {

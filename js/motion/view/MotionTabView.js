@@ -66,8 +66,8 @@ define( function( require ) {
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
-      var constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new constructor( model, motionTabView, item,
+      var Constructor = item.bucket ? WaterBucketNode : ItemNode;
+      var itemNode = new Constructor( model, motionTabView, item,
         imageLoader.getImage( item.image ),
         imageLoader.getImage( item.sittingImage || item.image ),
         imageLoader.getImage( item.holdingImage || item.image ),
