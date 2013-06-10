@@ -36,7 +36,7 @@ define( function( require ) {
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed' )
-                  ] ), {fill: 'e3e980'} )] :
+                  ] ), {fill: '#e3e980'} )] :
                 model.tab === 'friction' ?
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
@@ -45,7 +45,7 @@ define( function( require ) {
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed' )
-                  ] ), {fill: 'e3e980'} )] :
+                  ] ), {fill: '#e3e980'} )] :
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.force, 'showForce' ),
@@ -54,7 +54,7 @@ define( function( require ) {
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed' ),
                     toElement( Strings.acceleration, 'showAcceleration' )
-                  ] ), {fill: 'e3e980'} )]
+                  ] ), {fill: '#e3e980'} )]
     } );
     if ( model.tab !== 'motion' ) {
 
