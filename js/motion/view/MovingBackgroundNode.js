@@ -24,6 +24,9 @@ define( function( require ) {
     var addBackgroundNode = function( offset, node, distanceScale ) {
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
+      if ( centering == Number.POSITIVE_INFINITY ) {
+        centering = 0;
+      }
       model.positionProperty.link( function( position ) {
         var a = -position / distanceScale * MotionConstants.positionScale + offset;
         var n, z;
@@ -86,11 +89,10 @@ define( function( require ) {
     this.addChild( ground );
 
     //Add the gravel and ice
-    if ( !model.skateboard && false ) {
+    if ( !model.skateboard ) {
 
       movingBackgroundNode.lastNumSpecks = 0;
       var gravelParent = new Node( {y: mountainY + 45} );
-      this.addChild( gravelParent );
       addBackgroundNode( 0, gravelParent, 1 );
 
       var updateGravelImage = function() {
@@ -115,10 +117,10 @@ define( function( require ) {
         for ( i = 0; i < numSpecks / 10; i++ ) {
           node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
         }
-        node.toImage( function( image ) {
-          gravelParent.children = [new Image( image )];
-        } );
-//        gravelParent.children = [node];
+//        node.toImage( function( image ) {
+//          gravelParent.children = [new Image( image )];
+//        } );
+        gravelParent.children = [node];
 //        movingBackgroundNode.addChild( node );
         movingBackgroundNode.lastNumSpecks = numSpecks;
       };
