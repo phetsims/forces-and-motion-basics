@@ -96,9 +96,14 @@ define( function( require ) {
     //Add the gravel and ice
     if ( !model.skateboard ) {
 
+      var iceOverlay = new Rectangle( -200, mountainY + 50 + patternOffsetY, tile.width * 12, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+      var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
+      this.addChild( iceOverlay );
+      model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
+
       movingBackgroundNode.lastNumSpecks = 0;
 
-      var updateGravelImage = function() {
+      model.frictionProperty.link( function() {
         var maxFriction = 2;
         var width = tileWidth;
         var height = 5;
@@ -125,8 +130,7 @@ define( function( require ) {
           gravel.fill.setTransformMatrix( Matrix3.translation( 0, 2 ) );//TODO: why?
         } );
         movingBackgroundNode.lastNumSpecks = numSpecks;
-      };
-      model.frictionProperty.link( updateGravelImage );
+      } );
     }
   }
 
