@@ -223,6 +223,8 @@ define( function( require ) {
       var item = this.items[1];
       item.onBoard = true;
       var itemNode = view.itemNodes[1];
+      item.animating = {enabled: false, x: 0, y: 0, end: null};
+      item.interactionScale = 1.3;
       item.x = Layout.width / 2 - itemNode.width / 2;
       item.y = view.topOfStack - itemNode.height;
       this.stack.add( item );
