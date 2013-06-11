@@ -12,6 +12,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Layout = require( 'Layout' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
@@ -74,8 +75,8 @@ define( function( require ) {
       }
     } ) );
 
-    var massLabel = new Text( item.mass + ' kg', {fontSize: '18px'} );
-    var roundRect = new Rectangle( 0, 0, massLabel.width + 20, massLabel.height + 20, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
+    var massLabel = new Text( item.mass + ' kg', {font: new FAMBFont( 15, 'bold' )} );
+    var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
     this.labelNode = labelNode;
 
