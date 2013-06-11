@@ -6,6 +6,7 @@ define( function( require ) {
   var Layout = require( 'Layout' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
@@ -45,7 +46,7 @@ define( function( require ) {
       time: 0
     } );
 
-    this.stack = [];//TODO: Could put this is the property list and use immutable array ops.  Would provide notifications (and we could stop using trigger('stackChanged') for it.)
+    this.stack = new ObservableArray();
     //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( this.tab );
     var motionModel = this;
@@ -117,9 +118,9 @@ define( function( require ) {
       if ( this.stack.length > 0 ) {
         var sumHeight = 0;
         for ( var i = 0; i < this.stack.length; i++ ) {
-          var size = this.getSize( this.stack[i] );
+          var size = this.getSize( this.stack.at( i ) );
           sumHeight += size.height;
-          this.stack[i].animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.at( i ).animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
       this.trigger( 'stackChanged' );
@@ -155,7 +156,7 @@ define( function( require ) {
     getStackMass: function() {
       var sum = 0;
       for ( var i = 0; i < this.stack.length; i++ ) {
-        sum += this.stack[i].mass;
+        sum += this.stack.at( i ).mass;
       }
       return sum;
     },
@@ -202,20 +203,14 @@ define( function( require ) {
         this.items[i].step();
       }
     },
-    isInStack: function( item ) { return _.indexOf( this.stack, item ) >= 0; },
-    isItemStackedAbove: function( item ) {
-      var index = _.indexOf( this.stack, item );
-      if ( index === -1 ) {
-        return false;
-      }
-      return index < this.stack.length - 1;
-    },
+    isInStack: function( item ) { return this.stack.contains( item ); },
+    isItemStackedAbove: function( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;},
     reset: function() {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].reset();
       }
-      this.stack = [];
+      this.stack.clear();
       this.trigger( 'stackChanged' );
     }
   } );

@@ -174,7 +174,7 @@ define( function( require ) {
     get topOfStack() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
-        sum = sum + this.model.stack[i].view.height;
+        sum = sum + this.model.stack.at( i ).view.height;
       }
       var n = this.model.skateboard ? 335 : 360;
       return n - sum;

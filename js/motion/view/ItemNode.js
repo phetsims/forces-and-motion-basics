@@ -59,7 +59,7 @@ define( function( require ) {
         if ( item.y < 350 ) {
           item.onBoard = true;
           item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
-          model.stack.push( item );
+          model.stack.add( item );
           model.trigger( 'stackChanged' );
         }
         else {
