@@ -3,6 +3,7 @@ define( function( require ) {
   var PullerNode = require( "tugofwar/view/PullerNode" );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -20,6 +21,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
+  var Font = require( 'SCENERY/Util/Font' );
 
   var red = "red",
     blue = "blue",
@@ -175,6 +177,11 @@ define( function( require ) {
         } ).play();
       }
     } );
+
+    //Show "Sum of Forces = 0" when showForces is selected but the force is zero
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 53} );
+    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarTabView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+    this.addChild( this.sumOfForcesText );
   }
 
   inherit( TabView, TugOfWarTabView, {
