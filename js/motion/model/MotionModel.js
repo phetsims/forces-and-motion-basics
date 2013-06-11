@@ -156,6 +156,9 @@ define( function( require ) {
              sign( b ) === 'negative' && sign( a ) === 'positive';
     },
     step: function( dt ) {
+
+      //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
+      dt = dt / 2.3;
       this.time = this.time + dt;
       var MAX_SPEED = 20;
       this.updateForces();
@@ -193,6 +196,11 @@ define( function( require ) {
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].step();
       }
+
+//      console.log('sum of forces',this.sumOfForces, 'accel',this.acceleration,'speed',this.speed,'position',this.position);
+//      this.count = this.count || 0;
+//      this.count++;
+//      console.log(this.count);
     },
     isInStack: function( item ) { return this.stack.contains( item ); },
     isItemStackedAbove: function( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;},
