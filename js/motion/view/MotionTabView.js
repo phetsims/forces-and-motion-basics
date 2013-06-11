@@ -95,6 +95,8 @@ define( function( require ) {
     this.addChild( this.frictionArrow );
     this.addChild( this.sumOfForcesText );
 
+    var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black'}; };
+
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
     var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedValueProperty, {zeroOnRelease: true} ).addNormalTicks();
     var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
@@ -112,6 +114,11 @@ define( function( require ) {
     unitsLabel.centerY = readout.centerY;
     this.addChild( readout );
     this.addChild( unitsLabel );
+
+    model.stack.lengthProperty.link( disableText( sliderLabel ) );
+    model.stack.lengthProperty.link( disableText( unitsLabel ) );
+    model.stack.lengthProperty.link( disableText( readout ) );
+    model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
     //Show a line that indicates the center of the layout
 //    this.addChild( new Path( {shape: Shape.lineSegment( Layout.width / 2, 0, Layout.width / 2, Layout.height ), stroke: 'black', lineWidth: 1} ) );

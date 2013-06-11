@@ -60,9 +60,16 @@ define( function( require ) {
     if ( model.tab !== 'motion' ) {
 
       var createTick = function( label ) {
-        return new VBox( {spacing: 10, children: [
-          new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', lineWidth: 1} ),
-          new Text( label )
+        var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', lineWidth: 1} );
+        var text = new Text( label );
+        model.stack.lengthProperty.link( function( length ) {
+          var enabled = length > 0;
+          path.fill = enabled ? 'black' : 'gray';
+          text.fill = enabled ? 'black' : 'gray';
+        } );
+        return  new VBox( {spacing: 10, children: [
+          path,
+          text
         ]} );
       };
 

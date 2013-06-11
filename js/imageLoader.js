@@ -20,6 +20,7 @@ define( function( require ) {
       'go_pressed.png',
       'go_up.png',
       'grass.png',
+      'handle-gray.svg',
       'ice_overlay.png',
       'icicle.png',
       'man-holding.png',
