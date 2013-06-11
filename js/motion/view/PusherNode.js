@@ -20,6 +20,9 @@ define( function( require ) {
     Node.call( this, {cursor: 'pointer', scale: scale} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
+
+    //TODO: For performance, maybe some of these attributes can be turned into derived properties so they won't call this function back too much
+    //TODO: For example, speed is only used for maxSpeedExceeded, and we do not need to update each time the speed changes
     model.multilink( ['appliedForce', 'position', 'speed', 'pusherPosition'], function( appliedForce, position, speed, pusherPosition ) {
 
       //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
