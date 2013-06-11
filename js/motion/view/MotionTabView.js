@@ -124,7 +124,7 @@ define( function( require ) {
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     var itemsCentered = new Property( true );
-    model.on( 'stackChanged', function() {
+    model.stack.lengthProperty.link( function() {
       if ( model.stack.length > 2 && itemsCentered.value ) {
         itemsCentered.value = false;
         new TWEEN.Tween( speedometerNode ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();

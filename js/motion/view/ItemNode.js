@@ -29,11 +29,13 @@ define( function( require ) {
       else {
         imageNode.image = image;
       }
-      itemNode.labelNode.bottom = imageNode.height - 2;
-      itemNode.labelNode.centerX = imageNode.width / 2;
+      if ( itemNode.labelNode ) {
+        itemNode.labelNode.bottom = imageNode.height - 2;
+        itemNode.labelNode.centerX = imageNode.width / 2;
+      }
     };
     model.on( 'draggingItemsChanged', updateImage );
-    model.on( 'stackChanged', updateImage );
+    model.stack.lengthProperty.link( updateImage );
 
     this.addInputListener( new SimpleDragHandler( {
       translate: function( options ) {
@@ -60,7 +62,6 @@ define( function( require ) {
           item.onBoard = true;
           item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
-          model.trigger( 'stackChanged' );
         }
         else {
           item.animateHome();

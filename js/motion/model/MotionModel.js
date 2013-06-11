@@ -123,7 +123,6 @@ define( function( require ) {
           this.stack.at( i ).animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
-      this.trigger( 'stackChanged' );
     },
     getSign: function( value ) { return value > 0 ? 1 : value < 0 ? -1 : 0; },
 
@@ -211,7 +210,6 @@ define( function( require ) {
         this.items[i].reset();
       }
       this.stack.clear();
-      this.trigger( 'stackChanged' );
     }
   } );
 } );
