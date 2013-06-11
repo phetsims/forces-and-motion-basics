@@ -13,11 +13,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Layout = require( 'Layout' );
   var FAMBFont = require( 'common/view/FAMBFont' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, cursor: 'pointer', scale: item.imageScale } );
+    Node.call( this, {x: item.x, y: item.y, scale: item.imageScale } );
     var imageNode = new Image( image );
     var updateImage = function() {
       var onBoard = item.onBoard;
@@ -42,7 +43,7 @@ define( function( require ) {
 
     model.stack.lengthProperty.link( updateImage );
 
-    this.addInputListener( new SimpleDragHandler( {
+    var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.onBoard = false;
 
@@ -73,7 +74,21 @@ define( function( require ) {
           item.animateHome();
         }
       }
-    } ) );
+    } );
+    this.addInputListener( dragHandler );
+
+    var draggableProperty = new DerivedProperty( [model.stack.lengthProperty, item.onBoardProperty], function( length, onBoard ) {
+      return length < 3 || onBoard;
+    } );
+    draggableProperty.link( function( draggable ) {
+      itemNode.cursor = draggable ? 'pointer' : 'default';
+      if ( draggable ) {
+        itemNode.addInputListener( dragHandler );
+      }
+      else {
+        itemNode.removeInputListener( dragHandler );
+      }
+    } );
 
     var massLabel = new Text( item.mass + ' kg', {font: new FAMBFont( 15, 'bold' )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
