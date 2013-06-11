@@ -46,7 +46,6 @@ define( function( require ) {
       history.forEach( function( item ) { sum = sum + item; } );
       var composite = sum / history.length;
 
-      //TODO: water shouldn't move when in toolbox
       var delta = model.isInStack( item ) ? -composite / 50 : 0;
       var path = new Shape();
       path.moveTo( leftLineX( min + delta ), leftLineY( min + delta ) );

@@ -91,8 +91,12 @@ define( function( require ) {
 
     //Work around a scenery bug that makes an invisible node show if its parent is added to the scene
     //TODO: Isolate and fix that scenery bug
+    var node = new Node();
+    itemNode.addChild( imageNode );
+    itemNode.addChild( node );
+
 //    showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
-    showMassesProperty.link( function( showMasses ) { itemNode.children = showMasses ? [imageNode, labelNode] : [imageNode]; } );
+    showMassesProperty.link( function( showMasses ) { node.children = showMasses ? [labelNode] : []; } );
   }
 
   inherit( Node, ItemNode );
