@@ -58,7 +58,13 @@ define( function( require ) {
 
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
-    this.addChild( new Image( imageLoader.getImage( 'grass.png' ), {x: 13, y: grassY} ) );
+
+    //Show the grass.
+    //TODO: Would this perform better as a pattern?
+    var grassImage = imageLoader.getImage( 'grass.png' );
+    this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );
+    this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
+    this.addChild( new Image( grassImage, {x: 13 + grassImage.width, y: grassY} ) );
 
     this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
 
