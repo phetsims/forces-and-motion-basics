@@ -202,6 +202,20 @@ define( function( require ) {
         this.items[i].reset();
       }
       this.stack.clear();
+    },
+
+    /**
+     * After the view is constructed, move one of the blocks to the top of the stack.
+     * It would be better if more of this could be done in the model constructor, but it would be difficult with the way things are currently set up.
+     * @param view
+     */
+    viewInitialized: function( view ) {
+      var item = this.items[1];
+      item.onBoard = true;
+      var itemNode = view.itemNodes[1];
+      item.x = Layout.width / 2 - itemNode.width / 2;
+      item.y = view.topOfStack - itemNode.height;
+      this.stack.add( item );
     }
   } );
 } );

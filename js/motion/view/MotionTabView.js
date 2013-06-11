@@ -175,6 +175,9 @@ define( function( require ) {
 
       this.addChild( accelerometerWithTickLabels );
     }
+
+    //After the view is constructed, move one of the blocks to the top of the stack.
+    model.viewInitialized( this );
   }
 
   inherit( TabView, MotionTabView, {
