@@ -76,8 +76,8 @@ define( function( require ) {
     var listener = new SimpleDragHandler( {
       allowTouchSnag: true,
       translate: function( options ) {
-        var newAppliedForce = model.appliedForce + options.delta.x / 3.0;
-        model.appliedForce = Math.max( -100, Math.min( 100, newAppliedForce ) );
+        var newAppliedForce = model.appliedForce + options.delta.x;
+        model.appliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
       },
 
       start: function() {},
