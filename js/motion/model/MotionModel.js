@@ -121,7 +121,9 @@ define( function( require ) {
     //TODO: Test this
     getFrictionForce: function( appliedForce ) {
       var g = 10.0;
-      var mass = 5;
+      var sum = function( a, b ) {return a + b;};
+      var toMass = function( item ) {return item.mass;};
+      var mass = this.stack.map( toMass ).foldLeft( 0, sum );
       if ( this.friction === 0.0 ) { return 0.0; }
       var frictionForce = Math.abs( this.friction ) * this.getSign( this.friction ) * mass * g;
 
