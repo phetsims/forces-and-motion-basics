@@ -34,7 +34,11 @@ define( function( require ) {
         itemNode.labelNode.centerX = imageNode.width / 2;
       }
     };
-    model.on( 'draggingItemsChanged', updateImage );
+
+    for ( var i = 0; i < model.items.length; i++ ) {
+      model.items[i].draggingProperty.link( updateImage );
+    }
+
     model.stack.lengthProperty.link( updateImage );
 
     this.addInputListener( new SimpleDragHandler( {

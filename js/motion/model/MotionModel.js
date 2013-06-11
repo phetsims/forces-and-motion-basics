@@ -75,14 +75,6 @@ define( function( require ) {
     //Mix in backbone events for trigger, on, once, etc.
     _.extend( this, Backbone.Events );
 
-    var f = function() {
-      motionModel.trigger( 'draggingItemsChanged' );
-    };
-
-    for ( var i = 0; i < this.items.length; i++ ) {
-      this.items[i].draggingProperty.link( f );
-    }
-
     this.velocityProperty.link( function( velocity ) {
       motionModel.direction = velocity > 0 ? 'right' :
                               velocity < 0 ? 'left' :
