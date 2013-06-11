@@ -73,7 +73,7 @@ define( function( require ) {
       }
     } );
 
-    this.addInputListener( new SimpleDragHandler( {
+    var listener = new SimpleDragHandler( {
       allowTouchSnag: true,
       translate: function( options ) {
         var newAppliedForce = model.appliedForce + options.delta.x / 3.0;
@@ -82,7 +82,19 @@ define( function( require ) {
 
       start: function() {},
       end: function() { model.appliedForce = 0; }
-    } ) );
+    } );
+    this.addInputListener( listener );
+
+    //Make it so you cannot drag the pusher until one ItemNode is in the play area
+    model.stack.lengthProperty.link( function( length ) {
+      pusherNode.cursor = length === 0 ? 'default' : 'pointer';
+      if ( length === 0 ) {
+        pusherNode.removeInputListener( listener );
+      }
+      else {
+        pusherNode.addInputListener( listener );
+      }
+    } );
   }
 
   inherit( Node, PusherNode );
