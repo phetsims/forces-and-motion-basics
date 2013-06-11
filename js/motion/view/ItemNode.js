@@ -53,6 +53,7 @@ define( function( require ) {
 
       //When picking up an object, remove it from the stack.
       start: function() {
+        item.direction = 'left';
         item.dragging = true;
         var index = model.stack.indexOf( item );
         if ( index >= 0 ) {
@@ -82,11 +83,11 @@ define( function( require ) {
     item.multilink( ['x', 'y', 'interactionScale', 'direction'], function( x, y, interactionScale, direction ) {
 
       //TODO: this will probably be much faster if we can just apply the change in one step
-      itemNode.setMatrix( Matrix3.scaling( 1, 1 ) );
       itemNode.setTranslation( item.x, item.y );
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
+      imageNode.resetTransform();
       if ( direction === 'right' ) {
         imageNode.scale( -1, 1 );
         imageNode.translate( -imageNode.width / scale, 0 );
