@@ -43,7 +43,7 @@ define( function( require ) {
     this.addChild( track );
     this.enabledProperty.link( function( enabled ) {
       track.stroke = enabled ? 'black' : 'gray';
-      track.fill = enabled ? 'white' : 'gray'
+      track.fill = enabled ? 'white' : 'gray';
     } );
 
     //Lookup the new item and append to the scenery
@@ -114,6 +114,10 @@ define( function( require ) {
 
     set enabled( enabled ) {
       this.enabledProperty.set( enabled );
+    },
+
+    get enabled() {
+      return this.enabledProperty.get();
     }
   } );
 
