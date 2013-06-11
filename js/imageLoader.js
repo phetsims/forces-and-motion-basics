@@ -34,7 +34,7 @@ define( function( require ) {
       'pull_figure_lrg_BLUE_0.png',
       'pull_figure_lrg_BLUE_3.png',
       'pull_figure_lrg_RED_0.png',
-      'pull_figure_lrg_RED_3.png ',
+      'pull_figure_lrg_RED_3.png',
       'pull_figure_RED_0.png',
       'pull_figure_RED_3.png',
       'pull_figure_small_BLUE_0.png',

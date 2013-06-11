@@ -155,7 +155,7 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
 
       //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
-      this.pullers.forEach( function( puller ) {puller.knot = null;} );
+      this.pullers.forEach( function( puller ) {puller.disconnect();} );
 
       this.cart.reset();
       this.pullers.forEach( function( puller ) { puller.reset(); } );
