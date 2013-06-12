@@ -8,6 +8,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
+  var MotionConstants = require( 'motion/MotionConstants' );
 
   var ANGLE_PER_TICK = Math.PI * 2 / 4 / 8;
   var NUM_TICKS = ( 8 + 2 ) * 2 + 1;
@@ -34,7 +35,7 @@ define( function( require ) {
       needle.resetTransform();
 
       //TODO: factor out max speed constant
-      var needleAngle = linear( 0, 20, startAngle, endAngle, Math.abs( velocity ) );
+      var needleAngle = linear( 0, MotionConstants.maxSpeed, startAngle, endAngle, Math.abs( velocity ) );
       needle.rotateAround( {x: 0, y: 0}, needleAngle );
     } );
 

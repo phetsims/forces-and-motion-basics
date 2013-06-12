@@ -162,7 +162,6 @@ define( function( require ) {
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
       dt = dt / 2.3;
       this.time = this.time + dt;
-      var MAX_SPEED = 20;
       this.updateForces();
 
       var mass = this.getStackMass();
@@ -178,16 +177,16 @@ define( function( require ) {
       }
 
       //Cap at strobe speed.  This is necessary so that a reverse applied force will take effect immediately, without these lines of code the pusher will stutter.
-      if ( newVelocity > MAX_SPEED ) { newVelocity = MAX_SPEED; }
-      if ( newVelocity < -MAX_SPEED ) { newVelocity = -MAX_SPEED; }
+      if ( newVelocity > MotionConstants.maxSpeed ) { newVelocity = MotionConstants.maxSpeed; }
+      if ( newVelocity < -MotionConstants.maxSpeed ) { newVelocity = -MotionConstants.maxSpeed; }
 
 //        System.out.println( "sumOfForces = " + sumOfForces + ", ff = " + frictionForce.get() + ", af = " + appliedForce.get() + ", accel = " + acceleration + ", newVelocity = " + newVelocity );
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
       this.speed = Math.abs( this.velocity );
-      this.speedValue = this.velocity >= MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
-                        this.velocity <= -MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
+      this.speedValue = this.velocity >= MotionConstants.maxSpeed ? 'RIGHT_SPEED_EXCEEDED' :
+                        this.velocity <= -MotionConstants.maxSpeed ? 'LEFT_SPEED_EXCEEDED' :
                         'WITHIN_ALLOWED_RANGE';
 
       if ( this._speedValue !== 'WITHIN_ALLOWED_RANGE' ) {

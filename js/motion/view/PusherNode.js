@@ -29,7 +29,7 @@ define( function( require ) {
       var fallingLeft = false;
 
       var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
-      var maxSpeedExceeded = speed >= 20;
+      var maxSpeedExceeded = speed >= MotionConstants.maxSpeed;
       if ( !maxSpeedExceeded ) {
         imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
       }

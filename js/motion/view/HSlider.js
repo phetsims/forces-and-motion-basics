@@ -16,8 +16,9 @@ define( function( require ) {
   var linear = require( 'DOT/Util' ).linear;
   var imageLoader = require( 'imageLoader' );
   var Property = require( 'AXON/Property' );
+  var MotionConstants = require( 'motion/MotionConstants' );
 
-  function HSlider( min, max, width, property, speedValueProperty, options ) {
+  function HSlider( min, max, width, property, speedValueProperty, velocityProperty, options ) {
     this.enabledProperty = new Property( true );
     var slider = this;
     this.options = _.extend( {zeroOnRelease: false}, options || {} );
@@ -44,6 +45,18 @@ define( function( require ) {
     this.enabledProperty.link( function( enabled ) {
       track.stroke = enabled ? 'black' : 'gray';
       track.fill = enabled ? 'white' : 'gray';
+    } );
+
+    //Bars to show either side of the slider disabled when max is reached in that direction
+    var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
+    this.addChild( rightDisableBar );
+
+    var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
+    this.addChild( leftDisableBar );
+
+    velocityProperty.link( function( velocity ) {
+      rightDisableBar.visible = velocity === MotionConstants.maxSpeed;
+      leftDisableBar.visible = velocity === -MotionConstants.maxSpeed;
     } );
 
     //Lookup the new item and append to the scenery
