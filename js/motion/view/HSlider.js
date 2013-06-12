@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
-  function HSlider( min, max, width, property, speedValueProperty, velocityProperty, options ) {
+  function HSlider( min, max, width, property, speedValueProperty, disableLeftProperty, disableRightProperty, options ) {
     this.enabledProperty = new Property( true );
     var slider = this;
     this.options = _.extend( {zeroOnRelease: false}, options || {} );
@@ -47,18 +47,15 @@ define( function( require ) {
       track.fill = enabled ? 'white' : 'gray';
     } );
 
-    if ( velocityProperty ) {
+    if ( disableLeftProperty && disableRightProperty ) {
       //Bars to show either side of the slider disabled when max is reached in that direction
       var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
       this.addChild( rightDisableBar );
+      disableRightProperty.linkAttribute( rightDisableBar, 'visible' );
 
       var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
       this.addChild( leftDisableBar );
-
-      velocityProperty.link( function( velocity ) {
-        rightDisableBar.visible = velocity === MotionConstants.maxSpeed;
-        leftDisableBar.visible = velocity === -MotionConstants.maxSpeed;
-      } );
+      disableLeftProperty.linkAttribute( leftDisableBar, 'visible' );
     }
 
     //Lookup the new item and append to the scenery
@@ -71,10 +68,10 @@ define( function( require ) {
           var result = linear( 0, width, min, max, x );
 
           //Don't drag into the gray part of the slider if speed exceeded
-          if ( velocityProperty && velocityProperty.value === MotionConstants.maxSpeed ) {
+          if ( disableRightProperty && disableRightProperty.value ) {
             result = Math.min( 0, result );
           }
-          if ( velocityProperty && velocityProperty.value === -MotionConstants.maxSpeed ) {
+          if ( disableLeftProperty && disableLeftProperty.value ) {
             result = Math.max( 0, result );
           }
           property.value = result;

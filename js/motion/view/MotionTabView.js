@@ -26,6 +26,7 @@ define( function( require ) {
   var FAMBFont = require( 'common/view/FAMBFont' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   function MotionTabView( model ) {
     this.model = model;
@@ -98,7 +99,15 @@ define( function( require ) {
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
 
     var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedValueProperty, model.velocityProperty, {zeroOnRelease: true} ).addNormalTicks();
+
+    var disableLeftProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
+      return fallen && fallenDirection === 'left';
+    } );
+
+    var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
+      return fallen && fallenDirection === 'right';
+    } );
+    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true} ).addNormalTicks();
     var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
     this.addChild( sliderControl );//text box only seems to work if added last
 

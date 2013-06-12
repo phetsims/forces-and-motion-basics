@@ -43,6 +43,9 @@ define( function( require ) {
       _speedValue: 'WITHIN_ALLOWED_RANGE',
       movingRight: true,
       direction: 'none',
+      timeSinceFallen: 10,
+      fallen: false,
+      fallenDirection: 'left',
       time: 0
     } );
 
@@ -189,8 +192,29 @@ define( function( require ) {
                         this.velocity <= -MotionConstants.maxSpeed ? 'LEFT_SPEED_EXCEEDED' :
                         'WITHIN_ALLOWED_RANGE';
 
+      if ( this.speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
+        this.timeSinceFallen = 0;
+        this.fallen = true;
+        this.fallenDirection = this.speedValue === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
+      }
+      else {
+        this.timeSinceFallen = this.timeSinceFallen + dt;
+
+        //Stand up after 1 second
+        if ( this.timeSinceFallen > 1 ) {
+          this.fallen = false;
+        }
+      }
+
+      //Stand up if applying a force in the opposite direction that you fell
+      if ( this.fallen && this.fallenDirection === 'left' && this.appliedForce > 0 ) {
+        this.fallen = false;
+      }
+      if ( this.fallen && this.fallenDirection === 'right' && this.appliedForce < 0 ) {
+        this.fallen = false;
+      }
+
       if ( this._speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
-        this.lastOutOfRange = {time: Date.now(), speedValue: this._speedValue };
         this.speedValue = this._speedValue;
       }
 
