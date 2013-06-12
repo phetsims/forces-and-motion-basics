@@ -20,7 +20,6 @@ define( function( require ) {
       'go_pressed.png',
       'go_up.png',
       'grass.png',
-      'handle-gray.svg',
       'ice_overlay.png',
       'icicle.png',
       'man-holding.png',
@@ -66,8 +65,7 @@ define( function( require ) {
       'trash-can.png',
       'Tug_Icon.png',
       'water-bucket.png',
-      'brick-repeat.svg',
-      'handle_blue_top_grip_flat_gradient_3.svg'
+      'brick-repeat.svg'
     ]
   };
 } );

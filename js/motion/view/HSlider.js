@@ -17,6 +17,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var Property = require( 'AXON/Property' );
   var MotionConstants = require( 'motion/MotionConstants' );
+  var SliderKnob = require( 'common/view/SliderKnob' );
 
   function HSlider( min, max, width, property, speedValueProperty, disableLeftProperty, disableRightProperty, options ) {
     this.enabledProperty = new Property( true );
@@ -59,7 +60,9 @@ define( function( require ) {
     }
 
     //Lookup the new item and append to the scenery
-    var knob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ), {cursor: 'pointer'} );
+    var enabledKnob = new SliderKnob();
+    var disabledKnob = new SliderKnob( {enabled: false} );
+    var knob = new Node( {children: [ enabledKnob]} );
     knob.y = -knob.height / 2;
     var dragHandler = new SimpleDragHandler( {
         allowTouchSnag: true,
@@ -86,7 +89,7 @@ define( function( require ) {
     this.addChild( knob );
 
     this.enabledProperty.link( function( enabled ) {
-      knob.image = enabled ? imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ) : imageLoader.getImage( 'handle-gray.svg' );
+      knob.children = [enabled ? enabledKnob : disabledKnob];
       knob.cursor = enabled ? 'pointer' : 'default';
       if ( enabled ) {
         knob.addInputListener( dragHandler );
