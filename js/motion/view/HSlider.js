@@ -47,17 +47,19 @@ define( function( require ) {
       track.fill = enabled ? 'white' : 'gray';
     } );
 
-    //Bars to show either side of the slider disabled when max is reached in that direction
-    var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
-    this.addChild( rightDisableBar );
+    if ( velocityProperty ) {
+      //Bars to show either side of the slider disabled when max is reached in that direction
+      var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
+      this.addChild( rightDisableBar );
 
-    var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
-    this.addChild( leftDisableBar );
+      var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
+      this.addChild( leftDisableBar );
 
-    velocityProperty.link( function( velocity ) {
-      rightDisableBar.visible = velocity === MotionConstants.maxSpeed;
-      leftDisableBar.visible = velocity === -MotionConstants.maxSpeed;
-    } );
+      velocityProperty.link( function( velocity ) {
+        rightDisableBar.visible = velocity === MotionConstants.maxSpeed;
+        leftDisableBar.visible = velocity === -MotionConstants.maxSpeed;
+      } );
+    }
 
     //Lookup the new item and append to the scenery
     var knob = new Image( imageLoader.getImage( 'handle_blue_top_grip_flat_gradient_3.svg' ), {cursor: 'pointer'} );
@@ -66,7 +68,16 @@ define( function( require ) {
         allowTouchSnag: true,
         translate: function( options ) {
           var x = Math.min( Math.max( options.position.x, -knob.width / 2 ), width - knob.width / 2 ) + knob.width / 2;
-          property.value = linear( 0, width, min, max, x );
+          var result = linear( 0, width, min, max, x );
+
+          //Don't drag into the gray part of the slider if speed exceeded
+          if ( velocityProperty && velocityProperty.value === MotionConstants.maxSpeed ) {
+            result = Math.min( 0, result );
+          }
+          if ( velocityProperty && velocityProperty.value === -MotionConstants.maxSpeed ) {
+            result = Math.max( 0, result );
+          }
+          property.value = result;
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
