@@ -63,7 +63,12 @@ define( function( require ) {
     var enabledKnob = new SliderKnob();
     var disabledKnob = new SliderKnob( {enabled: false} );
     var knob = new Node( {children: [ enabledKnob]} );
+
+    //Increase the hit region
+    var hitRegionExpansion = 20;
+    knob.touchArea = new Shape.rectangle( knob.bounds.minX - hitRegionExpansion, knob.bounds.minY - hitRegionExpansion, knob.bounds.width + hitRegionExpansion * 2, knob.bounds.height + hitRegionExpansion * 2 );
     knob.y = -knob.height / 2;
+
     var dragHandler = new SimpleDragHandler( {
         allowTouchSnag: true,
         translate: function( options ) {
