@@ -53,7 +53,6 @@ define( function( require ) {
     //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( this.tab );
     var motionModel = this;
-    //TODO: Switch to backbone collection.
     var dy = -39;
     var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + dy, 0.78 );
     bucket.bucket = true;
@@ -74,9 +73,6 @@ define( function( require ) {
                    new Item( this, 'trash-can.png', 100, 826 - 10, 518 + 11 + 12 + dy, 0.7 ),
                    new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
                  ];
-
-    //Mix in backbone events for trigger, on, once, etc.
-    _.extend( this, Backbone.Events );
 
     this.velocityProperty.link( function( velocity ) {
       motionModel.direction = velocity > 0 ? 'right' :
@@ -107,7 +103,6 @@ define( function( require ) {
 
     //Upper items should fall if an item removed from beneath
     //Uses the view to get item dimensions.
-    //TODO: use backbone collection to watch for removal, etc.
     spliceStack: function( index ) {
       this.stack.splice( index, 1 );
       if ( this.stack.length > 0 ) {

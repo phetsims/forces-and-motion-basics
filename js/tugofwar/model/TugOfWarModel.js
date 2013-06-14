@@ -29,9 +29,6 @@ define( function( require ) {
       rightForce: 0
     } );
 
-    //Mix in backbone events for trigger, on, once, etc.
-    _.extend( this, Backbone.Events );
-
     this.cart = new Cart();
     //Create the pullers from left to right so the tab order will be as expected.
     var dy = -14;
