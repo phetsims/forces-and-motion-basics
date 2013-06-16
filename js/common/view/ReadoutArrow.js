@@ -43,6 +43,15 @@ define( function( require ) {
 
   inherit( Node, ReadoutArrow, {
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
+    set labelPosition( labelPosition ) {
+      if ( this.options.labelPosition !== labelPosition ) {
+        this.options.labelPosition = labelPosition;
+        this.update();
+      }
+    },
+    get labelPosition() {
+      return this.options.labelPosition;
+    },
     update: function() {
       var value = this.value * this.options.arrowScale;
       var hidden = Math.abs( value ) < 1E-6;
@@ -76,9 +85,17 @@ define( function( require ) {
         else {
           this.valueNode.center = this.arrowNode.center;
           this.labelNode.centerX = this.arrowNode.centerX;
-          this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
-          if ( this.valueNode.width + 5 > this.arrowNode.width ) {
-            this.valueNode.top = this.labelNode.bottom;
+          if ( this.options.labelPosition === 'bottom' ) {
+            this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + headHeight / 2 + this.labelNode.height + 5 : 0;
+            if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+              this.valueNode.bottom = this.labelNode.top;
+            }
+          }
+          else {
+            this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
+            if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+              this.valueNode.top = this.labelNode.bottom;
+            }
           }
         }
       }
