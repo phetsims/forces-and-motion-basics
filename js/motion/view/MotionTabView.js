@@ -95,7 +95,7 @@ define( function( require ) {
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
 
-
+    //On the motion tabs, when the "Friction" label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
       motionTabView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
