@@ -15,7 +15,7 @@ define( function( require ) {
 
   function SpeedometerNode( velocityProperty, options ) {
     Node.call( this, options );
-    var radius = 75;
+    var radius = 67;
     this.addChild( new Circle( radius, {fill: 'white', stroke: '#555555', lineWidth: 2} ) );
 
     var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );

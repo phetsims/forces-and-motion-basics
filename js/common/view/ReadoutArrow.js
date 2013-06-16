@@ -91,8 +91,10 @@ define( function( require ) {
               this.valueNode.bottom = this.labelNode.top;
             }
           }
+
+          //top
           else {
-            this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height - 5 : 0;
+            this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height + 12 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
               this.valueNode.top = this.labelNode.bottom;
             }

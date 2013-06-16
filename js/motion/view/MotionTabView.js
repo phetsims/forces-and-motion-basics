@@ -90,7 +90,7 @@ define( function( require ) {
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionTabView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 185} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionTabView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
@@ -201,11 +201,11 @@ define( function( require ) {
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
       var labelAndAccelerometer = new VBox( {pickable: false, spacing: -18, children: [new Text( 'Acceleration', {font: new FAMBFont( 18 )} ), accelerometerNode]} );
       var tickLabel = function( label, tick ) {
-        return new Text( label, {pickable: false, font: new FAMBFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30 - 18} );
+        return new Text( label, {pickable: false, font: new FAMBFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30 - 22} );
       };
       var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
         tickLabel( '0', accelerometerNode.ticks[2] ),
-        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 150 + 18} );
+        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 150 + 0} );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
