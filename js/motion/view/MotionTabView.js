@@ -115,8 +115,8 @@ define( function( require ) {
     this.addChild( sliderControl );//text box only seems to work if added last
 
     //Tweakers for the slider
-    var leftArrow = new LeftArrowButton( function() {}, {centerX: sliderControl.right + 10, centerY: sliderControl.centerY + 2} );
-    var rightArrow = new RightArrowButton( function() {}, {centerX: sliderControl.left - 10, centerY: sliderControl.centerY + 2} );
+    var leftArrow = new LeftArrowButton( function() {model.appliedForce = model.appliedForce + 1;}, {centerX: sliderControl.right + 10, centerY: sliderControl.centerY + 2} );
+    var rightArrow = new RightArrowButton( function() {model.appliedForce = model.appliedForce - 1;}, {centerX: sliderControl.left - 10, centerY: sliderControl.centerY + 2} );
 
     this.addChild( leftArrow );
     this.addChild( rightArrow );
