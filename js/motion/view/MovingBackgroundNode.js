@@ -84,21 +84,21 @@ define( function( require ) {
 
     //offset the pattern so that the it aligns with the brick image
     var tilePattern = new Pattern( tile );
-    var ground = new Rectangle( 0, 0, tile.width * 12, tile.height, {fill: tilePattern, y: mountainY + 50 } );
+    var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern, y: mountainY + 50 } );
 
-    var mod = ground.width / 12;
+    var mod = ground.width / 14;
     var offset = layoutCenterX - ground.width / 2;
     model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( ground );
 
-    var gravel = new Rectangle( 0, 0, tile.width * 12, 4, {y: mountainY + 50 - 2} );
+    var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 50 - 2} );
     model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( gravel );
 
     //Add the gravel and ice
     if ( !model.skateboard ) {
 
-      var iceOverlay = new Rectangle( -200, mountainY + 50, tile.width * 12, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+      var iceOverlay = new Rectangle( -200, mountainY + 50, tile.width * 14, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
       var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
       var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
       this.addChild( iceOverlay );
