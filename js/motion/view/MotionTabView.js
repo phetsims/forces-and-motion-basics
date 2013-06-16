@@ -139,6 +139,11 @@ define( function( require ) {
       unitsLabel.x = readout.right + 10;
     } );
     unitsLabel.centerY = readout.centerY;
+
+    //Make "Newtons Readout" stand out but not look like a text entry field
+    this.textPanelNode = new Rectangle( readout.x - 30, readout.y - unitsLabel.height + 2, unitsLabel.right - readout.left + 50, unitsLabel.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1} );
+    this.addChild( this.textPanelNode );
+
     this.addChild( readout );
     this.addChild( unitsLabel );
 
