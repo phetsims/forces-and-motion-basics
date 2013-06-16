@@ -230,6 +230,9 @@ define( function( require ) {
         this.items[i].reset();
       }
       this.stack.clear();
+
+      //Move the initial crate to the play area, since it resets to the toolbox, not its initial location.
+      this.viewInitialized( this.view );
     },
 
     /**
@@ -238,6 +241,7 @@ define( function( require ) {
      * @param view
      */
     viewInitialized: function( view ) {
+      this.view = view;
       var item = this.items[1];
       item.onBoard = true;
       var itemNode = view.itemNodes[1];
