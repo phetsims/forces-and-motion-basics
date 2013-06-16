@@ -41,7 +41,7 @@ define( function( require ) {
                 model.tab === 'friction' ?
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.force, 'showForce' ),
+                    toElement( Strings.forces, 'showForce' ),
                     toElement( Strings.sumOfForces, 'showSumOfForces' ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
@@ -49,7 +49,7 @@ define( function( require ) {
                   ] ), {fill: '#e3e980'} )] :
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.force, 'showForce' ),
+                    toElement( Strings.forces, 'showForce' ),
                     toElement( Strings.sumOfForces, 'showSumOfForces' ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
