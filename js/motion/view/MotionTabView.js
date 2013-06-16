@@ -8,6 +8,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var arrow = require( 'tugofwar/view/arrow' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'motion/view/ItemNode' );
@@ -27,6 +28,8 @@ define( function( require ) {
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var LeftArrowButton = require( 'common/view/LeftArrowButton' );
+  var RightArrowButton = require( 'common/view/RightArrowButton' );
 
   function MotionTabView( model ) {
     this.model = model;
@@ -107,9 +110,16 @@ define( function( require ) {
     var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true} ).addNormalTicks();
+    var slider = new HSlider( -500, 500, 260, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true} ).addNormalTicks();
     var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
     this.addChild( sliderControl );//text box only seems to work if added last
+
+    //Tweakers for the slider
+    var leftArrow = new LeftArrowButton( function() {}, {centerX: sliderControl.right + 10, centerY: sliderControl.centerY + 2} );
+    var rightArrow = new RightArrowButton( function() {}, {centerX: sliderControl.left - 10, centerY: sliderControl.centerY + 2} );
+
+    this.addChild( leftArrow );
+    this.addChild( rightArrow );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
     var readout = new Text( '???', {fontSize: '22px'} );
