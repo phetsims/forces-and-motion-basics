@@ -118,6 +118,8 @@ define( function( require ) {
     var leftArrow = new LeftArrowButton( function() {model.appliedForce = model.appliedForce + 1;}, {centerX: sliderControl.right + 10, centerY: sliderControl.centerY + 2} );
     var rightArrow = new RightArrowButton( function() {model.appliedForce = model.appliedForce - 1;}, {centerX: sliderControl.left - 10, centerY: sliderControl.centerY + 2} );
 
+    model.appliedForceProperty.link( function( appliedForce ) { leftArrow.enabled = appliedForce < 500; } );
+    model.appliedForceProperty.link( function( appliedForce ) { rightArrow.enabled = appliedForce > -500; } );
     this.addChild( leftArrow );
     this.addChild( rightArrow );
 
