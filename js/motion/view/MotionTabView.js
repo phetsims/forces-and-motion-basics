@@ -159,7 +159,7 @@ define( function( require ) {
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.velocityProperty ).mutate( {x: width / 2, top: 2} );
-    model.showSpeedProperty.link( function( showSpeed ) {speedometerNode.visible = showSpeed;} );
+    model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     var itemsCentered = new Property( true );
