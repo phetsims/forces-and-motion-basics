@@ -164,14 +164,17 @@ define( function( require ) {
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     var itemsCentered = new Property( true );
     model.stack.lengthProperty.link( function() {
-      if ( model.stack.length > 2 && itemsCentered.value ) {
+
+      //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
+      var stackHeightThreshold = 160;
+      if ( motionTabView.stackHeight > stackHeightThreshold && itemsCentered.value ) {
         itemsCentered.value = false;
         new TWEEN.Tween( speedometerNode ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         if ( accelerometerNode ) {
           new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         }
       }
-      else if ( model.stack.length <= 2 && !itemsCentered.value ) {
+      else if ( motionTabView.stackHeight <= stackHeightThreshold && !itemsCentered.value ) {
         itemsCentered.value = true;
 
         new TWEEN.Tween( speedometerNode ).to( { x: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
@@ -213,13 +216,20 @@ define( function( require ) {
   }
 
   inherit( TabView, MotionTabView, {
-    get topOfStack() {
+
+    /**
+     * Get the height of the objects in the stack (doesn't include skateboard)
+     */
+    get stackHeight() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
         sum = sum + this.model.stack.at( i ).view.height;
       }
+      return sum;
+    },
+    get topOfStack() {
       var n = this.model.skateboard ? 335 : 360;
-      return n - sum;
+      return n - this.stackHeight;
     }
   } );
 
