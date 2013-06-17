@@ -137,7 +137,7 @@ define( function( require ) {
     //Add the tick for the specified value, so that the node will be centered on the location specified and just at the edge of the track.
     addTick: function( value, tickAndLabelNode ) {
       tickAndLabelNode.centerX = linear( 0, 1, 0, this.sliderWidth, value );
-      tickAndLabelNode.top = this.trackHeight + 1;
+      tickAndLabelNode.bottom = 0;
       this.ticksLayer.addChild( tickAndLabelNode );
       return this;
     },

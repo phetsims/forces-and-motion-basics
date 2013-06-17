@@ -60,17 +60,14 @@ define( function( require ) {
     if ( model.tab !== 'motion' ) {
 
       var createTick = function( label ) {
-        var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', lineWidth: 1} );
+        var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
         var text = new Text( label );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;
           path.fill = enabled ? 'black' : 'gray';
           text.fill = enabled ? 'black' : 'gray';
         } );
-        return  new VBox( {spacing: 10, children: [
-          path,
-          text
-        ]} );
+        return  new VBox( {spacing: 10, children: [ text, path ]} );
       };
 
       var frictionSlider = new HSlider( 0, MotionConstants.maxFriction, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
