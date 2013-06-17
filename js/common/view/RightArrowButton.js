@@ -7,6 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc)
  */
 define( function( require ) {
+  'use strict';
 
   // imports
   var Button = require( 'SUN/Button' );
