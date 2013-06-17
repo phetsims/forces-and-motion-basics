@@ -107,8 +107,6 @@ define( function( require ) {
 
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
 
-    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg'} );
-
     var disableLeftProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'left';
     } );
@@ -116,13 +114,17 @@ define( function( require ) {
     var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var slider = new HSlider( -500, 500, 260, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true} ).addNormalTicks();
-    var sliderControl = new VBox( {children: [sliderLabel, slider], centerX: width / 2 - 18, y: 465, spacing: 8} );
-    this.addChild( sliderControl );//text box only seems to work if added last
+
+    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg', centerX: width / 2, y: 430} );
+    var slider = new HSlider( -500, 500, 260, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
+
+    this.addChild( sliderLabel );
+    this.addChild( slider );
 
     //Tweakers for the slider
-    var leftArrow = new LeftArrowButton( function() {model.appliedForce = model.appliedForce + 1;}, {centerX: sliderControl.right + 10, centerY: sliderControl.centerY + 2} );
-    var rightArrow = new RightArrowButton( function() {model.appliedForce = model.appliedForce - 1;}, {centerX: sliderControl.left - 10, centerY: sliderControl.centerY + 2} );
+    var tweakerOffsetY = 17.5;
+    var leftArrow = new LeftArrowButton( function() {model.appliedForce = model.appliedForce + 1;}, {centerX: slider.right + 10, centerY: slider.centerY + tweakerOffsetY} );
+    var rightArrow = new RightArrowButton( function() {model.appliedForce = model.appliedForce - 1;}, {centerX: slider.left - 10, centerY: slider.centerY + tweakerOffsetY} );
 
     model.appliedForceProperty.link( function( appliedForce ) { leftArrow.enabled = appliedForce < 500; } );
     model.appliedForceProperty.link( function( appliedForce ) { rightArrow.enabled = appliedForce > -500; } );
@@ -132,7 +134,7 @@ define( function( require ) {
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
     var readout = new Text( '???', {fontSize: '22px'} );
     var unitsLabel = new Text( Strings.newtons, {fontSize: '22px'} );
-    readout.top = sliderControl.bottom + 10;
+    readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 );
       readout.centerX = width / 2 + 2;

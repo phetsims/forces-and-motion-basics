@@ -105,6 +105,7 @@ define( function( require ) {
     } );
 
     property.link( function( value ) { knob.x = linear( min, max, 0, width, value ) - knob.width / 2; } );
+    this.mutate( options );
   }
 
   inherit( Node, HSlider, {
@@ -120,11 +121,11 @@ define( function( require ) {
         (function( i ) {
 
           var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
-          var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? 30 : 15 ) ), stroke: 'black', lineWidth: 1} );
+          var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -15 ) ), stroke: 'black', lineWidth: 1} );
           slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
           slider.ticksLayer.addChild( tick );
           if ( hasLabel( i ) ) {
-            var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, top: tick.bottom + 5, fontSize: '18px'} );
+            var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, fontSize: '18px'} );
             slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
             slider.ticksLayer.addChild( label );
           }
@@ -141,13 +142,9 @@ define( function( require ) {
       return this;
     },
 
-    set enabled( enabled ) {
-      this.enabledProperty.set( enabled );
-    },
+    set enabled( enabled ) { this.enabledProperty.set( enabled ); },
 
-    get enabled() {
-      return this.enabledProperty.get();
-    }
+    get enabled() { return this.enabledProperty.get(); }
   } );
 
   return HSlider;
