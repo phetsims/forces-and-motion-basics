@@ -123,24 +123,19 @@ define( function( require ) {
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
     var readout = new Text( '???', {fontSize: '22px'} );
-    var unitsLabel = new Text( Strings.newtons, {fontSize: '22px'} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
-      readout.text = appliedForce.toFixed( 0 );
-      readout.centerX = width / 2 + 2;
-      unitsLabel.x = readout.right + 10;
+      readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons;
+      readout.centerX = width / 2;
     } );
-    unitsLabel.centerY = readout.centerY;
 
     //Make "Newtons Readout" stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( readout.x - 30, readout.y - unitsLabel.height + 2, unitsLabel.right - readout.left + 50, unitsLabel.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1} );
+    this.textPanelNode = new Rectangle( readout.x - 30, readout.y - readout.height + 2, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1} );
     this.addChild( this.textPanelNode );
 
     this.addChild( readout );
-    this.addChild( unitsLabel );
 
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
-    model.stack.lengthProperty.link( disableText( unitsLabel ) );
     model.stack.lengthProperty.link( disableText( readout ) );
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
