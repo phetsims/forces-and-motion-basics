@@ -125,12 +125,12 @@ define( function( require ) {
     var readout = new Text( '???', {fontSize: '22px'} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
-      readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons;
+      readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format
       readout.centerX = width / 2;
     } );
 
     //Make "Newtons Readout" stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( readout.x - 30, readout.y - readout.height + 2, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1} );
+    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2} );
     this.addChild( this.textPanelNode );
 
     this.addChild( readout );
