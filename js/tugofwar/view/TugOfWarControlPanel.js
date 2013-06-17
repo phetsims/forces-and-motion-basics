@@ -25,9 +25,10 @@ define( function( require ) {
     ] );
     this.addChild( new PanelNode( controlPanel, {fill: '#e3e980'} ) );
 
+    //Create sound and reset buttons, and size them to be the same height 
     var resetButton = new ResetAllButton( model.reset.bind( model ) );
-    var soundButton = new SoundToggleButton( model.volumeOnProperty );
-    this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {left: controlPanel.left, top: controlPanel.bottom + 5} ) );
+    var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
+    this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 10} ) );
   }
 
   inherit( Node, TugOfWarControlPanel );
