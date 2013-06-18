@@ -4,6 +4,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var HSlider = require( 'motion/view/HSlider' );
@@ -15,45 +16,51 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var MotionConstants = require( 'motion/MotionConstants' );
+  var arrow = require( 'tugofwar/view/arrow' );
+  var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
 
   function MotionControlPanel( model ) {
     Node.call( this );
 
     var fontSize = '19px';
 
-    var toElement = function( text, propertyName ) {
+    var toElement = function( text, propertyName, icon ) {
       return {
-        content: new Text( text, {fontSize: fontSize} ),
+        content: icon ? new HBox( {spacing: 25, children: [ new Text( text, {fontSize: fontSize} ), icon]} ) : new Text( text, {fontSize: fontSize} ),
         property: model[propertyName + 'Property']
       };
     };
+
+    //Icon for the forces in the control panel
+    var arrowIcon = function() { return new Path( {shape: arrow( 0, 0, 40, 0, 10, 20, 20 ), fill: '#e66e23', stroke: 'black'} ); };
+    var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
 
     var controlPanel = new VBox( {
       align: 'left',
       children: model.tab === 'motion' ?
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.force, 'showForce' ),
+                    toElement( Strings.force, 'showForce', arrowIcon() ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed' )
+                    toElement( Strings.speed, 'showSpeed', speedometerIcon() )
                   ] ), {fill: '#e3e980'} )] :
                 model.tab === 'friction' ?
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.forces, 'showForce' ),
+                    toElement( Strings.forces, 'showForce', arrowIcon() ),
                     toElement( Strings.sumOfForces, 'showSumOfForces' ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed' )
+                    toElement( Strings.speed, 'showSpeed', speedometerIcon() )
                   ] ), {fill: '#e3e980'} )] :
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.forces, 'showForce' ),
+                    toElement( Strings.forces, 'showForce', arrowIcon() ),
                     toElement( Strings.sumOfForces, 'showSumOfForces' ),
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed' ),
+                    toElement( Strings.speed, 'showSpeed', speedometerIcon() ),
                     toElement( Strings.acceleration, 'showAcceleration' )
                   ] ), {fill: '#e3e980'} )]
     } );
