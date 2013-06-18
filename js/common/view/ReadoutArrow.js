@@ -14,8 +14,14 @@ define( function( require ) {
   var MotionConstants = require( 'motion/MotionConstants' );
 
   /**
+   * Main constructor for ReadoutArrow, a scenery.Node that shows arrows for both tabs of Forces and Motion Basics, with readouts.
    *
+   * @param label the text to show for the arrow
    * @param fill the color of the arrow
+   * @param tailX {Number} the location of the tail in X
+   * @param tailY {Number} the location of the tail in Y
+   * @param valueProperty {Property<Number>} the property for the value to display
+   * @param showValuesProperty {Property<Boolean>} whether or not to display the values
    * @param options 'labelPosition' where the label text should be {side|*top}
    * @constructor
    */
@@ -25,8 +31,7 @@ define( function( require ) {
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
     this.tailY = tailY;
-    Node.call( this, {pickable: false} );
-    this.renderer = 'svg';
+    Node.call( this, {pickable: false, renderer: 'svg'} );
 
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
     this.valueNode = new Text( '110N', {font: new Font( { weight: 'bold', size: 16 } )} );
