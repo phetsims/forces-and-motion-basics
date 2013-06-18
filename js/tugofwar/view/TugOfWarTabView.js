@@ -172,9 +172,7 @@ define( function( require ) {
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
       if ( state === 'completed' && model.volumeOn ) {
-        var sound = new Howl( {
-          urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg', 'audio/golf-clap.wav' ]
-        } ).play();
+        var sound = new Howl( { urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg'] } ).play();
       }
     } );
 
