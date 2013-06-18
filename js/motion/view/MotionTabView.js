@@ -28,8 +28,6 @@ define( function( require ) {
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var LeftArrowButton = require( 'common/view/LeftArrowButton' );
-  var RightArrowButton = require( 'common/view/RightArrowButton' );
 
   function MotionTabView( model ) {
     this.model = model;
