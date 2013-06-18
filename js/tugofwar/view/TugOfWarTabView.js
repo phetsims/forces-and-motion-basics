@@ -173,7 +173,7 @@ define( function( require ) {
     model.stateProperty.link( function( state ) {
       if ( state === 'completed' && model.volumeOn ) {
         var sound = new Howl( {
-          urls: ['audio/golf-clap.ogg', 'audio/golf-clap.wav']
+          urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg', 'audio/golf-clap.wav' ]
         } ).play();
       }
     } );
