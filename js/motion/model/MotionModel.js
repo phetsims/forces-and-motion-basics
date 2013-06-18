@@ -104,6 +104,7 @@ define( function( require ) {
     //Upper items should fall if an item removed from beneath
     //Uses the view to get item dimensions.
     spliceStack: function( index ) {
+      var item = this.stack.get( index );
       this.stack.splice( index, 1 );
       if ( this.stack.length > 0 ) {
         var sumHeight = 0;
@@ -113,6 +114,14 @@ define( function( require ) {
           this.stack.at( i ).animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
+      return item;
+    },
+
+    //When a 4th item is placed on the stack, move the bottom item home and have the stack fall
+    spliceStackBottom: function() {
+      var bottom = this.spliceStack( 0 );
+      bottom.onBoard = false;
+      bottom.animateHome();
     },
     getSign: function( value ) { return value > 0 ? 1 : value < 0 ? -1 : 0; },
 

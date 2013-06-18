@@ -69,6 +69,10 @@ define( function( require ) {
           item.onBoard = true;
           item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
+          if ( model.stack.length > 3 ) {
+            console.log( 'hello' );
+            model.spliceStackBottom();
+          }
         }
         else {
           item.animateHome();
