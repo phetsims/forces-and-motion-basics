@@ -22,7 +22,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function MotionControlPanel( model ) {
-    Node.call( this );
+    Node.call( this, {renderer: 'svg'} );
 
     var fontSize = '19px';
 

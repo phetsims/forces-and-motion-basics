@@ -16,6 +16,7 @@ define( function( require ) {
   var PanelNode = require( 'SUN/PanelNode' );
 
   function TugOfWarControlPanel( model, options ) {
+    var options = _.extend( {renderer: 'svg'}, options );
     Node.call( this, options );
 
     var fontSize = '19px';

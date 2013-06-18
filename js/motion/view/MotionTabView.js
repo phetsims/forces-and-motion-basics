@@ -122,7 +122,7 @@ define( function( require ) {
     this.addChild( slider );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
-    var readout = new Text( '???', {fontSize: '22px'} );
+    var readout = new Text( '???', {fontSize: '22px', renderer: 'svg'} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format
@@ -130,7 +130,7 @@ define( function( require ) {
     } );
 
     //Make "Newtons Readout" stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2} );
+    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2, renderer: 'svg'} );
     this.addChild( this.textPanelNode );
 
     this.addChild( readout );
@@ -175,7 +175,7 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
-    var resetButton = new ResetAllButton( model.reset.bind( model ) ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButton( model.reset.bind( model ), {renderer: 'svg'} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
     //This code shows the results of the profiler, useful on iPad where it is more difficult to collect metrics
