@@ -18,7 +18,7 @@ define( function( require ) {
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, scale: item.imageScale, cursor: 'pointer' } );
+    Node.call( this, {x: item.x, y: item.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg'} );
     var imageNode = new Image( image );
     var updateImage = function() {
       var onBoard = item.onBoard;
