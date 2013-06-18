@@ -18,7 +18,7 @@ define( function( require ) {
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, scale: item.imageScale } );
+    Node.call( this, {x: item.x, y: item.y, scale: item.imageScale, cursor: 'pointer' } );
     var imageNode = new Image( image );
     var updateImage = function() {
       var onBoard = item.onBoard;
@@ -76,19 +76,6 @@ define( function( require ) {
       }
     } );
     this.addInputListener( dragHandler );
-
-    var draggableProperty = new DerivedProperty( [model.stack.lengthProperty, item.onBoardProperty], function( length, onBoard ) {
-      return length < 3 || onBoard;
-    } );
-    draggableProperty.link( function( draggable ) {
-      itemNode.cursor = draggable ? 'pointer' : 'default';
-      if ( draggable ) {
-        itemNode.addInputListener( dragHandler );
-      }
-      else {
-        itemNode.removeInputListener( dragHandler );
-      }
-    } );
 
     var massLabel = new Text( item.mass + ' kg', {font: new FAMBFont( 15, 'bold' )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
