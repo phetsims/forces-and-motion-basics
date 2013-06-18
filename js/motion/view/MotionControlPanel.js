@@ -60,7 +60,7 @@ define( function( require ) {
 
     var indent = 24;
     var controlPanel = new VBox( {
-      align: 'left',
+      align: 'center',
       children: model.tab === 'motion' ?
                 [ new VerticalCheckBoxGroup(
                   [
