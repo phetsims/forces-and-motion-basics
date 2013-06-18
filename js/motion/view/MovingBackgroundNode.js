@@ -98,7 +98,7 @@ define( function( require ) {
     //Add the gravel and ice
     if ( !model.skateboard ) {
 
-      var iceOverlay = new Rectangle( -200, mountainY + 50, tile.width * 14, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+      var iceOverlay = new Rectangle( -400, mountainY + 50, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
       var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
       var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
       this.addChild( iceOverlay );
@@ -116,7 +116,6 @@ define( function( require ) {
       movingBackgroundNode.lastNumSpecks = 0;
 
       model.frictionProperty.link( function() {
-        var width = tileWidth;
         var height = 3;
         var numSpecks = linear( MotionConstants.maxFriction * 0.1, MotionConstants.maxFriction, 0, 400, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
@@ -125,17 +124,17 @@ define( function( require ) {
         Math.seedrandom( 'standardseed' );
         var node = new Node();
         for ( var i = 0; i < numSpecks / 2; i++ ) {
-          node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
+          node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
         }
 
         for ( i = 0; i < numSpecks / 2; i++ ) {
-          node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
+          node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
         }
 
         for ( i = 0; i < numSpecks / 10; i++ ) {
-          node.addChild( new Rectangle( Math.floor( Math.random() * (width + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
+          node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
         }
-        node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, width, height );
+        node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
       } );
     }
   }
