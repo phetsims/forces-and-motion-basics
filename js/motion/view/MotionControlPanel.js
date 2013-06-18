@@ -18,6 +18,7 @@ define( function( require ) {
   var MotionConstants = require( 'motion/MotionConstants' );
   var arrow = require( 'tugofwar/view/arrow' );
   var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
+  var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
 
   function MotionControlPanel( model ) {
     Node.call( this );
@@ -26,7 +27,7 @@ define( function( require ) {
 
     var toElement = function( text, propertyName, icon ) {
       return {
-        content: icon ? new HBox( {spacing: 25, children: [ new Text( text, {fontSize: fontSize} ), icon]} ) : new Text( text, {fontSize: fontSize} ),
+        content: icon ? new HBox( {spacing: 20, children: [ new Text( text, {fontSize: fontSize} ), icon]} ) : new Text( text, {fontSize: fontSize} ),
         property: model[propertyName + 'Property']
       };
     };
@@ -34,6 +35,7 @@ define( function( require ) {
     //Icon for the forces in the control panel
     var arrowIcon = function() { return new Path( {shape: arrow( 0, 0, 40, 0, 10, 20, 20 ), fill: '#e66e23', stroke: 'black'} ); };
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
+    var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
     var controlPanel = new VBox( {
       align: 'left',
@@ -61,7 +63,7 @@ define( function( require ) {
                     toElement( Strings.values, 'showValues' ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', speedometerIcon() ),
-                    toElement( Strings.acceleration, 'showAcceleration' )
+                    toElement( Strings.acceleration, 'showAcceleration', accelerometerIcon() )
                   ] ), {fill: '#e3e980'} )]
     } );
     if ( model.tab !== 'motion' ) {
