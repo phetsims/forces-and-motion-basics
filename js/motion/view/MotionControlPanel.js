@@ -25,10 +25,12 @@ define( function( require ) {
 
     var fontSize = '19px';
 
-    var toElement = function( text, propertyName, icon ) {
+    var toElement = function( text, propertyName, options ) {
+      options = _.extend( {indent: 0}, options );
       return {
-        content: icon ? new HBox( {spacing: 20, children: [ new Text( text, {fontSize: fontSize} ), icon]} ) : new Text( text, {fontSize: fontSize} ),
-        property: model[propertyName + 'Property']
+        content: options.icon ? new HBox( {spacing: 20, children: [ new Text( text, {fontSize: fontSize} ), options.icon]} ) : new Text( text, {fontSize: fontSize} ),
+        property: model[propertyName + 'Property'],
+        indent: options.indent
       };
     };
 
@@ -37,33 +39,34 @@ define( function( require ) {
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
+    var indent = 24;
     var controlPanel = new VBox( {
       align: 'left',
       children: model.tab === 'motion' ?
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.force, 'showForce', arrowIcon() ),
-                    toElement( Strings.values, 'showValues' ),
+                    toElement( Strings.force, 'showForce', {icon: arrowIcon()} ),
+                    toElement( Strings.values, 'showValues', {indent: indent} ),
                     toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', speedometerIcon() )
+                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
                   ] ), {fill: '#e3e980'} )] :
                 model.tab === 'friction' ?
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.forces, 'showForce', arrowIcon() ),
-                    toElement( Strings.sumOfForces, 'showSumOfForces' ),
-                    toElement( Strings.values, 'showValues' ),
+                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
+                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
+                    toElement( Strings.values, 'showValues', {indent: indent} ),
                     toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', speedometerIcon() )
+                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
                   ] ), {fill: '#e3e980'} )] :
                 [new PanelNode( new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.forces, 'showForce', arrowIcon() ),
-                    toElement( Strings.sumOfForces, 'showSumOfForces' ),
-                    toElement( Strings.values, 'showValues' ),
+                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
+                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
+                    toElement( Strings.values, 'showValues', {indent: indent} ),
                     toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', speedometerIcon() ),
-                    toElement( Strings.acceleration, 'showAcceleration', accelerometerIcon() )
+                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} ),
+                    toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
                   ] ), {fill: '#e3e980'} )]
     } );
     if ( model.tab !== 'motion' ) {
