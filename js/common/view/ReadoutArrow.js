@@ -26,6 +26,7 @@ define( function( require ) {
     this.tailX = tailX;
     this.tailY = tailY;
     Node.call( this, {pickable: false} );
+    this.renderer = 'svg';
 
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
     this.valueNode = new Text( '110N', {font: new Font( { weight: 'bold', size: 16 } )} );
