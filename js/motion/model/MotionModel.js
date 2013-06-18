@@ -114,6 +114,12 @@ define( function( require ) {
           this.stack.at( i ).animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
+
+      //If the stack is emptied, stop the motion
+      if ( this.stack.length === 0 ) {
+        this.velocity = 0;
+        this.acceleration = 0;
+      }
       return item;
     },
 
