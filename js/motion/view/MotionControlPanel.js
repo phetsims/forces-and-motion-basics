@@ -19,6 +19,7 @@ define( function( require ) {
   var arrow = require( 'tugofwar/view/arrow' );
   var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   function MotionControlPanel( model ) {
     Node.call( this );
@@ -39,38 +40,7 @@ define( function( require ) {
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
-    var indent = 24;
-    var controlPanel = new VBox( {
-      align: 'left',
-      children: model.tab === 'motion' ?
-                [new PanelNode( new VerticalCheckBoxGroup(
-                  [
-                    toElement( Strings.force, 'showForce', {icon: arrowIcon()} ),
-                    toElement( Strings.values, 'showValues', {indent: indent} ),
-                    toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
-                  ] ), {fill: '#e3e980'} )] :
-                model.tab === 'friction' ?
-                [new PanelNode( new VerticalCheckBoxGroup(
-                  [
-                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
-                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
-                    toElement( Strings.values, 'showValues', {indent: indent} ),
-                    toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
-                  ] ), {fill: '#e3e980'} )] :
-                [new PanelNode( new VerticalCheckBoxGroup(
-                  [
-                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
-                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
-                    toElement( Strings.values, 'showValues', {indent: indent} ),
-                    toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} ),
-                    toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
-                  ] ), {fill: '#e3e980'} )]
-    } );
-    if ( model.tab !== 'motion' ) {
-
+    var frictionSlider = function() {
       var createTick = function( label ) {
         var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
         var text = new Text( label );
@@ -84,9 +54,42 @@ define( function( require ) {
 
       var frictionSlider = new HSlider( 0, MotionConstants.maxFriction, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
-      controlPanel.addChild( new PanelNode( new VBox( {spacing: 14, children: [frictionLabel, frictionSlider]} ), {left: 5, top: controlPanel.bottom + 5} ) );
-    }
-    this.addChild( controlPanel.mutate( { left: 981 - controlPanel.width - 5, top: 5} ) );
+      var spacer = new Rectangle( 0, 0, 0, 10 );
+      return new VBox( {spacing: 14, children: [spacer, frictionLabel, frictionSlider], left: 5} );
+    };
+
+    var indent = 24;
+    var controlPanel = new VBox( {
+      align: 'left',
+      children: model.tab === 'motion' ?
+                [ new VerticalCheckBoxGroup(
+                  [
+                    toElement( Strings.force, 'showForce', {icon: arrowIcon()} ),
+                    toElement( Strings.values, 'showValues', {indent: indent} ),
+                    toElement( Strings.masses, 'showMasses' ),
+                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
+                  ], {fill: '#e3e980'} )] :
+                model.tab === 'friction' ?
+                [ new VerticalCheckBoxGroup(
+                  [
+                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
+                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
+                    toElement( Strings.values, 'showValues', {indent: indent} ),
+                    toElement( Strings.masses, 'showMasses' ),
+                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
+                  ], {fill: '#e3e980'} ), frictionSlider()] :
+                [ new VerticalCheckBoxGroup(
+                  [
+                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
+                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
+                    toElement( Strings.values, 'showValues', {indent: indent} ),
+                    toElement( Strings.masses, 'showMasses' ),
+                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} ),
+                    toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
+                  ], {fill: '#e3e980'} ), frictionSlider()]
+    } );
+    var panelNode = new PanelNode( controlPanel, {fill: '#e3e980'} );
+    this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5} ) );
   }
 
   inherit( Node, MotionControlPanel );
