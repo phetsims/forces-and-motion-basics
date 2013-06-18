@@ -14,6 +14,7 @@ define( function( require ) {
   var NUM_TICKS = ( 8 + 2 ) * 2 + 1;
 
   function SpeedometerNode( velocityProperty, options ) {
+    options = _.extend( {renderer: 'svg'}, options );
     Node.call( this, options );
     var radius = 67;
     this.addChild( new Circle( radius, {fill: 'white', stroke: '#555555', lineWidth: 2} ) );
