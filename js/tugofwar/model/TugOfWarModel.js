@@ -134,8 +134,8 @@ define( function( require ) {
       var target = this.getClosestOpenKnot( puller );
       var distanceToTarget = distance( target );
 
-      //Only accept a target knot if the puller's head is above ground
-      if ( distanceToTarget < 220 && puller.y < 371 ) {
+      //Only accept a target knot if the puller's head is close enough to the knot
+      if ( distanceToTarget < 220 && puller.y < 371 - 70 ) {
         return target;
       }
       else {
