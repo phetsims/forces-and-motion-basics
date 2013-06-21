@@ -20,6 +20,7 @@ define( function( require ) {
   var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   function MotionControlPanel( model ) {
     Node.call( this, {renderer: 'svg'} );
@@ -43,7 +44,7 @@ define( function( require ) {
     var frictionSlider = function() {
       var createTick = function( label ) {
         var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
-        var text = new Text( label );
+        var text = new Text( label, {font: new FAMBFont( 15 )} );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;
           path.fill = enabled ? 'black' : 'gray';
