@@ -49,13 +49,13 @@ define( function( require ) {
           path.fill = enabled ? 'black' : 'gray';
           text.fill = enabled ? 'black' : 'gray';
         } );
-        return  new VBox( {spacing: 10, children: [ text, path ]} );
+        return new VBox( {children: [ text, path ]} );
       };
 
       var frictionSlider = new HSlider( 0, MotionConstants.maxFriction, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
-      var spacer = new Rectangle( 0, 0, 0, 10 );
-      return new VBox( {spacing: 14, children: [spacer, frictionLabel, frictionSlider], left: 5} );
+      var spacer = new Rectangle( 0, 0, 0, 4 );
+      return new VBox( {children: [spacer, frictionLabel, frictionSlider], left: 5} );
     };
 
     var indent = 24;
