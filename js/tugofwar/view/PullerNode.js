@@ -72,7 +72,8 @@ define( function( require ) {
     this.addPeer( '<input type="button">', {click: function() {
       if ( puller.knot ) {
         puller.disconnect();
-        puller.set( {x: puller.initX, y: puller.initY} );
+        puller.xProperty.reset();
+        puller.yProperty.reset();
         model.numberPullersAttached = model.countAttachedPullers();
       }
       else {
@@ -80,6 +81,8 @@ define( function( require ) {
         var knot = model.getClosestOpenKnot( puller );
         puller.set( {x: knot.x, y: knot.y, knot: knot} );
         model.numberPullersAttached = model.countAttachedPullers();
+        puller.dragging = false;
+        updateImage();
       }
     }} );
   }
