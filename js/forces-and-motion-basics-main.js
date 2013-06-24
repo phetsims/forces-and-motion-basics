@@ -11,6 +11,14 @@ require( [ "tugofwar/model/TugOfWarModel",
 ], function( TugOfWarModel, MotionModel, Image, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher, MotionConstants ) {
   "use strict";
 
+  var simOptions = {
+    credits: "PhET Development Team -\n" +
+             "Lead Design: Noah Podolefsky\n" +
+             "Software Development: Sam Reid\n" +
+             "Design Team: Ariel Paul, Kathy Perkins, Trish Loeblein\n" +
+             "Interviews: Noah Podolefsky"
+  };
+
   SimLauncher.launch( imageLoader, function() {
 
     //Create and start the sim
@@ -35,6 +43,6 @@ require( [ "tugofwar/model/TugOfWarModel",
         createModel: function() {return new MotionModel( 'acceleration', false, true, MotionConstants.maxFriction / 2 );},
         createView: function( model ) {return new MotionTabView( model );}}
 
-    ] ).start();
+    ], simOptions ).start();
   } );
 } );
