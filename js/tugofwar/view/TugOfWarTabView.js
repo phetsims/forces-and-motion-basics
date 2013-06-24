@@ -136,10 +136,10 @@ define( function( require ) {
 
     var textProperty = new Property( '' );
     model.numberPullersAttachedProperty.link( function() {
-      textProperty = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
-                     'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
-                     'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
-                     (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
+      textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
+                           'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
+                           'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
+                           (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
     this.addLiveRegion( textProperty );
 
