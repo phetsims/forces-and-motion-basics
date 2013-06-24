@@ -48,6 +48,21 @@ define( function( require ) {
     animateHome: function() {
       this.animateTo( this.initialX, this.initialY, 'home' );
     },
+
+    //Cancel an animation when the user clicks on an item
+    cancelAnimation: function() {
+      if ( this.animating.enabled ) {
+        if ( this.dragging ) {
+          this.interactionScale = 1.3;
+        }
+        else {
+          if ( this.animating.destination === 'home' ) {
+            this.interactionScale = 1.0;
+          }
+        }
+        this.animating = {enabled: false, x: 0, y: 0, end: null, destination: 'home'};
+      }
+    },
     step: function() {
       if ( this.dragging ) {
         this.interactionScale = Math.min( this.interactionScale + 0.06, 1.3 );

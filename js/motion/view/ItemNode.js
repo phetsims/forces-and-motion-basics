@@ -48,9 +48,8 @@ define( function( require ) {
         item.onBoard = false;
 
         //Don't allow the user to translate the object while it is animating
-        if ( !item.animating.enabled ) {
-          item.position = options.position;//es5 setter
-        }
+        item.cancelAnimation();
+        item.position = options.position;//es5 setter
       },
 
       //When picking up an object, remove it from the stack.
