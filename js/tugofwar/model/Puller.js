@@ -7,7 +7,7 @@ define( function( require ) {
     var puller = this;
 
     //Create the properties and mix them in
-    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y} );
+    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y, lastLocation: 'home'} );
 
     //Create the constants
     this.dragOffsetX = dragOffsetX;

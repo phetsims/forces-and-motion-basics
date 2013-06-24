@@ -85,6 +85,9 @@ define( function( require ) {
             puller.yProperty.reset();
           }
 
+          //Keep track of their location to change the attach/detach thresholds, see TugOfWarModel.getTargetKnot
+          puller.lastLocation = knot ? 'knot' : 'home';
+
           model.numberPullersAttached = model.countAttachedPullers();
         }
       } );
@@ -135,7 +138,8 @@ define( function( require ) {
       var distanceToTarget = distance( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
-      if ( distanceToTarget < 220 && puller.y < 371 - 70 ) {
+      var threshold = puller.lastLocation === 'home' ? 370 : 300;
+      if ( distanceToTarget < 220 && puller.y < threshold ) {
         return target;
       }
       else {
