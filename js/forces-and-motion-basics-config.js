@@ -1,3 +1,5 @@
+// Copyright 2002-2013, University of Colorado Boulder
+
 require.config( {
   deps: ['forces-and-motion-basics-main'],
 //                  config: { i18n: { locale: 'en_US' } },

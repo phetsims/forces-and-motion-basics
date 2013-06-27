@@ -1,3 +1,5 @@
+// Copyright 2002-2013, University of Colorado Boulder
+
 define( function( require ) {
   "use strict";
   var Vector2 = require( "DOT/Vector2" );

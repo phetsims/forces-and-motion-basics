@@ -1,3 +1,5 @@
+// Copyright 2002-2013, University of Colorado Boulder
+
 //Draw an arrow from the tail to the tip with the specified tail width, and head dimensions.
 define( function( require ) {
   "use strict";

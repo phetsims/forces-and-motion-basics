@@ -1,3 +1,5 @@
+// Copyright 2002-2013, University of Colorado Boulder
+
 /**
  * Arrow that displays a numerical value inside the arrow (if there is room) or above the arrow.
  * Used for force arrows in Forces and Motion: Basics
