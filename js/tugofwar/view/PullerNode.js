@@ -71,7 +71,7 @@ define( function( require ) {
       } ) );
 
     //Add accessibility peer
-    this.addPeer( '<input type="button">', {click: function() {
+    this.addPeer( '<input type="button" aria-label="' + puller.name + '">', {click: function() {
       if ( puller.knot ) {
         puller.disconnect();
         puller.xProperty.reset();

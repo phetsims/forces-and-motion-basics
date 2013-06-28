@@ -37,7 +37,10 @@ define( function( require ) {
   }
 
   inherit( PropertySet, Puller, {
-    disconnect: function() {this.knot = null;}
+    disconnect: function() {this.knot = null;},
+    get name() {
+      return this.size + " " + this.type + " Puller";//TODO i18nize accessibility
+    }
   } );
 
   return Puller;
