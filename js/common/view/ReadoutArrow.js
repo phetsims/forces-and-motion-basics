@@ -3,10 +3,12 @@
 /**
  * Arrow that displays a numerical value inside the arrow (if there is room) or above the arrow.
  * Used for force arrows in Forces and Motion: Basics
+ *
  * @author Sam Reid
  */
 define( function( require ) {
   "use strict";
+
   var Path = require( 'SCENERY/nodes/Path' );
   var Font = require( 'SCENERY/util/Font' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -24,49 +26,68 @@ define( function( require ) {
    * @param tailY {Number} the location of the tail in Y
    * @param valueProperty {Property<Number>} the property for the value to display
    * @param showValuesProperty {Property<Boolean>} whether or not to display the values
-   * @param options 'labelPosition' where the label text should be {side|*top}
+   * @param options 'labelPosition' where the label text should be {side|top}
    * @constructor
    */
   function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, options ) {
     var readoutArrow = this;
+
+    //Store fields
     this.options = _.extend( {labelPosition: 'top', arrowScale: 1}, options );
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
     this.tailY = tailY;
+
+    //Call the super class.  Render in svg to make the text crisper on retina display.
     Node.call( this, {pickable: false, renderer: 'svg'} );
 
+    //Create and add the children
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
     this.valueNode = new Text( '110N', {font: new Font( { weight: 'bold', size: 16 } )} );
     this.labelNode = new Text( label, {font: new Font( { weight: 'bold', size: 16 } )} );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
+
+    //Update when the value changes
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
       readoutArrow.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
       readoutArrow.update();
     } );
+
+    //Update when the numeric readout visibility is toggled
     showValuesProperty.link( this.update.bind( this ) );
   }
 
-  inherit( Node, ReadoutArrow, {
+  return inherit( Node, ReadoutArrow, {
+
+    //Sets the arrow dash, which changes when the simulation starts playing
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
+
+    //On the motion tabs, when the "Friction" label overlaps the force vector it should be displaced vertically
     set labelPosition( labelPosition ) {
       if ( this.options.labelPosition !== labelPosition ) {
         this.options.labelPosition = labelPosition;
         this.update();
       }
     },
-    get labelPosition() {
-      return this.options.labelPosition;
-    },
+
+    //Get the label position
+    get labelPosition() { return this.options.labelPosition; },
+
+    //Update the arrow graphics and text labels
     update: function() {
       var value = this.value * this.options.arrowScale;
+
+      //Don't show it if it is too small
       var hidden = Math.abs( value ) < 1E-6;
       this.hidden = hidden;
       this.arrowNode.visible = !hidden;
       this.valueNode.visible = !hidden && this.showValuesProperty.value;
       this.labelNode.visible = !hidden;
+
+      //Only change the node if visible, for performance
       if ( !hidden ) {
         var tailX = this.tailX;
         var tailY = this.tailY;
@@ -74,6 +95,8 @@ define( function( require ) {
         var headWidth = 50;
         var headHeight = 40;
         this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+
+        //Position the value and label if the label position is on the side
         if ( this.options.labelPosition === 'side' ) {
           if ( value > 0 ) {
             this.labelNode.left = this.arrowNode.right + 5;
@@ -93,6 +116,8 @@ define( function( require ) {
         else {
           this.valueNode.center = this.arrowNode.center;
           this.labelNode.centerX = this.arrowNode.centerX;
+
+          //Position the value and label if the label position is on the bottom
           if ( this.options.labelPosition === 'bottom' ) {
             this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + headHeight / 2 + this.labelNode.height + 5 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
@@ -100,7 +125,7 @@ define( function( require ) {
             }
           }
 
-          //top
+          //Position the value and label if the label position is on the top
           else {
             this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height + 12 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
@@ -111,6 +136,4 @@ define( function( require ) {
       }
     }
   } );
-
-  return ReadoutArrow;
 } );
