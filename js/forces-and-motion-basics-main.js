@@ -1,7 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
-require( [ "tugofwar/model/TugOfWarModel",
-  "motion/model/MotionModel",
+/**
+ * Entry point for PhET Interactive Simulation's Forces and Motion: Basics application.
+ *
+ * @author Sam Reid
+ */
+require( [
+  'tugofwar/model/TugOfWarModel',
+  'motion/model/MotionModel',
   'SCENERY/nodes/Image',
   'motion/view/MotionTabView',
   'tugofwar/view/TugOfWarTabView',
@@ -11,14 +17,14 @@ require( [ "tugofwar/model/TugOfWarModel",
   'JOIST/SimLauncher',
   'motion/MotionConstants'
 ], function( TugOfWarModel, MotionModel, Image, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher, MotionConstants ) {
-  "use strict";
+  'use strict';
 
   var simOptions = {
-    credits: "PhET Development Team -\n" +
-             "Lead Design: Noah Podolefsky\n" +
-             "Software Development: Sam Reid\n" +
-             "Design Team: Ariel Paul, Kathy Perkins, Trish Loeblein\n" +
-             "Interviews: Noah Podolefsky"
+    credits: 'PhET Development Team -\n' +
+             'Lead Design: Noah Podolefsky\n' +
+             'Software Development: Sam Reid\n' +
+             'Design Team: Ariel Paul, Kathy Perkins, Trish Loeblein\n' +
+             'Interviews: Noah Podolefsky'
   };
 
   SimLauncher.launch( imageLoader, function() {
