@@ -15,7 +15,7 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
-  var PanelNode = require( 'SUN/PanelNode' );
+  var Panel = require( 'SUN/Panel' );
 
   function TugOfWarControlPanel( model, options ) {
     options = _.extend( {renderer: 'svg'}, options );
@@ -26,7 +26,7 @@ define( function( require ) {
       {content: new Text( Strings.sumOfForces, {fontSize: fontSize} ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
       {content: new Text( Strings.values, {fontSize: fontSize} ), property: model.showValuesProperty, label: Strings.values}
     ] );
-    this.addChild( new PanelNode( controlPanel, {fill: '#e3e980'} ) );
+    this.addChild( new Panel( controlPanel, {fill: '#e3e980'} ) );
 
     //Create sound and reset buttons, and size them to be the same height 
     var resetButton = new ResetAllButton( model.reset.bind( model ) );

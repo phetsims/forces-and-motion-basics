@@ -13,7 +13,7 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var Button = require( 'SUN/Button' );
   var Property = require( 'AXON/Property' );
-  var PanelNode = require( 'SUN/PanelNode' );
+  var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var CheckBox = require( 'SUN/CheckBox' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
@@ -91,7 +91,7 @@ define( function( require ) {
                     toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
                   ], {fill: '#e3e980'} ), frictionSlider()]
     } );
-    var panelNode = new PanelNode( controlPanel, {fill: '#e3e980'} );
+    var panelNode = new Panel( controlPanel, {fill: '#e3e980'} );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5} ) );
   }
 
