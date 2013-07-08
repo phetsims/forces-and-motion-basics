@@ -76,12 +76,11 @@ define( function( require ) {
       createKnot( red, 2 ),
       createKnot( red, 3 )
     ];
-    var model = this;
 
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
-      puller.xProperty.link( model.updateVisibleKnots.bind( model ) );
-      puller.yProperty.link( model.updateVisibleKnots.bind( model ) );
+      puller.xProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
+      puller.yProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
       puller.draggingProperty.link( function( dragging, oldDragging ) {
 
         //Bail on init, only want to handle when the puller is dropped
@@ -91,7 +90,7 @@ define( function( require ) {
         }
 
         if ( !dragging ) {
-          var knot = model.getTargetKnot( puller );
+          var knot = tugOfWarModel.getTargetKnot( puller );
 
           //try to snap to a knot
           if ( knot ) {
@@ -107,11 +106,11 @@ define( function( require ) {
           //Keep track of their location to change the attach/detach thresholds, see TugOfWarModel.getTargetKnot
           puller.lastLocation = knot ? 'knot' : 'home';
 
-          model.numberPullersAttached = model.countAttachedPullers();
+          tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
         }
       } );
     } );
-    this.runningProperty.link( function( running ) { if ( running ) { model.started = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { tugOfWarModel.started = true; }} );
 
     this.numberPullersAttachedProperty.link( function() {tugOfWarModel.netForce = tugOfWarModel.getNetForce();} );
     this.numberPullersAttachedProperty.link( function() {tugOfWarModel.leftForce = tugOfWarModel.getLeftForce();} );
