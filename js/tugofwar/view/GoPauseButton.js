@@ -9,9 +9,8 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
-  var Layout = require( 'Layout' );
 
-  function GoPauseButton( getImage, model ) {
+  function GoPauseButton( getImage, model, layoutWidth ) {
     var goPauseButton = this;
     Image.call( this, getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
     function updateOut() {
@@ -50,7 +49,7 @@ define( function( require ) {
       goPauseButton.visible = (state !== 'completed');
     } );
 
-    this.centerX = Layout.width / 2;
+    this.centerX = layoutWidth / 2;
 
     //Add accessibility peer
     this.addPeer( '<input type="button">', {click: function() {model.running = !model.running;}} );

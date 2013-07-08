@@ -18,7 +18,6 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
-  var Layout = require( 'Layout' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
@@ -34,8 +33,8 @@ define( function( require ) {
   function TugOfWarTabView( model ) {
 
     //Fit to the window and render the initial scene
-    var width = Layout.width;
-    var height = Layout.height;
+    var width = this.layoutBounds.width;
+    var height = this.layoutBounds.height;
 
     var tugOfWarTabView = this;
     this.model = model;
@@ -73,12 +72,12 @@ define( function( require ) {
     this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
 
     //Black caret below the cart
-    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: Layout.width / 2, y: grassY + 10} ) );
+    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
     var toolboxHeight = 216;
-    this.addChild( new Rectangle( 25, Layout.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
-    this.addChild( new Rectangle( 630, Layout.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 25, this.layoutBounds.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
+    this.addChild( new Rectangle( 630, this.layoutBounds.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'canvas'} ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
@@ -115,7 +114,7 @@ define( function( require ) {
 
     //Add the go button, but only if there is a puller attached
     var goPauseButtonContainer = new Node();
-    var goPauseButton = new GoPauseButton( getImage, this.model );
+    var goPauseButton = new GoPauseButton( getImage, this.model, this.layoutBounds.width );
     this.addChild( goPauseButtonContainer );
     var update = function() {
       goPauseButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goPauseButton] : [];

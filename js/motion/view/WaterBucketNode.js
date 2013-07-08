@@ -15,7 +15,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemNode = require( 'motion/view/ItemNode' );
-  var Layout = require( 'Layout' );
   var linear = require( 'DOT/Util' ).linear;
 
   function WaterBucketNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
