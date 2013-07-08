@@ -61,6 +61,7 @@ define( function( require ) {
         end: function( event ) {
           updateLocation();
           puller.dragging = false;
+          puller.trigger( 'dropped' );
           updateImage();
         },
         translate: function( event ) {
@@ -84,12 +85,11 @@ define( function( require ) {
         puller.set( {x: knot.x, y: knot.y, knot: knot} );
         model.numberPullersAttached = model.countAttachedPullers();
         puller.dragging = false;
+        puller.trigger( 'dropped' );
         updateImage();
       }
     }} );
   }
 
-  inherit( Image, PullerNode );
-
-  return PullerNode;
+  return inherit( Image, PullerNode );
 } );

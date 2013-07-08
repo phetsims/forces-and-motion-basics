@@ -81,33 +81,25 @@ define( function( require ) {
     this.pullers.forEach( function( puller ) {
       puller.xProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
       puller.yProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
-      puller.draggingProperty.link( function( dragging, oldDragging ) {
 
-        //Bail on init, only want to handle when the puller is dropped
-        //TODO: could use events like trigger for this
-        if ( oldDragging === null ) {
-          return;
+      puller.on( 'dropped', function() {
+        var knot = tugOfWarModel.getTargetKnot( puller );
+
+        //try to snap to a knot
+        if ( knot ) {
+          puller.set( {x: knot.x, y: knot.y, knot: knot} );
         }
 
-        if ( !dragging ) {
-          var knot = tugOfWarModel.getTargetKnot( puller );
-
-          //try to snap to a knot
-          if ( knot ) {
-            puller.set( {x: knot.x, y: knot.y, knot: knot} );
-          }
-
-          //Or go back home
-          else {
-            puller.xProperty.reset();
-            puller.yProperty.reset();
-          }
-
-          //Keep track of their location to change the attach/detach thresholds, see TugOfWarModel.getTargetKnot
-          puller.lastLocation = knot ? 'knot' : 'home';
-
-          tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
+        //Or go back home
+        else {
+          puller.xProperty.reset();
+          puller.yProperty.reset();
         }
+
+        //Keep track of their location to change the attach/detach thresholds, see TugOfWarModel.getTargetKnot
+        puller.lastLocation = knot ? 'knot' : 'home';
+
+        tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
       } );
     } );
     this.runningProperty.link( function( running ) { if ( running ) { tugOfWarModel.started = true; }} );
