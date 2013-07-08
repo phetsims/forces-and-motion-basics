@@ -1,64 +1,81 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+//Model for the Tug of War tab, in which Pullers can pull on a rope with different forces.
 define( function( require ) {
   'use strict';
-  var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Puller = require( 'tugofwar/model/Puller' );
-  var Knot = require( 'tugofwar/model/Knot' );
-  var Cart = require( 'tugofwar/model/Cart' );
 
-  var red = 'red',
+  var
+    Property = require( 'AXON/Property' ),
+    PropertySet = require( 'AXON/PropertySet' ),
+    inherit = require( 'PHET_CORE/inherit' ),
+    Puller = require( 'tugofwar/model/Puller' ),
+    Knot = require( 'tugofwar/model/Knot' ),
+    Cart = require( 'tugofwar/model/Cart' );
+
+  //Abbreviations for colors and sizes used in this file.
+  var
+    red = 'red',
     blue = 'blue',
     small = 'small',
     medium = 'medium',
     large = 'large';
 
+  /**
+   * Constructor for the tug of war model.
+   * @constructor
+   */
   function TugOfWarModel() {
     var tugOfWarModel = this;
+
+    //Call the super class, with initial values for observable properties
     PropertySet.call( this, {
       started: false,
-      showSumOfForces: false,
-      showValues: false,
       running: false,
-      volumeOn: false,
       numberPullersAttached: 0,
       state: 'experimenting',
       time: 0,
       netForce: 0,
       leftForce: 0,
-      rightForce: 0
+      rightForce: 0,
+
+      //User settings
+      showSumOfForces: false,
+      showValues: false,
+      volumeOn: false
     } );
 
     this.cart = new Cart();
-    //Create the pullers from left to right so the tab order will be as expected.
-    var dy = -14;
 
-    var bluePullers = [new Puller( 38, 407 + dy + 1, blue, large, 80 ),
-      new Puller( 132 - 5, 446 + dy - 6, blue, medium, 50 ),
-      new Puller( 198 + 10, 500 + dy - 13, blue, small, 20 ),
-      new Puller( 260 + 18, 500 + dy - 13, blue, small, 20 )];
+    //Create the pullers from left to right so the tab order (for accessibility) will be as expected.
+    var bigPullerY = 473;
+    var mediumPullerY = 426;
+    var smallPullerY = 394;
 
     this.pullers = [
-      bluePullers[0],
-      bluePullers[1],
-      bluePullers[2],
-      bluePullers[3],
-      new Puller( 624 + 19 + 5, bluePullers[3].y, red, small, 10 ),
-      new Puller( 684 + 28 + 5, bluePullers[2].y, red, small, 10 ),
-      new Puller( 756 - 4 + 32 + 5, bluePullers[1].y, red, medium, 20 ),
-      new Puller( 838 - 8 + 25 + 5, bluePullers[0].y, red, large, 30 )
+      new Puller( 38, smallPullerY, blue, large, 80 ),
+      new Puller( 127, mediumPullerY, blue, medium, 50 ),
+      new Puller( 208, bigPullerY, blue, small, 20 ),
+      new Puller( 278, bigPullerY, blue, small, 20 ),
+      new Puller( 648, bigPullerY, red, small, 10 ),
+      new Puller( 717, bigPullerY, red, small, 10 ),
+      new Puller( 789, mediumPullerY, red, medium, 20 ),
+      new Puller( 860, smallPullerY, red, large, 30 )
     ];
+
+    //Create a knot given a color and index (0-3)
+    function createKnot( color, index ) { return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color ); }
+
+    //Create the knots
     this.knots = [
-      new Knot( 62 + 80 * 0, blue ),
-      new Knot( 62 + 80 * 1, blue ),
-      new Knot( 62 + 80 * 2, blue ),
-      new Knot( 62 + 80 * 3, blue ),
-      new Knot( 680 + 80 * 0, red ),
-      new Knot( 680 + 80 * 1, red ),
-      new Knot( 680 + 80 * 2, red ),
-      new Knot( 680 + 80 * 3, red ) ];
+      createKnot( blue, 0 ),
+      createKnot( blue, 1 ),
+      createKnot( blue, 2 ),
+      createKnot( blue, 3 ),
+      createKnot( red, 0 ),
+      createKnot( red, 1 ),
+      createKnot( red, 2 ),
+      createKnot( red, 3 )
+    ];
     var model = this;
 
     //When any puller is dragged, update the closest knots to be visible
