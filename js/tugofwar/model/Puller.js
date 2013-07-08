@@ -1,17 +1,26 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Model for the red/blue pullers which can be dragged to the rope, and exert a force on the rope.
+ */
 define( function( require ) {
   'use strict';
+
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  /**
+   *
+   * @param x initial x-coordinate (in meters)
+   * @param y initial y-coordinate (in meters)
+   * @param type 'red'|'blue'
+   * @param size 'small'|'medium'|'large'
+   * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
+   * @constructor
+   */
   function Puller( x, y, type, size, dragOffsetX ) {
     var puller = this;
 
-    //Create the properties and mix them in
-    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y, lastLocation: 'home'} );
-
-    //Create the constants
     this.dragOffsetX = dragOffsetX;
     this.type = type;
     this.size = size;
@@ -20,28 +29,33 @@ define( function( require ) {
                  this.size === 'large' ? 30 * 5 :
                  NaN;
 
+    //Create the properties and mix them in
+    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y, lastLocation: 'home'} );
+
     //Move with the knot
-    var updateX = function( knotX ) { puller.x = knotX; };
+    var updatePosition = function( knotX ) { puller.x = knotX; };
 
     //When the knot changes, wire up as a listener to the new knot
     this.knotProperty.link( function( newKnot, oldKnot ) {
+
+      //Unlink from the previous knot if there was one
       if ( oldKnot ) {
-        oldKnot.xProperty.unlink( updateX );
+        oldKnot.xProperty.unlink( updatePosition );
       }
 
       //Synchronize our location with the knot.
       if ( newKnot ) {
-        newKnot.xProperty.link( updateX );
+        newKnot.xProperty.link( updatePosition );
       }
     } );
   }
 
-  inherit( PropertySet, Puller, {
-    disconnect: function() {this.knot = null;},
-    get name() {
-      return this.size + ' ' + this.type + ' Puller';//TODO i18nize accessibility
-    }
-  } );
+  return inherit( PropertySet, Puller, {
 
-  return Puller;
+    //Detach the puller from the knot.
+    disconnect: function() {this.knot = null;},
+
+    //Get the name for the puller, used in a11y
+    get name() { return this.size + ' ' + this.type + ' Puller';} //TODO i18nize accessibility
+  } );
 } );
