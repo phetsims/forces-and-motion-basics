@@ -5,7 +5,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Item = require( 'motion/model/Item' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
-  var Layout = require( 'Layout' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
@@ -113,7 +112,7 @@ define( function( require ) {
         for ( var i = 0; i < this.stack.length; i++ ) {
           var size = this.getSize( this.stack.at( i ) );
           sumHeight += size.height;
-          this.stack.at( i ).animateTo( Layout.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.at( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
 
@@ -264,7 +263,7 @@ define( function( require ) {
       var itemNode = view.itemNodes[1];
       item.animating = {enabled: false, x: 0, y: 0, end: null};
       item.interactionScale = 1.3;
-      item.x = Layout.width / 2 - itemNode.width / 2;
+      item.x = view.layoutBounds.width / 2 - itemNode.width / 2;
       item.y = view.topOfStack - itemNode.height;
       this.stack.add( item );
     }
