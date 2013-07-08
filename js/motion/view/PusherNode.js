@@ -9,10 +9,9 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
-  var Layout = require( 'Layout' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
-  function PusherNode( model ) {
+  function PusherNode( model, layoutWidth ) {
     var pusherNode = this;
     var scale = 0.85;
     Node.call( this, {scale: scale} );
@@ -47,18 +46,18 @@ define( function( require ) {
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
 
-        pusherNode.x = Layout.width / 2 - imageNode.width * scale - delta;
+        pusherNode.x = layoutWidth / 2 - imageNode.width * scale - delta;
         model.pusherPosition = -delta + position * MotionConstants.positionScale - imageNode.width;
       }
       else if ( appliedForce < 0 && !fallen ) {
 
         //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale + delta;
+        pusherNode.x = layoutWidth / 2 + imageNode.width * scale + delta;
         model.pusherPosition = delta + position * MotionConstants.positionScale;
       }
       else {
-        pusherNode.x = Layout.width / 2 + imageNode.width * scale - position * MotionConstants.positionScale + pusherPosition + (fallingLeft ? -imageNode.width : 0);
+        pusherNode.x = layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.positionScale + pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
 
       //Keep the feet on the ground

@@ -66,7 +66,7 @@ define( function( require ) {
 
     this.itemNodes = [];
 
-    this.addChild( new PusherNode( model, this ) );
+    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];

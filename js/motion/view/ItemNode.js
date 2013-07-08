@@ -13,7 +13,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Layout = require( 'Layout' );
   var FAMBFont = require( 'common/view/FAMBFont' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
 
@@ -68,7 +67,7 @@ define( function( require ) {
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.y < 350 ) {
           item.onBoard = true;
-          item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
+          item.animateTo( motionTabView.layoutBounds.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
           if ( model.stack.length > 3 ) {
             model.spliceStackBottom();

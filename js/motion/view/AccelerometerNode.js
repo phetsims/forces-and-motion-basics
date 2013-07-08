@@ -13,7 +13,6 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Layout = require( 'Layout' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
 
   function AccelerometerNode( accelerationProperty, options ) {
