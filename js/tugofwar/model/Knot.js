@@ -1,19 +1,26 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Model for the 8 knots that appear on the rope.
+ */
 define( function( require ) {
   'use strict';
 
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  /**
+   * Constructor for the 8 knots that appear along the rope.
+   *
+   * @param x the horizontal position (in meters) of the knot
+   * @param type whether the knot is for red or blue pullers
+   * @constructor
+   */
   function Knot( x, type ) {
-    PropertySet.call( this, {x: x, visible: false} );
     this.initX = x;
-    this.y = 275;
     this.type = type;
+    PropertySet.call( this, {x: x, visible: false} );
   }
 
-  inherit( PropertySet, Knot );
-
-  return Knot;
+  return inherit( PropertySet, Knot, { y: 275 } );
 } );
