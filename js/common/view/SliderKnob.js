@@ -1,7 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * A rounded slider knob that shows with grip "dots" to indicate that it is grabbable.  Based on artwork by Noah Podolefsky.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
+
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -31,7 +37,7 @@ define( function( require ) {
     this.addGripDot( width / 2 + dx, height / 2 + dy );
   }
 
-  inherit( Node, SliderKnob, {
+  return inherit( Node, SliderKnob, {
     addGripDot: function( x, y ) {
       var radius = 1.8;
       var stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).
@@ -39,6 +45,4 @@ define( function( require ) {
       this.addChild( new Circle( radius, {x: x, y: y, fill: this.enabled ? '#56889F' : 'gray', stroke: this.enabled ? stroke : 'gray', lineWidth: 1} ) );
     }
   } );
-
-  return SliderKnob;
 } );
