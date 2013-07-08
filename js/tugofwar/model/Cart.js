@@ -1,16 +1,18 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Model for the cart, which has a position (x) and velocity (v).
+ */
 define( function( require ) {
   'use strict';
 
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  //Cart constructor
   function Cart() {
     PropertySet.call( this, {x: 0, v: 0} );
   }
 
-  inherit( PropertySet, Cart );
-
-  return Cart;
+  return inherit( PropertySet, Cart );
 } );
