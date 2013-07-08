@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -71,7 +71,6 @@ define( function( require ) {
           item.animateTo( Layout.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
           if ( model.stack.length > 3 ) {
-            console.log( 'hello' );
             model.spliceStackBottom();
           }
         }

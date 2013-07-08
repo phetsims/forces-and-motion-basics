@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -17,7 +17,7 @@ define( function( require ) {
     var flagNode = this;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? "Blue Wins!" : "Red Wins!", {fontSize: '32px', fill: 'white'} );
+    var text = new Text( model.cart.x < 0 ? 'Blue Wins!' : 'Red Wins!', {fontSize: '32px', fill: 'white'} );
     text.centerX = 0;
     text.centerY = 0;
     var path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2} );

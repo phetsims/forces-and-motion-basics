@@ -2,7 +2,7 @@
 
 //Draw an arrow from the tail to the tip with the specified tail width, and head dimensions.
 define( function( require ) {
-  "use strict";
+  'use strict';
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 

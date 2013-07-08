@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Font = require( 'SCENERY/util/Font' );
@@ -18,7 +18,7 @@ define( function( require ) {
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
   var Strings = require( 'Strings' );
-  var SpeedometerNode = require( "motion/view/SpeedometerNode" );
+  var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'motion/view/MovingBackgroundNode' );
@@ -95,7 +95,7 @@ define( function( require ) {
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
 
-    //On the motion tabs, when the "Friction" label overlaps the force vector it should be displaced vertically
+    //On the motion tabs, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
       motionTabView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
@@ -129,7 +129,7 @@ define( function( require ) {
       readout.centerX = width / 2;
     } );
 
-    //Make "Newtons Readout" stand out but not look like a text entry field
+    //Make 'Newtons Readout' stand out but not look like a text entry field
     this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2, renderer: 'svg'} );
     this.addChild( this.textPanelNode );
 

@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
 
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -24,7 +24,7 @@ define( function( require ) {
     var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );
     this.addChild( needle );
 
-    this.label = new Text( "Speed", {fontSize: 20} ).mutate( {centerX: 0, centerY: -radius / 3} );
+    this.label = new Text( 'Speed', {fontSize: 20} ).mutate( {centerX: 0, centerY: -radius / 3} );
     this.addChild( this.label );
 
     var pin = new Circle( 2, {fill: 'black'} );

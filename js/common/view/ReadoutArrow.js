@@ -7,7 +7,7 @@
  * @author Sam Reid
  */
 define( function( require ) {
-  "use strict";
+  'use strict';
 
   var Path = require( 'SCENERY/nodes/Path' );
   var Font = require( 'SCENERY/util/Font' );
@@ -65,7 +65,7 @@ define( function( require ) {
     //Sets the arrow dash, which changes when the simulation starts playing
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
 
-    //On the motion tabs, when the "Friction" label overlaps the force vector it should be displaced vertically
+    //On the motion tabs, when the 'Friction' label overlaps the force vector it should be displaced vertically
     set labelPosition( labelPosition ) {
       if ( this.options.labelPosition !== labelPosition ) {
         this.options.labelPosition = labelPosition;

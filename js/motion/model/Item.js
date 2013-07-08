@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
-  var Vector2 = require( "DOT/Vector2" );
+  'use strict';
+  var Vector2 = require( 'DOT/Vector2' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );

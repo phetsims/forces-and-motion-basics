@@ -4,7 +4,7 @@
  * This class shows all of the moving background, including the mountains, clouds and brick tile on the ground.
  */
 define( function( require ) {
-  "use strict";
+  'use strict';
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -122,7 +122,7 @@ define( function( require ) {
         var numSpecks = linear( MotionConstants.maxFriction * 0.1, MotionConstants.maxFriction, 0, 400, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-        //Use the same seed so it will look like the gravel is "building up" instead of "scrambling"
+        //Use the same seed so it will look like the gravel is 'building up' instead of 'scrambling'
         Math.seedrandom( 'standardseed' );
         var node = new Node();
         for ( var i = 0; i < numSpecks / 2; i++ ) {

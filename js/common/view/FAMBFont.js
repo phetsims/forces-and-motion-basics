@@ -8,10 +8,10 @@
  * @author Sam Reid
  */
 define( function( require ) {
-  "use strict";
+  'use strict';
 
-  var Font = require( "SCENERY/util/Font" );
-  var inherit = require( "PHET_CORE/inherit" );
+  var Font = require( 'SCENERY/util/Font' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   return inherit( Font,
 
@@ -23,8 +23,8 @@ define( function( require ) {
       function FAMBFont( size, weight ) {
       Font.call( this, {
         family: '"Arial", sans-serif',
-        size: size + "px",
-        weight: weight || "normal"
+        size: size + 'px',
+        weight: weight || 'normal'
       } );
     }
   );

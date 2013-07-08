@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
-  var Vector2 = require( "DOT/Vector2" );
+  'use strict';
+  var Vector2 = require( 'DOT/Vector2' );
   var Item = require( 'motion/model/Item' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var Layout = require( 'Layout' );
@@ -63,15 +63,15 @@ define( function( require ) {
                    new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
                    new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
                    new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
-                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
-                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
+                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' ),
+                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, 'man-sitting.png', 'man-holding.png' ),
                    bucket
                  ] :
                  [ new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
                    new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
                    new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
-                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, "girl-sitting.png", "girl-holding.png" ),
-                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, "man-sitting.png", "man-holding.png" ),
+                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' ),
+                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, 'man-sitting.png', 'man-holding.png' ),
                    new Item( this, 'trash-can.png', 100, 826 - 10, 518 + 11 + 12 + dy, 0.7 ),
                    new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
                  ];
@@ -195,7 +195,7 @@ define( function( require ) {
       if ( newVelocity > MotionConstants.maxSpeed ) { newVelocity = MotionConstants.maxSpeed; }
       if ( newVelocity < -MotionConstants.maxSpeed ) { newVelocity = -MotionConstants.maxSpeed; }
 
-//        System.out.println( "sumOfForces = " + sumOfForces + ", ff = " + frictionForce.get() + ", af = " + appliedForce.get() + ", accel = " + acceleration + ", newVelocity = " + newVelocity );
+//        System.out.println( 'sumOfForces = ' + sumOfForces + ', ff = ' + frictionForce.get() + ', af = ' + appliedForce.get() + ', accel = ' + acceleration + ', newVelocity = ' + newVelocity );
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;

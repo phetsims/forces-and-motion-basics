@@ -18,7 +18,7 @@ require.config( {
 
     //Load lib dependencies
     jquery: '../lib/jquery-1.9.1',
-    i18n: "../lib/i18n"
+    i18n: '../lib/i18n'
   },
 
   urlArgs: new Date().getTime() // add cache buster query string to make browser refresh actually reload everything

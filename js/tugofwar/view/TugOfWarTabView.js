@@ -1,8 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
-  var PullerNode = require( "tugofwar/view/PullerNode" );
+  'use strict';
+  var PullerNode = require( 'tugofwar/view/PullerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -25,11 +25,11 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Font = require( 'SCENERY/Util/Font' );
 
-  var red = "red",
-    blue = "blue",
-    small = "small",
-    medium = "medium",
-    large = "large";
+  var red = 'red',
+    blue = 'blue',
+    small = 'small',
+    medium = 'medium',
+    large = 'large';
 
   function TugOfWarTabView( model ) {
 
@@ -45,11 +45,11 @@ define( function( require ) {
     function getPullerImage( puller, leaning ) {
       var type = puller.type;
       var size = puller.size;
-      var sizeString = size === large ? "_lrg_" :
-                       size === medium ? "_" :
-                       "_small_";
+      var sizeString = size === large ? '_lrg_' :
+                       size === medium ? '_' :
+                       '_small_';
       var colorString = type.toUpperCase();
-      return imageLoader.getImage( "pull_figure" + sizeString + colorString + "_" + (leaning ? 3 : 0) + ".png" );
+      return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
     }
 
     var skyHeight = 376;
@@ -178,7 +178,7 @@ define( function( require ) {
       }
     } );
 
-    //Show "Sum of Forces = 0" when showForces is selected but the force is zero
+    //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
     this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 53} );
     model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarTabView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );

@@ -1,15 +1,15 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var red = "red";
-  var blue = "blue";
+  var red = 'red';
+  var blue = 'blue';
 
   //dragOffsetX: How far to translate to the side if pulling with the pull image
   function PullerNode( puller, model, image, pullImage ) {

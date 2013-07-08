@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * A rounded slider knob that shows with grip "dots" to indicate that it is grabbable.  Based on artwork by Noah Podolefsky.
+ * A rounded slider knob that shows with grip 'dots' to indicate that it is grabbable.  Based on artwork by Noah Podolefsky.
  *
  * @author Sam Reid
  */

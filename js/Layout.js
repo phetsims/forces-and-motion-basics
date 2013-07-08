@@ -8,7 +8,7 @@
  * These values should be treated as constants, or it will cause buggy behavior.
  */
 define( function() {
-  "use strict";
+  'use strict';
 
   var simHeight = 644;
   var simWidth = 981;

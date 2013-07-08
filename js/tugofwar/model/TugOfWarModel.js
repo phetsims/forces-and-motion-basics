@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 define( function( require ) {
-  "use strict";
+  'use strict';
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -9,11 +9,11 @@ define( function( require ) {
   var Knot = require( 'tugofwar/model/Knot' );
   var Cart = require( 'tugofwar/model/Cart' );
 
-  var red = "red",
-    blue = "blue",
-    small = "small",
-    medium = "medium",
-    large = "large";
+  var red = 'red',
+    blue = 'blue',
+    small = 'small',
+    medium = 'medium',
+    large = 'large';
 
   function TugOfWarModel() {
     var tugOfWarModel = this;
@@ -119,7 +119,7 @@ define( function( require ) {
     },
     getPuller: function( knot ) {
       var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
-      return typeof(find) !== "undefined" ? find : null;
+      return typeof(find) !== 'undefined' ? find : null;
     },
     getClosestOpenKnot: function( puller ) {
       var model = this;
