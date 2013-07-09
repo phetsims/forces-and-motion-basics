@@ -24,12 +24,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Font = require( 'SCENERY/Util/Font' );
 
-  var red = 'red',
-    blue = 'blue',
-    small = 'small',
-    medium = 'medium',
-    large = 'large';
-
   function TugOfWarTabView( model ) {
 
     //Fit to the window and render the initial scene
@@ -43,8 +37,8 @@ define( function( require ) {
     function getPullerImage( puller, leaning ) {
       var type = puller.type;
       var size = puller.size;
-      var sizeString = size === large ? '_lrg_' :
-                       size === medium ? '_' :
+      var sizeString = size === 'large' ? '_lrg_' :
+                       size === 'medium' ? '_' :
                        '_small_';
       var colorString = type.toUpperCase();
       return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
@@ -81,8 +75,8 @@ define( function( require ) {
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
 
+    //Create the arrow nodes
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
-    this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
     this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
     this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
 
@@ -93,16 +87,18 @@ define( function( require ) {
       } );
     } );
 
+    //Add the arrow nodes
     this.addChild( this.leftArrow );
     this.addChild( this.rightArrow );
     this.addChild( this.sumArrow );
+
+    this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
     model.knots.forEach( function( knot ) { tugOfWarTabView.addChild( new KnotHighlightNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
-    this.arrowTailX = this.cartNode.centerX;
 
     this.model.cart.xProperty.link( function( x ) {
       tugOfWarTabView.cartNode.x = x + 399;
@@ -182,8 +178,9 @@ define( function( require ) {
     this.addChild( this.sumOfForcesText );
   }
 
-  inherit( TabView, TugOfWarTabView, {
-    layoutBounds: new Bounds2( 0, 0, 981, 604 )
-  } );
-  return TugOfWarTabView;
+  return inherit( TabView, TugOfWarTabView,
+
+    //Use different layout bounds for vestigial reasons
+    //TODO: Do they match up with the same aspect ratio as the new bounds?
+    { layoutBounds: new Bounds2( 0, 0, 981, 604 ) } );
 } );

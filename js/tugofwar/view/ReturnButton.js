@@ -1,5 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Shows a button that allows the user to "return" the cart after a match has completed.
+ */
 define( function( require ) {
   'use strict';
 
@@ -10,19 +13,14 @@ define( function( require ) {
   var Font = require( 'SCENERY/util/Font' );
 
   function ReturnButton( model, options ) {
-    var returnButton = this;
     Node.call( this );
 
     var button = new RectangleButton( new Text( 'Return', {font: new Font( { weight: 'bold', size: 16 } )} ), model.returnCart.bind( model ), {rectangleFill: '#ffd438'} );
     this.addChild( button );
     this.mutate( options );
 
-    //TODO: When peers automatically are added and removed on visibility changed, use model.link( 'started', this, 'visible' ); 
-//    model.link( 'started', this, 'visible' );
-    model.startedProperty.link( function( started ) { returnButton.children = started ? [button] : []; } );
+    model.startedProperty.linkAttribute( this, 'visible' );
   }
 
-  inherit( Node, ReturnButton );
-
-  return ReturnButton;
+  return inherit( Node, ReturnButton );
 } );

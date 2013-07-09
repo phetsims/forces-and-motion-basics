@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Control panel with view options.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 
@@ -13,6 +18,12 @@ define( function( require ) {
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
 
+  /**
+   * Create the TugOfWarControlPanel.
+   * @param {TugOfWarModel} model the model for this control panel
+   * @param {Object} options
+   * @constructor
+   */
   function TugOfWarControlPanel( model, options ) {
     options = _.extend( {renderer: 'svg'}, options );
     Node.call( this, options );
@@ -24,13 +35,11 @@ define( function( require ) {
     ] );
     this.addChild( new Panel( controlPanel, {fill: '#e3e980'} ) );
 
-    //Create sound and reset buttons, and size them to be the same height 
+    //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     var resetButton = new ResetAllButton( model.reset.bind( model ) );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 10} ) );
   }
 
-  inherit( Node, TugOfWarControlPanel );
-
-  return TugOfWarControlPanel;
+  return inherit( Node, TugOfWarControlPanel );
 } );
