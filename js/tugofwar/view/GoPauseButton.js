@@ -1,5 +1,9 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * A Big round Go/Pause button that appears when the user has attached any nonzero number of pullers to the rope
+ * which can be used to start/pause the animation.
+ */
 define( function( require ) {
   'use strict';
 
@@ -12,8 +16,8 @@ define( function( require ) {
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
-   * @param model the TugOfWarModel
-   * @param layoutWidth the layout width for centering the button
+   * @param {TugOfWarModel} model the TugOfWarModel
+   * @param {Number} layoutWidth the layout width for centering the button
    * @constructor
    */
   function GoPauseButton( model, layoutWidth ) {

@@ -7,16 +7,16 @@
  */
 require( [
   'tugofwar/model/TugOfWarModel',
-  'motion/model/MotionModel',
-  'SCENERY/nodes/Image',
-  'motion/view/MotionTabView',
   'tugofwar/view/TugOfWarTabView',
+  'motion/model/MotionModel',
+  'motion/view/MotionTabView',
+  'SCENERY/nodes/Image',
   'JOIST/Sim',
+  'JOIST/SimLauncher',
   'imageLoader',
   'Strings',
-  'JOIST/SimLauncher',
   'motion/MotionConstants'
-], function( TugOfWarModel, MotionModel, Image, MotionTabView, TugOfWarTabView, Sim, imageLoader, Strings, SimLauncher, MotionConstants ) {
+], function( TugOfWarModel, TugOfWarTabView, MotionModel, MotionTabView, Image, Sim, SimLauncher, imageLoader, Strings, MotionConstants ) {
   'use strict';
 
   var simOptions = {
