@@ -17,7 +17,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var MotionConstants = require( 'motion/MotionConstants' );
-  var arrow = require( 'tugofwar/view/arrow' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -38,7 +38,7 @@ define( function( require ) {
     };
 
     //Icon for the forces in the control panel
-    var arrowIcon = function() { return new Path( {shape: arrow( 0, 0, 40, 0, 10, 20, 20 ), fill: '#e66e23', stroke: 'black'} ); };
+    var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, 20, 20, 10, {fill: '#e66e23', stroke: 'black'} )};
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
