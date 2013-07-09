@@ -2,6 +2,8 @@
 
 /**
  * Model for the 8 knots that appear on the rope.
+ *
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

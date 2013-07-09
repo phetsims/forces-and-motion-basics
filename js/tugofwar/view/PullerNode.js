@@ -2,6 +2,8 @@
 
 /**
  * Shows the graphic for the puller, which can be dragged from the toolbox to the rope to apply force.
+ *
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

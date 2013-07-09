@@ -2,6 +2,8 @@
 
 /**
  * Model for the red/blue pullers which can be dragged to the rope, and exert a force on the rope.
+ *
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

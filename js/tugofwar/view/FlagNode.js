@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Node that shows the waving flag when the tug of war game is complete.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 

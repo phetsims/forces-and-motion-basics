@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Main class for the entire view of the Tug of War model, including cart, pullers, background, controls & audio sounds (when tug of war game complete).
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 

@@ -2,6 +2,8 @@
 
 /**
  * Model for the cart, which has a position (x) and velocity (v).
+ *
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';

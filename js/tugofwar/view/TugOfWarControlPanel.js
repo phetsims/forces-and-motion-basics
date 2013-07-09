@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Control panel with view options.
+ * Control panel with options to show sum of forces and values, and also buttons below the control panel for reset all and sound.
  *
  * @author Sam Reid
  */

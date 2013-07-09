@@ -2,6 +2,8 @@
 
 /**
  * Shows a button that allows the user to "return" the cart after a match has completed.
+ *
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';
