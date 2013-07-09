@@ -135,43 +135,32 @@ define( function( require ) {
       } );
     },
 
-    /**
-     * Gets the puller attached to a knot, or null if none attached to that knot.
-     * @param knot
-     * Returns {Puller|null}
-     */
+    //Gets the puller attached to a knot, or null if none attached to that knot.
     getPuller: function( knot ) {
       var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
       return typeof(find) !== 'undefined' ? find : null;
     },
 
+    //Gets the closest unoccupied knot to the given puller, which is being dragged.
     getClosestOpenKnot: function( puller ) {
-      var model = this;
-      var distance = function( knot ) {
-        return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
-      };
-      var filter = this.knots.filter( function( knot ) {
-        return knot.type === puller.type && model.getPuller( knot ) === null;
-      } );
-      var target = _.min( filter, distance );
-      return target;
+      var tugOfWarModel = this;
+      var distance = function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) ); };
+      var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && tugOfWarModel.getPuller( knot ) === null; } );
+      return _.min( filter, distance );
     },
+
+    //Gets the closest unoccupied knot to the given puller if it is close enough to grab
     getTargetKnot: function( puller ) {
-      var distance = function( knot ) {
-        return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) );
-      };
+      var distance = function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) ); };
       var target = this.getClosestOpenKnot( puller );
       var distanceToTarget = distance( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
       var threshold = puller.lastLocation === 'home' ? 370 : 300;
-      if ( distanceToTarget < 220 && puller.y < threshold ) {
-        return target;
-      }
-      else {
-        return null;
-      }
+      return distanceToTarget < 220 && puller.y < threshold ? target : null;
     },
+
+    //Return the cart and prepare the model for another "go" run
     returnCart: function() {
       this.cart.reset();
       this.knots.forEach( function( knot ) {knot.reset();} );
@@ -180,6 +169,8 @@ define( function( require ) {
       this.state = 'experimenting';
       this.trigger( 'cart-returned' );
     },
+
+    //Reset the entire model when "reset all" is pressed
     reset: function() {
       PropertySet.prototype.reset.call( this );
 
@@ -196,6 +187,8 @@ define( function( require ) {
       this.numberPullersAttached = 1;
       this.numberPullersAttached = 0;
     },
+
+    //Update the physics when the clock ticks
     step: function( dt ) {
       if ( this.running ) {
         var newV = this.cart.v + this.getNetForce() / 20000;
@@ -212,9 +205,11 @@ define( function( require ) {
       }
       this.time = this.time + dt;
     },
-    getNetForce: function() {
-      return this.getLeftForce() + this.getRightForce();
-    },
+
+    //Gets the net force on the cart, applied by both left and right pullers
+    getNetForce: function() { return this.getLeftForce() + this.getRightForce(); },
+
+    //Gets the left force on the cart, applied by left and pullers
     getLeftForce: function() {
       var sum = 0;
 
@@ -225,6 +220,8 @@ define( function( require ) {
       } );
       return sum;
     },
+
+    //Gets the right force on the cart, applied by right pullers
     getRightForce: function() {
       var sum = 0;
 
