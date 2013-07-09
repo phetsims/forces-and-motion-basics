@@ -13,7 +13,7 @@ define( function( require ) {
   var Font = require( 'SCENERY/util/Font' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var arrow = require( 'tugofwar/view/arrow' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
@@ -94,7 +94,7 @@ define( function( require ) {
         var tailWidth = 25;
         var headWidth = 50;
         var headHeight = 40;
-        this.arrowNode.shape = arrow( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+        this.arrowNode.shape = ArrowNode.createArrowShape( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
 
         //Position the value and label if the label position is on the side
         if ( this.options.labelPosition === 'side' ) {
