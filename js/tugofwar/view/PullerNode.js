@@ -59,9 +59,7 @@ define( function( require ) {
         start: function() {
           puller.disconnect();
           puller.dragging = true;
-
-          //TODO: Commented out moveToFront while it is causing flickering on the ipad
-//            pullerNode.moveToFront();
+          pullerNode.moveToFront();
         },
         end: function( event ) {
           updateLocation();
