@@ -27,7 +27,7 @@ define( function( require ) {
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: 0.86} );
 
-    function updateLocation() {
+    var updateLocation = function() {
       var knotted = puller.knot;
       var pulling = model.running && knotted;
       if ( knotted ) {
@@ -37,7 +37,7 @@ define( function( require ) {
       else {
         pullerNode.setTranslation( puller.x, puller.y );
       }
-    }
+    };
 
     //TODO: Make x & y part of the same position property
     puller.xProperty.link( updateLocation );
