@@ -34,29 +34,14 @@ define( function( require ) {
     this.model = model;
     TabView.call( this );
 
-    function getPullerImage( puller, leaning ) {
-      var type = puller.type;
-      var size = puller.size;
-      var sizeString = size === 'large' ? '_lrg_' :
-                       size === 'medium' ? '_' :
-                       '_small_';
-      var colorString = type.toUpperCase();
-      return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
-    }
-
+    //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     var skyHeight = 376;
     var grassY = 368;
     var groundHeight = height - skyHeight;
-
-    //allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
-    this.skyNode = new Rectangle( -width, -376, width * 3, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} );
-    this.groundNode = new Rectangle( -width, 376, width * 3, groundHeight * 2, { fill: '#c59a5b'} );
-
-    this.addChild( this.skyNode );
-    this.addChild( this.groundNode );
+    this.addChild( new Rectangle( -width, -376, width * 3, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} ) );
+    this.addChild( new Rectangle( -width, 376, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
 
     //Show the grass.
-    //TODO: Would this perform better as a pattern?
     var grassImage = imageLoader.getImage( 'grass.png' );
     this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
@@ -117,19 +102,32 @@ define( function( require ) {
     model.runningProperty.link( update );
     model.numberPullersAttachedProperty.link( update );
 
-    var returnButton = new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} );
-    this.addChild( returnButton );
+    //Return button
+    this.addChild( new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} ) );
+
+    //Lookup a puller image given a puller instance and whether they are leaning or not.
+    var getPullerImage = function( puller, leaning ) {
+      var type = puller.type;
+      var size = puller.size;
+      var sizeString = size === 'large' ? '_lrg_' :
+                       size === 'medium' ? '_' :
+                       '_small_';
+      var colorString = type.toUpperCase();
+      return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
+    };
 
     this.model.pullers.forEach( function( puller ) {
       tugOfWarTabView.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
+    //Show the control panel
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
-    function showFlagNode() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ); }
-
+    //Show the flag node when pulling is complete
+    var showFlagNode = function() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ); };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
+    //Accessibility for reading out the total force
     var textProperty = new Property( '' );
     model.numberPullersAttachedProperty.link( function() {
       textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
