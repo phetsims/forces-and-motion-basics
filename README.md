@@ -6,6 +6,7 @@ When checking out from git, you will need to check out a copy of other github de
 The directory structure will look like:
 * forces-and-motion-basics/
 * scenery/
-* i18n/
+* axon/
+* ...
 
 These repos are all phetsims repos.
