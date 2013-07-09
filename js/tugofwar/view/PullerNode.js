@@ -1,5 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Shows the graphic for the puller, which can be dragged from the toolbox to the rope to apply force.
+ */
 define( function( require ) {
   'use strict';
 
@@ -7,7 +10,14 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  //dragOffsetX: How far to translate to the side if pulling with the pull image
+  /**
+   * Create a PullerNode for the specified puller
+   * @param {Puller} puller
+   * @param {TugOfWarModel} model
+   * @param {Image} image
+   * @param {Image} pullImage
+   * @constructor
+   */
   function PullerNode( puller, model, image, pullImage ) {
     this.puller = puller;
     var pullerNode = this;
@@ -15,8 +25,7 @@ define( function( require ) {
     var x = puller.x;
     var y = puller.y;
 
-    var scale = 0.86;
-    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: scale} );
+    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: 0.86} );
 
     function updateLocation() {
       var knotted = puller.knot;
@@ -30,9 +39,9 @@ define( function( require ) {
       }
     }
 
+    //TODO: Make x & y part of the same position property
     puller.xProperty.link( updateLocation );
     puller.yProperty.link( updateLocation );
-    //TODO: Handle knot-moved event
 
     var updateImage = function() {
       var knotted = puller.knot;
