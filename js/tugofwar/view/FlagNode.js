@@ -20,11 +20,20 @@ define( function( require ) {
     this.addChild( this.path );
     this.addChild( text );
 
-    //Do it once, to remove as a listener since flag node gets recreated when another game won
-    model.once( 'reset-all', function() {flagNode.detach();} );
-    model.once( 'cart-returned', function() {flagNode.detach();} );
+    var update = this.updateFlagShape.bind( this );
 
-    model.timeProperty.link( this.updateFlagShape.bind( this ) );
+    //Do it once, to remove as a listener since flag node gets recreated when another game won
+    model.once( 'reset-all', function() {
+      flagNode.detach();
+      model.timeProperty.unlink( update );
+    } );
+    model.once( 'cart-returned', function() {
+      flagNode.detach();
+      model.timeProperty.unlink( update );
+    } );
+
+    //When the clock ticks, wave the flag
+    model.timeProperty.link( update );
     text.centerX = this.path.centerX;
     text.centerY = this.path.centerY;
     this.centerX = centerX;
@@ -32,6 +41,8 @@ define( function( require ) {
   }
 
   return inherit( Node, FlagNode, {
+
+    //Update the flag shape, copied from the Java version
     updateFlagShape: function() {
       var shape = new Shape();
       var maxX = 220;
