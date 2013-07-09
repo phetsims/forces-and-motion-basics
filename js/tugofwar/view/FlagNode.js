@@ -15,7 +15,7 @@ define( function( require ) {
     this.model = model;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? 'Blue Wins!' : 'Red Wins!', {fontSize: '32px', fill: 'white'} );
+    var text = new Text( model.cart.x < 0 ? Strings.blueWins : Strings.redWins, {fontSize: '32px', fill: 'white'} );
     this.path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
     this.addChild( this.path );
     this.addChild( text );
