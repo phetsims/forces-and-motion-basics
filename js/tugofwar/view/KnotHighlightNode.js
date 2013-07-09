@@ -15,12 +15,11 @@ define( function( require ) {
 
   var knotWidth = 20;
 
-  function KnotNode( knot ) {
-    var knotNode = this;
+  function KnotHighlightNode( knot ) {
     Path.call( this, {shape: Shape.circle( 0, 0, knotWidth ), stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.x, y: knot.y} );
-    knot.visibleProperty.linkAttribute( knotNode, 'visible' );
-    knot.xProperty.linkAttribute( knotNode, 'x' );
+    knot.visibleProperty.linkAttribute( this, 'visible' );
+    knot.xProperty.linkAttribute( this, 'x' );
   }
 
-  return inherit( Path, KnotNode );
+  return inherit( Path, KnotHighlightNode );
 } );

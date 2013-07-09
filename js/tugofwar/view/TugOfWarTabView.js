@@ -10,7 +10,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var KnotNode = require( 'tugofwar/view/KnotNode' );
+  var KnotHighlightNode = require( 'tugofwar/view/KnotHighlightNode' );
   var GoPauseButton = require( 'tugofwar/view/GoPauseButton' );
   var ReturnButton = require( 'tugofwar/view/ReturnButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -99,7 +99,7 @@ define( function( require ) {
 
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
 
-    model.knots.forEach( function( knot ) { tugOfWarTabView.addChild( new KnotNode( knot ) ); } );
+    model.knots.forEach( function( knot ) { tugOfWarTabView.addChild( new KnotHighlightNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
     this.arrowTailX = this.cartNode.centerX;
