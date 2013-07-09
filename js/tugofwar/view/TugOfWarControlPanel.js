@@ -3,17 +3,13 @@
 define( function( require ) {
   'use strict';
 
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
-  var CheckBox = require( 'SUN/CheckBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
 

@@ -4,12 +4,8 @@ define( function( require ) {
   'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
-  var DOM = require( 'SCENERY/nodes/DOM' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var red = 'red';
-  var blue = 'blue';
 
   //dragOffsetX: How far to translate to the side if pulling with the pull image
   function PullerNode( puller, model, image, pullImage ) {
@@ -26,7 +22,7 @@ define( function( require ) {
       var knotted = puller.knot;
       var pulling = model.running && knotted;
       if ( knotted ) {
-        pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === blue ? -60 : 0),
+        pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === 'blue' ? -60 : 0),
           puller.knot.y - pullerNode.height + 100 );
       }
       else {

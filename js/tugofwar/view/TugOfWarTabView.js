@@ -2,6 +2,7 @@
 
 define( function( require ) {
   'use strict';
+
   var PullerNode = require( 'tugofwar/view/PullerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
