@@ -39,7 +39,6 @@ define( function( require ) {
     var tugOfWarTabView = this;
     this.model = model;
     TabView.call( this );
-    var getImage = imageLoader.getImage;
 
     function getPullerImage( puller, leaning ) {
       var type = puller.type;
@@ -114,7 +113,7 @@ define( function( require ) {
 
     //Add the go button, but only if there is a puller attached
     var goPauseButtonContainer = new Node();
-    var goPauseButton = new GoPauseButton( getImage, this.model, this.layoutBounds.width );
+    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
     this.addChild( goPauseButtonContainer );
     var update = function() {
       goPauseButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goPauseButton] : [];
