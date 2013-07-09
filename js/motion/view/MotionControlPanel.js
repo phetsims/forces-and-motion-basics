@@ -38,7 +38,7 @@ define( function( require ) {
     };
 
     //Icon for the forces in the control panel
-    var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, 20, 20, 10, {fill: '#e66e23', stroke: 'black'} )};
+    var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, 20, 20, 10, {fill: '#e66e23', stroke: 'black'} );};
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 

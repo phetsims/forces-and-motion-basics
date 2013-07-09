@@ -206,7 +206,7 @@ define( function( require ) {
     getPullers: function( type ) { return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} ); },
 
     //Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
-    sumForces: function( memo, puller ) {return memo + puller.force},
+    sumForces: function( memo, puller ) {return memo + puller.force;},
 
     //Gets the left force on the cart, applied by left and pullers
     getLeftForce: function() { return -_.reduce( this.getPullers( 'blue' ), this.sumForces, 0 ); },
