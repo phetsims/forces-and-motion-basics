@@ -14,6 +14,7 @@ define( function( require ) {
     inherit = require( 'PHET_CORE/inherit' ),
     Puller = require( 'tugofwar/model/Puller' ),
     Knot = require( 'tugofwar/model/Knot' ),
+    Vector2 = require( 'DOT/Vector2' ),
     Cart = require( 'tugofwar/model/Cart' );
 
   /**
@@ -76,22 +77,19 @@ define( function( require ) {
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
 
-      //TODO: Make the position property a single value
-      puller.xProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
-      puller.yProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
+      puller.positionProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
 
       puller.on( 'dropped', function() {
         var knot = tugOfWarModel.getTargetKnot( puller );
 
         //try to snap to a knot
         if ( knot ) {
-          puller.set( {x: knot.x, y: knot.y, knot: knot} );
+          puller.set( {position: new Vector2( knot.x, knot.y ), knot: knot} );
         }
 
         //Or go back home
         else {
-          puller.xProperty.reset();
-          puller.yProperty.reset();
+          puller.positionProperty.reset();
         }
 
         //Keep track of their location to change the attach/detach thresholds, see TugOfWarModel.getTargetKnot
@@ -139,7 +137,7 @@ define( function( require ) {
 
     //Given a puller, returns a function that computes the distance between that puller and any knot
     getKnotPullerDistance: function( puller ) {
-      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) ); };
+      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
     },
 
     //Gets the closest unoccupied knot to the given puller, which is being dragged.
@@ -156,7 +154,7 @@ define( function( require ) {
 
       //Only accept a target knot if the puller's head is close enough to the knot
       var threshold = puller.lastLocation === 'home' ? 370 : 300;
-      return distanceToTarget < 220 && puller.y < threshold ? target : null;
+      return distanceToTarget < 220 && puller.position.y < threshold ? target : null;
     },
 
     //Return the cart and prepare the model for another "go" run

@@ -10,7 +10,8 @@ define( function( require ) {
 
   var
     PropertySet = require( 'AXON/PropertySet' ),
-    inherit = require( 'PHET_CORE/inherit' );
+    inherit = require( 'PHET_CORE/inherit' ),
+    Vector2 = require( 'DOT/Vector2' );
 
   /**
    *
@@ -33,10 +34,10 @@ define( function( require ) {
                  NaN;
 
     //Create the properties and mix them in
-    PropertySet.call( this, {dragging: false, knot: null, x: x, y: y, lastLocation: 'home'} );
+    PropertySet.call( this, {dragging: false, knot: null, position: new Vector2( x, y ), lastLocation: 'home'} );
 
     //Move with the knot
-    var updatePosition = function( knotX ) { puller.x = knotX; };
+    var updatePosition = function( knotX ) { puller.position = new Vector2( knotX, puller.position.y ); };
 
     //When the knot changes, wire up as a listener to the new knot
     this.knotProperty.link( function( newKnot, oldKnot ) {

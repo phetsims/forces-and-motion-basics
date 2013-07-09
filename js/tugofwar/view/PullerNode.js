@@ -24,8 +24,8 @@ define( function( require ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
-    var x = puller.x;
-    var y = puller.y;
+    var x = puller.position.x;
+    var y = puller.position.y;
 
     Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: 0.86} );
 
@@ -37,13 +37,11 @@ define( function( require ) {
           puller.knot.y - pullerNode.height + 100 );
       }
       else {
-        pullerNode.setTranslation( puller.x, puller.y );
+        pullerNode.setTranslation( puller.position );
       }
     };
 
-    //TODO: Make x & y part of the same position property
-    puller.xProperty.link( updateLocation );
-    puller.yProperty.link( updateLocation );
+    puller.positionProperty.link( updateLocation );
 
     var updateImage = function() {
       var knotted = puller.knot;
@@ -70,9 +68,7 @@ define( function( require ) {
           updateImage();
         },
         translate: function( event ) {
-          //TODO: join into one setter to improve speed, by using vector2?
-          pullerNode.puller.x = event.position.x;
-          pullerNode.puller.y = event.position.y;
+          pullerNode.puller.position = event.position;
         }
       } ) );
 
@@ -80,8 +76,7 @@ define( function( require ) {
     this.addPeer( '<input type="button" aria-label="' + puller.name + '">', {click: function() {
       if ( puller.knot ) {
         puller.disconnect();
-        puller.xProperty.reset();
-        puller.yProperty.reset();
+        puller.positionProperty.reset();
         model.numberPullersAttached = model.countAttachedPullers();
       }
       else {
