@@ -9,7 +9,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var arrow = require( 'tugofwar/view/arrow' );
   var KnotNode = require( 'tugofwar/view/KnotNode' );
   var GoPauseButton = require( 'tugofwar/view/GoPauseButton' );
   var ReturnButton = require( 'tugofwar/view/ReturnButton' );
