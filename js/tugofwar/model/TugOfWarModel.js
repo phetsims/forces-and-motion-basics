@@ -194,10 +194,9 @@ define( function( require ) {
         var newV = this.cart.v + this.getNetForce() / 20000;
         var newX = this.cart.x + newV;
         this.cart.set( {v: newV, x: newX} );
-        this.knots.forEach( function( knot ) {
-          knot.x = knot.initX + newX;
-        } );
+        this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
 
+        //If the cart made it to the end, then stop and signify completion
         if ( this.cart.x > 200 || this.cart.x < -200 ) {
           this.running = false;
           this.state = 'completed';
