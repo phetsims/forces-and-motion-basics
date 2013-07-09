@@ -13,7 +13,7 @@ define( function( require ) {
     var returnButton = this;
     Node.call( this );
 
-    var button = new RectangleButton( new Text( 'Return', {font: new Font( { weight: 'bold', size: 16 } )} ), model.returnCart.bind( model ), {fill: '#ffd438'} );
+    var button = new RectangleButton( new Text( 'Return', {font: new Font( { weight: 'bold', size: 16 } )} ), model.returnCart.bind( model ), {rectangleFill: '#ffd438'} );
     this.addChild( button );
     this.mutate( options );
 
