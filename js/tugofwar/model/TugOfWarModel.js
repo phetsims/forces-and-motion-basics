@@ -141,19 +141,22 @@ define( function( require ) {
       return typeof(find) !== 'undefined' ? find : null;
     },
 
+    //Given a puller, returns a function that computes the distance between that puller and any knot
+    getKnotPullerDistance: function( puller ) {
+      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) ); };
+    },
+
     //Gets the closest unoccupied knot to the given puller, which is being dragged.
     getClosestOpenKnot: function( puller ) {
       var tugOfWarModel = this;
-      var distance = function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) ); };
       var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && tugOfWarModel.getPuller( knot ) === null; } );
-      return _.min( filter, distance );
+      return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
 
     //Gets the closest unoccupied knot to the given puller if it is close enough to grab
     getTargetKnot: function( puller ) {
-      var distance = function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.x, 2 ) + Math.pow( knot.y - puller.y, 2 ) ); };
       var target = this.getClosestOpenKnot( puller );
-      var distanceToTarget = distance( target );
+      var distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
       var threshold = puller.lastLocation === 'home' ? 370 : 300;
