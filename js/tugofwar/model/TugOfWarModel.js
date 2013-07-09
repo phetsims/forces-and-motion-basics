@@ -12,14 +12,6 @@ define( function( require ) {
     Knot = require( 'tugofwar/model/Knot' ),
     Cart = require( 'tugofwar/model/Cart' );
 
-  //Abbreviations for colors and sizes used in this file.
-  var
-    red = 'red',
-    blue = 'blue',
-    small = 'small',
-    medium = 'medium',
-    large = 'large';
-
   /**
    * Constructor for the tug of war model.
    * @constructor
@@ -52,14 +44,14 @@ define( function( require ) {
     var smallPullerY = 394;
 
     this.pullers = [
-      new Puller( 38, smallPullerY, blue, large, 80 ),
-      new Puller( 127, mediumPullerY, blue, medium, 50 ),
-      new Puller( 208, bigPullerY, blue, small, 20 ),
-      new Puller( 278, bigPullerY, blue, small, 20 ),
-      new Puller( 648, bigPullerY, red, small, 10 ),
-      new Puller( 717, bigPullerY, red, small, 10 ),
-      new Puller( 789, mediumPullerY, red, medium, 20 ),
-      new Puller( 860, smallPullerY, red, large, 30 )
+      new Puller( 38, smallPullerY, 'blue', 'large', 80 ),
+      new Puller( 127, mediumPullerY, 'blue', 'medium', 50 ),
+      new Puller( 208, bigPullerY, 'blue', 'small', 20 ),
+      new Puller( 278, bigPullerY, 'blue', 'small', 20 ),
+      new Puller( 648, bigPullerY, 'red', 'small', 10 ),
+      new Puller( 717, bigPullerY, 'red', 'small', 10 ),
+      new Puller( 789, mediumPullerY, 'red', 'medium', 20 ),
+      new Puller( 860, smallPullerY, 'red', 'large', 30 )
     ];
 
     //Create a knot given a color and index (0-3)
@@ -67,14 +59,14 @@ define( function( require ) {
 
     //Create the knots
     this.knots = [
-      createKnot( blue, 0 ),
-      createKnot( blue, 1 ),
-      createKnot( blue, 2 ),
-      createKnot( blue, 3 ),
-      createKnot( red, 0 ),
-      createKnot( red, 1 ),
-      createKnot( red, 2 ),
-      createKnot( red, 3 )
+      createKnot( 'blue', 0 ),
+      createKnot( 'blue', 1 ),
+      createKnot( 'blue', 2 ),
+      createKnot( 'blue', 3 ),
+      createKnot( 'red', 0 ),
+      createKnot( 'red', 1 ),
+      createKnot( 'red', 2 ),
+      createKnot( 'red', 3 )
     ];
 
     //When any puller is dragged, update the closest knots to be visible
@@ -218,9 +210,9 @@ define( function( require ) {
     sumForces: function( memo, puller ) {return memo + puller.force},
 
     //Gets the left force on the cart, applied by left and pullers
-    getLeftForce: function() { return -_.reduce( this.getPullers( blue ), this.sumForces, 0 ); },
+    getLeftForce: function() { return -_.reduce( this.getPullers( 'blue' ), this.sumForces, 0 ); },
 
     //Gets the right force on the cart, applied by right pullers
-    getRightForce: function() { return _.reduce( this.getPullers( red ), this.sumForces, 0 ); }
+    getRightForce: function() { return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 ); }
   } );
 } );
