@@ -209,28 +209,16 @@ define( function( require ) {
     //Gets the net force on the cart, applied by both left and right pullers
     getNetForce: function() { return this.getLeftForce() + this.getRightForce(); },
 
-    //Gets the left force on the cart, applied by left and pullers
-    getLeftForce: function() {
-      var sum = 0;
+    //Get an array of pullers of the specified type (color string)
+    getPullers: function( type ) { return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} ); },
 
-      this.pullers.forEach( function( puller ) {
-        if ( puller.type === blue && puller.knot ) {
-          sum -= puller.force;
-        }
-      } );
-      return sum;
-    },
+    //Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
+    sumForces: function( memo, puller ) {return memo + puller.force},
+
+    //Gets the left force on the cart, applied by left and pullers
+    getLeftForce: function() { return -_.reduce( this.getPullers( blue ), this.sumForces, 0 ); },
 
     //Gets the right force on the cart, applied by right pullers
-    getRightForce: function() {
-      var sum = 0;
-
-      this.pullers.forEach( function( puller ) {
-        if ( puller.type === red && puller.knot ) {
-          sum += puller.force;
-        }
-      } );
-      return sum;
-    }
+    getRightForce: function() { return _.reduce( this.getPullers( red ), this.sumForces, 0 ); }
   } );
 } );
