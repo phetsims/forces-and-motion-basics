@@ -183,7 +183,9 @@ define( function( require ) {
 
   return inherit( TabView, TugOfWarTabView,
 
-    //Use different layout bounds for vestigial reasons
-    //TODO: Do they match up with the same aspect ratio as the new bounds?
+    //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
+    //aspect ratio of this tab: 981/604=1.62
+    //aspect ratio for default: 768/504=1.52
+    //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
     { layoutBounds: new Bounds2( 0, 0, 981, 604 ) } );
 } );
