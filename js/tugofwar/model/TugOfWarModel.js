@@ -176,11 +176,6 @@ define( function( require ) {
       this.pullers.forEach( function( puller ) { puller.reset(); } );
       this.knots.forEach( function( knot ) {knot.reset();} );
       this.trigger( 'reset-all' );
-
-      //Wacky workaround to make sure the arrows get the notification last after all forces have been updated.
-      //TODO: Switch to use an event trigger
-      this.numberPullersAttached = 1;
-      this.numberPullersAttached = 0;
     },
 
     //Update the physics when the clock ticks
