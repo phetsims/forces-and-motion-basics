@@ -79,6 +79,8 @@ define( function( require ) {
 
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
+
+      //TODO: Make the position property a single value
       puller.xProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
       puller.yProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
 
@@ -102,17 +104,24 @@ define( function( require ) {
         tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
       } );
     } );
+
+    //Update the started flag
     this.runningProperty.link( function( running ) { if ( running ) { tugOfWarModel.started = true; }} );
 
+    //Update the forces when the number of attached pullers changes
     this.numberPullersAttachedProperty.link( function() {tugOfWarModel.netForce = tugOfWarModel.getNetForce();} );
     this.numberPullersAttachedProperty.link( function() {tugOfWarModel.leftForce = tugOfWarModel.getLeftForce();} );
     this.numberPullersAttachedProperty.link( function() {tugOfWarModel.rightForce = tugOfWarModel.getRightForce();} );
   }
 
   return inherit( PropertySet, TugOfWarModel, {
+
+    //Count the number of pullers attached to the rope
     countAttachedPullers: function() {
       return this.pullers.filter(function( puller ) {return puller.knot;} ).length;
     },
+
+    //Change knot visibility (halo highlight) when the pullers are dragged
     updateVisibleKnots: function() {
       var model = this;
       this.knots.forEach( function( knot ) {knot.visible = false;} );
@@ -125,10 +134,17 @@ define( function( require ) {
         }
       } );
     },
+
+    /**
+     * Gets the puller attached to a knot, or null if none attached to that knot.
+     * @param knot
+     * Returns {Puller|null}
+     */
     getPuller: function( knot ) {
       var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
       return typeof(find) !== 'undefined' ? find : null;
     },
+
     getClosestOpenKnot: function( puller ) {
       var model = this;
       var distance = function( knot ) {
