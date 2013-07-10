@@ -1,1 +1,4 @@
-golf-clap.wav source=http://www.pdsounds.org/sounds/clapping_hurray notes=edited by NP and SR license=public domain
+golf-clap.mp3 source=http://www.pdsounds.org/sounds/clapping_hurray notes=edited by NP and SR license=public domain
+golf-clap.ogg source=http://www.pdsounds.org/sounds/clapping_hurray notes=edited by NP and SR license=public domain
+empty.ogg author=PhET
+empty.wav author=PhET
