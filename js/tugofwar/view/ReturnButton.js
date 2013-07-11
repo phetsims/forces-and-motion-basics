@@ -12,12 +12,12 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var RectangleButton = require( 'SUN/RectangleButton' );
-  var Font = require( 'SCENERY/util/Font' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   function ReturnButton( model, options ) {
     Node.call( this );
 
-    var button = new RectangleButton( new Text( 'Return', {font: new Font( { weight: 'bold', size: 16 } )} ), model.returnCart.bind( model ), {rectangleFill: '#ffd438'} );
+    var button = new RectangleButton( new Text( 'Return', {font: new FAMBFont( 16, 'bold' )} ), model.returnCart.bind( model ), {rectangleFill: '#ffd438'} );
     this.addChild( button );
     this.mutate( options );
 

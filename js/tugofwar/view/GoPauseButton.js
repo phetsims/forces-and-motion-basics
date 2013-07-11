@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
   var imageLoader = require( 'imageLoader' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
@@ -45,7 +46,7 @@ define( function( require ) {
     model.runningProperty.link( updateOut );
 
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on ipad3
-    var textOptions = {fontSize: '34px'};
+    var textOptions = {font: new FAMBFont( 34 )};
     var goText = new Text( Strings.go, textOptions );
     var pauseText = new Text( Strings.pause, textOptions );
     var textContainer = new Node( {children: [goText]} );

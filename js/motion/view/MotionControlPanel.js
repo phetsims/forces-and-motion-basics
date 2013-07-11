@@ -31,7 +31,7 @@ define( function( require ) {
     var toElement = function( text, propertyName, options ) {
       options = _.extend( {indent: 0}, options );
       return {
-        content: options.icon ? new HBox( {spacing: 20, children: [ new Text( text, {fontSize: fontSize} ), options.icon]} ) : new Text( text, {fontSize: fontSize} ),
+        content: options.icon ? new HBox( {spacing: 20, children: [ new Text( text, {font: new FAMBFont( fontSize )} ), options.icon]} ) : new Text( text, {font: new FAMBFont( fontSize )} ),
         property: model[propertyName + 'Property'],
         indent: options.indent
       };
@@ -55,7 +55,7 @@ define( function( require ) {
       };
 
       var frictionSlider = new HSlider( 0, MotionConstants.maxFriction, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
-      var frictionLabel = new Text( 'Friction', {fontSize: fontSize} );
+      var frictionLabel = new Text( 'Friction', new FAMBFont( fontSize ) );
       var spacer = new Rectangle( 0, 0, 0, 4 );
       return new VBox( {children: [spacer, frictionLabel, frictionSlider], left: 5} );
     };

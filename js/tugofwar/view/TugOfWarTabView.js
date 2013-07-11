@@ -27,7 +27,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
-  var Font = require( 'SCENERY/Util/Font' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   function TugOfWarTabView( model ) {
 
@@ -176,7 +176,7 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 53} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: new FAMBFont( 16, 'bold' ), centerX: width / 2, y: 53} );
     model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarTabView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
   }

@@ -14,13 +14,14 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   function FlagNode( model, centerX, top ) {
     var flagNode = this;
     this.model = model;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? Strings.blueWins : Strings.redWins, {fontSize: '32px', fill: 'white'} );
+    var text = new Text( model.cart.x < 0 ? Strings.blueWins : Strings.redWins, {font: new FAMBFont( 32 ), fill: 'white'} );
     this.path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
     this.addChild( this.path );
     this.addChild( text );

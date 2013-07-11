@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
   var MotionConstants = require( 'motion/MotionConstants' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   var ANGLE_PER_TICK = Math.PI * 2 / 4 / 8;
   var NUM_TICKS = ( 8 + 2 ) * 2 + 1;
@@ -24,7 +25,7 @@ define( function( require ) {
     var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );
     this.addChild( needle );
 
-    this.label = new Text( 'Speed', {fontSize: 20} ).mutate( {centerX: 0, centerY: -radius / 3} );
+    this.label = new Text( 'Speed', {font: new FAMBFont( 20 )} ).mutate( {centerX: 0, centerY: -radius / 3} );
     this.addChild( this.label );
 
     var pin = new Circle( 2, {fill: 'black'} );

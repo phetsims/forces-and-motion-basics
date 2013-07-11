@@ -89,7 +89,7 @@ define( function( require ) {
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionTabView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: {font: new Font( { weight: 'bold', size: 16 } )}, centerX: width / 2, y: 200} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: {font: new FAMBFont( 16, 'bold' )}, centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionTabView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
@@ -114,14 +114,14 @@ define( function( require ) {
       return fallen && fallenDirection === 'right';
     } );
 
-    var sliderLabel = new Text( Strings.appliedForce, {fontSize: '22px', renderer: 'svg', centerX: width / 2, y: 430} );
+    var sliderLabel = new Text( Strings.appliedForce, {font: new FAMBFont( 22 ), renderer: 'svg', centerX: width / 2, y: 430} );
     var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
 
     this.addChild( sliderLabel );
     this.addChild( slider );
 
     //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
-    var readout = new Text( '???', {fontSize: '22px', renderer: 'svg'} );
+    var readout = new Text( '???', {font: new FAMBFont( 22 ), renderer: 'svg'} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format

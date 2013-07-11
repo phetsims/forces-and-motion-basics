@@ -20,6 +20,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var MotionConstants = require( 'motion/MotionConstants' );
   var SliderKnob = require( 'common/view/SliderKnob' );
+  var FAMBFont = require( 'common/view/FAMBFont' );
 
   function HSlider( min, max, width, property, speedValueProperty, disableLeftProperty, disableRightProperty, options ) {
     this.enabledProperty = new Property( true );
@@ -127,7 +128,7 @@ define( function( require ) {
           slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
           slider.ticksLayer.addChild( tick );
           if ( hasLabel( i ) ) {
-            var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, fontSize: '18px'} );
+            var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, font: new FAMBFont( 16 )} );
             slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
             slider.ticksLayer.addChild( label );
           }
