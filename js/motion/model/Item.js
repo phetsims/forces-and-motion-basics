@@ -40,7 +40,7 @@ define( function( require ) {
 
   inherit( PropertySet, Item, {
     get position() {return {x: this.x, y: this.y};},
-    set position( position ) {this.set( {x: position.x, y: position.y} );},
+    set position( p ) {this.set( {x: p.x, y: p.y} );},
     armsUp: function() {
       return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
     },

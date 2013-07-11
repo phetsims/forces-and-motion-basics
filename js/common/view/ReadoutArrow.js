@@ -68,9 +68,9 @@ define( function( require ) {
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
 
     //On the motion tabs, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    set labelPosition( labelPosition ) {
-      if ( this.options.labelPosition !== labelPosition ) {
-        this.options.labelPosition = labelPosition;
+    set labelPosition( position ) {
+      if ( this.options.labelPosition !== position ) {
+        this.options.labelPosition = position;
         this.update();
       }
     },

@@ -145,7 +145,7 @@ define( function( require ) {
       return this;
     },
 
-    set enabled( enabled ) { this.enabledProperty.set( enabled ); },
+    set enabled( value ) { this.enabledProperty.set( value ); },
 
     get enabled() { return this.enabledProperty.get(); }
   } );
