@@ -1,6 +1,11 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
-define( function( require ) {
+/**
+ * Constants just used for the motion tabs (2-4)
+ *
+ * @author Sam Reid
+ */
+define( function() {
   'use strict';
 
   return {

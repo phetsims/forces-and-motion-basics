@@ -1,14 +1,21 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * The model for an item that can be dragged out of the toolbox and put into the play are to be pushed.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
+
   var Vector2 = require( 'DOT/Vector2' );
-  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage ) {
     var item = this;
+
+    //Non-observable properties
     this.initialX = x;
     this.initialY = y;
     this.image = image;
@@ -16,7 +23,9 @@ define( function( require ) {
     this.pusherInset = pusherInset;
     this.sittingImage = sittingImage;
     this.holdingImage = holdingImage;
+    this.context = context;
 
+    //Observable properties
     PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, direction: 'left', animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
       //Flag for whether the item is on the skateboard
       onBoard: false,
@@ -28,7 +37,6 @@ define( function( require ) {
       interactionScale: 1.0
     } );
 
-    this.context = context;
     this.context.directionProperty.link( function( direction ) {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
@@ -39,14 +47,22 @@ define( function( require ) {
   }
 
   inherit( PropertySet, Item, {
+
+    //TODO: This should be removed when x & y coalesced into Vector2
     get position() {return {x: this.x, y: this.y};},
     set position( p ) {this.set( {x: p.x, y: p.y} );},
+
+    //Return true if the arms should be up (for a human)
     armsUp: function() {
       return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
     },
+
+    //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
       this.animating = {enabled: true, x: x, y: y, destination: destination};
     },
+
+    //Animate the item to its original location 
     animateHome: function() {
       this.animateTo( this.initialX, this.initialY, 'home' );
     },
@@ -65,15 +81,17 @@ define( function( require ) {
         this.animating = {enabled: false, x: 0, y: 0, end: null, destination: 'home'};
       }
     },
+
+    //Step the model in time
+    //TODO: add dt argument
     step: function() {
       if ( this.dragging ) {
         this.interactionScale = Math.min( this.interactionScale + 0.06, 1.3 );
       }
-      else {
-        if ( this.animating.destination === 'home' ) {
-          this.interactionScale = Math.max( this.interactionScale - 0.06, 1.0 );
-        }
+      else if ( this.animating.destination === 'home' ) {
+        this.interactionScale = Math.max( this.interactionScale - 0.06, 1.0 );
       }
+
       if ( this.animating.enabled ) {
         var current = new Vector2( this.x, this.y );
         var destination = new Vector2( this.animating.x, this.animating.y );
