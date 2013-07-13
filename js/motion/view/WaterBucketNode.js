@@ -18,14 +18,13 @@ define( function( require ) {
   var linear = require( 'DOT/Util' ).linear;
 
   function WaterBucketNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
-    var waterBucketNode = this;
     this.item = item;
     ItemNode.call( this, model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty );
     var water = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', fill: 'rgb(9, 125, 159)', lineWidth: 1} );
     this.addChild( water );
     water.moveToBack();
     var history = [];
-    model.timeProperty.link( function( time ) {
+    model.timeProperty.link( function() {
       var acceleration = model.acceleration;
       history.push( acceleration );
       while ( history.length > 7 ) {

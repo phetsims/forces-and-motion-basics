@@ -61,7 +61,7 @@ define( function( require ) {
           puller.dragging = true;
           pullerNode.moveToFront();
         },
-        end: function( event ) {
+        end: function() {
           updateLocation();
           puller.dragging = false;
           puller.trigger( 'dropped' );

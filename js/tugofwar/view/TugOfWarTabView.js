@@ -158,8 +158,8 @@ define( function( require ) {
 
     if ( isMobileSafari() ) {
       var count = 0;
-      var play = function( e ) {
-        var sound = new Howl( { urls: ['audio/empty.ogg', 'audio/empty.wav'] } ).play();
+      var play = function() {
+        new Howl( { urls: ['audio/empty.ogg', 'audio/empty.wav'] } ).play();
         count++;
         if ( count >= 2 ) {
           window.removeEventListener( 'touchstart', play, false );
@@ -171,7 +171,7 @@ define( function( require ) {
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
       if ( state === 'completed' && model.volumeOn ) {
-        var sound = new Howl( { urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg'] } ).play();
+        new Howl( { urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg'] } ).play();
       }
     } );
 

@@ -13,7 +13,7 @@ define( function( require ) {
   var readServer = false;//If true, loads from server and plays it back.  If false, records locally and mirrors to server.
   var sendMessagesToServer = false;
 
-  function MotionView( motionModel, $tab ) {
+  function MotionView( motionModel ) {
     var view = this;
     motionModel.getSize = function( item ) {
       return {width: item.view.width, height: item.view.height};
