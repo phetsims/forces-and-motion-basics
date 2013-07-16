@@ -30,7 +30,7 @@ define( function( require ) {
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.x, y: item.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg'} );
+    Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg'} );
 
     //Create the node for the main graphic
     var imageNode = new Image( image );
@@ -83,7 +83,7 @@ define( function( require ) {
       end: function() {
         item.dragging = false;
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        if ( item.y < 350 ) {
+        if ( item.position.y < 350 ) {
           item.onBoard = true;
           item.animateTo( motionTabView.layoutBounds.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
@@ -104,11 +104,9 @@ define( function( require ) {
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
     this.labelNode = labelNode;
 
-    //TODO: batch x & y as a Vector2
-    item.multilink( ['x', 'y', 'interactionScale', 'direction'], function( x, y, interactionScale, direction ) {
+    item.multilink( ['position', 'interactionScale', 'direction'], function( position, interactionScale, direction ) {
 
-      //TODO: this will probably be much faster if we can just apply the change in one step
-      itemNode.setTranslation( item.x, item.y );
+      itemNode.setTranslation( position );
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 

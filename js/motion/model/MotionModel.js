@@ -14,6 +14,7 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'motion/MotionConstants' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor for the motion model
@@ -291,8 +292,7 @@ define( function( require ) {
       var itemNode = view.itemNodes[1];
       item.animating = {enabled: false, x: 0, y: 0, end: null};
       item.interactionScale = 1.3;
-      item.x = view.layoutBounds.width / 2 - itemNode.width / 2;
-      item.y = view.topOfStack - itemNode.height;
+      item.position = new Vector2( view.layoutBounds.width / 2 - itemNode.width / 2, view.topOfStack - itemNode.height );
       this.stack.add( item );
     }
   } );

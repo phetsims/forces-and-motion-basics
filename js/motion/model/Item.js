@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * The model for an item that can be dragged out of the toolbox and put into the play are to be pushed.
+ * The model for an item that can be dragged out of the toolbox and put into the play area to be pushed.
  *
  * @author Sam Reid
  */
@@ -26,7 +26,7 @@ define( function( require ) {
     this.context = context;
 
     //Observable properties
-    PropertySet.call( this, {x: x, y: y, pusherInset: pusherInset || 0, dragging: false, direction: 'left', animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
+    PropertySet.call( this, {position: new Vector2( x, y ), pusherInset: pusherInset || 0, dragging: false, direction: 'left', animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
       //Flag for whether the item is on the skateboard
       onBoard: false,
 
@@ -47,10 +47,6 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Item, {
-
-    //TODO: This should be removed when x & y coalesced into Vector2
-    get position() {return {x: this.x, y: this.y};},
-    set position( p ) {this.set( {x: p.x, y: p.y} );},
 
     //Return true if the arms should be up (for a human)
     armsUp: function() { return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this ); },
@@ -91,14 +87,9 @@ define( function( require ) {
       }
 
       if ( this.animating.enabled ) {
-        var current = new Vector2( this.x, this.y );
         var destination = new Vector2( this.animating.x, this.animating.y );
-        var position = current.blend( destination, 0.1 );
-
-        //TODO: batch these for performance
-        this.x = position.x;
-        this.y = position.y;
-        if ( position.distance( destination ) < 1 && this.interactionScale === 1.3 ) {
+        this.position = this.position.blend( destination, 0.1 );
+        if ( this.position.distance( destination ) < 1 && this.interactionScale === 1.3 ) {
           if ( this.animating.end ) {
             this.animating.end();
           }
