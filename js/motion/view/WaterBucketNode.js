@@ -1,17 +1,15 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * This scenery.Node shows the interactive water bucket.  The user can drag it from the toolbox to the play area, and the water sloshes based on the acceleration.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemNode = require( 'motion/view/ItemNode' );
@@ -23,7 +21,11 @@ define( function( require ) {
     var water = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', fill: 'rgb(9, 125, 159)', lineWidth: 1} );
     this.addChild( water );
     water.moveToBack();
+
+    //Keep track of the history to show a momentum-based "sloshing" effect
     var history = [];
+
+    //When the model steps in time, update the water shape
     model.timeProperty.link( function() {
       var acceleration = model.acceleration;
       history.push( acceleration );
@@ -58,7 +60,5 @@ define( function( require ) {
     } );
   }
 
-  inherit( ItemNode, WaterBucketNode );
-
-  return WaterBucketNode;
+  return inherit( ItemNode, WaterBucketNode );
 } );
