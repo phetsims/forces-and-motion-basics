@@ -133,27 +133,29 @@ define( function( require ) {
 
     //Add ticks at regular intervals in 8 divisions
     addNormalTicks: function() {
+
+      //Constants and functions for creating the ticks
       var slider = this;
       var numDivisions = 8; //e.g. divide the ruler into 1/8ths
       var numTicks = numDivisions + 1; //ticks on the end
       var isMajor = function( tickIndex ) { return tickIndex % 2 === 0; };
       var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
 
-      //TODO: replace with underscore.range
-      for ( var i = 0; i < numTicks; i++ ) {
-        (function( i ) {
+      //Generate each of the ticks and add to the parent
+      _.range( numTicks ).forEach( function( i ) {
 
-          var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
-          var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -15 ) ), stroke: 'black', lineWidth: 1} );
-          slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
-          slider.ticksLayer.addChild( tick );
-          if ( hasLabel( i ) ) {
-            var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, font: new FAMBFont( 16 )} );
-            slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
-            slider.ticksLayer.addChild( label );
-          }
-        })( i );
-      }
+        var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
+        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -15 ) ), stroke: 'black', lineWidth: 1} );
+        slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
+        slider.ticksLayer.addChild( tick );
+        if ( hasLabel( i ) ) {
+          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, font: new FAMBFont( 16 )} );
+          slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
+          slider.ticksLayer.addChild( label );
+        }
+      } );
+
+      //Return this for chaining
       return this;
     },
 
