@@ -28,9 +28,8 @@ define( function( require ) {
 
     this.addChild( background );
 
-    //Tweaked to get 10m/s/s to line up with 1st tick.  For unknown reasons, this is twice the value in the Java version
-    //TODO: Double check that 10m/s/s lines up with the 1st tick
-    var scale = 4.22 * 2;
+    //Tweaked to get 10m/s/s to line up with 1st tick.
+    var scale = 4.22;
 
     //The bar that gets bigger or smaller based on the acceleration.
     var bar = new Rectangle( barWidth / 2, 0, 25, height, {fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(248,194,216)' ).addColorStop( 1, 'rgb(154,105,127)' )} );
