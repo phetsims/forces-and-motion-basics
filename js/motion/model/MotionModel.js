@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Model for the Motion, Friction and Acceleration tabs
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
   var Vector2 = require( 'DOT/Vector2' );
@@ -11,16 +16,23 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
-  function sign( value ) {
-    return value < 0 ? 'negative' :
-           value > 0 ? 'positive' :
-           'zero';
-  }
-
+  /**
+   * Constructor for the motion model
+   * @param {String} tab String that indicates which of the 3 tabs this model represents
+   * @param {Boolean} skateboard flag for whether there is a skateboard //TODO: replace with tab flag
+   * @param {Boolean} accelerometer //TODO: replace with tab flag
+   * @param {Boolean} friction //TODO: replace with tab flag
+   * @constructor
+   */
   function MotionModel( tab, skateboard, accelerometer, friction ) {
+
+    //Constants
     this.tab = tab;
     this.skateboard = skateboard;
     this.accelerometer = accelerometer;
+    this.stack = new ObservableArray();
+
+    //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
     PropertySet.call( this, {
       appliedForce: 0,
       frictionForce: 0,
@@ -30,6 +42,7 @@ define( function( require ) {
 
       position: 0,
       speed: 0,
+
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
@@ -40,7 +53,10 @@ define( function( require ) {
       showSpeed: false,
       showMasses: false,
       showAcceleration: false,
+
       speedValue: 'WITHIN_ALLOWED_RANGE',
+
+      //TODO: document or rename
       _speedValue: 'WITHIN_ALLOWED_RANGE',
       movingRight: true,
       direction: 'none',
@@ -50,29 +66,27 @@ define( function( require ) {
       time: 0
     } );
 
-    this.stack = new ObservableArray();
     //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( this.tab );
     var motionModel = this;
-    var dy = -39;
-    var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + dy, 0.78 );
+    var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
     this.items = accelerometer ?
                  [
-                   new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
-                   new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
-                   new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
-                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' ),
-                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, 'man-sitting.png', 'man-holding.png' ),
+                   new Item( this, 'fridge.png', 200, 25, 439, 0.8 ),
+                   new Item( this, 'crate.png', 50, 126, 495, 0.5 ),
+                   new Item( this, 'crate.png', 50, 218, 495, 0.5 ),
+                   new Item( this, 'girl-standing.png', 40, 684, 471, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' ),
+                   new Item( this, 'man-standing.png', 80, 747, 421, 0.6, 10, 'man-sitting.png', 'man-holding.png' ),
                    bucket
                  ] :
-                 [ new Item( this, 'fridge.png', 200, 25, 478 + dy, 0.8 ),
-                   new Item( this, 'crate.png', 50, 126, 550 - 18 + 2 + dy, 0.5 ),
-                   new Item( this, 'crate.png', 50, 218, 550 - 18 + 2 + dy, 0.5 ),
-                   new Item( this, 'girl-standing.png', 40, 684, 510 + dy, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' ),
-                   new Item( this, 'man-standing.png', 80, 747, 460 + dy, 0.6, 10, 'man-sitting.png', 'man-holding.png' ),
-                   new Item( this, 'trash-can.png', 100, 826 - 10, 518 + 11 + 12 + dy, 0.7 ),
-                   new Item( this, 'mystery-object-01.png', 50, 880 + 10 - 2, 580 + 2 + dy, 1.1 )
+                 [ new Item( this, 'fridge.png', 200, 25, 439, 0.8 ),
+                   new Item( this, 'crate.png', 50, 126, 495, 0.5 ),
+                   new Item( this, 'crate.png', 50, 218, 495, 0.5 ),
+                   new Item( this, 'girl-standing.png', 40, 684, 471, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' ),
+                   new Item( this, 'man-standing.png', 80, 747, 421, 0.6, 10, 'man-sitting.png', 'man-holding.png' ),
+                   new Item( this, 'trash-can.png', 100, 816, 502, 0.7 ),
+                   new Item( this, 'mystery-object-01.png', 50, 888, 543, 1.1 )
                  ];
 
     this.velocityProperty.link( function( velocity ) {
@@ -130,9 +144,11 @@ define( function( require ) {
       bottom.onBoard = false;
       bottom.animateHome();
     },
+
+    //Determine whether a value is positive, negative or zero for the physics computations
     getSign: function( value ) { return value > 0 ? 1 : value < 0 ? -1 : 0; },
 
-    //TODO: Test this
+    //Returns the friction force on an object given the applied force
     getFrictionForce: function( appliedForce ) {
       var g = 10.0;
       var sum = function( a, b ) {return a + b;};
@@ -152,14 +168,17 @@ define( function( require ) {
       return -frictionForce;
     },
 
-    //TODO: Test this
+    //Computes the new forces and sets them to the corresponding properties
     updateForces: function() {
+
       //The first part of stepInTime is to compute and set the forces.  But this is factored out because the forces must also be updated
       //When the user changes the friction force or mass while the sim is paused.
-      var frictionForce = this.getFrictionForce( this.appliedForce );
-      this.frictionForce = frictionForce;
-      this.sumOfForces = frictionForce + this.appliedForce;
+      this.frictionForce = this.getFrictionForce( this.appliedForce );
+      this.sumOfForces = this.frictionForce + this.appliedForce;
     },
+
+    //Compute the mass of the entire stack, for purposes of momentum computation
+    //TODO: Replace with fold left or _.reduce
     getStackMass: function() {
       var sum = 0;
       for ( var i = 0; i < this.stack.length; i++ ) {
@@ -167,10 +186,21 @@ define( function( require ) {
       }
       return sum;
     },
-    changedDirection: function( a, b ) {
-      return sign( a ) === 'negative' && sign( b ) === 'positive' ||
-             sign( b ) === 'negative' && sign( a ) === 'positive';
+
+    //Determine whether a value is positive, negative or zero, to determine whether the object changed directions.
+    sign: function( value ) {
+      return value < 0 ? 'negative' :
+             value > 0 ? 'positive' :
+             'zero';
     },
+
+    //Determine whether a velocity value changed direction
+    changedDirection: function( a, b ) {
+      return this.sign( a ) === 'negative' && this.sign( b ) === 'positive' ||
+             this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
+    },
+
+    //Update the physics
     step: function( dt ) {
 
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
@@ -193,8 +223,6 @@ define( function( require ) {
       //Cap at strobe speed.  This is necessary so that a reverse applied force will take effect immediately, without these lines of code the pusher will stutter.
       if ( newVelocity > MotionConstants.maxSpeed ) { newVelocity = MotionConstants.maxSpeed; }
       if ( newVelocity < -MotionConstants.maxSpeed ) { newVelocity = -MotionConstants.maxSpeed; }
-
-//        System.out.println( 'sumOfForces = ' + sumOfForces + ', ff = ' + frictionForce.get() + ', af = ' + appliedForce.get() + ', accel = ' + acceleration + ', newVelocity = ' + newVelocity );
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
@@ -232,14 +260,15 @@ define( function( require ) {
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].step();
       }
-
-//      console.log('sum of forces',this.sumOfForces, 'accel',this.acceleration,'speed',this.speed,'position',this.position);
-//      this.count = this.count || 0;
-//      this.count++;
-//      console.log(this.count);
     },
+
+    //Determine whether an item is in the stack.
     isInStack: function( item ) { return this.stack.contains( item ); },
+
+    //Determine whether an item is stacked above another item, so that the arms can be raised for humans
     isItemStackedAbove: function( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;},
+
+    //Reset the model
     reset: function() {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {

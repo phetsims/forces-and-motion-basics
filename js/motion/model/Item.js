@@ -53,9 +53,7 @@ define( function( require ) {
     set position( p ) {this.set( {x: p.x, y: p.y} );},
 
     //Return true if the arms should be up (for a human)
-    armsUp: function() {
-      return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
-    },
+    armsUp: function() { return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this ); },
 
     //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
