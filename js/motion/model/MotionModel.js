@@ -19,24 +19,22 @@ define( function( require ) {
   /**
    * Constructor for the motion model
    * @param {String} tab String that indicates which of the 3 tabs this model represents
-   * @param {Boolean} skateboard flag for whether there is a skateboard //TODO: replace with tab flag
-   * @param {Boolean} accelerometer //TODO: replace with tab flag
-   * @param {Boolean} friction //TODO: replace with tab flag
    * @constructor
    */
-  function MotionModel( tab, skateboard, accelerometer, friction ) {
+  function MotionModel( tab ) {
 
     //Constants
     this.tab = tab;
-    this.skateboard = skateboard;
-    this.accelerometer = accelerometer;
+    this.skateboard = tab === 'motion';
+    this.accelerometer = tab === 'acceleration';
+    this.friction = tab === 'motion' ? 0 : MotionConstants.maxFriction / 2;
     this.stack = new ObservableArray();
 
     //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
     PropertySet.call( this, {
       appliedForce: 0,
       frictionForce: 0,
-      friction: friction,
+      friction: this.friction,
 
       sumOfForces: 0,
 
@@ -71,7 +69,7 @@ define( function( require ) {
     var motionModel = this;
     var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
-    this.items = accelerometer ?
+    this.items = this.accelerometer ?
                  [
                    new Item( this, 'fridge.png', 200, 25, 439, 0.8 ),
                    new Item( this, 'crate.png', 50, 126, 495, 0.5 ),
