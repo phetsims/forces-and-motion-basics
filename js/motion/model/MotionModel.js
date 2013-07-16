@@ -176,14 +176,7 @@ define( function( require ) {
     },
 
     //Compute the mass of the entire stack, for purposes of momentum computation
-    //TODO: Replace with fold left or _.reduce
-    getStackMass: function() {
-      var sum = 0;
-      for ( var i = 0; i < this.stack.length; i++ ) {
-        sum += this.stack.at( i ).mass;
-      }
-      return sum;
-    },
+    getStackMass: function() { return this.stack.foldLeft( 0, function( sum, item ) { return sum + item.mass; } ); },
 
     //Determine whether a value is positive, negative or zero, to determine whether the object changed directions.
     sign: function( value ) {
