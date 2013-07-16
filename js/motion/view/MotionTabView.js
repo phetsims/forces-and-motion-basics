@@ -124,7 +124,7 @@ define( function( require ) {
     this.addChild( sliderLabel );
     this.addChild( slider );
 
-    //Position the units to the right of the text box.  TODO: use coordinate transforms to do this instead of assuming a fixed relationship to sliderControl
+    //Position the units to the right of the text box.
     var readout = new Text( '???', {font: new FAMBFont( 22 ), renderer: 'svg'} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {

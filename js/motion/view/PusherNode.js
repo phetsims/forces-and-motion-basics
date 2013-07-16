@@ -23,8 +23,7 @@ define( function( require ) {
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
 
-    //TODO: For performance, maybe some of these attributes can be turned into derived properties so they won't call this function back too much
-    //TODO: For example, speed is only used for maxSpeedExceeded, and we do not need to update each time the speed changes
+    //Update the image and position when the model changes
     model.multilink( ['appliedForce', 'position', 'pusherPosition', 'fallen'], function( appliedForce, position, pusherPosition, fallen ) {
 
       //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
@@ -46,21 +45,22 @@ define( function( require ) {
       }
 
       var delta = model.stack.length > 0 ? (model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset) : 100;
+
+      //Pushing to the right
       if ( appliedForce > 0 && !fallen ) {
-
-        //Workaround for buggy setScale, see dot#2
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
-
         pusherNode.x = layoutWidth / 2 - imageNode.width * scale - delta;
         model.pusherPosition = -delta + position * MotionConstants.positionScale - imageNode.width;
       }
-      else if ( appliedForce < 0 && !fallen ) {
 
-        //Workaround for buggy setScale, see dot#2
+      //Pushing to the left
+      else if ( appliedForce < 0 && !fallen ) {
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = layoutWidth / 2 + imageNode.width * scale + delta;
         model.pusherPosition = delta + position * MotionConstants.positionScale;
       }
+
+      //Standing still
       else {
         pusherNode.x = layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.positionScale + pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
