@@ -7,10 +7,9 @@
  */
 define( function( require ) {
   'use strict';
-  var Vector2 = require( 'DOT/Vector2' );
+
   var Item = require( 'motion/model/Item' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
-  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );

@@ -46,7 +46,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( PropertySet, Item, {
+  return inherit( PropertySet, Item, {
 
     //TODO: This should be removed when x & y coalesced into Vector2
     get position() {return {x: this.x, y: this.y};},
@@ -107,6 +107,4 @@ define( function( require ) {
       }
     }
   } );
-
-  return Item;
 } );
