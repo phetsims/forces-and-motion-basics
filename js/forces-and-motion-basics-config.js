@@ -16,9 +16,8 @@ require.config( {
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
 
-    //Load lib dependencies
-    jquery: '../lib/jquery-1.9.1',
-    i18n: '../lib/i18n'
+    //Load plugins
+    i18n: '../../i18n/i18n'
   },
 
   urlArgs: new Date().getTime() // add cache buster query string to make browser refresh actually reload everything
