@@ -258,7 +258,7 @@ define( function( require ) {
       }
 
       for ( var i = 0; i < this.items.length; i++ ) {
-        this.items[i].step();
+        this.items[i].step( dt );
       }
     },
 

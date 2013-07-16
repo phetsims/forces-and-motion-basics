@@ -76,19 +76,18 @@ define( function( require ) {
       }
     },
 
-    //Step the model in time
-    //TODO: add dt argument
-    step: function() {
+    //Step the item in time, making it grow or shrink (if necessary), or animate to its destination
+    step: function( dt ) {
       if ( this.dragging ) {
-        this.interactionScale = Math.min( this.interactionScale + 0.06, 1.3 );
+        this.interactionScale = Math.min( this.interactionScale + 9 * dt, 1.3 );
       }
       else if ( this.animating.destination === 'home' ) {
-        this.interactionScale = Math.max( this.interactionScale - 0.06, 1.0 );
+        this.interactionScale = Math.max( this.interactionScale - 9 * dt, 1.0 );
       }
 
       if ( this.animating.enabled ) {
         var destination = new Vector2( this.animating.x, this.animating.y );
-        this.position = this.position.blend( destination, 0.1 );
+        this.position = this.position.blend( destination, 15 * dt );
         if ( this.position.distance( destination ) < 1 && this.interactionScale === 1.3 ) {
           if ( this.animating.end ) {
             this.animating.end();
