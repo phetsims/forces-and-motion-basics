@@ -1,16 +1,17 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Main scenery view for the Motion, Friction and Acceleration tabs.
+ */
 define( function( require ) {
   'use strict';
+
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Font = require( 'SCENERY/util/Font' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'motion/view/ItemNode' );
   var WaterBucketNode = require( 'motion/view/WaterBucketNode' );
@@ -30,6 +31,11 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
 
+  /**
+   * Constructor for the MotionTabView
+   * @param {MotionModel} model model for the entire tab
+   * @constructor
+   */
   function MotionTabView( model ) {
     this.model = model;
     TabView.call( this );
@@ -43,9 +49,7 @@ define( function( require ) {
     var skyHeight = 362;
     var groundHeight = height - skyHeight;
 
-    model.getSize = function( item ) {
-      return {width: item.view.width, height: item.view.height};
-    };
+    model.getSize = function( item ) { return {width: item.view.width, height: item.view.height}; };
 
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.model = model;//Wire up so main.js can step the model
@@ -177,11 +181,6 @@ define( function( require ) {
     var resetButton = new ResetAllButton( model.reset.bind( model ), {renderer: 'svg'} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
-    //This code shows the results of the profiler, useful on iPad where it is more difficult to collect metrics
-//    var text = new Text( 'profiler', {top: 100, left: 100} );
-//    profiler.addListener( function( summary ) {text.text = summary;} );
-//    this.addChild( text );
-
     if ( model.accelerometer ) {
 
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
@@ -201,7 +200,7 @@ define( function( require ) {
     model.viewInitialized( this );
   }
 
-  inherit( TabView, MotionTabView, {
+  return inherit( TabView, MotionTabView, {
 
     /**
      * Get the height of the objects in the stack (doesn't include skateboard)
@@ -218,6 +217,4 @@ define( function( require ) {
       return n - this.stackHeight;
     }
   } );
-
-  return MotionTabView;
 } );

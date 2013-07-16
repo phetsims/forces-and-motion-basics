@@ -1,7 +1,13 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Scenery node that shows the control panel for the Motion, Friction and Acceleration tabs.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
+
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -14,7 +20,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var CheckBox = require( 'SUN/CheckBox' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var MotionConstants = require( 'motion/MotionConstants' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
@@ -94,7 +99,5 @@ define( function( require ) {
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5} ) );
   }
 
-  inherit( Node, MotionControlPanel );
-
-  return MotionControlPanel;
+  return inherit( Node, MotionControlPanel );
 } );

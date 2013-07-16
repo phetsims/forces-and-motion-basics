@@ -1,31 +1,45 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Horizontal slider for the friction/applied force.
+ * Not generalizable enough to be reused elsewhere, but has custom behaviors like being half grayed out when acceleration is maxed
+ * out in one direction.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 
-  var Image = require( 'SCENERY/nodes/Image' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var DOM = require( 'SCENERY/nodes/DOM' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
   var imageLoader = require( 'imageLoader' );
   var Property = require( 'AXON/Property' );
-  var MotionConstants = require( 'motion/MotionConstants' );
   var SliderKnob = require( 'common/view/SliderKnob' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
+  /**
+   * Constructor for HSlider
+   * @param {Number} min
+   * @param {Number} max
+   * @param {Number} width
+   * @param {Property<Number>} property the numeric value for the slider
+   * @param {Property<Number>} speedValueProperty
+   * @param {Property<Boolean>} disableLeftProperty
+   * @param {Property<Boolean>} disableRightProperty
+   * @param {Object} options
+   * @constructor
+   */
   function HSlider( min, max, width, property, speedValueProperty, disableLeftProperty, disableRightProperty, options ) {
-    this.enabledProperty = new Property( true );
     var slider = this;
-    this.options = _.extend( {zeroOnRelease: false}, options || {} );
+    this.enabledProperty = new Property( true );
+    this.options = _.extend( {renderer: 'svg', zeroOnRelease: false}, options || {} );
 
     speedValueProperty.link( function( speedValue ) {
       if ( speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
@@ -37,7 +51,6 @@ define( function( require ) {
     this.sliderWidth = width;
     this.trackHeight = 6;
 
-    this.options.renderer = 'svg';
     Node.call( this, this.options );
 
     this.ticksLayer = new Node();
@@ -51,6 +64,7 @@ define( function( require ) {
       track.fill = enabled ? 'white' : 'gray';
     } );
 
+    //Gray out left side or right side if the maximum speed has been reached in that direction
     if ( disableLeftProperty && disableRightProperty ) {
       //Bars to show either side of the slider disabled when max is reached in that direction
       var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
@@ -96,6 +110,7 @@ define( function( require ) {
     knob.addInputListener( dragHandler );
     this.addChild( knob );
 
+    //Show the knob as enabled or disabled
     this.enabledProperty.link( function( enabled ) {
       knob.children = [enabled ? enabledKnob : disabledKnob];
       knob.cursor = enabled ? 'pointer' : 'default';
@@ -107,19 +122,24 @@ define( function( require ) {
       }
     } );
 
+    //Link to the property value so that when the model value changes the knob will change location.
     property.link( function( value ) { knob.x = linear( min, max, 0, width, value ) - knob.width / 2; } );
+
+    //Update layout and settings for Node
     this.mutate( options );
   }
 
-  inherit( Node, HSlider, {
+  return inherit( Node, HSlider, {
+
+    //Add ticks at regular intervals in 8 divisions
     addNormalTicks: function() {
       var slider = this;
-      //TODO: turn these into parameters
       var numDivisions = 8; //e.g. divide the ruler into 1/8ths
       var numTicks = numDivisions + 1; //ticks on the end
       var isMajor = function( tickIndex ) { return tickIndex % 2 === 0; };
       var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
 
+      //TODO: replace with underscore.range
       for ( var i = 0; i < numTicks; i++ ) {
         (function( i ) {
 
@@ -145,10 +165,10 @@ define( function( require ) {
       return this;
     },
 
+    //Set the entire slider to be enabled or disabled
     set enabled( value ) { this.enabledProperty.set( value ); },
 
+    //Determine whether the slider is enabled or not
     get enabled() { return this.enabledProperty.get(); }
   } );
-
-  return HSlider;
 } );

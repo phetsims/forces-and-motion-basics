@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Shows the draggable pusher, which applies force to the objects in the center of the screen and falls down if he exceeds the maximum velocity.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 

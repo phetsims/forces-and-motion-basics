@@ -1,5 +1,10 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+/**
+ * Shows the draggable node for any of the items in the Motion, Friction and Acceleration tabs.
+ *
+ * @author Sam Reid
+ */
 define( function( require ) {
   'use strict';
 
@@ -7,20 +12,30 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Matrix3 = require( 'DOT/Matrix3' );
   var inherit = require( 'PHET_CORE/inherit' );
   var FAMBFont = require( 'common/view/FAMBFont' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
+  /**
+   * Constructor for ItemNode
+   * @param {MotionModel} model the entire model for the containing tab
+   * @param {MotionTabView} motionTabView the entire view for the containing tab
+   * @param {Item} item the corresponding to this ItemNode
+   * @param {Image} image the scenery.Image to show for this node
+   * @param {Image} imageSitting optional image for when the person is sitting down
+   * @param {Image} imageHolding optional image for when the person is holding an object
+   * @param {Property<Boolean>} showMassesProperty property for whether the mass value should be shown
+   * @constructor
+   */
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.x, y: item.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg'} );
+
+    //Create the node for the main graphic
     var imageNode = new Image( image );
+
+    //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
       var onBoard = item.onBoard;
       if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && onBoard) ) {
@@ -44,6 +59,7 @@ define( function( require ) {
 
     model.stack.lengthProperty.link( updateImage );
 
+    //When the user drags the object
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.onBoard = false;
@@ -62,6 +78,8 @@ define( function( require ) {
           model.spliceStack( index );
         }
       },
+
+      //End the drag
       end: function() {
         item.dragging = false;
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
@@ -80,6 +98,7 @@ define( function( require ) {
     } );
     this.addInputListener( dragHandler );
 
+    //Label for the mass (if it is shown)
     var massLabel = new Text( item.mass + ' kg', {font: new FAMBFont( 15, 'bold' )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
@@ -111,7 +130,5 @@ define( function( require ) {
     showMassesProperty.link( function( showMasses ) { node.children = showMasses ? [labelNode] : []; } );
   }
 
-  inherit( Node, ItemNode );
-
-  return ItemNode;
+  return inherit( Node, ItemNode );
 } );

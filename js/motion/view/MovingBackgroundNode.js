@@ -2,14 +2,16 @@
 
 /**
  * This class shows all of the moving background, including the mountains, clouds and brick tile on the ground.
+ *
+ * @author Sam Reid
  */
 define( function( require ) {
   'use strict';
+
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var ItemNode = require( 'motion/view/ItemNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var linear = require( 'DOT/Util' ).linear;
@@ -117,6 +119,7 @@ define( function( require ) {
 
       movingBackgroundNode.lastNumSpecks = 0;
 
+      //Create the gravel for nonzero friction.
       model.frictionProperty.link( function() {
         var height = 3;
         var numSpecks = linear( MotionConstants.maxFriction * 0.1, MotionConstants.maxFriction, 0, 400, model.friction );
