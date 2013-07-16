@@ -27,6 +27,8 @@ define( function( require ) {
 
     var modWidth = 120 * 15;
     var L = modWidth / 2;
+
+    //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
     var addBackgroundNode = function( offset, node, distanceScale ) {
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
@@ -73,11 +75,13 @@ define( function( require ) {
       return addBackgroundNode( offset, sprite, distanceScale );
     };
 
+    //Add the mountains
     var mountainY = 311;
     addBackgroundImage( L / 2, 'mountains.png', 10, mountainY, 1 );
     addBackgroundImage( L, 'mountains.png', 10, mountainY, 1 );
     addBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 );
 
+    //Add the clouds
     addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
     addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
@@ -86,22 +90,23 @@ define( function( require ) {
     var tile = imageLoader.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
 
-    //offset the pattern so that the it aligns with the brick image
+    //Add the ground, offset the pattern so that the it aligns with the brick image
     var tilePattern = new Pattern( tile );
     var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern, y: mountainY + 50 } );
-
     var mod = ground.width / 14;
     var offset = layoutCenterX - ground.width / 2;
     model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.positionScale % mod + offset; } );
     this.addChild( ground );
 
-    var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 50 - 2} );
-    model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.positionScale % mod + offset; } );
-    this.addChild( gravel );
-
     //Add the gravel and ice
     if ( !model.skateboard ) {
 
+      //Add the gravel
+      var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 48} );
+      model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.positionScale % mod + offset; } );
+      this.addChild( gravel );
+
+      //Add the ice
       var iceOverlay = new Rectangle( -400, mountainY + 50, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
       var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
       var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
@@ -144,7 +149,5 @@ define( function( require ) {
     }
   }
 
-  inherit( Node, MovingBackgroundNode );
-
-  return MovingBackgroundNode;
+  return inherit( Node, MovingBackgroundNode );
 } );

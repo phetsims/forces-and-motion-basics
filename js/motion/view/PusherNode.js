@@ -98,7 +98,5 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, PusherNode );
-
-  return PusherNode;
+  return inherit( Node, PusherNode );
 } );
