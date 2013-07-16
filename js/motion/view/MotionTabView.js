@@ -71,7 +71,7 @@ define( function( require ) {
     this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
     this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
 
-    //Add the puser
+    //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
     //Iterate over the items in the model and create and add nodes for each one

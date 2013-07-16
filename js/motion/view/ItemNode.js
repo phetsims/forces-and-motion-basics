@@ -24,7 +24,7 @@ define( function( require ) {
    * @param {Image} image the scenery.Image to show for this node
    * @param {Image} imageSitting optional image for when the person is sitting down
    * @param {Image} imageHolding optional image for when the person is holding an object
-   * @param {Property<Boolean>} showMassesProperty property for whether the mass value should be shown
+   * @param {Property} showMassesProperty property for whether the mass value should be shown
    * @constructor
    */
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
