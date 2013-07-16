@@ -30,19 +30,19 @@ define( function( require ) {
    * @param {Number} max
    * @param {Number} width
    * @param {Property<Number>} property the numeric value for the slider
-   * @param {Property<Number>} speedValueProperty
+   * @param {Property<Number>} speedClassificationProperty
    * @param {Property<Boolean>} disableLeftProperty
    * @param {Property<Boolean>} disableRightProperty
    * @param {Object} options
    * @constructor
    */
-  function HSlider( min, max, width, property, speedValueProperty, disableLeftProperty, disableRightProperty, options ) {
+  function HSlider( min, max, width, property, speedClassificationProperty, disableLeftProperty, disableRightProperty, options ) {
     var slider = this;
     this.enabledProperty = new Property( true );
     this.options = _.extend( {renderer: 'svg', zeroOnRelease: false}, options || {} );
 
-    speedValueProperty.link( function( speedValue ) {
-      if ( speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
+    speedClassificationProperty.link( function( speedClassification ) {
+      if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
         dragHandler.endDrag();//drop the mouse
       }
     } );

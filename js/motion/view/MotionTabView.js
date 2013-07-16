@@ -119,7 +119,7 @@ define( function( require ) {
     } );
 
     var sliderLabel = new Text( Strings.appliedForce, {font: new FAMBFont( 22 ), renderer: 'svg', centerX: width / 2, y: 430} );
-    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedValueProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
+    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
 
     this.addChild( sliderLabel );
     this.addChild( slider );

@@ -52,10 +52,10 @@ define( function( require ) {
       showMasses: false,
       showAcceleration: false,
 
-      speedValue: 'WITHIN_ALLOWED_RANGE',
-
-      //TODO: document or rename
-      _speedValue: 'WITHIN_ALLOWED_RANGE',
+      //Keep track of whether the speed is classified as: 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
+      //so that the Applied Force can be stopped if the speed goes out of range
+      speedClassification: 'WITHIN_ALLOWED_RANGE',
+      previousSpeedClassification: 'WITHIN_ALLOWED_RANGE',
       movingRight: true,
       direction: 'none',
       timeSinceFallen: 10,
@@ -94,8 +94,8 @@ define( function( require ) {
     } );
 
     //Applied force should drop to zero if max speed reached
-    this.speedValueProperty.link( function( speedValue ) {
-      if ( speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
+    this.speedClassificationProperty.link( function( speedClassification ) {
+      if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
         motionModel.appliedForce = 0;
       }
     } );
@@ -225,14 +225,14 @@ define( function( require ) {
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
       this.speed = Math.abs( this.velocity );
-      this.speedValue = this.velocity >= MotionConstants.maxSpeed ? 'RIGHT_SPEED_EXCEEDED' :
-                        this.velocity <= -MotionConstants.maxSpeed ? 'LEFT_SPEED_EXCEEDED' :
-                        'WITHIN_ALLOWED_RANGE';
+      this.speedClassification = this.velocity >= MotionConstants.maxSpeed ? 'RIGHT_SPEED_EXCEEDED' :
+                                 this.velocity <= -MotionConstants.maxSpeed ? 'LEFT_SPEED_EXCEEDED' :
+                                 'WITHIN_ALLOWED_RANGE';
 
-      if ( this.speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
+      if ( this.speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
         this.timeSinceFallen = 0;
         this.fallen = true;
-        this.fallenDirection = this.speedValue === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
+        this.fallenDirection = this.speedClassification === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
       }
       else {
         this.timeSinceFallen = this.timeSinceFallen + dt;
@@ -251,8 +251,8 @@ define( function( require ) {
         this.fallen = false;
       }
 
-      if ( this._speedValue !== 'WITHIN_ALLOWED_RANGE' ) {
-        this.speedValue = this._speedValue;
+      if ( this.previousSpeedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
+        this.speedClassification = this.previousSpeedClassification;
       }
 
       for ( var i = 0; i < this.items.length; i++ ) {
