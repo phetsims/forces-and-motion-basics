@@ -113,7 +113,7 @@ define( function( require ) {
       imageNode.resetTransform();
       if ( direction === 'right' ) {
         imageNode.scale( -1, 1 );
-        imageNode.translate( -imageNode.width / scale, 0 );
+        imageNode.translate( -itemNode.width / scale, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );
