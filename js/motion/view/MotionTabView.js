@@ -30,6 +30,7 @@ define( function( require ) {
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
    * Constructor for the MotionTabView
@@ -56,6 +57,15 @@ define( function( require ) {
     //Create the static background
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient} );
+
+    //Apply a force by dragging the sky
+    this.skyNode.addInputListener( new SimpleDragHandler( {
+      translate: function( options ) {
+        var newAppliedForce = model.appliedForce + options.delta.x;
+        model.appliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
+      },
+      end: function() { model.appliedForce = 0; }
+    } ) );
     this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b'} );
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
