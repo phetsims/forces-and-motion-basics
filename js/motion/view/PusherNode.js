@@ -16,6 +16,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
+  //REVIEW @param doc
   function PusherNode( model, layoutWidth ) {
     var pusherNode = this;
     var scale = 0.85;

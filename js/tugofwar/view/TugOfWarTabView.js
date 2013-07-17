@@ -29,6 +29,10 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
+  /**
+   * @param {TugOfWarModel} model
+   * @constructor
+   */
   function TugOfWarTabView( model ) {
 
     //Fit to the window and render the initial scene

@@ -28,6 +28,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
+  //REVIEW @param doc
   function MotionControlPanel( model ) {
     Node.call( this, {renderer: 'svg'} );
 

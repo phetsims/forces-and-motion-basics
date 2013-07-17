@@ -120,6 +120,7 @@ define( function( require ) {
 
     //Work around a scenery bug that makes an invisible node show if its parent is added to the scene
     //TODO: Isolate and fix that scenery bug.  Still a problem as of 7/16/2013
+    //REVIEW what is the issue# for this bug?
     var node = new Node();
     itemNode.addChild( imageNode );
     itemNode.addChild( node );

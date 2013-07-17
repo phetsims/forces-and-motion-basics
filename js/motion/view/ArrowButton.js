@@ -1,5 +1,6 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
+//REVIEW This is duplicated here and in BAA (which adds 'up' and 'down' directions), both copied from BLL. Migrate to scenery-phet.
 //Copied from Beers Law Lab on 7-17-2013.
 //TODO: When we have a plan for factoring it out or coalescing, get rid of this version
 

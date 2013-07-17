@@ -16,6 +16,7 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
+  //REVIEW @param doc
   function FlagNode( model, centerX, top ) {
     var flagNode = this;
     this.model = model;

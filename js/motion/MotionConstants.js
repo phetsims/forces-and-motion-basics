@@ -8,6 +8,7 @@
 define( function() {
   'use strict';
 
+  //REVIEW idiomatic.js recommends uppercase names for constants: POSITION_SCALE, MAX_FRICTION, MAX_SPEED
   return {
 
     //The scale mapping between model units (meters) and stage coordinates, How much to translate model coordinates into view pixels for translating the background ground

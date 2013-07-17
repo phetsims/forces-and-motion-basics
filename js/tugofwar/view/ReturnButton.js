@@ -14,6 +14,11 @@ define( function( require ) {
   var RectangleButton = require( 'SUN/RectangleButton' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
+  /**
+   * @param {TugOfWarModel} model
+   * @param options
+   * @constructor
+   */
   function ReturnButton( model, options ) {
     Node.call( this );
 
