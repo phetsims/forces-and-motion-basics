@@ -31,6 +31,10 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Button = require( 'SUN/Button' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var RectangleButton = require( 'SUN/RectangleButton' );
+  var ArrowButton = require( 'motion/view/ArrowButton' );
 
   /**
    * Constructor for the MotionTabView
@@ -151,6 +155,21 @@ define( function( require ) {
     this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2, renderer: 'svg'} );
     this.addChild( this.textPanelNode );
     this.addChild( readout );
+
+    //Show left arrow button 'tweaker' to change the applied force in increments of 50
+    var leftArrowButton = new ArrowButton( 'left', function() {
+      model.appliedForce = Math.max( model.appliedForce - 50, -500 );
+    }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 2, centerY: this.textPanelNode.centerY} );
+    model.appliedForceProperty.link( function( appliedForce ) { leftArrowButton.setEnabled( appliedForce > -500 ); } );
+    this.addChild( leftArrowButton );
+
+    //Show right arrow button 'tweaker' to change the applied force in increments of 50
+    var rightArrowButton = new ArrowButton( 'right', function() {
+      model.appliedForce = Math.min( model.appliedForce + 50, 500 );
+    }, {rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 2, centerY: this.textPanelNode.centerY} );
+    model.appliedForceProperty.link( function( appliedForce ) { rightArrowButton.setEnabled( appliedForce < 500 ); } );
+    this.addChild( rightArrowButton );
+
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
     model.stack.lengthProperty.link( disableText( readout ) );
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
