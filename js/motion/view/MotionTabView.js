@@ -159,14 +159,14 @@ define( function( require ) {
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
-    }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 2, centerY: this.textPanelNode.centerY} );
+    }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 2, centerY: this.textPanelNode.centerY} );
     model.appliedForceProperty.link( function( appliedForce ) { leftArrowButton.setEnabled( appliedForce > -500 ); } );
     this.addChild( leftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
-    }, {rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 2, centerY: this.textPanelNode.centerY} );
+    }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 2, centerY: this.textPanelNode.centerY} );
     model.appliedForceProperty.link( function( appliedForce ) { rightArrowButton.setEnabled( appliedForce < 500 ); } );
     this.addChild( rightArrowButton );
 
