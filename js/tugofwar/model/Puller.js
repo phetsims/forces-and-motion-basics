@@ -60,6 +60,6 @@ define( function( require ) {
     disconnect: function() {this.knot = null;},
 
     //Get the name for the puller, used in a11y
-    get name() { return this.size + ' ' + this.type + ' Puller';} //TODO i18nize accessibility
+    get name() { return this.size + ' ' + this.type + ' Puller';} //TODO localize accessibility
   } );
 } );
