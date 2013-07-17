@@ -43,7 +43,12 @@ define( function( require ) {
 
     speedClassificationProperty.link( function( speedClassification ) {
       if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
-        dragHandler.endDrag();//drop the mouse
+
+        //The speed could have been exceeded by another means than the HSlider (such as dragging the character or pushing the tweaker arrow buttons)
+        //So only end the drag if it originated here
+        if ( dragHandler.dragging ) {
+          dragHandler.endDrag();//drop the mouse
+        }
       }
     } );
     this.min = min;
