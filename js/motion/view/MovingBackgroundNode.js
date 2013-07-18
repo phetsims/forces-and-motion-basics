@@ -43,7 +43,7 @@ define( function( require ) {
         centering = 0;
       }
       model.positionProperty.link( function( position ) {
-        var a = -position / distanceScale * MotionConstants.positionScale + offset;
+        var a = -position / distanceScale * MotionConstants.POSITION_SCALE + offset;
         var n, z;
 
         //A function that maps values as such:
@@ -102,7 +102,7 @@ define( function( require ) {
     var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern, y: mountainY + 50 } );
     var mod = ground.width / 14;
     var offset = layoutCenterX - ground.width / 2;
-    model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.positionScale % mod + offset; } );
+    model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
     this.addChild( ground );
 
     //Add the gravel and ice
@@ -110,7 +110,7 @@ define( function( require ) {
 
       //Add the gravel
       var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 48} );
-      model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.positionScale % mod + offset; } );
+      model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
       this.addChild( gravel );
 
       //Add the ice
@@ -134,7 +134,7 @@ define( function( require ) {
       //Create the gravel for nonzero friction.
       model.frictionProperty.link( function() {
         var height = 3;
-        var numSpecks = linear( MotionConstants.maxFriction * 0.1, MotionConstants.maxFriction, 0, 400, model.friction );
+        var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, model.friction );
         numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
         //Use the same seed so it will look like the gravel is 'building up' instead of 'scrambling'

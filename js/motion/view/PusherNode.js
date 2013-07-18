@@ -57,19 +57,19 @@ define( function( require ) {
       if ( appliedForce > 0 && !fallen ) {
         imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
         pusherNode.x = layoutWidth / 2 - imageNode.width * scale - delta;
-        model.pusherPosition = -delta + position * MotionConstants.positionScale - imageNode.width;
+        model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE - imageNode.width;
       }
 
       //Pushing to the left
       else if ( appliedForce < 0 && !fallen ) {
         imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
         pusherNode.x = layoutWidth / 2 + imageNode.width * scale + delta;
-        model.pusherPosition = delta + position * MotionConstants.positionScale;
+        model.pusherPosition = delta + position * MotionConstants.POSITION_SCALE;
       }
 
       //Standing still
       else {
-        pusherNode.x = layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.positionScale + pusherPosition + (fallingLeft ? -imageNode.width : 0);
+        pusherNode.x = layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.POSITION_SCALE + pusherPosition + (fallingLeft ? -imageNode.width : 0);
       }
 
       //Keep the feet on the ground

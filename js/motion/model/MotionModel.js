@@ -27,7 +27,7 @@ define( function( require ) {
     this.tab = tab;
     this.skateboard = tab === 'motion';
     this.accelerometer = tab === 'acceleration';
-    this.friction = tab === 'motion' ? 0 : MotionConstants.maxFriction / 2;
+    this.friction = tab === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray();
 
     //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
@@ -44,7 +44,7 @@ define( function( require ) {
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
-      pusherPosition: 1000 / MotionConstants.positionScale, //Start to the right of the box by this many pixels
+      pusherPosition: 1000 / MotionConstants.POSITION_SCALE, //Start to the right of the box by this many pixels
       showForce: true,
       showValues: false,
       showSumOfForces: false,
@@ -212,14 +212,14 @@ define( function( require ) {
       }
 
       //Cap at strobe speed.  This is necessary so that a reverse applied force will take effect immediately, without these lines of code the pusher will stutter.
-      if ( newVelocity > MotionConstants.maxSpeed ) { newVelocity = MotionConstants.maxSpeed; }
-      if ( newVelocity < -MotionConstants.maxSpeed ) { newVelocity = -MotionConstants.maxSpeed; }
+      if ( newVelocity > MotionConstants.MAX_SPEED ) { newVelocity = MotionConstants.MAX_SPEED; }
+      if ( newVelocity < -MotionConstants.MAX_SPEED ) { newVelocity = -MotionConstants.MAX_SPEED; }
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
       this.speed = Math.abs( this.velocity );
-      this.speedClassification = this.velocity >= MotionConstants.maxSpeed ? 'RIGHT_SPEED_EXCEEDED' :
-                                 this.velocity <= -MotionConstants.maxSpeed ? 'LEFT_SPEED_EXCEEDED' :
+      this.speedClassification = this.velocity >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
+                                 this.velocity <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
                                  'WITHIN_ALLOWED_RANGE';
 
       if ( this.speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {

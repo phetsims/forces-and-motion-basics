@@ -50,7 +50,7 @@ define( function( require ) {
     velocityProperty.link( function( velocity ) {
       needle.resetTransform();
 
-      var needleAngle = linear( 0, MotionConstants.maxSpeed, startAngle, endAngle, Math.abs( velocity ) );
+      var needleAngle = linear( 0, MotionConstants.MAX_SPEED, startAngle, endAngle, Math.abs( velocity ) );
       needle.rotateAround( {x: 0, y: 0}, needleAngle );
     } );
 
