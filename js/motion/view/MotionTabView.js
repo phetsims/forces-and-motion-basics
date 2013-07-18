@@ -34,7 +34,7 @@ define( function( require ) {
   var Button = require( 'SUN/Button' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var RectangleButton = require( 'SUN/RectangleButton' );
-  var ArrowButton = require( 'motion/view/ArrowButton' );
+  var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
 
   /**
    * Constructor for the MotionTabView
