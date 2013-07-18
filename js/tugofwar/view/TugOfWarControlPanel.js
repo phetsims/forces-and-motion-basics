@@ -17,7 +17,7 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
-  var FAMBFont = require( 'common/view/FAMBFont' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
    * Create the TugOfWarControlPanel.
@@ -29,7 +29,7 @@ define( function( require ) {
     options = _.extend( {renderer: 'svg'}, options );
     Node.call( this, options );
 
-    var fontOptions = {font: new FAMBFont( 19 )};
+    var fontOptions = {font: new PhetFont( 19 )};
     var controlPanel = new VerticalCheckBoxGroup( [
       {content: new Text( Strings.sumOfForces, fontOptions ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
       {content: new Text( Strings.values, fontOptions ), property: model.showValuesProperty, label: Strings.values}

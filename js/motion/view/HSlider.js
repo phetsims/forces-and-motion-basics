@@ -22,7 +22,7 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var Property = require( 'AXON/Property' );
   var SliderKnob = require( 'common/view/SliderKnob' );
-  var FAMBFont = require( 'common/view/FAMBFont' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
    * Constructor for HSlider
@@ -154,7 +154,7 @@ define( function( require ) {
         slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
         slider.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
-          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, font: new FAMBFont( 16 )} );
+          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, font: new PhetFont( 16 )} );
           slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
           slider.ticksLayer.addChild( label );
         }

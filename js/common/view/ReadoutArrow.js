@@ -16,7 +16,7 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'motion/MotionConstants' );
-  var FAMBFont = require( 'common/view/FAMBFont' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
    * Main constructor for ReadoutArrow, a scenery.Node that shows arrows for both tabs of Forces and Motion Basics, with readouts.
@@ -44,7 +44,7 @@ define( function( require ) {
 
     //Create and add the children
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
-    var fontOptions = {font: new FAMBFont( 16, 'bold' )};
+    var fontOptions = {font: new PhetFont( 16, 'bold' )};
     this.valueNode = new Text( '110N', fontOptions );
     this.labelNode = new Text( label, fontOptions );
     this.addChild( this.arrowNode );

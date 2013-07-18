@@ -26,7 +26,7 @@ define( function( require ) {
   var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var FAMBFont = require( 'common/view/FAMBFont' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
    * Main constructor for MotionControlPanel
@@ -42,7 +42,7 @@ define( function( require ) {
     var toElement = function( text, propertyName, options ) {
       options = _.extend( {indent: 0}, options );
       return {
-        content: options.icon ? new HBox( {spacing: 20, children: [ new Text( text, {font: new FAMBFont( fontSize )} ), options.icon]} ) : new Text( text, {font: new FAMBFont( fontSize )} ),
+        content: options.icon ? new HBox( {spacing: 20, children: [ new Text( text, {font: new PhetFont( fontSize )} ), options.icon]} ) : new Text( text, {font: new PhetFont( fontSize )} ),
         property: model[propertyName + 'Property'],
         indent: options.indent
       };
@@ -56,7 +56,7 @@ define( function( require ) {
     var createFrictionSlider = function() {
       var createTick = function( label ) {
         var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
-        var text = new Text( label, {font: new FAMBFont( 15 )} );
+        var text = new Text( label, {font: new PhetFont( 15 )} );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;
           path.fill = enabled ? 'black' : 'gray';
@@ -66,7 +66,7 @@ define( function( require ) {
       };
 
       var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
-      var frictionLabel = new Text( 'Friction', new FAMBFont( fontSize ) );
+      var frictionLabel = new Text( 'Friction', new PhetFont( fontSize ) );
       var spacer = new Rectangle( 0, 0, 0, 4 );
       return new VBox( {children: [spacer, frictionLabel, frictionSlider], left: 5} );
     };

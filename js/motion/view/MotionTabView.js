@@ -26,7 +26,7 @@ define( function( require ) {
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
-  var FAMBFont = require( 'common/view/FAMBFont' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
@@ -114,7 +114,7 @@ define( function( require ) {
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionTabView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: {font: new FAMBFont( 16, 'bold' )}, centerX: width / 2, y: 200} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: {font: new PhetFont( 16, 'bold' )}, centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionTabView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
@@ -137,14 +137,14 @@ define( function( require ) {
     var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var sliderLabel = new Text( Strings.appliedForce, {font: new FAMBFont( 22 ), renderer: 'svg', centerX: width / 2, y: 430} );
+    var sliderLabel = new Text( Strings.appliedForce, {font: new PhetFont( 22 ), renderer: 'svg', centerX: width / 2, y: 430} );
     var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
 
     this.addChild( sliderLabel );
     this.addChild( slider );
 
     //Position the units to the right of the text box.
-    var readout = new Text( '???', {font: new FAMBFont( 22 ), renderer: 'svg'} );
+    var readout = new Text( '???', {font: new PhetFont( 22 ), renderer: 'svg'} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format
@@ -216,9 +216,9 @@ define( function( require ) {
     if ( model.accelerometer ) {
 
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
-      var labelAndAccelerometer = new VBox( {pickable: false, spacing: -18, children: [new Text( 'Acceleration', {font: new FAMBFont( 18 )} ), accelerometerNode]} );
+      var labelAndAccelerometer = new VBox( {pickable: false, spacing: -18, children: [new Text( 'Acceleration', {font: new PhetFont( 18 )} ), accelerometerNode]} );
       var tickLabel = function( label, tick ) {
-        return new Text( label, {pickable: false, font: new FAMBFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30 - 22} );
+        return new Text( label, {pickable: false, font: new PhetFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30 - 22} );
       };
       var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
         tickLabel( '0', accelerometerNode.ticks[2] ),
