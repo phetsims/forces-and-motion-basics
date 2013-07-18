@@ -16,7 +16,13 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
-  //REVIEW @param doc
+  /**
+   * Constructor for PusherNode
+   *
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param layoutWidth width for the layout for purposes of centering the character when pushing
+   * @constructor
+   */
   function PusherNode( model, layoutWidth ) {
     var pusherNode = this;
     var scale = 0.85;

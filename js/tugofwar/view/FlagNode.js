@@ -16,7 +16,15 @@ define( function( require ) {
   var Strings = require( 'Strings' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
-  //REVIEW @param doc
+  /**
+
+   * Constructor for FlagNode
+   *
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param {Number} centerX center for layout
+   * @param {Number} top top for layout
+   * @constructor
+   */
   function FlagNode( model, centerX, top ) {
     var flagNode = this;
     this.model = model;

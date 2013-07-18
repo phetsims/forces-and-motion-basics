@@ -28,7 +28,12 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var FAMBFont = require( 'common/view/FAMBFont' );
 
-  //REVIEW @param doc
+  /**
+   * Main constructor for MotionControlPanel
+   *
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
+   * @constructor
+   */
   function MotionControlPanel( model ) {
     Node.call( this, {renderer: 'svg'} );
 

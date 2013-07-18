@@ -20,7 +20,13 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  //REVIEW @param doc
+  /**
+   * Constructor for MovingBackgroundNode
+   *
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param layoutCenterX the location where the node should be centered horizontally
+   * @constructor
+   */
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
     this.model = model;

@@ -15,7 +15,18 @@ define( function( require ) {
   var ItemNode = require( 'motion/view/ItemNode' );
   var linear = require( 'DOT/Util' ).linear;
 
-  //REVIEW @param doc
+  /**
+   * WaterBucketNode constructor
+   *
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param {MotionTabView} motionTabView the view for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param {Item} item the model for the item itself
+   * @param {Image} image image to be shown when in the toolbox or being dragged
+   * @param {Image} imageSitting image to be shown if it is a sitting person
+   * @param {Image} imageHolding image to be shown if it is a sitting person holding their arms in the air
+   * @param {Property} showMassesProperty boolean property of whether the masses should be shown
+   * @constructor
+   */
   function WaterBucketNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     this.item = item;
     ItemNode.call( this, model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty );
