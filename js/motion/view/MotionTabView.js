@@ -31,7 +31,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Button = require( 'SUN/Button' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var RectangleButton = require( 'SUN/RectangleButton' );
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
