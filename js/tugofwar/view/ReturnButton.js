@@ -11,7 +11,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var RectangleButton = require( 'SUN/RectangleButton' );
+  var TextButton = require( 'SUN/TextButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -22,7 +22,7 @@ define( function( require ) {
   function ReturnButton( model, options ) {
     Node.call( this );
 
-    var button = new RectangleButton( new Text( 'Return', {font: new PhetFont( 16, 'bold' )} ), model.returnCart.bind( model ), {rectangleFill: '#ffd438'} );
+    var button = new TextButton( 'Return', model.returnCart.bind( model ), {font: new PhetFont( 16, 'bold' ), rectangleFill: '#ffd438'} );
     this.addChild( button );
     this.mutate( options );
 
