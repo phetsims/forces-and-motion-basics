@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var TextButton = require( 'SUN/TextButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Color = require( 'SCENERY/util/Color' );
 
   /**
    * @param {TugOfWarModel} model
@@ -22,7 +23,8 @@ define( function( require ) {
   function ReturnButton( model, options ) {
     Node.call( this );
 
-    var button = new TextButton( 'Return', model.returnCart.bind( model ), {font: new PhetFont( 16, 'bold' ), rectangleFill: '#ffd438'} );
+    var button = new TextButton( 'Return', model.returnCart.bind( model ),
+      {font: new PhetFont( 16, 'bold' ), rectangleFillUp: new Color( 254, 192, 0 )} );
     this.addChild( button );
     this.mutate( options );
 
