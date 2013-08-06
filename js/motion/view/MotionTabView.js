@@ -214,9 +214,9 @@ define( function( require ) {
     if ( model.accelerometer ) {
 
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
-      var labelAndAccelerometer = new VBox( {pickable: false, spacing: -18, children: [new Text( 'Acceleration', {font: new PhetFont( 18 )} ), accelerometerNode]} );
+      var labelAndAccelerometer = new VBox( {pickable: false, children: [new Text( 'Acceleration', {font: new PhetFont( 18 )} ), accelerometerNode]} );
       var tickLabel = function( label, tick ) {
-        return new Text( label, {pickable: false, font: new PhetFont( 16 ), centerX: tick.centerX + 7, top: tick.bottom + 30 - 22} );
+        return new Text( label, {pickable: false, font: new PhetFont( 16 ), centerX: tick.centerX, top: tick.bottom + 27} );
       };
       var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
         tickLabel( '0', accelerometerNode.ticks[2] ),
