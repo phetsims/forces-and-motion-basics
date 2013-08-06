@@ -70,9 +70,10 @@ define( function( require ) {
     this.addChild( new Node( {layerSplit: true} ) );
 
     //Create the arrow nodes
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top'} );
-    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
-    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side'} );
+    var opacity = 0.8;
+    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity} );
+    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
+    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
@@ -80,11 +81,6 @@ define( function( require ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
-
-    //Add the arrow nodes
-    this.addChild( this.leftArrow );
-    this.addChild( this.rightArrow );
-    this.addChild( this.sumArrow );
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
@@ -125,9 +121,16 @@ define( function( require ) {
       return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
     };
 
+    var pullerLayer = new Node();
+    this.addChild( pullerLayer );
     this.model.pullers.forEach( function( puller ) {
-      tugOfWarTabView.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+      pullerLayer.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
+
+    //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
+    this.addChild( this.leftArrow );
+    this.addChild( this.rightArrow );
+    this.addChild( this.sumArrow );
 
     //Show the control panel
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
