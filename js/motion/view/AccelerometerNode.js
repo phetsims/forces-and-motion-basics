@@ -10,10 +10,12 @@ define( function( require ) {
 
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Strings = require( 'Strings' );
 
   //Constructor for the AccelerometerNode
   function AccelerometerNode( accelerationProperty, options ) {
@@ -32,7 +34,7 @@ define( function( require ) {
     var scale = 4.22;
 
     //The bar that gets bigger or smaller based on the acceleration.
-    var bar = new Rectangle( barWidth / 2, 0, 25, height, {fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(248,194,216)' ).addColorStop( 1, 'rgb(154,105,127)' )} );
+    var bar = new Rectangle( barWidth / 2, 0, 25, height, {fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(218,140,180)' ).addColorStop( 1, 'rgb(130,80,100)' )} );
     accelerationProperty.link( function( acceleration ) {
       var scaled = acceleration * scale;
       if ( acceleration > 0 ) {
