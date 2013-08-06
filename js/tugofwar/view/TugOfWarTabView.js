@@ -56,7 +56,7 @@ define( function( require ) {
     this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 + grassImage.width, y: grassY} ) );
 
-    this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {x: 399, y: 221} );
+    this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {y: 221} );
 
     //Black caret below the cart
     this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
@@ -91,7 +91,7 @@ define( function( require ) {
     this.addChild( this.ropeNode );
 
     this.model.cart.xProperty.link( function( x ) {
-      tugOfWarTabView.cartNode.x = x + 399;
+      tugOfWarTabView.cartNode.x = x + 412;
       tugOfWarTabView.ropeNode.x = x + 51;
     } );
 
