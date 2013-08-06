@@ -31,7 +31,7 @@ define( function( require ) {
 
     var updateLocation = function() {
       var knotted = puller.knot;
-      var pulling = model.running && knotted;
+      var pulling = model.started && knotted;
       if ( knotted ) {
         pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === 'blue' ? -60 : 0),
           puller.knot.y - pullerNode.height + 100 );
@@ -41,16 +41,18 @@ define( function( require ) {
       }
     };
 
+    model.startedProperty.link( updateLocation );
     puller.positionProperty.link( updateLocation );
 
     var updateImage = function() {
       var knotted = puller.knot;
-      var pulling = model.running && knotted;
+      var pulling = model.started && knotted;
       pullerNode.image = pulling ? pullImage : image;
 
       //Reshape the focus rect when image changes
       updateLocation();
     };
+    model.startedProperty.link( updateImage );
     model.runningProperty.link( updateImage );
 
     pullerNode.addInputListener( new SimpleDragHandler(

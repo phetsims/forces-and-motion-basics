@@ -162,9 +162,9 @@ define( function( require ) {
       this.cart.reset();
       this.knots.forEach( function( knot ) {knot.reset();} );
       this.running = false;
-      this.started = false;
       this.state = 'experimenting';
       this.trigger( 'cart-returned' );
+      this.started = false;
     },
 
     //Reset the entire model when "reset all" is pressed
