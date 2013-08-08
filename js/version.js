@@ -6,5 +6,5 @@
  */
 define( function() {
   'use strict';
-  return function() { return '0.0.0-47'; };
+  return function() { return '0.0.0-48'; };
 } );
