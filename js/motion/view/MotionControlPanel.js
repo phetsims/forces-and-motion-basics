@@ -42,7 +42,8 @@ define( function( require ) {
     var toElement = function( text, propertyName, options ) {
       options = _.extend( {indent: 0}, options );
       return {
-        content: options.icon ? new HBox( {spacing: 20, children: [ new Text( text, {font: new PhetFont( fontSize )} ), options.icon]} ) : new Text( text, {font: new PhetFont( fontSize )} ),
+        //TODO: Why is this immense spacing necessary here?
+        content: options.icon ? new HBox( {spacing: 40, children: [ new Text( text, {font: new PhetFont( fontSize )} ), options.icon]} ) : new Text( text, {font: new PhetFont( fontSize )} ),
         property: model[propertyName + 'Property'],
         indent: options.indent
       };
