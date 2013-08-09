@@ -86,10 +86,11 @@ define( function( require ) {
     var disabledKnob = new SliderKnob( {enabled: false} );
     var knob = new Node( {children: [ enabledKnob]} );
 
+    knob.y = -knob.height / 2 + 4;
+
     //Increase the hit region
     var hitRegionExpansion = 20;
     knob.touchArea = new Shape.rectangle( knob.bounds.minX - hitRegionExpansion, knob.bounds.minY - hitRegionExpansion, knob.bounds.width + hitRegionExpansion * 2, knob.bounds.height + hitRegionExpansion * 2 );
-    knob.y = -knob.height / 2;
 
     var dragHandler = new SimpleDragHandler( {
         allowTouchSnag: true,
@@ -150,7 +151,7 @@ define( function( require ) {
       _.range( numTicks ).forEach( function( i ) {
 
         var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
-        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -25 ) ), stroke: 'black', lineWidth: 1} );
+        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -22 ) ), stroke: 'black', lineWidth: 1} );
         slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
         slider.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
