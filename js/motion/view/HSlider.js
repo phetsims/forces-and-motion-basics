@@ -91,14 +91,10 @@ define( function( require ) {
     knob.touchArea = new Shape.rectangle( knob.bounds.minX - hitRegionExpansion, knob.bounds.minY - hitRegionExpansion, knob.bounds.width + hitRegionExpansion * 2, knob.bounds.height + hitRegionExpansion * 2 );
     knob.y = -knob.height / 2;
 
-    //For unknown reasons, the slider knob isn't perfectly centered.  This offset workaround makes sure it is aligned with the tick marks precisely.
-    //see https://github.com/phetsims/forces-and-motion-basics/issues/2
-    var sliderOffsetX = 1.2;
-
     var dragHandler = new SimpleDragHandler( {
         allowTouchSnag: true,
         translate: function( options ) {
-          var x = Math.min( Math.max( options.position.x, -knob.width / 2 + sliderOffsetX ), width - knob.width / 2 ) + knob.width / 2 - sliderOffsetX;
+          var x = Math.min( Math.max( options.position.x, -knob.width / 2 ), width - knob.width / 2 ) + knob.width / 2;
           var result = linear( 0, width, min, max, x );
 
           //Don't drag into the gray part of the slider if speed exceeded
@@ -132,7 +128,7 @@ define( function( require ) {
     } );
 
     //Link to the property value so that when the model value changes the knob will change location.
-    property.link( function( value ) { knob.x = linear( min, max, 0, width, value ) - knob.width / 2 + sliderOffsetX; } );
+    property.link( function( value ) { knob.x = linear( min, max, 0, width, value ) - knob.width / 2; } );
 
     //Update layout and settings for Node
     this.mutate( options );

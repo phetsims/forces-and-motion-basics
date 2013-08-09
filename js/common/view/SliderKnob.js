@@ -37,6 +37,9 @@ define( function( require ) {
     this.addGripDot( width / 2 + dx, height / 2 );
     this.addGripDot( width / 2 - dx, height / 2 + dy );
     this.addGripDot( width / 2 + dx, height / 2 + dy );
+
+    //Make sure the slider knob is perfectly centered on the tick marks.  Not sure why this workaround is necessary, but it seems to perfectly center the knob.
+    this.translate( 1, 0 );
   }
 
   return inherit( Node, SliderKnob, {
