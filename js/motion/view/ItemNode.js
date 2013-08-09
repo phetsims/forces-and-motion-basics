@@ -113,7 +113,9 @@ define( function( require ) {
       imageNode.resetTransform();
       if ( direction === 'right' ) {
         imageNode.scale( -1, 1 );
-        imageNode.translate( -itemNode.width / scale, 0 );
+
+        //TODO: I'm not sure why there is an extra 16 pixels in this direction, but it seems necessary to center the images
+        imageNode.translate( -itemNode.width * scale + 16, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );
