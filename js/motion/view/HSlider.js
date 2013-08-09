@@ -154,7 +154,7 @@ define( function( require ) {
       _.range( numTicks ).forEach( function( i ) {
 
         var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
-        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -15 ) ), stroke: 'black', lineWidth: 1} );
+        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -25 ) ), stroke: 'black', lineWidth: 1} );
         slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
         slider.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
