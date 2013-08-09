@@ -167,7 +167,8 @@ define( function( require ) {
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
     model.stack.lengthProperty.link( disableText( readout ) );
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
-    model.showForceProperty.linkAttribute( motionTabView.appliedForceArrow, 'visible' );
+    model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
+    model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.velocityProperty ).mutate( {x: width / 2, top: 2} );
