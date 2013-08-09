@@ -90,7 +90,7 @@ define( function( require ) {
     this.appliedForceProperty.link( function( appliedForce ) {
       motionModel.direction = appliedForce > 0 ? 'right' :
                               appliedForce < 0 ? 'left' :
-                              'none'
+                              'none';
     } );
 
     //Applied force should drop to zero if max speed reached
