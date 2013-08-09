@@ -87,10 +87,10 @@ define( function( require ) {
                    new Item( this, 'mystery-object-01.png', 50, 888, 543, 1.1 )
                  ];
 
-    this.velocityProperty.link( function( velocity ) {
-      motionModel.direction = velocity > 0 ? 'right' :
-                              velocity < 0 ? 'left' :
-                              'none';
+    this.appliedForceProperty.link( function( appliedForce ) {
+      motionModel.direction = appliedForce > 0 ? 'right' :
+                              appliedForce < 0 ? 'left' :
+                              'none'
     } );
 
     //Applied force should drop to zero if max speed reached
