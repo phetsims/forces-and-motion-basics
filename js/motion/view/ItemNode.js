@@ -85,7 +85,7 @@ define( function( require ) {
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.position.y < 350 ) {
           item.onBoard = true;
-          item.animateTo( motionTabView.layoutBounds.width / 2 - itemNode.width / 2, motionTabView.topOfStack - itemNode.height, 'stack' );
+          item.animateTo( motionTabView.layoutBounds.width / 2 - itemNode.width / 2 + item.centeringOffset, motionTabView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
           if ( model.stack.length > 3 ) {
             model.spliceStackBottom();

@@ -48,6 +48,9 @@ define( function( require ) {
 
   return inherit( PropertySet, Item, {
 
+    //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
+    get centeringOffset() { return this.image === 'trash-can.png' ? 5 : 0; },
+
     //Return true if the arms should be up (for a human)
     armsUp: function() { return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this ); },
 
@@ -56,7 +59,7 @@ define( function( require ) {
       this.animating = {enabled: true, x: x, y: y, destination: destination};
     },
 
-    //Animate the item to its original location 
+    //Animate the item to its original location
     animateHome: function() {
       this.animateTo( this.initialX, this.initialY, 'home' );
     },

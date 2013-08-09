@@ -124,7 +124,7 @@ define( function( require ) {
         for ( var i = 0; i < this.stack.length; i++ ) {
           var size = this.view.getSize( this.stack.at( i ) );
           sumHeight += size.height;
-          this.stack.at( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.at( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.at( i ).centeringOffset, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
 
