@@ -204,7 +204,7 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     //Reset all button goes beneath the control panel
-    var resetButton = new ResetAllButton( model.reset.bind( model ), {renderer: 'svg'} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButton( model.reset.bind( model ), {renderer: 'svg', scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
     //Add the accelerometer, if on the final tab
