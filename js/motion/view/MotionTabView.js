@@ -152,7 +152,7 @@ define( function( require ) {
     }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) {leftArrowButton.setEnabled( speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 )} );
+    model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) {leftArrowButton.setEnabled( speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 );} );
     this.addChild( leftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
