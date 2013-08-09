@@ -54,6 +54,8 @@ define( function( require ) {
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
+    var spacer = function() { return new Rectangle( 0, 0, 5, 5, {visible: false} ); };
+
     var createFrictionSlider = function() {
       var createTick = function( label ) {
         var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
@@ -68,8 +70,7 @@ define( function( require ) {
 
       var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
       var frictionLabel = new Text( 'Friction', new PhetFont( fontSize ) );
-      var spacer = new Rectangle( 0, 0, 0, 4 );
-      return new VBox( {children: [spacer, frictionLabel, frictionSlider], left: 5} );
+      return new VBox( {align: 'center', children: [frictionLabel, frictionSlider], left: 5} );
     };
 
     var indent = 24;
@@ -91,7 +92,7 @@ define( function( require ) {
                     toElement( Strings.values, 'showValues', {indent: indent} ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
-                  ], {fill: '#e3e980'} ), createFrictionSlider()] :
+                  ], {fill: '#e3e980'} ), spacer(), createFrictionSlider()] :
                 [ new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
@@ -100,7 +101,7 @@ define( function( require ) {
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} ),
                     toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
-                  ], {fill: '#e3e980'} ), createFrictionSlider()]
+                  ], {fill: '#e3e980'} ), spacer(), createFrictionSlider()]
     } );
     var panelNode = new Panel( controlPanel, {fill: '#e3e980'} );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5} ) );
