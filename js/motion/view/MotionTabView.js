@@ -150,14 +150,18 @@ define( function( require ) {
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
     }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
-    model.appliedForceProperty.link( function( appliedForce ) { leftArrowButton.setEnabled( appliedForce > -500 ); } );
+
+    //Do not allow the user to apply a force that would take the object beyond its maximum velocity
+    model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) {leftArrowButton.setEnabled( speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 )} );
     this.addChild( leftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
     }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
-    model.appliedForceProperty.link( function( appliedForce ) { rightArrowButton.setEnabled( appliedForce < 500 ); } );
+
+    //Do not allow the user to apply a force that would take the object beyond its maximum velocity
+    model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) { rightArrowButton.setEnabled( speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ); } );
     this.addChild( rightArrowButton );
 
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
