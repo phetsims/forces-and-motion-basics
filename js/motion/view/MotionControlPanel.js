@@ -71,8 +71,8 @@ define( function( require ) {
       };
 
       var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).addTick( 0, createTick( 'None' ) ).addTick( 1, createTick( 'Lots' ) );
-      var frictionLabel = new Text( 'Friction', new PhetFont( fontSize ) );
-      return new VBox( {children: [new HBox( {children: [ frictionLabel, spacer2() ]} ), frictionSlider]} );
+      var frictionLabel = new Text( 'Friction', new PhetFont( fontSize, 'bold' ) );
+      return new VBox( {spacing: -8, children: [new HBox( {children: [ frictionLabel, spacer2() ]} ), frictionSlider]} );
     };
 
     var indent = 24;
@@ -94,7 +94,7 @@ define( function( require ) {
                     toElement( Strings.values, 'showValues', {indent: indent} ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
-                  ], {fill: '#e3e980'} ), spacer(), createFrictionSlider()] :
+                  ], {fill: '#e3e980'} ), spacer(), new HBox( {children: [spacer2(), createFrictionSlider()]} )] :
                 [ new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
