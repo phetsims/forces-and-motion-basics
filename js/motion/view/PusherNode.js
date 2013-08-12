@@ -30,6 +30,15 @@ define( function( require ) {
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
 
+    var hasReflectedTransform = false;
+    function setImageNodeReflection( reflected ) {
+      // only change the transform when it is necessary
+      if ( reflected !== hasReflectedTransform ) {
+        hasReflectedTransform = reflected;
+        imageNode.setMatrix( reflected ? Matrix3.X_REFLECTION : Matrix3.IDENTITY );
+      }
+    }
+
     //Update the image and position when the model changes
     model.multilink( ['appliedForce', 'position', 'pusherPosition', 'fallen'], function( appliedForce, position, pusherPosition, fallen ) {
 
@@ -42,11 +51,9 @@ define( function( require ) {
       }
       else {
         imageNode.image = imageLoader.getImage( 'pusher_fall_down.png' );
-        if ( pusherNode.lastAppliedForce > 0 ) {
-          imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
-        }
-        else {
-          imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+        var isReflected = pusherNode.lastAppliedForce > 0;
+        setImageNodeReflection( isReflected );
+        if ( !isReflected ) {
           fallingLeft = true;
         }
       }
@@ -55,14 +62,14 @@ define( function( require ) {
 
       //Pushing to the right
       if ( appliedForce > 0 && !fallen ) {
-        imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+        setImageNodeReflection( false );
         pusherNode.x = layoutWidth / 2 - imageNode.width * scale - delta;
         model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE - imageNode.width;
       }
 
       //Pushing to the left
       else if ( appliedForce < 0 && !fallen ) {
-        imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
+        setImageNodeReflection( true );
         pusherNode.x = layoutWidth / 2 + imageNode.width * scale + delta;
         model.pusherPosition = delta + position * MotionConstants.POSITION_SCALE;
       }
