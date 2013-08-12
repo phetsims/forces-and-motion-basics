@@ -24,5 +24,5 @@ define( function( require ) {
     PropertySet.call( this, {x: x, visible: false} );
   }
 
-  return inherit( PropertySet, Knot, { y: 275 } );
+  return inherit( PropertySet, Knot, { y: 285 } );
 } );

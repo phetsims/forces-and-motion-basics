@@ -84,7 +84,7 @@ define( function( require ) {
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 263 } );
+    this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 273 } );
 
     model.knots.forEach( function( knot ) { tugOfWarTabView.addChild( new KnotHighlightNode( knot ) ); } );
 
