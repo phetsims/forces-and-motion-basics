@@ -41,9 +41,10 @@ define( function( require ) {
 
     var toElement = function( text, propertyName, options ) {
       options = _.extend( {indent: 0}, options );
+      var text = new Text( text, {boundsMethod: 'fast', font: new PhetFont( fontSize )} );
       return {
         //TODO: Why is this immense spacing necessary here?
-        content: options.icon ? new HBox( {spacing: 40, children: [ new Text( text, {font: new PhetFont( fontSize )} ), options.icon]} ) : new Text( text, {font: new PhetFont( fontSize )} ),
+        content: options.icon ? new HBox( {spacing: 10, children: [  text, options.icon]} ) : text,
         property: model[propertyName + 'Property'],
         indent: options.indent
       };
@@ -55,8 +56,7 @@ define( function( require ) {
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
     //Workarounds because VBox centering not working properly
-    var spacer = function() { return new Rectangle( 0, 0, 5, 5, {visible: false} ); };
-    var spacer2 = function() { return new Rectangle( 0, 0, 10, 10, {visible: false} ); };
+    var spacer = function( width, height ) { return new Rectangle( 0, 0, width, height, {visible: false} ); };
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
@@ -110,7 +110,7 @@ define( function( require ) {
                     toElement( Strings.values, 'showValues', {indent: indent} ),
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
-                  ], {fill: '#e3e980'} ), spacer(), createFrictionSlider() ] :
+                  ], {fill: '#e3e980'} ), spacer( 12, 12 ), createFrictionSlider()  ] :
                 [ new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
@@ -119,9 +119,9 @@ define( function( require ) {
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} ),
                     toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
-                  ], {fill: '#e3e980'} ), spacer(), createFrictionSlider() ]
+                  ], {fill: '#e3e980'} ), spacer( 12, 12 ), createFrictionSlider()  ]
     } );
-    var panelNode = new Panel( controlPanel, {fill: '#e3e980'} );
+    var panelNode = new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5} ) );
   }
 
