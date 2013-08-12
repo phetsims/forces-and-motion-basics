@@ -34,12 +34,12 @@ define( function( require ) {
       {content: new Text( Strings.sumOfForces, fontOptions ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
       {content: new Text( Strings.values, fontOptions ), property: model.showValuesProperty, label: Strings.values}
     ] );
-    this.addChild( new Panel( controlPanel, {fill: '#e3e980'} ) );
+    this.addChild( new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} ) );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     var resetButton = new ResetAllButton( model.reset.bind( model ), {scale: 88 / 103} );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
-    this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 10} ) );
+    this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 15} ) );
   }
 
   return inherit( Node, TugOfWarControlPanel );
