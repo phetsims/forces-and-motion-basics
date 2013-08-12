@@ -70,6 +70,9 @@ define( function( require ) {
     //Create the dynamic (moving) background
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ) );
 
+    //Split layers for performance since the static background doesn't need to be redrawn
+    this.addChild( new Node( {layerSplit: true} ) );
+
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
     this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
