@@ -51,7 +51,9 @@ define( function( require ) {
     var min = 0.5; //Water level when acceleration = 0
 
     //When the model steps in time, update the water shape
-    model.timeProperty.link( function() {
+    //The delta value is the critical value in determining the water shape.
+    //Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
+    var deltaProperty = model.toDerivedProperty( ['time'], function() {
       var acceleration = model.acceleration;
       history.push( acceleration );
       while ( history.length > 7 ) {
@@ -62,7 +64,12 @@ define( function( require ) {
       history.forEach( function( item ) { sum = sum + item; } );
       var composite = sum / history.length;
 
-      var delta = model.isInStack( item ) ? -composite / 50 : 0;
+      return model.isInStack( item ) ? -composite / 50 : 0;
+    } );
+
+    //When the shape has really changed, update the water node
+    deltaProperty.link( function( delta ) {
+
       var path = new Shape();
       path.moveTo( leftLineX( min + delta ), leftLineY( min + delta ) );
       path.lineTo( leftLineX( 1 ), leftLineY( 1 ) );
