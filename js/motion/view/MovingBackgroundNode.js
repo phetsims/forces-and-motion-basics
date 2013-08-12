@@ -30,7 +30,7 @@ define( function( require ) {
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
     this.model = model;
-    Node.call( this );
+    Node.call( this, { picakble: false } );
 
     var modWidth = 120 * 15;
     var L = modWidth / 2;

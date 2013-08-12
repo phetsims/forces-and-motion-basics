@@ -58,25 +58,19 @@ define( function( require ) {
 
     //Create the static background
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient} );
+    this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable:false} );
 
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b'} );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b', pickable:false} );
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
 
-    //Split layers for performance since the static background doesn't need to be redrawn
-    this.addChild( new Node( {layerSplit: true} ) );
-
     //Create the dynamic (moving) background
-    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ) );
-
-    //Split layers for performance since the static background doesn't need to be redrawn
-    this.addChild( new Node( {layerSplit: true} ) );
-
+    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
+    
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1} ) );
-    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1} ) );
+    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, pickable: false} ) );
+    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, pickable: false} ) );
 
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
@@ -100,7 +94,7 @@ define( function( require ) {
 
     //Add the skateboard if on the 'motion' tab
     if ( model.skateboard ) {
-      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12} ) );
+      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable:false} ) );
     }
 
     //Add the force arrows & associated readouts
@@ -137,7 +131,7 @@ define( function( require ) {
     this.addChild( slider );
 
     //Position the units to the right of the text box.
-    var readout = new Text( '???', {font: new PhetFont( 22 )} );
+    var readout = new Text( '???', {font: new PhetFont( 22 ), pickable: false} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format
@@ -145,7 +139,7 @@ define( function( require ) {
     } );
 
     //Make 'Newtons Readout' stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2} );
+    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2, pickable: false} );
     this.addChild( this.textPanelNode );
     this.addChild( readout );
 
@@ -220,7 +214,7 @@ define( function( require ) {
       };
       var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
         tickLabel( '0', accelerometerNode.ticks[2] ),
-        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 135} );
+        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 135, pickable: false} );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
