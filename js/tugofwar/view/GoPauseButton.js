@@ -25,7 +25,7 @@ define( function( require ) {
    */
   function GoPauseButton( model, layoutWidth ) {
     var goPauseButton = this;
-    Image.call( this, imageLoader.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
+    Image.call( this, imageLoader.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer', renderer: 'svg'} );
 
     var updateOut = function() {goPauseButton.image = imageLoader.getImage( model.running ? 'stop_up.png' : 'go_up.png' );};
 

@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function ReturnButton( model, options ) {
-    Node.call( this );
+    Node.call( this, {renderer: 'svg'} );
 
     var button = new TextButton( 'Return', model.returnCart.bind( model ),
       {font: new PhetFont( 16, 'bold' ), rectangleFillUp: new Color( 254, 192, 0 )} );
