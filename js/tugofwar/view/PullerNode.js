@@ -33,8 +33,9 @@ define( function( require ) {
       var knotted = puller.knot;
       var pulling = model.started && knotted;
       if ( knotted ) {
-        pullerNode.setTranslation( puller.knot.x + (pulling ? -puller.dragOffsetX : 0) + (pullerNode.puller.type === 'blue' ? -60 : 0),
-          puller.knot.y - pullerNode.height + 100 - 10 );
+        var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
+        var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 : 0;
+        pullerNode.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - pullerNode.height + 90 );
       }
       else {
         pullerNode.setTranslation( puller.position );

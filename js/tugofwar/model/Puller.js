@@ -20,12 +20,14 @@ define( function( require ) {
    * @param type 'red'|'blue'
    * @param size 'small'|'medium'|'large'
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
+   * @param standOffsetX horizontal offset in stage coordinates when attached to a knot but not pulling (standing)
    * @constructor
    */
-  function Puller( x, y, type, size, dragOffsetX ) {
+  function Puller( x, y, type, size, dragOffsetX, standOffsetX ) {
     var puller = this;
 
     this.dragOffsetX = dragOffsetX;
+    this.standOffsetX = standOffsetX || 0;
     this.type = type;
     this.size = size;
     this.force = this.size === 'small' ? 10 * 5 :

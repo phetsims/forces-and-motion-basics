@@ -49,10 +49,10 @@ define( function( require ) {
     var smallPullerY = 394;
 
     this.pullers = [
-      new Puller( 38, smallPullerY, 'blue', 'large', 80 ),
-      new Puller( 127, mediumPullerY, 'blue', 'medium', 50 ),
-      new Puller( 208, bigPullerY, 'blue', 'small', 20 ),
-      new Puller( 278, bigPullerY, 'blue', 'small', 20 ),
+      new Puller( 38, smallPullerY, 'blue', 'large', 70, -18 ),
+      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, -5 ),
+      new Puller( 208, bigPullerY, 'blue', 'small', 10 ),
+      new Puller( 278, bigPullerY, 'blue', 'small', 10 ),
       new Puller( 648, bigPullerY, 'red', 'small', 10 ),
       new Puller( 717, bigPullerY, 'red', 'small', 10 ),
       new Puller( 789, mediumPullerY, 'red', 'medium', 20 ),
