@@ -37,6 +37,19 @@ define( function( require ) {
     //Keep track of the history to show a momentum-based "sloshing" effect
     var history = [];
 
+    //Metrics based on original image size of 98 pixels wide.
+    var padX = 4.5;
+    var padY = 9;
+    var s = image.width / 98.0;
+
+    var leftLineX = function( x ) {return linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );};
+    var leftLineY = function( x ) {return linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x );};
+
+    var rightLineX = function( x ) {return linear( 1, 0, ( 87 - padX ) * s, ( 96 - padX ) * s, x );};
+    var rightLineY = function( x ) {return linear( 1, 0, ( 102 - padY ) * s, ( 9 - padY ) * s, x );};
+
+    var min = 0.5; //Water level when acceleration = 0
+
     //When the model steps in time, update the water shape
     model.timeProperty.link( function() {
       var acceleration = model.acceleration;
@@ -44,18 +57,7 @@ define( function( require ) {
       while ( history.length > 7 ) {
         history.shift();//remove front item
       }
-      //Metrics based on original image size of 98 pixels wide.
-      var padX = 4.5;
-      var padY = 9;
-      var s = image.width / 98.0;
 
-      var leftLineX = function( x ) {return linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );};
-      var leftLineY = function( x ) {return linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x );};
-
-      var rightLineX = function( x ) {return linear( 1, 0, ( 87 - padX ) * s, ( 96 - padX ) * s, x );};
-      var rightLineY = function( x ) {return linear( 1, 0, ( 102 - padY ) * s, ( 9 - padY ) * s, x );};
-
-      var min = 0.5; //Water level when acceleration = 0
       var sum = 0.0;
       history.forEach( function( item ) { sum = sum + item; } );
       var composite = sum / history.length;
