@@ -37,7 +37,7 @@ define( function( require ) {
   function MotionControlPanel( model ) {
     Node.call( this, {renderer: 'svg'} );
 
-    var fontSize = '19px';
+    var fontSize = 18;
 
     var toElement = function( text, propertyName, options ) {
       options = _.extend( {indent: 0}, options );

@@ -29,7 +29,7 @@ define( function( require ) {
     options = _.extend( {renderer: 'svg'}, options );
     Node.call( this, options );
 
-    var fontOptions = {font: new PhetFont( 19 )};
+    var fontOptions = {font: new PhetFont( 18 )};
     var controlPanel = new VerticalCheckBoxGroup( [
       {content: new Text( Strings.sumOfForces, fontOptions ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
       {content: new Text( Strings.values, fontOptions ), property: model.showValuesProperty, label: Strings.values}
