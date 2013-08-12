@@ -13,6 +13,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
   var MotionConstants = require( 'motion/MotionConstants' );
@@ -48,10 +49,9 @@ define( function( require ) {
 
     //Update when the velocity changes
     velocityProperty.link( function( velocity ) {
-      needle.resetTransform();
 
       var needleAngle = linear( 0, MotionConstants.MAX_SPEED, startAngle, endAngle, Math.abs( velocity ) );
-      needle.rotateAround( {x: 0, y: 0}, needleAngle );
+      needle.setMatrix( Matrix3.rotation2( needleAngle ) );
     } );
 
     //Add the tick marks
