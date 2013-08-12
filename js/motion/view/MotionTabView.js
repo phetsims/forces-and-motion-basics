@@ -75,8 +75,8 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
-    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, renderer: 'svg'} ) );
+    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1} ) );
+    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1} ) );
 
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
@@ -130,14 +130,14 @@ define( function( require ) {
     var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var sliderLabel = new Text( Strings.appliedForce, {font: new PhetFont( 22 ), renderer: 'svg', centerX: width / 2, y: 430} );
+    var sliderLabel = new Text( Strings.appliedForce, {font: new PhetFont( 22 ), centerX: width / 2, y: 430} );
     var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
 
     this.addChild( sliderLabel );
     this.addChild( slider );
 
     //Position the units to the right of the text box.
-    var readout = new Text( '???', {font: new PhetFont( 22 ), renderer: 'svg'} );
+    var readout = new Text( '???', {font: new PhetFont( 22 )} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
       readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format
@@ -145,14 +145,14 @@ define( function( require ) {
     } );
 
     //Make 'Newtons Readout' stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2, renderer: 'svg'} );
+    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2} );
     this.addChild( this.textPanelNode );
     this.addChild( readout );
 
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
-    }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
+    }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) {leftArrowButton.setEnabled( speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 );} );
@@ -161,7 +161,7 @@ define( function( require ) {
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
-    }, {renderer: 'svg', rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
+    }, {rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) { rightArrowButton.setEnabled( speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ); } );
@@ -207,7 +207,7 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     //Reset all button goes beneath the control panel
-    var resetButton = new ResetAllButton( model.reset.bind( model ), {renderer: 'svg', scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButton( model.reset.bind( model ), {scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
     //Add the accelerometer, if on the final tab

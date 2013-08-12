@@ -30,7 +30,7 @@ define( function( require ) {
   function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg'} );
+    Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
 
     //Create the node for the main graphic
     var imageNode = new Image( image );
@@ -101,7 +101,8 @@ define( function( require ) {
     //Label for the mass (if it is shown)
     var massLabel = new Text( item.mass + ' kg', {font: new PhetFont( 15, 'bold' )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
-    var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
+    // var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
+    var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.labelNode = labelNode;
 
     //When the object is moved, dragged or changed direction, update the image

@@ -40,7 +40,7 @@ define( function( require ) {
     this.tailY = tailY;
 
     //Call the super class.  Render in svg to make the text crisper on retina display.
-    Node.call( this, {pickable: false, renderer: 'svg'} );
+    Node.call( this, {pickable: false} );
 
     //Create and add the children
     this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );

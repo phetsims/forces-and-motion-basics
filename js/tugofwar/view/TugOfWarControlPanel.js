@@ -26,7 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function TugOfWarControlPanel( model, options ) {
-    options = _.extend( {renderer: 'svg'}, options );
+    options = _.extend( {}, options );
     Node.call( this, options );
 
     var fontOptions = {font: new PhetFont( 18 )};

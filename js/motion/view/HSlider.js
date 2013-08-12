@@ -39,7 +39,7 @@ define( function( require ) {
   function HSlider( min, max, width, property, speedClassificationProperty, disableLeftProperty, disableRightProperty, options ) {
     var slider = this;
     this.enabledProperty = new Property( true );
-    this.options = _.extend( {renderer: 'svg', zeroOnRelease: false}, options || {} );
+    this.options = _.extend( {zeroOnRelease: false}, options || {} );
 
     speedClassificationProperty.link( function( speedClassification ) {
       if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {

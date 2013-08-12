@@ -78,7 +78,7 @@ define( function( require ) {
       return node;
     };
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: { cssTransform: true } } );
       return addBackgroundNode( offset, sprite, distanceScale );
     };
 

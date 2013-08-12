@@ -33,22 +33,22 @@ require( [
       { name: Strings.tugOfWar,
         icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) ),
         createModel: function() {return new TugOfWarModel();},
-        createView: function( model ) {return new TugOfWarTabView( model );}
+        createView: function( model ) {return new TugOfWarTabView( model ).mutate( { renderer: 'svg' } );}
       },
       { name: Strings.motion,
         icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ),
         createModel: function() {return new MotionModel( 'motion' );},
-        createView: function( model ) {return new MotionTabView( model );}},
+        createView: function( model ) {return new MotionTabView( model ).mutate( { renderer: 'svg' } );}},
 
       { name: Strings.friction,
         icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ),
         createModel: function() {return new MotionModel( 'friction' );},
-        createView: function( model ) {return new MotionTabView( model );}},
+        createView: function( model ) {return new MotionTabView( model ).mutate( { renderer: 'svg' } );}},
 
       { name: Strings.acceleration,
         icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ),
         createModel: function() {return new MotionModel( 'acceleration' );},
-        createView: function( model ) {return new MotionTabView( model );}}
+        createView: function( model ) {return new MotionTabView( model ).mutate( { renderer: 'svg' } );}}
 
     ], simOptions ).start();
   } );

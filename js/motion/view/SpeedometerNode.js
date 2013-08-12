@@ -30,7 +30,7 @@ define( function( require ) {
    * @constructor
    */
   function SpeedometerNode( velocityProperty, options ) {
-    Node.call( this, _.extend( {renderer: 'svg'}, options ) );
+    Node.call( this, _.extend( {}, options ) );
     var radius = 67;
     this.addChild( new Circle( radius, {fill: 'white', stroke: '#555555', lineWidth: 2} ) );
 
