@@ -77,7 +77,6 @@ define( function( require ) {
         addTick( 0, createTick( 'None', true ) ).addTick( 1, createTick( 'Lots', true ) ).
         addTick( 0, createTick( 'Lots', false ) ).addTick( 1, createTick( 'None', false ) );
       var frictionLabel = new Text( 'Friction', new PhetFont( fontSize, 'bold' ) );
-      frictionLabel.font = new PhetFont( fontSize + 1, 'bold' );
       frictionLabel.renderer = 'svg';
 
       //Workaround for a scenery bug that has the wrong bounds with the hybrid approach.
