@@ -60,27 +60,27 @@ define( function( require ) {
 
       var delta = model.stack.length > 0 ? (model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset) : 100;
 
+      //Keep the feet on the ground
+      var pusherY = 362 - pusherNode.height;
+
       //Pushing to the right
       if ( appliedForce > 0 && !fallen ) {
         setImageNodeReflection( false );
-        pusherNode.x = layoutWidth / 2 - imageNode.width * scale - delta;
+        pusherNode.setTranslation( layoutWidth / 2 - imageNode.width * scale - delta, pusherY );
         model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE - imageNode.width;
       }
 
       //Pushing to the left
       else if ( appliedForce < 0 && !fallen ) {
         setImageNodeReflection( true );
-        pusherNode.x = layoutWidth / 2 + imageNode.width * scale + delta;
+        pusherNode.setTranslation( layoutWidth / 2 + imageNode.width * scale + delta, pusherY );
         model.pusherPosition = delta + position * MotionConstants.POSITION_SCALE;
       }
 
       //Standing still
       else {
-        pusherNode.x = layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.POSITION_SCALE + pusherPosition + (fallingLeft ? -imageNode.width : 0);
+        pusherNode.setTranslation( layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.POSITION_SCALE + pusherPosition + (fallingLeft ? -imageNode.width : 0), pusherY );
       }
-
-      //Keep the feet on the ground
-      pusherNode.y = 362 - pusherNode.height;
 
       //Track the direction of the last nonzero applied force for showing the fallen pusher
       if ( appliedForce !== 0 ) {
