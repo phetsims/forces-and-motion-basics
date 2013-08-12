@@ -30,7 +30,7 @@ define( function( require ) {
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
     this.model = model;
-    Node.call( this, { picakble: false } );
+    Node.call( this, { pickable: false } );
 
     var modWidth = 120 * 15;
     var L = modWidth / 2;
@@ -99,7 +99,7 @@ define( function( require ) {
 
     //Add the ground, offset the pattern so that the it aligns with the brick image
     var tilePattern = new Pattern( tile );
-    var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern, y: mountainY + 50 } );
+    var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern, y: mountainY + 50, renderer: 'svg', rendererOptions: { cssTransform: true } } );
     var mod = ground.width / 14;
     var offset = layoutCenterX - ground.width / 2;
     model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
