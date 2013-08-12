@@ -217,7 +217,7 @@ define( function( require ) {
       };
       var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
         tickLabel( '0', accelerometerNode.ticks[2] ),
-        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 150} );
+        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 135} );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
