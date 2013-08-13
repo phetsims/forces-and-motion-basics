@@ -108,57 +108,57 @@ define( function( require ) {
       console.log( imageNode.width, imageNode.height );
       movingBackgroundNode.addChild( imageNode );
       model.positionProperty.link( function( position ) { imageNode.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
-    }, 0, 0, ground.width, ground.height );
 
-    //Add the gravel and ice
-    if ( !model.skateboard ) {
+      //Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
+      if ( !model.skateboard ) {
 
-      //Add the gravel
-      var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 48} );
-      model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
-      this.addChild( gravel );
+        //Add the gravel
+        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 48} );
+        model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
+        movingBackgroundNode.addChild( gravel );
 
-      //Add the ice
-      var iceOverlay = new Rectangle( -400, mountainY + 50, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
-      var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
-      var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
-      this.addChild( iceOverlay );
-      model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
+        //Add the ice
+        var iceOverlay = new Rectangle( -400, mountainY + 50, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+        var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
+        var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
+        movingBackgroundNode.addChild( iceOverlay );
+        model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
-      //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
+        //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
 //      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-      var ice1 = addBackgroundImage( 100, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
-      var ice2 = addBackgroundImage( -300, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
+        var ice1 = addBackgroundImage( 100, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
+        var ice2 = addBackgroundImage( -300, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
 
-      model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
-      model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
+        model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
+        model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
 
-      movingBackgroundNode.lastNumSpecks = 0;
+        movingBackgroundNode.lastNumSpecks = 0;
 
-      //Create the gravel for nonzero friction.
-      model.frictionProperty.link( function() {
-        var height = 3;
-        var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, model.friction );
-        numSpecks = numSpecks < 0 ? 0 : numSpecks;
+        //Create the gravel for nonzero friction.
+        model.frictionProperty.link( function() {
+          var height = 3;
+          var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, model.friction );
+          numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-        //Use the same seed so it will look like the gravel is 'building up' instead of 'scrambling'
-        Math.seedrandom( 'standardseed' );
-        var node = new Node();
-        for ( var i = 0; i < numSpecks / 2; i++ ) {
-          node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
-        }
+          //Use the same seed so it will look like the gravel is 'building up' instead of 'scrambling'
+          Math.seedrandom( 'standardseed' );
+          var node = new Node();
+          for ( var i = 0; i < numSpecks / 2; i++ ) {
+            node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
+          }
 
-        for ( i = 0; i < numSpecks / 2; i++ ) {
-          node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
-        }
+          for ( i = 0; i < numSpecks / 2; i++ ) {
+            node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
+          }
 
-        for ( i = 0; i < numSpecks / 10; i++ ) {
-          node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
-        }
-        node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
-      } );
-    }
+          for ( i = 0; i < numSpecks / 10; i++ ) {
+            node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
+          }
+          node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
+        } );
+      }
+    }, 0, 0, ground.width, ground.height );
   }
 
   return inherit( Node, MovingBackgroundNode );
