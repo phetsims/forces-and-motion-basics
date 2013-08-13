@@ -85,15 +85,14 @@ define( function( require ) {
     //Add the mountains
     var mountainY = 311;
     addBackgroundImage( L / 2, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundImage( L, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 );
+//    addBackgroundImage( L, 'mountains.png', 10, mountainY, 1 );
+//    addBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 );
 
     //Add the clouds
     addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
-    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
-    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
+//    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
+//    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
 
-    //We tested that Pattern has superior performance to a large cached image
     var tile = imageLoader.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
 
@@ -110,8 +109,6 @@ define( function( require ) {
       movingBackgroundNode.addChild( imageNode );
       model.positionProperty.link( function( position ) { imageNode.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
     }, 0, 0, ground.width, ground.height );
-
-//    this.addChild( ground );
 
     //Add the gravel and ice
     if ( !model.skateboard ) {
