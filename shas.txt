@@ -1,4 +1,4 @@
-# forces-and-motion-basics 0.0.0-50 Tue Aug 13 09:29:32 MDT 2013
+# forces-and-motion-basics 1.0.0-rc1 Tue Aug 13 09:38:46 MDT 2013
 assert 423923e81172513eb3ca58fb22e9a349e18b8467
 dot cefc755c49a665214dba2e73fac2f9db6f2c3c25
 joist 4adab51a0d8090412f44a3c709e2d4b09b0b1b5b
