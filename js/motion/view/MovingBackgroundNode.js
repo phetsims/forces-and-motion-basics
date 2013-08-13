@@ -99,11 +99,19 @@ define( function( require ) {
 
     //Add the ground, offset the pattern so that the it aligns with the brick image
     var tilePattern = new Pattern( tile );
-    var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern, y: mountainY + 50 } );
+    var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern } );
     var mod = ground.width / 14;
     var offset = layoutCenterX - ground.width / 2;
-    model.positionProperty.link( function( position ) { ground.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
-    this.addChild( ground );
+
+    //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
+    ground.toImage( function( image ) {
+      var imageNode = new Image( image, {y: mountainY + 50} );
+      console.log( imageNode.width, imageNode.height );
+      movingBackgroundNode.addChild( imageNode );
+      model.positionProperty.link( function( position ) { imageNode.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
+    }, 0, 0, ground.width, ground.height );
+
+//    this.addChild( ground );
 
     //Add the gravel and ice
     if ( !model.skateboard ) {
