@@ -44,7 +44,7 @@ define( function( require ) {
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
-      pusherPosition: 1000 / MotionConstants.POSITION_SCALE, //Start to the right of the box by this many pixels
+      pusherPosition: -8500 / MotionConstants.POSITION_SCALE, //Start to the right of the box by this many pixels
       showForce: true,
       showValues: false,
       showSumOfForces: false,
