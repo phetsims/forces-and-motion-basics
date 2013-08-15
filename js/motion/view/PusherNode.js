@@ -16,6 +16,14 @@ define( function( require ) {
   var imageLoader = require( 'imageLoader' );
   var MotionConstants = require( 'motion/MotionConstants' );
 
+  //Works
+  var FLIP = Matrix3.scaling( -1, 1 );
+  var IDENTITY = Matrix3.scaling( 1, 1 );
+
+  // Fails
+//  var FLIP = Matrix3.X_REFLECTION;
+//  var IDENTITY = Matrix3.IDENTITY;
+
   /**
    * Constructor for PusherNode
    *
@@ -30,6 +38,15 @@ define( function( require ) {
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
     this.addChild( imageNode );
 
+    //Keep track of the flip/identity matrix for the image so it only needs to be applied when it is changed
+    var currentMatrix = null;
+    var setImageNodeMatrix = function( m ) {
+      if ( currentMatrix !== m ) {
+        imageNode.setMatrix( m );
+        currentMatrix = m;
+      }
+    };
+
     //Update the image and position when the model changes
     model.multilink( ['appliedForce', 'position', 'pusherPosition', 'fallen'], function( appliedForce, position, pusherPosition, fallen ) {
 
@@ -43,10 +60,10 @@ define( function( require ) {
       else {
         imageNode.image = imageLoader.getImage( 'pusher_fall_down.png' );
         if ( pusherNode.lastAppliedForce > 0 ) {
-          imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
+          setImageNodeMatrix( FLIP );
         }
         else {
-          imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+          setImageNodeMatrix( IDENTITY );
           fallingLeft = true;
         }
       }
@@ -58,14 +75,14 @@ define( function( require ) {
 
       //Pushing to the right
       if ( appliedForce > 0 && !fallen ) {
-        imageNode.setMatrix( Matrix3.scaling( 1, 1 ) );
+        setImageNodeMatrix( IDENTITY );
         pusherNode.setTranslation( layoutWidth / 2 - imageNode.width * scale - delta, pusherY );
         model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE - imageNode.width;
       }
 
       //Pushing to the left
       else if ( appliedForce < 0 && !fallen ) {
-        imageNode.setMatrix( Matrix3.scaling( -1, 1 ) );
+        setImageNodeMatrix( FLIP );
         pusherNode.setTranslation( layoutWidth / 2 + imageNode.width * scale + delta, pusherY );
         model.pusherPosition = delta + position * MotionConstants.POSITION_SCALE;
       }
