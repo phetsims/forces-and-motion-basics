@@ -105,7 +105,6 @@ define( function( require ) {
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
     ground.toImage( function( image ) {
       var imageNode = new Image( image, {y: mountainY + 50} );
-      console.log( imageNode.width, imageNode.height );
       movingBackgroundNode.addChild( imageNode );
       model.positionProperty.link( function( position ) { imageNode.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
 
