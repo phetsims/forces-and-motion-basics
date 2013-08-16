@@ -154,10 +154,10 @@ define( function( require ) {
 
       //Constants and functions for creating the ticks
       var slider = this;
-      var numDivisions = 8; //e.g. divide the ruler into 1/8ths
+      var numDivisions = 10; //e.g. divide the ruler into 1/8ths
       var numTicks = numDivisions + 1; //ticks on the end
-      var isMajor = function( tickIndex ) { return tickIndex % 2 === 0; };
-      var hasLabel = function( tickIndex ) { return tickIndex % 4 === 0; };
+      var isMajor = function( tickIndex ) { return tickIndex % 5 === 0; };
+      var hasLabel = function( tickIndex ) { return tickIndex % 5 === 0; };
 
       //Generate each of the ticks and add to the parent
       _.range( numTicks ).forEach( function( i ) {
