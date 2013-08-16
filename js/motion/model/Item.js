@@ -61,6 +61,9 @@ define( function( require ) {
 
     //Animate the item to its original location
     animateHome: function() {
+
+      //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
+      this.direction = 'left';
       this.animateTo( this.initialX, this.initialY, 'home' );
     },
 
