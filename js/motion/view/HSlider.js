@@ -92,10 +92,19 @@ define( function( require ) {
     var hitRegionExpansion = 20;
     knob.touchArea = new Shape.rectangle( knob.bounds.minX - hitRegionExpansion, knob.bounds.minY - hitRegionExpansion, knob.bounds.width + hitRegionExpansion * 2, knob.bounds.height + hitRegionExpansion * 2 );
 
+    //Wire up the drag listener.
+    //Code for keeping the mouse centered on the same point copied from Beer's Law Lab: ConcentrationSlider.js -> ThumbDragHandler, see #21
+    var clickXOffset; // x-offset between initial click and thumb's origin
+    var dragNode = knob;
     var dragHandler = new SimpleDragHandler( {
         allowTouchSnag: true,
-        translate: function( options ) {
-          var x = Math.min( Math.max( options.position.x, -knob.width / 2 ), width - knob.width / 2 ) + knob.width / 2;
+        start: function( event ) {
+          clickXOffset = dragNode.globalToParentPoint( event.pointer.point ).x - event.currentTarget.x;
+        },
+        drag: function( event ) {
+          var localValue = dragNode.globalToParentPoint( event.pointer.point ).x - clickXOffset;
+
+          var x = Math.min( Math.max( localValue, -knob.width / 2 ), width - knob.width / 2 ) + knob.width / 2;
           var result = linear( 0, width, min, max, x );
 
           //Don't drag into the gray part of the slider if speed exceeded
@@ -106,6 +115,9 @@ define( function( require ) {
             result = Math.max( 0, result );
           }
           property.value = result;
+        },
+        //Exclude the default behavior
+        translate: function( options ) {
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
