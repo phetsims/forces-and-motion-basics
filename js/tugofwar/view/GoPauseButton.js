@@ -46,7 +46,7 @@ define( function( require ) {
     model.runningProperty.link( updateOut );
 
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on iPad 3
-    var textOptions = {font: new PhetFont( 34 )};
+    var textOptions = {font: new PhetFont( 30 )};
     var goText = new Text( Strings.go, textOptions );
     var pauseText = new Text( Strings.pause, textOptions );
     var textContainer = new Node( {children: [goText]} );
