@@ -30,6 +30,8 @@ define( function( require ) {
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
     this.model = model;
+
+    //Using low-density canvas here instead of svg saves about 8ms per frame
     Node.call( this, { renderer: 'canvas', pickable: false } );
 
     var modWidth = 120 * 15;
