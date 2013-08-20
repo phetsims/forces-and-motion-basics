@@ -61,8 +61,13 @@ define( function( require ) {
       timeSinceFallen: 10,
       fallen: false,
       fallenDirection: 'left',
-      time: 0
+      time: 0,
+
+      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionTabView.js
+      stackSize: 1
     } );
+
+    this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
     //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( this.tab );

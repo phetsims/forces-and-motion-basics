@@ -58,15 +58,15 @@ define( function( require ) {
 
     //Create the static background
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable:false} );
+    this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable: false} );
 
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b', pickable:false} );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b', pickable: false} );
     this.addChild( this.skyNode );
     this.addChild( this.groundNode );
 
     //Create the dynamic (moving) background
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
-    
+
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
     this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, pickable: false} ) );
@@ -94,7 +94,7 @@ define( function( require ) {
 
     //Add the skateboard if on the 'motion' tab
     if ( model.skateboard ) {
-      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable:false} ) );
+      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
     //Add the force arrows & associated readouts
@@ -149,7 +149,7 @@ define( function( require ) {
     }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) {leftArrowButton.setEnabled( speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 );} );
+    model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) {leftArrowButton.setEnabled( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );} );
     this.addChild( leftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
@@ -158,7 +158,7 @@ define( function( require ) {
     }, {rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( ['appliedForce', 'speedClassification'], function( appliedForce, speedClassification ) { rightArrowButton.setEnabled( speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ); } );
+    model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) { rightArrowButton.setEnabled( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) ); } );
     this.addChild( rightArrowButton );
 
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
