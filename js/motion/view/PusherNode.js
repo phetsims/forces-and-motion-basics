@@ -17,13 +17,10 @@ define( function( require ) {
   var MotionConstants = require( 'motion/MotionConstants' );
   var platform = require( 'PHET_CORE/platform' );
 
-  //Works
+  //Workaround for https://github.com/phetsims/scenery/issues/108
+  //Using Matrix3.X_REFLECTION and Matrix3.IDENTITY fail
   var FLIP = Matrix3.scaling( -1, 1 );
   var IDENTITY = Matrix3.scaling( 1, 1 );
-
-  // Fails
-//  var FLIP = Matrix3.X_REFLECTION;
-//  var IDENTITY = Matrix3.IDENTITY;
 
   /**
    * Constructor for PusherNode

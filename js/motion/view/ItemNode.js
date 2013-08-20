@@ -15,6 +15,10 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+
+  //Workaround for https://github.com/phetsims/scenery/issues/108
+  var IDENTITY = Matrix3.scaling( 1, 1 );
 
   /**
    * Constructor for ItemNode
@@ -71,7 +75,6 @@ define( function( require ) {
 
       //When picking up an object, remove it from the stack.
       start: function() {
-        item.direction = 'left';
         item.dragging = true;
         var index = model.stack.indexOf( item );
         if ( index >= 0 ) {
@@ -111,7 +114,7 @@ define( function( require ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
-      imageNode.resetTransform();
+      imageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
         imageNode.scale( -1, 1 );
 
