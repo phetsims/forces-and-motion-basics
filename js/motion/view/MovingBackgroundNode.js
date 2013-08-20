@@ -30,7 +30,7 @@ define( function( require ) {
   function MovingBackgroundNode( model, layoutCenterX ) {
     var movingBackgroundNode = this;
     this.model = model;
-    Node.call( this, { pickable: false } );
+    Node.call( this, { renderer: 'canvas', pickable: false } );
 
     var modWidth = 120 * 15;
     var L = modWidth / 2;
@@ -78,7 +78,7 @@ define( function( require ) {
       return node;
     };
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, renderer: 'svg', rendererOptions: { cssTransform: true } } );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
       return addBackgroundNode( offset, sprite, distanceScale );
     };
 
