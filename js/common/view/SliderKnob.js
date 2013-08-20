@@ -13,6 +13,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var platform = require( 'PHET_CORE/platform' );
 
   function SliderKnob( options ) {
 
@@ -20,6 +21,11 @@ define( function( require ) {
     this.enabled = options.enabled;
 
     Node.call( this );
+
+    //Work around the problem that causes the knob to readjust by a pixel or 2 on firefox, see https://github.com/phetsims/forces-and-motion-basics/issues/30
+    if ( platform.firefox ) {
+      this.renderer = 'canvas';
+    }
 
     //Add the rounded rectangle background
     var scale = 0.8;
