@@ -3,6 +3,9 @@
 /**
  * This class shows all of the moving background, including the mountains, clouds and brick tile on the ground.
  *
+ * Performance notes:
+ * Using .boundsInaccurate = true; seems to save about 1 ms during rendering on the iPad3
+ *
  * @author Sam Reid
  */
 define( function( require ) {
@@ -81,6 +84,7 @@ define( function( require ) {
     };
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
+      sprite.boundsInaccurate = true;
       return addBackgroundNode( offset, sprite, distanceScale );
     };
 
@@ -107,6 +111,7 @@ define( function( require ) {
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
     ground.toImage( function( image ) {
       var imageNode = new Image( image, {y: mountainY + 50} );
+      imageNode.boundsInaccurate = true;
       movingBackgroundNode.addChild( imageNode );
       model.positionProperty.link( function( position ) { imageNode.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
 
@@ -115,11 +120,13 @@ define( function( require ) {
 
         //Add the gravel
         var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 48} );
+        gravel.boundsInaccurate = true;
         model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
         movingBackgroundNode.addChild( gravel );
 
         //Add the ice
         var iceOverlay = new Rectangle( -400, mountainY + 50, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+        iceOverlay.boundsInaccurate = true;
         var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
         var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
         movingBackgroundNode.addChild( iceOverlay );
