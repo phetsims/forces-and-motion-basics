@@ -22,6 +22,7 @@ define( function( require ) {
   var FlagNode = require( 'tugofwar/view/FlagNode' );
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var platform = require( 'PHET_CORE/platform' );
   var imageLoader = require( 'imageLoader' );
   var TabView = require( 'JOIST/TabView' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -157,13 +158,7 @@ define( function( require ) {
     //user event or not).
     //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
     //Note: right now this requires the user to touch the screen at least twice before audio can be played
-
-    //Detect mobile safari, see http://stackoverflow.com/questions/3007480/determine-if-user-navigated-from-mobile-safari
-    function isMobileSafari() {
-      return navigator.userAgent.match( /(iPod|iPhone|iPad)/ ) && navigator.userAgent.match( /AppleWebKit/ );
-    }
-
-    if ( isMobileSafari() ) {
+    if ( platform.mobileSafari ) {
       var count = 0;
       var play = function() {
         new Howl( { urls: ['audio/empty.ogg', 'audio/empty.wav'] } ).play();
