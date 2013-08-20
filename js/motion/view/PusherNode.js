@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var MotionConstants = require( 'motion/MotionConstants' );
+  var platform = require( 'PHET_CORE/platform' );
 
   //Works
   var FLIP = Matrix3.scaling( -1, 1 );
@@ -36,6 +37,9 @@ define( function( require ) {
     var scale = 0.85;
     Node.call( this, {scale: scale} );
     var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
+    if ( platform.firefox ) {
+      imageNode.renderer = 'canvas';
+    }
     this.addChild( imageNode );
 
     //Keep track of the flip/identity matrix for the image so it only needs to be applied when it is changed
