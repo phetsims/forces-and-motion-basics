@@ -22,6 +22,9 @@ define( function( require ) {
    * @constructor
    */
   function MotionModel( tab ) {
+    //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
+    assert && assert( tab );
+    var motionModel = this;
 
     //Constants
     this.tab = tab;
@@ -68,11 +71,11 @@ define( function( require ) {
       stackSize: 1
     } );
 
+    //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
+    this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { motionModel.appliedForce = 0; } } );
+
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
-    //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
-    assert && assert( this.tab );
-    var motionModel = this;
     var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
     this.items = this.accelerometer ?
