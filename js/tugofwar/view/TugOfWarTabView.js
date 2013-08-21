@@ -48,8 +48,8 @@ define( function( require ) {
     var skyHeight = 376;
     var grassY = 368;
     var groundHeight = height - skyHeight;
-    this.addChild( new Rectangle( -width, -376, width * 3, 376 * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} ) );
-    this.addChild( new Rectangle( -width, 376, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
+    this.addChild( new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} ) );
+    this.addChild( new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
 
     //Show the grass.
     var grassImage = imageLoader.getImage( 'grass.png' );
