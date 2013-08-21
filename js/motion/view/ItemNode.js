@@ -41,11 +41,10 @@ define( function( require ) {
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
-      var onBoard = item.onBoard;
-      if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && onBoard) ) {
+      if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && item.onBoard) ) {
         imageNode.image = imageHolding;
       }
-      else if ( onBoard && typeof imageSitting !== 'undefined' ) {
+      else if ( item.onBoard && typeof imageSitting !== 'undefined' ) {
         imageNode.image = imageSitting;
       }
       else {
