@@ -103,7 +103,6 @@ define( function( require ) {
     //Label for the mass (if it is shown)
     var massLabel = new Text( item.mass + ' kg', {font: new PhetFont( 15, 'bold' )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
-    // var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale, renderer: 'svg', rendererOptions: {cssTransform: true}} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.labelNode = labelNode;
 
