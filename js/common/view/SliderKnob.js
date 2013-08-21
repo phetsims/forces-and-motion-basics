@@ -22,11 +22,6 @@ define( function( require ) {
 
     Node.call( this );
 
-    //Work around the problem that causes the knob to readjust by a pixel or 2 on firefox, see https://github.com/phetsims/forces-and-motion-basics/issues/30
-    if ( platform.firefox ) {
-      this.renderer = 'canvas';
-    }
-
     //Add the rounded rectangle background
     var scale = 0.8;
     var width = 20 * scale;
