@@ -108,9 +108,11 @@ define( function( require ) {
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.labelNode = labelNode;
 
-    //When the object is moved, dragged or changed direction, update the image
-    item.multilink( ['position', 'interactionScale', 'direction'], function( position, interactionScale, direction ) {
-      itemNode.setTranslation( position );
+    //Update the position of the item
+    item.positionProperty.link( function( position ) { itemNode.setTranslation( position ); } );
+
+    //When the object is scaled or change direction, update the image part
+    item.multilink( ['interactionScale', 'direction'], function( interactionScale, direction ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
