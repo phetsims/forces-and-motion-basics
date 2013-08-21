@@ -68,6 +68,8 @@ define( function( require ) {
 
       //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionView.js
       //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/syncrhonizing this value
+      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionTabView.js
+      //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
       stackSize: 1
     } );
 
