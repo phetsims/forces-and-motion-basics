@@ -66,10 +66,6 @@ define( function( require ) {
     //When the user drags the object
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
-        item.onBoard = false;
-
-        //Don't allow the user to translate the object while it is animating
-        item.cancelAnimation();
         item.position = options.position;//es5 setter
       },
 
@@ -80,6 +76,10 @@ define( function( require ) {
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
+        item.onBoard = false;
+
+        //Don't allow the user to translate the object while it is animating
+        item.cancelAnimation();
       },
 
       //End the drag
