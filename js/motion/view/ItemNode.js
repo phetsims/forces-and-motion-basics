@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Shows the draggable node for any of the items in the Motion, Friction and Acceleration tabs.
+ * Shows the draggable node for any of the items in the Motion, Friction and Acceleration screens.
  *
  * @author Sam Reid
  */
@@ -22,8 +22,8 @@ define( function( require ) {
 
   /**
    * Constructor for ItemNode
-   * @param {MotionModel} model the entire model for the containing tab
-   * @param {MotionTabView} motionTabView the entire view for the containing tab
+   * @param {MotionModel} model the entire model for the containing screen
+   * @param {MotionView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
    * @param {Image} image the scenery.Image to show for this node
    * @param {Image} imageSitting optional image for when the person is sitting down
@@ -31,7 +31,7 @@ define( function( require ) {
    * @param {Property} showMassesProperty property for whether the mass value should be shown
    * @constructor
    */
-  function ItemNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
+  function ItemNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
@@ -87,7 +87,7 @@ define( function( require ) {
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.position.y < 350 ) {
           item.onBoard = true;
-          item.animateTo( motionTabView.layoutBounds.width / 2 - itemNode.width / 2 + item.centeringOffset, motionTabView.topOfStack - itemNode.height, 'stack' );
+          item.animateTo( motionView.layoutBounds.width / 2 - itemNode.width / 2 + item.centeringOffset, motionView.topOfStack - itemNode.height, 'stack' );
           model.stack.add( item );
           if ( model.stack.length > 3 ) {
             model.spliceStackBottom();

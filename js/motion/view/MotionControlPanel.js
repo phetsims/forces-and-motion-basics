@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Scenery node that shows the control panel for the Motion, Friction and Acceleration tabs.
+ * Scenery node that shows the control panel for the Motion, Friction and Acceleration screens.
  *
  * @author Sam Reid
  */
@@ -31,7 +31,7 @@ define( function( require ) {
   /**
    * Main constructor for MotionControlPanel
    *
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @constructor
    */
   function MotionControlPanel( model ) {
@@ -92,7 +92,7 @@ define( function( require ) {
     var indent = 24;
     var controlPanel = new VBox( {
       align: 'center',
-      children: model.tab === 'motion' ?
+      children: model.screen === 'motion' ?
                 [ new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.force, 'showForce', {icon: arrowIcon()} ),
@@ -100,7 +100,7 @@ define( function( require ) {
                     toElement( Strings.masses, 'showMasses' ),
                     toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
                   ], {fill: '#e3e980'} )] :
-                model.tab === 'friction' ?
+                model.screen === 'friction' ?
                 [ new VerticalCheckBoxGroup(
                   [
                     toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),

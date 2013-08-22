@@ -18,8 +18,8 @@ define( function( require ) {
   /**
    * WaterBucketNode constructor
    *
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' tab
-   * @param {MotionTabView} motionTabView the view for the entire 'motion', 'friction' or 'acceleration' tab
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param {MotionView} motionView the view for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {Item} item the model for the item itself
    * @param {Image} image image to be shown when in the toolbox or being dragged
    * @param {Image} imageSitting image to be shown if it is a sitting person
@@ -27,9 +27,9 @@ define( function( require ) {
    * @param {Property} showMassesProperty boolean property of whether the masses should be shown
    * @constructor
    */
-  function WaterBucketNode( model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty ) {
+  function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     this.item = item;
-    ItemNode.call( this, model, motionTabView, item, image, imageSitting, imageHolding, showMassesProperty );
+    ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty );
     var water = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', fill: 'rgb(9, 125, 159)', lineWidth: 1} );
     this.addChild( water );
     water.moveToBack();

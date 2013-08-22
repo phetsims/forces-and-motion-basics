@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Main scenery view for the Motion, Friction and Acceleration tabs.
+ * Main scenery view for the Motion, Friction and Acceleration screens.
  */
 define( function( require ) {
   'use strict';
@@ -23,7 +23,7 @@ define( function( require ) {
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'motion/view/MovingBackgroundNode' );
   var imageLoader = require( 'imageLoader' );
-  var TabView = require( 'JOIST/TabView' );
+  var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -35,20 +35,20 @@ define( function( require ) {
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
 
   /**
-   * Constructor for the MotionTabView
-   * @param {MotionModel} model model for the entire tab
+   * Constructor for the MotionView
+   * @param {MotionModel} model model for the entire screen
    * @constructor
    */
-  function MotionTabView( model ) {
+  function MotionView( model ) {
 
     //Constants and fields
     this.model = model;
 
     //Call super constructor
-    TabView.call( this );
+    ScreenView.call( this );
 
     //Variables for this constructor, for convenience
-    var motionTabView = this;
+    var MotionView = this;
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
@@ -80,7 +80,7 @@ define( function( require ) {
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new Constructor( model, motionTabView, item,
+      var itemNode = new Constructor( model, MotionView, item,
         imageLoader.getImage( item.image ),
         imageLoader.getImage( item.sittingImage || item.image ),
         imageLoader.getImage( item.holdingImage || item.image ),
@@ -92,7 +92,7 @@ define( function( require ) {
       this.addChild( itemNode );
     }
 
-    //Add the skateboard if on the 'motion' tab
+    //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
       this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
@@ -100,9 +100,9 @@ define( function( require ) {
     //Add the force arrows & associated readouts
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionTabView.sumArrow.visible = showForce && showSumOfForces;} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {MotionView.sumArrow.visible = showForce && showSumOfForces;} );
     this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 200} );
-    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionTabView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
+    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {MotionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
@@ -110,10 +110,10 @@ define( function( require ) {
     this.addChild( this.frictionArrow );
     this.addChild( this.sumOfForcesText );
 
-    //On the motion tabs, when the 'Friction' label overlaps the force vector it should be displaced vertically
+    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
-      motionTabView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+      MotionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
     } );
 
     //Create the slider
@@ -178,14 +178,14 @@ define( function( require ) {
 
       //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
       var stackHeightThreshold = 160;
-      if ( motionTabView.stackHeight > stackHeightThreshold && itemsCentered.value ) {
+      if ( MotionView.stackHeight > stackHeightThreshold && itemsCentered.value ) {
         itemsCentered.value = false;
         new TWEEN.Tween( speedometerNode ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         if ( accelerometerNode ) {
           new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         }
       }
-      else if ( motionTabView.stackHeight <= stackHeightThreshold && !itemsCentered.value ) {
+      else if ( MotionView.stackHeight <= stackHeightThreshold && !itemsCentered.value ) {
         itemsCentered.value = true;
 
         new TWEEN.Tween( speedometerNode ).to( { x: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
@@ -204,7 +204,7 @@ define( function( require ) {
     var resetButton = new ResetAllButton( model.reset.bind( model ), {scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
-    //Add the accelerometer, if on the final tab
+    //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
@@ -224,7 +224,7 @@ define( function( require ) {
     model.viewInitialized( this );
   }
 
-  return inherit( TabView, MotionTabView, {
+  return inherit( ScreenView, MotionView, {
 
     //Get the height of the objects in the stack (doesn't include skateboard)
     get stackHeight() {
@@ -242,7 +242,7 @@ define( function( require ) {
     },
 
     //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
-    //aspect ratio of this tab: 981/604=1.62
+    //aspect ratio of this screen: 981/604=1.62
     //aspect ratio for default: 768/504=1.52
     //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
     layoutBounds: new Bounds2( 0, 0, 981, 604 ),

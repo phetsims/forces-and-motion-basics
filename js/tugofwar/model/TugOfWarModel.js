@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model for the Tug of War tab, in which Pullers can pull on a rope with different forces.
+ * Model for the Tug of War screen, in which Pullers can pull on a rope with different forces.
  *
  * @author Sam Reid
  */

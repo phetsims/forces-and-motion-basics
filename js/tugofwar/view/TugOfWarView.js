@@ -24,7 +24,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var platform = require( 'PHET_CORE/platform' );
   var imageLoader = require( 'imageLoader' );
-  var TabView = require( 'JOIST/TabView' );
+  var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
@@ -34,15 +34,15 @@ define( function( require ) {
    * @param {TugOfWarModel} model
    * @constructor
    */
-  function TugOfWarTabView( model ) {
+  function TugOfWarView( model ) {
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
-    var tugOfWarTabView = this;
+    var TugOfWarView = this;
     this.model = model;
-    TabView.call( this );
+    ScreenView.call( this );
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     var skyHeight = 376;
@@ -78,7 +78,7 @@ define( function( require ) {
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
-      [tugOfWarTabView.sumArrow, tugOfWarTabView.leftArrow, tugOfWarTabView.rightArrow].forEach( function( arrow ) {
+      [TugOfWarView.sumArrow, TugOfWarView.leftArrow, TugOfWarView.rightArrow].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
@@ -87,13 +87,13 @@ define( function( require ) {
 
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 273 } );
 
-    model.knots.forEach( function( knot ) { tugOfWarTabView.addChild( new KnotHighlightNode( knot ) ); } );
+    model.knots.forEach( function( knot ) { TugOfWarView.addChild( new KnotHighlightNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
 
     this.model.cart.xProperty.link( function( x ) {
-      tugOfWarTabView.cartNode.x = x + 412;
-      tugOfWarTabView.ropeNode.x = x + 51;
+      TugOfWarView.cartNode.x = x + 412;
+      TugOfWarView.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
@@ -125,7 +125,7 @@ define( function( require ) {
     var pullerLayer = new Node();
     this.addChild( pullerLayer );
     this.model.pullers.forEach( function( puller ) {
-      pullerLayer.addChild( new PullerNode( puller, tugOfWarTabView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+      pullerLayer.addChild( new PullerNode( puller, TugOfWarView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
@@ -137,7 +137,7 @@ define( function( require ) {
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
     //Show the flag node when pulling is complete
-    var showFlagNode = function() { tugOfWarTabView.addChild( new FlagNode( model, tugOfWarTabView.layoutBounds.width / 2, 10 ) ); };
+    var showFlagNode = function() { TugOfWarView.addChild( new FlagNode( model, TugOfWarView.layoutBounds.width / 2, 10 ) ); };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
     //Accessibility for reading out the total force
@@ -179,14 +179,14 @@ define( function( require ) {
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
     this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 53} );
-    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarTabView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {TugOfWarView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
   }
 
-  return inherit( TabView, TugOfWarTabView,
+  return inherit( ScreenView, TugOfWarView,
 
     //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
-    //aspect ratio of this tab: 981/604=1.62
+    //aspect ratio of this screen: 981/604=1.62
     //aspect ratio for default: 768/504=1.52
     //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
     { layoutBounds: new Bounds2( 0, 0, 981, 604 ) } );

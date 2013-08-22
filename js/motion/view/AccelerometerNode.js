@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * In the 'acceleration' tab, this horizontal indicator shows the amount of acceleration (like a moving bubble).
+ * In the 'Acceleration' screen, this horizontal indicator shows the amount of acceleration (like a moving bubble).
  *
  * @author Sam Reid
  */

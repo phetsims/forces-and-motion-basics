@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Constants just used for the motion tabs (2-4)
+ * Constants just used for the motion screens
  *
  * @author Sam Reid
  */

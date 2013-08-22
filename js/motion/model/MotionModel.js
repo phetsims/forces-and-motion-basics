@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model for the Motion, Friction and Acceleration tabs
+ * Model for the Motion, Friction and Acceleration screens
  *
  * @author Sam Reid
  */
@@ -18,19 +18,19 @@ define( function( require ) {
 
   /**
    * Constructor for the motion model
-   * @param {String} tab String that indicates which of the 3 tabs this model represents
+   * @param {String} screen String that indicates which of the 3 screens this model represents
    * @constructor
    */
-  function MotionModel( tab ) {
-    //Motion models must be constructed with a tab, which indicates 'motion'|'friction'|'acceleration'
-    assert && assert( tab );
+  function MotionModel( screen ) {
+    //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
+    assert && assert( screen );
     var motionModel = this;
 
     //Constants
-    this.tab = tab;
-    this.skateboard = tab === 'motion';
-    this.accelerometer = tab === 'acceleration';
-    this.friction = tab === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
+    this.screens = screen;
+    this.skateboard = screen === 'motion';
+    this.accelerometer = screen === 'acceleration';
+    this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray();
 
     //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
@@ -66,7 +66,7 @@ define( function( require ) {
       fallenDirection: 'left',
       time: 0,
 
-      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionTabView.js
+      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionView.js
       //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/syncrhonizing this value
       stackSize: 1
     } );

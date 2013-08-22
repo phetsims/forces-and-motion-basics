@@ -19,7 +19,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
-   * Main constructor for ReadoutArrow, a scenery.Node that shows arrows for both tabs of Forces and Motion Basics, with readouts.
+   * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
    *
    * @param label the text to show for the arrow
    * @param fill the color of the arrow
@@ -67,7 +67,7 @@ define( function( require ) {
     //Sets the arrow dash, which changes when the simulation starts playing
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
 
-    //On the motion tabs, when the 'Friction' label overlaps the force vector it should be displaced vertically
+    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     set labelPosition( position ) {
       if ( this.options.labelPosition !== position ) {
         this.options.labelPosition = position;
