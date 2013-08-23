@@ -67,6 +67,7 @@ define( function( require ) {
     },
     clear: function() {
       statsByName = {};
+      statsByTrace = {};
     },
     on: function() {
       running = true;
