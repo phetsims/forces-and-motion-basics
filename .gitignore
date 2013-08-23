@@ -1,6 +1,6 @@
-node_modules
-dist
-common/scenery
+build/
+node_modules/
+*.iml
+.DS_Store
+.DS_Store?
 Thumbs.db
-deploy-output/
-build
