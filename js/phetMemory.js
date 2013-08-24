@@ -58,11 +58,11 @@ define( function( require ) {
         return -statsByTrace[key];
       } );
 
-      var sorted = _.map( sortedKeys, function( k ) {return statsByTrace[k] + ': ' + k } );
+      var sorted = _.map( sortedKeys, function( k ) {return statsByTrace[k] + ': ' + k;} );
       console.log( 'START' );
       console.log( 'statsByName: ', statsByName );
       console.log( '.' );
-      sorted.forEach( function( element ) {console.log( element )} );
+      sorted.forEach( function( element ) {console.log( element );} );
       console.log( 'STOP' );
     },
     clear: function() {

@@ -48,7 +48,7 @@ define( function( require ) {
     ScreenView.call( this );
 
     //Variables for this constructor, for convenience
-    var MotionView = this;
+    var motionView = this;
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
@@ -80,7 +80,7 @@ define( function( require ) {
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new Constructor( model, MotionView, item,
+      var itemNode = new Constructor( model, motionView, item,
         imageLoader.getImage( item.image ),
         imageLoader.getImage( item.sittingImage || item.image ),
         imageLoader.getImage( item.holdingImage || item.image ),
@@ -100,9 +100,9 @@ define( function( require ) {
     //Add the force arrows & associated readouts
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {MotionView.sumArrow.visible = showForce && showSumOfForces;} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
     this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 200} );
-    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {MotionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
+    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
@@ -113,7 +113,7 @@ define( function( require ) {
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
-      MotionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+      motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
     } );
 
     //Create the slider
@@ -178,14 +178,14 @@ define( function( require ) {
 
       //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
       var stackHeightThreshold = 160;
-      if ( MotionView.stackHeight > stackHeightThreshold && itemsCentered.value ) {
+      if ( motionView.stackHeight > stackHeightThreshold && itemsCentered.value ) {
         itemsCentered.value = false;
         new TWEEN.Tween( speedometerNode ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         if ( accelerometerNode ) {
           new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         }
       }
-      else if ( MotionView.stackHeight <= stackHeightThreshold && !itemsCentered.value ) {
+      else if ( motionView.stackHeight <= stackHeightThreshold && !itemsCentered.value ) {
         itemsCentered.value = true;
 
         new TWEEN.Tween( speedometerNode ).to( { x: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();

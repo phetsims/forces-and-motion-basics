@@ -40,7 +40,7 @@ define( function( require ) {
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
-    var TugOfWarView = this;
+    var tugOfWarView = this;
     this.model = model;
     ScreenView.call( this );
 
@@ -78,7 +78,7 @@ define( function( require ) {
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
-      [TugOfWarView.sumArrow, TugOfWarView.leftArrow, TugOfWarView.rightArrow].forEach( function( arrow ) {
+      [tugOfWarView.sumArrow, tugOfWarView.leftArrow, tugOfWarView.rightArrow].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
@@ -87,13 +87,13 @@ define( function( require ) {
 
     this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 273 } );
 
-    model.knots.forEach( function( knot ) { TugOfWarView.addChild( new KnotHighlightNode( knot ) ); } );
+    model.knots.forEach( function( knot ) { tugOfWarView.addChild( new KnotHighlightNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
 
     this.model.cart.xProperty.link( function( x ) {
-      TugOfWarView.cartNode.x = x + 412;
-      TugOfWarView.ropeNode.x = x + 51;
+      tugOfWarView.cartNode.x = x + 412;
+      tugOfWarView.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
@@ -125,7 +125,7 @@ define( function( require ) {
     var pullerLayer = new Node();
     this.addChild( pullerLayer );
     this.model.pullers.forEach( function( puller ) {
-      pullerLayer.addChild( new PullerNode( puller, TugOfWarView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+      pullerLayer.addChild( new PullerNode( puller, tugOfWarView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
     } );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
@@ -137,7 +137,7 @@ define( function( require ) {
     this.addChild( new TugOfWarControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
     //Show the flag node when pulling is complete
-    var showFlagNode = function() { TugOfWarView.addChild( new FlagNode( model, TugOfWarView.layoutBounds.width / 2, 10 ) ); };
+    var showFlagNode = function() { tugOfWarView.addChild( new FlagNode( model, tugOfWarView.layoutBounds.width / 2, 10 ) ); };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
     //Accessibility for reading out the total force
@@ -179,7 +179,7 @@ define( function( require ) {
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
     this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 53} );
-    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {TugOfWarView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
   }
 
