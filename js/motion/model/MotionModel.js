@@ -27,7 +27,7 @@ define( function( require ) {
     var motionModel = this;
 
     //Constants
-    this.screens = screen;
+    this.screen = screen;
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
