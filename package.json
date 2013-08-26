@@ -1,6 +1,6 @@
 {
   "name": "forces-and-motion-basics",
-  "version": "1.0.0-rc9",
+  "version": "1.0.0-rc10",
   "resourceDirs": "images audio",
   "preload": "lib/howler.js lib/seedrandom-min.js lib/jquery-1.9.1.js lib/lodash.js lib/has.js lib/PxLoader.js lib/PxLoaderImage.js ../phetcommon/js/util/query-parameters.js ../phetcommon/js/util/check-assertions.js ../phetcommon/js/analytics/google-analytics.js ../tween.js/src/Tween.js",
   "phetLibs": "forces-and-motion-basics assert dot joist kite phet-core phetcommon scenery scenery-phet sun axon",
