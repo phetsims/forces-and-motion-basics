@@ -169,15 +169,6 @@ define( function( require ) {
       return -frictionForce;
     },
 
-    //Computes the new forces and sets them to the corresponding properties
-    updateForces: function() {
-
-      //The first part of stepInTime is to compute and set the forces.  But this is factored out because the forces must also be updated
-      //When the user changes the friction force or mass while the sim is paused.
-      this.frictionForce = this.getFrictionForce( this.appliedForce );
-      this.sumOfForces = this.frictionForce + this.appliedForce;
-    },
-
     //Compute the mass of the entire stack, for purposes of momentum computation
     getStackMass: function() { return this.stack.foldLeft( 0, function( sum, item ) { return sum + item.mass; } ); },
 
@@ -200,7 +191,12 @@ define( function( require ) {
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
       dt = dt / 2.3;
       this.time = this.time + dt;
-      this.updateForces();
+
+      //Computes the new forces and sets them to the corresponding properties
+      //The first part of stepInTime is to compute and set the forces.  But this is factored out because the forces must also be updated
+      //When the user changes the friction force or mass while the sim is paused.
+      this.frictionForce = this.getFrictionForce( this.appliedForce );
+      this.sumOfForces = this.frictionForce + this.appliedForce;
 
       var mass = this.getStackMass();
       this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
