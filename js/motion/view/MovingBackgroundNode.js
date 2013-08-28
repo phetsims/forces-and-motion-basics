@@ -41,7 +41,7 @@ define( function( require ) {
     var L = modWidth / 2;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var addBackgroundNode = function( offset, node, distanceScale ) {
+    var addBackgroundNode = function( offset, node, distanceScale, y ) {
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
       if ( centering === Number.POSITIVE_INFINITY ) {
@@ -65,10 +65,10 @@ define( function( require ) {
           //n >= -(L+a)/2L
           n = Math.ceil( -(L + a) / 2 / L );
           z = n * 2 * L + a;
-          node.x = z + centering;
+          node.setTranslation( z + centering, y );
         }
         else if ( a < L ) {
-          node.x = a + centering;
+          node.setTranslation( a + centering, y );
         }
         else {
           //Put 'a' between -L and +L by subtracting an integral number of 2L
@@ -77,7 +77,7 @@ define( function( require ) {
           //n >= (L-a)/2L
           n = Math.floor( (L + a) / 2 / L );
           z = a - 2 * L * n;
-          node.x = z + centering;
+          node.setTranslation( z + centering, y );
         }
       } );
       return node;
@@ -85,7 +85,7 @@ define( function( require ) {
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
       var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
       sprite.boundsInaccurate = true;
-      return addBackgroundNode( offset, sprite, distanceScale );
+      return addBackgroundNode( offset, sprite, distanceScale, y );
     };
 
     //Add the mountains
