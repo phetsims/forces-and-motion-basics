@@ -24,7 +24,7 @@ define( function( require ) {
     Node.call( this, {} );
 
     var button = new TextButton( 'Return', model.returnCart.bind( model ),
-      {font: new PhetFont( 16, 'bold' ), rectangleFillUp: new Color( 254, 192, 0 )} );
+      {font: new PhetFont( { size: 16, weight: 'bold' } ), rectangleFillUp: new Color( 254, 192, 0 )} );
     this.addChild( button );
     this.mutate( options );
 
