@@ -178,7 +178,7 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 53} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53} );
     model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
   }

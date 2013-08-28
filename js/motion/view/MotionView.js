@@ -101,7 +101,7 @@ define( function( require ) {
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 200} );
+    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
     this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
