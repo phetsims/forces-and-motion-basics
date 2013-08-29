@@ -96,7 +96,8 @@ define( function( require ) {
         var tailWidth = 25;
         var headWidth = 50;
         var headHeight = 40;
-        this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+        this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY,
+          { tailWidth: tailWidth, headWidth: headWidth, headHeight: headHeight } );
 
         //Position the value and label if the label position is on the side
         if ( this.options.labelPosition === 'side' ) {
