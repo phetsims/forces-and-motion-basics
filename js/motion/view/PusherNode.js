@@ -10,17 +10,14 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var imageLoader = require( 'imageLoader' );
   var MotionConstants = require( 'motion/MotionConstants' );
   var platform = require( 'PHET_CORE/platform' );
-
-  //Workaround for https://github.com/phetsims/scenery/issues/108
-  //Using Matrix3.X_REFLECTION and Matrix3.IDENTITY fail
-  var FLIP = Matrix3.scaling( -1, 1 );
-  var IDENTITY = Matrix3.scaling( 1, 1 );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor for PusherNode
@@ -32,74 +29,88 @@ define( function( require ) {
   function PusherNode( model, layoutWidth ) {
     var pusherNode = this;
     var scale = 0.85;
-    Node.call( this, {scale: scale} );
-    var imageNode = new Image( imageLoader.getImage( 'pusher_straight_on.png' ) );
-    if ( platform.firefox ) {
-      imageNode.renderer = 'canvas';
+
+    //Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
+    var pushingRightNodes = [];
+    var pushingLeftNodes = [];
+    var children = [];
+    var standingUp = new Image( imageLoader.getImage( 'pusher_straight_on.png' ), {visible: true, scale: scale} );
+    var fallLeft = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: scale} );
+    var fallRight = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: new Vector2( -1 * scale, 1 * scale )} );
+    var visibleNode = standingUp;
+
+    children.push( standingUp );
+    children.push( fallLeft );
+    for ( var i = 0; i <= 14; i++ ) {
+      var rightImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: scale} );
+      var leftImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: new Vector2( -1 * scale, 1 * scale )} );
+      pushingRightNodes.push( rightImage );
+      pushingLeftNodes.push( leftImage );
+      children.push( rightImage );
+      children.push( leftImage );
     }
-    this.addChild( imageNode );
 
-    //Keep track of the flip/identity matrix for the image so it only needs to be applied when it is changed
-    var currentMatrix = null;
-    var setImageNodeMatrix = function( m ) {
-      if ( currentMatrix !== m ) {
-        imageNode.setMatrix( m );
-        currentMatrix = m;
+    function setVisibleNode( node ) {
+      if ( node !== visibleNode ) {
+        visibleNode.visible = false;
+        visibleNode.pickable = false;
+        node.visible = true;
+        node.pickable = true;
+        visibleNode = node;
       }
-    };
+    }
 
-    //Update the image and position when the model changes
-    model.multilink( ['appliedForce', 'position', 'pusherPosition', 'fallen'], function( appliedForce, position, pusherPosition, fallen ) {
+    Node.call( this, {children: children} );
 
-      //If the pusher is too far away offscreen, don't update the image
-      if ( Math.abs( -position * MotionConstants.POSITION_SCALE + pusherPosition ) > 1000 ) {
-        return;
-      }
-      //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
-      var fallingLeft = false;
+    //Update the position when the pusher is not applying force (fallen or standing)
+    function updateZeroForcePosition() {
+      var position = model.position;
+      var pusherY = 362 - visibleNode.height;
+      var fallingLeft = model.fallen && model.lastAppliedForce < 0;
+      visibleNode.setTranslation( (layoutWidth / 2 - position * MotionConstants.POSITION_SCALE + model.pusherPosition ) / scale, pusherY );
+//      console.log( visibleNode.centerX, );
+    }
 
-      var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 100 * 14) ) ) );
-      if ( !fallen ) {
-        imageNode.image = imageLoader.getImage( appliedForce === 0 ? 'pusher_straight_on.png' : ('pusher_' + index + '.png') );
+    function updateAppliedForcePosition() {
+      var position = model.position;
+      var pusherY = 362 - visibleNode.height;
+      var delta = model.stack.length > 0 ? (model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset) : 100;
+      if ( model.appliedForce > 0 ) {
+        visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
+        model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE;
       }
       else {
-        imageNode.image = imageLoader.getImage( 'pusher_fall_down.png' );
-        if ( pusherNode.lastAppliedForce > 0 ) {
-          setImageNodeMatrix( FLIP );
-        }
-        else {
-          setImageNodeMatrix( IDENTITY );
-          fallingLeft = true;
-        }
-      }
-
-      var delta = model.stack.length > 0 ? (model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset) : 100;
-
-      //Keep the feet on the ground
-      var pusherY = 362 - pusherNode.height;
-
-      //Pushing to the right
-      if ( appliedForce > 0 && !fallen ) {
-        setImageNodeMatrix( IDENTITY );
-        pusherNode.setTranslation( layoutWidth / 2 - imageNode.width * scale - delta, pusherY );
-        model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE - imageNode.width;
-      }
-
-      //Pushing to the left
-      else if ( appliedForce < 0 && !fallen ) {
-        setImageNodeMatrix( FLIP );
-        pusherNode.setTranslation( layoutWidth / 2 + imageNode.width * scale + delta, pusherY );
+        visibleNode.setTranslation( (layoutWidth / 2 + visibleNode.width + delta), pusherY );
         model.pusherPosition = delta + position * MotionConstants.POSITION_SCALE;
       }
+    }
 
-      //Standing still
-      else {
-        pusherNode.setTranslation( layoutWidth / 2 + imageNode.width * scale - position * MotionConstants.POSITION_SCALE + pusherPosition + (fallingLeft ? -imageNode.width : 0), pusherY );
+    //Choose the rightImage
+    model.multilink( ['appliedForce', 'fallen'], function( appliedForce, fallen ) {
+      if ( fallen ) {
+        setVisibleNode( fallLeft );
+        updateZeroForcePosition();
       }
+      else if ( appliedForce === 0 ) {
+        setVisibleNode( standingUp );
+        updateZeroForcePosition();
+      }
+      else {
+        var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 500 * 14) ) ) );
+        if ( appliedForce > 0 ) {
+          setVisibleNode( pushingRightNodes[index] );
+        }
+        else {
+          setVisibleNode( pushingLeftNodes[index] );
+        }
+        updateAppliedForcePosition();
+      }
+    } );
 
-      //Track the direction of the last nonzero applied force for showing the fallen pusher
-      if ( appliedForce !== 0 ) {
-        pusherNode.lastAppliedForce = appliedForce;
+    //Update the rightImage and position when the model changes
+    model.multilink( ['position', 'pusherPosition'], function() {
+      if ( model.appliedForce === 0 || model.fallen ) {
+        updateZeroForcePosition();
       }
     } );
 
