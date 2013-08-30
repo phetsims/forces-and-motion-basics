@@ -51,6 +51,10 @@ define( function( require ) {
     //Update the image and position when the model changes
     model.multilink( ['appliedForce', 'position', 'pusherPosition', 'fallen'], function( appliedForce, position, pusherPosition, fallen ) {
 
+      //If the pusher is too far away offscreen, don't update the image
+      if ( Math.abs( -position * MotionConstants.POSITION_SCALE + pusherPosition ) > 1000 ) {
+        return;
+      }
       //Flag to keep track of whether the pusher has fallen while pushing the crate left; in that case the image must be shifted because it is scaled by (-1,1)
       var fallingLeft = false;
 
