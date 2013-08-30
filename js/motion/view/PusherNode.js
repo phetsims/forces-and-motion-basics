@@ -67,8 +67,12 @@ define( function( require ) {
       var position = model.position;
       var pusherY = 362 - visibleNode.height;
       var fallingLeft = model.fallen && model.lastAppliedForce < 0;
-      visibleNode.setTranslation( (layoutWidth / 2 - position * MotionConstants.POSITION_SCALE + model.pusherPosition ) / scale, pusherY );
-//      console.log( visibleNode.centerX, );
+      var x = (layoutWidth / 2 - position * MotionConstants.POSITION_SCALE + model.pusherPosition ) / scale;
+
+      //Don't update the image if it is too far offscreen
+      if ( x > -2000 && x < 2000 ) {
+        visibleNode.setTranslation( x, pusherY );
+      }
     }
 
     function updateAppliedForcePosition() {
