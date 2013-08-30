@@ -111,10 +111,13 @@ define( function( require ) {
 
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
     ground.toImage( function( image ) {
-      var imageNode = new Image( image, {y: mountainY + 50} );
-      imageNode.boundsInaccurate = true;
-      movingBackgroundNode.addChild( imageNode );
-      model.positionProperty.link( function( position ) { imageNode.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
+      var groundY = mountainY + 50;
+      var groundImageNode = new Image( image, {y: groundY} );
+      groundImageNode.boundsInaccurate = true;
+      movingBackgroundNode.addChild( groundImageNode );
+      model.positionProperty.link( function( position ) {
+        groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + offset, groundY );
+      } );
 
       //Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
       if ( !model.skateboard ) {
@@ -124,12 +127,12 @@ define( function( require ) {
         var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: gravelY} );
         gravel.boundsInaccurate = true;
         model.positionProperty.link( function( position ) {
-          gravel.setPosition( -position * MotionConstants.POSITION_SCALE % mod + offset, gravelY );
+          gravel.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + offset, gravelY );
         } );
         movingBackgroundNode.addChild( gravel );
 
         //Add the ice
-        var iceOverlay = new Rectangle( -400, mountainY + 50, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+        var iceOverlay = new Rectangle( -400, groundY, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
         iceOverlay.boundsInaccurate = true;
         var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
         var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
@@ -139,8 +142,8 @@ define( function( require ) {
         //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
 //      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-        var ice1 = addBackgroundImage( 100, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
-        var ice2 = addBackgroundImage( -300, 'icicle.png', 1, mountainY + 50 + tile.height, 0.8 );
+        var ice1 = addBackgroundImage( 100, 'icicle.png', 1, groundY + tile.height, 0.8 );
+        var ice2 = addBackgroundImage( -300, 'icicle.png', 1, groundY + tile.height, 0.8 );
 
         model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
         model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
