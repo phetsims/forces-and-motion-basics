@@ -120,9 +120,12 @@ define( function( require ) {
       if ( !model.skateboard ) {
 
         //Add the gravel
-        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: mountainY + 48} );
+        var gravelY = mountainY + 48;
+        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: gravelY} );
         gravel.boundsInaccurate = true;
-        model.positionProperty.link( function( position ) { gravel.x = -position * MotionConstants.POSITION_SCALE % mod + offset; } );
+        model.positionProperty.link( function( position ) {
+          gravel.setPosition( -position * MotionConstants.POSITION_SCALE % mod + offset, gravelY );
+        } );
         movingBackgroundNode.addChild( gravel );
 
         //Add the ice
