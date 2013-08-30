@@ -95,9 +95,10 @@ define( function( require ) {
     addBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 );
 
     //Add the clouds
-    addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
-    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
-    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
+    //Clouds commented out for now to improve performance, see #41
+//    addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
+//    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
+//    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
 
     var tile = imageLoader.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
