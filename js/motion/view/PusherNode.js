@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -75,8 +76,10 @@ define( function( require ) {
     }
 
     function updateAppliedForcePosition() {
+      assert && assert( model.stack.length > 0 );
       var pusherY = 362 - visibleNode.height;
-      var delta = model.stack.length > 0 ? (model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset) : 100;
+      var delta = model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset;
+      console.log( model.stack.at( 0 ).view.width, model.stack.at( 0 ).pusherInset, model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset );
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }
