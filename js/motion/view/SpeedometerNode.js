@@ -37,7 +37,7 @@ define( function( require ) {
     var foregroundNode = new Node( { pickable: false } );
     this.addChild( foregroundNode );
 
-    var needle = new Path( {shape: Shape.lineSegment( 0, 0, radius, 0 ), stroke: 'red', lineWidth: 3} );
+    var needle = new Path( Shape.lineSegment( 0, 0, radius, 0 ),{ stroke: 'red', lineWidth: 3} );
     foregroundNode.addChild( needle );
 
     this.label = new Text( 'Speed', {font: new PhetFont( 20 )} ).mutate( {centerX: 0, centerY: -radius / 3} );
@@ -62,7 +62,7 @@ define( function( require ) {
       var tickAngle = i * ANGLE_PER_TICK + startAngle;
       var tickLength = i % 2 === 0 ? 10 : 5;
       var lineWidth = i % 2 === 0 ? 2 : 1;
-      var tick = new Path( {shape: Shape.lineSegment( (radius - tickLength) * Math.cos( tickAngle ), (radius - tickLength) * Math.sin( tickAngle ), radius * Math.cos( tickAngle ), radius * Math.sin( tickAngle ) ), stroke: 'gray', lineWidth: lineWidth} );
+      var tick = new Path( Shape.lineSegment( (radius - tickLength) * Math.cos( tickAngle ), (radius - tickLength) * Math.sin( tickAngle ), radius * Math.cos( tickAngle ), radius * Math.sin( tickAngle ) ),{ stroke: 'gray', lineWidth: lineWidth} );
       foregroundNode.addChild( tick );
     }
   }

@@ -43,7 +43,7 @@ define( function( require ) {
     Node.call( this, {pickable: false} );
 
     //Create and add the children
-    this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
+    this.arrowNode = new Path( null, _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
     var fontOptions = {font: new PhetFont( { size: 16, weight: 'bold' } )};
     this.valueNode = new Text( '110N', fontOptions );
     this.labelNode = new Text( label, fontOptions );

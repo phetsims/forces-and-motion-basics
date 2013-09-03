@@ -60,7 +60,7 @@ define( function( require ) {
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
-        var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
+        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ),{ stroke: 'black', lineWidth: 1} );
         var text = new Text( label, {font: new PhetFont( 15 )} );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;

@@ -30,7 +30,7 @@ define( function( require ) {
   function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     this.item = item;
     ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty );
-    var water = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), stroke: 'black', fill: 'rgb(9, 125, 159)', lineWidth: 1} );
+    var water = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ),{ stroke: 'black', fill: 'rgb(9, 125, 159)', lineWidth: 1} );
     this.addChild( water );
     water.moveToBack();
 

@@ -31,7 +31,7 @@ define( function( require ) {
     Node.call( this );
 
     var text = new Text( model.cart.x < 0 ? Strings.blueWins : Strings.redWins, {font: new PhetFont( 32 ), fill: 'white'} );
-    this.path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
+    this.path = new Path( null, {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
     this.addChild( this.path );
     this.addChild( text );
 
