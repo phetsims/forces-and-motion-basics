@@ -5,7 +5,7 @@ require.config( {
 
   config: {
     i18n: {
-      locale: 'en_us',
+      locale: 'en_us'
     }
   },
 
