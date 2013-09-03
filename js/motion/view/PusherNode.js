@@ -79,7 +79,6 @@ define( function( require ) {
       assert && assert( model.stack.length > 0 );
       var pusherY = 362 - visibleNode.height;
       var delta = model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset;
-      console.log( model.stack.at( 0 ).view.width, model.stack.at( 0 ).pusherInset, model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset );
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }
