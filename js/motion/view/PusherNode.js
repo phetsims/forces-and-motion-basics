@@ -34,16 +34,17 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new Image( imageLoader.getImage( 'pusher_straight_on.png' ), {visible: true, scale: scale} );
+    var standingUp = new Image( imageLoader.getImage( 'pusher_straight_on.png' ), {visible: true, pickable: true, scale: scale} );
     var fallLeft = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: scale} );
-    var fallRight = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: new Vector2( -1 * scale, 1 * scale )} );
+    var fallRight = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
     var visibleNode = standingUp;
 
     children.push( standingUp );
     children.push( fallLeft );
+    children.push( fallRight );
     for ( var i = 0; i <= 14; i++ ) {
       var rightImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: scale} );
-      var leftImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: new Vector2( -1 * scale, 1 * scale )} );
+      var leftImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
       pushingRightNodes.push( rightImage );
       pushingLeftNodes.push( leftImage );
       children.push( rightImage );
@@ -64,35 +65,30 @@ define( function( require ) {
 
     //Update the position when the pusher is not applying force (fallen or standing)
     function updateZeroForcePosition() {
-      var position = model.position;
       var pusherY = 362 - visibleNode.height;
-      var fallingLeft = model.fallen && model.lastAppliedForce < 0;
-      var x = (layoutWidth / 2 - position * MotionConstants.POSITION_SCALE + model.pusherPosition ) / scale;
+      var x = layoutWidth / 2 + (model.pusherPosition - model.position) * MotionConstants.POSITION_SCALE;
 
-      //Don't update the image if it is too far offscreen
+      //To save processor time, don't update the image if it is too far offscreen
       if ( x > -2000 && x < 2000 ) {
-        visibleNode.setTranslation( x, pusherY );
+        visibleNode.translate( x - visibleNode.getCenterX(), pusherY - visibleNode.y, true );
       }
     }
 
     function updateAppliedForcePosition() {
-      var position = model.position;
       var pusherY = 362 - visibleNode.height;
       var delta = model.stack.length > 0 ? (model.stack.at( 0 ).view.width / 2 - model.stack.at( 0 ).pusherInset) : 100;
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
-        model.pusherPosition = -delta + position * MotionConstants.POSITION_SCALE;
       }
       else {
         visibleNode.setTranslation( (layoutWidth / 2 + visibleNode.width + delta), pusherY );
-        model.pusherPosition = delta + position * MotionConstants.POSITION_SCALE;
       }
     }
 
     //Choose the rightImage
     model.multilink( ['appliedForce', 'fallen'], function( appliedForce, fallen ) {
       if ( fallen ) {
-        setVisibleNode( fallLeft );
+        setVisibleNode( model.fallenDirection === 'left' ? fallLeft : fallRight );
         updateZeroForcePosition();
       }
       else if ( appliedForce === 0 ) {
