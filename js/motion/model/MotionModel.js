@@ -47,7 +47,7 @@ define( function( require ) {
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
-      pusherPosition: -212 / 40.0, //Start to the right of the box by this many pixels
+      pusherPosition: -4, //Start to the left of the box by this many meters
       showForce: true,
       showValues: false,
       showSumOfForces: false,
@@ -217,7 +217,7 @@ define( function( require ) {
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
       if ( this.appliedForce !== 0 ) {
-        this.pusherPosition = this.position;
+        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
       }
       this.speed = Math.abs( this.velocity );
       this.speedClassification = this.velocity >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
