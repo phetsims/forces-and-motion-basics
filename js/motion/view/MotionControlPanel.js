@@ -15,16 +15,16 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
-  var HSlider = require( 'motion/view/HSlider' );
-  var Strings = require( 'forces-and-motion-basics-strings' );
+  var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
   var Property = require( 'AXON/Property' );
   var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
-  var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
+  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
+  var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
@@ -60,7 +60,7 @@ define( function( require ) {
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
-        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ),{ stroke: 'black', lineWidth: 1} );
+        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), { stroke: 'black', lineWidth: 1} );
         var text = new Text( label, {font: new PhetFont( 15 )} );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;

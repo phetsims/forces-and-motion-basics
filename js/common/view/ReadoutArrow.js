@@ -15,7 +15,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**

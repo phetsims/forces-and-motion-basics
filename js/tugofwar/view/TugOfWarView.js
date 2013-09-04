@@ -8,25 +8,25 @@
 define( function( require ) {
   'use strict';
 
-  var PullerNode = require( 'tugofwar/view/PullerNode' );
+  var PullerNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/PullerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var KnotHighlightNode = require( 'tugofwar/view/KnotHighlightNode' );
-  var GoPauseButton = require( 'tugofwar/view/GoPauseButton' );
-  var ReturnButton = require( 'tugofwar/view/ReturnButton' );
+  var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/KnotHighlightNode' );
+  var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/GoPauseButton' );
+  var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/ReturnButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var FlagNode = require( 'tugofwar/view/FlagNode' );
-  var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
+  var FlagNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/FlagNode' );
+  var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var platform = require( 'PHET_CORE/platform' );
-  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var ReadoutArrow = require( 'common/view/ReadoutArrow' );
+  var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 

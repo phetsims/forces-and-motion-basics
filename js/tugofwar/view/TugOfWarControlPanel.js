@@ -11,10 +11,10 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var ResetAllButton = require( 'common/view/ResetAllButton' );
+  var ResetAllButton = require( 'FORCES_AND_MOTION_BASICS/common/view/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'forces-and-motion-basics-strings' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );

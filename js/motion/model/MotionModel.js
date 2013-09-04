@@ -8,12 +8,12 @@
 define( function( require ) {
   'use strict';
 
-  var Item = require( 'motion/model/Item' );
+  var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**

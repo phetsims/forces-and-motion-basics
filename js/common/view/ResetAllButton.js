@@ -8,7 +8,7 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PushButton = require( 'SUN/PushButton' );
@@ -30,6 +30,7 @@ define( function( require ) {
   function ResetAllImage( image ) {
     Image.call( this, image );
   }
+
   inherit( Image, ResetAllImage, {
     containsPointSelf: function( point ) {
       return point.distanceSquared( center ) <= radiusSquared;

@@ -6,15 +6,15 @@
  * @author Sam Reid
  */
 require( [
-  'tugofwar/model/TugOfWarModel',
-  'tugofwar/view/TugOfWarView',
-  'motion/model/MotionModel',
-  'motion/view/MotionView',
+  'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel',
+  'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView',
+  'FORCES_AND_MOTION_BASICS/motion/model/MotionModel',
+  'FORCES_AND_MOTION_BASICS/motion/view/MotionView',
   'SCENERY/nodes/Image',
   'JOIST/Sim',
   'JOIST/SimLauncher',
-  'forces-and-motion-basics-images',
-  'forces-and-motion-basics-strings'
+  'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images',
+  'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings'
 ], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, forcesAndMotionBasicsImages, Strings ) {
   'use strict';
 
