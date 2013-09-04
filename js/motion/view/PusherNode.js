@@ -15,7 +15,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var MotionConstants = require( 'motion/MotionConstants' );
   var platform = require( 'PHET_CORE/platform' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -35,17 +35,17 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new Image( imageLoader.getImage( 'pusher_straight_on.png' ), {visible: true, pickable: true, scale: scale} );
-    var fallLeft = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: scale} );
-    var fallRight = new Image( imageLoader.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
+    var standingUp = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_straight_on.png' ), {visible: true, pickable: true, scale: scale} );
+    var fallLeft = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: scale} );
+    var fallRight = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
     var visibleNode = standingUp;
 
     children.push( standingUp );
     children.push( fallLeft );
     children.push( fallRight );
     for ( var i = 0; i <= 14; i++ ) {
-      var rightImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: scale} );
-      var leftImage = new Image( imageLoader.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
+      var rightImage = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: scale} );
+      var leftImage = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
       pushingRightNodes.push( rightImage );
       pushingLeftNodes.push( leftImage );
       children.push( rightImage );

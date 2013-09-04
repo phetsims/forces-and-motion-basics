@@ -8,7 +8,7 @@ define( function( require ) {
   'use strict';
 
   // imports
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PushButton = require( 'SUN/PushButton' );
@@ -20,10 +20,10 @@ define( function( require ) {
 
   function ResetAllButton( callback, options ) {
     PushButton.call( this,
-      new ResetAllImage( imageLoader.getImage( 'reset_button_up.png' ) ),
-      new ResetAllImage( imageLoader.getImage( 'reset_button_over.png' ) ),
-      new ResetAllImage( imageLoader.getImage( 'reset_button_down.png' ) ),
-      new ResetAllImage( imageLoader.getImage( 'reset_button_disabled.png' ) ),
+      new ResetAllImage( forcesAndMotionBasicsImages.getImage( 'reset_button_up.png' ) ),
+      new ResetAllImage( forcesAndMotionBasicsImages.getImage( 'reset_button_over.png' ) ),
+      new ResetAllImage( forcesAndMotionBasicsImages.getImage( 'reset_button_down.png' ) ),
+      new ResetAllImage( forcesAndMotionBasicsImages.getImage( 'reset_button_disabled.png' ) ),
       callback, options );
   }
 

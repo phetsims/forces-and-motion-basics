@@ -16,7 +16,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var linear = require( 'DOT/Util' ).linear;
   var Matrix3 = require( 'DOT/Matrix3' );
   var MotionConstants = require( 'motion/MotionConstants' );
@@ -83,7 +83,7 @@ define( function( require ) {
       return node;
     };
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, rendererOptions: {cssTransform: true}} );
+      var sprite = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, y: y, rendererOptions: {cssTransform: true}} );
       sprite.boundsInaccurate = true;
       return addBackgroundNode( offset, sprite, distanceScale, y );
     };
@@ -100,7 +100,7 @@ define( function( require ) {
     addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
     addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
 
-    var tile = imageLoader.getImage( 'brick-tile.png' );
+    var tile = forcesAndMotionBasicsImages.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
 
     //Add the ground, offset the pattern so that the it aligns with the brick image

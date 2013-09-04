@@ -23,7 +23,7 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var platform = require( 'PHET_CORE/platform' );
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
@@ -52,15 +52,15 @@ define( function( require ) {
     this.addChild( new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
 
     //Show the grass.
-    var grassImage = imageLoader.getImage( 'grass.png' );
+    var grassImage = forcesAndMotionBasicsImages.getImage( 'grass.png' );
     this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 + grassImage.width, y: grassY} ) );
 
-    this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {y: 221} );
+    this.cartNode = new Image( forcesAndMotionBasicsImages.getImage( 'cart.png' ), {y: 221} );
 
     //Black caret below the cart
-    this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ),{ stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
+    this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), { stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
     var toolboxHeight = 216;
@@ -85,7 +85,7 @@ define( function( require ) {
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 273 } );
+    this.ropeNode = new Image( forcesAndMotionBasicsImages.getImage( 'rope.png' ), {x: 51, y: 273 } );
 
     model.knots.forEach( function( knot ) { tugOfWarView.addChild( new KnotHighlightNode( knot ) ); } );
 
@@ -119,7 +119,7 @@ define( function( require ) {
                        size === 'medium' ? '_' :
                        '_small_';
       var colorString = type.toUpperCase();
-      return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
+      return forcesAndMotionBasicsImages.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
     };
 
     var pullerLayer = new Node();

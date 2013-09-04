@@ -19,7 +19,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var Property = require( 'AXON/Property' );
   var SliderKnob = require( 'common/view/SliderKnob' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );

@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'Strings' );
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -25,21 +25,21 @@ define( function( require ) {
    */
   function GoPauseButton( model, layoutWidth ) {
     var goPauseButton = this;
-    Image.call( this, imageLoader.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
+    Image.call( this, forcesAndMotionBasicsImages.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
 
-    var updateOut = function() {goPauseButton.image = imageLoader.getImage( model.running ? 'stop_up.png' : 'go_up.png' );};
+    var updateOut = function() {goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_up.png' : 'go_up.png' );};
 
     goPauseButton.addInputListener( {
       over: function() {
-        goPauseButton.image = imageLoader.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
       },
       out: updateOut,
       down: function() {
-        goPauseButton.image = imageLoader.getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
+        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
         model.running = !model.running;
       },
       up: function() {
-        goPauseButton.image = imageLoader.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
       }
     } );
 

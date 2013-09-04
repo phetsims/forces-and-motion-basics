@@ -22,7 +22,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'motion/view/MovingBackgroundNode' );
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'common/view/ReadoutArrow' );
@@ -81,9 +81,9 @@ define( function( require ) {
       var item = model.items[i];
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
-        imageLoader.getImage( item.image ),
-        imageLoader.getImage( item.sittingImage || item.image ),
-        imageLoader.getImage( item.holdingImage || item.image ),
+        forcesAndMotionBasicsImages.getImage( item.image ),
+        forcesAndMotionBasicsImages.getImage( item.sittingImage || item.image ),
+        forcesAndMotionBasicsImages.getImage( item.holdingImage || item.image ),
         model.showMassesProperty );
       this.itemNodes.push( itemNode );
 
@@ -94,7 +94,7 @@ define( function( require ) {
 
     //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
+      this.addChild( new Image( forcesAndMotionBasicsImages.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
     //Add the force arrows & associated readouts
