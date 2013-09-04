@@ -15,7 +15,6 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Strings = require( 'Strings' );
 
   //Constructor for the AccelerometerNode
   function AccelerometerNode( accelerationProperty, options ) {

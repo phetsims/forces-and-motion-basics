@@ -16,7 +16,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var HSlider = require( 'motion/view/HSlider' );
-  var Strings = require( 'Strings' );
+  var Strings = require( 'forces-and-motion-basics-strings' );
   var Property = require( 'AXON/Property' );
   var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );

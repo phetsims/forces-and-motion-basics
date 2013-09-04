@@ -14,7 +14,7 @@ require( [
   'JOIST/Sim',
   'JOIST/SimLauncher',
   'forces-and-motion-basics-images',
-  'Strings'
+  'forces-and-motion-basics-strings'
 ], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, forcesAndMotionBasicsImages, Strings ) {
   'use strict';
 

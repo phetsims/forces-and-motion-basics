@@ -17,7 +17,7 @@ define( function( require ) {
   var WaterBucketNode = require( 'motion/view/WaterBucketNode' );
   var PusherNode = require( 'motion/view/PusherNode' );
   var HSlider = require( 'motion/view/HSlider' );
-  var Strings = require( 'Strings' );
+  var Strings = require( 'forces-and-motion-basics-strings' );
   var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'motion/view/MotionControlPanel' );

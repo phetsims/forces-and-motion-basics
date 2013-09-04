@@ -14,7 +14,7 @@ define( function( require ) {
   var ResetAllButton = require( 'common/view/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'Strings' );
+  var Strings = require( 'forces-and-motion-basics-strings' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
