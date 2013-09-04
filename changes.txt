@@ -1,2 +1,3 @@
+Use 'pool' branch for Vector2 pooling, see scenery#110
 Added clouds back
 Converted MovingBackgroundNode to use cssTransform to improve performance
