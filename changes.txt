@@ -1,0 +1,2 @@
+Added clouds back
+Converted MovingBackgroundNode to use cssTransform to improve performance

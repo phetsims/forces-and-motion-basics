@@ -35,7 +35,7 @@ define( function( require ) {
     this.model = model;
 
     //Using low-density canvas here instead of svg saves about 8ms per frame
-    Node.call( this, { renderer: 'canvas', pickable: false } );
+    Node.call( this, { renderer: 'svg', pickable: false } );
 
     var modWidth = 120 * 15;
     var L = modWidth / 2;
@@ -83,7 +83,7 @@ define( function( require ) {
       return node;
     };
     var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y} );
+      var sprite = new Image( imageLoader.getImage( imageName ), {scale: scale, y: y, rendererOptions: {cssTransform: true}} );
       sprite.boundsInaccurate = true;
       return addBackgroundNode( offset, sprite, distanceScale, y );
     };
@@ -96,9 +96,9 @@ define( function( require ) {
 
     //Add the clouds
     //Clouds commented out for now to improve performance, see #41
-//    addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
-//    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
-//    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
+    addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
+    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
+    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
 
     var tile = imageLoader.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
@@ -112,7 +112,7 @@ define( function( require ) {
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
     ground.toImage( function( image ) {
       var groundY = mountainY + 50;
-      var groundImageNode = new Image( image, {y: groundY} );
+      var groundImageNode = new Image( image, {y: groundY, rendererOptions: {cssTransform: true}} );
       groundImageNode.boundsInaccurate = true;
       movingBackgroundNode.addChild( groundImageNode );
       model.positionProperty.link( function( position ) {
@@ -124,7 +124,7 @@ define( function( require ) {
 
         //Add the gravel
         var gravelY = mountainY + 48;
-        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: gravelY} );
+        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: gravelY, rendererOptions: {cssTransform: true}} );
         gravel.boundsInaccurate = true;
         model.positionProperty.link( function( position ) {
           gravel.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + offset, gravelY );
@@ -132,7 +132,7 @@ define( function( require ) {
         movingBackgroundNode.addChild( gravel );
 
         //Add the ice
-        var iceOverlay = new Rectangle( -400, groundY, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)'} );
+        var iceOverlay = new Rectangle( -400, groundY, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
         iceOverlay.boundsInaccurate = true;
         var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
         var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
