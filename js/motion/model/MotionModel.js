@@ -121,13 +121,13 @@ define( function( require ) {
     //Uses the view to get item dimensions.
     spliceStack: function( index ) {
       var item = this.stack.get( index );
-      this.stack.splice( index, 1 );
+      this.stack.remove( item );
       if ( this.stack.length > 0 ) {
         var sumHeight = 0;
         for ( var i = 0; i < this.stack.length; i++ ) {
-          var size = this.view.getSize( this.stack.at( i ) );
+          var size = this.view.getSize( this.stack.get( i ) );
           sumHeight += size.height;
-          this.stack.at( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.at( i ).centeringOffset, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
 
