@@ -230,7 +230,7 @@ define( function( require ) {
     get stackHeight() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
-        sum = sum + this.model.stack.at( i ).view.height;
+        sum = sum + this.model.stack.get( i ).view.height;
       }
       return sum;
     },
