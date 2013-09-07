@@ -149,10 +149,11 @@ define( function( require ) {
         //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
         model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-        var ice1 = toBackgroundImage( 0, 'icicle.png', 0, 0.8 );
-        var ice2 = toBackgroundImage( 300, 'icicle.png', 0, 0.8 );
-
-        var iceLayer = new Node( {children: [ice1, ice2], x: layoutCenterX, y: groundY + ground.height} );
+        var iceLayer = new Node( {
+          children: [
+            toBackgroundImage( 0, 'icicle.png', 0, 0.8 ),
+            toBackgroundImage( 300, 'icicle.png', 0, 0.8 )
+          ], x: layoutCenterX, y: groundY + ground.height} );
         model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
         movingBackgroundNode.addChild( iceLayer );
 
