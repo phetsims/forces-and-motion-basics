@@ -41,13 +41,16 @@ define( function( require ) {
     var L = modWidth / 2;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var addBackgroundNode = function( offset, node, distanceScale, y ) {
+    var addBackgroundImage = function( offset, imageName, distanceScale, y, scale, visibleProperty ) {
+      var node = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, y: y, rendererOptions: {cssTransform: true}} );
+      node.boundsInaccurate = true;
       movingBackgroundNode.addChild( node );
       var centering = layoutCenterX - node.width / 2;
       if ( centering === Number.POSITIVE_INFINITY ) {
         centering = 0;
       }
-      model.positionProperty.link( function( position ) {
+      var updatePosition = function( position ) {
+        if ( !node.visible ) {return;}
         var a = -position / distanceScale * MotionConstants.POSITION_SCALE + offset;
         var n, z;
 
@@ -79,13 +82,16 @@ define( function( require ) {
           z = a - 2 * L * n;
           node.setTranslation( z + centering, y );
         }
-      } );
+      };
+
+      //For the ice, only update it when visible.  When changed to visible, then make sure its position is updated properly
+      if ( visibleProperty ) {
+        visibleProperty.link( function( visible ) {
+          updatePosition( model.position );
+        } );
+      }
+      model.positionProperty.link( updatePosition );
       return node;
-    };
-    var addBackgroundImage = function( offset, imageName, distanceScale, y, scale ) {
-      var sprite = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, y: y, rendererOptions: {cssTransform: true}} );
-      sprite.boundsInaccurate = true;
-      return addBackgroundNode( offset, sprite, distanceScale, y );
     };
 
     //Add the mountains
@@ -142,8 +148,8 @@ define( function( require ) {
         //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
 //      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-        var ice1 = addBackgroundImage( 100, 'icicle.png', 1, groundY + tile.height, 0.8 );
-        var ice2 = addBackgroundImage( -300, 'icicle.png', 1, groundY + tile.height, 0.8 );
+        var ice1 = addBackgroundImage( 100, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
+        var ice2 = addBackgroundImage( -300, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
 
         model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
         model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
