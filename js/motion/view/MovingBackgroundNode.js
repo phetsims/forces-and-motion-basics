@@ -37,74 +37,70 @@ define( function( require ) {
     //Using low-density canvas here instead of svg saves about 8ms per frame
     Node.call( this, { renderer: 'svg', pickable: false } );
 
-    var modWidth = 120 * 15;
-    var L = modWidth / 2;
+    var L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var addBackgroundImage = function( offset, imageName, distanceScale, y, scale, visibleProperty ) {
-      var node = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, y: y, rendererOptions: {cssTransform: true}} );
+    var toBackgroundImage = function( offset, imageName, distanceScale, y, scale, visibleProperty ) {
+      var node = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, x: offset, y: y, rendererOptions: {cssTransform: true}} );
       node.boundsInaccurate = true;
-      movingBackgroundNode.addChild( node );
-      var centering = layoutCenterX - node.width / 2;
-      if ( centering === Number.POSITIVE_INFINITY ) {
-        centering = 0;
-      }
-      var updatePosition = function( position ) {
-        if ( !node.visible ) {return;}
-        var a = -position / distanceScale * MotionConstants.POSITION_SCALE + offset;
-        var n, z;
-
-        //A function that maps values as such:
-        //0=>0
-        //1=>1
-        //-1 => -1
-        //L+a => -L+a
-        //-L-a => L-a
-        if ( a < -L ) {
-          //put 'a' between -L and +L by adding an integral number of 2L
-          //How many 2L to add to put a back above -L?
-          //2L*n+ a >= -L
-          //2L*n >= -L - a
-          //n >= -(L+a)/2L
-          n = Math.ceil( -(L + a) / 2 / L );
-          z = n * 2 * L + a;
-          node.setTranslation( z + centering, y );
-        }
-        else if ( a < L ) {
-          node.setTranslation( a + centering, y );
-        }
-        else {
-          //Put 'a' between -L and +L by subtracting an integral number of 2L
-          //a - 2*L*n <= L
-          //-2L*n <= L - a
-          //n >= (L-a)/2L
-          n = Math.floor( (L + a) / 2 / L );
-          z = a - 2 * L * n;
-          node.setTranslation( z + centering, y );
-        }
-      };
-
-      //For the ice, only update it when visible.  When changed to visible, then make sure its position is updated properly
-      if ( visibleProperty ) {
-        visibleProperty.link( function( visible ) {
-          updatePosition( model.position );
-        } );
-      }
-      model.positionProperty.link( updatePosition );
+      node.offsetX = offset;
+      node.scaleFactor = scale;
       return node;
     };
 
-    //Add the mountains
-    var mountainY = 311;
-    addBackgroundImage( L / 2, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundImage( L, 'mountains.png', 10, mountainY, 1 );
-    addBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 );
+    var netDelta = 0;
 
-    //Add the clouds
-    //Clouds commented out for now to improve performance, see #41
-    addBackgroundImage( 100, 'cloud1.png', 5, 10, 1 );
-    addBackgroundImage( 600, 'cloud1.png', 5, -30, 1 );
-    addBackgroundImage( 1200, 'cloud1.png', 5, 5, 0.9 );
+    var stageWidth = L * 2;
+
+    var mountainY = 311;
+    var children = [toBackgroundImage( L / 2, 'mountains.png', 10, mountainY, 1 ),
+      toBackgroundImage( L, 'mountains.png', 10, mountainY, 1 ),
+      toBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 ),
+      toBackgroundImage( 0, 'cloud1.png', 10, 10, 0.7 ),
+      toBackgroundImage( L - 100, 'cloud1.png', 10, -30, 0.8 ),
+      toBackgroundImage( -L / 3 - 100, 'cloud1.png', 10, 5, 1 )];
+
+    //TODO: It would be good to use cssTransforms here but they are a bit buggy
+    var mountainAndCloudLayer = new Node( {x: layoutCenterX, children: children, renderer: 'svg'} );
+    this.addChild( mountainAndCloudLayer );
+
+    //Move the background objects
+    //TODO: support background objects with scale !== 1
+    model.positionProperty.link( function( position, oldPosition ) {
+      var delta = -(position - oldPosition) * MotionConstants.POSITION_SCALE / 2;
+      netDelta += delta;
+      mountainAndCloudLayer.translate( delta, 0 );
+
+      var sign = position > oldPosition ? 1 : -1;
+      for ( var i = 0; i < children.length; i++ ) {
+        var child = children[i];
+
+//        console.log( child.offsetX + netDelta );
+        //model moving right
+        if ( sign === 1 ) {
+//          console.log( child.offsetX + netDelta, -800 );
+
+          //TODO: use modulus instead of while loop
+          while ( child.offsetX + netDelta < -L ) {
+//            console.log( 'jump 1' );
+            child.offsetX += stageWidth;
+            child.translate( stageWidth / child.scaleFactor, 0 );
+          }
+        }
+
+        //model moving left
+        else {
+//          console.log( child.offsetX + netDelta, L );
+
+          //TODO: use modulus instead of while loop
+          while ( child.offsetX + netDelta > L ) {
+//            console.log( 'jump 2' );
+            child.offsetX -= stageWidth;
+            child.translate( -stageWidth / child.scaleFactor, 0 );
+          }
+        }
+      }
+    } );
 
     var tile = forcesAndMotionBasicsImages.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
@@ -113,7 +109,7 @@ define( function( require ) {
     var tilePattern = new Pattern( tile );
     var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern } );
     var mod = ground.width / 14;
-    var offset = layoutCenterX - ground.width / 2;
+    var centerX = layoutCenterX - ground.width / 2;
 
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
     ground.toImage( function( image ) {
@@ -122,7 +118,7 @@ define( function( require ) {
       groundImageNode.boundsInaccurate = true;
       movingBackgroundNode.addChild( groundImageNode );
       model.positionProperty.link( function( position ) {
-        groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + offset, groundY );
+        groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + centerX, groundY );
       } );
 
       //Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
@@ -146,8 +142,9 @@ define( function( require ) {
         //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
 //      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-        var ice1 = addBackgroundImage( 100, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
-        var ice2 = addBackgroundImage( -300, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
+        //TODO: Add back support for ice after refactoring the main background callback.  Perhaps the ice will be children of the ground layer itself.
+        var ice1 = toBackgroundImage( 100, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
+        var ice2 = toBackgroundImage( -300, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
 
         model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
         model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
