@@ -62,6 +62,7 @@ define( function( require ) {
         toBackgroundImage( L - 100, 'cloud1.png', -30, 0.8 ),
         toBackgroundImage( -L / 3 - 100, 'cloud1.png', 5, 1 )
       ], renderer: 'svg'} );
+    mountainAndCloudLayer.boundsInaccurate = true;
     this.addChild( mountainAndCloudLayer );
 
     //Move the background objects
@@ -154,6 +155,7 @@ define( function( require ) {
             toBackgroundImage( 0, 'icicle.png', 0, 0.8 ),
             toBackgroundImage( 300, 'icicle.png', 0, 0.8 )
           ], x: layoutCenterX, y: groundY + ground.height} );
+        iceLayer.boundsInaccurate = true;
         model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
         movingBackgroundNode.addChild( iceLayer );
 
