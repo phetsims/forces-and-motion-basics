@@ -26,9 +26,7 @@ require( [
              'Interviews: Noah Podolefsky'
   };
 
-  SimLauncher.launch( [
-    {name: 'forces-and-motion-basics', imageLoader: forcesAndMotionBasicsImages}
-  ], function() {
+  SimLauncher.launch( forcesAndMotionBasicsImages, function() {
 
     //Create and start the sim
     new Sim( Strings['forces-and-motion-basics.name'], [
