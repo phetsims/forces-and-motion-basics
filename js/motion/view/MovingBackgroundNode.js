@@ -129,13 +129,11 @@ define( function( require ) {
       if ( !model.skateboard ) {
 
         //Add the gravel
-        var gravelY = mountainY + 48;
-        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: gravelY, rendererOptions: {cssTransform: true}} );
+        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: -2, rendererOptions: {cssTransform: true}} );
         gravel.boundsInaccurate = true;
-        model.positionProperty.link( function( position ) {
-          gravel.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + offset, gravelY );
-        } );
-        movingBackgroundNode.addChild( gravel );
+
+        //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
+        groundImageNode.addChild( gravel );
 
         //Add the ice
         var iceOverlay = new Rectangle( -400, groundY, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
