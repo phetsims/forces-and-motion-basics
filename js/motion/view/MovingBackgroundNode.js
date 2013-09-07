@@ -83,11 +83,11 @@ define( function( require ) {
 //        console.log( child.offsetX + netDelta );
           //model moving right
           if ( sign === 1 ) {
-            console.log( child.offsetX + netDelta, -800 );
+//            console.log( child.offsetX + netDelta, -800 );
 
             //TODO: use modulus instead of while loop
             while ( child.offsetX + netDelta < -L ) {
-              console.log( 'jump 1' );
+//              console.log( 'jump 1' );
               child.offsetX += stageWidth;
               child.translate( stageWidth / child.scaleFactor, 0 );
             }
@@ -99,7 +99,7 @@ define( function( require ) {
 
             //TODO: use modulus instead of while loop
             while ( child.offsetX + netDelta > L ) {
-              console.log( 'jump 2' );
+//              console.log( 'jump 2' );
               child.offsetX -= stageWidth;
               child.translate( -stageWidth / child.scaleFactor, 0 );
             }
