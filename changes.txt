@@ -1,5 +1,6 @@
-9/7/2013 added icicles using the same strategy as mountains and clouds
-9/7/2013 show the mountains and clouds in a single translated layer, to improve performance
+# 1.0.0-rc14 9/7/13
+9/7/13 added icicles using the same strategy as mountains and clouds
+9/7/13 show the mountains and clouds in a single translated layer, to improve performance
 axon#5, rework ObservableArray
 Use 'pool' branch for Vector2 pooling, see scenery#110
 Added clouds back
