@@ -13,7 +13,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'forces-and-motion-basics-strings' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**

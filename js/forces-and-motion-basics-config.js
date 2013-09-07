@@ -21,6 +21,7 @@ require.config( {
     PHET_CORE: '../../phet-core/js',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
+    FORCES_AND_MOTION_BASICS: '../../forces-and-motion-basics/js',
 
     //Load plugins
     i18n: '../../i18n/i18n'

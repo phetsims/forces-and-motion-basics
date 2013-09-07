@@ -16,10 +16,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var forcesAndMotionBasicsImages = require( 'forces-and-motion-basics-images' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var linear = require( 'DOT/Util' ).linear;
   var Matrix3 = require( 'DOT/Matrix3' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
