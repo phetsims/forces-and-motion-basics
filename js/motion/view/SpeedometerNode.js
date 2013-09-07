@@ -18,6 +18,7 @@ define( function( require ) {
   var linear = require( 'DOT/Util' ).linear;
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
 
   //Constants
   var ANGLE_PER_TICK = Math.PI * 2 / 4 / 8;
@@ -40,7 +41,7 @@ define( function( require ) {
     var needle = new Path( Shape.lineSegment( 0, 0, radius, 0 ), { stroke: 'red', lineWidth: 3} );
     foregroundNode.addChild( needle );
 
-    this.label = new Text( 'Speed', {font: new PhetFont( 20 )} ).mutate( {centerX: 0, centerY: -radius / 3} );
+    this.label = new Text( Strings.speed, {font: new PhetFont( 20 )} ).mutate( {centerX: 0, centerY: -radius / 3} );
     foregroundNode.addChild( this.label );
 
     var pin = new Circle( 2, {fill: 'black'} );

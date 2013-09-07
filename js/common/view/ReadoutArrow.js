@@ -17,6 +17,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   /**
    * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
@@ -54,7 +56,7 @@ define( function( require ) {
     //Update when the value changes
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
-      readoutArrow.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
+      readoutArrow.valueNode.text = StringUtils.format( Strings["forceReadout.pattern"], Math.abs( value ).toFixed( 0 ) );
       readoutArrow.update();
     } );
 

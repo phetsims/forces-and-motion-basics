@@ -34,5 +34,11 @@ define( function( require ) {
   require( 'i18n!FORCES_AND_MOTION_BASICS/../nls/vi/forces-and-motion-basics-strings' );
   require( 'i18n!FORCES_AND_MOTION_BASICS/../nls/zh-tw/forces-and-motion-basics-strings' );
 
+  //For testing the i18n coverage
+//  for ( var key in Strings ) {
+//    console.log( key );
+//    Strings[key] = Strings[key] + Strings[key];
+//  }
+
   return Strings;
 } );

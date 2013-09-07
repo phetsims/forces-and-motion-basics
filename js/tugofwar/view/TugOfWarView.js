@@ -29,6 +29,7 @@ define( function( require ) {
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
 
   /**
    * @param {TugOfWarModel} model
@@ -72,9 +73,9 @@ define( function( require ) {
 
     //Create the arrow nodes
     var opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity} );
-    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
-    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
+    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity} );
+    this.leftArrow = new ReadoutArrow( Strings.leftForce, '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
+    this.rightArrow = new ReadoutArrow( String.rightForce, '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
