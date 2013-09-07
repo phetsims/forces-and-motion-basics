@@ -40,7 +40,7 @@ define( function( require ) {
     var L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var toBackgroundImage = function( offset, imageName, distanceScale, y, scale, visibleProperty ) {
+    var toBackgroundImage = function( offset, imageName, y, scale ) {
       var node = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, x: offset, y: y, rendererOptions: {cssTransform: true}} );
       node.boundsInaccurate = true;
       node.offsetX = offset;
@@ -48,59 +48,66 @@ define( function( require ) {
       return node;
     };
 
-    var netDelta = 0;
-
     var stageWidth = L * 2;
 
     var mountainY = 311;
-    var children = [toBackgroundImage( L / 2, 'mountains.png', 10, mountainY, 1 ),
-      toBackgroundImage( L, 'mountains.png', 10, mountainY, 1 ),
-      toBackgroundImage( -L / 3, 'mountains.png', 10, mountainY, 1 ),
-      toBackgroundImage( 0, 'cloud1.png', 10, 10, 0.7 ),
-      toBackgroundImage( L - 100, 'cloud1.png', 10, -30, 0.8 ),
-      toBackgroundImage( -L / 3 - 100, 'cloud1.png', 10, 5, 1 )];
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy
-    var mountainAndCloudLayer = new Node( {x: layoutCenterX, children: children, renderer: 'svg'} );
+    var mountainAndCloudLayer = new Node( {x: layoutCenterX,
+      children: [
+        toBackgroundImage( L / 2, 'mountains.png', mountainY, 1 ),
+        toBackgroundImage( L, 'mountains.png', mountainY, 1 ),
+        toBackgroundImage( -L / 3, 'mountains.png', mountainY, 1 ),
+        toBackgroundImage( 0, 'cloud1.png', 10, 0.7 ),
+        toBackgroundImage( L - 100, 'cloud1.png', -30, 0.8 ),
+        toBackgroundImage( -L / 3 - 100, 'cloud1.png', 5, 1 )
+      ], renderer: 'svg'} );
     this.addChild( mountainAndCloudLayer );
 
     //Move the background objects
     //TODO: support background objects with scale !== 1
-    model.positionProperty.link( function( position, oldPosition ) {
-      var delta = -(position - oldPosition) * MotionConstants.POSITION_SCALE / 2;
-      netDelta += delta;
-      mountainAndCloudLayer.translate( delta, 0 );
 
-      var sign = position > oldPosition ? 1 : -1;
-      for ( var i = 0; i < children.length; i++ ) {
-        var child = children[i];
+    var getLayerUpdater = function( layer, motionScale ) {
+      var netDelta = 0;
+      var children = layer.children;
+      return function( position, oldPosition ) {
+        var delta = -(position - oldPosition) * MotionConstants.POSITION_SCALE / motionScale;
+        netDelta += delta;
+        layer.translate( delta, 0 );
+
+        var sign = position > oldPosition ? 1 : -1;
+        for ( var i = 0; i < children.length; i++ ) {
+          var child = children[i];
 
 //        console.log( child.offsetX + netDelta );
-        //model moving right
-        if ( sign === 1 ) {
-//          console.log( child.offsetX + netDelta, -800 );
+          //model moving right
+          if ( sign === 1 ) {
+            console.log( child.offsetX + netDelta, -800 );
 
-          //TODO: use modulus instead of while loop
-          while ( child.offsetX + netDelta < -L ) {
-//            console.log( 'jump 1' );
-            child.offsetX += stageWidth;
-            child.translate( stageWidth / child.scaleFactor, 0 );
+            //TODO: use modulus instead of while loop
+            while ( child.offsetX + netDelta < -L ) {
+              console.log( 'jump 1' );
+              child.offsetX += stageWidth;
+              child.translate( stageWidth / child.scaleFactor, 0 );
+            }
           }
-        }
 
-        //model moving left
-        else {
+          //model moving left
+          else {
 //          console.log( child.offsetX + netDelta, L );
 
-          //TODO: use modulus instead of while loop
-          while ( child.offsetX + netDelta > L ) {
-//            console.log( 'jump 2' );
-            child.offsetX -= stageWidth;
-            child.translate( -stageWidth / child.scaleFactor, 0 );
+            //TODO: use modulus instead of while loop
+            while ( child.offsetX + netDelta > L ) {
+              console.log( 'jump 2' );
+              child.offsetX -= stageWidth;
+              child.translate( -stageWidth / child.scaleFactor, 0 );
+            }
           }
         }
-      }
-    } );
+      };
+    };
+
+    model.positionProperty.link( getLayerUpdater( mountainAndCloudLayer, 10 ) );
 
     var tile = forcesAndMotionBasicsImages.getImage( 'brick-tile.png' );
     var tileWidth = tile.width;
@@ -139,15 +146,18 @@ define( function( require ) {
         movingBackgroundNode.addChild( iceOverlay );
         model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
-        //make sure gravel gets exactly removed if friction is zero.  Wasn't happening without this code, perhaps because of lazy callbacks and cached lastNumSpecks?
-//      model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
+        //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
+        model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-        //TODO: Add back support for ice after refactoring the main background callback.  Perhaps the ice will be children of the ground layer itself.
-        var ice1 = toBackgroundImage( 100, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
-        var ice2 = toBackgroundImage( -300, 'icicle.png', 1, groundY + tile.height, 0.8, model.frictionZeroProperty );
+        var ice1 = toBackgroundImage( 0, 'icicle.png', 0, 0.8 );
+        var ice2 = toBackgroundImage( 300, 'icicle.png', 0, 0.8 );
 
-        model.frictionZeroProperty.linkAttribute( ice1, 'visible' );
-        model.frictionZeroProperty.linkAttribute( ice2, 'visible' );
+        var iceLayer = new Node( {children: [ice1, ice2], x: layoutCenterX, y: groundY + ground.height} );
+        model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
+        movingBackgroundNode.addChild( iceLayer );
+
+        //TODO: could prevent updater from firing if ice is not visible
+        model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
 
         movingBackgroundNode.lastNumSpecks = 0;
 
