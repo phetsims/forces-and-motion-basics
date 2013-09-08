@@ -179,13 +179,23 @@ define( function( require ) {
 
         //Create the gravel for nonzero friction.
         model.frictionProperty.link( function( newFriction, oldFriction ) {
+
+          //Discretize the friction so that the new nodes/images are not created at every step
+          newFriction = newFriction * 100;
+          newFriction = Math.round( newFriction / 2 ) * 2;
+          newFriction = newFriction / 100;
+
           var height = 3;
           var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
           numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-          var desiredBlack = numSpecks / 2;
-          var desiredGray = numSpecks / 2;
-          var desiredWhite = numSpecks / 10;
+          var desiredBlack = Math.round( numSpecks / 2 );
+          var desiredGray = Math.round( numSpecks / 2 );
+          var desiredWhite = Math.round( numSpecks / 10 );
+
+          if ( desiredBlack === numBlack && desiredGray == numGray && desiredWhite === numWhite ) {
+            return;
+          }
 
           while ( numBlack < desiredBlack ) {
             gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
