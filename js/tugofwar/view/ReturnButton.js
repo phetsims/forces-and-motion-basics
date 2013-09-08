@@ -14,6 +14,7 @@ define( function( require ) {
   var TextButton = require( 'SUN/TextButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Color = require( 'SCENERY/util/Color' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
 
   /**
    * @param {TugOfWarModel} model
@@ -23,7 +24,7 @@ define( function( require ) {
   function ReturnButton( model, options ) {
     Node.call( this, {} );
 
-    var button = new TextButton( 'Return', model.returnCart.bind( model ),
+    var button = new TextButton( Strings.return, model.returnCart.bind( model ),
       {font: new PhetFont( { size: 16, weight: 'bold' } ), rectangleFillUp: new Color( 254, 192, 0 )} );
     this.addChild( button );
     this.mutate( options );
