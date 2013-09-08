@@ -27,30 +27,30 @@ define( function( require ) {
    * @param {MotionModel} model the entire model for the containing screen
    * @param {MotionView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
-   * @param {Image} image the scenery.Image to show for this node
-   * @param {Image} imageSitting optional image for when the person is sitting down
-   * @param {Image} imageHolding optional image for when the person is holding an object
+   * @param {Image} normalImage the scenery.Image to show for this node
+   * @param {Image} sittingImage optional image for when the person is sitting down
+   * @param {Image} holdingImage optional image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
    * @constructor
    */
-  function ItemNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty ) {
+  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
 
     //Create the node for the main graphic
-    var imageNode = new Image( image );
+    var imageNode = new Image( normalImage );
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
-      if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && item.onBoard) ) {
-        imageNode.image = imageHolding;
+      if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoard) ) {
+        imageNode.image = holdingImage;
       }
-      else if ( item.onBoard && typeof imageSitting !== 'undefined' ) {
-        imageNode.image = imageSitting;
+      else if ( item.onBoard && typeof sittingImage !== 'undefined' ) {
+        imageNode.image = sittingImage;
       }
       else {
-        imageNode.image = image;
+        imageNode.image = normalImage;
       }
       if ( itemNode.labelNode ) {
         itemNode.labelNode.bottom = imageNode.height - 2;
