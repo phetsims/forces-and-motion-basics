@@ -39,22 +39,22 @@ define( function( require ) {
     Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
 
     //Create the node for the main graphic
-    var imageNode = new Image( normalImage );
+    var normalImageNode = new Image( normalImage );
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
       if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoard) ) {
-        imageNode.image = holdingImage;
+        normalImageNode.image = holdingImage;
       }
       else if ( item.onBoard && typeof sittingImage !== 'undefined' ) {
-        imageNode.image = sittingImage;
+        normalImageNode.image = sittingImage;
       }
       else {
-        imageNode.image = normalImage;
+        normalImageNode.image = normalImage;
       }
       if ( itemNode.labelNode ) {
-        itemNode.labelNode.bottom = imageNode.height - 2;
-        itemNode.labelNode.centerX = imageNode.width / 2;
+        itemNode.labelNode.bottom = normalImageNode.height - 2;
+        itemNode.labelNode.centerX = normalImageNode.width / 2;
       }
     };
 
@@ -116,17 +116,17 @@ define( function( require ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
-      imageNode.setMatrix( IDENTITY );
+      normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
-        imageNode.scale( -1, 1 );
+        normalImageNode.scale( -1, 1 );
 
         //TODO: I'm not sure why there is an extra 16 pixels in this direction, but it seems necessary to center the images
-        imageNode.translate( -itemNode.width * scale + 16, 0 );
+        normalImageNode.translate( -itemNode.width * scale + 16, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );
 
-    itemNode.addChild( imageNode );
+    itemNode.addChild( normalImageNode );
     itemNode.addChild( labelNode );
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
