@@ -18,6 +18,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var platform = require( 'PHET_CORE/platform' );
 
   //Workaround for https://github.com/phetsims/scenery/issues/108
   var IDENTITY = Matrix3.scaling( 1, 1 );
@@ -37,6 +38,11 @@ define( function( require ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
+
+    //Work around issue where the images are getting corrupted in Firefox, see #38
+    if ( platform.firefox ) {
+      this.renderer = 'canvas';
+    }
 
     //Create the node for the main graphic
     var normalImageNode = new Image( normalImage );
