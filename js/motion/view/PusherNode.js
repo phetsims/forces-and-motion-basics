@@ -17,7 +17,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var platform = require( 'PHET_CORE/platform' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
