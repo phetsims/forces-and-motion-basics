@@ -191,6 +191,8 @@ define( function( require ) {
           for ( i = 0; i < numSpecks / 10; i++ ) {
             node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
           }
+
+          //TODO: get rid of pattern here, possibly by converting it too to an image?
           node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
         } );
       }
