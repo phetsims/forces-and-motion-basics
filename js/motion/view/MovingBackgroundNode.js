@@ -171,29 +171,72 @@ define( function( require ) {
 
         movingBackgroundNode.lastNumSpecks = 0;
 
+        var gravelSource = new Node();
+
+        var numBlack = 0;
+        var numGray = 0;
+        var numWhite = 0;
+
         //Create the gravel for nonzero friction.
-        model.frictionProperty.link( function() {
+        model.frictionProperty.link( function( newFriction, oldFriction ) {
           var height = 3;
-          var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, model.friction );
+          var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
           numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-          //Use the same seed so it will look like the gravel is 'building up' instead of 'scrambling'
-          Math.seedrandom( 'standardseed' );
-          var node = new Node();
-          for ( var i = 0; i < numSpecks / 2; i++ ) {
-            node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
+          var desiredBlack = numSpecks / 2;
+          var desiredGray = numSpecks / 2;
+          var desiredWhite = numSpecks / 10;
+
+          while ( numBlack < desiredBlack ) {
+            gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
+            numBlack++;
           }
 
-          for ( i = 0; i < numSpecks / 2; i++ ) {
-            node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
+          while ( numGray < desiredGray ) {
+            gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
+            numGray++;
           }
 
-          for ( i = 0; i < numSpecks / 10; i++ ) {
-            node.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
+          while ( numWhite < desiredWhite ) {
+            gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
+            numWhite++;
+          }
+
+          while ( numBlack > desiredBlack ) {
+            var children = gravelSource.getChildren();
+            for ( var i = children.length - 1; i >= 0; i-- ) {
+              if ( children[i].fill === 'black' ) {
+                gravelSource.removeChildAt( i );
+                break;
+              }
+            }
+            numBlack--;
+          }
+
+          while ( numGray > desiredGray ) {
+            var children = gravelSource.getChildren();
+            for ( var i = children.length - 1; i >= 0; i-- ) {
+              if ( children[i].fill === 'gray' ) {
+                gravelSource.removeChildAt( i );
+                break;
+              }
+            }
+            numGray--;
+          }
+
+          while ( numWhite > desiredWhite ) {
+            var children = gravelSource.getChildren();
+            for ( var i = children.length - 1; i >= 0; i-- ) {
+              if ( children[i].fill === 'white' ) {
+                gravelSource.removeChildAt( i );
+                break;
+              }
+            }
+            numWhite--;
           }
 
           //TODO: get rid of pattern here, possibly by converting it too to an image?
-          node.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
+          gravelSource.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
         } );
       }
     }, 0, 0, ground.width, ground.height );
