@@ -22,6 +22,7 @@ define( function( require ) {
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var platform = require( 'PHET_CORE/platform' );
 
   /**
    * Constructor for MovingBackgroundNode
@@ -61,7 +62,10 @@ define( function( require ) {
         toBackgroundImage( 0, 'cloud1.png', 10, 0.7 ),
         toBackgroundImage( L - 100, 'cloud1.png', -30, 0.8 ),
         toBackgroundImage( -L / 3 - 100, 'cloud1.png', 5, 1 )
-      ], renderer: 'svg'} );
+      ],
+
+      //Work around https://github.com/phetsims/scenery/issues/127
+      renderer: platform.firefox ? 'canvas' : 'svg'} );
     mountainAndCloudLayer.boundsInaccurate = true;
     this.addChild( mountainAndCloudLayer );
 
@@ -154,7 +158,10 @@ define( function( require ) {
           children: [
             toBackgroundImage( 0, 'icicle.png', 0, 0.8 ),
             toBackgroundImage( 300, 'icicle.png', 0, 0.8 )
-          ], x: layoutCenterX, y: groundY + ground.height} );
+          ], x: layoutCenterX, y: groundY + ground.height,
+
+          //Work around https://github.com/phetsims/scenery/issues/127
+          renderer: platform.firefox ? 'canvas' : 'svg'} );
         iceLayer.boundsInaccurate = true;
         model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
         movingBackgroundNode.addChild( iceLayer );
