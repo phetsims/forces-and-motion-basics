@@ -193,7 +193,7 @@ define( function( require ) {
           var desiredGray = Math.round( numSpecks / 2 );
           var desiredWhite = Math.round( numSpecks / 10 );
 
-          if ( desiredBlack === numBlack && desiredGray == numGray && desiredWhite === numWhite ) {
+          if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
             return;
           }
 
@@ -212,9 +212,11 @@ define( function( require ) {
             numWhite++;
           }
 
+          var children;
+          var i;
           while ( numBlack > desiredBlack ) {
-            var children = gravelSource.getChildren();
-            for ( var i = children.length - 1; i >= 0; i-- ) {
+            children = gravelSource.getChildren();
+            for ( i = children.length - 1; i >= 0; i-- ) {
               if ( children[i].fill === 'black' ) {
                 gravelSource.removeChildAt( i );
                 break;
@@ -224,8 +226,8 @@ define( function( require ) {
           }
 
           while ( numGray > desiredGray ) {
-            var children = gravelSource.getChildren();
-            for ( var i = children.length - 1; i >= 0; i-- ) {
+            children = gravelSource.getChildren();
+            for ( i = children.length - 1; i >= 0; i-- ) {
               if ( children[i].fill === 'gray' ) {
                 gravelSource.removeChildAt( i );
                 break;
@@ -235,8 +237,8 @@ define( function( require ) {
           }
 
           while ( numWhite > desiredWhite ) {
-            var children = gravelSource.getChildren();
-            for ( var i = children.length - 1; i >= 0; i-- ) {
+            children = gravelSource.getChildren();
+            for ( i = children.length - 1; i >= 0; i-- ) {
               if ( children[i].fill === 'white' ) {
                 gravelSource.removeChildAt( i );
                 break;
