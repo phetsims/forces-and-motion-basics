@@ -117,7 +117,12 @@ define( function( require ) {
       allowTouchSnag: true,
       translate: function( options ) {
         var newAppliedForce = model.appliedForce + options.delta.x;
-        model.appliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
+        var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
+
+        //Only apply a force if the pusher is not fallen, see #48
+        if ( !model.fallen ) {
+          model.appliedForce = clampedAppliedForce;
+        }
       },
 
       start: function() {},
