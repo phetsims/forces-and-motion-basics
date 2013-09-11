@@ -13,10 +13,12 @@ define( function( require ) {
   var Font = require( 'SCENERY/util/Font' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   /**
    * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
@@ -43,8 +45,8 @@ define( function( require ) {
     Node.call( this, {pickable: false} );
 
     //Create and add the children
-    this.arrowNode = new Path( _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
-    var fontOptions = {font: new PhetFont( 16, 'bold' )};
+    this.arrowNode = new Path( null, _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
+    var fontOptions = {font: new PhetFont( { size: 16, weight: 'bold' } )};
     this.valueNode = new Text( '110N', fontOptions );
     this.labelNode = new Text( label, fontOptions );
     this.addChild( this.arrowNode );
@@ -54,7 +56,7 @@ define( function( require ) {
     //Update when the value changes
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
-      readoutArrow.valueNode.text = Math.abs( value ).toFixed( 0 ) + 'N';
+      readoutArrow.valueNode.text = StringUtils.format( Strings["forceReadout.pattern"], Math.abs( value ).toFixed( 0 ) );
       readoutArrow.update();
     } );
 
@@ -96,7 +98,8 @@ define( function( require ) {
         var tailWidth = 25;
         var headWidth = 50;
         var headHeight = 40;
-        this.arrowNode.shape = ArrowNode.createArrowShape( tailX, tailY, tailX + value, tailY, tailWidth, headWidth, headHeight );
+        this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY,
+          { tailWidth: tailWidth, headWidth: headWidth, headHeight: headHeight } );
 
         //Position the value and label if the label position is on the side
         if ( this.options.labelPosition === 'side' ) {

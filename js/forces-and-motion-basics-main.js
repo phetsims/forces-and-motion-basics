@@ -6,16 +6,16 @@
  * @author Sam Reid
  */
 require( [
-  'tugofwar/model/TugOfWarModel',
-  'tugofwar/view/TugOfWarView',
-  'motion/model/MotionModel',
-  'motion/view/MotionView',
+  'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel',
+  'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView',
+  'FORCES_AND_MOTION_BASICS/motion/model/MotionModel',
+  'FORCES_AND_MOTION_BASICS/motion/view/MotionView',
   'SCENERY/nodes/Image',
   'JOIST/Sim',
   'JOIST/SimLauncher',
-  'imageLoader',
-  'Strings'
-], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, imageLoader, Strings ) {
+  'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images',
+  'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings'
+], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, forcesAndMotionBasicsImages, Strings ) {
   'use strict';
 
   var simOptions = {
@@ -26,27 +26,27 @@ require( [
              'Interviews: Noah Podolefsky'
   };
 
-  SimLauncher.launch( imageLoader, function() {
+  SimLauncher.launch( forcesAndMotionBasicsImages, function() {
 
     //Create and start the sim
     new Sim( Strings['forces-and-motion-basics.name'], [
       { name: Strings.tugOfWar,
-        icon: new Image( imageLoader.getImage( 'Tug_Icon.png' ) ),
+        icon: new Image( forcesAndMotionBasicsImages.getImage( 'Tug_Icon.png' ) ),
         createModel: function() {return new TugOfWarModel();},
         createView: function( model ) {return new TugOfWarView( model ).mutate( { renderer: 'svg' } );}
       },
       { name: Strings.motion,
-        icon: new Image( imageLoader.getImage( 'Motion_icon.png' ) ),
+        icon: new Image( forcesAndMotionBasicsImages.getImage( 'Motion_icon.png' ) ),
         createModel: function() {return new MotionModel( 'motion' );},
         createView: function( model ) {return new MotionView( model ).mutate( { renderer: 'svg' } );}},
 
       { name: Strings.friction,
-        icon: new Image( imageLoader.getImage( 'Friction_Icon.png' ) ),
+        icon: new Image( forcesAndMotionBasicsImages.getImage( 'Friction_Icon.png' ) ),
         createModel: function() {return new MotionModel( 'friction' );},
         createView: function( model ) {return new MotionView( model ).mutate( { renderer: 'svg' } );}},
 
       { name: Strings.acceleration,
-        icon: new Image( imageLoader.getImage( 'Acceleration_Icon.png' ) ),
+        icon: new Image( forcesAndMotionBasicsImages.getImage( 'Acceleration_Icon.png' ) ),
         createModel: function() {return new MotionModel( 'acceleration' );},
         createView: function( model ) {return new MotionView( model ).mutate( { renderer: 'svg' } );}}
 

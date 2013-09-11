@@ -3,6 +3,12 @@
 require.config( {
   deps: ['forces-and-motion-basics-main'],
 
+  config: {
+    i18n: {
+      locale: 'en_us'
+    }
+  },
+
   paths: {
 
     //Load dependencies from sibling directories
@@ -13,8 +19,10 @@ require.config( {
     SCENERY_PHET: '../../scenery-phet/js',
     KITE: '../../kite/js',
     PHET_CORE: '../../phet-core/js',
+    PHETCOMMON: '../../phetcommon/js',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
+    FORCES_AND_MOTION_BASICS: '../../forces-and-motion-basics/js',
 
     //Load plugins
     i18n: '../../i18n/i18n'

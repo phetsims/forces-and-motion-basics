@@ -16,6 +16,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var platform = require( 'PHET_CORE/platform' );
 
   //Workaround for https://github.com/phetsims/scenery/issues/108
   var IDENTITY = Matrix3.scaling( 1, 1 );
@@ -25,34 +28,39 @@ define( function( require ) {
    * @param {MotionModel} model the entire model for the containing screen
    * @param {MotionView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
-   * @param {Image} image the scenery.Image to show for this node
-   * @param {Image} imageSitting optional image for when the person is sitting down
-   * @param {Image} imageHolding optional image for when the person is holding an object
+   * @param {Image} normalImage the scenery.Image to show for this node
+   * @param {Image} sittingImage optional image for when the person is sitting down
+   * @param {Image} holdingImage optional image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
    * @constructor
    */
-  function ItemNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty ) {
+  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
 
+    //Work around issue where the images are getting corrupted in Firefox, see #38
+    if ( platform.firefox ) {
+      this.renderer = 'canvas';
+    }
+
     //Create the node for the main graphic
-    var imageNode = new Image( image );
+    var normalImageNode = new Image( normalImage );
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
-      if ( (typeof imageHolding !== 'undefined') && (item.armsUp() && item.onBoard) ) {
-        imageNode.image = imageHolding;
+      if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoard) ) {
+        normalImageNode.image = holdingImage;
       }
-      else if ( item.onBoard && typeof imageSitting !== 'undefined' ) {
-        imageNode.image = imageSitting;
+      else if ( item.onBoard && typeof sittingImage !== 'undefined' ) {
+        normalImageNode.image = sittingImage;
       }
       else {
-        imageNode.image = image;
+        normalImageNode.image = normalImage;
       }
       if ( itemNode.labelNode ) {
-        itemNode.labelNode.bottom = imageNode.height - 2;
-        itemNode.labelNode.centerX = imageNode.width / 2;
+        itemNode.labelNode.bottom = normalImageNode.height - 2;
+        itemNode.labelNode.centerX = normalImageNode.width / 2;
       }
     };
 
@@ -101,7 +109,7 @@ define( function( require ) {
     this.addInputListener( dragHandler );
 
     //Label for the mass (if it is shown)
-    var massLabel = new Text( item.mass + ' kg', {font: new PhetFont( 15, 'bold' )} );
+    var massLabel = new Text( StringUtils.format( Strings["massDisplay.pattern"], item.mass ), {font: new PhetFont( { size: 15, weight: 'bold' } )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.labelNode = labelNode;
@@ -114,17 +122,17 @@ define( function( require ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
-      imageNode.setMatrix( IDENTITY );
+      normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
-        imageNode.scale( -1, 1 );
+        normalImageNode.scale( -1, 1 );
 
         //TODO: I'm not sure why there is an extra 16 pixels in this direction, but it seems necessary to center the images
-        imageNode.translate( -itemNode.width * scale + 16, 0 );
+        normalImageNode.translate( -itemNode.width * scale + 16, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );
 
-    itemNode.addChild( imageNode );
+    itemNode.addChild( normalImageNode );
     itemNode.addChild( labelNode );
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );

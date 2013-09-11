@@ -13,7 +13,6 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var platform = require( 'PHET_CORE/platform' );
 
   function SliderKnob( options ) {
 

@@ -8,12 +8,12 @@
 define( function( require ) {
   'use strict';
 
-  var Item = require( 'motion/model/Item' );
+  var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
   var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -47,7 +47,7 @@ define( function( require ) {
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
-      pusherPosition: -8500 / MotionConstants.POSITION_SCALE, //Start to the right of the box by this many pixels
+      pusherPosition: -4, //Start to the left of the box by this many meters
       showForce: true,
       showValues: false,
       showSumOfForces: false,
@@ -78,15 +78,15 @@ define( function( require ) {
 
     var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
-    var fridge = new Item( this, 'fridge.png', 200, 25, 439, 0.8 );
+    var fridge = new Item( this, 'fridge.png', 200, 25, 439, 0.8, 4 );
     var crate1 = new Item( this, 'crate.png', 50, 126, 495, 0.5 );
     var crate2 = new Item( this, 'crate.png', 50, 218, 495, 0.5 );
-    var girl = new Item( this, 'girl-standing.png', 40, 684, 471, 0.6, 16, 'girl-sitting.png', 'girl-holding.png' );
-    var man = new Item( this, 'man-standing.png', 80, 747, 421, 0.6, 10, 'man-sitting.png', 'man-holding.png' );
+    var girl = new Item( this, 'girl-standing.png', 40, 684, 471, 0.6, 4, 'girl-sitting.png', 'girl-holding.png' );
+    var man = new Item( this, 'man-standing.png', 80, 747, 421, 0.6, 12, 'man-sitting.png', 'man-holding.png' );
     this.items = this.accelerometer ?
                  [ fridge, crate1, crate2, girl, man, bucket ] :
                  [ fridge, crate1, crate2, girl, man,
-                   new Item( this, 'trash-can.png', 100, 816, 502, 0.7 ),
+                   new Item( this, 'trash-can.png', 100, 816, 502, 0.7, 11 ),
                    new Item( this, 'mystery-object-01.png', 50, 888, 543, 1.1 )
                  ];
 
@@ -121,13 +121,13 @@ define( function( require ) {
     //Uses the view to get item dimensions.
     spliceStack: function( index ) {
       var item = this.stack.get( index );
-      this.stack.splice( index, 1 );
+      this.stack.remove( item );
       if ( this.stack.length > 0 ) {
         var sumHeight = 0;
         for ( var i = 0; i < this.stack.length; i++ ) {
-          var size = this.view.getSize( this.stack.at( i ) );
+          var size = this.view.getSize( this.stack.get( i ) );
           sumHeight += size.height;
-          this.stack.at( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.at( i ).centeringOffset, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
 
@@ -216,6 +216,9 @@ define( function( require ) {
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
+      if ( this.appliedForce !== 0 ) {
+        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
+      }
       this.speed = Math.abs( this.velocity );
       this.speedClassification = this.velocity >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
                                  this.velocity <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
@@ -223,8 +226,8 @@ define( function( require ) {
 
       if ( this.speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
         this.timeSinceFallen = 0;
-        this.fallen = true;
         this.fallenDirection = this.speedClassification === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
+        this.fallen = true;
       }
       else {
         this.timeSinceFallen = this.timeSinceFallen + dt;

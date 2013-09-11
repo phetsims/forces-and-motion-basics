@@ -19,9 +19,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var Property = require( 'AXON/Property' );
-  var SliderKnob = require( 'common/view/SliderKnob' );
+  var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -58,7 +58,7 @@ define( function( require ) {
 
     Node.call( this, this.options );
 
-    this.ticksLayer = new Node();
+    this.ticksLayer = new Node( {pickable: false} );
     this.addChild( this.ticksLayer );
 
     //The track
@@ -163,11 +163,11 @@ define( function( require ) {
       _.range( numTicks ).forEach( function( i ) {
 
         var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
-        var tick = new Path( {shape: Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -22 ) ), stroke: 'black', lineWidth: 1} );
+        var tick = new Path( Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -22 ) ), {pickable: false, stroke: 'black', lineWidth: 1} );
         slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
         slider.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
-          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {centerX: tick.centerX, bottom: tick.top, font: new PhetFont( 16 )} );
+          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {pickable: false, centerX: tick.centerX, bottom: tick.top, font: new PhetFont( 16 )} );
           slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
           slider.ticksLayer.addChild( label );
         }

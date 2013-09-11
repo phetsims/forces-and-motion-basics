@@ -15,16 +15,16 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
-  var HSlider = require( 'motion/view/HSlider' );
-  var Strings = require( 'Strings' );
+  var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
   var Property = require( 'AXON/Property' );
   var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
-  var MotionConstants = require( 'motion/MotionConstants' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
-  var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
+  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
+  var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
@@ -51,7 +51,7 @@ define( function( require ) {
     };
 
     //Icon for the forces in the control panel
-    var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, 20, 20, 10, {fill: '#e66e23', stroke: 'black'} );};
+    var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, {headHeight: 20, headWidth: 20, tailWidth: 10, fill: '#e66e23', stroke: 'black'} );};
     var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
@@ -60,7 +60,7 @@ define( function( require ) {
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
-        var path = new Path( {shape: Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), stroke: 'black', lineWidth: 1} );
+        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), { stroke: 'black', lineWidth: 1} );
         var text = new Text( label, {font: new PhetFont( 15 )} );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;
@@ -74,9 +74,9 @@ define( function( require ) {
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
       var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).
-        addTick( 0, createTick( 'None', true ) ).addTick( 1, createTick( 'Lots', true ) ).
-        addTick( 0, createTick( 'Lots', false ) ).addTick( 1, createTick( 'None', false ) );
-      var frictionLabel = new Text( 'Friction', new PhetFont( fontSize, 'bold' ) );
+        addTick( 0, createTick( Strings.none, true ) ).addTick( 1, createTick( Strings.lots, true ) ).
+        addTick( 0, createTick( Strings.lots, false ) ).addTick( 1, createTick( Strings.none, false ) );
+      var frictionLabel = new Text( Strings.friction, new PhetFont( { size: fontSize, weight: 'bold' } ) );
 
       //Workaround for a scenery bug that has the wrong bounds with the hybrid approach.
       frictionLabel.boundsMethod = 'fast';

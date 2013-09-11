@@ -13,8 +13,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'Strings' );
-  var imageLoader = require( 'imageLoader' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -25,21 +25,21 @@ define( function( require ) {
    */
   function GoPauseButton( model, layoutWidth ) {
     var goPauseButton = this;
-    Image.call( this, imageLoader.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
+    Image.call( this, forcesAndMotionBasicsImages.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
 
-    var updateOut = function() {goPauseButton.image = imageLoader.getImage( model.running ? 'stop_up.png' : 'go_up.png' );};
+    var updateOut = function() {goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_up.png' : 'go_up.png' );};
 
     goPauseButton.addInputListener( {
       over: function() {
-        goPauseButton.image = imageLoader.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
       },
       out: updateOut,
       down: function() {
-        goPauseButton.image = imageLoader.getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
+        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
         model.running = !model.running;
       },
       up: function() {
-        goPauseButton.image = imageLoader.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
       }
     } );
 
@@ -47,18 +47,26 @@ define( function( require ) {
 
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on iPad 3
     var textOptions = {font: new PhetFont( 30 )};
+    var textWidth = goPauseButton.width - 30;//Trim the edges because of the shadow and button padding
+
     var goText = new Text( Strings.go, textOptions );
+    if ( goText.width > textWidth ) { goText.scale( textWidth / goText.width ); }
+    goText.centerX = goPauseButton.width / 2 - 2;
+    goText.centerY = goPauseButton.height / 2 - 3;
+
     var pauseText = new Text( Strings.pause, textOptions );
-    var textContainer = new Node( {children: [goText]} );
-    textContainer.x = goPauseButton.width / 2 - textContainer.width / 2 - 5;
-    textContainer.y = goPauseButton.height / 2 + 7;
-    goPauseButton.addChild( textContainer );
+    if ( pauseText.width > textWidth ) { pauseText.scale( textWidth / pauseText.width ); }
+    pauseText.centerX = goPauseButton.width / 2 - 2;
+    pauseText.centerY = goPauseButton.height / 2 - 3;
+
+    goPauseButton.addChild( goText );
+    goPauseButton.addChild( pauseText );
 
     model.multilink( ['running', 'state', 'numberPullersAttached'], function( running, state ) {
       var text = running ? pauseText : goText;
-      textContainer.children = [text];
-      textContainer.x = goPauseButton.width / 2 - text.width / 2 - 5;
-      textContainer.y = goPauseButton.height / 2 + 7;
+      var other = running ? goText : pauseText;
+      text.visible = true;
+      other.visible = false;
       goPauseButton.visible = (state !== 'completed');
     } );
 

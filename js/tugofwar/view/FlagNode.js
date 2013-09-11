@@ -13,7 +13,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'Strings' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -31,8 +31,13 @@ define( function( require ) {
     Node.call( this );
 
     var text = new Text( model.cart.x < 0 ? Strings.blueWins : Strings.redWins, {font: new PhetFont( 32 ), fill: 'white'} );
-    this.path = new Path( {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
+    this.path = new Path( null, {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
     this.addChild( this.path );
+
+    //Shrink the text to fit on the flag if necessary
+    if ( text.width > 220 ) {
+      text.scale( 220 / text.width );
+    }
     this.addChild( text );
 
     var update = this.updateFlagShape.bind( this );

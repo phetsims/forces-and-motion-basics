@@ -8,27 +8,28 @@
 define( function( require ) {
   'use strict';
 
-  var PullerNode = require( 'tugofwar/view/PullerNode' );
+  var PullerNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/PullerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var KnotHighlightNode = require( 'tugofwar/view/KnotHighlightNode' );
-  var GoPauseButton = require( 'tugofwar/view/GoPauseButton' );
-  var ReturnButton = require( 'tugofwar/view/ReturnButton' );
+  var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/KnotHighlightNode' );
+  var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/GoPauseButton' );
+  var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/ReturnButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var FlagNode = require( 'tugofwar/view/FlagNode' );
-  var TugOfWarControlPanel = require( 'tugofwar/view/TugOfWarControlPanel' );
+  var FlagNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/FlagNode' );
+  var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var platform = require( 'PHET_CORE/platform' );
-  var imageLoader = require( 'imageLoader' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var ReadoutArrow = require( 'common/view/ReadoutArrow' );
+  var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
 
   /**
    * @param {TugOfWarModel} model
@@ -52,15 +53,15 @@ define( function( require ) {
     this.addChild( new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
 
     //Show the grass.
-    var grassImage = imageLoader.getImage( 'grass.png' );
+    var grassImage = forcesAndMotionBasicsImages.getImage( 'grass.png' );
     this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 + grassImage.width, y: grassY} ) );
 
-    this.cartNode = new Image( imageLoader.getImage( 'cart.png' ), {y: 221} );
+    this.cartNode = new Image( forcesAndMotionBasicsImages.getImage( 'cart.png' ), {y: 221} );
 
     //Black caret below the cart
-    this.addChild( new Path( {shape: new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
+    this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), { stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
     var toolboxHeight = 216;
@@ -72,9 +73,9 @@ define( function( require ) {
 
     //Create the arrow nodes
     var opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity} );
-    this.leftArrow = new ReadoutArrow( 'Left Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
-    this.rightArrow = new ReadoutArrow( 'Right Force', '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
+    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#7dc673', this.layoutBounds.width / 2, 100, this.model.netForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity} );
+    this.leftArrow = new ReadoutArrow( Strings.leftForce, '#bf8b63', this.layoutBounds.width / 2, 200, this.model.leftForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
+    this.rightArrow = new ReadoutArrow( Strings.rightForce, '#bf8b63', this.layoutBounds.width / 2, 200, this.model.rightForceProperty, this.model.showValuesProperty, {lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity} );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
@@ -85,7 +86,7 @@ define( function( require ) {
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.ropeNode = new Image( imageLoader.getImage( 'rope.png' ), {x: 51, y: 273 } );
+    this.ropeNode = new Image( forcesAndMotionBasicsImages.getImage( 'rope.png' ), {x: 51, y: 273 } );
 
     model.knots.forEach( function( knot ) { tugOfWarView.addChild( new KnotHighlightNode( knot ) ); } );
 
@@ -119,7 +120,7 @@ define( function( require ) {
                        size === 'medium' ? '_' :
                        '_small_';
       var colorString = type.toUpperCase();
-      return imageLoader.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
+      return forcesAndMotionBasicsImages.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
     };
 
     var pullerLayer = new Node();
@@ -178,7 +179,7 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 53} );
+    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53} );
     model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {tugOfWarView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
   }

@@ -6,28 +6,28 @@
 define( function( require ) {
   'use strict';
 
-  var ResetAllButton = require( 'common/view/ResetAllButton' );
+  var ResetAllButton = require( 'FORCES_AND_MOTION_BASICS/common/view/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var ItemNode = require( 'motion/view/ItemNode' );
-  var WaterBucketNode = require( 'motion/view/WaterBucketNode' );
-  var PusherNode = require( 'motion/view/PusherNode' );
-  var HSlider = require( 'motion/view/HSlider' );
-  var Strings = require( 'Strings' );
-  var SpeedometerNode = require( 'motion/view/SpeedometerNode' );
+  var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
+  var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
+  var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
+  var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
+  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MotionControlPanel = require( 'motion/view/MotionControlPanel' );
-  var MovingBackgroundNode = require( 'motion/view/MovingBackgroundNode' );
-  var imageLoader = require( 'imageLoader' );
+  var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
+  var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
+  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var ReadoutArrow = require( 'common/view/ReadoutArrow' );
+  var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var AccelerometerNode = require( 'motion/view/AccelerometerNode' );
+  var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
@@ -81,9 +81,9 @@ define( function( require ) {
       var item = model.items[i];
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
-        imageLoader.getImage( item.image ),
-        imageLoader.getImage( item.sittingImage || item.image ),
-        imageLoader.getImage( item.holdingImage || item.image ),
+        forcesAndMotionBasicsImages.getImage( item.image ),
+        forcesAndMotionBasicsImages.getImage( item.sittingImage || item.image ),
+        forcesAndMotionBasicsImages.getImage( item.holdingImage || item.image ),
         model.showMassesProperty );
       this.itemNodes.push( itemNode );
 
@@ -94,17 +94,17 @@ define( function( require ) {
 
     //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( imageLoader.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
+      this.addChild( new Image( forcesAndMotionBasicsImages.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
     //Add the force arrows & associated readouts
     var arrowScale = 0.3;
-    this.sumArrow = new ReadoutArrow( 'Sum of Forces', '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
+    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( 'Sum of Forces = 0', {pickable: false, font: new PhetFont( 16, 'bold' ), centerX: width / 2, y: 200} );
+    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
-    this.appliedForceArrow = new ReadoutArrow( 'Applied Force', '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.frictionArrow = new ReadoutArrow( 'Friction', '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.appliedForceArrow = new ReadoutArrow( Strings.appliedForce, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.frictionArrow = new ReadoutArrow( Strings.friction, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
@@ -139,7 +139,7 @@ define( function( require ) {
     } );
 
     //Make 'Newtons Readout' stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, 10, 10, {fill: 'white', stroke: 'black', lineWidth: 1, centerX: width / 2, top: readout.y - readout.height + 2, pickable: false} );
+    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, {fill: 'white', stroke: 'lightGray', centerX: width / 2, top: readout.y - readout.height + 2, pickable: false} );
     this.addChild( this.textPanelNode );
     this.addChild( readout );
 
@@ -230,7 +230,7 @@ define( function( require ) {
     get stackHeight() {
       var sum = 0;
       for ( var i = 0; i < this.model.stack.length; i++ ) {
-        sum = sum + this.model.stack.at( i ).view.height;
+        sum = sum + this.model.stack.get( i ).view.height;
       }
       return sum;
     },
