@@ -6,6 +6,7 @@
 define( function( require ) {
   'use strict';
 
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var ResetAllButton = require( 'FORCES_AND_MOTION_BASICS/common/view/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -18,7 +19,7 @@ define( function( require ) {
   var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
   var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
   var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
-  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
+  var SpeedometerNode = require( 'SCENERY_PHET/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
@@ -168,7 +169,7 @@ define( function( require ) {
     model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocityProperty ).mutate( {x: width / 2, top: 2} );
+    var speedometerNode = new SpeedometerNode( model.velocityProperty, Strings.speed, MotionConstants.MAX_SPEED ).mutate( {x: width / 2, top: 2} );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.

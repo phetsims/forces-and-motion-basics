@@ -23,7 +23,7 @@ define( function( require ) {
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
+  var SpeedometerNode = require( 'SCENERY_PHET/SpeedometerNode' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -52,7 +52,7 @@ define( function( require ) {
 
     //Icon for the forces in the control panel
     var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, {headHeight: 20, headWidth: 20, tailWidth: 10, fill: '#e66e23', stroke: 'black'} );};
-    var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty ).mutate( {scale: 0.2} ); };
+    var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty, Strings.speed, MotionConstants.MAX_SPEED ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
     //Workarounds because VBox centering not working properly
