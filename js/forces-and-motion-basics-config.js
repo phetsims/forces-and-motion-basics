@@ -23,6 +23,7 @@ require.config( {
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     FORCES_AND_MOTION_BASICS: '../../forces-and-motion-basics/js',
+    VIBE: '../../vibe/js',
 
     //Load plugins
     i18n: '../../i18n/i18n'
