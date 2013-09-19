@@ -80,6 +80,8 @@
     "grunt-requirejs": "~0.3.2",
     "grunt-contrib-jshint": "~0.5.4",
     "uglify-js": "~2.4.0",
-    "requirejs": "~2.1.8"
+    "requirejs": "~2.1.8",
+    "esprima": "~1.0.4", 
+    "escodegen": "~0.0.27"
   }
 }
