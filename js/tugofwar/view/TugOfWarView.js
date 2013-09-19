@@ -30,6 +30,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var Sound = require( 'VIBE/Sound' );
 
   /**
    * @param {TugOfWarModel} model
@@ -159,10 +160,12 @@ define( function( require ) {
     //user event or not).
     //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
     //Note: right now this requires the user to touch the screen at least twice before audio can be played
+    var golfClap = new Sound( 'audio/golf-clap.mp3' );
+    var empty = new Sound( 'audio/empty.mp3' );
     if ( platform.mobileSafari ) {
       var count = 0;
       var play = function() {
-        new Howl( { urls: ['audio/empty.ogg', 'audio/empty.wav'] } ).play();
+        empty.play();
         count++;
         if ( count >= 2 ) {
           window.removeEventListener( 'touchstart', play, false );
@@ -174,7 +177,7 @@ define( function( require ) {
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
       if ( state === 'completed' && model.volumeOn ) {
-        new Howl( { urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg'] } ).play();
+        golfClap.play();
       }
     } );
 
