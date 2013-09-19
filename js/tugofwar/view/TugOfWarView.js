@@ -161,18 +161,6 @@ define( function( require ) {
     //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
     //Note: right now this requires the user to touch the screen at least twice before audio can be played
     var golfClap = new Sound( 'audio/golf-clap.mp3' );
-    var empty = new Sound( 'audio/empty.mp3' );
-    if ( platform.mobileSafari ) {
-      var count = 0;
-      var play = function() {
-        empty.play();
-        count++;
-        if ( count >= 2 ) {
-          window.removeEventListener( 'touchstart', play, false );
-        }
-      };
-      window.addEventListener( 'touchstart', play, false );
-    }
 
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
