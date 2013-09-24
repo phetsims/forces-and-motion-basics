@@ -16,7 +16,10 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
+  var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/mountains.png' );
+  var brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/brick-tile.png' );
+  var cloudImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/cloud1.png' );
+  var icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/icicle.png' );
   var linear = require( 'DOT/Util' ).linear;
   var Matrix3 = require( 'DOT/Matrix3' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
@@ -41,8 +44,8 @@ define( function( require ) {
     var L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var toBackgroundImage = function( offset, imageName, y, scale ) {
-      var node = new Image( forcesAndMotionBasicsImages.getImage( imageName ), {scale: scale, x: offset, y: y, rendererOptions: {cssTransform: true}} );
+    var toBackgroundImage = function( offset, image, y, scale ) {
+      var node = new Image( image, {scale: scale, x: offset, y: y, rendererOptions: {cssTransform: true}} );
       node.boundsInaccurate = true;
       node.offsetX = offset;
       node.scaleFactor = scale;
@@ -56,12 +59,12 @@ define( function( require ) {
     //TODO: It would be good to use cssTransforms here but they are a bit buggy
     var mountainAndCloudLayer = new Node( {x: layoutCenterX,
       children: [
-        toBackgroundImage( L / 2, 'mountains.png', mountainY, 1 ),
-        toBackgroundImage( L, 'mountains.png', mountainY, 1 ),
-        toBackgroundImage( -L / 3, 'mountains.png', mountainY, 1 ),
-        toBackgroundImage( 0, 'cloud1.png', 10, 0.7 ),
-        toBackgroundImage( L - 100, 'cloud1.png', -30, 0.8 ),
-        toBackgroundImage( -L / 3 - 100, 'cloud1.png', 5, 1 )
+        toBackgroundImage( L / 2, mountainImage, mountainY, 1 ),
+        toBackgroundImage( L, mountainImage, mountainY, 1 ),
+        toBackgroundImage( -L / 3, mountainImage, mountainY, 1 ),
+        toBackgroundImage( 0, cloudImage, 10, 0.7 ),
+        toBackgroundImage( L - 100, cloudImage, -30, 0.8 ),
+        toBackgroundImage( -L / 3 - 100, cloudImage, 5, 1 )
       ],
 
       //Work around https://github.com/phetsims/scenery/issues/127
@@ -114,12 +117,11 @@ define( function( require ) {
 
     model.positionProperty.link( getLayerUpdater( mountainAndCloudLayer, 10 ) );
 
-    var tile = forcesAndMotionBasicsImages.getImage( 'brick-tile.png' );
-    var tileWidth = tile.width;
+    var tileWidth = brickTileImage.width;
 
     //Add the ground, offset the pattern so that the it aligns with the brick image
-    var tilePattern = new Pattern( tile );
-    var ground = new Rectangle( 0, 0, tile.width * 14, tile.height, {fill: tilePattern } );
+    var tilePattern = new Pattern( brickTileImage );
+    var ground = new Rectangle( 0, 0, brickTileImage.width * 14, brickTileImage.height, {fill: tilePattern } );
     var mod = ground.width / 14;
     var centerX = layoutCenterX - ground.width / 2;
 
@@ -137,14 +139,14 @@ define( function( require ) {
       if ( !model.skateboard ) {
 
         //Add the gravel
-        var gravel = new Rectangle( 0, 0, tile.width * 14, 4, {y: -2, rendererOptions: {cssTransform: true}} );
+        var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, {y: -2, rendererOptions: {cssTransform: true}} );
         gravel.boundsInaccurate = true;
 
         //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
         groundImageNode.addChild( gravel );
 
         //Add the ice
-        var iceOverlay = new Rectangle( -400, groundY, tile.width * 15, tile.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
+        var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
         iceOverlay.boundsInaccurate = true;
         var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
         var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
@@ -156,8 +158,8 @@ define( function( require ) {
 
         var iceLayer = new Node( {
           children: [
-            toBackgroundImage( 0, 'icicle.png', 0, 0.8 ),
-            toBackgroundImage( 300, 'icicle.png', 0, 0.8 )
+            toBackgroundImage( 0, icicleImage, 0, 0.8 ),
+            toBackgroundImage( 300, icicleImage, 0, 0.8 )
           ], x: layoutCenterX, y: groundY + ground.height,
 
           //Work around https://github.com/phetsims/scenery/issues/127

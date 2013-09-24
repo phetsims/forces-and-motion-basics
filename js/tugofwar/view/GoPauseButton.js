@@ -14,7 +14,12 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
+  var stopUpImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_up.png' );
+  var goUpImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_up.png' );
+  var goHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_hover.png' );
+  var stopHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_hover.png' );
+  var stopPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_pressed.png' );
+  var goPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_pressed.png' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -25,21 +30,21 @@ define( function( require ) {
    */
   function GoPauseButton( model, layoutWidth ) {
     var goPauseButton = this;
-    Image.call( this, forcesAndMotionBasicsImages.getImage( 'go_up.png' ), {y: 400, cursor: 'pointer'} );
+    Image.call( this, goUpImage, {y: 400, cursor: 'pointer'} );
 
-    var updateOut = function() {goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_up.png' : 'go_up.png' );};
+    var updateOut = function() {goPauseButton.image = model.running ? stopUpImage : goUpImage;};
 
     goPauseButton.addInputListener( {
       over: function() {
-        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+        goPauseButton.image = model.running ? stopHoverImage : goHoverImage;
       },
       out: updateOut,
       down: function() {
-        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_pressed.png' : 'go_pressed.png' );
+        goPauseButton.image = model.running ? stopPressedImage : goPressedImage;
         model.running = !model.running;
       },
       up: function() {
-        goPauseButton.image = forcesAndMotionBasicsImages.getImage( model.running ? 'stop_hover.png' : 'go_hover.png' );
+        goPauseButton.image = model.running ? stopHoverImage : goHoverImage;
       }
     } );
 

@@ -13,7 +13,23 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
+  var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_straight_on.png' );
+  var pusherFallDownImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_fall_down.png' );
+  var pusherImage0 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_0.png' );
+  var pusherImage1 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_1.png' );
+  var pusherImage2 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_2.png' );
+  var pusherImage3 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_3.png' );
+  var pusherImage4 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_4.png' );
+  var pusherImage5 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_5.png' );
+  var pusherImage6 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_6.png' );
+  var pusherImage7 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_7.png' );
+  var pusherImage8 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_8.png' );
+  var pusherImage9 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_9.png' );
+  var pusherImage10 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_10.png' );
+  var pusherImage11 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_11.png' );
+  var pusherImage12 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_12.png' );
+  var pusherImage13 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_13.png' );
+  var pusherImage14 = require( 'image!FORCES_AND_MOTION_BASICS/../images/pusher_14.png' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -32,17 +48,33 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_straight_on.png' ), {visible: true, pickable: true, scale: scale} );
-    var fallLeft = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: scale} );
-    var fallRight = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_fall_down.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
+    var standingUp = new Image( pusherStraightImage, {visible: true, pickable: true, scale: scale} );
+    var fallLeft = new Image( pusherFallDownImage, {visible: false, pickable: false, scale: scale} );
+    var fallRight = new Image( pusherFallDownImage, {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
     var visibleNode = standingUp;
 
     children.push( standingUp );
     children.push( fallLeft );
     children.push( fallRight );
     for ( var i = 0; i <= 14; i++ ) {
-      var rightImage = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: scale} );
-      var leftImage = new Image( forcesAndMotionBasicsImages.getImage( 'pusher_' + i + '.png' ), {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
+      var image = i === 0 ? pusherImage0 :
+                  i === 1 ? pusherImage1 :
+                  i === 2 ? pusherImage2 :
+                  i === 3 ? pusherImage3 :
+                  i === 4 ? pusherImage4 :
+                  i === 5 ? pusherImage5 :
+                  i === 6 ? pusherImage6 :
+                  i === 7 ? pusherImage7 :
+                  i === 8 ? pusherImage8 :
+                  i === 9 ? pusherImage9 :
+                  i === 10 ? pusherImage10 :
+                  i === 11 ? pusherImage11 :
+                  i === 12 ? pusherImage12 :
+                  i === 13 ? pusherImage13 :
+                  i === 14 ? pusherImage14 :
+                  null;
+      var rightImage = new Image( image, {visible: false, pickable: false, scale: scale} );
+      var leftImage = new Image( image, {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
       pushingRightNodes.push( rightImage );
       pushingLeftNodes.push( leftImage );
       children.push( rightImage );

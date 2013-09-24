@@ -26,7 +26,9 @@ require.config( {
     VIBE: '../../vibe/js',
 
     //Load plugins
-    i18n: '../../i18n/i18n'
+    i18n: '../../i18n/i18n',
+    image: '../../chipper/requirejs-plugins/image',
+    audio: '../../chipper/requirejs-plugins/audio'
   },
 
   urlArgs: new Date().getTime() // add cache buster query string to make browser refresh actually reload everything

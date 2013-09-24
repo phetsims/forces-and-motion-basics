@@ -7,7 +7,7 @@ define( function( require ) {
   'use strict';
 
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var ResetAllButton = require( 'FORCES_AND_MOTION_BASICS/common/view/ResetAllButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -23,7 +23,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
@@ -34,6 +33,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
+  var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/skateboard.png' );
 
   /**
    * Constructor for the MotionView
@@ -82,9 +82,9 @@ define( function( require ) {
       var item = model.items[i];
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
-        forcesAndMotionBasicsImages.getImage( item.image ),
-        forcesAndMotionBasicsImages.getImage( item.sittingImage || item.image ),
-        forcesAndMotionBasicsImages.getImage( item.holdingImage || item.image ),
+        item.image,
+        item.sittingImage || item.image,
+        item.holdingImage || item.image,
         model.showMassesProperty );
       this.itemNodes.push( itemNode );
 
@@ -95,7 +95,7 @@ define( function( require ) {
 
     //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( forcesAndMotionBasicsImages.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
+      this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
     //Add the force arrows & associated readouts

@@ -19,7 +19,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var linear = require( 'DOT/Util' ).linear;
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var Property = require( 'AXON/Property' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
