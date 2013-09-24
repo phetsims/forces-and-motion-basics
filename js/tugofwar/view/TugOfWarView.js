@@ -45,6 +45,7 @@ define( function( require ) {
   var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_RED_3.png' );
   var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_RED_0.png' );
   var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_RED_3.png' );
+  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/../audio/golf-clap.mp3' );
 
   /**
    * @param {TugOfWarModel} model
@@ -175,15 +176,7 @@ define( function( require ) {
     } );
     this.addLiveRegion( textProperty );
 
-
-    //On iOS, we must play an audio file from a thread initiated by a user event such as touchstart.
-    //This is impossible with scenery, since all scenery events are batched and dispatched from animation
-    //Also, there was a quirky bug where the 1st event wasn't getting invoked here, so wait for the 2nd one
-    //then play a blank audio file. This will enable audio for the rest of the app (whether from
-    //user event or not).
-    //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
-    //Note: right now this requires the user to touch the screen at least twice before audio can be played
-    var golfClap = new Sound( 'audio/golf-clap.mp3' );
+    var golfClap = new Sound( golfClapSound );
 
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
