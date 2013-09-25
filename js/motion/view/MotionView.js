@@ -76,6 +76,11 @@ define( function( require ) {
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
+    //Add the skateboard if on the 'motion' screen
+    if ( model.skateboard ) {
+      this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
+    }
+
     //Iterate over the items in the model and create and add nodes for each one
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
@@ -91,11 +96,6 @@ define( function( require ) {
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
       this.addChild( itemNode );
-    }
-
-    //Add the skateboard if on the 'motion' screen
-    if ( model.skateboard ) {
-      this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
     //Add the force arrows & associated readouts
