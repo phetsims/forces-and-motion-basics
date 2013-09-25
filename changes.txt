@@ -1,3 +1,4 @@
+9/24/13 Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation for item motion
 9/7/13 For the motion screens, made the numeric readout look less like a button, gray border, square corners
 # 1.0.0-rc14 9/7/13
 9/7/13 added icicles using the same strategy as mountains and clouds
