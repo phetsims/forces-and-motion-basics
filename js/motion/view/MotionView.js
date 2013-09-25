@@ -81,23 +81,6 @@ define( function( require ) {
       this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
-    //Iterate over the items in the model and create and add nodes for each one
-    this.itemNodes = [];
-    for ( var i = 0; i < model.items.length; i++ ) {
-      var item = model.items[i];
-      var Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new Constructor( model, motionView, item,
-        item.image,
-        item.sittingImage || item.image,
-        item.holdingImage || item.image,
-        model.showMassesProperty );
-      this.itemNodes.push( itemNode );
-
-      //Provide a reference from the item model to its view so that view dimensions can be looked up easily
-      item.view = itemNode;
-      this.addChild( itemNode );
-    }
-
     //Add the force arrows & associated readouts
     var arrowScale = 0.3;
     this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
@@ -219,6 +202,23 @@ define( function( require ) {
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
+    }
+
+    //Iterate over the items in the model and create and add nodes for each one
+    this.itemNodes = [];
+    for ( var i = 0; i < model.items.length; i++ ) {
+      var item = model.items[i];
+      var Constructor = item.bucket ? WaterBucketNode : ItemNode;
+      var itemNode = new Constructor( model, motionView, item,
+        item.image,
+        item.sittingImage || item.image,
+        item.holdingImage || item.image,
+        model.showMassesProperty );
+      this.itemNodes.push( itemNode );
+
+      //Provide a reference from the item model to its view so that view dimensions can be looked up easily
+      item.view = itemNode;
+      this.addChild( itemNode );
     }
 
     //After the view is constructed, move one of the blocks to the top of the stack.
