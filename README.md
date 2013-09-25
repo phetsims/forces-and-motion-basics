@@ -1,12 +1,18 @@
+forces-and-motion-basics
+=============
+Forces and Motion: Basics
+
 Explore the forces at work in a tug of war or pushing a refrigerator, crate, or person. Create an applied force and see how it makes objects move. Change friction and see how it affects the motion of objects.
 
-Ported from http://phet.colorado.edu/en/simulation/forces-and-motion-basics
+By PhET Interactive Simulations
+http://phet.colorado.edu/
 
-When checking out from git, you will need to check out a copy of other github dependencies as siblings into the same directory as forces-and-motion-basics.
-The directory structure will look like:
-* forces-and-motion-basics/
-* scenery/
-* axon/
-* ...
+NOTE: This repository has dependency on other repositories. Those repositories
+much be checked out as siblings to this repository in your directory structure.
+See package.json for a list of dependencies.
 
-These repos are all phetsims repos.
+Third Party Dependencies
+=============
+
+This simulation uses a number of third party libraries, which are enumerated in package.json.
+The dependencies and corresponding licenses are available in: https://github.com/phetsims/sherpa
