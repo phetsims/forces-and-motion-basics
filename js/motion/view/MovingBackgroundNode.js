@@ -38,8 +38,7 @@ define( function( require ) {
     var movingBackgroundNode = this;
     this.model = model;
 
-    //Using low-density canvas here instead of svg saves about 8ms per frame
-    Node.call( this, { renderer: 'svg', pickable: false } );
+    Node.call( this, { pickable: false } );
 
     var L = 900;
 

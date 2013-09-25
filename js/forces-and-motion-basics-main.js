@@ -36,22 +36,22 @@ require( [
       { name: Strings.tugOfWar,
         icon: new Image( TugIcon ),
         createModel: function() {return new TugOfWarModel();},
-        createView: function( model ) {return new TugOfWarView( model ).mutate( { renderer: 'svg' } );}
+        createView: function( model ) {return new TugOfWarView( model );}
       },
       { name: Strings.motion,
         icon: new Image( MotionIcon ),
         createModel: function() {return new MotionModel( 'motion' );},
-        createView: function( model ) {return new MotionView( model ).mutate( { renderer: 'svg' } );}},
+        createView: function( model ) {return new MotionView( model );}},
 
       { name: Strings.friction,
         icon: new Image( FrictionIcon ),
         createModel: function() {return new MotionModel( 'friction' );},
-        createView: function( model ) {return new MotionView( model ).mutate( { renderer: 'svg' } );}},
+        createView: function( model ) {return new MotionView( model );}},
 
       { name: Strings.acceleration,
         icon: new Image( AccelerationIcon ),
         createModel: function() {return new MotionModel( 'acceleration' );},
-        createView: function( model ) {return new MotionView( model ).mutate( { renderer: 'svg' } );}}
+        createView: function( model ) {return new MotionView( model );}}
 
     ], simOptions ).start();
   } );

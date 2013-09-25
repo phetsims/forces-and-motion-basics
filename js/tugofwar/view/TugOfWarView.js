@@ -59,7 +59,7 @@ define( function( require ) {
 
     var tugOfWarView = this;
     this.model = model;
-    ScreenView.call( this );
+    ScreenView.call( this, {renderer: 'svg'} );
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     var skyHeight = 376;

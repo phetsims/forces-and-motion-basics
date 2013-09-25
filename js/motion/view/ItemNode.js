@@ -37,7 +37,7 @@ define( function( require ) {
   function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', renderer: 'svg', rendererOptions: { cssTransform: true } } );
+    Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer', rendererOptions: { cssTransform: true } } );
 
     //Work around issue where the images are getting corrupted in Firefox, see #38
     if ( platform.firefox ) {
