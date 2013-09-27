@@ -81,25 +81,6 @@ define( function( require ) {
       this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
 
-    //Add the force arrows & associated readouts
-    var arrowScale = 0.3;
-    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
-    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
-    this.appliedForceArrow = new ReadoutArrow( Strings.appliedForce, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.frictionArrow = new ReadoutArrow( Strings.friction, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.addChild( this.sumArrow );
-    this.addChild( this.appliedForceArrow );
-    this.addChild( this.frictionArrow );
-    this.addChild( this.sumOfForcesText );
-
-    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
-      var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
-      motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
-    } );
-
     //Create the slider
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
     var disableLeftProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
@@ -148,8 +129,6 @@ define( function( require ) {
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
     model.stack.lengthProperty.link( disableText( readout ) );
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
-    model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
-    model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.velocityProperty, Strings.speed, MotionConstants.MAX_SPEED ).mutate( {x: width / 2, top: 2} );
@@ -220,6 +199,28 @@ define( function( require ) {
       item.view = itemNode;
       this.addChild( itemNode );
     }
+
+    //Add the force arrows & associated readouts in front of the items
+    var arrowScale = 0.3;
+    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
+    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
+    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
+    this.appliedForceArrow = new ReadoutArrow( Strings.appliedForce, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.frictionArrow = new ReadoutArrow( Strings.friction, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.addChild( this.sumArrow );
+    this.addChild( this.appliedForceArrow );
+    this.addChild( this.frictionArrow );
+    this.addChild( this.sumOfForcesText );
+
+    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
+    model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
+      var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
+      motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+    } );
+
+    model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
+    model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
