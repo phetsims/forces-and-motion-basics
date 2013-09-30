@@ -115,14 +115,9 @@ define( function( require ) {
     this.addChild( this.cartNode );
 
     //Add the go button, but only if there is a puller attached
-    var goPauseButtonContainer = new Node();
     var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
+    var goPauseButtonContainer = new Node( {children: [goPauseButton]} );
     this.addChild( goPauseButtonContainer );
-    var update = function() {
-      goPauseButtonContainer.children = model.numberPullersAttached > 0 && model.state !== 'completed' ? [goPauseButton] : [];
-    };
-    model.runningProperty.link( update );
-    model.numberPullersAttachedProperty.link( update );
 
     //Return button
     this.addChild( new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} ) );

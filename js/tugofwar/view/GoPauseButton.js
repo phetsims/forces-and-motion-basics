@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * A Big round Go/Pause button that appears when the user has attached any nonzero number of pullers to the rope
+ * A big round Go/Pause button that appears when the user has attached any nonzero number of pullers to the rope
  * which can be used to start/pause the animation.
  *
  * @author Sam Reid
@@ -67,12 +67,12 @@ define( function( require ) {
     goPauseButton.addChild( goText );
     goPauseButton.addChild( pauseText );
 
-    model.multilink( ['running', 'state', 'numberPullersAttached'], function( running, state ) {
+    model.multilink( ['running', 'state', 'numberPullersAttached'], function( running, state, numberPullersAttached ) {
       var text = running ? pauseText : goText;
       var other = running ? goText : pauseText;
       text.visible = true;
       other.visible = false;
-      goPauseButton.visible = (state !== 'completed');
+      goPauseButton.visible = state !== 'completed' && numberPullersAttached > 0;
     } );
 
     this.centerX = layoutWidth / 2;
