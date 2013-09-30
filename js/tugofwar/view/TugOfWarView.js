@@ -23,13 +23,29 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var platform = require( 'PHET_CORE/platform' );
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
+  var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/grass.png' );
+  var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/rope.png' );
+  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/cart.png' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var Sound = require( 'VIBE/Sound' );
+  var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_BLUE_0.png' );
+  var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_BLUE_3.png' );
+  var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_BLUE_0.png' );
+  var pullFigureLargeBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_BLUE_3.png' );
+  var pullFigureSmallBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_BLUE_0.png' );
+  var pullFigureSmallBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_BLUE_3.png' );
+  var pullFigureRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_RED_0.png' );
+  var pullFigureRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_RED_3.png' );
+  var pullFigureLargeRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_RED_0.png' );
+  var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_RED_3.png' );
+  var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_RED_0.png' );
+  var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_RED_3.png' );
+  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/../audio/golf-clap.mp3' );
 
   /**
    * @param {TugOfWarModel} model
@@ -43,7 +59,7 @@ define( function( require ) {
 
     var tugOfWarView = this;
     this.model = model;
-    ScreenView.call( this );
+    ScreenView.call( this, {renderer: 'svg'} );
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     var skyHeight = 376;
@@ -53,12 +69,11 @@ define( function( require ) {
     this.addChild( new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
 
     //Show the grass.
-    var grassImage = forcesAndMotionBasicsImages.getImage( 'grass.png' );
     this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
     this.addChild( new Image( grassImage, {x: 13 + grassImage.width, y: grassY} ) );
 
-    this.cartNode = new Image( forcesAndMotionBasicsImages.getImage( 'cart.png' ), {y: 221} );
+    this.cartNode = new Image( cartImage, {y: 221} );
 
     //Black caret below the cart
     this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), { stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
@@ -86,7 +101,7 @@ define( function( require ) {
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.ropeNode = new Image( forcesAndMotionBasicsImages.getImage( 'rope.png' ), {x: 51, y: 273 } );
+    this.ropeNode = new Image( ropeImage, {x: 51, y: 273 } );
 
     model.knots.forEach( function( knot ) { tugOfWarView.addChild( new KnotHighlightNode( knot ) ); } );
 
@@ -116,11 +131,21 @@ define( function( require ) {
     var getPullerImage = function( puller, leaning ) {
       var type = puller.type;
       var size = puller.size;
-      var sizeString = size === 'large' ? '_lrg_' :
-                       size === 'medium' ? '_' :
-                       '_small_';
-      var colorString = type.toUpperCase();
-      return forcesAndMotionBasicsImages.getImage( 'pull_figure' + sizeString + colorString + '_' + (leaning ? 3 : 0) + '.png' );
+
+      //todo: compress with more ternary?
+      return type === 'blue' && size === 'large' && !leaning ? pullFigureLargeBlue0Image :
+             type === 'blue' && size === 'large' && leaning ? pullFigureLargeBlue3Image :
+             type === 'blue' && size === 'medium' && !leaning ? pullFigureBlue0Image :
+             type === 'blue' && size === 'medium' && leaning ? pullFigureBlue3Image :
+             type === 'blue' && size === 'small' && !leaning ? pullFigureSmallBlue0Image :
+             type === 'blue' && size === 'small' && leaning ? pullFigureSmallBlue3Image :
+             type === 'red' && size === 'large' && !leaning ? pullFigureLargeRed0Image :
+             type === 'red' && size === 'large' && leaning ? pullFigureLargeRed3Image :
+             type === 'red' && size === 'medium' && !leaning ? pullFigureRed0Image :
+             type === 'red' && size === 'medium' && leaning ? pullFigureRed3Image :
+             type === 'red' && size === 'small' && !leaning ? pullFigureSmallRed0Image :
+             type === 'red' && size === 'small' && leaning ? pullFigureSmallRed3Image :
+             null;
     };
 
     var pullerLayer = new Node();
@@ -151,30 +176,12 @@ define( function( require ) {
     } );
     this.addLiveRegion( textProperty );
 
-
-    //On iOS, we must play an audio file from a thread initiated by a user event such as touchstart.
-    //This is impossible with scenery, since all scenery events are batched and dispatched from animation
-    //Also, there was a quirky bug where the 1st event wasn't getting invoked here, so wait for the 2nd one
-    //then play a blank audio file. This will enable audio for the rest of the app (whether from
-    //user event or not).
-    //See http://stackoverflow.com/questions/12517000/no-sound-on-ios-6-web-audio-api
-    //Note: right now this requires the user to touch the screen at least twice before audio can be played
-    if ( platform.mobileSafari ) {
-      var count = 0;
-      var play = function() {
-        new Howl( { urls: ['audio/empty.ogg', 'audio/empty.wav'] } ).play();
-        count++;
-        if ( count >= 2 ) {
-          window.removeEventListener( 'touchstart', play, false );
-        }
-      };
-      window.addEventListener( 'touchstart', play, false );
-    }
+    var golfClap = new Sound( golfClapSound );
 
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
       if ( state === 'completed' && model.volumeOn ) {
-        new Howl( { urls: ['audio/golf-clap.mp3', 'audio/golf-clap.ogg'] } ).play();
+        golfClap.play();
       }
     } );
 

@@ -23,9 +23,13 @@ require.config( {
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     FORCES_AND_MOTION_BASICS: '../../forces-and-motion-basics/js',
+    VIBE: '../../vibe/js',
+    SHERPA: '../../sherpa/',
 
     //Load plugins
-    i18n: '../../i18n/i18n'
+    i18n: '../../i18n/i18n',
+    image: '../../chipper/requirejs-plugins/image',
+    audio: '../../chipper/requirejs-plugins/audio'
   },
 
   urlArgs: new Date().getTime() // add cache buster query string to make browser refresh actually reload everything

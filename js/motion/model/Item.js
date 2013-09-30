@@ -11,6 +11,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Util = require( 'DOT/Util' );
 
   function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage ) {
     var item = this;
@@ -93,7 +94,10 @@ define( function( require ) {
 
       if ( this.animating.enabled ) {
         var destination = new Vector2( this.animating.x, this.animating.y );
-        this.position = this.position.blend( destination, 15 * dt );
+
+        //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
+        var blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
+        this.position = this.position.blend( destination, blendAmount );
         if ( this.position.distance( destination ) < 1 && this.interactionScale === 1.3 ) {
           if ( this.animating.end ) {
             this.animating.end();

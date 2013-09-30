@@ -57,10 +57,6 @@ pusher_8.png source=PhET author=Noah
 pusher_9.png source=PhET author=Noah
 pusher_fall_down.png source=PhET author=Noah
 pusher_straight_on.png source=PhET author=Noah
-reset_button_disabled.png source=PhET author=Sharon
-reset_button_down.png source=PhET author=Sharon
-reset_button_over.png source=PhET author=Sharon
-reset_button_up.png source=PhET author=Sharon
 rope.png source=PhET author=Noah
 skateboard.png source=PhET author=Noah
 stop_hover.png source=PhET author=Noah

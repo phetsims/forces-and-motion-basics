@@ -1,3 +1,9 @@
+9/25/13 On screens 2-4, moved the items to be in front of the controls and control panel
+9/24/13 Write as '50 N' instead of '50N', see #51
+9/24/13 Fixed: present and weight text blurry, see #50
+9/24/13 Made items go in front of the skateboard
+9/24/13 Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation for item motion
+9/22/13 Use single file build an inline images & audio
 9/7/13 For the motion screens, made the numeric readout look less like a button, gray border, square corners
 # 1.0.0-rc14 9/7/13
 9/7/13 added icicles using the same strategy as mountains and clouds

@@ -6,7 +6,8 @@
 define( function( require ) {
   'use strict';
 
-  var ResetAllButton = require( 'FORCES_AND_MOTION_BASICS/common/view/ResetAllButton' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -18,11 +19,10 @@ define( function( require ) {
   var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
   var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
   var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
-  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
+  var SpeedometerNode = require( 'SCENERY_PHET/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
-  var forcesAndMotionBasicsImages = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-images' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
@@ -33,6 +33,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
+  var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/skateboard.png' );
 
   /**
    * Constructor for the MotionView
@@ -45,7 +46,7 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this );
+    ScreenView.call( this, {renderer: 'svg'} );
 
     //Variables for this constructor, for convenience
     var motionView = this;
@@ -58,10 +59,10 @@ define( function( require ) {
 
     //Create the static background
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.skyNode = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable: false} );
+    this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable: false} );
 
     this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b', pickable: false} );
-    this.addChild( this.skyNode );
+    this.addChild( this.sky );
     this.addChild( this.groundNode );
 
     //Create the dynamic (moving) background
@@ -75,46 +76,10 @@ define( function( require ) {
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
-    //Iterate over the items in the model and create and add nodes for each one
-    this.itemNodes = [];
-    for ( var i = 0; i < model.items.length; i++ ) {
-      var item = model.items[i];
-      var Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new Constructor( model, motionView, item,
-        forcesAndMotionBasicsImages.getImage( item.image ),
-        forcesAndMotionBasicsImages.getImage( item.sittingImage || item.image ),
-        forcesAndMotionBasicsImages.getImage( item.holdingImage || item.image ),
-        model.showMassesProperty );
-      this.itemNodes.push( itemNode );
-
-      //Provide a reference from the item model to its view so that view dimensions can be looked up easily
-      item.view = itemNode;
-      this.addChild( itemNode );
-    }
-
     //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( forcesAndMotionBasicsImages.getImage( 'skateboard.png' ), {centerX: width / 2, y: 315 + 12, pickable: false} ) );
+      this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
     }
-
-    //Add the force arrows & associated readouts
-    var arrowScale = 0.3;
-    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
-    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
-    this.appliedForceArrow = new ReadoutArrow( Strings.appliedForce, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.frictionArrow = new ReadoutArrow( Strings.friction, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.addChild( this.sumArrow );
-    this.addChild( this.appliedForceArrow );
-    this.addChild( this.frictionArrow );
-    this.addChild( this.sumOfForcesText );
-
-    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
-      var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
-      motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
-    } );
 
     //Create the slider
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
@@ -164,11 +129,9 @@ define( function( require ) {
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
     model.stack.lengthProperty.link( disableText( readout ) );
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
-    model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
-    model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocityProperty ).mutate( {x: width / 2, top: 2} );
+    var speedometerNode = new SpeedometerNode( model.velocityProperty, Strings.speed, MotionConstants.MAX_SPEED ).mutate( {x: width / 2, top: 2} );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
@@ -219,6 +182,45 @@ define( function( require ) {
 
       this.addChild( accelerometerWithTickLabels );
     }
+
+    //Iterate over the items in the model and create and add nodes for each one
+    this.itemNodes = [];
+    for ( var i = 0; i < model.items.length; i++ ) {
+      var item = model.items[i];
+      var Constructor = item.bucket ? WaterBucketNode : ItemNode;
+      var itemNode = new Constructor( model, motionView, item,
+        item.image,
+        item.sittingImage || item.image,
+        item.holdingImage || item.image,
+        model.showMassesProperty );
+      this.itemNodes.push( itemNode );
+
+      //Provide a reference from the item model to its view so that view dimensions can be looked up easily
+      item.view = itemNode;
+      this.addChild( itemNode );
+    }
+
+    //Add the force arrows & associated readouts in front of the items
+    var arrowScale = 0.3;
+    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
+    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
+    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
+    this.appliedForceArrow = new ReadoutArrow( Strings.appliedForce, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.frictionArrow = new ReadoutArrow( Strings.friction, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.addChild( this.sumArrow );
+    this.addChild( this.appliedForceArrow );
+    this.addChild( this.frictionArrow );
+    this.addChild( this.sumOfForcesText );
+
+    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
+    model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
+      var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
+      motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+    } );
+
+    model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
+    model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );

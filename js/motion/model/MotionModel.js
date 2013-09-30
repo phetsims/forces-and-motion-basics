@@ -15,6 +15,17 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
+  var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/water-bucket.png' );
+  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/fridge.png' );
+  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/crate.png' );
+  var girlStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/girl-standing.png' );
+  var manStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/man-standing.png' );
+  var girlSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/girl-sitting.png' );
+  var manSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/man-sitting.png' );
+  var girlHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/girl-holding.png' );
+  var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/man-holding.png' );
+  var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/trash-can.png' );
+  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/mystery-object-01.png' );
 
   /**
    * Constructor for the motion model
@@ -76,18 +87,18 @@ define( function( require ) {
 
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
-    var bucket = new Item( this, 'water-bucket.png', 100, 845, 547 + -39, 0.78 );
+    var bucket = new Item( this, waterBucketImage, 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
-    var fridge = new Item( this, 'fridge.png', 200, 25, 439, 0.8, 4 );
-    var crate1 = new Item( this, 'crate.png', 50, 126, 495, 0.5 );
-    var crate2 = new Item( this, 'crate.png', 50, 218, 495, 0.5 );
-    var girl = new Item( this, 'girl-standing.png', 40, 684, 471, 0.6, 4, 'girl-sitting.png', 'girl-holding.png' );
-    var man = new Item( this, 'man-standing.png', 80, 747, 421, 0.6, 12, 'man-sitting.png', 'man-holding.png' );
+    var fridge = new Item( this, fridgeImage, 200, 25, 439, 0.8, 4 );
+    var crate1 = new Item( this, crateImage, 50, 126, 495, 0.5 );
+    var crate2 = new Item( this, crateImage, 50, 218, 495, 0.5 );
+    var girl = new Item( this, girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage );
+    var man = new Item( this, manStandingImage, 80, 747, 421, 0.6, 12, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
                  [ fridge, crate1, crate2, girl, man, bucket ] :
                  [ fridge, crate1, crate2, girl, man,
-                   new Item( this, 'trash-can.png', 100, 816, 502, 0.7, 11 ),
-                   new Item( this, 'mystery-object-01.png', 50, 888, 543, 1.1 )
+                   new Item( this, trashCanImage, 100, 816, 502, 0.7, 11 ),
+                   new Item( this, mysteryObjectImage, 50, 888, 543, 1.1 )
                  ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
