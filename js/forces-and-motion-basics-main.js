@@ -13,12 +13,16 @@ require( [
   'SCENERY/nodes/Image',
   'JOIST/Sim',
   'JOIST/SimLauncher',
-  'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings',
   'image!FORCES_AND_MOTION_BASICS/../images/Tug_Icon.png',
   'image!FORCES_AND_MOTION_BASICS/../images/Motion_Icon.png',
   'image!FORCES_AND_MOTION_BASICS/../images/Friction_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/../images/Acceleration_Icon.png'
-], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, Strings, TugIcon, MotionIcon, FrictionIcon, AccelerationIcon ) {
+  'image!FORCES_AND_MOTION_BASICS/../images/Acceleration_Icon.png',
+  'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name',
+  'string!FORCES_AND_MOTION_BASICS/tugOfWar',
+  'string!FORCES_AND_MOTION_BASICS/motion',
+  'string!FORCES_AND_MOTION_BASICS/friction',
+  'string!FORCES_AND_MOTION_BASICS/acceleration'
+], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, TugIcon, MotionIcon, FrictionIcon, AccelerationIcon, titleString, tugOfWarString, motionString, frictionString, accelerationString ) {
   'use strict';
 
   var simOptions = {
@@ -32,23 +36,23 @@ require( [
   SimLauncher.launch( function() {
 
     //Create and start the sim
-    new Sim( Strings['forces-and-motion-basics.name'], [
-      { name: Strings.tugOfWar,
+    new Sim( titleString, [
+      { name: tugOfWarString,
         icon: new Image( TugIcon ),
         createModel: function() {return new TugOfWarModel();},
         createView: function( model ) {return new TugOfWarView( model );}
       },
-      { name: Strings.motion,
+      { name: motionString,
         icon: new Image( MotionIcon ),
         createModel: function() {return new MotionModel( 'motion' );},
         createView: function( model ) {return new MotionView( model );}},
 
-      { name: Strings.friction,
+      { name: frictionString,
         icon: new Image( FrictionIcon ),
         createModel: function() {return new MotionModel( 'friction' );},
         createView: function( model ) {return new MotionView( model );}},
 
-      { name: Strings.acceleration,
+      { name: accelerationString,
         icon: new Image( AccelerationIcon ),
         createModel: function() {return new MotionModel( 'acceleration' );},
         createView: function( model ) {return new MotionView( model );}}

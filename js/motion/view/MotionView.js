@@ -18,7 +18,12 @@ define( function( require ) {
   var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
   var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
   var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
+  var newtonsString = require( 'string!FORCES_AND_MOTION_BASICS/newtons' );
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
+  var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
   var SpeedometerNode = require( 'SCENERY_PHET/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
@@ -89,7 +94,7 @@ define( function( require ) {
     var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var sliderLabel = new Text( Strings.appliedForce, {font: new PhetFont( 22 ), centerX: width / 2, y: 430} );
+    var sliderLabel = new Text( appliedForceString, {font: new PhetFont( 22 ), centerX: width / 2, y: 430} );
     var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
 
     this.addChild( sliderLabel );
@@ -99,7 +104,7 @@ define( function( require ) {
     var readout = new Text( '???', {font: new PhetFont( 22 ), pickable: false} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
-      readout.text = appliedForce.toFixed( 0 ) + ' ' + Strings.newtons; //TODO: i18n message format
+      readout.text = appliedForce.toFixed( 0 ) + ' ' + newtonsString; //TODO: i18n message format
       readout.centerX = width / 2;
     } );
 
@@ -131,7 +136,7 @@ define( function( require ) {
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocityProperty, Strings.speed, MotionConstants.MAX_SPEED ).mutate( {x: width / 2, top: 2} );
+    var speedometerNode = new SpeedometerNode( model.velocityProperty, speedString, MotionConstants.MAX_SPEED ).mutate( {x: width / 2, top: 2} );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
@@ -202,12 +207,12 @@ define( function( require ) {
 
     //Add the force arrows & associated readouts in front of the items
     var arrowScale = 0.3;
-    this.sumArrow = new ReadoutArrow( Strings.sumOfForces, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
-    this.sumOfForcesText = new Text( Strings.sumOfForcesEqualsZero, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
-    this.appliedForceArrow = new ReadoutArrow( Strings.appliedForce, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.frictionArrow = new ReadoutArrow( Strings.friction, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.frictionArrow = new ReadoutArrow( frictionString, '#e66e23', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );

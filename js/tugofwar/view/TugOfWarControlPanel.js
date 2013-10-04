@@ -14,7 +14,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/valuesString' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -31,8 +32,8 @@ define( function( require ) {
 
     var fontOptions = {font: new PhetFont( 18 )};
     var controlPanel = new VerticalCheckBoxGroup( [
-      {content: new Text( Strings.sumOfForces, fontOptions ), property: model.showSumOfForcesProperty, label: Strings.sumOfForces},
-      {content: new Text( Strings.values, fontOptions ), property: model.showValuesProperty, label: Strings.values}
+      {content: new Text( sumOfForcesString, fontOptions ), property: model.showSumOfForcesProperty, label: sumOfForcesString},
+      {content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString}
     ] );
     this.addChild( new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} ) );
 

@@ -16,7 +16,16 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+  var forceString = require( 'string!FORCES_AND_MOTION_BASICS/force' );
+  var forcesString = require( 'string!FORCES_AND_MOTION_BASICS/forces' );
+  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
+  var massesString = require( 'string!FORCES_AND_MOTION_BASICS/masses' );
+  var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
+  var lotsString = require( 'string!FORCES_AND_MOTION_BASICS/lots' );
+  var noneString = require( 'string!FORCES_AND_MOTION_BASICS/none' );
   var Property = require( 'AXON/Property' );
   var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -52,7 +61,7 @@ define( function( require ) {
 
     //Icon for the forces in the control panel
     var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, {headHeight: 20, headWidth: 20, tailWidth: 10, fill: '#e66e23', stroke: 'black'} );};
-    var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty, Strings.speed, MotionConstants.MAX_SPEED ).mutate( {scale: 0.2} ); };
+    var speedometerIcon = function() { return new SpeedometerNode( model.velocityProperty, speedString, MotionConstants.MAX_SPEED ).mutate( {scale: 0.2} ); };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
 
     //Workarounds because VBox centering not working properly
@@ -74,9 +83,9 @@ define( function( require ) {
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
       var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).
-        addTick( 0, createTick( Strings.none, true ) ).addTick( 1, createTick( Strings.lots, true ) ).
-        addTick( 0, createTick( Strings.lots, false ) ).addTick( 1, createTick( Strings.none, false ) );
-      var frictionLabel = new Text( Strings.friction, new PhetFont( { size: fontSize, weight: 'bold' } ) );
+        addTick( 0, createTick( noneString, true ) ).addTick( 1, createTick( lotsString, true ) ).
+        addTick( 0, createTick( lotsString, false ) ).addTick( 1, createTick( noneString, false ) );
+      var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );
 
       //Workaround for a scenery bug that has the wrong bounds with the hybrid approach.
       frictionLabel.boundsMethod = 'fast';
@@ -95,28 +104,29 @@ define( function( require ) {
       children: model.screen === 'motion' ?
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.force, 'showForce', {icon: arrowIcon()} ),
-                    toElement( Strings.values, 'showValues', {indent: indent} ),
-                    toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
+                    toElement( forceString, 'showForce', {icon: arrowIcon()} ),
+                    toElement( forceString, 'showForce', {icon: arrowIcon()} ),
+                    toElement( valuesString, 'showValues', {indent: indent} ),
+                    toElement( massesString, 'showMasses' ),
+                    toElement( speedString, 'showSpeed', {icon: speedometerIcon()} )
                   ], {fill: '#e3e980'} )] :
                 model.screen === 'friction' ?
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
-                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
-                    toElement( Strings.values, 'showValues', {indent: indent} ),
-                    toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} )
+                    toElement( forcesString, 'showForce', {icon: arrowIcon()} ),
+                    toElement( sumOfForcesString, 'showSumOfForces', {indent: indent} ),
+                    toElement( valuesString, 'showValues', {indent: indent} ),
+                    toElement( massesString, 'showMasses' ),
+                    toElement( speedString, 'showSpeed', {icon: speedometerIcon()} )
                   ], {fill: '#e3e980'} ), spacer( 12, 12 ), createFrictionSlider()  ] :
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( Strings.forces, 'showForce', {icon: arrowIcon()} ),
-                    toElement( Strings.sumOfForces, 'showSumOfForces', {indent: indent} ),
-                    toElement( Strings.values, 'showValues', {indent: indent} ),
-                    toElement( Strings.masses, 'showMasses' ),
-                    toElement( Strings.speed, 'showSpeed', {icon: speedometerIcon()} ),
-                    toElement( Strings.acceleration, 'showAcceleration', {icon: accelerometerIcon()} )
+                    toElement( forcesString, 'showForce', {icon: arrowIcon()} ),
+                    toElement( sumOfForcesString, 'showSumOfForces', {indent: indent} ),
+                    toElement( valuesString, 'showValues', {indent: indent} ),
+                    toElement( massesString, 'showMasses' ),
+                    toElement( speedString, 'showSpeed', {icon: speedometerIcon()} ),
+                    toElement( accelerationString, 'showAcceleration', {icon: accelerometerIcon()} )
                   ], {fill: '#e3e980'} ), spacer( 12, 12 ), createFrictionSlider()  ]
     } );
     var panelNode = new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} );

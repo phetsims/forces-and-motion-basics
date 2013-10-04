@@ -13,8 +13,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var stopUpImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_up.png' );
+  var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
   var goUpImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_up.png' );
   var goHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_hover.png' );
   var stopHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_hover.png' );
@@ -54,12 +55,12 @@ define( function( require ) {
     var textOptions = {font: new PhetFont( 30 )};
     var textWidth = goPauseButton.width - 30;//Trim the edges because of the shadow and button padding
 
-    var goText = new Text( Strings.go, textOptions );
+    var goText = new Text( goString, textOptions );
     if ( goText.width > textWidth ) { goText.scale( textWidth / goText.width ); }
     goText.centerX = goPauseButton.width / 2 - 2;
     goText.centerY = goPauseButton.height / 2 - 3;
 
-    var pauseText = new Text( Strings.pause, textOptions );
+    var pauseText = new Text( pauseString, textOptions );
     if ( pauseText.width > textWidth ) { pauseText.scale( textWidth / pauseText.width ); }
     pauseText.centerX = goPauseButton.width / 2 - 2;
     pauseText.centerY = goPauseButton.height / 2 - 3;

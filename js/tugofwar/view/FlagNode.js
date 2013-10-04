@@ -13,7 +13,8 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var blueWinsString = require( 'string!FORCES_AND_MOTION_BASICS/blueWins' );
+  var redWinsString = require( 'string!FORCES_AND_MOTION_BASICS/redWins' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -30,7 +31,7 @@ define( function( require ) {
     this.model = model;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? Strings.blueWins : Strings.redWins, {font: new PhetFont( 32 ), fill: 'white'} );
+    var text = new Text( model.cart.x < 0 ? blueWinsString : redWinsString, {font: new PhetFont( 32 ), fill: 'white'} );
     this.path = new Path( null, {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
     this.addChild( this.path );
 

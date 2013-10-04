@@ -16,7 +16,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var massDisplayPattern = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var platform = require( 'PHET_CORE/platform' );
 
@@ -109,7 +109,7 @@ define( function( require ) {
     this.addInputListener( dragHandler );
 
     //Label for the mass (if it is shown)
-    var massLabel = new Text( StringUtils.format( Strings["massDisplay.pattern"], item.mass ), {font: new PhetFont( { size: 15, weight: 'bold' } )} );
+    var massLabel = new Text( StringUtils.format( massDisplayPattern, item.mass ), {font: new PhetFont( { size: 15, weight: 'bold' } )} );
     var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
     var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
     this.labelNode = labelNode;

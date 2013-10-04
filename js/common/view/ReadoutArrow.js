@@ -17,7 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Strings = require( 'FORCES_AND_MOTION_BASICS/forces-and-motion-basics-strings' );
+  var forceReadoutPattern = require( 'string!FORCES_AND_MOTION_BASICS/forceReadout.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   /**
@@ -56,7 +56,7 @@ define( function( require ) {
     //Update when the value changes
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
-      readoutArrow.valueNode.text = StringUtils.format( Strings["forceReadout.pattern"], Math.abs( value ).toFixed( 0 ) );
+      readoutArrow.valueNode.text = StringUtils.format( forceReadoutPattern, Math.abs( value ).toFixed( 0 ) );
       readoutArrow.update();
     } );
 
