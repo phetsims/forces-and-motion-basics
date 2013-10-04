@@ -8,7 +8,6 @@
 define( function( require ) {
   'use strict';
 
-  var assert = require( 'ASSERT/assert' )( 'forces-and-motion-basics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
