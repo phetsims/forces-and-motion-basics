@@ -51,7 +51,15 @@ define( function( require ) {
       pullerNode.image = pulling ? pullImage : image;
 
       //Reshape the focus rect when image changes
-      updateLocation();
+      //This was copied from updateLocation above to solve https://github.com/phetsims/forces-and-motion-basics/issues/55
+      if ( knotted ) {
+        var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
+        var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 : 0;
+        pullerNode.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - pullerNode.height + 90 );
+      }
+      else {
+        pullerNode.setTranslation( puller.position );
+      }
     };
     model.startedProperty.link( updateImage );
     model.runningProperty.link( updateImage );
