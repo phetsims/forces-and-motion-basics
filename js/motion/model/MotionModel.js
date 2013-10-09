@@ -14,17 +14,17 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
-  var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/water-bucket.png' );
-  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/fridge.png' );
-  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/crate.png' );
-  var girlStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/girl-standing.png' );
-  var manStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/man-standing.png' );
-  var girlSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/girl-sitting.png' );
-  var manSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/man-sitting.png' );
-  var girlHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/girl-holding.png' );
-  var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/man-holding.png' );
-  var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/trash-can.png' );
-  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/mystery-object-01.png' );
+  var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
+  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
+  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
+  var girlStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-standing.png' );
+  var manStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-standing.png' );
+  var girlSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
+  var manSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-sitting.png' );
+  var girlHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-holding.png' );
+  var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-holding.png' );
+  var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/trash-can.png' );
+  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
 
   /**
    * Constructor for the motion model

@@ -23,9 +23,9 @@ define( function( require ) {
   var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var platform = require( 'PHET_CORE/platform' );
-  var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/grass.png' );
-  var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/rope.png' );
-  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/cart.png' );
+  var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
+  var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
+  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
@@ -36,19 +36,19 @@ define( function( require ) {
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
-  var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_BLUE_0.png' );
-  var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_BLUE_3.png' );
-  var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_BLUE_0.png' );
-  var pullFigureLargeBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_BLUE_3.png' );
-  var pullFigureSmallBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_BLUE_0.png' );
-  var pullFigureSmallBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_BLUE_3.png' );
-  var pullFigureRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_RED_0.png' );
-  var pullFigureRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_RED_3.png' );
-  var pullFigureLargeRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_RED_0.png' );
-  var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_lrg_RED_3.png' );
-  var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_RED_0.png' );
-  var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/../images/pull_figure_small_RED_3.png' );
-  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/../audio/golf-clap.mp3' );
+  var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_0.png' );
+  var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_3.png' );
+  var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_0.png' );
+  var pullFigureLargeBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_3.png' );
+  var pullFigureSmallBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_BLUE_0.png' );
+  var pullFigureSmallBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_BLUE_3.png' );
+  var pullFigureRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_RED_0.png' );
+  var pullFigureRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_RED_3.png' );
+  var pullFigureLargeRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_0.png' );
+  var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_3.png' );
+  var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_0.png' );
+  var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_3.png' );
+  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
 
   /**
    * @param {TugOfWarModel} model

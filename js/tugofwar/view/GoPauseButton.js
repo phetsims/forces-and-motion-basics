@@ -14,13 +14,13 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
-  var stopUpImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_up.png' );
+  var stopUpImage = require( 'image!FORCES_AND_MOTION_BASICS/stop_up.png' );
   var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
-  var goUpImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_up.png' );
-  var goHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_hover.png' );
-  var stopHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_hover.png' );
-  var stopPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/stop_pressed.png' );
-  var goPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/go_pressed.png' );
+  var goUpImage = require( 'image!FORCES_AND_MOTION_BASICS/go_up.png' );
+  var goHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/go_hover.png' );
+  var stopHoverImage = require( 'image!FORCES_AND_MOTION_BASICS/stop_hover.png' );
+  var stopPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/stop_pressed.png' );
+  var goPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/go_pressed.png' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**

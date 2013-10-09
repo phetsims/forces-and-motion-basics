@@ -38,7 +38,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
-  var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/../images/skateboard.png' );
+  var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
   /**
    * Constructor for the MotionView
