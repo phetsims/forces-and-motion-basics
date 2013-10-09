@@ -99,6 +99,9 @@ define( function( require ) {
         var blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
         this.position = this.position.blend( destination, blendAmount );
         if ( this.position.distance( destination ) < 1 && this.interactionScale === 1.3 ) {
+
+          //Snap to exact final destination, see #59
+          this.position = destination;
           if ( this.animating.end ) {
             this.animating.end();
           }
