@@ -92,19 +92,12 @@ define( function( require ) {
       return new VBox( {spacing: -8, children: [frictionLabel , frictionSlider]} );
     };
 
-    //For debugging, wrap a node in a rectangle showing its bounds and return it
-    function wrap( node ) {
-      node.addChild( new Rectangle( node.bounds.minX, node.bounds.minY, node.bounds.maxX - node.bounds.minX, node.bounds.maxY - node.bounds.minY, {stroke: 'blue', lineWidth: 1} ) );
-      return node;
-    }
-
     var indent = 24;
     var controlPanel = new VBox( {
       align: 'center',
       children: model.screen === 'motion' ?
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( forceString, 'showForce', {icon: arrowIcon()} ),
                     toElement( forceString, 'showForce', {icon: arrowIcon()} ),
                     toElement( valuesString, 'showValues', {indent: indent} ),
                     toElement( massesString, 'showMasses' ),
