@@ -115,9 +115,6 @@ define( function( require ) {
           }
           property.value = result;
         },
-        //Exclude the default behavior
-        translate: function( options ) {
-        },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
             property.value = 0;
