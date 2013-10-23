@@ -11,6 +11,7 @@ require( [
   'FORCES_AND_MOTION_BASICS/motion/model/MotionModel',
   'FORCES_AND_MOTION_BASICS/motion/view/MotionView',
   'SCENERY/nodes/Image',
+  'JOIST/Screen',
   'JOIST/Sim',
   'JOIST/SimLauncher',
   'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png',
@@ -22,7 +23,7 @@ require( [
   'string!FORCES_AND_MOTION_BASICS/motion',
   'string!FORCES_AND_MOTION_BASICS/friction',
   'string!FORCES_AND_MOTION_BASICS/acceleration'
-], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, TugIcon, MotionIcon, FrictionIcon, AccelerationIcon, titleString, tugOfWarString, motionString, frictionString, accelerationString ) {
+], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Screen, Sim, SimLauncher, TugIcon, MotionIcon, FrictionIcon, AccelerationIcon, titleString, tugOfWarString, motionString, frictionString, accelerationString ) {
   'use strict';
 
   var simOptions = {
@@ -37,26 +38,18 @@ require( [
 
     //Create and start the sim
     new Sim( titleString, [
-      { name: tugOfWarString,
-        icon: new Image( TugIcon ),
-        createModel: function() {return new TugOfWarModel();},
-        createView: function( model ) {return new TugOfWarView( model );}
-      },
-      { name: motionString,
-        icon: new Image( MotionIcon ),
-        createModel: function() {return new MotionModel( 'motion' );},
-        createView: function( model ) {return new MotionView( model );}},
-
-      { name: frictionString,
-        icon: new Image( FrictionIcon ),
-        createModel: function() {return new MotionModel( 'friction' );},
-        createView: function( model ) {return new MotionView( model );}},
-
-      { name: accelerationString,
-        icon: new Image( AccelerationIcon ),
-        createModel: function() {return new MotionModel( 'acceleration' );},
-        createView: function( model ) {return new MotionView( model );}}
-
+      new Screen( tugOfWarString, new Image( TugIcon ),
+        function() {return new TugOfWarModel();},
+        function( model ) {return new TugOfWarView( model );}
+      ),
+      new Screen( motionString, new Image( MotionIcon ),
+        function() {return new MotionModel( 'motion' );},
+        function( model ) {return new MotionView( model );}
+      ),
+      new Screen( accelerationString, new Image( AccelerationIcon ),
+        function() {return new MotionModel( 'acceleration' );},
+        function( model ) {return new MotionView( model );}
+      )
     ], simOptions ).start();
   } );
 } );
