@@ -27,11 +27,12 @@ require( [
   'use strict';
 
   var simOptions = {
-    credits: 'PhET Development Team -\n' +
-             'Lead Design: Noah Podolefsky\n' +
-             'Software Development: Sam Reid\n' +
-             'Design Team: Ariel Paul, Kathy Perkins, Trish Loeblein\n' +
-             'Interviews: Noah Podolefsky'
+    credits: {
+      leadDesign: 'Noah Podolefsky',
+      softwareDevelopment: 'Sam Reid',
+      designTeam: 'Ariel Paul, Kathy Perkins, Trish Loeblein',
+      interviews: 'Noah Podolefsky'
+    }
   };
 
   SimLauncher.launch( function() {
