@@ -5,26 +5,27 @@
  *
  * @author Sam Reid
  */
-require( [
-  'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel',
-  'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView',
-  'FORCES_AND_MOTION_BASICS/motion/model/MotionModel',
-  'FORCES_AND_MOTION_BASICS/motion/view/MotionView',
-  'SCENERY/nodes/Image',
-  'JOIST/Screen',
-  'JOIST/Sim',
-  'JOIST/SimLauncher',
-  'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png',
-  'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name',
-  'string!FORCES_AND_MOTION_BASICS/tugOfWar',
-  'string!FORCES_AND_MOTION_BASICS/motion',
-  'string!FORCES_AND_MOTION_BASICS/friction',
-  'string!FORCES_AND_MOTION_BASICS/acceleration'
-], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Screen, Sim, SimLauncher, TugIcon, MotionIcon, FrictionIcon, AccelerationIcon, titleString, tugOfWarString, motionString, frictionString, accelerationString ) {
+define( function( require ) {
   'use strict';
+
+  var
+    TugOfWarModel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel' ),
+    TugOfWarView = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView' ),
+    MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' ),
+    MotionView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionView' ),
+    Image = require( 'SCENERY/nodes/Image' ),
+    Screen = require( 'JOIST/Screen' ),
+    Sim = require( 'JOIST/Sim' ),
+    SimLauncher = require( 'JOIST/SimLauncher' ),
+    TugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' ),
+    MotionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' ),
+    FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' ),
+    AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' ),
+    titleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name' ),
+    tugOfWarString = require( 'string!FORCES_AND_MOTION_BASICS/tugOfWar' ),
+    motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' ),
+    frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' ),
+    accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
 
   var simOptions = {
     credits: {
