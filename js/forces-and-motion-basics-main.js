@@ -48,6 +48,10 @@ define( function( require ) {
         function() {return new MotionModel( 'motion' );},
         function( model ) {return new MotionView( model );}
       ),
+      new Screen( frictionString, new Image( FrictionIcon ),
+        function() {return new MotionModel( 'friction' );},
+        function( model ) {return new MotionView( model );}
+      ),
       new Screen( accelerationString, new Image( AccelerationIcon ),
         function() {return new MotionModel( 'acceleration' );},
         function( model ) {return new MotionView( model );}
