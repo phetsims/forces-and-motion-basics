@@ -25,7 +25,7 @@ define( function( require ) {
     Node.call( this, {} );
 
     var button = new TextButton( returnString, {
-      callback: model.returnCart.bind( model ),
+      listener: model.returnCart.bind( model ),
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       rectangleFillUp: new Color( 254, 192, 0 )
     } );
