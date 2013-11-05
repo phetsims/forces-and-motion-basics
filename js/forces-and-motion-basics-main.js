@@ -5,58 +5,57 @@
  *
  * @author Sam Reid
  */
-require( [
-  'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel',
-  'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView',
-  'FORCES_AND_MOTION_BASICS/motion/model/MotionModel',
-  'FORCES_AND_MOTION_BASICS/motion/view/MotionView',
-  'SCENERY/nodes/Image',
-  'JOIST/Sim',
-  'JOIST/SimLauncher',
-  'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png',
-  'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png',
-  'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name',
-  'string!FORCES_AND_MOTION_BASICS/tugOfWar',
-  'string!FORCES_AND_MOTION_BASICS/motion',
-  'string!FORCES_AND_MOTION_BASICS/friction',
-  'string!FORCES_AND_MOTION_BASICS/acceleration'
-], function( TugOfWarModel, TugOfWarView, MotionModel, MotionView, Image, Sim, SimLauncher, TugIcon, MotionIcon, FrictionIcon, AccelerationIcon, titleString, tugOfWarString, motionString, frictionString, accelerationString ) {
+define( function( require ) {
   'use strict';
 
+  var
+    TugOfWarModel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel' ),
+    TugOfWarView = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView' ),
+    MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' ),
+    MotionView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionView' ),
+    Image = require( 'SCENERY/nodes/Image' ),
+    Screen = require( 'JOIST/Screen' ),
+    Sim = require( 'JOIST/Sim' ),
+    SimLauncher = require( 'JOIST/SimLauncher' ),
+    TugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' ),
+    MotionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' ),
+    FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' ),
+    AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' ),
+    titleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name' ),
+    tugOfWarString = require( 'string!FORCES_AND_MOTION_BASICS/tugOfWar' ),
+    motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' ),
+    frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' ),
+    accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+
   var simOptions = {
-    credits: 'PhET Development Team -\n' +
-             'Lead Design: Noah Podolefsky\n' +
-             'Software Development: Sam Reid\n' +
-             'Design Team: Ariel Paul, Kathy Perkins, Trish Loeblein\n' +
-             'Interviews: Noah Podolefsky'
+    credits: {
+      leadDesign: 'Noah Podolefsky',
+      softwareDevelopment: 'Sam Reid',
+      designTeam: 'Ariel Paul, Kathy Perkins, Trish Loeblein',
+      interviews: 'Noah Podolefsky'
+    }
   };
 
   SimLauncher.launch( function() {
 
     //Create and start the sim
     new Sim( titleString, [
-      { name: tugOfWarString,
-        icon: new Image( TugIcon ),
-        createModel: function() {return new TugOfWarModel();},
-        createView: function( model ) {return new TugOfWarView( model );}
-      },
-      { name: motionString,
-        icon: new Image( MotionIcon ),
-        createModel: function() {return new MotionModel( 'motion' );},
-        createView: function( model ) {return new MotionView( model );}},
-
-      { name: frictionString,
-        icon: new Image( FrictionIcon ),
-        createModel: function() {return new MotionModel( 'friction' );},
-        createView: function( model ) {return new MotionView( model );}},
-
-      { name: accelerationString,
-        icon: new Image( AccelerationIcon ),
-        createModel: function() {return new MotionModel( 'acceleration' );},
-        createView: function( model ) {return new MotionView( model );}}
-
+      new Screen( tugOfWarString, new Image( TugIcon ),
+        function() {return new TugOfWarModel();},
+        function( model ) {return new TugOfWarView( model );}
+      ),
+      new Screen( motionString, new Image( MotionIcon ),
+        function() {return new MotionModel( 'motion' );},
+        function( model ) {return new MotionView( model );}
+      ),
+      new Screen( frictionString, new Image( FrictionIcon ),
+        function() {return new MotionModel( 'friction' );},
+        function( model ) {return new MotionView( model );}
+      ),
+      new Screen( accelerationString, new Image( AccelerationIcon ),
+        function() {return new MotionModel( 'acceleration' );},
+        function( model ) {return new MotionView( model );}
+      )
     ], simOptions ).start();
   } );
 } );

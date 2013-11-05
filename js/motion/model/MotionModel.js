@@ -164,7 +164,7 @@ define( function( require ) {
       var g = 10.0;
       var sum = function( a, b ) {return a + b;};
       var toMass = function( item ) {return item.mass;};
-      var mass = this.stack.map( toMass ).foldLeft( 0, sum );
+      var mass = this.stack.map( toMass ).reduce( 0, sum );
       if ( this.friction === 0.0 ) { return 0.0; }
       var frictionForce = Math.abs( this.friction ) * this.getSign( this.friction ) * mass * g;
 
@@ -180,7 +180,7 @@ define( function( require ) {
     },
 
     //Compute the mass of the entire stack, for purposes of momentum computation
-    getStackMass: function() { return this.stack.foldLeft( 0, function( sum, item ) { return sum + item.mass; } ); },
+    getStackMass: function() { return this.stack.reduce( 0, function( sum, item ) { return sum + item.mass; } ); },
 
     //Determine whether a value is positive, negative or zero, to determine whether the object changed directions.
     sign: function( value ) {
