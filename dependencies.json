@@ -52,8 +52,8 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "bf6fe11eae1f1df782b6f1aa91ca8501b549dd3a",
+    "sha": "67a12c1b763e5303d2850c8e4861e29a7229ff1f",
     "branch": "1.0"
   },
-  "comment": "# forces-and-motion-basics 1.0.0-rc.35 Mon Nov 04 2013 21:05:05 GMT-0700 (Mountain Standard Time)"
+  "comment": "# forces-and-motion-basics 1.0.0-rc.35 Mon Nov 04 2013 21:06:19 GMT-0700 (Mountain Standard Time)"
 }
