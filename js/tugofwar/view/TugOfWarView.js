@@ -48,7 +48,7 @@ define( function( require ) {
   var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_3.png' );
   var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_0.png' );
   var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_3.png' );
-  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
+  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
 
   /**
    * @param {TugOfWarModel} model
