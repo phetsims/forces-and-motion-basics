@@ -263,6 +263,11 @@ define( function( require ) {
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].step( dt );
       }
+
+      //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
+      if ( this.appliedForce !== 0 ) {
+        this.fallen = false;
+      }
     },
 
     //Determine whether an item is in the stack.
