@@ -73,7 +73,9 @@ define( function( require ) {
       var other = running ? goText : pauseText;
       text.visible = true;
       other.visible = false;
-      goPauseButton.visible = state !== 'completed' && numberPullersAttached > 0;
+
+      //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
+      goPauseButton.visible = state !== 'completed' && (numberPullersAttached > 0 || running);
     } );
 
     this.centerX = layoutWidth / 2;
