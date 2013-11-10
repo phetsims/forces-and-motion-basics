@@ -104,7 +104,11 @@ define( function( require ) {
     var readout = new Text( '???', {font: new PhetFont( 22 ), pickable: false} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
-      readout.text = appliedForce.toFixed( 0 ) + ' ' + newtonsString; //TODO: i18n message format
+      var numberText = appliedForce.toFixed( 0 );
+
+      //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
+      if ( numberText === '-0' ) { numberText = '0'; }
+      readout.text = numberText + ' ' + newtonsString; //TODO: i18n message format
       readout.centerX = width / 2;
     } );
 
