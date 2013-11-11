@@ -104,7 +104,9 @@ define( function( require ) {
     var readout = new Text( '???', {font: new PhetFont( 22 ), pickable: false} );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
-      var numberText = appliedForce.toFixed( 0 );
+
+      //Must match the other formatters below, see roundedAppliedForceProperty near the creation of the ReadoutArrows
+      var numberText = parseInt( Math.round( appliedForce ).toFixed( 0 ), 10 ).toFixed( 0 );
 
       //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
       if ( numberText === '-0' ) { numberText = '0'; }
@@ -211,12 +213,18 @@ define( function( require ) {
 
     //Add the force arrows & associated readouts in front of the items
     var arrowScale = 0.3;
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, model.sumOfForcesProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
+
+    var roundedSumProperty = new DerivedProperty( [model.sumOfForcesProperty], function( sumOfForces ) { return parseInt( Math.round( sumOfForces ).toFixed( 0 ), 10 ); } );
+    var roundedAppliedForceProperty = new DerivedProperty( [model.appliedForceProperty], function( appliedForce ) { return parseInt( Math.round( appliedForce ).toFixed( 0 ), 10 ); } );
+    var roundedFrictionForceProperty = new DerivedProperty( [roundedSumProperty, roundedAppliedForceProperty], function( roundedSum, roundedApplied ) {
+      return roundedSum - roundedApplied;
+    } );
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
     model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
-    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, model.appliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, model.frictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
