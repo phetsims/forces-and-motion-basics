@@ -6,5 +6,5 @@
  */
 define( function() {
   'use strict';
-  return function() { return '1.0.0-rc.44'; };
+  return function() { return '1.0.0-rc.45'; };
 } );
