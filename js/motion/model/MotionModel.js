@@ -207,17 +207,9 @@ define( function( require ) {
       //When the user changes the friction force or mass while the sim is paused.
       this.frictionForce = this.getFrictionForce( this.appliedForce );
       this.sumOfForces = this.frictionForce + this.appliedForce;
-      if ( this.sumOfForces !== 0 ) {
-        debugger;
-
-        var xyz = this.getFrictionForce( this.appliedForce );
-      }
 
       var mass = this.getStackMass();
       this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
-      if ( !(this.acceleration === 0) ) {
-        debugger;
-      }
 
       var newVelocity = this.velocity + this.acceleration * dt;
 
