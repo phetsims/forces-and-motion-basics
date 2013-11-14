@@ -221,9 +221,15 @@ define( function( require ) {
       return applied + friction;
     } );
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
+    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {
+      motionView.sumArrow.visible = showForce && showSumOfForces;
+    } );
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
-    model.multilink( ['showForce', 'showSumOfForces', 'sumOfForces'], function( showForce, showSumOfForces, sumOfForces ) {motionView.sumOfForcesText.visible = showForce && showSumOfForces && !sumOfForces;} );
+
+    //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
+    new DerivedProperty( [model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty], function( showForce, showSumOfForces, sumOfForces ) {
+      motionView.sumOfForcesText.visible = showForce && showSumOfForces && sumOfForces === 0;
+    } );
     this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
