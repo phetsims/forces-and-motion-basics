@@ -228,8 +228,8 @@ define( function( require ) {
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty], function( showForce, showSumOfForces, sumOfForces ) {
-      motionView.sumOfForcesText.visible = showForce && showSumOfForces && sumOfForces === 0;
-    } );
+      return showForce && showSumOfForces && sumOfForces === 0;
+    } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
