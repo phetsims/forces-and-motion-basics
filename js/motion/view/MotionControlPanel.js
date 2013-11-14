@@ -50,7 +50,7 @@ define( function( require ) {
 
     var toElement = function( text, propertyName, options ) {
       options = _.extend( {indent: 0}, options );
-      var textNode = new Text( text, {boundsMethod: 'fast', font: new PhetFont( fontSize )} );
+      var textNode = new Text( text, {font: new PhetFont( fontSize )} );
       return {
         //TODO: Why is this immense spacing necessary here?
         content: options.icon ? new HBox( {spacing: 10, children: [  textNode, options.icon]} ) : textNode,
@@ -87,8 +87,6 @@ define( function( require ) {
         addTick( 0, createTick( lotsString, false ) ).addTick( 1, createTick( noneString, false ) );
       var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );
 
-      //Workaround for a scenery bug that has the wrong bounds with the hybrid approach.
-      frictionLabel.boundsMethod = 'fast';
       return new VBox( {spacing: -8, children: [frictionLabel , frictionSlider]} );
     };
 

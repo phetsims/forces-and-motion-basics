@@ -78,7 +78,9 @@ define( function( require ) {
     this.pullers.forEach( function( puller ) {
 
       puller.positionProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
-
+      puller.on( 'dragged', function() {
+        tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
+      } );
       puller.on( 'dropped', function() {
         var knot = tugOfWarModel.getTargetKnot( puller );
 

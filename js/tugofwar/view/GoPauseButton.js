@@ -22,6 +22,8 @@ define( function( require ) {
   var stopPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/stop_pressed.png' );
   var goPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/go_pressed.png' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PushButton = require( 'SUN/PushButton' );
+  var ToggleNode = require( 'SUN/ToggleNode' );
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
@@ -31,50 +33,43 @@ define( function( require ) {
    */
   function GoPauseButton( model, layoutWidth ) {
     var goPauseButton = this;
-    Image.call( this, goUpImage, {y: 400, cursor: 'pointer'} );
-
-    var updateOut = function() {goPauseButton.image = model.running ? stopUpImage : goUpImage;};
-
-    goPauseButton.addInputListener( {
-      over: function() {
-        goPauseButton.image = model.running ? stopHoverImage : goHoverImage;
-      },
-      out: updateOut,
-      down: function() {
-        goPauseButton.image = model.running ? stopPressedImage : goPressedImage;
-        model.running = !model.running;
-      },
-      up: function() {
-        goPauseButton.image = model.running ? stopHoverImage : goHoverImage;
-      }
-    } );
-
-    model.runningProperty.link( updateOut );
 
     //Pre create the text icons because dynamically changing text currently 4-1-2013 looks buggy on iPad 3
     var textOptions = {font: new PhetFont( 30 )};
-    var textWidth = goPauseButton.width - 30;//Trim the edges because of the shadow and button padding
+    var textWidth = goUpImage.width - 30;//Trim the edges because of the shadow and button padding
 
     var goText = new Text( goString, textOptions );
     if ( goText.width > textWidth ) { goText.scale( textWidth / goText.width ); }
-    goText.centerX = goPauseButton.width / 2 - 2;
-    goText.centerY = goPauseButton.height / 2 - 3;
 
     var pauseText = new Text( pauseString, textOptions );
     if ( pauseText.width > textWidth ) { pauseText.scale( textWidth / pauseText.width ); }
-    pauseText.centerX = goPauseButton.width / 2 - 2;
-    pauseText.centerY = goPauseButton.height / 2 - 3;
 
-    goPauseButton.addChild( goText );
-    goPauseButton.addChild( pauseText );
+    var goButton = new PushButton( new Image( goUpImage ), new Image( goHoverImage ), new Image( goPressedImage ), new Image( goUpImage ) );
 
-    model.multilink( ['running', 'state', 'numberPullersAttached'], function( running, state, numberPullersAttached ) {
-      var text = running ? pauseText : goText;
-      var other = running ? goText : pauseText;
-      text.visible = true;
-      other.visible = false;
-      goPauseButton.visible = state !== 'completed' && numberPullersAttached > 0;
+    //Account for the button not being centered
+    goText.center = goButton.center.plusXY( -3, -5 );
+    goButton.addChild( goText );
+
+    goButton.addListener( function() { model.running = true; } );
+
+    var pauseButton = new PushButton( new Image( stopUpImage ), new Image( stopHoverImage ), new Image( stopPressedImage ), new Image( stopUpImage ) );
+
+    //Account for the button not being centered
+    pauseText.center = pauseButton.center.plusXY( -3, -5 );
+    pauseButton.addChild( pauseText );
+
+    pauseButton.addListener( function() { model.running = false; } );
+
+    var showGoButtonProperty = model.toDerivedProperty( ['running', 'state', 'numberPullersAttached'], function( running, state, numberPullersAttached ) {
+      return !running;
     } );
+    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {y: 400} );
+
+    //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
+    var showGoPauseButtonProperty = model.toDerivedProperty( ['running', 'state', 'numberPullersAttached'], function( running, state, numberPullersAttached ) {
+      goPauseButton.visible = state !== 'completed' && (numberPullersAttached > 0 || running);
+    } );
+    showGoPauseButtonProperty.linkAttribute( this, 'visible' );
 
     this.centerX = layoutWidth / 2;
 
@@ -82,7 +77,5 @@ define( function( require ) {
     this.addPeer( '<input type="button">', {click: function() {model.running = !model.running;}} );
   }
 
-  inherit( Image, GoPauseButton );
-
-  return GoPauseButton;
+  return inherit( ToggleNode, GoPauseButton );
 } );

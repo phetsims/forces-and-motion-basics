@@ -170,7 +170,7 @@ define( function( require ) {
 
       //Friction force only applies above this velocity
       var velocityThreshold = 1E-12;
-      if ( Math.abs( this.velocity ) <= velocityThreshold && Math.abs( frictionForce ) > Math.abs( appliedForce ) ) {
+      if ( Math.abs( this.velocity ) <= velocityThreshold && Math.abs( frictionForce ) >= Math.abs( appliedForce ) ) {
         frictionForce = appliedForce;
       }
       else if ( Math.abs( this.velocity ) > velocityThreshold ) {
@@ -262,6 +262,11 @@ define( function( require ) {
 
       for ( var i = 0; i < this.items.length; i++ ) {
         this.items[i].step( dt );
+      }
+
+      //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
+      if ( this.appliedForce !== 0 ) {
+        this.fallen = false;
       }
     },
 
