@@ -214,10 +214,11 @@ define( function( require ) {
     //Add the force arrows & associated readouts in front of the items
     var arrowScale = 0.3;
 
-    var roundedSumProperty = new DerivedProperty( [model.sumOfForcesProperty], function( sumOfForces ) { return parseInt( Math.round( sumOfForces ).toFixed( 0 ), 10 ); } );
-    var roundedAppliedForceProperty = new DerivedProperty( [model.appliedForceProperty], function( appliedForce ) { return parseInt( Math.round( appliedForce ).toFixed( 0 ), 10 ); } );
-    var roundedFrictionForceProperty = new DerivedProperty( [roundedSumProperty, roundedAppliedForceProperty], function( roundedSum, roundedApplied ) {
-      return roundedSum - roundedApplied;
+    //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
+    var roundedAppliedForceProperty = new DerivedProperty( [model.appliedForceProperty], function( appliedForce ) {return Math.round( appliedForce );} );
+    var roundedFrictionForceProperty = new DerivedProperty( [model.frictionForceProperty], function( frictionForce ) { return Math.round( frictionForce ); } );
+    var roundedSumProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty], function( applied, friction ) {
+      return applied + friction;
     } );
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {motionView.sumArrow.visible = showForce && showSumOfForces;} );
