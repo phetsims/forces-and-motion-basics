@@ -78,6 +78,9 @@ define( function( require ) {
 
       //When picking up an object, remove it from the stack.
       start: function() {
+
+        //Move it to front (z-order)
+        itemNode.moveToFront();
         item.dragging = true;
         var index = model.stack.indexOf( item );
         if ( index >= 0 ) {

@@ -195,6 +195,7 @@ define( function( require ) {
     }
 
     //Iterate over the items in the model and create and add nodes for each one
+    var itemLayer = new Node();
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
@@ -208,8 +209,9 @@ define( function( require ) {
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
-      this.addChild( itemNode );
+      itemLayer.addChild( itemNode );
     }
+    this.addChild( itemLayer );
 
     //Add the force arrows & associated readouts in front of the items
     var arrowScale = 0.3;
@@ -217,9 +219,11 @@ define( function( require ) {
     //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
     var roundedAppliedForceProperty = new DerivedProperty( [model.appliedForceProperty], function( appliedForce ) {return Math.round( appliedForce );} );
     var roundedFrictionForceProperty = new DerivedProperty( [model.frictionForceProperty], function( frictionForce ) { return Math.round( frictionForce ); } );
-    var roundedSumProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty], function( applied, friction ) {
-      return applied + friction;
-    } );
+
+    //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
+    var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
+    model.on( 'stepped', function() { roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() ); } );
+
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {
       motionView.sumArrow.visible = showForce && showSumOfForces;
@@ -236,6 +240,15 @@ define( function( require ) {
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
     this.addChild( this.sumOfForcesText );
+
+    //Whichever arrow is smaller should be in front (in z-ordering)
+    var frictionLargerProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty], function( roundedAppliedForce, roundedFrictionForce ) {
+      return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
+    } );
+    frictionLargerProperty.link( function( frictionLarger ) {
+      var node = frictionLarger ? motionView.appliedForceArrow : motionView.frictionArrow;
+      node.moveToFront();
+    } );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
