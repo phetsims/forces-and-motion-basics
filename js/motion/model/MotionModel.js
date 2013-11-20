@@ -275,6 +275,8 @@ define( function( require ) {
       if ( this.appliedForce !== 0 ) {
         this.fallen = false;
       }
+
+      this.trigger( 'stepped' );
     },
 
     //Determine whether an item is in the stack.
