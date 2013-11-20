@@ -195,6 +195,7 @@ define( function( require ) {
     }
 
     //Iterate over the items in the model and create and add nodes for each one
+    var itemLayer = new Node();
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[i];
@@ -208,8 +209,9 @@ define( function( require ) {
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
-      this.addChild( itemNode );
+      itemLayer.addChild( itemNode );
     }
+    this.addChild( itemLayer );
 
     //Add the force arrows & associated readouts in front of the items
     var arrowScale = 0.3;
