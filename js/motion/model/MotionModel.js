@@ -165,18 +165,25 @@ define( function( require ) {
       var sum = function( a, b ) {return a + b;};
       var toMass = function( item ) {return item.mass;};
       var mass = this.stack.map( toMass ).reduce( 0, sum );
-      if ( this.friction === 0.0 ) { return 0.0; }
-      var frictionForce = Math.abs( this.friction ) * this.getSign( this.friction ) * mass * g;
+      var frictionForceMagnitude = Math.abs( this.friction * mass * g );
 
       //Friction force only applies above this velocity
       var velocityThreshold = 1E-12;
-      if ( Math.abs( this.velocity ) <= velocityThreshold && Math.abs( frictionForce ) >= Math.abs( appliedForce ) ) {
-        frictionForce = appliedForce;
+
+      //Object is motionless, friction should oppose the applied force
+      if ( Math.abs( this.velocity ) <= velocityThreshold ) {
+
+        //the friction is higher than the applied force, so don't allow the friction force to be higher than the applied force
+        return frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
+
+          //Oppose the applied force
+               -this.getSign( this.appliedForce ) * frictionForceMagnitude;
       }
-      else if ( Math.abs( this.velocity ) > velocityThreshold ) {
-        frictionForce = this.getSign( this.velocity ) * this.friction * mass * g;
+
+      //Object is moving, so friction should oppose the velocity
+      else {
+        return -this.getSign( this.velocity ) * frictionForceMagnitude;
       }
-      return -frictionForce;
     },
 
     //Compute the mass of the entire stack, for purposes of momentum computation
