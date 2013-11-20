@@ -237,6 +237,15 @@ define( function( require ) {
     this.addChild( this.frictionArrow );
     this.addChild( this.sumOfForcesText );
 
+    //Whichever arrow is smaller should be in front (in z-ordering)
+    var frictionLargerProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty], function( roundedAppliedForce, roundedFrictionForce ) {
+      return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
+    } );
+    frictionLargerProperty.link( function( frictionLarger ) {
+      var node = frictionLarger ? motionView.appliedForceArrow : motionView.frictionArrow;
+      node.moveToFront();
+    } );
+
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
