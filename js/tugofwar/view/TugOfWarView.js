@@ -69,7 +69,7 @@ define( function( require ) {
     var grassY = 368;
     var groundHeight = height - skyHeight;
     this.addChild( new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )} ) );
-    this.addChild( new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, { fill: '#c59a5b'} ) );
+    this.addChild( new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, { fill: '#c59a5b'} ) );
 
     //Show the grass.
     this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );

@@ -66,7 +66,7 @@ define( function( require ) {
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable: false} );
 
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 2, {fill: '#c59a5b', pickable: false} );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, {fill: '#c59a5b', pickable: false} );
     this.addChild( this.sky );
     this.addChild( this.groundNode );
 
