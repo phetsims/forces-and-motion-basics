@@ -24,7 +24,7 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
-  var SpeedometerNode = require( 'SCENERY_PHET/SpeedometerNode' );
+  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
@@ -142,7 +142,7 @@ define( function( require ) {
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocityProperty, speedString, MotionConstants.MAX_SPEED ).mutate( {x: width / 2, top: 2} );
+    var speedometerNode = new GaugeNode( model.velocityProperty, speedString, {min: 0, max: MotionConstants.MAX_SPEED}, {x: width / 2, top: 2} );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
