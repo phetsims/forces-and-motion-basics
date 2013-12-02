@@ -1,59 +1,59 @@
 {
   "chipper": {
     "sha": "e80f4bb16594e4420fb98713a52e65f74b9cb609",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "71d59ca730a951e5faee5d10144b99da954bd8d2",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "vibe": {
     "sha": "db983fc7efd20967d792233fa41ced0b1a864847",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "d355ba68093cad187924dd55f8c4f8e3fca30acd",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "95cd625f13e1759b56d0de4cc4169f52ced8793d",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "84c0132adda97ccca482eca4e4edb84adaef5e14",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "31c545830c1921cb2d200e63b98a03ff9b86c6b3",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "f5b48ba0c115ba9a1a7efb5b211047cb93893783",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "31549be40abeda91d44ef9446361d0b611121949",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "b8e6d658327a10974c92516baf5764a406744c24",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "joist": {
     "sha": "b20b7da4e9b3f4ec7c1fd98d65372131221f2a5a",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "9746bc1c2e1b7d8a23650327b1159c7db4377d01",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "assert": {
     "sha": "ce8013d3c65c140de3ec4c6f8ab508f8098793db",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "69637b48fd6f278b371c4041bae23d5e8ef78aff",
+    "sha": "8932b331d7727c85f1ecd4f91913e3010439abbb",
     "branch": "1.0"
   },
-  "comment": "# forces-and-motion-basics 1.0.0-rc.50 Wed Nov 20 2013 21:23:49 GMT-0700 (Mountain Standard Time)"
+  "comment": "# forces-and-motion-basics 1.0.0 Mon Dec 02 2013 16:29:38 GMT-0700 (Mountain Standard Time)"
 }
