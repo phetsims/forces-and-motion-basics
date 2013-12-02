@@ -1,6 +1,6 @@
 {
   "chipper": {
-    "sha": "6b5bc08fd94f890940ed62af38e4d2b258cdec94",
+    "sha": "e80f4bb16594e4420fb98713a52e65f74b9cb609",
     "branch": "master"
   },
   "sherpa": {
@@ -8,23 +8,23 @@
     "branch": "master"
   },
   "vibe": {
-    "sha": "f2c8fbecefae3a48b851aec9ad959ed5ab82d39b",
+    "sha": "db983fc7efd20967d792233fa41ced0b1a864847",
     "branch": "master"
   },
   "axon": {
-    "sha": "1855e7220dcc036577c2c739ab7e294797639a85",
+    "sha": "d355ba68093cad187924dd55f8c4f8e3fca30acd",
     "branch": "master"
   },
   "sun": {
-    "sha": "1b334ba5f29ff31ed7b973a60e537c25e93823a2",
+    "sha": "95cd625f13e1759b56d0de4cc4169f52ced8793d",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "e4bfdf14ca3bf2f6fd1bfbcc0ab4ca4935abe489",
+    "sha": "84c0132adda97ccca482eca4e4edb84adaef5e14",
     "branch": "master"
   },
   "scenery": {
-    "sha": "d279f7d6c414ced546e90674e7dd089ea35b5413",
+    "sha": "31c545830c1921cb2d200e63b98a03ff9b86c6b3",
     "branch": "master"
   },
   "phetcommon": {
@@ -32,19 +32,19 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "9e97dcf706981788610079918c2354328da9a1d4",
+    "sha": "31549be40abeda91d44ef9446361d0b611121949",
     "branch": "master"
   },
   "kite": {
-    "sha": "709741ae5c9432adc5949931bcbb08d31c07d2ca",
+    "sha": "b8e6d658327a10974c92516baf5764a406744c24",
     "branch": "master"
   },
   "joist": {
-    "sha": "adeaca0e794be66f81621fc5e1bb12c0973ba738",
+    "sha": "b20b7da4e9b3f4ec7c1fd98d65372131221f2a5a",
     "branch": "master"
   },
   "dot": {
-    "sha": "7e5c1e65392c2b7106bbc39fae6a51d804b3a133",
+    "sha": "9746bc1c2e1b7d8a23650327b1159c7db4377d01",
     "branch": "master"
   },
   "assert": {
@@ -52,8 +52,8 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "c7b674d56c332c6fcdbe548efce627825b247b31",
+    "sha": "69637b48fd6f278b371c4041bae23d5e8ef78aff",
     "branch": "1.0"
   },
-  "comment": "# forces-and-motion-basics 1.0.0-rc.36 Tue Nov 05 2013 14:41:19 GMT-0700 (Mountain Standard Time)"
+  "comment": "# forces-and-motion-basics 1.0.0-rc.50 Wed Nov 20 2013 21:23:49 GMT-0700 (Mountain Standard Time)"
 }
