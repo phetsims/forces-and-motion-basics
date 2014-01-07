@@ -22,7 +22,6 @@ define( function( require ) {
   var FlagNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/FlagNode' );
   var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var platform = require( 'PHET_CORE/platform' );
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
   var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
   var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );

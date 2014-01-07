@@ -21,10 +21,7 @@ define( function( require ) {
   var cloudImage = require( 'image!FORCES_AND_MOTION_BASICS/cloud1.png' );
   var icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/icicle.png' );
   var linear = require( 'DOT/Util' ).linear;
-  var Matrix3 = require( 'DOT/Matrix3' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var platform = require( 'PHET_CORE/platform' );
 
   /**
@@ -147,8 +144,8 @@ define( function( require ) {
         //Add the ice
         var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
         iceOverlay.boundsInaccurate = true;
-        var frictionZero = model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
-        var frictionNonZero = model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
+        model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
+        model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
         movingBackgroundNode.addChild( iceOverlay );
         model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 

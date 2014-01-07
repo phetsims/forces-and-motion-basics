@@ -35,8 +35,6 @@ define( function( require ) {
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 

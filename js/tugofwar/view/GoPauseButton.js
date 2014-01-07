@@ -11,7 +11,6 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var stopUpImage = require( 'image!FORCES_AND_MOTION_BASICS/stop_up.png' );

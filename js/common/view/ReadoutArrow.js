@@ -10,12 +10,10 @@ define( function( require ) {
   'use strict';
 
   var Path = require( 'SCENERY/nodes/Path' );
-  var Font = require( 'SCENERY/util/Font' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forceReadoutPattern = require( 'string!FORCES_AND_MOTION_BASICS/forceReadout.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );

@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   var
-    Property = require( 'AXON/Property' ),
     PropertySet = require( 'AXON/PropertySet' ),
     inherit = require( 'PHET_CORE/inherit' ),
     Puller = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/Puller' ),
