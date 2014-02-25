@@ -95,7 +95,9 @@ define( function( require ) {
         var tailY = this.tailY;
         var tailWidth = 25;
         var headWidth = 50;
-        var headHeight = 40;
+
+        //For short arrows, the head height should be half of the arrow length.  See https://github.com/phetsims/scenery-phet/issues/30
+        var headHeight = Math.min( Math.abs( value ) / 2, 40 );
         this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY,
           { tailWidth: tailWidth, headWidth: headWidth, headHeight: headHeight } );
 
