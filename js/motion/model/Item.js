@@ -13,7 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
 
-  function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage ) {
+  function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage, mystery ) {
     var item = this;
 
     //Non-observable properties
@@ -25,6 +25,7 @@ define( function( require ) {
     this.sittingImage = sittingImage;
     this.holdingImage = holdingImage;
     this.context = context;
+    this.mystery = mystery;
 
     //Observable properties
     PropertySet.call( this, {position: new Vector2( x, y ), pusherInset: pusherInset || 0, dragging: false, direction: 'left', animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},

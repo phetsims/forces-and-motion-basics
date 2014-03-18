@@ -97,7 +97,7 @@ define( function( require ) {
                  [ fridge, crate1, crate2, girl, man, bucket ] :
                  [ fridge, crate1, crate2, girl, man,
                    new Item( this, trashCanImage, 100, 816, 502, 0.7, 11 ),
-                   new Item( this, mysteryObjectImage, 50, 888, 543, 1.1 )
+                   new Item( this, mysteryObjectImage, 50, 888, 543, 1.1, undefined, undefined, undefined, true )
                  ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
