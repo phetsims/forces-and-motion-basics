@@ -7,7 +7,7 @@ define( function( require ) {
   'use strict';
 
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ResetAllButtonDeprecated = require( 'SCENERY_PHET/ResetAllButtonDeprecated' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -173,7 +173,7 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     //Reset all button goes beneath the control panel
-    var resetButton = new ResetAllButton( model.reset.bind( model ), {scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButtonDeprecated( model.reset.bind( model ), {scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
     //Add the accelerometer, if on the final screen
@@ -200,8 +200,8 @@ define( function( require ) {
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
         item.image,
-        item.sittingImage || item.image,
-        item.holdingImage || item.image,
+          item.sittingImage || item.image,
+          item.holdingImage || item.image,
         model.showMassesProperty );
       this.itemNodes.push( itemNode );
 
