@@ -10,7 +10,7 @@ define( function( require ) {
 
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var TextPushButton = require( 'SUN/TextPushButton' );
+  var TextPushButtonDeprecated = require( 'SUN/TextPushButtonDeprecated' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Color = require( 'SCENERY/util/Color' );
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
@@ -23,7 +23,7 @@ define( function( require ) {
   function ReturnButton( model, options ) {
     Node.call( this, {} );
 
-    var button = new TextPushButton( returnString, {
+    var button = new TextPushButtonDeprecated( returnString, {
       listener: model.returnCart.bind( model ),
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       rectangleFillUp: new Color( 254, 192, 0 )
