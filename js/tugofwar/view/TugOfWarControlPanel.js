@@ -12,7 +12,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var SoundToggleButtonDeprecated = require( 'SCENERY_PHET/SoundToggleButtonDeprecated' );
+  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
@@ -39,7 +39,7 @@ define( function( require ) {
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     var resetButton = new ResetAllButton( { listener: model.reset.bind( model ), scale: 1.13 } );
-    var soundButton = new SoundToggleButtonDeprecated( model.volumeOnProperty, { padX: 19, padY: 19 } );
+    var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 15} ) );
   }
 
