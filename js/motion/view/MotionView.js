@@ -7,7 +7,7 @@ define( function( require ) {
   'use strict';
 
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var ResetAllButtonDeprecated = require( 'SCENERY_PHET/ResetAllButtonDeprecated' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -173,7 +173,10 @@ define( function( require ) {
     this.addChild( controlPanel );
 
     //Reset all button goes beneath the control panel
-    var resetButton = new ResetAllButtonDeprecated( model.reset.bind( model ), {scale: 88 / 103} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    var resetButton = new ResetAllButton( {
+      listener: model.reset.bind( model ),
+      scale: 1.13
+    } ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
 
     //Add the accelerometer, if on the final screen
