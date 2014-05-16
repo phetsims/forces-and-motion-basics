@@ -21,7 +21,7 @@ define( function( require ) {
   var stopPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/stop_pressed.png' );
   var goPressedImage = require( 'image!FORCES_AND_MOTION_BASICS/go_pressed.png' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PushButton = require( 'SUN/PushButton' );
+  var PushButtonDeprecated = require( 'SUN/PushButtonDeprecated' );
   var ToggleNode = require( 'SUN/ToggleNode' );
 
   /**
@@ -43,7 +43,7 @@ define( function( require ) {
     var pauseText = new Text( pauseString, textOptions );
     if ( pauseText.width > textWidth ) { pauseText.scale( textWidth / pauseText.width ); }
 
-    var goButton = new PushButton( new Image( goUpImage ), new Image( goHoverImage ), new Image( goPressedImage ), new Image( goUpImage ) );
+    var goButton = new PushButtonDeprecated( new Image( goUpImage ), new Image( goHoverImage ), new Image( goPressedImage ), new Image( goUpImage ) );
 
     //Account for the button not being centered
     goText.center = goButton.center.plusXY( -3, -5 );
@@ -51,7 +51,7 @@ define( function( require ) {
 
     goButton.addListener( function() { model.running = true; } );
 
-    var pauseButton = new PushButton( new Image( stopUpImage ), new Image( stopHoverImage ), new Image( stopPressedImage ), new Image( stopUpImage ) );
+    var pauseButton = new PushButtonDeprecated( new Image( stopUpImage ), new Image( stopHoverImage ), new Image( stopPressedImage ), new Image( stopUpImage ) );
 
     //Account for the button not being centered
     pauseText.center = pauseButton.center.plusXY( -3, -5 );
