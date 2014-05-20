@@ -1,3 +1,4 @@
+5/20/14 convert 'Return' button from sun.TextPushButtonDeprecated to sun.buttons.TextPushButton
 9/25/13 On screens 2-4, moved the items to be in front of the controls and control panel
 9/24/13 Write as '50 N' instead of '50N', see #51
 9/24/13 Fixed: present and weight text blurry, see #50
