@@ -9,7 +9,6 @@
 define( function( require ) {
   'use strict';
 
-  var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var inherit = require( 'PHET_CORE/inherit' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
