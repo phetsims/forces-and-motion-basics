@@ -61,10 +61,8 @@ define( function( require ) {
         toBackgroundImage( 0, cloudImage, 10, 0.7 ),
         toBackgroundImage( L - 100, cloudImage, -30, 0.8 ),
         toBackgroundImage( -L / 3 - 100, cloudImage, 5, 1 )
-      ],
-
-      //Work around https://github.com/phetsims/scenery/issues/127
-      renderer: platform.firefox ? 'canvas' : 'svg'} );
+      ]
+    } );
     mountainAndCloudLayer.boundsInaccurate = true;
     this.addChild( mountainAndCloudLayer );
 
@@ -156,10 +154,7 @@ define( function( require ) {
           children: [
             toBackgroundImage( 0, icicleImage, 0, 0.8 ),
             toBackgroundImage( 300, icicleImage, 0, 0.8 )
-          ], x: layoutCenterX, y: groundY + ground.height,
-
-          //Work around https://github.com/phetsims/scenery/issues/127
-          renderer: platform.firefox ? 'canvas' : 'svg'} );
+          ], x: layoutCenterX, y: groundY + ground.height} );
         iceLayer.boundsInaccurate = true;
         model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
         movingBackgroundNode.addChild( iceLayer );
