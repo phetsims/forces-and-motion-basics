@@ -22,7 +22,6 @@ define( function( require ) {
   var icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/icicle.png' );
   var linear = require( 'DOT/Util' ).linear;
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var platform = require( 'PHET_CORE/platform' );
 
   /**
    * Constructor for MovingBackgroundNode
