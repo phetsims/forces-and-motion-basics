@@ -311,6 +311,13 @@ define( function( require ) {
       item.interactionScale = 1.3;
       item.position = new Vector2( view.layoutBounds.width / 2 - itemNode.width / 2, view.topOfStack - itemNode.height );
       this.stack.add( item );
+    },
+
+    getState: function() {
+      return {
+        properties: this.get().properties,
+        stack: 'stack'
+      };
     }
   } );
 } );
