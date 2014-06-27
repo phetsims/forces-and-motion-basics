@@ -319,6 +319,10 @@ define( function( require ) {
       this.stack.add( item );
     },
 
+    /**
+     * Get the state of the simulation, for persistence.
+     * @return {{properties: *, stack: Array}}
+     */
     getState: function() {
       var motionModel = this;
       return {
