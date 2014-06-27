@@ -13,8 +13,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
 
-  function Item( context, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage, mystery ) {
+  function Item( context, name, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage, mystery ) {
     var item = this;
+
+    this.name = name;
 
     //Non-observable properties
     this.initialX = x;
@@ -49,6 +51,13 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Item, {
+    get: function() {
+      var parent = PropertySet.prototype.get.call( this );
+      parent.image = this.image;
+      parent.mystery = this.mystery;
+      parent.name = this.name;
+      return parent;
+    },
 
     //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
     get centeringOffset() { return this.image === 'trash-can.png' ? 5 : 0; },

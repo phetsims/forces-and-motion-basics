@@ -86,18 +86,18 @@ define( function( require ) {
 
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
-    var bucket = new Item( this, waterBucketImage, 100, 845, 547 + -39, 0.78 );
+    var bucket = new Item( this, 'bucket', waterBucketImage, 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
-    var fridge = new Item( this, fridgeImage, 200, 25, 439, 0.8, 4 );
-    var crate1 = new Item( this, crateImage, 50, 126, 495, 0.5 );
-    var crate2 = new Item( this, crateImage, 50, 218, 495, 0.5 );
-    var girl = new Item( this, girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage );
-    var man = new Item( this, manStandingImage, 80, 747, 421, 0.6, 12, manSittingImage, manHoldingImage );
+    var fridge = new Item( this, 'fridge', fridgeImage, 200, 25, 439, 0.8, 4 );
+    var crate1 = new Item( this, 'crate1', crateImage, 50, 126, 495, 0.5 );
+    var crate2 = new Item( this, 'crate2', crateImage, 50, 218, 495, 0.5 );
+    var girl = new Item( this, 'girl', girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage );
+    var man = new Item( this, 'man', manStandingImage, 80, 747, 421, 0.6, 12, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
                  [ fridge, crate1, crate2, girl, man, bucket ] :
                  [ fridge, crate1, crate2, girl, man,
-                   new Item( this, trashCanImage, 100, 816, 502, 0.7, 11 ),
-                   new Item( this, mysteryObjectImage, 50, 888, 543, 1.1, undefined, undefined, undefined, true )
+                   new Item( this, 'trash', trashCanImage, 100, 816, 502, 0.7, 11 ),
+                   new Item( this, 'mystery', mysteryObjectImage, 50, 888, 543, 1.1, undefined, undefined, undefined, true )
                  ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
@@ -202,9 +202,15 @@ define( function( require ) {
              this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
     },
 
+    count: 0,
     //Update the physics
     step: function( dt ) {
 
+      this.count++;
+
+      if ( this.count % 60 === 0 ) {
+        console.log( this.getState() );
+      }
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
       dt = dt / 2.3;
       this.time = this.time + dt;
@@ -314,9 +320,10 @@ define( function( require ) {
     },
 
     getState: function() {
+      var motionModel = this;
       return {
-        properties: this.get().properties,
-        stack: 'stack'
+        properties: this.get(),
+        stack: motionModel.stack.getArray().map( function( item ) {return item.get();} )
       };
     }
   } );
