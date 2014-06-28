@@ -54,7 +54,7 @@ define( function( require ) {
       return {
         //TODO: Why is this immense spacing necessary here?
         content: options.icon ? new HBox( {spacing: 10, children: [  textNode, options.icon]} ) : textNode,
-        property: model[propertyName + 'Property'],
+        property: model.property( propertyName ),
         indent: options.indent
       };
     };
