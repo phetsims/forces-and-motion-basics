@@ -63,9 +63,9 @@ define( function( require ) {
     ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {top: 400} );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
-    model.toDerivedProperty( ['running', 'state', 'numberPullersAttached'], function( running, state, numberPullersAttached ) {
-      goPauseButton.visible = state !== 'completed' && (numberPullersAttached > 0 || running);
-    } ).linkAttribute( this, 'visible' );
+    model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
+      goPauseButton.visible = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+    } );
 
     this.centerX = layoutWidth / 2;
   }
