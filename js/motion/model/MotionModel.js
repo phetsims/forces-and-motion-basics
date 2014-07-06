@@ -202,15 +202,9 @@ define( function( require ) {
              this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
     },
 
-    count: 0,
     //Update the physics
     step: function( dt ) {
 
-      this.count++;
-
-      if ( this.count % 60 === 0 ) {
-        console.log( this.getState() );
-      }
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
       dt = dt / 2.3;
       this.time = this.time + dt;
