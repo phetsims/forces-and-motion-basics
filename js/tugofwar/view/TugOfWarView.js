@@ -49,11 +49,19 @@ define( function( require ) {
   var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_3.png' );
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
 
+  //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
+  //aspect ratio of this screen: 981/604=1.62
+  //aspect ratio for default: 768/504=1.52
+  //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
+  var LAYOUT_BOUNDS = new Bounds2( 0, 0, 981, 604 );
+
   /**
    * @param {TugOfWarModel} model
    * @constructor
    */
   function TugOfWarView( model ) {
+
+    ScreenView.call( this, {renderer: 'svg', layoutBounds: LAYOUT_BOUNDS} );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;
@@ -61,7 +69,6 @@ define( function( require ) {
 
     var tugOfWarView = this;
     this.model = model;
-    ScreenView.call( this, {renderer: 'svg'} );
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     var skyHeight = 376;
@@ -188,11 +195,5 @@ define( function( require ) {
     this.addChild( this.sumOfForcesText );
   }
 
-  return inherit( ScreenView, TugOfWarView,
-
-    //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
-    //aspect ratio of this screen: 981/604=1.62
-    //aspect ratio for default: 768/504=1.52
-    //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
-    { layoutBounds: new Bounds2( 0, 0, 981, 604 ) } );
+  return inherit( ScreenView, TugOfWarView );
 } );

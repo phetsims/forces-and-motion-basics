@@ -38,6 +38,12 @@ define( function( require ) {
   var ArrowButton = require( 'SCENERY_PHET/ArrowButton' );
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
+  //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
+  //aspect ratio of this screen: 981/604=1.62
+  //aspect ratio for default: 768/504=1.52
+  //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
+  var LAYOUT_BOUNDS = new Bounds2( 0, 0, 981, 604 );
+
   /**
    * Constructor for the MotionView
    * @param {MotionModel} model model for the entire screen
@@ -49,7 +55,7 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this, {renderer: 'svg'} );
+    ScreenView.call( this, {renderer: 'svg', layoutBounds: LAYOUT_BOUNDS} );
 
     //Variables for this constructor, for convenience
     var motionView = this;
@@ -280,12 +286,6 @@ define( function( require ) {
       var n = this.model.skateboard ? 335 : 360;
       return n - this.stackHeight;
     },
-
-    //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
-    //aspect ratio of this screen: 981/604=1.62
-    //aspect ratio for default: 768/504=1.52
-    //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
-    layoutBounds: new Bounds2( 0, 0, 981, 604 ),
 
     //Get the size of an item
     getSize: function( item ) { return {width: item.view.width, height: item.view.height}; }
