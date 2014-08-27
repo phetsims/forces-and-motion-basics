@@ -11,6 +11,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Create a PullerNode for the specified puller
@@ -108,7 +109,7 @@ define( function( require ) {
       else {
         puller.disconnect();
         var knot = model.getClosestOpenKnot( puller );
-        puller.set( {x: knot.x, y: knot.y, knot: knot} );
+        puller.set( {position: new Vector2( knot.x, knot.y ), knot: knot} );
         model.numberPullersAttached = model.countAttachedPullers();
         puller.dragging = false;
         puller.trigger( 'dropped' );
