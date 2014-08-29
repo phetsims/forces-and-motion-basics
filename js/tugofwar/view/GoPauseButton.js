@@ -68,6 +68,18 @@ define( function( require ) {
     } );
 
     this.centerX = layoutWidth / 2;
+
+    //Add an accessibility peer to the Go/Pause button to enable keyboard access and screen reading
+    //TODO: The peer should not be in the DOM if the button is invisible
+    this.addPeer( '<input type="button" aria-label="Go/Pause">', {
+      click: function() {
+        model.running = !model.running;
+      },
+
+      //Visit this button after the user has added some pullers to the rope
+      //TODO: Would benefit from a more natural traversal order
+      tabIndex: 2
+    } );
   }
 
   return inherit( ToggleNode, GoPauseButton );
