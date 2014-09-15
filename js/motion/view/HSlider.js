@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {Property<Number>} speedClassificationProperty
    * @param {Property<Boolean>} disableLeftProperty
    * @param {Property<Boolean>} disableRightProperty
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function HSlider( min, max, width, property, speedClassificationProperty, disableLeftProperty, disableRightProperty, options ) {

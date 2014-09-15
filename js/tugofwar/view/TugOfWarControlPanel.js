@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * Create the TugOfWarControlPanel.
    * @param {TugOfWarModel} model the model for this control panel
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function TugOfWarControlPanel( model, options ) {
