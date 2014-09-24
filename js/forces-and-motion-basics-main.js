@@ -31,8 +31,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Noah Podolefsky',
       softwareDevelopment: 'Sam Reid',
-      designTeam: 'Ariel Paul, Kathy Perkins, Trish Loeblein',
-      interviews: 'Noah Podolefsky'
+      team: 'Trish Loeblein, Ariel Paul, Kathy Perkins, Noah Podolefsky'
     }
   };
 
