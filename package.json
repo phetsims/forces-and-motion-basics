@@ -17,6 +17,5 @@
     "esprima": "~1.0.4",
     "escodegen": "~0.0.27"
   },
-  "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
   "simTitleStringKey": "FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name"
 }
