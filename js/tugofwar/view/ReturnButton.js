@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * @param {TugOfWarModel} model
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function ReturnButton( model, options ) {
