@@ -11,8 +11,8 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
-  var SoundToggleButton = require( 'SCENERY_PHET/SoundToggleButton' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
