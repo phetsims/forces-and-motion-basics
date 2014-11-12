@@ -6,7 +6,6 @@ require.config( {
   paths: {
 
     //Load dependencies from sibling directories
-    ASSERT: '../../assert/js',
     AXON: '../../axon/js',
     BRAND: '../../brand/js',
     DOT: '../../dot/js',
