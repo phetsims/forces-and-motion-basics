@@ -113,7 +113,7 @@ define( function( require ) {
 
     //Count the number of pullers attached to the rope
     countAttachedPullers: function() {
-      return this.pullers.filter(function( puller ) {return puller.knot;} ).length;
+      return this.pullers.filter( function( puller ) {return puller.knot;} ).length;
     },
 
     //Change knot visibility (halo highlight) when the pullers are dragged
@@ -138,7 +138,8 @@ define( function( require ) {
 
     //Given a puller, returns a function that computes the distance between that puller and any knot
     getKnotPullerDistance: function( puller ) {
-      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
+      var dx = puller.type === 'red' ? 0 : -50;
+      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
     },
 
     //Gets the closest unoccupied knot to the given puller, which is being dragged.
