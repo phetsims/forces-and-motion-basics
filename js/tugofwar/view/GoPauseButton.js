@@ -57,9 +57,7 @@ define( function( require ) {
     var goButton = new RoundPushButton( {content: wrap( goText, padX, padY, [goText, pauseText] ), baseColor: '#94b830', listener: function() {model.running = true;}} );//green
     var pauseButton = new RoundPushButton( {content: wrap( pauseText, padX, padY, [goText, pauseText] ), baseColor: '#df1a22', listener: function() {model.running = false;}} );//red
 
-    var showGoButtonProperty = model.toDerivedProperty( ['running', 'state', 'numberPullersAttached'], function( running, state, numberPullersAttached ) {
-      return !running;
-    } );
+    var showGoButtonProperty = model.runningProperty.derivedNot();
     ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {top: 400} );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
