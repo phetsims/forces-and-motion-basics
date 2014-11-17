@@ -126,7 +126,7 @@ define( function( require ) {
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
-    }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
+    }, {right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) {
@@ -137,7 +137,7 @@ define( function( require ) {
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
-    }, {rectangleYMargin: 7, rectangleXMargin: 10, left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
+    }, {left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) {
