@@ -8,19 +8,19 @@
 define( function( require ) {
   'use strict';
 
-  var PullerNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/PullerNode' );
+  var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/KnotHighlightNode' );
-  var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/GoPauseButton' );
-  var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/ReturnButton' );
+  var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotHighlightNode' );
+  var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
+  var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/ReturnButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var FlagNode = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/FlagNode' );
-  var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarControlPanel' );
+  var FlagNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/FlagNode' );
+  var TugOfWarControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/TugOfWarControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
   var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );

@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   var
-    TugOfWarModel = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/TugOfWarModel' ),
-    TugOfWarView = require( 'FORCES_AND_MOTION_BASICS/tugofwar/view/TugOfWarView' ),
+    TugOfWarModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TugOfWarModel' ),
+    TugOfWarView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/TugOfWarView' ),
     MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' ),
     MotionView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionView' ),
     Image = require( 'SCENERY/nodes/Image' ),

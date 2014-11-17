@@ -11,10 +11,10 @@ define( function( require ) {
   var
     PropertySet = require( 'AXON/PropertySet' ),
     inherit = require( 'PHET_CORE/inherit' ),
-    Puller = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/Puller' ),
-    Knot = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/Knot' ),
+    Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' ),
+    Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' ),
     Vector2 = require( 'DOT/Vector2' ),
-    Cart = require( 'FORCES_AND_MOTION_BASICS/tugofwar/model/Cart' );
+    Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
 
   /**
    * Constructor for the tug of war model.
