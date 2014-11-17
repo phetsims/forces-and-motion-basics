@@ -17,7 +17,7 @@
   "lots": "mnogo",
   "forces": "Sile",
   "motion": "Kretanje",
-  "tugOfWar": "Nadvlačenje konopca",
+  "netForce": "Nadvlačenje konopca",
   "go": "Start!",
   "newtons.n": "njutna (n)",
   "sumOfForcesEqualsZero": "zbir sila = 0",

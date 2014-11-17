@@ -18,7 +18,7 @@
   "lots": "Maksimum",
   "forces": "Daya-daya",
   "motion": "Gerakan",
-  "tugOfWar": "Tarik Tali",
+  "netForce": "Tarik Tali",
   "go": "Mula!",
   "newtons.n": "Newtons (N)",
   "sumOfForcesEqualsZero": "Jumlah Daya = 0",

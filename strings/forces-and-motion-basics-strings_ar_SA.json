@@ -17,7 +17,7 @@
   "lots": "سطح خشن",
   "forces": "القوة",
   "motion": "الحركة",
-  "tugOfWar": "شد الحبل",
+  "netForce": "شد الحبل",
   "go": "ابداء",
   "newtons.n": "نيوتن (N)",
   "sumOfForcesEqualsZero": "محصلة القوة = 0",

@@ -17,7 +17,7 @@
   "lots": "много",
   "forces": "Силе",
   "motion": "Кретање",
-  "tugOfWar": "Надвлачење конопца",
+  "netForce": "Надвлачење конопца",
   "go": "Старт!",
   "newtons.n": "њутна (N)",
   "sumOfForcesEqualsZero": "збир сила  = 0",

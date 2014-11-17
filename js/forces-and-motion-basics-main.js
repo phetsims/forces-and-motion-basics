@@ -22,7 +22,7 @@ define( function( require ) {
     FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' ),
     AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' ),
     titleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name' ),
-    tugOfWarString = require( 'string!FORCES_AND_MOTION_BASICS/tugOfWar' ),
+    netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' ),
     motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' ),
     frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' ),
     accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
@@ -39,7 +39,7 @@ define( function( require ) {
 
     //Create and start the sim
     new Sim( titleString, [
-      new Screen( tugOfWarString, new Image( TugIcon ),
+      new Screen( netForceString, new Image( TugIcon ),
         function() {return new TugOfWarModel();},
         function( model ) {return new TugOfWarView( model );}
       ),

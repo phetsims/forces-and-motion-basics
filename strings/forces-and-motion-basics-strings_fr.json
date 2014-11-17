@@ -15,7 +15,7 @@
   "lots": "forts",
   "forces": "forces",
   "motion": "mouvement sans frottement",
-  "tugOfWar": "tir à la corde",
+  "netForce": "tir à la corde",
   "go": "tirez !",
   "sumOfForcesEqualsZero": "la somme des forces est nulle",
   "blueWins": "les bleus gagnent !",
