@@ -30,7 +30,18 @@ define( function( require ) {
     this.mystery = mystery;
 
     //Observable properties
-    PropertySet.call( this, {position: new Vector2( x, y ), pusherInset: pusherInset || 0, dragging: false, direction: 'left', animating: {enabled: false, x: 0, y: 0, end: null, destination: 'home'},
+    PropertySet.call( this, {
+      position: new Vector2( x, y ),
+      pusherInset: pusherInset || 0,
+      dragging: false,
+      direction: 'left',
+      animating: {
+        enabled: false,
+        x: 0,
+        y: 0,
+        end: null,
+        destination: 'home'
+      },
       //Flag for whether the item is on the skateboard
       onBoard: false,
 
@@ -108,7 +119,9 @@ define( function( require ) {
         //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
         var blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
         this.position = this.position.blend( destination, blendAmount );
-        if ( this.position.distance( destination ) < 1 && this.interactionScale === 1.3 ) {
+
+        var distanceToTarget = this.position.distance( destination );
+        if ( distanceToTarget < 1 && (this.interactionScale === 1.3 || this.interactionScale === 1) ) {
 
           //Snap to exact final destination, see #59
           this.position = destination;
