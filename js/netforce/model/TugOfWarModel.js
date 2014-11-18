@@ -185,7 +185,9 @@ define( function( require ) {
     //Update the physics when the clock ticks
     step: function( dt ) {
       if ( this.running ) {
-        var newV = this.cart.v + this.getNetForce() * dt * 0.003;
+
+        // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
+        var newV = this.cart.v + this.getNetForce() * dt * 0.00075;
         var newX = this.cart.x + newV * dt * 60.0;
         this.cart.set( {v: newV, x: newX} );
         this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
