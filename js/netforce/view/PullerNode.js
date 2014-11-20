@@ -106,6 +106,7 @@ define( function( require ) {
           puller.disconnect();
           puller.positionProperty.reset();
           model.numberPullersAttached = model.countAttachedPullers();
+          updateLocation();
         }
         else {
           puller.disconnect();
@@ -115,6 +116,7 @@ define( function( require ) {
           puller.dragging = false;
           puller.trigger( 'dropped' );
           updateImage();
+          updateLocation();
         }
       }} );
   }
