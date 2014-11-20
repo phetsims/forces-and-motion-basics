@@ -43,6 +43,8 @@ define( function( require ) {
       }
     };
 
+    model.on( 'reset-all', updateLocation );
+
     model.startedProperty.link( updateLocation );
     puller.positionProperty.link( updateLocation );
 
