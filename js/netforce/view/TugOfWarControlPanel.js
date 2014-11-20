@@ -39,7 +39,18 @@ define( function( require ) {
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     var resetButton = new ResetAllButton( { listener: model.reset.bind( model ), scale: 1.13 } );
+    resetButton.addPeer( '<input type="button" aria-label="' + 'reset all' + '">', {
+      click: function() {
+        model.reset();
+      }
+    } );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
+    soundButton.addPeer( '<input type="checkbox">', {
+      click: function() {
+        model.volumeOnProperty.toggle();
+      },
+      label: 'Toggle Sound Enabled'
+    } );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 15} ) );
   }
 
