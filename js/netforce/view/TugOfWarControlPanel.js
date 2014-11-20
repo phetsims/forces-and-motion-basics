@@ -34,7 +34,7 @@ define( function( require ) {
     var controlPanel = new VerticalCheckBoxGroup( [
       {content: new Text( sumOfForcesString, fontOptions ), property: model.showSumOfForcesProperty, label: sumOfForcesString},
       {content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString}
-    ] );
+    ], {tabIndex: 2} );
     this.addChild( new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} ) );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
@@ -42,14 +42,17 @@ define( function( require ) {
     resetButton.addPeer( '<input type="button" aria-label="' + 'reset all' + '">', {
       click: function() {
         model.reset();
-      }
+      },
+      tabIndex: 3
     } );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
     soundButton.addPeer( '<input type="checkbox">', {
       click: function() {
         model.volumeOnProperty.toggle();
       },
-      label: 'Toggle Sound Enabled'
+      label: 'Toggle Sound Enabled',
+      tabIndex: 3
+
     } );
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 15} ) );
   }
