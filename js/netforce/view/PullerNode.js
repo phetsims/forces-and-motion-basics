@@ -119,6 +119,7 @@ define( function( require ) {
           puller.disconnect();
           puller.positionProperty.reset();
           model.numberPullersAttached = model.countAttachedPullers();
+          updateImage();
           updateLocation();
         }
         else {
