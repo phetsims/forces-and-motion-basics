@@ -39,7 +39,7 @@ define( function( require ) {
       },
 
       //Visit this button after the user has added some pullers to the rope
-      tabIndex: 2
+      tabIndex: 9
     } );
   }
 

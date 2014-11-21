@@ -21,7 +21,7 @@ define( function( require ) {
    * @param {Image} pullImage image of the puller exerting a force
    * @constructor
    */
-  function PullerNode( puller, model, image, pullImage ) {
+  function PullerNode( puller, model, image, pullImage, options ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
@@ -114,6 +114,8 @@ define( function( require ) {
 
     //Add accessibility peer
     this.addPeer( '<input type="button" aria-label="' + puller.name + '">', {
+      tabIndex: options.tabIndex,
+
       click: function() {
         if ( puller.knot ) {
           puller.disconnect();
@@ -133,6 +135,8 @@ define( function( require ) {
         }
       }
     } );
+
+    this.mutate( options );
   }
 
   return inherit( Image, PullerNode );

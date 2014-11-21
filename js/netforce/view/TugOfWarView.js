@@ -154,8 +154,11 @@ define( function( require ) {
 
     var pullerLayer = new Node();
     this.addChild( pullerLayer );
+    var pullerTabIndex = 1;
     this.model.pullers.forEach( function( puller ) {
-      pullerLayer.addChild( new PullerNode( puller, tugOfWarView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) ) );
+      pullerLayer.addChild( new PullerNode( puller, tugOfWarView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
+        tabIndex: pullerTabIndex++
+      } ) );
     } );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
