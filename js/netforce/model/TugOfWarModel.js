@@ -110,6 +110,30 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, TugOfWarModel, {
+    shiftPullerLeft: function( puller ) {
+      this.shiftPuller( puller, 0, 4, -1 );
+    },
+
+    shiftPullerRight: function( puller ) {
+      this.shiftPuller( puller, 3, 7, 1 );
+    },
+
+    shiftPuller: function ( puller, leftBoundIndex, rightBoundIndex, delta ) {
+      if ( puller.knot ) {
+        var currentIndex = this.knots.indexOf( puller.knot );
+        if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
+          var nextIndex = currentIndex + delta;
+
+          var currentKnot = this.knots[currentIndex];
+          var nextKnot = this.knots[nextIndex];
+
+          var otherPuller = this.getPuller( nextKnot );
+
+          puller.set( { position: new Vector2( nextKnot.x, nextKnot.y ), knot: nextKnot } );
+          otherPuller && otherPuller.set( { position: new Vector2( currentKnot.x, currentKnot.y ), knot: currentKnot } );
+        }
+      }
+    },
 
     //Count the number of pullers attached to the rope
     countAttachedPullers: function() {

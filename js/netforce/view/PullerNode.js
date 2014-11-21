@@ -101,6 +101,17 @@ define( function( require ) {
         }
       } ) );
 
+    this.addInputListener( {
+      keyDown: function( event, trail ) {
+        if ( event.domEvent.keyCode === 37 ) { // left
+          model.shiftPullerLeft( puller );
+        }
+        else if ( event.domEvent.keyCode === 39 ) { // right
+          model.shiftPullerRight( puller );
+        }
+      }
+    } );
+
     //Add accessibility peer
     this.addPeer( '<input type="button" aria-label="' + puller.name + '">', {
       click: function() {
@@ -119,7 +130,8 @@ define( function( require ) {
           updateImage();
           updateLocation();
         }
-      }} );
+      }
+    } );
   }
 
   return inherit( Image, PullerNode );
