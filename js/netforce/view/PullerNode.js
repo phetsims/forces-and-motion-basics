@@ -113,7 +113,7 @@ define( function( require ) {
     } );
 
     //Add accessibility peer
-    this.addPeer( '<input type="button" aria-label="' + puller.name + '">', {
+    this.addPeer( '<div role="button" aria-label="' + puller.name + '">', {
       tabIndex: options.tabIndex,
 
       click: function() {
