@@ -149,6 +149,21 @@ define( function( require ) {
       return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
 
+    //Gets the closest unoccupied knot to the given puller, which is being dragged.
+    getClosestOpenKnotFromCart: function( puller ) {
+      var idx = puller.type === 'red' ? 4 : 3;
+      var delta = puller.type === 'red' ? 1 : -1;
+      while ( this.getPuller( this.knots[idx] ) !== null ) {
+        idx += delta;
+      }
+      return this.knots[idx];
+      // var tugOfWarModel = this;
+      // var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && tugOfWarModel.getPuller( knot ) === null; } );
+      // return _.min( filter, function( knot ) {
+      //   return Math.abs( knot.x );
+      // } );
+    },
+
     //Gets the closest unoccupied knot to the given puller if it is close enough to grab
     getTargetKnot: function( puller ) {
       var target = this.getClosestOpenKnot( puller );

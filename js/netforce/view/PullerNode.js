@@ -111,9 +111,8 @@ define( function( require ) {
           updateLocation();
         }
         else {
-          puller.disconnect();
-          var knot = model.getClosestOpenKnot( puller );
-          puller.set( {position: new Vector2( knot.x, knot.y ), knot: knot} );
+          var knot = model.getClosestOpenKnotFromCart( puller );
+          puller.set( {position: new Vector2( knot.x, knot.y ) } );
           model.numberPullersAttached = model.countAttachedPullers();
           puller.dragging = false;
           puller.trigger( 'dropped' );
