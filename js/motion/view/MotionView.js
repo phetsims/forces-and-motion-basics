@@ -37,6 +37,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
+  var Sim = require( 'JOIST/Sim' );
 
   //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
   //aspect ratio of this screen: 981/604=1.62
@@ -55,7 +56,7 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this, {renderer: 'svg', layoutBounds: LAYOUT_BOUNDS} );
+    ScreenView.call( this, {renderer: Sim.joistComponentRenderer, layoutBounds: LAYOUT_BOUNDS} );
 
     //Variables for this constructor, for convenience
     var motionView = this;

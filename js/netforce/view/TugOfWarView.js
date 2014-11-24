@@ -35,6 +35,8 @@ define( function( require ) {
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
+  var Sim = require( 'JOIST/Sim' );
+
   var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_0.png' );
   var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_3.png' );
   var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_0.png' );
@@ -61,7 +63,7 @@ define( function( require ) {
    */
   function TugOfWarView( model ) {
 
-    ScreenView.call( this, {renderer: 'svg', layoutBounds: LAYOUT_BOUNDS} );
+    ScreenView.call( this, {renderer: Sim.joistComponentRenderer, layoutBounds: LAYOUT_BOUNDS} );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;
