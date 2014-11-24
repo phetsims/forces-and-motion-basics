@@ -119,131 +119,134 @@ define( function( require ) {
     var centerX = layoutCenterX - ground.width / 2;
 
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
-//    ground.toImage( function( image ) {
-//      var groundY = mountainY + 50;
-//      var groundImageNode = new Image( image, {y: groundY, rendererOptions: {cssTransform: true}} );
-//      groundImageNode.boundsInaccurate = true;
-//      movingBackgroundNode.addChild( groundImageNode );
-//      model.positionProperty.link( function( position ) {
-//        groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + centerX, groundY );
-//      } );
-//
-//      //Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
-//      if ( !model.skateboard ) {
-//
-//        //Add the gravel
-//        var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, {y: -2, rendererOptions: {cssTransform: true}} );
-//        gravel.boundsInaccurate = true;
-//
-//        //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
-//        groundImageNode.addChild( gravel );
-//
-//        //Add the ice
-//        var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
-//        iceOverlay.boundsInaccurate = true;
-//        model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
-//        model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
-//        movingBackgroundNode.addChild( iceOverlay );
-//        model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
-//
-//        //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
-//        model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
-//
-//        var iceLayer = new Node( {
-//          children: [
-//            toBackgroundImage( 0, icicleImage, 0, 0.8 ),
-//            toBackgroundImage( 300, icicleImage, 0, 0.8 )
-//          ], x: layoutCenterX, y: groundY + ground.height} );
-//        iceLayer.boundsInaccurate = true;
-//        model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
-//        movingBackgroundNode.addChild( iceLayer );
-//
-//        //TODO: could prevent updater from firing if ice is not visible
-//        model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
-//
-//        movingBackgroundNode.lastNumSpecks = 0;
-//
-//        var gravelSource = new Node();
-//
-//        var numBlack = 0;
-//        var numGray = 0;
-//        var numWhite = 0;
-//
-//        //Create the gravel for nonzero friction.
-//        model.frictionProperty.link( function( newFriction, oldFriction ) {
-//
-//          //Discretize the friction so that the new nodes/images are not created at every step
-//          newFriction = newFriction * 100;
-//          newFriction = Math.round( newFriction / 2 ) * 2;
-//          newFriction = newFriction / 100;
-//
-//          var height = 3;
-//          var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
-//          numSpecks = numSpecks < 0 ? 0 : numSpecks;
-//
-//          var desiredBlack = Math.round( numSpecks / 2 );
-//          var desiredGray = Math.round( numSpecks / 2 );
-//          var desiredWhite = Math.round( numSpecks / 10 );
-//
-//          if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
-//            return;
-//          }
-//
-//          while ( numBlack < desiredBlack ) {
-//            gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
-//            numBlack++;
-//          }
-//
-//          while ( numGray < desiredGray ) {
-//            gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
-//            numGray++;
-//          }
-//
-//          while ( numWhite < desiredWhite ) {
-//            gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
-//            numWhite++;
-//          }
-//
-//          var children;
-//          var i;
-//          while ( numBlack > desiredBlack ) {
-//            children = gravelSource.getChildren();
-//            for ( i = children.length - 1; i >= 0; i-- ) {
-//              if ( children[i].fill === 'black' ) {
-//                gravelSource.removeChildAt( i );
-//                break;
-//              }
-//            }
-//            numBlack--;
-//          }
-//
-//          while ( numGray > desiredGray ) {
-//            children = gravelSource.getChildren();
-//            for ( i = children.length - 1; i >= 0; i-- ) {
-//              if ( children[i].fill === 'gray' ) {
-//                gravelSource.removeChildAt( i );
-//                break;
-//              }
-//            }
-//            numGray--;
-//          }
-//
-//          while ( numWhite > desiredWhite ) {
-//            children = gravelSource.getChildren();
-//            for ( i = children.length - 1; i >= 0; i-- ) {
-//              if ( children[i].fill === 'white' ) {
-//                gravelSource.removeChildAt( i );
-//                break;
-//              }
-//            }
-//            numWhite--;
-//          }
-//
-//          //TODO: get rid of pattern here, possibly by converting it too to an image?
-//          gravelSource.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
-//        } );
-//      }
-//    }, 0, 0, ground.width, ground.height );
+    var showGround = true;
+    if ( showGround ) {
+      ground.toImage( function( image ) {
+        var groundY = mountainY + 50;
+        var groundImageNode = new Image( image, {y: groundY, rendererOptions: {cssTransform: true}} );
+        groundImageNode.boundsInaccurate = true;
+        movingBackgroundNode.addChild( groundImageNode );
+        model.positionProperty.link( function( position ) {
+          groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + centerX, groundY );
+        } );
+
+        //Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
+        if ( !model.skateboard ) {
+
+          //Add the gravel
+          var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, {y: -2, rendererOptions: {cssTransform: true}} );
+          gravel.boundsInaccurate = true;
+
+          //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
+          groundImageNode.addChild( gravel );
+
+          //Add the ice
+          var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
+          iceOverlay.boundsInaccurate = true;
+          model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
+          model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
+          movingBackgroundNode.addChild( iceOverlay );
+          model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
+
+          //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
+          model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
+
+          var iceLayer = new Node( {
+            children: [
+              toBackgroundImage( 0, icicleImage, 0, 0.8 ),
+              toBackgroundImage( 300, icicleImage, 0, 0.8 )
+            ], x: layoutCenterX, y: groundY + ground.height} );
+          iceLayer.boundsInaccurate = true;
+          model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
+          movingBackgroundNode.addChild( iceLayer );
+
+          //TODO: could prevent updater from firing if ice is not visible
+          model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
+
+          movingBackgroundNode.lastNumSpecks = 0;
+
+          var gravelSource = new Node();
+
+          var numBlack = 0;
+          var numGray = 0;
+          var numWhite = 0;
+
+          //Create the gravel for nonzero friction.
+          model.frictionProperty.link( function( newFriction, oldFriction ) {
+
+            //Discretize the friction so that the new nodes/images are not created at every step
+            newFriction = newFriction * 100;
+            newFriction = Math.round( newFriction / 2 ) * 2;
+            newFriction = newFriction / 100;
+
+            var height = 3;
+            var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
+            numSpecks = numSpecks < 0 ? 0 : numSpecks;
+
+            var desiredBlack = Math.round( numSpecks / 2 );
+            var desiredGray = Math.round( numSpecks / 2 );
+            var desiredWhite = Math.round( numSpecks / 10 );
+
+            if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
+              return;
+            }
+
+            while ( numBlack < desiredBlack ) {
+              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
+              numBlack++;
+            }
+
+            while ( numGray < desiredGray ) {
+              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
+              numGray++;
+            }
+
+            while ( numWhite < desiredWhite ) {
+              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
+              numWhite++;
+            }
+
+            var children;
+            var i;
+            while ( numBlack > desiredBlack ) {
+              children = gravelSource.getChildren();
+              for ( i = children.length - 1; i >= 0; i-- ) {
+                if ( children[i].fill === 'black' ) {
+                  gravelSource.removeChildAt( i );
+                  break;
+                }
+              }
+              numBlack--;
+            }
+
+            while ( numGray > desiredGray ) {
+              children = gravelSource.getChildren();
+              for ( i = children.length - 1; i >= 0; i-- ) {
+                if ( children[i].fill === 'gray' ) {
+                  gravelSource.removeChildAt( i );
+                  break;
+                }
+              }
+              numGray--;
+            }
+
+            while ( numWhite > desiredWhite ) {
+              children = gravelSource.getChildren();
+              for ( i = children.length - 1; i >= 0; i-- ) {
+                if ( children[i].fill === 'white' ) {
+                  gravelSource.removeChildAt( i );
+                  break;
+                }
+              }
+              numWhite--;
+            }
+
+            //TODO: get rid of pattern here, possibly by converting it too to an image?
+            gravelSource.toImage( function( image ) { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
+          } );
+        }
+      }, 0, 0, ground.width, ground.height );
+    }
   }
 
   return inherit( Node, MovingBackgroundNode );
