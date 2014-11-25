@@ -123,7 +123,7 @@ define( function( require ) {
     if ( showGround ) {
       ground.toImage( function( image ) {
         var groundY = mountainY + 50;
-        var groundImageNode = new Image( image, {y: groundY, rendererOptions: {cssTransform: true}} );
+        var groundImageNode = new Image( image, {y: groundY} );
         groundImageNode.boundsInaccurate = true;
         movingBackgroundNode.addChild( groundImageNode );
         model.positionProperty.link( function( position ) {
@@ -134,14 +134,14 @@ define( function( require ) {
         if ( !model.skateboard ) {
 
           //Add the gravel
-          var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, {y: -2, rendererOptions: {cssTransform: true}} );
+          var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, {y: -2} );
           gravel.boundsInaccurate = true;
 
           //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
           groundImageNode.addChild( gravel );
 
           //Add the ice
-          var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)', rendererOptions: {cssTransform: true}} );
+          var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)'} );
           iceOverlay.boundsInaccurate = true;
           model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
           model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
