@@ -56,7 +56,7 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this, {renderer: Sim.joistComponentRenderer, layoutBounds: LAYOUT_BOUNDS} );
+    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: LAYOUT_BOUNDS} );
 
     //Variables for this constructor, for convenience
     var motionView = this;

@@ -63,7 +63,7 @@ define( function( require ) {
    */
   function TugOfWarView( model ) {
 
-    ScreenView.call( this, {renderer: Sim.joistComponentRenderer, layoutBounds: LAYOUT_BOUNDS} );
+    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: LAYOUT_BOUNDS} );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;
