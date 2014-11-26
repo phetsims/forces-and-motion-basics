@@ -1,0 +1,63 @@
+{
+  "chipper": {
+    "sha": "8f565f53541e1cafd698528520d88be148e78bfe",
+    "branch": "HEAD"
+  },
+  "sherpa": {
+    "sha": "da7b5b2e52e155c6ebdc4dea700d5a80116d886b",
+    "branch": "HEAD"
+  },
+  "vibe": {
+    "sha": "069106af79923ccb051d715bf4d532147f1e7057",
+    "branch": "HEAD"
+  },
+  "sun": {
+    "sha": "7e3b7f783ef5a0973c1ab47f6b16ef2ab98456c4",
+    "branch": "HEAD"
+  },
+  "scenery-phet": {
+    "sha": "1332a9164ae52dfe6cf27374c6d1db82577d30e9",
+    "branch": "HEAD"
+  },
+  "scenery": {
+    "sha": "07760d3bb260f9ccc518ab54c36580945b432ed7",
+    "branch": "HEAD"
+  },
+  "phetcommon": {
+    "sha": "df12e4b1dbff36cfa0010d836d9e645d86865498",
+    "branch": "HEAD"
+  },
+  "phet-core": {
+    "sha": "16e85711702cef3ab9076070c8a15e5da18c5c75",
+    "branch": "HEAD"
+  },
+  "kite": {
+    "sha": "a2138bfd38b304cb88327f4eb7fa6dbeb51aa579",
+    "branch": "HEAD"
+  },
+  "joist": {
+    "sha": "64f7db4eaed8351e4d76ad4edc114a5c1fbdb421",
+    "branch": "HEAD"
+  },
+  "dot": {
+    "sha": "54dd23ec43b292800bb6d23add6514dfce7d300d",
+    "branch": "HEAD"
+  },
+  "brand": {
+    "sha": "8be52066aa533f58f118abd34d73f2609c844d48",
+    "branch": "HEAD"
+  },
+  "axon": {
+    "sha": "fcd59a8aa9d379553e5a1768e8f05be89202e52d",
+    "branch": "HEAD"
+  },
+  "assert": {
+    "sha": "321768d4e876c3bd42b712066affa53f992cc461",
+    "branch": "HEAD"
+  },
+  "forces-and-motion-basics": {
+    "sha": "7711638ccc1b00e3a440fc14aa2b7d208065c1c5",
+    "branch": "1.1"
+  },
+  "comment": "# forces-and-motion-basics 1.1.0-rc.1 Tue Nov 18 2014 09:27:00 GMT-0700 (MST)"
+}
