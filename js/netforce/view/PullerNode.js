@@ -49,6 +49,15 @@ define( function( require ) {
     model.startedProperty.link( updateLocation );
     puller.positionProperty.link( updateLocation );
 
+    puller.hoverKnotProperty.link( function( hoverKnot ) {
+      if ( hoverKnot ) {
+        var pullingOffset = false ? -puller.dragOffsetX : puller.standOffsetX;
+        var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 + pullerNode.width / 2 : -pullerNode.width / 2;
+        pullerNode.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - pullerNode.height + 90
+          - 120 );
+      }
+    } );
+
     var updateImage = function() {
       var knotted = puller.knot;
       var pulling = model.started && knotted;
@@ -114,8 +123,9 @@ define( function( require ) {
     } );
 
     //Add accessibility peer
-    this.addPeer( '<div role="button" aria-label="' + puller.name + '">', {
-      tabIndex: options.tabIndex,
+    var id = 'puller-' + puller.type + '-' + options.tabIndex;
+    this.addPeer( '<div role="button" id="' + id + '" aria-label="' + puller.name + '">', {
+      tabIndex: -1,
 
       click: function() {
         if ( puller.knot ) {

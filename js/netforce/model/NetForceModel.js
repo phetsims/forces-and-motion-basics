@@ -265,6 +265,13 @@ define( function( require ) {
     //Gets the right force on the cart, applied by right pullers
     getRightForce: function() {
       return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 );
+    },
+
+    // The puller was selected and will hover over the rope until the user chooses where to put the puller.
+    activatePuller: function( puller, pullerNode ) {
+      var targetKnot = this.getClosestOpenKnot( puller );
+      puller.hoverKnot = targetKnot;
+//      puller.position = targetKnot.position.plusXY( 0,  );
     }
   } );
 } );

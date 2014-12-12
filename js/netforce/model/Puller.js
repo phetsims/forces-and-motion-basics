@@ -35,10 +35,20 @@ define( function( require ) {
                  NaN;
 
     //Create the properties and mix them in
-    PropertySet.call( this, {dragging: false, knot: null, position: new Vector2( x, y ), lastLocation: 'home'} );
+    PropertySet.call( this, {
+      dragging: false,
+      knot: null,
+      position: new Vector2( x, y ),
+      lastLocation: 'home',
+
+      // For keyboard accessibility, the knot that the puller is hovering over
+      hoverKnot: null
+    } );
 
     //Move with the knot
-    var updatePosition = function( knotX ) { puller.position = new Vector2( knotX, puller.position.y ); };
+    var updatePosition = function( knotX ) {
+      puller.position = new Vector2( knotX, puller.position.y );
+    };
 
     //When the knot changes, wire up as a listener to the new knot
     this.knotProperty.link( function( newKnot, oldKnot ) {
@@ -56,6 +66,11 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Puller, {
+
+    // The puller was selected and will hover over the rope until the user chooses where to put the puller.
+    popAboveRope: function() {
+
+    },
 
     //Detach the puller from the knot.
     disconnect: function() {this.knot = null;},

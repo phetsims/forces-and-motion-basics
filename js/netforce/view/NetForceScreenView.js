@@ -31,6 +31,7 @@ define( function( require ) {
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
   var Sim = require( 'JOIST/Sim' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -103,8 +104,19 @@ define( function( require ) {
       stroke: '#000000', lineWidth: 3, x: layoutCenterX, y: grassY + 10
     } ) );
 
-    //Add toolbox backgrounds for the pullers
-    var createToolbox = function( x ) {
+    var cursorWidth = 18;
+
+    var cursor = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {fill: 'blue', stroke: 'black', lineWidth: 1} );
+
+    var firstTime = true;
+
+    /**
+     * Create toolbox backgrounds for the pullers
+     * @param {number} x - the screen coordinate for the location of the toolbox
+     * @param {string} side - left/right
+     * @returns {Rectangle}
+     */
+    var createToolbox = function( x, side, activePullerIndex, minIndex, maxIndex ) {
       var toolboxHeight = 216;
       var toolboxOptions = {
         fill: '#e7e8e9',
@@ -114,10 +126,65 @@ define( function( require ) {
       var toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
       var toolboxWidth = 324;
       var toolboxArcWidth = 10;
-      return new Rectangle( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
+      var toolboxRectangle = new Rectangle( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
+
+      // Model this with an axon property, and sync the DOM and view with that
+      var activePullerIndexProperty = new Property( activePullerIndex );
+
+      var callback = function() {
+        var activePullerIndex = activePullerIndexProperty.value;
+        var puller = netForceScreenView.pullerNodes[activePullerIndex];
+        if ( firstTime ) {
+          cursor.centerBottom = new Vector2( puller.centerX, puller.top );
+          firstTime = false;
+          cursor.visible = true;
+        }
+        else {
+          new TWEEN.Tween( {centerX: cursor.centerX, bottom: cursor.bottom} ).to( { centerX: puller.centerX, bottom: puller.top}, 100 ).easing( TWEEN.Easing.Cubic.InOut ).
+            onUpdate( function() {
+              cursor.centerBottom = new Vector2( this.centerX, this.bottom );
+            } ).start();
+        }
+
+      };
+      activePullerIndexProperty.lazyLink( callback );
+
+      toolboxRectangle.addPeer( '<input type="button" aria-label="Return">', {
+
+        // When clicked, move the active puller to the rope.
+        click: function() {
+          var puller = netForceScreenView.model.pullers[activePullerIndexProperty.value];
+          model.activatePuller( puller, netForceScreenView.pullerNodes[activePullerIndexProperty.value] );
+        },
+        tabIndex: 0,
+
+        // Update the cursor location when focused
+        onfocus: function() {
+          callback();
+          cursor.visible = true;
+        },
+        onblur: function() {
+          cursor.visible = false;
+        }
+      } );
+
+      toolboxRectangle.addInputListener( {
+        keyDown: function( event, trail ) {
+          if ( event.domEvent.keyCode === 37 ) { // left
+            console.log( 'left' );
+            activePullerIndexProperty.value = Math.max( minIndex, activePullerIndexProperty.value - 1 );
+          }
+          else if ( event.domEvent.keyCode === 39 ) { // right
+            activePullerIndexProperty.value = Math.min( maxIndex, activePullerIndexProperty.value + 1 );
+          }
+        }
+      } );
+
+      return toolboxRectangle;
     };
-    var leftToolbox = createToolbox( 25 );
-    var rightToolbox = createToolbox( 630 );
+
+    var leftToolbox = createToolbox( 25, 'left', 0, 0, 3 );
+    var rightToolbox = createToolbox( 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1 );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
@@ -190,10 +257,13 @@ define( function( require ) {
     var pullerLayer = new Node();
     this.addChild( pullerLayer );
     var pullerTabIndex = 1;
+    this.pullerNodes = [];
     this.model.pullers.forEach( function( puller ) {
-      pullerLayer.addChild( new PullerNode( puller, NetForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
+      var pullerNode = new PullerNode( puller, NetForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
         tabIndex: pullerTabIndex++
-      } ) );
+      } );
+      pullerLayer.addChild( pullerNode );
+      netForceScreenView.pullerNodes.push( pullerNode );
     } );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
@@ -231,6 +301,9 @@ define( function( require ) {
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53} );
     model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {NetForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
+
+    cursor.visible = false;
+    this.addChild( cursor );
   }
 
   return inherit( ScreenView, NetForceScreenView );
