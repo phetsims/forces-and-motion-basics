@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
@@ -20,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function ReturnButton( model, options ) {
-    Node.call( this, {} );
+    Node.call( this );
 
     var button = new TextPushButton( returnString, {
       listener: model.returnCart.bind( model ),

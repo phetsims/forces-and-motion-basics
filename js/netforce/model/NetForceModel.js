@@ -8,13 +8,13 @@
 define( function( require ) {
   'use strict';
 
-  var
-    PropertySet = require( 'AXON/PropertySet' ),
-    inherit = require( 'PHET_CORE/inherit' ),
-    Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' ),
-    Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' ),
-    Vector2 = require( 'DOT/Vector2' ),
-    Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
+  // modules
+  var PropertySet = require( 'AXON/PropertySet' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
+  var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
 
   /**
    * Constructor for the net force model.
@@ -59,7 +59,9 @@ define( function( require ) {
     ];
 
     //Create a knot given a color and index (0-3)
-    function createKnot( color, index ) { return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color ); }
+    function createKnot( color, index ) {
+      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color );
+    }
 
     //Create the knots
     this.knots = [
@@ -118,7 +120,7 @@ define( function( require ) {
       this.shiftPuller( puller, 3, 7, 1 );
     },
 
-    shiftPuller: function ( puller, leftBoundIndex, rightBoundIndex, delta ) {
+    shiftPuller: function( puller, leftBoundIndex, rightBoundIndex, delta ) {
       if ( puller.knot ) {
         var currentIndex = this.knots.indexOf( puller.knot );
         if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
@@ -241,18 +243,28 @@ define( function( require ) {
     },
 
     //Gets the net force on the cart, applied by both left and right pullers
-    getNetForce: function() { return this.getLeftForce() + this.getRightForce(); },
+    getNetForce: function() {
+      return this.getLeftForce() + this.getRightForce();
+    },
 
     //Get an array of pullers of the specified type (color string)
-    getPullers: function( type ) { return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} ); },
+    getPullers: function( type ) {
+      return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} );
+    },
 
     //Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
-    sumForces: function( memo, puller ) {return memo + puller.force;},
+    sumForces: function( memo, puller ) {
+      return memo + puller.force;
+    },
 
     //Gets the left force on the cart, applied by left and pullers
-    getLeftForce: function() { return -_.reduce( this.getPullers( 'blue' ), this.sumForces, 0 ); },
+    getLeftForce: function() {
+      return -_.reduce( this.getPullers( 'blue' ), this.sumForces, 0 );
+    },
 
     //Gets the right force on the cart, applied by right pullers
-    getRightForce: function() { return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 ); }
+    getRightForce: function() {
+      return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 );
+    }
   } );
 } );

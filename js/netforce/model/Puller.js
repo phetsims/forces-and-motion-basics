@@ -8,10 +8,9 @@
 define( function( require ) {
   'use strict';
 
-  var
-    PropertySet = require( 'AXON/PropertySet' ),
-    inherit = require( 'PHET_CORE/inherit' ),
-    Vector2 = require( 'DOT/Vector2' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    *
@@ -62,6 +61,8 @@ define( function( require ) {
     disconnect: function() {this.knot = null;},
 
     //Get the name for the puller, used in a11y
-    get name() { return this.size + ' ' + this.type + ' Puller';} //TODO localize accessibility
+    get name() {
+      return this.size + ' ' + this.type + ' Puller';
+    } //TODO localize accessibility
   } );
 } );

@@ -9,10 +9,12 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
 
+  // constants
   var knotWidth = 20;
 
   function KnotHighlightNode( knot ) {

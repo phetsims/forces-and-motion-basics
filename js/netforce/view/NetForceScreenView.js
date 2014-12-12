@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -22,21 +23,19 @@ define( function( require ) {
   var FlagNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/FlagNode' );
   var NetForceControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
-  var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
-  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
-  var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
-  var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
   var Sim = require( 'JOIST/Sim' );
 
+  // images
+  var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
+  var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
+  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
   var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_0.png' );
   var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_3.png' );
   var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_0.png' );
@@ -49,6 +48,13 @@ define( function( require ) {
   var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_3.png' );
   var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_0.png' );
   var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_3.png' );
+
+  // strings
+  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
+  var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
+
+  // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
 
   //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
