@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Node that shows the waving flag when the tug of war game is complete.
+ * Node that shows the waving flag when the net force game is complete.
  *
  * @author Sam Reid
  */

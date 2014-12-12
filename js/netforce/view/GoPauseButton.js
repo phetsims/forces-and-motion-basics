@@ -42,7 +42,7 @@ define( function( require ) {
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
-   * @param {TugOfWarModel} model the TugOfWarModel
+   * @param {NetForceModel} model the NetForceModel
    * @param {Number} layoutWidth the layout width for centering the button
    * @constructor
    */

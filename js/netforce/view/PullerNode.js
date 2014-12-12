@@ -16,7 +16,7 @@ define( function( require ) {
   /**
    * Create a PullerNode for the specified puller
    * @param {Puller} puller
-   * @param {TugOfWarModel} model
+   * @param {NetForceModel} model
    * @param {Image} image image of the puller standing upright
    * @param {Image} pullImage image of the puller exerting a force
    * @constructor

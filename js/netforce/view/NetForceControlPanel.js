@@ -21,12 +21,12 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
-   * Create the TugOfWarControlPanel.
-   * @param {TugOfWarModel} model the model for this control panel
+   * Create the NetForceControlPanel.
+   * @param {NetForceModel} model the model for this control panel
    * @param {Object} [options]
    * @constructor
    */
-  function TugOfWarControlPanel( model, options ) {
+  function NetForceControlPanel( model, options ) {
     options = _.extend( {}, options );
     Node.call( this, options );
 
@@ -57,5 +57,5 @@ define( function( require ) {
     this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 15} ) );
   }
 
-  return inherit( Node, TugOfWarControlPanel );
+  return inherit( Node, NetForceControlPanel );
 } );

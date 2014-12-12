@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Model for the Tug of War screen, in which Pullers can pull on a rope with different forces.
+ * Model for the Net Force screen, in which Pullers can pull on a rope with different forces.
  *
  * @author Sam Reid
  */
@@ -17,11 +17,11 @@ define( function( require ) {
     Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
 
   /**
-   * Constructor for the tug of war model.
+   * Constructor for the net force model.
    * @constructor
    */
-  function TugOfWarModel() {
-    var tugOfWarModel = this;
+  function NetForceModel() {
+    var NetForceModel = this;
 
     //Call the super class, with initial values for observable properties
     PropertySet.call( this, {
@@ -76,12 +76,12 @@ define( function( require ) {
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
 
-      puller.positionProperty.link( tugOfWarModel.updateVisibleKnots.bind( tugOfWarModel ) );
+      puller.positionProperty.link( NetForceModel.updateVisibleKnots.bind( NetForceModel ) );
       puller.on( 'dragged', function() {
-        tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
+        NetForceModel.numberPullersAttached = NetForceModel.countAttachedPullers();
       } );
       puller.on( 'dropped', function() {
-        var knot = tugOfWarModel.getTargetKnot( puller );
+        var knot = NetForceModel.getTargetKnot( puller );
 
         //try to snap to a knot
         if ( knot ) {
@@ -93,23 +93,23 @@ define( function( require ) {
           puller.positionProperty.reset();
         }
 
-        //Keep track of their location to change the attach/detach thresholds, see TugOfWarModel.getTargetKnot
+        //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
         puller.lastLocation = knot ? 'knot' : 'home';
 
-        tugOfWarModel.numberPullersAttached = tugOfWarModel.countAttachedPullers();
+        NetForceModel.numberPullersAttached = NetForceModel.countAttachedPullers();
       } );
     } );
 
     //Update the started flag
-    this.runningProperty.link( function( running ) { if ( running ) { tugOfWarModel.started = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { NetForceModel.started = true; }} );
 
     //Update the forces when the number of attached pullers changes
-    this.numberPullersAttachedProperty.link( function() {tugOfWarModel.netForce = tugOfWarModel.getNetForce();} );
-    this.numberPullersAttachedProperty.link( function() {tugOfWarModel.leftForce = tugOfWarModel.getLeftForce();} );
-    this.numberPullersAttachedProperty.link( function() {tugOfWarModel.rightForce = tugOfWarModel.getRightForce();} );
+    this.numberPullersAttachedProperty.link( function() {NetForceModel.netForce = NetForceModel.getNetForce();} );
+    this.numberPullersAttachedProperty.link( function() {NetForceModel.leftForce = NetForceModel.getLeftForce();} );
+    this.numberPullersAttachedProperty.link( function() {NetForceModel.rightForce = NetForceModel.getRightForce();} );
   }
 
-  return inherit( PropertySet, TugOfWarModel, {
+  return inherit( PropertySet, NetForceModel, {
     shiftPullerLeft: function( puller ) {
       this.shiftPuller( puller, 0, 4, -1 );
     },
@@ -168,8 +168,8 @@ define( function( require ) {
 
     //Gets the closest unoccupied knot to the given puller, which is being dragged.
     getClosestOpenKnot: function( puller ) {
-      var tugOfWarModel = this;
-      var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && tugOfWarModel.getPuller( knot ) === null; } );
+      var NetForceModel = this;
+      var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && NetForceModel.getPuller( knot ) === null; } );
       return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
 
@@ -181,8 +181,8 @@ define( function( require ) {
         idx += delta;
       }
       return this.knots[idx];
-      // var tugOfWarModel = this;
-      // var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && tugOfWarModel.getPuller( knot ) === null; } );
+      // var NetForceModel = this;
+      // var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && NetForceModel.getPuller( knot ) === null; } );
       // return _.min( filter, function( knot ) {
       //   return Math.abs( knot.x );
       // } );

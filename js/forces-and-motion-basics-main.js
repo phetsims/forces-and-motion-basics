@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   var
-    TugOfWarModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TugOfWarModel' ),
-    TugOfWarView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/TugOfWarView' ),
+    NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' ),
+    NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' ),
     MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' ),
     MotionView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionView' ),
     Image = require( 'SCENERY/nodes/Image' ),
@@ -40,8 +40,8 @@ define( function( require ) {
     //Create and start the sim
     new Sim( titleString, [
       new Screen( netForceString, new Image( TugIcon ),
-        function() {return new TugOfWarModel();},
-        function( model ) {return new TugOfWarView( model );}
+        function() {return new NetForceModel();},
+        function( model ) {return new NetForceScreenView( model );}
       ),
       new Screen( motionString, new Image( MotionIcon ),
         function() {return new MotionModel( 'motion' );},

@@ -15,7 +15,7 @@ define( function( require ) {
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
 
   /**
-   * @param {TugOfWarModel} model
+   * @param {NetForceModel} model
    * @param {Object} [options]
    * @constructor
    */
