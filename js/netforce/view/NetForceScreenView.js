@@ -68,6 +68,7 @@ define( function( require ) {
    * @constructor
    */
   function NetForceScreenView( model ) {
+    var netForceScreenView = this;
 
     ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: LAYOUT_BOUNDS} );
 
@@ -96,9 +97,22 @@ define( function( require ) {
     this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), { stroke: '#000000', lineWidth: 3, x: this.layoutBounds.width / 2, y: grassY + 10} ) );
 
     //Add toolbox backgrounds for the pullers
-    var toolboxHeight = 216;
-    this.addChild( new Rectangle( 25, this.layoutBounds.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1} ) );
-    this.addChild( new Rectangle( 630, this.layoutBounds.height - toolboxHeight - 4, 324, toolboxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1} ) );
+    var createToolbox = function( x ) {
+      var toolboxHeight = 216;
+      var toolboxOptions = {
+        fill: '#e7e8e9',
+        stroke: 'black',
+        lineWidth: 1
+      };
+      var toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
+      var toolboxWidth = 324;
+      var toolboxArcWidth = 10;
+      return new Rectangle( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
+    };
+    var leftToolbox = createToolbox( 25 );
+    var rightToolbox = createToolbox( 630 );
+    this.addChild( leftToolbox );
+    this.addChild( rightToolbox );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {layerSplit: true} ) );
