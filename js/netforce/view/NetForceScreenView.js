@@ -77,7 +77,6 @@ define( function( require ) {
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
-    var NetForceScreenView = this;
     this.model = model;
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
@@ -205,7 +204,7 @@ define( function( require ) {
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
-      [NetForceScreenView.sumArrow, NetForceScreenView.leftArrow, NetForceScreenView.rightArrow].forEach( function( arrow ) {
+      [netForceScreenView.sumArrow, netForceScreenView.leftArrow, netForceScreenView.rightArrow].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
@@ -214,13 +213,13 @@ define( function( require ) {
 
     this.ropeNode = new Image( ropeImage, {x: 51, y: 273 } );
 
-    model.knots.forEach( function( knot ) { NetForceScreenView.addChild( new KnotHighlightNode( knot ) ); } );
+    model.knots.forEach( function( knot ) { netForceScreenView.addChild( new KnotHighlightNode( knot ) ); } );
 
     this.addChild( this.ropeNode );
 
     this.model.cart.xProperty.link( function( x ) {
-      NetForceScreenView.cartNode.x = x + 412;
-      NetForceScreenView.ropeNode.x = x + 51;
+      netForceScreenView.cartNode.x = x + 412;
+      netForceScreenView.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
@@ -259,7 +258,7 @@ define( function( require ) {
     var pullerTabIndex = 1;
     this.pullerNodes = [];
     this.model.pullers.forEach( function( puller ) {
-      var pullerNode = new PullerNode( puller, NetForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
+      var pullerNode = new PullerNode( puller, netForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
         tabIndex: pullerTabIndex++
       } );
       pullerLayer.addChild( pullerNode );
@@ -275,7 +274,7 @@ define( function( require ) {
     this.addChild( new NetForceControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
 
     //Show the flag node when pulling is complete
-    var showFlagNode = function() { NetForceScreenView.addChild( new FlagNode( model, NetForceScreenView.layoutBounds.width / 2, 10 ) ); };
+    var showFlagNode = function() { netForceScreenView.addChild( new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 ) ); };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
     //Accessibility for reading out the total force
@@ -299,7 +298,7 @@ define( function( require ) {
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53} );
-    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {NetForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
 
     cursor.visible = false;
