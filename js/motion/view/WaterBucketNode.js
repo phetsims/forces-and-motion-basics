@@ -19,7 +19,7 @@ define( function( require ) {
    * WaterBucketNode constructor
    *
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {MotionView} motionView the view for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param {MotionScreenView} motionView the view for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {Item} item the model for the item itself
    * @param {Image} image image to be shown when in the toolbox or being dragged
    * @param {Image} imageSitting image to be shown if it is a sitting person

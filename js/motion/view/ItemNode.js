@@ -26,7 +26,7 @@ define( function( require ) {
   /**
    * Constructor for ItemNode
    * @param {MotionModel} model the entire model for the containing screen
-   * @param {MotionView} motionView the entire view for the containing screen
+   * @param {MotionScreenView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
    * @param {Image} normalImage the scenery.Image to show for this node
    * @param {Image} sittingImage optional image for when the person is sitting down

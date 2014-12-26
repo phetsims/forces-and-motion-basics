@@ -12,7 +12,7 @@ define( function( require ) {
     NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' ),
     NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' ),
     MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' ),
-    MotionView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionView' ),
+    MotionScreenView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionScreenView' ),
     Image = require( 'SCENERY/nodes/Image' ),
     Screen = require( 'JOIST/Screen' ),
     Sim = require( 'JOIST/Sim' ),
@@ -45,15 +45,15 @@ define( function( require ) {
       ),
       new Screen( motionString, new Image( MotionIcon ),
         function() {return new MotionModel( 'motion' );},
-        function( model ) {return new MotionView( model );}
+        function( model ) {return new MotionScreenView( model );}
       ),
       new Screen( frictionString, new Image( FrictionIcon ),
         function() {return new MotionModel( 'friction' );},
-        function( model ) {return new MotionView( model );}
+        function( model ) {return new MotionScreenView( model );}
       ),
       new Screen( accelerationString, new Image( AccelerationIcon ),
         function() {return new MotionModel( 'acceleration' );},
-        function( model ) {return new MotionView( model );}
+        function( model ) {return new MotionScreenView( model );}
       )
     ], simOptions ).start();
   } );

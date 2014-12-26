@@ -76,7 +76,7 @@ define( function( require ) {
       fallenDirection: 'left',
       time: 0,
 
-      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionView.js
+      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
       //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
       stackSize: 1
     } );

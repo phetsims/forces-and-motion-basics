@@ -40,11 +40,11 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
 
   /**
-   * Constructor for the MotionView
+   * Constructor for the MotionScreenView
    * @param {MotionModel} model model for the entire screen
    * @constructor
    */
-  function MotionView( model ) {
+  function MotionScreenView( model ) {
 
     //Constants and fields
     this.model = model;
@@ -269,7 +269,7 @@ define( function( require ) {
     model.viewInitialized( this );
   }
 
-  return inherit( ScreenView, MotionView, {
+  return inherit( ScreenView, MotionScreenView, {
 
     //Get the height of the objects in the stack (doesn't include skateboard)
     get stackHeight() {
