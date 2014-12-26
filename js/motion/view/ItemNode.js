@@ -18,7 +18,6 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var massDisplayPattern = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var platform = require( 'PHET_CORE/platform' );
 
   //Workaround for https://github.com/phetsims/scenery/issues/108
   var IDENTITY = Matrix3.scaling( 1, 1 );

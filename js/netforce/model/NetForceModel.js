@@ -21,7 +21,7 @@ define( function( require ) {
    * @constructor
    */
   function NetForceModel() {
-    var NetForceModel = this;
+    var netForceModel = this;
 
     //Call the super class, with initial values for observable properties
     PropertySet.call( this, {
@@ -78,12 +78,12 @@ define( function( require ) {
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
 
-      puller.positionProperty.link( NetForceModel.updateVisibleKnots.bind( NetForceModel ) );
+      puller.positionProperty.link( netForceModel.updateVisibleKnots.bind( netForceModel ) );
       puller.on( 'dragged', function() {
-        NetForceModel.numberPullersAttached = NetForceModel.countAttachedPullers();
+        netForceModel.numberPullersAttached = netForceModel.countAttachedPullers();
       } );
       puller.on( 'dropped', function() {
-        var knot = NetForceModel.getTargetKnot( puller );
+        var knot = netForceModel.getTargetKnot( puller );
 
         //try to snap to a knot
         if ( knot ) {
@@ -98,17 +98,17 @@ define( function( require ) {
         //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
         puller.lastLocation = knot ? 'knot' : 'home';
 
-        NetForceModel.numberPullersAttached = NetForceModel.countAttachedPullers();
+        netForceModel.numberPullersAttached = netForceModel.countAttachedPullers();
       } );
     } );
 
     //Update the started flag
-    this.runningProperty.link( function( running ) { if ( running ) { NetForceModel.started = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { netForceModel.started = true; }} );
 
     //Update the forces when the number of attached pullers changes
-    this.numberPullersAttachedProperty.link( function() {NetForceModel.netForce = NetForceModel.getNetForce();} );
-    this.numberPullersAttachedProperty.link( function() {NetForceModel.leftForce = NetForceModel.getLeftForce();} );
-    this.numberPullersAttachedProperty.link( function() {NetForceModel.rightForce = NetForceModel.getRightForce();} );
+    this.numberPullersAttachedProperty.link( function() {netForceModel.netForce = netForceModel.getNetForce();} );
+    this.numberPullersAttachedProperty.link( function() {netForceModel.leftForce = netForceModel.getLeftForce();} );
+    this.numberPullersAttachedProperty.link( function() {netForceModel.rightForce = netForceModel.getRightForce();} );
   }
 
   return inherit( PropertySet, NetForceModel, {
@@ -170,8 +170,8 @@ define( function( require ) {
 
     //Gets the closest unoccupied knot to the given puller, which is being dragged.
     getClosestOpenKnot: function( puller ) {
-      var NetForceModel = this;
-      var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && NetForceModel.getPuller( knot ) === null; } );
+      var netForceModel = this;
+      var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && netForceModel.getPuller( knot ) === null; } );
       return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
 
@@ -183,11 +183,6 @@ define( function( require ) {
         idx += delta;
       }
       return this.knots[idx];
-      // var NetForceModel = this;
-      // var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && NetForceModel.getPuller( knot ) === null; } );
-      // return _.min( filter, function( knot ) {
-      //   return Math.abs( knot.x );
-      // } );
     },
 
     //Gets the closest unoccupied knot to the given puller if it is close enough to grab
