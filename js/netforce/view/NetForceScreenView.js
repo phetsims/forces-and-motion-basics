@@ -24,7 +24,7 @@ define( function( require ) {
   var NetForceControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Bounds2 = require( 'DOT/Bounds2' );
+  var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -58,12 +58,6 @@ define( function( require ) {
   // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
 
-  //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
-  //aspect ratio of this screen: 981/604=1.62
-  //aspect ratio for default: 768/504=1.52
-  //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
-  var LAYOUT_BOUNDS = new Bounds2( 0, 0, 981, 604 );
-
   /**
    * @param {NetForceModel} model
    * @constructor
@@ -71,7 +65,7 @@ define( function( require ) {
   function NetForceScreenView( model ) {
     var netForceScreenView = this;
 
-    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: LAYOUT_BOUNDS} );
+    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds} );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;

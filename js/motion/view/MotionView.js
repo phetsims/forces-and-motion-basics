@@ -29,7 +29,7 @@ define( function( require ) {
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Bounds2 = require( 'DOT/Bounds2' );
+  var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
@@ -38,12 +38,6 @@ define( function( require ) {
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
   var Sim = require( 'JOIST/Sim' );
-
-  //The aspect ratio that this sim was coded for differs by 7% than the one we eventually decided upon.
-  //aspect ratio of this screen: 981/604=1.62
-  //aspect ratio for default: 768/504=1.52
-  //TODO: Rewrite the sim layout to use the standard bounds (lower priority)
-  var LAYOUT_BOUNDS = new Bounds2( 0, 0, 981, 604 );
 
   /**
    * Constructor for the MotionView
@@ -56,7 +50,7 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: LAYOUT_BOUNDS} );
+    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds} );
 
     //Variables for this constructor, for convenience
     var motionView = this;
