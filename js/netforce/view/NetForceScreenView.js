@@ -32,6 +32,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var Sim = require( 'JOIST/Sim' );
   var Vector2 = require( 'DOT/Vector2' );
+  var AccessibilityLayer = require( 'SCENERY/accessibility/AccessibilityLayer' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -297,6 +298,9 @@ define( function( require ) {
 
     cursor.visible = false;
     this.addChild( cursor );
+
+    // TODO: In the future, this should be added automatically by something else.  Joist or scenery?
+    this.addChild( new AccessibilityLayer() );
   }
 
   return inherit( ScreenView, NetForceScreenView );

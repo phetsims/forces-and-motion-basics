@@ -147,6 +147,9 @@ define( function( require ) {
     } );
 
     this.mutate( options );
+
+    // TODO: Move this to scenery/node
+    this.focusable = true;
   }
 
   return inherit( Image, PullerNode );
