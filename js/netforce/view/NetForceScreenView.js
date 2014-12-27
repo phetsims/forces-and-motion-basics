@@ -33,6 +33,8 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var Vector2 = require( 'DOT/Vector2' );
   var AccessibilityLayer = require( 'SCENERY/accessibility/AccessibilityLayer' );
+  var Display = require( 'SCENERY/display/Display' );
+  var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -104,81 +106,8 @@ define( function( require ) {
 
     var firstTime = true;
 
-    /**
-     * Create toolbox backgrounds for the pullers
-     * @param {number} x - the screen coordinate for the location of the toolbox
-     * @param {string} side - left/right
-     * @returns {Rectangle}
-     */
-    var createToolbox = function( x, side, activePullerIndex, minIndex, maxIndex ) {
-      var toolboxHeight = 216;
-      var toolboxOptions = {
-        fill: '#e7e8e9',
-        stroke: 'black',
-        lineWidth: 1
-      };
-      var toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
-      var toolboxWidth = 324;
-      var toolboxArcWidth = 10;
-      var toolboxRectangle = new Rectangle( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
-
-      // Model this with an axon property, and sync the DOM and view with that
-      var activePullerIndexProperty = new Property( activePullerIndex );
-
-      var callback = function() {
-        var activePullerIndex = activePullerIndexProperty.value;
-        var puller = netForceScreenView.pullerNodes[activePullerIndex];
-        if ( firstTime ) {
-          cursor.centerBottom = new Vector2( puller.centerX, puller.top );
-          firstTime = false;
-          cursor.visible = true;
-        }
-        else {
-          new TWEEN.Tween( {centerX: cursor.centerX, bottom: cursor.bottom} ).to( { centerX: puller.centerX, bottom: puller.top}, 100 ).easing( TWEEN.Easing.Cubic.InOut ).
-            onUpdate( function() {
-              cursor.centerBottom = new Vector2( this.centerX, this.bottom );
-            } ).start();
-        }
-
-      };
-      activePullerIndexProperty.lazyLink( callback );
-
-      toolboxRectangle.addPeer( '<input type="button" aria-label="Return">', {
-
-        // When clicked, move the active puller to the rope.
-        click: function() {
-          var puller = netForceScreenView.model.pullers[activePullerIndexProperty.value];
-          model.activatePuller( puller, netForceScreenView.pullerNodes[activePullerIndexProperty.value] );
-        },
-        tabIndex: 0,
-
-        // Update the cursor location when focused
-        onfocus: function() {
-          callback();
-          cursor.visible = true;
-        },
-        onblur: function() {
-          cursor.visible = false;
-        }
-      } );
-
-      toolboxRectangle.addInputListener( {
-        keyDown: function( event, trail ) {
-          if ( event.domEvent.keyCode === 37 ) { // left
-            console.log( 'left' );
-            activePullerIndexProperty.value = Math.max( minIndex, activePullerIndexProperty.value - 1 );
-          }
-          else if ( event.domEvent.keyCode === 39 ) { // right
-            activePullerIndexProperty.value = Math.min( maxIndex, activePullerIndexProperty.value + 1 );
-          }
-        }
-      } );
-
-      return toolboxRectangle;
-    };
-
-    var leftToolbox = createToolbox( 25, 'left', 0, 0, 3 );
-    var rightToolbox = createToolbox( 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1 );
+    var leftToolbox = new PullerToolboxNode( this, 25, 'left', 0, 0, 3, 'blue' );
+    var rightToolbox = new PullerToolboxNode( this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
@@ -300,7 +229,26 @@ define( function( require ) {
     this.addChild( cursor );
 
     // TODO: In the future, this should be added automatically by something else.  Joist or scenery?
-    this.addChild( new AccessibilityLayer() );
+    var accessibilityLayer = new AccessibilityLayer();
+    this.addChild( accessibilityLayer );
+
+    // Show highlight around the toolbox when a toolbox node is focused.
+    Display.focusedInstanceProperty.link( function( focusedInstance ) {
+      if ( focusedInstance ) {
+        if ( focusedInstance.node instanceof PullerNode ) {
+          if ( focusedInstance.node.puller.type === 'blue' ) {
+            leftToolbox.highlighted = true;
+            rightToolbox.highlighted = false;
+          }
+          else {
+            leftToolbox.highlighted = false;
+            rightToolbox.highlighted = true;
+          }
+        }
+        else {
+        }
+      }
+    } );
   }
 
   return inherit( ScreenView, NetForceScreenView );
