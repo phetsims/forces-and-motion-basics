@@ -51,13 +51,14 @@ define( function( require ) {
     } );
 
     this.addInputListener( {
-      keyDown: function( event, trail ) {
-        if ( event.domEvent.keyCode === 37 ) { // left
-          activePullerIndexProperty.value = Math.max( minIndex, activePullerIndexProperty.value - 1 );
-        }
-        else if ( event.domEvent.keyCode === 39 ) { // right
-          activePullerIndexProperty.value = Math.min( maxIndex, activePullerIndexProperty.value + 1 );
-        }
+      keydown: function( event, trail ) {
+        console.log( 'key down on toolbox' );
+//        if ( event.domEvent.keyCode === 37 ) { // left
+//          activePullerIndexProperty.value = Math.max( minIndex, activePullerIndexProperty.value - 1 );
+//        }
+//        else if ( event.domEvent.keyCode === 39 ) { // right
+//          activePullerIndexProperty.value = Math.min( maxIndex, activePullerIndexProperty.value + 1 );
+//        }
       }
     } );
   }

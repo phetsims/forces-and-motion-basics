@@ -111,13 +111,14 @@ define( function( require ) {
       } ) );
 
     this.addInputListener( {
-      keyDown: function( event, trail ) {
-        if ( event.domEvent.keyCode === 37 ) { // left
-          model.shiftPullerLeft( puller );
-        }
-        else if ( event.domEvent.keyCode === 39 ) { // right
-          model.shiftPullerRight( puller );
-        }
+      keydown: function( event, trail ) {
+        console.log( 'key down on puller' );
+//        if ( event.domEvent.keyCode === 37 ) { // left
+//          model.shiftPullerLeft( puller );
+//        }
+//        else if ( event.domEvent.keyCode === 39 ) { // right
+//          model.shiftPullerRight( puller );
+//        }
       }
     } );
 
