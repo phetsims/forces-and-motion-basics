@@ -31,8 +31,6 @@ define( function( require ) {
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
   var Sim = require( 'JOIST/Sim' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var AccessibilityLayer = require( 'SCENERY/accessibility/AccessibilityLayer' );
   var Display = require( 'SCENERY/display/Display' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
 
@@ -104,10 +102,8 @@ define( function( require ) {
 
     var cursor = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {fill: 'blue', stroke: 'black', lineWidth: 1} );
 
-    var firstTime = true;
-
-    var leftToolbox = new PullerToolboxNode( this, 25, 'left', 0, 0, 3, 'blue' );
-    var rightToolbox = new PullerToolboxNode( this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
+    var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
+    var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 

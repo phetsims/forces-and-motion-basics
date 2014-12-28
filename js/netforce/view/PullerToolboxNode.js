@@ -23,8 +23,9 @@ define( function( require ) {
    * @param {string} side - left/right
    * @returns {Rectangle}
    */
-  function PullerToolboxNode( netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor ) {
+  function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor ) {
     this.highlightColor = highlightColor;
+    this._highlighted = false;
     var toolboxHeight = 216;
     var toolboxOptions = {
       fill: '#e7e8e9',
@@ -39,24 +40,6 @@ define( function( require ) {
     // Model this with an axon property, and sync the DOM and view with that
     var activePullerIndexProperty = new Property( activePullerIndex );
 
-    var callback = function() {
-      var activePullerIndex = activePullerIndexProperty.value;
-      var puller = netForceScreenView.pullerNodes[activePullerIndex];
-      if ( firstTime ) {
-        cursor.centerBottom = new Vector2( puller.centerX, puller.top );
-        firstTime = false;
-        cursor.visible = true;
-      }
-      else {
-        new TWEEN.Tween( {centerX: cursor.centerX, bottom: cursor.bottom} ).to( { centerX: puller.centerX, bottom: puller.top}, 100 ).easing( TWEEN.Easing.Cubic.InOut ).
-          onUpdate( function() {
-            cursor.centerBottom = new Vector2( this.centerX, this.bottom );
-          } ).start();
-      }
-
-    };
-    activePullerIndexProperty.lazyLink( callback );
-
     this.addPeer( '<input type="button" aria-label="Return">', {
 
       // When clicked, move the active puller to the rope.
@@ -64,22 +47,12 @@ define( function( require ) {
         var puller = netForceScreenView.model.pullers[activePullerIndexProperty.value];
         model.activatePuller( puller, netForceScreenView.pullerNodes[activePullerIndexProperty.value] );
       },
-      tabIndex: 0,
-
-      // Update the cursor location when focused
-      onfocus: function() {
-        callback();
-        cursor.visible = true;
-      },
-      onblur: function() {
-        cursor.visible = false;
-      }
+      tabIndex: 0
     } );
 
     this.addInputListener( {
       keyDown: function( event, trail ) {
         if ( event.domEvent.keyCode === 37 ) { // left
-          console.log( 'left' );
           activePullerIndexProperty.value = Math.max( minIndex, activePullerIndexProperty.value - 1 );
         }
         else if ( event.domEvent.keyCode === 39 ) { // right
@@ -94,8 +67,12 @@ define( function( require ) {
 
       // Show a highlight around the toolbox when one of the items inside has focus
       set highlighted( h ) {
+        this._highlighted = h;
         this.stroke = h ? this.highlightColor : defaultStroke;
         this.lineWidth = h ? 4 : defaultLineWidth;
+      },
+      get highlighted() {
+        return this._highlighted;
       }
     } );
 } );
