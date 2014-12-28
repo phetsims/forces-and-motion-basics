@@ -225,7 +225,7 @@ define( function( require ) {
     this.addChild( cursor );
 
     // Show highlight around the toolbox when a toolbox node is focused.
-    Display.focusedInstanceProperty.link( function( focusedInstance ) {
+    Display.focusedInstanceProperty && Display.focusedInstanceProperty.link( function( focusedInstance ) {
       if ( focusedInstance ) {
         if ( focusedInstance.node instanceof PullerNode ) {
           if ( focusedInstance.node.puller.type === 'blue' ) {
