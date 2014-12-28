@@ -228,10 +228,6 @@ define( function( require ) {
     cursor.visible = false;
     this.addChild( cursor );
 
-    // TODO: In the future, this should be added automatically by something else.  Joist or scenery?
-    var accessibilityLayer = new AccessibilityLayer();
-    this.addChild( accessibilityLayer );
-
     // Show highlight around the toolbox when a toolbox node is focused.
     Display.focusedInstanceProperty.link( function( focusedInstance ) {
       if ( focusedInstance ) {

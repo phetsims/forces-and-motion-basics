@@ -29,7 +29,7 @@ define( function( require ) {
     var x = puller.position.x;
     var y = puller.position.y;
 
-    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: 0.86} );
+    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: 0.86, focusable: true} );
 
     var updateLocation = function() {
       var knotted = puller.knot;
@@ -148,8 +148,6 @@ define( function( require ) {
 
     this.mutate( options );
 
-    // TODO: Move this to scenery/node
-    this.focusable = true;
   }
 
   return inherit( Image, PullerNode );
