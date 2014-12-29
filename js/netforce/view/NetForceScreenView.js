@@ -246,12 +246,13 @@ define( function( require ) {
   }
 
   var inited = false;
+  var count = 0;
   return inherit( ScreenView, NetForceScreenView, {
     step: function() {
-
-      if ( !inited ) {
+      if ( !inited && count < 100 ) {
+        count++;
         console.log( 'getting all focusable instances' );
-        Input.focusableInstances = Input.getAllFocusableInstances();
+        Input.focusableInstances = Input.getAllFocusableInstances ? Input.getAllFocusableInstances() : [];
         console.log( 'done' );
         if ( Input.focusableInstances.length ) {
           inited = true;
