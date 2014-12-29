@@ -32,6 +32,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var Sim = require( 'JOIST/Sim' );
   var Display = require( 'SCENERY/display/Display' );
+  var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
 
   // images
@@ -241,7 +242,21 @@ define( function( require ) {
         }
       }
     } );
+
   }
 
-  return inherit( ScreenView, NetForceScreenView );
+  var inited = false;
+  return inherit( ScreenView, NetForceScreenView, {
+    step: function() {
+
+      if ( !inited ) {
+        console.log( 'getting all focusable instances' );
+        Input.focusableInstances = Input.getAllFocusableInstances();
+        console.log( 'done' );
+        if ( Input.focusableInstances.length ) {
+          inited = true;
+        }
+      }
+    }
+  } );
 } );
