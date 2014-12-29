@@ -31,7 +31,6 @@ define( function( require ) {
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
   var Sim = require( 'JOIST/Sim' );
-  var Display = require( 'SCENERY/display/Display' );
   var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
 
@@ -226,7 +225,7 @@ define( function( require ) {
     this.addChild( cursor );
 
     // Show highlight around the toolbox when a toolbox node is focused.
-    Display.focusedInstanceProperty && Display.focusedInstanceProperty.link( function( focusedInstance ) {
+    Input.focusedInstanceProperty && Input.focusedInstanceProperty.link( function( focusedInstance ) {
       if ( focusedInstance ) {
         if ( focusedInstance.node instanceof PullerNode ) {
           if ( focusedInstance.node.puller.type === 'blue' ) {
