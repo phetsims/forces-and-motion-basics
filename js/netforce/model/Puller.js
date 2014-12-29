@@ -23,6 +23,8 @@ define( function( require ) {
    * @constructor
    */
   function Puller( x, y, type, size, dragOffsetX, standOffsetX ) {
+    assert && assert( ['small', 'medium', 'large'].indexOf( size ) >= 0 );
+
     var puller = this;
 
     this.dragOffsetX = dragOffsetX;
@@ -73,7 +75,9 @@ define( function( require ) {
     },
 
     //Detach the puller from the knot.
-    disconnect: function() {this.knot = null;},
+    disconnect: function() {
+      this.knot = null;
+    },
 
     //Get the name for the puller, used in a11y
     get name() {

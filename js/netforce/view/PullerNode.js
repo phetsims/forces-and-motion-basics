@@ -13,6 +13,7 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Input = require( 'SCENERY/input/Input' );
 
   /**
    * Create a PullerNode for the specified puller
@@ -29,7 +30,13 @@ define( function( require ) {
     var x = puller.position.x;
     var y = puller.position.y;
 
-    Image.call( this, image, {x: x, y: y, fontSize: 42, cursor: 'pointer', scale: 0.86, focusable: true} );
+    Image.call( this, image, {
+      x: x,
+      y: y,
+      cursor: 'pointer',
+      scale: 0.86,
+      focusable: true
+    } );
 
     var updateLocation = function() {
       var knotted = puller.knot;
@@ -80,6 +87,7 @@ define( function( require ) {
       {
         allowTouchSnag: true,
         start: function() {
+          console.log( 'sdh.start' );
           var knot = puller.knot;
           puller.disconnect();
           puller.dragging = true;
@@ -112,43 +120,30 @@ define( function( require ) {
 
     this.addInputListener( {
       keydown: function( event, trail ) {
-        console.log( 'key down on puller' );
-//        if ( event.domEvent.keyCode === 37 ) { // left
-//          model.shiftPullerLeft( puller );
-//        }
-//        else if ( event.domEvent.keyCode === 39 ) { // right
-//          model.shiftPullerRight( puller );
-//        }
-      }
-    } );
+        if ( event.domEvent.keyCode === Input.KEY_ENTER || event.domEvent.keyCode === Input.KEY_SPACE ) {
+          if ( puller.knot ) {
+//            puller.disconnect();
+//            puller.positionProperty.reset();
+//            model.numberPullersAttached = model.countAttachedPullers();
+//            updateImage();
+//            updateLocation();
+          }
+          else {
+            puller.position = new Vector2( 0, 0 );
 
-    //Add accessibility peer
-    var id = 'puller-' + puller.type + '-' + options.tabIndex;
-    this.addPeer( '<div role="button" id="' + id + '" aria-label="' + puller.name + '">', {
-      tabIndex: -1,
-
-      click: function() {
-        if ( puller.knot ) {
-          puller.disconnect();
-          puller.positionProperty.reset();
-          model.numberPullersAttached = model.countAttachedPullers();
-          updateImage();
-          updateLocation();
-        }
-        else {
-          var knot = model.getClosestOpenKnotFromCart( puller );
-          puller.set( {position: new Vector2( knot.x, knot.y ) } );
-          model.numberPullersAttached = model.countAttachedPullers();
-          puller.dragging = false;
-          puller.trigger( 'dropped' );
-          updateImage();
-          updateLocation();
+//            var knot = model.getClosestOpenKnotFromCart( puller );
+//            puller.set( {position: new Vector2( knot.x, knot.y ) } );
+//            model.numberPullersAttached = model.countAttachedPullers();
+//            puller.dragging = false;
+//            puller.trigger( 'dropped' );
+//            updateImage();
+//            updateLocation();
+          }
         }
       }
     } );
 
     this.mutate( options );
-
   }
 
   return inherit( Image, PullerNode );
