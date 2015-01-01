@@ -48,14 +48,15 @@ define( function( require ) {
 
     var fontSize = 18;
 
-    var toElement = function( text, propertyName, options ) {
+    var toElement = function( text, propertyName, checkboxID, options ) {
       options = _.extend( {indent: 0}, options );
       var textNode = new Text( text, {font: new PhetFont( fontSize )} );
       return {
         //TODO: Why is this immense spacing necessary here?
         content: options.icon ? new HBox( {spacing: 10, children: [  textNode, options.icon]} ) : textNode,
         property: model.property( propertyName ),
-        indent: options.indent
+        indent: options.indent,
+        id: checkboxID
       };
     };
 
@@ -82,7 +83,7 @@ define( function( require ) {
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
-      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, {zeroOnRelease: false} ).
+      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE', {id: 'disableLeftProperty'} ), null, null, {zeroOnRelease: false} ).
         addTick( 0, createTick( noneString, true ) ).addTick( 1, createTick( lotsString, true ) ).
         addTick( 0, createTick( lotsString, false ) ).addTick( 1, createTick( noneString, false ) );
       var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );

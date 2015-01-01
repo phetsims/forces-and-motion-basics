@@ -120,8 +120,10 @@ define( function( require ) {
 
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
+      phet.arch.start( 'left-arrow-button-pressed' );
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
-    }, {right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
+      phet.arch.end();
+    }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) {
@@ -131,7 +133,9 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
+      phet.arch.start( 'right-arrow-button-pressed' );
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
+      phet.arch.end();
     }, {left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
@@ -150,7 +154,8 @@ define( function( require ) {
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     //Use Tween.JS to smoothly animate
-    var itemsCentered = new Property( true );
+    var itemsCentered = new Property( true, {id: 'itemsCentered'} );
+    itemsCentered.setSendPhetEvents( false );
     model.stack.lengthProperty.link( function() {
 
       //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
@@ -179,7 +184,7 @@ define( function( require ) {
 
     //Reset all button goes beneath the control panel
     var resetButton = new ResetAllButton( {
-      listener: model.reset.bind( model ),
+      listener: phet.arch.wrap( 'resetAllButtonPressed', model.reset.bind( model ) ),
       scale: 1.13
     } ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );
@@ -223,12 +228,28 @@ define( function( require ) {
     var arrowScale = 0.3;
 
     //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
-    var roundedAppliedForceProperty = new DerivedProperty( [model.appliedForceProperty], function( appliedForce ) {return Math.round( appliedForce );} );
-    var roundedFrictionForceProperty = new DerivedProperty( [model.frictionForceProperty], function( frictionForce ) { return Math.round( frictionForce ); } );
+    var roundedAppliedForceProperty = new DerivedProperty(
+      [model.appliedForceProperty],
+      function( appliedForce ) {
+        return Math.round( appliedForce );
+      }, {
+        id: 'roundedAppliedForce'
+      } );
+    var roundedFrictionForceProperty = new DerivedProperty(
+      [model.frictionForceProperty],
+      function( frictionForce ) {
+        return Math.round( frictionForce );
+      },
+      {
+        id: 'roundedFrictionForce'
+      } );
+    roundedFrictionForceProperty.setSendPhetEvents( false );
+    roundedAppliedForceProperty.setSendPhetEvents( false );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
-    var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
+    var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {id: 'roundedSumProperty'} );
     model.on( 'stepped', function() { roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() ); } );
+    roundedSumProperty.setSendPhetEvents( false );
 
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
     model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {
@@ -237,9 +258,13 @@ define( function( require ) {
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
-    new DerivedProperty( [model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty], function( showForce, showSumOfForces, sumOfForces ) {
-      return showForce && showSumOfForces && sumOfForces === 0;
-    } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
+    new DerivedProperty( [model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty],
+      function( showForce, showSumOfForces, sumOfForces ) {
+        return showForce && showSumOfForces && sumOfForces === 0;
+      },
+      {
+        id: 'sumOfForcesZero'
+      } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
     this.addChild( this.sumArrow );
@@ -248,13 +273,17 @@ define( function( require ) {
     this.addChild( this.sumOfForcesText );
 
     //Whichever arrow is smaller should be in front (in z-ordering)
-    var frictionLargerProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty], function( roundedAppliedForce, roundedFrictionForce ) {
-      return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
-    } );
+    var frictionLargerProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty],
+      function( roundedAppliedForce, roundedFrictionForce ) {
+        return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
+      }, {
+        id: 'frictionLargerProperty'
+      } );
     frictionLargerProperty.link( function( frictionLarger ) {
       var node = frictionLarger ? motionView.appliedForceArrow : motionView.frictionArrow;
       node.moveToFront();
     } );
+    frictionLargerProperty.setSendPhetEvents( false );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {

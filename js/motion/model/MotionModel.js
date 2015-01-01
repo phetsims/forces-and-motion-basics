@@ -41,7 +41,7 @@ define( function( require ) {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = new ObservableArray();
+    this.stack = new ObservableArray( {id: 'stack'} );
 
     //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
     PropertySet.call( this, {
@@ -80,6 +80,24 @@ define( function( require ) {
       //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
       stackSize: 1
     } );
+
+    //Indicate the model state when the applied force changes
+    this.appliedForceProperty.link( function( appliedForce ) {
+      phet.arch.trigger( 'modelState', {state: motionModel.getState()} );
+    } );
+
+    //Do not send PhET events for time changing
+    this.timeProperty.setSendPhetEvents( false );
+    this.timeSinceFallenProperty.setSendPhetEvents( false );
+    var throttlePeriod = 0.2;//Seconds.  Send at 5Hz
+    this.frictionProperty.throttle( throttlePeriod );
+    this.velocityProperty.throttle( throttlePeriod );
+    this.positionProperty.throttle( throttlePeriod );
+    this.pusherPositionProperty.throttle( throttlePeriod );
+    this.speedProperty.throttle( throttlePeriod );
+    this.frictionForceProperty.throttle( throttlePeriod );
+    this.accelerationProperty.throttle( throttlePeriod );
+    this.appliedForceProperty.throttle( throttlePeriod );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { motionModel.appliedForce = 0; } } );
@@ -321,7 +339,7 @@ define( function( require ) {
       var motionModel = this;
       return {
         properties: this.get(),
-        stack: motionModel.stack.getArray().map( function( item ) {return item.get();} )
+        stack: motionModel.stack.getArray().map( function( item ) {return item.get().name;} ).join( ',' )
       };
     }
   } );
