@@ -120,7 +120,7 @@ define( function( require ) {
 
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
-      phet.arch.start( 'left-arrow-button-pressed' );
+      phet.arch.start( 'user', 'left-arrow-button', 'ArrowButton.left', 'left-arrow-button-pressed' );
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
       phet.arch.end();
     }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
@@ -133,7 +133,7 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
-      phet.arch.start( 'right-arrow-button-pressed' );
+      phet.arch.start( 'user', 'right-arrow-button', 'ArrowButton.right', 'right-arrow-button-pressed' );
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
       phet.arch.end();
     }, {left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
@@ -184,7 +184,7 @@ define( function( require ) {
 
     //Reset all button goes beneath the control panel
     var resetButton = new ResetAllButton( {
-      listener: phet.arch.wrap( 'resetAllButtonPressed', model.reset.bind( model ) ),
+      listener: phet.arch.wrap( 'user', 'resetAllButton', 'ResetAllButton', 'pressed', model.reset.bind( model ) ),
       scale: 1.13
     } ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
     this.addChild( resetButton );

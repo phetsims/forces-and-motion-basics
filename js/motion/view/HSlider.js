@@ -116,13 +116,14 @@ define( function( require ) {
           if ( disableLeftProperty && disableLeftProperty.value ) {
             result = Math.max( 0, result );
           }
-          phet.arch.start( 'slider-knob-dragged', {componentID: options.componentID} );
+          //messageType, componentID, componentType, action, options
+          phet.arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-dragged' );
           property.value = result;
           phet.arch.end();
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            phet.arch.start( 'slider-knob-released', {componentID: options.componentID} );
+            phet.arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-released' );
             property.value = 0;
             phet.arch.end();
           }

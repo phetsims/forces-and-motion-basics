@@ -152,7 +152,7 @@ define( function( require ) {
 
         //Only apply a force if the pusher is not fallen, see #48
         if ( !model.fallen ) {
-          phet.arch.start( 'dragged-mannequin' );
+          phet.arch.start( 'user', 'pusherNode', 'PusherNode', 'dragged-mannequin' );
           model.appliedForce = clampedAppliedForce;
           phet.arch.end();
         }
