@@ -83,7 +83,7 @@ define( function( require ) {
 
     //Indicate the model state when the applied force changes
     this.appliedForceProperty.link( function( appliedForce ) {
-      phet.arch.trigger( 'modelState', {state: motionModel.getState()} );
+      phet.arch.trigger( 'model', 'motionModel', 'MotionModel', 'appliedForcePropertyChanged', {state: motionModel.getState()} );
     } );
 
     //Do not send PhET events for time changing
