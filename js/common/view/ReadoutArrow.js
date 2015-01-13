@@ -34,17 +34,17 @@ define( function( require ) {
     var readoutArrow = this;
 
     //Store fields
-    this.options = _.extend( {labelPosition: 'top', arrowScale: 1}, options );
+    this.options = _.extend( { labelPosition: 'top', arrowScale: 1 }, options );
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
     this.tailY = tailY;
 
     //Call the super class.  Render in svg to make the text crisper on retina display.
-    Node.call( this, {pickable: false} );
+    Node.call( this, { pickable: false } );
 
     //Create and add the children
-    this.arrowNode = new Path( null, _.extend( {fill: fill, stroke: '#000000', lineWidth: 1}, options ) );
-    var fontOptions = {font: new PhetFont( { size: 16, weight: 'bold' } )};
+    this.arrowNode = new Path( null, _.extend( { fill: fill, stroke: '#000000', lineWidth: 1 }, options ) );
+    var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ) };
     this.valueNode = new Text( '110N', fontOptions );
     this.labelNode = new Text( label, fontOptions );
     this.addChild( this.arrowNode );

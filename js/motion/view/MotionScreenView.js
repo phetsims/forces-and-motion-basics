@@ -50,7 +50,7 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds} );
+    ScreenView.call( this, { renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
 
     //Variables for this constructor, for convenience
     var motionView = this;
@@ -63,9 +63,9 @@ define( function( require ) {
 
     //Create the static background
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {fill: skyGradient, pickable: false} );
+    this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, { fill: skyGradient, pickable: false } );
 
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, {fill: '#c59a5b', pickable: false} );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, { fill: '#c59a5b', pickable: false } );
     this.addChild( this.sky );
     this.addChild( this.groundNode );
 
@@ -74,33 +74,47 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, pickable: false} ) );
-    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, { fill: '#e7e8e9', stroke: '#000000', lineWidth: 1, pickable: false} ) );
+    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
+      fill: '#e7e8e9',
+      stroke: '#000000',
+      lineWidth: 1,
+      pickable: false
+    } ) );
+    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
+      fill: '#e7e8e9',
+      stroke: '#000000',
+      lineWidth: 1,
+      pickable: false
+    } ) );
 
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
     //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( skateboardImage, {centerX: width / 2, y: 315 + 12, pickable: false} ) );
+      this.addChild( new Image( skateboardImage, { centerX: width / 2, y: 315 + 12, pickable: false } ) );
     }
 
     //Create the slider
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
-    var disableLeftProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
+    var disableLeftProperty = new DerivedProperty( [ model.fallenProperty, model.fallenDirectionProperty ], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'left';
     } );
-    var disableRightProperty = new DerivedProperty( [model.fallenProperty, model.fallenDirectionProperty], function( fallen, fallenDirection ) {
+    var disableRightProperty = new DerivedProperty( [ model.fallenProperty, model.fallenDirectionProperty ], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var sliderLabel = new Text( appliedForceString, {font: new PhetFont( 22 ), centerX: width / 2, y: 430} );
-    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {zeroOnRelease: true, centerX: width / 2 + 1, y: 535} ).addNormalTicks();
+    var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430 } );
+    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {
+      zeroOnRelease: true,
+      centerX: width / 2 + 1,
+      y: 535
+    } ).addNormalTicks();
 
     this.addChild( sliderLabel );
     this.addChild( slider );
 
     //Position the units to the right of the text box.
-    var readout = new Text( '???', {font: new PhetFont( 22 ), pickable: false} );
+    var readout = new Text( '???', { font: new PhetFont( 22 ), pickable: false } );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
 
@@ -114,7 +128,13 @@ define( function( require ) {
     } );
 
     //Make 'Newtons Readout' stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, {fill: 'white', stroke: 'lightGray', centerX: width / 2, top: readout.y - readout.height + 2, pickable: false} );
+    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, {
+      fill: 'white',
+      stroke: 'lightGray',
+      centerX: width / 2,
+      top:     readout.y - readout.height + 2,
+      pickable: false
+    } );
     this.addChild( this.textPanelNode );
     this.addChild( readout );
 
@@ -123,10 +143,10 @@ define( function( require ) {
       phet.arch.start( 'user', 'left-arrow-button', 'ArrowButton.left', 'left-arrow-button-pressed' );
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
       phet.arch.end();
-    }, {rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY} );
+    }, { rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) {
+    model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
       leftArrowButton.enabled = ( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );
     } );
     this.addChild( leftArrowButton );
@@ -136,10 +156,10 @@ define( function( require ) {
       phet.arch.start( 'user', 'right-arrow-button', 'ArrowButton.right', 'right-arrow-button-pressed' );
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
       phet.arch.end();
-    }, {left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY} );
+    }, { left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( ['appliedForce', 'speedClassification', 'stackSize'], function( appliedForce, speedClassification, stackSize ) {
+    model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
       rightArrowButton.enabled = ( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) );
     } );
     this.addChild( rightArrowButton );
@@ -149,12 +169,12 @@ define( function( require ) {
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new GaugeNode( model.velocityProperty, speedString, {min: 0, max: MotionConstants.MAX_SPEED}, {x: width / 2, top: 2} );
+    var speedometerNode = new GaugeNode( model.velocityProperty, speedString, { min: 0, max: MotionConstants.MAX_SPEED }, { x: width / 2, top: 2 } );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     //Use Tween.JS to smoothly animate
-    var itemsCentered = new Property( true, {id: 'itemsCentered'} );
+    var itemsCentered = new Property( true, { id: 'itemsCentered' } );
     itemsCentered.setSendPhetEvents( false );
     model.stack.lengthProperty.link( function() {
 
@@ -162,17 +182,17 @@ define( function( require ) {
       var stackHeightThreshold = 160;
       if ( motionView.stackHeight > stackHeightThreshold && itemsCentered.value ) {
         itemsCentered.value = false;
-        new TWEEN.Tween( speedometerNode ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+        new TWEEN.Tween( speedometerNode ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         if ( accelerometerNode ) {
-          new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+          new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         }
       }
       else if ( motionView.stackHeight <= stackHeightThreshold && !itemsCentered.value ) {
         itemsCentered.value = true;
 
-        new TWEEN.Tween( speedometerNode ).to( { x: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+        new TWEEN.Tween( speedometerNode ).to( { x: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         if ( accelerometerNode ) {
-          new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: width / 2}, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+          new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
         }
       }
     } );
@@ -186,20 +206,25 @@ define( function( require ) {
     var resetButton = new ResetAllButton( {
       listener: phet.arch.wrap( 'user', 'resetAllButton', 'ResetAllButton', 'pressed', model.reset.bind( model ) ),
       scale: 1.13
-    } ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 5} );
+    } ).mutate( { centerX: controlPanel.centerX, top: controlPanel.bottom + 5 } );
     this.addChild( resetButton );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
-      var labelAndAccelerometer = new VBox( {pickable: false, children: [new Text( 'Acceleration', {font: new PhetFont( 18 )} ), accelerometerNode]} );
+      var labelAndAccelerometer = new VBox( {
+        pickable: false,
+        children: [ new Text( 'Acceleration', { font: new PhetFont( 18 ) } ), accelerometerNode ]
+      } );
       var tickLabel = function( label, tick ) {
-        return new Text( label, {pickable: false, font: new PhetFont( 16 ), centerX: tick.centerX, top: tick.bottom + 27} );
+        return new Text( label, { pickable: false, font: new PhetFont( 16 ), centerX: tick.centerX, top: tick.bottom + 27 } );
       };
-      var accelerometerWithTickLabels = new Node( {children: [labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[0] ),
-        tickLabel( '0', accelerometerNode.ticks[2] ),
-        tickLabel( '20', accelerometerNode.ticks[4] )], centerX: width / 2, y: 135, pickable: false} );
+      var accelerometerWithTickLabels = new Node( {
+        children: [ labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
+          tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
+          tickLabel( '20', accelerometerNode.ticks[ 4 ] ) ], centerX: width / 2, y: 135, pickable: false
+      } );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
@@ -209,12 +234,12 @@ define( function( require ) {
     var itemLayer = new Node();
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
-      var item = model.items[i];
+      var item = model.items[ i ];
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
         item.image,
-          item.sittingImage || item.image,
-          item.holdingImage || item.image,
+        item.sittingImage || item.image,
+        item.holdingImage || item.image,
         model.showMassesProperty );
       this.itemNodes.push( itemNode );
 
@@ -229,14 +254,14 @@ define( function( require ) {
 
     //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
     var roundedAppliedForceProperty = new DerivedProperty(
-      [model.appliedForceProperty],
+      [ model.appliedForceProperty ],
       function( appliedForce ) {
         return Math.round( appliedForce );
       }, {
         id: 'roundedAppliedForce'
       } );
     var roundedFrictionForceProperty = new DerivedProperty(
-      [model.frictionForceProperty],
+      [ model.frictionForceProperty ],
       function( frictionForce ) {
         return Math.round( frictionForce );
       },
@@ -247,33 +272,47 @@ define( function( require ) {
     roundedAppliedForceProperty.setSendPhetEvents( false );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
-    var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {id: 'roundedSumProperty'} );
+    var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), { id: 'roundedSumProperty' } );
     model.on( 'stepped', function() { roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() ); } );
     roundedSumProperty.setSendPhetEvents( false );
 
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {labelPosition: 'top', arrowScale: arrowScale} );
-    model.multilink( ['showForce', 'showSumOfForces'], function( showForce, showSumOfForces ) {
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {
+      labelPosition: 'top',
+      arrowScale: arrowScale
+    } );
+    model.multilink( [ 'showForce', 'showSumOfForces' ], function( showForce, showSumOfForces ) {
       motionView.sumArrow.visible = showForce && showSumOfForces;
     } );
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {pickable: false, font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 200} );
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
+      pickable: false,
+      font: new PhetFont( { size: 16, weight: 'bold' } ),
+      centerX: width / 2,
+      y: 200
+    } );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
-    new DerivedProperty( [model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty],
+    new DerivedProperty( [ model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty ],
       function( showForce, showSumOfForces, sumOfForces ) {
         return showForce && showSumOfForces && sumOfForces === 0;
       },
       {
         id: 'sumOfForcesZero'
       } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
-    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
-    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {labelPosition: 'side', arrowScale: arrowScale} );
+    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
+      labelPosition: 'side',
+      arrowScale: arrowScale
+    } );
+    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
+      labelPosition: 'side',
+      arrowScale: arrowScale
+    } );
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
     this.addChild( this.sumOfForcesText );
 
     //Whichever arrow is smaller should be in front (in z-ordering)
-    var frictionLargerProperty = new DerivedProperty( [roundedAppliedForceProperty, roundedFrictionForceProperty],
+    var frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
       function( roundedAppliedForce, roundedFrictionForce ) {
         return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
       }, {
@@ -286,7 +325,7 @@ define( function( require ) {
     frictionLargerProperty.setSendPhetEvents( false );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    model.multilink( ['appliedForce', 'frictionForce'], function( appliedForce, frictionForce ) {
+    model.multilink( [ 'appliedForce', 'frictionForce' ], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
       motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
     } );
@@ -316,6 +355,6 @@ define( function( require ) {
     },
 
     //Get the size of an item
-    getSize: function( item ) { return {width: item.view.width, height: item.view.height}; }
+    getSize: function( item ) { return { width: item.view.width, height: item.view.height }; }
   } );
 } );

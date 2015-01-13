@@ -40,7 +40,7 @@ define( function( require ) {
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
     var toBackgroundImage = function( offset, image, y, scale ) {
-      var node = new Image( image, {scale: scale, x: offset, y: y} );
+      var node = new Image( image, { scale: scale, x: offset, y: y } );
       node.boundsInaccurate = true;
       node.offsetX = offset;
       node.scaleFactor = scale;
@@ -52,7 +52,8 @@ define( function( require ) {
     var mountainY = 311;
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy
-    var mountainAndCloudLayer = new Node( {x: layoutCenterX,
+    var mountainAndCloudLayer = new Node( {
+      x: layoutCenterX,
       children: [
         toBackgroundImage( L / 2, mountainImage, mountainY, 1 ),
         toBackgroundImage( L, mountainImage, mountainY, 1 ),
@@ -78,7 +79,7 @@ define( function( require ) {
 
         var sign = position > oldPosition ? 1 : -1;
         for ( var i = 0; i < children.length; i++ ) {
-          var child = children[i];
+          var child = children[ i ];
 
 //        console.log( child.offsetX + netDelta );
           //model moving right
@@ -114,7 +115,7 @@ define( function( require ) {
 
     //Add the ground, offset the pattern so that the it aligns with the brick image
     var tilePattern = new Pattern( brickTileImage );
-    var ground = new Rectangle( 0, 0, brickTileImage.width * 14, brickTileImage.height, {fill: tilePattern } );
+    var ground = new Rectangle( 0, 0, brickTileImage.width * 14, brickTileImage.height, { fill: tilePattern } );
     var mod = ground.width / 14;
     var centerX = layoutCenterX - ground.width / 2;
 
@@ -123,7 +124,7 @@ define( function( require ) {
     if ( showGround ) {
       ground.toImage( function( image ) {
         var groundY = mountainY + 50;
-        var groundImageNode = new Image( image, {y: groundY} );
+        var groundImageNode = new Image( image, { y: groundY } );
         groundImageNode.boundsInaccurate = true;
         movingBackgroundNode.addChild( groundImageNode );
         model.positionProperty.link( function( position ) {
@@ -134,17 +135,17 @@ define( function( require ) {
         if ( !model.skateboard ) {
 
           //Add the gravel
-          var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, {y: -2} );
+          var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, { y: -2 } );
           gravel.boundsInaccurate = true;
 
           //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
           groundImageNode.addChild( gravel );
 
           //Add the ice
-          var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, {fill: 'rgba(189,227,249,0.87)'} );
+          var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, { fill: 'rgba(189,227,249,0.87)' } );
           iceOverlay.boundsInaccurate = true;
-          model.addDerivedProperty( 'frictionZero', ['friction'], function( friction ) {return friction === 0;} );
-          model.addDerivedProperty( 'frictionNonZero', ['friction'], function( friction ) {return friction !== 0;} );
+          model.addDerivedProperty( 'frictionZero', [ 'friction' ], function( friction ) {return friction === 0;} );
+          model.addDerivedProperty( 'frictionNonZero', [ 'friction' ], function( friction ) {return friction !== 0;} );
           movingBackgroundNode.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
@@ -155,7 +156,8 @@ define( function( require ) {
             children: [
               toBackgroundImage( 0, icicleImage, 0, 0.8 ),
               toBackgroundImage( 300, icicleImage, 0, 0.8 )
-            ], x: layoutCenterX, y: groundY + ground.height} );
+            ], x: layoutCenterX, y: groundY + ground.height
+          } );
           iceLayer.boundsInaccurate = true;
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
           movingBackgroundNode.addChild( iceLayer );
@@ -192,17 +194,17 @@ define( function( require ) {
             }
 
             while ( numBlack < desiredBlack ) {
-              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'black'} ) );
+              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, { fill: 'black' } ) );
               numBlack++;
             }
 
             while ( numGray < desiredGray ) {
-              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'gray'} ) );
+              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, { fill: 'gray' } ) );
               numGray++;
             }
 
             while ( numWhite < desiredWhite ) {
-              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, {fill: 'white'} ) );
+              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, { fill: 'white' } ) );
               numWhite++;
             }
 
@@ -211,7 +213,7 @@ define( function( require ) {
             while ( numBlack > desiredBlack ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {
-                if ( children[i].fill === 'black' ) {
+                if ( children[ i ].fill === 'black' ) {
                   gravelSource.removeChildAt( i );
                   break;
                 }
@@ -222,7 +224,7 @@ define( function( require ) {
             while ( numGray > desiredGray ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {
-                if ( children[i].fill === 'gray' ) {
+                if ( children[ i ].fill === 'gray' ) {
                   gravelSource.removeChildAt( i );
                   break;
                 }
@@ -233,7 +235,7 @@ define( function( require ) {
             while ( numWhite > desiredWhite ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {
-                if ( children[i].fill === 'white' ) {
+                if ( children[ i ].fill === 'white' ) {
                   gravelSource.removeChildAt( i );
                   break;
                 }

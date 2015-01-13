@@ -41,7 +41,7 @@ define( function( require ) {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = new ObservableArray( {id: 'stack'} );
+    this.stack = new ObservableArray( { id: 'stack' } );
 
     //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
     PropertySet.call( this, {
@@ -83,7 +83,7 @@ define( function( require ) {
 
     //Indicate the model state when the applied force changes
     this.appliedForceProperty.link( function( appliedForce ) {
-      phet.arch.trigger( 'model', 'motionModel', 'MotionModel', 'appliedForcePropertyChanged', {state: motionModel.getState()} );
+      phet.arch.trigger( 'model', 'motionModel', 'MotionModel', 'appliedForcePropertyChanged', { state: motionModel.getState() } );
     } );
 
     //Do not send PhET events for time changing
@@ -137,7 +137,7 @@ define( function( require ) {
     draggingItems: function() {
       var draggingItems = [];
       for ( var i = 0; i < this.items.length; i++ ) {
-        var item = this.items[i];
+        var item = this.items[ i ];
         if ( item.dragging ) {
           draggingItems.push( item );
         }
@@ -286,7 +286,7 @@ define( function( require ) {
       }
 
       for ( var i = 0; i < this.items.length; i++ ) {
-        this.items[i].step( dt );
+        this.items[ i ].step( dt );
       }
 
       //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
@@ -307,7 +307,7 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
-        this.items[i].reset();
+        this.items[ i ].reset();
       }
       this.stack.clear();
 
@@ -322,10 +322,10 @@ define( function( require ) {
      */
     viewInitialized: function( view ) {
       this.view = view;
-      var item = this.items[1];
+      var item = this.items[ 1 ];
       item.onBoard = true;
-      var itemNode = view.itemNodes[1];
-      item.animating = {enabled: false, x: 0, y: 0, end: null};
+      var itemNode = view.itemNodes[ 1 ];
+      item.animating = { enabled: false, x: 0, y: 0, end: null };
       item.interactionScale = 1.3;
       item.position = new Vector2( view.layoutBounds.width / 2 - itemNode.width / 2, view.topOfStack - itemNode.height );
       this.stack.add( item );

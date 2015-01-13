@@ -66,7 +66,7 @@ define( function( require ) {
   function NetForceScreenView( model ) {
     var netForceScreenView = this;
 
-    ScreenView.call( this, {renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds} );
+    ScreenView.call( this, { renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;
@@ -86,11 +86,11 @@ define( function( require ) {
     } ) );
 
     //Show the grass.
-    this.addChild( new Image( grassImage, {x: 13, y: grassY} ) );
-    this.addChild( new Image( grassImage, {x: 13 - grassImage.width, y: grassY} ) );
-    this.addChild( new Image( grassImage, {x: 13 + grassImage.width, y: grassY} ) );
+    this.addChild( new Image( grassImage, { x: 13, y: grassY } ) );
+    this.addChild( new Image( grassImage, { x: 13 - grassImage.width, y: grassY } ) );
+    this.addChild( new Image( grassImage, { x: 13 + grassImage.width, y: grassY } ) );
 
-    this.cartNode = new Image( cartImage, {y: 221} );
+    this.cartNode = new Image( cartImage, { y: 221 } );
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
@@ -100,7 +100,11 @@ define( function( require ) {
 
     var cursorWidth = 18;
 
-    var cursor = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {fill: 'blue', stroke: 'black', lineWidth: 1} );
+    var cursor = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
+      fill: 'blue',
+      stroke: 'black',
+      lineWidth: 1
+    } );
 
     var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
     var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
@@ -108,7 +112,7 @@ define( function( require ) {
     this.addChild( rightToolbox );
 
     //Split into another canvas to speed up rendering
-    this.addChild( new Node( {layerSplit: true} ) );
+    this.addChild( new Node( { layerSplit: true } ) );
 
     //Create the arrow nodes
     var opacity = 0.8;
@@ -116,22 +120,22 @@ define( function( require ) {
       lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
     } );
     this.leftArrow = new ReadoutArrow( leftForceString, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty, {
-      lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity
+      lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
     } );
     this.rightArrow = new ReadoutArrow( rightForceString, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty, {
-      lineDash: [ 10, 5], labelPosition: 'side', opacity: opacity
+      lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
     } );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
-      [netForceScreenView.sumArrow, netForceScreenView.leftArrow, netForceScreenView.rightArrow].forEach( function( arrow ) {
+      [ netForceScreenView.sumArrow, netForceScreenView.leftArrow, netForceScreenView.rightArrow ].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.ropeNode = new Image( ropeImage, {x: 51, y: 273 } );
+    this.ropeNode = new Image( ropeImage, { x: 51, y: 273 } );
 
     model.knots.forEach( function( knot ) { netForceScreenView.addChild( new KnotHighlightNode( knot ) ); } );
 
@@ -146,11 +150,11 @@ define( function( require ) {
 
     //Add the go button, but only if there is a puller attached
     var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
-    var goPauseButtonContainer = new Node( {children: [goPauseButton]} );
+    var goPauseButtonContainer = new Node( { children: [ goPauseButton ] } );
     this.addChild( goPauseButtonContainer );
 
     //Return button
-    this.addChild( new ReturnButton( model, {centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5} ) );
+    this.addChild( new ReturnButton( model, { centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5 } ) );
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     var getPullerImage = function( puller, leaning ) {
@@ -191,7 +195,7 @@ define( function( require ) {
     this.addChild( this.sumArrow );
 
     //Show the control panel
-    this.addChild( new NetForceControlPanel( this.model ).mutate( {right: 981 - 5, top: 5} ) );
+    this.addChild( new NetForceControlPanel( this.model ).mutate( { right: 981 - 5, top: 5 } ) );
 
     //Show the flag node when pulling is complete
     var showFlagNode = function() { netForceScreenView.addChild( new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 ) ); };
@@ -217,8 +221,8 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53} );
-    model.multilink( ['netForce', 'showSumOfForces'], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, { font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53 } );
+    model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
 
     cursor.visible = false;

@@ -37,7 +37,7 @@ define( function( require ) {
     maxHeight += padY;
     node.centerX = maxWidth / 2;
     node.centerY = maxHeight / 2;
-    return new Rectangle( 0, 0, maxWidth, maxHeight, {children: [node]} );
+    return new Rectangle( 0, 0, maxWidth, maxHeight, { children: [ node ] } );
   }
 
   /**
@@ -51,14 +51,22 @@ define( function( require ) {
 
     var padX = 15;
     var padY = 10;
-    var goText = new Text( goString, {font: new PhetFont( 42 )} );
-    var pauseText = new Text( pauseString, {font: new PhetFont( 30 )} );
+    var goText = new Text( goString, { font: new PhetFont( 42 ) } );
+    var pauseText = new Text( pauseString, { font: new PhetFont( 30 ) } );
 
-    var goButton = new RoundPushButton( {content: wrap( goText, padX, padY, [goText, pauseText] ), baseColor: '#94b830', listener: function() {model.running = true;}} );//green
-    var pauseButton = new RoundPushButton( {content: wrap( pauseText, padX, padY, [goText, pauseText] ), baseColor: '#df1a22', listener: function() {model.running = false;}} );//red
+    var goButton = new RoundPushButton( {
+      content: wrap( goText, padX, padY, [ goText, pauseText ] ),
+      baseColor: '#94b830',
+      listener: function() {model.running = true;}
+    } );//green
+    var pauseButton = new RoundPushButton( {
+      content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
+      baseColor: '#df1a22',
+      listener: function() {model.running = false;}
+    } );//red
 
     var showGoButtonProperty = model.runningProperty.derivedNot();
-    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {top: 400} );
+    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, { top: 400 } );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {

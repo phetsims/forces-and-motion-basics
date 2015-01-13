@@ -82,7 +82,7 @@ define( function( require ) {
 
     //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
-      this.animating = {enabled: true, x: x, y: y, destination: destination};
+      this.animating = { enabled: true, x: x, y: y, destination: destination };
     },
 
     //Animate the item to its original location
@@ -104,7 +104,7 @@ define( function( require ) {
             this.interactionScale = 1.0;
           }
         }
-        this.animating = {enabled: false, x: 0, y: 0, end: null, destination: 'home'};
+        this.animating = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
       }
     },
 
@@ -132,7 +132,7 @@ define( function( require ) {
           if ( this.animating.end ) {
             this.animating.end();
           }
-          this.animating = {enabled: false, x: 0, y: 0, end: null};
+          this.animating = { enabled: false, x: 0, y: 0, end: null };
         }
       }
     }

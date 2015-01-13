@@ -36,7 +36,7 @@ define( function( require ) {
   function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty ) {
     var itemNode = this;
     this.item = item;
-    Node.call( this, {x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer' } );
+    Node.call( this, { x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer' } );
 
     //Create the node for the main graphic
     var normalImageNode = new Image( normalImage );
@@ -59,7 +59,7 @@ define( function( require ) {
     };
 
     for ( var i = 0; i < model.items.length; i++ ) {
-      model.items[i].draggingProperty.link( updateImage );
+      model.items[ i ].draggingProperty.link( updateImage );
     }
 
     model.stack.lengthProperty.link( updateImage );
@@ -106,16 +106,24 @@ define( function( require ) {
     this.addInputListener( dragHandler );
 
     //Label for the mass (if it is shown)
-    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( massDisplayPattern, item.mass ), {font: new PhetFont( { size: 15, weight: 'bold' } )} );
-    var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {fill: 'white', stroke: 'gray'} ).mutate( {centerX: massLabel.centerX, centerY: massLabel.centerY} );
-    var labelNode = new Node( {children: [roundRect, massLabel ], scale: 1.0 / item.imageScale} );
+    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( massDisplayPattern, item.mass ), {
+      font: new PhetFont( {
+        size: 15,
+        weight: 'bold'
+      } )
+    } );
+    var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {
+      fill: 'white',
+      stroke: 'gray'
+    } ).mutate( { centerX: massLabel.centerX, centerY: massLabel.centerY } );
+    var labelNode = new Node( { children: [ roundRect, massLabel ], scale: 1.0 / item.imageScale } );
     this.labelNode = labelNode;
 
     //Update the position of the item
     item.positionProperty.link( function( position ) { itemNode.setTranslation( position ); } );
 
     //When the object is scaled or change direction, update the image part
-    item.multilink( ['interactionScale', 'direction'], function( interactionScale, direction ) {
+    item.multilink( [ 'interactionScale', 'direction' ], function( interactionScale, direction ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 

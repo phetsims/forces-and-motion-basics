@@ -30,12 +30,12 @@ define( function( require ) {
     options = _.extend( {}, options );
     Node.call( this, options );
 
-    var fontOptions = {font: new PhetFont( 18 )};
+    var fontOptions = { font: new PhetFont( 18 ) };
     var controlPanel = new VerticalCheckBoxGroup( [
-      {content: new Text( sumOfForcesString, fontOptions ), property: model.showSumOfForcesProperty, label: sumOfForcesString},
-      {content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString}
-    ], {tabIndex: 9} );
-    this.addChild( new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} ) );
+      { content: new Text( sumOfForcesString, fontOptions ), property: model.showSumOfForcesProperty, label: sumOfForcesString },
+      { content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString }
+    ], { tabIndex: 9 } );
+    this.addChild( new Panel( controlPanel, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     var resetButton = new ResetAllButton( { listener: model.reset.bind( model ), scale: 1.13 } );
@@ -54,7 +54,10 @@ define( function( require ) {
       tabIndex: 10
 
     } );
-    this.addChild( new HBox( {spacing: 5, children: [ resetButton, soundButton ]} ).mutate( {centerX: controlPanel.centerX, top: controlPanel.bottom + 15} ) );
+    this.addChild( new HBox( { spacing: 5, children: [ resetButton, soundButton ] } ).mutate( {
+      centerX: controlPanel.centerX,
+      top: controlPanel.bottom + 15
+    } ) );
   }
 
   return inherit( Node, NetForceControlPanel );

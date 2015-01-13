@@ -13,7 +13,7 @@ define( function( require ) {
 
   //Cart constructor
   function Cart() {
-    PropertySet.call( this, {x: 0, v: 0} );//Position and velocity are in MKS
+    PropertySet.call( this, { x: 0, v: 0 } );//Position and velocity are in MKS
   }
 
   return inherit( PropertySet, Cart );

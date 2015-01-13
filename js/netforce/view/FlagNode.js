@@ -31,8 +31,8 @@ define( function( require ) {
     this.model = model;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? blueWinsString : redWinsString, {font: new PhetFont( 32 ), fill: 'white'} );
-    this.path = new Path( null, {fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0} );
+    var text = new Text( model.cart.x < 0 ? blueWinsString : redWinsString, { font: new PhetFont( 32 ), fill: 'white' } );
+    this.path = new Path( null, { fill: model.cart.x < 0 ? 'blue' : 'red', stroke: 'black', lineWidth: 2, centerX: 0, centerY: 0 } );
     this.addChild( this.path );
 
     //Shrink the text to fit on the flag if necessary
@@ -77,5 +77,6 @@ define( function( require ) {
       shape.lineTo( 0, 0 );
       shape.close();
       this.path.shape = shape;
-    }} );
+    }
+  } );
 } );

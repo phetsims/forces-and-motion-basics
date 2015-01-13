@@ -98,12 +98,12 @@ define( function( require ) {
           //Hack around the puller position, which seems to be broken for blue pullers for unknown reasons
           if ( knot && puller.type === 'blue' ) {
             puller.position = puller.position.plusXY(
-                puller.size === 'small' ? -50 :
-                puller.size === 'medium' ? -30 :
-                -40,
-                puller.size === 'small' ? -30 :
-                puller.size === 'medium' ? -90 :
-                -140 );
+              puller.size === 'small' ? -50 :
+              puller.size === 'medium' ? -30 :
+              -40,
+              puller.size === 'small' ? -30 :
+              puller.size === 'medium' ? -90 :
+              -140 );
           }
           updateLocation();
         },

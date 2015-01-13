@@ -23,7 +23,7 @@ define( function( require ) {
    * @constructor
    */
   function Puller( x, y, type, size, dragOffsetX, standOffsetX ) {
-    assert && assert( ['small', 'medium', 'large'].indexOf( size ) >= 0 );
+    assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
 
     var puller = this;
 

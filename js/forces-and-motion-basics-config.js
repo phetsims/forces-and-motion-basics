@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 require.config( {
-  deps: ['forces-and-motion-basics-main'],
+  deps: [ 'forces-and-motion-basics-main' ],
 
   paths: {
 

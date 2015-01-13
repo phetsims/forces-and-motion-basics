@@ -87,7 +87,7 @@ define( function( require ) {
 
         //try to snap to a knot
         if ( knot ) {
-          puller.set( {position: new Vector2( knot.x, knot.y ), knot: knot} );
+          puller.set( { position: new Vector2( knot.x, knot.y ), knot: knot } );
         }
 
         //Or go back home
@@ -126,8 +126,8 @@ define( function( require ) {
         if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
           var nextIndex = currentIndex + delta;
 
-          var currentKnot = this.knots[currentIndex];
-          var nextKnot = this.knots[nextIndex];
+          var currentKnot = this.knots[ currentIndex ];
+          var nextKnot = this.knots[ nextIndex ];
 
           var otherPuller = this.getPuller( nextKnot );
 
@@ -179,10 +179,10 @@ define( function( require ) {
     getClosestOpenKnotFromCart: function( puller ) {
       var idx = puller.type === 'red' ? 4 : 3;
       var delta = puller.type === 'red' ? 1 : -1;
-      while ( this.getPuller( this.knots[idx] ) !== null ) {
+      while ( this.getPuller( this.knots[ idx ] ) !== null ) {
         idx += delta;
       }
-      return this.knots[idx];
+      return this.knots[ idx ];
     },
 
     //Gets the closest unoccupied knot to the given puller if it is close enough to grab
@@ -225,7 +225,7 @@ define( function( require ) {
         // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
         var newV = this.cart.v + this.getNetForce() * dt * 0.00075;
         var newX = this.cart.x + newV * dt * 60.0;
-        this.cart.set( {v: newV, x: newX} );
+        this.cart.set( { v: newV, x: newX } );
         this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
 
         //If the cart made it to the end, then stop and signify completion

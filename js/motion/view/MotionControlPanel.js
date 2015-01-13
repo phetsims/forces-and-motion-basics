@@ -49,11 +49,11 @@ define( function( require ) {
     var fontSize = 18;
 
     var toElement = function( text, propertyName, checkboxID, options ) {
-      options = _.extend( {indent: 0}, options );
-      var textNode = new Text( text, {font: new PhetFont( fontSize )} );
+      options = _.extend( { indent: 0 }, options );
+      var textNode = new Text( text, { font: new PhetFont( fontSize ) } );
       return {
         //TODO: Why is this immense spacing necessary here?
-        content: options.icon ? new HBox( {spacing: 10, children: [  textNode, options.icon]} ) : textNode,
+        content: options.icon ? new HBox( { spacing: 10, children: [ textNode, options.icon ] } ) : textNode,
         property: model.property( propertyName ),
         indent: options.indent,
         id: checkboxID
@@ -61,34 +61,47 @@ define( function( require ) {
     };
 
     //Icon for the forces in the control panel
-    var arrowIcon = function() {return new ArrowNode( 0, 0, 40, 0, {headHeight: 20, headWidth: 20, tailWidth: 10, fill: '#e66e23', stroke: 'black'} );};
-    var speedometerIcon = function() { return new GaugeNode( model.velocityProperty, speedString, {min: 0, max: MotionConstants.MAX_SPEED}, {scale: 0.2} );};
-    var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( {scale: 0.3} ); };
+    var arrowIcon = function() {
+      return new ArrowNode( 0, 0, 40, 0, {
+        headHeight: 20,
+        headWidth: 20,
+        tailWidth: 10,
+        fill: '#e66e23',
+        stroke: 'black'
+      } );
+    };
+    var speedometerIcon = function() {
+      return new GaugeNode( model.velocityProperty, speedString, {
+        min: 0,
+        max: MotionConstants.MAX_SPEED
+      }, { scale: 0.2 } );
+    };
+    var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( { scale: 0.3 } ); };
 
     //Workarounds because VBox centering not working properly
-    var spacer = function( width, height ) { return new Rectangle( 0, 0, width, height, {visible: false} ); };
+    var spacer = function( width, height ) { return new Rectangle( 0, 0, width, height, { visible: false } ); };
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
-        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), { stroke: 'black', lineWidth: 1} );
-        var text = new Text( label, {font: new PhetFont( 15 )} );
+        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), { stroke: 'black', lineWidth: 1 } );
+        var text = new Text( label, { font: new PhetFont( 15 ) } );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;
           path.fill = enabled ? 'black' : 'gray';
           text.fill = enabled ? 'black' : 'gray';
         } );
-        return new VBox( {children: [ text, path ], pickable: false, visible: visible} );
+        return new VBox( { children: [ text, path ], pickable: false, visible: visible } );
       };
 
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
-      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE', {id: 'disableLeftProperty'} ), null, null, {zeroOnRelease: false} ).
+      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE', { id: 'disableLeftProperty' } ), null, null, { zeroOnRelease: false } ).
         addTick( 0, createTick( noneString, true ) ).addTick( 1, createTick( lotsString, true ) ).
         addTick( 0, createTick( lotsString, false ) ).addTick( 1, createTick( noneString, false ) );
       var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );
 
-      return new VBox( {spacing: -8, children: [frictionLabel , frictionSlider]} );
+      return new VBox( { spacing: -8, children: [ frictionLabel, frictionSlider ] } );
     };
 
     var indent = 24;
@@ -97,32 +110,32 @@ define( function( require ) {
       children: model.screen === 'motion' ?
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( forceString, 'showForce', {icon: arrowIcon()} ),
-                    toElement( valuesString, 'showValues', {indent: indent} ),
+                    toElement( forceString, 'showForce', { icon: arrowIcon() } ),
+                    toElement( valuesString, 'showValues', { indent: indent } ),
                     toElement( massesString, 'showMasses' ),
-                    toElement( speedString, 'showSpeed', {icon: speedometerIcon()} )
-                  ], {fill: '#e3e980'} )] :
+                    toElement( speedString, 'showSpeed', { icon: speedometerIcon() } )
+                  ], { fill: '#e3e980' } ) ] :
                 model.screen === 'friction' ?
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( forcesString, 'showForce', {icon: arrowIcon()} ),
-                    toElement( sumOfForcesString, 'showSumOfForces', {indent: indent} ),
-                    toElement( valuesString, 'showValues', {indent: indent} ),
+                    toElement( forcesString, 'showForce', { icon: arrowIcon() } ),
+                    toElement( sumOfForcesString, 'showSumOfForces', { indent: indent } ),
+                    toElement( valuesString, 'showValues', { indent: indent } ),
                     toElement( massesString, 'showMasses' ),
-                    toElement( speedString, 'showSpeed', {icon: speedometerIcon()} )
-                  ], {fill: '#e3e980'} ), spacer( 12, 12 ), createFrictionSlider()  ] :
+                    toElement( speedString, 'showSpeed', { icon: speedometerIcon() } )
+                  ], { fill: '#e3e980' } ), spacer( 12, 12 ), createFrictionSlider() ] :
                 [ new VerticalCheckBoxGroup(
                   [
-                    toElement( forcesString, 'showForce', {icon: arrowIcon()} ),
-                    toElement( sumOfForcesString, 'showSumOfForces', {indent: indent} ),
-                    toElement( valuesString, 'showValues', {indent: indent} ),
+                    toElement( forcesString, 'showForce', { icon: arrowIcon() } ),
+                    toElement( sumOfForcesString, 'showSumOfForces', { indent: indent } ),
+                    toElement( valuesString, 'showValues', { indent: indent } ),
                     toElement( massesString, 'showMasses' ),
-                    toElement( speedString, 'showSpeed', {icon: speedometerIcon()} ),
-                    toElement( accelerationString, 'showAcceleration', {icon: accelerometerIcon()} )
-                  ], {fill: '#e3e980'} ), spacer( 12, 12 ), createFrictionSlider()  ]
+                    toElement( speedString, 'showSpeed', { icon: speedometerIcon() } ),
+                    toElement( accelerationString, 'showAcceleration', { icon: accelerometerIcon() } )
+                  ], { fill: '#e3e980' } ), spacer( 12, 12 ), createFrictionSlider() ]
     } );
-    var panelNode = new Panel( controlPanel, {xMargin: 10, yMargin: 10, fill: '#e3e980'} );
-    this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5} ) );
+    var panelNode = new Panel( controlPanel, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
+    this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
   }
 
   return inherit( Node, MotionControlPanel );

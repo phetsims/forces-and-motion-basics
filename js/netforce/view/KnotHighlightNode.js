@@ -18,7 +18,7 @@ define( function( require ) {
   var knotWidth = 20;
 
   function KnotHighlightNode( knot ) {
-    Path.call( this, Shape.circle( 0, 0, knotWidth ), {stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.x, y: knot.y} );
+    Path.call( this, Shape.circle( 0, 0, knotWidth ), { stroke: '#FFFF00', lineWidth: 4, visible: false, x: knot.x, y: knot.y } );
     knot.visibleProperty.linkAttribute( this, 'visible' );
     knot.xProperty.linkAttribute( this, 'x' );
   }

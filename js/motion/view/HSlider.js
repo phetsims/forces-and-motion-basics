@@ -37,7 +37,7 @@ define( function( require ) {
    */
   function HSlider( min, max, width, property, speedClassificationProperty, disableLeftProperty, disableRightProperty, options ) {
     var slider = this;
-    this.enabledProperty = new Property( true, {id: 'slider-enabled'} );
+    this.enabledProperty = new Property( true, { id: 'slider-enabled' } );
     this.options = _.extend( {
       zeroOnRelease: false,
       componentID: ''
@@ -60,11 +60,11 @@ define( function( require ) {
 
     Node.call( this, this.options );
 
-    this.ticksLayer = new Node( {pickable: false} );
+    this.ticksLayer = new Node( { pickable: false } );
     this.addChild( this.ticksLayer );
 
     //The track
-    var track = new Rectangle( 0, 0, width, this.trackHeight, {stroke: 'black', lineWidth: 1, fill: 'white'} );
+    var track = new Rectangle( 0, 0, width, this.trackHeight, { stroke: 'black', lineWidth: 1, fill: 'white' } );
     this.addChild( track );
     this.enabledProperty.link( function( enabled ) {
       track.stroke = enabled ? 'black' : 'gray';
@@ -74,19 +74,19 @@ define( function( require ) {
     //Gray out left side or right side if the maximum speed has been reached in that direction
     if ( disableLeftProperty && disableRightProperty ) {
       //Bars to show either side of the slider disabled when max is reached in that direction
-      var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
+      var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, { stroke: 'gray', lineWidth: 1, fill: 'gray' } );
       this.addChild( rightDisableBar );
       disableRightProperty.linkAttribute( rightDisableBar, 'visible' );
 
-      var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, {stroke: 'gray', lineWidth: 1, fill: 'gray'} );
+      var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, { stroke: 'gray', lineWidth: 1, fill: 'gray' } );
       this.addChild( leftDisableBar );
       disableLeftProperty.linkAttribute( leftDisableBar, 'visible' );
     }
 
     //Lookup the new item and append to the scenery
     var enabledKnob = new SliderKnob();
-    var disabledKnob = new SliderKnob( {enabled: false} );
-    var knob = new Node( {children: [ enabledKnob]} );
+    var disabledKnob = new SliderKnob( { enabled: false } );
+    var knob = new Node( { children: [ enabledKnob ] } );
 
     knob.y = -knob.height / 2 + 4;
 
@@ -127,14 +127,15 @@ define( function( require ) {
             property.value = 0;
             phet.arch.end();
           }
-        }}
+        }
+      }
     );
     knob.addInputListener( dragHandler );
     this.addChild( knob );
 
     //Show the knob as enabled or disabled
     this.enabledProperty.link( function( enabled ) {
-      knob.children = [enabled ? enabledKnob : disabledKnob];
+      knob.children = [ enabled ? enabledKnob : disabledKnob ];
       knob.cursor = enabled ? 'pointer' : 'default';
       if ( enabled ) {
         knob.addInputListener( dragHandler );
@@ -167,11 +168,20 @@ define( function( require ) {
       _.range( numTicks ).forEach( function( i ) {
 
         var x1 = linear( slider.min, slider.max, 0, slider.sliderWidth, i / (numTicks - 1) * (slider.max - slider.min) + slider.min );
-        var tick = new Path( Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -22 ) ), {pickable: false, stroke: 'black', lineWidth: 1} );
+        var tick = new Path( Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -22 ) ), {
+          pickable: false,
+          stroke: 'black',
+          lineWidth: 1
+        } );
         slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
         slider.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
-          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {pickable: false, centerX: tick.centerX, bottom: tick.top, font: new PhetFont( 16 )} );
+          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {
+            pickable: false,
+            centerX: tick.centerX,
+            bottom: tick.top,
+            font: new PhetFont( 16 )
+          } );
           slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
           slider.ticksLayer.addChild( label );
         }

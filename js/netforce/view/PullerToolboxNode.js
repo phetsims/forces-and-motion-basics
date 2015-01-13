@@ -44,8 +44,8 @@ define( function( require ) {
 
       // When clicked, move the active puller to the rope.
       click: function() {
-        var puller = netForceScreenView.model.pullers[activePullerIndexProperty.value];
-        model.activatePuller( puller, netForceScreenView.pullerNodes[activePullerIndexProperty.value] );
+        var puller = netForceScreenView.model.pullers[ activePullerIndexProperty.value ];
+        model.activatePuller( puller, netForceScreenView.pullerNodes[ activePullerIndexProperty.value ] );
       },
       tabIndex: 0
     } );

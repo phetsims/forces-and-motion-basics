@@ -47,9 +47,9 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new Image( pusherStraightImage, {visible: true, pickable: true, scale: scale} );
-    var fallLeft = new Image( pusherFallDownImage, {visible: false, pickable: false, scale: scale} );
-    var fallRight = new Image( pusherFallDownImage, {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
+    var standingUp = new Image( pusherStraightImage, { visible: true, pickable: true, scale: scale } );
+    var fallLeft = new Image( pusherFallDownImage, { visible: false, pickable: false, scale: scale } );
+    var fallRight = new Image( pusherFallDownImage, { visible: false, pickable: false, scale: new Vector2( -scale, scale ) } );
     var visibleNode = standingUp;
 
     children.push( standingUp );
@@ -72,8 +72,8 @@ define( function( require ) {
                   i === 13 ? pusherImage13 :
                   i === 14 ? pusherImage14 :
                   null;
-      var rightImage = new Image( image, {visible: false, pickable: false, scale: scale} );
-      var leftImage = new Image( image, {visible: false, pickable: false, scale: new Vector2( -scale, scale )} );
+      var rightImage = new Image( image, { visible: false, pickable: false, scale: scale } );
+      var leftImage = new Image( image, { visible: false, pickable: false, scale: new Vector2( -scale, scale ) } );
       pushingRightNodes.push( rightImage );
       pushingLeftNodes.push( leftImage );
       children.push( rightImage );
@@ -90,7 +90,7 @@ define( function( require ) {
       }
     }
 
-    Node.call( this, {children: children} );
+    Node.call( this, { children: children } );
 
     //Update the position when the pusher is not applying force (fallen or standing)
     function updateZeroForcePosition() {
@@ -116,7 +116,7 @@ define( function( require ) {
     }
 
     //Choose the rightImage
-    model.multilink( ['appliedForce', 'fallen'], function( appliedForce, fallen ) {
+    model.multilink( [ 'appliedForce', 'fallen' ], function( appliedForce, fallen ) {
       if ( fallen ) {
         setVisibleNode( model.fallenDirection === 'left' ? fallLeft : fallRight );
         updateZeroForcePosition();
@@ -128,17 +128,17 @@ define( function( require ) {
       else {
         var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 500 * 14) ) ) );
         if ( appliedForce > 0 ) {
-          setVisibleNode( pushingRightNodes[index] );
+          setVisibleNode( pushingRightNodes[ index ] );
         }
         else {
-          setVisibleNode( pushingLeftNodes[index] );
+          setVisibleNode( pushingLeftNodes[ index ] );
         }
         updateAppliedForcePosition();
       }
     } );
 
     //Update the rightImage and position when the model changes
-    model.multilink( ['position', 'pusherPosition'], function() {
+    model.multilink( [ 'position', 'pusherPosition' ], function() {
       if ( model.appliedForce === 0 || model.fallen ) {
         updateZeroForcePosition();
       }

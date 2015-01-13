@@ -30,7 +30,11 @@ define( function( require ) {
   function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty ) {
     this.item = item;
     ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty );
-    var water = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), { stroke: 'black', fill: 'rgb(9, 125, 159)', lineWidth: 1} );
+    var water = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
+      stroke: 'black',
+      fill: 'rgb(9, 125, 159)',
+      lineWidth: 1
+    } );
     this.addChild( water );
     water.moveToBack();
 
@@ -53,7 +57,7 @@ define( function( require ) {
     //When the model steps in time, update the water shape
     //The delta value is the critical value in determining the water shape.
     //Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
-    var deltaProperty = model.toDerivedProperty( ['time'], function() {
+    var deltaProperty = model.toDerivedProperty( [ 'time' ], function() {
       var acceleration = model.acceleration;
       history.push( acceleration );
       while ( history.length > 7 ) {
