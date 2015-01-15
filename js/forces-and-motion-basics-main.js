@@ -56,5 +56,36 @@ define( function( require ) {
         function( model ) {return new MotionScreenView( model );}
       )
     ], simOptions ).start();
+
+    var sessionID = 'session-' + Date.now();
+    Metacog.init( {
+      "session": {
+        "publisher_id": 'bf2e4b52',
+        "application_id": '617dd906494998d92d922e0df42b35ca',
+        "widget_id": 'forces-and-motion-basics',
+        "learner_id": "Sam R.",
+        "session_id": sessionID
+      },
+      log_tab: true,
+      mode: "production"
+    } );
+
+    Metacog.Router.init( {
+      arch: function( data ) {
+        console.log( "on any:", data );
+      }
+    } );
+
+    //and use "on_any_event" as event name when using sendEvent method
+    Metacog.Logger.start();
+    console.log( 'finished initing metacog' );
+    window.phet.arch.targets.push( function( message ) {
+      console.log( 'hello' );
+      Metacog.Router.sendEvent( {
+        event: 'arch',
+        data: JSON.parse( message ),
+        type: Metacog.EVENT_TYPE.MODEL
+      } );
+    } );
   } );
 } );
