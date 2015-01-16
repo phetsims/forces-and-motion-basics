@@ -63,27 +63,30 @@ define( function( require ) {
         "publisher_id": 'bf2e4b52',
         "application_id": '617dd906494998d92d922e0df42b35ca',
         "widget_id": 'forces-and-motion-basics',
-        "learner_id": "Sam R.",
+        "learner_id": "testing",
         "session_id": sessionID
       },
       log_tab: true,
       mode: "production"
     } );
 
-    Metacog.Router.init( {
-      arch: function( data ) {
-        console.log( "on any:", data );
-      }
-    } );
 
     //and use "on_any_event" as event name when using sendEvent method
+
     Metacog.Logger.start();
-    console.log( 'finished initing metacog' );
+
+    var stripWhitespace = function( string ) {
+      string = string || 'undefined';
+      return string.replace( /\s/g, "" );
+    };
+
     window.phet.arch.targets.push( function( message ) {
-      console.log( 'hello' );
+      var phet_message  =JSON.parse( message );
+      var  event_name = phet_message.messageType + '_' + stripWhitespace( phet_message.componentID ) + '_' + phet_message.componentType + '_' + phet_message.action;
+
       Metacog.Router.sendEvent( {
-        event: 'arch',
-        data: JSON.parse( message ),
+        event: phet_message.action + "_"+phet_message.componentID,
+        data: phet_message,
         type: Metacog.EVENT_TYPE.MODEL
       } );
     } );
