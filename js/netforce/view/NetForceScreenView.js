@@ -150,8 +150,7 @@ define( function( require ) {
 
     //Add the go button, but only if there is a puller attached
     var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
-    var goPauseButtonContainer = new Node( { children: [ goPauseButton ] } );
-    this.addChild( goPauseButtonContainer );
+    this.addChild( goPauseButton );
 
     //Return button
     this.addChild( new ReturnButton( model, { centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5 } ) );
@@ -221,7 +220,11 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, { font: new PhetFont( { size: 16, weight: 'bold' } ), centerX: width / 2, y: 53 } );
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
+      font: new PhetFont( { size: 16, weight: 'bold' } ),
+      centerX: width / 2,
+      y: 53
+    } );
     model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
 
@@ -229,7 +232,7 @@ define( function( require ) {
     this.addChild( cursor );
 
     // Show highlight around the toolbox when a toolbox node is focused.
-    Input.focusedInstanceProperty && Input.focusedInstanceProperty.link( function( focusedInstance ) {
+    Input.focusedInstanceProperty.link( function( focusedInstance ) {
       if ( focusedInstance ) {
         if ( focusedInstance.node instanceof PullerNode ) {
           if ( focusedInstance.node.puller.type === 'blue' ) {
