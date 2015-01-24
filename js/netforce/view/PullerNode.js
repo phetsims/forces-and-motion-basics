@@ -121,7 +121,8 @@ define( function( require ) {
 
     this.addInputListener( {
       keydown: function( event, trail ) {
-        if ( event.domEvent.keyCode === Input.KEY_ENTER || event.domEvent.keyCode === Input.KEY_SPACE ) {
+        var keyCode = event.domEvent.keyCode;
+        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
           if ( puller.knot ) {
             puller.disconnect();
             puller.positionProperty.reset();
@@ -137,6 +138,18 @@ define( function( require ) {
             puller.trigger( 'dropped' );
             updateImage();
             updateLocation();
+          }
+        }
+        else if ( keyCode === Input.KEY_LEFT_ARROW || keyCode === Input.KEY_RIGHT_ARROW ) {
+
+          // Move focus when arrow keys pressed, but only within a group
+          var delta = (keyCode === Input.KEY_LEFT_ARROW) ? -1 : +1;
+          var nextFocusableInstance = Input.getNextFocusableInstance( delta );
+
+          // Make sure the next focusable instance in that direction is also a puller node, and that it is of the same type
+          if ( nextFocusableInstance.node instanceof PullerNode &&
+               nextFocusableInstance.node.puller.type === pullerNode.puller.type ) {
+            Input.focusedInstanceProperty.value = nextFocusableInstance;
           }
         }
       }
