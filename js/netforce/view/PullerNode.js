@@ -35,7 +35,8 @@ define( function( require ) {
       y: y,
       cursor: 'pointer',
       scale: 0.86,
-      focusable: true
+      focusable: true,
+      focusIndicator: 'cursor'
     } );
 
     var updateLocation = function() {

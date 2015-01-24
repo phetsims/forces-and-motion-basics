@@ -115,7 +115,9 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true } ) );
 
     //Create the arrow nodes
-    var opacity = 0.8;
+    // TEMPORARY SCENERY WORKAROUND
+    //var opacity = 0.8;
+    var opacity = 1;
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 100, this.model.netForceProperty, this.model.showValuesProperty, {
       lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
     } );
@@ -147,13 +149,6 @@ define( function( require ) {
     } );
 
     this.addChild( this.cartNode );
-
-    //Add the go button, but only if there is a puller attached
-    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
-    this.addChild( goPauseButton );
-
-    //Return button
-    this.addChild( new ReturnButton( model, { centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5 } ) );
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     var getPullerImage = function( puller, leaning ) {
@@ -187,6 +182,13 @@ define( function( require ) {
       pullerLayer.addChild( pullerNode );
       netForceScreenView.pullerNodes.push( pullerNode );
     } );
+
+    //Add the go button, but only if there is a puller attached
+    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
+    this.addChild( goPauseButton );
+
+    //Return button
+    this.addChild( new ReturnButton( model, { centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5 } ) );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
     this.addChild( this.leftArrow );
@@ -248,7 +250,6 @@ define( function( require ) {
         }
       }
     } );
-
   }
 
   var inited = false;
@@ -258,7 +259,7 @@ define( function( require ) {
       if ( !inited && count < 100 ) {
         count++;
         console.log( 'getting all focusable instances' );
-        Input.focusableInstances = Input.getAllFocusableInstances ? Input.getAllFocusableInstances() : [];
+        Input.focusableInstances = Input.getAllFocusableInstances();
         console.log( 'done' );
         if ( Input.focusableInstances.length ) {
           inited = true;

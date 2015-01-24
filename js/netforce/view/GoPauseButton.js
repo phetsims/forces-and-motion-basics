@@ -47,7 +47,6 @@ define( function( require ) {
    * @constructor
    */
   function GoPauseButton( model, layoutWidth ) {
-    var goPauseButton = this;
 
     var padX = 15;
     var padY = 10;
@@ -57,7 +56,8 @@ define( function( require ) {
     var goButton = new RoundPushButton( {
       content: wrap( goText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#94b830',
-      listener: function() {model.running = true;}
+      listener: function() {model.running = true;},
+      focusable: true
     } );//green
     var pauseButton = new RoundPushButton( {
       content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
@@ -70,7 +70,10 @@ define( function( require ) {
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
-      goPauseButton.visible = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+      // TEMPORARY SCENERY WORKAROUND
+      //var enabled = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+      //goButton.enabled = enabled;
+      //pauseButton.enabled = enabled;
     } );
 
     this.centerX = layoutWidth / 2;

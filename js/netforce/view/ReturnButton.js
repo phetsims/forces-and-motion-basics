@@ -31,17 +31,8 @@ define( function( require ) {
     this.addChild( button );
     this.mutate( options );
 
-    model.startedProperty.linkAttribute( this, 'visible' );
-
-    //TODO: The peer should not be in the DOM if the button is invisible
-    this.addPeer( '<input type="button" aria-label="Return">', {
-      click: function() {
-        model.returnCart();
-      },
-
-      //Visit this button after the user has added some pullers to the rope
-      tabIndex: 9
-    } );
+    // TEMPORARY SCENERY WORKAROUND
+    //model.startedProperty.linkAttribute( button, 'enabled' );
   }
 
   return inherit( Node, ReturnButton );
