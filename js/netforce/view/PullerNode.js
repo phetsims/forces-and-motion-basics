@@ -123,22 +123,20 @@ define( function( require ) {
       keydown: function( event, trail ) {
         if ( event.domEvent.keyCode === Input.KEY_ENTER || event.domEvent.keyCode === Input.KEY_SPACE ) {
           if ( puller.knot ) {
-//            puller.disconnect();
-//            puller.positionProperty.reset();
-//            model.numberPullersAttached = model.countAttachedPullers();
-//            updateImage();
-//            updateLocation();
+            puller.disconnect();
+            puller.positionProperty.reset();
+            model.numberPullersAttached = model.countAttachedPullers();
+            updateImage();
+            updateLocation();
           }
           else {
-            puller.position = new Vector2( 0, 0 );
-
-//            var knot = model.getClosestOpenKnotFromCart( puller );
-//            puller.set( {position: new Vector2( knot.x, knot.y ) } );
-//            model.numberPullersAttached = model.countAttachedPullers();
-//            puller.dragging = false;
-//            puller.trigger( 'dropped' );
-//            updateImage();
-//            updateLocation();
+            var knot = model.getClosestOpenKnotFromCart( puller );
+            puller.set( { position: new Vector2( knot.x, knot.y ) } );
+            model.numberPullersAttached = model.countAttachedPullers();
+            puller.dragging = false;
+            puller.trigger( 'dropped' );
+            updateImage();
+            updateLocation();
           }
         }
       }
