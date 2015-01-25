@@ -17,6 +17,7 @@ define( function( require ) {
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var ToggleNode = require( 'SUN/ToggleNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Input = require( 'SCENERY/input/Input' );
 
   //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
   //If the node is already the largest, don't wrap it.
@@ -57,7 +58,7 @@ define( function( require ) {
       content: wrap( goText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#94b830',
       listener: function() {model.running = true;},
-      focusable: true
+      focusable: false//handled in the parent
     } );//green
     var pauseButton = new RoundPushButton( {
       content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
@@ -66,7 +67,7 @@ define( function( require ) {
     } );//red
 
     var showGoButtonProperty = model.runningProperty.derivedNot();
-    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, { top: 400 } );
+    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, { top: 400, focusable: true } );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
@@ -77,6 +78,25 @@ define( function( require ) {
     } );
 
     this.centerX = layoutWidth / 2;
+
+    this.addInputListener( {
+      keydown: function( event ) {
+        var keyCode = event.domEvent.keyCode;
+        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
+          var activeButton = model.running ? pauseButton : goButton;
+          activeButton.buttonModel.over = true;
+          activeButton.buttonModel.down = true;
+        }
+      },
+      keyup: function( event ) {
+        var keyCode = event.domEvent.keyCode;
+        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
+          var activeButton = model.running ? pauseButton : goButton;
+          activeButton.buttonModel.down = false;
+          activeButton.buttonModel.over = false;
+        }
+      }
+    } );
   }
 
   return inherit( ToggleNode, GoPauseButton );
