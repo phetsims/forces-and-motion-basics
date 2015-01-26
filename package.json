@@ -1,6 +1,6 @@
 {
   "name": "forces-and-motion-basics",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "preload": "../sherpa/seedrandom-2.2.js ../sherpa/jquery-2.1.0.js ../sherpa/lodash-2.4.1.js ../sherpa/has.js ../sherpa/FileSaver.js ../phetcommon/js/util/query-parameters.js ../phetcommon/js/util/check-assertions.js ../phetcommon/js/util/check-accessibility.js ../phetcommon/js/analytics/google-analytics.js ../sherpa/Tween-r12.js",
   "phetLibs": "forces-and-motion-basics assert axon brand dot joist kite phet-core phetcommon scenery scenery-phet sun vibe sherpa",
   "license": "GPLv3",
