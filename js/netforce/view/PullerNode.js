@@ -149,16 +149,16 @@ define( function( require ) {
           // Make sure the next focusable instance in that direction is also a puller node, and that it is of the same type
           if ( nextFocusableInstance.node instanceof PullerNode &&
                nextFocusableInstance.node.puller.type === pullerNode.puller.type ) {
-            Input.focusedInstanceProperty.value = nextFocusableInstance;
+            Input.focusedInstance = nextFocusableInstance;
           }
           else {
 
             // If the user tried to arrow past the last Puller, cycle to the next puller on the opposite side.
             if ( keyCode === Input.KEY_LEFT_ARROW ) {
-              Input.focusedInstanceProperty.value = Input.getNextFocusableInstance( +3 );
+              Input.focusedInstance = Input.getNextFocusableInstance( +3 );
             }
             else {
-              Input.focusedInstanceProperty.value = Input.getNextFocusableInstance( -3 );
+              Input.focusedInstance = Input.getNextFocusableInstance( -3 );
             }
           }
         }
