@@ -151,6 +151,16 @@ define( function( require ) {
                nextFocusableInstance.node.puller.type === pullerNode.puller.type ) {
             Input.focusedInstanceProperty.value = nextFocusableInstance;
           }
+          else {
+
+            // If the user tried to arrow past the last Puller, cycle to the next puller on the opposite side.
+            if ( keyCode === Input.KEY_LEFT_ARROW ) {
+              Input.focusedInstanceProperty.value = Input.getNextFocusableInstance( +3 );
+            }
+            else {
+              Input.focusedInstanceProperty.value = Input.getNextFocusableInstance( -3 );
+            }
+          }
         }
       }
     } );
