@@ -31,8 +31,7 @@ define( function( require ) {
     this.addChild( button );
     this.mutate( options );
 
-    // TEMPORARY SCENERY WORKAROUND
-    //model.startedProperty.linkAttribute( button, 'enabled' );
+    model.startedProperty.linkAttribute( button, 'enabled' );
   }
 
   return inherit( Node, ReturnButton );

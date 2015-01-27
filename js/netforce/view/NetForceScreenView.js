@@ -115,9 +115,7 @@ define( function( require ) {
     this.addChild( new Node( { layerSplit: true } ) );
 
     //Create the arrow nodes
-    // TEMPORARY SCENERY WORKAROUND
-    //var opacity = 0.8;
-    var opacity = 1;
+    var opacity = 0.8;
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 100, this.model.netForceProperty, this.model.showValuesProperty, {
       lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
     } );

@@ -71,10 +71,9 @@ define( function( require ) {
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
-      // TEMPORARY SCENERY WORKAROUND
-      //var enabled = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
-      //goButton.enabled = enabled;
-      //pauseButton.enabled = enabled;
+      var enabled = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+      goButton.enabled = enabled;
+      pauseButton.enabled = enabled;
     } );
 
     this.centerX = layoutWidth / 2;
