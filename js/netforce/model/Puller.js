@@ -47,6 +47,7 @@ define( function( require ) {
       hoverKnot: null
     } );
 
+    this.textDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' + this.size + ' ' + ' person';
     //Move with the knot
     var updatePosition = function( knotX ) {
       puller.position = new Vector2( knotX, puller.position.y );

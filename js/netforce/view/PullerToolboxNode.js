@@ -36,31 +36,6 @@ define( function( require ) {
     var toolboxWidth = 324;
     var toolboxArcWidth = 10;
     Rectangle.call( this, x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
-
-    // Model this with an axon property, and sync the DOM and view with that
-    var activePullerIndexProperty = new Property( activePullerIndex );
-
-    this.addPeer( '<input type="button" aria-label="Return">', {
-
-      // When clicked, move the active puller to the rope.
-      click: function() {
-        var puller = netForceScreenView.model.pullers[ activePullerIndexProperty.value ];
-        model.activatePuller( puller, netForceScreenView.pullerNodes[ activePullerIndexProperty.value ] );
-      },
-      tabIndex: 0
-    } );
-
-    this.addInputListener( {
-      keydown: function( event, trail ) {
-        console.log( 'key down on toolbox' );
-//        if ( event.domEvent.keyCode === 37 ) { // left
-//          activePullerIndexProperty.value = Math.max( minIndex, activePullerIndexProperty.value - 1 );
-//        }
-//        else if ( event.domEvent.keyCode === 39 ) { // right
-//          activePullerIndexProperty.value = Math.min( maxIndex, activePullerIndexProperty.value + 1 );
-//        }
-      }
-    } );
   }
 
   return inherit( Rectangle, PullerToolboxNode,

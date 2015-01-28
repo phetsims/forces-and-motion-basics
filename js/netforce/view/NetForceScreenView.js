@@ -33,6 +33,7 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
+  var AriaSpeech = require( 'SCENERY/accessibility/AriaSpeech' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -248,6 +249,9 @@ define( function( require ) {
         }
       }
     } );
+
+    AriaSpeech.init();
+    AriaSpeech.setText( 'The application has started!!!' );
   }
 
   var inited = false;

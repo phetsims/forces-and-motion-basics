@@ -26,7 +26,8 @@ define( function( require ) {
     var button = new TextPushButton( returnString, {
       listener: model.returnCart.bind( model ),
       font: new PhetFont( { size: 16, weight: 'bold' } ),
-      baseColor: 'rgb( 254, 192, 0 )'
+      baseColor: 'rgb( 254, 192, 0 )',
+      textDescription: 'Return button'
     } );
     this.addChild( button );
     this.mutate( options );
