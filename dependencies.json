@@ -1,63 +1,63 @@
 {
   "chipper": {
-    "sha": "8f565f53541e1cafd698528520d88be148e78bfe",
-    "branch": "HEAD"
+    "sha": "bdfb8e06a18eb8268cb732431ba048250fc90236",
+    "branch": "master"
   },
   "sherpa": {
-    "sha": "da7b5b2e52e155c6ebdc4dea700d5a80116d886b",
-    "branch": "HEAD"
+    "sha": "163d03e746c25ba704050897c9564ef408d0a0ae",
+    "branch": "master"
   },
   "vibe": {
-    "sha": "069106af79923ccb051d715bf4d532147f1e7057",
-    "branch": "HEAD"
+    "sha": "5af6b744e38f20a62b9a6671538ea517c5fc991c",
+    "branch": "master"
   },
   "sun": {
-    "sha": "7e3b7f783ef5a0973c1ab47f6b16ef2ab98456c4",
-    "branch": "HEAD"
+    "sha": "67fff24e8217d652ae619c761133516e25b7d03e",
+    "branch": "master"
   },
   "scenery-phet": {
-    "sha": "1332a9164ae52dfe6cf27374c6d1db82577d30e9",
-    "branch": "HEAD"
+    "sha": "cd23ecc2f16731f6d6400b19d30315aed1b991f2",
+    "branch": "master"
   },
   "scenery": {
-    "sha": "07760d3bb260f9ccc518ab54c36580945b432ed7",
-    "branch": "HEAD"
+    "sha": "426135b71654226cde27f58030a4fd86a7ab481c",
+    "branch": "master"
   },
   "phetcommon": {
-    "sha": "df12e4b1dbff36cfa0010d836d9e645d86865498",
-    "branch": "HEAD"
+    "sha": "de3467a58a7eb28c0fc5a68ded14c79f828529e5",
+    "branch": "master"
   },
   "phet-core": {
-    "sha": "16e85711702cef3ab9076070c8a15e5da18c5c75",
-    "branch": "HEAD"
+    "sha": "1870aade2268635f03f6e5727bfb60ea59427d87",
+    "branch": "master"
   },
   "kite": {
-    "sha": "a2138bfd38b304cb88327f4eb7fa6dbeb51aa579",
-    "branch": "HEAD"
+    "sha": "cf51a073a087d41bd58c1858295a4a37a79488e6",
+    "branch": "master"
   },
   "joist": {
-    "sha": "64f7db4eaed8351e4d76ad4edc114a5c1fbdb421",
-    "branch": "HEAD"
+    "sha": "fc9d6d8ceff4bdd139a42d609076fafc8f65605c",
+    "branch": "master"
   },
   "dot": {
-    "sha": "54dd23ec43b292800bb6d23add6514dfce7d300d",
-    "branch": "HEAD"
+    "sha": "d3c50ae7f4e6c17ac096eaab9c6fda5dd9d6722b",
+    "branch": "master"
   },
   "brand": {
-    "sha": "8be52066aa533f58f118abd34d73f2609c844d48",
-    "branch": "HEAD"
+    "sha": "c7a2cb73871b7f9cbec2b8ea9ee766070a51d466",
+    "branch": "master"
   },
   "axon": {
-    "sha": "fcd59a8aa9d379553e5a1768e8f05be89202e52d",
-    "branch": "HEAD"
+    "sha": "ecf7929b1d5b7d93fd83d0587ba6e69b9d582804",
+    "branch": "master"
   },
   "assert": {
-    "sha": "321768d4e876c3bd42b712066affa53f992cc461",
-    "branch": "HEAD"
+    "sha": "991ef593b18d3fafb9719bc50c73205e9ac6f07c",
+    "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "7711638ccc1b00e3a440fc14aa2b7d208065c1c5",
-    "branch": "1.1"
+    "sha": "148e4a8f84bc278a4ee6d6e91aa2e33b429ff5b3",
+    "branch": "master"
   },
-  "comment": "# forces-and-motion-basics 1.1.0-rc.1 Tue Nov 18 2014 09:27:00 GMT-0700 (MST)"
+  "comment": "# forces-and-motion-basics 1.1.4 Fri Jan 30 2015 00:02:28 GMT-0700 (MST)"
 }
