@@ -133,7 +133,7 @@ define( function( require ) {
           }
           else {
             var knot = model.getClosestOpenKnotFromCart( puller );
-            puller.set( { position: new Vector2( knot.x, knot.y ) } );
+            puller.setValues( { position: new Vector2( knot.x, knot.y ) } );
             model.numberPullersAttached = model.countAttachedPullers();
             puller.dragging = false;
             puller.trigger( 'dropped' );

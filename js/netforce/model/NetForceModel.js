@@ -87,7 +87,7 @@ define( function( require ) {
 
         //try to snap to a knot
         if ( knot ) {
-          puller.set( { position: new Vector2( knot.x, knot.y ), knot: knot } );
+          puller.setValues( { position: new Vector2( knot.x, knot.y ), knot: knot } );
         }
 
         //Or go back home
@@ -131,8 +131,11 @@ define( function( require ) {
 
           var otherPuller = this.getPuller( nextKnot );
 
-          puller.set( { position: new Vector2( nextKnot.x, nextKnot.y ), knot: nextKnot } );
-          otherPuller && otherPuller.set( { position: new Vector2( currentKnot.x, currentKnot.y ), knot: currentKnot } );
+          puller.setValues( { position: new Vector2( nextKnot.x, nextKnot.y ), knot: nextKnot } );
+          otherPuller && otherPuller.setValues( {
+            position: new Vector2( currentKnot.x, currentKnot.y ),
+            knot: currentKnot
+          } );
         }
       }
     },
@@ -225,7 +228,7 @@ define( function( require ) {
         // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
         var newV = this.cart.v + this.getNetForce() * dt * 0.00075;
         var newX = this.cart.x + newV * dt * 60.0;
-        this.cart.set( { v: newV, x: newX } );
+        this.cart.setValues( { v: newV, x: newX } );
         this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
 
         //If the cart made it to the end, then stop and signify completion
