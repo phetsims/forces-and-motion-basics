@@ -233,10 +233,10 @@ define( function( require ) {
     this.addChild( cursor );
 
     // Show highlight around the toolbox when a toolbox node is focused.
-    Input.focusedInstanceProperty.link( function( focusedInstance ) {
-      if ( focusedInstance ) {
-        if ( focusedInstance.node instanceof PullerNode ) {
-          if ( focusedInstance.node.puller.type === 'blue' ) {
+    Input.focusedTrailProperty.link( function( focusedTrail ) {
+      if ( focusedTrail ) {
+        if ( focusedTrail.node instanceof PullerNode ) {
+          if ( focusedTrail.node.puller.type === 'blue' ) {
             leftToolbox.highlighted = true;
             rightToolbox.highlighted = false;
           }
@@ -254,19 +254,5 @@ define( function( require ) {
     AriaSpeech.setText( 'The application has started!!!' );
   }
 
-  var inited = false;
-  var count = 0;
-  return inherit( ScreenView, NetForceScreenView, {
-    step: function() {
-      if ( !inited && count < 100 ) {
-        count++;
-        console.log( 'getting all focusable instances' );
-        Input.focusableInstances = Input.getAllFocusableInstances();
-        console.log( 'done' );
-        if ( Input.focusableInstances.length ) {
-          inited = true;
-        }
-      }
-    }
-  } );
+  return inherit( ScreenView, NetForceScreenView );
 } );
