@@ -338,7 +338,7 @@ define( function( require ) {
     getState: function() {
       var motionModel = this;
       return {
-        properties: this.get(),
+        properties: this.getValues(),
         stack: motionModel.stack.getArray().map( function( item ) {return item.get().name;} ).join( ',' )
       };
     }
