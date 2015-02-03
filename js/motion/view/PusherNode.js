@@ -49,7 +49,11 @@ define( function( require ) {
     var children = [];
     var standingUp = new Image( pusherStraightImage, { visible: true, pickable: true, scale: scale } );
     var fallLeft = new Image( pusherFallDownImage, { visible: false, pickable: false, scale: scale } );
-    var fallRight = new Image( pusherFallDownImage, { visible: false, pickable: false, scale: new Vector2( -scale, scale ) } );
+    var fallRight = new Image( pusherFallDownImage, {
+      visible: false,
+      pickable: false,
+      scale: new Vector2( -scale, scale )
+    } );
     var visibleNode = standingUp;
 
     children.push( standingUp );
@@ -152,17 +156,17 @@ define( function( require ) {
 
         //Only apply a force if the pusher is not fallen, see #48
         if ( !model.fallen ) {
-          phet.arch.start( 'user', 'pusherNode', 'PusherNode', 'dragged-mannequin' );
+          arch && arch.start( 'user', 'pusherNode', 'PusherNode', 'dragged-mannequin' );
           model.appliedForce = clampedAppliedForce;
-          phet.arch.end();
+          arch && arch.end();
         }
       },
 
       start: function() {},
       end: function() {
-        phet.arch.start( 'dropped-mannequin' );
+        arch && arch.start( 'dropped-mannequin' );
         model.appliedForce = 0;
-        phet.arch.end();
+        arch && arch.end();
       }
     } );
     this.addInputListener( listener );

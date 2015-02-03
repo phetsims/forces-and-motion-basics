@@ -65,7 +65,10 @@ define( function( require ) {
     var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, { fill: skyGradient, pickable: false } );
 
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, { fill: '#c59a5b', pickable: false } );
+    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, {
+      fill: '#c59a5b',
+      pickable: false
+    } );
     this.addChild( this.sky );
     this.addChild( this.groundNode );
 
@@ -140,10 +143,15 @@ define( function( require ) {
 
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
-      phet.arch.start( 'user', 'left-arrow-button', 'ArrowButton.left', 'left-arrow-button-pressed' );
+      arch && arch.start( 'user', 'left-arrow-button', 'ArrowButton.left', 'left-arrow-button-pressed' );
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
-      phet.arch.end();
-    }, { rectangleYMargin: 7, rectangleXMargin: 10, right: this.textPanelNode.left - 6, centerY: this.textPanelNode.centerY } );
+      arch && arch.end();
+    }, {
+      rectangleYMargin: 7,
+      rectangleXMargin: 10,
+      right: this.textPanelNode.left - 6,
+      centerY: this.textPanelNode.centerY
+    } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
@@ -153,9 +161,9 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
-      phet.arch.start( 'user', 'right-arrow-button', 'ArrowButton.right', 'right-arrow-button-pressed' );
+      arch && arch.start( 'user', 'right-arrow-button', 'ArrowButton.right', 'right-arrow-button-pressed' );
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
-      phet.arch.end();
+      arch && arch.end();
     }, { left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
@@ -169,7 +177,10 @@ define( function( require ) {
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new GaugeNode( model.velocityProperty, speedString, { min: 0, max: MotionConstants.MAX_SPEED }, { x: width / 2, top: 2 } );
+    var speedometerNode = new GaugeNode( model.velocityProperty, speedString, {
+      min: 0,
+      max: MotionConstants.MAX_SPEED
+    }, { x: width / 2, top: 2 } );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
@@ -204,7 +215,11 @@ define( function( require ) {
 
     //Reset all button goes beneath the control panel
     var resetButton = new ResetAllButton( {
-      listener: phet.arch.wrap( 'user', 'resetAllButton', 'ResetAllButton', 'pressed', model.reset.bind( model ) ),
+      listener: function() {
+        arch && arch.start( 'user', 'resetAllButton', 'ResetAllButton', 'pressed' );
+        model.reset();
+        arch && arch.end();
+      },
       scale: 1.13
     } ).mutate( { centerX: controlPanel.centerX, top: controlPanel.bottom + 5 } );
     this.addChild( resetButton );
@@ -218,7 +233,12 @@ define( function( require ) {
         children: [ new Text( 'Acceleration', { font: new PhetFont( 18 ) } ), accelerometerNode ]
       } );
       var tickLabel = function( label, tick ) {
-        return new Text( label, { pickable: false, font: new PhetFont( 16 ), centerX: tick.centerX, top: tick.bottom + 27 } );
+        return new Text( label, {
+          pickable: false,
+          font: new PhetFont( 16 ),
+          centerX: tick.centerX,
+          top: tick.bottom + 27
+        } );
       };
       var accelerometerWithTickLabels = new Node( {
         children: [ labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),

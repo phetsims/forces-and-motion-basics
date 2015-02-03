@@ -117,15 +117,15 @@ define( function( require ) {
             result = Math.max( 0, result );
           }
           //messageType, componentID, componentType, action, options
-          phet.arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-dragged' );
+          arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-dragged' );
           property.value = result;
-          phet.arch.end();
+          arch && arch.end();
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            phet.arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-released' );
+            arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-released' );
             property.value = 0;
-            phet.arch.end();
+            arch && arch.end();
           }
         }
       }
