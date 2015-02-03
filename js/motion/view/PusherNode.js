@@ -156,17 +156,18 @@ define( function( require ) {
 
         //Only apply a force if the pusher is not fallen, see #48
         if ( !model.fallen ) {
-          arch && arch.start( 'user', 'pusherNode', 'PusherNode', 'dragged-mannequin' );
+          var archID = arch && arch.start( 'user', 'pusherNode', 'PusherNode', 'dragged-mannequin' );
           model.appliedForce = clampedAppliedForce;
-          arch && arch.end();
+          arch && arch.end( archID );
         }
       },
 
       start: function() {},
       end: function() {
-        arch && arch.start( 'dropped-mannequin' );
+        console.log( 'huggermugger' );
+        var archID = arch && arch.start( 'dropped-mannequin' );
         model.appliedForce = 0;
-        arch && arch.end();
+        arch && arch.end( archID );
       }
     } );
     this.addInputListener( listener );

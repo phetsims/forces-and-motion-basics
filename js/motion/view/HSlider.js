@@ -74,11 +74,19 @@ define( function( require ) {
     //Gray out left side or right side if the maximum speed has been reached in that direction
     if ( disableLeftProperty && disableRightProperty ) {
       //Bars to show either side of the slider disabled when max is reached in that direction
-      var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, { stroke: 'gray', lineWidth: 1, fill: 'gray' } );
+      var rightDisableBar = new Rectangle( width / 2, 0, width / 2, this.trackHeight, {
+        stroke: 'gray',
+        lineWidth: 1,
+        fill: 'gray'
+      } );
       this.addChild( rightDisableBar );
       disableRightProperty.linkAttribute( rightDisableBar, 'visible' );
 
-      var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, { stroke: 'gray', lineWidth: 1, fill: 'gray' } );
+      var leftDisableBar = new Rectangle( 0, 0, width / 2, this.trackHeight, {
+        stroke: 'gray',
+        lineWidth: 1,
+        fill: 'gray'
+      } );
       this.addChild( leftDisableBar );
       disableLeftProperty.linkAttribute( leftDisableBar, 'visible' );
     }
@@ -117,15 +125,15 @@ define( function( require ) {
             result = Math.max( 0, result );
           }
           //messageType, componentID, componentType, action, options
-          arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-dragged' );
+          var archID = arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-dragged' );
           property.value = result;
-          arch && arch.end();
+          arch && arch.end( archID );
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-released' );
+            var archID = arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-released' );
             property.value = 0;
-            arch && arch.end();
+            arch && arch.end( archID );
           }
         }
       }
