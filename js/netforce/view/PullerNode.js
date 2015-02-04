@@ -89,7 +89,6 @@ define( function( require ) {
       {
         allowTouchSnag: true,
         start: function() {
-          console.log( 'sdh.start' );
           var knot = puller.knot;
           puller.disconnect();
           puller.dragging = true;
