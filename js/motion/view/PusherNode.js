@@ -164,7 +164,6 @@ define( function( require ) {
 
       start: function() {},
       end: function() {
-        console.log( 'huggermugger' );
         var archID = arch && arch.start( 'dropped-mannequin' );
         model.appliedForce = 0;
         arch && arch.end( archID );
