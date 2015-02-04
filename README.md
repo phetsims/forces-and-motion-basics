@@ -2,7 +2,7 @@ Forces and Motion: Basics
 =============
 Forces and Motion: Basics  
 an educational physics simulation in HTML5  
-by [PhET Interactive Simulations](http://phet.colorado.edu/) at the University of Colorado Boulder
+by [PhET Interactive Simulations](http://phet.colorado.edu/) at the University of Colorado Boulder  
 Launch [Forces and Motion: Basics](https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html) now!
 
 Explore the forces at work in a tug of war or pushing a refrigerator, crate, or person. Create an applied force and see how it makes objects move. Change friction and see how it affects the motion of objects.
