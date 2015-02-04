@@ -1,6 +1,6 @@
-forces-and-motion-basics
-=============
 Forces and Motion: Basics  
+=============
+Forces and Motion: Basics
 an educational physics simulation in HTML5  
 by PhET Interactive Simulations at the University of Colorado Boulder  
 http://phet.colorado.edu/
@@ -34,9 +34,8 @@ git clone https://github.com/phetsims/sherpa.git
 (2) Start a http-server  
 (3) Open [http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html](http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html) (You will probably need to update this URL based on your HTTP port and relative path.)  
 (4) Visit [The PhET Development Overview](bit.ly/phet-development-overview) for details on minification, testing, architecture, obtaining stable (tested) code, etc.   
-(5) Help us out!
- - [Create an issue](https://github.com/phetsims/forces-and-motion-basics/issues/new)
- - Ask questions on our mailing list [Developing Interactive Simulations in HTML5](https://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5)  
+(5) Help us out, create a [New Issue](https://github.com/phetsims/forces-and-motion-basics/issues/new)
+(6) Contact us! [Developing Interactive Simulations in HTML5](https://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5)  
 
 ### License
 GPL
