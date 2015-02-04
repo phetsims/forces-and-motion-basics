@@ -31,7 +31,7 @@ git clone https://github.com/phetsims/scenery-phet.git
 git clone https://github.com/phetsims/sun.git
 git clone https://github.com/phetsims/sherpa.git
 ```
-(2) Start an http-server
+(2) Start an http-server  
 (3) Open [http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html](http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html) (You will probably need to update this URL based on your HTTP port and relative path.)    
 (4) Visit the [PhET Development Overview](bit.ly/phet-development-overview) for details on minification, testing, architecture, obtaining stable (tested) code, etc.  
 (5) Contact us at our mailing list: [Developing Interactive Simulations in HTML5](https://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5)    
