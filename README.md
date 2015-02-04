@@ -10,7 +10,7 @@ Explore the forces at work in a tug of war or pushing a refrigerator, crate, or 
 <img src="https://raw.githubusercontent.com/phetsims/forces-and-motion-basics/master/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 
 ### Documentation
-The[The PhET Development Overview](bit.ly/phet-development-overview) is the most complete guide to PhET Simulation Development, how 
+The [PhET Development Overview](bit.ly/phet-development-overview) is the most complete guide to PhET Simulation Development, how 
 to obtain simulation code and its dependencies, architecture & design, how to test and build and many more important issues.
 
 ### Quick Start
@@ -33,7 +33,7 @@ git clone https://github.com/phetsims/sherpa.git
 ```
 (2) Start a http-server  
 (3) Open [http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html](http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html) (You will probably need to update this URL based on your HTTP port and relative path.)  
-(4) Visit [The PhET Development Overview](bit.ly/phet-development-overview) for details on minification, testing, architecture, obtaining stable (tested) code, etc.   
+(4) Visit the [PhET Development Overview](bit.ly/phet-development-overview) for details on minification, testing, architecture, obtaining stable (tested) code, etc.   
 (5) Help us out, create a [New Issue](https://github.com/phetsims/forces-and-motion-basics/issues/new)  
 (6) Contact us! [Developing Interactive Simulations in HTML5](https://groups.google.com/forum/#!forum/developing-interactive-simulations-in-html5)  
 
