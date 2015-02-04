@@ -4,13 +4,12 @@ Forces and Motion: Basics
 an educational physics simulation in HTML5  
 by [PhET Interactive Simulations](http://phet.colorado.edu/) at the University of Colorado Boulder  
 
-[Launch Forces and Motion: Basics](https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html)
-
 Explore the forces at work in a tug of war or pushing a refrigerator, crate, or person. Create an applied force and see how it makes objects move. Change friction and see how it affects the motion of objects.
 
 <a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html">
 <img src="https://raw.githubusercontent.com/phetsims/forces-and-motion-basics/master/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
+[Launch Forces and Motion: Basics](https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html)
 
 ### Documentation
 The [PhET Development Overview](bit.ly/phet-development-overview) is the most complete guide to PhET Simulation Development, how 
