@@ -67,7 +67,7 @@ define( function( require ) {
 
   return inherit( PropertySet, Item, {
     get: function() {
-      var parent = PropertySet.prototype.get.call( this );
+      var parent = PropertySet.prototype.getValues.call( this );
       parent.image = this.image;
       parent.mystery = this.mystery;
       parent.name = this.name;
