@@ -10,8 +10,8 @@ Explore the forces at work in a tug of war or pushing a refrigerator, crate, or 
 <img src="https://raw.githubusercontent.com/phetsims/forces-and-motion-basics/master/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 
 ### Documentation
-The [PhET Development Overview](bit.ly/phet-development-overview) is a complete guide to PhET Simulation Development, how 
-to obtain simulation code and its dependencies, their architecture, how to test and build and many more important issues.
+The[The PhET Development Overview](bit.ly/phet-development-overview) is the most complete guide to PhET Simulation Development, how 
+to obtain simulation code and its dependencies, architecture & design, how to test and build and many more important issues.
 
 ### Quick Start
 (1) Check out the simulation and its dependencies:
