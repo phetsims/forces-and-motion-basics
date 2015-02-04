@@ -14,7 +14,7 @@ The [PhET Development Overview](bit.ly/phet-development-overview) is the most co
 to obtain simulation code and its dependencies, architecture & design, how to test and build and many more important issues.
 
 ### Quick Start
-(1) Check out the simulation and its dependencies:
+(1) Clone the simulation and its dependencies:
 ```
 git clone https://github.com/phetsims/forces-and-motion-basics.git
 git clone https://github.com/phetsims/assert.git
