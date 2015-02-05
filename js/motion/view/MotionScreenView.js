@@ -133,7 +133,7 @@ define( function( require ) {
     //Make 'Newtons Readout' stand out but not look like a text entry field
     this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, {
       fill: 'white',
-      stroke: 'lightGray',
+      stroke: 'lightgrey',
       centerX: width / 2,
       top:     readout.y - readout.height + 2,
       pickable: false
