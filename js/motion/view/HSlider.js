@@ -22,6 +22,8 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Input = require( 'SCENERY/input/Input' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * Constructor for HSlider
@@ -94,8 +96,20 @@ define( function( require ) {
     //Lookup the new item and append to the scenery
     var enabledKnob = new SliderKnob();
     var disabledKnob = new SliderKnob( { enabled: false } );
-    var knob = new Node( { children: [ enabledKnob ] } );
-
+    var knob = new Node( {
+      children: [ enabledKnob ],
+      focusable: true
+    } );
+    var range = Math.abs( max - min );
+    knob.addInputListener( {
+      keydown: function( event, trail ) {
+        var keyCode = event.domEvent.keyCode;
+        var delta = keyCode === Input.KEY_LEFT_ARROW || keyCode === Input.KEY_DOWN_ARROW ? -1 :
+                    keyCode === Input.KEY_RIGHT_ARROW || keyCode === Input.KEY_UP_ARROW ? +1 :
+                    0;
+        property.set( Util.clamp( property.get() + range * 0.1 * delta, min, max ) );
+      }
+    } );
     knob.y = -knob.height / 2 + 4;
 
     //Increase the hit region
