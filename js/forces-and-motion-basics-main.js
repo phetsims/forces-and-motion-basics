@@ -11,8 +11,6 @@ define( function( require ) {
   var
     NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' ),
     NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' ),
-    MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' ),
-    MotionScreenView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionScreenView' ),
     Image = require( 'SCENERY/nodes/Image' ),
     Screen = require( 'JOIST/Screen' ),
     Sim = require( 'JOIST/Sim' ),
@@ -25,7 +23,8 @@ define( function( require ) {
     netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' ),
     motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' ),
     frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' ),
-    accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+    accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' ),
+    MotionScreen = require( 'FORCES_AND_MOTION_BASICS/motion/MotionScreen' );
 
   var simOptions = {
     credits: {
@@ -43,18 +42,9 @@ define( function( require ) {
         function() {return new NetForceModel();},
         function( model ) {return new NetForceScreenView( model );}
       ),
-      new Screen( motionString, new Image( MotionIcon ),
-        function() {return new MotionModel( 'motion' );},
-        function( model ) {return new MotionScreenView( model );}
-      ),
-      new Screen( frictionString, new Image( FrictionIcon ),
-        function() {return new MotionModel( 'friction' );},
-        function( model ) {return new MotionScreenView( model );}
-      ),
-      new Screen( accelerationString, new Image( AccelerationIcon ),
-        function() {return new MotionModel( 'acceleration' );},
-        function( model ) {return new MotionScreenView( model );}
-      )
+      new MotionScreen( motionString, new Image( MotionIcon ), 'motion' ),
+      new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction' ),
+      new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration' )
     ], simOptions ).start();
   } );
 } );
