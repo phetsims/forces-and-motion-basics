@@ -36,7 +36,6 @@ define( function( require ) {
       cursor: 'pointer',
       scale: 0.86,
       focusable: true,
-      focusIndicator: 'cursor',
       textDescription: puller.textDescription
     } );
 
