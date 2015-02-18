@@ -21,7 +21,7 @@ define( function( require ) {
   function MotionScreen( title, icon, style ) {
     Screen.call( this, title, icon,
       function() {return new MotionModel( style );},
-      function( model ) {return new MotionScreenView( model );} )
+      function( model ) {return new MotionScreenView( model );} );
   }
 
   return inherit( Screen, MotionScreen, {
