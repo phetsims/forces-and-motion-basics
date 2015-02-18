@@ -11,6 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var AriaSpeech = require( 'SCENERY/accessibility/AriaSpeech' );
 
   /**
    *
@@ -46,16 +47,19 @@ define( function( require ) {
 
       // For keyboard accessibility, the knot that the puller is hovering over
       hoverKnot: null,
-      focusable: false
+      focusable: false,
+      textDescription: ''
     } );
 
-    this.textDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
-                           options.other + ' ' +
-                           (
-                             this.size === 'small' ? 'Strong' :
-                             this.size === 'medium' ? 'Stronger' :
-                             'Strongest'
-                           ) + ' ' + ' person';
+    var pullerDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
+                            options.other + ' ' +
+                            (
+                              this.size === 'small' ? 'Strong' :
+                              this.size === 'medium' ? 'Stronger' :
+                              'Strongest'
+                            ) + ' ' + ' person';
+    this.textDescription = pullerDescription;
+
     //Move with the knot
     var updatePosition = function( knotX ) {
       puller.position = new Vector2( knotX, puller.position.y );
@@ -72,6 +76,14 @@ define( function( require ) {
       //Synchronize our location with the knot.
       if ( newKnot ) {
         newKnot.xProperty.link( updatePosition );
+      }
+
+      puller.textDescription = pullerDescription + (newKnot ? '. attached to a knot on the rope' : '');
+      if ( newKnot ) {
+        AriaSpeech.setText( 'Attached to a knot on the rope' );
+      }
+      else {
+        AriaSpeech.setText( 'Detached from the rope' );
       }
     } );
   }

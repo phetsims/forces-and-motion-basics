@@ -42,6 +42,9 @@ define( function( require ) {
     puller.focusableProperty.link( function( focusable ) {
       pullerNode.focusable = focusable;
     } );
+    puller.textDescriptionProperty.link( function( textDescription ) {
+      pullerNode.textDescription = textDescription;
+    } );
 
     var updateLocation = function() {
       var knotted = puller.knot;
