@@ -114,7 +114,8 @@ define( function( require ) {
 
     var ropeHeightOffset = 215;
     var leftFocusRegion = new Rectangle( leftToolbox.rectX, leftToolbox.rectY - ropeHeightOffset, leftToolbox.rectWidth, leftToolbox.rectHeight + ropeHeightOffset, {
-      focusable: true
+      focusable: true,
+      textDescription: 'A thick, 8 foot rope is attached to the left side of the cart. The rope has 4 positions marked at equal intervals: 8 feet, 6 feet, 4 feet, and 2 feet. A group of four people standing near this rope.'
     } );
     leftFocusRegion.addInputListener( {
       keydown: function( event, trail ) {
@@ -130,7 +131,8 @@ define( function( require ) {
     this.addChild( leftFocusRegion );
 
     var rightFocusRegion = new Rectangle( rightToolbox.rectX, rightToolbox.rectY - ropeHeightOffset, rightToolbox.rectWidth, rightToolbox.rectHeight + ropeHeightOffset, {
-      focusable: true
+      focusable: true,
+      textDescription: 'A thick, 8 foot rope is attached to the right side of the cart. The rope has 4 positions marked at equal intervals: 8 feet, 6 feet, 4 feet, and 2 feet. A group of four people standing near this rope.'
     } );
     rightFocusRegion.addInputListener( {
       keydown: function( event, trail ) {
