@@ -16,6 +16,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var ToggleNode = require( 'SUN/ToggleNode' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Input = require( 'SCENERY/input/Input' );
 
@@ -68,7 +69,7 @@ define( function( require ) {
       focusable: false//handled in the parent
     } );//red
 
-    var showGoButtonProperty = model.runningProperty.derivedNot();
+    var showGoButtonProperty = new DerivedProperty( [model.runningProperty], function( running ) { return !running; } );
     ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {
       top: 400,
       focusable: true,
