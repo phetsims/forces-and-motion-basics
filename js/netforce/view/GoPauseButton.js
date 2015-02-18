@@ -49,6 +49,7 @@ define( function( require ) {
    */
   function GoPauseButton( model, layoutWidth ) {
 
+    var goPauseButton = this;
     var padX = 15;
     var padY = 10;
     var goText = new Text( goString, { font: new PhetFont( 42 ) } );
@@ -79,6 +80,8 @@ define( function( require ) {
       var enabled = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;
+      var buttonText = showGoButtonProperty.value ? 'Go Button' : 'Pause Button';
+      goPauseButton.textDescription = buttonText + (enabled ? '' : ' (disabled)');
     } );
 
     this.centerX = layoutWidth / 2;

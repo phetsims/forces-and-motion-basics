@@ -26,13 +26,15 @@ define( function( require ) {
     var button = new TextPushButton( returnString, {
       listener: model.returnCart.bind( model ),
       font: new PhetFont( { size: 16, weight: 'bold' } ),
-      baseColor: 'rgb( 254, 192, 0 )',
-      textDescription: 'Return button'
+      baseColor: 'rgb( 254, 192, 0 )'
     } );
     this.addChild( button );
     this.mutate( options );
 
     model.startedProperty.linkAttribute( button, 'enabled' );
+    model.startedProperty.link( function( enabled ) {
+      button.textDescription = 'Return Button' + (enabled ? '' : ' (disabled)');
+    } );
   }
 
   return inherit( Node, ReturnButton );
