@@ -33,7 +33,7 @@ define( function( require ) {
 
     model.startedProperty.linkAttribute( button, 'enabled' );
     model.startedProperty.link( function( enabled ) {
-      button.textDescription = 'Return Button' + (enabled ? '' : ' (disabled)');
+      button.textDescription = 'Reset Cart button' + (enabled ? '' : ' (disabled)');
     } );
   }
 

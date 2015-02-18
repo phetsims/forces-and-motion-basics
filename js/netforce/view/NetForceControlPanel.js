@@ -42,7 +42,10 @@ define( function( require ) {
     this.addChild( new Panel( controlPanel, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
-    var resetButton = new ResetAllButton( { listener: model.reset.bind( model ), scale: 1.13 } );
+    var resetButton = new ResetAllButton( {
+      listener: model.reset.bind( model ), scale: 1.13,
+      textDescription: 'Restart game button'
+    } );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
     this.addChild( new HBox( { spacing: 5, children: [ resetButton, soundButton ] } ).mutate( {
       centerX: controlPanel.centerX,
