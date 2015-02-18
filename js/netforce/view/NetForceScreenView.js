@@ -112,11 +112,10 @@ define( function( require ) {
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
-    var ropeHeightOffset = 180;
+    var ropeHeightOffset = 215;
     var leftFocusRegion = new Rectangle( leftToolbox.rectX, leftToolbox.rectY - ropeHeightOffset, leftToolbox.rectWidth, leftToolbox.rectHeight + ropeHeightOffset, {
       focusable: true
     } );
-    this.addChild( leftFocusRegion );
     leftFocusRegion.addInputListener( {
       keydown: function( event, trail ) {
         var keyCode = event.domEvent.keyCode;
@@ -128,9 +127,21 @@ define( function( require ) {
         }
       }
     } );
+    this.addChild( leftFocusRegion );
 
     var rightFocusRegion = new Rectangle( rightToolbox.rectX, rightToolbox.rectY - ropeHeightOffset, rightToolbox.rectWidth, rightToolbox.rectHeight + ropeHeightOffset, {
       focusable: true
+    } );
+    rightFocusRegion.addInputListener( {
+      keydown: function( event, trail ) {
+        var keyCode = event.domEvent.keyCode;
+        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
+          model.pullers.forEach( function( puller ) {
+            puller.focusable = true;
+          } );
+          Input.pushFocusContext( rightPullerLayer.getUniqueTrail() );
+        }
+      }
     } );
     this.addChild( rightFocusRegion );
 
