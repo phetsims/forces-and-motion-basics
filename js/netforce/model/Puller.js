@@ -22,13 +22,14 @@ define( function( require ) {
    * @param standOffsetX horizontal offset in stage coordinates when attached to a knot but not pulling (standing)
    * @constructor
    */
-  function Puller( x, y, type, size, dragOffsetX, standOffsetX ) {
+  function Puller( x, y, type, size, dragOffsetX, options ) {
     assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
 
+    options = _.extend( { standOffsetX: 0, other: '' }, options );
     var puller = this;
 
     this.dragOffsetX = dragOffsetX;
-    this.standOffsetX = standOffsetX || 0;
+    this.standOffsetX = options.standOffsetX;
     this.type = type;
     this.size = size;
     this.force = this.size === 'small' ? 10 * 5 :
@@ -48,7 +49,13 @@ define( function( require ) {
       focusable: false
     } );
 
-    this.textDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' + this.size + ' ' + ' person';
+    this.textDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
+                           options.other + ' ' +
+                           (
+                             this.size === 'small' ? 'Strong' :
+                             this.size === 'medium' ? 'Stronger' :
+                             'Strongest'
+                           ) + ' ' + ' person';
     //Move with the knot
     var updatePosition = function( knotX ) {
       puller.position = new Vector2( knotX, puller.position.y );
