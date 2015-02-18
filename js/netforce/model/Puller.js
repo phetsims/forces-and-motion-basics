@@ -44,7 +44,8 @@ define( function( require ) {
       lastLocation: 'home',
 
       // For keyboard accessibility, the knot that the puller is hovering over
-      hoverKnot: null
+      hoverKnot: null,
+      focusable: false
     } );
 
     this.textDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' + this.size + ' ' + ' person';

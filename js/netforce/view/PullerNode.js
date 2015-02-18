@@ -35,8 +35,12 @@ define( function( require ) {
       y: y,
       cursor: 'pointer',
       scale: 0.86,
-      focusable: true,
+      focusable: puller.focusable,
       textDescription: puller.textDescription
+    } );
+
+    puller.focusableProperty.link( function( focusable ) {
+      pullerNode.focusable = focusable;
     } );
 
     var updateLocation = function() {
@@ -160,6 +164,14 @@ define( function( require ) {
               Input.focusedTrail = Input.getNextFocusableTrail( -3 );
             }
           }
+        }
+        else if ( keyCode === Input.KEY_ESCAPE ) {
+          var focusContext = Input.focusContexts[ Input.focusContexts.length - 1 ];
+          Input.popFocusContext( focusContext );
+
+          model.pullers.forEach( function( puller ) {
+            puller.focusable = false;
+          } );
         }
       }
     } );

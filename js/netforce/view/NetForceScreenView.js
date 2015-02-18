@@ -112,6 +112,28 @@ define( function( require ) {
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
+    var ropeHeightOffset = 180;
+    var leftFocusRegion = new Rectangle( leftToolbox.rectX, leftToolbox.rectY - ropeHeightOffset, leftToolbox.rectWidth, leftToolbox.rectHeight + ropeHeightOffset, {
+      focusable: true
+    } );
+    this.addChild( leftFocusRegion );
+    leftFocusRegion.addInputListener( {
+      keydown: function( event, trail ) {
+        var keyCode = event.domEvent.keyCode;
+        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
+          model.pullers.forEach( function( puller ) {
+            puller.focusable = true;
+          } );
+          Input.pushFocusContext( leftPullerLayer.getUniqueTrail() );
+        }
+      }
+    } );
+
+    var rightFocusRegion = new Rectangle( rightToolbox.rectX, rightToolbox.rectY - ropeHeightOffset, rightToolbox.rectWidth, rightToolbox.rectHeight + ropeHeightOffset, {
+      focusable: true
+    } );
+    this.addChild( rightFocusRegion );
+
     //Split into another canvas to speed up rendering
     this.addChild( new Node( { layerSplit: true } ) );
 
@@ -170,14 +192,18 @@ define( function( require ) {
              null;
     };
 
-    var pullerLayer = new Node();
-    this.addChild( pullerLayer );
+    var leftPullerLayer = new Node();
+    var rightPullerLayer = new Node();
+    this.addChild( leftPullerLayer );
+    this.addChild( rightPullerLayer );
     var pullerTabIndex = 1;
     this.pullerNodes = [];
+
     this.model.pullers.forEach( function( puller ) {
       var pullerNode = new PullerNode( puller, netForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
         tabIndex: pullerTabIndex++
       } );
+      var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
       netForceScreenView.pullerNodes.push( pullerNode );
     } );
