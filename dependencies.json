@@ -1,63 +1,63 @@
 {
   "chipper": {
-    "sha": "c9c73a93cf3abb903486443d24220c66e11a81e9",
+    "sha": "60e3a835364517fddf8bebc759b9ab3d3e2c2afc",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "2838342b451d0ee829ccc6991f3145c5b61ba42d",
+    "sha": "bf15240caf4ab055d45b669a5a2243b497fc3511",
     "branch": "master"
   },
   "vibe": {
-    "sha": "89c27a789e01789c10255b42b552f98843ad9c5b",
+    "sha": "39c481c9ebcf3e7c025599d09a879b5ea29df2dc",
     "branch": "master"
   },
   "sun": {
-    "sha": "0543c330164af9cf44051aa049e428bcdc33793c",
+    "sha": "85bc9dce280b38a906c95130d44700e04f5fe523",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "bc7b9c0985aa7569d9f031eb84caea16451da2d3",
+    "sha": "4f928b59da75e3a26d80364cc63bcbb30e17755e",
     "branch": "master"
   },
   "scenery": {
-    "sha": "8eb52214d1b07bd167e4a5263d44c397e51f9241",
+    "sha": "2ec6cb25d78a654406e42fbf8afaedb80173cfde",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "e0f0639b0726d07d5bea30f48766892dfcd4480e",
+    "sha": "49183543035c2e169dff7deedb6e49f6c58b0afa",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "7d8ed534e6ce7e148d834710f42f77ac5e92f0b6",
+    "sha": "c98d56c366b265802198a7f3eeee8a7f7644215b",
     "branch": "master"
   },
   "kite": {
-    "sha": "f5eec48d577f9bcc885d3f72f76ed08703d3e21e",
+    "sha": "294d830b8e7be6d94b53310c845561defe8b522e",
     "branch": "master"
   },
   "joist": {
-    "sha": "96e3e8963b735750b2a334f5e958019c322e9131",
+    "sha": "88e285c04eb622fdbd5670e3f7ac5944ca799b30",
     "branch": "master"
   },
   "dot": {
-    "sha": "ea256f020097d9a706f7207c1315722fa7aa74db",
+    "sha": "32a2f0072ffaac161e5071290f1658235638b9bf",
     "branch": "master"
   },
   "brand": {
-    "sha": "c7a2cb73871b7f9cbec2b8ea9ee766070a51d466",
+    "sha": "0f9ee9b8ca1a0e121f66d57109bca59f05c2ef2c",
     "branch": "master"
   },
   "axon": {
-    "sha": "a8762ae83f10e169ff615ffbd2ab906a3a11f1da",
+    "sha": "a9d4cbeec06ad2f0231d5a2d76a725b90292a263",
     "branch": "master"
   },
   "assert": {
-    "sha": "386e00157abe609741d3095120e0e425d10e7b51",
+    "sha": "e9e725994176afd0103aff427acda10bf31192c4",
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "aa148519163e2dec13b4fd244c72d3154ae5e598",
+    "sha": "42589e38082636575fd564c0f7cec3e83ed1654d",
     "branch": "master"
   },
-  "comment": "# forces-and-motion-basics 1.1.5-dev.1 Thu Feb 05 2015 19:15:51 GMT-0700 (MST)"
+  "comment": "# forces-and-motion-basics 1.1.5-dev.2 Wed Feb 18 2015 11:58:46 GMT-0700 (MST)"
 }
