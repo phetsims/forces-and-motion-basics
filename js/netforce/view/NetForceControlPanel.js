@@ -37,13 +37,19 @@ define( function( require ) {
         property: model.showSumOfForcesProperty,
         label: sumOfForcesString
       },
-      { content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString }
-    ], { tabIndex: 9 } );
+      {
+        content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString
+      }
+    ] );
     this.addChild( new Panel( controlPanel, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     var resetButton = new ResetAllButton( {
-      listener: model.reset.bind( model ), scale: 1.13,
+      componentID: 'netForceScreen.view.resetAllButton',
+      listener: function() {
+        model.reset();
+      },
+      scale: 1.13,
       textDescription: 'Restart game button'
     } );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );

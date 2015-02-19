@@ -209,13 +209,10 @@ define( function( require ) {
     var rightPullerLayer = new Node();
     this.addChild( leftPullerLayer );
     this.addChild( rightPullerLayer );
-    var pullerTabIndex = 1;
     this.pullerNodes = [];
 
     this.model.pullers.forEach( function( puller ) {
-      var pullerNode = new PullerNode( puller, netForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ), {
-        tabIndex: pullerTabIndex++
-      } );
+      var pullerNode = new PullerNode( puller, netForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
       netForceScreenView.pullerNodes.push( pullerNode );
@@ -290,7 +287,6 @@ define( function( require ) {
     } );
 
     AriaSpeech.init();
-    AriaSpeech.setText( 'The application has started!!!' );
   }
 
   return inherit( ScreenView, NetForceScreenView );

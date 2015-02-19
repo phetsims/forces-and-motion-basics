@@ -40,6 +40,8 @@ define( function( require ) {
       volumeOn: false
     } );
 
+    this.timeProperty.setSendPhetEvents( false );
+
     this.cart = new Cart();
 
     //Create the pullers from left to right so the tab order (for accessibility) will be as expected.
