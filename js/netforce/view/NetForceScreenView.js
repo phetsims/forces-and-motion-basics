@@ -231,7 +231,8 @@ define( function( require ) {
     this.addChild( this.sumArrow );
 
     //Show the control panel
-    this.addChild( new NetForceControlPanel( this.model ).mutate( { right: 981 - 5, top: 5 } ) );
+    this.controlPanel = new NetForceControlPanel( this.model ).mutate( { right: 981 - 5, top: 5 } );
+    this.addChild( this.controlPanel );
 
     //Show the flag node when pulling is complete
     var showFlagNode = function() { netForceScreenView.addChild( new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 ) ); };

@@ -213,8 +213,9 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
-    //Reset all button goes beneath the control panel
-    var resetButton = new ResetAllButton( {
+    //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
+    //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
+    this.resetAllButton = new ResetAllButton( {
       listener: function() {
         var archID = arch && arch.start( 'user', 'resetAllButton', 'ResetAllButton', 'pressed' );
         model.reset();
@@ -222,7 +223,7 @@ define( function( require ) {
       },
       scale: 1.13
     } ).mutate( { centerX: controlPanel.centerX, top: controlPanel.bottom + 5 } );
-    this.addChild( resetButton );
+    this.addChild( this.resetAllButton );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
