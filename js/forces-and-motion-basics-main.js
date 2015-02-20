@@ -10,8 +10,10 @@ define( function( require ) {
 
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var ForcesAndMotionBasicsSim = require( 'FORCES_AND_MOTION_BASICS/ForcesAndMotionBasicsSim' );
+  var forcesAndMotionBasicsAPI = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasicsAPI' );
 
   var simOptions = {
+    api: forcesAndMotionBasicsAPI,
     credits: {
       leadDesign: 'Noah Podolefsky',
       softwareDevelopment: 'Sam Reid',
