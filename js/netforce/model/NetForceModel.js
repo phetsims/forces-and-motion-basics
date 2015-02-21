@@ -86,21 +86,7 @@ define( function( require ) {
       } );
       puller.on( 'dropped', function() {
         var knot = netForceModel.getTargetKnot( puller );
-
-        //try to snap to a knot
-        if ( knot ) {
-          puller.setValues( { position: new Vector2( knot.x, knot.y ), knot: knot } );
-        }
-
-        //Or go back home
-        else {
-          puller.positionProperty.reset();
-        }
-
-        //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
-        puller.lastLocation = knot ? 'knot' : 'home';
-
-        netForceModel.numberPullersAttached = netForceModel.countAttachedPullers();
+        netForceModel.movePullerToKnot( puller, knot );
       } );
     } );
 
@@ -114,6 +100,23 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, NetForceModel, {
+    movePullerToKnot: function( puller, knot ) {
+
+      //try to snap to a knot
+      if ( knot ) {
+        puller.setValues( { position: new Vector2( knot.x, knot.y ), knot: knot } );
+      }
+
+      //Or go back home
+      else {
+        puller.positionProperty.reset();
+      }
+
+      //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
+      puller.lastLocation = knot ? 'knot' : 'home';
+
+      this.numberPullersAttached = this.countAttachedPullers();
+    },
     shiftPullerLeft: function( puller ) {
       this.shiftPuller( puller, 0, 4, -1 );
     },
@@ -176,7 +179,9 @@ define( function( require ) {
     //Gets the closest unoccupied knot to the given puller, which is being dragged.
     getClosestOpenKnot: function( puller ) {
       var netForceModel = this;
-      var filter = this.knots.filter( function( knot ) { return knot.type === puller.type && netForceModel.getPuller( knot ) === null; } );
+      var filter = this.knots.filter( function( knot ) {
+        return knot.type === puller.type && netForceModel.getPuller( knot ) === null;
+      } );
       return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
 
@@ -265,6 +270,34 @@ define( function( require ) {
     //Gets the right force on the cart, applied by right pullers
     getRightForce: function() {
       return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 );
+    },
+
+    //Gets the closest unoccupied knot to the given puller, which is being dragged.
+    getClosestOpenKnotInDirection: function( puller, delta ) {
+      var netForceModel = this;
+      var isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
+        assert && assert( delta < 0 || delta > 0 );
+        return delta < 0 ? destinationKnot.x < sourceKnot.x :
+               delta > 0 ? destinationKnot.x > sourceKnot.x :
+               'error';
+      };
+      var filter = this.knots.filter( function( knot ) {
+        return knot.type === puller.type &&
+               netForceModel.getPuller( knot ) === null &&
+               isInRightDirection( puller.knot, knot, delta );
+      } );
+      var result = _.min( filter, this.getKnotPullerDistance( puller ) );
+      if ( result === Infinity || result === -Infinity ) {
+        result = null;
+      }
+      return result;
+    },
+
+    movePullerToAdjacentOpenKnot: function( puller, delta ) {
+      var closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
+      if ( closestOpenKnot ) {
+        this.movePullerToKnot( puller, closestOpenKnot );
+      }
     },
 
     // The puller was selected and will hover over the rope until the user chooses where to put the puller.
