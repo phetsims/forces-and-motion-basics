@@ -1,6 +1,6 @@
 {
   "chipper": {
-    "sha": "60e3a835364517fddf8bebc759b9ab3d3e2c2afc",
+    "sha": "522ff3ed9ac716816db94aec87f67477601e8068",
     "branch": "master"
   },
   "sherpa": {
@@ -12,19 +12,19 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "85bc9dce280b38a906c95130d44700e04f5fe523",
+    "sha": "e3becd3d320ae4bf60202dc55e376322db0c2837",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "4f928b59da75e3a26d80364cc63bcbb30e17755e",
+    "sha": "6c7f1d526061e83b5f4d57141ac782babe6b4b28",
     "branch": "master"
   },
   "scenery": {
-    "sha": "2ec6cb25d78a654406e42fbf8afaedb80173cfde",
+    "sha": "27d639a03b1653c7d443b01b89497a95f5adb81b",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "49183543035c2e169dff7deedb6e49f6c58b0afa",
+    "sha": "dd722834a1cb3f91b2dc2698ea4b95da907301e2",
     "branch": "master"
   },
   "phet-core": {
@@ -32,15 +32,15 @@
     "branch": "master"
   },
   "kite": {
-    "sha": "294d830b8e7be6d94b53310c845561defe8b522e",
+    "sha": "8d80e165c771500a67fc508767b682139e7906ae",
     "branch": "master"
   },
   "joist": {
-    "sha": "88e285c04eb622fdbd5670e3f7ac5944ca799b30",
+    "sha": "26735c2a3c04bf74e8db095065da8113c51dc64f",
     "branch": "master"
   },
   "dot": {
-    "sha": "32a2f0072ffaac161e5071290f1658235638b9bf",
+    "sha": "b7e24feee13296a76659dcf3070888e5cee9bbcd",
     "branch": "master"
   },
   "brand": {
@@ -48,7 +48,7 @@
     "branch": "master"
   },
   "axon": {
-    "sha": "a9d4cbeec06ad2f0231d5a2d76a725b90292a263",
+    "sha": "9c8d2b0328a1929231bb8a4626e6df5fa8d7f072",
     "branch": "master"
   },
   "assert": {
@@ -56,8 +56,8 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "42589e38082636575fd564c0f7cec3e83ed1654d",
+    "sha": "01079732773d351fe4731b2fdfa0618c9115fb42",
     "branch": "master"
   },
-  "comment": "# forces-and-motion-basics 1.1.5-dev.2 Wed Feb 18 2015 11:58:46 GMT-0700 (MST)"
+  "comment": "# forces-and-motion-basics 1.1.5-dev.3 Fri Feb 20 2015 22:28:46 GMT-0700 (MST)"
 }
