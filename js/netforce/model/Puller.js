@@ -50,6 +50,7 @@ define( function( require ) {
       focusable: false,
       textDescription: ''
     } );
+    this.other = options.other;
 
     var pullerDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
                             options.other + ' ' +

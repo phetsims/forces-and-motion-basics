@@ -128,6 +128,7 @@ define( function( require ) {
     this.addInputListener( {
       keydown: function( event, trail ) {
         var keyCode = event.domEvent.keyCode;
+        var focusContext = null;
         if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
           if ( puller.knot ) {
             puller.disconnect();
@@ -156,12 +157,31 @@ define( function( require ) {
           }
         }
         else if ( keyCode === Input.KEY_ESCAPE ) {
-          var focusContext = Input.focusContexts[ Input.focusContexts.length - 1 ];
+          focusContext = Input.focusContexts[ Input.focusContexts.length - 1 ];
           Input.popFocusContext( focusContext );
 
           model.pullers.forEach( function( puller ) {
             puller.focusable = false;
           } );
+        }
+        else if ( keyCode === Input.KEY_TAB ) {
+
+          // This tremendous hack is necessary because elements get a tab event when they *receive* focus
+          // for the first time.  When that bug in Input.js is fixed, then this will be buggy.
+          // The desired behavior is for the focus to leave the group after tabbing through all pullers.
+          if ( puller.size === 'small' && !puller.other ) {
+            var shiftPressed = Input.pressedKeys.indexOf( Input.KEY_SHIFT ) >= 0;
+            if ( !shiftPressed ) {
+              focusContext = Input.focusContexts[ Input.focusContexts.length - 1 ];
+              Input.popFocusContext( focusContext );
+
+              model.pullers.forEach( function( puller ) {
+                puller.focusable = false;
+              } );
+
+              Input.moveFocus( +1 );
+            }
+          }
         }
       }
     } );
