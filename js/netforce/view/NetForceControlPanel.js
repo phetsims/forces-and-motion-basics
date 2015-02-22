@@ -31,7 +31,7 @@ define( function( require ) {
     Node.call( this, options );
 
     var fontOptions = { font: new PhetFont( 18 ) };
-    var controlPanel = new VerticalCheckBoxGroup( [
+    this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [
       {
         content: new Text( sumOfForcesString, fontOptions ),
         property: model.showSumOfForcesProperty,
@@ -41,11 +41,10 @@ define( function( require ) {
         content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString
       }
     ] );
-    this.addChild( new Panel( controlPanel, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
+    this.addChild( new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     this.resetAllButton = new ResetAllButton( {
-      componentID: 'netForceScreen.view.resetAllButton',
       listener: function() {
         model.reset();
       },
@@ -54,8 +53,8 @@ define( function( require ) {
     } );
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
     this.addChild( new HBox( { spacing: 5, children: [ this.resetAllButton, soundButton ] } ).mutate( {
-      centerX: controlPanel.centerX,
-      top: controlPanel.bottom + 15
+      centerX: this.verticalCheckBoxGroup.centerX,
+      top: this.verticalCheckBoxGroup.bottom + 15
     } ) );
   }
 
