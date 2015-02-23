@@ -42,6 +42,10 @@ define( function( require ) {
     this.frictionScreen = new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction' );
     this.accelerationScreen = new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration' );
 
+    // alternate route:
+    // sim.screens[0]
+    // sim.netForceScreen
+
     //Create and start the sim
     Sim.call( this,
       titleString, [
@@ -53,5 +57,18 @@ define( function( require ) {
       options );
   }
 
-  return inherit( Sim, ForcesAndMotionBasicsSim );
+  return inherit( Sim, ForcesAndMotionBasicsSim, {
+    getAPI: function( route ) {
+      var api = Sim.prototype.getAPI.call( this, route );
+
+      //TODO: include "sim." in the route?
+      api.netForceScreen = this.netForceScreen.getAPI( 'netForceScreen' );
+
+      // TODO: Not working yet
+      //api.motionScreen = this.motionScreen.getAPI();
+      //api.frictionScreen = this.frictionScreen.getAPI();
+      //api.accelerationScreen = this.accelerationScreen.getAPI();
+      return api;
+    }
+  } );
 } );
