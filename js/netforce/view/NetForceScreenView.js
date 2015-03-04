@@ -67,7 +67,7 @@ define( function( require ) {
   function NetForceScreenView( model ) {
     var netForceScreenView = this;
 
-    ScreenView.call( this, { renderer: Sim.joistRenderer, layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
+    ScreenView.call( this, { layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;
