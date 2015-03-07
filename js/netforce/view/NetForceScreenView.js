@@ -290,28 +290,5 @@ define( function( require ) {
     AriaSpeech.init();
   }
 
-  return inherit( ScreenView, NetForceScreenView, {
-
-    // Example of how to override with a custom API
-    // TODO: Should be rewritten 
-    getAPI: function( route ) {
-      return {
-        route: 'netForceScreen.view',
-
-        sumOfForcesCheckBox: {
-          type: 'checkbox',
-          route: 'netForceScreen.view.controlPanel.verticalCheckBoxGroup.children[0]'
-        },
-        resetAllButton: {
-          type: 'button',
-          description: 'Orange button that appears in the bottom right of the sim.  Resets the entire screen.',
-
-          // TODO: provide an abbreviated syntax for routes that match API spec.  Only specify routes for things that 
-          // TODO: don't match in the sim implementation.
-          route: 'netForceScreen.view.controlPanel.resetAllButton'
-        }
-        // etc., etc.
-      };
-    }
-  } );
+  return inherit( ScreenView, NetForceScreenView );
 } );

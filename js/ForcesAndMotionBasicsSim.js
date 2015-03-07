@@ -57,18 +57,5 @@ define( function( require ) {
       options );
   }
 
-  return inherit( Sim, ForcesAndMotionBasicsSim, {
-    getAPI: function( route ) {
-      var api = Sim.prototype.getAPI.call( this, route );
-
-      //TODO: include "sim." in the route?
-      api.netForceScreen = this.netForceScreen.getAPI( 'netForceScreen' );
-
-      // TODO: Not working yet
-      //api.motionScreen = this.motionScreen.getAPI();
-      //api.frictionScreen = this.frictionScreen.getAPI();
-      //api.accelerationScreen = this.accelerationScreen.getAPI();
-      return api;
-    }
-  } );
+  return inherit( Sim, ForcesAndMotionBasicsSim );
 } );
