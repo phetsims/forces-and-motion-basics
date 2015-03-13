@@ -37,7 +37,6 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
-  var Sim = require( 'JOIST/Sim' );
 
   /**
    * Constructor for the MotionScreenView

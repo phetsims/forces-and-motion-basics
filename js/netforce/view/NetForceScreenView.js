@@ -30,7 +30,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
-  var Sim = require( 'JOIST/Sim' );
   var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var AriaSpeech = require( 'SCENERY/accessibility/AriaSpeech' );
