@@ -142,7 +142,7 @@ define( function( require ) {
 
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
-      var archID = arch && arch.start( 'user', 'left-arrow-button', 'ArrowButton.left', 'left-arrow-button-pressed' );
+      var archID = arch && arch.start( 'user', 'left-arrow-button', 'left-arrow-button-pressed' );
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
       arch && arch.end( archID );
     }, {
@@ -160,7 +160,7 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
-      var archID = arch && arch.start( 'user', 'right-arrow-button', 'ArrowButton.right', 'right-arrow-button-pressed' );
+      var archID = arch && arch.start( 'user', 'right-arrow-button', 'right-arrow-button-pressed' );
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
       arch && arch.end( archID );
     }, { left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY } );
@@ -216,7 +216,7 @@ define( function( require ) {
     //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
     this.resetAllButton = new ResetAllButton( {
       listener: function() {
-        var archID = arch && arch.start( 'user', 'resetAllButton', 'ResetAllButton', 'pressed' );
+        var archID = arch && arch.start( 'user', 'resetAllButton', 'pressed' );
         model.reset();
         arch && arch.end( archID );
       },

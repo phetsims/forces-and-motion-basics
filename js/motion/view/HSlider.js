@@ -139,13 +139,13 @@ define( function( require ) {
             result = Math.max( 0, result );
           }
           //messageType, componentID, componentType, action, options
-          var archID = arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-dragged' );
+          var archID = arch && arch.start( 'user', options.componentID, 'slider-knob-dragged' );
           property.value = result;
           arch && arch.end( archID );
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            var archID = arch && arch.start( 'user', options.componentID, 'HSlider.knob', 'slider-knob-released' );
+            var archID = arch && arch.start( 'user', options.componentID, 'slider-knob-released' );
             property.value = 0;
             arch && arch.end( archID );
           }

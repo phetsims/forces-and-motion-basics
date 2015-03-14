@@ -156,7 +156,7 @@ define( function( require ) {
 
         //Only apply a force if the pusher is not fallen, see #48
         if ( !model.fallen ) {
-          var archID = arch && arch.start( 'user', 'pusherNode', 'PusherNode', 'dragged-mannequin' );
+          var archID = arch && arch.start( 'user', 'pusherNode', 'dragged-mannequin' );
           model.appliedForce = clampedAppliedForce;
           arch && arch.end( archID );
         }
