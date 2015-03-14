@@ -138,7 +138,7 @@ define( function( require ) {
           if ( disableLeftProperty && disableLeftProperty.value ) {
             result = Math.max( 0, result );
           }
-          //messageType, componentID, componentType, action, options
+          //messageType, componentID, action, options
           var archID = arch && arch.start( 'user', options.componentID, 'slider-knob-dragged' );
           property.value = result;
           arch && arch.end( archID );
