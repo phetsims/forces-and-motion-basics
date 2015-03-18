@@ -87,8 +87,6 @@ define( function( require ) {
     } );
 
     //Do not send PhET events for time changing
-    this.timeProperty.setSendPhetEvents( false );
-    this.timeSinceFallenProperty.setSendPhetEvents( false );
     var throttlePeriod = 0.2;//Seconds.  Send at 5Hz
     this.frictionProperty.throttle( throttlePeriod );
     this.velocityProperty.throttle( throttlePeriod );

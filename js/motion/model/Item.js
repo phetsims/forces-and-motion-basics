@@ -52,10 +52,6 @@ define( function( require ) {
       interactionScale: 1.0
     } );
 
-    this.positionProperty.setSendPhetEvents( false );
-    this.animatingProperty.setSendPhetEvents( false );
-    this.interactionScaleProperty.setSendPhetEvents( false );
-
     this.context.directionProperty.link( function( direction ) {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
