@@ -86,17 +86,6 @@ define( function( require ) {
       arch && arch.trigger( 'model', 'motionModel', 'appliedForcePropertyChanged', { state: motionModel.getState() } );
     } );
 
-    //Do not send PhET events for time changing
-    var throttlePeriod = 0.2;//Seconds.  Send at 5Hz
-    this.frictionProperty.throttle( throttlePeriod );
-    this.velocityProperty.throttle( throttlePeriod );
-    this.positionProperty.throttle( throttlePeriod );
-    this.pusherPositionProperty.throttle( throttlePeriod );
-    this.speedProperty.throttle( throttlePeriod );
-    this.frictionForceProperty.throttle( throttlePeriod );
-    this.accelerationProperty.throttle( throttlePeriod );
-    this.appliedForceProperty.throttle( throttlePeriod );
-
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { motionModel.appliedForce = 0; } } );
 
