@@ -138,15 +138,15 @@ define( function( require ) {
           if ( disableLeftProperty && disableLeftProperty.value ) {
             result = Math.max( 0, result );
           }
-          var archID = arch && arch.start( 'user', options.componentID, 'slider-knob-dragged' );
+          var messageIndex = arch && arch.start( 'user', options.componentID, 'slider-knob-dragged' );
           property.value = result;
-          arch && arch.end( archID );
+          arch && arch.end( messageIndex );
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            var archID = arch && arch.start( 'user', options.componentID, 'slider-knob-released' );
+            var messageIndex = arch && arch.start( 'user', options.componentID, 'slider-knob-released' );
             property.value = 0;
-            arch && arch.end( archID );
+            arch && arch.end( messageIndex );
           }
         }
       }
