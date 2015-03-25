@@ -55,8 +55,7 @@ define( function( require ) {
         //TODO: Why is this immense spacing necessary here?
         content: options.icon ? new HBox( { spacing: 10, children: [ textNode, options.icon ] } ) : textNode,
         property: model.property( propertyName ),
-        indent: options.indent,
-        id: checkboxID
+        indent: options.indent
       };
     };
 
@@ -83,7 +82,10 @@ define( function( require ) {
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
-        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), { stroke: 'black', lineWidth: 1 } );
+        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), {
+          stroke: 'black',
+          lineWidth: 1
+        } );
         var text = new Text( label, { font: new PhetFont( 15 ) } );
         model.stack.lengthProperty.link( function( length ) {
           var enabled = length > 0;
@@ -96,7 +98,7 @@ define( function( require ) {
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
-      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE', { id: 'disableLeftProperty' } ), null, null, { zeroOnRelease: false } ).
+      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, { zeroOnRelease: false } ).
         addTick( 0, createTick( noneString, true ) ).addTick( 1, createTick( lotsString, true ) ).
         addTick( 0, createTick( lotsString, false ) ).addTick( 1, createTick( noneString, false ) );
       var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );

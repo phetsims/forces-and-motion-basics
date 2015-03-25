@@ -41,7 +41,7 @@ define( function( require ) {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = new ObservableArray( { id: 'stack' } );
+    this.stack = new ObservableArray();
 
     //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
     PropertySet.call( this, {
