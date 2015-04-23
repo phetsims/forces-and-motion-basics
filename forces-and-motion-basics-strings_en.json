@@ -1,0 +1,92 @@
+{
+  "none": {
+    "value": "None"
+  },
+  "force": {
+    "value": "Force"
+  },
+  "values": {
+    "value": "Values"
+  },
+  "frictionTitle": {
+    "value": "Friction"
+  },
+  "redWins": {
+    "value": "Red Wins!"
+  },
+  "frictionForce": {
+    "value": "Friction Force"
+  },
+  "pause": {
+    "value": "Pause"
+  },
+  "friction": {
+    "value": "Friction"
+  },
+  "accelerationLab": {
+    "value": "Acceleration Lab"
+  },
+  "forces-and-motion-basics.name": {
+    "value": "Forces and Motion: Basics"
+  },
+  "leftForce": {
+    "value": "Left Force"
+  },
+  "appliedForce": {
+    "value": "Applied Force"
+  },
+  "rightForce": {
+    "value": "Right Force"
+  },
+  "massDisplay.pattern": {
+    "value": "{0} kg"
+  },
+  "acceleration": {
+    "value": "Acceleration"
+  },
+  "sound": {
+    "value": "Sound"
+  },
+  "lots": {
+    "value": "Lots"
+  },
+  "forces": {
+    "value": "Forces"
+  },
+  "netForce": {
+    "value": "Net Force"
+  },
+  "motion": {
+    "value": "Motion"
+  },
+  "go": {
+    "value": "Go!"
+  },
+  "sumOfForcesEqualsZero": {
+    "value": "Sum of Forces = 0"
+  },
+  "newtons.n": {
+    "value": "Newtons (N)"
+  },
+  "blueWins": {
+    "value": "Blue Wins!"
+  },
+  "sumOfForces": {
+    "value": "Sum of Forces"
+  },
+  "speed": {
+    "value": "Speed"
+  },
+  "return": {
+    "value": "Return"
+  },
+  "newtons": {
+    "value": "Newtons"
+  },
+  "masses": {
+    "value": "Masses"
+  },
+  "forceReadout.pattern": {
+    "value": "{0}N"
+  }
+}
