@@ -81,11 +81,6 @@ define( function( require ) {
       stackSize: 1
     } );
 
-    //Indicate the model state when the applied force changes
-    this.appliedForceProperty.link( function( appliedForce ) {
-      arch && arch.trigger( 'model', 'motionModel', 'appliedForcePropertyChanged', { state: motionModel.getState() } );
-    } );
-
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { motionModel.appliedForce = 0; } } );
 

@@ -138,15 +138,15 @@ define( function( require ) {
           if ( disableLeftProperty && disableLeftProperty.value ) {
             result = Math.max( 0, result );
           }
-          var messageIndex = arch && arch.start( 'user', options.togetherID, 'slider-knob-dragged' );
+          var messageIndex = togetherEvents && togetherEvents.start( 'user', options.togetherID, 'slider-knob-dragged' );
           property.value = result;
-          arch && arch.end( messageIndex );
+          togetherEvents && togetherEvents.end( messageIndex );
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            var messageIndex = arch && arch.start( 'user', options.togetherID, 'slider-knob-released' );
+            var messageIndex = togetherEvents && togetherEvents.start( 'user', options.togetherID, 'slider-knob-released' );
             property.value = 0;
-            arch && arch.end( messageIndex );
+            togetherEvents && togetherEvents.end( messageIndex );
           }
         }
       }
