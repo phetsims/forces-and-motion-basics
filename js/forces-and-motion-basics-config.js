@@ -14,6 +14,7 @@ require.config( {
     KITE: '../../kite/js',
     PHET_CORE: '../../phet-core/js',
     PHETCOMMON: '../../phetcommon/js',
+    REPOSITORY: '..',
     SUN: '../../sun/js',
     JOIST: '../../joist/js',
     FORCES_AND_MOTION_BASICS: '../../forces-and-motion-basics/js',
