@@ -5,20 +5,6 @@
   "simTitleStringKey": "FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name",
   "phetLibs": [
     "forces-and-motion-basics",
-    "assert",
-    "axon",
-    "babel",
-    "brand",
-    "chipper",
-    "dot",
-    "joist",
-    "kite",
-    "phet-core",
-    "phetcommon",
-    "scenery",
-    "scenery-phet",
-    "sherpa",
-    "sun",
     "vibe"
   ],
   "preload": [
