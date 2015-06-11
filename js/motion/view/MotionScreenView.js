@@ -134,7 +134,7 @@ define( function( require ) {
       fill: 'white',
       stroke: 'lightgrey',
       centerX: width / 2,
-      top:     readout.y - readout.height + 2,
+      top: readout.y - readout.height + 2,
       pickable: false
     } );
     this.addChild( this.textPanelNode );
@@ -142,9 +142,7 @@ define( function( require ) {
 
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
-      var messageIndex = togetherEvents && togetherEvents.start( 'user', 'left-arrow-button', 'left-arrow-button-pressed' );
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
-      togetherEvents && togetherEvents.end( messageIndex );
     }, {
       rectangleYMargin: 7,
       rectangleXMargin: 10,
@@ -160,10 +158,11 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
-      var messageIndex = togetherEvents && togetherEvents.start( 'user', 'right-arrow-button', 'right-arrow-button-pressed' );
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
-      togetherEvents && togetherEvents.end( messageIndex );
-    }, { left: this.textPanelNode.right + 6, centerY: this.textPanelNode.centerY } );
+    }, {
+      left: this.textPanelNode.right + 6,
+      centerY: this.textPanelNode.centerY
+    } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
@@ -215,9 +214,7 @@ define( function( require ) {
     //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
     this.resetAllButton = new ResetAllButton( {
       listener: function() {
-        var messageIndex = togetherEvents && togetherEvents.start( 'user', 'resetAllButton', 'pressed' );
         model.reset();
-        togetherEvents && togetherEvents.end( messageIndex );
       },
       scale: 1.13
     } ).mutate( { centerX: controlPanel.centerX, top: controlPanel.bottom + 5 } );

@@ -41,8 +41,7 @@ define( function( require ) {
     var slider = this;
     this.enabledProperty = new Property( true );
     this.options = _.extend( {
-      zeroOnRelease: false,
-      togetherID: ''
+      zeroOnRelease: false
     }, options || {} );
 
     speedClassificationProperty.link( function( speedClassification ) {
@@ -138,15 +137,11 @@ define( function( require ) {
           if ( disableLeftProperty && disableLeftProperty.value ) {
             result = Math.max( 0, result );
           }
-          var messageIndex = togetherEvents && togetherEvents.start( 'user', options.togetherID, 'slider-knob-dragged' );
           property.value = result;
-          togetherEvents && togetherEvents.end( messageIndex );
         },
         end: function() {
           if ( slider.options.zeroOnRelease ) {
-            var messageIndex = togetherEvents && togetherEvents.start( 'user', options.togetherID, 'slider-knob-released' );
             property.value = 0;
-            togetherEvents && togetherEvents.end( messageIndex );
           }
         }
       }

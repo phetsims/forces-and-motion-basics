@@ -156,17 +156,13 @@ define( function( require ) {
 
         //Only apply a force if the pusher is not fallen, see #48
         if ( !model.fallen ) {
-          var messageIndex = togetherEvents && togetherEvents.start( 'user', 'pusherNode', 'dragged-mannequin' );
           model.appliedForce = clampedAppliedForce;
-          togetherEvents && togetherEvents.end( messageIndex );
         }
       },
 
       start: function() {},
       end: function() {
-        var messageIndex = togetherEvents && togetherEvents.start( 'dropped-mannequin' );
         model.appliedForce = 0;
-        togetherEvents && togetherEvents.end( messageIndex );
       }
     } );
     this.addInputListener( listener );
