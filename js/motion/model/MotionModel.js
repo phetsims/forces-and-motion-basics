@@ -32,6 +32,7 @@ define( function( require ) {
    * @constructor
    */
   function MotionModel( screen ) {
+
     //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
     var motionModel = this;
@@ -94,11 +95,11 @@ define( function( require ) {
     var girl = new Item( this, 'girl', girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage );
     var man = new Item( this, 'man', manStandingImage, 80, 747, 421, 0.6, 12, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
-                 [ fridge, crate1, crate2, girl, man, bucket ] :
-                 [ fridge, crate1, crate2, girl, man,
-                   new Item( this, 'trash', trashCanImage, 100, 816, 502, 0.7, 11 ),
-                   new Item( this, 'mystery', mysteryObjectImage, 50, 888, 543, 1.1, undefined, undefined, undefined, true )
-                 ];
+      [ fridge, crate1, crate2, girl, man, bucket ] :
+      [ fridge, crate1, crate2, girl, man,
+        new Item( this, 'trash', trashCanImage, 100, 816, 502, 0.7, 11 ),
+        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 543, 1.1, undefined, undefined, undefined, true )
+      ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
       motionModel.direction = appliedForce > 0 ? 'right' :
@@ -157,10 +158,14 @@ define( function( require ) {
     },
 
     //Determine whether a value is positive, negative or zero for the physics computations
-    getSign: function( value ) { return value > 0 ? 1 : value < 0 ? -1 : 0; },
+    getSign: function( value ) {
+      return value > 0 ? 1 : value < 0 ? -1 : 0;
+    },
 
     //Returns the friction force on an object given the applied force
     getFrictionForce: function( appliedForce ) {
+
+      // TODO: Why does g=10.0?
       var g = 10.0;
       var sum = function( a, b ) {return a + b;};
       var toMass = function( item ) {return item.mass;};

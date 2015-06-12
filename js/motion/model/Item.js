@@ -62,19 +62,16 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, Item, {
-    get: function() {
-      var parent = PropertySet.prototype.getValues.call( this );
-      parent.image = this.image;
-      parent.mystery = this.mystery;
-      parent.name = this.name;
-      return parent;
-    },
 
     //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
-    get centeringOffset() { return this.image === 'trash-can.png' ? 5 : 0; },
+    get centeringOffset() {
+      return this.image === 'trash-can.png' ? 5 : 0;
+    },
 
     //Return true if the arms should be up (for a human)
-    armsUp: function() { return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this ); },
+    armsUp: function() {
+      return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
+    },
 
     //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
