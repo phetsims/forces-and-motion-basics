@@ -165,7 +165,8 @@ define( function( require ) {
     //Returns the friction force on an object given the applied force
     getFrictionForce: function( appliedForce ) {
 
-      // TODO: Why does g=10.0?
+      // Why does g=10.0?  See https://github.com/phetsims/forces-and-motion-basics/issues/132
+      // We decide to keep it as it is, even though 9.8 may be more realistic.
       var g = 10.0;
       var sum = function( a, b ) {return a + b;};
       var toMass = function( item ) {return item.mass;};
