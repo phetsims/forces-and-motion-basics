@@ -48,7 +48,7 @@ define( function( require ) {
 
     var fontSize = 18;
 
-    var toElement = function( text, propertyName, checkboxID, options ) {
+    var toElement = function( text, propertyName, options ) {
       options = _.extend( { indent: 0 }, options );
       var textNode = new Text( text, { font: new PhetFont( fontSize ) } );
       return {
