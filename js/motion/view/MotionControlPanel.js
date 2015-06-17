@@ -13,6 +13,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
@@ -34,7 +35,6 @@ define( function( require ) {
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   /**
@@ -76,9 +76,6 @@ define( function( require ) {
       }, { scale: 0.2 } );
     };
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( { scale: 0.3 } ); };
-
-    //Workarounds because VBox centering not working properly
-    var spacer = function( width, height ) { return new Rectangle( 0, 0, width, height, { visible: false } ); };
 
     var createFrictionSlider = function() {
       var createTick = function( label, visible ) {
@@ -128,7 +125,7 @@ define( function( require ) {
           toElement( massesString, 'showMasses' ),
           toElement( speedString, 'showSpeed', { icon: speedometerIcon() } )
         ], { fill: '#e3e980' } ),
-        spacer( 12, 12 ),
+        new VStrut( 12 ),
         createFrictionSlider() ];
     };
 
@@ -143,11 +140,11 @@ define( function( require ) {
           toElement( speedString, 'showSpeed', { icon: speedometerIcon() } ),
           toElement( accelerationString, 'showAcceleration', { icon: accelerometerIcon() } )
         ], { fill: '#e3e980' } ),
-        spacer( 12, 12 ),
+        new VStrut( 12 ),
         createFrictionSlider()
       ];
     };
-    
+
     var controlPanel = new VBox( {
       align: 'center',
       children: model.screen === 'motion' ? createMotionControls() :
