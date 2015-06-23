@@ -54,7 +54,7 @@ define( function( require ) {
     //Update when the value changes
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
-      readoutArrow.valueNode.text = StringUtils.format( forceReadoutPattern, Math.abs( Math.round( value ) ).toFixed( 0 ) );
+      readoutArrow.valueNode.text = StringUtils.format( forceReadoutPattern, Math.round( Math.abs( value ) ).toFixed( 0 ) );
       readoutArrow.update();
     } );
 

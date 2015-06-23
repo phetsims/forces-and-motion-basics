@@ -12,6 +12,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
+
   var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
   var pusherFallDownImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_fall_down.png' );
   var pusherImage0 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_0.png' );
@@ -130,7 +131,7 @@ define( function( require ) {
         updateZeroForcePosition();
       }
       else {
-        var index = Math.min( 14, Math.round( Math.abs( (appliedForce / 500 * 14) ) ) );
+        var index = Math.min( 14, Math.round( Math.abs( appliedForce / 500 * 14 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
         }

@@ -36,6 +36,8 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
+  var Util = require( 'DOT/Util' );
+
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
   /**
@@ -121,7 +123,7 @@ define( function( require ) {
     model.appliedForceProperty.link( function( appliedForce ) {
 
       //Must match the other formatters below, see roundedAppliedForceProperty near the creation of the ReadoutArrows
-      var numberText = parseInt( Math.round( appliedForce ).toFixed( 0 ), 10 ).toFixed( 0 );
+      var numberText = parseInt( Util.roundSymmetric( appliedForce ).toFixed( 0 ), 10 ).toFixed( 0 );
 
       //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
       if ( numberText === '-0' ) { numberText = '0'; }
@@ -272,17 +274,19 @@ define( function( require ) {
     var roundedAppliedForceProperty = new DerivedProperty(
       [ model.appliedForceProperty ],
       function( appliedForce ) {
-        return Math.round( appliedForce );
+        return Util.roundSymmetric( appliedForce );
       } );
     var roundedFrictionForceProperty = new DerivedProperty(
       [ model.frictionForceProperty ],
       function( frictionForce ) {
-        return Math.round( frictionForce );
+        return Util.roundSymmetric( frictionForce );
       } );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
     var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
-    model.on( 'stepped', function() { roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() ); } );
+    model.on( 'stepped', function() {
+      roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
+    } );
 
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {
       labelPosition: 'top',
