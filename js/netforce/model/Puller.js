@@ -11,7 +11,6 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var AriaSpeech = require( 'SCENERY/accessibility/AriaSpeech' );
 
   /**
    *
@@ -80,12 +79,6 @@ define( function( require ) {
       }
 
       puller.textDescription = pullerDescription + (newKnot ? '. attached to a knot on the rope' : '');
-      if ( newKnot ) {
-        AriaSpeech.setText( 'Attached to a knot on the rope' );
-      }
-      else {
-        AriaSpeech.setText( 'Detached from the rope' );
-      }
     } );
   }
 
