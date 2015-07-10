@@ -9,7 +9,6 @@
   ],
   "preload": [
     "../sherpa/lib/seedrandom-2.2.js",
-    "../sherpa/lib/pixi-v3.0.0-rc1-dev.js",
     "../sherpa/lib/Tween-r12.js"
   ],
   "repository": {
