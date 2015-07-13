@@ -22,8 +22,9 @@ require.config( {
     SHERPA: '../../sherpa/lib',
 
     //Load plugins
-    image: '../../chipper/js/requirejs-plugins/image',
     audio: '../../chipper/js/requirejs-plugins/audio',
+    image: '../../chipper/js/requirejs-plugins/image',
+    mipmap: '../../chipper/js/requirejs-plugins/mipmap',
     string: '../../chipper/js/requirejs-plugins/string',
 
     // third-party libs
