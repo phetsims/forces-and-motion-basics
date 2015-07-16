@@ -11,9 +11,6 @@
     "../sherpa/lib/seedrandom-2.2.js",
     "../sherpa/lib/Tween-r12.js"
   ],
-  "licenseKeys": [
-    "easing-equations"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/forces-and-motion-basics.git"
