@@ -1,2 +1,18 @@
-golf-clap.mp3 source=http://www.pdsounds.org/sounds/clapping_hurray notes=edited by NP and SR license=public domain
-golf-clap.ogg source=http://www.pdsounds.org/sounds/clapping_hurray notes=edited by NP and SR license=public domain
+{
+  "golf-clap.mp3": {
+    "text": [
+      "Public Domain"
+    ],
+    "projectURL": "http://www.pdsounds.org/sounds/clapping_hurray",
+    "license": "Public Domain",
+    "notes": "edited by Noah Podolefsky and Sam Reid"
+  },
+  "golf-clap.ogg": {
+    "text": [
+      "Public Domain"
+    ],
+    "projectURL": "http://www.pdsounds.org/sounds/clapping_hurray",
+    "license": "Public Domain",
+    "notes": "edited by Noah Podolefsky and Sam Reid"
+  }
+}

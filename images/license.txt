@@ -1,71 +1,570 @@
-Acceleration_Icon.png source=PhET
-brick-tile.png notes=http://openclipart.org/detail/9523/-by--9523 license=public domain
-cart.png source=PhET author=Noah
-cloud1.png notes=http://openclipart.org/detail/99229/landscape-by-rg1024 license=public domain
-crate.png source=PhET author=Noah
-Friction_Icon.png source=PhET
-fridge.png source=PhET author=Noah
-girl-holding.png source=PhET notes=balancing act
-girl-sitting.png source=PhET notes=balancing act
-girl-standing.png source=PhET notes=balancing act
-go_hover.png source=PhET author=Noah
-go_pressed.png source=PhET author=Noah
-go_up.png source=PhET author=Noah
-grass.png source=PhET author=Noah
-ice_overlay.png source=PhET author=Noah
-icicle.png source=PhET author=Noah
-man-holding.png source=PhET notes=balancing act
-man-sitting.png source=PhET notes=balancing act
-man-standing.png source=PhET notes=balancing act
-Motion_Icon.png source=PhET
-mountains.png source=PhET author=Noah notes=from Energy Skate Park
-mystery-object-01.png source=PhET notes=balancing act
-pull_figure_BLUE_0.png source=PhET author=Sharon
-pull_figure_BLUE_1.png source=PhET author=Sharon
-pull_figure_BLUE_2.png source=PhET author=Sharon
-pull_figure_BLUE_3.png source=PhET author=Sharon
-pull_figure_lrg_BLUE_0.png source=PhET author=Sharon
-pull_figure_lrg_BLUE_1.png source=PhET author=Sharon
-pull_figure_lrg_BLUE_2.png source=PhET author=Sharon
-pull_figure_lrg_BLUE_3.png source=PhET author=Sharon
-pull_figure_lrg_RED_0.png source=PhET author=Sharon
-pull_figure_lrg_RED_1.png source=PhET author=Sharon
-pull_figure_lrg_RED_2.png source=PhET author=Sharon
-pull_figure_lrg_RED_3.png source=PhET author=Sharon
-pull_figure_RED_0.png source=PhET author=Sharon
-pull_figure_RED_1.png source=PhET author=Sharon
-pull_figure_RED_2.png source=PhET author=Sharon
-pull_figure_RED_3.png source=PhET author=Sharon
-pull_figure_small_BLUE_0.png source=PhET author=Sharon
-pull_figure_small_BLUE_1.png source=PhET author=Sharon
-pull_figure_small_BLUE_2.png source=PhET author=Sharon
-pull_figure_small_BLUE_3.png source=PhET author=Sharon
-pull_figure_small_RED_0.png source=PhET author=Sharon
-pull_figure_small_RED_1.png source=PhET author=Sharon
-pull_figure_small_RED_2.png source=PhET author=Sharon
-pull_figure_small_RED_3.png source=PhET author=Sharon
-pusher_0.png source=PhET author=Noah
-pusher_1.png source=PhET author=Noah
-pusher_10.png source=PhET author=Noah
-pusher_11.png source=PhET author=Noah
-pusher_12.png source=PhET author=Noah
-pusher_13.png source=PhET author=Noah
-pusher_14.png source=PhET author=Noah
-pusher_2.png source=PhET author=Noah
-pusher_3.png source=PhET author=Noah
-pusher_4.png source=PhET author=Noah
-pusher_5.png source=PhET author=Noah
-pusher_6.png source=PhET author=Noah
-pusher_7.png source=PhET author=Noah
-pusher_8.png source=PhET author=Noah
-pusher_9.png source=PhET author=Noah
-pusher_fall_down.png source=PhET author=Noah
-pusher_straight_on.png source=PhET author=Noah
-rope.png source=PhET author=Noah
-skateboard.png source=PhET author=Noah
-stop_hover.png source=PhET author=Noah
-stop_pressed.png source=PhET author=Noah
-stop_up.png source=PhET author=Noah
-trash-can.png source=PhET notes=balancing act
-Tug_Icon.png source=PhET
-water-bucket.png source=PhET notes=Noah
+{
+  "Acceleration_Icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "brick-tile.png": {
+    "text": [
+      "Public Domain"
+    ],
+    "projectURL": "",
+    "license": "Public Domain",
+    "notes": "http://openclipart.org/detail/9523/-by--9523"
+  },
+  "cart.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "cloud1.png": {
+    "text": [
+      "Public Domain"
+    ],
+    "projectURL": "",
+    "license": "Public Domain",
+    "notes": "http://openclipart.org/detail/99229/landscape-by-rg1024"
+  },
+  "crate.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "Friction_Icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "fridge.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "girl-holding.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "girl-sitting.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "girl-standing.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "balancing act"
+  },
+  "go_hover.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "go_pressed.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "go_up.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "grass.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "ice_overlay.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "icicle.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "man-holding.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "man-sitting.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "man-standing.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "Motion_Icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "mountains.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from Energy Skate Park"
+  },
+  "mystery-object-01.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "pull_figure_BLUE_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_BLUE_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_BLUE_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_BLUE_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_BLUE_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_BLUE_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_BLUE_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_BLUE_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_RED_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_RED_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_RED_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_lrg_RED_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_RED_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_RED_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_RED_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_RED_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_BLUE_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_BLUE_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_BLUE_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_BLUE_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_RED_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_RED_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_RED_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pull_figure_small_RED_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Sharon Siman-Tov"
+  },
+  "pusher_0.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_1.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_10.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_11.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_12.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_13.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_14.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_2.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_3.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_4.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_5.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_6.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_7.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_8.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_9.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_fall_down.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "pusher_straight_on.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "rope.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "skateboard.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "stop_hover.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "stop_pressed.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "stop_up.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  },
+  "trash-can.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "taken from balancing act"
+  },
+  "Tug_Icon.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": ""
+  },
+  "water-bucket.png": {
+    "text": [
+      "Copyright 2002-2015 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Noah Podolefsky"
+  }
+}
