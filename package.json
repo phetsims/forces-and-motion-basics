@@ -2,16 +2,6 @@
   "name": "forces-and-motion-basics",
   "version": "1.1.5-dev.3",
   "license": "GPLv3",
-  "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
-  "simTitleStringKey": "FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name",
-  "phetLibs": [
-    "forces-and-motion-basics",
-    "vibe"
-  ],
-  "preload": [
-    "../sherpa/lib/seedrandom-2.2.js",
-    "../sherpa/lib/Tween-r12.js"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/phetsims/forces-and-motion-basics.git"
@@ -22,5 +12,17 @@
     "grunt-contrib-jshint": "~0.6.4",
     "uglify-js": "~2.4.0",
     "requirejs": "~2.1.8"
+  },
+  "phet": {
+    "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
+    "simTitleStringKey": "FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name",
+    "phetLibs": [
+      "forces-and-motion-basics",
+      "vibe"
+    ],
+    "preload": [
+      "../sherpa/lib/seedrandom-2.2.js",
+      "../sherpa/lib/Tween-r12.js"
+    ]
   }
 }
