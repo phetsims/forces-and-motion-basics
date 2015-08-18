@@ -17,7 +17,6 @@
     "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
     "simTitleStringKey": "FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name",
     "phetLibs": [
-      "forces-and-motion-basics",
       "vibe"
     ],
     "preload": [
