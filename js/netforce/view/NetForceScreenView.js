@@ -54,6 +54,7 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
+  var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
 
   // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
@@ -65,7 +66,10 @@ define( function( require ) {
   function NetForceScreenView( model ) {
     var netForceScreenView = this;
 
-    ScreenView.call( this, { layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
+    ScreenView.call( this, {
+      layoutBounds: ForcesAndMotionBasicsLayoutBounds,
+      screenDescription: netForceDescriptionString
+    } );
 
     //Fit to the window and render the initial scene
     var width = this.layoutBounds.width;

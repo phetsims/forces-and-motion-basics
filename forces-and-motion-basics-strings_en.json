@@ -56,6 +56,9 @@
   "netForce": {
     "value": "Net Force"
   },
+  "netForce.description": {
+    "value": "Forces and Motion Basics. There is a heavily loaded cart on wheels sitting on a track. Attached to the left side of the cart is a thick rope with 4 knots spaced equally along the rope. Standing near this knotted rope is a group of 4 puller people. On the opposite side of the cart, a similar rope with 4 knots is attached to the right side of the cart. There is another group of 4 puller people standing near this rope. The centre position of the cart has been marked on the ground."
+  },
   "motion": {
     "value": "Motion"
   },
