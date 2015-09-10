@@ -15,7 +15,7 @@ define( function( require ) {
   var MotionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
   var FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
   var AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
-  var titleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.name' );
+  var titleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.title' );
   var netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
   var motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' );
   var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
