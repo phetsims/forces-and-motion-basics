@@ -38,9 +38,7 @@ define( function( require ) {
     var toolboxWidth = 324;
     var toolboxArcWidth = 10;
     Rectangle.call( this, x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
-
-    console.log( pullerGroupDescriptionString );
-
+    
     // outfit for accessibility
     this.accessibleContent = {
       createPeer: function( accessibleInstance ) {
