@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Node = require( 'SCENERY/nodes/Node' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -23,8 +24,12 @@ define( function( require ) {
   function ReturnButton( model, options ) {
     Node.call( this );
 
+    // TODO: this method bound the model. Why?
+    var returnCart = function() {
+      model.returnCart();
+    };
     var button = new TextPushButton( returnString, {
-      listener: model.returnCart.bind( model ),
+      listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )'
     } );
@@ -35,6 +40,26 @@ define( function( require ) {
     model.startedProperty.link( function( enabled ) {
       button.textDescription = 'Reset Cart button' + (enabled ? '' : ' (disabled)');
     } );
+
+    this.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+        // will look like:  <input value="Return" type="button" tabindex="0">
+        var domElement = document.createElement( 'input' );
+        domElement.value = returnString;
+        domElement.type = 'button';
+
+        domElement.setAttribute( 'aria-disabled', 'true' );
+
+        domElement.tabIndex = '0';
+
+        domElement.addEventListener( 'click', function() {
+          // toggle the button property
+          returnCart();
+        } );
+
+        return new AccessiblePeer( accessibleInstance, domElement );
+      }
+    };
   }
 
   return inherit( Node, ReturnButton );

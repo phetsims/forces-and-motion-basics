@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var Input = require( 'SCENERY/input/Input' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   /**
    * Create a PullerNode for the specified puller
@@ -186,8 +187,57 @@ define( function( require ) {
       }
     } );
 
+    // outfit for accessibility
+    this.setAccessibleContent( {
+      createPeer: function( accessibleInstance ) {
+        /* will look like:
+         * <div id="bluePuller1" aria-dropeffect="none" aria-labelledby="bluePuller1_label"
+         *  aria-grabbed="false">
+         *  <img src="pull_figure_small_BLUE_0.png" alt="Grabable blue person">
+         * </div >
+         */
+        var domElement = document.createElement( 'div' );
+        domElement.tabIndex = '-1';
+        domElement.setAttribute( 'aria-grabbed', 'false' );
+
+        // temporary event listener that will fire when over the button.  This is in place of the highlight for now.
+        domElement.addEventListener( 'input', function() {
+          console.log( 'focus is over a puller: ' + domElement.id );
+        } );
+
+        // grab the puller on 'enter' or 'spacebar'
+        domElement.addEventListener( 'keydown', function( event ) {
+          if ( event.keyCode === 13 || event.keyCode === 32 ) {
+            // notify AT that the puller is in a 'grabbed' state
+            domElement.setAttribute( 'aria-grabbed', 'true' );
+
+            // set focus to the first knot for the puller type.
+            if ( pullerNode.puller.type === 'blue' ) {
+              // add all blue knots to the tab order.
+              var blueKnots = document.getElementsByClassName( 'blueKnot' );
+              _.each( blueKnots, function( blueKnot ) {
+                blueKnot.tabIndex = '0';
+              } );
+
+              // focus the first blue knot.
+              blueKnots[ 0 ].focus();
+            }
+          }
+        } );
+
+        var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
+        domElement.id = accessiblePeer.id;
+
+        return accessiblePeer;
+      }
+    } );
+
     this.mutate( options );
   }
 
-  return inherit( Image, PullerNode );
+  return inherit( Image, PullerNode, {
+
+    grabPuller: function() {
+    }
+  } );
 } );

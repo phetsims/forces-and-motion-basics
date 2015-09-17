@@ -32,6 +32,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -55,6 +56,8 @@ define( function( require ) {
   var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
   var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
+  var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
+  var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
 
   // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
@@ -109,41 +112,41 @@ define( function( require ) {
       lineWidth: 1
     } );
 
-    var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
-    var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
+    var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', bluePullerGroupDescriptionString );
+    var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', redPullerGroupDescriptionString );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
     var ropeHeightOffset = 215;
     var leftFocusRegion = new Rectangle( leftToolbox.rectX, leftToolbox.rectY - ropeHeightOffset, leftToolbox.rectWidth, leftToolbox.rectHeight + ropeHeightOffset, {
-      focusable: true,
-      textDescription: 'A thick, 8 foot rope is attached to the left side of the cart. The rope has 4 positions marked at equal intervals: 8 feet, 6 feet, 4 feet, and 2 feet. A group of four people standing near this rope.'
-    } );
-    leftFocusRegion.addInputListener( {
-      keydown: function( event, trail ) {
-        var keyCode = event.domEvent.keyCode;
-        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
-          model.pullers.forEach( function( puller ) {
-            puller.focusable = true;
-          } );
-          Input.pushFocusContext( leftPullerLayer.getUniqueTrail() );
+      accessibleContent: {
+        createPeer: function( accessibleInstance ) {
+          /*
+           We want this to look like the following in the Parallel DOM:
+           <div tabIndex="-1" id="leftFocusRegion"
+           */
+          var domElement = document.createElement( 'div' );
+          domElement.tabIndex = '-1';
+          domElement.id = 'leftFocusRegion';
+
+          return new AccessiblePeer( accessibleInstance, domElement );
         }
       }
     } );
     this.addChild( leftFocusRegion );
 
     var rightFocusRegion = new Rectangle( rightToolbox.rectX, rightToolbox.rectY - ropeHeightOffset, rightToolbox.rectWidth, rightToolbox.rectHeight + ropeHeightOffset, {
-      focusable: true,
-      textDescription: 'A thick, 8 foot rope is attached to the right side of the cart. The rope has 4 positions marked at equal intervals: 8 feet, 6 feet, 4 feet, and 2 feet. A group of four people standing near this rope.'
-    } );
-    rightFocusRegion.addInputListener( {
-      keydown: function( event, trail ) {
-        var keyCode = event.domEvent.keyCode;
-        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
-          model.pullers.forEach( function( puller ) {
-            puller.focusable = true;
-          } );
-          Input.pushFocusContext( rightPullerLayer.getUniqueTrail() );
+      accessibleContent: {
+        createPeer: function( accessibleInstance ) {
+          /*
+           We want this to look like the following in the Parallel DOM:
+           <div tabIndex="-1" id="leftFocusRegion"
+           */
+          var domElement = document.createElement( 'div' );
+          domElement.tabIndex = '-1';
+          domElement.id = 'leftFocusRegion';
+
+          return new AccessiblePeer( accessibleInstance, domElement );
         }
       }
     } );
@@ -175,7 +178,17 @@ define( function( require ) {
 
     this.ropeNode = new Image( ropeImage, { x: 51, y: 273 } );
 
-    model.knots.forEach( function( knot ) { netForceScreenView.addChild( new KnotHighlightNode( knot ) ); } );
+    model.knots.forEach( function( knot ) {
+      if ( knot.type === 'blue' ) {
+        leftFocusRegion.addChild( new KnotHighlightNode( knot ) );
+      }
+      else if ( knot.type === 'red' ) {
+        rightFocusRegion.addChild( new KnotHighlightNode( knot ) );
+      }
+      else {
+        assert && assert( 'Knots can only be of type "red" or "blue" in this sim.' );
+      }
+    } );
 
     this.addChild( this.ropeNode );
 
@@ -209,8 +222,6 @@ define( function( require ) {
 
     var leftPullerLayer = new Node();
     var rightPullerLayer = new Node();
-    this.addChild( leftPullerLayer );
-    this.addChild( rightPullerLayer );
     this.pullerNodes = [];
 
     this.model.pullers.forEach( function( puller ) {
@@ -219,6 +230,32 @@ define( function( require ) {
       pullerLayer.addChild( pullerNode );
       netForceScreenView.pullerNodes.push( pullerNode );
     } );
+
+    // add puller groups to the tool boxes for nesting hierarchy in parallel DOM.  Specify puller order here.
+    leftToolbox.accessibleOrder = leftPullerLayer.children.sort( function( a, b ) {
+      if ( a.bounds.height < b.bounds.height ) {
+        return 1;
+      }
+      if ( a.bounds.height > b.bounds.height ) {
+        return -1;
+      }
+      else {
+        return 0;
+      }
+    } );
+    rightToolbox.accessibleOrder = rightPullerLayer.children.sort( function( a, b ) {
+      if ( a.bounds.height < b.bounds.height ) {
+        return -1;
+      }
+      if ( a.bounds.height > b.bounds.height ) {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    } );
+    leftToolbox.addChild( leftPullerLayer );
+    rightToolbox.addChild( rightPullerLayer );
 
     //Add the go button, but only if there is a puller attached
     var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );

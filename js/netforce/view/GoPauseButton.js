@@ -19,6 +19,7 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Input = require( 'SCENERY/input/Input' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
   //If the node is already the largest, don't wrap it.
@@ -56,20 +57,120 @@ define( function( require ) {
     var goText = new Text( goString, { font: new PhetFont( 42 ) } );
     var pauseText = new Text( pauseString, { font: new PhetFont( 30 ) } );
 
+    // boolean function to determine if the go button should be enabled based on model state.
+    var isGoButtonEnabled = function() {
+      return model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+    };
+
+    var goListener = function() {
+      model.running = true;
+    };
     var goButton = new RoundPushButton( {
       content: wrap( goText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#94b830',
-      listener: function() {model.running = true;},
-      focusable: false//handled in the parent
+      listener: goListener,
+      accessibleContent: {
+        id: goString,
+        createPeer: function( accessibleInstance ) {
+          /*
+           * Parallel DOM element will look like:
+           * <input id="butonID" value="GO!" type="button" tabindex="0" aria-disabled="true"><br>
+           */
+          var domElement = document.createElement( 'input' );
+          domElement.value = goString;
+          domElement.type = 'button';
+          domElement.setAttribute( 'aria-disabled', 'true' );
+          domElement.class = 'goButton'; // TODO - revisit getElementsByClassName
+
+          domElement.tabIndex = '0';
+
+          domElement.addEventListener( 'focus', function() {
+            console.log( 'go button focused' );
+          } );
+          domElement.addEventListener( 'click', function() {
+            // if the go button is disabled, do nothing.
+            if( !isGoButtonEnabled() ) {
+              return;
+            }
+
+            // fire the model listener
+            goListener();
+
+            // remove this button from the tab order
+            this.tabIndex = '-1';
+
+            // add the 'pause' button to the tab order.
+            document.getElementById( pauseString ).tabIndex = '0';
+
+            // set the aria-attribute to disabled
+            domElement.setAttribute( 'aria-disabled', 'true' );
+
+            // aria-enable the 'pause' button.
+            document.getElementById( pauseString ).setAttribute( 'aria-disabled', 'false' );
+
+            // set focus immediately to the 'pause' button
+            document.getElementById( pauseString ).focus();
+
+          } );
+
+          var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
+          domElement.id = this.id;
+
+          return accessiblePeer;
+
+        }
+      }
     } );//green
+
+    var pauseListener = function() {
+      model.running = false;
+    };
     var pauseButton = new RoundPushButton( {
       content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#df1a22',
-      listener: function() {model.running = false;},
-      focusable: false//handled in the parent
+      listener: pauseListener,
+      accessibleContent: {
+        id: pauseString,
+        createPeer: function( accessibleInstance ) {
+          /*
+           * Parallel DOM element will look like:
+           * <input id="butonID" value="GO!" type="button" tabindex="0" aria-disabled="true"><br>
+           */
+          var domElement = document.createElement( 'input' );
+          domElement.value = pauseString;
+          domElement.type = 'button';
+          domElement.setAttribute( 'aria-disabled', 'true' );
+          domElement.tabIndex = '-1';
+
+          domElement.addEventListener( 'focus', function() {
+            console.log( 'pause button focused' );
+          } );
+
+          domElement.addEventListener( 'click', function() {
+            // fire the model listener
+            pauseListener();
+
+            // remove this button from the tab order
+            this.tabIndex = '-1';
+
+            // add the 'go' button to the tab order.
+            document.getElementById( goString ).tabIndex = '0';
+
+            // set the aria-attribute to disabled
+            domElement.setAttribute( 'aria-disabled', 'true' );
+
+            // set focus immediately to the 'go' button
+            document.getElementById( goString ).focus();
+
+          } );
+
+          domElement.id = this.id;
+          return new AccessiblePeer( accessibleInstance, domElement );
+        }
+      }
     } );//red
 
-    var showGoButtonProperty = new DerivedProperty( [model.runningProperty], function( running ) { return !running; } );
+    var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
     ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {
       top: 400,
       focusable: true,
@@ -78,7 +179,7 @@ define( function( require ) {
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
-      var enabled = model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+      var enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;
       var buttonText = showGoButtonProperty.value ? 'Go Button' : 'Pause Button';

@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
   // constants
   var defaultStroke = 'black';
@@ -22,7 +23,9 @@ define( function( require ) {
    * @param {string} side - left/right
    * @returns {Rectangle}
    */
-  function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor ) {
+  function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor,
+                              pullerGroupDescriptionString ) {
+    var thisNode = this;
     this.highlightColor = highlightColor;
     this._highlighted = false;
     var toolboxHeight = 216;
@@ -35,19 +38,129 @@ define( function( require ) {
     var toolboxWidth = 324;
     var toolboxArcWidth = 10;
     Rectangle.call( this, x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
+
+    console.log( pullerGroupDescriptionString );
+
+    // outfit for accessibility
+    this.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+        /* will look like:
+         * <div tabindex="0" role="group" id="bluePullerGroup" class="pullerGroup" aria-describedby=description_id
+         * aria-activedescendant="bluePuller1">
+         * ...( puller children )
+         * </div
+         */
+        var domElement = document.createElement( 'div' );
+        var groupDescription = document.createElement( 'p' );
+        groupDescription.hidden = 'true';
+        groupDescription.innerText = pullerGroupDescriptionString;
+        domElement.appendChild( groupDescription );
+        groupDescription.id = pullerGroupDescriptionString;
+        domElement.tabIndex = '0';
+        domElement.setAttribute( 'role', 'group' );
+        domElement.setAttribute( 'aria-describedby', pullerGroupDescriptionString );
+
+        // enter the puller group on 'enter' or 'space bar'.
+        domElement.addEventListener( 'keydown', function( event ) {
+          // prevent the the event from bubbling.
+          if ( domElement !== event.target ) { return; }
+          // on enter or spacebar, step in to the selected group.
+          if ( event.keyCode === 13 || event.keyCode === 32 ) {
+            thisNode.enterGroup( event, domElement );
+          }
+        } );
+
+        // exit the group on 'escape'
+        domElement.addEventListener( 'keydown', function( event ) {
+          // we want exit event bubbling - event fired in children should notify parent.
+          thisNode.exitGroup( event, domElement );
+        } );
+
+        var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
+
+        // TODO: Why is domElement.children empty here?
+        // provide the puller group with a unique ID.
+        domElement.id = accessiblePeer.id;
+        return accessiblePeer;
+      }
+    };
   }
 
-  return inherit( Rectangle, PullerToolboxNode,
-    {
+  return inherit( Rectangle, PullerToolboxNode, {
 
-      // Show a highlight around the toolbox when one of the items inside has focus
-      set highlighted( h ) {
-        this._highlighted = h;
-        this.stroke = h ? this.highlightColor : defaultStroke;
-        this.lineWidth = h ? 4 : defaultLineWidth;
-      },
-      get highlighted() {
-        return this._highlighted;
+    /**
+     * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
+     * to 0 and set focus to the first child.
+     *
+     * @param {event} event
+     * @param {domElement} parent
+     */
+    enterGroup: function( event, parent ) {
+      // add listeners to the children that apply the correct behavior for looping through children.
+      _.each( parent.children, function( child ) {
+          // add the child to the tab order.
+          child.tabIndex = "0";
+
+          // Add event listeners to children for arrow key navigation.
+          var numberOfChildren = parent.children.length;
+          child.addEventListener( 'keydown', function( event ) {
+            var childIndex = _.indexOf( parent.children, child );
+            var nextIndex = ( childIndex + 1 ) % numberOfChildren;
+            var previousIndex = ( childIndex - 1 );
+            // if previous index is -1, set focus to the last element
+            previousIndex = previousIndex === -1 ? ( numberOfChildren - 1 ) : previousIndex;
+            if ( event.keyCode === 39 ) {
+              //right arrow pressed
+              parent.children[ nextIndex ].focus();
+            }
+            if ( event.keyCode === 37 ) {
+              //left arrow pressed
+              parent.children[ previousIndex ].focus();
+            }
+          } );
+        }
+      );
+
+      // TODO: this is where we would override default browser tab behavior, but I am hesitant to do s
+      // set focus to the first child
+      document.getElementById( parent.firstChild.id ).focus();
+    },
+
+    /**
+     * Exit the group.  This is called on 'escape' key.
+     *
+     * @param {event} event
+     * @param {domElement} parent
+     */
+    exitGroup: function( event, parent ) {
+      // only on 'escape'
+      if ( event.keyCode === 27 ) {
+        console.log( 'exiting group' );
+
+        // set focus to the parent form
+        parent.focus();
+
+        // make sure that first element is the new aria-activedescendant
+        parent.setAttribute( 'aria-activedescendant', parent.firstChild.id );
+
+        // pull all children out of the tab order
+        for ( var i = 0; i < parent.children.length; i++ ) {
+          parent.children[ i ].tabIndex = "-1";
+        }
       }
-    } );
-} );
+    },
+
+    // Show a highlight around the toolbox when one of the items inside has focus
+    set
+      highlighted( h ) {
+      this._highlighted = h;
+      this.stroke = h ? this.highlightColor : defaultStroke;
+      this.lineWidth = h ? 4 : defaultLineWidth;
+    },
+    get
+      highlighted() {
+      return this._highlighted;
+    }
+  } );
+} )
+;

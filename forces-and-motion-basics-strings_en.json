@@ -60,6 +60,14 @@
     "value": "Forces and Motion Basics. There is a heavily loaded cart on wheels sitting on a track. Attached to the left side of the cart is a thick rope with 4 knots spaced equally along the rope. Standing near this knotted rope is a group of 4 puller people. On the opposite side of the cart, a similar rope with 4 knots is attached to the right side of the cart. There is another group of 4 puller people standing near this rope. The centre position of the cart has been marked on the ground.",
     "visible": false
   },
+  "bluePullerGroup.description": {
+    "value": "A thick, 8 foot rope is attached to the left side of the cart. The rope has 4 positions marked at equal intervals: 8feet, 6feet, 4 feet, and 2 feet. A group of four people standing near this rope.",
+    "visible": false
+  },
+  "redPullerGroup.description": {
+    "value": "A thick, 8 foot rope is attached to the right side of the cart. The rope has 4 positions marked at equal intervals: 8feet, 6feet, 4 feet, and 2 feet. A group of four people standing near this rope.",
+    "visible": false
+  },
   "motion": {
     "value": "Motion"
   },
