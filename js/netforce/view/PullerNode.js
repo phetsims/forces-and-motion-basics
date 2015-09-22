@@ -18,6 +18,7 @@ define( function( require ) {
 
   /**
    * Create a PullerNode for the specified puller
+   *
    * @param {Puller} puller
    * @param {NetForceModel} model
    * @param {Image} image image of the puller standing upright
@@ -192,37 +193,117 @@ define( function( require ) {
       createPeer: function( accessibleInstance ) {
         /* will look like:
          * <div id="bluePuller1" aria-dropeffect="none" aria-labelledby="bluePuller1_label"
-         *  aria-grabbed="false">
-         *  <img src="pull_figure_small_BLUE_0.png" alt="Grabable blue person">
+         *  aria-grabbed="false class="Puller">
          * </div >
          */
         var domElement = document.createElement( 'div' );
         domElement.tabIndex = '-1';
         domElement.setAttribute( 'aria-grabbed', 'false' );
+        domElement.draggable = true;
+        domElement.className = 'Puller';
 
         // temporary event listener that will fire when over the button.  This is in place of the highlight for now.
         domElement.addEventListener( 'input', function() {
           console.log( 'focus is over a puller: ' + domElement.id );
         } );
 
-        // grab the puller on 'enter' or 'spacebar'
+        /*
+         * The following is an example of 'drag and drop' behavior in the context of the parallel DOM.
+         * The behavior matches a drag and drop example from oaa-accessiblility.org:
+         * http://oaa-accessibility.org/example/17/
+         *
+         *    'tab' to the element you wish to drag.
+         *    'enter' to select the element (place in 'move mode').
+         *      - focus highlight changes color ( blue --> red, pending feature )
+         *    'escape' or 'enter' again to deselect element ( exit move without moving )
+         *    'tab' moves it up to the first possible location
+         *      'tab' again cancels move (exit 'move mode')
+         *    'arrow' keys move the pullers around the rope.
+         *    'enter' and 'spacebar' place the element and set focus to the next piece
+         *      - this is where I would change behavior:  in my opinion, the focus should
+         *        remain on the active piece, but it should be placed, and exit
+         *        'move' mode. From here, the user should be able to reselect
+         *        the piece immediately, or then navigate to a the next piece.
+         */
         domElement.addEventListener( 'keydown', function( event ) {
-          if ( event.keyCode === 13 || event.keyCode === 32 ) {
-            // notify AT that the puller is in a 'grabbed' state
-            domElement.setAttribute( 'aria-grabbed', 'true' );
 
-            // set focus to the first knot for the puller type.
-            if ( pullerNode.puller.type === 'blue' ) {
-              // add all blue knots to the tab order.
-              var blueKnots = document.getElementsByClassName( 'blueKnot' );
-              _.each( blueKnots, function( blueKnot ) {
-                blueKnot.tabIndex = '0';
-              } );
+          var knot = puller.knot;
 
-              // focus the first blue knot.
-              blueKnots[ 0 ].focus();
+          if ( pullerNode.grabbed ) {
+
+            // if the puller is already grabbed, 'escape' or 'enter' should release puller out of move mode.
+            if ( event.keyCode === Input.KEY_ESCAPE || event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+              //make sure that the puller is not draggable.
+              pullerNode.grabbed = false;
+              domElement.setAttribute( 'aria-grabbed', 'false' );
+              //model.numberPullersAttached = model.countAttachedPullers();
+              updateImage();
+              updateLocation();
+            }
+            // otherwise, select the puller and place into a 'dragging' mode.
+            else if ( event.keyCode === Input.KEY_TAB ) {
+              // override 'tab' behavior - we want the focus to remain on this element as it moves.
+              event.preventDefault();
+
+              // if the puller is currently in the toolbox
+              if ( !knot ) {
+                knot = model.getClosestOpenKnotFromCart( puller );
+                puller.setValues( { position: new Vector2( knot.x, knot.y ) } );
+                model.numberPullersAttached = model.countAttachedPullers();
+                puller.dragging = false;
+                puller.trigger( 'dropped' );
+                updateImage();
+                updateLocation();
+              }
+              // otherwise, place puller back in toolbox.
+              else {
+                model.movePullerToKnot( puller );
+                puller.knot = null;
+                updateImage();
+                updateLocation();
+              }
+            }
+            else if ( event.keyCode === Input.KEY_LEFT_ARROW || event.keyCode === Input.KEY_RIGHT_ARROW ) {
+              knot = puller.knot;
+
+              // if the puller is knotted and grabbed, use arrow keys to update its knot.
+              if ( pullerNode.grabbed ) {
+                if ( puller.knot ) {
+                  var moveLeft = event.keyCode === Input.KEY_LEFT_ARROW;
+                  if ( moveLeft ) {
+                    knot = model.getClosestOpenKnotInDirection( puller, -1 );
+                  }
+                  else {
+                    knot = model.getClosestOpenKnotInDirection( puller, 1 );
+                  }
+
+                  if ( knot ) {
+                    puller.setValues( { position: new Vector2( knot.x, knot.y ) } );
+                    model.numberPullersAttached = model.countAttachedPullers();
+                    puller.dragging = false;
+                    puller.trigger( 'dropped' );
+                    updateImage();
+                    updateLocation();
+                  }
+                }
+              }
             }
           }
+
+          // if the puller is not grabbed, grab it for drag and drop
+          // pull all other pullers out of the tab order when selected
+          else if ( !pullerNode.grabbed ) {
+            if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+              // notify AT that the puller is in a 'grabbed' state
+              domElement.setAttribute( 'aria-grabbed', 'true' );
+              pullerNode.grabbed = true;
+            }
+          }
+
+          domElement.addEventListener( 'blur', function( event ) {
+            pullerNode.grabbed = false;
+            domElement.setAttribute( 'aria-grabbed', 'false' );
+          } );
         } );
 
         var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
@@ -235,9 +316,5 @@ define( function( require ) {
     this.mutate( options );
   }
 
-  return inherit( Image, PullerNode, {
-
-    grabPuller: function() {
-    }
-  } );
+  return inherit( Image, PullerNode );
 } );

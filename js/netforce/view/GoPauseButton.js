@@ -80,16 +80,13 @@ define( function( require ) {
           domElement.value = goString;
           domElement.type = 'button';
           domElement.setAttribute( 'aria-disabled', 'true' );
-          domElement.class = 'goButton'; // TODO - revisit getElementsByClassName
+          domElement.className = 'GoButton';
 
           domElement.tabIndex = '0';
 
-          domElement.addEventListener( 'focus', function() {
-            console.log( 'go button focused' );
-          } );
           domElement.addEventListener( 'click', function() {
             // if the go button is disabled, do nothing.
-            if( !isGoButtonEnabled() ) {
+            if ( !isGoButtonEnabled() ) {
               return;
             }
 
@@ -100,22 +97,23 @@ define( function( require ) {
             this.tabIndex = '-1';
 
             // add the 'pause' button to the tab order.
-            document.getElementById( pauseString ).tabIndex = '0';
+            var pauseButtonElement = document.getElementsByClassName( 'PauseButton' )[0];
+            pauseButtonElement.tabIndex = '0';
 
             // set the aria-attribute to disabled
             domElement.setAttribute( 'aria-disabled', 'true' );
 
             // aria-enable the 'pause' button.
-            document.getElementById( pauseString ).setAttribute( 'aria-disabled', 'false' );
+            var pauseButton = document.getElementsByClassName( 'PauseButton' )[0];
+            pauseButton.setAttribute( 'aria-disabled', 'false' );
 
             // set focus immediately to the 'pause' button
-            document.getElementById( pauseString ).focus();
+            pauseButton.focus();
 
           } );
 
           var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
-          domElement.id = this.id;
-
+          domElement.id = accessiblePeer.id;
           return accessiblePeer;
 
         }
@@ -130,7 +128,6 @@ define( function( require ) {
       baseColor: '#df1a22',
       listener: pauseListener,
       accessibleContent: {
-        id: pauseString,
         createPeer: function( accessibleInstance ) {
           /*
            * Parallel DOM element will look like:
@@ -141,10 +138,7 @@ define( function( require ) {
           domElement.type = 'button';
           domElement.setAttribute( 'aria-disabled', 'true' );
           domElement.tabIndex = '-1';
-
-          domElement.addEventListener( 'focus', function() {
-            console.log( 'pause button focused' );
-          } );
+          domElement.className = "PauseButton";
 
           domElement.addEventListener( 'click', function() {
             // fire the model listener
@@ -154,18 +148,20 @@ define( function( require ) {
             this.tabIndex = '-1';
 
             // add the 'go' button to the tab order.
-            document.getElementById( goString ).tabIndex = '0';
+            var goButton = document.getElementsByClassName( 'GoButton' )[0];
+            goButton.tabIndex = '0';
 
             // set the aria-attribute to disabled
             domElement.setAttribute( 'aria-disabled', 'true' );
 
             // set focus immediately to the 'go' button
-            document.getElementById( goString ).focus();
+            goButton.focus();
 
           } );
 
-          domElement.id = this.id;
-          return new AccessiblePeer( accessibleInstance, domElement );
+          var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
+          domElement.id = accessiblePeer.id;
+          return accessiblePeer;
         }
       }
     } );//red

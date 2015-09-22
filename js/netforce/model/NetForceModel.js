@@ -98,6 +98,14 @@ define( function( require ) {
   }
 
   return inherit( PropertySet, NetForceModel, {
+
+    /**
+     * Move a puller to a knot.  If no knot is specified, puller is moved to its original location in the Puller
+     * toolbox.
+     *
+     * @param {Puller} puller
+     * @param {Knot} [knot] - optional knot where the puller should be moved.
+     */
     movePullerToKnot: function( puller, knot ) {
 
       //try to snap to a knot

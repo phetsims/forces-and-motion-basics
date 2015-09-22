@@ -38,7 +38,7 @@ define( function( require ) {
     var toolboxWidth = 324;
     var toolboxArcWidth = 10;
     Rectangle.call( this, x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
-    
+
     // outfit for accessibility
     this.accessibleContent = {
       createPeer: function( accessibleInstance ) {
@@ -99,7 +99,7 @@ define( function( require ) {
           // add the child to the tab order.
           child.tabIndex = "0";
 
-          // Add event listeners to children for arrow key navigation.
+          // Add event listeners to children for   key navigation.
           var numberOfChildren = parent.children.length;
           child.addEventListener( 'keydown', function( event ) {
             var childIndex = _.indexOf( parent.children, child );
@@ -107,19 +107,23 @@ define( function( require ) {
             var previousIndex = ( childIndex - 1 );
             // if previous index is -1, set focus to the last element
             previousIndex = previousIndex === -1 ? ( numberOfChildren - 1 ) : previousIndex;
-            if ( event.keyCode === 39 ) {
-              //right arrow pressed
-              parent.children[ nextIndex ].focus();
-            }
-            if ( event.keyCode === 37 ) {
-              //left arrow pressed
-              parent.children[ previousIndex ].focus();
+
+            // if the child is in a grabbed state, we do not want to select the next child.
+            // TODO: surely there is a nicer way to check against 'false' string?
+            if ( child.getAttribute( 'aria-grabbed' ) === 'false' ) {
+              if ( event.keyCode === 39 ) {
+                //right arrow pressed
+                parent.children[ nextIndex ].focus();
+              }
+              if ( event.keyCode === 37 ) {
+                //left arrow pressed
+                parent.children[ previousIndex ].focus();
+              }
             }
           } );
         }
       );
 
-      // TODO: this is where we would override default browser tab behavior, but I am hesitant to do s
       // set focus to the first child
       document.getElementById( parent.firstChild.id ).focus();
     },
@@ -133,8 +137,6 @@ define( function( require ) {
     exitGroup: function( event, parent ) {
       // only on 'escape'
       if ( event.keyCode === 27 ) {
-        console.log( 'exiting group' );
-
         // set focus to the parent form
         parent.focus();
 
