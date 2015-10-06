@@ -321,8 +321,6 @@ define( function( require ) {
             rightToolbox.highlighted = true;
           }
         }
-        else {
-        }
       }
     } );
   }

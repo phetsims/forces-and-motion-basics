@@ -68,7 +68,7 @@ define( function( require ) {
 
     puller.hoverKnotProperty.link( function( hoverKnot ) {
       if ( hoverKnot ) {
-        var pullingOffset = false ? -puller.dragOffsetX : puller.standOffsetX;
+        var pullingOffset = puller.standOffsetX;
         var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 + pullerNode.width / 2 : -pullerNode.width / 2;
         pullerNode.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - pullerNode.height + 90 - 120 );
       }
