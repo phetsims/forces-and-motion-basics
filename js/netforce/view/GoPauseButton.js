@@ -138,7 +138,7 @@ define( function( require ) {
           domElement.type = 'button';
           domElement.setAttribute( 'aria-disabled', 'true' );
           domElement.tabIndex = '-1';
-          domElement.className = "PauseButton";
+          domElement.className = 'PauseButton';
 
           domElement.addEventListener( 'click', function() {
             // fire the model listener

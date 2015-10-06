@@ -97,7 +97,7 @@ define( function( require ) {
       // add listeners to the children that apply the correct behavior for looping through children.
       _.each( parent.children, function( child ) {
           // add the child to the tab order.
-          child.tabIndex = "0";
+        child.tabIndex = '0';
 
           // Add event listeners to children for   key navigation.
           var numberOfChildren = parent.children.length;
@@ -145,7 +145,7 @@ define( function( require ) {
 
         // pull all children out of the tab order
         for ( var i = 0; i < parent.children.length; i++ ) {
-          parent.children[ i ].tabIndex = "-1";
+          parent.children[ i ].tabIndex = '-1';
         }
       }
     },
