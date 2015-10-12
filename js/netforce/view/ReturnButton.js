@@ -55,6 +55,10 @@ define( function( require ) {
         domElement.addEventListener( 'click', function() {
           // toggle the button property
           returnCart();
+
+          // make sure the bause button cannot be focused now that the pullers have returned
+          document.getElementsByClassName( 'GoButton' )[ 0 ].tabIndex = 0;
+          document.getElementsByClassName( 'PauseButton' )[ 0 ].tabIndex = -1;
         } );
 
         return new AccessiblePeer( accessibleInstance, domElement );
