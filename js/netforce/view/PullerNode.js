@@ -227,6 +227,11 @@ define( function( require ) {
          */
         domElement.addEventListener( 'keydown', function( event ) {
 
+          // override 'tab' behavior - we want arrow key navigation and for the focus to remain on this element as
+          // it moves in drag and drop.
+          // TODO: This is a tentative solution I am not crazy about overriding default behavior
+          event.preventDefault();
+
           var knot = puller.knot;
 
           if ( pullerNode.grabbed ) {
@@ -242,8 +247,6 @@ define( function( require ) {
             }
             // otherwise, select the puller and place into a 'dragging' mode.
             else if ( event.keyCode === Input.KEY_TAB ) {
-              // override 'tab' behavior - we want the focus to remain on this element as it moves.
-              event.preventDefault();
 
               // if the puller is currently in the toolbox
               if ( !knot ) {
