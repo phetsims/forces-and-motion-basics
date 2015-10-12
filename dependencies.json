@@ -1,63 +1,67 @@
 {
-  "chipper": {
-    "sha": "522ff3ed9ac716816db94aec87f67477601e8068",
-    "branch": "master"
-  },
-  "sherpa": {
-    "sha": "bf15240caf4ab055d45b669a5a2243b497fc3511",
-    "branch": "master"
-  },
-  "vibe": {
-    "sha": "39c481c9ebcf3e7c025599d09a879b5ea29df2dc",
-    "branch": "master"
-  },
-  "sun": {
-    "sha": "e3becd3d320ae4bf60202dc55e376322db0c2837",
-    "branch": "master"
-  },
-  "scenery-phet": {
-    "sha": "6c7f1d526061e83b5f4d57141ac782babe6b4b28",
-    "branch": "master"
-  },
-  "scenery": {
-    "sha": "27d639a03b1653c7d443b01b89497a95f5adb81b",
-    "branch": "master"
-  },
-  "phetcommon": {
-    "sha": "dd722834a1cb3f91b2dc2698ea4b95da907301e2",
-    "branch": "master"
-  },
-  "phet-core": {
-    "sha": "c98d56c366b265802198a7f3eeee8a7f7644215b",
-    "branch": "master"
-  },
-  "kite": {
-    "sha": "8d80e165c771500a67fc508767b682139e7906ae",
-    "branch": "master"
-  },
-  "joist": {
-    "sha": "26735c2a3c04bf74e8db095065da8113c51dc64f",
-    "branch": "master"
-  },
-  "dot": {
-    "sha": "b7e24feee13296a76659dcf3070888e5cee9bbcd",
-    "branch": "master"
-  },
-  "brand": {
-    "sha": "0f9ee9b8ca1a0e121f66d57109bca59f05c2ef2c",
+  "comment": "# forces-and-motion-basics 1.1.5-accessible-instance.1 Mon Oct 12 2015 10:20:13 GMT-0600 (Mountain Daylight Time)",
+  "assert": {
+    "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "master"
   },
   "axon": {
-    "sha": "9c8d2b0328a1929231bb8a4626e6df5fa8d7f072",
+    "sha": "292630b5052dfb78d08c7a72f61886d9e863fbf4",
     "branch": "master"
   },
-  "assert": {
-    "sha": "e9e725994176afd0103aff427acda10bf31192c4",
+  "brand": {
+    "sha": "8a756e53f976c89cf091350b67f880fc9b521096",
+    "branch": "master"
+  },
+  "chipper": {
+    "sha": "0971b57bd1dcdb8be9e858435e75cc0f96a3ae9b",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "d99cbe46e8496bbfe2554ddfcc15022ffdfcae83",
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "01079732773d351fe4731b2fdfa0618c9115fb42",
+    "sha": "b8fad2a4e8bab578e5c2df0591fb7f56c9e8d7b5",
     "branch": "master"
   },
-  "comment": "# forces-and-motion-basics 1.1.5-dev.3 Fri Feb 20 2015 22:28:46 GMT-0700 (MST)"
+  "joist": {
+    "sha": "3fbd99f92334bb9731dec2c57865ab34439fac2b",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "40dc703a07c774464f060dda6a67485704ca9e22",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "e9f36af114717781b776243db8ed25986cbba7ce",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "0e4754feb35bc853b9a1f685e0270f5d53b9b7f8",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "02e96ee6906c56ad25b7cca568e84a80acb58b3d",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "efa633712031191d650e8594144ea55427631fbb",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "1759eadefb4f6d680f85aef394ea7727df1928e6",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "b66398a529a18e696832fd10cae1adf90598e75e",
+    "branch": "master"
+  },
+  "tandem": {
+    "sha": "c54f108248c06ef22c3091a36e60cdf27d3e0919",
+    "branch": "master"
+  },
+  "vibe": {
+    "sha": "aed777bf3bb941c533f8904e55053f78ab09a8b4",
+    "branch": "master"
+  }
 }
