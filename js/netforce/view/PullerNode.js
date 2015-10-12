@@ -271,10 +271,10 @@ define( function( require ) {
                 if ( puller.knot ) {
                   var moveLeft = event.keyCode === Input.KEY_LEFT_ARROW;
                   if ( moveLeft ) {
-                    knot = model.getClosestOpenKnotInDirection( puller, -1 );
+                    knot = model.movePullerToAdjacentOpenKnot( puller, -1 );
                   }
                   else {
-                    knot = model.getClosestOpenKnotInDirection( puller, 1 );
+                    knot = model.movePullerToAdjacentOpenKnot( puller, 1 );
                   }
 
                   if ( knot ) {
