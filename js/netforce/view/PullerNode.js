@@ -202,6 +202,11 @@ define( function( require ) {
           // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
           event.preventDefault();
 
+          // on tab, exit the group and focus the next element.
+          if ( event.keyCode === Input.KEY_TAB ) {
+            pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.accessibleId ) );
+          }
+
           var knot = puller.knot;
 
           if ( pullerNode.grabbed ) {
