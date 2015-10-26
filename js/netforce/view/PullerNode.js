@@ -88,7 +88,7 @@ define( function( require ) {
           var knot = puller.knot;
           puller.disconnect();
           puller.dragging = true;
-          pullerNode.moveToFront();
+          //pullerNode.moveToFront(); // TODO: breaks pooling of AccessibleInstance, usnure about dispose function.
           puller.trigger( 'dragged' );
           pullerNode.updateImage( puller, model );
 
@@ -179,6 +179,7 @@ define( function( require ) {
     // outfit for accessibility
     this.setAccessibleContent( {
       createPeer: function( accessibleInstance ) {
+
         /* will look like:
          * <div id="bluePuller1" aria-dropeffect="none" aria-labelledby="bluePuller1_label"
          *  aria-grabbed="false class="Puller">
@@ -317,6 +318,10 @@ define( function( require ) {
       else {
         this.setTranslation( puller.position );
       }
+    },
+
+    dispose: function() {
+      // TODO
     }
   } );
 } );
