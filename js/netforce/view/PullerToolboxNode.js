@@ -27,6 +27,7 @@ define( function( require ) {
                               pullerGroupDescriptionString ) {
     var thisNode = this;
     this.highlightColor = highlightColor;
+    this.accessibleId = side + '-pullerToolbox';
     this._highlighted = false;
     var toolboxHeight = 216;
     var toolboxOptions = {
@@ -71,14 +72,16 @@ define( function( require ) {
         // exit the group on 'escape'
         domElement.addEventListener( 'keydown', function( event ) {
           // we want exit event bubbling - event fired in children should notify parent.
-          thisNode.exitGroup( event, domElement );
+          if ( event.keyCode === 27 ) {
+            thisNode.exitGroup( domElement );
+          }
         } );
 
         var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
 
         // TODO: Why is domElement.children empty here?
         // provide the puller group with a unique ID.
-        domElement.id = accessiblePeer.id;
+        domElement.id = thisNode.accessibleId;
         return accessiblePeer;
       }
     };
@@ -97,7 +100,7 @@ define( function( require ) {
       // add listeners to the children that apply the correct behavior for looping through children.
       _.each( parent.children, function( child ) {
           // add the child to the tab order.
-        child.tabIndex = '0';
+          child.tabIndex = '0';
 
           // Add event listeners to children for   key navigation.
           var numberOfChildren = parent.children.length;
@@ -131,22 +134,18 @@ define( function( require ) {
     /**
      * Exit the group.  This is called on 'escape' key.
      *
-     * @param {event} event
      * @param {domElement} parent
      */
-    exitGroup: function( event, parent ) {
-      // only on 'escape'
-      if ( event.keyCode === 27 ) {
-        // set focus to the parent form
-        parent.focus();
+    exitGroup: function( parent ) {
+      // set focus to the parent form
+      parent.focus();
 
-        // make sure that first element is the new aria-activedescendant
-        parent.setAttribute( 'aria-activedescendant', parent.firstChild.id );
+      // make sure that first element is the new aria-activedescendant
+      parent.setAttribute( 'aria-activedescendant', parent.firstChild.id );
 
-        // pull all children out of the tab order
-        for ( var i = 0; i < parent.children.length; i++ ) {
-          parent.children[ i ].tabIndex = '-1';
-        }
+      // pull all children out of the tab order
+      for ( var i = 0; i < parent.children.length; i++ ) {
+        parent.children[ i ].tabIndex = '-1';
       }
     },
 

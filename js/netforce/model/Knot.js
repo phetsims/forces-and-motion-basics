@@ -22,6 +22,10 @@ define( function( require ) {
   function Knot( x, type ) {
     this.initX = x;
     this.type = type;
+
+    // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
+    this.acessibleKnotId = 'knot-' + type + '-' + this.initX;
+
     PropertySet.call( this, {
       x: x,
       visible: false

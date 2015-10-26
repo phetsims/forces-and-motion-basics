@@ -299,6 +299,39 @@ define( function( require ) {
       return result;
     },
 
+    /**
+     * Get the next open knot in a given direction.  Very similar to the function above, but with a resultant knot
+     * is a function of the distance to the next knot, not of the distance to the puller.  This is necessary because
+     * when dragging, the puller does not yet have an associated knot.
+     *
+     * @param {Knot} sourceKnot
+     * @param {Puller} puller
+     * @param {number} delta
+     */
+    getNextOpenKnotInDirection: function( sourceKnot, puller, delta ) {
+      var netForceModel = this;
+      var isInRightDirection = function( destinationKnot, delta ) {
+        assert && assert( delta < 0 || delta > 0 );
+        return delta < 0 ? destinationKnot.x < sourceKnot.x :
+               delta > 0 ? destinationKnot.x > sourceKnot.x :
+               'error';
+      };
+      var filter = this.knots.filter( function( knot ) {
+        return knot.type === puller.type &&
+               netForceModel.getPuller( knot ) === null &&
+               isInRightDirection( knot, delta );
+      } );
+      var result = _.min( filter, function( knot ) {
+        return Math.abs( sourceKnot.x - knot.x );
+      } );
+
+      // we have reached the end of the knots.  Return either the first or last knot to loop the choice.
+      if ( result === Infinity || result === -Infinity ) {
+        result = null;
+      }
+      return result;
+    },
+
     movePullerToAdjacentOpenKnot: function( puller, delta ) {
       var closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
       if ( closestOpenKnot ) {

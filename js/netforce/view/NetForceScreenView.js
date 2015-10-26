@@ -32,7 +32,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -118,38 +118,13 @@ define( function( require ) {
     this.addChild( rightToolbox );
 
     var ropeHeightOffset = 215;
-    var leftFocusRegion = new Rectangle( leftToolbox.rectX, leftToolbox.rectY - ropeHeightOffset, leftToolbox.rectWidth, leftToolbox.rectHeight + ropeHeightOffset, {
-      accessibleContent: {
-        createPeer: function( accessibleInstance ) {
-          /*
-           We want this to look like the following in the Parallel DOM:
-           <div tabIndex="-1" id="leftFocusRegion"
-           */
-          var domElement = document.createElement( 'div' );
-          domElement.tabIndex = '-1';
-          domElement.id = 'leftFocusRegion';
 
-          return new AccessiblePeer( accessibleInstance, domElement );
-        }
-      }
-    } );
+    // region which holds the left knots for drag and drop
+    var leftFocusRegion = new KnotFocusRegion( model, leftToolbox, ropeHeightOffset, 'left' );
     this.addChild( leftFocusRegion );
 
-    var rightFocusRegion = new Rectangle( rightToolbox.rectX, rightToolbox.rectY - ropeHeightOffset, rightToolbox.rectWidth, rightToolbox.rectHeight + ropeHeightOffset, {
-      accessibleContent: {
-        createPeer: function( accessibleInstance ) {
-          /*
-           We want this to look like the following in the Parallel DOM:
-           <div tabIndex="-1" id="leftFocusRegion"
-           */
-          var domElement = document.createElement( 'div' );
-          domElement.tabIndex = '-1';
-          domElement.id = 'leftFocusRegion';
-
-          return new AccessiblePeer( accessibleInstance, domElement );
-        }
-      }
-    } );
+    // region which holds the right knots for drag and drop
+    var rightFocusRegion = new KnotFocusRegion( model, rightToolbox, ropeHeightOffset, 'right' );
     this.addChild( rightFocusRegion );
 
     //Split into another canvas to speed up rendering
@@ -177,18 +152,6 @@ define( function( require ) {
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
     this.ropeNode = new Image( ropeImage, { x: 51, y: 273 } );
-
-    model.knots.forEach( function( knot ) {
-      if ( knot.type === 'blue' ) {
-        leftFocusRegion.addChild( new KnotHighlightNode( knot ) );
-      }
-      else if ( knot.type === 'red' ) {
-        rightFocusRegion.addChild( new KnotHighlightNode( knot ) );
-      }
-      else {
-        assert && assert( 'Knots can only be of type "red" or "blue" in this sim.' );
-      }
-    } );
 
     this.addChild( this.ropeNode );
 
@@ -220,15 +183,42 @@ define( function( require ) {
              null;
     };
 
+    // get the focus region for a given puller.
+    var getKnotRegion = function( puller ) {
+      return puller.type === 'red' ? rightFocusRegion : leftFocusRegion;
+    };
+
+    // get the associated toolbox for the puller
+    var getPullerToolbox = function( puller ) {
+      return puller.type === 'red' ? rightToolbox : leftToolbox;
+    };
+
     var leftPullerLayer = new Node();
     var rightPullerLayer = new Node();
     this.pullerNodes = [];
 
     this.model.pullers.forEach( function( puller ) {
-      var pullerNode = new PullerNode( puller, netForceScreenView.model, getPullerImage( puller, false ), getPullerImage( puller, true ) );
+      var pullerNode = new PullerNode( puller, netForceScreenView.model,
+        getPullerImage( puller, false ),
+        getPullerImage( puller, true ),
+        getKnotRegion( puller ),
+        getPullerToolbox( puller )
+      );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
       netForceScreenView.pullerNodes.push( pullerNode );
+    } );
+
+    model.knots.forEach( function( knot ) {
+      if ( knot.type === 'blue' ) {
+        leftFocusRegion.addChild( new KnotHighlightNode( knot, leftPullerLayer.children, leftFocusRegion, model ) );
+      }
+      else if ( knot.type === 'red' ) {
+        rightFocusRegion.addChild( new KnotHighlightNode( knot, rightPullerLayer.children, rightFocusRegion, model ) );
+      }
+      else {
+        assert && assert( 'Knots can only be of type "red" or "blue" in this sim.' );
+      }
     } );
 
     // add puller groups to the tool boxes for nesting hierarchy in parallel DOM.  Specify puller order here.
