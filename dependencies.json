@@ -1,11 +1,11 @@
 {
-  "comment": "# forces-and-motion-basics 1.1.5-accessible-instance.1 Mon Oct 12 2015 10:20:13 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 1.1.5-accessible-instance.2 Mon Oct 26 2015 17:04:34 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "11bc6a6d0344ba1a8b95982bad3552bffbdfdfd6",
     "branch": "master"
   },
   "axon": {
-    "sha": "292630b5052dfb78d08c7a72f61886d9e863fbf4",
+    "sha": "ea354263c16df560d237ece773548353fe04c27e",
     "branch": "master"
   },
   "brand": {
@@ -13,23 +13,23 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "0971b57bd1dcdb8be9e858435e75cc0f96a3ae9b",
+    "sha": "2114cbeefff579ebd93f0dd4d3fceeec53a13fc7",
     "branch": "master"
   },
   "dot": {
-    "sha": "d99cbe46e8496bbfe2554ddfcc15022ffdfcae83",
+    "sha": "03415417f2cbb22c0d6a1ae6e8ad1194322f2c18",
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "b8fad2a4e8bab578e5c2df0591fb7f56c9e8d7b5",
+    "sha": "12ccd96419fc45bc8abd5e8f151b8d8a273068db",
     "branch": "master"
   },
   "joist": {
-    "sha": "3fbd99f92334bb9731dec2c57865ab34439fac2b",
+    "sha": "8d87df6c0eda1f9490afc5ffa83c120cb286df87",
     "branch": "master"
   },
   "kite": {
-    "sha": "40dc703a07c774464f060dda6a67485704ca9e22",
+    "sha": "7f2df7e9ec52ed32d8c0fe0c1fe6bfa8c043c510",
     "branch": "master"
   },
   "phet-core": {
@@ -41,19 +41,19 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "02e96ee6906c56ad25b7cca568e84a80acb58b3d",
+    "sha": "1606cafc06e57bd05ef432db0b5190f6d3f12586",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "efa633712031191d650e8594144ea55427631fbb",
+    "sha": "81d4d432d0cbf644cd4715ea9cef96800d8074c4",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "1759eadefb4f6d680f85aef394ea7727df1928e6",
+    "sha": "9e109c97ef22fcfa7cb12c1b6e4c442b1b8463fc",
     "branch": "master"
   },
   "sun": {
-    "sha": "b66398a529a18e696832fd10cae1adf90598e75e",
+    "sha": "f678dd20763b18182a16b7725fecc45d92bdf8fd",
     "branch": "master"
   },
   "tandem": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "vibe": {
-    "sha": "aed777bf3bb941c533f8904e55053f78ab09a8b4",
+    "sha": "4b94a32b649a0df01c2bfa2f43c9bff6c96a1ba0",
     "branch": "master"
   }
 }
