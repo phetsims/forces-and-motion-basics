@@ -211,10 +211,10 @@ define( function( require ) {
 
     model.knots.forEach( function( knot ) {
       if ( knot.type === 'blue' ) {
-        leftFocusRegion.addChild( new KnotHighlightNode( knot, leftPullerLayer.children, leftFocusRegion, model ) );
+        leftFocusRegion.addChild( new KnotHighlightNode( knot, leftPullerLayer.children, leftFocusRegion, leftToolbox, model ) );
       }
       else if ( knot.type === 'red' ) {
-        rightFocusRegion.addChild( new KnotHighlightNode( knot, rightPullerLayer.children, rightFocusRegion, model ) );
+        rightFocusRegion.addChild( new KnotHighlightNode( knot, rightPullerLayer.children, rightFocusRegion, rightToolbox, model ) );
       }
       else {
         assert && assert( 'Knots can only be of type "red" or "blue" in this sim.' );

@@ -20,7 +20,7 @@ define( function( require ) {
   // constants
   var knotWidth = 20;
 
-  function KnotHighlightNode( knot, pullerNodes, focusRegionNode, model ) {
+  function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model ) {
 
     var thisNode = this;
     Path.call( this, Shape.circle( 0, 0, knotWidth ), {
@@ -70,6 +70,7 @@ define( function( require ) {
           // if the user hits 'enter' or 'spacebar', move the puller to the selected not.
           var nextKnot;
           if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+
             // move the puller to the selected knot.
             thisNode.movePullerToSelectedKnot( grabbedPullerNode, knot, model );
             // move the puller back to the original knot - resolves unknown bug with blue pullers where the puller
@@ -84,8 +85,12 @@ define( function( require ) {
             var knotRegionElement = document.getElementById( knotRegionType );
             focusRegionNode.exitGroup( knotRegionElement );
 
+            // enter back into the group of pullers
+            var toolBoxElement = document.getElementById( pullerToolboxNode.accessibleId );
+            pullerToolboxNode.enterGroup( event, toolBoxElement );
+
             // place the focus back on the puller that was being dragged.
-            document.getElementById( grabbedPullerNode.accessiblePullerId ).focus();
+            //document.getElementById( grabbedPullerNode.accessiblePullerId ).focus();
           }
 
           // select the next available knot to the right
@@ -120,6 +125,7 @@ define( function( require ) {
       grabbedPuller.setValues( { position: new Vector2( knot.x, knot.y ) } );
       model.numberPullersAttached = model.countAttachedPullers();
       grabbedPuller.dragging = false;
+      grabbedPuller.trigger( 'dropped' );
       pullerNode.updateImage( grabbedPuller, model );
       pullerNode.updateLocation( grabbedPuller, model );
     }

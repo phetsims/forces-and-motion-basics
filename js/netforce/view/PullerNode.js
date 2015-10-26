@@ -54,19 +54,6 @@ define( function( require ) {
       pullerNode.textDescription = textDescription;
     } );
 
-    //var updateLocation = function() {
-    //  var knotted = puller.knot;
-    //  var pulling = model.started && knotted;
-    //  if ( knotted ) {
-    //    var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
-    //    var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 : 0;
-    //    pullerNode.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - pullerNode.height + 90 );
-    //  }
-    //  else {
-    //    pullerNode.setTranslation( puller.position );
-    //  }
-    //};
-
     //model.on( 'reset-all', pullerNode.updateLocation );
     model.on( 'reset-all', function() {
       pullerNode.updateLocation( puller, model );
@@ -78,8 +65,6 @@ define( function( require ) {
     puller.positionProperty.link( function() {
       pullerNode.updateLocation( puller, model );
     } );
-    //model.startedProperty.link( updateLocation );
-    //puller.positionProperty.link( updateLocation );
 
     puller.hoverKnotProperty.link( function( hoverKnot ) {
       if ( hoverKnot ) {
@@ -88,25 +73,6 @@ define( function( require ) {
         pullerNode.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - pullerNode.height + 90 - 120 );
       }
     } );
-
-    //var updateImage = function() {
-    //  var knotted = puller.knot;
-    //  var pulling = model.started && knotted;
-    //  pullerNode.image = pulling ? pullImage : image;
-    //
-    //  //Reshape the focus rect when image changes
-    //  //This was copied from updateLocation above to solve https://github.com/phetsims/forces-and-motion-basics/issues/55
-    //  if ( knotted ) {
-    //    var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
-    //    var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 : 0;
-    //    pullerNode.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - pullerNode.height + 90 );
-    //  }
-    //  else {
-    //    pullerNode.setTranslation( puller.position );
-    //  }
-    //};
-    //model.startedProperty.link( this.updateImage( puller, model ) );
-    //model.runningProperty.link( this.updateImage( puller, model ) );
 
     model.startedProperty.link( function() {
       pullerNode.updateImage( puller, model );
@@ -278,21 +244,34 @@ define( function( require ) {
           // if the puller is not grabbed, grab it for drag and drop
           else if ( !pullerNode.grabbed ) {
             if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
-              // notify AT that the puller is in a 'grabbed' state
-              domElement.setAttribute( 'aria-grabbed', 'true' );
-              pullerNode.grabbed = true;
-              pullerNode.puller.draggingProperty.set( true );
+              // the puller is already on a rope on the knot.  Place it right back in the toolbox.
+              // TODO: This behavior is a placeholder, I am not sure how this should behave.
+              if ( pullerNode.puller.knot !== null ) {
+                pullerNode.puller.knot = null;
 
-              // enter 'move mode' by exiting this group, and entering the group of knots
-              pullerToolboxNode.exitGroup( domElement.parentElement );
+                var grabbedPuller = pullerNode.puller;
+                grabbedPuller.reset();
+                model.numberPullersAttached = model.countAttachedPullers();
+                grabbedPuller.dragging = false;
+                //grabbedPuller.trigger( 'dropped' );
+                pullerNode.updateImage( grabbedPuller, model );
+                pullerNode.updateLocation( grabbedPuller, model );
+              }
+              else {
+                // notify AT that the puller is in a 'grabbed' state
+                domElement.setAttribute( 'aria-grabbed', 'true' );
+                pullerNode.grabbed = true;
+                pullerNode.puller.draggingProperty.set( true );
 
-              var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
-              var knotRegionElement = document.getElementById( knotRegionType );
-              knotRegionNode.enterGroup( knotRegionElement );
+                // enter 'move mode' by exiting this group, and entering the group of knots
+                pullerToolboxNode.exitGroup( domElement.parentElement );
+
+                var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
+                var knotRegionElement = document.getElementById( knotRegionType );
+                knotRegionNode.enterGroup( knotRegionElement );
+              }
             }
-
           }
-
           domElement.addEventListener( 'blur', function( event ) {
             domElement.setAttribute( 'aria-grabbed', 'false' );
           } );
