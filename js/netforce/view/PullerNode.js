@@ -88,7 +88,7 @@ define( function( require ) {
           var knot = puller.knot;
           puller.disconnect();
           puller.dragging = true;
-          //pullerNode.moveToFront(); // TODO: breaks pooling of AccessibleInstance, usnure about dispose function.
+          pullerNode.moveToFront(); // TODO: breaks pooling of AccessibleInstance, usnure about dispose function.
           puller.trigger( 'dragged' );
           pullerNode.updateImage( puller, model );
 
