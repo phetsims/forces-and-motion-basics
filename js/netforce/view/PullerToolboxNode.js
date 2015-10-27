@@ -111,17 +111,13 @@ define( function( require ) {
             // if previous index is -1, set focus to the last element
             previousIndex = previousIndex === -1 ? ( numberOfChildren - 1 ) : previousIndex;
 
-            // if the child is in a grabbed state, we do not want to select the next child.
-            // TODO: surely there is a nicer way to check against 'false' string?
-            if ( child.getAttribute( 'aria-grabbed' ) === 'false' ) {
-              if ( event.keyCode === 39 ) {
-                //right arrow pressed
-                parent.children[ nextIndex ].focus();
-              }
-              if ( event.keyCode === 37 ) {
-                //left arrow pressed
-                parent.children[ previousIndex ].focus();
-              }
+            if ( event.keyCode === 39 ) {
+              //right arrow pressed
+              parent.children[ nextIndex ].focus();
+            }
+            if ( event.keyCode === 37 ) {
+              //left arrow pressed
+              parent.children[ previousIndex ].focus();
             }
           } );
         }

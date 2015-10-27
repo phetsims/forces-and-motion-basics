@@ -12,7 +12,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
@@ -115,67 +114,6 @@ define( function( require ) {
         }
       } ) );
 
-    this.addInputListener( {
-      keydown: function( event, trail ) {
-        var keyCode = event.domEvent.keyCode;
-        var focusContext = null;
-        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
-          if ( puller.knot ) {
-            puller.disconnect();
-            puller.positionProperty.reset();
-            model.numberPullersAttached = model.countAttachedPullers();
-            pullerNode.updateImage( puller, model );
-            pullerNode.updateLocation( puller, model );
-          }
-          else {
-            var knot = model.getClosestOpenKnotFromCart( puller );
-            puller.setValues( { position: new Vector2( knot.x, knot.y ) } );
-            model.numberPullersAttached = model.countAttachedPullers();
-            puller.dragging = false;
-            puller.trigger( 'dropped' );
-            pullerNode.updateImage( puller, model );
-            pullerNode.updateLocation( puller, model );
-          }
-        }
-        else if ( keyCode === Input.KEY_LEFT_ARROW || keyCode === Input.KEY_RIGHT_ARROW ) {
-
-          // Move to an adjacent open knot.
-          var delta = (keyCode === Input.KEY_LEFT_ARROW) ? -1 : +1;
-
-          if ( puller.knot !== null ) {
-            model.movePullerToAdjacentOpenKnot( puller, delta );
-          }
-        }
-        else if ( keyCode === Input.KEY_ESCAPE ) {
-          focusContext = Input.focusContexts[ Input.focusContexts.length - 1 ];
-          Input.popFocusContext( focusContext );
-
-          model.pullers.forEach( function( puller ) {
-            puller.focusable = false;
-          } );
-        }
-        else if ( keyCode === Input.KEY_TAB ) {
-
-          // This tremendous hack is necessary because elements get a tab event when they *receive* focus
-          // for the first time.  When that bug in Input.js is fixed, then this will be buggy.
-          // The desired behavior is for the focus to leave the group after tabbing through all pullers.
-          if ( puller.size === 'small' && !puller.other ) {
-            var shiftPressed = Input.pressedKeys.indexOf( Input.KEY_SHIFT ) >= 0;
-            if ( !shiftPressed ) {
-              focusContext = Input.focusContexts[ Input.focusContexts.length - 1 ];
-              Input.popFocusContext( focusContext );
-
-              model.pullers.forEach( function( puller ) {
-                puller.focusable = false;
-              } );
-
-              Input.moveFocus( +1 );
-            }
-          }
-        }
-      }
-    } );
-
     // outfit for accessibility
     this.setAccessibleContent( {
       createPeer: function( accessibleInstance ) {
@@ -207,48 +145,8 @@ define( function( require ) {
             pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.accessibleId ) );
           }
 
-          var knot = puller.knot;
-
-          if ( pullerNode.grabbed ) {
-
-            // if the puller is already grabbed, 'escape' should exit move mode and place the puller at its previous
-            // location.
-            if ( event.keyCode === Input.KEY_ESCAPE ) {
-              //make sure that the puller is not draggable.
-              pullerNode.grabbed = false;
-              domElement.setAttribute( 'aria-grabbed', 'false' );
-              pullerNode.updateImage( puller, model );
-              pullerNode.updateLocation( puller, model );
-            }
-            else if ( event.keyCode === Input.KEY_LEFT_ARROW || event.keyCode === Input.KEY_RIGHT_ARROW ) {
-              knot = puller.knot;
-
-              // if the puller is knotted and grabbed, use arrow keys to update its knot.
-              if ( pullerNode.grabbed ) {
-                if ( puller.knot ) {
-                  var moveLeft = event.keyCode === Input.KEY_LEFT_ARROW;
-                  if ( moveLeft ) {
-                    knot = model.movePullerToAdjacentOpenKnot( puller, -1 );
-                  }
-                  else {
-                    knot = model.movePullerToAdjacentOpenKnot( puller, 1 );
-                  }
-
-                  if ( knot ) {
-                    puller.setValues( { position: new Vector2( knot.x, knot.y ) } );
-                    model.numberPullersAttached = model.countAttachedPullers();
-                    puller.dragging = false;
-                    puller.trigger( 'dropped' );
-                    pullerNode.updateImage( puller, model );
-                    pullerNode.updateLocation( puller, model );
-                  }
-                }
-              }
-            }
-          }
-
           // if the puller is not grabbed, grab it for drag and drop
-          else if ( !pullerNode.grabbed ) {
+          if ( !pullerNode.grabbed ) {
             if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
               // the puller is already on a rope on the knot.  Place it right back in the toolbox.
               // TODO: This behavior is a placeholder, I am not sure how this should behave.
