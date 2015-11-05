@@ -40,7 +40,7 @@ define( function( require ) {
   function HSlider( min, max, width, property, speedClassificationProperty, disableLeftProperty, disableRightProperty, options ) {
     var slider = this;
     this.enabledProperty = new Property( true );
-    this.options = _.extend( {
+    options = _.extend( {
       zeroOnRelease: false
     }, options || {} );
 
@@ -59,7 +59,7 @@ define( function( require ) {
     this.sliderWidth = width;
     this.trackHeight = 6;
 
-    Node.call( this, this.options );
+    Node.call( this, options );
 
     this.ticksLayer = new Node( { pickable: false } );
     this.addChild( this.ticksLayer );

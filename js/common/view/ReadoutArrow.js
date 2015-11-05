@@ -34,7 +34,8 @@ define( function( require ) {
     var readoutArrow = this;
 
     //Store fields
-    this.options = _.extend( { labelPosition: 'top', arrowScale: 1 }, options );
+    options = _.extend( { labelPosition: 'top', arrowScale: 1 }, options );
+    this.options = options; // @private
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
     this.tailY = tailY;
