@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -16,8 +17,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Matrix3 = require( 'DOT/Matrix3' );
-  var massDisplayPattern = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+
+  // strings
+  var massDisplayPatternString = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
 
   //Workaround for https://github.com/phetsims/scenery/issues/108
   var IDENTITY = Matrix3.scaling( 1, 1 );
@@ -106,7 +109,7 @@ define( function( require ) {
     this.addInputListener( dragHandler );
 
     //Label for the mass (if it is shown)
-    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( massDisplayPattern, item.mass ), {
+    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( massDisplayPatternString, item.mass ), {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'

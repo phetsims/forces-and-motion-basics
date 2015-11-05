@@ -11,20 +11,24 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Sim = require( 'JOIST/Sim' );
-  var TugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
-  var MotionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
-  var FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
-  var AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
-  var titleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.title' );
-  var netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
-  var motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' );
-  var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
-  var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
   var NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var MotionScreen = require( 'FORCES_AND_MOTION_BASICS/motion/MotionScreen' );
+
+  // images
+  var TugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
+  var MotionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
+  var FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
+  var AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
+
+  // strings
+  var forcesAndMotionBasicsTitleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.title' );
+  var netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
+  var motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' );
+  var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
+  var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
 
   /**
    *
@@ -48,7 +52,7 @@ define( function( require ) {
 
     //Create and start the sim
     Sim.call( this,
-      titleString, [
+      forcesAndMotionBasicsTitleString, [
         this.netForceScreen,
         this.motionScreen,
         this.frictionScreen,
