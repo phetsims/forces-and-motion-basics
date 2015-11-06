@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2015, University of Colorado Boulder
 
 /**
  * An invisible, rectangular view element that tracks the left and right focus regions in the Net Force screen.  This

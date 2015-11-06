@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * Shows the graphic for the puller, which can be dragged from the toolbox to the rope to apply force.

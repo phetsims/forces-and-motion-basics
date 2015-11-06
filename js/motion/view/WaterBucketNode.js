@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * This scenery.Node shows the interactive water bucket.  The user can drag it from the toolbox to the play area, and the water sloshes based on the acceleration.

@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * Model for the red/blue pullers which can be dragged to the rope, and exert a force on the rope.

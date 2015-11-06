@@ -1,4 +1,4 @@
-// Copyright 2002-2014, University of Colorado Boulder
+// Copyright 2014-2015, University of Colorado Boulder
 
 /**
  * The Bounds2 instance to be used for layout in all of the Forces and Motion: Basics screens.

@@ -1,4 +1,4 @@
-// Copyright 2002-2013, University of Colorado Boulder
+// Copyright 2013-2015, University of Colorado Boulder
 
 /**
  * Shows the highlight graphic for a knot.  The knots are always visible as part of the image, but when the visible flag is set,
