@@ -42,9 +42,8 @@ define( function( require ) {
          */
         var domElement = document.createElement( 'div' );
         domElement.tabIndex = '-1';
-        domElement.setAttribute( 'aria-live', 'polite' );
-        domElement.setAttribute( 'role', 'alert' );
-
+        domElement.setAttribute( 'aria-live', 'assertive' );
+        //domElement.setAttribute( 'role', 'alert' );
 
         var descriptionElement = document.createElement( 'p' );
         descriptionElement.innerText = 'The cart is stationary';
@@ -52,9 +51,10 @@ define( function( require ) {
         domElement.appendChild( descriptionElement );
 
         thisNode.cart.xProperty.link( function( x ) {
-          if ( Math.abs( thisNode.xPosition - x ) > 150 ) {
+          if ( Math.abs( thisNode.xPosition - x ) > 15 ) {
+            var directionString = ( thisNode.xPosition - x ) > 0 ? 'left' : 'right';
+            thisNode.updateLiveCartRegion( descriptionElement, directionString );
             thisNode.xPosition = x;
-            thisNode.updateLiveCartRegion( descriptionElement );
           }
         } );
 
@@ -65,10 +65,10 @@ define( function( require ) {
 
   return inherit( Image, CartNode, {
 
-    updateLiveCartRegion: function( descriptionElement ) {
+    updateLiveCartRegion: function( descriptionElement, directionString ) {
       // update
-      console.log( 'here' );
-      descriptionElement.innerText = 'The cart is moving to the left';
+      descriptionElement.innerText = '';
+      descriptionElement.innerText = 'Cart accelerating ' + directionString;
     }
   } );
 } );

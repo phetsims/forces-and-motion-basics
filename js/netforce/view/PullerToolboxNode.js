@@ -50,14 +50,8 @@ define( function( require ) {
          * </div
          */
         var domElement = document.createElement( 'div' );
-        var groupDescription = document.createElement( 'p' );
-        groupDescription.hidden = 'true';
-        groupDescription.innerText = pullerGroupDescriptionString;
-        domElement.appendChild( groupDescription );
-        groupDescription.id = pullerGroupDescriptionString;
+        domElement.setAttribute( 'aria-label', pullerGroupDescriptionString );
         domElement.tabIndex = '0';
-        domElement.setAttribute( 'role', 'group' );
-        domElement.setAttribute( 'aria-describedby', pullerGroupDescriptionString );
 
         // enter the puller group on 'enter' or 'space bar'.
         domElement.addEventListener( 'keydown', function( event ) {

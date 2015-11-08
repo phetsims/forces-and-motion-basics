@@ -50,6 +50,10 @@ define( function( require ) {
 
         domElement.setAttribute( 'aria-disabled', 'true' );
 
+        model.startedProperty.link( function( enabled ) {
+          domElement.setAttribute( 'aria-disabled', !enabled );
+        } );
+
         domElement.tabIndex = '0';
 
         domElement.addEventListener( 'click', function() {

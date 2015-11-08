@@ -24,16 +24,17 @@ define( function( require ) {
    * @param {Image} pullImage image of the puller exerting a force
    * @param {KnotFocusRegion} knotRegionNode
    * @param {PullerToolboxNode} pullerToolboxNode
+   * @param {string} accessibleDescription
    * @param {object} options
    * @constructor
    */
-  function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, options ) {
+  function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, accessibleDescription, options ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
     this.standImage = image; // @private
     this.pullImage = pullImage; // @private
-    this.accessiblePullerId = 'puller-' + puller.type + '-' + puller.x;
+    this.accessibleDescription = accessibleDescription;
     var x = puller.position.x;
     var y = puller.position.y;
 
@@ -45,6 +46,7 @@ define( function( require ) {
       focusable: puller.focusable,
       textDescription: puller.textDescription
     } );
+    this.accessiblePullerId = this.id; // @private, id to quickly find this node's representation in the accessible DOM
 
     puller.focusableProperty.link( function( focusable ) {
       pullerNode.focusable = focusable;
@@ -123,11 +125,29 @@ define( function( require ) {
          *  aria-grabbed="false class="Puller">
          * </div >
          */
-        var domElement = document.createElement( 'div' );
+        var domElement = document.createElement( 'img' );
+        //var descriptionElement = document.createElement( 'p' );
+
+        //domElement.setAttribute( 'type', 'image' );
+        domElement.setAttribute( 'alt', accessibleDescription );
         domElement.tabIndex = '-1';
-        domElement.setAttribute( 'aria-grabbed', 'false' );
         domElement.draggable = true;
+        //domElement.setAttribute( 'aria-grabbed', 'false' );
         domElement.className = 'Puller';
+        domElement.id = pullerNode.accessiblePullerId;
+        //domElement.setAttribute( 'aria-label', accessibleDescription );
+        //descriptionElement.innerHTML = accessibleDescription;
+        //domElement.setAttribute( 'role', 'log' );
+        //domElement.setAttribute( 'aria-live', 'assertive' );
+
+        // create a description element for the puller and use aria to describe it
+        var labelElement = document.createElement( 'div' );
+        labelElement.id = pullerNode.accessiblePullerId + '-label';
+        labelElement.innerHTML = accessibleDescription;
+        //domElement.setAttribute( 'aria-labelledby', labelElement.id );
+
+        // nest the attributes
+        //domElement.appendChild( labelElement );
 
         /*
          * The following is a latest iteration of drag and drop behavior for the pullers in the net force screen of
@@ -163,9 +183,19 @@ define( function( require ) {
               }
               else {
                 // notify AT that the puller is in a 'grabbed' state
-                domElement.setAttribute( 'aria-grabbed', 'true' );
+                //domElement.setAttribute( 'aria-grabbed', 'true' );
                 pullerNode.grabbed = true;
                 pullerNode.puller.draggingProperty.set( true );
+
+                // update the live description
+                //console.log( 'here' );
+                //domElement.setAttribute( 'aria-label', 'Selected ' + accessibleDescription );
+
+                // update the live description for the net force screen
+                var actionElement = document.getElementById( 'netForceActionElement' );
+                var actionString = 'Selected ' + accessibleDescription;
+                console.log( actionString );
+                actionElement.innerText = actionString;
 
                 // enter 'move mode' by exiting this group, and entering the group of knots
                 pullerToolboxNode.exitGroup( domElement.parentElement );
@@ -176,13 +206,12 @@ define( function( require ) {
               }
             }
           }
-          domElement.addEventListener( 'blur', function( event ) {
-            domElement.setAttribute( 'aria-grabbed', 'false' );
-          } );
+          //domElement.addEventListener( 'blur', function( event ) {
+          //domElement.setAttribute( 'aria-grabbed', 'false' );
+          //} );
         } );
 
         var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
-        domElement.id = pullerNode.accessiblePullerId;
 
         return accessiblePeer;
       }

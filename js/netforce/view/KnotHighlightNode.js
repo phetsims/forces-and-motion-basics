@@ -20,6 +20,18 @@ define( function( require ) {
   // constants
   var knotWidth = 20;
 
+  // a map to get the accessible description for the knot highlightNode, based on its initial x position
+  var accessibleDescriptionMap = {
+    62: 'fourth knot, farthest from the cart',
+    142: 'third knot',
+    222: 'second knot',
+    302: 'first knot, closest to the cart',
+    680: 'first knot, closest to the cart',
+    760: 'second knot',
+    840: 'third knot',
+    920: 'fourth knot, farthest from the cart'
+  };
+
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model ) {
 
     var thisNode = this;
@@ -41,19 +53,17 @@ define( function( require ) {
          *  <p> "Some description of the knot" </p>
          * </div>
          */
-        var trail = accessibleInstance.trail;
-
-        var domElement = document.createElement( 'div' );
+        var domElement = document.createElement( 'li' );
         domElement.tabIndex = '-1';
         domElement.id = knot.acessibleKnotId;
+        var knotAccessibleDescription = 'Place puller on ' + accessibleDescriptionMap[ knot.initX ] + '?';
+        domElement.setAttribute( 'aria-label', knotAccessibleDescription );
 
-        var knotDescription = document.createElement( 'p' );
-        knotDescription.innerText = 'Some knot description';
-        knotDescription.id = knot.type + '-knot-description-' + trail.uniqueId;
-        domElement.setAttribute( 'aria-describedby', knotDescription.id );
+        //var knotDescription = document.createElement( 'p' );
+        //knotDescription.innerText = 'Some knot description';
+        //knotDescription.id = knot.type + '-knot-description-' + trail.uniqueId;
+        //domElement.setAttribute( 'aria-describedby', knotDescription.id );
         domElement.className = knot.type + 'Knot';
-
-        domElement.appendChild( knotDescription );
 
         // handle various keyboard interaction
         domElement.addEventListener( 'keydown', function( event ) {
@@ -77,6 +87,12 @@ define( function( require ) {
             // is placed one knot too far to the right.
             model.movePullerToKnot( grabbedPullerNode.puller, knot );
 
+            // update the label for the puller
+            var actionElement = document.getElementById( 'netForceActionElement' );
+            var innerText = grabbedPullerNode.accessibleDescription + 'placed on ' + accessibleDescriptionMap[ knot.initX ];
+            actionElement.innerText = innerText;
+            var pullerElement = document.getElementById( grabbedPullerNode.accessiblePullerId );
+
             // make sure that the puller is no longer grabbed.
             grabbedPullerNode.grabbed = false;
 
@@ -85,12 +101,15 @@ define( function( require ) {
             var knotRegionElement = document.getElementById( knotRegionType );
             focusRegionNode.exitGroup( knotRegionElement );
 
-            // enter back into the group of pullers
+            // null string for the puller toolbox description since the one on sim load no longer applies.
+            // TODO: null is temporary solution, what should it be in the long run?
             var toolBoxElement = document.getElementById( pullerToolboxNode.accessibleId );
+
+            // enter back into the group of pullers
             pullerToolboxNode.enterGroup( event, toolBoxElement );
 
-            // place the focus back on the puller that was being dragged.
-            //document.getElementById( grabbedPullerNode.accessiblePullerId ).focus();
+            // set focus back to the puller that was grabbed
+            pullerElement.focus();
           }
 
           // select the next available knot to the right

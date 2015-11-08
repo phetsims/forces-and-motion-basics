@@ -68,57 +68,62 @@ define( function( require ) {
     var goButton = new RoundPushButton( {
       content: wrap( goText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#94b830',
-      listener: goListener,
-      accessibleContent: {
-        id: goString,
-        createPeer: function( accessibleInstance ) {
-          /*
-           * Parallel DOM element will look like:
-           * <input id="butonID" value="GO!" type="button" tabindex="0" aria-disabled="true"><br>
-           */
-          var domElement = document.createElement( 'input' );
-          domElement.value = goString;
-          domElement.type = 'button';
-          domElement.setAttribute( 'aria-disabled', 'true' );
-          domElement.className = 'GoButton';
-
-          domElement.tabIndex = '0';
-
-          domElement.addEventListener( 'click', function() {
-            // if the go button is disabled, do nothing.
-            if ( !isGoButtonEnabled() ) {
-              return;
-            }
-
-            // fire the model listener
-            goListener();
-
-            // remove this button from the tab order
-            this.tabIndex = '-1';
-
-            // add the 'pause' button to the tab order.
-            var pauseButtonElement = document.getElementsByClassName( 'PauseButton' )[0];
-            pauseButtonElement.tabIndex = '0';
-
-            // set the aria-attribute to disabled
-            domElement.setAttribute( 'aria-disabled', 'true' );
-
-            // aria-enable the 'pause' button.
-            var pauseButton = document.getElementsByClassName( 'PauseButton' )[0];
-            pauseButton.setAttribute( 'aria-disabled', 'false' );
-
-            // set focus immediately to the 'pause' button
-            pauseButton.focus();
-
-          } );
-
-          var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
-          domElement.id = accessiblePeer.id;
-          return accessiblePeer;
-
-        }
-      }
+      listener: goListener
     } );//green
+
+    goButton.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+        /*
+         * Parallel DOM element will look like:
+         * <input id="butonID" value="GO!" type="button" tabindex="0" aria-disabled="true"><br>
+         */
+        var domElement = document.createElement( 'input' );
+        domElement.value = goString;
+        domElement.type = 'button';
+        domElement.setAttribute( 'aria-disabled', !isGoButtonEnabled() );
+        domElement.className = 'GoButton';
+        domElement.id = 'goButton';
+
+        domElement.tabIndex = '0';
+
+        model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
+          var enabled = isGoButtonEnabled();
+          domElement.setAttribute( 'aria-disabled', !enabled );
+        } );
+
+        domElement.addEventListener( 'click', function() {
+          // if the go button is disabled, do nothing.
+          if ( !isGoButtonEnabled() ) {
+            return;
+          }
+
+          // fire the model listener
+          goListener();
+
+          // remove this button from the tab order
+          domElement.tabIndex = '-1';
+
+          // add the 'pause' button to the tab order.
+          var pauseButtonElement = document.getElementsByClassName( 'PauseButton' )[ 0 ];
+          pauseButtonElement.tabIndex = '0';
+
+          // set the aria-attribute to disabled
+          domElement.setAttribute( 'aria-disabled', !isGoButtonEnabled() );
+
+          // aria-enable the 'pause' button.
+          var pauseButton = document.getElementsByClassName( 'PauseButton' )[ 0 ];
+          pauseButton.setAttribute( 'aria-disabled', 'false' );
+
+          // set focus immediately to the 'pause' button
+          pauseButton.focus();
+
+        } );
+
+        var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
+        return accessiblePeer;
+
+      }
+    };
 
     var pauseListener = function() {
       model.running = false;
@@ -136,7 +141,6 @@ define( function( require ) {
           var domElement = document.createElement( 'input' );
           domElement.value = pauseString;
           domElement.type = 'button';
-          domElement.setAttribute( 'aria-disabled', 'true' );
           domElement.tabIndex = '-1';
           domElement.className = 'PauseButton';
 
@@ -148,11 +152,11 @@ define( function( require ) {
             this.tabIndex = '-1';
 
             // add the 'go' button to the tab order.
-            var goButton = document.getElementsByClassName( 'GoButton' )[0];
+            var goButton = document.getElementsByClassName( 'GoButton' )[ 0 ];
             goButton.tabIndex = '0';
 
             // set the aria-attribute to disabled
-            domElement.setAttribute( 'aria-disabled', 'true' );
+            //domElement.setAttribute( 'aria-disabled', 'true' );
 
             // set focus immediately to the 'go' button
             goButton.focus();

@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
+  var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -37,7 +38,6 @@ define( function( require ) {
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
   var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
-  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
   var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_0.png' );
   var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_3.png' );
   var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_0.png' );
@@ -58,6 +58,10 @@ define( function( require ) {
   var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
   var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
   var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
+  var leftString = require( 'string!FORCES_AND_MOTION_BASICS/left' );
+  var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
+  var groupString = require( 'string!FORCES_AND_MOTION_BASICS/group' );
+  var pullerString = require( 'string!FORCES_AND_MOTION_BASICS/puller' );
 
   // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
@@ -96,7 +100,8 @@ define( function( require ) {
     this.addChild( new Image( grassImage, { x: 13 - grassImage.width, y: grassY } ) );
     this.addChild( new Image( grassImage, { x: 13 + grassImage.width, y: grassY } ) );
 
-    this.cartNode = new Image( cartImage, { y: 221 } );
+    //this.cartNode = new Image( cartImage, { y: 221 } );
+    this.cartNode = new CartNode( model.cart );
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
@@ -193,6 +198,16 @@ define( function( require ) {
       return puller.type === 'red' ? rightToolbox : leftToolbox;
     };
 
+    var getAccessiblePullerDescription = function( puller ) {
+      var type = puller.type;
+      var size = puller.size;
+
+      var sideDescription = type === 'blue' ? leftString : rightString;
+
+      // create the accessible description for this puller.
+      return sideDescription + ' ' + groupString + ' ' + size + ' ' + pullerString + ' ';
+    };
+
     var leftPullerLayer = new Node();
     var rightPullerLayer = new Node();
     this.pullerNodes = [];
@@ -202,7 +217,8 @@ define( function( require ) {
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
         getKnotRegion( puller ),
-        getPullerToolbox( puller )
+        getPullerToolbox( puller ),
+        getAccessiblePullerDescription( puller )
       );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
@@ -313,6 +329,41 @@ define( function( require ) {
         }
       }
     } );
+
+    // implement accessible content.  For the screen view, this includes an auditory description for the entire screen
+    // accessible content
+    this.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+
+        // generate the 'supertype peer' for the ScreenView in the parallel DOM.
+        var accessiblePeer = ScreenView.ScreenViewAccessiblePeer( accessibleInstance, netForceDescriptionString );
+
+        // create an element for action descriptions.  This element gets updated whenever the user moves a puller
+        // and places it in a new location.
+        var actionElement = document.createElement( 'p' );
+        actionElement.innerText = '';
+        actionElement.setAttribute( 'aria-live', 'polite' );
+        actionElement.id = 'netForceActionElement';
+        accessiblePeer.domElement.appendChild( actionElement );
+
+        // on load, the screen view should be in the accessible order to provide an overall description of the sim
+        accessiblePeer.domElement.tabIndex = '0';
+
+        accessiblePeer.domElement.addEventListener( 'blur', function() {
+          accessiblePeer.domElement.tabIndex = '-1';
+        } );
+
+        // add a global event listener to all children of this screen view, bubbles through all children
+        accessiblePeer.domElement.addEventListener( 'keydown', function( event ) {
+          // 'global' event behavior in here...
+
+          // when the user presses 'm' we want the AT to read off the sim state.
+          //if( event.keyCode === )
+        } );
+
+        return accessiblePeer;
+      }
+    };
   }
 
   return inherit( ScreenView, NetForceScreenView );

@@ -32,6 +32,22 @@
   "leftForce": {
     "value": "Left Force"
   },
+  "left": {
+    "value": "Left",
+    "visible": false
+  },
+  "right": {
+    "value": "Right",
+    "visible": false
+  },
+  "group": {
+    "value": "Group",
+    "visible": false
+  },
+  "puller": {
+    "value": "puller",
+    "visible": false
+  },
   "appliedForce": {
     "value": "Applied Force"
   },

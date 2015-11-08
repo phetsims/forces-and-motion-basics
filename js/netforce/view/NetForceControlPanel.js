@@ -35,10 +35,14 @@ define( function( require ) {
       {
         content: new Text( sumOfForcesString, fontOptions ),
         property: model.showSumOfForcesProperty,
-        label: sumOfForcesString
+        label: sumOfForcesString,
+        accessibleLabel: sumOfForcesString
       },
       {
-        content: new Text( valuesString, fontOptions ), property: model.showValuesProperty, label: valuesString
+        content: new Text( valuesString, fontOptions ),
+        property: model.showValuesProperty,
+        label: valuesString,
+        accessibleLabel: valuesString
       }
     ] );
     this.addChild( new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
