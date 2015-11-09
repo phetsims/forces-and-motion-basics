@@ -1,0 +1,142 @@
+// Copyright 2014-2015, University of Colorado Boulder
+
+/**
+ * Toolbox for items in the Motion screen of Forces and Motion: Basics.  This is a simple background rectangle, but
+ * modularized for accessibility since the toolbox needs to be outfitted with accessible drag and drop behavior for
+ * each of the items in the toolbox.
+ *
+ * @author Jesse Greenberg (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+
+  // constants
+  var defaultStroke = 'black';
+  var defaultLineWidth = 1;
+
+  /**
+   * Constructor.
+   *
+   * @constructor
+   */
+  function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
+
+    var thisNode = this;
+    Rectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
+
+    // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
+    this.accessibleId = sideString + '-itemToolbox' + this.id;
+
+    // outfit for accessibility
+    this.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+        /* will look like:
+         * TODO: Fill this out when you know what the DOM structure should look like.
+         */
+        var domElement = document.createElement( 'div' );
+        domElement.setAttribute( 'aria-label', toolboxOptions.accessibleDescription );
+        domElement.tabIndex = '0';
+        domElement.id = thisNode.accessibleId;
+
+        // enter the puller group on 'enter' or 'space bar'.
+        domElement.addEventListener( 'keydown', function( event ) {
+          // prevent the the event from bubbling.
+          if ( domElement !== event.target ) { return; }
+          // on enter or spacebar, step in to the selected group.
+          if ( event.keyCode === 13 || event.keyCode === 32 ) {
+            thisNode.enterGroup( event, domElement );
+          }
+        } );
+
+        // exit the group on 'escape'
+        domElement.addEventListener( 'keydown', function( event ) {
+          // we want exit event bubbling - event fired in children should notify parent.
+          if ( event.keyCode === 27 ) {
+            thisNode.exitGroup( domElement );
+          }
+        } );
+
+        return new AccessiblePeer( accessibleInstance, domElement );
+
+      }
+    };
+  }
+
+  return inherit( Rectangle, ItemToolboxNode, {
+
+    /**
+     * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
+     * to 0 and set focus to the first child.
+     *
+     * @param {event} event
+     * @param {domElement} parent
+     * @private (accessibility)
+     */
+    enterGroup: function( event, parent ) {
+      // add listeners to the children that apply the correct behavior for looping through children.
+      _.each( parent.children, function( child ) {
+          // add the child to the tab order.
+          child.tabIndex = '0';
+
+          // Add event listeners to children for   key navigation.
+          var numberOfChildren = parent.children.length;
+          child.addEventListener( 'keydown', function( event ) {
+            var childIndex = _.indexOf( parent.children, child );
+            var nextIndex = ( childIndex + 1 ) % numberOfChildren;
+            var previousIndex = ( childIndex - 1 );
+            // if previous index is -1, set focus to the last element
+            previousIndex = previousIndex === -1 ? ( numberOfChildren - 1 ) : previousIndex;
+
+            if ( event.keyCode === 39 ) {
+              //right arrow pressed
+              parent.children[ nextIndex ].focus();
+            }
+            if ( event.keyCode === 37 ) {
+              //left arrow pressed
+              parent.children[ previousIndex ].focus();
+            }
+          } );
+        }
+      );
+
+      // set focus to the first child
+      document.getElementById( parent.firstChild.id ).focus();
+    },
+
+    /**
+     * Exit the group.  This is called on 'escape' key.
+     *
+     * @param {domElement} parent
+     */
+    exitGroup: function( parent ) {
+      // set focus to the parent form
+      parent.focus();
+
+      // make sure that first element is the new aria-activedescendant
+      parent.setAttribute( 'aria-activedescendant', parent.firstChild.id );
+
+      // pull all children out of the tab order
+      for ( var i = 0; i < parent.children.length; i++ ) {
+        parent.children[ i ].tabIndex = '-1';
+      }
+    },
+
+    // Show a highlight around the toolbox when one of the items inside has focus
+    set
+      highlighted( h ) {
+      this._highlighted = h;
+      this.stroke = h ? this.highlightColor : defaultStroke;
+      this.lineWidth = h ? 4 : defaultLineWidth;
+    },
+    get
+      highlighted() {
+      return this._highlighted;
+    }
+  } );
+} )
+;

@@ -76,6 +76,18 @@
     "value": "Forces and Motion Basics. There is a heavily loaded cart on wheels sitting on a track. Attached to the left side of the cart is a thick rope with 4 knots spaced equally along the rope. Standing near this knotted rope is a group of 4 puller people. On the opposite side of the cart, a similar rope with 4 knots is attached to the right side of the cart. There is another group of 4 puller people standing near this rope. The centre position of the cart has been marked on the ground.",
     "visible": false
   },
+  "motion.description": {
+    "value": "Motion. There is a skateboard resting on a frictionless surface, with a figure standing to the left. A wooden crate is at rest on top of the skateboard. Other objects can be placed on top of the skateboard, but no more than three at a time can be present. The user controls the amount of external force the figure applies to the skateboard. To hear the masses of the objects read, navigate to the control panel and check 'Masses.'",
+    "visible": false
+  },
+  "motion.interface.description": {
+    "value": "Tab to begin navigating around the simulation. Select Values in the control panel to hear the numerical value applied force. Select Masses in control panel to hear masses of objects in bin and on skateboard. Select Speed to hear description of the Speedof the skateboard. Press M at anytime to hear a description of the current motion of the skateboard, the force being applied to it, its mass, and its speed.",
+    "visible": false
+  },
+  "motion.leftItemGroup.description": {
+    "value": "Press enter to activate left object bin. A refrigerator and a wooden crate are in this object bin.",
+    "visible": false
+  },
   "bluePullerGroup.description": {
     "value": "A thick, 8 foot rope is attached to the left side of the cart. The rope has 4 positions marked at equal intervals: 8feet, 6feet, 4 feet, and 2 feet. A group of four people standing near this rope.",
     "visible": false

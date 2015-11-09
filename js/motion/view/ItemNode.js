@@ -18,6 +18,8 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var Input = require( 'SCENERY/input/Input' );
 
   // strings
   var massDisplayPatternString = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
@@ -34,12 +36,16 @@ define( function( require ) {
    * @param {Image} sittingImage optional image for when the person is sitting down
    * @param {Image} holdingImage optional image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
+   * @param {ItemToolboxNode} itemToolbox - The toolbox that contains this item
    * @constructor
    */
-  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty ) {
+  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, { x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer' } );
+    this.accessibleId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
+
+    var accessibleDescription = 'Draggable item '; // TODO: This string needs to be filled out.
 
     //Create the node for the main graphic
     var normalImageNode = new Image( normalImage );
@@ -67,7 +73,15 @@ define( function( require ) {
 
     model.stack.lengthProperty.link( updateImage );
 
-    //When the user drags the object
+    //When the user drags the object, start
+    var moveToStack = function() {
+      item.onBoard = true;
+      item.animateTo( motionView.layoutBounds.width / 2 - itemNode.width / 2 + item.centeringOffset, motionView.topOfStack - itemNode.height, 'stack' );
+      model.stack.add( item );
+      if ( model.stack.length > 3 ) {
+        model.spliceStackBottom();
+      }
+    };
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.position = options.position;//es5 setter
@@ -94,12 +108,7 @@ define( function( require ) {
         item.dragging = false;
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.position.y < 350 ) {
-          item.onBoard = true;
-          item.animateTo( motionView.layoutBounds.width / 2 - itemNode.width / 2 + item.centeringOffset, motionView.topOfStack - itemNode.height, 'stack' );
-          model.stack.add( item );
-          if ( model.stack.length > 3 ) {
-            model.spliceStackBottom();
-          }
+          moveToStack();
         }
         else {
           item.animateHome();
@@ -144,6 +153,80 @@ define( function( require ) {
     itemNode.addChild( labelNode );
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
+
+    // outfit for accessibility
+    this.setAccessibleContent( {
+      createPeer: function( accessibleInstance ) {
+
+        /* will look like:
+         * <div id="motionItem1" aria-label="bluePuller1_label" aria-grabbed="false" class="Item"></div >
+         */
+        var domElement = document.createElement( 'img' );
+
+        domElement.setAttribute( 'alt', accessibleDescription );
+        domElement.tabIndex = '-1';
+        domElement.draggable = true;
+        domElement.className = 'ItemNode';
+        domElement.id = itemNode.accessibleId;
+
+        /*
+         * The following is a latest iteration of drag and drop behavior for the pullers in the net force screen of
+         * Forces and Motion: Basics.  The behavior is defined in the excel spreadsheet which prototypes this design:
+         *
+         * https://docs.google.com/spreadsheets/d/1r_z3t0sTP2NtgfAPuFdNJat6fxVZ8ian2SWoqd-fxfw/edit#gid=0
+         */
+        domElement.addEventListener( 'keydown', function( event ) {
+
+          // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
+          event.preventDefault();
+
+          // on tab, exit the group and focus the next element.
+          if ( event.keyCode === Input.KEY_TAB ) {
+            itemToolbox.exitGroup( document.getElementById( itemToolbox.accessibleId ) );
+          }
+
+          // if the puller is not grabbed, grab it for drag and drop
+          if ( !item.dragging ) {
+            if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+
+              // remove the item from the stack if it is already there
+              var index = model.stack.indexOf( item );
+              if ( index >= 0 ) {
+                model.spliceStack( index );
+              }
+
+              // the item is already on the skateboard.  Place it right back in the toolbox.
+              // TODO: This behavior is a placeholder, I am not sure how this should behave.
+              if ( item.position.y < 350 ) {
+                item.onBoard = false;
+                item.animateHome();
+              }
+              // the item is in the toolbox
+              else {
+                // notify AT that the item is in a 'grabbed' state
+                domElement.setAttribute( 'aria-grabbed', 'true' );
+
+                // update the live description for the net force screen
+                var actionElement = document.getElementById( 'motionActionElement' );
+                var actionString = 'Selected ' + accessibleDescription;
+                actionElement.innerText = actionString;
+
+                // move the item onto the skateboard
+                moveToStack();
+
+                item.onBoard = true;
+
+                domElement.setAttribute( 'aria-grabbed', 'false' );
+              }
+            }
+          }
+        } );
+
+        return new AccessiblePeer( accessibleInstance, domElement );
+
+      }
+    } );
+
   }
 
   return inherit( Node, ItemNode );

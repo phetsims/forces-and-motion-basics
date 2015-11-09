@@ -37,8 +37,15 @@ define( function( require ) {
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Util = require( 'DOT/Util' );
+  var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
 
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
+
+  // strings
+  var motionDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.description' );
+  var motionInterfaceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.interface.description' );
+  var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
+  var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
 
   /**
    * Constructor for the MotionScreenView
@@ -78,18 +85,20 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    this.addChild( new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
+    var leftItemToolboxNode = new ItemToolboxNode( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, 'left', {
       fill: '#e7e8e9',
       stroke: '#000000',
       lineWidth: 1,
-      pickable: false
-    } ) );
-    this.addChild( new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
+      pickable: false,
+      accessibleDescription: motionLeftItemGroupDescriptionString
+    } );
+    var rightItemToolboxNode = new ItemToolboxNode( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, 'right', {
       fill: '#e7e8e9',
       stroke: '#000000',
       lineWidth: 1,
-      pickable: false
-    } ) );
+      pickable: false,
+      accessibleDescription: motionRightItemGroupDescriptionString
+    } );
 
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
@@ -248,23 +257,39 @@ define( function( require ) {
       this.addChild( accelerometerWithTickLabels );
     }
 
+    // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
+    // toolbox is sitting on.
+    var getItemToolbox = function( item ) {
+      // the fridge and the crates both go in hte left toolbox
+      if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
+        return leftItemToolboxNode;
+      }
+      else {
+        return rightItemToolboxNode;
+      }
+    };
+
     //Iterate over the items in the model and create and add nodes for each one
     var itemLayer = new Node();
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[ i ];
+      var toolBoxNode = getItemToolbox( item );
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
         item.image,
         item.sittingImage || item.image,
         item.holdingImage || item.image,
-        model.showMassesProperty );
+        model.showMassesProperty,
+        toolBoxNode );
       this.itemNodes.push( itemNode );
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
-      itemLayer.addChild( itemNode );
+      toolBoxNode.addChild( itemNode );
     }
+    itemLayer.addChild( leftItemToolboxNode );
+    itemLayer.addChild( rightItemToolboxNode );
     this.addChild( itemLayer );
 
     //Add the force arrows & associated readouts in front of the items
@@ -341,6 +366,51 @@ define( function( require ) {
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
+
+    // Outfit this screen view with accessible content.
+    this.accessibleContent = {
+      createPeer: function( accessibleInstance ) {
+
+        // TODO: This string is for an experimental feature which we are calling 'basic interface instructions'. It is
+        // TODO: separate from the overall description, but read with the description on load.  It as to be part of the
+        // TODO: label so it must be concatenated with the description string.  This is outside of ScreenView since
+        // TODO: no other screens have this type of interface description yet.
+        var onLoadString = motionDescriptionString + motionInterfaceDescriptionString;
+
+        // generate the 'supertype peer' for the ScreenView in the parallel DOM.
+        var accessiblePeer = ScreenView.ScreenViewAccessiblePeer( accessibleInstance, onLoadString );
+
+        // create an element for action descriptions.  This element gets updated whenever the user moves a puller
+        // and places it in a new location.
+        var actionElement = document.createElement( 'p' );
+        actionElement.innerText = '';
+        actionElement.setAttribute( 'aria-live', 'polite' );
+        actionElement.id = 'motionActionElement';
+        accessiblePeer.domElement.appendChild( actionElement );
+
+        // on load, the screen view should be in the accessible order to provide an overall description of the sim
+        accessiblePeer.domElement.tabIndex = '0';
+
+        accessiblePeer.domElement.addEventListener( 'blur', function() {
+          accessiblePeer.domElement.tabIndex = '-1';
+        } );
+
+        // add a global event listener to all children of this screen view, bubbles through all children
+        accessiblePeer.domElement.addEventListener( 'keydown', function( event ) {
+          // 'global' event behavior in here...
+
+          // when the user presses 'm' we want the AT to read off the sim state.
+          //if( event.keyCode === )
+        } );
+
+        return accessiblePeer;
+      }
+    };
+
+    // set the navigation order for this screen
+    this.accessibleOrder = [ leftItemToolboxNode, rightItemToolboxNode ];
+
+
   }
 
   return inherit( ScreenView, MotionScreenView, {
