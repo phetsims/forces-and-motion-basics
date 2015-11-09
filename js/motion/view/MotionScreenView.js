@@ -410,7 +410,6 @@ define( function( require ) {
     // set the navigation order for this screen
     this.accessibleOrder = [ leftItemToolboxNode, rightItemToolboxNode ];
 
-
   }
 
   return inherit( ScreenView, MotionScreenView, {
