@@ -93,8 +93,7 @@
     "visible": false
   },
   "bluePullerGroup.description": {
-    "value": "Left pullers. Select Enter to choose and place pullers on the rope."
-  ,
+    "value": "Left pullers. Select Enter to choose and place pullers on the rope.",
     "visible": false
   },
   "redPullerGroup.description": {
@@ -144,6 +143,22 @@
   },
   "right.description": {
     "value": "right",
+    "visible": false
+  },
+  "firstKnot.description": {
+    "value": "first knot, closest to the cart",
+    "visible": false
+  },
+  "secondKnot.description": {
+    "value": "second knot",
+    "visible": false
+  },
+  "thirdKnot.description": {
+    "value": "third knot",
+    "visible": false
+  },
+  "fourthKnot.description": {
+    "value": "fourth knot, farthest from the cart",
     "visible": false
   }
 }

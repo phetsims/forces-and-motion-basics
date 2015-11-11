@@ -20,16 +20,22 @@ define( function( require ) {
   // constants
   var knotWidth = 20;
 
+  // strings
+  var fourthKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/fourthKnot.description' );
+  var thirdKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/thirdKNot.descriptionString' );
+  var secondKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/secondKnot.description' );
+  var firstKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/firstKnot.description' );
+
   // a map to get the accessible description for the knot highlightNode, based on its initial x position
   var accessibleDescriptionMap = {
-    62: 'fourth knot, farthest from the cart',
-    142: 'third knot',
-    222: 'second knot',
-    302: 'first knot, closest to the cart',
-    680: 'first knot, closest to the cart',
-    760: 'second knot',
-    840: 'third knot',
-    920: 'fourth knot, farthest from the cart'
+    62: fourthKnotDescriptionString,
+    142: thirdKnotDescriptionString,
+    222: secondKnotDescriptionString,
+    302: firstKnotDescriptionString,
+    680: firstKnotDescriptionString,
+    760: secondKnotDescriptionString,
+    840: thirdKnotDescriptionString,
+    920: fourthKnotDescriptionString
   };
 
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model ) {
