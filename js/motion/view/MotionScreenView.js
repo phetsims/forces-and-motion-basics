@@ -99,6 +99,8 @@ define( function( require ) {
       pickable: false,
       accessibleDescription: motionRightItemGroupDescriptionString
     } );
+    this.addChild( leftItemToolboxNode );
+    this.addChild( rightItemToolboxNode );
 
     //Add the pusher
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
@@ -259,38 +261,58 @@ define( function( require ) {
 
     // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
     // toolbox is sitting on.
-    var getItemToolbox = function( item ) {
+    //var getItemToolbox = function( item ) {
+    //   the fridge and the crates both go in hte left toolbox
+    //if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
+    //  return leftItemToolboxNode;
+    //}
+    //else {
+    //  return rightItemToolboxNode;
+    //}
+    //};
+    // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
+    // toolbox is sitting on.
+    var getItemSide = function( item ) {
       // the fridge and the crates both go in hte left toolbox
       if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
-        return leftItemToolboxNode;
+        return 'left';
       }
       else {
-        return rightItemToolboxNode;
+        return 'right';
       }
     };
 
+    // get the accessible description for the item
+    var getAccessibleDescription = function( item ) {
+      return 'Please implement the "getAccessibleDescription" function';
+    };
+
     //Iterate over the items in the model and create and add nodes for each one
-    var itemLayer = new Node();
+    var leftItemLayer = new Node();
+    var rightItemLayer = new Node();
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[ i ];
-      var toolBoxNode = getItemToolbox( item );
+      var itemSide = getItemSide( item );
+      var toolBoxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
+      var itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
+      var accessibleDescription = getAccessibleDescription();
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, motionView, item,
         item.image,
         item.sittingImage || item.image,
         item.holdingImage || item.image,
         model.showMassesProperty,
-        toolBoxNode );
+        toolBoxNode,
+        accessibleDescription );
       this.itemNodes.push( itemNode );
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
-      toolBoxNode.addChild( itemNode );
+      itemLayer.addChild( itemNode );
     }
-    itemLayer.addChild( leftItemToolboxNode );
-    itemLayer.addChild( rightItemToolboxNode );
-    this.addChild( itemLayer );
+    leftItemToolboxNode.addChild( leftItemLayer );
+    rightItemToolboxNode.addChild( rightItemLayer );
 
     //Add the force arrows & associated readouts in front of the items
     var arrowScale = 0.3;

@@ -39,13 +39,11 @@ define( function( require ) {
    * @param {ItemToolboxNode} itemToolbox - The toolbox that contains this item
    * @constructor
    */
-  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox ) {
+  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, accessibleDescription ) {
     var itemNode = this;
     this.item = item;
     Node.call( this, { x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer' } );
     this.accessibleId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
-
-    var accessibleDescription = 'Draggable item '; // TODO: This string needs to be filled out.
 
     //Create the node for the main graphic
     var normalImageNode = new Image( normalImage );
@@ -85,11 +83,11 @@ define( function( require ) {
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.position = options.position;//es5 setter
+        console.log( 'translating' );
       },
 
       //When picking up an object, remove it from the stack.
       start: function() {
-
         //Move it to front (z-order)
         itemNode.moveToFront();
         item.dragging = true;

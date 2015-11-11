@@ -17,6 +17,10 @@ define( function( require ) {
   // images
   var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
 
+  // strings
+  var leftDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/left.description' );
+  var rightDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/right.description' );
+
   /**
    * Constructor.
    *
@@ -36,14 +40,13 @@ define( function( require ) {
       createPeer: function( accessibleInstance ) {
         /* parallel DOM element should look like:
          *
-         * <div id="cart" tabIndex="-1" aria-live="polite" aria-describedby="descriptionID" aria-busy="false">
+         * <div id="cart" tabIndex="-1" aria-live="assertive" >
          *   <p>The cart is stationary</p>
          *</div>
          */
-        var domElement = document.createElement( 'div' );
+        var domElement = document.createElement( 'img' );
         domElement.tabIndex = '-1';
         domElement.setAttribute( 'aria-live', 'assertive' );
-        //domElement.setAttribute( 'role', 'alert' );
 
         var descriptionElement = document.createElement( 'p' );
         descriptionElement.innerText = 'The cart is stationary';
@@ -51,8 +54,9 @@ define( function( require ) {
         domElement.appendChild( descriptionElement );
 
         thisNode.cart.xProperty.link( function( x ) {
+          // when the cart has moved by the value below, update the description and notify the user with aria-live
           if ( Math.abs( thisNode.xPosition - x ) > 15 ) {
-            var directionString = ( thisNode.xPosition - x ) > 0 ? 'left' : 'right';
+            var directionString = ( thisNode.xPosition - x ) > 0 ? leftDescriptionString : rightDescriptionString;
             thisNode.updateLiveCartRegion( descriptionElement, directionString );
             thisNode.xPosition = x;
           }
@@ -66,8 +70,7 @@ define( function( require ) {
   return inherit( Image, CartNode, {
 
     updateLiveCartRegion: function( descriptionElement, directionString ) {
-      // update
-      descriptionElement.innerText = '';
+      // update the aria live region by setting its inner text.
       descriptionElement.innerText = 'Cart accelerating ' + directionString;
     }
   } );

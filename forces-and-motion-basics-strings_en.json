@@ -93,11 +93,16 @@
     "visible": false
   },
   "bluePullerGroup.description": {
-    "value": "A thick, 8 foot rope is attached to the left side of the cart. The rope has 4 positions marked at equal intervals: 8feet, 6feet, 4 feet, and 2 feet. A group of four people standing near this rope.",
+    "value": "Left pullers. Select Enter to choose and place pullers on the rope."
+  ,
     "visible": false
   },
   "redPullerGroup.description": {
-    "value": "A thick, 8 foot rope is attached to the right side of the cart. The rope has 4 positions marked at equal intervals: 8feet, 6feet, 4 feet, and 2 feet. A group of four people standing near this rope.",
+    "value": "Right pullers.  Select enter to choose and place pullers on the rope.",
+    "visible": false
+  },
+  "refrigerator.description": {
+    "value": "Refrigerator",
     "visible": false
   },
   "motion": {
@@ -132,5 +137,13 @@
   },
   "forceReadout.pattern": {
     "value": "{0}N"
+  },
+  "left.description": {
+    "value": "left",
+    "visible": false
+  },
+  "right.description": {
+    "value": "right",
+    "visible": false
   }
 }
