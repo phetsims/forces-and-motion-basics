@@ -92,6 +92,7 @@ define( function( require ) {
         var descriptionElement = document.createElement( 'p' );
         descriptionElement.innerText = goButtonDescriptionString;
         descriptionElement.id = 'go-description';
+        domElement.appendChild( descriptionElement );
 
         domElement.setAttribute( 'aria-describedby', descriptionElement.id );
 
@@ -159,6 +160,7 @@ define( function( require ) {
           var descriptionElement = document.createElement( 'p' );
           descriptionElement.innerText = pauseButtonDescriptionString;
           descriptionElement.id = 'pause-descriptoin';
+          domElement.appendChild( descriptionElement );
 
           domElement.setAttribute( 'aria-describedby', descriptionElement.id );
 

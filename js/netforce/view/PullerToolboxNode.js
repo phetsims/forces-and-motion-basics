@@ -129,7 +129,7 @@ define( function( require ) {
     exitGroup: function( parent ) {
       // set focus to the parent form
       parent.focus();
-      
+
       // pull all children out of the tab order
       for ( var i = 0; i < parent.children.length; i++ ) {
         parent.children[ i ].tabIndex = '-1';

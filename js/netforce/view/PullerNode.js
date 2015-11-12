@@ -157,55 +157,53 @@ define( function( require ) {
         domElement.addEventListener( 'keydown', function( event ) {
 
           // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
-          event.preventDefault();
+          //event.preventDefault();
 
-          // on tab, exit the group and focus the next element.
+          // get the live action element that notifies the user of how their actions effect the screen layout
+          var actionElement = document.getElementById( 'netForceActionElement' );
+
+          // on tab, exit the group and focus the next element in the navigation order
           if ( event.keyCode === Input.KEY_TAB ) {
             pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.accessibleId ) );
           }
 
           // if the puller is not grabbed, grab it for drag and drop
-          if ( !pullerNode.grabbed ) {
-            if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
-              // the puller is already on a rope on the knot.  Place it right back in the toolbox.
-              // TODO: This behavior is a placeholder, I am not sure how this should behave.
-              if ( pullerNode.puller.knot !== null ) {
-                pullerNode.puller.knot = null;
+          if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+            // the puller is already on a rope on the knot.  Place it right back in the toolbox.
+            // TODO: This behavior is a placeholder, I am not sure how this should behave.
+            if ( pullerNode.puller.knot !== null ) {
+              pullerNode.puller.knot = null;
 
-                var grabbedPuller = pullerNode.puller;
-                grabbedPuller.reset();
-                model.numberPullersAttached = model.countAttachedPullers();
-                grabbedPuller.dragging = false;
-                //grabbedPuller.trigger( 'dropped' );
-                pullerNode.updateImage( grabbedPuller, model );
-                pullerNode.updateLocation( grabbedPuller, model );
+              var grabbedPuller = pullerNode.puller;
+              grabbedPuller.reset();
+              model.numberPullersAttached = model.countAttachedPullers();
+              grabbedPuller.dragging = false;
+              //grabbedPuller.trigger( 'dropped' );
+              pullerNode.updateImage( grabbedPuller, model );
+              pullerNode.updateLocation( grabbedPuller, model );
 
-                // reset the puller's alt text to describe it in the toolbox
-                domElement.setAttribute( 'alt', accessibleDescription );
-              }
-              else {
-                // notify AT that the puller is in a 'grabbed' state
-                //domElement.setAttribute( 'aria-grabbed', 'true' );
-                pullerNode.grabbed = true;
-                pullerNode.puller.draggingProperty.set( true );
+              // reset the puller's alt text to describe it in the toolbox
+              domElement.setAttribute( 'alt', accessibleDescription );
 
-                // update the live description
-                //console.log( 'here' );
-                //domElement.setAttribute( 'aria-label', 'Selected ' + accessibleDescription );
+              // update live action element to tell user that the puller was moved back to the toolbox
+              actionElement.innerText = accessibleDescription + ' placed in toolbox';
 
-                // update the live description for the net force screen
-                var actionElement = document.getElementById( 'netForceActionElement' );
-                var actionString = 'Selected ' + accessibleDescription;
-                console.log( actionString );
-                actionElement.innerText = actionString;
+            }
+            else {
+              // notify AT that the puller is in a 'grabbed' state
+              pullerNode.grabbed = true;
+              pullerNode.puller.draggingProperty.set( true );
 
-                // enter 'move mode' by exiting this group, and entering the group of knots
-                pullerToolboxNode.exitGroup( domElement.parentElement );
+              // update the live description for the net force screen
+              var actionString = 'Selected ' + accessibleDescription;
+              actionElement.innerText = actionString;
 
-                var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
-                var knotRegionElement = document.getElementById( knotRegionType );
-                knotRegionNode.enterGroup( knotRegionElement );
-              }
+              // enter 'move mode' by exiting this group, and entering the group of knots
+              pullerToolboxNode.exitGroup( domElement.parentElement );
+
+              var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
+              var knotRegionElement = document.getElementById( knotRegionType );
+              knotRegionNode.enterGroup( knotRegionElement );
             }
           }
           //domElement.addEventListener( 'blur', function( event ) {

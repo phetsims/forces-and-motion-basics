@@ -59,7 +59,7 @@ define( function( require ) {
          *  <p> "Some description of the knot" </p>
          * </div>
          */
-        var domElement = document.createElement( 'li' );
+        var domElement = document.createElement( 'div' );
         domElement.tabIndex = '-1';
         domElement.id = knot.acessibleKnotId;
         var knotAccessibleDescription = 'Place puller on ' + accessibleDescriptionMap[ knot.initX ] + '?';
@@ -89,11 +89,10 @@ define( function( require ) {
             // is placed one knot too far to the right.
             model.movePullerToKnot( grabbedPullerNode.puller, knot );
 
-            // update the label for the puller and the action element which is tracking sim updates
-            // the puller is an image so update 'alt' attribute to update its description
-            var actionElement = document.getElementById( 'netForceActionElement' );
+            // update the label for the puller by changing its alt description.  The description is exactly what would
+            // be read off in the actionElement, and since the puller receives focus after being placed on the knot,
+            // the live action element does not need to be updated.
             var innerText = grabbedPullerNode.accessibleDescription + 'placed on ' + accessibleDescriptionMap[ knot.initX ];
-            actionElement.innerText = innerText;
             var pullerElement = document.getElementById( grabbedPullerNode.accessiblePullerId );
             pullerElement.setAttribute( 'alt', innerText );
 

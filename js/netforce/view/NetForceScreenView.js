@@ -157,7 +157,7 @@ define( function( require ) {
       // if the net force is zero and the model is running, update aria-live property that the pullers are pulling but
       // the cart is stationary.
       if ( running ) {
-        if ( model.netForce.value === 0 && model.numberPullersAttached.value !== 0 ) {
+        if ( model.netForceProperty.value === 0 && model.numberPullersAttachedProperty.value !== 0 ) {
 
           // get the live action element
           var actionElement = document.getElementById( 'netForceGameOverElement' );

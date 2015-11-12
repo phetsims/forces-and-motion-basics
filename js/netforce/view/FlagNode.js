@@ -83,7 +83,7 @@ define( function( require ) {
         // <img tabIndex="-1 id='accessibleId' alt=flagWavingDescription >
 
         var domElement = document.createElement( 'div' );
-        flagNode.domElement.tabIndex = '-1'; // this element is should never receive focus
+        domElement.tabIndex = '-1'; // this element is should never receive focus
 
         return new AccessiblePeer( accessibleInstance, domElement );
       }

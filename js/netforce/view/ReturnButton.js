@@ -14,7 +14,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+
+  // strings
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
+  var returnButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/returnButton.description' );
 
   /**
    * @param {NetForceModel} model
@@ -47,6 +50,13 @@ define( function( require ) {
         var domElement = document.createElement( 'input' );
         domElement.value = returnString;
         domElement.type = 'button';
+
+        // create an aria element that describes the button.
+        var descriptionElement = document.createElement( 'p' );
+        descriptionElement.innerText = returnButtonDescriptionString;
+        descriptionElement.id = 'return-description';
+        domElement.appendChild( descriptionElement );
+        domElement.setAttribute( 'aria-describedby', descriptionElement.id );
 
         domElement.setAttribute( 'aria-disabled', 'true' );
 
