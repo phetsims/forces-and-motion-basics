@@ -47,10 +47,10 @@ define( function( require ) {
          */
         var domElement = document.createElement( 'img' );
         domElement.tabIndex = '-1';
-        domElement.setAttribute( 'aria-live', 'assertive' );
 
         var descriptionElement = document.createElement( 'p' );
         descriptionElement.innerText = 'The cart is stationary';
+        descriptionElement.setAttribute( 'aria-live', 'assertive' );
 
         domElement.appendChild( descriptionElement );
 
@@ -72,7 +72,9 @@ define( function( require ) {
 
     updateLiveCartRegion: function( descriptionElement, directionString ) {
       // update the aria live region by setting its inner text.
-      descriptionElement.innerText = 'Cart accelerating ' + directionString;
+
+      var newDescriptionElement = document.getElementById( 'netForceActionElement' );
+      newDescriptionElement.innerText = 'Cart accelerating ' + directionString;
     }
   } );
 } );
