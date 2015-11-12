@@ -172,5 +172,13 @@
   "returnButton.description": {
     "value": "Select to return cart and pullers to center.",
     "visible": false
+  },
+  "rightSideWins.description": {
+    "value": "Right side wins.",
+    "visible": false
+  },
+  "leftSideWins.description": {
+    "value": "Left side wins.",
+    "visible": false
   }
 }

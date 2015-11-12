@@ -279,8 +279,13 @@ define( function( require ) {
     this.controlPanel = new NetForceControlPanel( this.model ).mutate( { right: 981 - 5, top: 5 } );
     this.addChild( this.controlPanel );
 
-    //Show the flag node when pulling is complete
-    var showFlagNode = function() { netForceScreenView.addChild( new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 ) ); };
+    // Show the flag node when pulling is complete and update the accessible game over element in the parallel DOM
+    var showFlagNode = function() {
+      var flagNode = new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 );
+      netForceScreenView.addChild( flagNode );
+
+      flagNode.updateAccessibleGameOverElement();
+    };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
     //Accessibility for reading out the total force
@@ -339,12 +344,24 @@ define( function( require ) {
         var accessiblePeer = ScreenView.ScreenViewAccessiblePeer( accessibleInstance, netForceDescriptionString );
 
         // create an element for action descriptions.  This element gets updated whenever the user moves a puller
-        // and places it in a new location.
+        // and places it in a new location.  The 'aria-live' attribute will read this element whenever the inner text
+        // changes.
         var actionElement = document.createElement( 'p' );
         actionElement.innerText = '';
+        actionElement.tabIndex = '-1';
         actionElement.setAttribute( 'aria-live', 'polite' );
         actionElement.id = 'netForceActionElement';
         accessiblePeer.domElement.appendChild( actionElement );
+
+        // create an element for notifying when the game of tug of war is over.
+        // The 'aria-live' attribute will read this element whenever the inner text changes.
+        // This live region should interrupt any other description so it is marked as assertive.
+        var gameOverElement = document.createElement( 'p' );
+        gameOverElement.innerText = '';
+        gameOverElement.setAttribute( 'aria-live', 'assertive' );
+        gameOverElement.id = 'netForceGameOverElement';
+        gameOverElement.tabIndex = '-1';
+        accessiblePeer.domElement.appendChild( gameOverElement );
 
         // on load, the screen view should be in the accessible order to provide an overall description of the sim
         accessiblePeer.domElement.tabIndex = '0';
