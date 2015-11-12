@@ -126,7 +126,6 @@ define( function( require ) {
          * </div >
          */
         var domElement = document.createElement( 'img' );
-        //var descriptionElement = document.createElement( 'p' );
 
         //domElement.setAttribute( 'type', 'image' );
         domElement.setAttribute( 'alt', accessibleDescription );
@@ -180,6 +179,9 @@ define( function( require ) {
                 //grabbedPuller.trigger( 'dropped' );
                 pullerNode.updateImage( grabbedPuller, model );
                 pullerNode.updateLocation( grabbedPuller, model );
+
+                // reset the puller's alt text to describe it in the toolbox
+                domElement.setAttribute( 'alt', accessibleDescription );
               }
               else {
                 // notify AT that the puller is in a 'grabbed' state

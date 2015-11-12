@@ -160,5 +160,17 @@
   "fourthKnot.description": {
     "value": "fourth knot, farthest from the cart",
     "visible": false
+  },
+  "goButton.description": {
+    "value": "Select to start pullers.",
+    "visible": false
+  },
+  "pauseButton.description": {
+    "value": "Select to pause pullers.",
+    "visible": false
+  },
+  "returnButton.description": {
+    "value": "Select to return cart and pullers to center.",
+    "visible": false
   }
 }

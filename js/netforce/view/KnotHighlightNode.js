@@ -22,7 +22,7 @@ define( function( require ) {
 
   // strings
   var fourthKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/fourthKnot.description' );
-  var thirdKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/thirdKNot.descriptionString' );
+  var thirdKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/thirdKnot.description' );
   var secondKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/secondKnot.description' );
   var firstKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/firstKnot.description' );
 
@@ -65,10 +65,6 @@ define( function( require ) {
         var knotAccessibleDescription = 'Place puller on ' + accessibleDescriptionMap[ knot.initX ] + '?';
         domElement.setAttribute( 'aria-label', knotAccessibleDescription );
 
-        //var knotDescription = document.createElement( 'p' );
-        //knotDescription.innerText = 'Some knot description';
-        //knotDescription.id = knot.type + '-knot-description-' + trail.uniqueId;
-        //domElement.setAttribute( 'aria-describedby', knotDescription.id );
         domElement.className = knot.type + 'Knot';
 
         // handle various keyboard interaction
@@ -93,11 +89,13 @@ define( function( require ) {
             // is placed one knot too far to the right.
             model.movePullerToKnot( grabbedPullerNode.puller, knot );
 
-            // update the label for the puller
+            // update the label for the puller and the action element which is tracking sim updates
+            // the puller is an image so update 'alt' attribute to update its description
             var actionElement = document.getElementById( 'netForceActionElement' );
             var innerText = grabbedPullerNode.accessibleDescription + 'placed on ' + accessibleDescriptionMap[ knot.initX ];
             actionElement.innerText = innerText;
             var pullerElement = document.getElementById( grabbedPullerNode.accessiblePullerId );
+            pullerElement.setAttribute( 'alt', innerText );
 
             // make sure that the puller is no longer grabbed.
             grabbedPullerNode.grabbed = false;

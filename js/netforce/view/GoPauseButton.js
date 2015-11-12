@@ -21,6 +21,10 @@ define( function( require ) {
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
 
+  // strings
+  var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );
+  var pauseButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/pauseButton.description' );
+
   //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
   //If the node is already the largest, don't wrap it.
   //Centers all the nodes in the parent wrappers
@@ -84,6 +88,13 @@ define( function( require ) {
         domElement.className = 'GoButton';
         domElement.id = 'goButton';
 
+        // create an aria element that describes the button.
+        var descriptionElement = document.createElement( 'p' );
+        descriptionElement.innerText = goButtonDescriptionString;
+        descriptionElement.id = 'go-description';
+
+        domElement.setAttribute( 'aria-describedby', descriptionElement.id );
+
         domElement.tabIndex = '0';
 
         model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
@@ -143,6 +154,13 @@ define( function( require ) {
           domElement.type = 'button';
           domElement.tabIndex = '-1';
           domElement.className = 'PauseButton';
+
+          // create an aria element that describes the button
+          var descriptionElement = document.createElement( 'p' );
+          descriptionElement.innerText = pauseButtonDescriptionString;
+          descriptionElement.id = 'pause-descriptoin';
+
+          domElement.setAttribute( 'aria-describedby', descriptionElement.id );
 
           domElement.addEventListener( 'click', function() {
             // fire the model listener
