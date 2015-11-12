@@ -43,6 +43,7 @@ define( function( require ) {
     options = _.extend( {
       zeroOnRelease: false
     }, options || {} );
+    slider.zeroOnRelease = options.zeroOnRelease; // @private
 
     speedClassificationProperty.link( function( speedClassification ) {
       if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
@@ -140,7 +141,7 @@ define( function( require ) {
           property.value = result;
         },
         end: function() {
-          if ( slider.options.zeroOnRelease ) {
+          if ( slider.zeroOnRelease ) {
             property.value = 0;
           }
         }
