@@ -58,6 +58,7 @@ define( function( require ) {
   var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
   var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
   var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
+  var gameTiedDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/gameTied.description' );
   var leftString = require( 'string!FORCES_AND_MOTION_BASICS/left' );
   var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
   var groupString = require( 'string!FORCES_AND_MOTION_BASICS/group' );
@@ -101,7 +102,7 @@ define( function( require ) {
     this.addChild( new Image( grassImage, { x: 13 + grassImage.width, y: grassY } ) );
 
     //this.cartNode = new Image( cartImage, { y: 221 } );
-    this.cartNode = new CartNode( model.cart );
+    this.cartNode = new CartNode( model.cart, model.netForceProperty );
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
@@ -152,6 +153,19 @@ define( function( require ) {
       [ netForceScreenView.sumArrow, netForceScreenView.leftArrow, netForceScreenView.rightArrow ].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
+
+      // if the net force is zero and the model is running, update aria-live property that the pullers are pulling but
+      // the cart is stationary.
+      if ( running ) {
+        if ( model.netForce.value === 0 && model.numberPullersAttached.value === 0 ) {
+
+          // get the live action element
+          var actionElement = document.getElementById( 'netForceGameOverElement' );
+
+          // update the live element inner text and fire associated aria events
+          actionElement.innerText = gameTiedDescriptionString;
+        }
+      }
     } );
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );

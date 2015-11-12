@@ -180,5 +180,9 @@
   "leftSideWins.description": {
     "value": "Left side wins.",
     "visible": false
+  },
+  "gameTied.description": {
+    "value": "Pullers from both sides are pulling, cart is not moving",
+    "visible": false
   }
 }

@@ -24,6 +24,7 @@ define( function( require ) {
   /**
    * Constructor.
    *
+   * @param {Cart} cart
    * @constructor
    */
   function CartNode( cart ) {
