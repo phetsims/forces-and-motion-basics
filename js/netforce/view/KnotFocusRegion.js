@@ -55,6 +55,13 @@ define( function( require ) {
           // we want exit event bubbling - event fired in children should notify parent.
           // only on escape key
           if ( event.keyCode === 27 ) {
+
+            // a puller was being dragged when escape was pressed - exiting this group, so make sure that all
+            // pullers are dropped
+            netForceModel.pullers.forEach( function( puller ) {
+              puller.dragging = false;
+            } );
+
             // exit the group of knots
             thisRegion.exitGroup( domElement );
 

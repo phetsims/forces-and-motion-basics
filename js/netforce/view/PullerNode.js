@@ -201,7 +201,9 @@ define( function( require ) {
               // enter 'move mode' by exiting this group, and entering the group of knots
               pullerToolboxNode.exitGroup( domElement.parentElement );
 
+              console.log( puller.type );
               var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
+              console.log( knotRegionType );
               var knotRegionElement = document.getElementById( knotRegionType );
               knotRegionNode.enterGroup( knotRegionElement );
             }
