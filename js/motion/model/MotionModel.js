@@ -188,7 +188,7 @@ define( function( require ) {
 
       //Object is moving, so friction should oppose the velocity
       else {
-        return -this.getSign( this.velocity ) * frictionForceMagnitude;
+        return -this.getSign( this.velocity ) * frictionForceMagnitude * 0.75;
       }
     },
 
