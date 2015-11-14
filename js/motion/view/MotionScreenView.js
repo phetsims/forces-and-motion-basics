@@ -89,14 +89,12 @@ define( function( require ) {
       fill: '#e7e8e9',
       stroke: '#000000',
       lineWidth: 1,
-      pickable: false,
       accessibleDescription: motionLeftItemGroupDescriptionString
     } );
     var rightItemToolboxNode = new ItemToolboxNode( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, 'right', {
       fill: '#e7e8e9',
       stroke: '#000000',
       lineWidth: 1,
-      pickable: false,
       accessibleDescription: motionRightItemGroupDescriptionString
     } );
     this.addChild( leftItemToolboxNode );
