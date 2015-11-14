@@ -50,7 +50,7 @@ define( function( require ) {
     addGripDot: function( x, y ) {
       var radius = 1.8;
       var stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).
-        addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
+      addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
       this.addChild( new Circle( radius, {
         x: x,
         y: y,
