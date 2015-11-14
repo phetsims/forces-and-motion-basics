@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 1.1.5-accessible-instance.6 Thu Nov 12 2015 12:28:48 GMT-0700 (Mountain Standard Time)",
+  "comment": "# forces-and-motion-basics 1.1.5-dev.11 Fri Nov 13 2015 21:33:20 GMT-0700 (MST)",
   "assert": {
     "sha": "3921bc3784dc67e9cbfa31cdec52b582fcfc68e7",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "486d4a8fd937e6f23035a712959b897444656bd0",
+    "sha": "c0243b2976c93968b26b76a7f190892288851440",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "36b0d16c4e9a725f95101d83cae259c16e838e48",
+    "sha": "828de5e49d3d594ff06a75797a48e90faa214477",
     "branch": "master"
   },
   "joist": {
-    "sha": "929223ee36707f75badd5845d142ffcafded5f11",
+    "sha": "2a5b44c4a42e334b6ebb73a3cc7144e6e9e297d8",
     "branch": "master"
   },
   "kite": {
@@ -41,19 +41,19 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "8869c610fa546b80c75f4735636c2fd1b4320e8b",
+    "sha": "c0c08ec5a6e97f467025d60a97274ffec57e2098",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "b7bc363705603bedacfc18aa3230dc116c3c9897",
+    "sha": "875162d1e7cd5cb1fa1ff0fb75a6f429c5b42776",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "b4d3abf1bfca960c6a84528a6c9c7b6f9831f16e",
+    "sha": "be8c4fc917f1644586ba4459351eade68e3bc0d2",
     "branch": "master"
   },
   "sun": {
-    "sha": "1487ef0ab89f80665820802afce21b489efedb3d",
+    "sha": "86cb945e4c11a3239c0791d39fc5ddde0ac7a781",
     "branch": "master"
   },
   "tandem": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "vibe": {
-    "sha": "789d8b1ac31f60d5ef2245ef276381d1bae3ee21",
+    "sha": "1d6a6929f12f387759379f3501b8cf2e36423fc7",
     "branch": "master"
   }
 }
