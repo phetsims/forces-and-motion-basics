@@ -153,19 +153,6 @@ define( function( require ) {
       [ netForceScreenView.sumArrow, netForceScreenView.leftArrow, netForceScreenView.rightArrow ].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
-
-      // if the net force is zero and the model is running, update aria-live property that the pullers are pulling but
-      // the cart is stationary.
-      if ( running ) {
-        if ( model.netForceProperty.value === 0 && model.numberPullersAttachedProperty.value !== 0 ) {
-
-          // get the live action element
-          var actionElement = document.getElementById( 'netForceGameOverElement' );
-
-          // update the live element inner text and fire associated aria events
-          actionElement.innerText = gameTiedDescriptionString;
-        }
-      }
     } );
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
@@ -386,19 +373,20 @@ define( function( require ) {
 
         // hide this model sync in the accessible content.  It is not in the link above since this would break the sim
         // when accessible content is disabled.
-        //model.runningProperty.link( function( running ) {
-        //  // if the net force is zero and the model is running, update aria-live property that the pullers are pulling but
-        //  // the cart is stationary.
-        //  if ( running ) {
-        //    if ( model.netForceProperty.value === 0 && model.numberPullersAttachedProperty.value !== 0 ) {
-        //
-        //      // get the live action element
-        //      var actionElement = document.getElementById( 'netForceGameOverElement' );
-        //
-        //      // update the live element inner text and fire associated aria events
-        //      actionElement.innerText = gameTiedDescriptionString;
-        //    }
-        //} );
+        model.runningProperty.link( function( running ) {
+          // if the net force is zero and the model is running, update aria-live property that the pullers are pulling but
+          // the cart is stationary.
+          if ( running ) {
+            if ( model.netForceProperty.value === 0 && model.numberPullersAttachedProperty.value !== 0 ) {
+
+              // get the live action element
+              var actionElement = document.getElementById( 'netForceGameOverElement' );
+
+              // update the live element inner text and fire associated aria events
+              actionElement.innerText = gameTiedDescriptionString;
+            }
+          }
+        } );
 
         // add a global event listener to all children of this screen view, bubbles through all children
         accessiblePeer.domElement.addEventListener( 'keydown', function( event ) {
