@@ -126,27 +126,19 @@ define( function( require ) {
          * </div >
          */
         var domElement = document.createElement( 'img' );
-
-        //domElement.setAttribute( 'type', 'image' );
         domElement.setAttribute( 'alt', accessibleDescription );
         domElement.tabIndex = '-1';
         domElement.draggable = true;
-        //domElement.setAttribute( 'aria-grabbed', 'false' );
         domElement.className = 'Puller';
         domElement.id = pullerNode.accessiblePullerId;
-        //domElement.setAttribute( 'aria-label', accessibleDescription );
-        //descriptionElement.innerHTML = accessibleDescription;
-        //domElement.setAttribute( 'role', 'log' );
-        //domElement.setAttribute( 'aria-live', 'assertive' );
 
         // create a description element for the puller and use aria to describe it
         var labelElement = document.createElement( 'div' );
         labelElement.id = pullerNode.accessiblePullerId + '-label';
         labelElement.innerHTML = accessibleDescription;
-        //domElement.setAttribute( 'aria-labelledby', labelElement.id );
 
         // nest the attributes
-        //domElement.appendChild( labelElement );
+        domElement.appendChild( labelElement );
 
         /*
          * The following is a latest iteration of drag and drop behavior for the pullers in the net force screen of
