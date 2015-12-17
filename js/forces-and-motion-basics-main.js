@@ -15,7 +15,7 @@ define( function( require ) {
   var simOptions = {
     api: forcesAndMotionBasicsAPI,
     credits: {
-      leadDesign: 'Noah Podolefsky',
+      leadDesign: 'Ariel Paul, Noah Podolefsky',
       softwareDevelopment: 'Sam Reid',
       team: 'Trish Loeblein, Ariel Paul, Kathy Perkins'
     }
