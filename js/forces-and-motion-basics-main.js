@@ -16,8 +16,10 @@ define( function( require ) {
     api: forcesAndMotionBasicsAPI,
     credits: {
       leadDesign: 'Ariel Paul, Noah Podolefsky',
+      graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
       softwareDevelopment: 'Sam Reid',
-      team: 'Trish Loeblein, Ariel Paul, Kathy Perkins'
+      team: 'Trish Loeblein, Kathy Perkins',
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\n\tOliver Orejola, Ben Roberts, Bryan Yoelin'
     }
   };
 
