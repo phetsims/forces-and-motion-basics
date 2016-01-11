@@ -8,9 +8,6 @@
   "values": {
     "value": "Values"
   },
-  "frictionTitle": {
-    "value": "Friction"
-  },
   "redWins": {
     "value": "Red Wins!"
   },
@@ -22,9 +19,6 @@
   },
   "friction": {
     "value": "Friction"
-  },
-  "accelerationLab": {
-    "value": "Acceleration Lab"
   },
   "forces-and-motion-basics.title": {
     "value": "Forces and Motion: Basics"
@@ -59,9 +53,6 @@
   },
   "acceleration": {
     "value": "Acceleration"
-  },
-  "sound": {
-    "value": "Sound"
   },
   "lots": {
     "value": "Lots"
@@ -100,10 +91,6 @@
     "value": "Right pullers.  Select enter to choose and place pullers on the rope.",
     "visible": false
   },
-  "refrigerator.description": {
-    "value": "Refrigerator",
-    "visible": false
-  },
   "motion": {
     "value": "Motion"
   },
@@ -112,9 +99,6 @@
   },
   "sumOfForcesEqualsZero": {
     "value": "Sum of Forces = 0"
-  },
-  "newtons.n": {
-    "value": "Newtons (N)"
   },
   "blueWins": {
     "value": "Blue Wins!"
