@@ -19,7 +19,6 @@
       "vibe"
     ],
     "preload": [
-      "../sherpa/lib/seedrandom-2.2.js",
       "../sherpa/lib/Tween-r12.js"
     ]
   }
