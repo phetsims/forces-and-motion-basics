@@ -112,9 +112,9 @@ define( function( require ) {
     } );
     knob.y = -knob.height / 2 + 4;
 
-    //Increase the hit region
-    var hitRegionExpansion = 20;
-    knob.touchArea = Shape.rectangle( knob.bounds.minX - hitRegionExpansion, knob.bounds.minY - hitRegionExpansion, knob.bounds.width + hitRegionExpansion * 2, knob.bounds.height + hitRegionExpansion * 2 );
+    // touch area
+    var touchAreaDilation = 20;
+    knob.touchArea = Shape.rectangle( knob.bounds.minX - touchAreaDilation, knob.bounds.minY - touchAreaDilation, knob.bounds.width + touchAreaDilation * 2, knob.bounds.height + touchAreaDilation * 2 );
 
     //Wire up the drag listener.
     //Code for keeping the mouse centered on the same point copied from Beer's Law Lab: ConcentrationSlider.js -> ThumbDragHandler, see #21
