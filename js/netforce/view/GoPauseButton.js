@@ -53,8 +53,13 @@ define( function( require ) {
    * @param {Number} layoutWidth the layout width for centering the button
    * @constructor
    */
-  function GoPauseButton( model, layoutWidth ) {
+  function GoPauseButton( model, layoutWidth, options ) {
 
+    options = _.extend( {
+      top: 400,
+      focusable: true,
+      textDescription: 'Go Button'
+    }, options );
     var goPauseButton = this;
     var padX = 15;
     var padY = 10;
@@ -191,11 +196,7 @@ define( function( require ) {
     } );//red
 
     var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
-    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, {
-      top: 400,
-      focusable: true,
-      textDescription: 'Go Button'
-    } );
+    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {

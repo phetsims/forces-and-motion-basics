@@ -265,11 +265,19 @@ define( function( require ) {
     rightToolbox.addChild( rightPullerLayer );
 
     //Add the go button, but only if there is a puller attached
-    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width );
+    // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
+    var maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
+    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, {
+      maxWidth: maxWidth
+    } );
     this.addChild( goPauseButton );
 
     //Return button
-    this.addChild( new ReturnButton( model, { centerX: this.layoutBounds.centerX, top: goPauseButton.bottom + 5 } ) );
+    this.addChild( new ReturnButton( model, {
+      centerX: this.layoutBounds.centerX,
+      top: goPauseButton.bottom + 5,
+      maxWidth: maxWidth 
+    } ) );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
     this.addChild( this.leftArrow );
