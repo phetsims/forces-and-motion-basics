@@ -83,7 +83,6 @@ define( function( require ) {
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.position = options.position;//es5 setter
-        console.log( 'translating' );
       },
 
       //When picking up an object, remove it from the stack.
