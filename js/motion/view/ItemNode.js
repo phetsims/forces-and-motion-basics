@@ -40,13 +40,17 @@ define( function( require ) {
    * @constructor
    */
   function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, accessibleDescription ) {
+
     var itemNode = this;
     this.item = item;
-    Node.call( this, { x: item.position.x, y: item.position.y, scale: item.imageScale, cursor: 'pointer' } );
+    Node.call( this, { cursor: 'pointer' } );
     this.accessibleId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
+    // translate this node to the item's position
+    this.translate( item.position );
+
     //Create the node for the main graphic
-    var normalImageNode = new Image( normalImage );
+    var normalImageNode = new Image( normalImage, { scale: item.imageScale } );
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
@@ -121,11 +125,19 @@ define( function( require ) {
         weight: 'bold'
       } )
     } );
-    var roundRect = new Rectangle( 0, 0, massLabel.width + 10, massLabel.height + 10, 10, 10, {
+    var roundedRadius = 10;
+    var roundRect = new Rectangle( 0, 0, massLabel.width + roundedRadius, massLabel.height + roundedRadius, roundedRadius, roundedRadius, {
       fill: 'white',
       stroke: 'gray'
     } ).mutate( { centerX: massLabel.centerX, centerY: massLabel.centerY } );
-    var labelNode = new Node( { children: [ roundRect, massLabel ], scale: 1.0 / item.imageScale } );
+
+    // the label needs to be scaled back up after the image was scaled down
+    // normalize the maximum width to then restrict the labels for i18n 
+    var labelNode = new Node( { 
+      children: [ roundRect, massLabel ],
+      scale: 1.0 / item.imageScale,
+      maxWidth: normalImageNode.width + roundedRadius
+    } );
     this.labelNode = labelNode;
 
     //Update the position of the item
@@ -223,6 +235,9 @@ define( function( require ) {
 
       }
     } );
+
+  var testRect = new Rectangle( 0, 0, 15, 15, { fill: 'red' } );
+  this.addChild( testRect );
 
   }
 
