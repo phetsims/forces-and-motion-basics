@@ -12,6 +12,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
@@ -38,6 +39,7 @@ define( function( require ) {
   var ArrowButton = require( 'SCENERY_PHET/buttons/ArrowButton' );
   var Util = require( 'DOT/Util' );
   var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
@@ -47,6 +49,7 @@ define( function( require ) {
   var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
   var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+  var pattern0Name1ValueUnitsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnits' );
 
   /**
    * Constructor for the MotionScreenView
@@ -236,10 +239,12 @@ define( function( require ) {
     if ( model.accelerometer ) {
 
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
-      var labelAndAccelerometer = new VBox( {
-        pickable: false,
-        children: [ new Text( accelerationString, { font: new PhetFont( 18 ) } ), accelerometerNode ]
-      } );
+
+      // build up the string label for the acceleration
+      var labelString = StringUtils.format( pattern0Name1ValueUnitsString, accelerationString, model.accelerationProperty.value );
+      var labelText = new SubSupText( labelString, { font: new PhetFont( 18 ), supScale: 0.60, supYOffset: 2, maxWidth: accelerometerNode.width * 3 / 2 } );
+
+      // create the tick labels
       var tickLabel = function( label, tick ) {
         return new Text( label, {
           pickable: false,
@@ -248,14 +253,34 @@ define( function( require ) {
           top: tick.bottom + 27
         } );
       };
-      var accelerometerWithTickLabels = new Node( {
-        children: [ labelAndAccelerometer, tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
-          tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
-          tickLabel( '20', accelerometerNode.ticks[ 4 ] ) ], centerX: width / 2, y: 135, pickable: false
+      var tickLabels = new Node( { children: [
+        tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
+        tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
+        tickLabel( '20', accelerometerNode.ticks[ 4 ] )
+      ] } );
+
+      // put it all together in a VBox
+      var accelerometerWithTickLabels = new VBox( {
+        children: [ labelText, accelerometerNode, tickLabels ],
+        pickable: false,
+        y: 135
       } );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
+
+      // whenever showValues and accleration changes, update the label text
+      model.multilink( [ 'showValues', 'acceleration' ], function( showValues, acceleration ) {
+        if( showValues ) {
+          var accelerationValue = Util.toFixed( acceleration, 1 );
+          labelText.setText( StringUtils.format( pattern0Name1ValueUnitsString, accelerationString, accelerationValue ) );
+        }
+        else {
+          labelText.setText( accelerationString );
+        }
+        // re-center the accelerometer after text changes
+        accelerometerWithTickLabels.centerX = width / 2;
+      } );
     }
 
     // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
