@@ -46,6 +46,7 @@ define( function( require ) {
   var motionInterfaceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.interface.description' );
   var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
   var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
+  var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
 
   /**
    * Constructor for the MotionScreenView
@@ -237,7 +238,7 @@ define( function( require ) {
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
       var labelAndAccelerometer = new VBox( {
         pickable: false,
-        children: [ new Text( 'Acceleration', { font: new PhetFont( 18 ) } ), accelerometerNode ]
+        children: [ new Text( accelerationString, { font: new PhetFont( 18 ) } ), accelerometerNode ]
       } );
       var tickLabel = function( label, tick ) {
         return new Text( label, {
