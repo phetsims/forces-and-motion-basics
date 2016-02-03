@@ -163,7 +163,10 @@ define( function( require ) {
 
       start: function() {},
       end: function() {
-        model.appliedForce = 0;
+        // if the model is paused, the applied force should remain the same
+        if( model.playProperty.value ) {
+          model.appliedForce = 0;
+        }
       }
     } );
     this.addInputListener( listener );

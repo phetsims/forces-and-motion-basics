@@ -8,12 +8,15 @@ define( function( require ) {
 
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
   var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
@@ -231,9 +234,26 @@ define( function( require ) {
       listener: function() {
         model.reset();
       },
-      scale: 1.13
-    } ).mutate( { centerX: controlPanel.centerX, top: controlPanel.bottom + 5 } );
-    this.addChild( this.resetAllButton );
+      radius: 20
+    } );
+
+    // create the play, pause, and step buttons
+    var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 20 } );
+    var stepButton = new StepButton( function() { model.manualStep(); }, model.playProperty, { radius: 15 } );
+
+    // play, step, and reset buttons in an HBox centered below the control panel
+    var playPauseStepHBox = new HBox( {
+      children: [ playPauseButton, stepButton ],
+      spacing: 5
+    } );
+
+    var playControlsHBox = new HBox( {
+      children: [ playPauseStepHBox, this.resetAllButton ],
+      centerTop: controlPanel.centerBottom.plusXY( 0, 5 ),
+      spacing: 20
+    } );
+
+    this.addChild( playControlsHBox );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {

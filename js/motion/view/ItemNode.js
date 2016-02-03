@@ -236,8 +236,8 @@ define( function( require ) {
       }
     } );
 
-  var testRect = new Rectangle( 0, 0, 15, 15, { fill: 'red' } );
-  this.addChild( testRect );
+  // var testRect = new Rectangle( 0, 0, 15, 15, { fill: 'red' } );
+  // this.addChild( testRect );
 
   }
 

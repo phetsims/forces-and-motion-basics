@@ -79,7 +79,10 @@ define( function( require ) {
 
       //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
       //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
-      stackSize: 1
+      stackSize: 1,
+
+      // is the sim running or paused?
+      play: true
     } );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
@@ -208,8 +211,12 @@ define( function( require ) {
              this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
     },
 
-    //Update the physics
-    step: function( dt ) {
+    /**
+     * Step function for this model, function of the time step.  Called by step and manualStep functions below.
+     *
+     * @param {number} dt - time step
+     */
+    stepModel: function( dt ) {
 
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
       dt = dt / 2.3;
@@ -283,6 +290,21 @@ define( function( require ) {
       }
 
       this.trigger( 'stepped' );
+    },
+
+    //Update the physics
+    step: function( dt ) {
+      if( this.play ) {
+        this.stepModel( dt );
+      }
+    },
+
+    /**
+     * Manually step the model by a small time step.  This function is used by the 'step' button under
+     * the control panel.  Assumes 60 frames per second.
+     */
+    manualStep: function() {
+      this.stepModel( 1 / 60 );
     },
 
     //Determine whether an item is in the stack.
