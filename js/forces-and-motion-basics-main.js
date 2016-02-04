@@ -10,10 +10,8 @@ define( function( require ) {
 
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var ForcesAndMotionBasicsSim = require( 'FORCES_AND_MOTION_BASICS/ForcesAndMotionBasicsSim' );
-  var forcesAndMotionBasicsAPI = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasicsAPI' );
 
   var simOptions = {
-    api: forcesAndMotionBasicsAPI,
     credits: {
       leadDesign: 'Ariel Paul, Noah Podolefsky',
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
