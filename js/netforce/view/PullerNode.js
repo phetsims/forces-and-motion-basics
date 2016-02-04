@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Create a PullerNode for the specified puller
@@ -208,6 +209,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  forcesAndMotionBasics.register( 'PullerNode', PullerNode );
 
   return inherit( Image, PullerNode, {
 

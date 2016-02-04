@@ -15,6 +15,7 @@ define( function( require ) {
   var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
   var Vector2 = require( 'DOT/Vector2' );
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor for the net force model.
@@ -96,6 +97,8 @@ define( function( require ) {
     this.numberPullersAttachedProperty.link( function() {netForceModel.leftForce = netForceModel.getLeftForce();} );
     this.numberPullersAttachedProperty.link( function() {netForceModel.rightForce = netForceModel.getRightForce();} );
   }
+
+  forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
 
   return inherit( PropertySet, NetForceModel, {
 

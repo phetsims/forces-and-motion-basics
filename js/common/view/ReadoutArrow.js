@@ -17,6 +17,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forceReadoutPatternString = require( 'string!FORCES_AND_MOTION_BASICS/forceReadout.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
@@ -62,6 +63,8 @@ define( function( require ) {
     //Update when the numeric readout visibility is toggled
     showValuesProperty.link( this.update.bind( this ) );
   }
+
+  forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
 
   return inherit( Node, ReadoutArrow, {
 

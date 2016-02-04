@@ -20,6 +20,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
   var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );
@@ -228,6 +229,8 @@ define( function( require ) {
       }
     } );
   }
+
+  forcesAndMotionBasics.register( 'GoPauseButton', GoPauseButton );
 
   return inherit( ToggleNode, GoPauseButton );
 } );

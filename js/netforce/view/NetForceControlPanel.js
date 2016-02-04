@@ -19,6 +19,7 @@ define( function( require ) {
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Create the NetForceControlPanel.
@@ -62,5 +63,8 @@ define( function( require ) {
     } ) );
   }
 
+  forcesAndMotionBasics.register( 'NetForceControlPanel', NetForceControlPanel );
+
   return inherit( Node, NetForceControlPanel );
+
 } );

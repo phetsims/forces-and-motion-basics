@@ -13,6 +13,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // images
   var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
@@ -67,6 +68,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'CartNode', CartNode );
 
   return inherit( Image, CartNode, {
 

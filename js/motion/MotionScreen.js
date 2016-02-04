@@ -13,6 +13,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' );
   var MotionScreenView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionScreenView' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    *
@@ -23,6 +24,8 @@ define( function( require ) {
       function() {return new MotionModel( style );},
       function( model ) {return new MotionScreenView( model );} );
   }
+
+  forcesAndMotionBasics.register( 'MotionScreen', MotionScreen );
 
   return inherit( Screen, MotionScreen, {
     getState: function() {

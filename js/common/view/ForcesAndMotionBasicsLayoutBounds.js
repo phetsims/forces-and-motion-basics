@@ -14,6 +14,11 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  return new Bounds2( 0, 0, 981, 604 );
+  var ForcesAndMotionBasicsLayoutBounds = new Bounds2( 0, 0, 981, 604 );
+
+  forcesAndMotionBasics.register( 'ForcesAndMotionBasicsLayoutBounds', ForcesAndMotionBasicsLayoutBounds );
+
+  return ForcesAndMotionBasicsLayoutBounds;
 } );

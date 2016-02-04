@@ -34,6 +34,7 @@ define( function( require ) {
   var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -408,6 +409,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'NetForceScreenView', NetForceScreenView );
 
   return inherit( ScreenView, NetForceScreenView );
 } );

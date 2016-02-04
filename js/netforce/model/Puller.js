@@ -11,6 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    *
@@ -81,6 +82,8 @@ define( function( require ) {
       puller.textDescription = pullerDescription + (newKnot ? '. attached to a knot on the rope' : '');
     } );
   }
+
+  forcesAndMotionBasics.register( 'Puller', Puller );
 
   return inherit( PropertySet, Puller, {
 

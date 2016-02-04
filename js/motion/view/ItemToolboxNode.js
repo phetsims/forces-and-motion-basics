@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // constants
   var defaultStroke = 'black';
@@ -66,6 +67,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'ItemToolboxNode', ItemToolboxNode );
 
   return inherit( Rectangle, ItemToolboxNode, {
 

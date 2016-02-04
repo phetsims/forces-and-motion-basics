@@ -16,6 +16,7 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // constants
   var knotWidth = 20;
@@ -132,6 +133,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'KnotHighlightNode', KnotHighlightNode );
 
   return inherit( Path, KnotHighlightNode, {
 

@@ -11,6 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.
@@ -35,6 +36,7 @@ define( function( require ) {
     this.y = 285;
   }
 
+  forcesAndMotionBasics.register( 'Knot', Knot );
   return inherit( PropertySet, Knot, {
     get position() {
       return new Vector2( this.x, this.y );

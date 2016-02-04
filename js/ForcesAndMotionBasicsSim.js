@@ -16,6 +16,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var MotionScreen = require( 'FORCES_AND_MOTION_BASICS/motion/MotionScreen' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // images
   var TugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
@@ -60,6 +61,8 @@ define( function( require ) {
       ],
       options );
   }
+
+  forcesAndMotionBasics.register( 'ForcesAndMotionBasicsSim', ForcesAndMotionBasicsSim );
 
   return inherit( Sim, ForcesAndMotionBasicsSim );
 } );

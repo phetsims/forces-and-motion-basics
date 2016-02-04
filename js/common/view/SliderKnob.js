@@ -13,6 +13,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   function SliderKnob( options ) {
 
@@ -45,6 +46,8 @@ define( function( require ) {
     //Make sure the slider knob is perfectly centered on the tick marks.  Not sure why this workaround is necessary, but it seems to perfectly center the knob.
     this.translate( 1, 0 );
   }
+
+  forcesAndMotionBasics.register( 'SliderKnob', SliderKnob );
 
   return inherit( Node, SliderKnob, {
     addGripDot: function( x, y ) {

@@ -32,6 +32,7 @@ define( function( require ) {
   var pusherImage14 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_14.png' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor for PusherNode
@@ -182,6 +183,8 @@ define( function( require ) {
       }
     } );
   }
+
+  forcesAndMotionBasics.register( 'PusherNode', PusherNode );
 
   return inherit( Node, PusherNode );
 } );

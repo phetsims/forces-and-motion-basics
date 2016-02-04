@@ -14,6 +14,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   //Constructor for the AccelerometerNode
   function AccelerometerNode( accelerationProperty, options ) {
@@ -69,6 +70,8 @@ define( function( require ) {
 
     this.mutate( options );
   }
+
+  forcesAndMotionBasics.register( 'AccelerometerNode', AccelerometerNode );
 
   return inherit( Node, AccelerometerNode, {
     addTick: function( child ) {

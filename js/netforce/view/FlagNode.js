@@ -17,6 +17,7 @@ define( function( require ) {
   var redWinsString = require( 'string!FORCES_AND_MOTION_BASICS/redWins' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
   var leftSideWinsDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/leftSideWins.description' );
@@ -89,6 +90,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'FlagNode', FlagNode );
 
   return inherit( Node, FlagNode, {
 

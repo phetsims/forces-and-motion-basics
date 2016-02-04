@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor.
@@ -74,6 +75,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'KnotFocusRegion', KnotFocusRegion );
 
   return inherit( Rectangle, KnotFocusRegion, {
     /**

@@ -43,7 +43,9 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
   // strings
@@ -477,6 +479,8 @@ define( function( require ) {
     this.accessibleOrder = [ leftItemToolboxNode, rightItemToolboxNode ];
 
   }
+
+  forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );
 
   return inherit( ScreenView, MotionScreenView, {
 

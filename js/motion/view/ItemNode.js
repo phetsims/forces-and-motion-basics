@@ -20,6 +20,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
   var massDisplayPatternString = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
@@ -240,6 +241,8 @@ define( function( require ) {
   // this.addChild( testRect );
 
   }
+
+  forcesAndMotionBasics.register( 'ItemNode', ItemNode );
 
   return inherit( Node, ItemNode );
 } );

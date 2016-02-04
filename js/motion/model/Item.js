@@ -12,6 +12,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   function Item( context, name, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage, mystery ) {
     var item = this;
@@ -60,6 +61,8 @@ define( function( require ) {
       }
     } );
   }
+
+  forcesAndMotionBasics.register( 'Item', Item );
 
   return inherit( PropertySet, Item, {
 

@@ -10,11 +10,14 @@ define( function( require ) {
 
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   //Cart constructor
   function Cart() {
     PropertySet.call( this, { x: 0, v: 0 } );//Position and velocity are in MKS
   }
+
+  forcesAndMotionBasics.register( 'Cart', Cart );
 
   return inherit( PropertySet, Cart );
 } );

@@ -8,7 +8,9 @@
 define( function() {
   'use strict';
 
-  return {
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+
+  var MotionConstants = {
 
     //The scale mapping between model units (meters) and stage coordinates, How much to translate model coordinates into view pixels for translating the background ground
     POSITION_SCALE: 40,
@@ -19,4 +21,8 @@ define( function() {
     //Maximum speed in meters/second before the pusher falls down
     MAX_SPEED: 20
   };
+
+  forcesAndMotionBasics.register( 'MotionConstants', MotionConstants );
+
+  return MotionConstants;
 } );

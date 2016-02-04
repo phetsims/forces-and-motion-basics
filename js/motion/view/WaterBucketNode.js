@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
   var linear = require( 'DOT/Util' ).linear;
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * WaterBucketNode constructor
@@ -84,6 +85,8 @@ define( function( require ) {
       water.shape = path;
     } );
   }
+
+  forcesAndMotionBasics.register( 'WaterBucketNode', WaterBucketNode );
 
   return inherit( ItemNode, WaterBucketNode );
 } );

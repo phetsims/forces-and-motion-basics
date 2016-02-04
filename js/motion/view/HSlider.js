@@ -24,6 +24,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Input = require( 'SCENERY/input/Input' );
   var Util = require( 'DOT/Util' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor for HSlider
@@ -168,6 +169,8 @@ define( function( require ) {
     //Update layout and settings for Node
     this.mutate( options );
   }
+
+  forcesAndMotionBasics.register( 'HSlider', HSlider );
 
   return inherit( Node, HSlider, {
 

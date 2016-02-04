@@ -36,6 +36,7 @@ define( function( require ) {
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Main constructor for MotionControlPanel
@@ -155,5 +156,8 @@ define( function( require ) {
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
   }
 
+  forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
+
   return inherit( Node, MotionControlPanel );
+
 } );

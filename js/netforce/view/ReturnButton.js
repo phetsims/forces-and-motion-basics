@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
@@ -79,6 +80,8 @@ define( function( require ) {
       }
     };
   }
+
+  forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
 
   return inherit( Node, ReturnButton );
 } );

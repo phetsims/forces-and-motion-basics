@@ -25,6 +25,7 @@ define( function( require ) {
   var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-holding.png' );
   var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor for the motion model
@@ -117,6 +118,8 @@ define( function( require ) {
       }
     } );
   }
+
+  forcesAndMotionBasics.register( 'MotionModel', MotionModel );
 
   return inherit( PropertySet, MotionModel, {
 
