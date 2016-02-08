@@ -112,7 +112,9 @@ define( function( require ) {
     function updateAppliedForcePosition() {
       assert && assert( model.stack.length > 0 );
       var pusherY = 362 - visibleNode.height;
-      var delta = model.stack.get( 0 ).view.width / 2 - model.stack.get( 0 ).pusherInset;
+      var item = model.stack.get( 0 );
+      var scaledWidth = item.view.normalImageNode.width * item.getCurrentScale();
+      var delta = scaledWidth / 2 - item.pusherInset;
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }
