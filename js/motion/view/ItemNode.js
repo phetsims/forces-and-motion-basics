@@ -150,7 +150,6 @@ define( function( require ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
-      console.log( scale );
       normalImageNode.setMatrix(  IDENTITY );
       if ( direction === 'right' ) {
         normalImageNode.scale( -1, 1 );
