@@ -340,7 +340,8 @@ define( function( require ) {
       var itemNode = view.itemNodes[ 1 ];
       item.animating = { enabled: false, x: 0, y: 0, end: null };
       item.interactionScale = 1.3;
-      item.position = new Vector2( view.layoutBounds.width / 2 - itemNode.width / 2, view.topOfStack - itemNode.height );
+      var scaledWidth = this.view.getSize( item ).width;
+      item.position = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );
       this.stack.add( item );
     },
 

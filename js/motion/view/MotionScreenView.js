@@ -499,7 +499,11 @@ define( function( require ) {
       return n - this.stackHeight;
     },
 
-    //Get the size of an item
-    getSize: function( item ) { return { width: item.view.width, height: item.view.height }; }
+    //Get the size of an item's image.  Dependent on the current scale of the image. 
+    getSize: function( item ) {
+      // get the current scale for the element and apply it to the image
+      var scaledWidth = item.view.normalImageNode.width * item.getCurrentScale();
+      return { width: scaledWidth, height: item.view.height };
+    }
   } );
 } );

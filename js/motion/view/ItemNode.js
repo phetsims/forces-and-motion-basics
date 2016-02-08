@@ -44,14 +44,15 @@ define( function( require ) {
 
     var itemNode = this;
     this.item = item;
-    Node.call( this, { cursor: 'pointer' } );
+    Node.call( this, { cursor: 'pointer', scale: item.imageScale } );
     this.accessibleId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
     // translate this node to the item's position
     this.translate( item.position );
 
     //Create the node for the main graphic
-    var normalImageNode = new Image( normalImage, { scale: item.imageScale } );
+    var normalImageNode = new Image( normalImage );
+    this.normalImageNode = normalImageNode;
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
@@ -79,7 +80,8 @@ define( function( require ) {
     //When the user drags the object, start
     var moveToStack = function() {
       item.onBoard = true;
-      item.animateTo( motionView.layoutBounds.width / 2 - itemNode.width / 2 + item.centeringOffset, motionView.topOfStack - itemNode.height, 'stack' );
+      var imageWidth = item.getCurrentScale() * normalImageNode.width;
+      item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - itemNode.height, 'stack' );
       model.stack.add( item );
       if ( model.stack.length > 3 ) {
         model.spliceStackBottom();
@@ -136,8 +138,7 @@ define( function( require ) {
     // normalize the maximum width to then restrict the labels for i18n 
     var labelNode = new Node( { 
       children: [ roundRect, massLabel ],
-      scale: 1.0 / item.imageScale,
-      maxWidth: normalImageNode.width + roundedRadius
+      scale: 1.0 / item.imageScale
     } );
     this.labelNode = labelNode;
 
@@ -149,12 +150,14 @@ define( function( require ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
-      normalImageNode.setMatrix( IDENTITY );
+      console.log( scale );
+      normalImageNode.setMatrix(  IDENTITY );
       if ( direction === 'right' ) {
         normalImageNode.scale( -1, 1 );
 
-        //TODO: I'm not sure why there is an extra 16 pixels in this direction, but it seems necessary to center the images
-        normalImageNode.translate( -itemNode.width * scale + 16, 0 );
+        //TODO: I'm not sure why there is an extra 20 pixels in this direction, but it seems necessary to center the images
+        var imageWidth = normalImageNode.width * item.getCurrentScale();
+        normalImageNode.translate( -imageWidth - 20, 0 );
       }
     } );
     item.onBoardProperty.link( updateImage );
@@ -237,7 +240,7 @@ define( function( require ) {
       }
     } );
 
-  // var testRect = new Rectangle( 0, 0, 15, 15, { fill: 'red' } );
+  // var testRect = new Rectangle( 0, 0, normalImageNode.width, normalImageNode.height, { fill: 'red' } );
   // this.addChild( testRect );
 
   }

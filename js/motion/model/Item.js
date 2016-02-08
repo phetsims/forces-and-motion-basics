@@ -76,6 +76,15 @@ define( function( require ) {
       return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
     },
 
+    /**
+     * Get the current scale for the Item.  The Item has two scales, imageScale and interactionScale.
+     * The current scale is the product of these two scales.  This is used throughout the simulation, primarily
+     * for transformations.
+     */
+    getCurrentScale: function() {
+      return this.imageScale * this.interactionScale;
+    },
+
     //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
       this.animating = { enabled: true, x: x, y: y, destination: destination };
