@@ -204,10 +204,10 @@ define( function( require ) {
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     //Use Tween.JS to smoothly animate
     var itemsCenteredProperty = new Property( true );
+    var stackHeightThreshold = 160;
     model.stack.lengthProperty.link( function() {
 
       //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
-      var stackHeightThreshold = 160;
       if ( motionView.stackHeight > stackHeightThreshold && itemsCenteredProperty.value ) {
         itemsCenteredProperty.value = false;
         new TWEEN.Tween( speedometerNode ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
@@ -300,8 +300,14 @@ define( function( require ) {
         else {
           labelText.setText( accelerationString );
         }
+
         // re-center the accelerometer after text changes
-        accelerometerWithTickLabels.centerX = width / 2;
+        if( motionView.stackHeight > stackHeightThreshold ) {
+          accelerometerWithTickLabels.centerX = 300;
+        }
+        else if ( motionView.stackHeight <= stackHeightThreshold ) {
+          accelerometerWithTickLabels.centerX = width / 2;
+        }
       } );
     }
 
