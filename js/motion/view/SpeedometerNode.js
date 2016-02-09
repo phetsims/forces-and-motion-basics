@@ -1,0 +1,96 @@
+// Copyright 2013-2015, University of Colorado Boulder
+
+/**
+ * Speedometer used in Forces and Motion: Basics.  This is a typical gauge node with a value readout near the bottom.
+ *
+ * @author Sam Reid
+ * @author Jesse Greenberg
+ */
+define( function( require ) {
+  'use strict';
+
+  //modules
+  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Util = require( 'DOT/Util' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  // strings
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  var pattern0Name1ValueUnitsVelocityString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsVelocity' );
+
+  /**
+   * Constructor.
+   *
+   * @param {Property.<number>} velocityProperty
+   * @param {Property.<number>} showSpeedProperty
+   * @param {Property.<boolean>} showSpeedProperty
+   * @param {Object} options
+   * @constructor
+   */
+  function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, options ) {
+
+    options = _.extend( {
+      radius: 67
+    }, options );
+
+    //Create the speedometer.  Specify the location after construction so we can set the 'top'
+    Node.call( this );
+
+    var gaugeNode = new GaugeNode( velocityProperty, speedString, {
+      min: 0,
+      max: MotionConstants.MAX_SPEED
+    } );
+    this.addChild( gaugeNode );
+
+    // create a value readout inside of a panel
+    var maxSpeed = Util.toFixed( -MotionConstants.MAX_SPEED, 1 );
+    var valueString = StringUtils.format( pattern0Name1ValueUnitsVelocityString, maxSpeed );
+    var valueText = new Text( valueString, { font: new PhetFont( 16 ), maxWidth: options.radius } );
+    this.addChild( valueText );
+
+    // place valueText inside of a background rectangle
+    var cornerRadius = 5;
+    var valueRectangle = new Rectangle( valueText.bounds.dilated( 2 ), cornerRadius, cornerRadius, {
+      lineWidth: 1,
+      stroke: 'black'
+    } );
+    this.addChild( valueRectangle );
+
+    // update the value whenever the property changes, and reset layout
+    var updateReadout = function( value ) {
+      // the readout needs to have one decimal
+      var readoutValue = Util.toFixed( value, 1 );
+      valueText.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
+
+      valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
+      valueText.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
+
+    };
+    velocityProperty.link( function( velocity ) {
+      updateReadout( velocity );
+    } );
+
+
+    this.addChild( valueRectangle );
+
+    // dispose unnecessary, SpeedometerNode exists for the lifetime of the sim
+    showSpeedProperty.linkAttribute( this, 'visible' );
+    showValuesProperty.linkAttribute( valueRectangle, 'visible' );
+
+    // mutate post node construction so we can correctly translate
+    this.mutate( options );
+
+  }
+
+  forcesAndMotionBasics.register( 'SpeedometerNode', SpeedometerNode );
+
+  return inherit( Node, SpeedometerNode, {} );
+
+} );

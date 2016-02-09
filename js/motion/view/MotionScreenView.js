@@ -6,7 +6,6 @@
 define( function( require ) {
   'use strict';
 
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
@@ -24,11 +23,11 @@ define( function( require ) {
   var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
   var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
   var newtonsString = require( 'string!FORCES_AND_MOTION_BASICS/newtons' );
-  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
-  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  // var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
@@ -54,7 +53,7 @@ define( function( require ) {
   var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
   var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
-  var pattern0Name1ValueUnitsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnits' );
+  var pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
 
   /**
    * Constructor for the MotionScreenView
@@ -195,11 +194,10 @@ define( function( require ) {
     model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new GaugeNode( model.velocityProperty, speedString, {
-      min: 0,
-      max: MotionConstants.MAX_SPEED
-    }, { x: width / 2, top: 2 } );
-    model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
+    var speedometerNode = new SpeedometerNode( model.velocityProperty, model.showSpeedProperty, model.showValuesProperty, {
+      x: width / 2,
+      top: 2
+    } );
 
     //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
     //Use Tween.JS to smoothly animate
@@ -263,7 +261,7 @@ define( function( require ) {
       var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
 
       // build up the string label for the acceleration
-      var labelString = StringUtils.format( pattern0Name1ValueUnitsString, accelerationString, model.accelerationProperty.value );
+      var labelString = StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, model.accelerationProperty.value );
       var labelText = new SubSupText( labelString, { font: new PhetFont( 18 ), supScale: 0.60, supYOffset: 2, maxWidth: accelerometerNode.width * 3 / 2 } );
 
       // create the tick labels
@@ -295,7 +293,7 @@ define( function( require ) {
       model.multilink( [ 'showValues', 'acceleration' ], function( showValues, acceleration ) {
         if( showValues ) {
           var accelerationValue = Util.toFixed( acceleration, 1 );
-          labelText.setText( StringUtils.format( pattern0Name1ValueUnitsString, accelerationString, accelerationValue ) );
+          labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
         }
         else {
           labelText.setText( accelerationString );
@@ -388,7 +386,7 @@ define( function( require ) {
     } );
 
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {
-      labelPosition: 'top',
+      labelPosition: 'side',
       arrowScale: arrowScale
     } );
     model.multilink( [ 'showForce', 'showSumOfForces' ], function( showForce, showSumOfForces ) {

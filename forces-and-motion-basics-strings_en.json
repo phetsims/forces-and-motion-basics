@@ -54,8 +54,11 @@
   "acceleration": {
     "value": "Acceleration"
   },
-  "pattern.0name.1valueUnits": {
+  "pattern.0name.1valueUnitsAcceleration": {
     "value": "{0}: {1} m/s<sup>2</sup>"
+  },
+  "pattern.0name.1valueUnitsVelocity": {
+    "value": "{0} m/s"
   },
   "lots": {
     "value": "Lots"
