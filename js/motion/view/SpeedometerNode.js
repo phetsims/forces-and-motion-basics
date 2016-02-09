@@ -40,16 +40,17 @@ define( function( require ) {
       radius: 67
     }, options );
 
-    //Create the speedometer.  Specify the location after construction so we can set the 'top'
+    // mutate with the options after construction so we can set the 'top'
     Node.call( this );
 
+    // create the gaugenode
     var gaugeNode = new GaugeNode( velocityProperty, speedString, {
       min: 0,
       max: MotionConstants.MAX_SPEED
     } );
     this.addChild( gaugeNode );
 
-    // create a value readout inside of a panel
+    // create a value readout inside of a panel, maxSpeed for max bounds for layout calculations
     var maxSpeed = Util.toFixed( -MotionConstants.MAX_SPEED, 1 );
     var valueString = StringUtils.format( pattern0Name1ValueUnitsVelocityString, maxSpeed );
     var valueText = new Text( valueString, { font: new PhetFont( 16 ), maxWidth: options.radius } );
@@ -71,18 +72,16 @@ define( function( require ) {
 
       valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
       valueText.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
-
     };
+
+    // dispose unnecessary for property links, SpeedometerNode exists for the lifetime of the sim
+    showSpeedProperty.linkAttribute( this, 'visible' );
+    showValuesProperty.linkAttribute( valueRectangle, 'visible' );
+    showValuesProperty.linkAttribute( valueText, 'visible' );
+
     velocityProperty.link( function( velocity ) {
       updateReadout( velocity );
     } );
-
-
-    this.addChild( valueRectangle );
-
-    // dispose unnecessary, SpeedometerNode exists for the lifetime of the sim
-    showSpeedProperty.linkAttribute( this, 'visible' );
-    showValuesProperty.linkAttribute( valueRectangle, 'visible' );
 
     // mutate post node construction so we can correctly translate
     this.mutate( options );
@@ -91,6 +90,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'SpeedometerNode', SpeedometerNode );
 
-  return inherit( Node, SpeedometerNode, {} );
+  return inherit( Node, SpeedometerNode );
 
 } );
