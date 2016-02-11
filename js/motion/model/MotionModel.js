@@ -225,12 +225,6 @@ define( function( require ) {
       dt = dt / 2.3;
       this.time = this.time + dt;
 
-      //Computes the new forces and sets them to the corresponding properties
-      //The first part of stepInTime is to compute and set the forces.  But this is factored out because the forces must also be updated
-      //When the user changes the friction force or mass while the sim is paused.
-      this.frictionForce = this.getFrictionForce( this.appliedForce );
-      this.sumOfForces = this.frictionForce + this.appliedForce;
-
       var mass = this.getStackMass();
       this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
 
@@ -288,11 +282,17 @@ define( function( require ) {
         this.fallen = false;
       }
 
-      this.trigger( 'stepped' );
     },
 
     //Update the physics
     step: function( dt ) {
+      // Computes the new forces and sets them to the corresponding properties
+      // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
+      // also be updated when the user changes the friction force or mass while the sim is paused.
+      this.frictionForce = this.getFrictionForce( this.appliedForce );
+      this.sumOfForces = this.frictionForce + this.appliedForce;
+
+      console.log( this.sumOfForces );
       if( this.play ) {
         this.stepModel( dt );
       }
@@ -302,6 +302,8 @@ define( function( require ) {
         this.items[ i ].step( dt );
       }
 
+      // notify that the sim has stepped to calculate forces.  This needs to update even when the sim is paused.
+      this.trigger( 'stepped' );
     },
 
     /**
