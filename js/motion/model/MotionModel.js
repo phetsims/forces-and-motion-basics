@@ -286,6 +286,7 @@ define( function( require ) {
 
     //Update the physics
     step: function( dt ) {
+      
       // Computes the new forces and sets them to the corresponding properties
       // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
       // also be updated when the user changes the friction force or mass while the sim is paused.
