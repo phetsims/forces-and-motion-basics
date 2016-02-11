@@ -283,10 +283,6 @@ define( function( require ) {
         this.speedClassification = this.previousSpeedClassification;
       }
 
-      for ( var i = 0; i < this.items.length; i++ ) {
-        this.items[ i ].step( dt );
-      }
-
       //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
       if ( this.appliedForce !== 0 ) {
         this.fallen = false;
@@ -300,6 +296,12 @@ define( function( require ) {
       if( this.play ) {
         this.stepModel( dt );
       }
+
+      // step all model items so that they are interactive while paused
+      for ( var i = 0; i < this.items.length; i++ ) {
+        this.items[ i ].step( dt );
+      }
+
     },
 
     /**
