@@ -293,7 +293,6 @@ define( function( require ) {
       this.frictionForce = this.getFrictionForce( this.appliedForce );
       this.sumOfForces = this.frictionForce + this.appliedForce;
 
-      console.log( this.sumOfForces );
       if( this.play ) {
         this.stepModel( dt );
       }
