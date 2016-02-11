@@ -283,7 +283,7 @@ define( function( require ) {
       var accelerometerWithTickLabels = new VBox( {
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
-        y: 140
+        y: 137
       } );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
