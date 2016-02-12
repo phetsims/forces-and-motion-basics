@@ -119,6 +119,11 @@ define( function( require ) {
       lineWidth: 1
     } );
 
+    // create and add the rope node as an image
+    this.ropeNode = new Image( ropeImage, { x: 51, y: 273 } );
+    this.addChild( this.ropeNode );
+
+    // create the toolboxes that hold the puller children
     var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', bluePullerGroupDescriptionString );
     var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', redPullerGroupDescriptionString );
     this.addChild( leftToolbox );
@@ -157,10 +162,6 @@ define( function( require ) {
     } );
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
-
-    this.ropeNode = new Image( ropeImage, { x: 51, y: 273 } );
-
-    this.addChild( this.ropeNode );
 
     this.model.cart.xProperty.link( function( x ) {
       netForceScreenView.cartNode.x = x + 412;
