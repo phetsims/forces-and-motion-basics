@@ -62,9 +62,11 @@ define( function( require ) {
     } );
 
     model.startedProperty.link( function() {
+      pullerNode.updateImage( puller, model );
       pullerNode.updateLocation( puller, model );
     } );
     puller.positionProperty.link( function() {
+      pullerNode.updateImage( puller, model );
       pullerNode.updateLocation( puller, model );
     } );
 
@@ -78,33 +80,36 @@ define( function( require ) {
 
     model.startedProperty.link( function() {
       pullerNode.updateImage( puller, model );
+      pullerNode.updateLocation( puller, model );
     } );
     model.runningProperty.link( function() {
       pullerNode.updateImage( puller, model );
+      pullerNode.updateLocation( puller, model );
     } );
 
     pullerNode.addInputListener( new SimpleDragHandler(
       {
         allowTouchSnag: true,
         start: function() {
+
+          // check to see if a puller is knotted - if it is, store the knot
           var knot = puller.knot;
+
+          // disconnect the puller from the knot and update the image
           puller.disconnect();
-          puller.dragging = true;
-          pullerNode.moveToFront(); // TODO: breaks pooling of AccessibleInstance, usnure about dispose function.
-          puller.trigger( 'dragged' );
           pullerNode.updateImage( puller, model );
 
-          //Hack around the puller position, which seems to be broken for blue pullers for unknown reasons
-          if ( knot && puller.type === 'blue' ) {
-            puller.position = puller.position.plusXY(
-              puller.size === 'small' ? -50 :
-              puller.size === 'medium' ? -30 :
-              -40,
-              puller.size === 'small' ? -30 :
-              puller.size === 'medium' ? -90 :
-              -140 );
+          // if the puller was knotted, update the image location so that it is centered on the knot it was previously
+          // grabbing
+          if( knot ) {
+            pullerNode.updateLocationKnotted( puller, model, knot );
           }
-          pullerNode.updateLocation( puller, model );
+
+          // fire updates
+          puller.dragging = true;
+          pullerNode.moveToFront();
+          puller.trigger( 'dragged' );
+
         },
         end: function() {
           pullerNode.updateLocation( puller, model );
@@ -113,6 +118,7 @@ define( function( require ) {
           pullerNode.updateImage( puller, model );
         },
         translate: function( event ) {
+          pullerNode.updateImage( puller, model );
           pullerNode.puller.position = event.position;
         }
       } ) );
@@ -214,21 +220,25 @@ define( function( require ) {
 
   return inherit( Image, PullerNode, {
 
+    /**
+     * Update the location of the puller immediately after it has been clicked on after being removed from a knot
+     * position.  Sets the translation of the puller relative to its previous knot position.  This knot position is
+     * lost in updateLocation because the puller has already been disconnected from the knot by the time those functions
+     * are called.
+     *
+     * @param {Puller} puller
+     * @param {NetForceModel} model
+     * @param {Knot} knot - the last knot that the puller was holding on to
+     */
+    updateLocationKnotted: function( puller, model, knot ) {
+      var blueOffset = this.puller.type === 'blue' ? -60 : 0;
+      this.setTranslation( knot.x + blueOffset, knot.y - this.height + 90 );
+    },
+
     updateImage: function( puller, model ) {
       var knotted = puller.knot;
       var pulling = model.started && knotted;
       this.image = pulling ? this.pullImage : this.standImage;
-
-      //Reshape the focus rect when image changes
-      //This was copied from updateLocation above to solve https://github.com/phetsims/forces-and-motion-basics/issues/55
-      if ( knotted ) {
-        var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
-        var blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-        this.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - this.height + 90 );
-      }
-      else {
-        this.setTranslation( puller.position );
-      }
     },
 
     updateLocation: function( puller, model ) {
