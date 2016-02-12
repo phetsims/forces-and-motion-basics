@@ -140,7 +140,8 @@ define( function( require ) {
     model.appliedForceProperty.link( function( appliedForce ) {
 
       //Must match the other formatters below, see roundedAppliedForceProperty near the creation of the ReadoutArrows
-      var numberText = parseInt( Util.roundSymmetric( appliedForce ).toFixed( 0 ), 10 ).toFixed( 0 );
+      var roundedValue = Util.toFixed( Util.roundSymmetric( appliedForce ), 0 );
+      var numberText = Util.toFixed( parseInt( roundedValue, 10 ), 0 );
 
       //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
       if ( numberText === '-0' ) { numberText = '0'; }

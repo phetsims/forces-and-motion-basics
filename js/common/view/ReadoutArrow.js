@@ -17,6 +17,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forceReadoutPatternString = require( 'string!FORCES_AND_MOTION_BASICS/forceReadout.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
@@ -56,7 +57,8 @@ define( function( require ) {
     //Update when the value changes
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
-      readoutArrow.valueNode.text = StringUtils.format( forceReadoutPatternString, Math.round( Math.abs( value ) ).toFixed( 0 ) );
+      var roundedValue = Util.toFixed( Math.abs( value ), 0 );
+      readoutArrow.valueNode.text = StringUtils.format( forceReadoutPatternString, roundedValue );
       readoutArrow.update();
     } );
 

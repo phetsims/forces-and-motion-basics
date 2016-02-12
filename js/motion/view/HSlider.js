@@ -196,7 +196,7 @@ define( function( require ) {
         slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
         slider.ticksLayer.addChild( tick );
         if ( hasLabel( i ) ) {
-          var label = new Text( linear( 0, 1, slider.min, slider.max, i / (numTicks - 1) ).toFixed( 0 ), {
+          var label = new Text( linear( 0, 1, slider.min, slider.max, i / Util.toFixed( (numTicks - 1), 0 ) ), {
             pickable: false,
             centerX: tick.centerX,
             bottom: tick.top,
