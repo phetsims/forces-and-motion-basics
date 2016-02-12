@@ -181,7 +181,10 @@ define( function( require ) {
 
     //Given a puller, returns a function that computes the distance between that puller and any knot
     getKnotPullerDistance: function( puller ) {
-      var dx = puller.type === 'red' ? 0 : -50;
+
+      // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
+      // placing the blue pullers
+      var dx = puller.type === 'red' ? 0 : -40;
       return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
     },
 
