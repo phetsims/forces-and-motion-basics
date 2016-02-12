@@ -15,7 +15,7 @@ define( function( require ) {
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-
+  var Vector2 = require( 'DOT/Vector2' );
   /**
    * Create a PullerNode for the specified puller
    *
@@ -90,7 +90,7 @@ define( function( require ) {
     pullerNode.addInputListener( new SimpleDragHandler(
       {
         allowTouchSnag: true,
-        start: function() {
+        start: function( event ) {
 
           // check to see if a puller is knotted - if it is, store the knot
           var knot = puller.knot;
@@ -99,17 +99,16 @@ define( function( require ) {
           puller.disconnect();
           pullerNode.updateImage( puller, model );
 
-          // if the puller was knotted, update the image location so that it is centered on the knot it was previously
-          // grabbing
-          if( knot ) {
-            pullerNode.updateLocationKnotted( puller, model, knot );
-          }
-
           // fire updates
           puller.dragging = true;
           pullerNode.moveToFront();
           puller.trigger( 'dragged' );
 
+          // if the puller was knotted, update the image location so that it is centered on the knot it was previously
+          // grabbing
+          if( knot ) {
+            pullerNode.updateLocationKnotted( puller, model, knot );
+          }
         },
         end: function() {
           pullerNode.updateLocation( puller, model );
@@ -232,7 +231,7 @@ define( function( require ) {
      */
     updateLocationKnotted: function( puller, model, knot ) {
       var blueOffset = this.puller.type === 'blue' ? -60 : 0;
-      this.setTranslation( knot.x + blueOffset, knot.y - this.height + 90 );
+      puller.positionProperty.set( new Vector2( knot.x + blueOffset, knot.y - this.height + 90 ) );
     },
 
     updateImage: function( puller, model ) {
