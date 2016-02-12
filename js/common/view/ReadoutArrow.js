@@ -140,7 +140,13 @@ define( function( require ) {
           else {
             this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height + 12 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
-              this.valueNode.top = this.labelNode.bottom;
+              var spacingOffset = 5;
+              if( value > 0 ) {
+                this.valueNode.left = this.arrowNode.right + spacingOffset;
+              }
+              else {
+                this.valueNode.right = this.arrowNode.left - spacingOffset;
+              }
             }
           }
         }

@@ -386,8 +386,8 @@ define( function( require ) {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 230, roundedSumProperty, model.showValuesProperty, {
-      labelPosition: 'side',
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
+      labelPosition: 'top',
       arrowScale: arrowScale
     } );
     model.multilink( [ 'showForce', 'showSumOfForces' ], function( showForce, showSumOfForces ) {
