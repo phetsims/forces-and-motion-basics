@@ -240,26 +240,30 @@ define( function( require ) {
       listener: function() {
         model.reset();
       },
-      radius: 20
+      radius: 20,
+      rightTop: controlPanel.rightBottom.plusXY( -7, 5 ) 
     } );
+    this.addChild( this.resetAllButton );
 
     // create the play, pause, and step buttons
     var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 20 } );
     var stepButton = new StepButton( function() { model.manualStep(); }, model.playProperty, { radius: 15 } );
 
-    // play, step, and reset buttons in an HBox centered below the control panel
+    // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     var playPauseStepHBox = new HBox( {
       children: [ playPauseButton, stepButton ],
-      spacing: 5
+      spacing: 5,
+      leftTop: controlPanel.leftBottom.plusXY( 7, 5 )
     } );
+    this.addChild( playPauseStepHBox );
 
-    var playControlsHBox = new HBox( {
-      children: [ playPauseStepHBox, this.resetAllButton ],
-      centerTop: controlPanel.centerBottom.plusXY( 0, 5 ),
-      spacing: 20
-    } );
+    // var playControlsHBox = new HBox( {
+    //   children: [ playPauseStepHBox, this.resetAllButton ],
+    //   centerTop: controlPanel.centerBottom.plusXY( 0, 5 ),
+    //   spacing: 20
+    // } );
 
-    this.addChild( playControlsHBox );
+    // this.addChild( playControlsHBox );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
