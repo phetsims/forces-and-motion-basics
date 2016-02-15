@@ -98,8 +98,7 @@ define( function( require ) {
     var enabledKnob = new SliderKnob();
     var disabledKnob = new SliderKnob( { enabled: false } );
     var knob = new Node( {
-      children: [ enabledKnob ],
-      focusable: true
+      children: [ enabledKnob ]
     } );
     var range = Math.abs( max - min );
     knob.addInputListener( {

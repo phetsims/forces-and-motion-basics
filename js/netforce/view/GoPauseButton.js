@@ -58,7 +58,6 @@ define( function( require ) {
 
     options = _.extend( {
       top: 400,
-      focusable: true,
       textDescription: 'Go Button'
     }, options );
     var goPauseButton = this;

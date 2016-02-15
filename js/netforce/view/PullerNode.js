@@ -44,14 +44,10 @@ define( function( require ) {
       y: y,
       cursor: 'pointer',
       scale: 0.86,
-      focusable: puller.focusable,
       textDescription: puller.textDescription
     } );
     this.accessiblePullerId = this.id; // @private, id to quickly find this node's representation in the accessible DOM
 
-    puller.focusableProperty.link( function( focusable ) {
-      pullerNode.focusable = focusable;
-    } );
     puller.textDescriptionProperty.link( function( textDescription ) {
       pullerNode.textDescription = textDescription;
     } );

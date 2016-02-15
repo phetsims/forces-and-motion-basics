@@ -47,7 +47,6 @@ define( function( require ) {
 
       // For keyboard accessibility, the knot that the puller is hovering over
       hoverKnot: null,
-      focusable: false,
       textDescription: ''
     } );
     this.other = options.other;
