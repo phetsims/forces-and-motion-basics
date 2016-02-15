@@ -85,11 +85,6 @@ define( function( require ) {
           lineWidth: 1
         } );
         var text = new Text( label, { font: new PhetFont( 15 ) } );
-        model.stack.lengthProperty.link( function( length ) {
-          var enabled = length > 0;
-          path.fill = enabled ? 'black' : 'gray';
-          text.fill = enabled ? 'black' : 'gray';
-        } );
         return new VBox( { children: [ text, path ], pickable: false, visible: visible } );
       };
 
