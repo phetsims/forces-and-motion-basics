@@ -99,14 +99,9 @@ define( function( require ) {
     Node.call( this, { children: children } );
 
     //Update the position when the pusher is not applying force (fallen or standing)
-    function updateZeroForcePosition() {
+    function updateZeroForcePosition( x ) {
       var pusherY = 362 - visibleNode.height;
-      var x = layoutWidth / 2 + (model.pusherPosition - model.position) * MotionConstants.POSITION_SCALE;
-
-      //To save processor time, don't update the image if it is too far offscreen
-      if ( x > -2000 && x < 2000 ) {
-        visibleNode.translate( x - visibleNode.getCenterX(), pusherY - visibleNode.y, true );
-      }
+      visibleNode.translate( x - visibleNode.getCenterX(), pusherY - visibleNode.y, true );
     }
 
     function updateAppliedForcePosition() {
@@ -123,17 +118,28 @@ define( function( require ) {
       }
     }
 
-    //Choose the rightImage
+    // get new position for the pusher node when he falls so that he falls back from the item stack when it is moving
+    // too quickly
+    var getPusherNodePosition = function() {
+      return layoutWidth / 2 + (model.pusherPosition - model.position) * MotionConstants.POSITION_SCALE;
+    };
+
+    //Choose the right Image
     model.multilink( [ 'appliedForce', 'fallen' ], function( appliedForce, fallen ) {
+
+      // to save processor time, don't update if the pusher is too far off screen
+      var x = getPusherNodePosition();
       if ( fallen ) {
         setVisibleNode( model.fallenDirection === 'left' ? fallLeft : fallRight );
-        updateZeroForcePosition();
+        updateZeroForcePosition( x );
       }
       else if ( appliedForce === 0 ) {
         setVisibleNode( standingUp );
-        updateZeroForcePosition();
+        updateZeroForcePosition( x );
       }
-      else {
+
+      // update visibility and position if pusher is on screen and is still able to push 
+      if( !fallen && appliedForce !== 0 ) {
         var index = Math.min( 14, Math.round( Math.abs( appliedForce / 500 * 14 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
@@ -148,7 +154,10 @@ define( function( require ) {
     //Update the rightImage and position when the model changes
     model.multilink( [ 'position', 'pusherPosition' ], function() {
       if ( model.appliedForce === 0 || model.fallen ) {
-        updateZeroForcePosition();
+        var x = getPusherNodePosition();
+        if( Math.abs( x ) < 2000 ) {
+          updateZeroForcePosition( x );
+        }
       }
     } );
 
