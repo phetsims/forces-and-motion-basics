@@ -121,7 +121,7 @@ define( function( require ) {
     // get new position for the pusher node when he falls so that he falls back from the item stack when it is moving
     // too quickly
     var getPusherNodePosition = function() {
-      return layoutWidth / 2 + (model.pusherPosition - model.position) * MotionConstants.POSITION_SCALE;
+      return layoutWidth / 2 + ( model.pusherPosition - model.position ) * MotionConstants.POSITION_SCALE;
     };
 
     //Choose the right Image
