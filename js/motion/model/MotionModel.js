@@ -214,11 +214,6 @@ define( function( require ) {
              this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
     },
 
-    // get the pusher position relative to the center and layout bounds of the view
-    getRelativePusherPosition: function() {
-      return this.view.layoutBounds.width / 2 + ( this.pusherPosition - this.position ) * MotionConstants.POSITION_SCALE;
-    },
-
     /**
      * Step function for this model, function of the time step.  Called by step and manualStep functions below.
      *
@@ -266,12 +261,6 @@ define( function( require ) {
 
         //Stand up after 1 second
         if ( this.timeSinceFallen > 1 ) {
-          this.fallen = false;
-        }
-
-        // if the pusher is out of screen view bounds, stand up immediately so there is no delay
-        // see https://github.com/phetsims/forces-and-motion-basics/issues/162
-        if ( Math.abs( this.getRelativePusherPosition() ) > this.view.layoutBounds.width / 2 ) {
           this.fallen = false;
         }
       }
