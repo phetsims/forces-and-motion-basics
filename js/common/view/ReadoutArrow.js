@@ -126,10 +126,11 @@ define( function( require ) {
         }
         else {
           this.valueNode.center = this.arrowNode.center;
-          this.labelNode.centerX = this.arrowNode.centerX;
 
           //Position the value and label if the label position is on the bottom
           if ( this.options.labelPosition === 'bottom' ) {
+            this.labelNode.centerX = this.arrowNode.centerX;
+
             this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + headHeight / 2 + this.labelNode.height + 5 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
               this.valueNode.bottom = this.labelNode.top;
@@ -138,6 +139,8 @@ define( function( require ) {
 
           //Position the value and label if the label position is on the top
           else {
+            this.labelNode.centerX = this.tailX;
+
             this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height + 12 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
               var spacingOffset = 5;
