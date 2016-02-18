@@ -87,6 +87,7 @@ define( function( require ) {
         model.spliceStackBottom();
       }
     };
+
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.position = options.position;//es5 setter
@@ -112,6 +113,25 @@ define( function( require ) {
         item.dragging = false;
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.position.y < 350 ) {
+
+          // if item is man or girl, rotate depending on the current model velocity and applied force
+          if( item.name === 'man' || item.name === 'girl' ) {
+            if( item.context.appliedForce > 0 ) {
+              item.direction = 'right';
+            }
+            else if( item.context.appliedForce < 0 ) {
+              item.velocity = 'left';
+            }
+            else {
+              if( item.context.velocity > 0 ) {
+                item.direction = 'right';
+              }
+              else {
+                item.direction = 'left';
+              }
+            }
+          }
+
           moveToStack();
         }
         else {
