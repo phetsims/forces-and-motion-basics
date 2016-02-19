@@ -21,7 +21,7 @@ define( function( require ) {
   var manStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-standing.png' );
   var girlSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
   var manSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-sitting.png' );
-  var girlHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-holding.png' );
+  var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
   var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-holding.png' );
   var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
@@ -96,7 +96,7 @@ define( function( require ) {
     var fridge = new Item( this, 'fridge', fridgeImage, 200, 25, 457, 0.8, 4 );
     var crate1 = new Item( this, 'crate1', crateImage, 50, 126, 514, 0.5 );
     var crate2 = new Item( this, 'crate2', crateImage, 50, 218, 514, 0.5 );
-    var girl = new Item( this, 'girl', girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage );
+    var girl = new Item( this, 'girl', girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage[1].img );
     var man = new Item( this, 'man', manStandingImage, 80, 747, 421, 0.6, 12, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
