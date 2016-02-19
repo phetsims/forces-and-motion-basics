@@ -113,6 +113,7 @@ define( function( require ) {
         item.dragging = false;
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.position.y < 350 ) {
+          moveToStack();
 
           // if item is man or girl, rotate depending on the current model velocity and applied force
           if( item.name === 'man' || item.name === 'girl' ) {
@@ -131,8 +132,7 @@ define( function( require ) {
               }
             }
           }
-
-          moveToStack();
+          
         }
         else {
           item.animateHome();
