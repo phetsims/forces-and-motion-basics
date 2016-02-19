@@ -1,67 +1,67 @@
 {
-  "comment": "# forces-and-motion-basics 1.1.5-dev.13 Tue Dec 15 2015 13:30:50 GMT-0700 (MST)",
+  "comment": "# forces-and-motion-basics 1.1.5-dev.15 Fri Feb 19 2016 13:37:12 GMT-0700 (Mountain Standard Time)",
   "assert": {
-    "sha": "d4909677d27ed571d5d859d709a0612bf7811db8",
+    "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "60075be97fdf9b4b312311c5e6902de2dca78f3e",
+    "sha": "9457f36aec22935c7b5f41a9d0777255dd5d9884",
     "branch": "master"
   },
   "brand": {
-    "sha": "c9282935819904d033c0e22d9d36e3590019f38b",
+    "sha": "ac9ccaa74427844b170dcd1582f3e9bb931edef4",
     "branch": "master"
   },
   "chipper": {
-    "sha": "d18a2538e68fff26d80d6e0cfa2beca4b032dc79",
+    "sha": "933982a9b51f64e748af6759432c180755372659",
     "branch": "master"
   },
   "dot": {
-    "sha": "7a28b1a92733cee778e2cf5d22ca45042884d416",
+    "sha": "da78031b6f080d20bc8346beaa1d37148188371e",
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "2ac9e423255d117cb4ca4b7079494b9535db0e10",
+    "sha": "3421b0bfa804c3f91a80f6fe71e37f4a7dc04156",
     "branch": "master"
   },
   "joist": {
-    "sha": "d1f201a12aa5346a782d7fb408adcca05fce48fa",
+    "sha": "10671cfcff4e505e91627794cc4fbb35089c6644",
     "branch": "master"
   },
   "kite": {
-    "sha": "a4907ccc07cc80d6d3c9c1e240ba7664e32db56b",
+    "sha": "10ca8bf2b2712307ff528352de8451c0c8afe093",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "73a034c676ee7b14b99aeeb1e7aad79f579b91b1",
+    "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "d712ace0fd0fa47ab617934aec8721228aefc0fc",
+    "sha": "140ddaeb05c322c932364c96036bb1f1f08fb78c",
     "branch": "master"
   },
   "scenery": {
-    "sha": "98ea2eeb998282b37da86e961bc939c3942265aa",
+    "sha": "a0593aab0515f069ba40b7aa724017437afd44df",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "956aff92df92cc0d004e46299e06387edc2cb153",
+    "sha": "4fcb44b9147be5cd129621d879b2c52a1414b74c",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "be8c4fc917f1644586ba4459351eade68e3bc0d2",
+    "sha": "bb68bbbc6e8e3ce98fc37a956f1e19fe8365c107",
     "branch": "master"
   },
   "sun": {
-    "sha": "5e85610d537d9740394db303534146a0f982c3dc",
+    "sha": "9f2381e8483db35e579a1a3a7452729c67b883e5",
     "branch": "master"
   },
   "tandem": {
-    "sha": "87f3d2ab6435081cfe062e3b8e81afac2cbb970b",
+    "sha": "2441eec6b422cb20e08682da02ab2bf7bf73250c",
     "branch": "master"
   },
   "vibe": {
-    "sha": "f09e9c6e38de5d023d8a7f3848cdbebfd4c22998",
+    "sha": "c84b3c41d026d31e208243de7b5852e2d6df69a0",
     "branch": "master"
   }
 }
