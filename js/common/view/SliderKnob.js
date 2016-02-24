@@ -26,8 +26,8 @@ define( function( require ) {
     var scale = 0.8;
     var width = 20 * scale;
     var height = 50 * scale;
-    var gradient = new LinearGradient( 0, 0, width, 0 ).addColorStop( 0, '#2FB0E4' ).addColorStop( 0.5, '#B8E4FB' ).addColorStop( 1, '#2FB0E4' );
-    this.addChild( new Rectangle( 0, 0, width, height, 10 * scale, 10 * scale, {
+    var gradient = new LinearGradient( -width / 2, 0, width / 2, 0 ).addColorStop( 0, '#2FB0E4' ).addColorStop( 0.5, '#B8E4FB' ).addColorStop( 1, '#2FB0E4' );
+    this.addChild( new Rectangle( -width / 2, 0, width, height, 10 * scale, 10 * scale, {
       fill: this.enabled ? gradient : 'gray',
       stroke: this.enabled ? 'black' : 'gray',
       lineWidth: 2
@@ -36,12 +36,12 @@ define( function( require ) {
     //add a grid of grip dots
     var dx = width / 5;
     var dy = height / 6;
-    this.addGripDot( width / 2 - dx, height / 2 - dy );
-    this.addGripDot( width / 2 + dx, height / 2 - dy );
-    this.addGripDot( width / 2 - dx, height / 2 );
-    this.addGripDot( width / 2 + dx, height / 2 );
-    this.addGripDot( width / 2 - dx, height / 2 + dy );
-    this.addGripDot( width / 2 + dx, height / 2 + dy );
+    this.addGripDot( -dx, height / 2 - dy );
+    this.addGripDot( dx, height / 2 - dy );
+    this.addGripDot( -dx, height / 2 );
+    this.addGripDot( dx, height / 2 );
+    this.addGripDot( -dx, height / 2 + dy );
+    this.addGripDot( dx, height / 2 + dy );
 
     //Make sure the slider knob is perfectly centered on the tick marks.  Not sure why this workaround is necessary, but it seems to perfectly center the knob.
     this.translate( 1, 0 );
