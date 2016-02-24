@@ -13,7 +13,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
-  // var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HSlider = require( 'SUN/HSlider' );
