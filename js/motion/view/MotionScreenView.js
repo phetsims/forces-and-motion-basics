@@ -20,7 +20,7 @@ define( function( require ) {
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
   var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
   var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
-  var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
+  var AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
   var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
   var newtonsString = require( 'string!FORCES_AND_MOTION_BASICS/newtons' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
@@ -125,11 +125,10 @@ define( function( require ) {
       return fallen && fallenDirection === 'right';
     } );
     var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430 } );
-    var slider = new HSlider( -500, 500, 300, model.appliedForceProperty, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {
-      zeroOnRelease: true,
+    var slider = new AppliedForceSlider( model.appliedForceProperty, { min: -500, max: 500 }, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {
       centerX: width / 2 + 1,
-      y: 535
-    } ).addNormalTicks();
+      y: 275
+    } );
 
     this.addChild( sliderLabel );
     this.addChild( slider );
