@@ -9,14 +9,14 @@ define( function( require ) {
   'use strict';
 
   var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
-  var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
+  // var HSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/HSlider' );
+  var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var HSlider = require( 'SUN/HSlider' );
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var forceString = require( 'string!FORCES_AND_MOTION_BASICS/force' );
@@ -27,7 +27,6 @@ define( function( require ) {
   var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
   var lotsString = require( 'string!FORCES_AND_MOTION_BASICS/lots' );
   var noneString = require( 'string!FORCES_AND_MOTION_BASICS/none' );
-  var Property = require( 'AXON/Property' );
   var Panel = require( 'SUN/Panel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
@@ -79,21 +78,21 @@ define( function( require ) {
     var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( { scale: 0.3 } ); };
 
     var createFrictionSlider = function() {
-      var createTick = function( label, visible ) {
-        var path = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, -18 ) ), {
-          stroke: 'black',
-          lineWidth: 1
-        } );
-        var text = new Text( label, { font: new PhetFont( 15 ) } );
-        return new VBox( { children: [ text, path ], pickable: false, visible: visible } );
-      };
 
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
-      var frictionSlider = new HSlider( 0, MotionConstants.MAX_FRICTION, 150, model.frictionProperty, new Property( 'WITHIN_ALLOWED_RANGE' ), null, null, { zeroOnRelease: false } )
-        .addTick( 0, createTick( noneString, true ) ).addTick( 1, createTick( lotsString, true ) )
-        .addTick( 0, createTick( lotsString, false ) ).addTick( 1, createTick( noneString, false ) );
+      var frictionSlider = new HSlider( model.frictionProperty, { min: 0, max: MotionConstants.MAX_FRICTION }, {
+        trackSize: new Dimension2( 150, 6 ),
+        thumbNode: new SliderKnob(),
+        majorTickLength: 18,
+        tickLabelSpacing: 3
+      } );
+      frictionSlider.addMajorTick( 0, new Text( noneString, { font: new PhetFont( 15 ) } ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, { font: new PhetFont( 15 ) } ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, { font: new PhetFont( 15 ), visible: false } ) );
+      frictionSlider.addMajorTick( 0, new Text( lotsString, { font: new PhetFont( 15 ), visible: false } ) );
+
       var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );
 
       return new VBox( { spacing: -8, children: [ frictionLabel, frictionSlider ] } );
