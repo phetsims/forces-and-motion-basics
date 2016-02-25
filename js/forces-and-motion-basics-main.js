@@ -15,7 +15,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Ariel Paul, Noah Podolefsky',
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
-      softwareDevelopment: 'Sam Reid',
+      softwareDevelopment: 'Jesse Greenberg, Sam Reid',
       team: 'Trish Loeblein, Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\n\tOliver Orejola, Ben Roberts, Bryan Yoelin'
     }
