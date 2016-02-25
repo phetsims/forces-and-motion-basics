@@ -268,12 +268,6 @@ define( function( require ) {
         if ( this.timeSinceFallen > 1 ) {
           this.fallen = false;
         }
-
-        // if the pusher is out of screen view bounds, stand up immediately so there is no delay
-        // see https://github.com/phetsims/forces-and-motion-basics/issues/162
-       if ( Math.abs( this.getRelativePusherPosition() ) > this.view.layoutBounds.width / 2 ) {
-          this.fallen = false;
-        }
       }
 
       //Stand up if applying a force in the opposite direction that you fell
