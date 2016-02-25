@@ -241,139 +241,267 @@
   },
   "pusher_0.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_1.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
-  "pusher_10.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
-  "pusher_11.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
-  "pusher_12.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
-  "pusher_13.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
-  "pusher_14.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_2.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_3.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_4.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_5.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_6.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_7.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_8.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_9.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_10.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_11.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_12.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_13.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_14.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_15.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_16.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_17.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_18.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_19.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_20.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_21.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_22.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+    "pusher_23.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_24.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_25.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_26.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_27.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_28.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_29.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
+  },
+  "pusher_30.png": {
+    "text": [
+      "Copyright 2002-2016 University of Colorado Boulder"
+    ],
+    "projectURL": "http://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_fall_down.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "pusher_straight_on.png": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2002-2016 University of Colorado Boulder"
     ],
     "projectURL": "http://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "rope.png": {
     "text": [
