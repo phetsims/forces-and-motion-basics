@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 1.1.5-dev.14 Fri Feb 19 2016 14:47:27 GMT-0700 (Mountain Standard Time)",
+  "comment": "# forces-and-motion-basics 1.1.5-dev.15 Wed Feb 24 2016 17:23:08 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "933982a9b51f64e748af6759432c180755372659",
+    "sha": "680201811545038c96efabf3c4fa9549ffc74299",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "96b81527cb46f817ec3102c99df86b89fa5e129b",
+    "sha": "df3b7902ed1121ab988a6150bf14222ca6069f24",
     "branch": "master"
   },
   "joist": {
-    "sha": "10671cfcff4e505e91627794cc4fbb35089c6644",
+    "sha": "28f510089c0f5312ca58526b10ff063466ebbc5a",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "a0593aab0515f069ba40b7aa724017437afd44df",
+    "sha": "230add1075bf33272dc45227bb6f4108e6d79f79",
     "branch": "master"
   },
   "scenery-phet": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "9f2381e8483db35e579a1a3a7452729c67b883e5",
+    "sha": "2b83e994039b2d33845d5e51d7735d144c188d97",
     "branch": "master"
   },
   "tandem": {
