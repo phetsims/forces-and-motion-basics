@@ -8,7 +8,6 @@
 define( function( require ) {
   'use strict';
 
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -46,7 +45,8 @@ define( function( require ) {
         accessibleLabel: valuesString
       }
     ] );
-    this.addChild( new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980' } ) );
+    var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
+    this.addChild( checkBoxPanel );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     this.resetAllButton = new ResetAllButton( {
@@ -54,13 +54,17 @@ define( function( require ) {
         model.reset();
       },
       scale: 1.13,
+      rightTop: checkBoxPanel.rightBottom.plusXY( -7, 5 ),
       textDescription: 'Restart game button'
     } );
-    var soundButton = new SoundToggleButton( model.volumeOnProperty, { padX: 19, padY: 19 } );
-    this.addChild( new HBox( { spacing: 5, children: [ this.resetAllButton, soundButton ] } ).mutate( {
-      centerX: this.verticalCheckBoxGroup.centerX,
-      top: this.verticalCheckBoxGroup.bottom + 15
-    } ) );
+    this.addChild( this.resetAllButton );
+
+    var soundButton = new SoundToggleButton( model.volumeOnProperty, { 
+      padX: 19,
+      padY: 19,
+      leftTop: checkBoxPanel.leftBottom.plusXY( 7, 5 )
+    } );
+    this.addChild( soundButton );
   }
 
   forcesAndMotionBasics.register( 'NetForceControlPanel', NetForceControlPanel );
