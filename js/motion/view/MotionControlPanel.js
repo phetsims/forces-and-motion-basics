@@ -94,7 +94,7 @@ define( function( require ) {
 
       var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );
 
-      return new VBox( { spacing: -8, children: [ frictionLabel, frictionSlider ] } );
+      return new VBox( { spacing: -2, children: [ frictionLabel, frictionSlider ] } );
     };
 
     var indent = 24;
