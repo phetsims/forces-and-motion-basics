@@ -240,7 +240,7 @@ define( function( require ) {
         model.reset();
       },
       radius: 20,
-      rigftTop: controlPanel.rightBottom.plusXY( -7, 5 ) 
+      rightTop: controlPanel.rightBottom.plusXY( -7, 5 ) 
     } );
     this.addChild( this.resetAllButton );
 
