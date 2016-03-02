@@ -127,7 +127,7 @@ define( function( require ) {
     var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430 } );
     var slider = new AppliedForceSlider( model.appliedForceProperty, { min: -500, max: 500 }, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {
       centerX: width / 2 + 1,
-      y: 275
+      y: 555
     } );
 
     this.addChild( sliderLabel );
@@ -240,7 +240,7 @@ define( function( require ) {
         model.reset();
       },
       radius: 20,
-      rightTop: controlPanel.rightBottom.plusXY( -7, 5 ) 
+      rigftTop: controlPanel.rightBottom.plusXY( -7, 5 ) 
     } );
     this.addChild( this.resetAllButton );
 
