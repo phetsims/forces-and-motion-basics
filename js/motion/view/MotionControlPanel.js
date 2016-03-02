@@ -46,10 +46,11 @@ define( function( require ) {
     Node.call( this, {} );
 
     var fontSize = 18;
+    var maxTextWidth = 250;
 
     var toElement = function( text, propertyName, options ) {
       options = _.extend( { indent: 0 }, options );
-      var textNode = new Text( text, { font: new PhetFont( fontSize ) } );
+      var textNode = new Text( text, { font: new PhetFont( fontSize ), maxWidth: maxTextWidth } );
       return {
         //TODO: Why is this immense spacing necessary here?
         content: options.icon ? new HBox( { spacing: 10, children: [ textNode, options.icon ] } ) : textNode,
@@ -87,12 +88,14 @@ define( function( require ) {
         majorTickLength: 18,
         tickLabelSpacing: 3
       } );
-      frictionSlider.addMajorTick( 0, new Text( noneString, { font: new PhetFont( 15 ) } ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, { font: new PhetFont( 15 ) } ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, { font: new PhetFont( 15 ), visible: false } ) );
-      frictionSlider.addMajorTick( 0, new Text( lotsString, { font: new PhetFont( 15 ), visible: false } ) );
+      var sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: maxTextWidth * 0.5 };
+      var invisibleSliderTickOptions = _.extend( { visible: false }, sliderTickOptions );
+      frictionSlider.addMajorTick( 0, new Text( noneString, sliderTickOptions ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, sliderTickOptions ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, invisibleSliderTickOptions ) );
+      frictionSlider.addMajorTick( 0, new Text( lotsString, invisibleSliderTickOptions ) );
 
-      var frictionLabel = new Text( frictionString, new PhetFont( { size: fontSize, weight: 'bold' } ) );
+      var frictionLabel = new Text( frictionString, { font: new PhetFont( { size: fontSize, weight: 'bold' } ), maxWidth: maxTextWidth  } );
 
       return new VBox( { spacing: -2, children: [ frictionLabel, frictionSlider ] } );
     };
