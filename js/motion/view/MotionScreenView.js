@@ -412,7 +412,8 @@ define( function( require ) {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
-      y: 200
+      y: 200,
+      maxWidth: 125
     } );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76

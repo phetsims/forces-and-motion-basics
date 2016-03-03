@@ -47,9 +47,9 @@ define( function( require ) {
 
     //Create and add the children
     this.arrowNode = new Path( null, _.extend( { fill: fill, stroke: '#000000', lineWidth: 1 }, options ) );
-    var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ) };
+    var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 125 };
     this.valueNode = new Text( '110N', fontOptions );
-    this.labelNode = new Text( label, _.extend( { maxWidth: 125 }, fontOptions ) );
+    this.labelNode = new Text( label, fontOptions );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
