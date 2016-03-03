@@ -22,7 +22,6 @@ define( function( require ) {
   var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
   var AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
   var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
-  var newtonsString = require( 'string!FORCES_AND_MOTION_BASICS/newtons' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
@@ -54,6 +53,7 @@ define( function( require ) {
   var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
+  var pattern0ValueUnitsNewtonsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsNewtons' );
 
   /**
    * Constructor for the MotionScreenView
@@ -124,7 +124,9 @@ define( function( require ) {
     var disableRightProperty = new DerivedProperty( [ model.fallenProperty, model.fallenDirectionProperty ], function( fallen, fallenDirection ) {
       return fallen && fallenDirection === 'right';
     } );
-    var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430 } );
+
+    var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
+    var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430, maxWidth: maxTextWidth } );
     var slider = new AppliedForceSlider( model.appliedForceProperty, { min: -500, max: 500 }, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {
       centerX: width / 2 + 1,
       y: 555
@@ -134,7 +136,7 @@ define( function( require ) {
     this.addChild( slider );
 
     //Position the units to the right of the text box.
-    var readout = new Text( '???', { font: new PhetFont( 22 ), pickable: false } );
+    var readout = new Text( '???', { font: new PhetFont( 22 ), pickable: false, maxWidth: maxTextWidth / 2 } );
     readout.bottom = slider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
 
@@ -144,7 +146,7 @@ define( function( require ) {
 
       //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
       if ( numberText === '-0' ) { numberText = '0'; }
-      readout.text = numberText + ' ' + newtonsString; //TODO: i18n message format
+      readout.text = StringUtils.format( pattern0ValueUnitsNewtonsString, numberText );
       readout.centerX = width / 2;
     } );
 
@@ -153,7 +155,7 @@ define( function( require ) {
       fill: 'white',
       stroke: 'lightgrey',
       centerX: width / 2,
-      top: readout.y - readout.height + 2,
+      centerY: readout.centerY,
       pickable: false
     } );
     this.addChild( this.textPanelNode );

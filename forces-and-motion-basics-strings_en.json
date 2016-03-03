@@ -51,6 +51,9 @@
   "massDisplay.pattern": {
     "value": "{0} kg"
   },
+  "pattern.0valueUnitsNewtons": {
+    "value": "{0} Newtons"
+  },
   "acceleration": {
     "value": "Acceleration"
   },
