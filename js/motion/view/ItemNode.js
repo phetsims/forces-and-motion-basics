@@ -146,7 +146,8 @@ define( function( require ) {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'
-      } )
+      } ),
+      maxWidth: normalImageNode.width / 1.5
     } );
     var roundedRadius = 10;
     var roundRect = new Rectangle( 0, 0, massLabel.width + roundedRadius, massLabel.height + roundedRadius, roundedRadius, roundedRadius, {
