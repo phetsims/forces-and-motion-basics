@@ -16,7 +16,7 @@ define( function( require ) {
       leadDesign: 'Ariel Paul, Noah Podolefsky',
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
       softwareDevelopment: 'Jesse Greenberg, Sam Reid',
-      team: 'Trish Loeblein, Kathy Perkins',
+      team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\n\tOliver Orejola, Ben Roberts, Bryan Yoelin'
     }
   };
