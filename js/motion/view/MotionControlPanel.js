@@ -148,7 +148,7 @@ define( function( require ) {
                 model.screen === 'friction' ? createFrictionControls() :
                 createAccelerationControls()
     } );
-    var panelNode = new Panel( controlPanel, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
+    var panelNode = new Panel( controlPanel, { xMargin: 10, yMargin: 7, fill: '#e3e980' } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
   }
 

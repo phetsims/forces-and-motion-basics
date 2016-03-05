@@ -237,24 +237,32 @@ define( function( require ) {
 
     //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
     //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
+    var playPauseVerticalOffset = 16;
     this.resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
       },
       radius: 20,
-      rightTop: controlPanel.rightBottom.plusXY( -7, 5 ) 
+      rightTop: controlPanel.rightBottom.plusXY( -7, playPauseVerticalOffset ) 
     } );
     this.addChild( this.resetAllButton );
 
     // create the play, pause, and step buttons
-    var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 20 } );
-    var stepButton = new StepButton( function() { model.manualStep(); }, model.playProperty, { radius: 15 } );
+    var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 18 } );
+    var stepButton = new StepButton( function() { model.manualStep(); }, model.playProperty, { radius: 18 } );
 
+    // Make the Play/Pause button bigger when it is showing the pause button, see #298
+    var pauseSizeIncreaseFactor = 1.28;
+      model.playProperty.lazyLink( function( isPlaying ) {
+      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
+    } );
+   
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     var playPauseStepHBox = new HBox( {
       children: [ playPauseButton, stepButton ],
-      spacing: 5,
-      leftTop: controlPanel.leftBottom.plusXY( 7, 5 )
+      spacing: 10,
+      resize: false,
+      leftTop: controlPanel.leftBottom.plusXY( 7, playPauseVerticalOffset )
     } );
     this.addChild( playPauseStepHBox );
 
