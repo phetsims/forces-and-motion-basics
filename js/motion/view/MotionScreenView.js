@@ -266,14 +266,6 @@ define( function( require ) {
     } );
     this.addChild( playPauseStepHBox );
 
-    // var playControlsHBox = new HBox( {
-    //   children: [ playPauseStepHBox, this.resetAllButton ],
-    //   centerTop: controlPanel.centerBottom.plusXY( 0, 5 ),
-    //   spacing: 20
-    // } );
-
-    // this.addChild( playControlsHBox );
-
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
