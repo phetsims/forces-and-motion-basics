@@ -106,7 +106,7 @@ define( function( require ) {
     var createMotionControls = function() {
       return [ new VerticalCheckBoxGroup( [
         toElement( forceString, 'showForce', { icon: arrowIcon() } ),
-        toElement( valuesString, 'showValues', { indent: indent } ),
+        toElement( valuesString, 'showValues' ),
         toElement( massesString, 'showMasses' ),
         toElement( speedString, 'showSpeed', { icon: speedometerIcon() } )
       ], { fill: '#e3e980' } ) ];
@@ -118,7 +118,7 @@ define( function( require ) {
         new VerticalCheckBoxGroup( [
           toElement( forcesString, 'showForce', { icon: arrowIcon() } ),
           toElement( sumOfForcesString, 'showSumOfForces', { indent: indent } ),
-          toElement( valuesString, 'showValues', { indent: indent } ),
+          toElement( valuesString, 'showValues' ),
           toElement( massesString, 'showMasses' ),
           toElement( speedString, 'showSpeed', { icon: speedometerIcon() } )
         ], { fill: '#e3e980' } ),
@@ -132,7 +132,7 @@ define( function( require ) {
         new VerticalCheckBoxGroup( [
           toElement( forcesString, 'showForce', { icon: arrowIcon() } ),
           toElement( sumOfForcesString, 'showSumOfForces', { indent: indent } ),
-          toElement( valuesString, 'showValues', { indent: indent } ),
+          toElement( valuesString, 'showValues' ),
           toElement( massesString, 'showMasses' ),
           toElement( speedString, 'showSpeed', { icon: speedometerIcon() } ),
           toElement( accelerationString, 'showAcceleration', { icon: accelerometerIcon() } )
