@@ -198,7 +198,7 @@ define( function( require ) {
     var speedometerNode = new SpeedometerNode( model.velocityProperty, model.showSpeedProperty, model.showValuesProperty, {
       // x: width / 2, // see comments about tween code below
       x: 300,
-      top: 2
+      top: 8
     } );
 
     // Due to the addition of the acceleration readout, vertical space above the stack is more limited.  We are trying
@@ -293,7 +293,7 @@ define( function( require ) {
       var accelerometerWithTickLabels = new VBox( {
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
-        y: 145
+        y: 151
       } );
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
