@@ -25,7 +25,6 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
-  // var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
