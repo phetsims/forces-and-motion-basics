@@ -54,7 +54,7 @@ define( function( require ) {
         model.reset();
       },
       scale: 1.13,
-      rightTop: checkBoxPanel.rightBottom.plusXY( -7, 5 ),
+      rightTop: checkBoxPanel.rightBottom.plusXY( -7, 16 ),
       textDescription: 'Restart game button'
     } );
     this.addChild( this.resetAllButton );
@@ -62,7 +62,8 @@ define( function( require ) {
     var soundButton = new SoundToggleButton( model.volumeOnProperty, { 
       padX: 19,
       padY: 19,
-      leftTop: checkBoxPanel.leftBottom.plusXY( 7, 5 )
+      left: checkBoxPanel.left + 7,
+      centerY: this.resetAllButton.centerY
     } );
     this.addChild( soundButton );
   }
