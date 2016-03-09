@@ -206,7 +206,13 @@ define( function( require ) {
         }
       },
 
-      start: function() {},
+      start: function() {
+        // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
+        if( !model.playProperty.value ) {
+          model.playProperty.set( true );
+        }
+
+      },
       end: function() {
         // if the model is paused, the applied force should remain the same
         if( model.playProperty.value ) {
