@@ -50,6 +50,16 @@ define( function( require ) {
       thisSlider.enabledRange = disableRight ? { min: range.min, max: 0 } : range;
     } );
 
+    // when the model is paused, the slider should not snap to a value so the user can set up a state of forces
+    model.playProperty.link( function( play ) {
+      if( play ) {
+        thisSlider.snapValue = 0;
+      }
+      else {
+        thisSlider.snapValue = null;
+      }
+    } );
+
     // add normal ticks
     this.addNormalTicks();
   }
