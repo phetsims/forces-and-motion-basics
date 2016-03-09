@@ -140,8 +140,8 @@ define( function( require ) {
           //Position the value and label if the label position is on the top
           else {
             this.labelNode.centerX = this.tailX;
+            this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - this.labelNode.height * 3 / 2 : 0;
 
-            this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - headHeight / 2 - this.labelNode.height + 12 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
               var spacingOffset = 5;
               if( value > 0 ) {

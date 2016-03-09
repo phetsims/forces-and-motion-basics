@@ -411,7 +411,7 @@ define( function( require ) {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
-      y: 200,
+      y: 195,
       maxWidth: 125
     } );
 
