@@ -85,41 +85,7 @@ define( function( require ) {
         else {
           thisSlider.addMinorTick( location );
         }
-        // var tick = new Path( Shape.lineSegment( new Vector2( x1, 0 ), new Vector2( x1, isMajor( i ) ? -30 : -22 ) ), {
-        //   pickable: false,
-        //   stroke: 'black',
-        //   lineWidth: 1
-        // } );
-        // slider.enabledProperty.link( function( enabled ) {tick.stroke = enabled ? 'black' : 'gray';} );
-        // slider.ticksLayer.addChild( tick );
-        // if ( hasLabel( i ) ) {
-        //   var label = new Text( linear( 0, 1, slider.min, slider.max, i / Util.toFixed( (numTicks - 1), 0 ) ), {
-        //     pickable: false,
-        //     centerX: tick.centerX,
-        //     bottom: tick.top,
-        //     font: new PhetFont( 16 )
-        //   } );
-        //   slider.enabledProperty.link( function( enabled ) {label.fill = enabled ? 'black' : 'gray';} );
-        //   slider.ticksLayer.addChild( label );
-        // }
       } );
-
-      //Return this for chaining
-      // return this;
-    },
-
-    // //Add the tick for the specified value, so that the node will be centered on the location specified and just at the edge of the track.
-    // addTick: function( value, tickAndLabelNode ) {
-    //   tickAndLabelNode.centerX = linear( 0, 1, 0, this.sliderWidth, value );
-    //   tickAndLabelNode.bottom = 0;
-    //   this.ticksLayer.addChild( tickAndLabelNode );
-    //   return this;
-    // },
-
-    //Set the entire slider to be enabled or disabled
-    set enabled( value ) { this.enabledProperty.set( value ); },
-
-    //Determine whether the slider is enabled or not
-    get enabled() { return this.enabledProperty.get(); }
+    }
   } );
 } );
