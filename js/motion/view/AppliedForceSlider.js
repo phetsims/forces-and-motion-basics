@@ -20,19 +20,18 @@ define( function( require ) {
   /**
    * Constructor.
    * 
-   * @param {Property<Number>} appliedForceProperty - the numeric value for the slider
-   * @param {Object} range - the range of values for the slider 
-   * @param {Property<string>} speedClassificationProperty - 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
+   * @param {MotionModel} model
    * @param {Property<Boolean>} disableLeftProperty
    * @param {Property<Boolean>} disableRightProperty
+   * @param {Object} range - the range of values for the slider
    * @param {Object} [options]
    * @constructor
    */
-  function AppliedForceSlider( appliedForceProperty, range, speedClassificationProperty, disableLeftProperty, disableRightProperty, options ) {
+  function AppliedForceSlider( model, disableLeftProperty, disableRightProperty, range, options ) {
     
     var thisSlider = this;
     this.range = range;
-    HSlider.call( this, appliedForceProperty, range, _.extend( { 
+    HSlider.call( this, model.appliedForceProperty, range, _.extend( { 
       trackSize: new Dimension2( 300, 6 ),
       snapValue: 0,
       majorTickLength: 30,

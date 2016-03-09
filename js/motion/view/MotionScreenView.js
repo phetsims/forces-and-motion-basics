@@ -126,7 +126,7 @@ define( function( require ) {
 
     var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
     var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430, maxWidth: maxTextWidth } );
-    var slider = new AppliedForceSlider( model.appliedForceProperty, { min: -500, max: 500 }, model.speedClassificationProperty, disableLeftProperty, disableRightProperty, {
+    var slider = new AppliedForceSlider( model, disableLeftProperty, disableRightProperty, { min: -500, max: 500 }, {
       centerX: width / 2 + 1,
       y: 555
     } );
