@@ -77,7 +77,6 @@ define( function( require ) {
       _.range( numTicks ).forEach( function( i ) {
 
         var location = initialTickValue + i * delta;
-        // var x1 = linear( range.min, range.max, 0, slider.sliderWidth, i / ( numTicks - 1 ) * (slider.max - slider.min) + slider.min );
         if( isMajor( i ) ) {
           var label = new Text( location, { font: new PhetFont( 16 ) } );
           thisSlider.addMajorTick( location, label );
