@@ -53,8 +53,8 @@ define( function( require ) {
       listener: function() {
         model.reset();
       },
-      scale: 1.13,
-      rightTop: checkBoxPanel.rightBottom.plusXY( -7, 16 ),
+      radius: 23,
+      rightCenter: checkBoxPanel.rightBottom.plusXY( -7, 35 ),
       textDescription: 'Restart game button'
     } );
     this.addChild( this.resetAllButton );

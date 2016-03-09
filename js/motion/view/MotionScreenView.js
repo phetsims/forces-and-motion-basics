@@ -234,18 +234,6 @@ define( function( require ) {
     var controlPanel = new MotionControlPanel( model );
     this.addChild( controlPanel );
 
-    //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
-    //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
-    var playPauseVerticalOffset = 16;
-    this.resetAllButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-      },
-      radius: 20,
-      rightTop: controlPanel.rightBottom.plusXY( -7, playPauseVerticalOffset ) 
-    } );
-    this.addChild( this.resetAllButton );
-
     // create the play, pause, and step buttons
     var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 18 } );
     var stepButton = new StepButton( function() { model.manualStep(); }, model.playProperty, { radius: 18 } );
@@ -257,13 +245,25 @@ define( function( require ) {
     } );
    
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
+    var playPauseVerticalOffset = 35;
     var playPauseStepHBox = new HBox( {
       children: [ playPauseButton, stepButton ],
       spacing: 10,
       resize: false,
-      leftTop: controlPanel.leftBottom.plusXY( 7, playPauseVerticalOffset )
+      leftCenter: controlPanel.leftBottom.plusXY( 7, playPauseVerticalOffset )
     } );
     this.addChild( playPauseStepHBox );
+
+    //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
+    //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
+    this.resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+      },
+      radius: 23,
+      rightCenter: controlPanel.rightBottom.plusXY( -7, playPauseVerticalOffset ) 
+    } );
+    this.addChild( this.resetAllButton );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
