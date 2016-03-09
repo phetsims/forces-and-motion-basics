@@ -159,7 +159,7 @@ define( function( require ) {
       var vBox = new VBox( {
         children: [
           createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces', { indent: indent } ),
+          createCheckBox( sumOfForcesString, 'showSumOfForces', { indent: indent, checkBoxEnabledProperty: model.property( 'showForce' ) } ),
           createCheckBox( valuesString, 'showValues' ),
           createCheckBox( massesString, 'showMasses' ),
           createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } )
@@ -175,7 +175,7 @@ define( function( require ) {
       var vBox = new VBox( {
         children: [
           createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces', { indent: indent } ),
+          createCheckBox( sumOfForcesString, 'showSumOfForces', { indent: indent, checkBoxEnabledProperty: model.property( 'showForce' ) } ),
           createCheckBox( valuesString, 'showValues' ),
           createCheckBox( massesString, 'showMasses' ),
           createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } ),
