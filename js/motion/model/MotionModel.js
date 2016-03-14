@@ -93,16 +93,16 @@ define( function( require ) {
 
     var bucket = new Item( this, 'bucket', waterBucketImage, 100, 845, 547 + -39, 0.78 );
     bucket.bucket = true;
-    var fridge = new Item( this, 'fridge', fridgeImage, 200, 25, 457, 0.8, 4 );
-    var crate1 = new Item( this, 'crate1', crateImage, 50, 126, 514, 0.5 );
-    var crate2 = new Item( this, 'crate2', crateImage, 50, 218, 514, 0.5 );
-    var girl = new Item( this, 'girl', girlStandingImage, 40, 684, 471, 0.6, 4, girlSittingImage, girlHoldingImage[1].img );
-    var man = new Item( this, 'man', manStandingImage, 80, 747, 421, 0.6, 12, manSittingImage, manHoldingImage );
+    var fridge = new Item( this, 'fridge', fridgeImage, 200, 25, 447, 0.8, 4 );
+    var crate1 = new Item( this, 'crate1', crateImage, 50, 126, 504, 0.5 );
+    var crate2 = new Item( this, 'crate2', crateImage, 50, 218, 504, 0.5 );
+    var girl = new Item( this, 'girl', girlStandingImage, 40, 684, 461, 0.6, 4, girlSittingImage, girlHoldingImage[1].img );
+    var man = new Item( this, 'man', manStandingImage, 80, 747, 411, 0.6, 12, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
-        new Item( this, 'trash', trashCanImage, 100, 816, 502, 0.7, 11 ),
-        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 543, 1.1, undefined, undefined, undefined, true )
+        new Item( this, 'trash', trashCanImage, 100, 816, 492, 0.7, 11 ),
+        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 533, 1.1, undefined, undefined, undefined, true )
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {

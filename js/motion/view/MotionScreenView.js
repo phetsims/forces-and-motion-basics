@@ -41,6 +41,10 @@ define( function( require ) {
   var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Line = require( 'SCENERY/nodes/Line' );
+
+  // constants
+  var DEBUG = true; // adds a line at the bottom of the items to assist with layout
 
   // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
@@ -371,6 +375,13 @@ define( function( require ) {
         toolBoxNode,
         accessibleDescription );
       this.itemNodes.push( itemNode );
+
+      // TODO: This should be removed once the layout of items has gone through review.
+      if( DEBUG && item.name === 'fridge' ) {
+        // create a line at the bottom of the fridge to assist with layout
+        var debugLine = new Line( 0, itemNode.bottom, this.layoutBounds.width, itemNode.bottom, { stroke: 'red' } );
+        motionView.addChild( debugLine );
+      }
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
