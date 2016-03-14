@@ -88,6 +88,39 @@ define( function( require ) {
       }
     };
 
+    // called on end drag, update direction of girl or man to match current applied force and velocity of model
+    var updatePersonDirection = function( person ) {
+
+      // default direction is to the left
+      var direction = 'left';
+
+      // if girl or man is alread on the stack, direction should match person that is already on the stack
+      var personInStack;
+      model.stack.forEach( function( itemInStack ) {
+        if( itemInStack === person ) {
+          // skip the person that is currently being dragged
+          return;
+        } 
+        if( itemInStack.name === 'girl' || itemInStack.name === 'man' ) {
+          personInStack = itemInStack;
+        }
+      } );
+      if( personInStack ) {
+        direction = personInStack.direction;
+      }
+      else if( person.context.appliedForce > 0 ) {
+        // if there is an applied force on the stack, direction should match applied force
+        direction = 'right';
+      }
+      else {
+        // if there is no applied force, check velocity for direction
+        if( person.context.velocity > 0 ) {
+          direction = 'right';
+        }
+      }
+      person.direction = direction;
+    };
+
     var dragHandler = new SimpleDragHandler( {
       translate: function( options ) {
         item.position = options.position;//es5 setter
@@ -117,22 +150,8 @@ define( function( require ) {
 
           // if item is man or girl, rotate depending on the current model velocity and applied force
           if( item.name === 'man' || item.name === 'girl' ) {
-            if( item.context.appliedForce > 0 ) {
-              item.direction = 'right';
-            }
-            else if( item.context.appliedForce < 0 ) {
-              item.velocity = 'left';
-            }
-            else {
-              if( item.context.velocity > 0 ) {
-                item.direction = 'right';
-              }
-              else {
-                item.direction = 'left';
-              }
-            }
+            updatePersonDirection( item );
           }
-          
         }
         else {
           item.animateHome();
