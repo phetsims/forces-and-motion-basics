@@ -260,9 +260,6 @@ define( function( require ) {
       }
     } );
 
-  // var testRect = new Rectangle( 0, 0, normalImageNode.width, normalImageNode.height, { fill: 'red' } );
-  // this.addChild( testRect );
-
   }
 
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );
