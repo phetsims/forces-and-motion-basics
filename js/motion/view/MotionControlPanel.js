@@ -137,8 +137,6 @@ define( function( require ) {
       return new VBox( { spacing: -2, children: [ frictionLabel, frictionSlider ] } );
     };
 
-    var indent = 24;
-
     // Create controls for the 'motion' screen
     var createMotionControls = function() {
       var vBox = new VBox( {
@@ -159,7 +157,7 @@ define( function( require ) {
       var vBox = new VBox( {
         children: [
           createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces', { indent: indent, checkBoxEnabledProperty: model.property( 'showForce' ) } ),
+          createCheckBox( sumOfForcesString, 'showSumOfForces' ),
           createCheckBox( valuesString, 'showValues' ),
           createCheckBox( massesString, 'showMasses' ),
           createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } )
@@ -175,7 +173,7 @@ define( function( require ) {
       var vBox = new VBox( {
         children: [
           createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces', { indent: indent, checkBoxEnabledProperty: model.property( 'showForce' ) } ),
+          createCheckBox( sumOfForcesString, 'showSumOfForces' ),
           createCheckBox( valuesString, 'showValues' ),
           createCheckBox( massesString, 'showMasses' ),
           createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } ),

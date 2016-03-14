@@ -404,9 +404,6 @@ define( function( require ) {
       labelPosition: 'top',
       arrowScale: arrowScale
     } );
-    model.multilink( [ 'showForce', 'showSumOfForces' ], function( showForce, showSumOfForces ) {
-      motionView.sumArrow.visible = showForce && showSumOfForces;
-    } );
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
@@ -416,9 +413,9 @@ define( function( require ) {
     } );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
-    new DerivedProperty( [ model.showForceProperty, model.showSumOfForcesProperty, roundedSumProperty ],
-      function( showForce, showSumOfForces, sumOfForces ) {
-        return showForce && showSumOfForces && sumOfForces === 0;
+    new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
+      function( showSumOfForces, sumOfForces ) {
+        return showSumOfForces && sumOfForces === 0;
       } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
       labelPosition: 'side',
@@ -451,6 +448,7 @@ define( function( require ) {
 
     model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
     model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
+    model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
