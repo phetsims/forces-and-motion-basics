@@ -14,7 +14,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  function Item( context, name, image, mass, x, y, imageScale, pusherInset, sittingImage, holdingImage, mystery ) {
+  function Item( context, name, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
     var item = this;
 
     this.name = name;
@@ -29,6 +29,7 @@ define( function( require ) {
     this.holdingImage = holdingImage;
     this.context = context;
     this.mystery = mystery;
+    this.homeScale = homeScale || 1.0;
 
     //Observable properties
     PropertySet.call( this, {
@@ -50,7 +51,7 @@ define( function( require ) {
       imageScale: imageScale || 1.0,
 
       //How much the object grows or shrinks when interacting with it
-      interactionScale: 1.0
+      interactionScale: homeScale || 1.0
     } );
 
     this.context.directionProperty.link( function( direction ) {
@@ -106,7 +107,7 @@ define( function( require ) {
         }
         else {
           if ( this.animating.destination === 'home' ) {
-            this.interactionScale = 1.0;
+            this.interactionScale = this.homeScale;
           }
         }
         this.animating = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
@@ -119,7 +120,7 @@ define( function( require ) {
         this.interactionScale = Math.min( this.interactionScale + 9 * dt, 1.3 );
       }
       else if ( this.animating.destination === 'home' ) {
-        this.interactionScale = Math.max( this.interactionScale - 9 * dt, 1.0 );
+        this.interactionScale = Math.max( this.interactionScale - 9 * dt, this.homeScale);
       }
 
       if ( this.animating.enabled ) {
@@ -130,7 +131,7 @@ define( function( require ) {
         this.position = this.position.blend( destination, blendAmount );
 
         var distanceToTarget = this.position.distance( destination );
-        if ( distanceToTarget < 1 && (this.interactionScale === 1.3 || this.interactionScale === 1) ) {
+        if ( distanceToTarget < 1 && (this.interactionScale === 1.3 || this.interactionScale === this.homeScale ) ) {
 
           //Snap to exact final destination, see #59
           this.position = destination;
