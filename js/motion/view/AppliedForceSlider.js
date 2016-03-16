@@ -31,13 +31,15 @@ define( function( require ) {
     
     var thisSlider = this;
     this.range = range;
+
+    var sliderKnob = new SliderKnob();
     HSlider.call( this, model.appliedForceProperty, range, _.extend( { 
       trackSize: new Dimension2( 300, 6 ),
       snapValue: 0,
       majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
-      thumbNode: new SliderKnob()
+      thumbNode: sliderKnob
     }, options ) );
 
     // when the left is disabled, disable that section of the range
@@ -58,6 +60,12 @@ define( function( require ) {
       else {
         thisSlider.snapValue = null;
       }
+    } );
+
+    // when the slider is disabled, the thumb should be disabled as well
+    // no need for dispose, slider exist for lifetime of sim
+    this.enabledProperty.link( function ( enabled ) {
+      sliderKnob.enabledProperty.value = enabled;
     } );
 
     // add normal ticks
