@@ -98,7 +98,7 @@ define( function( require ) {
     var crate1 = new Item( this, 'crate1', crateImage, 50, 129, 507, 0.5 );
     var crate2 = new Item( this, 'crate2', crateImage, 50, 219, 507, 0.5 );
     var girl = new Item( this, 'girl', girlStandingImage, 40, 689, 465, 0.6, 1.0, 4, girlSittingImage, girlHoldingImage[1].img );
-    var man = new Item( this, 'man', manStandingImage, 80, 750, 428, 0.6, 0.92, 12, manSittingImage, manHoldingImage );
+    var man = new Item( this, 'man', manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
