@@ -294,8 +294,6 @@ define( function( require ) {
     var showFlagNode = function() {
       var flagNode = new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 );
       netForceScreenView.addChild( flagNode );
-
-      flagNode.updateAccessibleGameOverElement();
     };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
