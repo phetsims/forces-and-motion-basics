@@ -14,7 +14,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
@@ -294,27 +293,33 @@ define( function( require ) {
       ] } );
 
       // put it all together in a VBox
-      var accelerometerWithTickLabels = new VBox( {
+      var accelerometerWithTickLabels = new Node( {
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
-        y: 151
+        centerX: 300,
+        y: 170
       } );
+      labelText.bottom = accelerometerNode.top;
+      tickLabels.top = accelerometerNode.bottom;
       model.showAccelerationProperty.linkAttribute( accelerometerWithTickLabels, 'visible' );
 
       this.addChild( accelerometerWithTickLabels );
 
       // whenever showValues and accleration changes, update the label text
+      var initialLabelWidth = labelText.width;
       model.multilink( [ 'showValues', 'acceleration' ], function( showValues, acceleration ) {
         if( showValues ) {
           var accelerationValue = Util.toFixed( acceleration, 1 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
+
+          // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
+          // in width.
+          labelText.centerX = accelerometerNode.centerX + ( labelText.width - initialLabelWidth ) / 2 - 5;
         }
         else {
           labelText.setText( accelerationString );
+          labelText.centerX = accelerometerNode.centerX;
         }
-
-        // fix layout of the accelerometer after text changes
-        accelerometerWithTickLabels.centerX = 300;
 
         // accelerometer and speedometer are always to the left of the stack now
         // TODO: Remove this code once this layout change is verified.
