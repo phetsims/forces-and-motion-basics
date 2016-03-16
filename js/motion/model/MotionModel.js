@@ -92,7 +92,7 @@ define( function( require ) {
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
     // create the items - Initial locations determined empirically
-    var bucket = new Item( this, 'bucket', waterBucketImage, 100, 840, 547 + -45, 0.78 );
+    var bucket = new Item( this, 'bucket', waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
     bucket.bucket = true;
     var fridge = new Item( this, 'fridge', fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
     var crate1 = new Item( this, 'crate1', crateImage, 50, 129, 507, 0.5 );
