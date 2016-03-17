@@ -13,39 +13,39 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  var pusherStraightImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_straight_on.png,level=2' );
-  var pusherFallDownImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_fall_down.png,level=2' );
-  var pusherImage0 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_0.png,level=2' );
-  var pusherImage1 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_1.png,level=2' );
-  var pusherImage2 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_2.png,level=2' );
-  var pusherImage3 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_3.png,level=2' );
-  var pusherImage4 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_4.png,level=2' );
-  var pusherImage5 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_5.png,level=2' );
-  var pusherImage6 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_6.png,level=2' );
-  var pusherImage7 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_7.png,level=2' );
-  var pusherImage8 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_8.png,level=2' );
-  var pusherImage9 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_9.png,level=2' );
-  var pusherImage10 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_10.png,level=2' );
-  var pusherImage11 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_11.png,level=2' );
-  var pusherImage12 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_12.png,level=2' );
-  var pusherImage13 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_13.png,level=2' );
-  var pusherImage14 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_14.png,level=2' );
-  var pusherImage15 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_15.png,level=2' );
-  var pusherImage16 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_16.png,level=2' );
-  var pusherImage17 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_17.png,level=2' );
-  var pusherImage18 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_18.png,level=2' );
-  var pusherImage19 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_19.png,level=2' );
-  var pusherImage20 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_20.png,level=2' );
-  var pusherImage21 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_21.png,level=2' );
-  var pusherImage22 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_22.png,level=2' );
-  var pusherImage23 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_23.png,level=2' );
-  var pusherImage24 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_24.png,level=2' );
-  var pusherImage25 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_25.png,level=2' );
-  var pusherImage26 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_26.png,level=2' );
-  var pusherImage27 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_27.png,level=2' );
-  var pusherImage28 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_28.png,level=2' );
-  var pusherImage29 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_29.png,level=2' );
-  var pusherImage30 = require( 'mipmap!FORCES_AND_MOTION_BASICS/pusher_30.png,level=2' );
+  var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
+  var pusherFallDownImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_fall_down.png' );
+  var pusherImage0 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_0.png' );
+  var pusherImage1 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_1.png' );
+  var pusherImage2 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_2.png' );
+  var pusherImage3 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_3.png' );
+  var pusherImage4 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_4.png' );
+  var pusherImage5 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_5.png' );
+  var pusherImage6 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_6.png' );
+  var pusherImage7 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_7.png' );
+  var pusherImage8 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_8.png' );
+  var pusherImage9 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_9.png' );
+  var pusherImage10 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_10.png' );
+  var pusherImage11 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_11.png' );
+  var pusherImage12 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_12.png' );
+  var pusherImage13 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_13.png' );
+  var pusherImage14 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_14.png' );
+  var pusherImage15 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_15.png' );
+  var pusherImage16 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_16.png' );
+  var pusherImage17 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_17.png' );
+  var pusherImage18 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_18.png' );
+  var pusherImage19 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_19.png' );
+  var pusherImage20 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_20.png' );
+  var pusherImage21 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_21.png' );
+  var pusherImage22 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_22.png' );
+  var pusherImage23 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_23.png' );
+  var pusherImage24 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_24.png' );
+  var pusherImage25 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_25.png' );
+  var pusherImage26 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_26.png' );
+  var pusherImage27 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_27.png' );
+  var pusherImage28 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_28.png' );
+  var pusherImage29 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_29.png' );
+  var pusherImage30 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_30.png' );
 
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -66,9 +66,9 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new Image( pusherStraightImage[2].img, { visible: true, pickable: true, scale: scale } );
-    var fallLeft = new Image( pusherFallDownImage[2].img, { visible: false, pickable: false, scale: scale } );
-    var fallRight = new Image( pusherFallDownImage[2].img, {
+    var standingUp = new Image( pusherStraightImage, { visible: true, pickable: true, scale: scale } );
+    var fallLeft = new Image( pusherFallDownImage, { visible: false, pickable: false, scale: scale } );
+    var fallRight = new Image( pusherFallDownImage, {
       visible: false,
       pickable: false,
       scale: new Vector2( -scale, scale )
@@ -79,37 +79,37 @@ define( function( require ) {
     children.push( fallLeft );
     children.push( fallRight );
     for ( var i = 0; i <= 30; i++ ) {
-      var image = i === 0 ? pusherImage0[2].img :
-                  i === 1 ? pusherImage1[2].img :
-                  i === 2 ? pusherImage2[2].img :
-                  i === 3 ? pusherImage3[2].img :
-                  i === 4 ? pusherImage4[2].img :
-                  i === 5 ? pusherImage5[2].img :
-                  i === 6 ? pusherImage6[2].img :
-                  i === 7 ? pusherImage7[2].img :
-                  i === 8 ? pusherImage8[2].img :
-                  i === 9 ? pusherImage9[2].img :
-                  i === 10 ? pusherImage10[2].img :
-                  i === 11 ? pusherImage11[2].img :
-                  i === 12 ? pusherImage12[2].img :
-                  i === 13 ? pusherImage13[2].img :
-                  i === 14 ? pusherImage14[2].img :
-                  i === 15 ? pusherImage15[2].img :
-                  i === 16 ? pusherImage16[2].img :
-                  i === 17 ? pusherImage17[2].img :
-                  i === 18 ? pusherImage18[2].img :
-                  i === 19 ? pusherImage19[2].img :
-                  i === 20 ? pusherImage20[2].img :
-                  i === 21 ? pusherImage21[2].img :
-                  i === 22 ? pusherImage22[2].img :
-                  i === 23 ? pusherImage23[2].img :
-                  i === 24 ? pusherImage24[2].img :
-                  i === 25 ? pusherImage25[2].img :
-                  i === 26 ? pusherImage26[2].img :
-                  i === 27 ? pusherImage27[2].img :
-                  i === 28 ? pusherImage28[2].img :
-                  i === 29 ? pusherImage29[2].img :
-                  i === 30 ? pusherImage30[2].img :
+      var image = i === 0 ? pusherImage0 :
+                  i === 1 ? pusherImage1 :
+                  i === 2 ? pusherImage2 :
+                  i === 3 ? pusherImage3 :
+                  i === 4 ? pusherImage4 :
+                  i === 5 ? pusherImage5 :
+                  i === 6 ? pusherImage6 :
+                  i === 7 ? pusherImage7 :
+                  i === 8 ? pusherImage8 :
+                  i === 9 ? pusherImage9 :
+                  i === 10 ? pusherImage10 :
+                  i === 11 ? pusherImage11 :
+                  i === 12 ? pusherImage12 :
+                  i === 13 ? pusherImage13 :
+                  i === 14 ? pusherImage14 :
+                  i === 15 ? pusherImage15 :
+                  i === 16 ? pusherImage16 :
+                  i === 17 ? pusherImage17 :
+                  i === 18 ? pusherImage18 :
+                  i === 19 ? pusherImage19 :
+                  i === 20 ? pusherImage20 :
+                  i === 21 ? pusherImage21 :
+                  i === 22 ? pusherImage22 :
+                  i === 23 ? pusherImage23 :
+                  i === 24 ? pusherImage24 :
+                  i === 25 ? pusherImage25 :
+                  i === 26 ? pusherImage26 :
+                  i === 27 ? pusherImage27 :
+                  i === 28 ? pusherImage28 :
+                  i === 29 ? pusherImage29 :
+                  i === 30 ? pusherImage30 :
                   null;
       var rightImage = new Image( image, { visible: false, pickable: false, scale: scale } );
       var leftImage = new Image( image, { visible: false, pickable: false, scale: new Vector2( -scale, scale ) } );
