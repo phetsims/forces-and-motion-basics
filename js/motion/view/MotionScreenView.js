@@ -43,7 +43,7 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
 
   // constants
-  var DEBUG = true; // adds a line at the bottom of the items to assist with layout
+  var DEBUG = false; // adds a line at the bottom of the items to assist with layout
 
   // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
