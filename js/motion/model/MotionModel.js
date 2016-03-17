@@ -103,7 +103,7 @@ define( function( require ) {
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
         new Item( this, 'trash', trashCanImage, 100, 816, 492, 0.7, 1.0, 11 ),
-        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 533, 1.1, 1.0, undefined, undefined, undefined, true )
+        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 511, 1.1, 1.0, undefined, undefined, undefined, true )
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
