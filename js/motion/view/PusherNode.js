@@ -160,7 +160,6 @@ define( function( require ) {
     //Choose the right Image
     model.multilink( [ 'appliedForce', 'fallen' ], function( appliedForce, fallen ) {
 
-      // to save processor time, don't update if the pusher is too far off screen
       var x = getPusherNodePosition();
       if ( fallen ) {
         setVisibleNode( model.fallenDirection === 'left' ? fallLeft : fallRight );
@@ -188,6 +187,7 @@ define( function( require ) {
     model.multilink( [ 'position', 'pusherPosition' ], function() {
       if ( model.appliedForce === 0 || model.fallen ) {
         var x = getPusherNodePosition();
+        // to save processor time, don't update if the pusher is too far off screen
         if( Math.abs( x ) < 2000 ) {
           updateZeroForcePosition( x );
         }
