@@ -187,7 +187,7 @@ define( function( require ) {
 
 
     var controlPanel = new VBox( {
-      align: 'center',
+      align: 'left',
       children: model.screen === 'motion' ? createMotionControls() :
                 model.screen === 'friction' ? createFrictionControls() :
                 createAccelerationControls()
