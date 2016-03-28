@@ -175,9 +175,9 @@ define( function( require ) {
       // Why does g=10.0?  See https://github.com/phetsims/forces-and-motion-basics/issues/132
       // We decide to keep it as it is, even though 9.8 may be more realistic.
       var g = 10.0;
-      var sum = function( a, b ) {return a + b;};
-      var toMass = function( item ) {return item.mass;};
-      var mass = this.stack.map( toMass ).reduce( 0, sum );
+
+      var mass = this.getStackMass();
+
       var frictionForceMagnitude = Math.abs( this.friction * mass * g );
 
       //Friction force only applies above this velocity
@@ -200,7 +200,13 @@ define( function( require ) {
     },
 
     //Compute the mass of the entire stack, for purposes of momentum computation
-    getStackMass: function() { return this.stack.reduce( 0, function( sum, item ) { return sum + item.mass; } ); },
+    getStackMass: function() {
+      var mass = 0;
+      for ( var i = 0; i < this.stack.length; i++ ) {
+        mass += this.stack.get( i ).mass;
+      }
+      return mass;
+    },
 
     //Determine whether a value is positive, negative or zero, to determine whether the object changed directions.
     sign: function( value ) {
@@ -292,7 +298,7 @@ define( function( require ) {
 
     //Update the physics
     step: function( dt ) {
-      
+
       // Computes the new forces and sets them to the corresponding properties
       // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
       // also be updated when the user changes the friction force or mass while the sim is paused.
@@ -309,7 +315,7 @@ define( function( require ) {
       }
 
       // notify that the sim has stepped to calculate forces.  This needs to update even when the sim is paused.
-      this.trigger( 'stepped' );
+      this.trigger0( 'stepped' );
     },
 
     /**

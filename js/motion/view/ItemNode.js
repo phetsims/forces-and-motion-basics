@@ -96,15 +96,17 @@ define( function( require ) {
 
       // if girl or man is alread on the stack, direction should match person that is already on the stack
       var personInStack;
-      model.stack.forEach( function( itemInStack ) {
+      for ( var i = 0; i < model.stack.length; i++ ) {
+        var itemInStack = model.stack.get( i );
+
         if( itemInStack === person ) {
           // skip the person that is currently being dragged
-          return;
-        } 
+          continue;
+        }
         if( itemInStack.name === 'girl' || itemInStack.name === 'man' ) {
           personInStack = itemInStack;
         }
-      } );
+      }
       if( personInStack ) {
         direction = personInStack.direction;
       }
@@ -175,8 +177,8 @@ define( function( require ) {
     } ).mutate( { centerX: massLabel.centerX, centerY: massLabel.centerY } );
 
     // the label needs to be scaled back up after the image was scaled down
-    // normalize the maximum width to then restrict the labels for i18n 
-    var labelNode = new Node( { 
+    // normalize the maximum width to then restrict the labels for i18n
+    var labelNode = new Node( {
       children: [ roundRect, massLabel ],
       scale: 1.0 / item.imageScale
     } );

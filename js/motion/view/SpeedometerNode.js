@@ -66,12 +66,14 @@ define( function( require ) {
 
     // update the value whenever the property changes, and reset layout
     var updateReadout = function( value ) {
-      // the readout needs to have one decimal
-      var readoutValue = Util.toFixed( Math.abs( value ), 1 );
-      valueText.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
+      if ( showSpeedProperty.value ) {
+        // the readout needs to have one decimal
+        var readoutValue = Util.toFixed( Math.abs( value ), 1 );
+        valueText.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
 
-      valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
-      valueText.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
+        valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
+        valueText.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
+      }
     };
 
     // dispose unnecessary for property links, SpeedometerNode exists for the lifetime of the sim
@@ -79,9 +81,8 @@ define( function( require ) {
     showValuesProperty.linkAttribute( valueRectangle, 'visible' );
     showValuesProperty.linkAttribute( valueText, 'visible' );
 
-    velocityProperty.link( function( velocity ) {
-      updateReadout( velocity );
-    } );
+    velocityProperty.link( updateReadout );
+    showSpeedProperty.link( updateReadout );
 
     // mutate post node construction so we can correctly translate
     this.mutate( options );

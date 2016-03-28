@@ -156,7 +156,13 @@ define( function( require ) {
 
     //Count the number of pullers attached to the rope
     countAttachedPullers: function() {
-      return this.pullers.filter( function( puller ) {return puller.knot;} ).length;
+      var count = 0;
+      for ( var i = 0; i < this.pullers.length; i++ ) {
+        if ( this.pullers[ i ].knot ) {
+          count++;
+        }
+      }
+      return count;
     },
 
     //Change knot visibility (halo highlight) when the pullers are dragged
@@ -223,7 +229,7 @@ define( function( require ) {
       this.knots.forEach( function( knot ) {knot.reset();} );
       this.running = false;
       this.state = 'experimenting';
-      this.trigger( 'cart-returned' );
+      this.trigger0( 'cart-returned' );
       this.started = false;
     },
 
@@ -237,7 +243,7 @@ define( function( require ) {
       this.cart.reset();
       this.pullers.forEach( function( puller ) { puller.reset(); } );
       this.knots.forEach( function( knot ) {knot.reset();} );
-      this.trigger( 'reset-all' );
+      this.trigger0( 'reset-all' );
     },
 
     //Update the physics when the clock ticks
