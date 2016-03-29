@@ -139,7 +139,7 @@ define( function( require ) {
 
     // Create controls for the 'motion' screen
     var createMotionControls = function() {
-      var vBox = new VBox( {
+      var checkBoxes = new VBox( {
           children: [
             createCheckBox( forceString, 'showForce', { icon: arrowIcon() } ),
             createCheckBox( valuesString, 'showValues' ),
@@ -149,12 +149,18 @@ define( function( require ) {
           align: 'left',
           spacing: 10
         } );
-      return [ vBox ];
+      return checkBoxes;
     };
 
-    // Create controls for the 'friction' screen
+    // Create controls for the 'friction' screen, including a set of check boxes and a slider
+    // The slider is centered under the check boxes, which are aligned to the left
     var createFrictionControls = function() {
-      var vBox = new VBox( {
+
+      // container for all controls
+      var containerNode = new Node();
+
+      // create the checkboxes
+      var checkBoxes = new VBox( {
         children: [
           createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
           createCheckBox( sumOfForcesString, 'showSumOfForces' ),
@@ -165,12 +171,28 @@ define( function( require ) {
         align: 'left',
         spacing: 10
       } );
-      return [ vBox, new VStrut( 12 ), createFrictionSlider() ];
+      containerNode.addChild( checkBoxes );
+
+      // create a spacer for the check boxes and the slider
+      var strut = new VStrut( 12, { centerTop: checkBoxes.centerBottom } );
+      containerNode.addChild( strut );
+
+      // creat the slider
+      var slider = createFrictionSlider();
+      slider.centerTop = strut.centerBottom;
+      containerNode.addChild( slider );
+
+      return containerNode;
     };
 
     // Create controls for the 'acceleration' screen
+    // The slider is centered under the check boxes, which are aligned to the left
     var createAccelerationControls = function() {
-      var vBox = new VBox( {
+
+      // node containing checkboxes, spacing, and slider
+      var containerNode = new Node();
+
+      var checkBoxes = new VBox( {
         children: [
           createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
           createCheckBox( sumOfForcesString, 'showSumOfForces' ),
@@ -182,17 +204,27 @@ define( function( require ) {
         align: 'left',
         spacing: 10
       } );
-      return [ vBox, new VStrut( 12 ), createFrictionSlider() ];
+      containerNode.addChild( checkBoxes );
+
+      // create the spacing strut
+      var strut = new VStrut( 12, { centerTop: checkBoxes.centerBottom } );
+      containerNode.addChild( strut );
+
+      // add the slider friction slider under the checkboxes
+      var frictionSlider = createFrictionSlider();
+      frictionSlider.centerTop = strut.centerBottom;
+
+      containerNode.addChild( frictionSlider );
+
+      return containerNode;
     };
 
-
-    var controlPanel = new VBox( {
-      align: 'left',
-      children: model.screen === 'motion' ? createMotionControls() :
+    // collect contents for the panel
+    var contents = model.screen === 'motion' ? createMotionControls() :
                 model.screen === 'friction' ? createFrictionControls() :
-                createAccelerationControls()
-    } );
-    var panelNode = new Panel( controlPanel, { xMargin: 12, yMargin: 7, fill: '#e3e980' } );
+                createAccelerationControls();
+
+    var panelNode = new Panel( contents, { xMargin: 12, yMargin: 7, fill: '#e3e980' } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
   }
 
