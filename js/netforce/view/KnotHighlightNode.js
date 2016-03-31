@@ -150,7 +150,7 @@ define( function( require ) {
       grabbedPuller.setValues( { position: new Vector2( knot.x, knot.y ) } );
       model.numberPullersAttached = model.countAttachedPullers();
       grabbedPuller.dragging = false;
-      grabbedPuller.trigger( 'dropped' );
+      grabbedPuller.trigger0( 'dropped' );
       pullerNode.updateImage( grabbedPuller, model );
       pullerNode.updateLocation( grabbedPuller, model );
     }

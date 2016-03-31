@@ -35,7 +35,7 @@ define( function( require ) {
     var movingBackgroundNode = this;
     this.model = model;
 
-    Node.call( this, { pickable: false } );
+    Node.call( this, { pickable: false, preventFit: true } );
 
     var L = 900;
 

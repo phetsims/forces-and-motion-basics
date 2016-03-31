@@ -65,8 +65,10 @@ define( function( require ) {
         history.shift();//remove front item
       }
 
-      var sum = 0.0;
-      history.forEach( function( item ) { sum = sum + item; } );
+      var sum = 0;
+      for ( var i = 0; i < history.length; i++ ) {
+        sum += history[ i ];
+      }
       var composite = sum / history.length;
 
       return model.isInStack( item ) ? -composite / 50 : 0;

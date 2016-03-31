@@ -98,7 +98,7 @@ define( function( require ) {
           // fire updates
           puller.dragging = true;
           pullerNode.moveToFront();
-          puller.trigger( 'dragged' );
+          puller.trigger0( 'dragged' );
 
           // if the puller was knotted, update the image location so that it is centered on the knot it was previously
           // grabbing
@@ -109,7 +109,7 @@ define( function( require ) {
         end: function() {
           pullerNode.updateLocation( puller, model );
           puller.dragging = false;
-          puller.trigger( 'dropped' );
+          puller.trigger0( 'dropped' );
           pullerNode.updateImage( puller, model );
         },
         translate: function( event ) {
@@ -172,7 +172,7 @@ define( function( require ) {
               grabbedPuller.reset();
               model.numberPullersAttached = model.countAttachedPullers();
               grabbedPuller.dragging = false;
-              //grabbedPuller.trigger( 'dropped' );
+              //grabbedPuller.trigger0( 'dropped' );
               pullerNode.updateImage( grabbedPuller, model );
               pullerNode.updateLocation( grabbedPuller, model );
 
