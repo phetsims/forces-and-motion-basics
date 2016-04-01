@@ -110,13 +110,13 @@ define( function( require ) {
     this.addChild( leftItemToolboxNode );
     this.addChild( rightItemToolboxNode );
 
-    //Add the pusher
-    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
-
     //Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
       this.addChild( new Image( skateboardImage, { centerX: width / 2, y: 315 + 12, pickable: false } ) );
     }
+
+    // Add the pusher, pusher should be in front of skateboard
+    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
     //Create the slider
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
