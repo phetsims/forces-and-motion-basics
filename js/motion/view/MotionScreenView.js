@@ -93,6 +93,11 @@ define( function( require ) {
     //Create the dynamic (moving) background
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
 
+    // Add the skateboard if on the 'motion' screen
+    if ( model.skateboard ) {
+      this.addChild( new Image( skateboardImage, { centerX: width / 2, y: 315 + 12, pickable: false } ) );
+    }
+
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
     var leftItemToolboxNode = new ItemToolboxNode( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, 'left', {
@@ -109,11 +114,6 @@ define( function( require ) {
     } );
     this.addChild( leftItemToolboxNode );
     this.addChild( rightItemToolboxNode );
-
-    //Add the skateboard if on the 'motion' screen
-    if ( model.skateboard ) {
-      this.addChild( new Image( skateboardImage, { centerX: width / 2, y: 315 + 12, pickable: false } ) );
-    }
 
     // Add the pusher, pusher should be in front of skateboard
     this.addChild( new PusherNode( model, this.layoutBounds.width ) );
