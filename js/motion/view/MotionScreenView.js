@@ -112,11 +112,6 @@ define( function( require ) {
       lineWidth: 1,
       accessibleDescription: motionRightItemGroupDescriptionString
     } );
-    this.addChild( leftItemToolboxNode );
-    this.addChild( rightItemToolboxNode );
-
-    // Add the pusher, pusher should be in front of skateboard
-    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
     //Create the slider
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
@@ -441,6 +436,14 @@ define( function( require ) {
       labelPosition: 'side',
       arrowScale: arrowScale
     } );
+
+    // Add the pusher and items should be in front of skateboard and controls
+    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
+
+    this.addChild( leftItemToolboxNode );
+    this.addChild( rightItemToolboxNode );
+
+    // add the force arrows, which should be in front of all items and pusher
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
