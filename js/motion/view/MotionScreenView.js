@@ -241,14 +241,14 @@ define( function( require ) {
       model.playProperty.lazyLink( function( isPlaying ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
-   
+
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     var playPauseVerticalOffset = 35;
     var playPauseStepHBox = new HBox( {
       children: [ playPauseButton, stepButton ],
       spacing: 10,
       resize: false,
-      leftCenter: controlPanel.leftBottom.plusXY( 7, playPauseVerticalOffset )
+      leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset )
     } );
     this.addChild( playPauseStepHBox );
 
@@ -259,7 +259,7 @@ define( function( require ) {
         model.reset();
       },
       radius: 23,
-      rightCenter: controlPanel.rightBottom.plusXY( -7, playPauseVerticalOffset ) 
+      rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ) 
     } );
     this.addChild( this.resetAllButton );
 
