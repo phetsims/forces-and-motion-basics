@@ -139,6 +139,12 @@ define( function( require ) {
 
     // Create controls for the 'motion' screen
     var createMotionControls = function() {
+
+      // container node for check boxes and an hstrut which makes the panel just a little wider to match the 
+      // other screens
+      var containerNode = new Node();
+
+      // create the checkboxes
       var checkBoxes = new VBox( {
           children: [
             createCheckBox( forceString, 'showForce', { icon: arrowIcon() } ),
@@ -149,7 +155,14 @@ define( function( require ) {
           align: 'left',
           spacing: 10
         } );
-      return checkBoxes;
+      containerNode.addChild( checkBoxes );
+
+
+      // create an hStrut to increase the width of the controls to the right
+      var hStrut = new HStrut( 16, { leftCenter: checkBoxes.rightCenter} );
+      containerNode.addChild( hStrut );
+
+      return containerNode;
     };
 
     // if the the slider is wider than the group of checkboxes, align the check boxes to the left of the slider
