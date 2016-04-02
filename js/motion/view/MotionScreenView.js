@@ -438,15 +438,15 @@ define( function( require ) {
       arrowScale: arrowScale
     } );
 
-    // Add the pusher and items should be in front of skateboard and controls
-    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
-
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
     var toolBoxContainer = new Node();
     toolBoxContainer.addChild( leftItemToolboxNode );
     toolBoxContainer.addChild( rightItemToolboxNode );
     this.addChild( toolBoxContainer );
+
+    // The pusher and items should be in front of skateboard and controls
+    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
 
     // add the force arrows, which should be in front of all items and pusher
     this.addChild( this.sumArrow );
