@@ -152,6 +152,17 @@ define( function( require ) {
       return checkBoxes;
     };
 
+    // if the the slider is wider than the group of checkboxes, align the check boxes to the left of the slider
+    // otherwise, center with the checkboxes
+    var layoutFrictionSlider = function( checkBoxes, frictionSlider ) {
+      if( frictionSlider.width > checkBoxes.width ) {
+        checkBoxes.left = frictionSlider.left;
+      }
+      else {
+        frictionSlider.centerX = checkBoxes.centerX;
+      }
+    };
+
     // Create controls for the 'friction' screen, including a set of check boxes and a slider
     // The slider is centered under the check boxes, which are aligned to the left
     var createFrictionControls = function() {
@@ -177,10 +188,13 @@ define( function( require ) {
       var strut = new VStrut( 12, { centerTop: checkBoxes.centerBottom } );
       containerNode.addChild( strut );
 
-      // creat the slider
-      var slider = createFrictionSlider();
-      slider.centerTop = strut.centerBottom;
-      containerNode.addChild( slider );
+      // create the slider
+      var frictionSlider = createFrictionSlider();
+      frictionSlider.top = strut.bottom;
+
+      layoutFrictionSlider( checkBoxes, frictionSlider );
+
+      containerNode.addChild( frictionSlider );
 
       return containerNode;
     };
@@ -212,7 +226,9 @@ define( function( require ) {
 
       // add the slider friction slider under the checkboxes
       var frictionSlider = createFrictionSlider();
-      frictionSlider.centerTop = strut.centerBottom;
+      frictionSlider.top = strut.bottom;
+
+      layoutFrictionSlider( checkBoxes, frictionSlider );
 
       containerNode.addChild( frictionSlider );
 
