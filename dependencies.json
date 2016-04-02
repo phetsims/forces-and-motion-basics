@@ -1,31 +1,31 @@
 {
-  "comment": "# forces-and-motion-basics 2.0.0-dev.1 Thu Mar 31 2016 13:14:27 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.0.0-dev.2 Fri Apr 01 2016 19:33:17 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "8774f49c3e3896d35d002b89047b4df3c8351a8d",
+    "sha": "084c71cf9a4fdde0730453d4c0aa0e613b2d6967",
     "branch": "master"
   },
   "brand": {
-    "sha": "4091d2e72e51680d39a183acfd45aafcbf1be957",
+    "sha": "bb1cfcc63c3d007d800ede089994d8705db6d47b",
     "branch": "master"
   },
   "chipper": {
-    "sha": "4dde25daa6789fcda24bbb990f39375a1add3bef",
+    "sha": "b2e0b31e099daed353568e97866386612fadc897",
     "branch": "master"
   },
   "dot": {
-    "sha": "da78031b6f080d20bc8346beaa1d37148188371e",
+    "sha": "33ae235e302fbfb1aa0a541265b7241237501865",
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "9e3bcda6b5f1d615f20ef0ff7bef3d7308c4fbc3",
+    "sha": "7587c31fef7ed219e96e3eb4694520e6baf4776b",
     "branch": "master"
   },
   "joist": {
-    "sha": "150c8138c794ea7946f71345ad74f0f78de8473c",
+    "sha": "ecd8d968e09ee1be00a444a261a01d1b391422e2",
     "branch": "master"
   },
   "kite": {
@@ -41,19 +41,19 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "ee35a4eb3d983440ce3f5472d92f6fa91a31eb0c",
+    "sha": "7db0478c52f059af619b115691898543fe18dfe7",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "54df833b220e91e97bc9fc21a22107c882fd11cb",
+    "sha": "71c5dea54d615eabcf6d08795968d1ade058f297",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "fc4c2c967b9adbf6ad33a9462fd0bef81d26865c",
+    "sha": "b74418c01f7b018cfc2ad130becdc0ad428b71c2",
     "branch": "master"
   },
   "sun": {
-    "sha": "77f84663fe3fb7eeabfeb3321528962db831c73e",
+    "sha": "953074cca0879fe5c5d1041670a45ff697796742",
     "branch": "master"
   },
   "tandem": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "vibe": {
-    "sha": "c84b3c41d026d31e208243de7b5852e2d6df69a0",
+    "sha": "42f7af6b117725e0a508c99961b70a5e9baf7500",
     "branch": "master"
   }
 }
