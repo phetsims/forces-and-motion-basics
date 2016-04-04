@@ -158,16 +158,8 @@ define( function( require ) {
     this.addChild( this.textPanelNode );
     this.addChild( readout );
 
-    // stand up if the pusher falls over and the user presses a tweaker button
-    var standUp = function() {
-      if( model.fallen ) {
-        model.fallen = !model.fallen;
-      }
-    };
-
     //Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
-      standUp();
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
     }, {
       rectangleYMargin: 7,
@@ -184,7 +176,6 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
-      standUp();
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
     }, {
       left: this.textPanelNode.right + 6,

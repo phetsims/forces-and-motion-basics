@@ -110,6 +110,11 @@ define( function( require ) {
       motionModel.direction = appliedForce > 0 ? 'right' :
                               appliedForce < 0 ? 'left' :
                               'none';
+
+      // if the applied force changes and the pusher is fallen, stand up to push immediately
+      if( motionModel.fallen ) {
+        motionModel.fallen = !motionModel.fallen;
+      }
     } );
 
     //Applied force should drop to zero if max speed reached
