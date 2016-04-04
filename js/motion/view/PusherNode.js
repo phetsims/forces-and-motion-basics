@@ -183,6 +183,14 @@ define( function( require ) {
       }
     } );
 
+    // when the stack composition changes, we want to update the applied force position
+    // model.stackSize does not need a dispose function since it persists for the duration of the simulation
+    model.stackSizeProperty.link( function( stackSize ) {
+      if( model.stackSize > 0 ) {
+        updateAppliedForcePosition();
+      }
+    } );
+
     //Update the rightImage and position when the model changes
     model.multilink( [ 'position', 'pusherPosition' ], function() {
       if ( model.appliedForce === 0 || model.fallen ) {
