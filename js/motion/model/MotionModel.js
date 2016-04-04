@@ -238,13 +238,6 @@ define( function( require ) {
      */
     stepModel: function( dt ) {
 
-      //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
-      dt = dt / 2.3;
-      this.time = this.time + dt;
-
-      var mass = this.getStackMass();
-      this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
-
       var newVelocity = this.velocity + this.acceleration * dt;
 
       //friction force should not be able to make the object move backwards
@@ -304,11 +297,18 @@ define( function( require ) {
     //Update the physics
     step: function( dt ) {
 
+      //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
+      dt = dt / 2.3;
+      this.time = this.time + dt;
+
       // Computes the new forces and sets them to the corresponding properties
       // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
       // also be updated when the user changes the friction force or mass while the sim is paused.
       this.frictionForce = this.getFrictionForce( this.appliedForce );
       this.sumOfForces = this.frictionForce + this.appliedForce;
+
+      var mass = this.getStackMass();
+      this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
 
       if( this.play ) {
         this.stepModel( dt );
