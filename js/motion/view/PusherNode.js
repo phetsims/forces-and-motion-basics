@@ -187,7 +187,10 @@ define( function( require ) {
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
     model.stackSizeProperty.link( function( stackSize ) {
       if( model.stackSize > 0 ) {
-        updateAppliedForcePosition();
+        // only do this if the pusher is standing and there is non zero applied force
+        if( !model.fallen && model.appliedForce !== 0 ) {
+          updateAppliedForcePosition();
+        }
       }
     } );
 
