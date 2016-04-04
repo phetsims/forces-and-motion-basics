@@ -14,6 +14,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
   var linear = require( 'DOT/Util' ).linear;
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
+
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
@@ -59,7 +61,14 @@ define( function( require ) {
     //When the model steps in time, update the water shape
     //The delta value is the critical value in determining the water shape.
     //Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
-    var deltaProperty = model.toDerivedProperty( [ 'time' ], function() {
+    var deltaProperty = new DerivedProperty( [ model.timeProperty, item.draggingProperty ], function( time, dragging ) {
+
+      // if the bucket is being dragged, we want delta to be zero, regardless of
+      // whether or not the sim is running
+      if( dragging ) {
+        return 0;
+      }
+
       var acceleration = model.acceleration;
       history.push( acceleration );
       while ( history.length > 7 ) {
