@@ -267,6 +267,13 @@ define( function( require ) {
         this.fallen = true;
       }
       else {
+
+        // if the pusher is very far off screen, stand up immediately
+        // based on width of the background image, determined by visual inspection
+        var relativePosition = this.getRelativePusherPosition();
+        if( relativePosition > 1600 || relativePosition < -600 ) {
+          this.fallen = false;
+        }
         this.timeSinceFallen = this.timeSinceFallen + dt;
 
         //Stand up after 1 second
