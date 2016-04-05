@@ -133,7 +133,7 @@ define( function( require ) {
 
             this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 5 : 0;
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
-              this.valueNode.bottom = this.labelNode.top;
+              this.valueNode.leftCenter = this.labelNode.rightCenter.plusXY( 5, 0 );
             }
           }
 
