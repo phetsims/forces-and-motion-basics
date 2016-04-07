@@ -241,7 +241,12 @@ define( function( require ) {
       this.pullers.forEach( function( puller ) {puller.disconnect();} );
 
       this.cart.reset();
-      this.pullers.forEach( function( puller ) { puller.reset(); } );
+      this.pullers.forEach( function( puller ) {
+        // only reset the puller if it is not being dragged
+        if( !puller.dragging ) {
+          puller.reset(); 
+        }
+      } );
       this.knots.forEach( function( knot ) {knot.reset();} );
       this.trigger0( 'reset-all' );
     },
