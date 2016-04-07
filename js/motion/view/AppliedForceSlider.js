@@ -42,14 +42,33 @@ define( function( require ) {
       thumbNode: sliderKnob
     }, options ) );
 
-    // when the left is disabled, disable that section of the range
-    disableLeftProperty.link( function( disableLeft ) {
-      thisSlider.enabledRange = disableLeft ? { min: 0, max: range.max } : range;
-    } );
-
-    // when the right is disabled, disable that section of the range
-    disableRightProperty.link( function( disableRight ) {
-      thisSlider.enabledRange = disableRight ? { min: range.min, max: 0 } : range;
+    // Note: I do not like this method of canceling, it relies on the assumption that the slider will end drag
+    // when thisSlider.enabled is set to false. This solution should be fine until we have general support for
+    // this kind of thing in scenery
+    var cancelDrag = function() {
+      thisSlider.enabled = false;
+      thisSlider.enabled = true;
+    };
+    model.speedClassificationProperty.link( function( speedClassification ) {
+      if( model.friction > 0 ) {
+        // if we have any friction, all we want to do is cancel the drag so the pusher does not 
+        // rapidly stand up again
+        if( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
+          cancelDrag();
+        }
+      }
+      else {
+        // otherwise, we will want to disable a portion of the slider depending on the direciton of the stacks
+        if( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
+          thisSlider.enabledRange = { min: range.min, max: 0 };
+        }
+        else if( speedClassification === 'LEFT_SPEED_EXCEEDED' ) {
+          thisSlider.enabledRange = { min: 0, max: range.max };
+        }
+        else {
+          thisSlider.enabledRange = { min: range.min, max: range.max };
+        }
+      }
     } );
 
     // when the model is paused, the slider should not snap to a value so the user can set up a state of forces
