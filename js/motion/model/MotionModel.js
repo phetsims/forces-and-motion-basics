@@ -351,7 +351,10 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
-        this.items[ i ].reset();
+        // only reset if the item is not being dragged
+        if( !this.items[ i ].dragging ) {
+          this.items[ i ].reset();
+        }
       }
       this.stack.clear();
 
@@ -365,15 +368,18 @@ define( function( require ) {
      * @param view
      */
     viewInitialized: function( view ) {
-      this.view = view;
       var item = this.items[ 1 ];
-      item.onBoard = true;
-      var itemNode = view.itemNodes[ 1 ];
-      item.animating = { enabled: false, x: 0, y: 0, end: null };
-      item.interactionScale = 1.3;
-      var scaledWidth = this.view.getSize( item ).width;
-      item.position = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );
-      this.stack.add( item );
+      // only move item to the top of the stack if it is not being dragged
+      if( !item.dragging ) {
+        this.view = view;
+        item.onBoard = true;
+        var itemNode = view.itemNodes[ 1 ];
+        item.animating = { enabled: false, x: 0, y: 0, end: null };
+        item.interactionScale = 1.3;
+        var scaledWidth = this.view.getSize( item ).width;
+        item.position = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );
+        this.stack.add( item );
+      }
     },
 
     /**
