@@ -49,12 +49,16 @@ define( function( require ) {
       thisSlider.enabled = false;
       thisSlider.enabled = true;
     };
-    model.speedClassificationProperty.link( function( speedClassification ) {
-      if( model.friction > 0 ) {
+
+    model.multilink( [ 'speedClassification', 'friction' ], function( speedClassification, friction ) {
+      if( friction > 0 ) {
         // if we have any friction, all we want to do is cancel the drag so the pusher does not 
         // rapidly stand up again
         if( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
           cancelDrag();
+        }
+        else {
+          thisSlider.enabledRange = { min: range.min, max: range.max };
         }
       }
       else {
