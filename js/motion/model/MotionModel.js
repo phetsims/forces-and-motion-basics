@@ -17,13 +17,13 @@ define( function( require ) {
   var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
   var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
   var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
-  var girlStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-standing.png' );
-  var manStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-standing.png' );
-  var girlSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
-  var manSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-sitting.png' );
+  var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
+  var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
+  var girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
+  var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
   var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
-  var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-holding.png' );
-  var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/trash-can.png' );
+  var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
+  var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
@@ -103,7 +103,7 @@ define( function( require ) {
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
         new Item( this, 'trash', trashCanImage, 100, 816, 492, 0.7, 1.0, 11 ),
-        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 511, 1.1, 1.0, undefined, undefined, undefined, true )
+        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 511, 0.3, 1.0, undefined, undefined, undefined, true )
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
@@ -150,7 +150,7 @@ define( function( require ) {
         for ( var i = 0; i < this.stack.length; i++ ) {
           var size = this.view.getSize( this.stack.get( i ) );
           sumHeight += size.height;
-          this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, (this.skateboard ? 335 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, (this.skateboard ? 334 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
 
@@ -260,9 +260,7 @@ define( function( require ) {
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
-      if ( this.appliedForce !== 0 ) {
-        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
-      }
+
       this.speed = Math.abs( this.velocity );
       this.speedClassification = this.velocity >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
                                  this.velocity <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
@@ -322,6 +320,11 @@ define( function( require ) {
 
       if( this.play ) {
         this.stepModel( dt );
+      }
+
+      // update the pusher position every time step, even if the sim is paused
+      if ( this.appliedForce !== 0 ) {
+        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
       }
 
       // step all model items so that they are interactive while paused
