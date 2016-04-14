@@ -17,13 +17,13 @@ define( function( require ) {
   var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
   var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
   var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
-  var girlStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-standing.png' );
-  var manStandingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-standing.png' );
-  var girlSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
-  var manSittingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-sitting.png' );
+  var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
+  var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
+  var girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
+  var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
   var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
-  var manHoldingImage = require( 'image!FORCES_AND_MOTION_BASICS/man-holding.png' );
-  var trashCanImage = require( 'image!FORCES_AND_MOTION_BASICS/trash-can.png' );
+  var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
+  var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
