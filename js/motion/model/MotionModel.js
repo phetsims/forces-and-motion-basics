@@ -260,9 +260,7 @@ define( function( require ) {
 
       this.velocity = newVelocity;
       this.position = this.position + this.velocity * dt;
-      if ( this.appliedForce !== 0 ) {
-        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
-      }
+
       this.speed = Math.abs( this.velocity );
       this.speedClassification = this.velocity >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
                                  this.velocity <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
@@ -322,6 +320,11 @@ define( function( require ) {
 
       if( this.play ) {
         this.stepModel( dt );
+      }
+
+      // update the pusher position every time step, even if the sim is paused
+      if ( this.appliedForce !== 0 ) {
+        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
       }
 
       // step all model items so that they are interactive while paused
