@@ -538,7 +538,7 @@ define( function( require ) {
 
     //Find the top of the stack, so that a new object can be placed on top
     get topOfStack() {
-      var n = this.model.skateboard ? 335 : 360;
+      var n = this.model.skateboard ? 334 : 360;
       return n - this.stackHeight;
     },
 
