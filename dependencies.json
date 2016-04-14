@@ -1,11 +1,11 @@
 {
-  "comment": "# forces-and-motion-basics 2.0.0-dev.2 Thu Apr 14 2016 14:10:44 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.0.0-dev.2 Thu Apr 14 2016 14:51:44 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
   },
   "axon": {
-    "sha": "ee65d06584991812779f626d4ccdb4f10539f8c9",
+    "sha": "5e33541f53066f495d1b42efe7344a3c4cb3e3d2",
     "branch": "master"
   },
   "brand": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "f20d52f88a5a49e3b8efaad80d80fd65e62c3180",
+    "sha": "d17a8a5c51bb24f162614427166d5946971a89d7",
     "branch": "master"
   },
   "joist": {
-    "sha": "7f7b887244e84d8d1102e5701176c294b8e20162",
+    "sha": "97fac8d0fb6a596f5fa1373bd5b774cb128f53a6",
     "branch": "master"
   },
   "kite": {
