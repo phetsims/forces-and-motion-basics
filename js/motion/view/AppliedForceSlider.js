@@ -1,7 +1,9 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * 
+ * Applied Force Slider of the Motion screens.  If the model velocity is larger than the max allowed value, 
+ * one half of the slider will become disabled depending on the direction of velocity.  The slider is also disabled
+ * when the pusher has fallen over and there is no friction in the model.
  * 
  * @author Sam Reid
  * @author Jesse Greenberg
@@ -21,13 +23,11 @@ define( function( require ) {
    * Constructor.
    * 
    * @param {MotionModel} model
-   * @param {Property<Boolean>} disableLeftProperty
-   * @param {Property<Boolean>} disableRightProperty
    * @param {Object} range - the range of values for the slider
    * @param {Object} [options]
    * @constructor
    */
-  function AppliedForceSlider( model, disableLeftProperty, disableRightProperty, range, options ) {
+  function AppliedForceSlider( model, range, options ) {
     
     var thisSlider = this;
     this.range = range;
