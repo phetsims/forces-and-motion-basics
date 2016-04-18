@@ -14,6 +14,22 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  /**
+   * Constructor for Item
+   * 
+   * @param {MotionModel || NetForceModel} context - model context in which this item exists
+   * @param {string} name - string describing this time of item
+   * @param {image} image - image from the 'image!' plugin, representing the item
+   * @param {number} mass - model mass of the item
+   * @param {number} x - home value x position for the item
+   * @param {number} y - home value y position for the item
+   * @param {number} imageScale - base scacle of the image
+   * @param {number} homeScale - additional scale factor for when the item is in the toolbox
+   * @param {number} pusherInset - inset value to align the item with the pusher's hands
+   * @param {image} sittingImage - image from the 'image!' plugin, representing a 'sitting' item
+   * @param {image} holdingImage - image from the 'image!' plugin, representing a 'sitting' item
+   * @param {boolean} mystery      [description]
+   */
   function Item( context, name, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
     var item = this;
 

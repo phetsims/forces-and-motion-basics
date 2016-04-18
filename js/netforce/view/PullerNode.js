@@ -230,12 +230,24 @@ define( function( require ) {
       puller.positionProperty.set( new Vector2( knot.x + blueOffset, knot.y - this.height + 90 ) );
     },
 
+    /**
+     * Update the image puller image depending on whether the puller is knotted and pulling
+     * 
+     * @param  {Puller} puller
+     * @param  {NetForceModel} model 
+     */
     updateImage: function( puller, model ) {
       var knotted = puller.knot;
       var pulling = model.started && knotted;
       this.image = pulling ? this.pullImage : this.standImage;
     },
 
+    /**
+     * Update the location of a puller depending on whether it is knotted and pulling.
+     * 
+     * @param  {Puller} puller
+     * @param  {NetForceModel} model  
+     */
     updateLocation: function( puller, model ) {
       var knotted = puller.knot;
       var pulling = model.started && knotted;
@@ -247,10 +259,6 @@ define( function( require ) {
       else {
         this.setTranslation( puller.position );
       }
-    },
-
-    dispose: function() {
-      // TODO
     }
   } );
 } );

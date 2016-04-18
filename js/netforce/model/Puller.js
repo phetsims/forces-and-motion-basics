@@ -86,11 +86,6 @@ define( function( require ) {
 
   return inherit( PropertySet, Puller, {
 
-    // The puller was selected and will hover over the rope until the user chooses where to put the puller.
-    popAboveRope: function() {
-
-    },
-
     //Detach the puller from the knot.
     disconnect: function() {
       this.knot = null;

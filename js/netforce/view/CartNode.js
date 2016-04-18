@@ -73,6 +73,12 @@ define( function( require ) {
 
   return inherit( Image, CartNode, {
 
+    /**
+     * Update the text content of the aria-live region describing the cart.
+     * 
+     * @param  {DOMElement} descriptionElement
+     * @param  {string} directionString
+     */
     updateLiveCartRegion: function( descriptionElement, directionString ) {
       // update the aria live region by setting its inner text.
 

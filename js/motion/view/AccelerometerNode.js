@@ -16,7 +16,12 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  //Constructor for the AccelerometerNode
+  /**
+   * Constructor.
+   * 
+   * @param {Property<number>} accelerationProperty
+   * @param {object} options
+   */
   function AccelerometerNode( accelerationProperty, options ) {
     options = options || {};
     this.ticks = [];
@@ -74,6 +79,11 @@ define( function( require ) {
   forcesAndMotionBasics.register( 'AccelerometerNode', AccelerometerNode );
 
   return inherit( Node, AccelerometerNode, {
+
+    /**
+     * Add a the child line as a tick to the accelerometer node
+     * @param {Node} child - Line segment to add as a tick
+     */
     addTick: function( child ) {
       this.addChild( child );
       this.ticks.push( child );

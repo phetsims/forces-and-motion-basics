@@ -59,6 +59,7 @@ define( function( require ) {
 
   /**
    * Constructor for the MotionScreenView
+   * 
    * @param {MotionModel} model model for the entire screen
    * @constructor
    */
@@ -118,16 +119,10 @@ define( function( require ) {
 
     //Create the slider
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
-    var disableLeftProperty = new DerivedProperty( [ model.fallenProperty, model.fallenDirectionProperty ], function( fallen, fallenDirection ) {
-      return fallen && fallenDirection === 'left';
-    } );
-    var disableRightProperty = new DerivedProperty( [ model.fallenProperty, model.fallenDirectionProperty ], function( fallen, fallenDirection ) {
-      return fallen && fallenDirection === 'right';
-    } );
 
     var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
     var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430, maxWidth: maxTextWidth } );
-    var slider = new AppliedForceSlider( model, disableLeftProperty, disableRightProperty, { min: -500, max: 500 }, {
+    var slider = new AppliedForceSlider( model, { min: -500, max: 500 }, {
       centerX: width / 2 + 1,
       y: 555
     } );

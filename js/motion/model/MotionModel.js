@@ -130,6 +130,11 @@ define( function( require ) {
 
   return inherit( PropertySet, MotionModel, {
 
+    /**
+     * Get an array representing the items that are being dragged.
+     * 
+     * @return {Array<Item>}
+     */
     draggingItems: function() {
       var draggingItems = [];
       for ( var i = 0; i < this.items.length; i++ ) {
@@ -141,8 +146,12 @@ define( function( require ) {
       return draggingItems;
     },
 
-    //Upper items should fall if an item removed from beneath
-    //Uses the view to get item dimensions.
+    /**
+     * Upper items should fall if an item removed from beneath
+     * Uses the view to get item dimensions.
+     *
+     * @param {number} index - index of item in the stack array
+     */
     spliceStack: function( index ) {
       var item = this.stack.get( index );
       this.stack.remove( item );
@@ -170,12 +179,22 @@ define( function( require ) {
       bottom.animateHome();
     },
 
-    //Determine whether a value is positive, negative or zero for the physics computations
+    /**
+     * Determine whether a value is positive, negative, or zero for the physics computations.
+     * 
+     * @param  {number} value
+     * @return {number}
+     */
     getSign: function( value ) {
       return value > 0 ? 1 : value < 0 ? -1 : 0;
     },
 
-    //Returns the friction force on an object given the applied force
+    /**
+     * Returns the friction force on an object given the applied force.
+     * 
+     * @param  {number} appliedForce
+     * @return {number}
+     */
     getFrictionForce: function( appliedForce ) {
 
       // Why does g=10.0?  See https://github.com/phetsims/forces-and-motion-basics/issues/132
@@ -214,14 +233,23 @@ define( function( require ) {
       return mass;
     },
 
-    //Determine whether a value is positive, negative or zero, to determine whether the object changed directions.
+    /**
+     * Determine whether a value is positive, negative or zero to determine wheter the object changed directions.
+     * @param  {number} value
+     * @return {number}      
+     */
     sign: function( value ) {
       return value < 0 ? 'negative' :
              value > 0 ? 'positive' :
              'zero';
     },
 
-    //Determine whether a velocity value changed direction
+    /**
+     * Determine whether a velocity value changed direction.
+     * @param  {number} a - initial value
+     * @param  {number} b - second value
+     * @return {boolean}
+     */
     changedDirection: function( a, b ) {
       return this.sign( a ) === 'negative' && this.sign( b ) === 'positive' ||
              this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
@@ -307,7 +335,11 @@ define( function( require ) {
 
     },
 
-    //Update the physics
+    /**
+     * Update the physics.
+     * 
+     * @param {number} dt
+     */
     step: function( dt ) {
 
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
@@ -345,10 +377,19 @@ define( function( require ) {
       this.stepModel( 1 / 60 );
     },
 
-    //Determine whether an item is in the stack.
+    /**
+     * Determine whether an item is in the stack.
+     * @param  {Item} item
+     * @return {boolean}
+     */
     isInStack: function( item ) { return this.stack.contains( item ); },
 
-    //Determine whether an item is stacked above another item, so that the arms can be raised for humans
+    /**
+     * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
+     * 
+     * @param  {Item}
+     * @return {boolean}
+     */
     isItemStackedAbove: function( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;},
 
     //Reset the model
@@ -369,7 +410,7 @@ define( function( require ) {
     /**
      * After the view is constructed, move one of the blocks to the top of the stack.
      * It would be better if more of this could be done in the model constructor, but it would be difficult with the way things are currently set up.
-     * @param view
+     * @param {ScreenView} view
      */
     viewInitialized: function( view ) {
       var item = this.items[ 1 ];

@@ -19,6 +19,7 @@ define( function( require ) {
 
   /**
    * Constructor for the net force model.
+   * 
    * @constructor
    */
   function NetForceModel() {
@@ -126,14 +127,32 @@ define( function( require ) {
 
       this.numberPullersAttached = this.countAttachedPullers();
     },
+
+    /**
+     * Shift the puller to the left.
+     * 
+     * @param  {Puller} puller [description]
+     */
     shiftPullerLeft: function( puller ) {
       this.shiftPuller( puller, 0, 4, -1 );
     },
 
+    /**
+     * Shift a puller to the right.
+     * 
+     * @param  {Puller} puller
+     */
     shiftPullerRight: function( puller ) {
       this.shiftPuller( puller, 3, 7, 1 );
     },
 
+    /**
+     * Shift a puller by some delta, restricted by the desired bounds
+     * @param  {Puller} puller
+     * @param  {number} leftBoundIndex
+     * @param  {number} rightBoundIndex
+     * @param  {number} delta
+     */
     shiftPuller: function( puller, leftBoundIndex, rightBoundIndex, delta ) {
       if ( puller.knot ) {
         var currentIndex = this.knots.indexOf( puller.knot );
@@ -179,13 +198,22 @@ define( function( require ) {
       } );
     },
 
-    //Gets the puller attached to a knot, or null if none attached to that knot.
+    /**
+     * Gets the puller attached to a knot, or null if none attached to that knot.
+     * 
+     * @param  {Knot} knot
+     */
     getPuller: function( knot ) {
       var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
       return typeof(find) !== 'undefined' ? find : null;
     },
 
-    //Given a puller, returns a function that computes the distance between that puller and any knot
+    /**
+     * Given a puller, returns a function that computes the distance between that puller and any knot.
+     * 
+     * @param  {Puller} puller
+     * return {function}
+     */
     getKnotPullerDistance: function( puller ) {
 
       // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
@@ -194,7 +222,12 @@ define( function( require ) {
       return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
     },
 
-    //Gets the closest unoccupied knot to the given puller, which is being dragged.
+    /**
+     * Gets the closest unoccupied knot to the given puller, which is being dragged.
+     * 
+     * @param  {Puller} puller [description]
+     * @return {Knot}
+     */
     getClosestOpenKnot: function( puller ) {
       var netForceModel = this;
       var filter = this.knots.filter( function( knot ) {
@@ -203,7 +236,12 @@ define( function( require ) {
       return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
 
-    //Gets the closest unoccupied knot to the given puller, which is being dragged.
+    /**
+     * Gets the closest unoccupied knot to the given puller, which is being dragged.
+     * 
+     * @param  {Puller} puller
+     * @return {Knot}
+     */
     getClosestOpenKnotFromCart: function( puller ) {
       var idx = puller.type === 'red' ? 4 : 3;
       var delta = puller.type === 'red' ? 1 : -1;
@@ -213,7 +251,11 @@ define( function( require ) {
       return this.knots[ idx ];
     },
 
-    //Gets the closest unoccupied knot to the given puller if it is close enough to grab
+    /**
+     * Gets the closest unoccupied knot to the given puller if it is close enough to grab.
+     * @param  {Puller} puller
+     * @return {Knot}
+     */
     getTargetKnot: function( puller ) {
       var target = this.getClosestOpenKnot( puller );
       var distanceToTarget = this.getKnotPullerDistance( puller )( target );
@@ -251,7 +293,11 @@ define( function( require ) {
       this.trigger0( 'reset-all' );
     },
 
-    //Update the physics when the clock ticks
+    /**
+     * Update the physics when the clock ticks
+     * 
+     * @param {number} dt
+     */
     step: function( dt ) {
       if ( this.running ) {
 
@@ -275,12 +321,22 @@ define( function( require ) {
       return this.getLeftForce() + this.getRightForce();
     },
 
-    //Get an array of pullers of the specified type (color string)
+    /**
+     * Get an array of pullers of the specified type (color string)
+     * @param  {striing} type - one of 'red' or 'blue'
+     * @return {Array<Puller>}
+     */
     getPullers: function( type ) {
       return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} );
     },
 
-    //Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
+    /**
+     * Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
+     * 
+     * @param  {string} memo   
+     * @param  {Puller} puller 
+     * @return {string}
+     */
     sumForces: function( memo, puller ) {
       return memo + puller.force;
     },
@@ -295,7 +351,12 @@ define( function( require ) {
       return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 );
     },
 
-    //Gets the closest unoccupied knot to the given puller, which is being dragged.
+    /**
+     * Gets the closest unoccupied knot to the given puller, which is being dragged.
+     * @param  {Puller} puller
+     * @param  {nuber} delta 
+     * @return {Knot}
+     */
     getClosestOpenKnotInDirection: function( puller, delta ) {
       var netForceModel = this;
       var isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
@@ -349,18 +410,17 @@ define( function( require ) {
       return result;
     },
 
+    /**
+     * Move a puller to an adjacent open knot in a direction specified by delta.
+     * 
+     * @param  {Puller} puller 
+     * @param  {number} delta  
+     */
     movePullerToAdjacentOpenKnot: function( puller, delta ) {
       var closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
       if ( closestOpenKnot ) {
         this.movePullerToKnot( puller, closestOpenKnot );
       }
-    },
-
-    // The puller was selected and will hover over the rope until the user chooses where to put the puller.
-    activatePuller: function( puller, pullerNode ) {
-      var targetKnot = this.getClosestOpenKnot( puller );
-      puller.hoverKnot = targetKnot;
-//      puller.position = targetKnot.position.plusXY( 0,  );
     }
   } );
 } );

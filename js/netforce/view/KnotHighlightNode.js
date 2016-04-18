@@ -39,6 +39,15 @@ define( function( require ) {
     920: fourthKnotDescriptionString
   };
 
+  /**
+   * Constructor
+   * @param {Knot} knot              
+   * @param {Array<PullerNode>} pullerNodes       
+   * @param {KnotFocusRegion} focusRegionNode   
+   * @param {pullerToolboxNode} pullerToolboxNode 
+   * @param {NetForceModel} model             
+   * @constructor
+   */
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model ) {
 
     var thisNode = this;

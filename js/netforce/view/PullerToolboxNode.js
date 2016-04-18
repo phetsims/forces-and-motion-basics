@@ -20,9 +20,15 @@ define( function( require ) {
 
   /**
    * Create toolbox backgrounds for the pullers
+   * @param {NetForceModel} model
+   * @param {NetForceScreenView} netForceScreenView
    * @param {number} x - the screen coordinate for the location of the toolbox
-   * @param {string} side - left/right
-   * @returns {Rectangle}
+   * @param {number} side - 'left' || 'right'
+   * @param {number} activePullerIndex
+   * @param {number} minIndex
+   * @param {number} maxIndex
+   * @param {string || Color} highlightColor
+   * @param {string} pullerGroupDescriptionString
    */
   function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor,
                               pullerGroupDescriptionString ) {

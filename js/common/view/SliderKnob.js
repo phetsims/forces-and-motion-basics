@@ -15,6 +15,12 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Property = require( 'AXON/Property' );
+
+  /**
+   * Constructor.
+   * 
+   * @param {object} options
+   */
   function SliderKnob( options ) {
 
     options = _.extend( { 

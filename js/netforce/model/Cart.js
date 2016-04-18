@@ -12,7 +12,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  //Cart constructor
+  /**
+   * Constructor.
+   */
   function Cart() {
     PropertySet.call( this, { x: 0, v: 0 } );//Position and velocity are in MKS
   }

@@ -22,8 +22,15 @@ define( function( require ) {
 
   /**
    * Constructor.
-   *
-   * @constructor
+   * 
+   * @param {number} toolboxX
+   * @param {number} toolboxY
+   * @param {number} toolboxWidth
+   * @param {number} toolboxHeight
+   * @param {number} toolboxArcWidthX
+   * @param {number} toolboxArcWidthY
+   * @param {number} sideString - string description for which side the toolbox is on
+   * @param {object} toolboxOptions
    */
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 

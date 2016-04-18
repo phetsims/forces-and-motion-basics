@@ -27,8 +27,8 @@ define( function( require ) {
    * Constructor for FlagNode
    *
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {Number} centerX center for layout
-   * @param {Number} top top for layout
+   * @param {number} centerX center for layout
+   * @param {number} top top for layout
    * @constructor
    */
   function FlagNode( model, centerX, top ) {

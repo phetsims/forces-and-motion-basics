@@ -28,10 +28,10 @@ define( function( require ) {
   /**
    * Constructor.
    *
-   * @param {Property.<number>} velocityProperty
-   * @param {Property.<number>} showSpeedProperty
-   * @param {Property.<boolean>} showSpeedProperty
-   * @param {Object} options
+   * @param {Property<number>} velocityProperty
+   * @param {Property<number>} showSpeedProperty
+   * @param {Property<boolean>} showSpeedProperty
+   * @param {object} options
    * @constructor
    */
   function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, options ) {

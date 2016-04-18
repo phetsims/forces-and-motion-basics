@@ -30,6 +30,16 @@ define( function( require ) {
   //If the node is already the largest, don't wrap it.
   //Centers all the nodes in the parent wrappers
   //TODO: Would be good to factor this out or provide better library support
+  /**
+   * Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the 
+   * bounds will match up.  If the node is already the largest, don't wrap it.
+   * Centers all the nodes in the parent wrappers.
+   * @param  {Node} node
+   * @param  {number} padX
+   * @param  {number} padY
+   * @param  {Array<Node>} nodes
+   * @return {Rectangle}
+   */
   function wrap( node, padX, padY, nodes ) {
     var maxWidth = -1;
     var maxHeight = -1;
@@ -50,8 +60,9 @@ define( function( require ) {
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
+   * 
    * @param {NetForceModel} model the NetForceModel
-   * @param {Number} layoutWidth the layout width for centering the button
+   * @param {number} layoutWidth the layout width for centering the button
    * @constructor
    */
   function GoPauseButton( model, layoutWidth, options ) {

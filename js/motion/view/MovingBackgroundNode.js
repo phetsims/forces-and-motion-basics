@@ -28,7 +28,7 @@ define( function( require ) {
    * Constructor for MovingBackgroundNode
    *
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param layoutCenterX the location where the node should be centered horizontally
+   * @param {number} layoutCenterX the location where the node should be centered horizontally
    * @constructor
    */
   function MovingBackgroundNode( model, layoutCenterX ) {
