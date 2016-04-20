@@ -22,6 +22,7 @@ define( function( require ) {
 
   /**
    * Create the NetForceControlPanel.
+   * 
    * @param {NetForceModel} model the model for this control panel
    * @param {Object} [options]
    * @constructor

@@ -113,7 +113,7 @@ define( function( require ) {
                               'none';
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
-      if( motionModel.fallen ) {
+      if( motionModel.fallen && appliedForce !== 0 ) {
         motionModel.fallen = !motionModel.fallen;
       }
     } );
@@ -124,6 +124,15 @@ define( function( require ) {
         motionModel.appliedForce = 0;
       }
     } );
+
+    // when we fall down, we want the applied force to immediately be zero
+    // see https://github.com/phetsims/forces-and-motion-basics/issues/180
+    this.fallenProperty.link( function( fallen ) {
+      if( fallen ) {
+        motionModel.appliedForceProperty.set( 0 );
+      }
+    } );
+
   }
 
   forcesAndMotionBasics.register( 'MotionModel', MotionModel );
@@ -329,7 +338,7 @@ define( function( require ) {
       }
 
       //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
-      if ( this.appliedForce !== 0 ) {
+      if ( this.appliedForce !== 0 && this.speedClassification === 'WITHIN_ALLOWED_RANGE' ) {
         this.fallen = false;
       }
 
