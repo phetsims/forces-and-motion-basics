@@ -52,11 +52,6 @@ define( function( require ) {
       pullerNode.textDescription = textDescription;
     } );
 
-    //model.on( 'reset-all', pullerNode.updateLocation );
-    model.on( 'reset-all', function() {
-      pullerNode.updateLocation( puller, model );
-    } );
-
     model.startedProperty.link( function() {
       pullerNode.updateImage( puller, model );
       pullerNode.updateLocation( puller, model );
@@ -83,7 +78,7 @@ define( function( require ) {
       pullerNode.updateLocation( puller, model );
     } );
 
-    pullerNode.addInputListener( new SimpleDragHandler(
+    var dragHandler = new SimpleDragHandler(
       {
         allowTouchSnag: true,
         start: function( event ) {
@@ -116,7 +111,21 @@ define( function( require ) {
           pullerNode.updateImage( puller, model );
           pullerNode.puller.position = event.position;
         }
-      } ) );
+      } 
+    ); 
+    pullerNode.addInputListener( dragHandler );
+
+    //model.on( 'reset-all', pullerNode.updateLocation );
+    model.on( 'reset-all', function() {
+      pullerNode.updateLocation( puller, model );
+
+      // cancel the drag
+      if( puller.dragging ) {
+        dragHandler.endDrag();
+
+        puller.reset();
+      }
+    } );
 
     // outfit for accessibility
     this.setAccessibleContent( {

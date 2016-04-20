@@ -405,15 +405,20 @@ define( function( require ) {
     reset: function() {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
-        // only reset if the item is not being dragged
+        // if the item is being dragged we need to cancel the drag in ItemNode
         if( !this.items[ i ].dragging ) {
           this.items[ i ].reset();
         }
       }
+
+      // notify that a reset was triggered
+      this.trigger0( 'reset-all' );
+
       this.stack.clear();
 
       //Move the initial crate to the play area, since it resets to the toolbox, not its initial location.
       this.viewInitialized( this.view );
+
     },
 
     /**

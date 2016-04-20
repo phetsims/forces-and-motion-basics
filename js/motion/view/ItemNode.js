@@ -168,6 +168,15 @@ define( function( require ) {
     } );
     this.addInputListener( dragHandler );
 
+    // if the item is being dragged, cancel the drag on reset
+    model.on( 'reset-all', function() {
+      // cancel the drag and reset item
+      if( item.dragging ) {
+        dragHandler.endDrag();
+        item.reset();
+      }
+    } );
+
     //Label for the mass (if it is shown)
     var massLabel = new Text( item.mystery ? '?' : StringUtils.format( massDisplayPatternString, item.mass ), {
       font: new PhetFont( {
