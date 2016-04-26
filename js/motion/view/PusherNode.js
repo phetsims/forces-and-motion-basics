@@ -141,7 +141,16 @@ define( function( require ) {
       assert && assert( model.stack.length > 0 );
       var pusherY = 362 - visibleNode.height;
       var item = model.stack.get( 0 );
-      var scaledWidth = item.view.normalImageNode.width * item.getCurrentScale();
+
+      // if the item has a sitting image, use that image for the width
+      var scaledWidth;
+      if ( item.view.sittingImage ) {
+        scaledWidth = item.view.sittingImage.width * item.getCurrentScale();
+      }
+      else {
+        scaledWidth = item.view.normalImageNode.width * item.getCurrentScale();
+      }
+      
       var delta = scaledWidth / 2 - item.pusherInset;
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );

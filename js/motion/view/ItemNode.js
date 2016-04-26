@@ -54,6 +54,10 @@ define( function( require ) {
     var normalImageNode = new Image( normalImage );
     this.normalImageNode = normalImageNode;
 
+    // keep track of the sitting image to track its width for the pusher
+    // @public (read-only)
+    this.sittingImage = new Image( sittingImage );
+
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
       if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoard) ) {
