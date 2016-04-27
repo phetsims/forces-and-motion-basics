@@ -15,10 +15,12 @@ define( function( require ) {
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var forceReadoutPatternString = require( 'string!FORCES_AND_MOTION_BASICS/forceReadout.pattern' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+
+  // strings
+  var pattern0ValueUnitsNString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsN' );
 
   /**
    * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
@@ -58,7 +60,7 @@ define( function( require ) {
     valueProperty.link( function( value ) {
       readoutArrow.value = value;
       var roundedValue = Util.toFixed( Math.abs( value ), 0 );
-      readoutArrow.valueNode.text = StringUtils.format( forceReadoutPatternString, roundedValue );
+      readoutArrow.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
       readoutArrow.update();
     } );
 

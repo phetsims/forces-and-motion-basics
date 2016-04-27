@@ -32,7 +32,7 @@
   "rightForce": {
     "value": "Right Force"
   },
-  "massDisplay.pattern": {
+  "pattern.0massUnitsKilograms": {
     "value": "{0} kg"
   },
   "pattern.0valueUnitsNewtons": {
@@ -80,7 +80,7 @@
   "masses": {
     "value": "Masses"
   },
-  "forceReadout.pattern": {
+  "pattern.0valueUnitsN": {
     "value": "{0}N"
   }
 }
