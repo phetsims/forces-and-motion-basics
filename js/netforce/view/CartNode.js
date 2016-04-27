@@ -19,8 +19,8 @@ define( function( require ) {
   var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
 
   // strings
-  var leftDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/left.description' );
-  var rightDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/right.description' );
+  var leftDescriptionString = 'left';
+  var rightDescriptionString = 'right';
 
   /**
    * Constructor.

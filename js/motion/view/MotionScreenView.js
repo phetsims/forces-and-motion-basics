@@ -49,14 +49,16 @@ define( function( require ) {
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
   // strings
-  var motionDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.description' );
-  var motionInterfaceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.interface.description' );
-  var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
-  var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
   var pattern0ValueUnitsNewtonsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsNewtons' );
 
+  // we are hard coding accessibility strings in the release branch so that they are invisible to translators
+  var motionDescriptionString = 'Motion. There is a skateboard resting on a frictionless surface, with a figure standing to the left. A wooden crate is at rest on top of the skateboard. Other objects can be placed on top of the skateboard, but no more than three at a time can be present. The user controls the amount of external force the figure applies to the skateboard. To hear the masses of the objects read, navigate to the control panel and check "Masses".';
+  var motionInterfaceDescriptionString = 'Tab to begin navigating around the simulation. Select Values in the control panel to hear the numerical value applied force. Select Masses in control panel to hear masses of objects in bin and on skateboard. Select Speed to hear description of the Speedof the skateboard. Press M at anytime to hear a description of the current motion of the skateboard, the force being applied to it, its mass, and its speed.';
+  var motionLeftItemGroupDescriptionString = 'Press enter to activate left object bin. A refrigerator and a wooden crate are in this object bin.';
+  var motionRightItemGroupDescriptionString = 'Press enter to activate right object bin. A girl, a man, a trash can, and a mystery box are in this object bin.';
+  
   /**
    * Constructor for the MotionScreenView
    * 

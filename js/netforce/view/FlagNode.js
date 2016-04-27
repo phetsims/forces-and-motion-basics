@@ -20,8 +20,8 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
-  var leftSideWinsDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/leftSideWins.description' );
-  var rightSideWinsDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/rightSideWins.description' );
+  var leftSideWinsDescriptionString = 'Left side wins.';
+  var rightSideWinsDescriptionString = 'Right side wins.';
 
   /**
    * Constructor for FlagNode

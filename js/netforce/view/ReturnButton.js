@@ -18,7 +18,7 @@ define( function( require ) {
 
   // strings
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
-  var returnButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/returnButton.description' );
+  var returnButtonDescriptionString = 'Select to return cart and pullers to center.';
 
   /**
    * @param {NetForceModel} model

@@ -23,8 +23,8 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
-  var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );
-  var pauseButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/pauseButton.description' );
+  var goButtonDescriptionString = 'Select to start pullers.';
+  var pauseButtonDescriptionString = 'Select to pause pullers.';
 
   //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
   //If the node is already the largest, don't wrap it.

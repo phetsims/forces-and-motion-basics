@@ -56,14 +56,17 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
-  var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
-  var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
-  var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
-  var gameTiedDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/gameTied.description' );
-  var leftString = require( 'string!FORCES_AND_MOTION_BASICS/left' );
-  var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
-  var groupString = require( 'string!FORCES_AND_MOTION_BASICS/group' );
-  var pullerString = require( 'string!FORCES_AND_MOTION_BASICS/puller' );
+
+  // we are hard coding accessibility strings in the release branch so that they are not visible
+  // to the translator
+  var netForceDescriptionString = 'Forces and Motion Basics. There is a heavily loaded cart on wheels sitting on a track. Attached to the left side of the cart is a thick rope with 4 knots spaced equally along the rope. Standing near this knotted rope is a group of 4 puller people. On the opposite side of the cart, a similar rope with 4 knots is attached to the right side of the cart. There is another group of 4 puller people standing near this rope. The centre position of the cart has been marked on the ground.';
+  var bluePullerGroupDescriptionString = 'Left pullers. Select Enter to choose and place pullers on the rope.';
+  var redPullerGroupDescriptionString = 'Right pullers.  Select enter to choose and place pullers on the rope.';
+  var gameTiedDescriptionString = 'Pullers from both sides are pulling, cart is not moving';
+  var leftString = 'left';
+  var rightString = 'right';
+  var groupString = 'group';
+  var pullerString = 'puller';
 
   // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );

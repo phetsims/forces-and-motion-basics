@@ -22,10 +22,10 @@ define( function( require ) {
   var knotWidth = 20;
 
   // strings
-  var fourthKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/fourthKnot.description' );
-  var thirdKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/thirdKnot.description' );
-  var secondKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/secondKnot.description' );
-  var firstKnotDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/firstKnot.description' );
+  var fourthKnotDescriptionString = 'fourth knot, farthest from the cart';
+  var thirdKnotDescriptionString = 'third knot';
+  var secondKnotDescriptionString = 'second knot';
+  var firstKnotDescriptionString = 'first knot, closest to the cart';
 
   // a map to get the accessible description for the knot highlightNode, based on its initial x position
   var accessibleDescriptionMap = {
