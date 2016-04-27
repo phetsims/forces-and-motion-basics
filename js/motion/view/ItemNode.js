@@ -23,7 +23,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
-  var massDisplayPatternString = require( 'string!FORCES_AND_MOTION_BASICS/massDisplay.pattern' );
+  var pattern0MassUnitsKilogramsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0massUnitsKilograms' );
 
   //Workaround for https://github.com/phetsims/scenery/issues/108
   var IDENTITY = Matrix3.scaling( 1, 1 );
@@ -182,7 +182,7 @@ define( function( require ) {
     } );
 
     //Label for the mass (if it is shown)
-    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( massDisplayPatternString, item.mass ), {
+    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'
