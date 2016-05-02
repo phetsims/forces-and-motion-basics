@@ -1,67 +1,67 @@
 {
-  "comment": "# forces-and-motion-basics 2.0.0-rc.1 Wed Apr 27 2016 13:21:42 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.0.0-rc.2 Mon May 02 2016 12:28:40 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "axon": {
-    "sha": "084c71cf9a4fdde0730453d4c0aa0e613b2d6967",
-    "branch": "HEAD"
+    "sha": "5e33541f53066f495d1b42efe7344a3c4cb3e3d2",
+    "branch": "master"
   },
   "brand": {
     "sha": "bb1cfcc63c3d007d800ede089994d8705db6d47b",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "chipper": {
-    "sha": "55c02ee94221a6b2cfa022295d60d68cdd37fef3",
-    "branch": "HEAD"
+    "sha": "64ea5afc89b2a56851fd6fd751398bd1824fa6a7",
+    "branch": "master"
   },
   "dot": {
-    "sha": "33ae235e302fbfb1aa0a541265b7241237501865",
-    "branch": "HEAD"
+    "sha": "bf6f038bca1ea87f23a51c670474438ae282ac2c",
+    "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "d152db8143dc369a4bf85a208fb0148dc5b1e0f0",
+    "sha": "a7991c78c87a5a46f8b3ea82709e7e47c1ccc215",
     "branch": "2.0"
   },
   "joist": {
-    "sha": "ecd8d968e09ee1be00a444a261a01d1b391422e2",
-    "branch": "HEAD"
+    "sha": "4e95673dd3c40cbcfb44573b0d0e5839bd4852b0",
+    "branch": "master"
   },
   "kite": {
-    "sha": "24ad131a77aee78e266436ef6b618c8353953f28",
-    "branch": "HEAD"
+    "sha": "dce9765e6fcb535970ef17c1a1bcb8db95599b08",
+    "branch": "master"
   },
   "phet-core": {
     "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
-    "branch": "HEAD"
+    "branch": "master"
   },
   "phetcommon": {
-    "sha": "d7eed2d16b201434f91d18b099c04e8b55c52d3c",
-    "branch": "HEAD"
+    "sha": "eab7fb7f41ae9bd31935d2ee95f84e7546a9253f",
+    "branch": "master"
   },
   "scenery": {
-    "sha": "7db0478c52f059af619b115691898543fe18dfe7",
-    "branch": "HEAD"
+    "sha": "9cf56c4173167e8efb4b4ca5d8efe8ad3c712b4a",
+    "branch": "master"
   },
   "scenery-phet": {
-    "sha": "71c5dea54d615eabcf6d08795968d1ade058f297",
-    "branch": "HEAD"
+    "sha": "436bf61deca586ec23aaffa4811bf0333d262f4c",
+    "branch": "master"
   },
   "sherpa": {
-    "sha": "b74418c01f7b018cfc2ad130becdc0ad428b71c2",
-    "branch": "HEAD"
+    "sha": "ab4d5c141bec124c13aeb3d5e0631257da1785bf",
+    "branch": "master"
   },
   "sun": {
-    "sha": "953074cca0879fe5c5d1041670a45ff697796742",
-    "branch": "HEAD"
+    "sha": "9f2d40d5ba8cc0f11c9852300e0d7ba59eb06495",
+    "branch": "master"
   },
   "tandem": {
-    "sha": "2441eec6b422cb20e08682da02ab2bf7bf73250c",
-    "branch": "HEAD"
+    "sha": "0ad35fb75928d18ecc1a429587bed4c605878e89",
+    "branch": "master"
   },
   "vibe": {
-    "sha": "217262b324951527f58f3efa5146ac0dc340ebfa",
-    "branch": "HEAD"
+    "sha": "e6fdee6ac9bd497dc647a00b54663f6be7dd96bf",
+    "branch": "master"
   }
 }
