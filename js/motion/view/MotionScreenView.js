@@ -8,7 +8,7 @@ define( function( require ) {
 
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var StepButton = require( 'SCENERY_PHET/buttons/StepButton' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -234,7 +234,7 @@ define( function( require ) {
 
     // create the play, pause, and step buttons
     var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 18 } );
-    var stepButton = new StepButton( function() { model.manualStep(); }, model.playProperty, { radius: 18 } );
+    var stepButton = new StepForwardButton( function() { model.manualStep(); }, model.playProperty, { radius: 18 } );
 
     // Make the Play/Pause button bigger when it is showing the pause button, see #298
     var pauseSizeIncreaseFactor = 1.28;
