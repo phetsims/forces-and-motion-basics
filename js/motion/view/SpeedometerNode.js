@@ -65,8 +65,11 @@ define( function( require ) {
     this.addChild( valueRectangle );
 
     // update the value whenever the property changes, and reset layout
+    // the readout is the property value multiplied by two because the time step is dt in MotionModel.step is 
+    // reduced by a factor of 2 so that the animation matches the behavior of the Java
+    // see https://github.com/phetsims/forces-and-motion-basics/issues/19
     var updateReadout = function( value ) {
-      var readoutValue = Util.toFixed( Math.abs( value ), 1 );
+      var readoutValue = Util.toFixed( Math.abs( value * 2 ), 1 );
       valueText.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
 
       valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
