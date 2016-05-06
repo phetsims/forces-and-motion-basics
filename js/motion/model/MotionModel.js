@@ -352,7 +352,7 @@ define( function( require ) {
     step: function( dt ) {
 
       //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
-      dt = dt / 2.3;
+      dt = dt / 2.0;
 
       // Computes the new forces and sets them to the corresponding properties
       // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must

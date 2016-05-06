@@ -19,7 +19,7 @@ define( function() {
     MAX_FRICTION: 0.5,
 
     //Maximum speed in meters/second before the pusher falls down
-    MAX_SPEED: 20
+    MAX_SPEED: 40
   };
 
   forcesAndMotionBasics.register( 'MotionConstants', MotionConstants );
