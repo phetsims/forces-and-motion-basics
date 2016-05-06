@@ -66,7 +66,7 @@ define( function( require ) {
 
     // update the value whenever the property changes, and reset layout
     var updateReadout = function( value ) {
-      var readoutValue = Util.toFixed( Math.abs( value ), 1 );
+      var readoutValue = Util.toFixed( Math.abs( value * 2 ), 1 );
       valueText.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
 
       valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
