@@ -232,7 +232,8 @@ define( function( require ) {
 
     // create the play, pause, and step buttons
     var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 18 } );
-    var stepButton = new StepForwardButton( model.playProperty, {
+    var stepButton = new StepForwardButton( {
+      playingProperty: model.playProperty,
       listener: function() { model.manualStep(); },
       radius: 18
     } );
