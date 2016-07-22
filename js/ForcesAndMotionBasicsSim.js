@@ -19,10 +19,10 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // images
-  var TugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
-  var MotionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
-  var FrictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
-  var AccelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
+  var tugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
+  var motionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
+  var frictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
+  var accelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
 
   // strings
   var forcesAndMotionBasicsTitleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.title' );
@@ -41,15 +41,15 @@ define( function( require ) {
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
     var netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
-    this.netForceScreen = new Screen( netForceString, new Image( TugIcon ),
+    this.netForceScreen = new Screen( netForceString, new Image( tugIcon ),
       function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
       function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
         tandem: netForceScreenTandem
       }
     );
-    this.motionScreen = new MotionScreen( motionString, new Image( MotionIcon ), 'motion', tandem.createTandem( 'motionScreen' ) );
-    this.frictionScreen = new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction', tandem.createTandem( 'frictionScreen' ) );
-    this.accelerationScreen = new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration', tandem.createTandem( 'accelerationScreen' ) );
+    this.motionScreen = new MotionScreen( motionString, new Image( motionIcon ), 'motion', tandem.createTandem( 'motionScreen' ) );
+    this.frictionScreen = new MotionScreen( frictionString, new Image( frictionIcon ), 'friction', tandem.createTandem( 'frictionScreen' ) );
+    this.accelerationScreen = new MotionScreen( accelerationString, new Image( accelerationIcon ), 'acceleration', tandem.createTandem( 'accelerationScreen' ) );
 
     // alternate route:
     // sim.screens[0]
