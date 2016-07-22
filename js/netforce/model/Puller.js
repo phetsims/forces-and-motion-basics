@@ -13,6 +13,12 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io types
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
+  var TKnot = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TKnot' );
+
   /**
    *
    * @param x initial x-coordinate (in meters)
@@ -51,6 +57,23 @@ define( function( require ) {
       // For keyboard accessibility, the knot that the puller is hovering over
       hoverKnot: null,
       textDescription: ''
+    }, {
+      tandemSet: {
+        dragging: tandem.createTandem( 'draggingProperty' ),
+        knot: tandem.createTandem( 'knotProperty' ),
+        position: tandem.createTandem( 'positionProperty' ),
+        lastLocation: tandem.createTandem( 'lastLocationProperty' ),
+        hoverKnot: tandem.createTandem( 'hoverKnotProperty' ),
+        textDescription: tandem.createTandem( 'textDescriptionProperty' )
+      },
+      typeSet: {
+        dragging: TBoolean,
+        knot: TKnot,
+        position: TVector2,
+        lastLocation: TVector2,
+        hoverKnot: TKnot,
+        textDescription: TString
+      }
     } );
     this.other = options.other;
 
