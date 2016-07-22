@@ -14,7 +14,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var inherit = require( 'PHET_CORE/inherit' );
   var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
   var brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
@@ -47,8 +47,13 @@ define( function( require ) {
     var L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var toBackgroundImage = function( offset, image, y, scale ) {
-      var node = new Image( image, { scale: scale, x: offset, y: y } );
+    var toBackgroundImage = function( offset, image, y, scale, tandemName ) {
+      var node = new TandemImage( image, {
+        scale: scale,
+        x: offset,
+        y: y,
+        tandem: tandem.createTandem( tandemName )
+      } );
       node.boundsInaccurate = true;
       node.offsetX = offset;
       node.scaleFactor = scale;
@@ -64,12 +69,12 @@ define( function( require ) {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
-        toBackgroundImage( L / 2, mountainImage, mountainY, 1 ),
-        toBackgroundImage( L, mountainImage, mountainY, 1 ),
-        toBackgroundImage( -L / 3, mountainImage, mountainY, 1 ),
-        toBackgroundImage( 0, cloudImage, 10, 0.7 ),
-        toBackgroundImage( L - 100, cloudImage, -30, 0.8 ),
-        toBackgroundImage( -L / 3 - 100, cloudImage, 5, 1 )
+        toBackgroundImage( L / 2, mountainImage, mountainY, 1, 'mountainImage1' ),
+        toBackgroundImage( L, mountainImage, mountainY, 1, 'mountainImage2' ),
+        toBackgroundImage( -L / 3, mountainImage, mountainY, 1, 'mountainImage3' ),
+        toBackgroundImage( 0, cloudImage, 10, 0.7, 'cloudImage1' ),
+        toBackgroundImage( L - 100, cloudImage, -30, 0.8, 'cloudImage2' ),
+        toBackgroundImage( -L / 3 - 100, cloudImage, 5, 1, 'cloudImage3' )
       ]
     } );
     mountainAndCloudLayer.boundsInaccurate = true;
@@ -133,7 +138,10 @@ define( function( require ) {
     if ( showGround ) {
       ground.toImage( function( image ) {
         var groundY = mountainY + 50;
-        var groundImageNode = new Image( image, { y: groundY } );
+        var groundImageNode = new TandemImage( image, {
+          y: groundY,
+          tandem: tandem.createTandem( 'groundImageNode' )
+        } );
         groundImageNode.boundsInaccurate = true;
         movingBackgroundNode.addChild( groundImageNode );
         model.positionProperty.link( function( position ) {
@@ -164,8 +172,8 @@ define( function( require ) {
           var iceLayer = new TandemNode( {
             tandem: tandem.createTandem( 'iceLayer' ),
             children: [
-              toBackgroundImage( 0, icicleImage, 0, 0.8 ),
-              toBackgroundImage( 300, icicleImage, 0, 0.8 )
+              toBackgroundImage( 0, icicleImage, 0, 0.8, 'iceImageNode1' ),
+              toBackgroundImage( 300, icicleImage, 0, 0.8, 'iceImageNode2' )
             ], x: layoutCenterX, y: groundY + ground.height
           } );
           iceLayer.boundsInaccurate = true;

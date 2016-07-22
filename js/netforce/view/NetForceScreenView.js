@@ -15,7 +15,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotHighlightNode' );
   var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
@@ -101,9 +101,21 @@ define( function( require ) {
     } ) );
 
     //Show the grass.
-    this.addChild( new Image( grassImage, { x: 13, y: grassY } ) );
-    this.addChild( new Image( grassImage, { x: 13 - grassImage.width, y: grassY } ) );
-    this.addChild( new Image( grassImage, { x: 13 + grassImage.width, y: grassY } ) );
+    this.addChild( new TandemImage( grassImage, {
+      tandem: tandem.createTandem( 'grassImage1' ),
+      x: 13,
+      y: grassY
+    } ) );
+    this.addChild( new TandemImage( grassImage, {
+      tandem: tandem.createTandem( 'grassImage2' ),
+      x: 13 - grassImage.width,
+      y: grassY
+    } ) );
+    this.addChild( new TandemImage( grassImage, {
+      tandem: tandem.createTandem( 'grassImage3' ),
+      x: 13 + grassImage.width,
+      y: grassY
+    } ) );
 
     this.cartNode = new CartNode( model.cart, tandem.createTandem( 'cartNode' ) );
 
@@ -122,7 +134,11 @@ define( function( require ) {
     } );
 
     // create and add the rope node as an image
-    this.ropeNode = new Image( ropeImage, { x: 51, y: 273 } );
+    this.ropeNode = new TandemImage( ropeImage, {
+      tandem: tandem.createTandem( 'ropeImageNode' ),
+      x: 51,
+      y: 273
+    } );
     this.addChild( this.ropeNode );
 
     // create the toolboxes that hold the puller children

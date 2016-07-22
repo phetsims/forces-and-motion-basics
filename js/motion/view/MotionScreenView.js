@@ -11,7 +11,7 @@ define( function( require ) {
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -102,7 +102,11 @@ define( function( require ) {
 
     // Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( skateboardImage, { centerX: width / 2, y: 315 + 12, pickable: false } ) );
+      this.addChild( new TandemImage( skateboardImage, {
+        centerX: width / 2, y: 315 + 12,
+        pickable: false,
+        tandem: tandem.createTandem( 'skateboardImageNode' )
+      } ) );
     }
 
     //Add toolbox backgrounds for the objects

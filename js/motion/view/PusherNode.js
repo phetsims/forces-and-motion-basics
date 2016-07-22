@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var Image = require( 'SCENERY/nodes/Image' );
+  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -66,12 +66,23 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new Image( pusherStraightImage, { visible: true, pickable: true, scale: scale } );
-    var fallLeft = new Image( pusherFallDownImage, { visible: false, pickable: false, scale: scale } );
-    var fallRight = new Image( pusherFallDownImage, {
+    var standingUp = new TandemImage( pusherStraightImage, {
+      visible: true,
+      pickable: true,
+      scale: scale,
+      tandem: tandem.createTandem( 'standingUpImageNode' )
+    } );
+    var fallLeft = new TandemImage( pusherFallDownImage, {
       visible: false,
       pickable: false,
-      scale: new Vector2( -scale, scale )
+      scale: scale,
+      tandem: tandem.createTandem( 'fallLeftImage' )
+    } );
+    var fallRight = new TandemImage( pusherFallDownImage, {
+      visible: false,
+      pickable: false,
+      scale: new Vector2( -scale, scale ),
+      tandem: tandem.createTandem( 'fallRightImage' )
     } );
     var visibleNode = standingUp;
 
@@ -111,12 +122,22 @@ define( function( require ) {
                   i === 29 ? pusherImage29 :
                   i === 30 ? pusherImage30 :
                   null;
-      var rightImage = new Image( image, { visible: false, pickable: false, scale: scale } );
-      var leftImage = new Image( image, { visible: false, pickable: false, scale: new Vector2( -scale, scale ) } );
-      pushingRightNodes.push( rightImage );
-      pushingLeftNodes.push( leftImage );
-      children.push( rightImage );
-      children.push( leftImage );
+      var rightImageNode = new TandemImage( image, {
+        visible: false,
+        pickable: false,
+        scale: scale,
+        tandem: tandem.createTandem( 'rightImageNode' + i )
+      } );
+      var leftImageNode = new TandemImage( image, {
+        visible: false,
+        pickable: false,
+        scale: new Vector2( -scale, scale ),
+        tandem: tandem.createTandem( 'leftImageNode' + i )
+      } );
+      pushingRightNodes.push( rightImageNode );
+      pushingLeftNodes.push( leftImageNode );
+      children.push( rightImageNode );
+      children.push( leftImageNode );
     }
 
     function setVisibleNode( node ) {
