@@ -164,14 +164,15 @@ define( function( require ) {
     this.addChild( this.textPanelNode );
     this.addChild( readout );
 
-    //Show left arrow button 'tweaker' to change the applied force in increments of 50
+    // Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
     }, {
       rectangleYMargin: 7,
       rectangleXMargin: 10,
       right: this.textPanelNode.left - 6,
-      centerY: this.textPanelNode.centerY
+      centerY: this.textPanelNode.centerY,
+      tandem: tandem.createTandem( 'leftArrowButton' )
     } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
@@ -185,7 +186,8 @@ define( function( require ) {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
     }, {
       left: this.textPanelNode.right + 6,
-      centerY: this.textPanelNode.centerY
+      centerY: this.textPanelNode.centerY,
+      tandem: tandem.createTandem( 'rightArrowButton' )
     } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity

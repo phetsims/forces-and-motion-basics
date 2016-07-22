@@ -17,12 +17,15 @@ define( function( require ) {
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io modules
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+
   /**
    * Constructor for the net force model.
    *
    * @constructor
    */
-  function NetForceModel() {
+  function NetForceModel( tandem ) {
     var netForceModel = this;
 
     //Call the super class, with initial values for observable properties
@@ -40,6 +43,13 @@ define( function( require ) {
       showSumOfForces: false,
       showValues: false,
       volumeOn: false
+    }, {
+      tandemSet: {
+        volumeOn: tandem.createTandem( 'volumeOnProperty' )
+      },
+      typeSet: {
+        volumeOn: TBoolean
+      }
     } );
 
     this.cart = new Cart();
