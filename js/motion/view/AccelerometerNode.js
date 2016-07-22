@@ -10,7 +10,7 @@ define( function( require ) {
 
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -69,11 +69,26 @@ define( function( require ) {
     var majorTickInset = 6;
     var minorTickInset = 7;
     var line = Shape.lineSegment;
-    this.addTick( new Path( line( 0, majorTickInset, 0, height - majorTickInset ), { stroke: 'black' } ) );
-    this.addTick( new Path( line( barWidth / 4, minorTickInset, barWidth / 4, height - minorTickInset ), { stroke: 'black' } ) );
-    this.addTick( new Path( line( barWidth / 2, majorTickInset, barWidth / 2, height - majorTickInset ), { stroke: 'black' } ) );
-    this.addTick( new Path( line( 3 * barWidth / 4, minorTickInset, 3 * barWidth / 4, height - minorTickInset ), { stroke: 'black' } ) );
-    this.addTick( new Path( line( barWidth, majorTickInset, barWidth, height - majorTickInset ), { stroke: 'black' } ) );
+    this.addTick( new TandemPath( line( 0, majorTickInset, 0, height - majorTickInset ), {
+      stroke: 'black',
+      tandem: tandem.createTandem( 'tick1' )
+    } ) );
+    this.addTick( new TandemPath( line( barWidth / 4, minorTickInset, barWidth / 4, height - minorTickInset ), {
+      stroke: 'black',
+      tandem: tandem.createTandem( 'tick2' )
+    } ) );
+    this.addTick( new TandemPath( line( barWidth / 2, majorTickInset, barWidth / 2, height - majorTickInset ), {
+      stroke: 'black',
+      tandem: tandem.createTandem( 'tick3' )
+    } ) );
+    this.addTick( new TandemPath( line( 3 * barWidth / 4, minorTickInset, 3 * barWidth / 4, height - minorTickInset ), {
+      stroke: 'black',
+      tandem: tandem.createTandem( 'tick4' )
+    } ) );
+    this.addTick( new TandemPath( line( barWidth, majorTickInset, barWidth, height - majorTickInset ), {
+      stroke: 'black',
+      tandem: tandem.createTandem( 'tick5' )
+    } ) );
 
     this.mutate( options );
   }

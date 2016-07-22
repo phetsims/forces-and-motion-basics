@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var Path = require( 'SCENERY/nodes/Path' );
+  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -38,13 +38,14 @@ define( function( require ) {
     this.item = item;
     ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,
       accessibleDescription, tandem );
-    var water = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
+    var waterPathNode = new TandemPath( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
       fill: 'rgb(9, 125, 159)',
-      lineWidth: 1
+      lineWidth: 1,
+      tandem: tandem.createTandem( 'waterPathNode' )
     } );
-    this.addChild( water );
-    water.moveToBack();
+    this.addChild( waterPathNode );
+    waterPathNode.moveToBack();
 
     //Keep track of the history to show a momentum-based "sloshing" effect
     var history = [];
@@ -98,7 +99,7 @@ define( function( require ) {
       path.lineTo( rightLineX( min - delta ), rightLineY( min - delta ) );
       path.close();
 
-      water.shape = path;
+      waterPathNode.shape = path;
     } );
   }
 

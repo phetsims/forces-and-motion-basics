@@ -12,7 +12,7 @@ define( function( require ) {
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
@@ -121,16 +121,21 @@ define( function( require ) {
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
-    this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), {
-      stroke: '#000000', lineWidth: 3, x: layoutCenterX, y: grassY + 10
+    this.addChild( new TandemPath( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), {
+      stroke: '#000000',
+      lineWidth: 3,
+      x: layoutCenterX,
+      y: grassY + 10,
+      tandem: tandem.createTandem( 'caretPathNode' )
     } ) );
 
     var cursorWidth = 18;
 
-    var cursor = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
+    var cursorPathNode = new TandemPath( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
       fill: 'blue',
       stroke: 'black',
-      lineWidth: 1
+      lineWidth: 1,
+      tandem: tandem.createTandem( 'cursorPathNode' )
     } );
 
     // create and add the rope node as an image
@@ -257,12 +262,12 @@ define( function( require ) {
       netForceScreenView.pullerNodes.push( pullerNode );
     } );
 
-    model.knots.forEach( function( knot ) {
+    model.knots.forEach( function( knot, i ) {
       if ( knot.type === 'blue' ) {
-        leftFocusRegion.addChild( new KnotHighlightNode( knot, leftPullerLayer.children, leftFocusRegion, leftToolbox, model ) );
+        leftFocusRegion.addChild( new KnotHighlightNode( knot, leftPullerLayer.children, leftFocusRegion, leftToolbox, model, tandem.createTandem( 'blueHighlightNode' + i ) ) );
       }
       else if ( knot.type === 'red' ) {
-        rightFocusRegion.addChild( new KnotHighlightNode( knot, rightPullerLayer.children, rightFocusRegion, rightToolbox, model ) );
+        rightFocusRegion.addChild( new KnotHighlightNode( knot, rightPullerLayer.children, rightFocusRegion, rightToolbox, model, tandem.createTandem( 'redHighlightNode' + i ) ) );
       }
       else {
         assert && assert( 'Knots can only be of type "red" or "blue" in this sim.' );
@@ -361,8 +366,8 @@ define( function( require ) {
     model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
 
-    cursor.visible = false;
-    this.addChild( cursor );
+    cursorPathNode.visible = false;
+    this.addChild( cursorPathNode );
 
     // Show highlight around the toolbox when a toolbox node is focused.
     Input.focusedTrailProperty.link( function( focusedTrail ) {

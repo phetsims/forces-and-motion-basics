@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  var Path = require( 'SCENERY/nodes/Path' );
+  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
@@ -51,7 +51,12 @@ define( function( require ) {
     } );
 
     //Create and add the children
-    this.arrowNode = new Path( null, _.extend( { fill: fill, stroke: '#000000', lineWidth: 1 }, options ) );
+    this.arrowNode = new TandemPath( null, _.extend( {
+      fill: fill,
+      stroke: '#000000',
+      lineWidth: 1,
+      tandem: tandem.createTandem( 'arrowNode' )
+    }, options ) );
     var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 125 };
     this.valueNode = new TandemText( '110N', _.extend( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
     this.labelNode = new TandemText( label, _.extend( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );

@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Path = require( 'SCENERY/nodes/Path' );
+  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
@@ -48,15 +48,16 @@ define( function( require ) {
    * @param {NetForceModel} model
    * @constructor
    */
-  function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model ) {
+  function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model, tandem ) {
 
     var thisNode = this;
-    Path.call( this, Shape.circle( 0, 0, knotWidth ), {
+    TandemPath.call( this, Shape.circle( 0, 0, knotWidth ), {
       stroke: '#FFFF00',
       lineWidth: 4,
       visible: false,
       x: knot.x,
-      y: knot.y
+      y: knot.y,
+      tandem: tandem
     } );
     knot.visibleProperty.linkAttribute( this, 'visible' );
     knot.xProperty.linkAttribute( this, 'x' );
@@ -145,7 +146,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'KnotHighlightNode', KnotHighlightNode );
 
-  return inherit( Path, KnotHighlightNode, {
+  return inherit( TandemPath, KnotHighlightNode, {
 
     /**
      * Move the puller that is being dragged to the knot that is currently being focused.
