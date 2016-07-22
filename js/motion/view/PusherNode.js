@@ -56,6 +56,7 @@ define( function( require ) {
    *
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {number} layoutWidth width for the layout for purposes of centering the character when pushing
+   * @param {Tandem} tandem
    * @constructor
    */
   function PusherNode( model, layoutWidth, tandem ) {

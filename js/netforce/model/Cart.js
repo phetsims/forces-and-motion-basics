@@ -15,6 +15,7 @@ define( function( require ) {
 
   /**
    * Constructor.
+   * @param {Tandem} tandem
    */
   function Cart( tandem ) {
     PropertySet.call( this, {

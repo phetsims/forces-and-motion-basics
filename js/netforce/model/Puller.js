@@ -26,7 +26,7 @@ define( function( require ) {
    * @param type 'red'|'blue'
    * @param size 'small'|'medium'|'large'
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
-   * @param standOffsetX horizontal offset in stage coordinates when attached to a knot but not pulling (standing)
+   * @param {Tandem} tandem
    * @constructor
    */
   function Puller( x, y, type, size, dragOffsetX, tandem, options ) {

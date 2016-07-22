@@ -25,6 +25,7 @@ define( function( require ) {
   /**
    * Constructor for the net force model.
    *
+   * @param {Tandem} tandem
    * @constructor
    */
   function NetForceModel( tandem ) {

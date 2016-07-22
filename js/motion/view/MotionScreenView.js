@@ -64,6 +64,7 @@ define( function( require ) {
    * Constructor for the MotionScreenView
    *
    * @param {MotionModel} model model for the entire screen
+   * @param {Tandem} tandem
    * @constructor
    */
   function MotionScreenView( model, tandem ) {

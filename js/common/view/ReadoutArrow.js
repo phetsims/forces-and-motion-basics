@@ -31,6 +31,7 @@ define( function( require ) {
    * @param tailY {Number} the location of the tail in Y
    * @param valueProperty {Property<Number>} the property for the value to display
    * @param showValuesProperty {Property<Boolean>} whether or not to display the values
+   * @param {Tandem} tandem
    * @param {Object} [options] 'labelPosition' where the label text should be {side|top}
    * @constructor
    */

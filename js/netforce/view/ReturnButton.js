@@ -21,6 +21,7 @@ define( function( require ) {
 
   /**
    * @param {NetForceModel} model
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */

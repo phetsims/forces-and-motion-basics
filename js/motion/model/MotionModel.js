@@ -36,6 +36,7 @@ define( function( require ) {
    * Constructor for the motion model
    *
    * @param {String} screen String that indicates which of the 3 screens this model represents
+   * @param {Tandem} tandem
    * @constructor
    */
   function MotionModel( screen, tandem ) {

@@ -24,6 +24,7 @@ define( function( require ) {
    *
    * @param {MotionModel} model
    * @param {Object} range - the range of values for the slider
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */

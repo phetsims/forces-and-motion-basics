@@ -27,6 +27,7 @@ define( function( require ) {
    * @param {KnotFocusRegion} knotRegionNode
    * @param {PullerToolboxNode} pullerToolboxNode
    * @param {string} accessibleDescription
+   * @param {Tandem} tandem
    * @param {object} options
    * @constructor
    */

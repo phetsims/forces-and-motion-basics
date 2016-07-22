@@ -63,6 +63,7 @@ define( function( require ) {
    *
    * @param {NetForceModel} model the NetForceModel
    * @param {number} layoutWidth the layout width for centering the button
+   * @param {Tandem} tandem
    * @constructor
    */
   function GoPauseButton( model, layoutWidth, tandem, options ) {

@@ -22,6 +22,7 @@ define( function( require ) {
    *
    * @param {number} x the horizontal position (in meters) of the knot
    * @param {string} type whether the knot is for red or blue pullers
+   * @param {Tandem} tandem
    * @constructor
    */
   function Knot( x, type, tandem ) {

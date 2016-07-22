@@ -46,6 +46,7 @@ define( function( require ) {
    * @param {KnotFocusRegion} focusRegionNode
    * @param {pullerToolboxNode} pullerToolboxNode
    * @param {NetForceModel} model
+   * @param {Tandem} tandem
    * @constructor
    */
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model, tandem ) {

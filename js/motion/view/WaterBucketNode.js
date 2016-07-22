@@ -31,6 +31,8 @@ define( function( require ) {
    * @param {Image} imageHolding image to be shown if it is a sitting person holding their arms in the air
    * @param {Property} showMassesProperty boolean property of whether the masses should be shown
    * @param {ItemToolboxNode} toolboxNode parent toolbox for the WaterBucketNode
+   * @param {string} accessibleDescription
+   * @param {Tandem} tandem
    * @constructor
    */
   function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,

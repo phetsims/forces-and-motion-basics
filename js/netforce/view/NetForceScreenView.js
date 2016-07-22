@@ -73,6 +73,7 @@ define( function( require ) {
 
   /**
    * @param {NetForceModel} model
+   * @param {Tandem} tandem
    * @constructor
    */
   function NetForceScreenView( model, tandem ) {

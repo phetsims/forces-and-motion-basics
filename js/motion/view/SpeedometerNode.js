@@ -31,6 +31,7 @@ define( function( require ) {
    * @param {Property<number>} velocityProperty
    * @param {Property<number>} showSpeedProperty
    * @param {Property<boolean>} showSpeedProperty
+   * @param {Tandem} tandem
    * @param {object} options
    * @constructor
    */

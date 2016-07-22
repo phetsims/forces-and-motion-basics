@@ -17,6 +17,10 @@ define( function( require ) {
 
   /**
    *
+   * @param title
+   * @param icon
+   * @param style
+   * @param {Tandem} tandem
    * @constructor
    */
   function MotionScreen( title, icon, style, tandem ) {
