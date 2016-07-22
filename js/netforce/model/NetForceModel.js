@@ -45,10 +45,14 @@ define( function( require ) {
       volumeOn: false
     }, {
       tandemSet: {
-        volumeOn: tandem.createTandem( 'volumeOnProperty' )
+        volumeOn: tandem.createTandem( 'volumeOnProperty' ),
+        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
+        showValues: tandem.createTandem( 'showValuesProperty' )
       },
       typeSet: {
-        volumeOn: TBoolean
+        volumeOn: TBoolean,
+        showSumOfForces: TBoolean,
+        showValues: TBoolean
       }
     } );
 

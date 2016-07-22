@@ -27,13 +27,17 @@ define( function( require ) {
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io modules
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+
   /**
    * Constructor for the motion model
    *
    * @param {String} screen String that indicates which of the 3 screens this model represents
    * @constructor
    */
-  function MotionModel( screen ) {
+  function MotionModel( screen, tandem ) {
 
     //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
@@ -85,6 +89,15 @@ define( function( require ) {
 
       // is the sim running or paused?
       play: true
+    }, {
+      tandemSet: {
+        sumOfForces: tandem.createTandem( 'sumOfForcesProperty' ),
+        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' )
+      },
+      typeSet: {
+        showSumOfForces: TBoolean,
+        sumOfForces: TNumber && TNumber( 'newtons' )
+      }
     } );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37

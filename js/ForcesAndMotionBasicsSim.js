@@ -40,10 +40,11 @@ define( function( require ) {
 
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
+    var netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
     this.netForceScreen = new Screen( netForceString, new Image( TugIcon ),
-      function() {return new NetForceModel( tandem.createTandem( 'model' ) );},
-      function( model ) {return new NetForceScreenView( model, tandem.createTandem( 'view' ) );}, {
-        tandem: tandem.createTandem( 'netForceScreen' )
+      function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
+      function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
+        tandem: netForceScreenTandem
       }
     );
     this.motionScreen = new MotionScreen( motionString, new Image( MotionIcon ), 'motion', tandem.createTandem( 'motionScreen' ) );
