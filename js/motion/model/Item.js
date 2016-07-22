@@ -18,7 +18,6 @@ define( function( require ) {
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
   var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
 
   /**

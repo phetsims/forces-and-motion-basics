@@ -11,12 +11,27 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   /**
    * Constructor.
    */
-  function Cart() {
-    PropertySet.call( this, { x: 0, v: 0 } );//Position and velocity are in MKS
+  function Cart( tandem ) {
+    PropertySet.call( this, {
+
+      //Position and velocity are in MKS
+      x: 0,
+      v: 0
+    }, {
+      tandemSet: {
+        x: tandem.createTandem( 'xProperty' ),
+        v: tandem.createTandem( 'vProperty' )
+      },
+      typeSet: {
+        x: TNumber && TNumber( 'meters' ),
+        v: TNumber && TNumber( 'meters/second' )
+      }
+    } );
   }
 
   forcesAndMotionBasics.register( 'Cart', Cart );

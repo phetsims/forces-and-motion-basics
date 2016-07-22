@@ -56,7 +56,7 @@ define( function( require ) {
       }
     } );
 
-    this.cart = new Cart();
+    this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
     //Create the pullers from left to right so the tab order (for accessibility) will be as expected.
     var bigPullerY = 473;
