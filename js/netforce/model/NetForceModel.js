@@ -19,6 +19,8 @@ define( function( require ) {
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   /**
    * Constructor for the net force model.
@@ -47,12 +49,30 @@ define( function( require ) {
       tandemSet: {
         volumeOn: tandem.createTandem( 'volumeOnProperty' ),
         showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
-        showValues: tandem.createTandem( 'showValuesProperty' )
+        showValues: tandem.createTandem( 'showValuesProperty' ),
+        started: tandem.createTandem( 'startedProperty' ),
+        running: tandem.createTandem( 'runningProperty' ),
+        numberPullersAttached: tandem.createTandem( 'numberPullersAttachedProperty' ),
+        state: tandem.createTandem( 'stateProperty' ),
+
+        // TODO: Removed this property for phet-io spam
+        // time: tandem.createTandem( 'timeProperty' ),
+        netForce: tandem.createTandem( 'netForceProperty' ),
+        leftForce: tandem.createTandem( 'leftForceProperty' ),
+        rightForce: tandem.createTandem( 'rightForceProperty' )
       },
       typeSet: {
         volumeOn: TBoolean,
         showSumOfForces: TBoolean,
-        showValues: TBoolean
+        showValues: TBoolean,
+        started: TBoolean,
+        running: TBoolean,
+        numberPullersAttached: TNumber && TNumber( 'unitless' ),
+        state: TString,
+        // time: TNumber && TNumber( 'seconds' ),
+        netForce: TNumber && TNumber( 'newtons' ),
+        leftForce: TNumber && TNumber( 'newtons' ),
+        rightForce: TNumber && TNumber( 'newtons' )
       }
     } );
 
