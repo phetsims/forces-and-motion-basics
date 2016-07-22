@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -36,7 +36,7 @@ define( function( require ) {
     this.model = model;
     Node.call( this );
 
-    var text = new Text( model.cart.x < 0 ? blueWinsString : redWinsString, {
+    var text = new TandemText( model.cart.x < 0 ? blueWinsString : redWinsString, {
       font: new PhetFont( 32 ),
       fill: 'white'
     } );

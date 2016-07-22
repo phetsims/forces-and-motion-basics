@@ -13,7 +13,7 @@ define( function( require ) {
   var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -144,15 +144,18 @@ define( function( require ) {
 
     //Create the arrow nodes
     var opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 100, this.model.netForceProperty, this.model.showValuesProperty, {
-      lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
-    } );
-    this.leftArrow = new ReadoutArrow( leftForceString, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty, {
-      lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
-    } );
-    this.rightArrow = new ReadoutArrow( rightForceString, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty, {
-      lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
-    } );
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 100, this.model.netForceProperty, this.model.showValuesProperty,
+      tandem.createTandem( 'sumArrow' ), {
+        lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
+      } );
+    this.leftArrow = new ReadoutArrow( leftForceString, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty,
+      tandem.createTandem( 'leftArrow' ), {
+        lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
+      } );
+    this.rightArrow = new ReadoutArrow( rightForceString, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty,
+      tandem.createTandem( 'rightArrow' ), {
+        lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
+      } );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
@@ -320,10 +323,11 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
+    this.sumOfForcesText = new TandemText( sumOfForcesEqualsZeroString, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
-      y: 53
+      y: 53,
+      tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
     model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );

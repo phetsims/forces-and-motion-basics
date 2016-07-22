@@ -33,9 +33,11 @@ define( function( require ) {
    * @param {ItemToolboxNode} toolboxNode parent toolbox for the WaterBucketNode
    * @constructor
    */
-  function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode ) {
+  function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,
+                            accessibleDescription, tandem ) {
     this.item = item;
-    ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode );
+    ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,
+      accessibleDescription, tandem );
     var water = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
       fill: 'rgb(9, 125, 159)',

@@ -12,7 +12,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -121,11 +121,12 @@ define( function( require ) {
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
 
     var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    var sliderLabel = new Text( appliedForceString, {
+    var appliedForceSliderTextNode = new TandemText( appliedForceString, {
       font: new PhetFont( 22 ),
       centerX: width / 2,
       y: 430,
-      maxWidth: maxTextWidth
+      maxWidth: maxTextWidth,
+      tandem: tandem.createTandem( 'appliedForceSliderTextNode' )
     } );
     var appliedForceSlider = new AppliedForceSlider( model, {
       min: -500,
@@ -135,12 +136,17 @@ define( function( require ) {
       y: 555
     } );
 
-    this.addChild( sliderLabel );
+    this.addChild( appliedForceSliderTextNode );
     this.addChild( appliedForceSlider );
 
     //Position the units to the right of the text box.
-    var readout = new Text( '???', { font: new PhetFont( 22 ), pickable: false, maxWidth: maxTextWidth / 2 } );
-    readout.bottom = appliedForceSlider.top - 15;
+    var readoutTextNode = new TandemText( '???', {
+      font: new PhetFont( 22 ),
+      pickable: false,
+      maxWidth: maxTextWidth / 2,
+      tandem: tandem.createTandem( 'readoutTextNode' )
+    } );
+    readoutTextNode.bottom = appliedForceSlider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
 
       //Must match the other formatters below, see roundedAppliedForceProperty near the creation of the ReadoutArrows
@@ -149,20 +155,20 @@ define( function( require ) {
 
       //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
       if ( numberText === '-0' ) { numberText = '0'; }
-      readout.text = StringUtils.format( pattern0ValueUnitsNewtonsString, numberText );
-      readout.centerX = width / 2;
+      readoutTextNode.text = StringUtils.format( pattern0ValueUnitsNewtonsString, numberText );
+      readoutTextNode.centerX = width / 2;
     } );
 
     //Make 'Newtons Readout' stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readout.right - readout.left + 50, readout.height + 4, {
+    this.textPanelNode = new Rectangle( 0, 0, readoutTextNode.right - readoutTextNode.left + 50, readoutTextNode.height + 4, {
       fill: 'white',
       stroke: 'lightgrey',
       centerX: width / 2,
-      centerY: readout.centerY,
+      centerY: readoutTextNode.centerY,
       pickable: false
     } );
     this.addChild( this.textPanelNode );
-    this.addChild( readout );
+    this.addChild( readoutTextNode );
 
     // Show left arrow button 'tweaker' to change the applied force in increments of 50
     var leftArrowButton = new ArrowButton( 'left', function() {
@@ -196,16 +202,17 @@ define( function( require ) {
     } );
     this.addChild( rightArrowButton );
 
-    model.stack.lengthProperty.link( disableText( sliderLabel ) );
-    model.stack.lengthProperty.link( disableText( readout ) );
+    model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
+    model.stack.lengthProperty.link( disableText( readoutTextNode ) );
     model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocityProperty, model.showSpeedProperty, model.showValuesProperty, {
-      // x: width / 2, // see comments about tween code below
-      x: 300,
-      top: 8
-    } );
+    var speedometerNode = new SpeedometerNode( model.velocityProperty, model.showSpeedProperty, model.showValuesProperty,
+      tandem.createTandem( 'speedometerNode' ), {
+        // x: width / 2, // see comments about tween code below
+        x: 300,
+        top: 8
+      } );
 
     // Due to the addition of the acceleration readout, vertical space above the stack is more limited.  We are trying
     // out a new layout where the accelerometer and speedometer are always to the left of the stack.
@@ -296,11 +303,12 @@ define( function( require ) {
 
       // create the tick labels
       var tickLabel = function( label, tick ) {
-        return new Text( label, {
+        return new TandemText( label, {
           pickable: false,
           font: new PhetFont( 16 ),
           centerX: tick.centerX,
-          top: tick.bottom + 27
+          top: tick.bottom + 27,
+          tandem: tandem.createTandem( 'tickLabelTextNode_' + label )
         } );
       };
       var tickLabels = new Node( {
@@ -397,7 +405,8 @@ define( function( require ) {
         item.holdingImage || item.image,
         model.showMassesProperty,
         toolBoxNode,
-        accessibleDescription );
+        accessibleDescription,
+        tandem.createTandem( item.name ) );
       this.itemNodes.push( itemNode );
 
       // TODO: This should be removed once the layout of items has gone through review.
@@ -436,16 +445,18 @@ define( function( require ) {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
-      labelPosition: 'top',
-      arrowScale: arrowScale
-    } );
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty,
+      tandem.createTandem( 'sumArrow' ), {
+        labelPosition: 'top',
+        arrowScale: arrowScale
+      } );
+    this.sumOfForcesText = new TandemText( sumOfForcesEqualsZeroString, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
       y: 195,
-      maxWidth: 125
+      maxWidth: 125,
+      tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
@@ -453,14 +464,16 @@ define( function( require ) {
       function( showSumOfForces, sumOfForces ) {
         return showSumOfForces && sumOfForces === 0;
       } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
-    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
-      labelPosition: 'side',
-      arrowScale: arrowScale
-    } );
-    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
-      labelPosition: 'side',
-      arrowScale: arrowScale
-    } );
+    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty,
+      tandem.createTandem( 'appliedForceArrow' ), {
+        labelPosition: 'side',
+        arrowScale: arrowScale
+      } );
+    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty,
+      tandem.createTandem( 'frictionArrow' ), {
+        labelPosition: 'side',
+        arrowScale: arrowScale
+      } );
 
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way

@@ -18,7 +18,7 @@ define( function( require ) {
    * Constructor for Item
    *
    * @param {MotionModel || NetForceModel} context - model context in which this item exists
-   * @param {string} name - string describing this time of item
+   * @param {string} name - string describing this type of item
    * @param {image} image - image from the 'image!' plugin, representing the item
    * @param {number} mass - model mass of the item
    * @param {number} x - home value x position for the item

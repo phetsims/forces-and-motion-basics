@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   var Path = require( 'SCENERY/nodes/Path' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -34,7 +34,7 @@ define( function( require ) {
    * @param {Object} [options] 'labelPosition' where the label text should be {side|top}
    * @constructor
    */
-  function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, options ) {
+  function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, tandem, options ) {
     var readoutArrow = this;
 
     //Store fields
@@ -50,8 +50,8 @@ define( function( require ) {
     //Create and add the children
     this.arrowNode = new Path( null, _.extend( { fill: fill, stroke: '#000000', lineWidth: 1 }, options ) );
     var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 125 };
-    this.valueNode = new Text( '110N', fontOptions );
-    this.labelNode = new Text( label, fontOptions );
+    this.valueNode = new TandemText( '110N', _.extend( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
+    this.labelNode = new TandemText( label, _.extend( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );

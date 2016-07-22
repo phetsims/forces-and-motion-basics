@@ -18,7 +18,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Util = require( 'DOT/Util' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
@@ -34,7 +34,7 @@ define( function( require ) {
    * @param {object} options
    * @constructor
    */
-  function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, options ) {
+  function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
 
     options = _.extend( {
       radius: 67
@@ -53,12 +53,16 @@ define( function( require ) {
     // create a value readout inside of a panel, maxSpeed for max bounds for layout calculations
     var maxSpeed = Util.toFixed( -MotionConstants.MAX_SPEED, 1 );
     var valueString = StringUtils.format( pattern0Name1ValueUnitsVelocityString, maxSpeed );
-    var valueText = new Text( valueString, { font: new PhetFont( 16 ), maxWidth: options.radius } );
-    this.addChild( valueText );
+    var valueTextNode = new TandemText( valueString, {
+      font: new PhetFont( 16 ),
+      maxWidth: options.radius,
+      tandem: tandem.createTandem( 'valueTextNode' )
+    } );
+    this.addChild( valueTextNode );
 
     // place valueText inside of a background rectangle
     var cornerRadius = 5;
-    var valueRectangle = new Rectangle( valueText.bounds.dilated( 2 ), cornerRadius, cornerRadius, {
+    var valueRectangle = new Rectangle( valueTextNode.bounds.dilated( 2 ), cornerRadius, cornerRadius, {
       lineWidth: 1,
       stroke: 'black'
     } );
@@ -70,16 +74,16 @@ define( function( require ) {
     // see https://github.com/phetsims/forces-and-motion-basics/issues/192
     var updateReadout = function( value ) {
       var readoutValue = Util.toFixed( Math.abs( value * 2 ), 1 );
-      valueText.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
+      valueTextNode.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
 
       valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
-      valueText.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
+      valueTextNode.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
     };
 
     // dispose unnecessary for property links, SpeedometerNode exists for the lifetime of the sim
     showSpeedProperty.linkAttribute( this, 'visible' );
     showValuesProperty.linkAttribute( valueRectangle, 'visible' );
-    showValuesProperty.linkAttribute( valueText, 'visible' );
+    showValuesProperty.linkAttribute( valueTextNode, 'visible' );
 
     velocityProperty.link( updateReadout );
 

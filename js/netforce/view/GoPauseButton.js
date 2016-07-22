@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  var Text = require( 'SCENERY/nodes/Text' );
+  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var inherit = require( 'PHET_CORE/inherit' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
@@ -74,8 +74,14 @@ define( function( require ) {
     var goPauseButton = this;
     var padX = 15;
     var padY = 10;
-    var goText = new Text( goString, { font: new PhetFont( 42 ) } );
-    var pauseText = new Text( pauseString, { font: new PhetFont( 30 ) } );
+    var goTextNode = new TandemText( goString, {
+      font: new PhetFont( 42 ),
+      tandem: tandem.createTandem( 'goTextNode' )
+    } );
+    var pauseTextNode = new TandemText( pauseString, {
+      font: new PhetFont( 30 ),
+      tandem: tandem.createTandem( 'pauseTextNode' )
+    } );
 
     // boolean function to determine if the go button should be enabled based on model state.
     var isGoButtonEnabled = function() {
@@ -86,7 +92,7 @@ define( function( require ) {
       model.running = true;
     };
     var goButton = new RoundPushButton( {
-      content: wrap( goText, padX, padY, [ goText, pauseText ] ),
+      content: wrap( goTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
       baseColor: '#94b830',
       listener: goListener,
       tandem: tandem.createTandem( 'goButton' )
@@ -157,7 +163,7 @@ define( function( require ) {
       model.running = false;
     };
     var pauseButton = new RoundPushButton( {
-      content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
+      content: wrap( pauseTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
       baseColor: '#df1a22',
       listener: pauseListener,
       tandem: tandem.createTandem( 'pauseButton' ),
