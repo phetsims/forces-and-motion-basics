@@ -36,6 +36,9 @@ define( function( require ) {
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io types
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
   var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
@@ -285,12 +288,12 @@ define( function( require ) {
       maxWidth: maxWidth
     } ) );
 
-    //Add the arrow nodes after the pullers so they will appear in the front in z-ordering
+    // Add the arrow nodes after the pullers so they will appear in the front in z-ordering
     this.addChild( this.leftArrow );
     this.addChild( this.rightArrow );
     this.addChild( this.sumArrow );
 
-    //Show the control panel
+    // Show the control panel
     this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) ).mutate( {
       right: 981 - 5,
       top: 5
@@ -304,15 +307,18 @@ define( function( require ) {
     };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 
-    //Accessibility for reading out the total force
-    var textProperty = new Property( '' );
-    model.numberPullersAttachedProperty.link( function() {
-      textProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
-                           'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
-                           'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
-                           (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
+    // Accessibility for reading out the total force
+    var accessibleTextProperty = new Property( '', {
+      tandem: tandem.createTandem( 'accessibleTextProperty' ),
+      type: TString
     } );
-    this.addLiveRegion( textProperty );
+    model.numberPullersAttachedProperty.link( function() {
+      accessibleTextProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
+                                     'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
+                                     'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
+                                     (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
+    } );
+    this.addLiveRegion( accessibleTextProperty );
 
     var golfClap = new Sound( golfClapSound );
 

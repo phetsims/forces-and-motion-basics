@@ -16,15 +16,21 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Property = require( 'AXON/Property' );
 
+  // phet-io types
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+
   /**
    * Constructor.
    *
    * @param {object} options
    */
-  function SliderKnob( options ) {
+  function SliderKnob( tandem, options ) {
 
     options = _.extend( {
-      enabledProperty: new Property( true )
+      enabledProperty: new Property( true, {
+        tandem: tandem.createTandem( 'enabledProperty' ),
+        type: TBoolean
+      } )
     }, options );
     this.enabledProperty = options.enabledProperty;
 

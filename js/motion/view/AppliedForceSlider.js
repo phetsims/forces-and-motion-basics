@@ -32,7 +32,7 @@ define( function( require ) {
     var thisSlider = this;
     this.range = range;
 
-    var sliderKnob = new SliderKnob();
+    var sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
     HSlider.call( this, model.appliedForceProperty, range, _.extend( {
       trackSize: new Dimension2( 300, 6 ),
       snapValue: 0,

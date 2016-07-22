@@ -38,6 +38,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io types
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+
   /**
    * Main constructor for MotionControlPanel
    *
@@ -60,9 +63,14 @@ define( function( require ) {
      * @param {object} options
      */
     var createCheckBox = function( text, propertyName, tandemName, options ) {
+
+      var checkBoxTandem = tandem.createTandem( tandemName );
       options = _.extend( {
         indent: 0,
-        checkBoxEnabledProperty: new Property( true ),
+        checkBoxEnabledProperty: new Property( true, {
+          tandem: checkBoxTandem.createTandem( 'enabledProperty' ),
+          type: TBoolean
+        } ),
         icon: null
       }, options );
 
@@ -77,12 +85,12 @@ define( function( require ) {
       var labelText = new TandemText( text, {
         font: new PhetFont( fontSize ),
         maxWidth: maxTextWidth,
-        tandem: tandem.createTandem( tandemName ).createTandem( 'labelTextNode' )
+        tandem: checkBoxTandem.createTandem( 'labelTextNode' )
       } );
 
       // create the check box and insert it into the container
       var checkBox = new CheckBox( labelText, model.property( propertyName ), {
-        tandem: tandem.createTandem( tandemName )
+        tandem: checkBoxTandem
       } );
       checkBoxContainer.insertChild( 1, checkBox );
 
@@ -128,7 +136,7 @@ define( function( require ) {
       // but this makes it work with VBox/HBox
       var frictionSlider = new HSlider( model.frictionProperty, { min: 0, max: MotionConstants.MAX_FRICTION }, {
         trackSize: new Dimension2( 150, 6 ),
-        thumbNode: new SliderKnob(),
+        thumbNode: new SliderKnob( tandem.createTandem( 'sliderKnob' ) ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
         tandem: tandem.createTandem( 'frictionSlider' )
