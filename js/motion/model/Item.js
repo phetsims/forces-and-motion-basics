@@ -16,7 +16,7 @@ define( function( require ) {
 
   /**
    * Constructor for Item
-   * 
+   *
    * @param {MotionModel || NetForceModel} context - model context in which this item exists
    * @param {string} name - string describing this time of item
    * @param {image} image - image from the 'image!' plugin, representing the item
@@ -136,7 +136,7 @@ define( function( require ) {
         this.interactionScale = Math.min( this.interactionScale + 9 * dt, 1.3 );
       }
       else if ( this.animating.destination === 'home' ) {
-        this.interactionScale = Math.max( this.interactionScale - 9 * dt, this.homeScale);
+        this.interactionScale = Math.max( this.interactionScale - 9 * dt, this.homeScale );
       }
 
       if ( this.animating.enabled ) {

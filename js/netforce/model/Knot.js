@@ -41,7 +41,7 @@ define( function( require ) {
   return inherit( PropertySet, Knot, {
     /**
      * Get the position of the knot
-     * 
+     *
      * @return {Vector2}
      */
     get position() {

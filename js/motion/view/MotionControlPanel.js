@@ -59,7 +59,7 @@ define( function( require ) {
      * @param {object} options
      */
     var createCheckBox = function( text, propertyName, options ) {
-      options = _.extend( { 
+      options = _.extend( {
         indent: 0,
         checkBoxEnabledProperty: new Property( true ),
         icon: null
@@ -80,7 +80,7 @@ define( function( require ) {
       checkBoxContainer.insertChild( 1, checkBox );
 
       // add optional icon next to checkbox
-      if( options.icon ) {
+      if ( options.icon ) {
         // create a horizontal spacer for the icon
         var iconSpacer = new HStrut( 10 );
         checkBoxContainer.insertChild( 2, iconSpacer );
@@ -132,7 +132,10 @@ define( function( require ) {
       frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, invisibleSliderTickOptions ) );
       frictionSlider.addMajorTick( 0, new Text( lotsString, invisibleSliderTickOptions ) );
 
-      var frictionLabel = new Text( frictionString, { font: new PhetFont( { size: fontSize, weight: 'bold' } ), maxWidth: maxTextWidth  } );
+      var frictionLabel = new Text( frictionString, {
+        font: new PhetFont( { size: fontSize, weight: 'bold' } ),
+        maxWidth: maxTextWidth
+      } );
 
       return new VBox( { spacing: -2, children: [ frictionLabel, frictionSlider ] } );
     };
@@ -146,20 +149,20 @@ define( function( require ) {
 
       // create the checkboxes
       var checkBoxes = new VBox( {
-          children: [
-            createCheckBox( forceString, 'showForce', { icon: arrowIcon() } ),
-            createCheckBox( valuesString, 'showValues' ),
-            createCheckBox( massesString, 'showMasses' ),
-            createCheckBox( speedString, 'showSpeed', {icon: speedometerIcon() } )
-          ],
-          align: 'left',
-          spacing: 10
-        } );
+        children: [
+          createCheckBox( forceString, 'showForce', { icon: arrowIcon() } ),
+          createCheckBox( valuesString, 'showValues' ),
+          createCheckBox( massesString, 'showMasses' ),
+          createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } )
+        ],
+        align: 'left',
+        spacing: 10
+      } );
       containerNode.addChild( checkBoxes );
 
 
       // create an hStrut to increase the width of the controls to the right
-      var hStrut = new HStrut( 16, { leftCenter: checkBoxes.rightCenter} );
+      var hStrut = new HStrut( 16, { leftCenter: checkBoxes.rightCenter } );
       containerNode.addChild( hStrut );
 
       return containerNode;
@@ -168,7 +171,7 @@ define( function( require ) {
     // if the the slider is wider than the group of checkboxes, align the check boxes to the left of the slider
     // otherwise, center with the checkboxes
     var layoutFrictionSlider = function( checkBoxes, frictionSlider ) {
-      if( frictionSlider.width > checkBoxes.width ) {
+      if ( frictionSlider.width > checkBoxes.width ) {
         checkBoxes.left = frictionSlider.left;
       }
       else {
@@ -250,8 +253,8 @@ define( function( require ) {
 
     // collect contents for the panel
     var contents = model.screen === 'motion' ? createMotionControls() :
-                model.screen === 'friction' ? createFrictionControls() :
-                createAccelerationControls();
+                   model.screen === 'friction' ? createFrictionControls() :
+                   createAccelerationControls();
 
     var panelNode = new Panel( contents, { xMargin: 12, yMargin: 7, fill: '#e3e980' } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );

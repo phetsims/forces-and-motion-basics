@@ -18,7 +18,7 @@ define( function( require ) {
 
   /**
    * Constructor.
-   * 
+   *
    * @param {Property<number>} accelerationProperty
    * @param {object} options
    */

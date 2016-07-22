@@ -19,7 +19,7 @@ define( function( require ) {
 
   // constants
   var linear = Util.linear;
-  
+
   /**
    * WaterBucketNode constructor
    *
@@ -67,7 +67,7 @@ define( function( require ) {
 
       // if the bucket is being dragged, we want delta to be zero, regardless of
       // whether or not the sim is running
-      if( dragging ) {
+      if ( dragging ) {
         return 0;
       }
 

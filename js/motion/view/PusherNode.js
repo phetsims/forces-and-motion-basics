@@ -150,7 +150,7 @@ define( function( require ) {
       else {
         scaledWidth = item.view.normalImageNode.width * item.getCurrentScale();
       }
-      
+
       var delta = scaledWidth / 2 - item.pusherInset;
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
@@ -180,7 +180,7 @@ define( function( require ) {
       }
 
       // update visibility and position if pusher is on screen and is still able to push 
-      if( !fallen && appliedForce !== 0 ) {
+      if ( !fallen && appliedForce !== 0 ) {
         var index = Math.min( 30, Math.round( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
@@ -195,9 +195,9 @@ define( function( require ) {
     // when the stack composition changes, we want to update the applied force position
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
     model.stackSizeProperty.link( function( stackSize ) {
-      if( model.stackSize > 0 ) {
+      if ( model.stackSize > 0 ) {
         // only do this if the pusher is standing and there is non zero applied force
-        if( !model.fallen && model.appliedForce !== 0 ) {
+        if ( !model.fallen && model.appliedForce !== 0 ) {
           updateAppliedForcePosition();
         }
       }
@@ -208,7 +208,7 @@ define( function( require ) {
       if ( model.appliedForce === 0 || model.fallen ) {
         var x = getPusherNodePosition();
         // to save processor time, don't update if the pusher is too far off screen
-        if( Math.abs( x ) < 2000 ) {
+        if ( Math.abs( x ) < 2000 ) {
           updateZeroForcePosition( x );
         }
       }
@@ -228,14 +228,14 @@ define( function( require ) {
 
       start: function() {
         // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
-        if( !model.playProperty.value ) {
+        if ( !model.playProperty.value ) {
           model.playProperty.set( true );
         }
 
       },
       end: function() {
         // if the model is paused, the applied force should remain the same
-        if( model.playProperty.value ) {
+        if ( model.playProperty.value ) {
           model.appliedForce = 0;
         }
       }

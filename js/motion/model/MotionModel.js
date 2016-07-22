@@ -29,7 +29,7 @@ define( function( require ) {
 
   /**
    * Constructor for the motion model
-   * 
+   *
    * @param {String} screen String that indicates which of the 3 screens this model represents
    * @constructor
    */
@@ -98,7 +98,7 @@ define( function( require ) {
     var fridge = new Item( this, 'fridge', fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
     var crate1 = new Item( this, 'crate1', crateImage, 50, 129, 507, 0.5 );
     var crate2 = new Item( this, 'crate2', crateImage, 50, 219, 507, 0.5 );
-    var girl = new Item( this, 'girl', girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[1].img );
+    var girl = new Item( this, 'girl', girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
     var man = new Item( this, 'man', manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
@@ -113,7 +113,7 @@ define( function( require ) {
                               'none';
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
-      if( motionModel.fallen && appliedForce !== 0 ) {
+      if ( motionModel.fallen && appliedForce !== 0 ) {
         motionModel.fallen = !motionModel.fallen;
       }
     } );
@@ -128,7 +128,7 @@ define( function( require ) {
     // when we fall down, we want the applied force to immediately be zero
     // see https://github.com/phetsims/forces-and-motion-basics/issues/180
     this.fallenProperty.link( function( fallen ) {
-      if( fallen ) {
+      if ( fallen ) {
         motionModel.appliedForceProperty.set( 0 );
       }
     } );
@@ -141,7 +141,7 @@ define( function( require ) {
 
     /**
      * Get an array representing the items that are being dragged.
-     * 
+     *
      * @return {Array<Item>}
      */
     draggingItems: function() {
@@ -190,7 +190,7 @@ define( function( require ) {
 
     /**
      * Determine whether a value is positive, negative, or zero for the physics computations.
-     * 
+     *
      * @param  {number} value
      * @return {number}
      */
@@ -200,7 +200,7 @@ define( function( require ) {
 
     /**
      * Returns the friction force on an object given the applied force.
-     * 
+     *
      * @param  {number} appliedForce
      * @return {number}
      */
@@ -245,7 +245,7 @@ define( function( require ) {
     /**
      * Determine whether a value is positive, negative or zero to determine wheter the object changed directions.
      * @param  {number} value
-     * @return {number}      
+     * @return {number}
      */
     sign: function( value ) {
       return value < 0 ? 'negative' :
@@ -265,8 +265,8 @@ define( function( require ) {
     },
 
     // get the pusher position relative to the center and layout bounds of the view
-     getRelativePusherPosition: function() {
-       return this.view.layoutBounds.width / 2 + ( this.pusherPosition - this.position ) * MotionConstants.POSITION_SCALE;
+    getRelativePusherPosition: function() {
+      return this.view.layoutBounds.width / 2 + ( this.pusherPosition - this.position ) * MotionConstants.POSITION_SCALE;
     },
 
     /**
@@ -314,7 +314,7 @@ define( function( require ) {
         // if the pusher is very far off screen, stand up immediately
         // based on width of the background image, determined by visual inspection
         var relativePosition = this.getRelativePusherPosition();
-        if( relativePosition > 1600 || relativePosition < -600 ) {
+        if ( relativePosition > 1600 || relativePosition < -600 ) {
           this.fallen = false;
         }
         this.timeSinceFallen = this.timeSinceFallen + dt;
@@ -346,7 +346,7 @@ define( function( require ) {
 
     /**
      * Update the physics.
-     * 
+     *
      * @param {number} dt
      */
     step: function( dt ) {
@@ -360,7 +360,7 @@ define( function( require ) {
       this.frictionForce = this.getFrictionForce( this.appliedForce );
       this.sumOfForces = this.frictionForce + this.appliedForce;
 
-      if( this.play ) {
+      if ( this.play ) {
         this.stepModel( dt );
       }
 
@@ -395,7 +395,7 @@ define( function( require ) {
 
     /**
      * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
-     * 
+     *
      * @param  {Item}
      * @return {boolean}
      */
@@ -406,7 +406,7 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
         // if the item is being dragged we need to cancel the drag in ItemNode
-        if( !this.items[ i ].dragging ) {
+        if ( !this.items[ i ].dragging ) {
           this.items[ i ].reset();
         }
       }
@@ -429,7 +429,7 @@ define( function( require ) {
     viewInitialized: function( view ) {
       var item = this.items[ 1 ];
       // only move item to the top of the stack if it is not being dragged
-      if( !item.dragging ) {
+      if ( !item.dragging ) {
         this.view = view;
         item.onBoard = true;
         var itemNode = view.itemNodes[ 1 ];

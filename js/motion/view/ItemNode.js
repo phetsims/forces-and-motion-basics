@@ -103,24 +103,24 @@ define( function( require ) {
       for ( var i = 0; i < model.stack.length; i++ ) {
         var itemInStack = model.stack.get( i );
 
-        if( itemInStack === person ) {
+        if ( itemInStack === person ) {
           // skip the person that is currently being dragged
           continue;
         }
-        if( itemInStack.name === 'girl' || itemInStack.name === 'man' ) {
+        if ( itemInStack.name === 'girl' || itemInStack.name === 'man' ) {
           personInStack = itemInStack;
         }
       }
-      if( personInStack ) {
+      if ( personInStack ) {
         direction = personInStack.direction;
       }
-      else if( person.context.appliedForce > 0 ) {
+      else if ( person.context.appliedForce > 0 ) {
         // if there is an applied force on the stack, direction should match applied force
         direction = 'right';
       }
       else {
         // if there is no applied force, check velocity for direction
-        if( person.context.velocity > 0 ) {
+        if ( person.context.velocity > 0 ) {
           direction = 'right';
         }
       }
@@ -161,7 +161,7 @@ define( function( require ) {
           moveToStack();
 
           // if item is man or girl, rotate depending on the current model velocity and applied force
-          if( item.name === 'man' || item.name === 'girl' ) {
+          if ( item.name === 'man' || item.name === 'girl' ) {
             updatePersonDirection( item );
           }
         }
@@ -175,7 +175,7 @@ define( function( require ) {
     // if the item is being dragged, cancel the drag on reset
     model.on( 'reset-all', function() {
       // cancel the drag and reset item
-      if( item.dragging ) {
+      if ( item.dragging ) {
         dragHandler.endDrag();
         item.reset();
       }
@@ -211,7 +211,7 @@ define( function( require ) {
       var scale = item.imageScale * interactionScale;
       itemNode.setScaleMagnitude( scale );
 
-      normalImageNode.setMatrix(  IDENTITY );
+      normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
         normalImageNode.scale( -1, 1 );
 

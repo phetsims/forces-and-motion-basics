@@ -19,7 +19,7 @@ define( function( require ) {
 
   /**
    * Constructor for the net force model.
-   * 
+   *
    * @constructor
    */
   function NetForceModel() {
@@ -130,7 +130,7 @@ define( function( require ) {
 
     /**
      * Shift the puller to the left.
-     * 
+     *
      * @param  {Puller} puller [description]
      */
     shiftPullerLeft: function( puller ) {
@@ -139,7 +139,7 @@ define( function( require ) {
 
     /**
      * Shift a puller to the right.
-     * 
+     *
      * @param  {Puller} puller
      */
     shiftPullerRight: function( puller ) {
@@ -200,7 +200,7 @@ define( function( require ) {
 
     /**
      * Gets the puller attached to a knot, or null if none attached to that knot.
-     * 
+     *
      * @param  {Knot} knot
      */
     getPuller: function( knot ) {
@@ -210,7 +210,7 @@ define( function( require ) {
 
     /**
      * Given a puller, returns a function that computes the distance between that puller and any knot.
-     * 
+     *
      * @param  {Puller} puller
      * return {function}
      */
@@ -224,7 +224,7 @@ define( function( require ) {
 
     /**
      * Gets the closest unoccupied knot to the given puller, which is being dragged.
-     * 
+     *
      * @param  {Puller} puller [description]
      * @return {Knot}
      */
@@ -238,7 +238,7 @@ define( function( require ) {
 
     /**
      * Gets the closest unoccupied knot to the given puller, which is being dragged.
-     * 
+     *
      * @param  {Puller} puller
      * @return {Knot}
      */
@@ -285,8 +285,8 @@ define( function( require ) {
       this.cart.reset();
       this.pullers.forEach( function( puller ) {
         // if the puller is being dragged, we will need to cancel the drag in PullerNode
-        if( !puller.dragging ) {
-          puller.reset(); 
+        if ( !puller.dragging ) {
+          puller.reset();
         }
       } );
       this.knots.forEach( function( knot ) {knot.reset();} );
@@ -295,7 +295,7 @@ define( function( require ) {
 
     /**
      * Update the physics when the clock ticks
-     * 
+     *
      * @param {number} dt
      */
     step: function( dt ) {
@@ -332,9 +332,9 @@ define( function( require ) {
 
     /**
      * Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
-     * 
-     * @param  {string} memo   
-     * @param  {Puller} puller 
+     *
+     * @param  {string} memo
+     * @param  {Puller} puller
      * @return {string}
      */
     sumForces: function( memo, puller ) {
@@ -354,7 +354,7 @@ define( function( require ) {
     /**
      * Gets the closest unoccupied knot to the given puller, which is being dragged.
      * @param  {Puller} puller
-     * @param  {nuber} delta 
+     * @param  {nuber} delta
      * @return {Knot}
      */
     getClosestOpenKnotInDirection: function( puller, delta ) {
@@ -412,9 +412,9 @@ define( function( require ) {
 
     /**
      * Move a puller to an adjacent open knot in a direction specified by delta.
-     * 
-     * @param  {Puller} puller 
-     * @param  {number} delta  
+     *
+     * @param  {Puller} puller
+     * @param  {number} delta
      */
     movePullerToAdjacentOpenKnot: function( puller, delta ) {
       var closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );

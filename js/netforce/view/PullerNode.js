@@ -16,6 +16,7 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Vector2 = require( 'DOT/Vector2' );
+
   /**
    * Create a PullerNode for the specified puller
    *
@@ -97,7 +98,7 @@ define( function( require ) {
 
           // if the puller was knotted, update the image location so that it is centered on the knot it was previously
           // grabbing
-          if( knot ) {
+          if ( knot ) {
             pullerNode.updateLocationKnotted( puller, model, knot );
           }
         },
@@ -111,8 +112,8 @@ define( function( require ) {
           pullerNode.updateImage( puller, model );
           pullerNode.puller.position = event.position;
         }
-      } 
-    ); 
+      }
+    );
     pullerNode.addInputListener( dragHandler );
 
     //model.on( 'reset-all', pullerNode.updateLocation );
@@ -120,7 +121,7 @@ define( function( require ) {
       pullerNode.updateLocation( puller, model );
 
       // cancel the drag
-      if( puller.dragging ) {
+      if ( puller.dragging ) {
         dragHandler.endDrag();
 
         puller.reset();
@@ -241,9 +242,9 @@ define( function( require ) {
 
     /**
      * Update the image puller image depending on whether the puller is knotted and pulling
-     * 
+     *
      * @param  {Puller} puller
-     * @param  {NetForceModel} model 
+     * @param  {NetForceModel} model
      */
     updateImage: function( puller, model ) {
       var knotted = puller.knot;
@@ -253,9 +254,9 @@ define( function( require ) {
 
     /**
      * Update the location of a puller depending on whether it is knotted and pulling.
-     * 
+     *
      * @param  {Puller} puller
-     * @param  {NetForceModel} model  
+     * @param  {NetForceModel} model
      */
     updateLocation: function( puller, model ) {
       var knotted = puller.knot;

@@ -41,11 +41,11 @@ define( function( require ) {
 
   /**
    * Constructor
-   * @param {Knot} knot              
-   * @param {Array<PullerNode>} pullerNodes       
-   * @param {KnotFocusRegion} focusRegionNode   
-   * @param {pullerToolboxNode} pullerToolboxNode 
-   * @param {NetForceModel} model             
+   * @param {Knot} knot
+   * @param {Array<PullerNode>} pullerNodes
+   * @param {KnotFocusRegion} focusRegionNode
+   * @param {pullerToolboxNode} pullerToolboxNode
+   * @param {NetForceModel} model
    * @constructor
    */
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model ) {

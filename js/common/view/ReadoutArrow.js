@@ -146,7 +146,7 @@ define( function( require ) {
 
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
               var spacingOffset = 5;
-              if( value > 0 ) {
+              if ( value > 0 ) {
                 this.valueNode.left = this.arrowNode.right + spacingOffset;
               }
               else {

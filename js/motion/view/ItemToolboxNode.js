@@ -22,7 +22,7 @@ define( function( require ) {
 
   /**
    * Constructor.
-   * 
+   *
    * @param {number} toolboxX
    * @param {number} toolboxY
    * @param {number} toolboxWidth
