@@ -41,15 +41,15 @@ define( function( require ) {
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
     var netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
-    this.netForceScreen = new Screen( netForceString, new Image( TugIcon ),
-      function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
-      function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
-        tandem: netForceScreenTandem
-      }
-    );
+    // this.netForceScreen = new Screen( netForceString, new Image( TugIcon ),
+    //   function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
+    //   function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
+    //     tandem: netForceScreenTandem
+    //   }
+    // );
     this.motionScreen = new MotionScreen( motionString, new Image( MotionIcon ), 'motion', tandem.createTandem( 'motionScreen' ) );
-    this.frictionScreen = new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction', tandem.createTandem( 'frictionScreen' ) );
-    this.accelerationScreen = new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration', tandem.createTandem( 'accelerationScreen' ) );
+    // this.frictionScreen = new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction', tandem.createTandem( 'frictionScreen' ) );
+    // this.accelerationScreen = new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration', tandem.createTandem( 'accelerationScreen' ) );
 
     // alternate route:
     // sim.screens[0]
@@ -58,10 +58,10 @@ define( function( require ) {
     //Create and start the sim
     Sim.call( this,
       forcesAndMotionBasicsTitleString, [
-        this.netForceScreen,
+        // this.netForceScreen,
         this.motionScreen,
-        this.frictionScreen,
-        this.accelerationScreen
+        // this.frictionScreen,
+        // this.accelerationScreen
       ],
       options );
   }

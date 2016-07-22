@@ -42,9 +42,10 @@ define( function( require ) {
    * Main constructor for MotionControlPanel
    *
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param {Tandem} tandem
    * @constructor
    */
-  function MotionControlPanel( model ) {
+  function MotionControlPanel( model, tandem ) {
     Node.call( this, {} );
 
     var fontSize = 18;
@@ -58,7 +59,7 @@ define( function( require ) {
      * @param {Property<boolean>} propertyName
      * @param {object} options
      */
-    var createCheckBox = function( text, propertyName, options ) {
+    var createCheckBox = function( text, propertyName, tandemName, options ) {
       options = _.extend( {
         indent: 0,
         checkBoxEnabledProperty: new Property( true ),
@@ -76,7 +77,9 @@ define( function( require ) {
       var labelText = new Text( text, { font: new PhetFont( fontSize ), maxWidth: maxTextWidth } );
 
       // create the check box and insert it into the container
-      var checkBox = new CheckBox( labelText, model.property( propertyName ) );
+      var checkBox = new CheckBox( labelText, model.property( propertyName ), {
+        tandem: tandem.createTandem( tandemName )
+      } );
       checkBoxContainer.insertChild( 1, checkBox );
 
       // add optional icon next to checkbox
@@ -150,10 +153,10 @@ define( function( require ) {
       // create the checkboxes
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forceString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( valuesString, 'showValues' ),
-          createCheckBox( massesString, 'showMasses' ),
-          createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } )
+          createCheckBox( forceString, 'showForce', 'showForceCheckBox', { icon: arrowIcon() } ),
+          createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
+          createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
+          createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } )
         ],
         align: 'left',
         spacing: 10

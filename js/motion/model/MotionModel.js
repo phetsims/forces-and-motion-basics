@@ -92,11 +92,13 @@ define( function( require ) {
     }, {
       tandemSet: {
         sumOfForces: tandem.createTandem( 'sumOfForcesProperty' ),
-        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' )
+        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
+        play: tandem.createTandem( 'playProperty' )
       },
       typeSet: {
         showSumOfForces: TBoolean,
-        sumOfForces: TNumber && TNumber( 'newtons' )
+        sumOfForces: TNumber && TNumber( 'newtons' ),
+        play: TBoolean
       }
     } );
 

@@ -237,15 +237,19 @@ define( function( require ) {
     this.addChild( speedometerNode );
 
     //Create and add the control panel
-    var controlPanel = new MotionControlPanel( model );
+    var controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     // create the play, pause, and step buttons
-    var playPauseButton = new PlayPauseButton( model.playProperty, { radius: 18 } );
-    var stepButton = new StepForwardButton( {
+    var playPauseButton = new PlayPauseButton( model.playProperty, {
+      radius: 18,
+      tandem: tandem.createTandem( 'playPauseButton' )
+    } );
+    var stepForwardButton = new StepForwardButton( {
       playingProperty: model.playProperty,
       listener: function() { model.manualStep(); },
-      radius: 18
+      radius: 18,
+      tandem: tandem.createTandem( 'stepForwardButton' )
     } );
 
     // Make the Play/Pause button bigger when it is showing the pause button, see #298
@@ -257,7 +261,7 @@ define( function( require ) {
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     var playPauseVerticalOffset = 35;
     var playPauseStepHBox = new HBox( {
-      children: [ playPauseButton, stepButton ],
+      children: [ playPauseButton, stepForwardButton ],
       spacing: 10,
       resize: false,
       leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset )
@@ -271,7 +275,8 @@ define( function( require ) {
         model.reset();
       },
       radius: 23,
-      rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset )
+      rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
 
