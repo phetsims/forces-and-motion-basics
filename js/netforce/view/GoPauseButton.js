@@ -31,7 +31,7 @@ define( function( require ) {
   //Centers all the nodes in the parent wrappers
   //TODO: Would be good to factor this out or provide better library support
   /**
-   * Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the 
+   * Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the
    * bounds will match up.  If the node is already the largest, don't wrap it.
    * Centers all the nodes in the parent wrappers.
    * @param  {Node} node
@@ -60,12 +60,12 @@ define( function( require ) {
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
-   * 
+   *
    * @param {NetForceModel} model the NetForceModel
    * @param {number} layoutWidth the layout width for centering the button
    * @constructor
    */
-  function GoPauseButton( model, layoutWidth, options ) {
+  function GoPauseButton( model, layoutWidth, tandem, options ) {
 
     options = _.extend( {
       top: 400,
@@ -88,7 +88,8 @@ define( function( require ) {
     var goButton = new RoundPushButton( {
       content: wrap( goText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#94b830',
-      listener: goListener
+      listener: goListener,
+      tandem: tandem.createTandem( 'goButton' )
     } );//green
 
     goButton.accessibleContent = {
@@ -149,7 +150,6 @@ define( function( require ) {
 
         var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
         return accessiblePeer;
-
       }
     };
 
@@ -160,6 +160,7 @@ define( function( require ) {
       content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#df1a22',
       listener: pauseListener,
+      tandem: tandem.createTandem( 'pauseButton' ),
       accessibleContent: {
         createPeer: function( accessibleInstance ) {
           /*

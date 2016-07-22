@@ -72,7 +72,7 @@ define( function( require ) {
    * @param {NetForceModel} model
    * @constructor
    */
-  function NetForceScreenView( model ) {
+  function NetForceScreenView( model, tandem ) {
     var netForceScreenView = this;
 
     ScreenView.call( this, {
@@ -269,7 +269,7 @@ define( function( require ) {
     //Add the go button, but only if there is a puller attached
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
     var maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
-    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, {
+    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, tandem.createTandem( 'goPauseButton' ), {
       maxWidth: maxWidth
     } );
     this.addChild( goPauseButton );
@@ -278,7 +278,7 @@ define( function( require ) {
     this.addChild( new ReturnButton( model, {
       centerX: this.layoutBounds.centerX,
       top: goPauseButton.bottom + 5,
-      maxWidth: maxWidth 
+      maxWidth: maxWidth
     } ) );
 
     //Add the arrow nodes after the pullers so they will appear in the front in z-ordering

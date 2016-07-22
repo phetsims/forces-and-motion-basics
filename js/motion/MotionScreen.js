@@ -19,10 +19,16 @@ define( function( require ) {
    *
    * @constructor
    */
-  function MotionScreen( title, icon, style ) {
+  function MotionScreen( title, icon, style, tandem ) {
     Screen.call( this, title, icon,
-      function() {return new MotionModel( style );},
-      function( model ) {return new MotionScreenView( model );} );
+      function() {
+        return new MotionModel( style, tandem.createTandem( 'model' ) );
+      },
+      function( model ) {
+        return new MotionScreenView( model, tandem.createTandem( 'view' ) );
+      }, {
+        tandem: tandem
+      } );
   }
 
   forcesAndMotionBasics.register( 'MotionScreen', MotionScreen );

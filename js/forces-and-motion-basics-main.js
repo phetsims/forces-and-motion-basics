@@ -10,6 +10,10 @@ define( function( require ) {
 
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var ForcesAndMotionBasicsSim = require( 'FORCES_AND_MOTION_BASICS/ForcesAndMotionBasicsSim' );
+  var Tandem = require( 'TANDEM/Tandem' );
+
+  // constants
+  var tandem = Tandem.createRootTandem();
 
   var simOptions = {
     credits: {
@@ -18,7 +22,8 @@ define( function( require ) {
       softwareDevelopment: 'Jesse Greenberg, Sam Reid',
       team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\n\tOliver Orejola, Ben Roberts, Bryan Yoelin'
-    }
+    },
+    tandem: tandem
   };
 
   SimLauncher.launch( function() {

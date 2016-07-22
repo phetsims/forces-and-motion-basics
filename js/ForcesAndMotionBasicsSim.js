@@ -36,16 +36,19 @@ define( function( require ) {
    * @constructor
    */
   function ForcesAndMotionBasicsSim( options ) {
+    var tandem = options.tandem;
 
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
     this.netForceScreen = new Screen( netForceString, new Image( TugIcon ),
-      function() {return new NetForceModel();},
-      function( model ) {return new NetForceScreenView( model );}
+      function() {return new NetForceModel( tandem.createTandem( 'model' ) );},
+      function( model ) {return new NetForceScreenView( model, tandem.createTandem( 'view' ) );}, {
+        tandem: tandem.createTandem( 'netForceScreen' )
+      }
     );
-    this.motionScreen = new MotionScreen( motionString, new Image( MotionIcon ), 'motion' );
-    this.frictionScreen = new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction' );
-    this.accelerationScreen = new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration' );
+    this.motionScreen = new MotionScreen( motionString, new Image( MotionIcon ), 'motion', tandem.createTandem( 'motionScreen' ) );
+    this.frictionScreen = new MotionScreen( frictionString, new Image( FrictionIcon ), 'friction', tandem.createTandem( 'frictionScreen' ) );
+    this.accelerationScreen = new MotionScreen( accelerationString, new Image( AccelerationIcon ), 'acceleration', tandem.createTandem( 'accelerationScreen' ) );
 
     // alternate route:
     // sim.screens[0]
