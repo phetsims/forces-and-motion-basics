@@ -23,8 +23,11 @@ define( function( require ) {
    * @param standOffsetX horizontal offset in stage coordinates when attached to a knot but not pulling (standing)
    * @constructor
    */
-  function Puller( x, y, type, size, dragOffsetX, options ) {
+  function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
     assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
+
+    // @public - to synchronize tandem names with the view
+    this.tandem = tandem;
 
     options = _.extend( { standOffsetX: 0, other: '' }, options );
     var puller = this;

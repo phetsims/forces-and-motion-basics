@@ -95,7 +95,7 @@ define( function( require ) {
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
 
     // The pusher should be behind the skateboard
-    this.addChild( new PusherNode( model, this.layoutBounds.width ) );
+    this.addChild( new PusherNode( model, this.layoutBounds.width, tandem.createTandem( 'pusherNode' ) ) );
 
     // Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {

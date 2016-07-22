@@ -224,7 +224,8 @@ define( function( require ) {
         getPullerImage( puller, true ),
         getKnotRegion( puller ),
         getPullerToolbox( puller ),
-        getAccessiblePullerDescription( puller )
+        getAccessiblePullerDescription( puller ),
+        tandem.createTandem( puller.tandem.tail )
       );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );

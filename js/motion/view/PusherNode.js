@@ -10,7 +10,7 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
@@ -58,7 +58,7 @@ define( function( require ) {
    * @param {number} layoutWidth width for the layout for purposes of centering the character when pushing
    * @constructor
    */
-  function PusherNode( model, layoutWidth ) {
+  function PusherNode( model, layoutWidth, tandem ) {
     var pusherNode = this;
     var scale = 0.95;
 
@@ -214,7 +214,8 @@ define( function( require ) {
       }
     } );
 
-    var listener = new SimpleDragHandler( {
+    var listener = new TandemDragHandler( {
+      tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       translate: function( options ) {
         var newAppliedForce = model.appliedForce + options.delta.x;

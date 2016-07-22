@@ -64,14 +64,14 @@ define( function( require ) {
     var smallPullerY = 394;
 
     this.pullers = [
-      new Puller( 208, bigPullerY, 'blue', 'small', 10 ),
-      new Puller( 278, bigPullerY, 'blue', 'small', 10, { other: 'other' } ),
-      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, { standOffsetX: -5 } ),
-      new Puller( 38, smallPullerY, 'blue', 'large', 70, { standOffsetX: -18 } ),
-      new Puller( 648, bigPullerY, 'red', 'small', 10 ),
-      new Puller( 717, bigPullerY, 'red', 'small', 10, { other: 'other' } ),
-      new Puller( 789, mediumPullerY, 'red', 'medium', 20 ),
-      new Puller( 860, smallPullerY, 'red', 'large', 30 )
+      new Puller( 208, bigPullerY, 'blue', 'small', 10, tandem.createTandem( 'smallBluePuller1' ) ),
+      new Puller( 278, bigPullerY, 'blue', 'small', 10, tandem.createTandem( 'smallBluePuller2' ), { other: 'other' } ),
+      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, tandem.createTandem( 'mediumBluePuller' ), { standOffsetX: -5 } ),
+      new Puller( 38, smallPullerY, 'blue', 'large', 70, tandem.createTandem( 'largeBluePuller' ), { standOffsetX: -18 } ),
+      new Puller( 648, bigPullerY, 'red', 'small', 10, tandem.createTandem( 'smallRedPuller1' ) ),
+      new Puller( 717, bigPullerY, 'red', 'small', 10, tandem.createTandem( 'smallRedPuller2' ), { other: 'other' } ),
+      new Puller( 789, mediumPullerY, 'red', 'medium', 20, tandem.createTandem( 'mediumRedPuller' ) ),
+      new Puller( 860, smallPullerY, 'red', 'large', 30, tandem.createTandem( 'largeRedPuller' ) )
     ];
 
     //Create a knot given a color and index (0-3)

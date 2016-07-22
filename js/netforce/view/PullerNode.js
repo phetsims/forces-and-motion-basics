@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {object} options
    * @constructor
    */
-  function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, accessibleDescription, options ) {
+  function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, accessibleDescription, tandem, options ) {
     this.puller = puller;
     var pullerNode = this;
     this.puller.node = this;//Wire up so node can be looked up by model element.
@@ -79,8 +79,8 @@ define( function( require ) {
       pullerNode.updateLocation( puller, model );
     } );
 
-    var dragHandler = new SimpleDragHandler(
-      {
+    var dragHandler = new TandemDragHandler( {
+      tandem: tandem.createTandem( 'dragHandler' ),
         allowTouchSnag: true,
         start: function( event ) {
 
