@@ -29,6 +29,7 @@ define( function( require ) {
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   /**
@@ -93,12 +94,58 @@ define( function( require ) {
       tandemSet: {
         sumOfForces: tandem.createTandem( 'sumOfForcesProperty' ),
         showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
-        play: tandem.createTandem( 'playProperty' )
+        play: tandem.createTandem( 'playProperty' ),
+        appliedForce: tandem.createTandem( 'appliedForceProperty' ),
+        frictionForce: tandem.createTandem( 'frictionForceProperty' ),
+        friction: tandem.createTandem( 'frictionProperty' ),
+        position: tandem.createTandem( 'positionProperty' ),
+        speed: tandem.createTandem( 'speedProperty' ),
+        velocity: tandem.createTandem( 'velocityProperty' ),
+        acceleration: tandem.createTandem( 'accelerationProperty' ),
+        pusherPosition: tandem.createTandem( 'pusherPositionProperty' ),
+        showForce: tandem.createTandem( 'showForceProperty' ),
+        showValues: tandem.createTandem( 'showValuesProperty' ),
+        showSpeed: tandem.createTandem( 'showSpeedProperty' ),
+        showMasses: tandem.createTandem( 'showMassesProperty' ),
+        showAcceleration: tandem.createTandem( 'showAccelerationProperty' ),
+        speedClassification: tandem.createTandem( 'speedClassificationProperty' ),
+        previousSpeedClassification: tandem.createTandem( 'previousSpeedClassificationProperty' ),
+        movingRight: tandem.createTandem( 'movingRightProperty' ),
+        direction: tandem.createTandem( 'directionProperty' ),
+        fallen: tandem.createTandem( 'fallenProperty' ),
+        fallenDirection: tandem.createTandem( 'fallenDirectionProperty' ),
+        stackSize: tandem.createTandem( 'stackSizeProperty' ),
+
+        // TODO: Should we add these tandems? They spam the data stream.
+        // time: tandem.createTandem( 'timeProperty' ),
+        // timeSinceFallen: tandem.createTandem( 'timeSinceFallenProperty' ),
       },
       typeSet: {
         showSumOfForces: TBoolean,
         sumOfForces: TNumber && TNumber( 'newtons' ),
-        play: TBoolean
+        play: TBoolean,
+        appliedForce: TNumber && TNumber( 'newtons' ),
+        frictionForce: TNumber && TNumber( 'newtons' ),
+        friction: TNumber && TNumber( 'unitless' ),
+        position: TNumber && TNumber( 'meters' ),
+        speed: TNumber && TNumber( 'meters/second' ),
+        velocity: TNumber && TNumber( 'meters/second' ),
+        acceleration: TNumber && TNumber( 'meters/second/second' ),
+        pusherPosition: TNumber && TNumber( 'meters' ),
+        showForce: TBoolean,
+        showValues: TBoolean,
+        showSpeed: TBoolean,
+        showMasses: TBoolean,
+        showAcceleration: TBoolean,
+        speedClassification: TString,
+        previousSpeedClassification: TString,
+        movingRight: TBoolean,
+        direction: TString,
+        timeSinceFallen: TNumber && TNumber( 'seconds' ),
+        fallen: TBoolean,
+        fallenDirection: TString,
+        time: TNumber( 'seconds' ),
+        stackSize: TNumber( 'unitless' )
       }
     } );
 
@@ -108,18 +155,18 @@ define( function( require ) {
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
     // create the items - Initial locations determined empirically
-    var bucket = new Item( this, 'bucket', waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
+    var bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
     bucket.bucket = true;
-    var fridge = new Item( this, 'fridge', fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
-    var crate1 = new Item( this, 'crate1', crateImage, 50, 129, 507, 0.5 );
-    var crate2 = new Item( this, 'crate2', crateImage, 50, 219, 507, 0.5 );
-    var girl = new Item( this, 'girl', girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
-    var man = new Item( this, 'man', manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
+    var fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
+    var crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crateImage, 50, 129, 507, 0.5 );
+    var crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crateImage, 50, 219, 507, 0.5 );
+    var girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
+    var man = new Item( this, 'man', tandem.createTandem( 'man' ), manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
-        new Item( this, 'trash', trashCanImage, 100, 816, 492, 0.7, 1.0, 5 ),
-        new Item( this, 'mystery', mysteryObjectImage, 50, 888, 511, 0.3, 1.0, undefined, undefined, undefined, true )
+        new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCanImage, 100, 816, 492, 0.7, 1.0, 5 ),
+        new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObjectImage, 50, 888, 511, 0.3, 1.0, undefined, undefined, undefined, true )
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {

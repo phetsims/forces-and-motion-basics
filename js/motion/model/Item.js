@@ -14,6 +14,13 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io modules
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
+
   /**
    * Constructor for Item
    *
@@ -30,7 +37,7 @@ define( function( require ) {
    * @param {image} holdingImage - image from the 'image!' plugin, representing a 'sitting' item
    * @param {boolean} mystery      [description]
    */
-  function Item( context, name, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
+  function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
     var item = this;
 
     this.name = name;
@@ -68,6 +75,24 @@ define( function( require ) {
 
       //How much the object grows or shrinks when interacting with it
       interactionScale: homeScale || 1.0
+    }, {
+      tandemSet: {
+        position: tandem.createTandem( 'positionProperty' ),
+        dragging: tandem.createTandem( 'draggingProperty' ),
+        direction: tandem.createTandem( 'directionProperty' ),
+        onBoard: tandem.createTandem( 'onBoardProperty' ),
+        imageScale: tandem.createTandem( 'imageScaleProperty' ),
+        interactionScale: tandem.createTandem( 'interactionScaleProperty' )
+      },
+      typeSet: {
+        // TODO: to instrument `animating` it would needs its own type, TObject does not know how to serialize it.
+        position: TVector2,
+        dragging: TBoolean,
+        direction: TString,
+        onBoard: TBoolean,
+        imageScale: TNumber && TNumber( 'unitless' ),
+        interactionScale: TNumber && TNumber( 'unitless' )
+      }
     } );
 
     this.context.directionProperty.link( function( direction ) {
