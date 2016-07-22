@@ -275,7 +275,7 @@ define( function( require ) {
     this.addChild( goPauseButton );
 
     //Return button
-    this.addChild( new ReturnButton( model, {
+    this.addChild( new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
       centerX: this.layoutBounds.centerX,
       top: goPauseButton.bottom + 5,
       maxWidth: maxWidth
@@ -287,7 +287,10 @@ define( function( require ) {
     this.addChild( this.sumArrow );
 
     //Show the control panel
-    this.controlPanel = new NetForceControlPanel( this.model ).mutate( { right: 981 - 5, top: 5 } );
+    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) ).mutate( {
+      right: 981 - 5,
+      top: 5
+    } );
     this.addChild( this.controlPanel );
 
     // Show the flag node when pulling is complete and update the accessible game over element in the parallel DOM

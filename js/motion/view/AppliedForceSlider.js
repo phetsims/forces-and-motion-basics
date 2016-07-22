@@ -1,10 +1,10 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Applied Force Slider of the Motion screens.  If the model velocity is larger than the max allowed value, 
+ * Applied Force Slider of the Motion screens.  If the model velocity is larger than the max allowed value,
  * one half of the slider will become disabled depending on the direction of velocity.  The slider is also disabled
  * when the pusher has fallen over and there is no friction in the model.
- * 
+ *
  * @author Sam Reid
  * @author Jesse Greenberg
  */
@@ -21,25 +21,26 @@ define( function( require ) {
 
   /**
    * Constructor.
-   * 
+   *
    * @param {MotionModel} model
    * @param {Object} range - the range of values for the slider
    * @param {Object} [options]
    * @constructor
    */
-  function AppliedForceSlider( model, range, options ) {
-    
+  function AppliedForceSlider( model, range, tandem, options ) {
+
     var thisSlider = this;
     this.range = range;
 
     var sliderKnob = new SliderKnob();
-    HSlider.call( this, model.appliedForceProperty, range, _.extend( { 
+    HSlider.call( this, model.appliedForceProperty, range, _.extend( {
       trackSize: new Dimension2( 300, 6 ),
       snapValue: 0,
       majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
-      thumbNode: sliderKnob
+      thumbNode: sliderKnob,
+      tandem: tandem
     }, options ) );
 
     // Note: I do not like this method of canceling, it relies on the assumption that the slider will end drag
@@ -51,10 +52,10 @@ define( function( require ) {
     };
 
     model.multilink( [ 'speedClassification', 'friction' ], function( speedClassification, friction ) {
-      if( friction > 0 ) {
+      if ( friction > 0 ) {
         // if we have any friction, all we want to do is cancel the drag so the pusher does not 
         // rapidly stand up again
-        if( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
+        if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
           cancelDrag();
         }
         else {
@@ -63,10 +64,10 @@ define( function( require ) {
       }
       else {
         // otherwise, we will want to disable a portion of the slider depending on the direciton of the stacks
-        if( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
+        if ( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
           thisSlider.enabledRange = { min: range.min, max: 0 };
         }
-        else if( speedClassification === 'LEFT_SPEED_EXCEEDED' ) {
+        else if ( speedClassification === 'LEFT_SPEED_EXCEEDED' ) {
           thisSlider.enabledRange = { min: 0, max: range.max };
         }
         else {
@@ -77,7 +78,7 @@ define( function( require ) {
 
     // when the model is paused, the slider should not snap to a value so the user can set up a state of forces
     model.playProperty.link( function( play ) {
-      if( play ) {
+      if ( play ) {
         thisSlider.snapValue = 0;
       }
       else {
@@ -87,7 +88,7 @@ define( function( require ) {
 
     // when the slider is disabled, the thumb should be disabled as well
     // no need for dispose, slider exist for lifetime of sim
-    this.enabledProperty.link( function ( enabled ) {
+    this.enabledProperty.link( function( enabled ) {
       sliderKnob.enabledProperty.value = enabled;
     } );
 
@@ -118,7 +119,7 @@ define( function( require ) {
       _.range( numTicks ).forEach( function( i ) {
 
         var location = initialTickValue + i * delta;
-        if( isMajor( i ) ) {
+        if ( isMajor( i ) ) {
           var label = new Text( location, { font: new PhetFont( 16 ) } );
           thisSlider.addMajorTick( location, label );
         }

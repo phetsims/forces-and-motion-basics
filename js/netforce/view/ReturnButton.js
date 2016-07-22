@@ -25,7 +25,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ReturnButton( model, options ) {
+  function ReturnButton( model, tandem, options ) {
     Node.call( this );
 
     // TODO: this method bound the model. Why?
@@ -35,7 +35,8 @@ define( function( require ) {
     var button = new TextPushButton( returnString, {
       listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
-      baseColor: 'rgb( 254, 192, 0 )'
+      baseColor: 'rgb( 254, 192, 0 )',
+      tandem: tandem // TODO: this class should extend TextPushButton, not wrap it.
     } );
     this.addChild( button );
     this.mutate( options );

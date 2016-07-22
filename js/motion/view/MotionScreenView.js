@@ -59,11 +59,11 @@ define( function( require ) {
 
   /**
    * Constructor for the MotionScreenView
-   * 
+   *
    * @param {MotionModel} model model for the entire screen
    * @constructor
    */
-  function MotionScreenView( model ) {
+  function MotionScreenView( model, tandem ) {
 
     //Constants and fields
     this.model = model;
@@ -121,18 +121,26 @@ define( function( require ) {
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
 
     var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    var sliderLabel = new Text( appliedForceString, { font: new PhetFont( 22 ), centerX: width / 2, y: 430, maxWidth: maxTextWidth } );
-    var slider = new AppliedForceSlider( model, { min: -500, max: 500 }, {
+    var sliderLabel = new Text( appliedForceString, {
+      font: new PhetFont( 22 ),
+      centerX: width / 2,
+      y: 430,
+      maxWidth: maxTextWidth
+    } );
+    var appliedForceSlider = new AppliedForceSlider( model, {
+      min: -500,
+      max: 500
+    }, tandem.createTandem( 'appliedForceSlider' ), {
       centerX: width / 2 + 1,
       y: 555
     } );
 
     this.addChild( sliderLabel );
-    this.addChild( slider );
+    this.addChild( appliedForceSlider );
 
     //Position the units to the right of the text box.
     var readout = new Text( '???', { font: new PhetFont( 22 ), pickable: false, maxWidth: maxTextWidth / 2 } );
-    readout.bottom = slider.top - 15;
+    readout.bottom = appliedForceSlider.top - 15;
     model.appliedForceProperty.link( function( appliedForce ) {
 
       //Must match the other formatters below, see roundedAppliedForceProperty near the creation of the ReadoutArrows
@@ -188,7 +196,7 @@ define( function( require ) {
 
     model.stack.lengthProperty.link( disableText( sliderLabel ) );
     model.stack.lengthProperty.link( disableText( readout ) );
-    model.stack.lengthProperty.link( function( length ) { slider.enabled = length > 0; } );
+    model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.velocityProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -240,7 +248,7 @@ define( function( require ) {
 
     // Make the Play/Pause button bigger when it is showing the pause button, see #298
     var pauseSizeIncreaseFactor = 1.28;
-      model.playProperty.lazyLink( function( isPlaying ) {
+    model.playProperty.lazyLink( function( isPlaying ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
@@ -261,7 +269,7 @@ define( function( require ) {
         model.reset();
       },
       radius: 23,
-      rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ) 
+      rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset )
     } );
     this.addChild( this.resetAllButton );
 
@@ -272,7 +280,12 @@ define( function( require ) {
 
       // build up the string label for the acceleration
       var labelString = StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, model.accelerationProperty.value );
-      var labelText = new SubSupText( labelString, { font: new PhetFont( 18 ), supScale: 0.60, supYOffset: 2, maxWidth: accelerometerNode.width * 3 / 2 } );
+      var labelText = new SubSupText( labelString, {
+        font: new PhetFont( 18 ),
+        supScale: 0.60,
+        supYOffset: 2,
+        maxWidth: accelerometerNode.width * 3 / 2
+      } );
 
       // create the tick labels
       var tickLabel = function( label, tick ) {
@@ -283,11 +296,13 @@ define( function( require ) {
           top: tick.bottom + 27
         } );
       };
-      var tickLabels = new Node( { children: [
-        tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
-        tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
-        tickLabel( '20', accelerometerNode.ticks[ 4 ] )
-      ] } );
+      var tickLabels = new Node( {
+        children: [
+          tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
+          tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
+          tickLabel( '20', accelerometerNode.ticks[ 4 ] )
+        ]
+      } );
 
       // put it all together in a VBox
       var accelerometerWithTickLabels = new Node( {
@@ -305,7 +320,7 @@ define( function( require ) {
       // whenever showValues and accleration changes, update the label text
       var initialLabelWidth = labelText.width;
       model.multilink( [ 'showValues', 'acceleration' ], function( showValues, acceleration ) {
-        if( showValues ) {
+        if ( showValues ) {
           var accelerationValue = Util.toFixed( acceleration, 1 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
 
@@ -379,7 +394,7 @@ define( function( require ) {
       this.itemNodes.push( itemNode );
 
       // TODO: This should be removed once the layout of items has gone through review.
-      if( DEBUG && item.name === 'fridge' ) {
+      if ( DEBUG && item.name === 'fridge' ) {
         // create a line at the bottom of the fridge to assist with layout
         var debugLine = new Line( 0, itemNode.bottom, this.layoutBounds.width, itemNode.bottom, { stroke: 'red' } );
         motionView.addChild( debugLine );

@@ -22,12 +22,12 @@ define( function( require ) {
 
   /**
    * Create the NetForceControlPanel.
-   * 
+   *
    * @param {NetForceModel} model the model for this control panel
    * @param {Object} [options]
    * @constructor
    */
-  function NetForceControlPanel( model, options ) {
+  function NetForceControlPanel( model, tandem, options ) {
     options = _.extend( {}, options );
     Node.call( this, options );
 
@@ -37,15 +37,19 @@ define( function( require ) {
         content: new Text( sumOfForcesString, fontOptions ),
         property: model.showSumOfForcesProperty,
         label: sumOfForcesString,
-        accessibleLabel: sumOfForcesString
+        accessibleLabel: sumOfForcesString,
+        tandemName: 'showSumOfForcesCheckBox'
       },
       {
         content: new Text( valuesString, fontOptions ),
         property: model.showValuesProperty,
         label: valuesString,
-        accessibleLabel: valuesString
+        accessibleLabel: valuesString,
+        tandemName: 'showValuesCheckBox'
       }
-    ] );
+    ], {
+      tandem: tandem.createTandem( 'verticalCheckBoxGroup' )
+    } );
     var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
     this.addChild( checkBoxPanel );
 
@@ -56,17 +60,19 @@ define( function( require ) {
       },
       radius: 23,
       rightCenter: checkBoxPanel.rightBottom.plusXY( -7, 35 ),
-      textDescription: 'Restart game button'
+      textDescription: 'Restart game button',
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
 
-    var soundButton = new SoundToggleButton( model.volumeOnProperty, { 
+    var soundToggleButton = new SoundToggleButton( model.volumeOnProperty, {
       padX: 19,
       padY: 19,
       left: checkBoxPanel.left + 7,
-      centerY: this.resetAllButton.centerY
+      centerY: this.resetAllButton.centerY,
+      tandem: tandem.createTandem( 'soundToggleButton' )
     } );
-    this.addChild( soundButton );
+    this.addChild( soundToggleButton );
   }
 
   forcesAndMotionBasics.register( 'NetForceControlPanel', NetForceControlPanel );
