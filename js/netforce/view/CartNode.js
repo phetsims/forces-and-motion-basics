@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
+  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -28,10 +28,13 @@ define( function( require ) {
    * @param {Cart} cart
    * @constructor
    */
-  function CartNode( cart ) {
+  function CartNode( cart, tandem ) {
 
     // super constructor
-    Image.call( this, cartImage, { y: 221 } );
+    TandemImage.call( this, cartImage, {
+      y: 221,
+      tandem: tandem
+    } );
     var thisNode = this;
 
     this.cart = cart;
@@ -71,7 +74,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'CartNode', CartNode );
 
-  return inherit( Image, CartNode, {
+  return inherit( TandemImage, CartNode, {
 
     /**
      * Update the text content of the aria-live region describing the cart.

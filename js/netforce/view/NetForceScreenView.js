@@ -105,8 +105,7 @@ define( function( require ) {
     this.addChild( new Image( grassImage, { x: 13 - grassImage.width, y: grassY } ) );
     this.addChild( new Image( grassImage, { x: 13 + grassImage.width, y: grassY } ) );
 
-    //this.cartNode = new Image( cartImage, { y: 221 } );
-    this.cartNode = new CartNode( model.cart, model.netForceProperty );
+    this.cartNode = new CartNode( model.cart, tandem.createTandem( 'cartNode' ) );
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
