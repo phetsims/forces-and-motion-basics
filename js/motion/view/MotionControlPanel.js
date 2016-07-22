@@ -126,7 +126,8 @@ define( function( require ) {
         trackSize: new Dimension2( 150, 6 ),
         thumbNode: new SliderKnob(),
         majorTickLength: 18,
-        tickLabelSpacing: 3
+        tickLabelSpacing: 3,
+        tandem: tandem.createTandem( 'frictionSlider' )
       } );
       var sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: maxTextWidth * 0.5 };
       var invisibleSliderTickOptions = _.extend( { visible: false }, sliderTickOptions );
@@ -192,11 +193,11 @@ define( function( require ) {
       // create the checkboxes
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces' ),
-          createCheckBox( valuesString, 'showValues' ),
-          createCheckBox( massesString, 'showMasses' ),
-          createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } )
+          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: arrowIcon() } ),
+          createCheckBox( sumOfForcesString, 'showSumOfForces', 'showSumOfForcesCheckBox' ),
+          createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
+          createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
+          createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } )
         ],
         align: 'left',
         spacing: 10
@@ -227,12 +228,12 @@ define( function( require ) {
 
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forcesString, 'showForce', { icon: arrowIcon() } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces' ),
-          createCheckBox( valuesString, 'showValues' ),
-          createCheckBox( massesString, 'showMasses' ),
-          createCheckBox( speedString, 'showSpeed', { icon: speedometerIcon() } ),
-          createCheckBox( accelerationString, 'showAcceleration', { icon: accelerometerIcon() } )
+          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: arrowIcon() } ),
+          createCheckBox( sumOfForcesString, 'showSumOfForces', 'showSumOfForcesCheckBox' ),
+          createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
+          createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
+          createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } ),
+          createCheckBox( accelerationString, 'showAcceleration', 'showAccelerationCheckBox', { icon: accelerometerIcon() } )
         ],
         align: 'left',
         spacing: 10
