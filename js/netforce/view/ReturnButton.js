@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Node = require( 'SCENERY/nodes/Node' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
@@ -26,22 +25,21 @@ define( function( require ) {
    * @constructor
    */
   function ReturnButton( model, tandem, options ) {
-    Node.call( this );
 
     // TODO: this method bound the model. Why?
     var returnCart = function() {
       model.returnCart();
     };
-    var button = new TextPushButton( returnString, {
+    TextPushButton.call( this, returnString, {
       listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
       tandem: tandem // TODO: this class should extend TextPushButton, not wrap it.
     } );
-    this.addChild( button );
     this.mutate( options );
+    var button = this;
 
-    model.startedProperty.linkAttribute( button, 'enabled' );
+    model.startedProperty.linkAttribute( this, 'enabled' );
     model.startedProperty.link( function( enabled ) {
       button.textDescription = 'Reset Cart button' + (enabled ? '' : ' (disabled)');
     } );
@@ -84,5 +82,5 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
 
-  return inherit( Node, ReturnButton );
+  return inherit( TextPushButton, ReturnButton );
 } );

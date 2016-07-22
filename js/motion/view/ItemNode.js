@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
@@ -44,7 +44,11 @@ define( function( require ) {
 
     var itemNode = this;
     this.item = item;
-    Node.call( this, { cursor: 'pointer', scale: item.imageScale } );
+    TandemNode.call( this, {
+      cursor: 'pointer',
+      scale: item.imageScale,
+      tandem: tandem
+    } );
     this.accessibleId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
     // translate this node to the item's position
@@ -199,9 +203,10 @@ define( function( require ) {
 
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n
-    var labelNode = new Node( {
+    var labelNode = new TandemNode( {
       children: [ roundRect, massLabel ],
-      scale: 1.0 / item.imageScale
+      scale: 1.0 / item.imageScale,
+      tandem: tandem.createTandem( 'labelNode' )
     } );
     this.labelNode = labelNode;
 
@@ -306,5 +311,5 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );
 
-  return inherit( Node, ItemNode );
+  return inherit( TandemNode, ItemNode );
 } );

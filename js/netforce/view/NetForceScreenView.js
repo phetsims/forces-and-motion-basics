@@ -16,7 +16,7 @@ define( function( require ) {
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotHighlightNode' );
   var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
   var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/ReturnButton' );
@@ -143,7 +143,10 @@ define( function( require ) {
     this.addChild( rightFocusRegion );
 
     //Split into another canvas to speed up rendering
-    this.addChild( new Node( { layerSplit: true } ) );
+    this.addChild( new TandemNode( {
+      tandem: tandem.createTandem( 'frontLayer' ),
+      layerSplit: true
+    } ) );
 
     //Create the arrow nodes
     var opacity = 0.8;
@@ -217,8 +220,12 @@ define( function( require ) {
       return sideDescription + ' ' + groupString + ' ' + size + ' ' + pullerString + ' ';
     };
 
-    var leftPullerLayer = new Node();
-    var rightPullerLayer = new Node();
+    var leftPullerLayer = new TandemNode( {
+      tandem: tandem.createTandem( 'leftPullerLayer' )
+    } );
+    var rightPullerLayer = new TandemNode( {
+      tandem: tandem.createTandem( 'rightPullerLayer' )
+    } );
     this.pullerNodes = [];
 
     this.model.pullers.forEach( function( puller ) {

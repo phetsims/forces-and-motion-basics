@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -49,7 +49,9 @@ define( function( require ) {
    * @constructor
    */
   function MotionControlPanel( model, tandem ) {
-    Node.call( this, {} );
+    TandemNode.call( this, {
+      tandem: tandem
+    } );
 
     var fontSize = 18;
     var maxTextWidth = 250;
@@ -127,7 +129,10 @@ define( function( require ) {
         max: MotionConstants.MAX_SPEED
       }, { scale: 0.2 } );
     };
-    var accelerometerIcon = function() { return new AccelerometerNode( model.accelerationProperty ).mutate( { scale: 0.3 } ); };
+    var accelerometerIcon = function() {
+      return new AccelerometerNode( model.accelerationProperty,
+        tandem.createTandem( 'accelerometerIcon' ) ).mutate( { scale: 0.3 } );
+    };
 
     var createFrictionSlider = function() {
 
@@ -164,7 +169,9 @@ define( function( require ) {
 
       // container node for check boxes and an hstrut which makes the panel just a little wider to match the 
       // other screens
-      var containerNode = new Node();
+      var containerNode = new TandemNode( {
+        tandem: tandem.createTandem( 'containerNode' )
+      } );
 
       // create the checkboxes
       var checkBoxes = new VBox( {
@@ -203,7 +210,9 @@ define( function( require ) {
     var createFrictionControls = function() {
 
       // container for all controls
-      var containerNode = new Node();
+      var containerNode = new TandemNode( {
+        tandem: tandem.createTandem( 'containerNode' )
+      } );
 
       // create the checkboxes
       var checkBoxes = new VBox( {
@@ -239,7 +248,9 @@ define( function( require ) {
     var createAccelerationControls = function() {
 
       // node containing checkboxes, spacing, and slider
-      var containerNode = new Node();
+      var containerNode = new TandemNode( {
+        tandem: tandem.createTandem( 'containerNode' )
+      } );
 
       var checkBoxes = new VBox( {
         children: [
@@ -281,6 +292,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
 
-  return inherit( Node, MotionControlPanel );
+  return inherit( TandemNode, MotionControlPanel );
 
 } );

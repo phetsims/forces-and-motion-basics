@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
@@ -34,7 +34,9 @@ define( function( require ) {
   function FlagNode( model, centerX, top ) {
     var flagNode = this;
     this.model = model;
-    Node.call( this );
+    TandemNode.call( this, {
+      tandem: tandem
+    } );
 
     var text = new TandemText( model.cart.x < 0 ? blueWinsString : redWinsString, {
       font: new PhetFont( 32 ),
@@ -93,7 +95,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'FlagNode', FlagNode );
 
-  return inherit( Node, FlagNode, {
+  return inherit( TandemNode, FlagNode, {
 
     //Update the flag shape, copied from the Java version
     updateFlagShape: function() {

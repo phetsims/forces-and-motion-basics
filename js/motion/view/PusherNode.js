@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
 
@@ -129,7 +129,10 @@ define( function( require ) {
       }
     }
 
-    Node.call( this, { children: children } );
+    TandemNode.call( this, {
+      children: children,
+      tandem: tandem
+    } );
 
     //Update the position when the pusher is not applying force (fallen or standing)
     function updateZeroForcePosition( x ) {
@@ -257,5 +260,5 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'PusherNode', PusherNode );
 
-  return inherit( Node, PusherNode );
+  return inherit( TandemNode, PusherNode );
 } );

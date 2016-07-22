@@ -10,7 +10,7 @@ define( function( require ) {
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
@@ -95,7 +95,7 @@ define( function( require ) {
     this.addChild( this.groundNode );
 
     //Create the dynamic (moving) background
-    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
+    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2, tandem.createTandem( 'movingBackgroundNode' ) ).mutate( { layerSplit: true } ) );
 
     // The pusher should be behind the skateboard
     this.addChild( new PusherNode( model, this.layoutBounds.width, tandem.createTandem( 'pusherNode' ) ) );
@@ -293,7 +293,7 @@ define( function( require ) {
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
-      var accelerometerNode = new AccelerometerNode( model.accelerationProperty );
+      var accelerometerNode = new AccelerometerNode( model.accelerationProperty, tandem.createTandem( 'accelerometerNode' ) );
 
       // build up the string label for the acceleration
       var labelString = StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, model.accelerationProperty.value );
@@ -314,7 +314,8 @@ define( function( require ) {
           tandem: tandem.createTandem( 'tickLabelTextNode_' + label )
         } );
       };
-      var tickLabels = new Node( {
+      var tickLabels = new TandemNode( {
+        tandem: tandem.createTandem( 'tickLabels' ),
         children: [
           tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
           tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
@@ -323,7 +324,8 @@ define( function( require ) {
       } );
 
       // put it all together in a VBox
-      var accelerometerWithTickLabels = new Node( {
+      var accelerometerWithTickLabels = new TandemNode( {
+        tandem: tandem.createTandem( 'accelerometerWithTickLabels' ),
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
         centerX: 300,
@@ -392,8 +394,8 @@ define( function( require ) {
     };
 
     //Iterate over the items in the model and create and add nodes for each one
-    var leftItemLayer = new Node();
-    var rightItemLayer = new Node();
+    var leftItemLayer = new TandemNode( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
+    var rightItemLayer = new TandemNode( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[ i ];
@@ -484,7 +486,7 @@ define( function( require ) {
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
-    var toolBoxContainer = new Node();
+    var toolBoxContainer = new TandemNode( { tandem: tandem.createTandem( 'toolBoxContainer' ) } );
     toolBoxContainer.addChild( leftItemToolboxNode );
     toolBoxContainer.addChild( rightItemToolboxNode );
     this.addChild( toolBoxContainer );

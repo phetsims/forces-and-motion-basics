@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
@@ -28,8 +28,8 @@ define( function( require ) {
    * @constructor
    */
   function NetForceControlPanel( model, tandem, options ) {
-    options = _.extend( {}, options );
-    Node.call( this, options );
+    options = _.extend( { tandem: tandem }, options );
+    TandemNode.call( this, options );
 
     var fontOptions = { font: new PhetFont( 18 ) };
     this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [
@@ -77,6 +77,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'NetForceControlPanel', NetForceControlPanel );
 
-  return inherit( Node, NetForceControlPanel );
+  return inherit( TandemNode, NetForceControlPanel );
 
 } );

@@ -13,7 +13,7 @@ define( function( require ) {
 
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
@@ -34,11 +34,15 @@ define( function( require ) {
    * @param {number} layoutCenterX the location where the node should be centered horizontally
    * @constructor
    */
-  function MovingBackgroundNode( model, layoutCenterX ) {
+  function MovingBackgroundNode( model, layoutCenterX, tandem ) {
     var movingBackgroundNode = this;
     this.model = model;
 
-    Node.call( this, { pickable: false, preventFit: true } );
+    TandemNode.call( this, {
+      pickable: false,
+      preventFit: true,
+      tandem: tandem
+    } );
 
     var L = 900;
 
@@ -56,7 +60,8 @@ define( function( require ) {
     var mountainY = 311;
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy
-    var mountainAndCloudLayer = new Node( {
+    var mountainAndCloudLayer = new TandemNode( {
+      tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
         toBackgroundImage( L / 2, mountainImage, mountainY, 1 ),
@@ -156,7 +161,8 @@ define( function( require ) {
           //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
           model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-          var iceLayer = new Node( {
+          var iceLayer = new TandemNode( {
+            tandem: tandem.createTandem( 'iceLayer' ),
             children: [
               toBackgroundImage( 0, icicleImage, 0, 0.8 ),
               toBackgroundImage( 300, icicleImage, 0, 0.8 )
@@ -171,7 +177,9 @@ define( function( require ) {
 
           movingBackgroundNode.lastNumSpecks = 0;
 
-          var gravelSource = new Node();
+          var gravelSource = new TandemNode( {
+            tandem: tandem.createTandem( 'gravelSource' )
+          } );
 
           var numBlack = 0;
           var numGray = 0;
@@ -257,6 +265,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'MovingBackgroundNode', MovingBackgroundNode );
 
-  return inherit( Node, MovingBackgroundNode );
+  return inherit( TandemNode, MovingBackgroundNode );
 
 } );
