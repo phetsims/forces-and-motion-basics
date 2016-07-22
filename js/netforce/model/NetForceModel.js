@@ -75,20 +75,20 @@ define( function( require ) {
     ];
 
     //Create a knot given a color and index (0-3)
-    function createKnot( color, index ) {
-      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color );
+    function createKnot( color, index, tandem ) {
+      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color, tandem );
     }
 
     //Create the knots
     this.knots = [
-      createKnot( 'blue', 0 ),
-      createKnot( 'blue', 1 ),
-      createKnot( 'blue', 2 ),
-      createKnot( 'blue', 3 ),
-      createKnot( 'red', 0 ),
-      createKnot( 'red', 1 ),
-      createKnot( 'red', 2 ),
-      createKnot( 'red', 3 )
+      createKnot( 'blue', 0, tandem.createTandem( 'blueKnot0' ) ),
+      createKnot( 'blue', 1, tandem.createTandem( 'blueKnot1' ) ),
+      createKnot( 'blue', 2, tandem.createTandem( 'blueKnot2' ) ),
+      createKnot( 'blue', 3, tandem.createTandem( 'blueKnot3' ) ),
+      createKnot( 'red', 0, tandem.createTandem( 'redKnot0' ) ),
+      createKnot( 'red', 1, tandem.createTandem( 'redKnot1' ) ),
+      createKnot( 'red', 2, tandem.createTandem( 'redKnot2' ) ),
+      createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
     ];
 
     //When any puller is dragged, update the closest knots to be visible

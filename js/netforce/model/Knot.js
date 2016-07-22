@@ -13,6 +13,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io types
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+
   /**
    * Constructor for the 8 knots that appear along the rope.
    *
@@ -20,7 +24,7 @@ define( function( require ) {
    * @param {string} type whether the knot is for red or blue pullers
    * @constructor
    */
-  function Knot( x, type ) {
+  function Knot( x, type, tandem ) {
     this.initX = x;
     this.type = type;
 
@@ -30,6 +34,15 @@ define( function( require ) {
     PropertySet.call( this, {
       x: x,
       visible: false
+    }, {
+      tandemSet: {
+        x: tandem.createTandem( 'xProperty' ),
+        visible: tandem.createTandem( 'visibleProperty' )
+      },
+      typeSet: {
+        x: TNumber && TNumber( 'meters' ),
+        visible: TBoolean
+      }
     } );
 
     // Constant value for the y position (in screen coordinates)
