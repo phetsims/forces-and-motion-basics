@@ -29,6 +29,7 @@ define( function( require ) {
     },
     toStateObject: function( instance ) {
       if ( instance ) {
+        assert && assert( instance.phetioID, 'id should exist' );
         return instance.phetioID;
       }
       else {
