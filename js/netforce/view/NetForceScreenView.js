@@ -36,7 +36,7 @@ define( function( require ) {
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  // phet-io types
+  // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   // images

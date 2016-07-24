@@ -38,7 +38,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  // phet-io types
+  // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**

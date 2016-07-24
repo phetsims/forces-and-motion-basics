@@ -13,7 +13,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  // phet-io types
+  // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );

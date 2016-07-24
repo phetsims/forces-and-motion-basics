@@ -11,6 +11,8 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+
+  // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   /**

@@ -42,7 +42,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Line = require( 'SCENERY/nodes/Line' );
 
-  // phet-io types
+  // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // constants
