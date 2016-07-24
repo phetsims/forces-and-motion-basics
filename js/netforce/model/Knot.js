@@ -16,6 +16,7 @@ define( function( require ) {
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TKnot = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TKnot' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.
@@ -48,6 +49,8 @@ define( function( require ) {
 
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
+
+    tandem.addInstance( this, TKnot );
   }
 
   forcesAndMotionBasics.register( 'Knot', Knot );
