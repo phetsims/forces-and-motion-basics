@@ -446,6 +446,18 @@ define( function( require ) {
     },
 
     /**
+     * For phet-io, describe what pullers are on what knots
+     */
+    getKnotDescription: function() {
+      return this.pullers.map( function( p ) {
+        return {
+          id: p.tandem.id, // TODO: addInstance for Puller
+          knot: p.knot && p.knot.phetioID
+        };
+      } );
+    },
+
+    /**
      * Move a puller to an adjacent open knot in a direction specified by delta.
      *
      * @param  {Puller} puller

@@ -16,11 +16,16 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var ToggleNode = require( 'SUN/ToggleNode' );
+  var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+
+  // phet-io modules
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // strings
   var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );
@@ -64,6 +69,7 @@ define( function( require ) {
    * @param {NetForceModel} model the NetForceModel
    * @param {number} layoutWidth the layout width for centering the button
    * @param {Tandem} tandem
+   * @param {Object} [options]
    * @constructor
    */
   function GoPauseButton( model, layoutWidth, tandem, options ) {
@@ -89,7 +95,13 @@ define( function( require ) {
       return model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
     };
 
+    // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
+    var goButtonPressedEmitter = new TandemEmitter( {
+      tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
+      argTypes: [ TNumber( 'newtons' ), TString ]
+    } );
     var goListener = function() {
+      goButtonPressedEmitter.emit2( model.netForce, JSON.stringify( model.getKnotDescription() ) );
       model.running = true;
     };
     var goButton = new RoundPushButton( {
