@@ -29,9 +29,10 @@ define( function( require ) {
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {number} centerX center for layout
    * @param {number} top top for layout
+   * @param {Tandem} tandem
    * @constructor
    */
-  function FlagNode( model, centerX, top ) {
+  function FlagNode( model, centerX, top, tandem ) {
     var flagNode = this;
     this.model = model;
     TandemNode.call( this, {
