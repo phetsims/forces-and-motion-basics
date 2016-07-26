@@ -115,7 +115,7 @@ define( function( require ) {
         direction: tandem.createTandem( 'directionProperty' ),
         fallen: tandem.createTandem( 'fallenProperty' ),
         fallenDirection: tandem.createTandem( 'fallenDirectionProperty' ),
-        stackSize: tandem.createTandem( 'stackSizeProperty' ),
+        stackSize: tandem.createTandem( 'stackSizeProperty' )
 
         // TODO: Should we add these tandems? They spam the data stream.
         // time: tandem.createTandem( 'timeProperty' ),
