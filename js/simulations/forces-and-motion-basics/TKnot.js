@@ -19,6 +19,7 @@ define( function( require ) {
     assert && assert( !!instance, 'instance should exist' );
     assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
   }, {}, {
+
     fromStateObject: function( stateObject ) {
       if ( stateObject === 'null' ) {
         return null;
@@ -27,6 +28,7 @@ define( function( require ) {
         return phetio.getWrapper( stateObject ).instance;
       }
     },
+
     toStateObject: function( instance ) {
       if ( instance ) {
         assert && assert( instance.phetioID, 'id should exist' );
