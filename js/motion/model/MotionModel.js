@@ -145,8 +145,8 @@ define( function( require ) {
         timeSinceFallen: TNumber && TNumber( 'seconds' ),
         fallen: TBoolean,
         fallenDirection: TString,
-        time: TNumber( 'seconds' ),
-        stackSize: TNumber( 'unitless' )
+        time: TNumber && TNumber( 'seconds' ),
+        stackSize: TNumber && TNumber( 'unitless' )
       }
     } );
 
