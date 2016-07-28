@@ -42,7 +42,7 @@ define( function( require ) {
         visible: tandem.createTandem( 'visibleProperty' )
       },
       typeSet: {
-        x: TNumber && TNumber( 'meters' ),
+        x: TNumber( 'meters' ),
         visible: TBoolean
       }
     } );

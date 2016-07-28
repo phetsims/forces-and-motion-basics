@@ -123,16 +123,16 @@ define( function( require ) {
       },
       typeSet: {
         showSumOfForces: TBoolean,
-        sumOfForces: TNumber && TNumber( 'newtons' ),
+        sumOfForces: TNumber( 'newtons' ),
         play: TBoolean,
-        appliedForce: TNumber && TNumber( 'newtons' ),
-        frictionForce: TNumber && TNumber( 'newtons' ),
-        friction: TNumber && TNumber( 'unitless' ),
-        position: TNumber && TNumber( 'meters' ),
-        speed: TNumber && TNumber( 'meters/second' ),
-        velocity: TNumber && TNumber( 'meters/second' ),
-        acceleration: TNumber && TNumber( 'meters/second/second' ),
-        pusherPosition: TNumber && TNumber( 'meters' ),
+        appliedForce: TNumber( 'newtons' ),
+        frictionForce: TNumber( 'newtons' ),
+        friction: TNumber( 'unitless' ),
+        position: TNumber( 'meters' ),
+        speed: TNumber( 'meters/second' ),
+        velocity: TNumber( 'meters/second' ),
+        acceleration: TNumber( 'meters/second/second' ),
+        pusherPosition: TNumber( 'meters' ),
         showForce: TBoolean,
         showValues: TBoolean,
         showSpeed: TBoolean,
@@ -142,11 +142,11 @@ define( function( require ) {
         previousSpeedClassification: TString,
         movingRight: TBoolean,
         direction: TString,
-        timeSinceFallen: TNumber && TNumber( 'seconds' ),
+        timeSinceFallen: TNumber( 'seconds' ),
         fallen: TBoolean,
         fallenDirection: TString,
-        time: TNumber && TNumber( 'seconds' ),
-        stackSize: TNumber && TNumber( 'unitless' )
+        time: TNumber( 'seconds' ),
+        stackSize: TNumber( 'unitless' )
       }
     } );
 

@@ -90,8 +90,8 @@ define( function( require ) {
         dragging: TBoolean,
         direction: TString,
         onBoard: TBoolean,
-        imageScale: TNumber && TNumber( 'unitless' ),
-        interactionScale: TNumber && TNumber( 'unitless' )
+        imageScale: TNumber( 'unitless' ),
+        interactionScale: TNumber( 'unitless' )
       }
     } );
 

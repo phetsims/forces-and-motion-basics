@@ -31,8 +31,8 @@ define( function( require ) {
         v: tandem.createTandem( 'vProperty' )
       },
       typeSet: {
-        x: TNumber && TNumber( 'meters' ),
-        v: TNumber && TNumber( 'meters/second' )
+        x: TNumber( 'meters' ),
+        v: TNumber( 'meters/second' )
       }
     } );
   }

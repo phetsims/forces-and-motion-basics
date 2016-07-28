@@ -68,12 +68,12 @@ define( function( require ) {
         showValues: TBoolean,
         started: TBoolean,
         running: TBoolean,
-        numberPullersAttached: TNumber && TNumber( 'unitless' ),
+        numberPullersAttached: TNumber( 'unitless' ),
         state: TString,
-        // time: TNumber && TNumber( 'seconds' ),
-        netForce: TNumber && TNumber( 'newtons' ),
-        leftForce: TNumber && TNumber( 'newtons' ),
-        rightForce: TNumber && TNumber( 'newtons' )
+        // time: TNumber( 'seconds' ),
+        netForce: TNumber( 'newtons' ),
+        leftForce: TNumber( 'newtons' ),
+        rightForce: TNumber( 'newtons' )
       }
     } );
 
