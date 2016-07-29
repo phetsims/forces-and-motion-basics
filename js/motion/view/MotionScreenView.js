@@ -452,7 +452,7 @@ define( function( require ) {
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
     var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
-      type: TNumber( 'newtons' )
+      phetioValueType: TNumber( 'newtons' )
     } );
     model.on( 'stepped', function() {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
@@ -589,7 +589,7 @@ define( function( require ) {
       return n - this.stackHeight;
     },
 
-    //Get the size of an item's image.  Dependent on the current scale of the image. 
+    //Get the size of an item's image.  Dependent on the current scale of the image.
     getSize: function( item ) {
       // get the current scale for the element and apply it to the image
       var scaledWidth = item.view.sittingImage.width * item.getCurrentScale();

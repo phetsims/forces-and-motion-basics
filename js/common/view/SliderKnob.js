@@ -29,7 +29,7 @@ define( function( require ) {
     options = _.extend( {
       enabledProperty: new Property( true, {
         tandem: tandem.createTandem( 'enabledProperty' ),
-        type: TBoolean
+        phetioValueType: TBoolean
       } )
     }, options );
     this.enabledProperty = options.enabledProperty;

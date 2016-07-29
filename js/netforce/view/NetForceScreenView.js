@@ -338,7 +338,7 @@ define( function( require ) {
     // Accessibility for reading out the total force
     var accessibleTextProperty = new Property( '', {
       tandem: tandem.createTandem( 'accessibleTextProperty' ),
-      type: TString
+      phetioValueType: TString
     } );
     model.numberPullersAttachedProperty.link( function() {
       accessibleTextProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +

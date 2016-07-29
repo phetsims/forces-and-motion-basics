@@ -71,7 +71,7 @@ define( function( require ) {
         indent: 0,
         checkBoxEnabledProperty: new Property( true, {
           tandem: checkBoxTandem.createTandem( 'enabledProperty' ),
-          type: TBoolean
+          phetioValueType: TBoolean
         } ),
         icon: null
       }, options );
@@ -167,7 +167,7 @@ define( function( require ) {
     // Create controls for the 'motion' screen
     var createMotionControls = function() {
 
-      // container node for check boxes and an hstrut which makes the panel just a little wider to match the 
+      // container node for check boxes and an hstrut which makes the panel just a little wider to match the
       // other screens
       var containerNode = new TandemNode( {
         tandem: tandem.createTandem( 'containerNode' )
