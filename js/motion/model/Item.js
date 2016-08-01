@@ -84,7 +84,7 @@ define( function( require ) {
         imageScale: tandem.createTandem( 'imageScaleProperty' ),
         interactionScale: tandem.createTandem( 'interactionScaleProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         // TODO: to instrument `animating` it would needs its own type, TObject does not know how to serialize it.
         position: TVector2,
         dragging: TBoolean,

@@ -66,7 +66,7 @@ define( function( require ) {
         hoverKnot: tandem.createTandem( 'hoverKnotProperty' ),
         textDescription: tandem.createTandem( 'textDescriptionProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         dragging: TBoolean,
         knot: TKnot,
         position: TVector2,

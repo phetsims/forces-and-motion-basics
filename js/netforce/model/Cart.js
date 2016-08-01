@@ -30,7 +30,7 @@ define( function( require ) {
         x: tandem.createTandem( 'xProperty' ),
         v: tandem.createTandem( 'vProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         x: TNumber( 'meters' ),
         v: TNumber( 'meters/second' )
       }

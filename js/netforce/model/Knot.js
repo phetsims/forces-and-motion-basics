@@ -41,7 +41,7 @@ define( function( require ) {
         x: tandem.createTandem( 'xProperty' ),
         visible: tandem.createTandem( 'visibleProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         x: TNumber( 'meters' ),
         visible: TBoolean
       }

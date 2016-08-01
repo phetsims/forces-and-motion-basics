@@ -62,7 +62,7 @@ define( function( require ) {
         leftForce: tandem.createTandem( 'leftForceProperty' ),
         rightForce: tandem.createTandem( 'rightForceProperty' )
       },
-      typeSet: {
+      phetioValueTypeSet: {
         volumeOn: TBoolean,
         showSumOfForces: TBoolean,
         showValues: TBoolean,

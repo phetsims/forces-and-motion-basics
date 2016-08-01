@@ -121,7 +121,7 @@ define( function( require ) {
         // time: tandem.createTandem( 'timeProperty' ),
         // timeSinceFallen: tandem.createTandem( 'timeSinceFallenProperty' ),
       },
-      typeSet: {
+      phetioValueTypeSet: {
         showSumOfForces: TBoolean,
         sumOfForces: TNumber( 'newtons' ),
         play: TBoolean,
