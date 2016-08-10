@@ -330,8 +330,9 @@ define( function( require ) {
 
     // Show the flag node when pulling is complete and update the accessible game over element in the parallel DOM
     var showFlagNode = function() {
-      var flagNode = new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10 );
-      netForceScreenView.addChild( flagNode );
+      netForceScreenView.addChild(
+        new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) )
+      );
     };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
 

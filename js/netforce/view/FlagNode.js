@@ -39,7 +39,8 @@ define( function( require ) {
       tandem: tandem
     } );
 
-    var text = new TandemText( model.cart.x < 0 ? blueWinsString : redWinsString, {
+    var textNode = new TandemText( model.cart.x < 0 ? blueWinsString : redWinsString, {
+      tandem: tandem.createTandem( 'textNode' ),
       font: new PhetFont( 32 ),
       fill: 'white'
     } );
@@ -54,27 +55,28 @@ define( function( require ) {
     this.addChild( this.path );
 
     //Shrink the text to fit on the flag if necessary
-    if ( text.width > 220 ) {
-      text.scale( 220 / text.width );
+    if ( textNode.width > 220 ) {
+      textNode.scale( 220 / textNode.width );
     }
-    this.addChild( text );
+    this.addChild( textNode );
 
     var update = this.updateFlagShape.bind( this );
 
     //Do it once, to remove as a listener since flag node gets recreated when another game won
-    model.once( 'reset-all', function() {
+    model.once( 'reset-all', this.dispose.bind( this ) );
+    model.once( 'cart-returned', this.dispose.bind( this ) );
+
+    this.disposeFlagNode = function() {
       flagNode.detach();
       model.timeProperty.unlink( update );
-    } );
-    model.once( 'cart-returned', function() {
-      flagNode.detach();
-      model.timeProperty.unlink( update );
-    } );
+      textNode.dispose();
+      flagNode.path.dispose();
+    };
 
     //When the clock ticks, wave the flag
     model.timeProperty.link( update );
-    text.centerX = this.path.centerX;
-    text.centerY = this.path.centerY;
+    textNode.centerX = this.path.centerX;
+    textNode.centerY = this.path.centerY;
     this.centerX = centerX;
     this.top = top;
 
@@ -98,6 +100,10 @@ define( function( require ) {
   forcesAndMotionBasics.register( 'FlagNode', FlagNode );
 
   return inherit( TandemNode, FlagNode, {
+    dispose: function() {
+      TandemNode.prototype.dispose.call( this );
+      this.disposeFlagNode();
+    },
 
     //Update the flag shape, copied from the Java version
     updateFlagShape: function() {
