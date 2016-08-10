@@ -31,8 +31,8 @@ define( function( require ) {
         v: tandem.createTandem( 'vProperty' )
       },
       phetioValueTypeSet: {
-        x: TNumber( 'meters' ),
-        v: TNumber( 'meters/second' )
+        x: TNumber( { units: 'meters' } ),
+        v: TNumber( { units: 'meters/second' } )
       }
     } );
   }

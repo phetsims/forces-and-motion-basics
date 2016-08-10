@@ -98,7 +98,7 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new TandemEmitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      argTypes: [ TNumber( 'newtons' ), TString ]
+      argTypes: [ TNumber(  {units: 'newtons'}  ), TString ]
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit2( model.netForce, JSON.stringify( model.getKnotDescription() ) );

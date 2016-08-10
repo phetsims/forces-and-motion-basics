@@ -123,16 +123,16 @@ define( function( require ) {
       },
       phetioValueTypeSet: {
         showSumOfForces: TBoolean,
-        sumOfForces: TNumber( 'newtons' ),
+        sumOfForces: TNumber( { units: 'newtons' } ),
         play: TBoolean,
-        appliedForce: TNumber( 'newtons' ),
-        frictionForce: TNumber( 'newtons' ),
-        friction: TNumber( 'unitless' ),
-        position: TNumber( 'meters' ),
-        speed: TNumber( 'meters/second' ),
-        velocity: TNumber( 'meters/second' ),
-        acceleration: TNumber( 'meters/second/second' ),
-        pusherPosition: TNumber( 'meters' ),
+        appliedForce: TNumber( { units: 'newtons' } ),
+        frictionForce: TNumber( { units: 'newtons' } ),
+        friction: TNumber(),
+        position: TNumber( { units: 'meters' } ),
+        speed: TNumber( { units: 'meters/second' } ),
+        velocity: TNumber( { units: 'meters/second' } ),
+        acceleration: TNumber( { units: 'meters/second/second' } ),
+        pusherPosition: TNumber( { units: 'meters' } ),
         showForce: TBoolean,
         showValues: TBoolean,
         showSpeed: TBoolean,
@@ -142,11 +142,11 @@ define( function( require ) {
         previousSpeedClassification: TString,
         movingRight: TBoolean,
         direction: TString,
-        timeSinceFallen: TNumber( 'seconds' ),
+        timeSinceFallen: TNumber( { units: 'seconds' } ),
         fallen: TBoolean,
         fallenDirection: TString,
-        time: TNumber( 'seconds' ),
-        stackSize: TNumber( 'unitless' )
+        time: TNumber( { units: 'seconds' } ),
+        stackSize: TNumber()
       }
     } );
 
