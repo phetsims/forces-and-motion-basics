@@ -42,7 +42,7 @@ define( function( require ) {
         visible: tandem.createTandem( 'visibleProperty' )
       },
       phetioValueTypeSet: {
-        x: TNumber( {units: 'meters'} ),
+        x: TNumber( { units: 'meters' } ),
         visible: TBoolean
       }
     } );

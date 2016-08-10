@@ -452,7 +452,7 @@ define( function( require ) {
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
     var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
-      phetioValueType: TNumber( {units: 'newtons'} )
+      phetioValueType: TNumber( { units: 'newtons' } )
     } );
     model.on( 'stepped', function() {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
