@@ -14,11 +14,13 @@ define( function( require ) {
   var phetioInherit = require( 'PHET_IO/phetioInherit' );
   var TObject = require( 'PHET_IO/types/TObject' );
 
-  var TKnot = phetioInherit( TObject, 'TKnot', function( instance, phetioID ) {
+  var TKnot = function( instance, phetioID ) {
     TObject.call( this, instance, phetioID );
     assert && assert( !!instance, 'instance should exist' );
     assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
-  }, {}, {
+  };
+
+  phetioInherit( TObject, 'TKnot', TKnot, {}, {
 
     fromStateObject: function( stateObject ) {
       if ( stateObject === 'null' ) {
