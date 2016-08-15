@@ -16,6 +16,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Range = require( 'DOT/Range' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -71,9 +72,9 @@ define( function( require ) {
         numberPullersAttached: TNumber(),
         state: TString,
         // time: TNumber( 'seconds' ),
-        netForce: TNumber( { units: 'newtons' } ),
-        leftForce: TNumber( { units: 'newtons' } ),
-        rightForce: TNumber( { units: 'newtons' } )
+        netForce: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } ),
+        leftForce: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } ),
+        rightForce: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
       }
     } );
 
