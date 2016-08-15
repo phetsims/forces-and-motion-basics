@@ -26,6 +26,7 @@ define( function( require ) {
   var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Range = require( 'DOT/Range' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -125,7 +126,7 @@ define( function( require ) {
         showSumOfForces: TBoolean,
         sumOfForces: TNumber( { units: 'newtons' } ),
         play: TBoolean,
-        appliedForce: TNumber( { units: 'newtons' } ),
+        appliedForce: TNumber( { units: 'newtons', range: new Range( -500, 500 ) } ),
         frictionForce: TNumber( { units: 'newtons' } ),
         friction: TNumber(),
         position: TNumber( { units: 'meters' } ),
