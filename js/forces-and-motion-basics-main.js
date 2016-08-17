@@ -22,11 +22,10 @@ define( function( require ) {
       softwareDevelopment: 'Jesse Greenberg, Sam Reid',
       team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
       qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\n\tOliver Orejola, Ben Roberts, Bryan Yoelin'
-    },
-    tandem: tandem
+    }
   };
 
   SimLauncher.launch( function() {
-    new ForcesAndMotionBasicsSim( simOptions ).start();
+    new ForcesAndMotionBasicsSim( tandem, simOptions ).start();
   } );
 } );

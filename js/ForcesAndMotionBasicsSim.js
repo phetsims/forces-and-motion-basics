@@ -35,8 +35,7 @@ define( function( require ) {
    *
    * @constructor
    */
-  function ForcesAndMotionBasicsSim( options ) {
-    var tandem = options.tandem;
+  function ForcesAndMotionBasicsSim( tandem, options ) {
 
     var netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
     var motionScreenTandem = tandem.createTandem( 'motionScreen' );
