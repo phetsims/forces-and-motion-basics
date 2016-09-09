@@ -16,28 +16,31 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
-   *
-   * @param title
-   * @param icon
    * @param style
    * @param {Tandem} tandem
    * @constructor
    */
-  function MotionScreen( title, icon, style, tandem ) {
-    Screen.call( this, title, icon,
+  function MotionScreen( style, tandem, options ) {
+
+    options = options || {};
+
+    assert && assert( !options.tandem, 'tandem is a constructor param, not an option' );
+    options.tandem = tandem;
+
+    Screen.call( this,
       function() {
         return new MotionModel( style, tandem.createTandem( 'model' ) );
       },
       function( model ) {
         return new MotionScreenView( model, tandem.createTandem( 'view' ) );
-      }, {
-        tandem: tandem
-      } );
+      },
+      options );
   }
 
   forcesAndMotionBasics.register( 'MotionScreen', MotionScreen );
 
   return inherit( Screen, MotionScreen, {
+
     getState: function() {
       return { model: this.model.getState(), view: {} };
     },

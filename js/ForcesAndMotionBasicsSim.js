@@ -45,25 +45,35 @@ define( function( require ) {
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
     var netForceImageNode = new TandemImage( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
-    this.netForceScreen = new Screen( netForceString, netForceImageNode,
+    this.netForceScreen = new Screen(
       function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
       function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
-        tandem: netForceScreenTandem
+        name: netForceString,
+        tandem: netForceScreenTandem,
+        homeScreenIcon: netForceImageNode
       }
     );
 
-    this.motionScreen = new MotionScreen( motionString, new TandemImage( motionIcon, {
-      tandem: motionScreenTandem.createTandem( 'icon' )
-    } ), 'motion', motionScreenTandem );
+    this.motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
+      name: motionString,
+      homeScreenIcon: new TandemImage( motionIcon, {
+        tandem: motionScreenTandem.createTandem( 'icon' )
+      } )
+    } );
 
+    this.frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
+      name: frictionString,
+      homeScreenIcon: new TandemImage( frictionIcon, {
+        tandem: frictionScreenTandem.createTandem( 'icon' )
+      } )
+    } );
 
-    this.frictionScreen = new MotionScreen( frictionString, new TandemImage( frictionIcon, {
-      tandem: frictionScreenTandem.createTandem( 'icon' )
-    } ), 'friction', frictionScreenTandem );
-
-    this.accelerationScreen = new MotionScreen( accelerationString, new TandemImage( accelerationIcon, {
-      tandem: accelerationScreenTandem.createTandem( 'icon' )
-    } ), 'acceleration', accelerationScreenTandem );
+    this.accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
+      name: accelerationString,
+      homeScreenIcon: new TandemImage( accelerationIcon, {
+        tandem: accelerationScreenTandem.createTandem( 'icon' )
+      } )
+    } );
 
     // alternate route:
     // sim.screens[0]
