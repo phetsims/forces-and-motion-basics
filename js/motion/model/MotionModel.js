@@ -14,6 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
   var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
   var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
   var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
@@ -263,12 +264,17 @@ define( function( require ) {
     },
 
     /**
-     * Returns the friction force on an object given the applied force.
+     * Returns the friction force on an object given the applied force.  The friction and applied
+     * forces are rounded so that they have the same precision. If one force is more precise,
+     * a system with seemingly equal forces can lose energy.
+     * See https://github.com/phetsims/forces-and-motion-basics/issues/197
      *
      * @param  {number} appliedForce
      * @return {number}
      */
     getFrictionForce: function( appliedForce ) {
+
+      var frictionForce;
 
       // Why does g=10.0?  See https://github.com/phetsims/forces-and-motion-basics/issues/132
       // We decide to keep it as it is, even though 9.8 may be more realistic.
@@ -285,7 +291,7 @@ define( function( require ) {
       if ( Math.abs( this.velocity ) <= velocityThreshold ) {
 
         //the friction is higher than the applied force, so don't allow the friction force to be higher than the applied force
-        return frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
+        frictionForce = frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
 
           //Oppose the applied force
                -this.getSign( this.appliedForce ) * frictionForceMagnitude;
@@ -293,8 +299,11 @@ define( function( require ) {
 
       //Object is moving, so friction should oppose the velocity
       else {
-        return -this.getSign( this.velocity ) * frictionForceMagnitude * 0.75;
+        frictionForce = -this.getSign( this.velocity ) * frictionForceMagnitude * 0.75;
       }
+
+      // round the friction force so that one force is not more precise than another
+      return Util.roundSymmetric( frictionForce );
     },
 
     //Compute the mass of the entire stack, for purposes of momentum computation

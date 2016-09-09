@@ -12,6 +12,7 @@ define( function( require ) {
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Util = require( 'DOT/Util' );
 
   var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
   var pusherFallDownImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_fall_down.png' );
@@ -204,7 +205,7 @@ define( function( require ) {
         updateZeroForcePosition( x );
       }
 
-      // update visibility and position if pusher is on screen and is still able to push 
+      // update visibility and position if pusher is on screen and is still able to push
       if ( !fallen && appliedForce !== 0 ) {
         var index = Math.min( 30, Math.round( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
@@ -246,9 +247,13 @@ define( function( require ) {
         var newAppliedForce = model.appliedForce + options.delta.x;
         var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
+        // the new force should be rounded so that applied force is not
+        // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
+        var roundedForce = Util.roundSymmetric( clampedAppliedForce );
+
         //Only apply a force if the pusher is not fallen, see #48
         if ( !model.fallen ) {
-          model.appliedForce = clampedAppliedForce;
+          model.appliedForce = roundedForce;
         }
       },
 

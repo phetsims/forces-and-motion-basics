@@ -17,6 +17,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HSlider = require( 'SUN/HSlider' );
+  var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
@@ -41,7 +42,10 @@ define( function( require ) {
       minorTickLength: 22,
       tickLabelSpacing: 3,
       thumbNode: sliderKnob,
-      tandem: tandem
+      tandem: tandem,
+
+      // round so that applied force is not more precise than friction force
+      constrainValue: function( value ) { return Util.roundSymmetric( value ); }
     }, options ) );
 
     // Note: I do not like this method of canceling, it relies on the assumption that the slider will end drag
@@ -54,7 +58,7 @@ define( function( require ) {
 
     model.multilink( [ 'speedClassification', 'friction' ], function( speedClassification, friction ) {
       if ( friction > 0 ) {
-        // if we have any friction, all we want to do is cancel the drag so the pusher does not 
+        // if we have any friction, all we want to do is cancel the drag so the pusher does not
         // rapidly stand up again
         if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
           cancelDrag();
