@@ -235,17 +235,17 @@ define( function( require ) {
     //   //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
     //   if ( motionView.stackHeight > stackHeightThreshold && itemsCenteredProperty.value ) {
     //     itemsCenteredProperty.value = false;
-    //     new TWEEN.Tween( speedometerNode ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+    //     new TWEEN.Tween( speedometerNode ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
     //     if ( accelerometerNode ) {
-    //       new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+    //       new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
     //     }
     //   }
     //   else if ( motionView.stackHeight <= stackHeightThreshold && !itemsCenteredProperty.value ) {
     //     itemsCenteredProperty.value = true;
 
-    //     new TWEEN.Tween( speedometerNode ).to( { x: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+    //     new TWEEN.Tween( speedometerNode ).to( { x: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
     //     if ( accelerometerNode ) {
-    //       new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start();
+    //       new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
     //     }
     //   }
     // } );
