@@ -157,25 +157,53 @@ define( function( require ) {
       tandem: tandem
     } );
 
-    //Update the position when the pusher is not applying force (fallen or standing)
+    // Update the position when the pusher is not applying force (fallen or standing)
     function updateZeroForcePosition( x ) {
       var pusherY = 362 - visibleNode.height;
-      visibleNode.translate( x - visibleNode.getCenterX(), pusherY - visibleNode.y, true );
+      visibleNode.translate( x, pusherY - visibleNode.y, true );
     }
 
+    /**
+     * Reset the zero force position so that the pusher is at the correct place when the
+     * pusher falls over or when applied force is set to zero after.  Dependent
+     * on the width of the item stack, direction the pusher fell, or the direction
+     * the pusher was applying a force before the force was set to zero.
+     *
+     * @param  {string} direction description
+     */
+    var resetZeroForcePosition = function( direction ) {
+      var item = model.stack.get( 0 );
+      if ( item ) {
+
+        // get the scaled width of the first image on tthe stack
+        var scaledWidth = item.view.getScaledWidth();
+
+        // add a little more space (10) so the pusher isn't exactly touching the stack
+        var delta = scaledWidth / 2 - item.pusherInset + 10;
+
+        if ( direction === 'right' ) {
+          visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
+        }
+         else {
+          visibleNode.centerX = layoutWidth / 2 + visibleNode.width / 2 + delta;
+        }
+      }
+    };
+
+    /**
+     * Update the position of the visible node when force is being applied to the stack.
+     * Dependent on the width of the stack, the width of the visible node, and direction
+     * of the applied force
+     *
+     * @return {type}  description
+     */
     function updateAppliedForcePosition() {
       assert && assert( model.stack.length > 0 );
       var pusherY = 362 - visibleNode.height;
       var item = model.stack.get( 0 );
 
-      // if the item has a sitting image, use that image for the width
-      var scaledWidth;
-      if ( item.view.sittingImage ) {
-        scaledWidth = item.view.sittingImage.width * item.getCurrentScale();
-      }
-      else {
-        scaledWidth = item.view.normalImageNode.width * item.getCurrentScale();
-      }
+      // get the scaled width of the first item in the stack
+      var scaledWidth = item.view.getScaledWidth();
 
       var delta = scaledWidth / 2 - item.pusherInset;
       if ( model.appliedForce > 0 ) {
@@ -184,29 +212,61 @@ define( function( require ) {
       else {
         visibleNode.setTranslation( (layoutWidth / 2 + visibleNode.width + delta), pusherY );
       }
+
+      // if the user empties the stack, the standing image should be where the applied force position was
+      standingUp.centerX = visibleNode.centerX;
     }
 
-    // get new position for the pusher node when he falls so that he falls back from the item stack when it is moving
-    // too quickly
-    var getPusherNodePosition = function() {
-      return layoutWidth / 2 + ( model.pusherPosition - model.position ) * MotionConstants.POSITION_SCALE;
+    // get new position for the pusher node when he falls so that he falls back from
+    // the item stack when it is moving too quickly
+    // @return {number}
+    var getPusherNodeDeltaX = function() {
+      // the change in position for the model
+      var modelDelta = -( model.position - model.previousModelPosition );
+
+      // return, transformed by the view scale
+      return modelDelta * MotionConstants.POSITION_SCALE;
     };
 
-    //Choose the right Image
-    model.multilink( [ 'appliedForce', 'fallen' ], function( appliedForce, fallen ) {
 
-      var x = getPusherNodePosition();
+    /**
+     * Called when the pusher has let go, either from falling or from setting the
+     * applied force to zero.
+     *
+     * @param  {Node} newVisibleNode - visibleNode, should be either falling or standing images of the pusher
+     * @param  {string} direction      description
+     */
+    var pusherLetGo = function( newVisibleNode, direction ) {
+      // update the visible node and place it in a position dependent on the direction
+      // of falling or the applied force
+      setVisibleNode( newVisibleNode );
+      resetZeroForcePosition( direction );
+
+      // get the translation delta from the transformed model delta and translate
+      var x = getPusherNodeDeltaX();
+      updateZeroForcePosition( x );
+    };
+
+     model.fallenProperty.link( function( fallen ) {
       if ( fallen ) {
-        setVisibleNode( model.fallenDirection === 'left' ? fallLeft : fallRight );
-        updateZeroForcePosition( x );
+        var newVisibleNode = model.fallenDirection === 'left' ? fallLeft : fallRight;
+        pusherLetGo( newVisibleNode, model.fallenDirection );
       }
-      else if ( appliedForce === 0 ) {
+      else {
+        // the pusher just stood up after falling, set center standing image at the current
+        // fallen position
+        standingUp.centerX = visibleNode.centerX;
         setVisibleNode( standingUp );
-        updateZeroForcePosition( x );
+      }
+    } );
+
+    model.appliedForceProperty.link( function( appliedForce, previousAppliedForce ) {
+      if ( appliedForce === 0 ) {
+        pusherLetGo( standingUp, previousAppliedForce > 0 ? 'right' : 'left' );
       }
 
       // update visibility and position if pusher is on screen and is still able to push
-      if ( !fallen && appliedForce !== 0 ) {
+      else {
         var index = Math.min( 30, Math.round( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
@@ -216,6 +276,17 @@ define( function( require ) {
         }
         updateAppliedForcePosition();
       }
+    } );
+
+    var initializePusherNode = function() {
+      // makd sure that the standing node is visible, and place in initial position
+      setVisibleNode( standingUp );
+      visibleNode.centerX = layoutWidth / 2 + ( model.pusherPosition - model.position ) * MotionConstants.POSITION_SCALE;
+    };
+
+    // on reset all, the model should set the node to the initial pusher position
+    model.on( 'reset-all', function() {
+      initializePusherNode();
     } );
 
     // when the stack composition changes, we want to update the applied force position
@@ -230,9 +301,9 @@ define( function( require ) {
     } );
 
     //Update the rightImage and position when the model changes
-    model.multilink( [ 'position', 'pusherPosition' ], function() {
+    model.multilink( [ 'position' ], function() {
       if ( model.appliedForce === 0 || model.fallen ) {
-        var x = getPusherNodePosition();
+        var x = getPusherNodeDeltaX();
         // to save processor time, don't update if the pusher is too far off screen
         if ( Math.abs( x ) < 2000 ) {
           updateZeroForcePosition( x );
@@ -283,6 +354,9 @@ define( function( require ) {
         pusherNode.addInputListener( listener );
       }
     } );
+
+    // place the pusher in the correct position initially
+    initializePusherNode();
   }
 
   forcesAndMotionBasics.register( 'PusherNode', PusherNode );

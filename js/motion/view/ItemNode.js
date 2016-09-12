@@ -311,5 +311,25 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );
 
-  return inherit( TandemNode, ItemNode );
+  return inherit( TandemNode, ItemNode, {
+
+    /**
+     * Get the width of this item node, modified by the current scale factor.  If the item
+     * is using its sitting representation, use that to get the scaled width
+     *
+     * @return {number}
+     */
+    getScaledWidth: function() {
+
+      // if the item has a sitting image, use that image for the width
+      var scaledWidth;
+      if ( this.sittingImage ) {
+        scaledWidth = this.sittingImage.width * this.item.getCurrentScale();
+      }
+      else {
+        scaledWidth = this.normalImageNode.width * this.item.getCurrentScale();
+      }
+      return scaledWidth;
+    }
+  } );
 } );

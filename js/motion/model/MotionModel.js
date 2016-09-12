@@ -68,7 +68,7 @@ define( function( require ) {
       //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
       velocity: 0,
       acceleration: 0,
-      pusherPosition: -4, //Start to the left of the box by this many meters
+      pusherPosition: -16, //Start to the left of the box by this many meters
       showForce: true,
       showValues: false,
       showSumOfForces: false,
@@ -157,6 +157,11 @@ define( function( require ) {
 
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
+    // track the previous model position when model position changes
+    // animation for the pusher and background nodes is based off of
+    // the change in model position (this.position - this.previousModelPosition )
+    this.previousModelPosition = this.positionProperty.value;
+
     // create the items - Initial locations determined empirically
     var bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
     bucket.bucket = true;
@@ -196,6 +201,12 @@ define( function( require ) {
       if ( fallen ) {
         motionModel.appliedForceProperty.set( 0 );
       }
+    } );
+
+    // update the previous model position for computations based on the delta
+    // linked lazily so that oldPosition is always defined
+    this.positionProperty.lazyLink( function( position, oldPosition ) {
+      motionModel.previousModelPosition = oldPosition;
     } );
 
   }
@@ -392,8 +403,8 @@ define( function( require ) {
         }
         this.timeSinceFallen = this.timeSinceFallen + dt;
 
-        //Stand up after 1 second
-        if ( this.timeSinceFallen > 1 ) {
+        //Stand up after 2 seconds
+        if ( this.timeSinceFallen > 2 ) {
           this.fallen = false;
         }
       }
@@ -423,9 +434,6 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-
-      //There are more than 2x as many frames on html as we were getting on Java, so have to decrease the dt to compensate
-      dt = dt / 2.0;
 
       // Computes the new forces and sets them to the corresponding properties
       // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
