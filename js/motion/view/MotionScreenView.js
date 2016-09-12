@@ -189,11 +189,26 @@ define( function( require ) {
       tandem: tandem.createTandem( 'leftArrowButton' )
     } );
 
+    // Small left arrow button 'tweaker' to change the applied force in increments of 1
+    var smallLeftArrowButton = new ArrowButton( 'left', function() {
+      model.appliedForce = Math.max( model.appliedForce - 1, -500 );
+    }, {
+      rectangleYMargin: 7,
+      rectangleXMargin: 10,
+      right: leftArrowButton.left - 10,
+      centerY: this.textPanelNode.centerY,
+      scale: 0.75,
+      tandem: tandem.createTandem( 'smallLeftArrowButton' )
+    } );
+
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
-      leftArrowButton.enabled = ( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );
+      var enableButtons = ( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );
+      leftArrowButton.enabled = enableButtons;
+      smallLeftArrowButton.enabled = enableButtons;
     } );
     this.addChild( leftArrowButton );
+    this.addChild( smallLeftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var rightArrowButton = new ArrowButton( 'right', function() {
@@ -204,11 +219,25 @@ define( function( require ) {
       tandem: tandem.createTandem( 'rightArrowButton' )
     } );
 
+    var smallRightArrowButton = new ArrowButton( 'right', function() {
+      model.appliedForce = Math.min( model.appliedForce + 1, 500 );
+    }, {
+      rectangleYMargin: 7,
+      rectangleXMargin: 10,
+      left: rightArrowButton.right + 10,
+      centerY: this.textPanelNode.centerY,
+      scale: 0.75,
+      tandem: tandem.createTandem( 'smallRightArrowButton' )
+    } );
+
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
-      rightArrowButton.enabled = ( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) );
+      var enableButtons = ( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) );
+      rightArrowButton.enabled = enableButtons;
+      smallRightArrowButton.enabled = enableButtons;
     } );
     this.addChild( rightArrowButton );
+    this.addChild( smallRightArrowButton );
 
     model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
     model.stack.lengthProperty.link( disableText( readoutTextNode ) );
