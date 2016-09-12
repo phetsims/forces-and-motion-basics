@@ -36,6 +36,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
+  var DoubleArrowButton = require( 'FORCES_AND_MOTION_BASICS/motion/view/DoubleArrowButton' );
   var Util = require( 'DOT/Util' );
   var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -179,13 +180,16 @@ define( function( require ) {
     this.addChild( readoutTextNode );
 
     // Show left arrow button 'tweaker' to change the applied force in increments of 50
-    var leftArrowButton = new ArrowButton( 'left', function() {
+    var leftArrowButton = new DoubleArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
     }, {
       rectangleYMargin: 7,
       rectangleXMargin: 10,
       right: this.textPanelNode.left - 6,
       centerY: this.textPanelNode.centerY,
+      numberOfArrows: 2,
+      arrowHeight: 20,
+      arrowWidth: 10 * Math.sqrt( 3 ) / 2,
       tandem: tandem.createTandem( 'leftArrowButton' )
     } );
 
@@ -197,7 +201,6 @@ define( function( require ) {
       rectangleXMargin: 10,
       right: leftArrowButton.left - 10,
       centerY: this.textPanelNode.centerY,
-      scale: 0.75,
       tandem: tandem.createTandem( 'smallLeftArrowButton' )
     } );
 
@@ -211,11 +214,14 @@ define( function( require ) {
     this.addChild( smallLeftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
-    var rightArrowButton = new ArrowButton( 'right', function() {
+    var rightArrowButton = new DoubleArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
     }, {
       left: this.textPanelNode.right + 6,
       centerY: this.textPanelNode.centerY,
+      numberOfArrows: 2,
+      arrowHeight: 20,
+      arrowWidth: 10 * Math.sqrt( 3 ) / 2,
       tandem: tandem.createTandem( 'rightArrowButton' )
     } );
 
@@ -226,7 +232,6 @@ define( function( require ) {
       rectangleXMargin: 10,
       left: rightArrowButton.right + 10,
       centerY: this.textPanelNode.centerY,
-      scale: 0.75,
       tandem: tandem.createTandem( 'smallRightArrowButton' )
     } );
 
