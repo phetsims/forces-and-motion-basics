@@ -18,7 +18,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Shape = require( 'KITE/Shape' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var sun = require( 'SUN/sun' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // constants
   var DEFAULT_ARROW_HEIGHT = 20;
@@ -100,7 +100,7 @@ define( function( require ) {
     RectangularPushButton.call( thisButton, options );
   }
 
-  sun.register( 'ArrowButton', ArrowButton );
+  forcesAndMotionBasics.register( 'DoubleArrowButton', ArrowButton );
 
   return inherit( RectangularPushButton, ArrowButton );
 } );
