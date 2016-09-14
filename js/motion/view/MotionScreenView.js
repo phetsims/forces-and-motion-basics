@@ -49,6 +49,19 @@ define( function( require ) {
   // constants
   var DEBUG = false; // adds a line at the bottom of the items to assist with layout
 
+  var BUTTON_LINE_WIDTH = 1;
+
+  var BUTTON_SINGLE_ARROW_HEIGHT = 14;
+  var BUTTON_DOUBLE_ARROW_HEIGHT = 20;
+
+  var BUTTON_SINGLE_ARROW_WIDTH = BUTTON_SINGLE_ARROW_HEIGHT * Math.sqrt( 3 ) / 2;
+  var BUTTON_DOUBLE_ARROW_WIDTH = ( BUTTON_DOUBLE_ARROW_HEIGHT / 2 ) * Math.sqrt( 3 ) / 2;
+
+  var ARROW_BUTTON_WIDTH = 34.32;
+  var ARROW_BUTTON_HEIGHT = 32;
+  var SINGLE_ARROW_X_MARGIN = ( ARROW_BUTTON_WIDTH - 2 * BUTTON_LINE_WIDTH - BUTTON_SINGLE_ARROW_WIDTH  ) / 2;
+  var SINGLE_ARROW_Y_MARGIN = ( ARROW_BUTTON_HEIGHT - 2 *  BUTTON_LINE_WIDTH - BUTTON_SINGLE_ARROW_HEIGHT ) / 2;
+
   // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
@@ -180,73 +193,73 @@ define( function( require ) {
     this.addChild( readoutTextNode );
 
     // Show left arrow button 'tweaker' to change the applied force in increments of 50
-    var leftArrowButton = new DoubleArrowButton( 'left', function() {
+    var doubleLeftArrowButton = new DoubleArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
     }, {
-      rectangleYMargin: 7,
-      rectangleXMargin: 10,
       right: this.textPanelNode.left - 6,
       centerY: this.textPanelNode.centerY,
       numberOfArrows: 2,
-      arrowHeight: 20,
-      arrowWidth: 10 * Math.sqrt( 3 ) / 2,
-      tandem: tandem.createTandem( 'leftArrowButton' )
+      arrowHeight: BUTTON_DOUBLE_ARROW_HEIGHT,
+      arrowWidth: BUTTON_DOUBLE_ARROW_WIDTH,
+      tandem: tandem.createTandem( 'doubleLeftArrowButton' )
     } );
 
     // Small left arrow button 'tweaker' to change the applied force in increments of 1
-    var smallLeftArrowButton = new ArrowButton( 'left', function() {
+    var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 1, -500 );
     }, {
-      xMargin: 11,
-      yMargin: 8,
-      right: leftArrowButton.left - 6,
+      xMargin: SINGLE_ARROW_X_MARGIN,
+      yMargin: SINGLE_ARROW_Y_MARGIN,
+      right: doubleLeftArrowButton.left - 6,
       centerY: this.textPanelNode.centerY,
-      arrowHeight: 14, // from tip to base
-      arrowWidth: 14 * Math.sqrt( 3 ) / 2, // width of base
-      tandem: tandem.createTandem( 'smallLeftArrowButton' )
+      arrowHeight: BUTTON_SINGLE_ARROW_HEIGHT, // from tip to base
+      arrowWidth: BUTTON_SINGLE_ARROW_WIDTH, // width of base
+      tandem: tandem.createTandem( 'leftArrowButton' )
     } );
+    console.log( doubleLeftArrowButton.height );
+    console.log( leftArrowButton.height );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
       var enableButtons = ( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );
       leftArrowButton.enabled = enableButtons;
-      smallLeftArrowButton.enabled = enableButtons;
+      doubleLeftArrowButton.enabled = enableButtons;
     } );
+    this.addChild( doubleLeftArrowButton );
     this.addChild( leftArrowButton );
-    this.addChild( smallLeftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
-    var rightArrowButton = new DoubleArrowButton( 'right', function() {
+    var doubleRightArrowButton = new DoubleArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
     }, {
       left: this.textPanelNode.right + 6,
       centerY: this.textPanelNode.centerY,
       numberOfArrows: 2,
-      arrowHeight: 20,
-      arrowWidth: 10 * Math.sqrt( 3 ) / 2,
-      tandem: tandem.createTandem( 'rightArrowButton' )
+      arrowHeight: BUTTON_DOUBLE_ARROW_HEIGHT,
+      arrowWidth: BUTTON_DOUBLE_ARROW_WIDTH,
+      tandem: tandem.createTandem( 'doubleRightArrowButton' )
     } );
 
-    var smallRightArrowButton = new ArrowButton( 'right', function() {
+    var rightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 1, 500 );
     }, {
-      xMargin: 11,
-      yMargin: 8,
-      left: rightArrowButton.right + 6,
+      xMargin: SINGLE_ARROW_X_MARGIN,
+      yMargin: SINGLE_ARROW_Y_MARGIN,
+      left: doubleRightArrowButton.right + 6,
       centerY: this.textPanelNode.centerY,
-      arrowHeight: 14, // from tip to base
-      arrowWidth: 14 * Math.sqrt( 3 ) / 2, // width of base
-      tandem: tandem.createTandem( 'smallRightArrowButton' )
+      arrowHeight: BUTTON_SINGLE_ARROW_HEIGHT, // from tip to base
+      arrowWidth: BUTTON_SINGLE_ARROW_WIDTH, // width of base
+      tandem: tandem.createTandem( 'rightArrowButton' )
     } );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
       var enableButtons = ( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) );
+      doubleRightArrowButton.enabled = enableButtons;
       rightArrowButton.enabled = enableButtons;
-      smallRightArrowButton.enabled = enableButtons;
     } );
     this.addChild( rightArrowButton );
-    this.addChild( smallRightArrowButton );
+    this.addChild( doubleRightArrowButton );
 
     model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
     model.stack.lengthProperty.link( disableText( readoutTextNode ) );
