@@ -36,7 +36,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
-  var DoubleArrowButton = require( 'FORCES_AND_MOTION_BASICS/motion/view/DoubleArrowButton' );
   var Util = require( 'DOT/Util' );
   var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -57,6 +56,7 @@ define( function( require ) {
   var BUTTON_SINGLE_ARROW_WIDTH = BUTTON_SINGLE_ARROW_HEIGHT * Math.sqrt( 3 ) / 2;
   var BUTTON_DOUBLE_ARROW_WIDTH = ( BUTTON_DOUBLE_ARROW_HEIGHT / 2 ) * Math.sqrt( 3 ) / 2;
 
+  // button width and height determined by visual inspection
   var ARROW_BUTTON_WIDTH = 34.32;
   var ARROW_BUTTON_HEIGHT = 32;
   var SINGLE_ARROW_X_MARGIN = ( ARROW_BUTTON_WIDTH - 2 * BUTTON_LINE_WIDTH - BUTTON_SINGLE_ARROW_WIDTH  ) / 2;
@@ -193,7 +193,7 @@ define( function( require ) {
     this.addChild( readoutTextNode );
 
     // Show left arrow button 'tweaker' to change the applied force in increments of 50
-    var doubleLeftArrowButton = new DoubleArrowButton( 'left', function() {
+    var doubleLeftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 50, -500 );
     }, {
       right: this.textPanelNode.left - 6,
@@ -216,8 +216,6 @@ define( function( require ) {
       arrowWidth: BUTTON_SINGLE_ARROW_WIDTH, // width of base
       tandem: tandem.createTandem( 'leftArrowButton' )
     } );
-    console.log( doubleLeftArrowButton.height );
-    console.log( leftArrowButton.height );
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
@@ -229,7 +227,7 @@ define( function( require ) {
     this.addChild( leftArrowButton );
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
-    var doubleRightArrowButton = new DoubleArrowButton( 'right', function() {
+    var doubleRightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 50, 500 );
     }, {
       left: this.textPanelNode.right + 6,
