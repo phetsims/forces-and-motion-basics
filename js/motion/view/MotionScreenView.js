@@ -197,10 +197,12 @@ define( function( require ) {
     var smallLeftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 1, -500 );
     }, {
-      rectangleYMargin: 7,
-      rectangleXMargin: 10,
-      right: leftArrowButton.left - 10,
+      xMargin: 11,
+      yMargin: 8,
+      right: leftArrowButton.left - 6,
       centerY: this.textPanelNode.centerY,
+      arrowHeight: 14, // from tip to base
+      arrowWidth: 14 * Math.sqrt( 3 ) / 2, // width of base
       tandem: tandem.createTandem( 'smallLeftArrowButton' )
     } );
 
@@ -228,10 +230,12 @@ define( function( require ) {
     var smallRightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 1, 500 );
     }, {
-      rectangleYMargin: 7,
-      rectangleXMargin: 10,
-      left: rightArrowButton.right + 10,
+      xMargin: 11,
+      yMargin: 8,
+      left: rightArrowButton.right + 6,
       centerY: this.textPanelNode.centerY,
+      arrowHeight: 14, // from tip to base
+      arrowWidth: 14 * Math.sqrt( 3 ) / 2, // width of base
       tandem: tandem.createTandem( 'smallRightArrowButton' )
     } );
 

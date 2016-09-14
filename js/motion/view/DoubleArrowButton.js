@@ -94,7 +94,8 @@ define( function( require ) {
       } ) );
     }
     options.content = new HBox( {
-      children: arrows
+      children: arrows,
+      spacing: 2
     } );
 
     RectangularPushButton.call( thisButton, options );
