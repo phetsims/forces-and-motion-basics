@@ -61,7 +61,7 @@ define( function( require ) {
    * @constructor
    */
   function PusherNode( model, layoutWidth, tandem ) {
-    var pusherNode = this;
+    var self = this;
     var scale = 0.95;
 
     //Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
@@ -346,12 +346,12 @@ define( function( require ) {
 
     //Make it so you cannot drag the pusher until one ItemNode is in the play area
     model.stack.lengthProperty.link( function( length ) {
-      pusherNode.cursor = length === 0 ? 'default' : 'pointer';
+      self.cursor = length === 0 ? 'default' : 'pointer';
       if ( length === 0 ) {
-        pusherNode.removeInputListener( listener );
+        self.removeInputListener( listener );
       }
       else {
-        pusherNode.addInputListener( listener );
+        self.addInputListener( listener );
       }
     } );
 

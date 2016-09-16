@@ -31,7 +31,7 @@ define( function( require ) {
    */
   function AppliedForceSlider( model, range, tandem, options ) {
 
-    var thisSlider = this;
+    var self = this;
     this.range = range;
 
     var sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
@@ -52,8 +52,8 @@ define( function( require ) {
     // when thisSlider.enabled is set to false. This solution should be fine until we have general support for
     // this kind of thing in scenery
     var cancelDrag = function() {
-      thisSlider.enabled = false;
-      thisSlider.enabled = true;
+      self.enabled = false;
+      self.enabled = true;
     };
 
     model.multilink( [ 'speedClassification', 'friction' ], function( speedClassification, friction ) {
@@ -64,19 +64,19 @@ define( function( require ) {
           cancelDrag();
         }
         else {
-          thisSlider.enabledRange = { min: range.min, max: range.max };
+          self.enabledRange = { min: range.min, max: range.max };
         }
       }
       else {
         // otherwise, we will want to disable a portion of the slider depending on the direciton of the stacks
         if ( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
-          thisSlider.enabledRange = { min: range.min, max: 0 };
+          self.enabledRange = { min: range.min, max: 0 };
         }
         else if ( speedClassification === 'LEFT_SPEED_EXCEEDED' ) {
-          thisSlider.enabledRange = { min: 0, max: range.max };
+          self.enabledRange = { min: 0, max: range.max };
         }
         else {
-          thisSlider.enabledRange = { min: range.min, max: range.max };
+          self.enabledRange = { min: range.min, max: range.max };
         }
       }
     } );
@@ -84,10 +84,10 @@ define( function( require ) {
     // when the model is paused, the slider should not snap to a value so the user can set up a state of forces
     model.playProperty.link( function( play ) {
       if ( play ) {
-        thisSlider.snapValue = 0;
+        self.snapValue = 0;
       }
       else {
-        thisSlider.snapValue = null;
+        self.snapValue = null;
       }
     } );
 
@@ -116,10 +116,10 @@ define( function( require ) {
           font: new PhetFont( 16 ),
           tandem: tandem.createTandem( 'tick' + i )
         } );
-        thisSlider.addMajorTick( location, label );
+        self.addMajorTick( location, label );
       }
       else {
-        thisSlider.addMinorTick( location );
+        self.addMinorTick( location );
       }
     } );
   }

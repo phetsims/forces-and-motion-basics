@@ -77,7 +77,7 @@ define( function( require ) {
    * @constructor
    */
   function NetForceScreenView( model, tandem ) {
-    var netForceScreenView = this;
+    var self = this;
 
     ScreenView.call( this, {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
@@ -186,7 +186,7 @@ define( function( require ) {
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
-      [ netForceScreenView.sumArrow, netForceScreenView.leftArrow, netForceScreenView.rightArrow ].forEach( function( arrow ) {
+      [ self.sumArrow, self.leftArrow, self.rightArrow ].forEach( function( arrow ) {
         arrow.setArrowDash( running ? null : [ 10, 5 ] );
       } );
     } );
@@ -194,8 +194,8 @@ define( function( require ) {
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
     this.model.cart.xProperty.link( function( x ) {
-      netForceScreenView.cartNode.x = x + 412;
-      netForceScreenView.ropeNode.x = x + 51;
+      self.cartNode.x = x + 412;
+      self.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
@@ -250,7 +250,7 @@ define( function( require ) {
     this.pullerNodes = [];
 
     this.model.pullers.forEach( function( puller ) {
-      var pullerNode = new PullerNode( puller, netForceScreenView.model,
+      var pullerNode = new PullerNode( puller, self.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
         getKnotRegion( puller ),
@@ -260,7 +260,7 @@ define( function( require ) {
       );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
-      netForceScreenView.pullerNodes.push( pullerNode );
+      self.pullerNodes.push( pullerNode );
     } );
 
     model.knots.forEach( function( knot, i ) {
@@ -330,8 +330,8 @@ define( function( require ) {
 
     // Show the flag node when pulling is complete and update the accessible game over element in the parallel DOM
     var showFlagNode = function() {
-      netForceScreenView.addChild(
-        new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) )
+      self.addChild(
+        new FlagNode( model, self.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) )
       );
     };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
@@ -365,7 +365,7 @@ define( function( require ) {
       y: 53,
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
-    model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {netForceScreenView.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+    model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {self.sumOfForcesText.visible = !netForce && showSumOfForces;} );
     this.addChild( this.sumOfForcesText );
 
     cursorPathNode.visible = false;

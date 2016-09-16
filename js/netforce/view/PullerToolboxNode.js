@@ -32,7 +32,7 @@ define( function( require ) {
    */
   function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor,
                               pullerGroupDescriptionString ) {
-    var thisNode = this;
+    var self = this;
     this.highlightColor = highlightColor;
     this.accessibleId = side + '-pullerToolbox';
     this._highlighted = false;
@@ -66,7 +66,7 @@ define( function( require ) {
           if ( domElement !== event.target ) { return; }
           // on enter or spacebar, step in to the selected group.
           if ( event.keyCode === 13 || event.keyCode === 32 ) {
-            thisNode.enterGroup( event, domElement );
+            self.enterGroup( event, domElement );
           }
         } );
 
@@ -74,7 +74,7 @@ define( function( require ) {
         domElement.addEventListener( 'keydown', function( event ) {
           // we want exit event bubbling - event fired in children should notify parent.
           if ( event.keyCode === 27 ) {
-            thisNode.exitGroup( domElement );
+            self.exitGroup( domElement );
           }
         } );
 
@@ -82,7 +82,7 @@ define( function( require ) {
 
         // TODO: Why is domElement.children empty here?
         // provide the puller group with a unique ID.
-        domElement.id = thisNode.accessibleId;
+        domElement.id = self.accessibleId;
         return accessiblePeer;
       }
     };

@@ -38,11 +38,11 @@ define( function( require ) {
       tandem: tandem // TODO: this class should extend TextPushButton, not wrap it.
     } );
     this.mutate( options );
-    var button = this;
+    var self = this;
 
     model.startedProperty.linkAttribute( this, 'enabled' );
     model.startedProperty.link( function( enabled ) {
-      button.textDescription = 'Reset Cart button' + (enabled ? '' : ' (disabled)');
+      self.textDescription = 'Reset Cart button' + (enabled ? '' : ' (disabled)');
     } );
 
     this.accessibleContent = {

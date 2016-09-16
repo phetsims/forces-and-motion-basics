@@ -34,7 +34,7 @@ define( function( require ) {
    */
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 
-    var thisNode = this;
+    var self = this;
     Rectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
@@ -49,7 +49,7 @@ define( function( require ) {
         var domElement = document.createElement( 'div' );
         domElement.setAttribute( 'aria-label', toolboxOptions.accessibleDescription );
         domElement.tabIndex = '0';
-        domElement.id = thisNode.accessibleId;
+        domElement.id = self.accessibleId;
 
         // enter the puller group on 'enter' or 'space bar'.
         domElement.addEventListener( 'keydown', function( event ) {
@@ -57,7 +57,7 @@ define( function( require ) {
           if ( domElement !== event.target ) { return; }
           // on enter or spacebar, step in to the selected group.
           if ( event.keyCode === 13 || event.keyCode === 32 ) {
-            thisNode.enterGroup( event, domElement );
+            self.enterGroup( event, domElement );
           }
         } );
 
@@ -65,7 +65,7 @@ define( function( require ) {
         domElement.addEventListener( 'keydown', function( event ) {
           // we want exit event bubbling - event fired in children should notify parent.
           if ( event.keyCode === 27 ) {
-            thisNode.exitGroup( domElement );
+            self.exitGroup( domElement );
           }
         } );
 

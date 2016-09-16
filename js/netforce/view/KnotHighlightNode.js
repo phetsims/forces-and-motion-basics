@@ -51,7 +51,7 @@ define( function( require ) {
    */
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model, tandem ) {
 
-    var thisNode = this;
+    var self = this;
     TandemPath.call( this, Shape.circle( 0, 0, knotWidth ), {
       stroke: '#FFFF00',
       lineWidth: 4,
@@ -96,7 +96,7 @@ define( function( require ) {
           if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
 
             // move the puller to the selected knot.
-            thisNode.movePullerToSelectedKnot( grabbedPullerNode, knot, model );
+            self.movePullerToSelectedKnot( grabbedPullerNode, knot, model );
             // move the puller back to the original knot - resolves unknown bug with blue pullers where the puller
             // is placed one knot too far to the right.
             model.movePullerToKnot( grabbedPullerNode.puller, knot );

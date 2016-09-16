@@ -30,7 +30,7 @@ define( function( require ) {
    * @constructor
    */
   function NetForceModel( tandem ) {
-    var netForceModel = this;
+    var self = this;
 
     //Call the super class, with initial values for observable properties
     PropertySet.call( this, {
@@ -116,23 +116,23 @@ define( function( require ) {
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
 
-      puller.positionProperty.link( netForceModel.updateVisibleKnots.bind( netForceModel ) );
+      puller.positionProperty.link( self.updateVisibleKnots.bind( self ) );
       puller.on( 'dragged', function() {
-        netForceModel.numberPullersAttached = netForceModel.countAttachedPullers();
+        self.numberPullersAttached = self.countAttachedPullers();
       } );
       puller.on( 'dropped', function() {
-        var knot = netForceModel.getTargetKnot( puller );
-        netForceModel.movePullerToKnot( puller, knot );
+        var knot = self.getTargetKnot( puller );
+        self.movePullerToKnot( puller, knot );
       } );
     } );
 
     //Update the started flag
-    this.runningProperty.link( function( running ) { if ( running ) { netForceModel.started = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { self.started = true; }} );
 
     //Update the forces when the number of attached pullers changes
-    this.numberPullersAttachedProperty.link( function() {netForceModel.netForce = netForceModel.getNetForce();} );
-    this.numberPullersAttachedProperty.link( function() {netForceModel.leftForce = netForceModel.getLeftForce();} );
-    this.numberPullersAttachedProperty.link( function() {netForceModel.rightForce = netForceModel.getRightForce();} );
+    this.numberPullersAttachedProperty.link( function() {self.netForce = self.getNetForce();} );
+    this.numberPullersAttachedProperty.link( function() {self.leftForce = self.getLeftForce();} );
+    this.numberPullersAttachedProperty.link( function() {self.rightForce = self.getRightForce();} );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
@@ -222,11 +222,11 @@ define( function( require ) {
 
     //Change knot visibility (halo highlight) when the pullers are dragged
     updateVisibleKnots: function() {
-      var model = this;
+      var self = this;
       this.knots.forEach( function( knot ) {knot.visible = false;} );
       this.pullers.forEach( function( puller ) {
         if ( puller.dragging ) {
-          var knot = model.getTargetKnot( puller );
+          var knot = self.getTargetKnot( puller );
           if ( knot ) {
             knot.visible = true;
           }
@@ -265,9 +265,9 @@ define( function( require ) {
      * @return {Knot}
      */
     getClosestOpenKnot: function( puller ) {
-      var netForceModel = this;
+      var self = this;
       var filter = this.knots.filter( function( knot ) {
-        return knot.type === puller.type && netForceModel.getPuller( knot ) === null;
+        return knot.type === puller.type && self.getPuller( knot ) === null;
       } );
       return _.min( filter, this.getKnotPullerDistance( puller ) );
     },
@@ -394,7 +394,7 @@ define( function( require ) {
      * @return {Knot}
      */
     getClosestOpenKnotInDirection: function( puller, delta ) {
-      var netForceModel = this;
+      var self = this;
       var isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
         return delta < 0 ? destinationKnot.x < sourceKnot.x :
@@ -403,7 +403,7 @@ define( function( require ) {
       };
       var filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type &&
-               netForceModel.getPuller( knot ) === null &&
+               self.getPuller( knot ) === null &&
                isInRightDirection( puller.knot, knot, delta );
       } );
       var result = _.min( filter, this.getKnotPullerDistance( puller ) );
@@ -423,7 +423,7 @@ define( function( require ) {
      * @param {number} delta
      */
     getNextOpenKnotInDirection: function( sourceKnot, puller, delta ) {
-      var netForceModel = this;
+      var self = this;
       var isInRightDirection = function( destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
         return delta < 0 ? destinationKnot.x < sourceKnot.x :
@@ -432,7 +432,7 @@ define( function( require ) {
       };
       var filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type &&
-               netForceModel.getPuller( knot ) === null &&
+               self.getPuller( knot ) === null &&
                isInRightDirection( knot, delta );
       } );
       var result = _.min( filter, function( knot ) {

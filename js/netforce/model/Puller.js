@@ -36,7 +36,7 @@ define( function( require ) {
     this.tandem = tandem;
 
     options = _.extend( { standOffsetX: 0, other: '' }, options );
-    var puller = this;
+    var self = this;
 
     this.dragOffsetX = dragOffsetX;
     this.standOffsetX = options.standOffsetX;
@@ -88,7 +88,7 @@ define( function( require ) {
 
     //Move with the knot
     var updatePosition = function( knotX ) {
-      puller.position = new Vector2( knotX, puller.position.y );
+      self.position = new Vector2( knotX, self.position.y );
     };
 
     //When the knot changes, wire up as a listener to the new knot
@@ -104,7 +104,7 @@ define( function( require ) {
         newKnot.xProperty.link( updatePosition );
       }
 
-      puller.textDescription = pullerDescription + (newKnot ? '. attached to a knot on the rope' : '');
+      self.textDescription = pullerDescription + (newKnot ? '. attached to a knot on the rope' : '');
     } );
   }
 

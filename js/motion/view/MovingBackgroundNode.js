@@ -36,7 +36,7 @@ define( function( require ) {
    * @constructor
    */
   function MovingBackgroundNode( model, layoutCenterX, tandem ) {
-    var movingBackgroundNode = this;
+    var self = this;
     this.model = model;
 
     TandemNode.call( this, {
@@ -144,7 +144,7 @@ define( function( require ) {
           tandem: tandem.createTandem( 'groundImageNode' )
         } );
         groundImageNode.boundsInaccurate = true;
-        movingBackgroundNode.addChild( groundImageNode );
+        self.addChild( groundImageNode );
         model.positionProperty.link( function( position ) {
           groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + centerX, groundY );
         } );
@@ -164,7 +164,7 @@ define( function( require ) {
           iceOverlay.boundsInaccurate = true;
           model.addDerivedProperty( 'frictionZero', [ 'friction' ], function( friction ) {return friction === 0;} );
           model.addDerivedProperty( 'frictionNonZero', [ 'friction' ], function( friction ) {return friction !== 0;} );
-          movingBackgroundNode.addChild( iceOverlay );
+          self.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
           //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
@@ -179,12 +179,12 @@ define( function( require ) {
           } );
           iceLayer.boundsInaccurate = true;
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
-          movingBackgroundNode.addChild( iceLayer );
+          self.addChild( iceLayer );
 
           //TODO: could prevent updater from firing if ice is not visible
           model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
 
-          movingBackgroundNode.lastNumSpecks = 0;
+          self.lastNumSpecks = 0;
 
           var gravelSource = new TandemNode( {
             tandem: tandem.createTandem( 'gravelSource' )

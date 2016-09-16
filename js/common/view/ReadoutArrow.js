@@ -36,7 +36,7 @@ define( function( require ) {
    * @constructor
    */
   function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, tandem, options ) {
-    var readoutArrow = this;
+    var self = this;
 
     //Store fields
     options = _.extend( { labelPosition: 'top', arrowScale: 1 }, options );
@@ -67,10 +67,10 @@ define( function( require ) {
 
     //Update when the value changes
     valueProperty.link( function( value ) {
-      readoutArrow.value = value;
+      self.value = value;
       var roundedValue = Util.toFixed( Math.abs( value ), 0 );
-      readoutArrow.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
-      readoutArrow.update();
+      self.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
+      self.update();
     } );
 
     //Update when the numeric readout visibility is toggled

@@ -45,7 +45,7 @@ define( function( require ) {
 
     //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
-    var motionModel = this;
+    var self = this;
 
     //Constants
     this.screen = screen;
@@ -153,7 +153,7 @@ define( function( require ) {
     } );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
-    this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { motionModel.appliedForce = 0; } } );
+    this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForce = 0; } } );
 
     this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
 
@@ -178,20 +178,20 @@ define( function( require ) {
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
-      motionModel.direction = appliedForce > 0 ? 'right' :
+      self.direction = appliedForce > 0 ? 'right' :
                               appliedForce < 0 ? 'left' :
                               'none';
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
-      if ( motionModel.fallen && appliedForce !== 0 ) {
-        motionModel.fallen = !motionModel.fallen;
+      if ( self.fallen && appliedForce !== 0 ) {
+        self.fallen = !self.fallen;
       }
     } );
 
     //Applied force should drop to zero if max speed reached
     this.speedClassificationProperty.link( function( speedClassification ) {
       if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
-        motionModel.appliedForce = 0;
+        self.appliedForce = 0;
       }
     } );
 
@@ -199,14 +199,14 @@ define( function( require ) {
     // see https://github.com/phetsims/forces-and-motion-basics/issues/180
     this.fallenProperty.link( function( fallen ) {
       if ( fallen ) {
-        motionModel.appliedForceProperty.set( 0 );
+        self.appliedForceProperty.set( 0 );
       }
     } );
 
     // update the previous model position for computations based on the delta
     // linked lazily so that oldPosition is always defined
     this.positionProperty.lazyLink( function( position, oldPosition ) {
-      motionModel.previousModelPosition = oldPosition;
+      self.previousModelPosition = oldPosition;
     } );
 
   }
@@ -527,10 +527,10 @@ define( function( require ) {
      * @return {{properties: *, stack: Array}}
      */
     getState: function() {
-      var motionModel = this;
+      var self = this;
       return {
         properties: this.getValues(),
-        stack: motionModel.stack.getArray().map( function( item ) {return item.get().name;} ).join( ',' )
+        stack: self.stack.getArray().map( function( item ) {return item.get().name;} ).join( ',' )
       };
     }
   } );

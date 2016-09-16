@@ -42,7 +42,7 @@ define( function( require ) {
    */
   function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, accessibleDescription, tandem ) {
 
-    var itemNode = this;
+    var self = this;
     this.item = item;
     TandemNode.call( this, {
       cursor: 'pointer',
@@ -73,9 +73,9 @@ define( function( require ) {
       else {
         normalImageNode.image = normalImage;
       }
-      if ( itemNode.labelNode ) {
-        itemNode.labelNode.bottom = normalImageNode.height - 2;
-        itemNode.labelNode.centerX = normalImageNode.width / 2;
+      if ( self.labelNode ) {
+        self.labelNode.bottom = normalImageNode.height - 2;
+        self.labelNode.centerX = normalImageNode.width / 2;
       }
     };
 
@@ -89,7 +89,7 @@ define( function( require ) {
     var moveToStack = function() {
       item.onBoard = true;
       var imageWidth = item.getCurrentScale() * normalImageNode.width;
-      item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - itemNode.height, 'stack' );
+      item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - self.height, 'stack' );
       model.stack.add( item );
       if ( model.stack.length > 3 ) {
         model.spliceStackBottom();
@@ -141,7 +141,7 @@ define( function( require ) {
       start: function() {
 
         //Move it to front (z-order)
-        itemNode.moveToFront();
+        self.moveToFront();
 
         // move the parent toolbox to the front so that items of one toolbox are not in front of another
         // itemToolBox is in a container so it should not occlude other items in the screen view
@@ -211,12 +211,12 @@ define( function( require ) {
     this.labelNode = labelNode;
 
     //Update the position of the item
-    item.positionProperty.link( function( position ) { itemNode.setTranslation( position ); } );
+    item.positionProperty.link( function( position ) { self.setTranslation( position ); } );
 
     //When the object is scaled or change direction, update the image part
     item.multilink( [ 'interactionScale', 'direction' ], function( interactionScale, direction ) {
       var scale = item.imageScale * interactionScale;
-      itemNode.setScaleMagnitude( scale );
+      self.setScaleMagnitude( scale );
 
       normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
@@ -229,8 +229,8 @@ define( function( require ) {
     } );
     item.onBoardProperty.link( updateImage );
 
-    itemNode.addChild( normalImageNode );
-    itemNode.addChild( labelNode );
+    self.addChild( normalImageNode );
+    self.addChild( labelNode );
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
 
@@ -247,7 +247,7 @@ define( function( require ) {
         domElement.tabIndex = '-1';
         domElement.draggable = true;
         domElement.className = 'ItemNode';
-        domElement.id = itemNode.accessibleId;
+        domElement.id = self.accessibleId;
 
         /*
          * The following is a latest iteration of drag and drop behavior for the pullers in the net force screen of

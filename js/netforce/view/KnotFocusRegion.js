@@ -34,7 +34,7 @@ define( function( require ) {
       toolboxNode.rectWidth,
       toolboxNode.rectHeight + ropeHeightOffset
     );
-    var thisRegion = this;
+    var self = this;
     this.netForceModel = netForceModel;
 
     // @public - id used to quickly find this element among peers in the DOM
@@ -49,7 +49,7 @@ define( function( require ) {
          */
         var domElement = document.createElement( 'div' );
         domElement.tabIndex = '-1';
-        domElement.id = thisRegion.accessibleId;
+        domElement.id = self.accessibleId;
 
         // exit the group on 'escape'
         domElement.addEventListener( 'keydown', function( event ) {
@@ -64,7 +64,7 @@ define( function( require ) {
             } );
 
             // exit the group of knots
-            thisRegion.exitGroup( domElement );
+            self.exitGroup( domElement );
 
             // reset focus to the puller tool box.
             document.getElementById( toolboxNode.accessibleId ).focus();
@@ -86,11 +86,11 @@ define( function( require ) {
      * @param {domElement} parent
      */
     enterGroup: function( parent ) {
-      var thisNode = this;
+      var self = this;
 
       // get the puller being dragged
       var draggedPuller = null;
-      thisNode.netForceModel.pullers.forEach( function( puller ) {
+      self.netForceModel.pullers.forEach( function( puller ) {
         if ( puller.dragging ) {
           draggedPuller = puller;
         }
@@ -111,7 +111,7 @@ define( function( require ) {
       );
 
       // set focus to the child, that is the closest open knot to cart.
-      var closestOpenKnotToCart = thisNode.netForceModel.getClosestOpenKnotFromCart( draggedPuller );
+      var closestOpenKnotToCart = self.netForceModel.getClosestOpenKnotFromCart( draggedPuller );
       document.getElementById( closestOpenKnotToCart.acessibleKnotId ).focus();
     },
 

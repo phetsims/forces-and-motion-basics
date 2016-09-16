@@ -36,7 +36,7 @@ define( function( require ) {
       y: 221,
       tandem: tandem
     } );
-    var thisNode = this;
+    var self = this;
 
     this.cart = cart;
     this.xPosition = this.cart.x;
@@ -59,12 +59,12 @@ define( function( require ) {
 
         domElement.appendChild( descriptionElement );
 
-        thisNode.cart.xProperty.link( function( x ) {
+        self.cart.xProperty.link( function( x ) {
           // when the cart has moved by the value below, update the description and notify the user with aria-live
-          if ( Math.abs( thisNode.xPosition - x ) > 20 ) {
-            var directionString = ( thisNode.xPosition - x ) > 0 ? leftDescriptionString : rightDescriptionString;
-            thisNode.updateLiveCartRegion( descriptionElement, directionString );
-            thisNode.xPosition = x;
+          if ( Math.abs( self.xPosition - x ) > 20 ) {
+            var directionString = ( self.xPosition - x ) > 0 ? leftDescriptionString : rightDescriptionString;
+            self.updateLiveCartRegion( descriptionElement, directionString );
+            self.xPosition = x;
           }
         } );
 

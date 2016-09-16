@@ -38,7 +38,7 @@ define( function( require ) {
    * @param {boolean} mystery      [description]
    */
   function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
-    var item = this;
+    var self = this;
 
     this.name = name;
 
@@ -98,8 +98,8 @@ define( function( require ) {
     this.context.directionProperty.link( function( direction ) {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
-      if ( item.onBoard && direction !== 'none' && sittingImage ) {
-        item.direction = direction;
+      if ( self.onBoard && direction !== 'none' && sittingImage ) {
+        self.direction = direction;
       }
     } );
   }

@@ -78,7 +78,7 @@ define( function( require ) {
       top: 400,
       textDescription: 'Go Button'
     }, options );
-    var goPauseButton = this;
+    var self = this;
     var padX = 15;
     var padY = 10;
     var goTextNode = new TandemText( goString, {
@@ -235,7 +235,7 @@ define( function( require ) {
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;
       var buttonText = showGoButtonProperty.value ? 'Go Button' : 'Pause Button';
-      goPauseButton.textDescription = buttonText + (enabled ? '' : ' (disabled)');
+      self.textDescription = buttonText + (enabled ? '' : ' (disabled)');
     } );
 
     this.centerX = layoutWidth / 2;

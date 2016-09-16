@@ -33,7 +33,7 @@ define( function( require ) {
    * @constructor
    */
   function FlagNode( model, centerX, top, tandem ) {
-    var flagNode = this;
+    var self = this;
     this.model = model;
     TandemNode.call( this, {
       tandem: tandem
@@ -67,10 +67,10 @@ define( function( require ) {
     model.once( 'cart-returned', this.dispose.bind( this ) );
 
     this.disposeFlagNode = function() {
-      flagNode.detach();
+      self.detach();
       model.timeProperty.unlink( update );
       textNode.dispose();
-      flagNode.path.dispose();
+      self.path.dispose();
     };
 
     //When the clock ticks, wave the flag

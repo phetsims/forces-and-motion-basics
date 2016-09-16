@@ -33,8 +33,8 @@ define( function( require ) {
    */
   function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, accessibleDescription, tandem, options ) {
     this.puller = puller;
-    var pullerNode = this;
-    this.puller.node = this;//Wire up so node can be looked up by model element.
+    var self = this;
+    this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image; // @private
     this.pullImage = pullImage; // @private
     this.accessibleDescription = accessibleDescription;
@@ -52,33 +52,33 @@ define( function( require ) {
     this.accessiblePullerId = this.id; // @private, id to quickly find this node's representation in the accessible DOM
 
     puller.textDescriptionProperty.link( function( textDescription ) {
-      pullerNode.textDescription = textDescription;
+      self.textDescription = textDescription;
     } );
 
     model.startedProperty.link( function() {
-      pullerNode.updateImage( puller, model );
-      pullerNode.updateLocation( puller, model );
+      self.updateImage( puller, model );
+      self.updateLocation( puller, model );
     } );
     puller.positionProperty.link( function() {
-      pullerNode.updateImage( puller, model );
-      pullerNode.updateLocation( puller, model );
+      self.updateImage( puller, model );
+      self.updateLocation( puller, model );
     } );
 
     puller.hoverKnotProperty.link( function( hoverKnot ) {
       if ( hoverKnot ) {
         var pullingOffset = puller.standOffsetX;
-        var blueOffset = pullerNode.puller.type === 'blue' ? -60 + 10 + pullerNode.width / 2 : -pullerNode.width / 2;
-        pullerNode.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - pullerNode.height + 90 - 120 );
+        var blueOffset = self.puller.type === 'blue' ? -60 + 10 + self.width / 2 : -self.width / 2;
+        self.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - self.height + 90 - 120 );
       }
     } );
 
     model.startedProperty.link( function() {
-      pullerNode.updateImage( puller, model );
-      pullerNode.updateLocation( puller, model );
+      self.updateImage( puller, model );
+      self.updateLocation( puller, model );
     } );
     model.runningProperty.link( function() {
-      pullerNode.updateImage( puller, model );
-      pullerNode.updateLocation( puller, model );
+      self.updateImage( puller, model );
+      self.updateLocation( puller, model );
     } );
 
     var dragHandler = new TandemDragHandler( {
@@ -91,36 +91,36 @@ define( function( require ) {
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();
-          pullerNode.updateImage( puller, model );
+          self.updateImage( puller, model );
 
           // fire updates
           puller.dragging = true;
-          pullerNode.moveToFront();
+          self.moveToFront();
           puller.trigger0( 'dragged' );
 
           // if the puller was knotted, update the image location so that it is centered on the knot it was previously
           // grabbing
           if ( knot ) {
-            pullerNode.updateLocationKnotted( puller, model, knot );
+            self.updateLocationKnotted( puller, model, knot );
           }
         },
         end: function() {
-          pullerNode.updateLocation( puller, model );
+          self.updateLocation( puller, model );
           puller.dragging = false;
           puller.trigger0( 'dropped' );
-          pullerNode.updateImage( puller, model );
+          self.updateImage( puller, model );
         },
         translate: function( event ) {
-          pullerNode.updateImage( puller, model );
-          pullerNode.puller.position = event.position;
+          self.updateImage( puller, model );
+          self.puller.position = event.position;
         }
       }
     );
-    pullerNode.addInputListener( dragHandler );
+    self.addInputListener( dragHandler );
 
     //model.on( 'reset-all', pullerNode.updateLocation );
     model.on( 'reset-all', function() {
-      pullerNode.updateLocation( puller, model );
+      self.updateLocation( puller, model );
 
       // cancel the drag
       if ( puller.dragging ) {
@@ -144,11 +144,11 @@ define( function( require ) {
         domElement.tabIndex = '-1';
         domElement.draggable = true;
         domElement.className = 'Puller';
-        domElement.id = pullerNode.accessiblePullerId;
+        domElement.id = self.accessiblePullerId;
 
         // create a description element for the puller and use aria to describe it
         var labelElement = document.createElement( 'div' );
-        labelElement.id = pullerNode.accessiblePullerId + '-label';
+        labelElement.id = self.accessiblePullerId + '-label';
         labelElement.innerHTML = accessibleDescription;
 
         // nest the attributes
@@ -177,16 +177,16 @@ define( function( require ) {
           if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
             // the puller is already on a rope on the knot.  Place it right back in the toolbox.
             // TODO: This behavior is a placeholder, I am not sure how this should behave.
-            if ( pullerNode.puller.knot !== null ) {
-              pullerNode.puller.knot = null;
+            if ( self.puller.knot !== null ) {
+              self.puller.knot = null;
 
-              var grabbedPuller = pullerNode.puller;
+              var grabbedPuller = self.puller;
               grabbedPuller.reset();
               model.numberPullersAttached = model.countAttachedPullers();
               grabbedPuller.dragging = false;
               //grabbedPuller.trigger0( 'dropped' );
-              pullerNode.updateImage( grabbedPuller, model );
-              pullerNode.updateLocation( grabbedPuller, model );
+              self.updateImage( grabbedPuller, model );
+              self.updateLocation( grabbedPuller, model );
 
               // reset the puller's alt text to describe it in the toolbox
               domElement.setAttribute( 'alt', accessibleDescription );
@@ -197,8 +197,8 @@ define( function( require ) {
             }
             else {
               // notify AT that the puller is in a 'grabbed' state
-              pullerNode.grabbed = true;
-              pullerNode.puller.draggingProperty.set( true );
+              self.grabbed = true;
+              self.puller.draggingProperty.set( true );
 
               // update the live description for the net force screen
               var actionString = 'Selected ' + accessibleDescription;

@@ -90,7 +90,7 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
 
     //Variables for this constructor, for convenience
-    var motionView = this;
+    var self = this;
     var width = this.layoutBounds.width;
     var height = this.layoutBounds.height;
 
@@ -458,7 +458,7 @@ define( function( require ) {
       var itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
       var accessibleDescription = getAccessibleDescription();
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new Constructor( model, motionView, item,
+      var itemNode = new Constructor( model, self, item,
         item.image,
         item.sittingImage || item.image,
         item.holdingImage || item.image,
@@ -472,7 +472,7 @@ define( function( require ) {
       if ( DEBUG && item.name === 'fridge' ) {
         // create a line at the bottom of the fridge to assist with layout
         var debugLine = new Line( 0, itemNode.bottom, this.layoutBounds.width, itemNode.bottom, { stroke: 'red' } );
-        motionView.addChild( debugLine );
+        self.addChild( debugLine );
       }
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
@@ -525,7 +525,7 @@ define( function( require ) {
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
       function( showSumOfForces, sumOfForces ) {
         return showSumOfForces && sumOfForces === 0;
-      } ).linkAttribute( motionView.sumOfForcesText, 'visible' );
+      } ).linkAttribute( self.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty,
       tandem.createTandem( 'appliedForceArrow' ), {
         labelPosition: 'side',
@@ -557,14 +557,14 @@ define( function( require ) {
         return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
       } );
     frictionLargerProperty.link( function( frictionLarger ) {
-      var node = frictionLarger ? motionView.appliedForceArrow : motionView.frictionArrow;
+      var node = frictionLarger ? self.appliedForceArrow : self.frictionArrow;
       node.moveToFront();
     } );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     model.multilink( [ 'appliedForce', 'frictionForce' ], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
-      motionView.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+      self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
     } );
 
     model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
