@@ -48,19 +48,10 @@ define( function( require ) {
   // constants
   var DEBUG = false; // adds a line at the bottom of the items to assist with layout
 
-  var BUTTON_LINE_WIDTH = 1;
-
-  var BUTTON_SINGLE_ARROW_HEIGHT = 14;
-  var BUTTON_DOUBLE_ARROW_HEIGHT = 20;
-
-  var BUTTON_SINGLE_ARROW_WIDTH = BUTTON_SINGLE_ARROW_HEIGHT * Math.sqrt( 3 ) / 2;
-  var BUTTON_DOUBLE_ARROW_WIDTH = ( BUTTON_DOUBLE_ARROW_HEIGHT / 2 ) * Math.sqrt( 3 ) / 2;
-
-  // button width and height determined by visual inspection
-  var ARROW_BUTTON_WIDTH = 34.32;
-  var ARROW_BUTTON_HEIGHT = 32;
-  var SINGLE_ARROW_X_MARGIN = ( ARROW_BUTTON_WIDTH - 2 * BUTTON_LINE_WIDTH - BUTTON_SINGLE_ARROW_WIDTH  ) / 2;
-  var SINGLE_ARROW_Y_MARGIN = ( ARROW_BUTTON_HEIGHT - 2 *  BUTTON_LINE_WIDTH - BUTTON_SINGLE_ARROW_HEIGHT ) / 2;
+  // arrow button constants
+  var BUTTON_ARROW_HEIGHT = 14;
+  var BUTTON_ARROW_WIDTH = BUTTON_ARROW_HEIGHT * Math.sqrt( 3 ) / 2;
+  var BUTTON_ARROW_SPACING = -BUTTON_ARROW_WIDTH * ( 1 / 2 );
 
   // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
@@ -199,8 +190,9 @@ define( function( require ) {
       right: this.textPanelNode.left - 6,
       centerY: this.textPanelNode.centerY,
       numberOfArrows: 2,
-      arrowHeight: BUTTON_DOUBLE_ARROW_HEIGHT,
-      arrowWidth: BUTTON_DOUBLE_ARROW_WIDTH,
+      arrowSpacing: BUTTON_ARROW_SPACING,
+      arrowHeight: BUTTON_ARROW_HEIGHT,
+      arrowWidth: BUTTON_ARROW_WIDTH,
       tandem: tandem.createTandem( 'doubleLeftArrowButton' )
     } );
 
@@ -208,12 +200,12 @@ define( function( require ) {
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 1, -500 );
     }, {
-      xMargin: SINGLE_ARROW_X_MARGIN,
-      yMargin: SINGLE_ARROW_Y_MARGIN,
+      // xMargin: SINGLE_ARROW_X_MARGIN,
+      // yMargin: SINGLE_ARROW_Y_MARGIN,
       right: doubleLeftArrowButton.left - 6,
       centerY: this.textPanelNode.centerY,
-      arrowHeight: BUTTON_SINGLE_ARROW_HEIGHT, // from tip to base
-      arrowWidth: BUTTON_SINGLE_ARROW_WIDTH, // width of base
+      arrowHeight: BUTTON_ARROW_HEIGHT, // from tip to base
+      arrowWidth: BUTTON_ARROW_WIDTH, // width of base
       tandem: tandem.createTandem( 'leftArrowButton' )
     } );
 
@@ -233,20 +225,21 @@ define( function( require ) {
       left: this.textPanelNode.right + 6,
       centerY: this.textPanelNode.centerY,
       numberOfArrows: 2,
-      arrowHeight: BUTTON_DOUBLE_ARROW_HEIGHT,
-      arrowWidth: BUTTON_DOUBLE_ARROW_WIDTH,
+      arrowSpacing: BUTTON_ARROW_SPACING,
+      arrowHeight: BUTTON_ARROW_HEIGHT,
+      arrowWidth: BUTTON_ARROW_WIDTH,
       tandem: tandem.createTandem( 'doubleRightArrowButton' )
     } );
 
     var rightArrowButton = new ArrowButton( 'right', function() {
       model.appliedForce = Math.min( model.appliedForce + 1, 500 );
     }, {
-      xMargin: SINGLE_ARROW_X_MARGIN,
-      yMargin: SINGLE_ARROW_Y_MARGIN,
+      // xMargin: SINGLE_ARROW_X_MARGIN,
+      // yMargin: SINGLE_ARROW_Y_MARGIN,
       left: doubleRightArrowButton.right + 6,
       centerY: this.textPanelNode.centerY,
-      arrowHeight: BUTTON_SINGLE_ARROW_HEIGHT, // from tip to base
-      arrowWidth: BUTTON_SINGLE_ARROW_WIDTH, // width of base
+      arrowHeight: BUTTON_ARROW_HEIGHT, // from tip to base
+      arrowWidth: BUTTON_ARROW_WIDTH, // width of base
       tandem: tandem.createTandem( 'rightArrowButton' )
     } );
 
