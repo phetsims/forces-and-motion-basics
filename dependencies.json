@@ -1,71 +1,71 @@
 {
-  "comment": "# forces-and-motion-basics 2.1.0-rc.1 Wed Sep 14 2016 13:22:03 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.1.0-rc.2 Fri Sep 30 2016 10:23:54 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "e01926086217b84c39cca1e7515fc2999e6bb541",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "f0b1f7da85f87b9626562bea7fe69197fa81f05f",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "07058555426e7ba2b63c2390c5dc3c19554e4c50",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "394365987f8653dba5a82b9ceac29b9eb3e32be9",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "e786e22b26655c184f399ec4a8d117da3ce5ea6b",
+    "sha": "b79dcbe192b6074c8a7fceb5ca5ce41c1180b008",
     "branch": "2.1"
   },
   "joist": {
     "sha": "b513b5ee1164a47d5baad7abd29591c7fadbe899",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "733028991124bcea81c36b315f00e18453ba3d7b",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "c48bf32035dc5a4ed092ad611012fcbdeb5c6351",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "83ea84c8d9fc089e8d8ad139874366c868404152",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "05231e54a60c79502166d7bba26301fe8b668772",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "e78ee4135712f253beaef864204eefa64dfa4fcb",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "f0fc9ae838b8744281b76d3f576271b82ce33a8a",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "bcc28cd6e710446f4be153ad006e9a02eb412e8c",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "f2bd9d60cd649fc2c873815bef82a7bcb590ceb2",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "tandem": {
     "sha": "d369b847dad15a3d32270318c58d482755a45168",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "vibe": {
     "sha": "b422db9ca26db3273d4f827a96f1267a7fd738c7",
-    "branch": "master"
+    "branch": "HEAD"
   }
 }
