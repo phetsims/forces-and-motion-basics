@@ -51,7 +51,7 @@ define( function( require ) {
   // arrow button constants
   var BUTTON_ARROW_HEIGHT = 14;
   var BUTTON_ARROW_WIDTH = BUTTON_ARROW_HEIGHT * Math.sqrt( 3 ) / 2;
-  var BUTTON_ARROW_SPACING = -BUTTON_ARROW_HEIGHT * ( 1 / 3 );
+  var BUTTON_ARROW_SPACING = -BUTTON_ARROW_HEIGHT * ( 1 / 4 );
 
   // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
