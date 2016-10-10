@@ -492,6 +492,9 @@ define( function( require ) {
         }
       }
 
+      // also reset the previous model position, used by the pusher to track translations
+      this.previousModelPosition = this.positionProperty.initialValue;
+
       // notify that a reset was triggered
       this.trigger0( 'reset-all' );
 
