@@ -156,7 +156,7 @@ define( function( require ) {
     var readoutTextNode = new TandemText( '???', {
       font: new PhetFont( 22 ),
       pickable: false,
-      maxWidth: maxTextWidth / 2,
+      maxWidth: maxTextWidth / 3,
       tandem: tandem.createTandem( 'readoutTextNode' )
     } );
     readoutTextNode.bottom = appliedForceSlider.top - 15;
