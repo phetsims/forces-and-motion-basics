@@ -42,6 +42,7 @@ define( function( require ) {
       netForce: 0,
       leftForce: 0,
       rightForce: 0,
+      duration: 0,
 
       //User settings
       showSumOfForces: false,
@@ -59,6 +60,7 @@ define( function( require ) {
 
         // TODO: Removed this property for phet-io spam
         // time: tandem.createTandem( 'timeProperty' ),
+        duration: tandem.createTandem( 'durationProperty' ), // duration of tug-of-war
         netForce: tandem.createTandem( 'netForceProperty' ),
         leftForce: tandem.createTandem( 'leftForceProperty' ),
         rightForce: tandem.createTandem( 'rightForceProperty' )
@@ -71,6 +73,7 @@ define( function( require ) {
         running: TBoolean,
         numberPullersAttached: TNumber(),
         state: TString,
+        duration: TNumber( { units: 'seconds' } ),
         // time: TNumber( 'seconds' ),
         netForce: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } ),
         leftForce: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } ),
@@ -309,6 +312,7 @@ define( function( require ) {
       this.state = 'experimenting';
       this.trigger0( 'cart-returned' );
       this.started = false;
+      this.duration = 0; // Reset tug-of-war timer
     },
 
     //Reset the entire model when "reset all" is pressed
@@ -336,6 +340,8 @@ define( function( require ) {
      */
     step: function( dt ) {
       if ( this.running ) {
+
+        this.duration += dt; // Increment tug-of-war timer
 
         // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
         var newV = this.cart.v + this.getNetForce() * dt * 0.00075;
