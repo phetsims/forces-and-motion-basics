@@ -83,6 +83,26 @@ define( function( require ) {
 
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
+    //Create a knot given a color and index (0-3)
+    function createKnot( color, index, tandem ) {
+      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color, tandem );
+    }
+
+
+    // Create the knots
+    // To support PhET-iO, the knots should be created before the pullers.
+    // This allows the pullers to be attached to the knots using the PhET-iO API
+    this.knots = [
+      createKnot( 'blue', 0, tandem.createTandem( 'blueKnot0' ) ),
+      createKnot( 'blue', 1, tandem.createTandem( 'blueKnot1' ) ),
+      createKnot( 'blue', 2, tandem.createTandem( 'blueKnot2' ) ),
+      createKnot( 'blue', 3, tandem.createTandem( 'blueKnot3' ) ),
+      createKnot( 'red', 0, tandem.createTandem( 'redKnot0' ) ),
+      createKnot( 'red', 1, tandem.createTandem( 'redKnot1' ) ),
+      createKnot( 'red', 2, tandem.createTandem( 'redKnot2' ) ),
+      createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
+    ];
+
     //Create the pullers from left to right so the tab order (for accessibility) will be as expected.
     var bigPullerY = 473;
     var mediumPullerY = 426;
@@ -99,22 +119,6 @@ define( function( require ) {
       new Puller( 860, smallPullerY, 'red', 'large', 30, tandem.createTandem( 'largeRedPuller' ) )
     ];
 
-    //Create a knot given a color and index (0-3)
-    function createKnot( color, index, tandem ) {
-      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color, tandem );
-    }
-
-    //Create the knots
-    this.knots = [
-      createKnot( 'blue', 0, tandem.createTandem( 'blueKnot0' ) ),
-      createKnot( 'blue', 1, tandem.createTandem( 'blueKnot1' ) ),
-      createKnot( 'blue', 2, tandem.createTandem( 'blueKnot2' ) ),
-      createKnot( 'blue', 3, tandem.createTandem( 'blueKnot3' ) ),
-      createKnot( 'red', 0, tandem.createTandem( 'redKnot0' ) ),
-      createKnot( 'red', 1, tandem.createTandem( 'redKnot1' ) ),
-      createKnot( 'red', 2, tandem.createTandem( 'redKnot2' ) ),
-      createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
-    ];
 
     //When any puller is dragged, update the closest knots to be visible
     this.pullers.forEach( function( puller ) {
