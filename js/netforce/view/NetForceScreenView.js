@@ -328,13 +328,22 @@ define( function( require ) {
     } );
     this.addChild( this.controlPanel );
 
+    var flagNode = null;
     // Show the flag node when pulling is complete and update the accessible game over element in the parallel DOM
     var showFlagNode = function() {
-      self.addChild(
-        new FlagNode( model, self.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) )
-      );
+      flagNode = new FlagNode( model, self.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) );
+      self.addChild( flagNode );
     };
-    model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
+    model.stateProperty.link( function( state ) {
+      flagNode && flagNode.dispose();
+      if ( state === 'completed' ) { showFlagNode(); }
+    } );
+    model.cart.xProperty.link( function() {
+      if ( model.stateProperty.get() === 'completed' ) {
+        flagNode && flagNode.dispose();
+        showFlagNode();
+      }
+    } );
 
     // Accessibility for reading out the total force
     var accessibleTextProperty = new Property( '', {
