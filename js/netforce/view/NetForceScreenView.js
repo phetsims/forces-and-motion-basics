@@ -334,9 +334,9 @@ define( function( require ) {
       flagNode = new FlagNode( model, self.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) );
       self.addChild( flagNode );
     };
-    Property.multilink( [ model.stateProperty, model.cart.xProperty ], function( state ) {
+    Property.multilink( [ model.stateProperty, model.cart.xProperty ], function( state, x ) {
       flagNode && flagNode.dispose();
-      if ( state === 'completed' ) {
+      if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {
         showFlagNode();
       }
     } );
