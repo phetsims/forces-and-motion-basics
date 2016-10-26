@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.0.3-phetio Thu Oct 20 2016 11:29:46 GMT-0600 (MDT)",
+  "comment": "# forces-and-motion-basics 2.0.2-phetiophetiodev.1 Tue Oct 25 2016 23:45:48 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "810b2ae355d407bf8bd3babdd29dc7c02e5c61f8",
+    "sha": "3db1b3538c8fd853b7f4accac722a30575cd0f14",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "7517f0f016f09dee3988f24c4cb3565db5fdef60",
+    "sha": "bce70ae03b208096a85f7bffdba3bb9d1ed3f399",
     "branch": "master"
   },
   "joist": {
-    "sha": "82177c9d6bd2740967f3a3bb647f746e2fef0296",
+    "sha": "f34eb9b6e02a51f1413308c5bcade7ef803aeb08",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,11 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "98429dfe70e1f23d4f368c17824dea71260e300d",
+    "sha": "8da6866c9eaba3be8581b236a5d00a5cd55287a9",
+    "branch": "master"
+  },
+  "phet-io-website": {
+    "sha": "92ff2e76cefe256671e001587cc18bdbdff6e393",
     "branch": "master"
   },
   "phetcommon": {
@@ -49,11 +53,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "9611f89d060dcbde117404fdd21a53e2dc08fb6b",
+    "sha": "60ae8f182b1cee8d0eced458114c4cef04c27701",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7fe5358d6a21bd3fb4afec9cd4ec9ebc74ab1393",
+    "sha": "7aa025e85da8ea204d593084b60a79fcfebff4cf",
     "branch": "master"
   },
   "sherpa": {
@@ -65,7 +69,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "01cae1dc9a3c4cae1f8a194a6fc41738318f8818",
+    "sha": "dc9f3cae2963b261ea7c0c505b204a57241d573a",
     "branch": "master"
   },
   "vibe": {
