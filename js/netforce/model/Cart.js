@@ -17,25 +17,30 @@ define( function( require ) {
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   /**
-   * Constructor.
    * @param {Tandem} tandem
+   * @constructor
    */
   function Cart( tandem ) {
-    PropertySet.call( this, {
 
-      //Position and velocity are in MKS
-      x: 0,
-      v: 0
-    }, {
-      tandemSet: {
-        x: tandem.createTandem( 'xProperty' ),
-        v: tandem.createTandem( 'vProperty' )
+    var properties = {
+
+      // position in MKS
+      x: {
+        value: 0,
+        tandem: tandem.createTandem( 'xProperty' ),
+        phetioValueType: TNumber( { units: 'meters', range: new Range( -200, 200 ) } )
       },
-      phetioValueTypeSet: {
-        x: TNumber( { units: 'meters', range: new Range( -200, 200 ) } ),
-        v: TNumber( { units: 'meters/second', range: new Range( -1.35, 1.35 ) } )
+
+
+      // velocity in MKS
+      v: {
+        value: 0,
+        tandem: tandem.createTandem( 'vProperty' ),
+        phetioValueType: TNumber( { units: 'meters/second', range: new Range( -1.35, 1.35 ) } )
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
   }
 
   forcesAndMotionBasics.register( 'Cart', Cart );

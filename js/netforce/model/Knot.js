@@ -27,25 +27,30 @@ define( function( require ) {
    * @constructor
    */
   function Knot( x, type, tandem ) {
+
     this.initX = x;
     this.type = type;
 
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
     this.acessibleKnotId = 'knot-' + type + '-' + this.initX;
 
-    PropertySet.call( this, {
-      x: x,
-      visible: false
-    }, {
-      tandemSet: {
-        x: tandem.createTandem( 'xProperty' ),
-        visible: tandem.createTandem( 'visibleProperty' )
+    var properties = {
+
+      x: {
+        value: x,
+        tandem: tandem.createTandem( 'xProperty' ),
+        phetioValueType: TNumber( { units: 'meters' } )
       },
-      phetioValueTypeSet: {
-        x: TNumber( { units: 'meters' } ),
-        visible: TBoolean
+
+
+      visible: {
+        value: false,
+        tandem: tandem.createTandem( 'visibleProperty' ),
+        phetioValueType: TBoolean
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
 
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
