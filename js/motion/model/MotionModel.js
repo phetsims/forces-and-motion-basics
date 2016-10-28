@@ -54,103 +54,168 @@ define( function( require ) {
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray();
 
-    //Observable values, all values are in MKS units (meters, kg, sec, Newtons, etc.)
-    PropertySet.call( this, {
-      appliedForce: 0,
-      frictionForce: 0,
-      friction: this.friction,
+    var properties = {
 
-      sumOfForces: 0,
+      appliedForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'appliedForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( -500, 500 ) } )
+      },
 
-      position: 0,
-      speed: 0,
+      frictionForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'frictionForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons' } )
+      },
 
-      //Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-      velocity: 0,
-      acceleration: 0,
-      pusherPosition: -16, //Start to the left of the box by this many meters
-      showForce: true,
-      showValues: false,
-      showSumOfForces: false,
-      showSpeed: false,
-      showMasses: false,
-      showAcceleration: false,
+      friction: {
+        value: this.friction,
+        tandem: tandem.createTandem( 'frictionProperty' ),
+        phetioValueType: TNumber()
+      },
 
-      //Keep track of whether the speed is classified as: 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
-      //so that the Applied Force can be stopped if the speed goes out of range
-      speedClassification: 'WITHIN_ALLOWED_RANGE',
-      previousSpeedClassification: 'WITHIN_ALLOWED_RANGE',
-      movingRight: true,
-      direction: 'none',
-      timeSinceFallen: 10,
-      fallen: false,
-      fallenDirection: 'left',
-      time: 0,
+      sumOfForces: {
+        value: 0,
+        tandem: tandem.createTandem( 'sumOfForcesProperty' ),
+        phetioValueType: TNumber( { units: 'newtons' } )
+      },
+
+      position: {
+        value: 0,
+        tandem: tandem.createTandem( 'positionProperty' ),
+        phetioValueType: TNumber( { units: 'meters' } )
+      },
+
+      speed: {
+        value: 0,
+        tandem: tandem.createTandem( 'speedProperty' ),
+        phetioValueType: TNumber( { units: 'meters/second' } )
+      },
+
+      // Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
+      velocity: {
+        value: 0,
+        tandem: tandem.createTandem( 'velocityProperty' ),
+        phetioValueType: TNumber( { units: 'meters/second' } )
+      },
+
+      acceleration: {
+        value:  0,
+        tandem: tandem.createTandem( 'accelerationProperty' ),
+        phetioValueType: TNumber( { units: 'meters/second/second' } )
+      },
+
+      pusherPosition: {
+        value: -16, //Start to the left of the box by this many meters
+        tandem: tandem.createTandem( 'pusherPositionProperty' ),
+        phetioValueType: TNumber( { units: 'meters' } )
+      },
+
+      showForce: {
+        value: true,
+        tandem: tandem.createTandem( 'showForceProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      showValues: {
+        value: false,
+        tandem: tandem.createTandem( 'showValuesProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      showSumOfForces: {
+        value: false,
+        tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      showSpeed: {
+        value: false,
+        tandem: tandem.createTandem( 'showSpeedProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      showMasses: {
+        value: false,
+        tandem: tandem.createTandem( 'showMassesProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      showAcceleration: {
+        value: false,
+        tandem: tandem.createTandem( 'showAccelerationProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      // Keep track of whether the speed is classified as:
+      // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
+      // so that the Applied Force can be stopped if the speed goes out of range.
+      speedClassification: {
+        value: 'WITHIN_ALLOWED_RANGE',
+        tandem: tandem.createTandem( 'speedClassificationProperty' ),
+        phetioValueType: TString
+      },
+
+      // See speedClassification
+      previousSpeedClassification: {
+        value: 'WITHIN_ALLOWED_RANGE',
+        tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
+        phetioValueType: TString
+      },
+
+      movingRight: {
+        value: true,
+        tandem: tandem.createTandem( 'movingRightProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      direction: {
+        value: 'none',
+        tandem: tandem.createTandem( 'directionProperty' ),
+        phetioValueType: TString
+      },
+
+      // TODO: Should we this have a tandem? It spams the data stream.
+      timeSinceFallen: {
+        value: 10,
+        phetioValueType: TNumber( { units: 'seconds' } )
+      },
+
+      fallen: {
+        value: false,
+        tandem: tandem.createTandem( 'fallenProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      fallenDirection: {
+        value: 'left',
+        tandem: tandem.createTandem( 'fallenDirectionProperty' ),
+        phetioValueType: TString
+      },
+
+      // TODO: Should we this have a tandem? It spams the data stream.
+      time: {
+        value: 0,
+        phetioValueType: TNumber( { units: 'seconds' } )
+      },
 
       //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
       //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
-      stackSize: 1,
+      stackSize: {
+        value: 1,
+        tandem: tandem.createTandem( 'stackSizeProperty' ),
+        phetioValueType: TNumber()
+      },
 
       // is the sim running or paused?
-      play: true
-    }, {
-      tandemSet: {
-        sumOfForces: tandem.createTandem( 'sumOfForcesProperty' ),
-        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
-        play: tandem.createTandem( 'playProperty' ),
-        appliedForce: tandem.createTandem( 'appliedForceProperty' ),
-        frictionForce: tandem.createTandem( 'frictionForceProperty' ),
-        friction: tandem.createTandem( 'frictionProperty' ),
-        position: tandem.createTandem( 'positionProperty' ),
-        speed: tandem.createTandem( 'speedProperty' ),
-        velocity: tandem.createTandem( 'velocityProperty' ),
-        acceleration: tandem.createTandem( 'accelerationProperty' ),
-        pusherPosition: tandem.createTandem( 'pusherPositionProperty' ),
-        showForce: tandem.createTandem( 'showForceProperty' ),
-        showValues: tandem.createTandem( 'showValuesProperty' ),
-        showSpeed: tandem.createTandem( 'showSpeedProperty' ),
-        showMasses: tandem.createTandem( 'showMassesProperty' ),
-        showAcceleration: tandem.createTandem( 'showAccelerationProperty' ),
-        speedClassification: tandem.createTandem( 'speedClassificationProperty' ),
-        previousSpeedClassification: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-        movingRight: tandem.createTandem( 'movingRightProperty' ),
-        direction: tandem.createTandem( 'directionProperty' ),
-        fallen: tandem.createTandem( 'fallenProperty' ),
-        fallenDirection: tandem.createTandem( 'fallenDirectionProperty' ),
-        stackSize: tandem.createTandem( 'stackSizeProperty' )
-
-        // TODO: Should we add these tandems? They spam the data stream.
-        // time: tandem.createTandem( 'timeProperty' ),
-        // timeSinceFallen: tandem.createTandem( 'timeSinceFallenProperty' ),
-      },
-      phetioValueTypeSet: {
-        showSumOfForces: TBoolean,
-        sumOfForces: TNumber( { units: 'newtons' } ),
-        play: TBoolean,
-        appliedForce: TNumber( { units: 'newtons', range: new Range( -500, 500 ) } ),
-        frictionForce: TNumber( { units: 'newtons' } ),
-        friction: TNumber(),
-        position: TNumber( { units: 'meters' } ),
-        speed: TNumber( { units: 'meters/second' } ),
-        velocity: TNumber( { units: 'meters/second' } ),
-        acceleration: TNumber( { units: 'meters/second/second' } ),
-        pusherPosition: TNumber( { units: 'meters' } ),
-        showForce: TBoolean,
-        showValues: TBoolean,
-        showSpeed: TBoolean,
-        showMasses: TBoolean,
-        showAcceleration: TBoolean,
-        speedClassification: TString,
-        previousSpeedClassification: TString,
-        movingRight: TBoolean,
-        direction: TString,
-        timeSinceFallen: TNumber( { units: 'seconds' } ),
-        fallen: TBoolean,
-        fallenDirection: TString,
-        time: TNumber( { units: 'seconds' } ),
-        stackSize: TNumber()
+      play: {
+        value: true,
+        tandem: tandem.createTandem( 'playProperty' ),
+        phetioValueType: TBoolean
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForce = 0; } } );
@@ -179,8 +244,8 @@ define( function( require ) {
 
     this.appliedForceProperty.link( function( appliedForce ) {
       self.direction = appliedForce > 0 ? 'right' :
-                              appliedForce < 0 ? 'left' :
-                              'none';
+                       appliedForce < 0 ? 'left' :
+                       'none';
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
       if ( self.fallen && appliedForce !== 0 ) {
@@ -305,7 +370,7 @@ define( function( require ) {
         frictionForce = frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
 
           //Oppose the applied force
-               -this.getSign( this.appliedForce ) * frictionForceMagnitude;
+                        -this.getSign( this.appliedForce ) * frictionForceMagnitude;
       }
 
       //Object is moving, so friction should oppose the velocity
