@@ -50,7 +50,7 @@ define( function( require ) {
       }
     };
 
-    PropertySet.call( this, null, null, properties );
+    PropertySet.call( this, null, properties );
 
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
