@@ -31,56 +31,85 @@ define( function( require ) {
    * @constructor
    */
   function NetForceModel( tandem ) {
+
     var self = this;
 
-    //Call the super class, with initial values for observable properties
-    PropertySet.call( this, {
-      started: false,
-      running: false,
-      numberPullersAttached: 0,
-      state: 'experimenting',
-      time: 0,
-      netForce: 0,
-      leftForce: 0,
-      rightForce: 0,
-      duration: 0,
+    var properties = {
 
-      //User settings
-      showSumOfForces: false,
-      showValues: false,
-      volumeOn: false
-    }, {
-      tandemSet: {
-        volumeOn: tandem.createTandem( 'volumeOnProperty' ),
-        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
-        showValues: tandem.createTandem( 'showValuesProperty' ),
-        started: tandem.createTandem( 'startedProperty' ),
-        running: tandem.createTandem( 'runningProperty' ),
-        numberPullersAttached: tandem.createTandem( 'numberPullersAttachedProperty' ),
-        state: tandem.createTandem( 'stateProperty' ),
-
-        // TODO: Removed this property for phet-io spam
-        // time: tandem.createTandem( 'timeProperty' ),
-        duration: tandem.createTandem( 'durationProperty' ), // duration of tug-of-war
-        netForce: tandem.createTandem( 'netForceProperty' ),
-        leftForce: tandem.createTandem( 'leftForceProperty' ),
-        rightForce: tandem.createTandem( 'rightForceProperty' )
+      started: {
+        value: false,
+        tandem: tandem.createTandem( 'startedProperty' ),
+        phetioValueType: TBoolean
       },
-      phetioValueTypeSet: {
-        volumeOn: TBoolean,
-        showSumOfForces: TBoolean,
-        showValues: TBoolean,
-        started: TBoolean,
-        running: TBoolean,
-        numberPullersAttached: TNumber(),
-        state: TString,
-        duration: TNumber( { units: 'seconds' } ),
-        // time: TNumber( 'seconds' ),
-        netForce: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } ),
-        leftForce: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } ),
-        rightForce: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+
+      running: {
+        value: false,
+        tandem: tandem.createTandem( 'runningProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      numberPullersAttached: {
+        value: 0,
+        tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
+        phetioValueType: TNumber()
+      },
+
+      state: {
+        value: 'experimenting', //TODO what are the valid values?
+        tandem: tandem.createTandem( 'stateProperty' ),
+        phetioValueType: TString
+      },
+
+      time: {
+        value: 0
+        // TODO: Removed this property for phet-io spam
+        // tandem: tandem.createTandem( 'timeProperty' )
+        // phetioValueType: TNumber( 'seconds' )
+      },
+
+      netForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'netForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
+      },
+
+      leftForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'leftForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
+      },
+
+      rightForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'rightForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+      },
+
+      duration: {
+        value: 0,
+        tandem: tandem.createTandem( 'durationProperty' ),
+        phetioValueType: TNumber( { units: 'seconds' } )
+      },
+
+      // User settings
+      showSumOfForces: {
+        value: false,
+        tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
+        phetioValueType: TBoolean
+      },
+      showValues: {
+        value: false,
+        tandem: tandem.createTandem( 'showValuesProperty' ),
+        phetioValueType: TBoolean
+      },
+      volumeOn: {
+        value: false,
+        tandem: tandem.createTandem( 'volumeOnProperty' ),
+        phetioValueType: TBoolean
       }
-    } );
+    };
+
+    PropertySet.call( this, null, null, properties );
 
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
