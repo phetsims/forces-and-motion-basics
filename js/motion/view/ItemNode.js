@@ -118,9 +118,14 @@ define( function( require ) {
       if ( personInStack ) {
         direction = personInStack.direction;
       }
-      else if ( person.context.appliedForce > 0 ) {
+      else if ( person.context.appliedForce !== 0 ) {
         // if there is an applied force on the stack, direction should match applied force
-        direction = 'right';
+        if ( person.context.appliedForce > 0 ) {
+          direction = 'right';
+        }
+        else {
+          direction = 'left';
+        }
       }
       else {
         // if there is no applied force, check velocity for direction
