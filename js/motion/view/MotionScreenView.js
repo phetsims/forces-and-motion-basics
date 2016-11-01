@@ -14,6 +14,7 @@ define( function( require ) {
   var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var Shape = require( 'KITE/Shape' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
@@ -48,6 +49,7 @@ define( function( require ) {
   // constants
   var DEBUG = false; // adds a line at the bottom of the items to assist with layout
   var PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
+  var ARROW_TOUCH_DILATION = 7; // dilattion in single dimension for touch areas of the double arrow button
 
   // arrow button constants
   var BUTTON_ARROW_HEIGHT = 14;
@@ -201,14 +203,16 @@ define( function( require ) {
     var leftArrowButton = new ArrowButton( 'left', function() {
       model.appliedForce = Math.max( model.appliedForce - 1, -500 );
     }, {
-      // xMargin: SINGLE_ARROW_X_MARGIN,
-      // yMargin: SINGLE_ARROW_Y_MARGIN,
       right: doubleLeftArrowButton.left - 6,
       centerY: this.textPanelNode.centerY,
       arrowHeight: BUTTON_ARROW_HEIGHT, // from tip to base
       arrowWidth: BUTTON_ARROW_WIDTH, // width of base
       tandem: tandem.createTandem( 'leftArrowButton' )
     } );
+
+    // define custom touch areas so the arrow buttons don't overlap
+    var doubleLeftShape = new Shape.rect( 0, -ARROW_TOUCH_DILATION, doubleLeftArrowButton.width + ARROW_TOUCH_DILATION, doubleLeftArrowButton.height + 2 * ARROW_TOUCH_DILATION );
+    doubleLeftArrowButton.touchArea = doubleLeftShape;
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
@@ -243,6 +247,9 @@ define( function( require ) {
       arrowWidth: BUTTON_ARROW_WIDTH, // width of base
       tandem: tandem.createTandem( 'rightArrowButton' )
     } );
+
+    var doubleRightShape = new Shape.rect( -ARROW_TOUCH_DILATION, -ARROW_TOUCH_DILATION, doubleLeftArrowButton.width + ARROW_TOUCH_DILATION, doubleLeftArrowButton.height + 2 * ARROW_TOUCH_DILATION );
+    doubleRightArrowButton.touchArea = doubleRightShape;
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
     model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
