@@ -64,6 +64,7 @@ define( function( require ) {
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
+      // var centerX = normalImageNode.centerX;
       if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoard) ) {
         normalImageNode.image = holdingImage;
       }
@@ -75,7 +76,8 @@ define( function( require ) {
       }
       if ( self.labelNode ) {
         self.labelNode.bottom = normalImageNode.height - 2;
-        self.labelNode.centerX = normalImageNode.width / 2;
+        self.labelNode.centerX = normalImageNode.centerX;
+        // self.labelNode.centerX = normalImageNode.width / 2;
       }
     };
 
@@ -225,11 +227,14 @@ define( function( require ) {
 
       normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
+
+        // store the center so that it can be reapplied after change in scale
+        var centerX = normalImageNode.centerX;
+
         normalImageNode.scale( -1, 1 );
 
-        //TODO: I'm not sure why there is an extra 20 pixels in this direction, but it seems necessary to center the images
-        var imageWidth = normalImageNode.width * item.getCurrentScale();
-        normalImageNode.translate( -imageWidth - 20, 0 );
+        // reapply the center
+        normalImageNode.centerX = centerX;
       }
     } );
     item.onBoardProperty.link( updateImage );
