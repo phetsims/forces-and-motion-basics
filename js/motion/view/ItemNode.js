@@ -74,9 +74,9 @@ define( function( require ) {
       else {
         normalImageNode.image = normalImage;
       }
-      if ( self.labelNode ) {
-        self.labelNode.bottom = normalImageNode.height - 2;
-        self.labelNode.centerX = normalImageNode.centerX;
+      if ( itemNode.labelNode ) {
+        itemNode.labelNode.bottom = normalImageNode.height - 2;
+        itemNode.labelNode.centerX = normalImageNode.centerX;
       }
     };
 
