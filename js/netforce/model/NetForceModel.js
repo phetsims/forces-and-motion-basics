@@ -150,7 +150,8 @@ define( function( require ) {
     ];
 
 
-    //When any puller is dragged, update the closest knots to be visible
+    // When any puller is dragged or moved with phet-io, update the closest knots to be visible
+    // and change the numberPullersAttached
     this.pullers.forEach( function( puller ) {
 
       puller.positionProperty.link( self.updateVisibleKnots.bind( self ) );
@@ -160,6 +161,9 @@ define( function( require ) {
       puller.on( 'dropped', function() {
         var knot = self.getTargetKnot( puller );
         self.movePullerToKnot( puller, knot );
+      } );
+      puller.knotProperty.link( function() {
+        self.numberPullersAttached = self.countAttachedPullers();
       } );
     } );
 
