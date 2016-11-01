@@ -47,6 +47,7 @@ define( function( require ) {
 
   // constants
   var DEBUG = false; // adds a line at the bottom of the items to assist with layout
+  var PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
 
   // arrow button constants
   var BUTTON_ARROW_HEIGHT = 14;
@@ -319,7 +320,7 @@ define( function( require ) {
     var playPauseVerticalOffset = 35;
     var playPauseStepHBox = new HBox( {
       children: [ playPauseButton, stepForwardButton ],
-      spacing: 10,
+      spacing: PLAY_PAUSE_BUFFER,
       resize: false,
       leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset )
     } );
@@ -336,6 +337,11 @@ define( function( require ) {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
+
+    // i18n - if the play control buttons are too close to reset all, they should be separated
+    if ( playPauseStepHBox.right > this.resetAllButton.left - PLAY_PAUSE_BUFFER ) {
+      playPauseStepHBox.leftCenter = controlPanel.leftBottom.plusXY( -2 * PLAY_PAUSE_BUFFER, playPauseVerticalOffset );
+    }
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
