@@ -20,6 +20,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // constants
+  var BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
+
   /**
    * Create the NetForceControlPanel.
    *
@@ -60,7 +63,7 @@ define( function( require ) {
         model.reset();
       },
       radius: 23,
-      rightCenter: checkBoxPanel.rightBottom.plusXY( -7, 35 ),
+      rightCenter: checkBoxPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 ),
       textDescription: 'Restart game button',
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
@@ -69,10 +72,19 @@ define( function( require ) {
     var soundToggleButton = new SoundToggleButton( model.volumeOnProperty, {
       padX: 19,
       padY: 19,
-      left: checkBoxPanel.left + 7,
       centerY: this.resetAllButton.centerY,
       tandem: tandem.createTandem( 'soundToggleButton' )
     } );
+
+    // i18n - if the strings are too short, the sound toggle button will overlap the reset all button
+    // if this happens, provide some space - otherwise place relative to left of check box panel
+    if ( this.resetAllButton.left < soundToggleButton.right ) {
+      soundToggleButton.right = this.resetAllButton.left - 2 * BUTTON_PADDING;
+    }
+    else {
+      soundToggleButton.left = checkBoxPanel.left + BUTTON_PADDING;
+    }
+
     this.addChild( soundToggleButton );
   }
 
