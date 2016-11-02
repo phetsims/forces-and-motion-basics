@@ -54,46 +54,65 @@ define( function( require ) {
     this.mystery = mystery;
     this.homeScale = homeScale || 1.0;
 
-    //Observable properties
-    PropertySet.call( this, {
-      position: new Vector2( x, y ),
-      pusherInset: pusherInset || 0,
-      dragging: false,
-      direction: 'left',
+    var properties = {
+
+      position: {
+        value: new Vector2( x, y ),
+        tandem: tandem.createTandem( 'positionProperty' ),
+        phetioValueType: TVector2
+      },
+
+      //TODO does this need to be instrumented for phet-io?
+      pusherInset: {
+        value: pusherInset || 0
+      },
+
+      dragging: {
+        value: false,
+        tandem: tandem.createTandem( 'draggingProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      direction: {
+        value: 'left',
+        tandem: tandem.createTandem( 'directionProperty' ),
+        phetioValueType: TString
+      },
+
+      //TODO: to instrument `animating` it would needs its own type, TObject does not know how to serialize it.
       animating: {
-        enabled: false,
-        x: 0,
-        y: 0,
-        end: null,
-        destination: 'home'
+        value: {
+          enabled: false,
+          x: 0,
+          y: 0,
+          end: null,
+          destination: 'home'
+        }
       },
-      //Flag for whether the item is on the skateboard
-      onBoard: false,
 
-      //How much to increase/shrink the original image.  Could all be set to 1.0 if images pre-scaled in an external program
-      imageScale: imageScale || 1.0,
-
-      //How much the object grows or shrinks when interacting with it
-      interactionScale: homeScale || 1.0
-    }, {
-      tandemSet: {
-        position: tandem.createTandem( 'positionProperty' ),
-        dragging: tandem.createTandem( 'draggingProperty' ),
-        direction: tandem.createTandem( 'directionProperty' ),
-        onBoard: tandem.createTandem( 'onBoardProperty' ),
-        imageScale: tandem.createTandem( 'imageScaleProperty' ),
-        interactionScale: tandem.createTandem( 'interactionScaleProperty' )
+      // Flag for whether the item is on the skateboard
+      onBoard: {
+        value: false,
+        tandem: tandem.createTandem( 'onBoardProperty' ),
+        phetioValueType: TBoolean
       },
-      phetioValueTypeSet: {
-        // TODO: to instrument `animating` it would needs its own type, TObject does not know how to serialize it.
-        position: TVector2,
-        dragging: TBoolean,
-        direction: TString,
-        onBoard: TBoolean,
-        imageScale: TNumber( ),
-        interactionScale: TNumber(  )
+
+      // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
+      imageScale: {
+        value: imageScale || 1.0,
+        tandem: tandem.createTandem( 'imageScaleProperty' ),
+        phetioValueType: TNumber()
+      },
+
+      // How much the object grows or shrinks when interacting with it
+      interactionScale: {
+        value: homeScale || 1.0,
+        tandem: tandem.createTandem( 'interactionScaleProperty' ),
+        phetioValueType: TNumber()
       }
-    } );
+    };
+
+    PropertySet.call( this, null, properties );
 
     this.context.directionProperty.link( function( direction ) {
 

@@ -22,6 +22,7 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var TNetForceModel = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TNetForceModel' );
 
   /**
    * Constructor for the net force model.
@@ -30,55 +31,107 @@ define( function( require ) {
    * @constructor
    */
   function NetForceModel( tandem ) {
+
     var self = this;
 
-    //Call the super class, with initial values for observable properties
-    PropertySet.call( this, {
-      started: false,
-      running: false,
-      numberPullersAttached: 0,
-      state: 'experimenting',
-      time: 0,
-      netForce: 0,
-      leftForce: 0,
-      rightForce: 0,
+    var properties = {
 
-      //User settings
-      showSumOfForces: false,
-      showValues: false,
-      volumeOn: false
-    }, {
-      tandemSet: {
-        volumeOn: tandem.createTandem( 'volumeOnProperty' ),
-        showSumOfForces: tandem.createTandem( 'showSumOfForcesProperty' ),
-        showValues: tandem.createTandem( 'showValuesProperty' ),
-        started: tandem.createTandem( 'startedProperty' ),
-        running: tandem.createTandem( 'runningProperty' ),
-        numberPullersAttached: tandem.createTandem( 'numberPullersAttachedProperty' ),
-        state: tandem.createTandem( 'stateProperty' ),
-
-        // TODO: Removed this property for phet-io spam
-        // time: tandem.createTandem( 'timeProperty' ),
-        netForce: tandem.createTandem( 'netForceProperty' ),
-        leftForce: tandem.createTandem( 'leftForceProperty' ),
-        rightForce: tandem.createTandem( 'rightForceProperty' )
+      started: {
+        value: false,
+        tandem: tandem.createTandem( 'startedProperty' ),
+        phetioValueType: TBoolean
       },
-      phetioValueTypeSet: {
-        volumeOn: TBoolean,
-        showSumOfForces: TBoolean,
-        showValues: TBoolean,
-        started: TBoolean,
-        running: TBoolean,
-        numberPullersAttached: TNumber(),
-        state: TString,
-        // time: TNumber( 'seconds' ),
-        netForce: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } ),
-        leftForce: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } ),
-        rightForce: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+
+      running: {
+        value: false,
+        tandem: tandem.createTandem( 'runningProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      numberPullersAttached: {
+        value: 0,
+        tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
+        phetioValueType: TNumber()
+      },
+
+      state: {
+        value: 'experimenting', //TODO what are the valid values?
+        tandem: tandem.createTandem( 'stateProperty' ),
+        phetioValueType: TString
+      },
+
+      time: {
+        value: 0
+        // TODO: Removed this property for phet-io spam
+        // tandem: tandem.createTandem( 'timeProperty' )
+        // phetioValueType: TNumber( 'seconds' )
+      },
+
+      netForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'netForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
+      },
+
+      leftForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'leftForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
+      },
+
+      rightForce: {
+        value: 0,
+        tandem: tandem.createTandem( 'rightForceProperty' ),
+        phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+      },
+
+      duration: {
+        value: 0,
+        tandem: tandem.createTandem( 'durationProperty' ),
+        phetioValueType: TNumber( { units: 'seconds' } )
+      },
+
+      // User settings
+      showSumOfForces: {
+        value: false,
+        tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
+        phetioValueType: TBoolean
+      },
+      showValues: {
+        value: false,
+        tandem: tandem.createTandem( 'showValuesProperty' ),
+        phetioValueType: TBoolean
+      },
+      volumeOn: {
+        value: false,
+        tandem: tandem.createTandem( 'volumeOnProperty' ),
+        phetioValueType: TBoolean
       }
-    } );
+    };
+
+    PropertySet.call( this, null, properties );
 
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
+
+    //Create a knot given a color and index (0-3)
+    function createKnot( color, index, tandem ) {
+      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color, tandem );
+    }
+
+
+    // Create the knots
+    // To support PhET-iO, the knots should be created before the pullers.
+    // This allows the pullers to be attached to the knots using the PhET-iO API
+    this.knots = [
+      createKnot( 'blue', 0, tandem.createTandem( 'blueKnot0' ) ),
+      createKnot( 'blue', 1, tandem.createTandem( 'blueKnot1' ) ),
+      createKnot( 'blue', 2, tandem.createTandem( 'blueKnot2' ) ),
+      createKnot( 'blue', 3, tandem.createTandem( 'blueKnot3' ) ),
+      createKnot( 'red', 0, tandem.createTandem( 'redKnot0' ) ),
+      createKnot( 'red', 1, tandem.createTandem( 'redKnot1' ) ),
+      createKnot( 'red', 2, tandem.createTandem( 'redKnot2' ) ),
+      createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
+    ];
 
     //Create the pullers from left to right so the tab order (for accessibility) will be as expected.
     var bigPullerY = 473;
@@ -96,24 +149,9 @@ define( function( require ) {
       new Puller( 860, smallPullerY, 'red', 'large', 30, tandem.createTandem( 'largeRedPuller' ) )
     ];
 
-    //Create a knot given a color and index (0-3)
-    function createKnot( color, index, tandem ) {
-      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color, tandem );
-    }
 
-    //Create the knots
-    this.knots = [
-      createKnot( 'blue', 0, tandem.createTandem( 'blueKnot0' ) ),
-      createKnot( 'blue', 1, tandem.createTandem( 'blueKnot1' ) ),
-      createKnot( 'blue', 2, tandem.createTandem( 'blueKnot2' ) ),
-      createKnot( 'blue', 3, tandem.createTandem( 'blueKnot3' ) ),
-      createKnot( 'red', 0, tandem.createTandem( 'redKnot0' ) ),
-      createKnot( 'red', 1, tandem.createTandem( 'redKnot1' ) ),
-      createKnot( 'red', 2, tandem.createTandem( 'redKnot2' ) ),
-      createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
-    ];
-
-    //When any puller is dragged, update the closest knots to be visible
+    // When any puller is dragged or moved with phet-io, update the closest knots to be visible
+    // and change the numberPullersAttached
     this.pullers.forEach( function( puller ) {
 
       puller.positionProperty.link( self.updateVisibleKnots.bind( self ) );
@@ -124,6 +162,9 @@ define( function( require ) {
         var knot = self.getTargetKnot( puller );
         self.movePullerToKnot( puller, knot );
       } );
+      puller.knotProperty.link( function() {
+        self.numberPullersAttached = self.countAttachedPullers();
+      } );
     } );
 
     //Update the started flag
@@ -133,6 +174,8 @@ define( function( require ) {
     this.numberPullersAttachedProperty.link( function() {self.netForce = self.getNetForce();} );
     this.numberPullersAttachedProperty.link( function() {self.leftForce = self.getLeftForce();} );
     this.numberPullersAttachedProperty.link( function() {self.rightForce = self.getRightForce();} );
+
+    tandem.addInstance( this, TNetForceModel );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
@@ -309,6 +352,7 @@ define( function( require ) {
       this.state = 'experimenting';
       this.trigger0( 'cart-returned' );
       this.started = false;
+      this.duration = 0; // Reset tug-of-war timer
     },
 
     //Reset the entire model when "reset all" is pressed
@@ -336,6 +380,8 @@ define( function( require ) {
      */
     step: function( dt ) {
       if ( this.running ) {
+
+        this.duration += dt; // Increment tug-of-war timer
 
         // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
         var newV = this.cart.v + this.getNetForce() * dt * 0.00075;

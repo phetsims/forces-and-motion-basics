@@ -47,34 +47,48 @@ define( function( require ) {
                  this.size === 'large' ? 30 * 5 :
                  NaN;
 
-    //Create the properties and mix them in
-    PropertySet.call( this, {
-      dragging: false,
-      knot: null,
-      position: new Vector2( x, y ),
-      lastLocation: 'home',
+    var properties = {
+
+      dragging: {
+        value: false,
+        tandem: tandem.createTandem( 'draggingProperty' ),
+        phetioValueType: TBoolean
+      },
+
+      knot: {
+        value: null,
+        tandem: tandem.createTandem( 'knotProperty' ),
+        phetioValueType: TKnot
+      },
+
+      position: {
+        value: new Vector2( x, y ),
+        tandem: tandem.createTandem( 'positionProperty' ),
+        phetioValueType: TVector2
+      },
+
+      lastLocation: {
+        value: 'home',
+        tandem: tandem.createTandem( 'lastLocationProperty' ),
+        phetioValueType: TVector2
+      },
 
       // For keyboard accessibility, the knot that the puller is hovering over
-      hoverKnot: null,
-      textDescription: ''
-    }, {
-      tandemSet: {
-        dragging: tandem.createTandem( 'draggingProperty' ),
-        knot: tandem.createTandem( 'knotProperty' ),
-        position: tandem.createTandem( 'positionProperty' ),
-        lastLocation: tandem.createTandem( 'lastLocationProperty' ),
-        hoverKnot: tandem.createTandem( 'hoverKnotProperty' ),
-        textDescription: tandem.createTandem( 'textDescriptionProperty' )
+      hoverKnot: {
+        value: null,
+        tandem: tandem.createTandem( 'hoverKnotProperty' ),
+        phetioValueType: TKnot
       },
-      phetioValueTypeSet: {
-        dragging: TBoolean,
-        knot: TKnot,
-        position: TVector2,
-        lastLocation: TVector2,
-        hoverKnot: TKnot,
-        textDescription: TString
+
+      textDescription: {
+        value: '',
+        tandem: tandem.createTandem( 'textDescriptionProperty' ),
+        phetioValueType: TString
       }
-    } );
+    };
+
+    PropertySet.call( this, null, properties );
+
     this.other = options.other;
 
     var pullerDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
