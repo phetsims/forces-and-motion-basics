@@ -203,8 +203,6 @@ define( function( require ) {
 
       //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
       puller.lastLocation = knot ? 'knot' : 'home';
-
-      this.numberPullersAttached = this.countAttachedPullers();
     },
 
     /**
