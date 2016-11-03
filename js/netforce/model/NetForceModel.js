@@ -381,7 +381,7 @@ define( function( require ) {
 
         this.duration += dt; // Increment tug-of-war timer
 
-        // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
+        // Make the simulation run about as fast as the Java version
         var newV = this.cart.v + this.getNetForce() * dt * 0.003;
         var newX = this.cart.x + newV * dt * 60.0;
         this.cart.setValues( { v: newV, x: newX } );
