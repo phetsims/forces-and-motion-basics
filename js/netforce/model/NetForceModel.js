@@ -338,7 +338,7 @@ define( function( require ) {
       if ( this.running ) {
 
         // Make the simulation run fast enough when only one puller, but slow enough when 4 pullers.
-        var newV = this.cart.v + this.getNetForce() * dt * 0.00075;
+        var newV = this.cart.v + this.getNetForce() * dt * 0.003;
         var newX = this.cart.x + newV * dt * 60.0;
         this.cart.setValues( { v: newV, x: newX } );
         this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
