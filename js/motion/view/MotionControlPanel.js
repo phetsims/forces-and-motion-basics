@@ -62,7 +62,7 @@ define( function( require ) {
      *
      * @param {string} text - label for the check box
      * @param {Property<boolean>} propertyName
-     * @param {object} options
+     * @param {Object} options
      */
     var createCheckBox = function( text, propertyName, tandemName, options ) {
 

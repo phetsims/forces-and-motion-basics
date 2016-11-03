@@ -28,7 +28,7 @@ define( function( require ) {
    * @param {PullerToolboxNode} pullerToolboxNode
    * @param {string} accessibleDescription
    * @param {Tandem} tandem
-   * @param {object} options
+   * @param {Object} options
    * @constructor
    */
   function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, accessibleDescription, tandem, options ) {

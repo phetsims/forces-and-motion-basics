@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {number} toolboxArcWidthX
    * @param {number} toolboxArcWidthY
    * @param {number} sideString - string description for which side the toolbox is on
-   * @param {object} toolboxOptions
+   * @param {Object} toolboxOptions
    */
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 
