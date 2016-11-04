@@ -177,7 +177,9 @@ define( function( require ) {
           }
         }
         else {
+          // send the item home and make sure that the label is centered
           item.animateHome();
+          self.labelNode.centerX = normalImageNode.centerX;
         }
       }
     } );
