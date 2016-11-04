@@ -22,6 +22,8 @@ define( function( require ) {
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var TNode = require( 'ifphetio!PHET_IO/types/scenery/nodes/TNode' );
+
 
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
@@ -258,6 +260,8 @@ define( function( require ) {
         }
       }
     } );
+
+    tandem.addInstance( this, TNode );
   }
 
   forcesAndMotionBasics.register( 'GoPauseButton', GoPauseButton );
