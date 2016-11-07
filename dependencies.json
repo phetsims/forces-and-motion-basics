@@ -1,0 +1,79 @@
+{
+  "comment": "# forces-and-motion-basics 2.1.4-phetiorc.2 Mon Nov 07 2016 15:30:11 GMT-0700 (Mountain Standard Time)",
+  "assert": {
+    "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "172a8e05f79365cff6b664ce40980ea3a82306ef",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "880a18ded11185580cf5950e568931cf0df4eb87",
+    "branch": "master"
+  },
+  "chipper": {
+    "sha": "5d9094d066d7c4e000191b2b4011f73f1d4f8150",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "2765eb4d9e836db1e467c9766c9f767f53659a95",
+    "branch": "master"
+  },
+  "forces-and-motion-basics": {
+    "sha": "dd23cf281842c4d12b22c3dd9b2991667e69caba",
+    "branch": "2.1-phetio"
+  },
+  "joist": {
+    "sha": "73a24c49f2ccdd0018feb46bfc1bc09f473c08d5",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "48cb255e5fba37c5b3f2f127a13656ea8b760d34",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "4222a05a927792580846b3bf9b1b53decf154943",
+    "branch": "master"
+  },
+  "phet-io": {
+    "sha": "8bd3deb8b47f99173c10804a1dc55b7faf40d259",
+    "branch": "master"
+  },
+  "phet-io-website": {
+    "sha": "528402554ab49e7dd2eb5de3044cd90ab8100e8f",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "8df1bf7d38949062dd6bf08800a0eebdce838d98",
+    "branch": "master"
+  },
+  "query-string-machine": {
+    "sha": "53531ef190ec03d090c8eb123833b20d976b0a04",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "fb9d77c5c0c2d9dafddf87263c509829ef40e651",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "6e4f7de5912716a937a09fbce81892454d2cf730",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "7a7b88b0658d2ee65bdf66cf232a46a6c20c9917",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "09fe0ddce58a07b73beafd25a260dda188ec05bf",
+    "branch": "master"
+  },
+  "tandem": {
+    "sha": "005c5582da1cba304d5d650533e6059eae197c6b",
+    "branch": "master"
+  },
+  "vibe": {
+    "sha": "2dba4d4b71cb0bf43c1f6a4779cc482adc9baed6",
+    "branch": "master"
+  }
+}
