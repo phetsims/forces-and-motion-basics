@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.1.6-phetio Tue Nov 08 2016 14:04:53 GMT-0700 (Mountain Standard Time)",
+  "comment": "# forces-and-motion-basics 2.1.6-phetiorc.1 Wed Nov 09 2016 18:37:33 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "957db829e7808c3759fa4cca91dd299989facb56",
+    "sha": "1c4013ab85c4ff09e68c5837b31deb83afe3c650",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "067ddc32010815cb377d964358fb6f73264c2c20",
+    "sha": "aff36a6557db7efcca9b180dbbd26e3fa954a65e",
     "branch": "2.1-phetio"
   },
   "joist": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "0f8ab01acbdff6f7c43e8f0b61ba7963b6545535",
+    "sha": "31c3e31fd471a1fb0ee1d9457550fa5c2c2d1376",
     "branch": "master"
   },
   "phet-io-website": {
