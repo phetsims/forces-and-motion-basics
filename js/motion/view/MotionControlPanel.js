@@ -161,7 +161,7 @@ define( function( require ) {
         tandem: tandem.createTandem( 'frictionTextNode' )
       } );
 
-      return new VBox( { spacing: -2, children: [ frictionTextNode, frictionSlider ] } );
+      return new VBox( { spacing: -2, children: [ frictionTextNode, frictionSlider ], resize: false } );
     };
 
     // Create controls for the 'motion' screen
@@ -286,7 +286,7 @@ define( function( require ) {
                    model.screen === 'friction' ? createFrictionControls() :
                    createAccelerationControls();
 
-    var panelNode = new Panel( contents, { xMargin: 12, yMargin: 7, fill: '#e3e980' } );
+    var panelNode = new Panel( contents, { xMargin: 12, yMargin: 7, fill: '#e3e980', resize: false } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
   }
 

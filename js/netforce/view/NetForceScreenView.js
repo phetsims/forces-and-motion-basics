@@ -187,7 +187,7 @@ define( function( require ) {
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( function( running ) {
       [ self.sumArrow, self.leftArrow, self.rightArrow ].forEach( function( arrow ) {
-        arrow.setArrowDash( running ? null : [ 10, 5 ] );
+        arrow.setArrowDash( running ? [] : [ 10, 5 ] );
       } );
     } );
 
