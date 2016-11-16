@@ -35,9 +35,7 @@ define( function( require ) {
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 
     var self = this;
-    TandemRectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxOptions );
-    this.setCornerXRadius( toolboxArcWidthX );
-    this.setCornerYRadius( toolboxArcWidthY );
+    TandemRectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
     this.accessibleId = sideString + '-itemToolbox' + this.id;
