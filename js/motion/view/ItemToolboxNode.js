@@ -12,9 +12,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var TandemRectangle = require( 'TANDEM/scenery/nodes/TandemRectangle' );
 
   // constants
   var defaultStroke = 'black';
@@ -35,7 +35,7 @@ define( function( require ) {
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 
     var self = this;
-    Rectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
+    TandemRectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
     this.accessibleId = sideString + '-itemToolbox' + this.id;
@@ -77,7 +77,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ItemToolboxNode', ItemToolboxNode );
 
-  return inherit( Rectangle, ItemToolboxNode, {
+  return inherit( TandemRectangle, ItemToolboxNode, {
 
     /**
      * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
@@ -148,5 +148,4 @@ define( function( require ) {
       return this._highlighted;
     }
   } );
-} )
-;
+} );
