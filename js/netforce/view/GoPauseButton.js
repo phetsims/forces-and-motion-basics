@@ -247,16 +247,16 @@ define( function( require ) {
         var keyCode = event.domEvent.keyCode;
         if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
           var activeButton = model.running ? pauseButton : goButton;
-          activeButton.buttonModel.over = true;
-          activeButton.buttonModel.down = true;
+          activeButton.buttonModel.overProperty.set( true );
+          activeButton.buttonModel.downProperty.set( true );
         }
       },
       keyup: function( event ) {
         var keyCode = event.domEvent.keyCode;
         if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
           var activeButton = model.running ? pauseButton : goButton;
-          activeButton.buttonModel.down = false;
-          activeButton.buttonModel.over = false;
+          activeButton.buttonModel.downProperty.set( false );
+          activeButton.buttonModel.overProperty.set( false );
         }
       }
     } );
