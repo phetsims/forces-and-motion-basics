@@ -114,15 +114,17 @@ define( function( require ) {
     };
 
     //Icon for the forces in the control panel
-    var arrowIcon = function() {
+    var createArrowIcon = function( phetioID ) {
       return new ArrowNode( 0, 0, 40, 0, {
         headHeight: 20,
         headWidth: 20,
         tailWidth: 10,
         fill: '#e66e23',
-        stroke: 'black'
+        stroke: 'black',
+        tandem: tandem.createTandem( phetioID )
       } );
     };
+
     var speedometerIcon = function() {
       return new GaugeNode( model.velocityProperty, speedString, {
         min: 0,
@@ -176,7 +178,7 @@ define( function( require ) {
       // create the checkboxes
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forceString, 'showForce', 'showForceCheckBox', { icon: arrowIcon() } ),
+          createCheckBox( forceString, 'showForce', 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
           createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
           createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } )
@@ -217,7 +219,7 @@ define( function( require ) {
       // create the checkboxes
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: arrowIcon() } ),
+          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           createCheckBox( sumOfForcesString, 'showSumOfForces', 'showSumOfForcesCheckBox' ),
           createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
           createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
@@ -254,7 +256,7 @@ define( function( require ) {
 
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: arrowIcon() } ),
+          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           createCheckBox( sumOfForcesString, 'showSumOfForces', 'showSumOfForcesCheckBox' ),
           createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
           createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
