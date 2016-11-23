@@ -41,7 +41,7 @@ define( function( require ) {
 
     var textNode = new TandemText( model.cart.x < 0 ? blueWinsString : redWinsString, {
       tandem: tandem.createTandem( 'textNode' ),
-      font: new PhetFont( 32 ),
+      font: new PhetFont( 24 ),
       fill: 'white'
     } );
     this.path = new TandemPath( null, {
@@ -109,7 +109,7 @@ define( function( require ) {
     updateFlagShape: function() {
       var shape = new Shape();
       var maxX = 220;
-      var maxY = 75;
+      var maxY = 55;
       var dy = ( 7 * Math.sin( this.model.time * 6 ) );
       var dx = ( 2 * Math.sin( this.model.time * 5 ) ) + 10;
       shape.moveTo( 0, 0 );

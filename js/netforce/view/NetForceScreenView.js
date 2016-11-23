@@ -171,7 +171,7 @@ define( function( require ) {
 
     //Create the arrow nodes
     var opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 100, this.model.netForceProperty, this.model.showValuesProperty,
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 127, this.model.netForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
       } );
@@ -331,7 +331,7 @@ define( function( require ) {
     // Show the flag node when pulling is complete and update the accessible game over element in the parallel DOM
     var showFlagNode = function() {
       netForceScreenView.addChild(
-        new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 10, tandem.createTandem( 'flagNode' ) )
+        new FlagNode( model, netForceScreenView.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) )
       );
     };
     model.stateProperty.link( function( state ) { if ( state === 'completed' ) { showFlagNode(); } } );
