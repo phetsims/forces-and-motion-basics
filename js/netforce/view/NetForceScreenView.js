@@ -31,7 +31,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Sound = require( 'VIBE/Sound' );
-  var Input = require( 'SCENERY/input/Input' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -374,22 +373,6 @@ define( function( require ) {
 
     cursorPathNode.visible = false;
     this.addChild( cursorPathNode );
-
-    // Show highlight around the toolbox when a toolbox node is focused.
-    Input.focusedTrailProperty.link( function( focusedTrail ) {
-      if ( focusedTrail ) {
-        if ( focusedTrail.node instanceof PullerNode ) {
-          if ( focusedTrail.node.puller.type === 'blue' ) {
-            leftToolbox.highlighted = true;
-            rightToolbox.highlighted = false;
-          }
-          else {
-            leftToolbox.highlighted = false;
-            rightToolbox.highlighted = true;
-          }
-        }
-      }
-    } );
 
     // implement accessible content.  For the screen view, this includes an auditory description for the entire screen
     // accessible content
