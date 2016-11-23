@@ -352,7 +352,6 @@ define( function( require ) {
                                      'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
                                      (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
-    this.addLiveRegion( accessibleTextProperty );
 
     var golfClap = new Sound( golfClapSound );
 
