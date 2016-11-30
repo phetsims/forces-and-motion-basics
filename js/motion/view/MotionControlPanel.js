@@ -124,13 +124,15 @@ define( function( require ) {
       } );
     };
     var speedometerIcon = function() {
-      return new GaugeNode( model.velocityProperty, speedString, {
+      var speedometerIconValueProperty = new Property( 0 );
+      return new GaugeNode( speedometerIconValueProperty, speedString, {
         min: 0,
         max: MotionConstants.MAX_SPEED
       }, { scale: 0.2 } );
     };
     var accelerometerIcon = function() {
-      return new AccelerometerNode( model.accelerationProperty,
+      var accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
+      return new AccelerometerNode( accelerometerIconValueProperty,
         tandem.createTandem( 'accelerometerIcon' ) ).mutate( { scale: 0.3 } );
     };
 
