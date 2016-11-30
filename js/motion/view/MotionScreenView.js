@@ -401,12 +401,12 @@ define( function( require ) {
       var initialLabelWidth = labelText.width;
       model.multilink( [ 'showValues', 'acceleration' ], function( showValues, acceleration ) {
         if ( showValues ) {
-          var accelerationValue = Util.toFixed( acceleration, 1 );
+          var accelerationValue = Util.toFixed( acceleration, 2 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
 
           // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
           // in width.
-          labelText.centerX = accelerometerNode.centerX + ( labelText.width - initialLabelWidth ) / 2 - 5;
+          labelText.centerX = accelerometerNode.centerX + ( labelText.width - initialLabelWidth ) / 2 - 10;
         }
         else {
           labelText.setText( accelerationString );
