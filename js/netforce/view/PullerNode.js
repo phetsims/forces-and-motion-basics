@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
-  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
+  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
@@ -81,7 +81,7 @@ define( function( require ) {
       self.updateLocation( puller, model );
     } );
 
-    var dragHandler = new TandemDragHandler( {
+    var dragHandler = new TandemSimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
         allowTouchSnag: true,
         start: function( event ) {

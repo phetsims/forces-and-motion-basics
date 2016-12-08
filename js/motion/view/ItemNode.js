@@ -13,7 +13,7 @@ define( function( require ) {
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
-  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
+  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Matrix3 = require( 'DOT/Matrix3' );
@@ -137,7 +137,7 @@ define( function( require ) {
       person.direction = direction;
     };
 
-    var dragHandler = new TandemDragHandler( {
+    var dragHandler = new TandemSimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       translate: function( options ) {
         item.position = options.position;//es5 setter

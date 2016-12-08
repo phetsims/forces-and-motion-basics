@@ -10,7 +10,7 @@ define( function( require ) {
 
   var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
-  var TandemDragHandler = require( 'TANDEM/scenery/input/TandemDragHandler' );
+  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
 
@@ -311,7 +311,7 @@ define( function( require ) {
       }
     } );
 
-    var listener = new TandemDragHandler( {
+    var listener = new TandemSimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       translate: function( options ) {
