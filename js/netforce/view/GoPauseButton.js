@@ -19,7 +19,6 @@ define( function( require ) {
   var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Input = require( 'SCENERY/input/Input' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var TNode = require( 'ifphetio!PHET_IO/types/scenery/nodes/TNode' );
@@ -241,25 +240,6 @@ define( function( require ) {
     } );
 
     this.centerX = layoutWidth / 2;
-
-    this.addInputListener( {
-      keydown: function( event ) {
-        var keyCode = event.domEvent.keyCode;
-        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
-          var activeButton = model.running ? pauseButton : goButton;
-          activeButton.buttonModel.overProperty.set( true );
-          activeButton.buttonModel.downProperty.set( true );
-        }
-      },
-      keyup: function( event ) {
-        var keyCode = event.domEvent.keyCode;
-        if ( keyCode === Input.KEY_ENTER || keyCode === Input.KEY_SPACE ) {
-          var activeButton = model.running ? pauseButton : goButton;
-          activeButton.buttonModel.downProperty.set( false );
-          activeButton.buttonModel.overProperty.set( false );
-        }
-      }
-    } );
 
     tandem.addInstance( this, TNode );
   }
