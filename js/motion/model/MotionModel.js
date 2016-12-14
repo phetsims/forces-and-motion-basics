@@ -33,6 +33,8 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var TItem = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TItem' );
 
   /**
    * Constructor for the motion model
@@ -52,7 +54,7 @@ define( function( require ) {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = new ObservableArray();
+    this.stack = new ObservableArray( { phetioValueType: TItem } );
 
     var properties = {
 
@@ -100,7 +102,7 @@ define( function( require ) {
       },
 
       acceleration: {
-        value:  0,
+        value: 0,
         tandem: tandem.createTandem( 'accelerationProperty' ),
         phetioValueType: TNumber( { units: 'meters/second/second' } )
       },

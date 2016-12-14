@@ -304,7 +304,8 @@ define( function( require ) {
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
     var maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
     var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, tandem.createTandem( 'goPauseButton' ), {
-      maxWidth: maxWidth
+      maxWidth: maxWidth,
+      tandem: tandem.createTandem( 'goPauseButton' )
     } );
     this.addChild( goPauseButton );
 

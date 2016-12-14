@@ -19,6 +19,7 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
+  var TItem = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TItem' );
 
   /**
    * Constructor for Item
@@ -121,6 +122,8 @@ define( function( require ) {
         self.direction = direction;
       }
     } );
+
+    tandem.addInstance( this, TItem );
   }
 
   forcesAndMotionBasics.register( 'Item', Item );
