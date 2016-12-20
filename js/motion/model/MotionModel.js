@@ -33,7 +33,6 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
   var TItem = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TItem' );
 
   /**
