@@ -80,7 +80,7 @@ define( function( require ) {
     /**
      * Update the text content of the aria-live region describing the cart.
      *
-     * @param  {DOMElement} descriptionElement
+     * @param  {HTMLElement} descriptionElement
      * @param  {string} directionString
      */
     updateLiveCartRegion: function( descriptionElement, directionString ) {
