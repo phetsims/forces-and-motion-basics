@@ -54,7 +54,7 @@ define( function( require ) {
     ], {
       tandem: tandem.createTandem( 'verticalCheckBoxGroup' )
     } );
-    var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980' } );
+    var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980', tandem: tandem.createTandem( 'verticalCheckBoxGroupPanel') } );
     this.addChild( checkBoxPanel );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
