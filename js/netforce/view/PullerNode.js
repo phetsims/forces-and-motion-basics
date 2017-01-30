@@ -37,7 +37,7 @@ define( function( require ) {
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image; // @private
     this.pullImage = pullImage; // @private
-    this.accessibleDescription = accessibleDescription;
+    this.description = accessibleDescription;
     var x = puller.position.x;
     var y = puller.position.y;
 
@@ -170,7 +170,7 @@ define( function( require ) {
 
           // on tab, exit the group and focus the next element in the navigation order
           if ( event.keyCode === Input.KEY_TAB ) {
-            pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.accessibleId ) );
+            pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.uniqueId ) );
           }
 
           // if the puller is not grabbed, grab it for drag and drop

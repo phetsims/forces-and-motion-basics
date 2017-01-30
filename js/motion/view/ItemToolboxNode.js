@@ -38,7 +38,7 @@ define( function( require ) {
     TandemRectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
-    this.accessibleId = sideString + '-itemToolbox' + this.id;
+    this.uniqueId = sideString + '-itemToolbox' + this.id;
 
     // outfit for accessibility
     this.accessibleContent = {
@@ -49,7 +49,7 @@ define( function( require ) {
         var domElement = document.createElement( 'div' );
         domElement.setAttribute( 'aria-label', toolboxOptions.accessibleDescription );
         domElement.tabIndex = '0';
-        domElement.id = self.accessibleId;
+        domElement.id = self.uniqueId;
 
         // enter the puller group on 'enter' or 'space bar'.
         domElement.addEventListener( 'keydown', function( event ) {

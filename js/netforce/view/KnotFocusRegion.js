@@ -38,7 +38,7 @@ define( function( require ) {
     this.netForceModel = netForceModel;
 
     // @public - id used to quickly find this element among peers in the DOM
-    this.accessibleId = type === 'left' ? 'leftFocusRegion' : 'rightFocusRegion';
+    this.uniqueId = type === 'left' ? 'leftFocusRegion' : 'rightFocusRegion';
 
     // define accessible peer content
     this.accessibleContent = {
@@ -49,7 +49,7 @@ define( function( require ) {
          */
         var domElement = document.createElement( 'div' );
         domElement.tabIndex = '-1';
-        domElement.id = self.accessibleId;
+        domElement.id = self.uniqueId;
 
         // exit the group on 'escape'
         domElement.addEventListener( 'keydown', function( event ) {
@@ -67,7 +67,7 @@ define( function( require ) {
             self.exitGroup( domElement );
 
             // reset focus to the puller tool box.
-            document.getElementById( toolboxNode.accessibleId ).focus();
+            document.getElementById( toolboxNode.uniqueId ).focus();
           }
         } );
 

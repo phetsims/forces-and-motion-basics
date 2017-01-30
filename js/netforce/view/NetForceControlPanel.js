@@ -40,15 +40,11 @@ define( function( require ) {
       {
         content: new TandemText( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
         property: model.showSumOfForcesProperty,
-        label: sumOfForcesString,
-        accessibleLabel: sumOfForcesString,
         tandemName: 'showSumOfForcesCheckBox'
       },
       {
         content: new TandemText( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
         property: model.showValuesProperty,
-        label: valuesString,
-        accessibleLabel: valuesString,
         tandemName: 'showValuesCheckBox'
       }
     ], {

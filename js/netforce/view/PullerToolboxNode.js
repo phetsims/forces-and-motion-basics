@@ -34,7 +34,7 @@ define( function( require ) {
                               pullerGroupDescriptionString ) {
     var self = this;
     this.highlightColor = highlightColor;
-    this.accessibleId = side + '-pullerToolbox';
+    this.uniqueId = side + '-pullerToolbox';
     this._highlighted = false;
     var toolboxHeight = 216;
     var toolboxOptions = {
@@ -82,7 +82,7 @@ define( function( require ) {
 
         // TODO: Why is domElement.children empty here?
         // provide the puller group with a unique ID.
-        domElement.id = self.accessibleId;
+        domElement.id = self.uniqueId;
         return accessiblePeer;
       }
     };

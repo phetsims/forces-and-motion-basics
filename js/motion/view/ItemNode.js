@@ -49,7 +49,7 @@ define( function( require ) {
       scale: item.imageScale,
       tandem: tandem
     } );
-    this.accessibleId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
+    this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
     // translate this node to the item's position
     this.translate( item.position );
@@ -258,7 +258,7 @@ define( function( require ) {
         domElement.tabIndex = '-1';
         domElement.draggable = true;
         domElement.className = 'ItemNode';
-        domElement.id = self.accessibleId;
+        domElement.id = self.uniqueId;
 
         /*
          * The following is a latest iteration of drag and drop behavior for the pullers in the net force screen of
@@ -273,7 +273,7 @@ define( function( require ) {
 
           // on tab, exit the group and focus the next element.
           if ( event.keyCode === Input.KEY_TAB ) {
-            itemToolbox.exitGroup( document.getElementById( itemToolbox.accessibleId ) );
+            itemToolbox.exitGroup( document.getElementById( itemToolbox.uniqueId ) );
           }
 
           // if the puller is not grabbed, grab it for drag and drop

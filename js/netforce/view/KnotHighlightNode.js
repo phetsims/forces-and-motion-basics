@@ -104,7 +104,7 @@ define( function( require ) {
             // update the label for the puller by changing its alt description.  The description is exactly what would
             // be read off in the actionElement, and since the puller receives focus after being placed on the knot,
             // the live action element does not need to be updated.
-            var innerText = grabbedPullerNode.accessibleDescription + 'placed on ' + accessibleDescriptionMap[ knot.initX ];
+            var innerText = grabbedPullerNode.description + 'placed on ' + accessibleDescriptionMap[ knot.initX ];
             var pullerElement = document.getElementById( grabbedPullerNode.accessiblePullerId );
             pullerElement.setAttribute( 'alt', innerText );
 
@@ -118,7 +118,7 @@ define( function( require ) {
 
             // null string for the puller toolbox description since the one on sim load no longer applies.
             // TODO: null is temporary solution, what should it be in the long run?
-            var toolBoxElement = document.getElementById( pullerToolboxNode.accessibleId );
+            var toolBoxElement = document.getElementById( pullerToolboxNode.uniqueId );
 
             // enter back into the group of pullers
             pullerToolboxNode.enterGroup( event, toolBoxElement );
