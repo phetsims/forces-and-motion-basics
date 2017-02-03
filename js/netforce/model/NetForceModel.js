@@ -310,7 +310,7 @@ define( function( require ) {
       var filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type && self.getPuller( knot ) === null;
       } );
-      return _.min( filter, this.getKnotPullerDistance( puller ) );
+      return _.minBy( filter, this.getKnotPullerDistance( puller ) );
     },
 
     /**
@@ -450,7 +450,7 @@ define( function( require ) {
                self.getPuller( knot ) === null &&
                isInRightDirection( puller.knot, knot, delta );
       } );
-      var result = _.min( filter, this.getKnotPullerDistance( puller ) );
+      var result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
       if ( result === Infinity || result === -Infinity ) {
         result = null;
       }
@@ -479,7 +479,7 @@ define( function( require ) {
                self.getPuller( knot ) === null &&
                isInRightDirection( knot, delta );
       } );
-      var result = _.min( filter, function( knot ) {
+      var result = _.minBy( filter, function( knot ) {
         return Math.abs( sourceKnot.x - knot.x );
       } );
 
