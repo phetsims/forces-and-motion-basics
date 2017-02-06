@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var inherit = require( 'PHET_CORE/inherit' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
@@ -82,11 +82,11 @@ define( function( require ) {
     var self = this;
     var padX = 15;
     var padY = 10;
-    var goTextNode = new TandemText( goString, {
+    var goTextNode = new Text( goString, {
       font: new PhetFont( 42 ),
       tandem: tandem.createTandem( 'goTextNode' )
     } );
-    var pauseTextNode = new TandemText( pauseString, {
+    var pauseTextNode = new Text( pauseString, {
       font: new PhetFont( 30 ),
       tandem: tandem.createTandem( 'pauseTextNode' )
     } );

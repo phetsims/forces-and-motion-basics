@@ -11,7 +11,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var inherit = require( 'PHET_CORE/inherit' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -112,7 +112,7 @@ define( function( require ) {
 
       var location = initialTickValue + i * delta;
       if ( isMajor( i ) ) {
-        var label = new TandemText( location, {
+        var label = new Text( location, {
           font: new PhetFont( 16 ),
           tandem: tandem.createTandem( 'tick' + i )
         } );

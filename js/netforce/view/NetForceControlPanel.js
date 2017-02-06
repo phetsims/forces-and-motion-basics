@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var Node = require( 'SCENERY/nodes/Node' );
-  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -38,12 +38,12 @@ define( function( require ) {
     var fontOptions = { font: new PhetFont( 18 ) };
     this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [
       {
-        content: new TandemText( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
+        content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
         property: model.showSumOfForcesProperty,
         tandemName: 'showSumOfForcesCheckBox'
       },
       {
-        content: new TandemText( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
+        content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
         property: model.showValuesProperty,
         tandemName: 'showValuesCheckBox'
       }

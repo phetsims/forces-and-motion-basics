@@ -13,7 +13,7 @@ define( function( require ) {
   var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -363,7 +363,7 @@ define( function( require ) {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new TandemText( sumOfForcesEqualsZeroString, {
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
       y: 53,

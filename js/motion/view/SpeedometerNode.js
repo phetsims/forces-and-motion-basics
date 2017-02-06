@@ -18,7 +18,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Util = require( 'DOT/Util' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
@@ -56,7 +56,7 @@ define( function( require ) {
     // create a value readout inside of a panel, maxSpeed for max bounds for layout calculations
     var maxSpeed = Util.toFixed( -MotionConstants.MAX_SPEED, 1 );
     var valueString = StringUtils.format( pattern0Name1ValueUnitsVelocityString, maxSpeed );
-    var valueTextNode = new TandemText( valueString, {
+    var valueTextNode = new Text( valueString, {
       font: new PhetFont( 16 ),
       maxWidth: options.radius,
       tandem: tandem.createTandem( 'valueTextNode' )

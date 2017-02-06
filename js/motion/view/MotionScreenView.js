@@ -12,7 +12,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
-  var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Shape = require( 'KITE/Shape' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -143,7 +143,7 @@ define( function( require ) {
     var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
 
     var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    var appliedForceSliderTextNode = new TandemText( appliedForceString, {
+    var appliedForceSliderTextNode = new Text( appliedForceString, {
       font: new PhetFont( 22 ),
       centerX: width / 2,
       y: 430,
@@ -162,7 +162,7 @@ define( function( require ) {
     this.addChild( appliedForceSlider );
 
     //Position the units to the right of the text box.
-    var readoutTextNode = new TandemText( '???', {
+    var readoutTextNode = new Text( '???', {
       font: new PhetFont( 22 ),
       pickable: false,
       maxWidth: maxTextWidth / 3,
@@ -372,7 +372,7 @@ define( function( require ) {
 
       // create the tick labels
       var tickLabel = function( label, tick ) {
-        return new TandemText( label, {
+        return new Text( label, {
           pickable: false,
           font: new PhetFont( 16 ),
           centerX: tick.centerX,
@@ -524,7 +524,7 @@ define( function( require ) {
         labelPosition: 'top',
         arrowScale: arrowScale
       } );
-    this.sumOfForcesText = new TandemText( sumOfForcesEqualsZeroString, {
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
