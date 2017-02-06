@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var TandemRectangle = require( 'TANDEM/scenery/nodes/TandemRectangle' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
   var defaultStroke = 'black';
@@ -35,7 +35,7 @@ define( function( require ) {
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 
     var self = this;
-    TandemRectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
+    Rectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
     this.uniqueId = sideString + '-itemToolbox' + this.id;
@@ -77,7 +77,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ItemToolboxNode', ItemToolboxNode );
 
-  return inherit( TandemRectangle, ItemToolboxNode, {
+  return inherit( Rectangle, ItemToolboxNode, {
 
     /**
      * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
