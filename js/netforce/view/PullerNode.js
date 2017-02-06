@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'SCENERY/input/Input' );
@@ -41,7 +41,7 @@ define( function( require ) {
     var x = puller.position.x;
     var y = puller.position.y;
 
-    TandemImage.call( this, this.standImage, {
+    Image.call( this, this.standImage, {
       tandem: tandem,
       x: x,
       y: y,
@@ -225,7 +225,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'PullerNode', PullerNode );
 
-  return inherit( TandemImage, PullerNode, {
+  return inherit( Image, PullerNode, {
 
     /**
      * Update the location of the puller immediately after it has been clicked on after being removed from a knot

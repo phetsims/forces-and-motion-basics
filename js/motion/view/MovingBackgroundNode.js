@@ -14,7 +14,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
-  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
   var brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
@@ -49,7 +49,7 @@ define( function( require ) {
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
     var toBackgroundImage = function( offset, image, y, scale, tandemName ) {
-      var node = new TandemImage( image, {
+      var node = new Image( image, {
         scale: scale,
         x: offset,
         y: y,
@@ -139,7 +139,7 @@ define( function( require ) {
     if ( showGround ) {
       ground.toImage( function( image ) {
         var groundY = mountainY + 50;
-        var groundImageNode = new TandemImage( image, {
+        var groundImageNode = new Image( image, {
           y: groundY,
           tandem: tandem.createTandem( 'groundImageNode' )
         } );

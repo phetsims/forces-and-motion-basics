@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -68,19 +68,19 @@ define( function( require ) {
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
     var children = [];
-    var standingUp = new TandemImage( pusherStraightImage, {
+    var standingUp = new Image( pusherStraightImage, {
       visible: true,
       pickable: true,
       scale: scale,
       tandem: tandem.createTandem( 'standingUpImageNode' )
     } );
-    var fallLeft = new TandemImage( pusherFallDownImage, {
+    var fallLeft = new Image( pusherFallDownImage, {
       visible: false,
       pickable: false,
       scale: scale,
       tandem: tandem.createTandem( 'fallLeftImage' )
     } );
-    var fallRight = new TandemImage( pusherFallDownImage, {
+    var fallRight = new Image( pusherFallDownImage, {
       visible: false,
       pickable: false,
       scale: new Vector2( -scale, scale ),
@@ -124,13 +124,13 @@ define( function( require ) {
                   i === 29 ? pusherImage29 :
                   i === 30 ? pusherImage30 :
                   null;
-      var rightImageNode = new TandemImage( image, {
+      var rightImageNode = new Image( image, {
         visible: false,
         pickable: false,
         scale: scale,
         tandem: tandem.createTandem( 'rightImageNode' + i )
       } );
-      var leftImageNode = new TandemImage( image, {
+      var leftImageNode = new Image( image, {
         visible: false,
         pickable: false,
         scale: new Vector2( -scale, scale ),

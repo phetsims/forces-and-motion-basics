@@ -12,7 +12,7 @@ define( function( require ) {
   var Sim = require( 'JOIST/Sim' );
   var NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
   var NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' );
-  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var Screen = require( 'JOIST/Screen' );
   var MotionScreen = require( 'FORCES_AND_MOTION_BASICS/motion/MotionScreen' );
 
@@ -54,7 +54,7 @@ define( function( require ) {
 
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
-    var netForceImageNode = new TandemImage( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
+    var netForceImageNode = new Image( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
     var netForceScreen = new Screen(
       function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
       function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
@@ -66,21 +66,21 @@ define( function( require ) {
 
     var motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
       name: motionString,
-      homeScreenIcon: new TandemImage( motionIcon, {
+      homeScreenIcon: new Image( motionIcon, {
         tandem: motionScreenTandem.createTandem( 'icon' )
       } )
     } );
 
     var frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
       name: frictionString,
-      homeScreenIcon: new TandemImage( frictionIcon, {
+      homeScreenIcon: new Image( frictionIcon, {
         tandem: frictionScreenTandem.createTandem( 'icon' )
       } )
     } );
 
     var accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
       name: accelerationString,
-      homeScreenIcon: new TandemImage( accelerationIcon, {
+      homeScreenIcon: new Image( accelerationIcon, {
         tandem: accelerationScreenTandem.createTandem( 'icon' )
       } )
     } );

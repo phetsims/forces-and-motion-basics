@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var TandemImage = require( 'TANDEM/scenery/nodes/TandemImage' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
@@ -55,12 +55,12 @@ define( function( require ) {
     this.translate( item.position );
 
     //Create the node for the main graphic
-    var normalImageNode = new TandemImage( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
+    var normalImageNode = new Image( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
     this.normalImageNode = normalImageNode;
 
     // keep track of the sitting image to track its width for the pusher
     // @public (read-only)
-    this.sittingImage = new TandemImage( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
+    this.sittingImage = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
