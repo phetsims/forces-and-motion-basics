@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var Shape = require( 'KITE/Shape' );
@@ -26,7 +26,7 @@ define( function( require ) {
   function AccelerometerNode( accelerationProperty, tandem, options ) {
     options = options || {};
     this.ticks = [];
-    TandemNode.call( this, {
+    Node.call( this, {
       tandem: tandem
     } );
     var height = 15;
@@ -96,7 +96,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'AccelerometerNode', AccelerometerNode );
 
-  return inherit( TandemNode, AccelerometerNode, {
+  return inherit( Node, AccelerometerNode, {
 
     /**
      * Add a the child line as a tick to the accelerometer node

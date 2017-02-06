@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
@@ -44,7 +44,7 @@ define( function( require ) {
 
     var self = this;
     this.item = item;
-    TandemNode.call( this, {
+    Node.call( this, {
       cursor: 'pointer',
       scale: item.imageScale,
       tandem: tandem
@@ -211,7 +211,7 @@ define( function( require ) {
 
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n
-    var labelNode = new TandemNode( {
+    var labelNode = new Node( {
       children: [ roundRect, massLabel ],
       scale: 1.0 / item.imageScale,
       tandem: tandem.createTandem( 'labelNode' )
@@ -322,7 +322,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );
 
-  return inherit( TandemNode, ItemNode, {
+  return inherit( Node, ItemNode, {
 
     /**
      * Get the width of this item node, modified by the current scale factor.  If the item

@@ -13,7 +13,7 @@ define( function( require ) {
 
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Pattern = require( 'SCENERY/util/Pattern' );
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
@@ -39,7 +39,7 @@ define( function( require ) {
     var self = this;
     this.model = model;
 
-    TandemNode.call( this, {
+    Node.call( this, {
       pickable: false,
       preventFit: true,
       tandem: tandem
@@ -66,7 +66,7 @@ define( function( require ) {
     var mountainY = 311;
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy
-    var mountainAndCloudLayer = new TandemNode( {
+    var mountainAndCloudLayer = new Node( {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
@@ -170,7 +170,7 @@ define( function( require ) {
           //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
           model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-          var iceLayer = new TandemNode( {
+          var iceLayer = new Node( {
             tandem: tandem.createTandem( 'iceLayer' ),
             children: [
               toBackgroundImage( 0, icicleImage, 0, 0.8, 'iceImageNode1' ),
@@ -186,7 +186,7 @@ define( function( require ) {
 
           self.lastNumSpecks = 0;
 
-          var gravelSource = new TandemNode( {
+          var gravelSource = new Node( {
             tandem: tandem.createTandem( 'gravelSource' )
           } );
 
@@ -274,6 +274,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'MovingBackgroundNode', MovingBackgroundNode );
 
-  return inherit( TandemNode, MovingBackgroundNode );
+  return inherit( Node, MovingBackgroundNode );
 
 } );

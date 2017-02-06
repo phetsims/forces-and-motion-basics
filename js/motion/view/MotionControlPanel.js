@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -49,7 +49,7 @@ define( function( require ) {
    * @constructor
    */
   function MotionControlPanel( model, tandem ) {
-    TandemNode.call( this, {
+    Node.call( this, {
       tandem: tandem
     } );
 
@@ -173,7 +173,7 @@ define( function( require ) {
 
       // container node for check boxes and an hstrut which makes the panel just a little wider to match the
       // other screens
-      var containerNode = new TandemNode( {
+      var containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
@@ -214,7 +214,7 @@ define( function( require ) {
     var createFrictionControls = function() {
 
       // container for all controls
-      var containerNode = new TandemNode( {
+      var containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
@@ -252,7 +252,7 @@ define( function( require ) {
     var createAccelerationControls = function() {
 
       // node containing checkboxes, spacing, and slider
-      var containerNode = new TandemNode( {
+      var containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
@@ -296,6 +296,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
 
-  return inherit( TandemNode, MotionControlPanel );
+  return inherit( Node, MotionControlPanel );
 
 } );

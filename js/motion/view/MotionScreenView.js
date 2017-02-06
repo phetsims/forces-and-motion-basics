@@ -10,7 +10,7 @@ define( function( require ) {
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var SubSupText = require( 'SCENERY_PHET/SubSupText' );
@@ -380,7 +380,7 @@ define( function( require ) {
           tandem: tandem.createTandem( 'tickLabelTextNode_' + label )
         } );
       };
-      var tickLabels = new TandemNode( {
+      var tickLabels = new Node( {
         tandem: tandem.createTandem( 'tickLabels' ),
         children: [
           tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
@@ -390,7 +390,7 @@ define( function( require ) {
       } );
 
       // put it all together in a VBox
-      var accelerometerWithTickLabels = new TandemNode( {
+      var accelerometerWithTickLabels = new Node( {
         tandem: tandem.createTandem( 'accelerometerWithTickLabels' ),
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
@@ -460,8 +460,8 @@ define( function( require ) {
     };
 
     //Iterate over the items in the model and create and add nodes for each one
-    var leftItemLayer = new TandemNode( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
-    var rightItemLayer = new TandemNode( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
+    var leftItemLayer = new Node( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
+    var rightItemLayer = new Node( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
     this.itemNodes = [];
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[ i ];
@@ -552,7 +552,7 @@ define( function( require ) {
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
-    var toolBoxContainer = new TandemNode( { tandem: tandem.createTandem( 'toolBoxContainer' ) } );
+    var toolBoxContainer = new Node( { tandem: tandem.createTandem( 'toolBoxContainer' ) } );
     toolBoxContainer.addChild( leftItemToolboxNode );
     toolBoxContainer.addChild( rightItemToolboxNode );
     this.addChild( toolBoxContainer );

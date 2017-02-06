@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var Shape = require( 'KITE/Shape' );
@@ -35,7 +35,7 @@ define( function( require ) {
   function FlagNode( model, centerX, top, tandem ) {
     var self = this;
     this.model = model;
-    TandemNode.call( this, {
+    Node.call( this, {
       tandem: tandem
     } );
 
@@ -97,9 +97,9 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'FlagNode', FlagNode );
 
-  return inherit( TandemNode, FlagNode, {
+  return inherit( Node, FlagNode, {
     dispose: function() {
-      TandemNode.prototype.dispose.call( this );
+      Node.prototype.dispose.call( this );
       this.disposeFlagNode();
     },
 

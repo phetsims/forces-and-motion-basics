@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -40,7 +40,7 @@ define( function( require ) {
     var enabledColorStop = '#B8E4FB';
     var disabledColorStop = 'white';
 
-    TandemNode.call( this, {
+    Node.call( this, {
       tandem: tandem
     } );
 
@@ -81,7 +81,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'SliderKnob', SliderKnob );
 
-  return inherit( TandemNode, SliderKnob, {
+  return inherit( Node, SliderKnob, {
     addGripDot: function( x, y ) {
       var radius = 1.8;
       var stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );

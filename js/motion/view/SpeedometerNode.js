@@ -19,7 +19,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
@@ -42,7 +42,7 @@ define( function( require ) {
     }, options );
 
     // mutate with the options after construction so we can set the 'top'
-    TandemNode.call( this, {
+    Node.call( this, {
       tandem: tandem
     } );
 
@@ -94,6 +94,6 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'SpeedometerNode', SpeedometerNode );
 
-  return inherit( TandemNode, SpeedometerNode );
+  return inherit( Node, SpeedometerNode );
 
 } );

@@ -11,7 +11,7 @@ define( function( require ) {
 
   var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -46,7 +46,7 @@ define( function( require ) {
     this.tailY = tailY;
 
     //Call the super class.  Render in svg to make the text crisper on retina display.
-    TandemNode.call( this, {
+    Node.call( this, {
       tandem: tandem,
       pickable: false
     } );
@@ -79,7 +79,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
 
-  return inherit( TandemNode, ReadoutArrow, {
+  return inherit( Node, ReadoutArrow, {
 
     //Sets the arrow dash, which changes when the simulation starts playing
     setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },

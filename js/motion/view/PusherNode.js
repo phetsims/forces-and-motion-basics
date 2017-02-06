@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
-  var TandemNode = require( 'TANDEM/scenery/nodes/TandemNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
@@ -152,7 +152,7 @@ define( function( require ) {
       }
     }
 
-    TandemNode.call( this, {
+    Node.call( this, {
       children: children,
       tandem: tandem
     } );
@@ -361,5 +361,5 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'PusherNode', PusherNode );
 
-  return inherit( TandemNode, PusherNode );
+  return inherit( Node, PusherNode );
 } );
