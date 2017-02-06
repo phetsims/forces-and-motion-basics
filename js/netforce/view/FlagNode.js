@@ -10,7 +10,7 @@ define( function( require ) {
 
   var Node = require( 'SCENERY/nodes/Node' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
-  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var blueWinsString = require( 'string!FORCES_AND_MOTION_BASICS/blueWins' );
@@ -44,7 +44,7 @@ define( function( require ) {
       font: new PhetFont( 24 ),
       fill: 'white'
     } );
-    this.path = new TandemPath( null, {
+    this.path = new Path( null, {
       fill: model.cart.x < 0 ? 'blue' : 'red',
       stroke: 'black',
       lineWidth: 2,

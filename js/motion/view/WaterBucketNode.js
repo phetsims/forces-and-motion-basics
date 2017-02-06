@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -40,7 +40,7 @@ define( function( require ) {
     this.item = item;
     ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,
       accessibleDescription, tandem );
-    var waterPathNode = new TandemPath( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
+    var waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
       fill: 'rgb(9, 125, 159)',
       lineWidth: 1,

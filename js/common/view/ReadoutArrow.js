@@ -9,7 +9,7 @@
 define( function( require ) {
   'use strict';
 
-  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
@@ -52,7 +52,7 @@ define( function( require ) {
     } );
 
     //Create and add the children
-    this.arrowNode = new TandemPath( null, _.extend( {
+    this.arrowNode = new Path( null, _.extend( {
       fill: fill,
       stroke: '#000000',
       lineWidth: 1,

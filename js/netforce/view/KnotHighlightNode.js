@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
@@ -52,7 +52,7 @@ define( function( require ) {
   function KnotHighlightNode( knot, pullerNodes, focusRegionNode, pullerToolboxNode, model, tandem ) {
 
     var self = this;
-    TandemPath.call( this, Shape.circle( 0, 0, knotWidth ), {
+    Path.call( this, Shape.circle( 0, 0, knotWidth ), {
       stroke: '#FFFF00',
       lineWidth: 4,
       visible: false,
@@ -147,7 +147,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'KnotHighlightNode', KnotHighlightNode );
 
-  return inherit( TandemPath, KnotHighlightNode, {
+  return inherit( Path, KnotHighlightNode, {
 
     /**
      * Move the puller that is being dragged to the knot that is currently being focused.

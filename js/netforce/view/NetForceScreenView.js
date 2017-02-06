@@ -12,7 +12,7 @@ define( function( require ) {
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
   var Shape = require( 'KITE/Shape' );
-  var TandemPath = require( 'TANDEM/scenery/nodes/TandemPath' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var TandemText = require( 'TANDEM/scenery/nodes/TandemText' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -121,7 +121,7 @@ define( function( require ) {
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
-    this.addChild( new TandemPath( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), {
+    this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), {
       stroke: '#000000',
       lineWidth: 3,
       x: layoutCenterX,
@@ -131,7 +131,7 @@ define( function( require ) {
 
     var cursorWidth = 18;
 
-    var cursorPathNode = new TandemPath( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
+    var cursorPathNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
       fill: 'blue',
       stroke: 'black',
       lineWidth: 1,
