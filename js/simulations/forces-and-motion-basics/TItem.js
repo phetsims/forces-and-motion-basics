@@ -14,9 +14,9 @@ define( function( require ) {
   var TObject = require( 'PHET_IO/types/TObject' );
 
   var TItem = function( instance, phetioID ) {
-    TObject.call( this, instance, phetioID );
     assert && assert( !!instance, 'instance should exist' );
     assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
+    TObject.call( this, instance, phetioID );
   };
 
   phetioInherit( TObject, 'TItem', TItem, {}, {

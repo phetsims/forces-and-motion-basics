@@ -16,9 +16,9 @@ define( function( require ) {
   var phetio = require( 'PHET_IO/phetio' );
 
   var TKnot = function( instance, phetioID ) {
-    TObject.call( this, instance, phetioID );
     assert && assert( !!instance, 'instance should exist' );
     assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
+    TObject.call( this, instance, phetioID );
   };
 
   phetioInherit( TObject, 'TKnot', TKnot, {}, {

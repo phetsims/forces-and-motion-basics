@@ -16,9 +16,9 @@ define( function( require ) {
   var TVoid = require( 'PHET_IO/types/TVoid' );
 
   var TNetForceModel = function( instance, phetioID ) {
-    TObject.call( this, instance, phetioID );
     assert && assert( !!instance, 'instance should exist' );
     assertInstanceOf( instance, phet.forcesAndMotionBasics.NetForceModel );
+    TObject.call( this, instance, phetioID );
   };
 
   phetioInherit( TObject, 'TNetForceModel', TNetForceModel, {
