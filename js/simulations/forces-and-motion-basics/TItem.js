@@ -23,6 +23,10 @@ define( function( require ) {
 
     toStateObject: function( instance ) {
       return instance.name;
+    },
+
+    fromStateObject: function( stateObject ) {
+      return stateObject;
     }
   } );
 
