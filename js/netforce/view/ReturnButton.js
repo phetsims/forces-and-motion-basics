@@ -35,7 +35,7 @@ define( function( require ) {
       listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
-      tandem: tandem // TODO: this class should extend TextPushButton, not wrap it.
+      tandem: tandem.createSupertypeTandem() // TODO: this class should extend TextPushButton, not wrap it.
     } );
     this.mutate( options );
     var self = this;
@@ -79,6 +79,8 @@ define( function( require ) {
         return new AccessiblePeer( accessibleInstance, domElement );
       }
     };
+
+    this.mutate({tandem: tandem});
   }
 
   forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
