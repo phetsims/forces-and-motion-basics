@@ -80,7 +80,7 @@ define( function( require ) {
       }
     };
 
-    this.mutate({tandem: tandem});
+    this.mutate( { tandem: tandem } );
   }
 
   forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
