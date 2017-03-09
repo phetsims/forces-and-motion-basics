@@ -42,14 +42,14 @@ define( function( require ) {
     }, options );
 
     // mutate with the options after construction so we can set the 'top'
-    Node.call( this, {
-      tandem: tandem
-    } );
+    Node.call( this );
 
-    // create the gaugenode
+    // create the gaugeNode
     var gaugeNode = new GaugeNode( velocityProperty, speedString, {
       min: 0,
-      max: MotionConstants.MAX_SPEED
+      max: MotionConstants.MAX_SPEED},
+      {
+      tandem: tandem.createTandem( 'gaugeNode')
     } );
     this.addChild( gaugeNode );
 
@@ -86,6 +86,9 @@ define( function( require ) {
     showValuesProperty.linkAttribute( valueTextNode, 'visible' );
 
     velocityProperty.link( updateReadout );
+
+    // For the mutate call
+    options.tandem = tandem;
 
     // mutate post node construction so we can correctly translate
     this.mutate( options );

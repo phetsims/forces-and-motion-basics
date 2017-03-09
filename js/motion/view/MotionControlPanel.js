@@ -49,9 +49,7 @@ define( function( require ) {
    * @constructor
    */
   function MotionControlPanel( model, tandem ) {
-    Node.call( this, {
-      tandem: tandem
-    } );
+    Node.call( this );
 
     var fontSize = 18;
     var maxTextWidth = 250;
@@ -130,7 +128,7 @@ define( function( require ) {
       return new GaugeNode( speedometerIconValueProperty, speedString, {
         min: 0,
         max: MotionConstants.MAX_SPEED
-      }, { scale: 0.2 } );
+      }, { scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
     };
     var accelerometerIcon = function() {
       var accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
@@ -290,8 +288,16 @@ define( function( require ) {
                    model.screen === 'friction' ? createFrictionControls() :
                    createAccelerationControls();
 
-    var panelNode = new Panel( contents, { xMargin: 12, yMargin: 7, fill: '#e3e980', resize: false, tandem: tandem.createTandem('panel') } );
+    var panelNode = new Panel( contents, {
+      xMargin: 12,
+      yMargin: 7,
+      fill: '#e3e980',
+      resize: false,
+      tandem: tandem.createTandem( 'panel' )
+    } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
+
+    this.mutate({ tandem: tandem });
   }
 
   forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
