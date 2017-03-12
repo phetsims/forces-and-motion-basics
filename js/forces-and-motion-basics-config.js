@@ -20,7 +20,6 @@ require.config( {
     JOIST: '../../joist/js',
     FORCES_AND_MOTION_BASICS: '../../forces-and-motion-basics/js',
     VIBE: '../../vibe/js',
-    SHERPA: '../../sherpa/lib',
     TANDEM: '../../tandem/js',
 
     //Load plugins
