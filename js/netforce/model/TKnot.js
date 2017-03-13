@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var assertInstanceOf = require( 'PHET_IO/assertions/assertInstanceOf' );
-  var phetioNamespace = require( 'PHET_IO/phetioNamespace' );
-  var phetioInherit = require( 'PHET_IO/phetioInherit' );
-  var TObject = require( 'PHET_IO/types/TObject' );
-  var phetio = require( 'PHET_IO/phetio' );
+  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertions/assertInstanceOf' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
+  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var phetio = require( 'ifphetio!PHET_IO/phetio' );
 
   var TKnot = function( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
@@ -43,7 +43,7 @@ define( function( require ) {
     }
   } );
 
-  phetioNamespace.register( 'TKnot', TKnot );
+  forcesAndMotionBasics.register( 'TKnot', TKnot );
 
   return TKnot;
 } );

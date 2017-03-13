@@ -22,7 +22,7 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TNetForceModel = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TNetForceModel' );
+  var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
 
   /**
    * Constructor for the net force model.

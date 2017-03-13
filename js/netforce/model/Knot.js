@@ -16,7 +16,7 @@ define( function( require ) {
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
-  var TKnot = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TKnot' );
+  var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.

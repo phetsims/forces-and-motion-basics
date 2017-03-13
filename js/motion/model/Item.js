@@ -19,7 +19,7 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
-  var TItem = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TItem' );
+  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
 
   /**
    * Constructor for Item

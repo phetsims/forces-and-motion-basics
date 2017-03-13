@@ -17,7 +17,7 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
-  var TKnot = require( 'ifphetio!PHET_IO/simulations/forces-and-motion-basics/TKnot' );
+  var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
 
   /**
    *
