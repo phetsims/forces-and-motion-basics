@@ -12,11 +12,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var TVector2 = require( 'DOT/TVector2' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
-  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
   var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
 
   /**

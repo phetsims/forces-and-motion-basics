@@ -13,12 +13,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var TVector2 = require( 'DOT/TVector2' );
 
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TVector2 = require( 'ifphetio!PHET_IO/types/dot/TVector2' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
 
   /**
