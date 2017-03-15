@@ -66,10 +66,7 @@ define( function( require ) {
     var cartReturnedListener = function() { self.dispose(); }
     model.on( 'reset-all', resetListener );
     model.on( 'cart-returned', cartReturnedListener );
-
-    // model.once( 'reset-all', this.dispose.bind( this ) );
-    // model.once( 'cart-returned', this.dispose.bind( this ) );
-
+    
     this.disposeFlagNode = function() {
       self.detach();
       model.timeProperty.unlink( update );
