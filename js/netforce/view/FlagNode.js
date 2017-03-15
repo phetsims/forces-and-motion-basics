@@ -60,15 +60,23 @@ define( function( require ) {
 
     var update = this.updateFlagShape.bind( this );
 
-    //Do it once, to remove as a listener since flag node gets recreated when another game won
-    model.once( 'reset-all', this.dispose.bind( this ) );
-    model.once( 'cart-returned', this.dispose.bind( this ) );
+    // listeners that will dispose the flag node when model is reset or cart is returned - 
+    // these must also be disposed
+    var resetListener = function() { self.dispose(); };
+    var cartReturnedListener = function() { self.dispose(); }
+    model.on( 'reset-all', resetListener );
+    model.on( 'cart-returned', cartReturnedListener );
+
+    // model.once( 'reset-all', this.dispose.bind( this ) );
+    // model.once( 'cart-returned', this.dispose.bind( this ) );
 
     this.disposeFlagNode = function() {
       self.detach();
       model.timeProperty.unlink( update );
       textNode.dispose();
       self.path.dispose();
+      model.off( 'reset-all', resetListener );
+      model.off( 'cart-returned', cartReturnedListener );
     };
 
     //When the clock ticks, wave the flag

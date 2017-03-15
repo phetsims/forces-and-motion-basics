@@ -106,6 +106,11 @@ define( function( require ) {
         value: false,
         tandem: tandem.createTandem( 'volumeOnProperty' ),
         phetioValueType: TBoolean
+      },
+      speed: {
+        value: 0,
+        tandem: tandem.createTandem( 'speedProperty' ),
+        phetioValueType: TNumber( { units: 'meters/second' } )
       }
     };
 
@@ -383,6 +388,8 @@ define( function( require ) {
 
         // Make the simulation run about as fast as the Java version
         var newV = this.cart.v + this.getNetForce() * dt * 0.003;
+        this.speedProperty.set( Math.abs( newV ) );
+
         var newX = this.cart.x + newV * dt * 60.0;
         this.cart.setValues( { v: newV, x: newX } );
         this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
