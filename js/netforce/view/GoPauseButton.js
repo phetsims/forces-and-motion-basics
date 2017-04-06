@@ -42,7 +42,7 @@ define( function( require ) {
    * @param  {number} padX
    * @param  {number} padY
    * @param  {Array<Node>} nodes
-   * @return {Rectangle}
+   * @returns {Rectangle}
    */
   function wrap( node, padX, padY, nodes ) {
     var maxWidth = -1;

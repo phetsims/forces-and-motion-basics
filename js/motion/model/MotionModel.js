@@ -284,7 +284,7 @@ define( function( require ) {
     /**
      * Get an array representing the items that are being dragged.
      *
-     * @return {Array<Item>}
+     * @returns {Array<Item>}
      */
     draggingItems: function() {
       var draggingItems = [];
@@ -334,7 +334,7 @@ define( function( require ) {
      * Determine whether a value is positive, negative, or zero for the physics computations.
      *
      * @param  {number} value
-     * @return {number}
+     * @returns {number}
      */
     getSign: function( value ) {
       return value > 0 ? 1 : value < 0 ? -1 : 0;
@@ -347,7 +347,7 @@ define( function( require ) {
      * See https://github.com/phetsims/forces-and-motion-basics/issues/197
      *
      * @param  {number} appliedForce
-     * @return {number}
+     * @returns {number}
      */
     getFrictionForce: function( appliedForce ) {
 
@@ -395,7 +395,7 @@ define( function( require ) {
     /**
      * Determine whether a value is positive, negative or zero to determine wheter the object changed directions.
      * @param  {number} value
-     * @return {number}
+     * @returns {number}
      */
     sign: function( value ) {
       return value < 0 ? 'negative' :
@@ -407,7 +407,7 @@ define( function( require ) {
      * Determine whether a velocity value changed direction.
      * @param  {number} a - initial value
      * @param  {number} b - second value
-     * @return {boolean}
+     * @returns {boolean}
      */
     changedDirection: function( a, b ) {
       return this.sign( a ) === 'negative' && this.sign( b ) === 'positive' ||
@@ -536,7 +536,7 @@ define( function( require ) {
     /**
      * Determine whether an item is in the stack.
      * @param  {Item} item
-     * @return {boolean}
+     * @returns {boolean}
      */
     isInStack: function( item ) { return this.stack.contains( item ); },
 
@@ -544,7 +544,7 @@ define( function( require ) {
      * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
      *
      * @param  {Item}
-     * @return {boolean}
+     * @returns {boolean}
      */
     isItemStackedAbove: function( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;},
 

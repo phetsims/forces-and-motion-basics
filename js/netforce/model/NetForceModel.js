@@ -308,7 +308,7 @@ define( function( require ) {
      * Gets the closest unoccupied knot to the given puller, which is being dragged.
      *
      * @param  {Puller} puller [description]
-     * @return {Knot}
+     * @returns {Knot}
      */
     getClosestOpenKnot: function( puller ) {
       var self = this;
@@ -322,7 +322,7 @@ define( function( require ) {
      * Gets the closest unoccupied knot to the given puller, which is being dragged.
      *
      * @param  {Puller} puller
-     * @return {Knot}
+     * @returns {Knot}
      */
     getClosestOpenKnotFromCart: function( puller ) {
       var idx = puller.type === 'red' ? 4 : 3;
@@ -336,7 +336,7 @@ define( function( require ) {
     /**
      * Gets the closest unoccupied knot to the given puller if it is close enough to grab.
      * @param  {Puller} puller
-     * @return {Knot}
+     * @returns {Knot}
      */
     getTargetKnot: function( puller ) {
       var target = this.getClosestOpenKnot( puller );
@@ -411,7 +411,7 @@ define( function( require ) {
     /**
      * Get an array of pullers of the specified type (color string)
      * @param  {striing} type - one of 'red' or 'blue'
-     * @return {Array<Puller>}
+     * @returns {Array<Puller>}
      */
     getPullers: function( type ) {
       return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} );
@@ -422,7 +422,7 @@ define( function( require ) {
      *
      * @param  {string} memo
      * @param  {Puller} puller
-     * @return {string}
+     * @returns {string}
      */
     sumForces: function( memo, puller ) {
       return memo + puller.force;
@@ -442,7 +442,7 @@ define( function( require ) {
      * Gets the closest unoccupied knot to the given puller, which is being dragged.
      * @param  {Puller} puller
      * @param  {nuber} delta
-     * @return {Knot}
+     * @returns {Knot}
      */
     getClosestOpenKnotInDirection: function( puller, delta ) {
       var self = this;

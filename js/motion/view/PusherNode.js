@@ -195,7 +195,7 @@ define( function( require ) {
      * Dependent on the width of the stack, the width of the visible node, and direction
      * of the applied force
      *
-     * @return {type}  description
+     * @returns {type}  description
      */
     function updateAppliedForcePosition() {
       assert && assert( model.stack.length > 0 );
@@ -219,7 +219,7 @@ define( function( require ) {
 
     // get new position for the pusher node when he falls so that he falls back from
     // the item stack when it is moving too quickly
-    // @return {number}
+    // @returns {number}
     var getPusherNodeDeltaX = function() {
       // the change in position for the model
       var modelDelta = -( model.position - model.previousModelPosition );
