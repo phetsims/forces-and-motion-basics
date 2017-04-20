@@ -102,6 +102,11 @@ define( function( require ) {
         tandem: tandem.createTandem( 'showValuesProperty' ),
         phetioValueType: TBoolean
       },
+      showSpeed: {
+        value: false,
+        tandem: tandem.createTandem( 'showSpeedProperty' ),
+        phetioValueType: TBoolean
+      },
       volumeOn: {
         value: false,
         tandem: tandem.createTandem( 'volumeOnProperty' ),

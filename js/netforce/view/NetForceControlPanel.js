@@ -11,6 +11,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ForcesAndMotionBasicsIconFactory = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsIconFactory' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
@@ -20,8 +22,12 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+
   // constants
   var BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
+
+  // strings
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
   /**
    * Create the NetForceControlPanel.
@@ -36,6 +42,16 @@ define( function( require ) {
     Node.call( this, options );
 
     var fontOptions = { font: new PhetFont( 18 ) };
+
+    // the content for "show speed" is a label with an icon
+    var speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
+    var showSpeedTextNode = new Text( speedString, _.extend( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
+    var showSpeedContent = new HBox( {
+      children: [ showSpeedTextNode, speedometerIcon ],
+      tandem: tandem.createTandem( 'showSpeedContent' ),
+      spacing: 10
+    } );
+
     this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [
       {
         content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
@@ -46,6 +62,11 @@ define( function( require ) {
         content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
         property: model.showValuesProperty,
         tandemName: 'showValuesCheckBox'
+      },
+      {
+        content: showSpeedContent,
+        property: model.showSpeedProperty,
+        tandemName: 'showSpeedCheckBox'
       }
     ], {
       tandem: tandem.createTandem( 'verticalCheckBoxGroup' )
