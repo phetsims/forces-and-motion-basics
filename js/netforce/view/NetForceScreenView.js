@@ -21,6 +21,8 @@ define( function( require ) {
   var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
   var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/ReturnButton' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  var Range = require( 'DOT/Range' );
   var FlagNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/FlagNode' );
   var NetForceControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceControlPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -34,6 +36,9 @@ define( function( require ) {
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  
+  // strings
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
@@ -118,6 +123,20 @@ define( function( require ) {
     } ) );
 
     this.cartNode = new CartNode( model.cart, tandem.createTandem( 'cartNode' ) );
+
+    // add a speedometer to the cart
+    var speedRange = new Range( 0, 3 ); // speed range of the cart in m/s
+    var speedometerNode = new GaugeNode( model.speedProperty, speedString, speedRange, {
+      centerX: this.cartNode.centerX,
+      centerY: this.cartNode.height / 2,
+      radius: this.cartNode.width * 0.25,
+      majorTickLength: 8,
+      minorTickLength: 4,
+      majorTickLineWidth: 1,
+      maxLabelWidthScale: 1.0
+    } );
+    model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
+    this.cartNode.addChild( speedometerNode );
 
     //Black caret below the cart
     var layoutCenterX = this.layoutBounds.width / 2;
