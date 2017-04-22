@@ -140,7 +140,8 @@ define( function( require ) {
       majorTickLength: 8,
       minorTickLength: 4,
       majorTickLineWidth: 1,
-      maxLabelWidthScale: 1.0
+      maxLabelWidthScale: 1.0,
+      tandem: tandem.createTandem( 'speedometerNode' )
     } );
     model.showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
     this.cartNode.addChild( speedometerNode );
