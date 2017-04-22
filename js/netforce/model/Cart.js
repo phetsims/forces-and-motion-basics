@@ -40,6 +40,10 @@ define( function( require ) {
       }
     };
 
+    // @public (read-only) - width from the center of the cart to the wheels, used to determine when a wheel touches
+    // a game stopper
+    this.widthToWheel = 55;
+
     PropertySet.call( this, null, properties );
   }
 

@@ -24,6 +24,10 @@ define( function( require ) {
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
 
+  // constants
+  // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
+  var GAME_LENGTH = 458;
+
   /**
    * Constructor for the net force model.
    *
@@ -85,6 +89,12 @@ define( function( require ) {
         phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
       },
 
+      speed: {
+        value: 0,
+        tandem: tandem.createTandem( 'speedProperty' ),
+        phetioValueType: TNumber( { units: 'meters/second' } )
+      },
+
       duration: {
         value: 0,
         tandem: tandem.createTandem( 'durationProperty' ),
@@ -111,11 +121,6 @@ define( function( require ) {
         value: false,
         tandem: tandem.createTandem( 'volumeOnProperty' ),
         phetioValueType: TBoolean
-      },
-      speed: {
-        value: 0,
-        tandem: tandem.createTandem( 'speedProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second' } )
       }
     };
 
@@ -361,6 +366,7 @@ define( function( require ) {
       this.trigger0( 'cart-returned' );
       this.started = false;
       this.duration = 0; // Reset tug-of-war timer
+      this.speedProperty.reset();
     },
 
     //Reset the entire model when "reset all" is pressed
@@ -400,9 +406,13 @@ define( function( require ) {
         this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
 
         //If the cart made it to the end, then stop and signify completion
-        if ( this.cart.x > 200 || this.cart.x < -200 ) {
+        var gameLength = GAME_LENGTH - this.cart.widthToWheel;
+        if ( this.cart.x > gameLength || this.cart.x < -gameLength ) {
           this.running = false;
           this.state = 'completed';
+
+          // zero out the velocity
+          this.speedProperty.set( 0 );
         }
       }
       this.time = this.time + dt;
@@ -526,5 +536,10 @@ define( function( require ) {
         this.movePullerToKnot( puller, closestOpenKnot );
       }
     }
+  }, {
+
+    // @static
+    // @public
+    GAME_LENGTH: GAME_LENGTH
   } );
 } );

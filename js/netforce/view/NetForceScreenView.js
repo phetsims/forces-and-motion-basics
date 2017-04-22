@@ -12,6 +12,8 @@ define( function( require ) {
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
   var Shape = require( 'KITE/Shape' );
+  var CartStopperNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartStopperNode' );
+  var NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -75,6 +77,11 @@ define( function( require ) {
   // audio
   var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
 
+  // constants
+  var STOPPER_TOP_WIDTH = 11;
+  var STOPPER_BOTTOM_WIDTH = 30;
+  var STOPPER_HEIGHT = 24;
+
   /**
    * @param {NetForceModel} model
    * @param {Tandem} tandem
@@ -125,7 +132,7 @@ define( function( require ) {
     this.cartNode = new CartNode( model.cart, tandem.createTandem( 'cartNode' ) );
 
     // add a speedometer to the cart
-    var speedRange = new Range( 0, 3 ); // speed range of the cart in m/s
+    var speedRange = new Range( 0, 6 ); // speed range of the cart in m/s
     var speedometerNode = new GaugeNode( model.speedProperty, speedString, speedRange, {
       centerX: this.cartNode.centerX,
       centerY: this.cartNode.height / 2,
@@ -156,6 +163,20 @@ define( function( require ) {
       lineWidth: 1,
       tandem: tandem.createTandem( 'cursorPathNode' )
     } );
+
+    // cart stoppers that seem to stop cart motion
+    var stopperY = grassY + 5; // a little lower than the grass because the grass includes some sky blue
+    var rightStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'rightStopper' ), {
+      left: layoutCenterX + NetForceModel.GAME_LENGTH,
+      y: stopperY
+    } );
+    var leftStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'leftStopper' ), {
+      direction: 'right',
+      right: layoutCenterX - NetForceModel.GAME_LENGTH,
+      y: stopperY
+    } );
+    this.addChild( rightStopper );
+    this.addChild( leftStopper );
 
     // create and add the rope node as an image
     this.ropeNode = new Image( ropeImage, {
