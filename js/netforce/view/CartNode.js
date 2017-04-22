@@ -13,6 +13,8 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
+  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  var Range = require( 'DOT/Range' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // images
@@ -21,6 +23,8 @@ define( function( require ) {
   // strings
   var leftDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/left.description' );
   var rightDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/right.description' );
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+
 
   /**
    * Constructor.
@@ -29,7 +33,7 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function CartNode( cart, tandem ) {
+  function CartNode( cart, speedProperty, showSpeedProperty, tandem ) {
 
     // super constructor
     Image.call( this, cartImage, {
@@ -40,6 +44,23 @@ define( function( require ) {
 
     this.cart = cart;
     this.xPosition = this.cart.x;
+
+    // add a speedometer to the cart
+    var speedRange = new Range( 0, 6 ); // speed range of the cart in m/s
+    var speedometerNode = new GaugeNode( speedProperty, speedString, speedRange, {
+      centerX: this.centerX,
+      centerY: this.height / 2,
+      radius: this.width * 0.25,
+      majorTickLength: 8,
+      minorTickLength: 4,
+      majorTickLineWidth: 1,
+      maxLabelWidthScale: 1.0,
+      tandem: tandem.createTandem( 'speedometerNode' )
+    } );
+
+    showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
+    this.addChild( speedometerNode );
+
 
     // outfit with accessible content
     this.accessibleContent = {
