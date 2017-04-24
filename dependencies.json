@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.1.7-dev.4 Fri Apr 21 2017 18:27:25 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.1.7-dev.5 Mon Apr 24 2017 13:50:57 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "b2c9614f54be8731a1d94cff9146791ab6aa287f",
+    "sha": "f6a6faf704dc9d2eca5eb05a7cf1680058193d11",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "d281fc5f3568398dff5313b7bee4c2a777e5e2bc",
+    "sha": "7bcd83a6c8756f6fc05b5cd88561177842ffa6c6",
     "branch": "master"
   },
   "joist": {
