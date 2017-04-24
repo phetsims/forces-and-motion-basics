@@ -80,6 +80,10 @@ define( function( require ) {
       self.updateImage( puller, model );
       self.updateLocation( puller, model );
     } );
+    model.stateProperty.link( function() {
+      self.updateImage( puller, model );
+      self.updateLocation( puller, model );
+    } );
 
     var dragHandler = new TandemSimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
@@ -250,7 +254,7 @@ define( function( require ) {
      */
     updateImage: function( puller, model ) {
       var knotted = puller.knot;
-      var pulling = model.started && knotted;
+      var pulling = model.started && knotted && model.state !== 'completed';
       this.image = pulling ? this.pullImage : this.standImage;
     },
 
@@ -262,7 +266,7 @@ define( function( require ) {
      */
     updateLocation: function( puller, model ) {
       var knotted = puller.knot;
-      var pulling = model.started && knotted;
+      var pulling = model.started && knotted && model.state !== 'completed';
       if ( knotted ) {
         var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
         var blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
