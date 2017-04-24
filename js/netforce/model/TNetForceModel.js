@@ -22,7 +22,6 @@ define( function( require ) {
   };
 
   phetioInherit( TObject, 'TNetForceModel', TNetForceModel, {
-
     reset: {
       returnType: TVoid,
       parameterTypes: [],
@@ -31,7 +30,7 @@ define( function( require ) {
       },
       documentation: 'Reset the model'
     }
-  }, {} );
+  }, { documentation: 'A Net Force Model type.' } );
 
   forcesAndMotionBasics.register( 'TNetForceModel', TNetForceModel );
 

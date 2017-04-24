@@ -22,6 +22,7 @@ define( function( require ) {
   };
 
   phetioInherit( TObject, 'TKnot', TKnot, {}, {
+    documentation: 'A knot',
 
     fromStateObject: function( stateObject ) {
       if ( stateObject === 'null' ) {

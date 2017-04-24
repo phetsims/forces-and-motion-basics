@@ -20,6 +20,7 @@ define( function( require ) {
   };
 
   phetioInherit( TObject, 'TItem', TItem, {}, {
+    documentation: 'An Item that can be placed dragged into the play area.',
 
     toStateObject: function( instance ) {
       return instance.name;
