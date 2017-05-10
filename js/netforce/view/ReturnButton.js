@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var inherit = require( 'PHET_CORE/inherit' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -17,7 +16,6 @@ define( function( require ) {
 
   // strings
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
-  var returnButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/returnButton.description' );
 
   /**
    * @param {NetForceModel} model
@@ -38,47 +36,8 @@ define( function( require ) {
       tandem: tandem.createSupertypeTandem() // TODO: this class should extend TextPushButton, not wrap it.
     } );
     this.mutate( options );
-    var self = this;
 
     model.startedProperty.linkAttribute( this, 'enabled' );
-    model.startedProperty.link( function( enabled ) {
-      self.textDescription = 'Reset Cart button' + (enabled ? '' : ' (disabled)');
-    } );
-
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-        // will look like:  <input value="Return" type="button" tabindex="0">
-        var domElement = document.createElement( 'input' );
-        domElement.value = returnString;
-        domElement.type = 'button';
-
-        // create an aria element that describes the button.
-        var descriptionElement = document.createElement( 'p' );
-        descriptionElement.innerText = returnButtonDescriptionString;
-        descriptionElement.id = 'return-description';
-        domElement.appendChild( descriptionElement );
-        domElement.setAttribute( 'aria-describedby', descriptionElement.id );
-
-        domElement.setAttribute( 'aria-disabled', 'true' );
-
-        model.startedProperty.link( function( enabled ) {
-          domElement.setAttribute( 'aria-disabled', !enabled );
-        } );
-
-        domElement.tabIndex = '0';
-
-        domElement.addEventListener( 'click', function() {
-          // toggle the button property
-          returnCart();
-
-          // make sure the bause button cannot be focused now that the pullers have returned
-          document.getElementsByClassName( 'GoButton' )[ 0 ].tabIndex = 0;
-          document.getElementsByClassName( 'PauseButton' )[ 0 ].tabIndex = -1;
-        } );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    };
 
     this.mutate( { tandem: tandem } );
   }

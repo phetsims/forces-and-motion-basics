@@ -19,7 +19,6 @@ define( function( require ) {
   var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // phet-io modules
@@ -110,66 +109,14 @@ define( function( require ) {
       tandem: tandem.createTandem( 'goButton' )
     } );//green
 
-    goButton.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-        /*
-         * Parallel DOM element will look like:
-         * <input id="butonID" value="GO!" type="button" tabindex="0" aria-disabled="true"><br>
-         */
-        var domElement = document.createElement( 'input' );
-        domElement.value = goString;
-        domElement.type = 'button';
-        domElement.setAttribute( 'aria-disabled', !isGoButtonEnabled() );
-        domElement.className = 'GoButton';
-        domElement.id = 'goButton';
-
-        // create an aria element that describes the button.
-        var descriptionElement = document.createElement( 'p' );
-        descriptionElement.innerText = goButtonDescriptionString;
-        descriptionElement.id = 'go-description';
-        domElement.appendChild( descriptionElement );
-
-        domElement.setAttribute( 'aria-describedby', descriptionElement.id );
-
-        domElement.tabIndex = '0';
-
-        model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
-          var enabled = isGoButtonEnabled();
-          domElement.setAttribute( 'aria-disabled', !enabled );
-        } );
-
-        domElement.addEventListener( 'click', function() {
-          // if the go button is disabled, do nothing.
-          if ( !isGoButtonEnabled() ) {
-            return;
-          }
-
-          // fire the model listener
-          goListener();
-
-          // remove this button from the tab order
-          domElement.tabIndex = '-1';
-
-          // add the 'pause' button to the tab order.
-          var pauseButtonElement = document.getElementsByClassName( 'PauseButton' )[ 0 ];
-          pauseButtonElement.tabIndex = '0';
-
-          // set the aria-attribute to disabled
-          domElement.setAttribute( 'aria-disabled', !isGoButtonEnabled() );
-
-          // aria-enable the 'pause' button.
-          var pauseButton = document.getElementsByClassName( 'PauseButton' )[ 0 ];
-          pauseButton.setAttribute( 'aria-disabled', 'false' );
-
-          // set focus immediately to the 'pause' button
-          pauseButton.focus();
-
-        } );
-
-        var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
-        return accessiblePeer;
-      }
-    };
+    goButton.mutate( {
+      tagName: 'input',
+      inputType: 'button',
+      accessibleDescription: goButtonDescriptionString, 
+      descriptionTagName: 'p'
+    } );
+    goButton.setAccessibleAttribute( 'aria-disabled', !isGoButtonEnabled() );
+    goButton.domElement.className = 'GoButton'; // TODO: there must be a better way to do this
 
     var pauseListener = function() {
       model.running = false;
@@ -179,50 +126,12 @@ define( function( require ) {
       baseColor: '#df1a22',
       listener: pauseListener,
       tandem: tandem.createTandem( 'pauseButton' ),
-      accessibleContent: {
-        createPeer: function( accessibleInstance ) {
-          /*
-           * Parallel DOM element will look like:
-           * <input id="butonID" value="GO!" type="button" tabindex="0" aria-disabled="true"><br>
-           */
-          var domElement = document.createElement( 'input' );
-          domElement.value = pauseString;
-          domElement.type = 'button';
-          domElement.tabIndex = '-1';
-          domElement.className = 'PauseButton';
 
-          // create an aria element that describes the button
-          var descriptionElement = document.createElement( 'p' );
-          descriptionElement.innerText = pauseButtonDescriptionString;
-          descriptionElement.id = 'pause-descriptoin';
-          domElement.appendChild( descriptionElement );
-
-          domElement.setAttribute( 'aria-describedby', descriptionElement.id );
-
-          domElement.addEventListener( 'click', function() {
-            // fire the model listener
-            pauseListener();
-
-            // remove this button from the tab order
-            this.tabIndex = '-1';
-
-            // add the 'go' button to the tab order.
-            var goButton = document.getElementsByClassName( 'GoButton' )[ 0 ];
-            goButton.tabIndex = '0';
-
-            // set the aria-attribute to disabled
-            //domElement.setAttribute( 'aria-disabled', 'true' );
-
-            // set focus immediately to the 'go' button
-            goButton.focus();
-
-          } );
-
-          var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
-          domElement.id = accessiblePeer.id;
-          return accessiblePeer;
-        }
-      }
+      // a11y
+      tagName: 'input',
+      inputType: 'button',
+      focusable: false,
+      accessibleDescription: pauseButtonDescriptionString
     } );//red
 
     var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );

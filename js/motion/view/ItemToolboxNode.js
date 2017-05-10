@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
@@ -40,39 +39,28 @@ define( function( require ) {
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
     this.uniqueId = sideString + '-itemToolbox' + this.id;
 
-    // outfit for accessibility
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-        /* will look like:
-         * TODO: Fill this out when you know what the DOM structure should look like.
-         */
-        var domElement = document.createElement( 'div' );
-        domElement.setAttribute( 'aria-label', toolboxOptions.accessibleDescription );
-        domElement.tabIndex = '0';
-        domElement.id = self.uniqueId;
+    // a11y
+    this.tagName = 'div';
+    this.focusable = true;
+    this.accessibleLabel = toolboxOptions.accessibleDescription;
+    this.useAriaLabel = true;
 
-        // enter the puller group on 'enter' or 'space bar'.
-        domElement.addEventListener( 'keydown', function( event ) {
-          // prevent the the event from bubbling.
-          if ( domElement !== event.target ) { return; }
-          // on enter or spacebar, step in to the selected group.
-          if ( event.keyCode === 13 || event.keyCode === 32 ) {
-            self.enterGroup( event, domElement );
-          }
-        } );
+    this.addAccessibleInputListener( {
+      keydown: function( event ) {
+        // prevent the the event from bubbling.
+        if ( self.domElement !== event.target ) { return; }
 
-        // exit the group on 'escape'
-        domElement.addEventListener( 'keydown', function( event ) {
-          // we want exit event bubbling - event fired in children should notify parent.
-          if ( event.keyCode === 27 ) {
-            self.exitGroup( domElement );
-          }
-        } );
+        // on enter or spacebar, step in to the selected group.
+        if ( event.keyCode === 13 || event.keyCode === 32 ) {
+          self.enterGroup( event, self.domElement );
+        }
 
-        return new AccessiblePeer( accessibleInstance, domElement );
-
+        // we want exit event bubbling - event fired in children should notify parent.
+        if ( event.keyCode === 27 ) {
+          self.exitGroup( self.domElement );
+        }
       }
-    };
+    } );
   }
 
   forcesAndMotionBasics.register( 'ItemToolboxNode', ItemToolboxNode );

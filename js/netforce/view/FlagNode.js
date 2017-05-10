@@ -16,7 +16,6 @@ define( function( require ) {
   var blueWinsString = require( 'string!FORCES_AND_MOTION_BASICS/blueWins' );
   var redWinsString = require( 'string!FORCES_AND_MOTION_BASICS/redWins' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
@@ -82,22 +81,6 @@ define( function( require ) {
     textNode.centerY = this.path.centerY;
     this.centerX = centerX;
     this.top = top;
-
-    // outfit with accessible content.  This dom element is essentially invisible but triggers the gameOverElement
-    // inner text so that the user knows when the game is over and who won.
-    // TODO: updating live element is entirely handled in the prototype function. This DOM element is not necessary!
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-
-        // We want the dom element to look like:
-        // <img tabIndex="-1 id='accessibleId' alt=flagWavingDescription >
-
-        var domElement = document.createElement( 'div' );
-        domElement.tabIndex = '-1'; // this element is should never receive focus
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-      }
-    };
   }
 
   forcesAndMotionBasics.register( 'FlagNode', FlagNode );

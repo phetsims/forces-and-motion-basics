@@ -18,7 +18,6 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Input = require( 'SCENERY/input/Input' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
@@ -245,79 +244,61 @@ define( function( require ) {
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
 
-    // outfit for accessibility
-    this.setAccessibleContent( {
-      createPeer: function( accessibleInstance ) {
+    // add accessible content
+    this.tagName = 'img';
+    this.focusable = false;
+    this.draggable = true;
+    this.domElement.className = 'ItemNode'; // TODO - surely there is a better way to do this
 
-        /* will look like:
-         * <div id="motionItem1" aria-label="bluePuller1_label" aria-grabbed="false" class="Item"></div >
-         */
-        var domElement = document.createElement( 'img' );
 
-        domElement.setAttribute( 'alt', accessibleDescription );
-        domElement.tabIndex = '-1';
-        domElement.draggable = true;
-        domElement.className = 'ItemNode';
-        domElement.id = self.uniqueId;
+    this.addAccessibleInputListener( {
+      keydown: function( event ) {
 
-        /*
-         * The following is a latest iteration of drag and drop behavior for the pullers in the net force screen of
-         * Forces and Motion: Basics.  The behavior is defined in the excel spreadsheet which prototypes this design:
-         *
-         * https://docs.google.com/spreadsheets/d/1r_z3t0sTP2NtgfAPuFdNJat6fxVZ8ian2SWoqd-fxfw/edit#gid=0
-         */
-        domElement.addEventListener( 'keydown', function( event ) {
+        // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
+        event.preventDefault();
 
-          // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
-          event.preventDefault();
+        // on tab, exit the group and focus the next element.
+        if ( event.keyCode === Input.KEY_TAB ) {
+          itemToolbox.exitGroup( document.getElementById( itemToolbox.uniqueId ) );
+        }
 
-          // on tab, exit the group and focus the next element.
-          if ( event.keyCode === Input.KEY_TAB ) {
-            itemToolbox.exitGroup( document.getElementById( itemToolbox.uniqueId ) );
-          }
+        // if the puller is not grabbed, grab it for drag and drop
+        if ( !item.dragging ) {
+          if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
 
-          // if the puller is not grabbed, grab it for drag and drop
-          if ( !item.dragging ) {
-            if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+            // remove the item from the stack if it is already there
+            var index = model.stack.indexOf( item );
+            if ( index >= 0 ) {
+              model.spliceStack( index );
+            }
 
-              // remove the item from the stack if it is already there
-              var index = model.stack.indexOf( item );
-              if ( index >= 0 ) {
-                model.spliceStack( index );
-              }
+            // the item is already on the skateboard.  Place it right back in the toolbox.
+            // TODO: This behavior is a placeholder, I am not sure how this should behave.
+            if ( item.position.y < 350 ) {
+              item.onBoard = false;
+              item.animateHome();
+            }
+            // the item is in the toolbox
+            else {
+              // notify AT that the item is in a 'grabbed' state
+              self.domElement.setAttribute( 'aria-grabbed', 'true' );
 
-              // the item is already on the skateboard.  Place it right back in the toolbox.
-              // TODO: This behavior is a placeholder, I am not sure how this should behave.
-              if ( item.position.y < 350 ) {
-                item.onBoard = false;
-                item.animateHome();
-              }
-              // the item is in the toolbox
-              else {
-                // notify AT that the item is in a 'grabbed' state
-                domElement.setAttribute( 'aria-grabbed', 'true' );
+              // update the live description for the net force screen
+              var actionElement = document.getElementById( 'motionActionElement' );
+              var actionString = 'Selected ' + accessibleDescription;
+              actionElement.innerText = actionString;
 
-                // update the live description for the net force screen
-                var actionElement = document.getElementById( 'motionActionElement' );
-                var actionString = 'Selected ' + accessibleDescription;
-                actionElement.innerText = actionString;
+              // move the item onto the skateboard
+              moveToStack();
 
-                // move the item onto the skateboard
-                moveToStack();
+              item.onBoard = true;
 
-                item.onBoard = true;
-
-                domElement.setAttribute( 'aria-grabbed', 'false' );
-              }
+              self.domElement.setAttribute( 'aria-grabbed', 'false' );
             }
           }
-        } );
-
-        return new AccessiblePeer( accessibleInstance, domElement );
-
+        }
       }
     } );
-
   }
 
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );

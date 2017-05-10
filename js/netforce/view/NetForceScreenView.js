@@ -63,7 +63,6 @@ define( function( require ) {
   var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
   var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
   var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
-  var gameTiedDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/gameTied.description' );
   var leftString = require( 'string!FORCES_AND_MOTION_BASICS/left' );
   var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
   var groupString = require( 'string!FORCES_AND_MOTION_BASICS/group' );
@@ -389,70 +388,6 @@ define( function( require ) {
 
     cursorPathNode.visible = false;
     this.addChild( cursorPathNode );
-
-    // implement accessible content.  For the screen view, this includes an auditory description for the entire screen
-    // accessible content
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-
-        // generate the 'supertype peer' for the ScreenView in the parallel DOM.
-        var accessiblePeer = ScreenView.ScreenViewAccessiblePeer( accessibleInstance, netForceDescriptionString );
-
-        // create an element for action descriptions.  This element gets updated whenever the user moves a puller
-        // and places it in a new location.  The 'aria-live' attribute will read this element whenever the inner text
-        // changes.
-        var actionElement = document.createElement( 'p' );
-        actionElement.innerText = '';
-        actionElement.tabIndex = '-1';
-        actionElement.setAttribute( 'aria-live', 'assertive' );
-        actionElement.id = 'netForceActionElement';
-        accessiblePeer.domElement.appendChild( actionElement );
-
-        // create an element for notifying when the game of tug of war is over.
-        // The 'aria-live' attribute will read this element whenever the inner text changes.
-        // This live region should interrupt any other description so it is marked as assertive.
-        var gameOverElement = document.createElement( 'p' );
-        gameOverElement.innerText = '';
-        gameOverElement.setAttribute( 'aria-live', 'assertive' );
-        gameOverElement.id = 'netForceGameOverElement';
-        gameOverElement.tabIndex = '-1';
-        accessiblePeer.domElement.appendChild( gameOverElement );
-
-        // on load, the screen view should be in the accessible order to provide an overall description of the sim
-        accessiblePeer.domElement.tabIndex = '0';
-
-        accessiblePeer.domElement.addEventListener( 'blur', function() {
-          accessiblePeer.domElement.tabIndex = '-1';
-        } );
-
-        // hide this model sync in the accessible content.  It is not in the link above since this would break the sim
-        // when accessible content is disabled.
-        model.runningProperty.link( function( running ) {
-          // if the net force is zero and the model is running, update aria-live property that the pullers are pulling but
-          // the cart is stationary.
-          if ( running ) {
-            if ( model.netForceProperty.value === 0 && model.numberPullersAttachedProperty.value !== 0 ) {
-
-              // get the live action element
-              var actionElement = document.getElementById( 'netForceGameOverElement' );
-
-              // update the live element inner text and fire associated aria events
-              actionElement.innerText = gameTiedDescriptionString;
-            }
-          }
-        } );
-
-        // add a global event listener to all children of this screen view, bubbles through all children
-        accessiblePeer.domElement.addEventListener( 'keydown', function( event ) {
-          // 'global' event behavior in here...
-
-          // when the user presses 'm' we want the AT to read off the sim state.
-          //if( event.keyCode === )
-        } );
-
-        return accessiblePeer;
-      }
-    };
   }
 
   forcesAndMotionBasics.register( 'NetForceScreenView', NetForceScreenView );

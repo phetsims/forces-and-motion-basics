@@ -13,7 +13,6 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
@@ -32,7 +31,10 @@ define( function( require ) {
       toolboxNode.rectX,
       toolboxNode.rectY - ropeHeightOffset,
       toolboxNode.rectWidth,
-      toolboxNode.rectHeight + ropeHeightOffset
+      toolboxNode.rectHeight + ropeHeightOffset, {
+        tagName: 'div',
+        focusable: false
+      }
     );
     var self = this;
     this.netForceModel = netForceModel;
@@ -40,40 +42,24 @@ define( function( require ) {
     // @public - id used to quickly find this element among peers in the DOM
     this.uniqueId = type === 'left' ? 'leftFocusRegion' : 'rightFocusRegion';
 
-    // define accessible peer content
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-        /*
-         We want this to look like the following in the Parallel DOM:
-         <div tabIndex="-1" id="leftFocusRegion"></div>
-         */
-        var domElement = document.createElement( 'div' );
-        domElement.tabIndex = '-1';
-        domElement.id = self.uniqueId;
+    this.addAccessibleInputListener( 'click', function( event ) {
+      // we want exit event bubbling - event fired in children should notify parent.
+      // only on escape key
+      if ( event.keyCode === 27 ) {
 
-        // exit the group on 'escape'
-        domElement.addEventListener( 'keydown', function( event ) {
-          // we want exit event bubbling - event fired in children should notify parent.
-          // only on escape key
-          if ( event.keyCode === 27 ) {
-
-            // a puller was being dragged when escape was pressed - exiting this group, so make sure that all
-            // pullers are dropped
-            netForceModel.pullers.forEach( function( puller ) {
-              puller.dragging = false;
-            } );
-
-            // exit the group of knots
-            self.exitGroup( domElement );
-
-            // reset focus to the puller tool box.
-            document.getElementById( toolboxNode.uniqueId ).focus();
-          }
+        // a puller was being dragged when escape was pressed - exiting this group, so make sure that all
+        // pullers are dropped
+        netForceModel.pullers.forEach( function( puller ) {
+          puller.dragging = false;
         } );
 
-        return new AccessiblePeer( accessibleInstance, domElement );
+        // exit the group of knots
+        self.exitGroup( self.domElement );
+
+        // reset focus to the puller tool box.
+        toolboxNode.focus();
       }
-    };
+    } );
   }
 
   forcesAndMotionBasics.register( 'KnotFocusRegion', KnotFocusRegion );

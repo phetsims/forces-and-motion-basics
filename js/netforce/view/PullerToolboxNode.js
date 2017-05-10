@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // constants
@@ -37,55 +36,39 @@ define( function( require ) {
     this.uniqueId = side + '-pullerToolbox';
     this._highlighted = false;
     var toolboxHeight = 216;
+
     var toolboxOptions = {
       fill: '#e7e8e9',
       stroke: defaultStroke,
-      lineWidth: defaultLineWidth
+      lineWidth: defaultLineWidth,
+
+      // a11y
+      tagName: 'div',
+      focusable: true
     };
+
     var toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
     var toolboxWidth = 324;
     var toolboxArcWidth = 10;
     Rectangle.call( this, x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
 
-    // outfit for accessibility
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-        /* will look like:
-         * <div tabindex="0" role="group" id="bluePullerGroup" class="pullerGroup" aria-describedby=description_id
-         * aria-activedescendant="bluePuller1">
-         * ...( puller children )
-         * </div
-         */
-        var domElement = document.createElement( 'div' );
-        domElement.setAttribute( 'aria-label', pullerGroupDescriptionString );
-        domElement.tabIndex = '0';
+    this.addAccessibleInputListener( {
+      keydown: function( event ) {
 
-        // enter the puller group on 'enter' or 'space bar'.
-        domElement.addEventListener( 'keydown', function( event ) {
-          // prevent the the event from bubbling.
-          if ( domElement !== event.target ) { return; }
-          // on enter or spacebar, step in to the selected group.
-          if ( event.keyCode === 13 || event.keyCode === 32 ) {
-            self.enterGroup( event, domElement );
-          }
-        } );
+        // prevent the the event from bubbling.
+        if ( self.domElement !== event.target ) { return; }
 
-        // exit the group on 'escape'
-        domElement.addEventListener( 'keydown', function( event ) {
-          // we want exit event bubbling - event fired in children should notify parent.
-          if ( event.keyCode === 27 ) {
-            self.exitGroup( domElement );
-          }
-        } );
+        // on enter or spacebar, step in to the selected group.
+        else if ( event.keyCode === 13 || event.keyCode === 32 ) {
+          self.enterGroup( event, self.domElement );
+        }
 
-        var accessiblePeer = new AccessiblePeer( accessibleInstance, domElement );
-
-        // TODO: Why is domElement.children empty here?
-        // provide the puller group with a unique ID.
-        domElement.id = self.uniqueId;
-        return accessiblePeer;
+        // we want exit event bubbling - event fired in children should notify parent.
+        else if ( event.keyCode === 27 ) {
+          self.exitGroup( self.domElement );
+        }
       }
-    };
+    } );
   }
 
   forcesAndMotionBasics.register( 'PullerToolboxNode', PullerToolboxNode );

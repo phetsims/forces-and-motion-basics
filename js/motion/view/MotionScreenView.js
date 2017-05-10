@@ -61,8 +61,6 @@ define( function( require ) {
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
   // strings
-  var motionDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.description' );
-  var motionInterfaceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.interface.description' );
   var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
   var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
@@ -586,49 +584,8 @@ define( function( require ) {
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
 
-    // Outfit this screen view with accessible content.
-    this.accessibleContent = {
-      createPeer: function( accessibleInstance ) {
-
-        // TODO: This string is for an experimental feature which we are calling 'basic interface instructions'. It is
-        // TODO: separate from the overall description, but read with the description on load.  It as to be part of the
-        // TODO: label so it must be concatenated with the description string.  This is outside of ScreenView since
-        // TODO: no other screens have this type of interface description yet.
-        var onLoadString = motionDescriptionString + motionInterfaceDescriptionString;
-
-        // generate the 'supertype peer' for the ScreenView in the parallel DOM.
-        var accessiblePeer = ScreenView.ScreenViewAccessiblePeer( accessibleInstance, onLoadString );
-
-        // create an element for action descriptions.  This element gets updated whenever the user moves a puller
-        // and places it in a new location.
-        var actionElement = document.createElement( 'p' );
-        actionElement.innerText = '';
-        actionElement.setAttribute( 'aria-live', 'polite' );
-        actionElement.id = 'motionActionElement';
-        accessiblePeer.domElement.appendChild( actionElement );
-
-        // on load, the screen view should be in the accessible order to provide an overall description of the sim
-        accessiblePeer.domElement.tabIndex = '0';
-
-        accessiblePeer.domElement.addEventListener( 'blur', function() {
-          accessiblePeer.domElement.tabIndex = '-1';
-        } );
-
-        // add a global event listener to all children of this screen view, bubbles through all children
-        accessiblePeer.domElement.addEventListener( 'keydown', function( event ) {
-          // 'global' event behavior in here...
-
-          // when the user presses 'm' we want the AT to read off the sim state.
-          //if( event.keyCode === )
-        } );
-
-        return accessiblePeer;
-      }
-    };
-
     // set the navigation order for this screen
     this.accessibleOrder = [ leftItemToolboxNode, rightItemToolboxNode ];
-
   }
 
   forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );
