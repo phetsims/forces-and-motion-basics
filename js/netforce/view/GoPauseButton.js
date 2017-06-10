@@ -116,7 +116,6 @@ define( function( require ) {
       descriptionTagName: 'p'
     } );
     goButton.setAccessibleAttribute( 'aria-disabled', !isGoButtonEnabled() );
-    goButton.domElement.className = 'GoButton'; // TODO: there must be a better way to do this
 
     var pauseListener = function() {
       model.running = false;

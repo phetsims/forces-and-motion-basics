@@ -248,8 +248,6 @@ define( function( require ) {
     this.tagName = 'img';
     this.focusable = false;
     this.draggable = true;
-    this.domElement.className = 'ItemNode'; // TODO - surely there is a better way to do this
-
 
     this.addAccessibleInputListener( {
       keydown: function( event ) {
@@ -281,7 +279,7 @@ define( function( require ) {
             // the item is in the toolbox
             else {
               // notify AT that the item is in a 'grabbed' state
-              self.domElement.setAttribute( 'aria-grabbed', 'true' );
+              self.setAccessibleAttribute( 'aria-grabbed', true );
 
               // update the live description for the net force screen
               var actionElement = document.getElementById( 'motionActionElement' );
@@ -293,7 +291,7 @@ define( function( require ) {
 
               item.onBoard = true;
 
-              self.domElement.setAttribute( 'aria-grabbed', 'false' );
+              self.setAccessibleAttribute( 'aria-grabbed', false );
             }
           }
         }

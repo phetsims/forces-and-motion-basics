@@ -55,7 +55,7 @@ define( function( require ) {
           } );
 
           // exit the group of knots
-          self.exitGroup( self.domElement );
+          self.exitGroup();
 
           // reset focus to the puller tool box.
           toolboxNode.focus();
@@ -70,10 +70,8 @@ define( function( require ) {
     /**
      * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
      * to 0 and set focus to the first child.
-     *
-     * @param {domElement} parent
      */
-    enterGroup: function( parent ) {
+    enterGroup: function() {
       var self = this;
 
       // get the puller being dragged
@@ -86,17 +84,18 @@ define( function( require ) {
       assert && assert( draggedPuller, 'The dragged puller must be defined.' );
 
       // add listeners to the children that apply the correct behavior for looping through children.
-      _.each( parent.children, function( child ) {
+      _.each( this.children, function( child ) {
           // add the child to the tab order.
-          child.tabIndex = '0';
+          child.focusable = false;
 
           // Add event listeners to children for   key navigation.
-          child.addEventListener( 'keydown', function( event ) {
-            // prevent default - we are testing only using arrow keys for this navigation
-            event.preventDefault();
+          child.addAccessibleInputListener( {
+            keydown: function( event ) {
+              // prevent default - we are testing only using arrow keys for this navigation
+              event.preventDefault();
+            }
           } );
-        }
-      );
+      } );
 
       // set focus to the child, that is the closest open knot to cart.
       var closestOpenKnotToCart = self.netForceModel.getClosestOpenKnotFromCart( draggedPuller );
@@ -105,20 +104,13 @@ define( function( require ) {
 
     /**
      * Exit the group.  This is called on 'escape' key.
-     *
-     * @param {domElement} parent
      */
-    exitGroup: function( parent ) {
-      // only on 'escape'
-      // set focus back to the parent
-      parent.focus();
-
-      // make sure that first element is the new aria-activedescendant
-      parent.setAttribute( 'aria-activedescendant', parent.firstChild.id );
+    exitGroup: function() {
+      this.focus();
 
       // pull all children out of the tab order
-      for ( var i = 0; i < parent.children.length; i++ ) {
-        parent.children[ i ].tabIndex = '-1';
+      for ( var i = 0; i < this.children.length; i++ ) {
+        this.children[ i ].focusable = false;
       }
     }
   } );

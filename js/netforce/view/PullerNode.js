@@ -167,7 +167,7 @@ define( function( require ) {
             self.updateLocation( grabbedPuller, model );
 
             // reset the puller's alt text to describe it in the toolbox
-            self.domElement.setAttribute( 'alt', accessibleDescription );
+            self.setAccessibleAttribute( 'alt', accessibleDescription );
 
             // update live action element to tell user that the puller was moved back to the toolbox
             actionElement.innerText = accessibleDescription + ' placed in toolbox';
@@ -183,7 +183,7 @@ define( function( require ) {
             actionElement.innerText = actionString;
 
             // enter 'move mode' by exiting this group, and entering the group of knots
-            pullerToolboxNode.exitGroup( self.domElement.parentElement );
+            pullerToolboxNode.exitGroup();
 
             var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
             var knotRegionElement = document.getElementById( knotRegionType );

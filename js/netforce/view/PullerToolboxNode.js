@@ -55,17 +55,14 @@ define( function( require ) {
     this.addAccessibleInputListener( {
       keydown: function( event ) {
 
-        // prevent the the event from bubbling.
-        if ( self.domElement !== event.target ) { return; }
-
         // on enter or spacebar, step in to the selected group.
-        else if ( event.keyCode === 13 || event.keyCode === 32 ) {
-          self.enterGroup( event, self.domElement );
+        if ( event.keyCode === 13 || event.keyCode === 32 ) {
+          self.enterGroup();
         }
 
         // we want exit event bubbling - event fired in children should notify parent.
         else if ( event.keyCode === 27 ) {
-          self.exitGroup( self.domElement );
+          self.exitGroup();
         }
       }
     } );
@@ -78,32 +75,31 @@ define( function( require ) {
     /**
      * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
      * to 0 and set focus to the first child.
-     *
-     * @param {event} event
-     * @param {domElement} parent
      */
-    enterGroup: function( event, parent ) {
+    enterGroup: function() {
       // add listeners to the children that apply the correct behavior for looping through children.
-      _.each( parent.children, function( child ) {
+      _.each( this.children, function( child ) {
           // add the child to the tab order.
-          child.tabIndex = '0';
+          child.focusable = true;
 
           // Add event listeners to children for   key navigation.
-          var numberOfChildren = parent.children.length;
-          child.addEventListener( 'keydown', function( event ) {
-            var childIndex = _.indexOf( parent.children, child );
-            var nextIndex = ( childIndex + 1 ) % numberOfChildren;
-            var previousIndex = ( childIndex - 1 );
-            // if previous index is -1, set focus to the last element
-            previousIndex = previousIndex === -1 ? ( numberOfChildren - 1 ) : previousIndex;
+          var numberOfChildren = this.children.length;
+          child.addAccessibleInputListener( {
+            keydown: function( event ) {
+              var childIndex = _.indexOf( self.children, child );
+              var nextIndex = ( childIndex + 1 ) % numberOfChildren;
+              var previousIndex = ( childIndex - 1 );
+              // if previous index is -1, set focus to the last element
+              previousIndex = previousIndex === -1 ? ( numberOfChildren - 1 ) : previousIndex;
 
-            if ( event.keyCode === 39 ) {
-              //right arrow pressed
-              parent.children[ nextIndex ].focus();
-            }
-            if ( event.keyCode === 37 ) {
-              //left arrow pressed
-              parent.children[ previousIndex ].focus();
+              if ( event.keyCode === 39 ) {
+                //right arrow pressed
+                self.children[ nextIndex ].focus();
+              }
+              if ( event.keyCode === 37 ) {
+                //left arrow pressed
+                self.children[ previousIndex ].focus();
+              }
             }
           } );
         }
@@ -115,28 +111,24 @@ define( function( require ) {
 
     /**
      * Exit the group.  This is called on 'escape' key.
-     *
-     * @param {domElement} parent
      */
-    exitGroup: function( parent ) {
+    exitGroup: function() {
       // set focus to the parent form
-      parent.focus();
+      this.focus();
 
       // pull all children out of the tab order
-      for ( var i = 0; i < parent.children.length; i++ ) {
-        parent.children[ i ].tabIndex = '-1';
+      for ( var i = 0; i < this.children.length; i++ ) {
+        this.children[ i ].focusable = false;
       }
     },
 
     // Show a highlight around the toolbox when one of the items inside has focus
-    set
-      highlighted( h ) {
+    set highlighted( h ) {
       this._highlighted = h;
       this.stroke = h ? this.highlightColor : defaultStroke;
       this.lineWidth = h ? 4 : defaultLineWidth;
     },
-    get
-      highlighted() {
+    get highlighted() {
       return this._highlighted;
     }
   } );
