@@ -15,11 +15,17 @@ define( function( require ) {
   var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
   var phetio = require( 'ifphetio!PHET_IO/phetio' );
 
-  var TKnot = function( instance, phetioID ) {
+  /**
+   *
+   * @param instance
+   * @param phetioID
+   * @constructor
+   */
+  function TKnot( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
     TObject.call( this, instance, phetioID );
-  };
+  }
 
   phetioInherit( TObject, 'TKnot', TKnot, {}, {
     documentation: 'A knot',
