@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.0-rc.1 Wed Jun 21 2017 11:30:18 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.3.0-phetiorc.1 Wed Jun 21 2017 11:33:20 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -21,8 +21,8 @@
     "branch": "master"
   },
   "forces-and-motion-basics": {
-    "sha": "a6df70a90adeaf1af799db5f0cb45a4731770aa6",
-    "branch": "2.3"
+    "sha": "030b3d0b108f8da6b2d7b49c7fec36b527043a13",
+    "branch": "2.3-phetio"
   },
   "joist": {
     "sha": "aa10805206984a24cbb8ff26119ca55da1a83043",
@@ -34,6 +34,30 @@
   },
   "phet-core": {
     "sha": "76ec02046b2a8da592d3273e93d52088d9b58121",
+    "branch": "master"
+  },
+  "phet-io": {
+    "sha": "8073319a923e89328f86654795ea3084335cdc0a",
+    "branch": "master"
+  },
+  "phet-io-website": {
+    "sha": "dffe3a91cce9e7fcb55aa40539a25553a49ca793",
+    "branch": "master"
+  },
+  "phet-io-wrapper-classroom-activity": {
+    "sha": "282e9bbe7f298b4114a1a8e611be76d097418c03",
+    "branch": "master"
+  },
+  "phet-io-wrapper-lab-book": {
+    "sha": "f63832380c6993cc918782a92084c1616e75ac95",
+    "branch": "master"
+  },
+  "phet-io-wrapper-sonification": {
+    "sha": "b3f5e71e192441162a55f2acf5c1be4820a63872",
+    "branch": "master"
+  },
+  "phet-io-wrappers": {
+    "sha": "772374f6792544774d7c1988710339eb3d0143c8",
     "branch": "master"
   },
   "phetcommon": {
