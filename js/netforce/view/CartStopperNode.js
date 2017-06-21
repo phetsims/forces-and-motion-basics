@@ -38,6 +38,8 @@ define( function( require ) {
       this.scale( -1, 1 );
     }
 
+    options.tandem = tandem;
+
     // mutate after scaling so that positioning is correct
     this.mutate( options );
   }
