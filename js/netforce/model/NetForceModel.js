@@ -393,6 +393,11 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
+
+      // cap DT to prevent strange behavior when returning to the sim after navigating away from the browser
+      // or tab
+      // dt = Math.min( dt, 0.1 );
+
       if ( this.running ) {
 
         this.duration += dt; // Increment tug-of-war timer
