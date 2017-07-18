@@ -393,7 +393,7 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      
+
       if ( this.running ) {
 
         this.duration += dt; // Increment tug-of-war timer
@@ -403,8 +403,7 @@ define( function( require ) {
         this.speedProperty.set( Math.abs( newV ) );
 
         var newX = this.cart.x + newV * dt * 60.0;
-        this.cart.setValues( { v: newV, x: newX } );
-        this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
+        this.updateCartAndPullers( newV, newX );
 
         //If the cart made it to the end, then stop and signify completion
         var gameLength = GAME_LENGTH - this.cart.widthToWheel;
@@ -414,9 +413,29 @@ define( function( require ) {
 
           // zero out the velocity
           this.speedProperty.set( 0 );
+
+          // set cart and pullers back the to max position
+          var maxLength = this.cart.x > gameLength ? gameLength : -gameLength;
+          this.updateCartAndPullers( this.speedProperty.get(), maxLength );
         }
       }
       this.time = this.time + dt;
+    },
+
+    /**
+     * Update the velocity and position of the cart and the pullers.
+     * 
+     * @private
+     * @param  {number} newV
+     * @param  {number} newX
+     */
+    updateCartAndPullers: function( newV, newX ) {
+
+      // move the cart, and update its velocity
+      this.cart.setValues( { v: newV, x: newX } );
+
+      // move the knots and the pullers on those knots
+      this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
     },
 
     //Gets the net force on the cart, applied by both left and right pullers
