@@ -75,6 +75,7 @@ define( function( require ) {
   var STOPPER_TOP_WIDTH = 11;
   var STOPPER_BOTTOM_WIDTH = 30;
   var STOPPER_HEIGHT = 24;
+  var SUM_ARROW_TAIL_Y = 127;
 
   /**
    * @param {NetForceModel} model
@@ -190,7 +191,7 @@ define( function( require ) {
 
     //Create the arrow nodes
     var opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 127, this.model.netForceProperty, this.model.showValuesProperty,
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
       } );
@@ -380,7 +381,7 @@ define( function( require ) {
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
-      y: 53,
+      bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
     model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {self.sumOfForcesText.visible = !netForce && showSumOfForces;} );
