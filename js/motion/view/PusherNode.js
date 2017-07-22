@@ -64,6 +64,10 @@ define( function( require ) {
     var self = this;
     var scale = 0.95;
 
+    // @private - if there are no items on the stack, the node is not interactive and the
+    // drag handler will not do anything
+    this.interactive = true;
+
     //Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
     var pushingRightNodes = [];
     var pushingLeftNodes = [];
@@ -315,30 +319,38 @@ define( function( require ) {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       translate: function( options ) {
-        var newAppliedForce = model.appliedForce + options.delta.x;
-        var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
+        if ( self.interactive ) {
+          var newAppliedForce = model.appliedForce + options.delta.x;
+          var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
-        // the new force should be rounded so that applied force is not
-        // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
-        var roundedForce = Util.roundSymmetric( clampedAppliedForce );
+          // the new force should be rounded so that applied force is not
+          // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
+          var roundedForce = Util.roundSymmetric( clampedAppliedForce );
 
-        //Only apply a force if the pusher is not fallen, see #48
-        if ( !model.fallen ) {
-          model.appliedForce = roundedForce;
+          //Only apply a force if the pusher is not fallen, see #48
+          if ( !model.fallen ) {
+            model.appliedForce = roundedForce;
+          }
         }
       },
 
       start: function() {
-        // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
-        if ( !model.playProperty.value ) {
-          model.playProperty.set( true );
+        if ( self.interactive ) {
+          
+          // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
+          if ( !model.playProperty.value ) {
+            model.playProperty.set( true );
+          }
         }
-
       },
+
       end: function() {
-        // if the model is paused, the applied force should remain the same
-        if ( model.playProperty.value ) {
-          model.appliedForce = 0;
+        if ( self.interactive ) {
+
+          // if the model is paused, the applied force should remain the same
+          if ( model.playProperty.value ) {
+            model.appliedForce = 0;
+          }           
         }
       }
     } );
@@ -346,12 +358,13 @@ define( function( require ) {
 
     //Make it so you cannot drag the pusher until one ItemNode is in the play area
     model.stack.lengthProperty.link( function( length ) {
-      self.cursor = length === 0 ? 'default' : 'pointer';
       if ( length === 0 ) {
-        self.removeInputListener( listener );
+        self.cursor = 'default';
+        self.interactive = false;
       }
       else {
-        self.addInputListener( listener );
+        self.cursor = 'pointer';
+        self.interactive = true;
       }
     } );
 
