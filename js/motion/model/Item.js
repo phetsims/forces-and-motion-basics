@@ -20,6 +20,7 @@ define( function( require ) {
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
+  var TAnimatingData = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimatingData' );
 
   /**
    * Constructor for Item
@@ -88,7 +89,9 @@ define( function( require ) {
           y: 0,
           end: null,
           destination: 'home'
-        }
+        },
+        tandem: tandem.createTandem( 'animatingProperty'),
+        phetioValueType: TAnimatingData
       },
 
       // Flag for whether the item is on the skateboard
