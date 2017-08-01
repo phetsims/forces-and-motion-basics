@@ -29,11 +29,11 @@ define( function( require ) {
     documentation: 'An Item that can be placed dragged into the play area.',
 
     toStateObject: function( instance ) {
-      return instance.name;
+      return instance.phetioID;
     },
 
     fromStateObject: function( stateObject ) {
-      return stateObject;
+      return stateObject.name;
     }
   } );
 

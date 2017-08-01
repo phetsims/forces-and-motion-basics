@@ -53,7 +53,13 @@ define( function( require ) {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = new ObservableArray( { tandem: tandem.createTandem( 'stackArray' ), phetioValueType: TItem } );
+    this.stack = new ObservableArray( {
+      tandem: tandem.createTandem( 'stackObservableArray' ),
+      phetioValueType: TItem,
+
+      // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
+      phetioIncludeInState: true
+    } );
 
     var properties = {
 
