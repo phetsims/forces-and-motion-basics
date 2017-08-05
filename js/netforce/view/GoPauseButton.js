@@ -16,7 +16,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var ToggleNode = require( 'SUN/ToggleNode' );
-  var TandemEmitter = require( 'TANDEM/axon/TandemEmitter' );
+  var Emitter = require( 'AXON/Emitter' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -94,7 +94,7 @@ define( function( require ) {
     };
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
-    var goButtonPressedEmitter = new TandemEmitter( {
+    var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
       phetioArgumentTypes: [ TNumber( { units: 'newtons' } ), TString ]
     } );
