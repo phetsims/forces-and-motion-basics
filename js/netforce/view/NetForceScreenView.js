@@ -36,7 +36,7 @@ define( function( require ) {
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  
+
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
@@ -349,10 +349,15 @@ define( function( require ) {
     } );
     this.addChild( this.controlPanel );
 
+    var lastFlagNode = null;
+
     // Show the flag node when pulling is complete
     Property.multilink( [ model.stateProperty, model.cart.xProperty ], function( state, x ) {
+      lastFlagNode && lastFlagNode.dispose();
+      lastFlagNode = null;
       if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {
-        self.addChild( new FlagNode( model, self.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) ) );
+        lastFlagNode = new FlagNode( model, self.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) );
+        self.addChild( lastFlagNode );
       }
     } );
 
