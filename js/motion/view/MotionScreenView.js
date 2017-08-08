@@ -13,7 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var RichText = require( 'SCENERY_PHET/RichText' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var Shape = require( 'KITE/Shape' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
