@@ -14,6 +14,7 @@ define( function( require ) {
   var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
 
   /**
+   * TODO: TObject should be able to handle this, since it is just a json that needs to be serialized, see https://github.com/phetsims/forces-and-motion-basics/issues/232
    * Stores the data from the Item.animating Property.
    * @param instance
    * @param phetioID
