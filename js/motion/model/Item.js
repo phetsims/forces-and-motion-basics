@@ -8,19 +8,19 @@
 define( function( require ) {
   'use strict';
 
-  var Vector2 = require( 'DOT/Vector2' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Util = require( 'DOT/Util' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var TVector2 = require( 'DOT/TVector2' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
-  var TAnimatingData = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimatingData' );
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   /**
    * Constructor for Item
@@ -81,7 +81,6 @@ define( function( require ) {
         phetioValueType: TString
       },
 
-      //TODO: to instrument `animating` it would needs its own type, TObject does not know how to serialize it.
       animating: {
         value: {
           enabled: false,
@@ -91,7 +90,7 @@ define( function( require ) {
           destination: 'home'
         },
         tandem: tandem.createTandem( 'animatingProperty'),
-        phetioValueType: TAnimatingData
+        phetioValueType: TObject
       },
 
       // Flag for whether the item is on the skateboard
