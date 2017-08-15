@@ -81,7 +81,7 @@ define( function( require ) {
         phetioValueType: TString
       },
 
-      animating: {
+      animationState: {
         value: {
           enabled: false,
           x: 0,
@@ -89,7 +89,7 @@ define( function( require ) {
           end: null,
           destination: 'home'
         },
-        tandem: tandem.createTandem( 'animatingProperty'),
+        tandem: tandem.createTandem( 'animationStateProperty'),
         phetioValueType: TObject
       },
 
@@ -153,7 +153,7 @@ define( function( require ) {
 
     //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
-      this.animating = { enabled: true, x: x, y: y, destination: destination };
+      this.animationState = { enabled: true, x: x, y: y, destination: destination };
     },
 
     //Animate the item to its original location
@@ -166,16 +166,16 @@ define( function( require ) {
 
     //Cancel an animation when the user clicks on an item
     cancelAnimation: function() {
-      if ( this.animating.enabled ) {
+      if ( this.animationState.enabled ) {
         if ( this.dragging ) {
           this.interactionScale = 1.3;
         }
         else {
-          if ( this.animating.destination === 'home' ) {
+          if ( this.animationState.destination === 'home' ) {
             this.interactionScale = this.homeScale;
           }
         }
-        this.animating = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
+        this.animationState = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
       }
     },
 
@@ -184,12 +184,12 @@ define( function( require ) {
       if ( this.dragging ) {
         this.interactionScale = Math.min( this.interactionScale + 9 * dt, 1.3 );
       }
-      else if ( this.animating.destination === 'home' ) {
+      else if ( this.animationState.destination === 'home' ) {
         this.interactionScale = Math.max( this.interactionScale - 9 * dt, this.homeScale );
       }
 
-      if ( this.animating.enabled ) {
-        var destination = new Vector2( this.animating.x, this.animating.y );
+      if ( this.animationState.enabled ) {
+        var destination = new Vector2( this.animationState.x, this.animationState.y );
 
         //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
         var blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
@@ -200,10 +200,10 @@ define( function( require ) {
 
           //Snap to exact final destination, see #59
           this.position = destination;
-          if ( this.animating.end ) {
-            this.animating.end();
+          if ( this.animationState.end ) {
+            this.animationState.end();
           }
-          this.animating = { enabled: false, x: 0, y: 0, end: null };
+          this.animationState = { enabled: false, x: 0, y: 0, end: null };
         }
       }
     }

@@ -589,7 +589,7 @@ define( function( require ) {
         this.view = view;
         item.onBoard = true;
         var itemNode = view.itemNodes[ 1 ];
-        item.animating = { enabled: false, x: 0, y: 0, end: null };
+        item.animationState = { enabled: false, x: 0, y: 0, end: null };
         item.interactionScale = 1.3;
         var scaledWidth = this.view.getSize( item ).width;
         item.position = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );
