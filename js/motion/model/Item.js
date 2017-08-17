@@ -17,8 +17,8 @@ define( function( require ) {
 
   // phet-io modules
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
+  var TAnimationState = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimationState' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
@@ -90,7 +90,7 @@ define( function( require ) {
           destination: 'home'
         },
         tandem: tandem.createTandem( 'animationStateProperty'),
-        phetioValueType: TObject
+        phetioValueType: TAnimationState
       },
 
       // Flag for whether the item is on the skateboard
