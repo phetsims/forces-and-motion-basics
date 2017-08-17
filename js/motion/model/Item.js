@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var TVector2 = require( 'DOT/TVector2' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -56,72 +56,71 @@ define( function( require ) {
     this.mystery = mystery;
     this.homeScale = homeScale || 1.0;
 
-    var properties = {
+    // @public {Property.<Vector2>} - the position of the item
+    this.positionProperty = new Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioValueType: TVector2
+    } );
 
-      position: {
-        value: new Vector2( x, y ),
-        tandem: tandem.createTandem( 'positionProperty' ),
-        phetioValueType: TVector2
-      },
+    // TODO: does this need to be instrumented for phet-io?
+    this.pusherInsetProperty = new Property( pusherInset || 0 );
 
-      //TODO does this need to be instrumented for phet-io?
-      pusherInset: {
-        value: pusherInset || 0
-      },
+    // @public {Property.<boolean>} - whether or not the item is being dragged
+    this.draggingProperty = new Property( false, {
+      tandem: tandem.createTandem( 'draggingProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      dragging: {
-        value: false,
-        tandem: tandem.createTandem( 'draggingProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {Property.<string>} - direction of the item, 'left'|'right'
+    this.directionProperty = new Property( 'left', {
+      tandem: tandem.createTandem( 'directionProperty' ),
+      phetioValueType: TString 
+    } );
 
-      direction: {
-        value: 'left',
-        tandem: tandem.createTandem( 'directionProperty' ),
-        phetioValueType: TString
-      },
-
-      animationState: {
-        value: {
-          enabled: false,
-          x: 0,
-          y: 0,
-          end: null,
-          destination: 'home'
-        },
+    // @public {Object} - tracks the animation state of the item
+    this.animationStateProperty = new Property( {
+      enabled: false,
+      x: 0,
+      y: 0,
+      end: null,
+      destination: 'home'
+    }, {
         tandem: tandem.createTandem( 'animationStateProperty'),
         phetioValueType: TAnimationState
-      },
+    } );
 
-      // Flag for whether the item is on the skateboard
-      onBoard: {
-        value: false,
-        tandem: tandem.createTandem( 'onBoardProperty' ),
-        phetioValueType: TBoolean
-      },
+    // Flag for whether the item is on the skateboard
+    this.onBoardProperty = new Property( false, {
+      tandem: tandem.createTandem( 'onBoardProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
-      imageScale: {
-        value: imageScale || 1.0,
-        tandem: tandem.createTandem( 'imageScaleProperty' ),
-        phetioValueType: TNumber()
-      },
+    // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
+    this.imageScaleProperty = new Property( imageScale || 1.0, {
+      tandem: tandem.createTandem( 'imageScaleProperty' ),
+      phetioValueType: TNumber()
+    } );
 
-      // How much the object grows or shrinks when interacting with it
-      interactionScale: {
-        value: homeScale || 1.0,
-        tandem: tandem.createTandem( 'interactionScaleProperty' ),
-        phetioValueType: TNumber()
-      }
-    };
+    // How much the object grows or shrinks when interacting with it
+    this.interactionScaleProperty = new Property( homeScale || 1.0, {
+      tandem: tandem.createTandem( 'interactionScaleProperty' ),
+      phetioValueType: TNumber()
+    } );
 
-    PropertySet.call( this, null, properties );
+    Property.preventGetSet( this, 'position' );
+    Property.preventGetSet( this, 'pusherInset' );
+    Property.preventGetSet( this, 'dragging' );
+    Property.preventGetSet( this, 'direction' );
+    Property.preventGetSet( this, 'animationState' );
+    Property.preventGetSet( this, 'onBoard' );
+    Property.preventGetSet( this, 'imageScale' );
+    Property.preventGetSet( this, 'interactionScale' );
 
     this.context.directionProperty.link( function( direction ) {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
-      if ( self.onBoard && direction !== 'none' && sittingImage ) {
-        self.direction = direction;
+      if ( self.onBoardProperty.get() && direction !== 'none' && sittingImage ) {
+        self.directionProperty.set( direction );
       }
     } );
 
@@ -130,7 +129,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'Item', Item );
 
-  return inherit( PropertySet, Item, {
+  return inherit( Object, Item, {
 
     //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
     get centeringOffset() {
@@ -148,62 +147,77 @@ define( function( require ) {
      * for transformations.
      */
     getCurrentScale: function() {
-      return this.imageScale * this.interactionScale;
+      return this.imageScaleProperty.get() * this.interactionScaleProperty.get();
     },
 
     //Animate the item to the specified location
     animateTo: function( x, y, destination ) {
-      this.animationState = { enabled: true, x: x, y: y, destination: destination };
+      this.animationStateProperty.set( { enabled: true, x: x, y: y, destination: destination } );
     },
 
     //Animate the item to its original location
     animateHome: function() {
 
       //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
-      this.direction = 'left';
+      this.directionProperty.set( 'left' );
       this.animateTo( this.initialX, this.initialY, 'home' );
     },
 
     //Cancel an animation when the user clicks on an item
     cancelAnimation: function() {
-      if ( this.animationState.enabled ) {
-        if ( this.dragging ) {
-          this.interactionScale = 1.3;
+      if ( this.animationStateProperty.get().enabled ) {
+        if ( this.draggingProperty.get() ) {
+          this.interactionScaleProperty.set( 1.3 );
         }
         else {
-          if ( this.animationState.destination === 'home' ) {
-            this.interactionScale = this.homeScale;
+          if ( this.animationStateProperty.get().destination === 'home' ) {
+            this.interactionScaleProperty.set( this.homeScale );
           }
         }
-        this.animationState = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
+        this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null, destination: 'home' } );
       }
+    },
+
+    /**
+     * Reset the item to its initial state by resetting all Properties.
+     * @public
+     */
+    reset: function() {
+      this.positionProperty.reset();
+      this.pusherInsetProperty.reset();
+      this.draggingProperty.reset();
+      this.directionProperty.reset();
+      this.animationStateProperty.reset();
+      this.onBoardProperty.reset();
+      this.imageScaleProperty.reset();
+      this.interactionScaleProperty.reset();
     },
 
     //Step the item in time, making it grow or shrink (if necessary), or animate to its destination
     step: function( dt ) {
-      if ( this.dragging ) {
-        this.interactionScale = Math.min( this.interactionScale + 9 * dt, 1.3 );
+      if ( this.draggingProperty.get() ) {
+        this.interactionScaleProperty.set( Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 ) );
       }
-      else if ( this.animationState.destination === 'home' ) {
-        this.interactionScale = Math.max( this.interactionScale - 9 * dt, this.homeScale );
+      else if ( this.animationStateProperty.get().destination === 'home' ) {
+        this.interactionScaleProperty.set( Math.max( this.interactionScaleProperty.get() - 9 * dt, this.homeScale ) );
       }
 
-      if ( this.animationState.enabled ) {
-        var destination = new Vector2( this.animationState.x, this.animationState.y );
+      if ( this.animationStateProperty.get().enabled ) {
+        var destination = new Vector2( this.animationStateProperty.get().x, this.animationStateProperty.get().y );
 
         //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
         var blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
-        this.position = this.position.blend( destination, blendAmount );
+        this.positionProperty.set( this.positionProperty.get().blend( destination, blendAmount ) );
 
-        var distanceToTarget = this.position.distance( destination );
-        if ( distanceToTarget < 1 && (this.interactionScale === 1.3 || this.interactionScale === this.homeScale ) ) {
+        var distanceToTarget = this.positionProperty.get().distance( destination );
+        if ( distanceToTarget < 1 && ( this.interactionScaleProperty.get() === 1.3 || this.interactionScaleProperty.get() === this.homeScale ) ) {
 
           //Snap to exact final destination, see #59
-          this.position = destination;
-          if ( this.animationState.end ) {
+          this.positionProperty.set( destination );
+          if ( this.animationStateProperty.get().end ) {
             this.animationState.end();
           }
-          this.animationState = { enabled: false, x: 0, y: 0, end: null };
+          this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
         }
       }
     }

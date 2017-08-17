@@ -183,7 +183,7 @@ define( function( require ) {
         var scaledWidth = item.view.getScaledWidth();
 
         // add a little more space (10) so the pusher isn't exactly touching the stack
-        var delta = scaledWidth / 2 - item.pusherInset + 10;
+        var delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
 
         if ( direction === 'right' ) {
           visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
@@ -209,7 +209,7 @@ define( function( require ) {
       // get the scaled width of the first item in the stack
       var scaledWidth = item.view.getScaledWidth();
 
-      var delta = scaledWidth / 2 - item.pusherInset;
+      var delta = scaledWidth / 2 - item.pusherInsetProperty.get();
       if ( model.appliedForce > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }

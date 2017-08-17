@@ -19,6 +19,7 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Input = require( 'SCENERY/input/Input' );
+  var Property = require( 'AXON/Property' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // strings
@@ -45,13 +46,13 @@ define( function( require ) {
     this.item = item;
     Node.call( this, {
       cursor: 'pointer',
-      scale: item.imageScale,
+      scale: item.imageScaleProperty.get(),
       tandem: tandem
     } );
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
     // translate this node to the item's position
-    this.translate( item.position );
+    this.translate( item.positionProperty.get() );
 
     //Create the node for the main graphic
     var normalImageNode = new Image( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
@@ -64,10 +65,10 @@ define( function( require ) {
     //When the model changes, update the image location as well as which image is shown
     var updateImage = function() {
       // var centerX = normalImageNode.centerX;
-      if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoard) ) {
+      if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoardProperty.get() ) ) {
         normalImageNode.image = holdingImage;
       }
-      else if ( item.onBoard && typeof sittingImage !== 'undefined' ) {
+      else if ( item.onBoardProperty.get() && typeof sittingImage !== 'undefined' ) {
         normalImageNode.image = sittingImage;
       }
       else {
@@ -87,7 +88,7 @@ define( function( require ) {
 
     //When the user drags the object, start
     var moveToStack = function() {
-      item.onBoard = true;
+      item.onBoardProperty.set( true );
       var imageWidth = item.getCurrentScale() * normalImageNode.width;
       item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - self.height, 'stack' );
       model.stack.add( item );
@@ -116,7 +117,7 @@ define( function( require ) {
         }
       }
       if ( personInStack ) {
-        direction = personInStack.direction;
+        direction = personInStack.directionProperty.get();
       }
       else if ( person.context.appliedForce !== 0 ) {
         // if there is an applied force on the stack, direction should match applied force
@@ -133,13 +134,13 @@ define( function( require ) {
           direction = 'right';
         }
       }
-      person.direction = direction;
+      person.directionProperty.set( direction );
     };
 
     var dragHandler = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       translate: function( options ) {
-        item.position = options.position;//es5 setter
+        item.positionProperty.set( options.position );
       },
 
       //When picking up an object, remove it from the stack.
@@ -152,12 +153,12 @@ define( function( require ) {
         // itemToolBox is in a container so it should not occlude other items in the screen view
         itemToolbox.moveToFront();
 
-        item.dragging = true;
+        item.draggingProperty.set( true );
         var index = model.stack.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
-        item.onBoard = false;
+        item.onBoardProperty.set( false );
 
         //Don't allow the user to translate the object while it is animating
         item.cancelAnimation();
@@ -165,9 +166,9 @@ define( function( require ) {
 
       //End the drag
       end: function() {
-        item.dragging = false;
+        item.draggingProperty.set( false );
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        if ( item.position.y < 350 ) {
+        if ( item.positionProperty.get().y < 350 ) {
           moveToStack();
 
           // if item is man or girl, rotate depending on the current model velocity and applied force
@@ -187,7 +188,7 @@ define( function( require ) {
     // if the item is being dragged, cancel the drag on reset
     model.on( 'reset-all', function() {
       // cancel the drag and reset item
-      if ( item.dragging ) {
+      if ( item.draggingProperty.get() ) {
         dragHandler.endDrag();
         item.reset();
       }
@@ -212,7 +213,7 @@ define( function( require ) {
     // normalize the maximum width to then restrict the labels for i18n
     var labelNode = new Node( {
       children: [ roundRect, massLabel ],
-      scale: 1.0 / item.imageScale,
+      scale: 1.0 / item.imageScaleProperty.get(),
       tandem: tandem.createTandem( 'labelNode' )
     } );
     this.labelNode = labelNode;
@@ -220,9 +221,9 @@ define( function( require ) {
     //Update the position of the item
     item.positionProperty.link( function( position ) { self.setTranslation( position ); } );
 
-    //When the object is scaled or change direction, update the image part
-    item.multilink( [ 'interactionScale', 'direction' ], function( interactionScale, direction ) {
-      var scale = item.imageScale * interactionScale;
+    // When the object is scaled or change direction, update the image part
+    Property.multilink( [ item.interactionScaleProperty, item.directionProperty ], function( interactionScale, direction ) {
+      var scale = item.imageScaleProperty.get() * interactionScale;
       self.setScaleMagnitude( scale );
 
       normalImageNode.setMatrix( IDENTITY );
@@ -261,7 +262,7 @@ define( function( require ) {
         }
 
         // if the puller is not grabbed, grab it for drag and drop
-        if ( !item.dragging ) {
+        if ( !item.draggingProperty.get() ) {
           if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
 
             // remove the item from the stack if it is already there
@@ -272,8 +273,8 @@ define( function( require ) {
 
             // the item is already on the skateboard.  Place it right back in the toolbox.
             // TODO: This behavior is a placeholder, I am not sure how this should behave.
-            if ( item.position.y < 350 ) {
-              item.onBoard = false;
+            if ( item.positionProperty.get().y < 350 ) {
+              item.onBoardProperty.set( false );
               item.animateHome();
             }
             // the item is in the toolbox
@@ -289,7 +290,7 @@ define( function( require ) {
               // move the item onto the skateboard
               moveToStack();
 
-              item.onBoard = true;
+              item.onBoardProperty.set( true );
 
               self.setAccessibleAttribute( 'aria-grabbed', false );
             }

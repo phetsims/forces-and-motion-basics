@@ -296,7 +296,7 @@ define( function( require ) {
       var draggingItems = [];
       for ( var i = 0; i < this.items.length; i++ ) {
         var item = this.items[ i ];
-        if ( item.dragging ) {
+        if ( item.draggingProperty.get() ) {
           draggingItems.push( item );
         }
       }
@@ -332,7 +332,7 @@ define( function( require ) {
     //When a 4th item is placed on the stack, move the bottom item home and have the stack fall
     spliceStackBottom: function() {
       var bottom = this.spliceStack( 0 );
-      bottom.onBoard = false;
+      bottom.onBoardProperty.set( false );
       bottom.animateHome();
     },
 
@@ -559,7 +559,7 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
       for ( var i = 0; i < this.items.length; i++ ) {
         // if the item is being dragged we need to cancel the drag in ItemNode
-        if ( !this.items[ i ].dragging ) {
+        if ( !this.items[ i ].draggingProperty.get() ) {
           this.items[ i ].reset();
         }
       }
@@ -585,14 +585,14 @@ define( function( require ) {
     viewInitialized: function( view ) {
       var item = this.items[ 1 ];
       // only move item to the top of the stack if it is not being dragged
-      if ( !item.dragging ) {
+      if ( !item.draggingProperty.get() ) {
         this.view = view;
-        item.onBoard = true;
+        item.onBoardProperty.set( true );
         var itemNode = view.itemNodes[ 1 ];
-        item.animationState = { enabled: false, x: 0, y: 0, end: null };
-        item.interactionScale = 1.3;
+        item.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
+        item.interactionScaleProperty.set( 1.3 );
         var scaledWidth = this.view.getSize( item ).width;
-        item.position = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );
+        item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
         this.stack.add( item );
       }
     },
