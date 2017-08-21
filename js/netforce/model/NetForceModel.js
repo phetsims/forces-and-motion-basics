@@ -208,7 +208,7 @@ define( function( require ) {
 
       //try to snap to a knot
       if ( knot ) {
-        puller.setValues( { position: new Vector2( knot.x, knot.y ), knot: knot } );
+        puller.setValues( { position: new Vector2( knot.xProperty.get(), knot.y ), knot: knot } );
       }
 
       //Or go back home
@@ -256,9 +256,9 @@ define( function( require ) {
 
           var otherPuller = this.getPuller( nextKnot );
 
-          puller.setValues( { position: new Vector2( nextKnot.x, nextKnot.y ), knot: nextKnot } );
+          puller.setValues( { position: new Vector2( nextKnot.xProperty.get(), nextKnot.y ), knot: nextKnot } );
           otherPuller && otherPuller.setValues( {
-            position: new Vector2( currentKnot.x, currentKnot.y ),
+            position: new Vector2( currentKnot.xProperty.get(), currentKnot.y ),
             knot: currentKnot
           } );
         }
@@ -279,12 +279,12 @@ define( function( require ) {
     //Change knot visibility (halo highlight) when the pullers are dragged
     updateVisibleKnots: function() {
       var self = this;
-      this.knots.forEach( function( knot ) {knot.visible = false;} );
+      this.knots.forEach( function( knot ) { knot.visibleProperty.set( false ); } );
       this.pullers.forEach( function( puller ) {
         if ( puller.dragging ) {
           var knot = self.getTargetKnot( puller );
           if ( knot ) {
-            knot.visible = true;
+            knot.visibleProperty.set( true );
           }
         }
       } );
@@ -311,7 +311,7 @@ define( function( require ) {
       // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
       // placing the blue pullers
       var dx = puller.type === 'red' ? 0 : -40;
-      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
+      return function( knot ) { return Math.sqrt( Math.pow( knot.xProperty.get() - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
     },
 
     /**
@@ -436,7 +436,7 @@ define( function( require ) {
       this.cart.xProperty.set( newX );
 
       // move the knots and the pullers on those knots
-      this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
+      this.knots.forEach( function( knot ) { knot.xProperty.set( knot.initX + newX ); } );
     },
 
     //Gets the net force on the cart, applied by both left and right pullers
@@ -484,8 +484,8 @@ define( function( require ) {
       var self = this;
       var isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
-        return delta < 0 ? destinationKnot.x < sourceKnot.x :
-               delta > 0 ? destinationKnot.x > sourceKnot.x :
+        return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
+               delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
                'error';
       };
       var filter = this.knots.filter( function( knot ) {
@@ -513,8 +513,8 @@ define( function( require ) {
       var self = this;
       var isInRightDirection = function( destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
-        return delta < 0 ? destinationKnot.x < sourceKnot.x :
-               delta > 0 ? destinationKnot.x > sourceKnot.x :
+        return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
+               delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
                'error';
       };
       var filter = this.knots.filter( function( knot ) {
@@ -523,7 +523,7 @@ define( function( require ) {
                isInRightDirection( knot, delta );
       } );
       var result = _.minBy( filter, function( knot ) {
-        return Math.abs( sourceKnot.x - knot.x );
+        return Math.abs( sourceKnot.xProperty.get() - knot.xProperty.get() );
       } );
 
       // we have reached the end of the knots.  Return either the first or last knot to loop the choice.

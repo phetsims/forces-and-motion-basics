@@ -67,7 +67,7 @@ define( function( require ) {
       if ( hoverKnot ) {
         var pullingOffset = puller.standOffsetX;
         var blueOffset = self.puller.type === 'blue' ? -60 + 10 + self.width / 2 : -self.width / 2;
-        self.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - self.height + 90 - 120 );
+        self.setTranslation( hoverKnot.xProperty.get() + pullingOffset + blueOffset, hoverKnot.y - self.height + 90 - 120 );
       }
     } );
 
@@ -219,7 +219,7 @@ define( function( require ) {
      */
     updateLocationKnotted: function( puller, model, knot ) {
       var blueOffset = this.puller.type === 'blue' ? -60 : 0;
-      puller.positionProperty.set( new Vector2( knot.x + blueOffset, knot.y - this.height + 90 ) );
+      puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
     },
 
     /**
@@ -246,7 +246,7 @@ define( function( require ) {
       if ( knotted ) {
         var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
         var blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-        this.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - this.height + 90 );
+        this.setTranslation( puller.knot.xProperty.get() + pullingOffset + blueOffset, puller.knot.y - this.height + 90 );
       }
       else {
         this.setTranslation( puller.position );

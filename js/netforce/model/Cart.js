@@ -24,7 +24,6 @@ define( function( require ) {
 
     // @public {number} - 1-D x location of the cart
     this.xProperty = new Property( 0, {
-      value: 0,
       tandem: tandem.createTandem( 'xProperty' ),
       phetioValueType: TNumber( { units: 'meters', range: new Range( -200, 200 ) } )
     } );
@@ -32,10 +31,12 @@ define( function( require ) {
 
     // @public {number} - 1-D velocity in MKS
     this.vProperty = new Property( 0, {
-      value: 0,
       tandem: tandem.createTandem( 'vProperty' ),
      phetioValueType: TNumber( { units: 'meters/second', range: new Range( -1.35, 1.35 ) } )
     } );
+
+    Property.preventGetSet( this, 'x' );
+    Property.preventGetSet( this, 'v' );
 
     // @public (read-only) - width from the center of the cart to the wheels, used to determine when a wheel touches
     // a game stopper
