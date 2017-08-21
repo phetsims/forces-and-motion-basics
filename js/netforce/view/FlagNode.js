@@ -38,13 +38,13 @@ define( function( require ) {
       tandem: tandem
     } );
 
-    var textNode = new Text( model.cart.x < 0 ? blueWinsString : redWinsString, {
+    var textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
       tandem: tandem.createTandem( 'textNode' ),
       font: new PhetFont( 24 ),
       fill: 'white'
     } );
     this.path = new Path( null, {
-      fill: model.cart.x < 0 ? 'blue' : 'red',
+      fill: model.cart.xProperty.get() < 0 ? 'blue' : 'red',
       stroke: 'black',
       lineWidth: 2,
       tandem: tandem.createTandem( 'pathNode' )
@@ -110,7 +110,7 @@ define( function( require ) {
     updateAccessibleGameOverElement: function() {
 
       // determine which string to use by determining which side won the game
-      var gameOverDescriptionString = ( this.model.cart.x < 0 ) ? leftSideWinsDescriptionString : rightSideWinsDescriptionString;
+      var gameOverDescriptionString = ( this.model.cart.xProperty.get() < 0 ) ? leftSideWinsDescriptionString : rightSideWinsDescriptionString;
 
       // get the live game over element from the DOM
       var gameOverElement = document.getElementById( 'netForceGameOverElement' );

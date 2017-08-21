@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Range = require( 'DOT/Range' );
@@ -22,32 +22,37 @@ define( function( require ) {
    */
   function Cart( tandem ) {
 
-    var properties = {
-
-      // position in MKS
-      x: {
-        value: 0,
-        tandem: tandem.createTandem( 'xProperty' ),
-        phetioValueType: TNumber( { units: 'meters', range: new Range( -200, 200 ) } )
-      },
+    // @public {number} - 1-D x location of the cart
+    this.xProperty = new Property( 0, {
+      value: 0,
+      tandem: tandem.createTandem( 'xProperty' ),
+      phetioValueType: TNumber( { units: 'meters', range: new Range( -200, 200 ) } )
+    } );
 
 
-      // velocity in MKS
-      v: {
-        value: 0,
-        tandem: tandem.createTandem( 'vProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second', range: new Range( -1.35, 1.35 ) } )
-      }
-    };
+    // @public {number} - 1-D velocity in MKS
+    this.vProperty = new Property( 0, {
+      value: 0,
+      tandem: tandem.createTandem( 'vProperty' ),
+     phetioValueType: TNumber( { units: 'meters/second', range: new Range( -1.35, 1.35 ) } )
+    } );
 
     // @public (read-only) - width from the center of the cart to the wheels, used to determine when a wheel touches
     // a game stopper
     this.widthToWheel = 55;
-
-    PropertySet.call( this, null, properties );
   }
 
   forcesAndMotionBasics.register( 'Cart', Cart );
 
-  return inherit( PropertySet, Cart );
+  return inherit( Object, Cart, {
+
+    /**
+     * Reset the Properties associated with this model.
+     * @public
+     */
+    reset: function() {
+      this.xProperty.reset();
+      this.vProperty.reset();
+    }
+  } );
 } );
