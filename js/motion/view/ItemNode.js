@@ -237,6 +237,9 @@ define( function( require ) {
         // reapply the center
         normalImageNode.centerX = centerX;
       }
+
+      // when scale or direction change, make sure that the label is still centered
+      self.labelNode.centerX = normalImageNode.centerX;
     } );
     item.onBoardProperty.link( updateImage );
 
