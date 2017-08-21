@@ -210,7 +210,7 @@ define( function( require ) {
       var scaledWidth = item.view.getScaledWidth();
 
       var delta = scaledWidth / 2 - item.pusherInsetProperty.get();
-      if ( model.appliedForce > 0 ) {
+      if ( model.appliedForceProperty.get() > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }
       else {
@@ -226,7 +226,7 @@ define( function( require ) {
     // @returns {number}
     var getPusherNodeDeltaX = function() {
       // the change in position for the model
-      var modelDelta = -( model.position - model.previousModelPosition );
+      var modelDelta = -( model.positionProperty.get() - model.previousModelPosition );
 
       // return, transformed by the view scale
       return modelDelta * MotionConstants.POSITION_SCALE;
@@ -253,8 +253,8 @@ define( function( require ) {
 
      model.fallenProperty.link( function( fallen ) {
       if ( fallen ) {
-        var newVisibleNode = model.fallenDirection === 'left' ? fallLeft : fallRight;
-        pusherLetGo( newVisibleNode, model.fallenDirection );
+        var newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeft : fallRight;
+        pusherLetGo( newVisibleNode, model.fallenDirectionProperty.get() );
       }
       else {
         // the pusher just stood up after falling, set center standing image at the current
@@ -285,28 +285,28 @@ define( function( require ) {
     var initializePusherNode = function() {
       // makd sure that the standing node is visible, and place in initial position
       setVisibleNode( standingUp );
-      visibleNode.centerX = layoutWidth / 2 + ( model.pusherPosition - model.position ) * MotionConstants.POSITION_SCALE;
+      visibleNode.centerX = layoutWidth / 2 + ( model.pusherPositionProperty.get() - model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
     };
 
     // on reset all, the model should set the node to the initial pusher position
-    model.on( 'reset-all', function() {
+    model.resetAllEmitter.addListener( function() {
       initializePusherNode();
     } );
 
     // when the stack composition changes, we want to update the applied force position
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
     model.stackSizeProperty.link( function( stackSize ) {
-      if ( model.stackSize > 0 ) {
+      if ( stackSize > 0 ) {
         // only do this if the pusher is standing and there is non zero applied force
-        if ( !model.fallen && model.appliedForce !== 0 ) {
+        if ( !model.fallenProperty.get() && model.appliedForceProperty.get() !== 0 ) {
           updateAppliedForcePosition();
         }
       }
     } );
 
     //Update the rightImage and position when the model changes
-    model.multilink( [ 'position' ], function() {
-      if ( model.appliedForce === 0 || model.fallen ) {
+    model.positionProperty.link( function() {
+      if ( model.appliedForceProperty.get() === 0 || model.fallenProperty.get() ) {
         var x = getPusherNodeDeltaX();
         // to save processor time, don't update if the pusher is too far off screen
         if ( Math.abs( x ) < 2000 ) {
@@ -320,7 +320,7 @@ define( function( require ) {
       allowTouchSnag: true,
       translate: function( options ) {
         if ( self.interactive ) {
-          var newAppliedForce = model.appliedForce + options.delta.x;
+          var newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
           var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
           // the new force should be rounded so that applied force is not
@@ -328,8 +328,8 @@ define( function( require ) {
           var roundedForce = Util.roundSymmetric( clampedAppliedForce );
 
           //Only apply a force if the pusher is not fallen, see #48
-          if ( !model.fallen ) {
-            model.appliedForce = roundedForce;
+          if ( !model.fallenProperty.get() ) {
+            model.appliedForceProperty.set( roundedForce );
           }
         }
       },
@@ -349,7 +349,7 @@ define( function( require ) {
 
           // if the model is paused, the applied force should remain the same
           if ( model.playProperty.value ) {
-            model.appliedForce = 0;
+            model.appliedForceProperty.set( 0 );
           }           
         }
       }

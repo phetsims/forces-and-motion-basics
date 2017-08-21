@@ -18,6 +18,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HSlider = require( 'SUN/HSlider' );
   var Util = require( 'DOT/Util' );
+  var Property = require( 'AXON/Property' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
@@ -56,7 +57,7 @@ define( function( require ) {
       self.enabled = true;
     };
 
-    model.multilink( [ 'speedClassification', 'friction' ], function( speedClassification, friction ) {
+    Property.multilink( [ model.speedClassificationProperty, model.frictionProperty ], function( speedClassification, friction ) {
       if ( friction > 0 ) {
         // if we have any friction, all we want to do is cancel the drag so the pusher does not
         // rapidly stand up again

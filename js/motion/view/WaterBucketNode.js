@@ -76,7 +76,7 @@ define( function( require ) {
         return 0;
       }
 
-      var acceleration = model.acceleration;
+      var acceleration = model.accelerationProperty.get();
       history.push( acceleration );
       while ( history.length > 7 ) {
         history.shift();//remove front item

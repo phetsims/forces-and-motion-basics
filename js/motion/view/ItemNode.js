@@ -119,9 +119,9 @@ define( function( require ) {
       if ( personInStack ) {
         direction = personInStack.directionProperty.get();
       }
-      else if ( person.context.appliedForce !== 0 ) {
+      else if ( person.context.appliedForceProperty.get() !== 0 ) {
         // if there is an applied force on the stack, direction should match applied force
-        if ( person.context.appliedForce > 0 ) {
+        if ( person.context.appliedForceProperty.get() > 0 ) {
           direction = 'right';
         }
         else {
@@ -130,7 +130,7 @@ define( function( require ) {
       }
       else {
         // if there is no applied force, check velocity for direction
-        if ( person.context.velocity > 0 ) {
+        if ( person.context.velocityProperty.get() > 0 ) {
           direction = 'right';
         }
       }
@@ -186,7 +186,7 @@ define( function( require ) {
     this.addInputListener( dragHandler );
 
     // if the item is being dragged, cancel the drag on reset
-    model.on( 'reset-all', function() {
+    model.resetAllEmitter.addListener( function() {
       // cancel the drag and reset item
       if ( item.draggingProperty.get() ) {
         dragHandler.endDrag();
