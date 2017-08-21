@@ -171,10 +171,10 @@ define( function( require ) {
     this.pullers.forEach( function( puller ) {
 
       puller.positionProperty.link( self.updateVisibleKnots.bind( self ) );
-      puller.on( 'dragged', function() {
+      puller.draggedEmitter.addListener( function() {
         self.numberPullersAttachedProperty.set( self.countAttachedPullers() );
       } );
-      puller.on( 'dropped', function() {
+      puller.droppedEmitter.addListener( function() {
         var knot = self.getTargetKnot( puller );
         self.movePullerToKnot( puller, knot );
       } );
@@ -209,7 +209,9 @@ define( function( require ) {
 
       //try to snap to a knot
       if ( knot ) {
-        puller.setValues( { position: new Vector2( knot.xProperty.get(), knot.y ), knot: knot } );
+
+        puller.positionProperty.set( new Vector2( knot.xProperty.get(), knot.y ) );
+        puller.knotProperty.set( knot );
       }
 
       //Or go back home
@@ -218,7 +220,8 @@ define( function( require ) {
       }
 
       //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
-      puller.lastLocation = knot ? 'knot' : 'home';
+      var newLocation = knot ? 'knot' : 'home';
+      puller.lastLocationProperty.set( newLocation );
     },
 
     /**
@@ -247,8 +250,8 @@ define( function( require ) {
      * @param  {number} delta
      */
     shiftPuller: function( puller, leftBoundIndex, rightBoundIndex, delta ) {
-      if ( puller.knot ) {
-        var currentIndex = this.knots.indexOf( puller.knot );
+      if ( puller.knotProperty.get() ) {
+        var currentIndex = this.knots.indexOf( puller.knotProperty.get() );
         if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
           var nextIndex = currentIndex + delta;
 
@@ -270,7 +273,7 @@ define( function( require ) {
     countAttachedPullers: function() {
       var count = 0;
       for ( var i = 0; i < this.pullers.length; i++ ) {
-        if ( this.pullers[ i ].knot ) {
+        if ( this.pullers[ i ].knotProperty.get() ) {
           count++;
         }
       }
@@ -282,7 +285,7 @@ define( function( require ) {
       var self = this;
       this.knots.forEach( function( knot ) { knot.visibleProperty.set( false ); } );
       this.pullers.forEach( function( puller ) {
-        if ( puller.dragging ) {
+        if ( puller.draggingProperty.get() ) {
           var knot = self.getTargetKnot( puller );
           if ( knot ) {
             knot.visibleProperty.set( true );
@@ -297,7 +300,7 @@ define( function( require ) {
      * @param  {Knot} knot
      */
     getPuller: function( knot ) {
-      var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
+      var find = _.find( this.pullers, function( puller ) {return puller.knotProperty.get() === knot;} );
       return typeof(find) !== 'undefined' ? find : null;
     },
 
@@ -312,7 +315,7 @@ define( function( require ) {
       // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
       // placing the blue pullers
       var dx = puller.type === 'red' ? 0 : -40;
-      return function( knot ) { return Math.sqrt( Math.pow( knot.xProperty.get() - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
+      return function( knot ) { return Math.sqrt( Math.pow( knot.xProperty.get() - puller.positionProperty.get().x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.get().y, 2 ) ); };
     },
 
     /**
@@ -354,8 +357,8 @@ define( function( require ) {
       var distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
-      var threshold = puller.lastLocation === 'home' ? 370 : 300;
-      return distanceToTarget < 220 && puller.position.y < threshold ? target : null;
+      var threshold = puller.lastLocationProperty.get() === 'home' ? 370 : 300;
+      return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
     },
 
     //Return the cart and prepare the model for another "go" run
@@ -398,7 +401,7 @@ define( function( require ) {
       this.cart.reset();
       this.pullers.forEach( function( puller ) {
         // if the puller is being dragged, we will need to cancel the drag in PullerNode
-        if ( !puller.dragging ) {
+        if ( !puller.draggingProperty.get() ) {
           puller.reset();
         }
       } );
@@ -473,7 +476,7 @@ define( function( require ) {
      * @returns {Array<Puller>}
      */
     getPullers: function( type ) {
-      return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} );
+      return _.filter( this.pullers, function( p ) {return p.type === type && p.knotProperty.get();} );
     },
 
     /**
@@ -514,7 +517,7 @@ define( function( require ) {
       var filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type &&
                self.getPuller( knot ) === null &&
-               isInRightDirection( puller.knot, knot, delta );
+               isInRightDirection( puller.knotProperty.get(), knot, delta );
       } );
       var result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
       if ( result === Infinity || result === -Infinity ) {
@@ -563,7 +566,7 @@ define( function( require ) {
       return this.pullers.map( function( p ) {
         return {
           id: p.tandem.id, // TODO: addInstance for Puller
-          knot: p.knot && p.knot.phetioID
+          knot: p.knotProperty.get() && p.knotProperty.get().phetioID
         };
       } );
     },

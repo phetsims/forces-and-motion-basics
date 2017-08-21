@@ -8,7 +8,8 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -47,47 +48,56 @@ define( function( require ) {
                  this.size === 'large' ? 30 * 5 :
                  NaN;
 
-    var properties = {
+    // @public {boolean} - whether or not the puller is currently being dragged
+    this.draggingProperty = new Property( false, {
+      tandem: tandem.createTandem( 'draggingProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      dragging: {
-        value: false,
-        tandem: tandem.createTandem( 'draggingProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {Knot|null} - the knot that this puller is attached to
+    this.knotProperty = new Property( null, {
+      tandem: tandem.createTandem( 'knotProperty' ),
+      phetioValueType: TKnot
+    } );
 
-      knot: {
-        value: null,
-        tandem: tandem.createTandem( 'knotProperty' ),
-        phetioValueType: TKnot
-      },
+    // @public {Vector2} - the position of this puller
+    this.positionProperty = new Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioValueType: TVector2
+    } );
 
-      position: {
-        value: new Vector2( x, y ),
-        tandem: tandem.createTandem( 'positionProperty' ),
-        phetioValueType: TVector2
-      },
+    // @public {string} - a classified location in the play area
+    // TODO: What are the valid values for this Property?
+    this.lastLocationProperty = new Property( 'home', {
+      tandem: tandem.createTandem( 'lastLocationProperty' ),
+      phetioValueType: TVector2
+    } );
 
-      lastLocation: {
-        value: 'home',
-        tandem: tandem.createTandem( 'lastLocationProperty' ),
-        phetioValueType: TVector2
-      },
+    // For keyboard accessibility, the knot that the puller is hovering over
+    // TODO: What are the valid values for this Property?
+    this.hoverKnotProperty = new Property( null, {
+      tandem: tandem.createTandem( 'hoverKnotProperty' ),
+      phetioValueType: TKnot
+    } );
 
-      // For keyboard accessibility, the knot that the puller is hovering over
-      hoverKnot: {
-        value: null,
-        tandem: tandem.createTandem( 'hoverKnotProperty' ),
-        phetioValueType: TKnot
-      },
+    // @public {string} - text description for accessibility
+    this.textDescriptionProperty = new Property( '', {
+      tandem: tandem.createTandem( 'textDescriptionProperty' ),
+      phetioValueType: TString
+    } );
 
-      textDescription: {
-        value: '',
-        tandem: tandem.createTandem( 'textDescriptionProperty' ),
-        phetioValueType: TString
-      }
-    };
+    // @public - emits an event when the puller is dropped
+    this.droppedEmitter = new Emitter();
 
-    PropertySet.call( this, null, properties );
+    // @public - emits an event when the puller is dragged
+    this.draggedEmitter = new Emitter();
+
+    Property.preventGetSet( this, 'dragging' );
+    Property.preventGetSet( this, 'knot' );
+    Property.preventGetSet( this, 'position' );
+    Property.preventGetSet( this, 'lastLocation' );
+    Property.preventGetSet( this, 'hoverKnot' );
+    Property.preventGetSet( this, 'textDescription' );
 
     this.other = options.other;
 
@@ -98,11 +108,11 @@ define( function( require ) {
                               this.size === 'medium' ? 'Stronger' :
                               'Strongest'
                             ) + ' ' + ' person';
-    this.textDescription = pullerDescription;
+    this.textDescriptionProperty.set( pullerDescription );
 
     //Move with the knot
     var updatePosition = function( knotX ) {
-      self.position = new Vector2( knotX, self.position.y );
+      self.positionProperty.set( new Vector2( knotX, self.positionProperty.get().y ) );
     };
 
     //When the knot changes, wire up as a listener to the new knot
@@ -118,17 +128,30 @@ define( function( require ) {
         newKnot.xProperty.link( updatePosition );
       }
 
-      self.textDescription = pullerDescription + (newKnot ? '. attached to a knot on the rope' : '');
+      self.textDescriptionProperty.set( pullerDescription + (newKnot ? '. attached to a knot on the rope' : '' ) );
     } );
   }
 
   forcesAndMotionBasics.register( 'Puller', Puller );
 
-  return inherit( PropertySet, Puller, {
+  return inherit( Object, Puller, {
+
+    /**
+     * Reset the model by resetting all associated Properties.
+     * @public
+     */
+    reset: function() {
+      this.draggingProperty.reset();
+      this.knotProperty.reset();
+      this.positionProperty.reset();
+      this.lastLocationProperty.reset();
+      this.hoverKnotProperty.reset();
+      this.textDescriptionProperty.reset();
+    },
 
     //Detach the puller from the knot.
     disconnect: function() {
-      this.knot = null;
+      this.knotProperty.set( null );
     },
 
     //Get the name for the puller, used in a11y

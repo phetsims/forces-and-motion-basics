@@ -51,7 +51,7 @@ define( function( require ) {
           // a puller was being dragged when escape was pressed - exiting this group, so make sure that all
           // pullers are dropped
           netForceModel.pullers.forEach( function( puller ) {
-            puller.dragging = false;
+            puller.draggingProperty.set( false );
           } );
 
           // exit the group of knots
@@ -77,7 +77,7 @@ define( function( require ) {
       // get the puller being dragged
       var draggedPuller = null;
       self.netForceModel.pullers.forEach( function( puller ) {
-        if ( puller.dragging ) {
+        if ( puller.draggingProperty.get() ) {
           draggedPuller = puller;
         }
       } );
