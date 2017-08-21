@@ -90,8 +90,8 @@ define( function( require ) {
       var shape = new Shape();
       var maxX = 220;
       var maxY = 55;
-      var dy = ( 7 * Math.sin( this.model.time * 6 ) );
-      var dx = ( 2 * Math.sin( this.model.time * 5 ) ) + 10;
+      var dy = ( 7 * Math.sin( this.model.timeProperty.get() * 6 ) );
+      var dx = ( 2 * Math.sin( this.model.timeProperty.get() * 5 ) ) + 10;
       shape.moveTo( 0, 0 );
       shape.cubicCurveTo( maxX / 3 + dx, 25 + dy, 2 * maxX / 3 + dx, -25 - dy, maxX + dx, dy / 2 );
       shape.lineTo( maxX + dx, maxY + dy / 2 );
