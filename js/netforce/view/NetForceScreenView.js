@@ -377,7 +377,7 @@ define( function( require ) {
 
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
-      if ( state === 'completed' && model.volumeOn ) {
+      if ( state === 'completed' && model.volumeOnProperty.get() ) {
         golfClap.play();
       }
     } );
