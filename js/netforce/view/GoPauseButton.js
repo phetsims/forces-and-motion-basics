@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
+  var Property = require( 'AXON/Property' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var ToggleNode = require( 'SUN/ToggleNode' );
@@ -90,7 +91,7 @@ define( function( require ) {
 
     // boolean function to determine if the go button should be enabled based on model state.
     var isGoButtonEnabled = function() {
-      return model.state !== 'completed' && ( model.numberPullersAttached > 0 || model.running );
+      return model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
     };
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
@@ -99,8 +100,8 @@ define( function( require ) {
       phetioArgumentTypes: [ TNumber( { units: 'newtons' } ), TString ]
     } );
     var goListener = function() {
-      goButtonPressedEmitter.emit2( model.netForce, JSON.stringify( model.getKnotDescription() ) );
-      model.running = true;
+      goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
+      model.runningProperty.set( true );
     };
     var goButton = new RoundPushButton( {
       content: wrap( goTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
@@ -118,7 +119,7 @@ define( function( require ) {
     goButton.setAccessibleAttribute( 'aria-disabled', !isGoButtonEnabled() );
 
     var pauseListener = function() {
-      model.running = false;
+      model.runningProperty.set( false );
     };
     var pauseButton = new RoundPushButton( {
       content: wrap( pauseTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
@@ -137,7 +138,7 @@ define( function( require ) {
     ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
-    model.multilink( [ 'running', 'state', 'numberPullersAttached' ], function() {
+    Property.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], function() {
       var enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;

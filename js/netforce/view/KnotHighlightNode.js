@@ -58,7 +58,7 @@ define( function( require ) {
     movePullerToSelectedKnot: function( pullerNode, knot, model ) {
       var grabbedPuller = pullerNode.puller;
       grabbedPuller.setValues( { position: new Vector2( knot.xProperty.get(), knot.y ) } );
-      model.numberPullersAttached = model.countAttachedPullers();
+      model.numberPullersAttachedProperty.set( model.countAttachedPullers() );
       grabbedPuller.dragging = false;
       grabbedPuller.trigger0( 'dropped' );
       pullerNode.updateImage( grabbedPuller, model );

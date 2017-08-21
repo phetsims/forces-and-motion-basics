@@ -121,8 +121,7 @@ define( function( require ) {
     );
     self.addInputListener( dragHandler );
 
-    //model.on( 'reset-all', pullerNode.updateLocation );
-    model.on( 'reset-all', function() {
+    model.resetAllEmitter.addListener( function() {
       self.updateLocation( puller, model );
 
       // cancel the drag
@@ -160,9 +159,8 @@ define( function( require ) {
 
             var grabbedPuller = self.puller;
             grabbedPuller.reset();
-            model.numberPullersAttached = model.countAttachedPullers();
+            model.numberPullersAttachedProperty.set( model.countAttachedPullers() );
             grabbedPuller.dragging = false;
-            //grabbedPuller.trigger0( 'dropped' );
             self.updateImage( grabbedPuller, model );
             self.updateLocation( grabbedPuller, model );
 
@@ -230,7 +228,7 @@ define( function( require ) {
      */
     updateImage: function( puller, model ) {
       var knotted = puller.knot;
-      var pulling = model.started && knotted && model.state !== 'completed';
+      var pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
       this.image = pulling ? this.pullImage : this.standImage;
     },
 
@@ -242,7 +240,7 @@ define( function( require ) {
      */
     updateLocation: function( puller, model ) {
       var knotted = puller.knot;
-      var pulling = model.started && knotted && model.state !== 'completed';
+      var pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
       if ( knotted ) {
         var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
         var blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;

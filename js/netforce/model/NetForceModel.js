@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
@@ -17,6 +17,7 @@ define( function( require ) {
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Range = require( 'DOT/Range' );
+  var Emitter = require( 'AXON/Emitter' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -38,93 +39,93 @@ define( function( require ) {
 
     var self = this;
 
-    var properties = {
+    this.startedProperty = new Property( false, {
+      tandem: tandem.createTandem( 'startedProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      started: {
-        value: false,
-        tandem: tandem.createTandem( 'startedProperty' ),
-        phetioValueType: TBoolean
-      },
+    this.runningProperty = new Property( false, {
+      tandem: tandem.createTandem( 'runningProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      running: {
-        value: false,
-        tandem: tandem.createTandem( 'runningProperty' ),
-        phetioValueType: TBoolean
-      },
+    this.numberPullersAttachedProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
+      phetioValueType: TNumber()
+    } );
 
-      numberPullersAttached: {
-        value: 0,
-        tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
-        phetioValueType: TNumber()
-      },
+    // TODO what are the valid values?
+    this.stateProperty = new Property( 'experimenting', {
+      tandem: tandem.createTandem( 'stateProperty' ),
+      phetioValueType: TString
+    } );
 
-      state: {
-        value: 'experimenting', //TODO what are the valid values?
-        tandem: tandem.createTandem( 'stateProperty' ),
-        phetioValueType: TString
-      },
+    this.timeProperty = new Property( 0, {
+      // TODO: Removed this property for phet-io spam
+      // tandem: tandem.createTandem( 'timeProperty' )
+      // phetioValueType: TNumber( 'seconds' )
+    } );
 
-      time: {
-        value: 0
-        // TODO: Removed this property for phet-io spam
-        // tandem: tandem.createTandem( 'timeProperty' )
-        // phetioValueType: TNumber( 'seconds' )
-      },
+    this.netForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'netForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
+    } );
 
-      netForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'netForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
-      },
+    this.leftForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'leftForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
+    } );
 
-      leftForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'leftForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
-      },
+    this.rightForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'rightForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+    } );
 
-      rightForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'rightForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
-      },
+    this.speedProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'speedProperty' ),
+      phetioValueType: TNumber( { units: 'meters/second' } )
+    } );
 
-      speed: {
-        value: 0,
-        tandem: tandem.createTandem( 'speedProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second' } )
-      },
+    this.durationProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'durationProperty' ),
+      phetioValueType: TNumber( { units: 'seconds' } )
+    } );
 
-      duration: {
-        value: 0,
-        tandem: tandem.createTandem( 'durationProperty' ),
-        phetioValueType: TNumber( { units: 'seconds' } )
-      },
+    // User settings
+    this.showSumOfForcesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
+      phetioValueType: TBoolean
+    } );
+    this.showValuesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showValuesProperty' ),
+      phetioValueType: TBoolean
+    } );
+    this.showSpeedProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSpeedProperty' ),
+      phetioValueType: TBoolean
+    } );
+    this.volumeOnProperty = new Property( false, {
+      tandem: tandem.createTandem( 'volumeOnProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      // User settings
-      showSumOfForces: {
-        value: false,
-        tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-        phetioValueType: TBoolean
-      },
-      showValues: {
-        value: false,
-        tandem: tandem.createTandem( 'showValuesProperty' ),
-        phetioValueType: TBoolean
-      },
-      showSpeed: {
-        value: false,
-        tandem: tandem.createTandem( 'showSpeedProperty' ),
-        phetioValueType: TBoolean
-      },
-      volumeOn: {
-        value: false,
-        tandem: tandem.createTandem( 'volumeOnProperty' ),
-        phetioValueType: TBoolean
-      }
-    };
+    this.cartReturnedEmitter = new Emitter();
+    this.resetAllEmitter = new Emitter();
 
-    PropertySet.call( this, null, properties );
+    Property.preventGetSet( this, 'started' );
+    Property.preventGetSet( this, 'running' );
+    Property.preventGetSet( this, 'numberPullersAttached' );
+    Property.preventGetSet( this, 'state' );
+    Property.preventGetSet( this, 'time' );
+    Property.preventGetSet( this, 'netForce' );
+    Property.preventGetSet( this, 'leftForce' );
+    Property.preventGetSet( this, 'rightForce' );
+    Property.preventGetSet( this, 'speed' );
+    Property.preventGetSet( this, 'duration' );
+    Property.preventGetSet( this, 'showSumOfForces' );
+    Property.preventGetSet( this, 'showValues' );
+    Property.preventGetSet( this, 'showSpeed' );
+    Property.preventGetSet( this, 'volumeOn' );
 
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
@@ -171,31 +172,31 @@ define( function( require ) {
 
       puller.positionProperty.link( self.updateVisibleKnots.bind( self ) );
       puller.on( 'dragged', function() {
-        self.numberPullersAttached = self.countAttachedPullers();
+        self.numberPullersAttachedProperty.set( self.countAttachedPullers() );
       } );
       puller.on( 'dropped', function() {
         var knot = self.getTargetKnot( puller );
         self.movePullerToKnot( puller, knot );
       } );
       puller.knotProperty.link( function() {
-        self.numberPullersAttached = self.countAttachedPullers();
+        self.numberPullersAttachedProperty.set( self.countAttachedPullers() );
       } );
     } );
 
     //Update the started flag
-    this.runningProperty.link( function( running ) { if ( running ) { self.started = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { self.startedProperty.set( true ); }} );
 
     //Update the forces when the number of attached pullers changes
-    this.numberPullersAttachedProperty.link( function() {self.netForce = self.getNetForce();} );
-    this.numberPullersAttachedProperty.link( function() {self.leftForce = self.getLeftForce();} );
-    this.numberPullersAttachedProperty.link( function() {self.rightForce = self.getRightForce();} );
+    this.numberPullersAttachedProperty.link( function() { self.netForceProperty.set( self.getNetForce() ); } );
+    this.numberPullersAttachedProperty.link( function() { self.leftForceProperty.set( self.getLeftForce() ); } );
+    this.numberPullersAttachedProperty.link( function() { self.rightForceProperty.set( self.getRightForce() ); } );
 
     tandem.addInstance( this, TNetForceModel );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
 
-  return inherit( PropertySet, NetForceModel, {
+  return inherit( Object, NetForceModel, {
 
     /**
      * Move a puller to a knot.  If no knot is specified, puller is moved to its original location in the Puller
@@ -361,17 +362,35 @@ define( function( require ) {
     returnCart: function() {
       this.cart.reset();
       this.knots.forEach( function( knot ) {knot.reset();} );
-      this.running = false;
-      this.state = 'experimenting';
-      this.trigger0( 'cart-returned' );
-      this.started = false;
-      this.duration = 0; // Reset tug-of-war timer
+      this.runningProperty.set( false );
+      this.stateProperty.set( 'experimenting' );
+
+      // broadcast a message that the cart was returned
+      this.cartReturnedEmitter.emit();
+
+      this.startedProperty.set( false );
+      this.durationProperty.set( 0 ); // Reset tug-of-war timer
       this.speedProperty.reset();
     },
 
     //Reset the entire model when "reset all" is pressed
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
+      // reset all Properties associated with this model
+      this.startedProperty.reset();
+      this.runningProperty.reset();
+      this.numberPullersAttachedProperty.reset();
+      this.stateProperty.reset();
+      this.timeProperty.reset();
+      this.netForceProperty.reset();
+      this.leftForceProperty.reset();
+      this.rightForceProperty.reset();
+      this.speedProperty.reset();
+      this.durationProperty.reset();
+      this.showSumOfForcesProperty.reset();
+      this.showValuesProperty.reset();
+      this.showSpeedProperty.reset();
+      this.volumeOnProperty.reset();
 
       //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
       this.pullers.forEach( function( puller ) {puller.disconnect();} );
@@ -384,7 +403,9 @@ define( function( require ) {
         }
       } );
       this.knots.forEach( function( knot ) {knot.reset();} );
-      this.trigger0( 'reset-all' );
+
+      // notify that the model was reset
+      this.resetAllEmitter.emit();
     },
 
     /**
@@ -394,9 +415,10 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      if ( this.running ) {
+      if ( this.runningProperty.get() ) {
 
-        this.duration += dt; // Increment tug-of-war timer
+         // Increment tug-of-war timer
+        this.durationProperty.set( this.durationProperty.get() + dt );
 
         // Make the simulation run about as fast as the Java version
         var newV = this.cart.vProperty.get() + this.getNetForce() * dt * 0.003;
@@ -408,8 +430,8 @@ define( function( require ) {
         //If the cart made it to the end, then stop and signify completion
         var gameLength = GAME_LENGTH - this.cart.widthToWheel;
         if ( this.cart.xProperty.get() > gameLength || this.cart.xProperty.get() < -gameLength ) {
-          this.running = false;
-          this.state = 'completed';
+          this.runningProperty.set( false );
+          this.stateProperty.set( 'completed' );
 
           // zero out the velocity
           this.speedProperty.set( 0 );
@@ -419,7 +441,8 @@ define( function( require ) {
           this.updateCartAndPullers( this.speedProperty.get(), maxLength );
         }
       }
-      this.time = this.time + dt;
+
+      this.timeProperty.set( this.timeProperty.get() + dt );
     },
 
     /**

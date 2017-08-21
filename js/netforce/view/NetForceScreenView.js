@@ -389,7 +389,8 @@ define( function( require ) {
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
-    model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {self.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+
+    Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], function( netForce, showSumOfForces ) { self.sumOfForcesText.visible = !netForce && showSumOfForces; } );
     this.addChild( this.sumOfForcesText );
 
     cursorPathNode.visible = false;
