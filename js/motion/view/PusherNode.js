@@ -10,7 +10,7 @@ define( function( require ) {
 
   var Image = require( 'SCENERY/nodes/Image' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
 
@@ -63,6 +63,10 @@ define( function( require ) {
   function PusherNode( model, layoutWidth, tandem ) {
     var self = this;
     var scale = 0.95;
+
+    // @private - if there are no items on the stack, the node is not interactive and the
+    // drag handler will not do anything
+    this.interactive = true;
 
     //Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
     var pushingRightNodes = [];
@@ -179,7 +183,7 @@ define( function( require ) {
         var scaledWidth = item.view.getScaledWidth();
 
         // add a little more space (10) so the pusher isn't exactly touching the stack
-        var delta = scaledWidth / 2 - item.pusherInset + 10;
+        var delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
 
         if ( direction === 'right' ) {
           visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
@@ -205,8 +209,8 @@ define( function( require ) {
       // get the scaled width of the first item in the stack
       var scaledWidth = item.view.getScaledWidth();
 
-      var delta = scaledWidth / 2 - item.pusherInset;
-      if ( model.appliedForce > 0 ) {
+      var delta = scaledWidth / 2 - item.pusherInsetProperty.get();
+      if ( model.appliedForceProperty.get() > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }
       else {
@@ -222,7 +226,7 @@ define( function( require ) {
     // @returns {number}
     var getPusherNodeDeltaX = function() {
       // the change in position for the model
-      var modelDelta = -( model.position - model.previousModelPosition );
+      var modelDelta = -( model.positionProperty.get() - model.previousModelPosition );
 
       // return, transformed by the view scale
       return modelDelta * MotionConstants.POSITION_SCALE;
@@ -249,8 +253,8 @@ define( function( require ) {
 
      model.fallenProperty.link( function( fallen ) {
       if ( fallen ) {
-        var newVisibleNode = model.fallenDirection === 'left' ? fallLeft : fallRight;
-        pusherLetGo( newVisibleNode, model.fallenDirection );
+        var newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeft : fallRight;
+        pusherLetGo( newVisibleNode, model.fallenDirectionProperty.get() );
       }
       else {
         // the pusher just stood up after falling, set center standing image at the current
@@ -281,28 +285,28 @@ define( function( require ) {
     var initializePusherNode = function() {
       // makd sure that the standing node is visible, and place in initial position
       setVisibleNode( standingUp );
-      visibleNode.centerX = layoutWidth / 2 + ( model.pusherPosition - model.position ) * MotionConstants.POSITION_SCALE;
+      visibleNode.centerX = layoutWidth / 2 + ( model.pusherPositionProperty.get() - model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
     };
 
     // on reset all, the model should set the node to the initial pusher position
-    model.on( 'reset-all', function() {
+    model.resetAllEmitter.addListener( function() {
       initializePusherNode();
     } );
 
     // when the stack composition changes, we want to update the applied force position
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
     model.stackSizeProperty.link( function( stackSize ) {
-      if ( model.stackSize > 0 ) {
+      if ( stackSize > 0 ) {
         // only do this if the pusher is standing and there is non zero applied force
-        if ( !model.fallen && model.appliedForce !== 0 ) {
+        if ( !model.fallenProperty.get() && model.appliedForceProperty.get() !== 0 ) {
           updateAppliedForcePosition();
         }
       }
     } );
 
     //Update the rightImage and position when the model changes
-    model.multilink( [ 'position' ], function() {
-      if ( model.appliedForce === 0 || model.fallen ) {
+    model.positionProperty.link( function() {
+      if ( model.appliedForceProperty.get() === 0 || model.fallenProperty.get() ) {
         var x = getPusherNodeDeltaX();
         // to save processor time, don't update if the pusher is too far off screen
         if ( Math.abs( x ) < 2000 ) {
@@ -311,34 +315,42 @@ define( function( require ) {
       }
     } );
 
-    var listener = new TandemSimpleDragHandler( {
+    var listener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       translate: function( options ) {
-        var newAppliedForce = model.appliedForce + options.delta.x;
-        var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
+        if ( self.interactive ) {
+          var newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
+          var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
-        // the new force should be rounded so that applied force is not
-        // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
-        var roundedForce = Util.roundSymmetric( clampedAppliedForce );
+          // the new force should be rounded so that applied force is not
+          // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
+          var roundedForce = Util.roundSymmetric( clampedAppliedForce );
 
-        //Only apply a force if the pusher is not fallen, see #48
-        if ( !model.fallen ) {
-          model.appliedForce = roundedForce;
+          //Only apply a force if the pusher is not fallen, see #48
+          if ( !model.fallenProperty.get() ) {
+            model.appliedForceProperty.set( roundedForce );
+          }
         }
       },
 
       start: function() {
-        // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
-        if ( !model.playProperty.value ) {
-          model.playProperty.set( true );
+        if ( self.interactive ) {
+          
+          // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
+          if ( !model.playProperty.value ) {
+            model.playProperty.set( true );
+          }
         }
-
       },
+
       end: function() {
-        // if the model is paused, the applied force should remain the same
-        if ( model.playProperty.value ) {
-          model.appliedForce = 0;
+        if ( self.interactive ) {
+
+          // if the model is paused, the applied force should remain the same
+          if ( model.playProperty.value ) {
+            model.appliedForceProperty.set( 0 );
+          }           
         }
       }
     } );
@@ -346,12 +358,13 @@ define( function( require ) {
 
     //Make it so you cannot drag the pusher until one ItemNode is in the play area
     model.stack.lengthProperty.link( function( length ) {
-      self.cursor = length === 0 ? 'default' : 'pointer';
       if ( length === 0 ) {
-        self.removeInputListener( listener );
+        self.cursor = 'default';
+        self.interactive = false;
       }
       else {
-        self.addInputListener( listener );
+        self.cursor = 'pointer';
+        self.interactive = true;
       }
     } );
 

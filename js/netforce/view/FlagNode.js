@@ -38,13 +38,13 @@ define( function( require ) {
       tandem: tandem
     } );
 
-    var textNode = new Text( model.cart.x < 0 ? blueWinsString : redWinsString, {
+    var textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
       tandem: tandem.createTandem( 'textNode' ),
       font: new PhetFont( 24 ),
       fill: 'white'
     } );
     this.path = new Path( null, {
-      fill: model.cart.x < 0 ? 'blue' : 'red',
+      fill: model.cart.xProperty.get() < 0 ? 'blue' : 'red',
       stroke: 'black',
       lineWidth: 2,
       tandem: tandem.createTandem( 'pathNode' )
@@ -61,18 +61,12 @@ define( function( require ) {
 
     // listeners that will dispose the flag node when model is reset or cart is returned -
     // these must also be disposed
-    var resetListener = function() { self.dispose(); };
-    var cartReturnedListener = function() { self.dispose(); };
-    model.on( 'reset-all', resetListener );
-    model.on( 'cart-returned', cartReturnedListener );
 
     this.disposeFlagNode = function() {
       self.detach();
       model.timeProperty.unlink( update );
       textNode.dispose();
       self.path.dispose();
-      model.off( 'reset-all', resetListener );
-      model.off( 'cart-returned', cartReturnedListener );
     };
 
     //When the clock ticks, wave the flag
@@ -87,8 +81,8 @@ define( function( require ) {
 
   return inherit( Node, FlagNode, {
     dispose: function() {
-      Node.prototype.dispose.call( this );
       this.disposeFlagNode();
+      Node.prototype.dispose.call( this );
     },
 
     //Update the flag shape, copied from the Java version
@@ -96,8 +90,8 @@ define( function( require ) {
       var shape = new Shape();
       var maxX = 220;
       var maxY = 55;
-      var dy = ( 7 * Math.sin( this.model.time * 6 ) );
-      var dx = ( 2 * Math.sin( this.model.time * 5 ) ) + 10;
+      var dy = ( 7 * Math.sin( this.model.timeProperty.get() * 6 ) );
+      var dx = ( 2 * Math.sin( this.model.timeProperty.get() * 5 ) ) + 10;
       shape.moveTo( 0, 0 );
       shape.cubicCurveTo( maxX / 3 + dx, 25 + dy, 2 * maxX / 3 + dx, -25 - dy, maxX + dx, dy / 2 );
       shape.lineTo( maxX + dx, maxY + dy / 2 );
@@ -116,7 +110,7 @@ define( function( require ) {
     updateAccessibleGameOverElement: function() {
 
       // determine which string to use by determining which side won the game
-      var gameOverDescriptionString = ( this.model.cart.x < 0 ) ? leftSideWinsDescriptionString : rightSideWinsDescriptionString;
+      var gameOverDescriptionString = ( this.model.cart.xProperty.get() < 0 ) ? leftSideWinsDescriptionString : rightSideWinsDescriptionString;
 
       // get the live game over element from the DOM
       var gameOverElement = document.getElementById( 'netForceGameOverElement' );

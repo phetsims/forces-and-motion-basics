@@ -36,7 +36,7 @@ define( function( require ) {
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  
+
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
@@ -75,6 +75,7 @@ define( function( require ) {
   var STOPPER_TOP_WIDTH = 11;
   var STOPPER_BOTTOM_WIDTH = 30;
   var STOPPER_HEIGHT = 24;
+  var SUM_ARROW_TAIL_Y = 127;
 
   /**
    * @param {NetForceModel} model
@@ -190,7 +191,7 @@ define( function( require ) {
 
     //Create the arrow nodes
     var opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, 127, this.model.netForceProperty, this.model.showValuesProperty,
+    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
       } );
@@ -348,10 +349,15 @@ define( function( require ) {
     } );
     this.addChild( this.controlPanel );
 
+    var lastFlagNode = null;
+
     // Show the flag node when pulling is complete
     Property.multilink( [ model.stateProperty, model.cart.xProperty ], function( state, x ) {
+      lastFlagNode && lastFlagNode.dispose();
+      lastFlagNode = null;
       if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {
-        self.addChild( new FlagNode( model, self.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) ) );
+        lastFlagNode = new FlagNode( model, self.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) );
+        self.addChild( lastFlagNode );
       }
     } );
 
@@ -371,7 +377,7 @@ define( function( require ) {
 
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {
-      if ( state === 'completed' && model.volumeOn ) {
+      if ( state === 'completed' && model.volumeOnProperty.get() ) {
         golfClap.play();
       }
     } );
@@ -380,10 +386,11 @@ define( function( require ) {
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
-      y: 53,
+      bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
-    model.multilink( [ 'netForce', 'showSumOfForces' ], function( netForce, showSumOfForces ) {self.sumOfForcesText.visible = !netForce && showSumOfForces;} );
+
+    Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], function( netForce, showSumOfForces ) { self.sumOfForcesText.visible = !netForce && showSumOfForces; } );
     this.addChild( this.sumOfForcesText );
 
     cursorPathNode.visible = false;

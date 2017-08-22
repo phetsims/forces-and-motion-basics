@@ -1,8 +1,8 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
 /**
- *
- * @author Sam Reid (PhET Interactive Simulations)
+ * Data object
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -14,31 +14,30 @@ define( function( require ) {
   var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
 
   /**
-   *
+   * Stores the data from the Item.animating Property.
    * @param instance
    * @param phetioID
    * @constructor
    */
-  function TItem( instance, phetioID ) {
+  function TAnimationState( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
-    assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
+    assertInstanceOf( instance, Object);
     TObject.call( this, instance, phetioID );
   }
 
-  phetioInherit( TObject, 'TItem', TItem, {}, {
-    documentation: 'An Item that can be placed dragged into the play area.',
+  phetioInherit( TObject, 'TAnimationState', TAnimationState, {}, {
+    documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
 
     toStateObject: function( instance ) {
-      return instance.phetioID;
+      return instance;
     },
 
     fromStateObject: function( stateObject ) {
-      return stateObject.name;
+      return stateObject;
     }
   } );
 
-  forcesAndMotionBasics.register( 'TItem', TItem );
+  forcesAndMotionBasics.register( 'TAnimationState', TAnimationState );
 
-  return TItem;
+  return TAnimationState;
 } );
-

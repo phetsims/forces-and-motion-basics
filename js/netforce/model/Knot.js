@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -31,26 +31,20 @@ define( function( require ) {
     this.initX = x;
     this.type = type;
 
+    // @public {number} - the 1-D x location of the knot
+    this.xProperty = new Property( x, {
+      tandem: tandem.createTandem( 'xProperty' ),
+      phetioValueType: TNumber( { units: 'meters' } )
+    } );
+
+    // @public {boolean} - whether or not the know is visible
+    this.visibleProperty = new Property( false, {
+      tandem: tandem.createTandem( 'visibleProperty' ),
+      phetioValueType: TBoolean
+    } );
+
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
     this.acessibleKnotId = 'knot-' + type + '-' + this.initX;
-
-    var properties = {
-
-      x: {
-        value: x,
-        tandem: tandem.createTandem( 'xProperty' ),
-        phetioValueType: TNumber( { units: 'meters' } )
-      },
-
-
-      visible: {
-        value: false,
-        tandem: tandem.createTandem( 'visibleProperty' ),
-        phetioValueType: TBoolean
-      }
-    };
-
-    PropertySet.call( this, null, properties );
 
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
@@ -60,14 +54,25 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'Knot', Knot );
 
-  return inherit( PropertySet, Knot, {
+  return inherit( Object, Knot, {
+
     /**
-     * Get the position of the knot
+     * Reset this knot by resetting its associated model Properties.
+     * 
+     * @return {}
+     */
+    reset: function() {
+      this.xProperty.reset();
+      this.visibleProperty.reset();
+    },
+
+    /**
+     * Get the 2-D position of the knot
      *
      * @returns {Vector2}
      */
     get position() {
-      return new Vector2( this.x, this.y );
+      return new Vector2( this.xProperty.get(), this.y );
     }
   } );
 } );
