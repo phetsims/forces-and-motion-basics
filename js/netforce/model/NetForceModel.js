@@ -112,21 +112,6 @@ define( function( require ) {
     this.cartReturnedEmitter = new Emitter();
     this.resetAllEmitter = new Emitter();
 
-    Property.preventGetSet( this, 'started' );
-    Property.preventGetSet( this, 'running' );
-    Property.preventGetSet( this, 'numberPullersAttached' );
-    Property.preventGetSet( this, 'state' );
-    Property.preventGetSet( this, 'time' );
-    Property.preventGetSet( this, 'netForce' );
-    Property.preventGetSet( this, 'leftForce' );
-    Property.preventGetSet( this, 'rightForce' );
-    Property.preventGetSet( this, 'speed' );
-    Property.preventGetSet( this, 'duration' );
-    Property.preventGetSet( this, 'showSumOfForces' );
-    Property.preventGetSet( this, 'showValues' );
-    Property.preventGetSet( this, 'showSpeed' );
-    Property.preventGetSet( this, 'volumeOn' );
-
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
     //Create a knot given a color and index (0-3)

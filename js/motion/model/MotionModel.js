@@ -231,33 +231,6 @@ define( function( require ) {
     this.resetAllEmitter = new Emitter();
     this.stepEmitter = new Emitter();
 
-    // TODO: remove once done with #226
-    Property.preventGetSet( this, 'appliedForce' );
-    Property.preventGetSet( this, 'frictionForce' );
-    Property.preventGetSet( this, 'friction' );
-    Property.preventGetSet( this, 'sumOfForces' );
-    Property.preventGetSet( this, 'position' );
-    Property.preventGetSet( this, 'speed' );
-    Property.preventGetSet( this, 'velocity' );
-    Property.preventGetSet( this, 'acceleration' );
-    Property.preventGetSet( this, 'pusherPosition' );
-    Property.preventGetSet( this, 'showForce' );
-    Property.preventGetSet( this, 'showValues' );
-    Property.preventGetSet( this, 'showSumOfForces' );
-    Property.preventGetSet( this, 'showSpeed' );
-    Property.preventGetSet( this, 'showMasses' );
-    Property.preventGetSet( this, 'showAcceleration' );
-    Property.preventGetSet( this, 'speedClassification' );
-    Property.preventGetSet( this, 'previousSpeedClassification' );
-    Property.preventGetSet( this, 'movingRight' );
-    Property.preventGetSet( this, 'direction' );
-    Property.preventGetSet( this, 'timeSinceFallen' );
-    Property.preventGetSet( this, 'fallen' );
-    Property.preventGetSet( this, 'fallenDirection' );
-    Property.preventGetSet( this, 'time' );
-    Property.preventGetSet( this, 'stackSize' );
-    Property.preventGetSet( this, 'play' );
-
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForceProperty.set( 0 ); } } );
 

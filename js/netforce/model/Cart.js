@@ -35,9 +35,6 @@ define( function( require ) {
      phetioValueType: TNumber( { units: 'meters/second', range: new Range( -1.35, 1.35 ) } )
     } );
 
-    Property.preventGetSet( this, 'x' );
-    Property.preventGetSet( this, 'v' );
-
     // @public (read-only) - width from the center of the cart to the wheels, used to determine when a wheel touches
     // a game stopper
     this.widthToWheel = 55;

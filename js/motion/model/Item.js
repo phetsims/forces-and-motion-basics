@@ -107,15 +107,6 @@ define( function( require ) {
       phetioValueType: TNumber()
     } );
 
-    Property.preventGetSet( this, 'position' );
-    Property.preventGetSet( this, 'pusherInset' );
-    Property.preventGetSet( this, 'dragging' );
-    Property.preventGetSet( this, 'direction' );
-    Property.preventGetSet( this, 'animationState' );
-    Property.preventGetSet( this, 'onBoard' );
-    Property.preventGetSet( this, 'imageScale' );
-    Property.preventGetSet( this, 'interactionScale' );
-
     this.context.directionProperty.link( function( direction ) {
 
       //only change directions if on the board, and always choose one of left/right, and only for people

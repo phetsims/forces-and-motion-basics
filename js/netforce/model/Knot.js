@@ -49,9 +49,6 @@ define( function( require ) {
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
 
-    Property.preventGetSet( this, 'x' );
-    Property.preventGetSet( this, 'visible' );
-
     tandem.addInstance( this, TKnot );
   }
 

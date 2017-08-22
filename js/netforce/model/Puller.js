@@ -92,13 +92,6 @@ define( function( require ) {
     // @public - emits an event when the puller is dragged
     this.draggedEmitter = new Emitter();
 
-    Property.preventGetSet( this, 'dragging' );
-    Property.preventGetSet( this, 'knot' );
-    Property.preventGetSet( this, 'position' );
-    Property.preventGetSet( this, 'lastLocation' );
-    Property.preventGetSet( this, 'hoverKnot' );
-    Property.preventGetSet( this, 'textDescription' );
-
     this.other = options.other;
 
     var pullerDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
