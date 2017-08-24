@@ -70,7 +70,7 @@ define( function( require ) {
     // TODO: What are the valid values for this Property?
     this.lastLocationProperty = new Property( 'home', {
       tandem: tandem.createTandem( 'lastLocationProperty' ),
-      phetioValueType: TVector2
+      phetioValueType: TString
     } );
 
     // For keyboard accessibility, the knot that the puller is hovering over
