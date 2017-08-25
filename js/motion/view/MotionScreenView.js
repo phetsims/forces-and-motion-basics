@@ -576,6 +576,10 @@ define( function( require ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
       self.frictionArrow.overlapsOther = sameDirection;
       self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+
+      // the applied force arrow must be updated directly since its label position doesn't change
+      self.appliedForceArrow.overlapsOther = sameDirection;
+      self.appliedForceArrow.update();
     } );
 
     model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );
