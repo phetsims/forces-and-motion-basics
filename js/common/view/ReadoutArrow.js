@@ -138,7 +138,8 @@ define( function( require ) {
 
           this.valueNode.center = this.arrowNode.center;
 
-          if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+          // if the arrow node is still small or overlaps another arrow, the value readout will be below the arrow label
+          if ( this.valueNode.width + 5 > this.arrowNode.width || this.overlapsOther ) {
             this.valueNode.top = this.labelNode.bottom;
             this.valueNode.centerX = this.labelNode.centerX;
           }
