@@ -54,7 +54,7 @@ define( function( require ) {
     this.addChild( gaugeNode );
 
     // create a value readout inside of a panel, maxSpeed for max bounds for layout calculations
-    var maxSpeed = Util.toFixed( -MotionConstants.MAX_SPEED, 1 );
+    var maxSpeed = Util.toFixed( MotionConstants.MAX_SPEED, 1 );
     var valueString = StringUtils.format( pattern0Name1ValueUnitsVelocityString, maxSpeed );
     var valueTextNode = new Text( valueString, {
       font: new PhetFont( 16 ),
@@ -65,7 +65,7 @@ define( function( require ) {
 
     // place valueText inside of a background rectangle
     var cornerRadius = 5;
-    var valueRectangle = new Rectangle( valueTextNode.bounds.dilated( 2 ), cornerRadius, cornerRadius, {
+    var valueRectangle = new Rectangle( valueTextNode.bounds.dilated( 4 ), cornerRadius, cornerRadius, {
       lineWidth: 1,
       stroke: 'black'
     } );
