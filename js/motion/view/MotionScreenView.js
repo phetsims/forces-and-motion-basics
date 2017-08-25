@@ -575,6 +575,7 @@ define( function( require ) {
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
+      self.frictionArrow.overlapsOther = sameDirection;
       self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
     } );
 
