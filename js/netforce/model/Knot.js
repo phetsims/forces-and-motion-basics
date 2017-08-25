@@ -11,6 +11,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Range = require( 'DOT/Range' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // phet-io modules
@@ -23,10 +24,11 @@ define( function( require ) {
    *
    * @param {number} x the horizontal position (in meters) of the knot
    * @param {string} type whether the knot is for red or blue pullers
+   * @param {number} ropeLength - the length of the rope in model coordinates
    * @param {Tandem} tandem
    * @constructor
    */
-  function Knot( x, type, tandem ) {
+  function Knot( x, type, ropeStart, ropeLength, tandem ) {
 
     this.initX = x;
     this.type = type;
@@ -34,7 +36,7 @@ define( function( require ) {
     // @public {number} - the 1-D x location of the knot
     this.xProperty = new Property( x, {
       tandem: tandem.createTandem( 'xProperty' ),
-      phetioValueType: TNumber( { units: 'meters' } )
+      phetioValueType: TNumber( { units: 'meters', range: new Range( ropeStart, ropeLength + ropeStart ) } )
     } );
 
     // @public {boolean} - whether or not the know is visible
