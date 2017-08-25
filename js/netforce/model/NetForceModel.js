@@ -212,7 +212,7 @@ define( function( require ) {
 
       //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
       var newLocation = knot ? 'knot' : 'home';
-      puller.lastLocationProperty.set( newLocation );
+      puller.lastPlacementProperty.set( newLocation );
     },
 
     /**
@@ -348,7 +348,7 @@ define( function( require ) {
       var distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
-      var threshold = puller.lastLocationProperty.get() === 'home' ? 370 : 300;
+      var threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
       return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
     },
 
