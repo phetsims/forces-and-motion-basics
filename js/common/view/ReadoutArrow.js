@@ -77,6 +77,10 @@ define( function( require ) {
       self.update();
     } );
 
+    // @public {boolean} - if the arrow overlaps another, we change the layout of the arrow labels so none of the
+    // text overlaps eachother
+    this.overlapsOther = false;
+
     //Update when the numeric readout visibility is toggled
     showValuesProperty.link( this.update.bind( this ) );
   }
@@ -145,10 +149,15 @@ define( function( require ) {
           //Position the value and label if the label position is on the bottom
           if ( this.options.labelPosition === 'bottom' ) {
             this.labelNode.centerX = this.arrowNode.centerX;
-
             this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 5 : 0;
-            if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+
+            // if the arrow overlaps another or is small, we align the value readout horizontally
+            // with the arrow label.
+            if ( this.valueNode.width + 5 > this.arrowNode.width || this.overlapsOther ) {
               this.valueNode.leftCenter = this.labelNode.rightCenter.plusXY( 5, 0 );
+            }
+            else {
+              this.valueNode.center = this.arrowNode.center;
             }
           }
 
