@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.numberPullersAttachedProperty = new Property( 0, {
       tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
-      phetioValueType: TNumber()
+      phetioValueType: TNumber( { range: new Range( 0, 8 ) } )
     } );
 
     // TODO what are the valid values?
