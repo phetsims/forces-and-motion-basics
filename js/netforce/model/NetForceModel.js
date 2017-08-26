@@ -29,6 +29,11 @@ define( function( require ) {
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
   var GAME_LENGTH = 458;
 
+  // spacing for the knots
+  var KNOT_SPACING = 80;
+  var BLUE_KNOT_OFFSET = 62;
+  var RED_KNOT_OFFSET = 680;
+
   /**
    * Constructor for the net force model.
    *
@@ -51,7 +56,7 @@ define( function( require ) {
 
     this.numberPullersAttachedProperty = new Property( 0, {
       tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
-      phetioValueType: TNumber()
+      phetioValueType: TNumber( { range: new Range( 0, 8 ) } )
     } );
 
     // TODO what are the valid values?
@@ -83,12 +88,12 @@ define( function( require ) {
 
     this.speedProperty = new Property( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
-      phetioValueType: TNumber( { units: 'meters/second' } )
+      phetioValueType: TNumber( { units: 'meters/second', range: new Range( 0, 6 ) } )
     } );
 
     this.durationProperty = new Property( 0, {
       tandem: tandem.createTandem( 'durationProperty' ),
-      phetioValueType: TNumber( { units: 'seconds' } )
+      phetioValueType: TNumber( { units: 'seconds', range: new Range( 0, Number.POSITIVE_INFINITY ) } )
     } );
 
     // User settings
@@ -116,7 +121,8 @@ define( function( require ) {
 
     //Create a knot given a color and index (0-3)
     function createKnot( color, index, tandem ) {
-      return new Knot( (color === 'blue' ? 62 : 680) + index * 80, color, tandem );
+      var xLocation = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
+      return new Knot( xLocation, color, BLUE_KNOT_OFFSET, self.getRopeLength(), tandem );
     }
 
 
@@ -206,7 +212,7 @@ define( function( require ) {
 
       //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
       var newLocation = knot ? 'knot' : 'home';
-      puller.lastLocationProperty.set( newLocation );
+      puller.lastPlacementProperty.set( newLocation );
     },
 
     /**
@@ -342,7 +348,7 @@ define( function( require ) {
       var distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
-      var threshold = puller.lastLocationProperty.get() === 'home' ? 370 : 300;
+      var threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
       return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
     },
 
@@ -394,6 +400,16 @@ define( function( require ) {
 
       // notify that the model was reset
       this.resetAllEmitter.emit();
+    },
+
+    /**
+     * The length of the rope is the spacing between knots times the number of knots plus the difference between
+     * the red and blue starting offsets.
+     *
+     * @return {number}
+     */
+    getRopeLength: function() {
+      return 6 * KNOT_SPACING + RED_KNOT_OFFSET - ( BLUE_KNOT_OFFSET + 3 * KNOT_SPACING );
     },
 
     /**

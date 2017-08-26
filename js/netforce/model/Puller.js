@@ -68,8 +68,8 @@ define( function( require ) {
 
     // @public {string} - a classified location in the play area
     // TODO: What are the valid values for this Property?
-    this.lastLocationProperty = new Property( 'home', {
-      tandem: tandem.createTandem( 'lastLocationProperty' ),
+    this.lastPlacementProperty = new Property( 'home', {
+      tandem: tandem.createTandem( 'lastPlacementProperty' ),
       phetioValueType: TString
     } );
 
@@ -137,7 +137,7 @@ define( function( require ) {
       this.draggingProperty.reset();
       this.knotProperty.reset();
       this.positionProperty.reset();
-      this.lastLocationProperty.reset();
+      this.lastPlacementProperty.reset();
       this.hoverKnotProperty.reset();
       this.textDescriptionProperty.reset();
     },

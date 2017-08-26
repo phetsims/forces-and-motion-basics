@@ -21,6 +21,9 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
+  // phet-io modules
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+
   /**
    * Constructor.
    *
@@ -35,6 +38,14 @@ define( function( require ) {
     var self = this;
     this.range = range;
 
+    // for phet-io so that the slider can be disabled by wrappers
+    // TODO: Remove once https://github.com/phetsims/forces-and-motion-basics/issues/242 and the associated issue
+    // in sun is resolved.
+    var sliderEnabledProperty = new Property( true, {
+      tandem: tandem.createTandem( 'sliderEnabledProperty' ),
+      phetioValueType: TBoolean
+    } );
+
     var sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
     HSlider.call( this, model.appliedForceProperty, range, _.extend( {
       trackSize: new Dimension2( 300, 6 ),
@@ -43,6 +54,7 @@ define( function( require ) {
       minorTickLength: 22,
       tickLabelSpacing: 3,
       thumbNode: sliderKnob,
+      enabledProperty: sliderEnabledProperty,
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
