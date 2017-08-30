@@ -11,6 +11,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var TVector2 = require( 'DOT/TVector2' );
   var Util = require( 'DOT/Util' );
+  var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -102,9 +103,10 @@ define( function( require ) {
     } );
 
     // How much the object grows or shrinks when interacting with it
+    var minValue = homeScale || 1.0;
     this.interactionScaleProperty = new Property( homeScale || 1.0, {
       tandem: tandem.createTandem( 'interactionScaleProperty' ),
-      phetioValueType: TNumber()
+      phetioValueType: TNumber( { range: new Range( minValue, 1.3 ) } )
     } );
 
     this.context.directionProperty.link( function( direction ) {
