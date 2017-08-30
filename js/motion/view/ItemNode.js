@@ -90,9 +90,6 @@ define( function( require ) {
       model.items[ i ].draggingProperty.link( updateImage );
     }
 
-    // Make sure the arms are updated (even if nothing else changed)
-    phet.phetIo && phet.phetIo.phetio.setStateEmitter && phet.phetIo.phetio.setStateEmitter.addListener( updateImage );
-
     model.stack.lengthProperty.link( updateImage );
 
     //When the user drags the object, start
