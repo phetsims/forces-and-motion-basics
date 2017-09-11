@@ -8,35 +8,35 @@
 define( function( require ) {
   'use strict';
 
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Property = require( 'AXON/Property' );
-  var CheckBox = require( 'SUN/CheckBox' );
-  var VStrut = require( 'SCENERY/nodes/VStrut' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var HSlider = require( 'SUN/HSlider' );
-  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
-  var forceString = require( 'string!FORCES_AND_MOTION_BASICS/force' );
+  var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var CheckBox = require( 'SUN/CheckBox' );
+  var Dimension2 = require( 'DOT/Dimension2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var forcesString = require( 'string!FORCES_AND_MOTION_BASICS/forces' );
-  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
-  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
-  var massesString = require( 'string!FORCES_AND_MOTION_BASICS/masses' );
+  var forceString = require( 'string!FORCES_AND_MOTION_BASICS/force' );
   var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
+  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var HSlider = require( 'SUN/HSlider' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var lotsString = require( 'string!FORCES_AND_MOTION_BASICS/lots' );
+  var massesString = require( 'string!FORCES_AND_MOTION_BASICS/masses' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var noneString = require( 'string!FORCES_AND_MOTION_BASICS/none' );
   var Panel = require( 'SUN/Panel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
-  var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Property = require( 'AXON/Property' );
+  var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
+  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );

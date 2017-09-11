@@ -9,23 +9,14 @@ define( function( require ) {
   'use strict';
 
   var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Util = require( 'DOT/Util' );
 
-  var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
   var pusherFallDownImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_fall_down.png' );
   var pusherImage0 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_0.png' );
   var pusherImage1 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_1.png' );
-  var pusherImage2 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_2.png' );
-  var pusherImage3 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_3.png' );
-  var pusherImage4 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_4.png' );
-  var pusherImage5 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_5.png' );
-  var pusherImage6 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_6.png' );
-  var pusherImage7 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_7.png' );
-  var pusherImage8 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_8.png' );
-  var pusherImage9 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_9.png' );
   var pusherImage10 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_10.png' );
   var pusherImage11 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_11.png' );
   var pusherImage12 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_12.png' );
@@ -36,6 +27,7 @@ define( function( require ) {
   var pusherImage17 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_17.png' );
   var pusherImage18 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_18.png' );
   var pusherImage19 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_19.png' );
+  var pusherImage2 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_2.png' );
   var pusherImage20 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_20.png' );
   var pusherImage21 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_21.png' );
   var pusherImage22 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_22.png' );
@@ -46,11 +38,19 @@ define( function( require ) {
   var pusherImage27 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_27.png' );
   var pusherImage28 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_28.png' );
   var pusherImage29 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_29.png' );
+  var pusherImage3 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_3.png' );
   var pusherImage30 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_30.png' );
+  var pusherImage4 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_4.png' );
+  var pusherImage5 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_5.png' );
+  var pusherImage6 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_6.png' );
+  var pusherImage7 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_7.png' );
+  var pusherImage8 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_8.png' );
+  var pusherImage9 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_9.png' );
+  var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
 
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Vector2 = require( 'DOT/Vector2' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   /**
    * Constructor for PusherNode

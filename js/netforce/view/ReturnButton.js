@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
   var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );

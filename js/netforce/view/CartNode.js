@@ -10,11 +10,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var Range = require( 'DOT/Range' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
   // images
   var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );

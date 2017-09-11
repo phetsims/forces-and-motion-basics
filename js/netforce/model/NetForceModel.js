@@ -9,20 +9,20 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var Emitter = require( 'AXON/Emitter' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
-  var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
-  var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
-  var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   // constants

@@ -8,14 +8,14 @@
 define( function( require ) {
   'use strict';
 
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
-  var Util = require( 'DOT/Util' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var linear = Util.linear;

@@ -8,19 +8,19 @@
 define( function( require ) {
   'use strict';
 
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var TVector2 = require( 'DOT/TVector2' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
   var TAnimationState = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimationState' );
-  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   /**

@@ -9,22 +9,22 @@
 define( function( require ) {
   'use strict';
 
-  var Text = require( 'SCENERY/nodes/Text' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
-  var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
-  var Property = require( 'AXON/Property' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
-  var ToggleNode = require( 'SUN/ToggleNode' );
-  var Emitter = require( 'AXON/Emitter' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Property = require( 'AXON/Property' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var ToggleNode = require( 'SUN/ToggleNode' );
 
   // phet-io modules
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   // strings
   var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );

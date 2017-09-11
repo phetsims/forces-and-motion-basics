@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Screen = require( 'JOIST/Screen' );
   var MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' );
   var MotionScreenView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionScreenView' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Screen = require( 'JOIST/Screen' );
 
   /**
    * @param style

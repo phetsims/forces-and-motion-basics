@@ -8,10 +8,10 @@
 define( function( require ) {
   'use strict';
 
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Range = require( 'DOT/Range' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
+  var Range = require( 'DOT/Range' );
 
   /**
    * @param {Tandem} tandem

@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
-  var Property = require( 'AXON/Property' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  var Property = require( 'AXON/Property' );
 
   // strings
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );

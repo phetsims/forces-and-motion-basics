@@ -8,15 +8,15 @@
 define( function( require ) {
   'use strict';
 
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
-  var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.
