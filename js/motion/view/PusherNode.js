@@ -179,7 +179,7 @@ define( function( require ) {
       var item = model.stack.get( 0 );
       if ( item ) {
 
-        // get the scaled width of the first image on tthe stack
+        // get the scaled width of the first image on the stack
         var scaledWidth = item.view.getScaledWidth();
 
         // add a little more space (10) so the pusher isn't exactly touching the stack
