@@ -8,34 +8,34 @@
 define( function( require ) {
   'use strict';
 
-  var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
-  var Property = require( 'AXON/Property' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-  var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
-  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
-  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
-  var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
-  var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
-  var girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
-  var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
-  var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
-  var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
-  var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
-  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var Range = require( 'DOT/Range' );
-  var Emitter = require( 'AXON/Emitter' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Emitter = require( 'AXON/Emitter' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
+  var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
+  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
+  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
+  var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
+  var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
+  var girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
+  var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
+  var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
+  var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
+  var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
+  var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
+  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
 
   /**
    * Constructor for the motion model
@@ -64,57 +64,57 @@ define( function( require ) {
     } );
 
     // @public - force applied to the stack of items by the pusher
-    this.appliedForceProperty = new Property( 0, {
+    this.appliedForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'appliedForceProperty' ),
-      phetioValueType: TNumber( { units: 'newtons', range: new Range( -500, 500 ) } )
+      units: 'newtons',
+      range: new Range( -500, 500 )
     } );
 
     // @public - force applied to the stack of items by friction
-    this.frictionForceProperty = new Property( 0, {
+    this.frictionForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'frictionForceProperty' ),
-      phetioValueType: TNumber( { units: 'newtons' } )
+      units: 'newtons'
     } );
 
     // @public - friction of the ground
-    this.frictionProperty = new Property( frictionValue, {
-      tandem: tandem.createTandem( 'frictionProperty' ),
-      phetioValueType: TNumber()
+    this.frictionProperty = new NumberProperty( frictionValue, {
+      tandem: tandem.createTandem( 'frictionProperty' )
     } );
 
     // @public - sum of all forces acting on the stack of items
-    this.sumOfForcesProperty = new Property( 0, {
+    this.sumOfForcesProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'sumOfForcesProperty' ),
-      phetioValueType: TNumber( { units: 'newtons' } )
+      units: 'newtons'
     } );
 
     // @public - 1-D position of the stack of items
-    this.positionProperty = new Property( 0, {
+    this.positionProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioValueType: TNumber( { units: 'meters' } )
+      units: 'meters'
     } );
 
     // @public - speed of the stack of items, in the x direction
-    this.speedProperty = new Property( 0, {
+    this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
-      phetioValueType: TNumber( { units: 'meters/second' } )
+      units: 'meters/second'
     } );
 
     // @public - elocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-    this.velocityProperty = new Property( 0, {
+    this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
-      phetioValueType: TNumber( { units: 'meters/second' } )
+      units: 'meters/second'
     } );
 
     // @public - 1-d acceleration of the stack of items
-    this.accelerationProperty = new Property( 0, {
+    this.accelerationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'accelerationProperty' ),
-      phetioValueType: TNumber( { units: 'meters/second/second' } )
+      units: 'meters/second/second'
     } );
 
     // @public {number} - initially to the left of the box by this many meters
-    this.pusherPositionProperty = new Property( -16, {
+    this.pusherPositionProperty = new NumberProperty( -16, {
       tandem: tandem.createTandem( 'pusherPositionProperty' ),
-      phetioValueType: TNumber( { units: 'meters' } )
+      units: 'meters'
     } );
 
     // @public {boolean} - whether or not forces are visible
@@ -182,8 +182,8 @@ define( function( require ) {
     // @public {number} - time since pusher has fallen over, in seconds
     // TODO: Should we this have a tandem? It spams the data stream.
     // TODO: Why is default value 10?
-    this.timeSinceFallenProperty = new Property( 10, {
-      phetioValueType: TNumber( { units: 'seconds' } )
+    this.timeSinceFallenProperty = new NumberProperty( 10, {
+      units: 'seconds'
     } );
 
     // @public {boolean} - whether or not the pusher has fallen over
@@ -200,15 +200,14 @@ define( function( require ) {
 
     // @public {number} - how long the simulation has been running
     // TODO: Should we this have a tandem? It spams the data stream.
-    this.timeProperty = new Property( 0, {
-      phetioValueType: TNumber( { units: 'seconds' } )
+    this.timeProperty = new NumberProperty( 0, {
+      units: 'seconds'
     } );
 
     //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
     //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
-    this.stackSizeProperty = new Property( 1, {
-      tandem: tandem.createTandem( 'stackSizeProperty' ),
-      phetioValueType: TNumber()
+    this.stackSizeProperty = new NumberProperty( 1, {
+      tandem: tandem.createTandem( 'stackSizeProperty' )
     } );
 
     // @public {boolean} - is the sim running or paused?

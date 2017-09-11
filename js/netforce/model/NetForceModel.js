@@ -9,21 +9,21 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Property = require( 'AXON/Property' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
-  var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var Range = require( 'DOT/Range' );
   var Emitter = require( 'AXON/Emitter' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
+  var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
+  var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
+  var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
+  var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
 
   // constants
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
@@ -54,9 +54,9 @@ define( function( require ) {
       phetioValueType: TBoolean
     } );
 
-    this.numberPullersAttachedProperty = new Property( 0, {
+    this.numberPullersAttachedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
-      phetioValueType: TNumber( { range: new Range( 0, 8 ) } )
+      range: new Range( 0, 8 )
     } );
 
     // TODO what are the valid values?
@@ -71,29 +71,34 @@ define( function( require ) {
       // phetioValueType: TNumber( 'seconds' )
     } );
 
-    this.netForceProperty = new Property( 0, {
+    this.netForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'netForceProperty' ),
-      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
+      units: 'newtons',
+      range: new Range( -350, 350 )
     } );
 
-    this.leftForceProperty = new Property( 0, {
+    this.leftForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'leftForceProperty' ),
-      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
+      units: 'newtons',
+      range: new Range( -350, 0 )
     } );
 
-    this.rightForceProperty = new Property( 0, {
+    this.rightForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'rightForceProperty' ),
-      phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+      units: 'newtons',
+      range: new Range( 0, 350 )
     } );
 
-    this.speedProperty = new Property( 0, {
+    this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
-      phetioValueType: TNumber( { units: 'meters/second', range: new Range( 0, 6 ) } )
+      units: 'meters/second',
+      range: new Range( 0, 6 )
     } );
 
-    this.durationProperty = new Property( 0, {
+    this.durationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'durationProperty' ),
-      phetioValueType: TNumber( { units: 'seconds', range: new Range( 0, Number.POSITIVE_INFINITY ) } )
+      units: 'seconds',
+      range: new Range( 0, Number.POSITIVE_INFINITY )
     } );
 
     // User settings
@@ -421,7 +426,7 @@ define( function( require ) {
 
       if ( this.runningProperty.get() ) {
 
-         // Increment tug-of-war timer
+        // Increment tug-of-war timer
         this.durationProperty.set( this.durationProperty.get() + dt );
 
         // Make the simulation run about as fast as the Java version
@@ -451,7 +456,7 @@ define( function( require ) {
 
     /**
      * Update the velocity and position of the cart and the pullers.
-     * 
+     *
      * @private
      * @param  {number} newV
      * @param  {number} newX

@@ -97,7 +97,7 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      phetioArgumentTypes: [ TNumber( { units: 'newtons' } ), TString ]
+      phetioArgumentTypes: [ TNumber, TString ]
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
@@ -113,7 +113,7 @@ define( function( require ) {
     goButton.mutate( {
       tagName: 'input',
       inputType: 'button',
-      accessibleDescription: goButtonDescriptionString, 
+      accessibleDescription: goButtonDescriptionString,
       descriptionTagName: 'p'
     } );
     goButton.setAccessibleAttribute( 'aria-disabled', !isGoButtonEnabled() );

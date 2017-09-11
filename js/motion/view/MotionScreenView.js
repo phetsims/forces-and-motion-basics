@@ -36,6 +36,7 @@ define( function( require ) {
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var Property = require( 'AXON/Property' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var Util = require( 'DOT/Util' );
   var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
@@ -43,9 +44,6 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Line = require( 'SCENERY/nodes/Line' );
   var ForcesAndMotionBasicsQueryParameters = require( 'FORCES_AND_MOTION_BASICS/common/ForcesAndMotionBasicsQueryParameters' );
-
-  // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
 
   // constants
   var DEBUG = false; // adds a line at the bottom of the items to assist with layout
@@ -509,9 +507,9 @@ define( function( require ) {
       } );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
-    var roundedSumProperty = new Property( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
+    var roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
-      phetioValueType: TNumber( { units: 'newtons' } )
+      units: 'newtons'
     } );
 
     model.stepEmitter.addListener( function() {

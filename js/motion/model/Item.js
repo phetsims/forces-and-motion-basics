@@ -8,19 +8,19 @@
 define( function( require ) {
   'use strict';
 
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var TVector2 = require( 'DOT/TVector2' );
   var Util = require( 'DOT/Util' );
-  var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
-  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TAnimationState = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimationState' );
+  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   /**
@@ -97,16 +97,15 @@ define( function( require ) {
     } );
 
     // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
-    this.imageScaleProperty = new Property( imageScale || 1.0, {
-      tandem: tandem.createTandem( 'imageScaleProperty' ),
-      phetioValueType: TNumber()
+    this.imageScaleProperty = new NumberProperty( imageScale || 1.0, {
+      tandem: tandem.createTandem( 'imageScaleProperty' )
     } );
 
     // How much the object grows or shrinks when interacting with it
     var minValue = homeScale || 1.0;
-    this.interactionScaleProperty = new Property( homeScale || 1.0, {
+    this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
       tandem: tandem.createTandem( 'interactionScaleProperty' ),
-      phetioValueType: TNumber( { range: new Range( minValue, 1.3 ) } )
+      range: new Range( minValue, 1.3 )
     } );
 
     this.context.directionProperty.link( function( direction ) {

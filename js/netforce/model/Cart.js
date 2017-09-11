@@ -8,13 +8,10 @@
 define( function( require ) {
   'use strict';
 
-  var Property = require( 'AXON/Property' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Range = require( 'DOT/Range' );
-
-  // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   /**
    * @param {Tandem} tandem
@@ -23,16 +20,17 @@ define( function( require ) {
   function Cart( tandem ) {
 
     // @public {number} - 1-D x location of the cart
-    this.xProperty = new Property( 0, {
+    this.xProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'xProperty' ),
-      phetioValueType: TNumber( { units: 'meters', range: new Range( -403, 403 ) } )
+      units: 'meters',
+      range: new Range( -403, 403 )
     } );
 
-
     // @public {number} - 1-D velocity in MKS
-    this.vProperty = new Property( 0, {
+    this.vProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'vProperty' ),
-      phetioValueType: TNumber( { units: 'meters/second', range: new Range( -6, 6 ) } )
+      units: 'meters/second',
+      range: new Range( -6, 6 )
     } );
 
     // @public (read-only) - width from the center of the cart to the wheels, used to determine when a wheel touches

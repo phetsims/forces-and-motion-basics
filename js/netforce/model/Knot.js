@@ -8,21 +8,21 @@
 define( function( require ) {
   'use strict';
 
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Range = require( 'DOT/Range' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  var inherit = require( 'PHET_CORE/inherit' );
 
   // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
   var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
+  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.
    *
    * @param {number} x the horizontal position (in meters) of the knot
+   * // TODO: Fix JSDoc
    * @param {string} type whether the knot is for red or blue pullers
    * @param {number} ropeLength - the length of the rope in model coordinates
    * @param {Tandem} tandem
@@ -34,9 +34,10 @@ define( function( require ) {
     this.type = type;
 
     // @public {number} - the 1-D x location of the knot
-    this.xProperty = new Property( x, {
+    this.xProperty = new NumberProperty( x, {
       tandem: tandem.createTandem( 'xProperty' ),
-      phetioValueType: TNumber( { units: 'meters', range: new Range( ropeStart, ropeLength + ropeStart ) } )
+      units: 'meters'
+      // TODO: Fix range, was buggy during https://github.com/phetsims/axon/issues/137 and hence removed
     } );
 
     // @public {boolean} - whether or not the know is visible
