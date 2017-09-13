@@ -87,7 +87,8 @@ define( function( require ) {
 
     ScreenView.call( this, {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
-      screenDescription: netForceDescriptionString
+      screenDescription: netForceDescriptionString,
+      tandem: tandem
     } );
 
     //Fit to the window and render the initial scene

@@ -78,7 +78,10 @@ define( function( require ) {
     this.model = model;
 
     //Call super constructor
-    ScreenView.call( this, { layoutBounds: ForcesAndMotionBasicsLayoutBounds } );
+    ScreenView.call( this, {
+      layoutBounds: ForcesAndMotionBasicsLayoutBounds,
+      tandem: tandem
+    } );
 
     //Variables for this constructor, for convenience
     var self = this;
