@@ -1,4 +1,4 @@
-// Copyright 2013-2015, University of Colorado Boulder
+// Copyright 2016-2017, University of Colorado Boulder
 
 /**
  * Speedometer used in Forces and Motion: Basics.  This is a typical gauge node with a value readout near the bottom.
