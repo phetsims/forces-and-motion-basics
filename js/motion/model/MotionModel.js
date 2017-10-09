@@ -60,7 +60,7 @@ define( function( require ) {
       phetioValueType: TItem,
 
       // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
-      phetioIncludeInState: true
+      phetioState: true
     } );
 
     // @public - force applied to the stack of items by the pusher
