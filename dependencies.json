@@ -1,95 +1,95 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.0-phetiorc.3 Tue Aug 22 2017 14:57:18 GMT-0600 (MDT)",
+  "comment": "# forces-and-motion-basics 2.3.0-phetiorc.4 Fri Oct 13 2017 17:36:43 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "d3752bba51bd92c4b9d5d7aecfe45748cd6ee587",
-    "branch": "forces-and-motion-basics-2.3-phetio"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "cfca902dca800a6e8b80729a46611346c4f16250",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "157b6f57f3ce706a3a842e7240dfb9fa2eb3f7b9",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "db33a2c7fca14980bccd7d9517839c5b8ae7a9ee",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "f834b3fd02a96de40322693b6e64a162b2c29b20",
+    "sha": "5477f1d6cd4eaba05486ea20d43f02a33be49841",
     "branch": "2.3-phetio"
   },
   "joist": {
     "sha": "efdda1bac11fd63f0c3ec24930c2a967346c451e",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "6bfeef5c876a7f4c52ba269412a4c4985bceb2fb",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io": {
     "sha": "7b2622785bca3115cc421ed21d3147b821cf617e",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-website": {
     "sha": "ea96a7e5a935660aa8959973b86c0b2da4b1be81",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrapper-classroom-activity": {
     "sha": "1cb7bdccecd2c3493e4eb22d57d5bd31c3b87e24",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrapper-lab-book": {
     "sha": "f92afd6467a8b47a700be111f6a6944759969db0",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrapper-sonification": {
     "sha": "b41b1360aa6a69814c9ba0b9af30bac8d87202d0",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-io-wrappers": {
     "sha": "839481188ef57b5f69fc6d69a8591b63cdc198b1",
-    "branch": "forces-and-motion-basics-2.3-phetio"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "7ec5d29971d7faf69f31e028c45b17df040b721b",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "d539ecd71d78236090201a5a4215f22651741c70",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "ae0e06ea09c29d5d25294886c805bd7b315942f5",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "dba01386dd884865c2111c0b5c63f31a4cdfbefb",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "96c223b3fb271992069088e4d48019b141c9191c",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "tandem": {
     "sha": "e6a58f1e657fa6ce5b80d34aa6a05e2adc214380",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "vibe": {
     "sha": "abc1fd5dffffb6a7ac0c3ecdc72440cbc27a9c46",
-    "branch": "master"
+    "branch": "HEAD"
   }
 }
