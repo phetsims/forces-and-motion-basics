@@ -57,8 +57,8 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "60ead81c71e3113eddfaffd8448460defde1bbc9",
-    "branch": "master"
+    "sha": "839481188ef57b5f69fc6d69a8591b63cdc198b1",
+    "branch": "forces-and-motion-basics-2.3-phetio"
   },
   "phetcommon": {
     "sha": "7ec5d29971d7faf69f31e028c45b17df040b721b",
