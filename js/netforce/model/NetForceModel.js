@@ -78,7 +78,7 @@ define( function( require ) {
 
     this.leftForceProperty = new Property( 0, {
       tandem: tandem.createTandem( 'leftForceProperty' ),
-      phetioValueType: TNumber( { units: 'newtons', range: new Rang e( -350, 0 ) } )
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
     } );
 
     this.rightForceProperty = new Property( 0, {
