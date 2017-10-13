@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
@@ -28,6 +28,8 @@ define( function( require ) {
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Range = require( 'DOT/Range' );
+  var Emitter = require( 'AXON/Emitter' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -52,176 +54,190 @@ define( function( require ) {
     this.screen = screen;
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
-    this.friction = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = new ObservableArray( { phetioValueType: TItem } );
+    var frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
+    this.stack = new ObservableArray( {
+      tandem: tandem.createTandem( 'stackObservableArray' ),
+      phetioValueType: TItem,
 
-    var properties = {
+      // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
+      phetioIncludeInState: true
+    } );
 
-      appliedForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'appliedForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( -500, 500 ) } )
-      },
+    // @public - force applied to the stack of items by the pusher
+    this.appliedForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'appliedForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( -500, 500 ) } )
+    } );
 
-      frictionForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'frictionForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons' } )
-      },
+    // @public - force applied to the stack of items by friction
+    this.frictionForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'frictionForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons' } )
+    } );
 
-      friction: {
-        value: this.friction,
-        tandem: tandem.createTandem( 'frictionProperty' ),
-        phetioValueType: TNumber()
-      },
+    // @public - friction of the ground
+    this.frictionProperty = new Property( frictionValue, {
+      tandem: tandem.createTandem( 'frictionProperty' ),
+      phetioValueType: TNumber()
+    } );
 
-      sumOfForces: {
-        value: 0,
-        tandem: tandem.createTandem( 'sumOfForcesProperty' ),
-        phetioValueType: TNumber( { units: 'newtons' } )
-      },
+    // @public - sum of all forces acting on the stack of items
+    this.sumOfForcesProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'sumOfForcesProperty' ),
+      phetioValueType: TNumber( { units: 'newtons' } )
+    } );
 
-      position: {
-        value: 0,
-        tandem: tandem.createTandem( 'positionProperty' ),
-        phetioValueType: TNumber( { units: 'meters' } )
-      },
+    // @public - 1-D position of the stack of items
+    this.positionProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioValueType: TNumber( { units: 'meters' } )
+    } );
 
-      speed: {
-        value: 0,
-        tandem: tandem.createTandem( 'speedProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second' } )
-      },
+    // @public - speed of the stack of items, in the x direction
+    this.speedProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'speedProperty' ),
+      phetioValueType: TNumber( { units: 'meters/second' } )
+    } );
 
-      // Velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-      velocity: {
-        value: 0,
-        tandem: tandem.createTandem( 'velocityProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second' } )
-      },
+    // @public - elocity is a 1-d vector, where the direction (right or left) is indicated by the sign
+    this.velocityProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'velocityProperty' ),
+      phetioValueType: TNumber( { units: 'meters/second' } )
+    } );
 
-      acceleration: {
-        value: 0,
-        tandem: tandem.createTandem( 'accelerationProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second/second' } )
-      },
+    // @public - 1-d acceleration of the stack of items
+    this.accelerationProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'accelerationProperty' ),
+      phetioValueType: TNumber( { units: 'meters/second/second' } )
+    } );
 
-      pusherPosition: {
-        value: -16, //Start to the left of the box by this many meters
-        tandem: tandem.createTandem( 'pusherPositionProperty' ),
-        phetioValueType: TNumber( { units: 'meters' } )
-      },
+    // @public {number} - initially to the left of the box by this many meters
+    this.pusherPositionProperty = new Property( -16, {
+      tandem: tandem.createTandem( 'pusherPositionProperty' ),
+      phetioValueType: TNumber( { units: 'meters' } )
+    } );
 
-      showForce: {
-        value: true,
-        tandem: tandem.createTandem( 'showForceProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not forces are visible
+    this.showForceProperty = new Property( true, {
+      tandem: tandem.createTandem( 'showForceProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      showValues: {
-        value: false,
-        tandem: tandem.createTandem( 'showValuesProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not values are visible
+    this.showValuesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showValuesProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      showSumOfForces: {
-        value: false,
-        tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not sum of forces is visible
+    this.showSumOfForcesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      showSpeed: {
-        value: false,
-        tandem: tandem.createTandem( 'showSpeedProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not speedometer is visible
+    this.showSpeedProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSpeedProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      showMasses: {
-        value: false,
-        tandem: tandem.createTandem( 'showMassesProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not mass values are visible
+    this.showMassesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showMassesProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      showAcceleration: {
-        value: false,
-        tandem: tandem.createTandem( 'showAccelerationProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not acceleration meter is visible
+    this.showAccelerationProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showAccelerationProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      // Keep track of whether the speed is classified as:
-      // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
-      // so that the Applied Force can be stopped if the speed goes out of range.
-      speedClassification: {
-        value: 'WITHIN_ALLOWED_RANGE',
-        tandem: tandem.createTandem( 'speedClassificationProperty' ),
-        phetioValueType: TString
-      },
+    //  @public Keep track of whether the speed is classified as:
+    // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
+    // so that the Applied Force can be stopped if the speed goes out of range.
+    this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
+      tandem: tandem.createTandem( 'speedClassificationProperty' ),
+      phetioValueType: TString
+    } );
 
-      // See speedClassification
-      previousSpeedClassification: {
-        value: 'WITHIN_ALLOWED_RANGE',
-        tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-        phetioValueType: TString
-      },
+    // @public {string} See speedClassification
+    this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
+      tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
+      phetioValueType: TString
+    } );
 
-      movingRight: {
-        value: true,
-        tandem: tandem.createTandem( 'movingRightProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not the stack of items is moving to the right
+    this.movingRightProperty = new Property( true, {
+      tandem: tandem.createTandem( 'movingRightProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      direction: {
-        value: 'none',
-        tandem: tandem.createTandem( 'directionProperty' ),
-        phetioValueType: TString
-      },
+    // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
+    this.directionProperty = new Property( 'none', {
+      tandem: tandem.createTandem( 'directionProperty' ),
+      phetioValueType: TString
+    } );
 
-      // TODO: Should we this have a tandem? It spams the data stream.
-      timeSinceFallen: {
-        value: 10,
-        phetioValueType: TNumber( { units: 'seconds' } )
-      },
+    // @public {number} - time since pusher has fallen over, in seconds
+    // TODO: Should we this have a tandem? It spams the data stream.
+    // TODO: Why is default value 10?
+    this.timeSinceFallenProperty = new Property( 10, {
+      phetioValueType: TNumber( { units: 'seconds' } )
+    } );
 
-      fallen: {
-        value: false,
-        tandem: tandem.createTandem( 'fallenProperty' ),
-        phetioValueType: TBoolean
-      },
+    // @public {boolean} - whether or not the pusher has fallen over
+    this.fallenProperty = new Property( false, {
+      tandem: tandem.createTandem( 'fallenProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      fallenDirection: {
-        value: 'left',
-        tandem: tandem.createTandem( 'fallenDirectionProperty' ),
-        phetioValueType: TString
-      },
+    // @public {string} - 'left'|'right', direction pusher facing when it falls over
+    this.fallenDirectionProperty = new Property( 'left', {
+      tandem: tandem.createTandem( 'fallenDirectionProperty' ),
+      phetioValueType: TString
+    } );
 
-      // TODO: Should we this have a tandem? It spams the data stream.
-      time: {
-        value: 0,
-        phetioValueType: TNumber( { units: 'seconds' } )
-      },
+    // @public {number} - how long the simulation has been running
+    // TODO: Should we this have a tandem? It spams the data stream.
+    this.timeProperty = new Property( 0, {
+      phetioValueType: TNumber( { units: 'seconds' } )
+    } );
 
-      //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-      //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
-      stackSize: {
-        value: 1,
-        tandem: tandem.createTandem( 'stackSizeProperty' ),
-        phetioValueType: TNumber()
-      },
+    //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
+    //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
+    this.stackSizeProperty = new Property( 1, {
+      tandem: tandem.createTandem( 'stackSizeProperty' ),
+      phetioValueType: TNumber()
+    } );
 
-      // is the sim running or paused?
-      play: {
-        value: true,
-        tandem: tandem.createTandem( 'playProperty' ),
-        phetioValueType: TBoolean
-      }
-    };
+    // @public {boolean} - is the sim running or paused?
+    this.playProperty = new Property( true, {
+      tandem: tandem.createTandem( 'playProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-    PropertySet.call( this, null, properties );
+    // @public DerivedProperty to observe whether or not the friction is zero
+    this.frictionZeroProperty = new DerivedProperty( [ this.frictionProperty ], function( friction ) {
+      return friction === 0;
+    } );
+
+    // @public DerivedProperty to observe whether or not the friction is zero
+    this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionProperty ], function( friction ) {
+      return friction !== 0;
+    } );
+
+    // @ublic - broadcast messages on step and reset all
+    this.resetAllEmitter = new Emitter();
+    this.stepEmitter = new Emitter();
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
-    this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForce = 0; } } );
+    this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForceProperty.set( 0 ); } } );
 
-    this.stack.lengthProperty.linkAttribute( this, 'stackSize' );
+    // TODO: Should stacksize Property be removed?
+    this.stack.lengthProperty.link( function( length ) {
+      self.stackSizeProperty.set( length );
+    } );
 
     // track the previous model position when model position changes
     // animation for the pusher and background nodes is based off of
@@ -244,20 +260,20 @@ define( function( require ) {
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
-      self.direction = appliedForce > 0 ? 'right' :
-                       appliedForce < 0 ? 'left' :
-                       'none';
+      self.directionProperty.set( appliedForce > 0 ? 'right' :
+                                  appliedForce < 0 ? 'left' :
+                                  'none' );
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
-      if ( self.fallen && appliedForce !== 0 ) {
-        self.fallen = !self.fallen;
+      if ( self.fallenProperty.get() && appliedForce !== 0 ) {
+        self.fallenProperty.set( !self.fallenProperty.get() );
       }
     } );
 
     //Applied force should drop to zero if max speed reached
     this.speedClassificationProperty.link( function( speedClassification ) {
       if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
-        self.appliedForce = 0;
+        self.appliedForceProperty.set( 0 );
       }
     } );
 
@@ -279,7 +295,7 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'MotionModel', MotionModel );
 
-  return inherit( PropertySet, MotionModel, {
+  return inherit( Object, MotionModel, {
 
     /**
      * Get an array representing the items that are being dragged.
@@ -290,7 +306,7 @@ define( function( require ) {
       var draggingItems = [];
       for ( var i = 0; i < this.items.length; i++ ) {
         var item = this.items[ i ];
-        if ( item.dragging ) {
+        if ( item.draggingProperty.get() ) {
           draggingItems.push( item );
         }
       }
@@ -317,8 +333,8 @@ define( function( require ) {
 
       //If the stack is emptied, stop the motion
       if ( this.stack.length === 0 ) {
-        this.velocity = 0;
-        this.acceleration = 0;
+        this.velocityProperty.set( 0 );
+        this.accelerationProperty.set( 0 );
       }
       return item;
     },
@@ -326,7 +342,7 @@ define( function( require ) {
     //When a 4th item is placed on the stack, move the bottom item home and have the stack fall
     spliceStackBottom: function() {
       var bottom = this.spliceStack( 0 );
-      bottom.onBoard = false;
+      bottom.onBoardProperty.set( false );
       bottom.animateHome();
     },
 
@@ -359,24 +375,24 @@ define( function( require ) {
 
       var mass = this.getStackMass();
 
-      var frictionForceMagnitude = Math.abs( this.friction * mass * g );
+      var frictionForceMagnitude = Math.abs( this.frictionProperty.get() * mass * g );
 
       //Friction force only applies above this velocity
       var velocityThreshold = 1E-12;
 
       //Object is motionless, friction should oppose the applied force
-      if ( Math.abs( this.velocity ) <= velocityThreshold ) {
+      if ( Math.abs( this.velocityProperty.get() ) <= velocityThreshold ) {
 
         //the friction is higher than the applied force, so don't allow the friction force to be higher than the applied force
         frictionForce = frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
 
           //Oppose the applied force
-                        -this.getSign( this.appliedForce ) * frictionForceMagnitude;
+                        -this.getSign( this.appliedForceProperty.get() ) * frictionForceMagnitude;
       }
 
       //Object is moving, so friction should oppose the velocity
       else {
-        frictionForce = -this.getSign( this.velocity ) * frictionForceMagnitude * 0.75;
+        frictionForce = -this.getSign( this.velocityProperty.get() ) * frictionForceMagnitude * 0.75;
       }
 
       // round the friction force so that one force is not more precise than another
@@ -416,7 +432,7 @@ define( function( require ) {
 
     // get the pusher position relative to the center and layout bounds of the view
     getRelativePusherPosition: function() {
-      return this.view.layoutBounds.width / 2 + ( this.pusherPosition - this.position ) * MotionConstants.POSITION_SCALE;
+      return this.view.layoutBounds.width / 2 + ( this.pusherPositionProperty.get() - this.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
     },
 
     /**
@@ -427,18 +443,18 @@ define( function( require ) {
     stepModel: function( dt ) {
 
       // update the tracked time which is used by the WaterBucketNode and the Accelerometer
-      this.time = this.time + dt;
+      this.timeProperty.set( this.timeProperty.get() + dt );
 
       // update the acceleration values
       var mass = this.getStackMass();
-      this.acceleration = mass !== 0 ? this.sumOfForces / mass : 0.0;
+      this.accelerationProperty.set( mass !== 0 ? this.sumOfForcesProperty.get() / mass : 0.0 );
 
-      var newVelocity = this.velocity + this.acceleration * dt;
+      var newVelocity = this.velocityProperty.get() + this.accelerationProperty.get() * dt;
 
       //friction force should not be able to make the object move backwards
       //Also make sure velocity goes exactly to zero when the pusher is pushing so that the friction force will be correctly computed
       //Without this logic, it was causing flickering arrows because the velocity was flipping sign and the friction force was flipping direction
-      if ( this.changedDirection( newVelocity, this.velocity ) ) {
+      if ( this.changedDirection( newVelocity, this.velocityProperty.get() ) ) {
         newVelocity = 0.0;
       }
 
@@ -446,18 +462,18 @@ define( function( require ) {
       if ( newVelocity > MotionConstants.MAX_SPEED ) { newVelocity = MotionConstants.MAX_SPEED; }
       if ( newVelocity < -MotionConstants.MAX_SPEED ) { newVelocity = -MotionConstants.MAX_SPEED; }
 
-      this.velocity = newVelocity;
-      this.position = this.position + this.velocity * dt;
+      this.velocityProperty.set( newVelocity );
+      this.positionProperty.set( this.positionProperty.get() + this.velocityProperty.get() * dt );
 
-      this.speed = Math.abs( this.velocity );
-      this.speedClassification = this.velocity >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
-                                 this.velocity <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
-                                 'WITHIN_ALLOWED_RANGE';
+      this.speedProperty.set( Math.abs( this.velocityProperty.get() ) );
+      this.speedClassificationProperty.set( this.velocityProperty.get() >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
+                                 this.velocityProperty.get() <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
+                                 'WITHIN_ALLOWED_RANGE' );
 
-      if ( this.speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
-        this.timeSinceFallen = 0;
-        this.fallenDirection = this.speedClassification === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
-        this.fallen = true;
+      if ( this.speedClassificationProperty.get() !== 'WITHIN_ALLOWED_RANGE' ) {
+        this.timeSinceFallenProperty.set( 0 );
+        this.fallenDirectionProperty.set( this.speedClassificationProperty.get() === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left' );
+        this.fallenProperty.set( true );
       }
       else {
 
@@ -465,31 +481,31 @@ define( function( require ) {
         // based on width of the background image, determined by visual inspection
         var relativePosition = this.getRelativePusherPosition();
         if ( relativePosition > 1600 || relativePosition < -600 ) {
-          this.fallen = false;
+          this.fallenProperty.set( false );
         }
-        this.timeSinceFallen = this.timeSinceFallen + dt;
+        this.timeSinceFallenProperty.set( this.timeSinceFallenProperty.get() + dt );
 
         //Stand up after 2 seconds
-        if ( this.timeSinceFallen > 2 ) {
-          this.fallen = false;
+        if ( this.timeSinceFallenProperty.get() > 2 ) {
+          this.fallenProperty.set( false );
         }
       }
 
       //Stand up if applying a force in the opposite direction that you fell
-      if ( this.fallen && this.fallenDirection === 'left' && this.appliedForce > 0 ) {
-        this.fallen = false;
+      if ( this.fallenProperty.get() && this.fallenDirectionProperty.get() === 'left' && this.appliedForceProperty.get() > 0 ) {
+        this.fallenProperty.set( false );
       }
-      if ( this.fallen && this.fallenDirection === 'right' && this.appliedForce < 0 ) {
-        this.fallen = false;
+      if ( this.fallenProperty.get() && this.fallenDirectionProperty.get() === 'right' && this.appliedForceProperty.get() < 0 ) {
+        this.fallenProperty.set( false );
       }
 
-      if ( this.previousSpeedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
-        this.speedClassification = this.previousSpeedClassification;
+      if ( this.previousSpeedClassificationProperty.get() !== 'WITHIN_ALLOWED_RANGE' ) {
+        this.speedClassificationProperty.set( this.previousSpeedClassificationProperty.get() );
       }
 
       //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
-      if ( this.appliedForce !== 0 && this.speedClassification === 'WITHIN_ALLOWED_RANGE' ) {
-        this.fallen = false;
+      if ( this.appliedForceProperty.get() !== 0 && this.speedClassificationProperty.get() === 'WITHIN_ALLOWED_RANGE' ) {
+        this.fallenProperty.set( false );
       }
 
     },
@@ -504,16 +520,16 @@ define( function( require ) {
       // Computes the new forces and sets them to the corresponding properties
       // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
       // also be updated when the user changes the friction force or mass while the sim is paused.
-      this.frictionForce = this.getFrictionForce( this.appliedForce );
-      this.sumOfForces = this.frictionForce + this.appliedForce;
+      this.frictionForceProperty.set( this.getFrictionForce( this.appliedForceProperty.get() ) );
+      this.sumOfForcesProperty.set( this.frictionForceProperty.get() + this.appliedForceProperty.get() );
 
-      if ( this.play ) {
+      if ( this.playProperty.get() ) {
         this.stepModel( dt );
       }
 
       // update the pusher position every time step, even if the sim is paused
-      if ( this.appliedForce !== 0 ) {
-        this.pusherPosition = this.position + 2 * (this.appliedForce > 0 ? -1 : 1);
+      if ( this.appliedForceProperty.get() !== 0 ) {
+        this.pusherPositionProperty.set( this.positionProperty.get() + 2 * ( this.appliedForceProperty.get() > 0 ? -1 : 1 ) );
       }
 
       // step all model items so that they are interactive while paused
@@ -522,7 +538,7 @@ define( function( require ) {
       }
 
       // notify that the sim has stepped to calculate forces.  This needs to update even when the sim is paused.
-      this.trigger0( 'stepped' );
+      this.stepEmitter.emit();
     },
 
     /**
@@ -550,10 +566,37 @@ define( function( require ) {
 
     //Reset the model
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
+      // reset all Properties of this model.
+      this.appliedForceProperty.reset();
+      this.frictionForceProperty.reset();
+      this.frictionProperty.reset();
+      this.sumOfForcesProperty.reset();
+      this.positionProperty.reset();
+      this.speedProperty.reset();
+      this.velocityProperty.reset();
+      this.accelerationProperty.reset();
+      this.pusherPositionProperty.reset();
+      this.showForceProperty.reset();
+      this.showValuesProperty.reset();
+      this.showSumOfForcesProperty.reset();
+      this.showSpeedProperty.reset();
+      this.showMassesProperty.reset();
+      this.showAccelerationProperty.reset();
+      this.speedClassificationProperty.reset();
+      this.previousSpeedClassificationProperty.reset();
+      this.movingRightProperty.reset();
+      this.directionProperty.reset();
+      this.timeSinceFallenProperty.reset();
+      this.fallenProperty.reset();
+      this.fallenDirectionProperty.reset();
+      this.timeProperty.reset();
+      this.stackSizeProperty.reset();
+      this.playProperty.reset();
+
       for ( var i = 0; i < this.items.length; i++ ) {
         // if the item is being dragged we need to cancel the drag in ItemNode
-        if ( !this.items[ i ].dragging ) {
+        if ( !this.items[ i ].draggingProperty.get() ) {
           this.items[ i ].reset();
         }
       }
@@ -562,7 +605,7 @@ define( function( require ) {
       this.previousModelPosition = this.positionProperty.initialValue;
 
       // notify that a reset was triggered
-      this.trigger0( 'reset-all' );
+      this.resetAllEmitter.emit();
 
       this.stack.clear();
 
@@ -579,14 +622,14 @@ define( function( require ) {
     viewInitialized: function( view ) {
       var item = this.items[ 1 ];
       // only move item to the top of the stack if it is not being dragged
-      if ( !item.dragging ) {
+      if ( !item.draggingProperty.get() ) {
         this.view = view;
-        item.onBoard = true;
+        item.onBoardProperty.set( true );
         var itemNode = view.itemNodes[ 1 ];
-        item.animating = { enabled: false, x: 0, y: 0, end: null };
-        item.interactionScale = 1.3;
+        item.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
+        item.interactionScaleProperty.set( 1.3 );
         var scaledWidth = this.view.getSize( item ).width;
-        item.position = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );
+        item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
         this.stack.add( item );
       }
     },

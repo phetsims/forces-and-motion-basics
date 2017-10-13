@@ -59,10 +59,10 @@ define( function( require ) {
      * Has optional horizontal indentation, icon, and property to control how the checkbox is enabled.
      *
      * @param {string} text - label for the check box
-     * @param {Property<boolean>} propertyName
+     * @param {Property<boolean>} property
      * @param {Object} options
      */
-    var createCheckBox = function( text, propertyName, tandemName, options ) {
+    var createCheckBox = function( text, property, tandemName, options ) {
 
       var checkBoxTandem = tandem.createTandem( tandemName );
       options = _.extend( {
@@ -89,7 +89,7 @@ define( function( require ) {
       } );
 
       // create the check box and insert it into the container
-      var checkBox = new CheckBox( labelText, model.property( propertyName ), {
+      var checkBox = new CheckBox( labelText, property, {
         tandem: checkBoxTandem
       } );
       checkBoxContainer.insertChild( 1, checkBox );
@@ -178,10 +178,10 @@ define( function( require ) {
       // create the checkboxes
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forceString, 'showForce', 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
-          createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
-          createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } )
+          createCheckBox( forceString, model.showForceProperty, 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createCheckBox( valuesString, model.showValuesProperty, 'showValuesCheckBox' ),
+          createCheckBox( massesString, model.showMassesProperty, 'showMassesCheckBox' ),
+          createCheckBox( speedString, model.showSpeedProperty, 'showSpeedCheckBox', { icon: speedometerIcon() } )
         ],
         align: 'left',
         spacing: 10
@@ -219,11 +219,11 @@ define( function( require ) {
       // create the checkboxes
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces', 'showSumOfForcesCheckBox' ),
-          createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
-          createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
-          createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } )
+          createCheckBox( forcesString, model.showForceProperty, 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createCheckBox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckBox' ),
+          createCheckBox( valuesString, model.showValuesProperty, 'showValuesCheckBox' ),
+          createCheckBox( massesString, model.showMassesProperty, 'showMassesCheckBox' ),
+          createCheckBox( speedString, model.showSpeedProperty, 'showSpeedCheckBox', { icon: speedometerIcon() } )
         ],
         align: 'left',
         spacing: 10
@@ -256,12 +256,12 @@ define( function( require ) {
 
       var checkBoxes = new VBox( {
         children: [
-          createCheckBox( forcesString, 'showForce', 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckBox( sumOfForcesString, 'showSumOfForces', 'showSumOfForcesCheckBox' ),
-          createCheckBox( valuesString, 'showValues', 'showValuesCheckBox' ),
-          createCheckBox( massesString, 'showMasses', 'showMassesCheckBox' ),
-          createCheckBox( speedString, 'showSpeed', 'showSpeedCheckBox', { icon: speedometerIcon() } ),
-          createCheckBox( accelerationString, 'showAcceleration', 'showAccelerationCheckBox', { icon: accelerometerIcon() } )
+          createCheckBox( forcesString, model.showForceProperty, 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createCheckBox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckBox' ),
+          createCheckBox( valuesString, model.showValuesProperty, 'showValuesCheckBox' ),
+          createCheckBox( massesString, model.showMassesProperty, 'showMassesCheckBox' ),
+          createCheckBox( speedString, model.showSpeedProperty, 'showSpeedCheckBox', { icon: speedometerIcon() } ),
+          createCheckBox( accelerationString, model.showAccelerationProperty, 'showAccelerationCheckBox', { icon: accelerometerIcon() } )
         ],
         align: 'left',
         spacing: 10

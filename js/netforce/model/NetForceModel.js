@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
@@ -17,6 +17,7 @@ define( function( require ) {
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Range = require( 'DOT/Range' );
+  var Emitter = require( 'AXON/Emitter' );
 
   // phet-io modules
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -38,93 +39,78 @@ define( function( require ) {
 
     var self = this;
 
-    var properties = {
+    this.startedProperty = new Property( false, {
+      tandem: tandem.createTandem( 'startedProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      started: {
-        value: false,
-        tandem: tandem.createTandem( 'startedProperty' ),
-        phetioValueType: TBoolean
-      },
+    this.runningProperty = new Property( false, {
+      tandem: tandem.createTandem( 'runningProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      running: {
-        value: false,
-        tandem: tandem.createTandem( 'runningProperty' ),
-        phetioValueType: TBoolean
-      },
+    this.numberPullersAttachedProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
+      phetioValueType: TNumber()
+    } );
 
-      numberPullersAttached: {
-        value: 0,
-        tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
-        phetioValueType: TNumber()
-      },
+    // TODO what are the valid values?
+    this.stateProperty = new Property( 'experimenting', {
+      tandem: tandem.createTandem( 'stateProperty' ),
+      phetioValueType: TString
+    } );
 
-      state: {
-        value: 'experimenting', //TODO what are the valid values?
-        tandem: tandem.createTandem( 'stateProperty' ),
-        phetioValueType: TString
-      },
+    this.timeProperty = new Property( 0, {
+      // TODO: Removed this property for phet-io spam
+      // tandem: tandem.createTandem( 'timeProperty' )
+      // phetioValueType: TNumber( 'seconds' )
+    } );
 
-      time: {
-        value: 0
-        // TODO: Removed this property for phet-io spam
-        // tandem: tandem.createTandem( 'timeProperty' )
-        // phetioValueType: TNumber( 'seconds' )
-      },
+    this.netForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'netForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
+    } );
 
-      netForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'netForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 350 ) } )
-      },
+    this.leftForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'leftForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
+    } );
 
-      leftForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'leftForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( -350, 0 ) } )
-      },
+    this.rightForceProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'rightForceProperty' ),
+      phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
+    } );
 
-      rightForce: {
-        value: 0,
-        tandem: tandem.createTandem( 'rightForceProperty' ),
-        phetioValueType: TNumber( { units: 'newtons', range: new Range( 0, 350 ) } )
-      },
+    this.speedProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'speedProperty' ),
+      phetioValueType: TNumber( { units: 'meters/second' } )
+    } );
 
-      speed: {
-        value: 0,
-        tandem: tandem.createTandem( 'speedProperty' ),
-        phetioValueType: TNumber( { units: 'meters/second' } )
-      },
+    this.durationProperty = new Property( 0, {
+      tandem: tandem.createTandem( 'durationProperty' ),
+      phetioValueType: TNumber( { units: 'seconds' } )
+    } );
 
-      duration: {
-        value: 0,
-        tandem: tandem.createTandem( 'durationProperty' ),
-        phetioValueType: TNumber( { units: 'seconds' } )
-      },
+    // User settings
+    this.showSumOfForcesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
+      phetioValueType: TBoolean
+    } );
+    this.showValuesProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showValuesProperty' ),
+      phetioValueType: TBoolean
+    } );
+    this.showSpeedProperty = new Property( false, {
+      tandem: tandem.createTandem( 'showSpeedProperty' ),
+      phetioValueType: TBoolean
+    } );
+    this.volumeOnProperty = new Property( false, {
+      tandem: tandem.createTandem( 'volumeOnProperty' ),
+      phetioValueType: TBoolean
+    } );
 
-      // User settings
-      showSumOfForces: {
-        value: false,
-        tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-        phetioValueType: TBoolean
-      },
-      showValues: {
-        value: false,
-        tandem: tandem.createTandem( 'showValuesProperty' ),
-        phetioValueType: TBoolean
-      },
-      showSpeed: {
-        value: false,
-        tandem: tandem.createTandem( 'showSpeedProperty' ),
-        phetioValueType: TBoolean
-      },
-      volumeOn: {
-        value: false,
-        tandem: tandem.createTandem( 'volumeOnProperty' ),
-        phetioValueType: TBoolean
-      }
-    };
-
-    PropertySet.call( this, null, properties );
+    this.cartReturnedEmitter = new Emitter();
+    this.resetAllEmitter = new Emitter();
 
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
@@ -170,32 +156,32 @@ define( function( require ) {
     this.pullers.forEach( function( puller ) {
 
       puller.positionProperty.link( self.updateVisibleKnots.bind( self ) );
-      puller.on( 'dragged', function() {
-        self.numberPullersAttached = self.countAttachedPullers();
+      puller.draggedEmitter.addListener( function() {
+        self.numberPullersAttachedProperty.set( self.countAttachedPullers() );
       } );
-      puller.on( 'dropped', function() {
+      puller.droppedEmitter.addListener( function() {
         var knot = self.getTargetKnot( puller );
         self.movePullerToKnot( puller, knot );
       } );
       puller.knotProperty.link( function() {
-        self.numberPullersAttached = self.countAttachedPullers();
+        self.numberPullersAttachedProperty.set( self.countAttachedPullers() );
       } );
     } );
 
     //Update the started flag
-    this.runningProperty.link( function( running ) { if ( running ) { self.started = true; }} );
+    this.runningProperty.link( function( running ) { if ( running ) { self.startedProperty.set( true ); }} );
 
     //Update the forces when the number of attached pullers changes
-    this.numberPullersAttachedProperty.link( function() {self.netForce = self.getNetForce();} );
-    this.numberPullersAttachedProperty.link( function() {self.leftForce = self.getLeftForce();} );
-    this.numberPullersAttachedProperty.link( function() {self.rightForce = self.getRightForce();} );
+    this.numberPullersAttachedProperty.link( function() { self.netForceProperty.set( self.getNetForce() ); } );
+    this.numberPullersAttachedProperty.link( function() { self.leftForceProperty.set( self.getLeftForce() ); } );
+    this.numberPullersAttachedProperty.link( function() { self.rightForceProperty.set( self.getRightForce() ); } );
 
     tandem.addInstance( this, TNetForceModel );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
 
-  return inherit( PropertySet, NetForceModel, {
+  return inherit( Object, NetForceModel, {
 
     /**
      * Move a puller to a knot.  If no knot is specified, puller is moved to its original location in the Puller
@@ -208,7 +194,9 @@ define( function( require ) {
 
       //try to snap to a knot
       if ( knot ) {
-        puller.setValues( { position: new Vector2( knot.x, knot.y ), knot: knot } );
+
+        puller.positionProperty.set( new Vector2( knot.xProperty.get(), knot.y ) );
+        puller.knotProperty.set( knot );
       }
 
       //Or go back home
@@ -217,7 +205,8 @@ define( function( require ) {
       }
 
       //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
-      puller.lastLocation = knot ? 'knot' : 'home';
+      var newLocation = knot ? 'knot' : 'home';
+      puller.lastLocationProperty.set( newLocation );
     },
 
     /**
@@ -246,8 +235,8 @@ define( function( require ) {
      * @param  {number} delta
      */
     shiftPuller: function( puller, leftBoundIndex, rightBoundIndex, delta ) {
-      if ( puller.knot ) {
-        var currentIndex = this.knots.indexOf( puller.knot );
+      if ( puller.knotProperty.get() ) {
+        var currentIndex = this.knots.indexOf( puller.knotProperty.get() );
         if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
           var nextIndex = currentIndex + delta;
 
@@ -256,9 +245,9 @@ define( function( require ) {
 
           var otherPuller = this.getPuller( nextKnot );
 
-          puller.setValues( { position: new Vector2( nextKnot.x, nextKnot.y ), knot: nextKnot } );
+          puller.setValues( { position: new Vector2( nextKnot.xProperty.get(), nextKnot.y ), knot: nextKnot } );
           otherPuller && otherPuller.setValues( {
-            position: new Vector2( currentKnot.x, currentKnot.y ),
+            position: new Vector2( currentKnot.xProperty.get(), currentKnot.y ),
             knot: currentKnot
           } );
         }
@@ -269,7 +258,7 @@ define( function( require ) {
     countAttachedPullers: function() {
       var count = 0;
       for ( var i = 0; i < this.pullers.length; i++ ) {
-        if ( this.pullers[ i ].knot ) {
+        if ( this.pullers[ i ].knotProperty.get() ) {
           count++;
         }
       }
@@ -279,12 +268,12 @@ define( function( require ) {
     //Change knot visibility (halo highlight) when the pullers are dragged
     updateVisibleKnots: function() {
       var self = this;
-      this.knots.forEach( function( knot ) {knot.visible = false;} );
+      this.knots.forEach( function( knot ) { knot.visibleProperty.set( false ); } );
       this.pullers.forEach( function( puller ) {
-        if ( puller.dragging ) {
+        if ( puller.draggingProperty.get() ) {
           var knot = self.getTargetKnot( puller );
           if ( knot ) {
-            knot.visible = true;
+            knot.visibleProperty.set( true );
           }
         }
       } );
@@ -296,7 +285,7 @@ define( function( require ) {
      * @param  {Knot} knot
      */
     getPuller: function( knot ) {
-      var find = _.find( this.pullers, function( puller ) {return puller.knot === knot;} );
+      var find = _.find( this.pullers, function( puller ) {return puller.knotProperty.get() === knot;} );
       return typeof(find) !== 'undefined' ? find : null;
     },
 
@@ -311,7 +300,7 @@ define( function( require ) {
       // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
       // placing the blue pullers
       var dx = puller.type === 'red' ? 0 : -40;
-      return function( knot ) { return Math.sqrt( Math.pow( knot.x - puller.position.x + dx, 2 ) + Math.pow( knot.y - puller.position.y, 2 ) ); };
+      return function( knot ) { return Math.sqrt( Math.pow( knot.xProperty.get() - puller.positionProperty.get().x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.get().y, 2 ) ); };
     },
 
     /**
@@ -353,25 +342,43 @@ define( function( require ) {
       var distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
-      var threshold = puller.lastLocation === 'home' ? 370 : 300;
-      return distanceToTarget < 220 && puller.position.y < threshold ? target : null;
+      var threshold = puller.lastLocationProperty.get() === 'home' ? 370 : 300;
+      return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
     },
 
     //Return the cart and prepare the model for another "go" run
     returnCart: function() {
       this.cart.reset();
       this.knots.forEach( function( knot ) {knot.reset();} );
-      this.running = false;
-      this.state = 'experimenting';
-      this.trigger0( 'cart-returned' );
-      this.started = false;
-      this.duration = 0; // Reset tug-of-war timer
+      this.runningProperty.set( false );
+      this.stateProperty.set( 'experimenting' );
+
+      // broadcast a message that the cart was returned
+      this.cartReturnedEmitter.emit();
+
+      this.startedProperty.set( false );
+      this.durationProperty.set( 0 ); // Reset tug-of-war timer
       this.speedProperty.reset();
     },
 
     //Reset the entire model when "reset all" is pressed
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+
+      // reset all Properties associated with this model
+      this.startedProperty.reset();
+      this.runningProperty.reset();
+      this.numberPullersAttachedProperty.reset();
+      this.stateProperty.reset();
+      this.timeProperty.reset();
+      this.netForceProperty.reset();
+      this.leftForceProperty.reset();
+      this.rightForceProperty.reset();
+      this.speedProperty.reset();
+      this.durationProperty.reset();
+      this.showSumOfForcesProperty.reset();
+      this.showValuesProperty.reset();
+      this.showSpeedProperty.reset();
+      this.volumeOnProperty.reset();
 
       //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
       this.pullers.forEach( function( puller ) {puller.disconnect();} );
@@ -379,12 +386,14 @@ define( function( require ) {
       this.cart.reset();
       this.pullers.forEach( function( puller ) {
         // if the puller is being dragged, we will need to cancel the drag in PullerNode
-        if ( !puller.dragging ) {
+        if ( !puller.draggingProperty.get() ) {
           puller.reset();
         }
       } );
       this.knots.forEach( function( knot ) {knot.reset();} );
-      this.trigger0( 'reset-all' );
+
+      // notify that the model was reset
+      this.resetAllEmitter.emit();
     },
 
     /**
@@ -393,29 +402,52 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      if ( this.running ) {
 
-        this.duration += dt; // Increment tug-of-war timer
+      if ( this.runningProperty.get() ) {
+
+         // Increment tug-of-war timer
+        this.durationProperty.set( this.durationProperty.get() + dt );
 
         // Make the simulation run about as fast as the Java version
-        var newV = this.cart.v + this.getNetForce() * dt * 0.003;
+        var newV = this.cart.vProperty.get() + this.getNetForce() * dt * 0.003;
         this.speedProperty.set( Math.abs( newV ) );
 
-        var newX = this.cart.x + newV * dt * 60.0;
-        this.cart.setValues( { v: newV, x: newX } );
-        this.knots.forEach( function( knot ) { knot.x = knot.initX + newX; } );
+        var newX = this.cart.xProperty.get() + newV * dt * 60.0;
+        this.updateCartAndPullers( newV, newX );
 
         //If the cart made it to the end, then stop and signify completion
         var gameLength = GAME_LENGTH - this.cart.widthToWheel;
-        if ( this.cart.x > gameLength || this.cart.x < -gameLength ) {
-          this.running = false;
-          this.state = 'completed';
+        if ( this.cart.xProperty.get() > gameLength || this.cart.xProperty.get() < -gameLength ) {
+          this.runningProperty.set( false );
+          this.stateProperty.set( 'completed' );
 
           // zero out the velocity
           this.speedProperty.set( 0 );
+
+          // set cart and pullers back the to max position
+          var maxLength = this.cart.xProperty.get() > gameLength ? gameLength : -gameLength;
+          this.updateCartAndPullers( this.speedProperty.get(), maxLength );
         }
       }
-      this.time = this.time + dt;
+
+      this.timeProperty.set( this.timeProperty.get() + dt );
+    },
+
+    /**
+     * Update the velocity and position of the cart and the pullers.
+     * 
+     * @private
+     * @param  {number} newV
+     * @param  {number} newX
+     */
+    updateCartAndPullers: function( newV, newX ) {
+
+      // move the cart, and update its velocity
+      this.cart.vProperty.set( newV );
+      this.cart.xProperty.set( newX );
+
+      // move the knots and the pullers on those knots
+      this.knots.forEach( function( knot ) { knot.xProperty.set( knot.initX + newX ); } );
     },
 
     //Gets the net force on the cart, applied by both left and right pullers
@@ -429,7 +461,7 @@ define( function( require ) {
      * @returns {Array<Puller>}
      */
     getPullers: function( type ) {
-      return _.filter( this.pullers, function( p ) {return p.type === type && p.knot;} );
+      return _.filter( this.pullers, function( p ) {return p.type === type && p.knotProperty.get();} );
     },
 
     /**
@@ -463,14 +495,14 @@ define( function( require ) {
       var self = this;
       var isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
-        return delta < 0 ? destinationKnot.x < sourceKnot.x :
-               delta > 0 ? destinationKnot.x > sourceKnot.x :
+        return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
+               delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
                'error';
       };
       var filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type &&
                self.getPuller( knot ) === null &&
-               isInRightDirection( puller.knot, knot, delta );
+               isInRightDirection( puller.knotProperty.get(), knot, delta );
       } );
       var result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
       if ( result === Infinity || result === -Infinity ) {
@@ -492,8 +524,8 @@ define( function( require ) {
       var self = this;
       var isInRightDirection = function( destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
-        return delta < 0 ? destinationKnot.x < sourceKnot.x :
-               delta > 0 ? destinationKnot.x > sourceKnot.x :
+        return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
+               delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
                'error';
       };
       var filter = this.knots.filter( function( knot ) {
@@ -502,7 +534,7 @@ define( function( require ) {
                isInRightDirection( knot, delta );
       } );
       var result = _.minBy( filter, function( knot ) {
-        return Math.abs( sourceKnot.x - knot.x );
+        return Math.abs( sourceKnot.xProperty.get() - knot.xProperty.get() );
       } );
 
       // we have reached the end of the knots.  Return either the first or last knot to loop the choice.
@@ -519,7 +551,7 @@ define( function( require ) {
       return this.pullers.map( function( p ) {
         return {
           id: p.tandem.id, // TODO: addInstance for Puller
-          knot: p.knot && p.knot.phetioID
+          knot: p.knotProperty.get() && p.knotProperty.get().phetioID
         };
       } );
     },

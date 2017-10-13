@@ -39,7 +39,7 @@ define( function( require ) {
     } );
 
     this.cart = cart;
-    this.xPosition = this.cart.x;
+    this.xPosition = this.cart.xProperty.get();
 
     // add a speedometer to the cart
     var speedRange = new Range( 0, 6 ); // speed range of the cart in m/s

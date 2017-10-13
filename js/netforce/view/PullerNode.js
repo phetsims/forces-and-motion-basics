@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var Image = require( 'SCENERY/nodes/Image' );
-  var TandemSimpleDragHandler = require( 'TANDEM/scenery/input/TandemSimpleDragHandler' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Input = require( 'SCENERY/input/Input' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -37,8 +37,8 @@ define( function( require ) {
     this.standImage = image; // @private
     this.pullImage = pullImage; // @private
     this.description = accessibleDescription;
-    var x = puller.position.x;
-    var y = puller.position.y;
+    var x = puller.positionProperty.get().x;
+    var y = puller.positionProperty.get().y;
 
     Image.call( this, this.standImage, {
       tandem: tandem,
@@ -46,7 +46,7 @@ define( function( require ) {
       y: y,
       cursor: 'pointer',
       scale: 0.86,
-      textDescription: puller.textDescription
+      textDescription: puller.textDescriptionProperty.get()
     } );
     this.accessiblePullerId = this.id; // @private, id to quickly find this node's representation in the accessible DOM
 
@@ -67,7 +67,7 @@ define( function( require ) {
       if ( hoverKnot ) {
         var pullingOffset = puller.standOffsetX;
         var blueOffset = self.puller.type === 'blue' ? -60 + 10 + self.width / 2 : -self.width / 2;
-        self.setTranslation( hoverKnot.x + pullingOffset + blueOffset, hoverKnot.y - self.height + 90 - 120 );
+        self.setTranslation( hoverKnot.xProperty.get() + pullingOffset + blueOffset, hoverKnot.y - self.height + 90 - 120 );
       }
     } );
 
@@ -84,22 +84,22 @@ define( function( require ) {
       self.updateLocation( puller, model );
     } );
 
-    var dragHandler = new TandemSimpleDragHandler( {
+    var dragHandler = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
         allowTouchSnag: true,
         start: function( event ) {
 
           // check to see if a puller is knotted - if it is, store the knot
-          var knot = puller.knot;
+          var knot = puller.knotProperty.get();
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();
           self.updateImage( puller, model );
 
           // fire updates
-          puller.dragging = true;
+          puller.draggingProperty.set( true );
           self.moveToFront();
-          puller.trigger0( 'dragged' );
+          puller.draggedEmitter.emit();
 
           // if the puller was knotted, update the image location so that it is centered on the knot it was previously
           // grabbing
@@ -109,24 +109,23 @@ define( function( require ) {
         },
         end: function() {
           self.updateLocation( puller, model );
-          puller.dragging = false;
-          puller.trigger0( 'dropped' );
+          puller.draggingProperty.set( false );
+          puller.droppedEmitter.emit();
           self.updateImage( puller, model );
         },
         translate: function( event ) {
           self.updateImage( puller, model );
-          self.puller.position = event.position;
+          self.puller.positionProperty.set( event.position );
         }
       }
     );
     self.addInputListener( dragHandler );
 
-    //model.on( 'reset-all', pullerNode.updateLocation );
-    model.on( 'reset-all', function() {
+    model.resetAllEmitter.addListener( function() {
       self.updateLocation( puller, model );
 
       // cancel the drag
-      if ( puller.dragging ) {
+      if ( puller.draggingProperty.get() ) {
         dragHandler.endDrag();
 
         puller.reset();
@@ -155,14 +154,13 @@ define( function( require ) {
         if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
           // the puller is already on a rope on the knot.  Place it right back in the toolbox.
           // TODO: This behavior is a placeholder, I am not sure how this should behave.
-          if ( self.puller.knot !== null ) {
-            self.puller.knot = null;
+          if ( self.puller.knotProperty.get() !== null ) {
+            self.puller.knotProperty.set( null );
 
             var grabbedPuller = self.puller;
             grabbedPuller.reset();
-            model.numberPullersAttached = model.countAttachedPullers();
-            grabbedPuller.dragging = false;
-            //grabbedPuller.trigger0( 'dropped' );
+            model.numberPullersAttachedProperty.set( model.countAttachedPullers() );
+            grabbedPuller.draggingProperty.set( false );
             self.updateImage( grabbedPuller, model );
             self.updateLocation( grabbedPuller, model );
 
@@ -219,7 +217,7 @@ define( function( require ) {
      */
     updateLocationKnotted: function( puller, model, knot ) {
       var blueOffset = this.puller.type === 'blue' ? -60 : 0;
-      puller.positionProperty.set( new Vector2( knot.x + blueOffset, knot.y - this.height + 90 ) );
+      puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
     },
 
     /**
@@ -229,8 +227,8 @@ define( function( require ) {
      * @param  {NetForceModel} model
      */
     updateImage: function( puller, model ) {
-      var knotted = puller.knot;
-      var pulling = model.started && knotted && model.state !== 'completed';
+      var knotted = puller.knotProperty.get();
+      var pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
       this.image = pulling ? this.pullImage : this.standImage;
     },
 
@@ -241,15 +239,15 @@ define( function( require ) {
      * @param  {NetForceModel} model
      */
     updateLocation: function( puller, model ) {
-      var knotted = puller.knot;
-      var pulling = model.started && knotted && model.state !== 'completed';
+      var knotted = puller.knotProperty.get();
+      var pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
       if ( knotted ) {
         var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
         var blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-        this.setTranslation( puller.knot.x + pullingOffset + blueOffset, puller.knot.y - this.height + 90 );
+        this.setTranslation( puller.knotProperty.get().xProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get().y - this.height + 90 );
       }
       else {
-        this.setTranslation( puller.position );
+        this.setTranslation( puller.positionProperty.get() );
       }
     }
   } );

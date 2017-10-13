@@ -13,7 +13,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Image = require( 'SCENERY/nodes/Image' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var RichText = require( 'SCENERY_PHET/RichText' );
+  var RichText = require( 'SCENERY/nodes/RichText' );
   var Shape = require( 'KITE/Shape' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -192,7 +192,7 @@ define( function( require ) {
 
     // Show left arrow button 'tweaker' to change the applied force in increments of 50
     var doubleLeftArrowButton = new ArrowButton( 'left', function() {
-      model.appliedForce = Math.max( model.appliedForce - 50, -500 );
+      model.appliedForceProperty.set( Math.max( model.appliedForceProperty.get() - 50, -500 ) );
     }, {
       right: this.textPanelNode.left - 6,
       centerY: this.textPanelNode.centerY,
@@ -205,7 +205,7 @@ define( function( require ) {
 
     // Small left arrow button 'tweaker' to change the applied force in increments of 1
     var leftArrowButton = new ArrowButton( 'left', function() {
-      model.appliedForce = Math.max( model.appliedForce - 1, -500 );
+      model.appliedForceProperty.set( Math.max( model.appliedForceProperty.get() - 1, -500 ) );
     }, {
       right: doubleLeftArrowButton.left - 6,
       centerY: this.textPanelNode.centerY,
@@ -219,7 +219,7 @@ define( function( require ) {
     doubleLeftArrowButton.touchArea = doubleLeftShape;
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
+    Property.multilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
       var enableButtons = ( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );
       leftArrowButton.enabled = enableButtons;
       doubleLeftArrowButton.enabled = enableButtons;
@@ -229,7 +229,7 @@ define( function( require ) {
 
     //Show right arrow button 'tweaker' to change the applied force in increments of 50
     var doubleRightArrowButton = new ArrowButton( 'right', function() {
-      model.appliedForce = Math.min( model.appliedForce + 50, 500 );
+      model.appliedForceProperty.set( Math.min( model.appliedForceProperty.get() + 50, 500 ) );
     }, {
       left: this.textPanelNode.right + 6,
       centerY: this.textPanelNode.centerY,
@@ -241,7 +241,7 @@ define( function( require ) {
     } );
 
     var rightArrowButton = new ArrowButton( 'right', function() {
-      model.appliedForce = Math.min( model.appliedForce + 1, 500 );
+      model.appliedForceProperty.set( Math.min( model.appliedForceProperty.get() + 1, 500 ) );
     }, {
       // xMargin: SINGLE_ARROW_X_MARGIN,
       // yMargin: SINGLE_ARROW_Y_MARGIN,
@@ -256,7 +256,7 @@ define( function( require ) {
     doubleRightArrowButton.touchArea = doubleRightShape;
 
     //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    model.multilink( [ 'appliedForce', 'speedClassification', 'stackSize' ], function( appliedForce, speedClassification, stackSize ) {
+    Property.multilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
       var enableButtons = ( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) );
       doubleRightArrowButton.enabled = enableButtons;
       rightArrowButton.enabled = enableButtons;
@@ -403,7 +403,7 @@ define( function( require ) {
 
       // whenever showValues and accleration changes, update the label text
       var initialLabelWidth = labelText.width;
-      model.multilink( [ 'showValues', 'acceleration' ], function( showValues, acceleration ) {
+      Property.multilink( [ model.showValuesProperty, model.accelerationProperty ], function( showValues, acceleration ) {
         if ( showValues ) {
           var accelerationValue = Util.toFixed( acceleration, 2 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
@@ -513,7 +513,8 @@ define( function( require ) {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
       phetioValueType: TNumber( { units: 'newtons' } )
     } );
-    model.on( 'stepped', function() {
+
+    model.stepEmitter.addListener( function() {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
@@ -572,7 +573,7 @@ define( function( require ) {
     } );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    model.multilink( [ 'appliedForce', 'frictionForce' ], function( appliedForce, frictionForce ) {
+    Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], function( appliedForce, frictionForce ) {
       var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
       self.frictionArrow.overlapsOther = sameDirection;
       self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';

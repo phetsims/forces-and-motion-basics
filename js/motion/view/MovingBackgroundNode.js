@@ -162,8 +162,6 @@ define( function( require ) {
           //Add the ice
           var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, { fill: 'rgba(189,227,249,0.87)' } );
           iceOverlay.boundsInaccurate = true;
-          model.addDerivedProperty( 'frictionZero', [ 'friction' ], function( friction ) {return friction === 0;} );
-          model.addDerivedProperty( 'frictionNonZero', [ 'friction' ], function( friction ) {return friction !== 0;} );
           self.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 

@@ -22,6 +22,10 @@ define( function( require ) {
   // strings
   var pattern0ValueUnitsNString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsN' );
 
+  // constants
+  var ARROW_HEAD_WIDTH = 50;
+  var ARROW_HEAD_HEIGHT = 25;
+
   /**
    * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
    *
@@ -114,8 +118,8 @@ define( function( require ) {
       if ( !hidden ) {
         var tailX = this.tailX;
         var tailY = this.tailY;
-        var tailWidth = 25;
-        var headWidth = 50;
+        var tailWidth = ARROW_HEAD_HEIGHT;
+        var headWidth = ARROW_HEAD_WIDTH;
 
         //For short arrows, the head height should be half of the arrow length.  See https://github.com/phetsims/scenery-phet/issues/30
         var headHeight = Math.min( Math.abs( value ) / 2, 40 );
@@ -176,5 +180,10 @@ define( function( require ) {
         }
       }
     }
+  }, {
+
+    // statics
+    ARROW_HEAD_WIDTH: ARROW_HEAD_WIDTH,
+    ARROW_HEAD_HEIGHT: ARROW_HEAD_HEIGHT
   } );
 } );
