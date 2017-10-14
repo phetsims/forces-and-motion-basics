@@ -24,6 +24,7 @@ define( function( require ) {
    * @param {number} x the horizontal position (in meters) of the knot
    * // TODO: Fix JSDoc
    * @param {string} type whether the knot is for red or blue pullers
+   * @param ropeStart
    * @param {number} ropeLength - the length of the rope in model coordinates
    * @param {Tandem} tandem
    * @constructor
