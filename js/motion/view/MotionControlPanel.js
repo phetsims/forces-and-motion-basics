@@ -52,7 +52,7 @@ define( function( require ) {
     Node.call( this );
 
     var fontSize = 18;
-    var maxTextWidth = 250;
+    var maxTextWidth = 120;
 
     /**
      * Create a check box that will be placed in this control panel with others in a VBox.
@@ -148,7 +148,7 @@ define( function( require ) {
         tickLabelSpacing: 3,
         tandem: tandem.createTandem( 'frictionSlider' )
       } );
-      var sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: maxTextWidth * 0.5 };
+      var sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
       var invisibleSliderTickOptions = _.extend( { visible: false }, sliderTickOptions );
 
       frictionSlider.addMajorTick( 0, new Text( noneString, _.extend( { tandem: tandem.createTandem( 'zeroTickTextNode' ) }, sliderTickOptions ) ) );
