@@ -62,7 +62,7 @@ define( function( require ) {
       lineWidth: 1,
       tandem: tandem.createTandem( 'arrowNode' )
     }, options ) );
-    var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 125 };
+    var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
     this.valueNode = new Text( '110N', _.extend( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
     this.labelNode = new Text( label, _.extend( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
     this.addChild( this.arrowNode );
