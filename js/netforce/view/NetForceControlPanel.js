@@ -41,7 +41,7 @@ define( function( require ) {
     options = _.extend( { tandem: tandem }, options );
     Node.call( this, options );
 
-    var fontOptions = { font: new PhetFont( 18 ) };
+    var fontOptions = { font: new PhetFont( 18 ), maxWidth: 230  };
 
     // the content for "show speed" is a label with an icon
     var speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
