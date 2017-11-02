@@ -391,7 +391,6 @@ define( function( require ) {
       maxWidth: 280,
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
-    console.log( this.sumOfForcesText.width );
 
     Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], function( netForce, showSumOfForces ) { self.sumOfForcesText.visible = !netForce && showSumOfForces; } );
     this.addChild( this.sumOfForcesText );
