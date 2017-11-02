@@ -387,8 +387,10 @@ define( function( require ) {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
+      maxWidth: 280,
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
+    console.log( this.sumOfForcesText.width );
 
     Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], function( netForce, showSumOfForces ) { self.sumOfForcesText.visible = !netForce && showSumOfForces; } );
     this.addChild( this.sumOfForcesText );
