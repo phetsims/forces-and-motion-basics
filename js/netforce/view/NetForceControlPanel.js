@@ -93,13 +93,12 @@ define( function( require ) {
       tandem: tandem.createTandem( 'soundToggleButton' )
     } );
 
-    // i18n - if the strings are too short, the sound toggle button will overlap the reset all button
-    // if this happens, provide some space - otherwise place relative to left of check box panel
+    // layout
+    soundToggleButton.left = checkBoxPanel.left + BUTTON_PADDING;
+
+    // i18n - if the strings are too short, the sound toggle button will overlap the reset all button, add some padding
     if ( this.resetAllButton.left < soundToggleButton.right ) {
       soundToggleButton.right = this.resetAllButton.left - 2 * BUTTON_PADDING;
-    }
-    else {
-      soundToggleButton.left = checkBoxPanel.left + BUTTON_PADDING;
     }
 
     this.addChild( soundToggleButton );
