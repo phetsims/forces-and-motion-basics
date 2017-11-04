@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function TKnot( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
-    assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
+    assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
     TObject.call( this, instance, phetioID );
   }
 

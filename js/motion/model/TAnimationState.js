@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function TAnimationState( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
-    assertInstanceOf( instance, Object);
+    assert && assertInstanceOf( instance, Object);
     TObject.call( this, instance, phetioID );
   }
 

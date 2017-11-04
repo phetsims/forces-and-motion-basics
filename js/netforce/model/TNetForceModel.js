@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function TNetForceModel( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
-    assertInstanceOf( instance, phet.forcesAndMotionBasics.NetForceModel );
+    assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.NetForceModel );
     TObject.call( this, instance, phetioID );
   }
 

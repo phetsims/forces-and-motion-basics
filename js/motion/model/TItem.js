@@ -21,7 +21,7 @@ define( function( require ) {
    */
   function TItem( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
-    assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
+    assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
     TObject.call( this, instance, phetioID );
   }
 
