@@ -569,10 +569,10 @@ define( function( require ) {
      * For phet-io, describe what pullers are on what knots
      */
     getKnotDescription: function() {
-      return this.pullers.map( function( p ) {
+      return this.pullers.map( function( puller ) {
         return {
-          id: p.tandem.id, // TODO: addInstance for Puller
-          knot: p.knotProperty.get() && p.knotProperty.get().phetioID
+          id: puller.pullerTandem.id, // TODO: addInstance for Puller
+          knot: puller.knotProperty.get() && puller.knotProperty.get().phetioID
         };
       } );
     },

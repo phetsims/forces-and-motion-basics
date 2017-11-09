@@ -28,13 +28,14 @@ define( function( require ) {
    * @param size 'small'|'medium'|'large'
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
    * @param {Tandem} tandem
+   * @param {Object} [options]
    * @constructor
    */
   function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
     assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
 
     // @public - to synchronize tandem names with the view
-    this.tandem = tandem;
+    this.pullerTandem = tandem;
 
     options = _.extend( { standOffsetX: 0, other: '' }, options );
     var self = this;
