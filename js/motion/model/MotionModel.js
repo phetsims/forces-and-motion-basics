@@ -37,7 +37,7 @@ define( function( require ) {
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
    * Constructor for the motion model
@@ -160,13 +160,13 @@ define( function( require ) {
     // so that the Applied Force can be stopped if the speed goes out of range.
     this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'speedClassificationProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // @public {string} See speedClassification
     this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // @public {boolean} - whether or not the stack of items is moving to the right
@@ -178,7 +178,7 @@ define( function( require ) {
     // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
     this.directionProperty = new Property( 'none', {
       tandem: tandem.createTandem( 'directionProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // @public {number} - time since pusher has fallen over, in seconds
@@ -197,7 +197,7 @@ define( function( require ) {
     // @public {string} - 'left'|'right', direction pusher facing when it falls over
     this.fallenDirectionProperty = new Property( 'left', {
       tandem: tandem.createTandem( 'fallenDirectionProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // @public {number} - how long the simulation has been running

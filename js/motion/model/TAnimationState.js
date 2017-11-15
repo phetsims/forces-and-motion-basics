@@ -11,7 +11,7 @@ define( function( require ) {
   var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
 
   /**
    * Stores the data from the Item.animating Property.
@@ -22,10 +22,10 @@ define( function( require ) {
   function TAnimationState( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, Object);
-    TObject.call( this, instance, phetioID );
+    ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( TObject, 'TAnimationState', TAnimationState, {}, {
+  phetioInherit( ObjectIO, 'TAnimationState', TAnimationState, {}, {
     documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
 
     toStateObject: function( instance ) {

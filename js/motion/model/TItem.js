@@ -11,7 +11,7 @@ define( function( require ) {
   var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
 
   /**
    *
@@ -22,10 +22,10 @@ define( function( require ) {
   function TItem( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
-    TObject.call( this, instance, phetioID );
+    ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( TObject, 'TItem', TItem, {}, {
+  phetioInherit( ObjectIO, 'TItem', TItem, {}, {
     documentation: 'An Item that can be placed dragged into the play area.',
 
     toStateObject: function( instance ) {

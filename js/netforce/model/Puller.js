@@ -19,7 +19,7 @@ define( function( require ) {
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
    *
@@ -72,7 +72,7 @@ define( function( require ) {
     // TODO: What are the valid values for this Property?
     this.lastPlacementProperty = new Property( 'home', {
       tandem: tandem.createTandem( 'lastPlacementProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // For keyboard accessibility, the knot that the puller is hovering over
@@ -85,7 +85,7 @@ define( function( require ) {
     // @public {string} - text description for accessibility
     this.textDescriptionProperty = new Property( '', {
       tandem: tandem.createTandem( 'textDescriptionProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // @public - emits an event when the puller is dropped

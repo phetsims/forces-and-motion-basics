@@ -22,7 +22,7 @@ define( function( require ) {
   var TAnimationState = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimationState' );
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
    * Constructor for Item
@@ -76,7 +76,7 @@ define( function( require ) {
     // @public {Property.<string>} - direction of the item, 'left'|'right'
     this.directionProperty = new Property( 'left', {
       tandem: tandem.createTandem( 'directionProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     // @public {Object} - tracks the animation state of the item

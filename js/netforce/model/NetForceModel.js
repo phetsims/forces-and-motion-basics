@@ -24,7 +24,7 @@ define( function( require ) {
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // constants
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
@@ -63,7 +63,7 @@ define( function( require ) {
     // TODO what are the valid values?
     this.stateProperty = new Property( 'experimenting', {
       tandem: tandem.createTandem( 'stateProperty' ),
-      phetioType: PropertyIO( TString )
+      phetioType: PropertyIO( StringIO )
     } );
 
     this.timeProperty = new Property( 0, {

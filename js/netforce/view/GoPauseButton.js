@@ -24,7 +24,7 @@ define( function( require ) {
 
   // phet-io modules
   var NumberIO = require( 'ifphetio!PHET_IO/types/NumberIO' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // strings
   var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );
@@ -97,7 +97,7 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      phetioArgumentTypes: [ NumberIO, TString ]
+      phetioArgumentTypes: [ NumberIO, StringIO ]
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
