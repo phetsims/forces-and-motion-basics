@@ -13,6 +13,7 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
+  var TProperty = require( 'AXON/TProperty' );
   var TVector2 = require( 'DOT/TVector2' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -60,7 +61,7 @@ define( function( require ) {
     // @public {Property.<Vector2>} - the position of the item
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioValueType: TVector2
+      phetioType: TProperty( TVector2 )
     } );
 
     // TODO: does this need to be instrumented for phet-io?
@@ -69,13 +70,13 @@ define( function( require ) {
     // @public {Property.<boolean>} - whether or not the item is being dragged
     this.draggingProperty = new Property( false, {
       tandem: tandem.createTandem( 'draggingProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {Property.<string>} - direction of the item, 'left'|'right'
     this.directionProperty = new Property( 'left', {
       tandem: tandem.createTandem( 'directionProperty' ),
-      phetioValueType: TString 
+      phetioType: TProperty( TString )
     } );
 
     // @public {Object} - tracks the animation state of the item
@@ -86,14 +87,14 @@ define( function( require ) {
       end: null,
       destination: 'home'
     }, {
-        tandem: tandem.createTandem( 'animationStateProperty'),
-        phetioValueType: TAnimationState
+      tandem: tandem.createTandem( 'animationStateProperty' ),
+      phetioType: TProperty( TAnimationState )
     } );
 
     // Flag for whether the item is on the skateboard
     this.onBoardProperty = new Property( false, {
       tandem: tandem.createTandem( 'onBoardProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
@@ -116,7 +117,7 @@ define( function( require ) {
       }
     } );
 
-    tandem.addInstance( this, TItem );
+    tandem.addInstance( this, { phetioType: TItem } );
   }
 
   forcesAndMotionBasics.register( 'Item', Item );

@@ -27,6 +27,8 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
+  var TObservableArray = require( 'AXON/TObservableArray' );
+  var TProperty = require( 'AXON/TProperty' );
   var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -57,7 +59,7 @@ define( function( require ) {
     var frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
-      phetioValueType: TItem,
+      phetioType: TObservableArray( TItem ),
 
       // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
       phetioState: true
@@ -120,37 +122,37 @@ define( function( require ) {
     // @public {boolean} - whether or not forces are visible
     this.showForceProperty = new Property( true, {
       tandem: tandem.createTandem( 'showForceProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {boolean} - whether or not values are visible
     this.showValuesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showValuesProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {boolean} - whether or not sum of forces is visible
     this.showSumOfForcesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {boolean} - whether or not speedometer is visible
     this.showSpeedProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {boolean} - whether or not mass values are visible
     this.showMassesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showMassesProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {boolean} - whether or not acceleration meter is visible
     this.showAccelerationProperty = new Property( false, {
       tandem: tandem.createTandem( 'showAccelerationProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     //  @public Keep track of whether the speed is classified as:
@@ -158,25 +160,25 @@ define( function( require ) {
     // so that the Applied Force can be stopped if the speed goes out of range.
     this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'speedClassificationProperty' ),
-      phetioValueType: TString
+      phetioType: TProperty( TString )
     } );
 
     // @public {string} See speedClassification
     this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-      phetioValueType: TString
+      phetioType: TProperty( TString )
     } );
 
     // @public {boolean} - whether or not the stack of items is moving to the right
     this.movingRightProperty = new Property( true, {
       tandem: tandem.createTandem( 'movingRightProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
     this.directionProperty = new Property( 'none', {
       tandem: tandem.createTandem( 'directionProperty' ),
-      phetioValueType: TString
+      phetioType: TProperty( TString )
     } );
 
     // @public {number} - time since pusher has fallen over, in seconds
@@ -189,13 +191,13 @@ define( function( require ) {
     // @public {boolean} - whether or not the pusher has fallen over
     this.fallenProperty = new Property( false, {
       tandem: tandem.createTandem( 'fallenProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public {string} - 'left'|'right', direction pusher facing when it falls over
     this.fallenDirectionProperty = new Property( 'left', {
       tandem: tandem.createTandem( 'fallenDirectionProperty' ),
-      phetioValueType: TString
+      phetioType: TProperty( TString )
     } );
 
     // @public {number} - how long the simulation has been running
@@ -213,7 +215,7 @@ define( function( require ) {
     // @public {boolean} - is the sim running or paused?
     this.playProperty = new Property( true, {
       tandem: tandem.createTandem( 'playProperty' ),
-      phetioValueType: TBoolean
+      phetioType: TProperty( TBoolean )
     } );
 
     // @public DerivedProperty to observe whether or not the friction is zero

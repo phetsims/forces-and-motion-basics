@@ -15,6 +15,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var TProperty = require( 'AXON/TProperty' );
 
   // phet-io types
   var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
@@ -29,7 +30,7 @@ define( function( require ) {
     options = _.extend( {
       enabledProperty: new Property( true, {
         tandem: tandem.createTandem( 'enabledProperty' ),
-        phetioValueType: TBoolean
+        phetioType: TProperty( TBoolean )
       } )
     }, options );
     this.enabledProperty = options.enabledProperty;
