@@ -40,7 +40,7 @@ define( function( require ) {
   var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   /**
    * Main constructor for MotionControlPanel
@@ -70,7 +70,7 @@ define( function( require ) {
         indent: 0,
         checkBoxEnabledProperty: new Property( true, {
           tandem: checkBoxTandem.createTandem( 'enabledProperty' ),
-          phetioType: PropertyIO( TBoolean )
+          phetioType: PropertyIO( BooleanIO )
         } ),
         icon: null
       }, options );

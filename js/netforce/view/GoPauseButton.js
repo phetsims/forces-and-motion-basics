@@ -23,7 +23,7 @@ define( function( require ) {
   var ToggleNode = require( 'SUN/ToggleNode' );
 
   // phet-io modules
-  var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
+  var NumberIO = require( 'ifphetio!PHET_IO/types/NumberIO' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
   // strings
@@ -97,7 +97,7 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      phetioArgumentTypes: [ TNumber, TString ]
+      phetioArgumentTypes: [ NumberIO, TString ]
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );

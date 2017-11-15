@@ -17,7 +17,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
@@ -53,7 +53,7 @@ define( function( require ) {
     // @public {boolean} - whether or not the puller is currently being dragged
     this.draggingProperty = new Property( false, {
       tandem: tandem.createTandem( 'draggingProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {Knot|null} - the knot that this puller is attached to

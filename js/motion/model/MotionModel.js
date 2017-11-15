@@ -27,7 +27,7 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
-  var TObservableArray = require( 'AXON/TObservableArray' );
+  var ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var Util = require( 'DOT/Util' );
@@ -35,7 +35,7 @@ define( function( require ) {
   var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
@@ -59,7 +59,7 @@ define( function( require ) {
     var frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
-      phetioType: TObservableArray( TItem ),
+      phetioType: ObservableArrayIO( TItem ),
 
       // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
       phetioState: true
@@ -122,37 +122,37 @@ define( function( require ) {
     // @public {boolean} - whether or not forces are visible
     this.showForceProperty = new Property( true, {
       tandem: tandem.createTandem( 'showForceProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {boolean} - whether or not values are visible
     this.showValuesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showValuesProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {boolean} - whether or not sum of forces is visible
     this.showSumOfForcesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {boolean} - whether or not speedometer is visible
     this.showSpeedProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {boolean} - whether or not mass values are visible
     this.showMassesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showMassesProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {boolean} - whether or not acceleration meter is visible
     this.showAccelerationProperty = new Property( false, {
       tandem: tandem.createTandem( 'showAccelerationProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     //  @public Keep track of whether the speed is classified as:
@@ -172,7 +172,7 @@ define( function( require ) {
     // @public {boolean} - whether or not the stack of items is moving to the right
     this.movingRightProperty = new Property( true, {
       tandem: tandem.createTandem( 'movingRightProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
@@ -191,7 +191,7 @@ define( function( require ) {
     // @public {boolean} - whether or not the pusher has fallen over
     this.fallenProperty = new Property( false, {
       tandem: tandem.createTandem( 'fallenProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {string} - 'left'|'right', direction pusher facing when it falls over
@@ -215,7 +215,7 @@ define( function( require ) {
     // @public {boolean} - is the sim running or paused?
     this.playProperty = new Property( true, {
       tandem: tandem.createTandem( 'playProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public DerivedProperty to observe whether or not the friction is zero

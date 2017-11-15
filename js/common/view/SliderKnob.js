@@ -18,7 +18,7 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
 
   // phet-io types
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   /**
    * Constructor.
@@ -30,7 +30,7 @@ define( function( require ) {
     options = _.extend( {
       enabledProperty: new Property( true, {
         tandem: tandem.createTandem( 'enabledProperty' ),
-        phetioType: PropertyIO( TBoolean )
+        phetioType: PropertyIO( BooleanIO )
       } )
     }, options );
     this.enabledProperty = options.enabledProperty;

@@ -20,7 +20,7 @@ define( function( require ) {
 
   // phet-io modules
   var TAnimationState = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimationState' );
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
 
@@ -70,7 +70,7 @@ define( function( require ) {
     // @public {Property.<boolean>} - whether or not the item is being dragged
     this.draggingProperty = new Property( false, {
       tandem: tandem.createTandem( 'draggingProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // @public {Property.<string>} - direction of the item, 'left'|'right'
@@ -94,7 +94,7 @@ define( function( require ) {
     // Flag for whether the item is on the skateboard
     this.onBoardProperty = new Property( false, {
       tandem: tandem.createTandem( 'onBoardProperty' ),
-      phetioType: PropertyIO( TBoolean )
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
