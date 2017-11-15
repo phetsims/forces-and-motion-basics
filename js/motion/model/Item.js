@@ -14,7 +14,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Range = require( 'DOT/Range' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  var TVector2 = require( 'DOT/TVector2' );
+  var Vector2IO = require( 'DOT/Vector2IO' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -61,7 +61,7 @@ define( function( require ) {
     // @public {Property.<Vector2>} - the position of the item
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: PropertyIO( TVector2 )
+      phetioType: PropertyIO( Vector2IO )
     } );
 
     // TODO: does this need to be instrumented for phet-io?
