@@ -36,7 +36,7 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var TProperty = require( 'AXON/TProperty' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
 
   // phet-io modules
   var TString = require( 'ifphetio!PHET_IO/types/TString' );
@@ -366,7 +366,7 @@ define( function( require ) {
     // Accessibility for reading out the total force
     var accessibleTextProperty = new Property( '', {
       tandem: tandem.createTandem( 'accessibleTextProperty' ),
-      phetioType: TProperty( TString )
+      phetioType: PropertyIO( TString )
     } );
     model.numberPullersAttachedProperty.link( function() {
       accessibleTextProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +

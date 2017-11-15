@@ -12,7 +12,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var TProperty = require( 'AXON/TProperty' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var TVector2 = require( 'DOT/TVector2' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -53,39 +53,39 @@ define( function( require ) {
     // @public {boolean} - whether or not the puller is currently being dragged
     this.draggingProperty = new Property( false, {
       tandem: tandem.createTandem( 'draggingProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
 
     // @public {Knot|null} - the knot that this puller is attached to
     this.knotProperty = new Property( null, {
       tandem: tandem.createTandem( 'knotProperty' ),
-      phetioType: TProperty( TKnot )
+      phetioType: PropertyIO( TKnot )
     } );
 
     // @public {Vector2} - the position of this puller
     this.positionProperty = new Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: TProperty( TVector2 )
+      phetioType: PropertyIO( TVector2 )
     } );
 
     // @public {string} - a classified location in the play area
     // TODO: What are the valid values for this Property?
     this.lastPlacementProperty = new Property( 'home', {
       tandem: tandem.createTandem( 'lastPlacementProperty' ),
-      phetioType: TProperty( TString )
+      phetioType: PropertyIO( TString )
     } );
 
     // For keyboard accessibility, the knot that the puller is hovering over
     // TODO: What are the valid values for this Property?
     this.hoverKnotProperty = new Property( null, {
       tandem: tandem.createTandem( 'hoverKnotProperty' ),
-      phetioType: TProperty( TKnot )
+      phetioType: PropertyIO( TKnot )
     } );
 
     // @public {string} - text description for accessibility
     this.textDescriptionProperty = new Property( '', {
       tandem: tandem.createTandem( 'textDescriptionProperty' ),
-      phetioType: TProperty( TString )
+      phetioType: PropertyIO( TString )
     } );
 
     // @public - emits an event when the puller is dropped

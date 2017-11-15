@@ -34,7 +34,7 @@ define( function( require ) {
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var TProperty = require( 'AXON/TProperty' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
@@ -70,7 +70,7 @@ define( function( require ) {
         indent: 0,
         checkBoxEnabledProperty: new Property( true, {
           tandem: checkBoxTandem.createTandem( 'enabledProperty' ),
-          phetioType: TProperty( TBoolean )
+          phetioType: PropertyIO( TBoolean )
         } ),
         icon: null
       }, options );

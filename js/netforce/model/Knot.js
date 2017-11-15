@@ -12,7 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
-  var TProperty = require( 'AXON/TProperty' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
@@ -45,7 +45,7 @@ define( function( require ) {
     // @public {boolean} - whether or not the know is visible
     this.visibleProperty = new Property( false, {
       tandem: tandem.createTandem( 'visibleProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
 
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.

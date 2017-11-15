@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Range = require( 'DOT/Range' );
-  var TProperty = require( 'AXON/TProperty' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
@@ -47,12 +47,12 @@ define( function( require ) {
 
     this.startedProperty = new Property( false, {
       tandem: tandem.createTandem( 'startedProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
 
     this.runningProperty = new Property( false, {
       tandem: tandem.createTandem( 'runningProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
 
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
@@ -63,13 +63,13 @@ define( function( require ) {
     // TODO what are the valid values?
     this.stateProperty = new Property( 'experimenting', {
       tandem: tandem.createTandem( 'stateProperty' ),
-      phetioType: TProperty( TString )
+      phetioType: PropertyIO( TString )
     } );
 
     this.timeProperty = new Property( 0, {
       // TODO: Removed this property for phet-io spam
       // tandem: tandem.createTandem( 'timeProperty' )
-      // phetioType: TProperty(TNumber)( 'seconds' )
+      // phetioType: PropertyIO(TNumber)( 'seconds' )
     } );
 
     this.netForceProperty = new NumberProperty( 0, {
@@ -105,19 +105,19 @@ define( function( require ) {
     // User settings
     this.showSumOfForcesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
     this.showValuesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showValuesProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
     this.showSpeedProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
     this.volumeOnProperty = new Property( false, {
       tandem: tandem.createTandem( 'volumeOnProperty' ),
-      phetioType: TProperty( TBoolean )
+      phetioType: PropertyIO( TBoolean )
     } );
 
     this.cartReturnedEmitter = new Emitter();
