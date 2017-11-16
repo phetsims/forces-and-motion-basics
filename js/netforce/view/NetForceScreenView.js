@@ -26,6 +26,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
@@ -36,7 +37,6 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
 
   // phet-io modules
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );

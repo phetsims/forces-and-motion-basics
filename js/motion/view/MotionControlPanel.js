@@ -30,11 +30,11 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );

@@ -14,8 +14,8 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var PropertyIO = require( 'AXON/PropertyIO' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // phet-io types
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );

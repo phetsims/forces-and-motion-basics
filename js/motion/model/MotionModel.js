@@ -25,10 +25,10 @@ define( function( require ) {
   var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
   var ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
+  var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
+  var Range = require( 'DOT/Range' );
   var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );

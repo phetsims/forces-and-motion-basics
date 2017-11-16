@@ -12,11 +12,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  var Vector2IO = require( 'DOT/Vector2IO' );
+  var Range = require( 'DOT/Range' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2IO = require( 'DOT/Vector2IO' );
 
   // phet-io modules
   var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );

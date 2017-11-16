@@ -16,9 +16,9 @@ define( function( require ) {
   var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Range = require( 'DOT/Range' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
