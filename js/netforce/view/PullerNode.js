@@ -132,11 +132,6 @@ define( function( require ) {
       }
     } );
 
-    // a11y options
-    this.mutate( {
-
-    } );
-
     this.addAccessibleInputListener( {
       keydown: function( event ) {
         // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
