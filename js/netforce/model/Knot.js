@@ -17,7 +17,7 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
+  var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.
@@ -54,7 +54,7 @@ define( function( require ) {
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
 
-    tandem.addInstance( this, { phetioType: TKnot } );
+    tandem.addInstance( this, { phetioType: KnotIO } );
   }
 
   forcesAndMotionBasics.register( 'Knot', Knot );

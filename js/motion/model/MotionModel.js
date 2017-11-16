@@ -36,7 +36,7 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
+  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
@@ -59,7 +59,7 @@ define( function( require ) {
     var frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
-      phetioType: ObservableArrayIO( TItem ),
+      phetioType: ObservableArrayIO( ItemIO ),
 
       // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
       phetioState: true

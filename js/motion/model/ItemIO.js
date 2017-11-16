@@ -19,13 +19,13 @@ define( function( require ) {
    * @param phetioID
    * @constructor
    */
-  function TItem( instance, phetioID ) {
+  function ItemIO( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
     ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( ObjectIO, 'TItem', TItem, {}, {
+  phetioInherit( ObjectIO, 'ItemIO', ItemIO, {}, {
     documentation: 'An Item that can be placed dragged into the play area.',
 
     toStateObject: function( instance ) {
@@ -37,8 +37,8 @@ define( function( require ) {
     }
   } );
 
-  forcesAndMotionBasics.register( 'TItem', TItem );
+  forcesAndMotionBasics.register( 'ItemIO', ItemIO );
 
-  return TItem;
+  return ItemIO;
 } );
 

@@ -19,9 +19,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
-  var TAnimationState = require( 'FORCES_AND_MOTION_BASICS/motion/model/TAnimationState' );
+  var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var TItem = require( 'FORCES_AND_MOTION_BASICS/motion/model/TItem' );
+  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
@@ -88,7 +88,7 @@ define( function( require ) {
       destination: 'home'
     }, {
       tandem: tandem.createTandem( 'animationStateProperty' ),
-      phetioType: PropertyIO( TAnimationState )
+      phetioType: PropertyIO( AnimationStateIO )
     } );
 
     // Flag for whether the item is on the skateboard
@@ -117,7 +117,7 @@ define( function( require ) {
       }
     } );
 
-    tandem.addInstance( this, { phetioType: TItem } );
+    tandem.addInstance( this, { phetioType: ItemIO } );
   }
 
   forcesAndMotionBasics.register( 'Item', Item );

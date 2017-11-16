@@ -19,13 +19,13 @@ define( function( require ) {
    * @param phetioID
    * @constructor
    */
-  function TAnimationState( instance, phetioID ) {
+  function AnimationStateIO( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, Object);
     ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( ObjectIO, 'TAnimationState', TAnimationState, {}, {
+  phetioInherit( ObjectIO, 'AnimationStateIO', AnimationStateIO, {}, {
     documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
 
     toStateObject: function( instance ) {
@@ -37,7 +37,7 @@ define( function( require ) {
     }
   } );
 
-  forcesAndMotionBasics.register( 'TAnimationState', TAnimationState );
+  forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
 
-  return TAnimationState;
+  return AnimationStateIO;
 } );

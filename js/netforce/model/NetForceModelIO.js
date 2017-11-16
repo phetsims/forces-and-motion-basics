@@ -21,13 +21,13 @@ define( function( require ) {
    * @param phetioID
    * @constructor
    */
-  function TNetForceModel( instance, phetioID ) {
+  function NetForceModelIO( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.NetForceModel );
     ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( ObjectIO, 'TNetForceModel', TNetForceModel, {
+  phetioInherit( ObjectIO, 'NetForceModelIO', NetForceModelIO, {
     reset: {
       returnType: VoidIO,
       parameterTypes: [],
@@ -38,7 +38,7 @@ define( function( require ) {
     }
   }, { documentation: 'A Net Force Model type.' } );
 
-  forcesAndMotionBasics.register( 'TNetForceModel', TNetForceModel );
+  forcesAndMotionBasics.register( 'NetForceModelIO', NetForceModelIO );
 
-  return TNetForceModel;
+  return NetForceModelIO;
 } );

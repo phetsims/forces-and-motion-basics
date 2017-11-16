@@ -23,7 +23,7 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
+  var NetForceModelIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModelIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // constants
@@ -188,7 +188,7 @@ define( function( require ) {
     this.numberPullersAttachedProperty.link( function() { self.leftForceProperty.set( self.getLeftForce() ); } );
     this.numberPullersAttachedProperty.link( function() { self.rightForceProperty.set( self.getRightForce() ); } );
 
-    tandem.addInstance( this, { phetioType: TNetForceModel } );
+    tandem.addInstance( this, { phetioType: NetForceModelIO } );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );

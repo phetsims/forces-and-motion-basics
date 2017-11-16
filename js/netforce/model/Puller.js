@@ -18,7 +18,7 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
+  var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
@@ -59,7 +59,7 @@ define( function( require ) {
     // @public {Knot|null} - the knot that this puller is attached to
     this.knotProperty = new Property( null, {
       tandem: tandem.createTandem( 'knotProperty' ),
-      phetioType: PropertyIO( TKnot )
+      phetioType: PropertyIO( KnotIO )
     } );
 
     // @public {Vector2} - the position of this puller
@@ -79,7 +79,7 @@ define( function( require ) {
     // TODO: What are the valid values for this Property?
     this.hoverKnotProperty = new Property( null, {
       tandem: tandem.createTandem( 'hoverKnotProperty' ),
-      phetioType: PropertyIO( TKnot )
+      phetioType: PropertyIO( KnotIO )
     } );
 
     // @public {string} - text description for accessibility
