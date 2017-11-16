@@ -34,12 +34,13 @@ define( function( require ) {
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   /**
    * Main constructor for MotionControlPanel
@@ -69,7 +70,7 @@ define( function( require ) {
         indent: 0,
         checkBoxEnabledProperty: new Property( true, {
           tandem: checkBoxTandem.createTandem( 'enabledProperty' ),
-          phetioValueType: TBoolean
+          phetioType: PropertyIO( BooleanIO )
         } ),
         icon: null
       }, options );

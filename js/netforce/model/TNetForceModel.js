@@ -12,8 +12,8 @@ define( function( require ) {
   var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
-  var TVoid = require( 'ifphetio!PHET_IO/types/TVoid' );
+  var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
+  var VoidIO = require( 'ifphetio!PHET_IO/types/VoidIO' );
 
   /**
    *
@@ -24,12 +24,12 @@ define( function( require ) {
   function TNetForceModel( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.NetForceModel );
-    TObject.call( this, instance, phetioID );
+    ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( TObject, 'TNetForceModel', TNetForceModel, {
+  phetioInherit( ObjectIO, 'TNetForceModel', TNetForceModel, {
     reset: {
-      returnType: TVoid,
+      returnType: VoidIO,
       parameterTypes: [],
       implementation: function() {
         this.instance.reset();

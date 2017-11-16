@@ -18,12 +18,13 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Range = require( 'DOT/Range' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TNetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TNetForceModel' );
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // constants
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
@@ -46,12 +47,12 @@ define( function( require ) {
 
     this.startedProperty = new Property( false, {
       tandem: tandem.createTandem( 'startedProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     this.runningProperty = new Property( false, {
       tandem: tandem.createTandem( 'runningProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
@@ -62,13 +63,13 @@ define( function( require ) {
     // TODO what are the valid values?
     this.stateProperty = new Property( 'experimenting', {
       tandem: tandem.createTandem( 'stateProperty' ),
-      phetioValueType: TString
+      phetioType: PropertyIO( StringIO )
     } );
 
     this.timeProperty = new Property( 0, {
       // TODO: Removed this property for phet-io spam
       // tandem: tandem.createTandem( 'timeProperty' )
-      // phetioValueType: TNumber( 'seconds' )
+      // phetioType: PropertyIO(NumberIO)( 'seconds' )
     } );
 
     this.netForceProperty = new NumberProperty( 0, {
@@ -104,19 +105,19 @@ define( function( require ) {
     // User settings
     this.showSumOfForcesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
     this.showValuesProperty = new Property( false, {
       tandem: tandem.createTandem( 'showValuesProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
     this.showSpeedProperty = new Property( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
     this.volumeOnProperty = new Property( false, {
       tandem: tandem.createTandem( 'volumeOnProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     this.cartReturnedEmitter = new Emitter();
@@ -187,7 +188,7 @@ define( function( require ) {
     this.numberPullersAttachedProperty.link( function() { self.leftForceProperty.set( self.getLeftForce() ); } );
     this.numberPullersAttachedProperty.link( function() { self.rightForceProperty.set( self.getRightForce() ); } );
 
-    tandem.addInstance( this, TNetForceModel );
+    tandem.addInstance( this, { phetioType: TNetForceModel } );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );

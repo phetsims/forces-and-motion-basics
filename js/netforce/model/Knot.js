@@ -12,10 +12,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // phet-io modules
-  var TBoolean = require( 'ifphetio!PHET_IO/types/TBoolean' );
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var TKnot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/TKnot' );
 
   /**
@@ -44,7 +45,7 @@ define( function( require ) {
     // @public {boolean} - whether or not the know is visible
     this.visibleProperty = new Property( false, {
       tandem: tandem.createTandem( 'visibleProperty' ),
-      phetioValueType: TBoolean
+      phetioType: PropertyIO( BooleanIO )
     } );
 
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
@@ -53,7 +54,7 @@ define( function( require ) {
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
 
-    tandem.addInstance( this, TKnot );
+    tandem.addInstance( this, { phetioType: TKnot } );
   }
 
   forcesAndMotionBasics.register( 'Knot', Knot );
@@ -62,7 +63,7 @@ define( function( require ) {
 
     /**
      * Reset this knot by resetting its associated model Properties.
-     * 
+     *
      * @return {}
      */
     reset: function() {

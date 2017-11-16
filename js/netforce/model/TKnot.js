@@ -13,7 +13,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var phetio = require( 'ifphetio!PHET_IO/phetio' );
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
-  var TObject = require( 'ifphetio!PHET_IO/types/TObject' );
+  var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
 
   /**
    *
@@ -24,10 +24,10 @@ define( function( require ) {
   function TKnot( instance, phetioID ) {
     assert && assert( !!instance, 'instance should exist' );
     assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
-    TObject.call( this, instance, phetioID );
+    ObjectIO.call( this, instance, phetioID );
   }
 
-  phetioInherit( TObject, 'TKnot', TKnot, {}, {
+  phetioInherit( ObjectIO, 'TKnot', TKnot, {}, {
     documentation: 'A knot',
 
     fromStateObject: function( stateObject ) {

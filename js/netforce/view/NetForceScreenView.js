@@ -36,9 +36,10 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
 
   // phet-io modules
-  var TString = require( 'ifphetio!PHET_IO/types/TString' );
+  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -365,7 +366,7 @@ define( function( require ) {
     // Accessibility for reading out the total force
     var accessibleTextProperty = new Property( '', {
       tandem: tandem.createTandem( 'accessibleTextProperty' ),
-      phetioValueType: TString
+      phetioType: PropertyIO( StringIO )
     } );
     model.numberPullersAttachedProperty.link( function() {
       accessibleTextProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +

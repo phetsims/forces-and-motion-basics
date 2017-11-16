@@ -33,13 +33,11 @@ define( function( require ) {
       listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
-      tandem: tandem.createSupertypeTandem() // TODO: this class should extend TextPushButton, not wrap it.
+      tandem: tandem
     } );
     this.mutate( options );
 
     model.startedProperty.linkAttribute( this, 'enabled' );
-
-    this.mutate( { tandem: tandem } );
   }
 
   forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
