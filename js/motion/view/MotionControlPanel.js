@@ -31,6 +31,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
+  var Range = require( 'DOT/Range' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
@@ -142,7 +143,7 @@ define( function( require ) {
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
-      var frictionSlider = new HSlider( model.frictionProperty, { min: 0, max: MotionConstants.MAX_FRICTION }, {
+      var frictionSlider = new HSlider( model.frictionProperty, new Range( 0, MotionConstants.MAX_FRICTION ), {
         trackSize: new Dimension2( 150, 6 ),
         thumbNode: new SliderKnob( tandem.createTandem( 'sliderKnob' ) ),
         majorTickLength: 18,
@@ -298,7 +299,7 @@ define( function( require ) {
     } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
 
-    this.mutate({ tandem: tandem });
+    this.mutate( { tandem: tandem } );
   }
 
   forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );

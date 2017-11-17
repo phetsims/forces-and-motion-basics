@@ -30,6 +30,7 @@ define( function( require ) {
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var Property = require( 'AXON/Property' );
   var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
+  var Range = require( 'DOT/Range' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -149,13 +150,11 @@ define( function( require ) {
       maxWidth: maxTextWidth,
       tandem: tandem.createTandem( 'appliedForceSliderTextNode' )
     } );
-    var appliedForceSlider = new AppliedForceSlider( model, {
-      min: -500,
-      max: 500
-    }, tandem.createTandem( 'appliedForceSlider' ), {
-      centerX: width / 2 + 1,
-      y: 555
-    } );
+    var appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
+      tandem.createTandem( 'appliedForceSlider' ), {
+        centerX: width / 2 + 1,
+        y: 555
+      } );
 
     this.addChild( appliedForceSliderTextNode );
     this.addChild( appliedForceSlider );

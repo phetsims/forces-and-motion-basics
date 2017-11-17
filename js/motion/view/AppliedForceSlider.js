@@ -17,6 +17,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
@@ -65,19 +66,19 @@ define( function( require ) {
           cancelDrag();
         }
         else {
-          self.enabledRange = { min: range.min, max: range.max };
+          self.enabledRange = new Range( range.min, range.max );
         }
       }
       else {
         // otherwise, we will want to disable a portion of the slider depending on the direciton of the stacks
         if ( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
-          self.enabledRange = { min: range.min, max: 0 };
+          self.enabledRange = new Range( range.min, 0 );
         }
         else if ( speedClassification === 'LEFT_SPEED_EXCEEDED' ) {
-          self.enabledRange = { min: 0, max: range.max };
+          self.enabledRange = new Range( 0, range.max );
         }
         else {
-          self.enabledRange = { min: range.min, max: range.max };
+          self.enabledRange = new Range( range.min, range.max );
         }
       }
     } );
