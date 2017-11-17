@@ -15,21 +15,21 @@ define( function( require ) {
 
   /**
    * Stores the data from the Item.animating Property.
-   * @param instance
+   * @param animationState
    * @param phetioID
    * @constructor
    */
-  function AnimationStateIO( instance, phetioID ) {
-    assert && assert( !!instance, 'instance should exist' );
-    assert && assertInstanceOf( instance, Object);
-    ObjectIO.call( this, instance, phetioID );
+  function AnimationStateIO( animationState, phetioID ) {
+    assert && assertInstanceOf( animationState, Object );
+    ObjectIO.call( this, animationState, phetioID );
   }
 
   phetioInherit( ObjectIO, 'AnimationStateIO', AnimationStateIO, {}, {
     documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
 
-    toStateObject: function( instance ) {
-      return instance;
+    toStateObject: function( animationState ) {
+      assert && assertInstanceOf( animationState, Object );
+      return animationState;
     },
 
     fromStateObject: function( stateObject ) {

@@ -17,14 +17,13 @@ define( function( require ) {
 
   /**
    *
-   * @param instance
+   * @param netForceModel
    * @param phetioID
    * @constructor
    */
-  function NetForceModelIO( instance, phetioID ) {
-    assert && assert( !!instance, 'instance should exist' );
-    assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.NetForceModel );
-    ObjectIO.call( this, instance, phetioID );
+  function NetForceModelIO( netForceModel, phetioID ) {
+    assert && assertInstanceOf( netForceModel, phet.forcesAndMotionBasics.NetForceModel );
+    ObjectIO.call( this, netForceModel, phetioID );
   }
 
   phetioInherit( ObjectIO, 'NetForceModelIO', NetForceModelIO, {

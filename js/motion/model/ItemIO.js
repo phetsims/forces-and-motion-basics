@@ -15,21 +15,21 @@ define( function( require ) {
 
   /**
    *
-   * @param instance
+   * @param item
    * @param phetioID
    * @constructor
    */
-  function ItemIO( instance, phetioID ) {
-    assert && assert( !!instance, 'instance should exist' );
-    assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Item );
-    ObjectIO.call( this, instance, phetioID );
+  function ItemIO( item, phetioID ) {
+    assert && assertInstanceOf( item, phet.forcesAndMotionBasics.Item );
+    ObjectIO.call( this, item, phetioID );
   }
 
   phetioInherit( ObjectIO, 'ItemIO', ItemIO, {}, {
     documentation: 'An Item that can be placed dragged into the play area.',
 
-    toStateObject: function( instance ) {
-      return instance.phetioID;
+    toStateObject: function( item ) {
+      assert && assertInstanceOf( item, phet.forcesAndMotionBasics.Item );
+      return item.phetioID;
     },
 
     fromStateObject: function( stateObject ) {

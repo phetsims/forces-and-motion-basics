@@ -17,14 +17,13 @@ define( function( require ) {
 
   /**
    *
-   * @param instance
+   * @param knot
    * @param phetioID
    * @constructor
    */
-  function KnotIO( instance, phetioID ) {
-    assert && assert( !!instance, 'instance should exist' );
-    assert && assertInstanceOf( instance, phet.forcesAndMotionBasics.Knot );
-    ObjectIO.call( this, instance, phetioID );
+  function KnotIO( knot, phetioID ) {
+    assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
+    ObjectIO.call( this, knot, phetioID );
   }
 
   phetioInherit( ObjectIO, 'KnotIO', KnotIO, {}, {
@@ -39,10 +38,11 @@ define( function( require ) {
       }
     },
 
-    toStateObject: function( instance ) {
-      if ( instance ) {
-        assert && assert( instance.phetioID, 'id should exist' );
-        return instance.phetioID;
+    toStateObject: function( knot ) {
+      assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
+      if ( knot ) {
+        assert && assert( knot.phetioID, 'id should exist' );
+        return knot.phetioID;
       }
       else {
         return 'null';
