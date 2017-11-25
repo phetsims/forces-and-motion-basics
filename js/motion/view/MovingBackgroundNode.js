@@ -3,10 +3,7 @@
 /**
  * This class shows all of the moving background, including the mountains, clouds and brick tile on the ground.
  *
- * Performance notes:
- * Using .boundsInaccurate = true; seems to save about 1 ms during rendering on the iPad3
- *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -55,7 +52,6 @@ define( function( require ) {
         y: y,
         tandem: tandem.createTandem( tandemName )
       } );
-      node.boundsInaccurate = true;
       node.offsetX = offset;
       node.scaleFactor = scale;
       return node;
@@ -78,7 +74,6 @@ define( function( require ) {
         toBackgroundImage( -L / 3 - 100, cloudImage, 5, 1, 'cloudImage3' )
       ]
     } );
-    mountainAndCloudLayer.boundsInaccurate = true;
     this.addChild( mountainAndCloudLayer );
 
     //Move the background objects
@@ -143,7 +138,6 @@ define( function( require ) {
           y: groundY,
           tandem: tandem.createTandem( 'groundImageNode' )
         } );
-        groundImageNode.boundsInaccurate = true;
         self.addChild( groundImageNode );
         model.positionProperty.link( function( position ) {
           groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + centerX, groundY );
@@ -154,14 +148,12 @@ define( function( require ) {
 
           //Add the gravel
           var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, { y: -2 } );
-          gravel.boundsInaccurate = true;
 
           //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
           groundImageNode.addChild( gravel );
 
           //Add the ice
           var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, { fill: 'rgba(189,227,249,0.87)' } );
-          iceOverlay.boundsInaccurate = true;
           self.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
@@ -175,7 +167,6 @@ define( function( require ) {
               toBackgroundImage( 300, icicleImage, 0, 0.8, 'iceImageNode2' )
             ], x: layoutCenterX, y: groundY + ground.height
           } );
-          iceLayer.boundsInaccurate = true;
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
           self.addChild( iceLayer );
 
