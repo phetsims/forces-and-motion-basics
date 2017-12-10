@@ -59,10 +59,7 @@ define( function( require ) {
     var frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
-      phetioType: ObservableArrayIO( ItemIO ),
-
-      // Workaround for Observable array's in state objects, see https://github.com/phetsims/forces-and-motion-basics/issues/232
-      phetioState: true
+      phetioType: ObservableArrayIO( ItemIO )
     } );
 
     // @public - force applied to the stack of items by the pusher
