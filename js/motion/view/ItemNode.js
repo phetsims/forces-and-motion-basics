@@ -12,7 +12,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Input = require( 'SCENERY/input/Input' );
+  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -266,13 +266,13 @@ define( function( require ) {
         event.preventDefault();
 
         // on tab, exit the group and focus the next element.
-        if ( event.keyCode === Input.KEY_TAB ) {
+        if ( event.keyCode === KeyboardUtil.KEY_TAB ) {
           itemToolbox.exitGroup( document.getElementById( itemToolbox.uniqueId ) );
         }
 
         // if the puller is not grabbed, grab it for drag and drop
         if ( !item.draggingProperty.get() ) {
-          if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+          if ( event.keyCode === KeyboardUtil.KEY_ENTER || event.keyCode === KeyboardUtil.KEY_SPACE ) {
 
             // remove the item from the stack if it is already there
             var index = model.stack.indexOf( item );

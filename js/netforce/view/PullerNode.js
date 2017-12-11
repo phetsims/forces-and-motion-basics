@@ -12,7 +12,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Input = require( 'SCENERY/input/Input' );
+  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -141,12 +141,12 @@ define( function( require ) {
         var actionElement = document.getElementById( 'netForceActionElement' );
 
         // on tab, exit the group and focus the next element in the navigation order
-        if ( event.keyCode === Input.KEY_TAB ) {
+        if ( event.keyCode === KeyboardUtil.KEY_TAB ) {
           pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.uniqueId ) );
         }
 
         // if the puller is not grabbed, grab it for drag and drop
-        if ( event.keyCode === Input.KEY_ENTER || event.keyCode === Input.KEY_SPACE ) {
+        if ( event.keyCode === KeyboardUtil.KEY_ENTER || event.keyCode === KeyboardUtil.KEY_SPACE ) {
           // the puller is already on a rope on the knot.  Place it right back in the toolbox.
           // TODO: This behavior is a placeholder, I am not sure how this should behave.
           if ( self.puller.knotProperty.get() !== null ) {
