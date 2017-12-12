@@ -320,7 +320,7 @@ define( function( require ) {
      * @private
      */
     updateLabelPosition: function() {
-      this.labelNode.bottom = this.normalImageNode.height - 2;
+      this.labelNode.bottom = this.normalImageNode.height - 5;
       this.labelNode.centerX = this.normalImageNode.centerX;
     },
 
