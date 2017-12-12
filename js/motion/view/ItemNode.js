@@ -75,8 +75,7 @@ define( function( require ) {
         normalImageNode.image = normalImage;
       }
       if ( self.labelNode ) {
-        self.labelNode.bottom = normalImageNode.height - 2;
-        self.labelNode.centerX = normalImageNode.centerX;
+        self.updateLabelPosition();
       }
     };
 
@@ -232,6 +231,9 @@ define( function( require ) {
       var scale = item.imageScaleProperty.get() * interactionScale;
       self.setScaleMagnitude( scale );
 
+      // make sure that labels remain the same size
+      labelNode.setScaleMagnitude( 1 / scale );
+
       normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
 
@@ -245,7 +247,7 @@ define( function( require ) {
       }
 
       // when scale or direction change, make sure that the label is still centered
-      self.labelNode.centerX = normalImageNode.centerX;
+      self.updateLabelPosition();
     } );
     item.onBoardProperty.link( updateImage );
 
@@ -312,6 +314,15 @@ define( function( require ) {
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );
 
   return inherit( Node, ItemNode, {
+
+    /**
+     * Set the label position relative to the bottom of the image.
+     * @private
+     */
+    updateLabelPosition: function() {
+      this.labelNode.bottom = this.normalImageNode.height - 2;
+      this.labelNode.centerX = this.normalImageNode.centerX;
+    },
 
     /**
      * Get the width of this item node, modified by the current scale factor.  If the item
