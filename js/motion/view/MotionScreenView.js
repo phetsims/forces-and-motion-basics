@@ -478,13 +478,6 @@ define( function( require ) {
         tandem.createTandem( item.name ) );
       this.itemNodes.push( itemNode );
 
-      // TODO: This should be removed once the layout of items has gone through review.
-      if ( DEBUG && item.name === 'fridge' ) {
-        // create a line at the bottom of the fridge to assist with layout
-        var debugLine = new Line( 0, itemNode.bottom, this.layoutBounds.width, itemNode.bottom, { stroke: 'red' } );
-        self.addChild( debugLine );
-      }
-
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       item.view = itemNode;
       itemLayer.addChild( itemNode );
@@ -592,6 +585,18 @@ define( function( require ) {
 
     // set the navigation order for this screen
     this.accessibleOrder = [ leftItemToolboxNode, rightItemToolboxNode ];
+
+    if ( DEBUG ) {
+      for ( var j = 0; j < this.itemNodes.length; j++ ) {
+
+        var itemN = this.itemNodes[ j ];
+
+        // TODO: This should be removed once the layout of items has gone through review.
+        // create a line at the bottom of the fridge to assist with layout
+        var debugLine = new Line( 0, itemN.bottom, this.layoutBounds.width, itemN.bottom, { stroke: 'red' } );
+        self.addChild( debugLine );
+      }
+    }
   }
 
   forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );
