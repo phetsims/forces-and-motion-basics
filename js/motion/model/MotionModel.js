@@ -255,8 +255,8 @@ define( function( require ) {
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
-        new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCanImage, 100, 816, 492, 0.7, 1.0, 5 ),
-        new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObjectImage, 50, 888, 511, 0.3, 1.0, undefined, undefined, undefined, true )
+        new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCanImage, 100, 816, 496, 0.7, 1.0, 5 ),
+        new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObjectImage, 50, 888, 513, 0.3, 1.0, undefined, undefined, undefined, true )
       ];
 
     this.appliedForceProperty.link( function( appliedForce ) {
