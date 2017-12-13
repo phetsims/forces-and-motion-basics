@@ -13,6 +13,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var IOObject = require( 'TANDEM/IOObject' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -30,27 +31,29 @@ define( function( require ) {
    *
    * @param {Property<number>} velocityProperty
    * @param {Property<number>} showSpeedProperty
-   * @param {Property<boolean>} showSpeedProperty
+   * @param {Property<boolean>} showValuesProperty
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
 
     options = _.extend( {
-      radius: 67
+      radius: 67,
+      tandem: tandem
     }, options );
 
     // mutate with the options after construction so we can set the 'top'
-    Node.call( this );
+    Node.call( this, IOObject.getOptions( options ) );
 
     // create the gaugeNode
     var gaugeNode = new GaugeNode( velocityProperty, speedString, {
-      min: 0,
-      max: MotionConstants.MAX_SPEED},
+        min: 0,
+        max: MotionConstants.MAX_SPEED
+      },
       {
-      tandem: tandem.createTandem( 'gaugeNode')
-    } );
+        tandem: tandem.createTandem( 'gaugeNode' )
+      } );
     this.addChild( gaugeNode );
 
     // create a value readout inside of a panel, maxSpeed for max bounds for layout calculations
@@ -87,12 +90,8 @@ define( function( require ) {
 
     velocityProperty.link( updateReadout );
 
-    // For the mutate call
-    options.tandem = tandem;
-
     // mutate post node construction so we can correctly translate
     this.mutate( options );
-
   }
 
   forcesAndMotionBasics.register( 'SpeedometerNode', SpeedometerNode );

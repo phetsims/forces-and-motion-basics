@@ -51,7 +51,7 @@ define( function( require ) {
    * @constructor
    */
   function MotionControlPanel( model, tandem ) {
-    Node.call( this );
+    Node.call( this, { tandem: tandem } );
 
     var fontSize = 18;
     var maxTextWidth = 120;
@@ -298,8 +298,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'panel' )
     } );
     this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
-
-    this.mutate( { tandem: tandem } );
   }
 
   forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
