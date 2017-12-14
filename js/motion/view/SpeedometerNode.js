@@ -13,7 +13,6 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var IOObject = require( 'TANDEM/IOObject' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -44,7 +43,7 @@ define( function( require ) {
     }, options );
 
     // mutate with the options after construction so we can set the 'top'
-    Node.call( this, IOObject.getOptions( options ) );
+    Node.call( this );
 
     // create the gaugeNode
     var gaugeNode = new GaugeNode( velocityProperty, speedString, {

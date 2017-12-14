@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var IOObject = require( 'TANDEM/IOObject' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
@@ -31,7 +30,7 @@ define( function( require ) {
     }, options );
 
     var stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
-    Path.call( this, stopperShape, IOObject.getOptions( options ) );
+    Path.call( this, stopperShape );
 
     // flip around the y axis
     assert && assert( _.includes( DIRECTIONS, options.direction ), 'stopper can only have directon "left" or "right"' );
