@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
@@ -187,12 +188,16 @@ define( function( require ) {
     this.numberPullersAttachedProperty.link( function() { self.leftForceProperty.set( self.getLeftForce() ); } );
     this.numberPullersAttachedProperty.link( function() { self.rightForceProperty.set( self.getRightForce() ); } );
 
-    tandem.addInstance( this, { phetioType: NetForceModelIO } );
+    PhetioObject.call( this, {
+      tandem: tandem,
+      phetioType: NetForceModelIO,
+      phetioState: false
+    } );
   }
 
   forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
 
-  return inherit( Object, NetForceModel, {
+  return inherit( PhetioObject, NetForceModel, {
 
     /**
      * Move a puller to a knot.  If no knot is specified, puller is moved to its original location in the Puller
