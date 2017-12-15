@@ -128,9 +128,8 @@ define( function( require ) {
     //Create a knot given a color and index (0-3)
     function createKnot( color, index, tandem ) {
       var xLocation = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
-      return new Knot( xLocation, color, BLUE_KNOT_OFFSET, self.getRopeLength(), tandem );
+      return new Knot( xLocation, color, BLUE_KNOT_OFFSET, self.getRopeLength(), { tandem: tandem } );
     }
-
 
     // Create the knots
     // To support PhET-iO, the knots should be created before the pullers.
@@ -298,7 +297,7 @@ define( function( require ) {
      */
     getPuller: function( knot ) {
       var find = _.find( this.pullers, function( puller ) {return puller.knotProperty.get() === knot;} );
-      return typeof(find) !== 'undefined' ? find : null;
+      return typeof( find ) !== 'undefined' ? find : null;
     },
 
     /**

@@ -11,6 +11,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
+  var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Range = require( 'DOT/Range' );
@@ -117,12 +118,12 @@ define( function( require ) {
       }
     } );
 
-    tandem.addInstance( this, { phetioType: ItemIO } );
+    PhetioObject.call( this, { phetioType: ItemIO } );
   }
 
   forcesAndMotionBasics.register( 'Item', Item );
 
-  return inherit( Object, Item, {
+  return inherit( PhetioObject, Item, {
 
     //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
     get centeringOffset() {
