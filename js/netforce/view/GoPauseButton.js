@@ -11,6 +11,7 @@ define( function( require ) {
 
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
+  var EmitterIO = require( 'AXON/EmitterIO' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -97,7 +98,7 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      phetioArgumentTypes: [ NumberIO, StringIO ]
+      phetioType: EmitterIO( [ NumberIO, StringIO ] )
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
