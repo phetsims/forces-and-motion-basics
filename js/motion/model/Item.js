@@ -118,7 +118,7 @@ define( function( require ) {
       }
     } );
 
-    PhetioObject.call( this, { phetioType: ItemIO } );
+    PhetioObject.call( this, { tandem: tandem, phetioType: ItemIO } );
   }
 
   forcesAndMotionBasics.register( 'Item', Item );
