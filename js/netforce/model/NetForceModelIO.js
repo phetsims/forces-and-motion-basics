@@ -16,7 +16,6 @@ define( function( require ) {
   var VoidIO = require( 'ifphetio!PHET_IO/types/VoidIO' );
 
   /**
-   *
    * @param {NetForceModel} netForceModel
    * @param {string} phetioID
    * @constructor
