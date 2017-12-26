@@ -15,8 +15,8 @@ define( function( require ) {
 
   /**
    * Stores the data from the Item.animating Property.
-   * @param animationState
-   * @param phetioID
+   * @param {Object} animationState
+   * @param {string} phetioID
    * @constructor
    */
   function AnimationStateIO( animationState, phetioID ) {

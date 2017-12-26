@@ -17,8 +17,8 @@ define( function( require ) {
 
   /**
    *
-   * @param netForceModel
-   * @param phetioID
+   * @param {NetForceModel} netForceModel
+   * @param {string} phetioID
    * @constructor
    */
   function NetForceModelIO( netForceModel, phetioID ) {

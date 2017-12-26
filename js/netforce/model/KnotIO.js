@@ -17,8 +17,8 @@ define( function( require ) {
 
   /**
    *
-   * @param knot
-   * @param phetioID
+   * @param {Knot} knot
+   * @param {string} phetioID
    * @constructor
    */
   function KnotIO( knot, phetioID ) {
