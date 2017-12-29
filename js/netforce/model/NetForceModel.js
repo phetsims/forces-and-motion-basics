@@ -576,7 +576,7 @@ define( function( require ) {
     getKnotDescription: function() {
       return this.pullers.map( function( puller ) {
         return {
-          id: puller.pullerTandem.id, // TODO: addInstance for Puller
+          id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller
           knot: puller.knotProperty.get() && puller.knotProperty.get().phetioID
         };
       } );
