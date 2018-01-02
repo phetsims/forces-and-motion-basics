@@ -1,6 +1,8 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
+ * IO type for Item
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {

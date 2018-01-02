@@ -2,6 +2,7 @@
 
 /**
  * Stores the data from the Item.animating Property.
+ *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
