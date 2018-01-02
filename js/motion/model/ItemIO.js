@@ -1,7 +1,6 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {

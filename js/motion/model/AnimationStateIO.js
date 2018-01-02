@@ -1,7 +1,7 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * Data object
+ * Stores the data from the Item.animating Property.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -14,7 +14,6 @@ define( function( require ) {
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
 
   /**
-   * Stores the data from the Item.animating Property.
    * @param {Object} animationState
    * @param {string} phetioID
    * @constructor
