@@ -41,7 +41,7 @@ define( function( require ) {
     options = _.extend( { tandem: tandem }, options );
     Node.call( this, options );
 
-    var fontOptions = { font: new PhetFont( 18 ), maxWidth: 230  };
+    var fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
 
     // the content for "show speed" is a label with an icon
     var speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
@@ -52,26 +52,27 @@ define( function( require ) {
       spacing: 10
     } );
 
-    this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [
-      {
-        content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
-        property: model.showSumOfForcesProperty,
-        tandemName: 'showSumOfForcesCheckBox'
-      },
-      {
-        content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
-        property: model.showValuesProperty,
-        tandemName: 'showValuesCheckBox'
-      },
-      {
-        content: showSpeedContent,
-        property: model.showSpeedProperty,
-        tandemName: 'showSpeedCheckBox'
-      }
-    ], {
+    this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [ {
+      content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
+      property: model.showSumOfForcesProperty,
+      tandemName: 'showSumOfForcesCheckBox'
+    }, {
+      content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
+      property: model.showValuesProperty,
+      tandemName: 'showValuesCheckBox'
+    }, {
+      content: showSpeedContent,
+      property: model.showSpeedProperty,
+      tandemName: 'showSpeedCheckBox'
+    } ], {
       tandem: tandem.createTandem( 'verticalCheckBoxGroup' )
     } );
-    var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, { xMargin: 10, yMargin: 10, fill: '#e3e980', tandem: tandem.createTandem( 'verticalCheckBoxGroupPanel') } );
+    var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, {
+      xMargin: 10,
+      yMargin: 10,
+      fill: '#e3e980',
+      tandem: tandem.createTandem( 'verticalCheckBoxGroupPanel' )
+    } );
     this.addChild( checkBoxPanel );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
