@@ -1,4 +1,4 @@
-// Copyright 2013-2017, University of Colorado Boulder
+// Copyright 2013-2018, University of Colorado Boulder
 
 /**
  * Control panel with options to show sum of forces and values, and also buttons below the control panel for reset all and sound.
