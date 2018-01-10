@@ -52,20 +52,21 @@ define( function( require ) {
       spacing: 10
     } );
 
+    var verticalCheckBoxGroupTandem = tandem.createTandem( 'verticalCheckBoxGroup' );
     this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [ {
       content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
-      tandemName: 'showSumOfForcesCheckBox'
+      tandem: verticalCheckBoxGroupTandem.createTandem( 'showSumOfForcesCheckBox' )
     }, {
       content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
       property: model.showValuesProperty,
-      tandemName: 'showValuesCheckBox'
+      tandem: verticalCheckBoxGroupTandem.createTandem( 'showValuesCheckBox' )
     }, {
       content: showSpeedContent,
       property: model.showSpeedProperty,
-      tandemName: 'showSpeedCheckBox'
+      tandem: verticalCheckBoxGroupTandem.createTandem( 'showSpeedCheckBox' )
     } ], {
-      tandem: tandem.createTandem( 'verticalCheckBoxGroup' )
+      tandem: verticalCheckBoxGroupTandem
     } );
     var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, {
       xMargin: 10,
