@@ -29,15 +29,6 @@ define( function( require ) {
   phetioInherit( ObjectIO, 'KnotIO', KnotIO, {}, {
     documentation: 'A knot',
 
-    fromStateObject: function( stateObject ) {
-      if ( stateObject === 'null' ) {
-        return null;
-      }
-      else {
-        return phetio.getWrapper( stateObject ).instance;
-      }
-    },
-
     toStateObject: function( knot ) {
       assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
       if ( knot ) {
@@ -46,6 +37,15 @@ define( function( require ) {
       }
       else {
         return 'null';
+      }
+    },
+
+    fromStateObject: function( stateObject ) {
+      if ( stateObject === 'null' ) {
+        return null;
+      }
+      else {
+        return phetio.getWrapper( stateObject ).instance;
       }
     }
   } );
