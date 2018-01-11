@@ -464,7 +464,7 @@ define( function( require ) {
     for ( var i = 0; i < model.items.length; i++ ) {
       var item = model.items[ i ];
       var itemSide = getItemSide( item );
-      var toolBoxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
+      var toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
       var itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
       var accessibleDescription = getAccessibleDescription();
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
@@ -473,7 +473,7 @@ define( function( require ) {
         item.sittingImage || item.image,
         item.holdingImage || item.image,
         model.showMassesProperty,
-        toolBoxNode,
+        toolboxNode,
         accessibleDescription,
         tandem.createTandem( item.name ) );
       this.itemNodes.push( itemNode );
@@ -544,10 +544,10 @@ define( function( require ) {
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
-    var toolBoxContainer = new Node( { tandem: tandem.createTandem( 'toolBoxContainer' ) } );
-    toolBoxContainer.addChild( leftItemToolboxNode );
-    toolBoxContainer.addChild( rightItemToolboxNode );
-    this.addChild( toolBoxContainer );
+    var toolboxContainer = new Node( { tandem: tandem.createTandem( 'toolboxContainer' ) } );
+    toolboxContainer.addChild( leftItemToolboxNode );
+    toolboxContainer.addChild( rightItemToolboxNode );
+    this.addChild( toolboxContainer );
 
     // add the force arrows, which should be in front of all items and pusher
     this.addChild( this.sumArrow );
