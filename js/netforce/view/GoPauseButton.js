@@ -75,10 +75,8 @@ define( function( require ) {
   function GoPauseButton( model, layoutWidth, tandem, options ) {
 
     options = _.extend( {
-      top: 400,
-      textDescription: 'Go Button'
+      top: 400
     }, options );
-    var self = this;
     var padX = 15;
     var padY = 10;
     var goTextNode = new Text( goString, {
@@ -143,8 +141,6 @@ define( function( require ) {
       var enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;
-      var buttonText = showGoButtonProperty.value ? 'Go Button' : 'Pause Button';
-      self.textDescription = buttonText + (enabled ? '' : ' (disabled)');
     } );
 
     this.centerX = layoutWidth / 2;

@@ -45,14 +45,9 @@ define( function( require ) {
       x: x,
       y: y,
       cursor: 'pointer',
-      scale: 0.86,
-      textDescription: puller.textDescriptionProperty.get()
+      scale: 0.86
     } );
     this.accessiblePullerId = this.id; // @private, id to quickly find this node's representation in the accessible DOM
-
-    puller.textDescriptionProperty.link( function( textDescription ) {
-      self.textDescription = textDescription;
-    } );
 
     model.startedProperty.link( function() {
       self.updateImage( puller, model );

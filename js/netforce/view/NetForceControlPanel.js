@@ -83,7 +83,6 @@ define( function( require ) {
       },
       radius: 23,
       rightCenter: checkBoxPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 ),
-      textDescription: 'Restart game button',
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
