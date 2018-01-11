@@ -297,7 +297,7 @@ define( function( require ) {
       }
     } );
 
-    // add puller groups to the tool boxes for nesting hierarchy in parallel DOM.  Specify puller order here.
+    // add puller groups to the toolboxes for nesting hierarchy in parallel DOM.  Specify puller order here.
     leftToolbox.accessibleOrder = leftPullerLayer.children.sort( function( a, b ) {
       if ( a.bounds.height < b.bounds.height ) {
         return 1;

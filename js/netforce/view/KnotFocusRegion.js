@@ -57,7 +57,7 @@ define( function( require ) {
           // exit the group of knots
           self.exitGroup();
 
-          // reset focus to the puller tool box.
+          // reset focus to the puller toolbox.
           toolboxNode.focus();
         }
       }
