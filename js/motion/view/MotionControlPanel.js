@@ -57,10 +57,10 @@ define( function( require ) {
     var maxTextWidth = 120;
 
     /**
-     * Create a check box that will be placed in this control panel with others in a VBox.
+     * Create a checkbox that will be placed in this control panel with others in a VBox.
      * Has optional horizontal indentation, icon, and property to control how the checkbox is enabled.
      *
-     * @param {string} text - label for the check box
+     * @param {string} text - label for the checkbox
      * @param {Property<boolean>} property
      * @param {Object} options
      */
@@ -90,7 +90,7 @@ define( function( require ) {
         tandem: checkboxTandem.createTandem( 'labelTextNode' )
       } );
 
-      // create the check box and insert it into the container
+      // create the checkbox and insert it into the container
       var checkbox = new Checkbox( labelText, property, {
         tandem: checkboxTandem
       } );
@@ -104,8 +104,8 @@ define( function( require ) {
         checkboxContainer.insertChild( 3, options.icon );
       }
 
-      // link the property to the enabled state of the check box
-      // check box persists for the lifetime of the simulation, no dispose necessary
+      // link the property to the enabled state of the checkbox
+      // checkbox persists for the lifetime of the simulation, no dispose necessary
       options.checkboxEnabledProperty.link( function( enabled ) {
         checkbox.enabled = enabled;
       } );
@@ -171,7 +171,7 @@ define( function( require ) {
     // Create controls for the 'motion' screen
     var createMotionControls = function() {
 
-      // container node for check boxes and an hstrut which makes the panel just a little wider to match the
+      // container node for checkboxes and an hstrut which makes the panel just a little wider to match the
       // other screens
       var containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
@@ -198,7 +198,7 @@ define( function( require ) {
       return containerNode;
     };
 
-    // if the the slider is wider than the group of checkboxes, align the check boxes to the left of the slider
+    // if the the slider is wider than the group of checkboxes, align the checkboxes to the left of the slider
     // otherwise, center with the checkboxes
     var layoutFrictionSlider = function( checkboxes, frictionSlider ) {
       if ( frictionSlider.width > checkboxes.width ) {
@@ -209,8 +209,8 @@ define( function( require ) {
       }
     };
 
-    // Create controls for the 'friction' screen, including a set of check boxes and a slider
-    // The slider is centered under the check boxes, which are aligned to the left
+    // Create controls for the 'friction' screen, including a set of checkboxes and a slider
+    // The slider is centered under the checkboxes, which are aligned to the left
     var createFrictionControls = function() {
 
       // container for all controls
@@ -232,7 +232,7 @@ define( function( require ) {
       } );
       containerNode.addChild( checkboxes );
 
-      // create a spacer for the check boxes and the slider
+      // create a spacer for the checkboxes and the slider
       var strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
       containerNode.addChild( strut );
 
@@ -248,7 +248,7 @@ define( function( require ) {
     };
 
     // Create controls for the 'acceleration' screen
-    // The slider is centered under the check boxes, which are aligned to the left
+    // The slider is centered under the checkboxes, which are aligned to the left
     var createAccelerationControls = function() {
 
       // node containing checkboxes, spacing, and slider
