@@ -11,7 +11,7 @@ define( function( require ) {
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var forcesString = require( 'string!FORCES_AND_MOTION_BASICS/forces' );
@@ -64,53 +64,53 @@ define( function( require ) {
      * @param {Property<boolean>} property
      * @param {Object} options
      */
-    var createCheckBox = function( text, property, tandemName, options ) {
+    var createCheckbox = function( text, property, tandemName, options ) {
 
-      var checkBoxTandem = tandem.createTandem( tandemName );
+      var checkboxTandem = tandem.createTandem( tandemName );
       options = _.extend( {
         indent: 0,
-        checkBoxEnabledProperty: new Property( true, {
-          tandem: checkBoxTandem.createTandem( 'enabledProperty' ),
+        checkboxEnabledProperty: new Property( true, {
+          tandem: checkboxTandem.createTandem( 'enabledProperty' ),
           phetioType: PropertyIO( BooleanIO )
         } ),
         icon: null
       }, options );
 
       // container for the checkbox and optional indentation and icon
-      var checkBoxContainer = new HBox( { spacing: 0 } );
+      var checkboxContainer = new HBox( { spacing: 0 } );
 
       // create the horizontal spacer for the indentation and add it to the container
       var hSeparator = new HStrut( options.indent );
-      checkBoxContainer.insertChild( 0, hSeparator );
+      checkboxContainer.insertChild( 0, hSeparator );
 
       // create the label for the checkbox
       var labelText = new Text( text, {
         font: new PhetFont( fontSize ),
         maxWidth: maxTextWidth,
-        tandem: checkBoxTandem.createTandem( 'labelTextNode' )
+        tandem: checkboxTandem.createTandem( 'labelTextNode' )
       } );
 
       // create the check box and insert it into the container
-      var checkBox = new CheckBox( labelText, property, {
-        tandem: checkBoxTandem
+      var checkbox = new Checkbox( labelText, property, {
+        tandem: checkboxTandem
       } );
-      checkBoxContainer.insertChild( 1, checkBox );
+      checkboxContainer.insertChild( 1, checkbox );
 
       // add optional icon next to checkbox
       if ( options.icon ) {
         // create a horizontal spacer for the icon
         var iconSpacer = new HStrut( 10 );
-        checkBoxContainer.insertChild( 2, iconSpacer );
-        checkBoxContainer.insertChild( 3, options.icon );
+        checkboxContainer.insertChild( 2, iconSpacer );
+        checkboxContainer.insertChild( 3, options.icon );
       }
 
       // link the property to the enabled state of the check box
       // check box persists for the lifetime of the simulation, no dispose necessary
-      options.checkBoxEnabledProperty.link( function( enabled ) {
-        checkBox.enabled = enabled;
+      options.checkboxEnabledProperty.link( function( enabled ) {
+        checkbox.enabled = enabled;
       } );
 
-      return checkBoxContainer;
+      return checkboxContainer;
     };
 
     //Icon for the forces in the control panel
@@ -178,21 +178,21 @@ define( function( require ) {
       } );
 
       // create the checkboxes
-      var checkBoxes = new VBox( {
+      var checkboxes = new VBox( {
         children: [
-          createCheckBox( forceString, model.showForceProperty, 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckBox( valuesString, model.showValuesProperty, 'showValuesCheckBox' ),
-          createCheckBox( massesString, model.showMassesProperty, 'showMassesCheckBox' ),
-          createCheckBox( speedString, model.showSpeedProperty, 'showSpeedCheckBox', { icon: speedometerIcon() } )
+          createCheckbox( forceString, model.showForceProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createCheckbox( valuesString, model.showValuesProperty, 'showValuesCheckbox' ),
+          createCheckbox( massesString, model.showMassesProperty, 'showMassesCheckbox' ),
+          createCheckbox( speedString, model.showSpeedProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } )
         ],
         align: 'left',
         spacing: 10
       } );
-      containerNode.addChild( checkBoxes );
+      containerNode.addChild( checkboxes );
 
 
       // create an hStrut to increase the width of the controls to the right
-      var hStrut = new HStrut( 16, { leftCenter: checkBoxes.rightCenter } );
+      var hStrut = new HStrut( 16, { leftCenter: checkboxes.rightCenter } );
       containerNode.addChild( hStrut );
 
       return containerNode;
@@ -200,12 +200,12 @@ define( function( require ) {
 
     // if the the slider is wider than the group of checkboxes, align the check boxes to the left of the slider
     // otherwise, center with the checkboxes
-    var layoutFrictionSlider = function( checkBoxes, frictionSlider ) {
-      if ( frictionSlider.width > checkBoxes.width ) {
-        checkBoxes.left = frictionSlider.left;
+    var layoutFrictionSlider = function( checkboxes, frictionSlider ) {
+      if ( frictionSlider.width > checkboxes.width ) {
+        checkboxes.left = frictionSlider.left;
       }
       else {
-        frictionSlider.centerX = checkBoxes.centerX;
+        frictionSlider.centerX = checkboxes.centerX;
       }
     };
 
@@ -219,28 +219,28 @@ define( function( require ) {
       } );
 
       // create the checkboxes
-      var checkBoxes = new VBox( {
+      var checkboxes = new VBox( {
         children: [
-          createCheckBox( forcesString, model.showForceProperty, 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckBox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckBox' ),
-          createCheckBox( valuesString, model.showValuesProperty, 'showValuesCheckBox' ),
-          createCheckBox( massesString, model.showMassesProperty, 'showMassesCheckBox' ),
-          createCheckBox( speedString, model.showSpeedProperty, 'showSpeedCheckBox', { icon: speedometerIcon() } )
+          createCheckbox( forcesString, model.showForceProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createCheckbox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckbox' ),
+          createCheckbox( valuesString, model.showValuesProperty, 'showValuesCheckbox' ),
+          createCheckbox( massesString, model.showMassesProperty, 'showMassesCheckbox' ),
+          createCheckbox( speedString, model.showSpeedProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } )
         ],
         align: 'left',
         spacing: 10
       } );
-      containerNode.addChild( checkBoxes );
+      containerNode.addChild( checkboxes );
 
       // create a spacer for the check boxes and the slider
-      var strut = new VStrut( 12, { centerTop: checkBoxes.centerBottom } );
+      var strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
       containerNode.addChild( strut );
 
       // create the slider
       var frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
 
-      layoutFrictionSlider( checkBoxes, frictionSlider );
+      layoutFrictionSlider( checkboxes, frictionSlider );
 
       containerNode.addChild( frictionSlider );
 
@@ -256,29 +256,29 @@ define( function( require ) {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
-      var checkBoxes = new VBox( {
+      var checkboxes = new VBox( {
         children: [
-          createCheckBox( forcesString, model.showForceProperty, 'showForceCheckBox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckBox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckBox' ),
-          createCheckBox( valuesString, model.showValuesProperty, 'showValuesCheckBox' ),
-          createCheckBox( massesString, model.showMassesProperty, 'showMassesCheckBox' ),
-          createCheckBox( speedString, model.showSpeedProperty, 'showSpeedCheckBox', { icon: speedometerIcon() } ),
-          createCheckBox( accelerationString, model.showAccelerationProperty, 'showAccelerationCheckBox', { icon: accelerometerIcon() } )
+          createCheckbox( forcesString, model.showForceProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createCheckbox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckbox' ),
+          createCheckbox( valuesString, model.showValuesProperty, 'showValuesCheckbox' ),
+          createCheckbox( massesString, model.showMassesProperty, 'showMassesCheckbox' ),
+          createCheckbox( speedString, model.showSpeedProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createCheckbox( accelerationString, model.showAccelerationProperty, 'showAccelerationCheckbox', { icon: accelerometerIcon() } )
         ],
         align: 'left',
         spacing: 10
       } );
-      containerNode.addChild( checkBoxes );
+      containerNode.addChild( checkboxes );
 
       // create the spacing strut
-      var strut = new VStrut( 12, { centerTop: checkBoxes.centerBottom } );
+      var strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
       containerNode.addChild( strut );
 
       // add the slider friction slider under the checkboxes
       var frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
 
-      layoutFrictionSlider( checkBoxes, frictionSlider );
+      layoutFrictionSlider( checkboxes, frictionSlider );
 
       containerNode.addChild( frictionSlider );
 

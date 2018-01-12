@@ -20,7 +20,7 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
-  var VerticalCheckBoxGroup = require( 'SUN/VerticalCheckBoxGroup' );
+  var VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
 
 
   // constants
@@ -52,29 +52,29 @@ define( function( require ) {
       spacing: 10
     } );
 
-    var verticalCheckBoxGroupTandem = tandem.createTandem( 'verticalCheckBoxGroup' );
-    this.verticalCheckBoxGroup = new VerticalCheckBoxGroup( [ {
+    var verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
+    this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
       content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
-      tandem: verticalCheckBoxGroupTandem.createTandem( 'showSumOfForcesCheckBox' )
+      tandem: verticalCheckboxGroupTandem.createTandem( 'showSumOfForcesCheckbox' )
     }, {
       content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
       property: model.showValuesProperty,
-      tandem: verticalCheckBoxGroupTandem.createTandem( 'showValuesCheckBox' )
+      tandem: verticalCheckboxGroupTandem.createTandem( 'showValuesCheckbox' )
     }, {
       content: showSpeedContent,
       property: model.showSpeedProperty,
-      tandem: verticalCheckBoxGroupTandem.createTandem( 'showSpeedCheckBox' )
+      tandem: verticalCheckboxGroupTandem.createTandem( 'showSpeedCheckbox' )
     } ], {
-      tandem: verticalCheckBoxGroupTandem
+      tandem: verticalCheckboxGroupTandem
     } );
-    var checkBoxPanel = new Panel( this.verticalCheckBoxGroup, {
+    var checkboxPanel = new Panel( this.verticalCheckboxGroup, {
       xMargin: 10,
       yMargin: 10,
       fill: '#e3e980',
-      tandem: tandem.createTandem( 'verticalCheckBoxGroupPanel' )
+      tandem: tandem.createTandem( 'verticalCheckboxGroupPanel' )
     } );
-    this.addChild( checkBoxPanel );
+    this.addChild( checkboxPanel );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     this.resetAllButton = new ResetAllButton( {
@@ -82,7 +82,7 @@ define( function( require ) {
         model.reset();
       },
       radius: 23,
-      rightCenter: checkBoxPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 ),
+      rightCenter: checkboxPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 ),
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
@@ -95,7 +95,7 @@ define( function( require ) {
     } );
 
     // layout
-    soundToggleButton.left = checkBoxPanel.left + BUTTON_PADDING;
+    soundToggleButton.left = checkboxPanel.left + BUTTON_PADDING;
 
     // i18n - if the strings are too short, the sound toggle button will overlap the reset all button, add some padding
     if ( this.resetAllButton.left < soundToggleButton.right ) {
