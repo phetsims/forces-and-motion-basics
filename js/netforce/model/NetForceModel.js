@@ -438,12 +438,12 @@ define( function( require ) {
         var newV = this.cart.vProperty.get() + this.getNetForce() * dt * 0.003;
         this.speedProperty.set( Math.abs( newV ) );
 
+        // calculate new position from velocity
         var newX = this.cart.xProperty.get() + newV * dt * 60.0;
-        this.updateCartAndPullers( newV, newX );
 
         //If the cart made it to the end, then stop and signify completion
         var gameLength = GAME_LENGTH - this.cart.widthToWheel;
-        if ( this.cart.xProperty.get() > gameLength || this.cart.xProperty.get() < -gameLength ) {
+        if ( newX > gameLength || newX < -gameLength ) {
           this.runningProperty.set( false );
           this.stateProperty.set( 'completed' );
 
@@ -451,8 +451,13 @@ define( function( require ) {
           this.speedProperty.set( 0 );
 
           // set cart and pullers back the to max position
-          var maxLength = this.cart.xProperty.get() > gameLength ? gameLength : -gameLength;
+          var maxLength = newX > gameLength ? gameLength : -gameLength;
           this.updateCartAndPullers( this.speedProperty.get(), maxLength );
+        }
+        else {
+
+          // if the game isn't over yet, update cart and puller
+          this.updateCartAndPullers( newV, newX );
         }
       }
 
