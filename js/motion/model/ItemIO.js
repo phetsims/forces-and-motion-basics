@@ -29,7 +29,7 @@ define( function( require ) {
 
     toStateObject: function( item ) {
       assert && assertInstanceOf( item, phet.forcesAndMotionBasics.Item );
-      return item.phetioObjectTandem.phetioID;
+      return item.tandem.phetioID;
     },
 
     fromStateObject: function( stateObject ) {

@@ -32,7 +32,7 @@ define( function( require ) {
     toStateObject: function( knot ) {
       assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
       if ( knot ) {
-        return knot.phetioObjectTandem.phetioID;
+        return knot.tandem.phetioID;
       }
       else {
         return 'null';
