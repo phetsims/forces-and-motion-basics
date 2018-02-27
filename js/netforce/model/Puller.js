@@ -8,9 +8,11 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -18,7 +20,6 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
   var NullableIO = require( 'ifphetio!PHET_IO/types/NullableIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 

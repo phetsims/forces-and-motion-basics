@@ -8,6 +8,8 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
@@ -20,7 +22,6 @@ define( function( require ) {
   var Vector2IO = require( 'DOT/Vector2IO' );
 
   // phet-io modules
-  var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );

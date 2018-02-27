@@ -9,8 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  
+  // phet-io modules
+  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
   var phetioInherit = require( 'ifphetio!PHET_IO/phetioInherit' );
 

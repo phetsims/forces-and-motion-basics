@@ -14,6 +14,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
+  var NetForceModelIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModelIO' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Property = require( 'AXON/Property' );
@@ -24,7 +25,6 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var NetForceModelIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModelIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // constants

@@ -10,6 +10,7 @@ define( function( require ) {
 
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var PhetioObject = require( 'TANDEM/PhetioObject' );
   var Property = require( 'AXON/Property' );
@@ -19,7 +20,6 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
 
   /**
    * Constructor for the 8 knots that appear along the rope.

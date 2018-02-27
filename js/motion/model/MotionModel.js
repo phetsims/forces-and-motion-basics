@@ -18,6 +18,7 @@ define( function( require ) {
   var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
+  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
   var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
   var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
@@ -36,7 +37,6 @@ define( function( require ) {
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
