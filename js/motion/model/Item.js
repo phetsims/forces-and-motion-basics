@@ -20,10 +20,10 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
+  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
 
   // phet-io modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   /**
