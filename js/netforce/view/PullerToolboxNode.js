@@ -83,7 +83,7 @@ define( function( require ) {
           child.focusable = true;
 
           // Add event listeners to children for   key navigation.
-          var numberOfChildren = this.children.length;
+          var numberOfChildren = self.children.length;
           child.addAccessibleInputListener( {
             keydown: function( event ) {
               var childIndex = _.indexOf( self.children, child );

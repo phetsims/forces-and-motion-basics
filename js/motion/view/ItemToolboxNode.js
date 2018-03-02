@@ -34,16 +34,17 @@ define( function( require ) {
   function ItemToolboxNode( toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, sideString, toolboxOptions ) {
 
     var self = this;
-    Rectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY, toolboxOptions );
+    Rectangle.call( this, toolboxX, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidthX, toolboxArcWidthY,
+      _.extend( {
+        // a11y - add acccessibility to the panel surrounding the items
+        tagName: 'div',
+        focusable: true,
+        accessibleLabel: toolboxOptions.accessibleDescription,
+        useAriaLabel: true
+    }, toolboxOptions ) );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
     this.uniqueId = sideString + '-itemToolbox' + this.id;
-
-    // a11y
-    this.tagName = 'div';
-    this.focusable = true;
-    this.accessibleLabel = toolboxOptions.accessibleDescription;
-    this.useAriaLabel = true;
 
     this.addAccessibleInputListener( {
       keydown: function( event ) {
