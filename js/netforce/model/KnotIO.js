@@ -46,7 +46,7 @@ define( function( require ) {
         return null;
       }
       else {
-        return phetio.getWrapper( stateObject ).instance;
+        return phetio.getInstance( stateObject );
       }
     }
   } );
