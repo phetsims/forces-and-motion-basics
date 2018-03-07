@@ -39,7 +39,6 @@ define( function( require ) {
     var sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
     HSlider.call( this, model.appliedForceProperty, range, _.extend( {
       trackSize: new Dimension2( 300, 6 ),
-      snapValue: 0,
       majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
@@ -47,7 +46,15 @@ define( function( require ) {
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
-      constrainValue: function( value ) { return Util.roundSymmetric( value ); }
+      constrainValue: function( value ) { return Util.roundSymmetric( value ); },
+
+      // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
+      // up a state of forces
+      endDrag: function() {
+        if ( model.playProperty.get() ) {
+          model.appliedForceProperty.set( 0 );
+        }
+      }
     }, options ) );
 
     // Note: I do not like this method of canceling, it relies on the assumption that the slider will end drag
@@ -70,6 +77,7 @@ define( function( require ) {
         }
       }
       else {
+
         // otherwise, we will want to disable a portion of the slider depending on the direciton of the stacks
         if ( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
           self.enabledRange = new Range( range.min, 0 );
@@ -80,16 +88,6 @@ define( function( require ) {
         else {
           self.enabledRange = new Range( range.min, range.max );
         }
-      }
-    } );
-
-    // when the model is paused, the slider should not snap to a value so the user can set up a state of forces
-    model.playProperty.link( function( play ) {
-      if ( play ) {
-        self.snapValue = 0;
-      }
-      else {
-        self.snapValue = null;
       }
     } );
 
