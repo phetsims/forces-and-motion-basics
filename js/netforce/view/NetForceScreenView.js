@@ -70,7 +70,7 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
 
   // audio
-  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap' );
+  var golfClapSound = require( 'audio!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
 
   // constants
   var STOPPER_TOP_WIDTH = 11;
