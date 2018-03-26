@@ -39,8 +39,7 @@ define( function( require ) {
         // a11y - add acccessibility to the panel surrounding the items
         tagName: 'div',
         focusable: true,
-        accessibleLabel: toolboxOptions.accessibleDescription,
-        useAriaLabel: true
+        ariaLabel: toolboxOptions.accessibleDescription
     }, toolboxOptions ) );
 
     // unique id to quickly get the element in the accessible equivalent of this item in the parallel DOM.
