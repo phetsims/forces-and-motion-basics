@@ -187,7 +187,7 @@ define( function( require ) {
       // a11y options
       tagName: 'img',
       focusable: false,
-      accessibleLabel: accessibleDescription
+      innerContent: accessibleDescription
     }, options ) );
   }
 
