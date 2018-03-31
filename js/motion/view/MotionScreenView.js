@@ -128,14 +128,14 @@ define( function( require ) {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
-      accessibleDescription: motionLeftItemGroupDescriptionString,
+      descriptionContent: motionLeftItemGroupDescriptionString,
       tandem: tandem.createTandem( 'leftItemToolboxNode' )
     } );
     var rightItemToolboxNode = new ItemToolboxNode( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, 'right', {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
-      accessibleDescription: motionRightItemGroupDescriptionString,
+      descriptionContent: motionRightItemGroupDescriptionString,
       tandem: tandem.createTandem( 'rightItemToolboxNode' )
     } );
 
@@ -454,7 +454,7 @@ define( function( require ) {
 
     // get the accessible description for the item
     var getAccessibleDescription = function( item ) {
-      return 'Please implement the "getAccessibleDescription" function';
+      return 'Please implement the "getDescriptionContent" function';
     };
 
     //Iterate over the items in the model and create and add nodes for each one

@@ -112,7 +112,7 @@ define( function( require ) {
     goButton.mutate( {
       tagName: 'input',
       inputType: 'button',
-      accessibleDescription: goButtonDescriptionString,
+      descriptionContent: goButtonDescriptionString,
       descriptionTagName: 'p'
     } );
     goButton.setAccessibleAttribute( 'aria-disabled', !isGoButtonEnabled() );
@@ -130,7 +130,7 @@ define( function( require ) {
       tagName: 'input',
       inputType: 'button',
       focusable: false,
-      accessibleDescription: pauseButtonDescriptionString
+      descriptionContent: pauseButtonDescriptionString
     } );//red
 
     var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
