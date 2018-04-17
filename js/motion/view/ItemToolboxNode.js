@@ -15,10 +15,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  // constants
-  var defaultStroke = 'black';
-  var defaultLineWidth = 1;
-
   /**
    * Constructor.
    *
@@ -115,16 +111,6 @@ define( function( require ) {
       for ( var i = 0; i < this.children.length; i++ ) {
         this.children[ i ].focusable = false;
       }
-    },
-
-    // Show a highlight around the toolbox when one of the items inside has focus
-    set highlighted( h ) {
-      this._highlighted = h;
-      this.stroke = h ? this.highlightColor : defaultStroke;
-      this.lineWidth = h ? 4 : defaultLineWidth;
-    },
-    get highlighted() {
-      return this._highlighted;
     }
   } );
 } );
