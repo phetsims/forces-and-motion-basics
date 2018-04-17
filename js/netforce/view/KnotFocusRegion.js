@@ -67,6 +67,7 @@ define( function( require ) {
   forcesAndMotionBasics.register( 'KnotFocusRegion', KnotFocusRegion );
 
   return inherit( Rectangle, KnotFocusRegion, {
+    
     /**
      * Group behavior for accessibility.  On 'enter' or 'spacebar' enter the group by setting all child indices
      * to 0 and set focus to the first child.
