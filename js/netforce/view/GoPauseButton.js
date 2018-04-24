@@ -126,8 +126,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'pauseButton' ),
 
       // a11y
-      tagName: 'input',
-      inputType: 'button',
+      tagName:  'button',
       focusable: false,
       descriptionContent: pauseButtonDescriptionString
     } );//red
