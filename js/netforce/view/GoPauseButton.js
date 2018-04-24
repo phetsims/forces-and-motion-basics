@@ -110,8 +110,7 @@ define( function( require ) {
     } );//green
 
     goButton.mutate( {
-      tagName: 'input',
-      inputType: 'button',
+      tagName: 'button',
       descriptionContent: goButtonDescriptionString,
       descriptionTagName: 'p'
     } );
