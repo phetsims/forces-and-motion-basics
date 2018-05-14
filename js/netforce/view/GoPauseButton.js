@@ -21,7 +21,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var ToggleNode = require( 'SUN/ToggleNode' );
+  var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
 
   // phet-io modules
   var NumberIO = require( 'ifphetio!PHET_IO/types/NumberIO' );
@@ -132,7 +132,7 @@ define( function( require ) {
     } );//red
 
     var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
-    ToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, options );
+    BooleanToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     Property.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], function() {
@@ -146,5 +146,5 @@ define( function( require ) {
 
   forcesAndMotionBasics.register( 'GoPauseButton', GoPauseButton );
 
-  return inherit( ToggleNode, GoPauseButton );
+  return inherit( BooleanToggleNode, GoPauseButton );
 } );
