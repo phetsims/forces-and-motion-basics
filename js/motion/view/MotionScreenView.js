@@ -42,7 +42,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var ForcesAndMotionBasicsQueryParameters = require( 'FORCES_AND_MOTION_BASICS/common/ForcesAndMotionBasicsQueryParameters' );
 
   // phet-io modules
   var TNumber = require( 'ifphetio!PHET_IO/types/TNumber' );
@@ -121,22 +120,17 @@ define( function( require ) {
 
     //Add toolbox backgrounds for the objects
     var boxHeight = 180;
-    var showItemToolboxes = ForcesAndMotionBasicsQueryParameters.showItemToolboxes;
-    var fill = showItemToolboxes ? '#e7e8e9' : null;
-    var stroke = showItemToolboxes ? '#000000' : null;
     var leftItemToolboxNode = new ItemToolboxNode( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, 'left', {
-      fill: fill,
-      stroke: stroke,
+      fill: '#e7e8e9',
+      stroke: '#000000',
       lineWidth: 1,
-      accessibleDescription: motionLeftItemGroupDescriptionString,
-      tandem: tandem.createTandem( 'leftItemToolboxNode' )
+      accessibleDescription: motionLeftItemGroupDescriptionString
     } );
     var rightItemToolboxNode = new ItemToolboxNode( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, 'right', {
-      fill: fill,
-      stroke: stroke,
+      fill: '#e7e8e9',
+      stroke: '#000000',
       lineWidth: 1,
-      accessibleDescription: motionRightItemGroupDescriptionString,
-      tandem: tandem.createTandem( 'rightItemToolboxNode' )
+      accessibleDescription: motionRightItemGroupDescriptionString
     } );
 
     //Create the slider

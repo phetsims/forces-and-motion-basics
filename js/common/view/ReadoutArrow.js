@@ -27,8 +27,8 @@ define( function( require ) {
    *
    * @param label the text to show for the arrow
    * @param fill the color of the arrow
-   * @param tailX {number} the location of the tail in X
-   * @param tailY {number} the location of the tail in Y
+   * @param tailX {Number} the location of the tail in X
+   * @param tailY {Number} the location of the tail in Y
    * @param valueProperty {Property<Number>} the property for the value to display
    * @param showValuesProperty {Property<Boolean>} whether or not to display the values
    * @param {Tandem} tandem

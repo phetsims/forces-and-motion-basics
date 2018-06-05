@@ -22,7 +22,7 @@ define( function( require ) {
   /**
    * Constructor.
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {object} options
    */
   function SliderKnob( tandem, options ) {
 

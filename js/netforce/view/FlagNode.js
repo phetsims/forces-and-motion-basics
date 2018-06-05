@@ -48,6 +48,8 @@ define( function( require ) {
       fill: model.cart.x < 0 ? 'blue' : 'red',
       stroke: 'black',
       lineWidth: 2,
+      centerX: 0,
+      centerY: 0,
       tandem: tandem.createTandem( 'pathNode' )
     } );
     this.addChild( this.path );

@@ -21,7 +21,7 @@ define( function( require ) {
    *
    * @param {Property<number>} accelerationProperty
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {object} options
    */
   function AccelerometerNode( accelerationProperty, tandem, options ) {
     options = options || {};

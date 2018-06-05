@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {Property<number>} showSpeedProperty
    * @param {Property<boolean>} showSpeedProperty
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {object} options
    * @constructor
    */
   function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
