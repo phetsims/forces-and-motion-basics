@@ -204,17 +204,17 @@ define( function( require ) {
             }
 
             while ( numBlack < desiredBlack ) {
-              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, { fill: 'black' } ) );
+              gravelSource.addChild( new Rectangle( Math.floor( phet.joist.random.nextDouble() * (tileWidth + 1) ), Math.floor( phet.joist.random.nextDouble() * (height + 1) ), 1, 1, { fill: 'black' } ) );
               numBlack++;
             }
 
             while ( numGray < desiredGray ) {
-              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, { fill: 'gray' } ) );
+              gravelSource.addChild( new Rectangle( Math.floor( phet.joist.random.nextDouble() * (tileWidth + 1) ), Math.floor( phet.joist.random.nextDouble() * (height + 1) ), 1, 1, { fill: 'gray' } ) );
               numGray++;
             }
 
             while ( numWhite < desiredWhite ) {
-              gravelSource.addChild( new Rectangle( Math.floor( Math.random() * (tileWidth + 1) ), Math.floor( Math.random() * (height + 1) ), 1, 1, { fill: 'white' } ) );
+              gravelSource.addChild( new Rectangle( Math.floor( phet.joist.random.nextDouble() * (tileWidth + 1) ), Math.floor( phet.joist.random.nextDouble() * (height + 1) ), 1, 1, { fill: 'white' } ) );
               numWhite++;
             }
 
