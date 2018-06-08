@@ -11,8 +11,8 @@ define( function( require ) {
 
   // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  
-  // phet-io modules
+
+  // ifphetio
   var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var ObjectIO = require( 'ifphetio!PHET_IO/types/ObjectIO' );
   var phetio = require( 'ifphetio!PHET_IO/phetio' );

@@ -35,7 +35,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
 
-  // phet-io modules
+  // ifphetio
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
