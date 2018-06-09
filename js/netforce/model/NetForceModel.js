@@ -23,7 +23,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  // phet-io modules
+  // ifphetio
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 

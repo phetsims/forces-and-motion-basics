@@ -38,7 +38,7 @@ define( function( require ) {
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Text = require( 'SCENERY/nodes/Text' );
 
-  // phet-io modules
+  // ifphetio
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
   // images

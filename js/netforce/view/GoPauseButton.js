@@ -23,7 +23,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
 
-  // phet-io modules
+  // ifphetio
   var NumberIO = require( 'ifphetio!PHET_IO/types/NumberIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 

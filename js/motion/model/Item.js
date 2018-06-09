@@ -22,7 +22,7 @@ define( function( require ) {
   var Vector2IO = require( 'DOT/Vector2IO' );
   var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
 
-  // phet-io modules
+  // ifphetio
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
 
