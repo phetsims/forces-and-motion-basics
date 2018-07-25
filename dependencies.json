@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.5-rc.1 Wed Jul 25 2018 01:21:52 GMT-0600 (MDT)",
+  "comment": "# forces-and-motion-basics 2.3.5-rc.2 Wed Jul 25 2018 04:26:17 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "849cb67e4827ef542c8ced446a55db0e4e15ef60",
-    "branch": "forces-and-motion-basics-2.3"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "db33a2c7fca14980bccd7d9517839c5b8ae7a9ee",
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "197245ffacaf408f33225cf8e135a41c3efa6add",
+    "sha": "106a9c81c2bac9c65974879abcac25f19b5cb340",
     "branch": "2.3"
   },
   "joist": {
