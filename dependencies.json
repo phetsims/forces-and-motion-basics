@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.1.8-phetio Tue Jul 24 2018 17:19:35 GMT-0600 (MDT)",
+  "comment": "# forces-and-motion-basics 2.1.9-phetiorc.1 Tue Jul 24 2018 21:09:11 GMT-0600 (MDT)",
   "assert": {
     "sha": "845be6b591cb746b0b05b7023208aef2e49a8855",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "25980814523f6d04044e1ea56edba7e0b938e975",
+    "sha": "79dba46a8753cc5143cd7daab537d4e12f1edbbd",
     "branch": "2.1-phetio"
   },
   "joist": {
@@ -74,6 +74,6 @@
   },
   "vibe": {
     "sha": "cc3e86dd95259a457ac5a5be71ffc4523e78f977",
-    "branch": "forces-and-motion-basics-2.1-phetio"
+    "branch": "HEAD"
   }
 }
