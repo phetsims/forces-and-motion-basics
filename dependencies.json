@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.5 Thu Aug 09 2018 20:28:15 GMT-0600 (MDT)",
+  "comment": "# forces-and-motion-basics 2.3.5 Thu Aug 09 2018 23:33:00 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "849cb67e4827ef542c8ced446a55db0e4e15ef60",
-    "branch": "HEAD"
+    "sha": "7353389141b843779618937d7043cf3e03c8877e",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "dot": {
     "sha": "db33a2c7fca14980bccd7d9517839c5b8ae7a9ee",
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "05f608f5b9887f29d6fc965f0a0affad0ede7aee",
+    "sha": "1df538a1bbef8edfdff9b0398f3f7dd756fd65c5",
     "branch": "2.3"
   },
   "joist": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "7ec5d29971d7faf69f31e028c45b17df040b721b",
-    "branch": "HEAD"
+    "sha": "94d8eb414f04dad2aa402e6bb73176d5d82dc11d",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
@@ -46,7 +46,7 @@
   },
   "scenery": {
     "sha": "46225f5815a376acd3f7fc6168784f3ea00a85b4",
-    "branch": "forces-and-motion-basics-2.3"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "ae0e06ea09c29d5d25294886c805bd7b315942f5",
