@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.5 Wed Aug 08 2018 13:40:27 GMT-0600 (MDT)",
+  "comment": "# forces-and-motion-basics 2.3.5 Thu Aug 09 2018 20:28:15 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "5731886fd56488dccda5d548cd1fa7870b509bcf",
+    "sha": "05f608f5b9887f29d6fc965f0a0affad0ede7aee",
     "branch": "2.3"
   },
   "joist": {
@@ -45,8 +45,8 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "63bb5dd6ff2b2acade399c57026b0dc471bd2267",
-    "branch": "HEAD"
+    "sha": "46225f5815a376acd3f7fc6168784f3ea00a85b4",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "scenery-phet": {
     "sha": "ae0e06ea09c29d5d25294886c805bd7b315942f5",
