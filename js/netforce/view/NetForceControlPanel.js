@@ -54,15 +54,15 @@ define( function( require ) {
 
     var verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      content: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
+      node: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showSumOfForcesCheckbox' )
     }, {
-      content: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
+      node: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
       property: model.showValuesProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showValuesCheckbox' )
     }, {
-      content: showSpeedContent,
+      node: showSpeedContent,
       property: model.showSpeedProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showSpeedCheckbox' )
     } ], {
