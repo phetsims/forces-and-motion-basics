@@ -155,7 +155,7 @@ define( function( require ) {
         self.moveToFront();
 
         // move the parent toolbox to the front so that items of one toolbox are not in front of another
-        // itemToolBox is in a container so it should not occlude other items in the screen view
+        // itemToolbox is in a container so it should not occlude other items in the screen view
         itemToolbox.moveToFront();
 
         item.draggingProperty.set( true );
