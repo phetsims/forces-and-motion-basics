@@ -47,6 +47,12 @@ define( function( require ) {
     Node.call( this, {
       cursor: 'pointer',
       scale: item.imageScaleProperty.get(),
+
+      // add accessible content
+      tagName: 'img',
+      focusable: false,
+      draggable: true,
+
       tandem: tandem
     } );
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
@@ -255,11 +261,6 @@ define( function( require ) {
     self.addChild( labelNode );
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
-
-    // add accessible content
-    this.tagName = 'img';
-    this.focusable = false;
-    this.draggable = true;
 
     this.addAccessibleInputListener( {
       keydown: function( event ) {
