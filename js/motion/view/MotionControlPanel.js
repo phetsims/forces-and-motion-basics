@@ -198,7 +198,7 @@ define( function( require ) {
       return containerNode;
     };
 
-    // if the the slider is wider than the group of checkboxes, align the checkboxes to the left of the slider
+    // if the slider is wider than the group of checkboxes, align the checkboxes to the left of the slider
     // otherwise, center with the checkboxes
     var layoutFrictionSlider = function( checkboxes, frictionSlider ) {
       if ( frictionSlider.width > checkboxes.width ) {
