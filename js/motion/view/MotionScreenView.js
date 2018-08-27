@@ -315,7 +315,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
     var stepForwardButton = new StepForwardButton( {
-      playingProperty: model.playProperty,
+      isPlayingProperty: model.playProperty,
       listener: function() { model.manualStep(); },
       radius: 18,
       tandem: tandem.createTandem( 'stepForwardButton' )
