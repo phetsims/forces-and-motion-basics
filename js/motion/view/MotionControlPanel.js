@@ -11,7 +11,6 @@ define( function( require ) {
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Checkbox = require( 'SUN/Checkbox' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var forcesString = require( 'string!FORCES_AND_MOTION_BASICS/forces' );
@@ -30,7 +29,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var Range = require( 'DOT/Range' );
   var SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
@@ -38,10 +36,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
-
-  // ifphetio
-  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   /**
    * Main constructor for MotionControlPanel
@@ -57,60 +53,31 @@ define( function( require ) {
     var maxTextWidth = 120;
 
     /**
-     * Create a checkbox that will be placed in this control panel with others in a VBox.
-     * Has optional horizontal indentation, icon, and property to control how the checkbox is enabled.
-     *
-     * @param {string} text - label for the checkbox
-     * @param {Property<boolean>} property
-     * @param {Object} options
+     * Create a label node with options icon
+     * @param {string} text - the label string
+     * @param {Object} [options]
      */
-    var createCheckbox = function( text, property, tandemName, options ) {
-
-      var checkboxTandem = tandem.createTandem( tandemName );
+    var createLabel = function( text, tandemName, options ) {
       options = _.extend( {
         indent: 0,
-        checkboxEnabledProperty: new Property( true, {
-          tandem: checkboxTandem.createTandem( 'enabledProperty' ),
-          phetioType: PropertyIO( BooleanIO )
-        } ),
-        icon: null
+        icon: new Node()
       }, options );
-
-      // container for the checkbox and optional indentation and icon
-      var checkboxContainer = new HBox( { spacing: 0 } );
-
-      // create the horizontal spacer for the indentation and add it to the container
-      var hSeparator = new HStrut( options.indent );
-      checkboxContainer.insertChild( 0, hSeparator );
 
       // create the label for the checkbox
       var labelText = new Text( text, {
         font: new PhetFont( fontSize ),
         maxWidth: maxTextWidth,
-        tandem: checkboxTandem.createTandem( 'labelTextNode' )
+        tandem: tandem.createTandem( tandemName ).createTandem( 'labelTextNode' ) // this is a bit of a hack to support backwards tandem api
       } );
 
-      // create the checkbox and insert it into the container
-      var checkbox = new Checkbox( labelText, property, {
-        tandem: checkboxTandem
-      } );
-      checkboxContainer.insertChild( 1, checkbox );
-
-      // add optional icon next to checkbox
+      // optional icon needs spacing next to text
+      var iconSpacer = new HStrut( 0 );
       if ( options.icon ) {
         // create a horizontal spacer for the icon
-        var iconSpacer = new HStrut( 10 );
-        checkboxContainer.insertChild( 2, iconSpacer );
-        checkboxContainer.insertChild( 3, options.icon );
+        iconSpacer = new HStrut( 10 );
       }
 
-      // link the property to the enabled state of the checkbox
-      // checkbox persists for the lifetime of the simulation, no dispose necessary
-      options.checkboxEnabledProperty.link( function( enabled ) {
-        checkbox.enabled = enabled;
-      } );
-
-      return checkboxContainer;
+      return new HBox( { spacing: 0, children: [ labelText, iconSpacer, options.icon ] } );
     };
 
     //Icon for the forces in the control panel
@@ -124,7 +91,6 @@ define( function( require ) {
         tandem: tandem.createTandem( phetioID )
       } );
     };
-
     var speedometerIcon = function() {
       var speedometerIconValueProperty = new Property( 0 );
       return new GaugeNode( speedometerIconValueProperty, speedString, {
@@ -177,17 +143,31 @@ define( function( require ) {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
+      var items = [
+        {
+          node: createLabel( forceString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          property: model.showForceProperty,
+          tandem: tandem.createTandem( 'showForceCheckbox' )
+        },
+        {
+          node: createLabel( valuesString, 'showValuesCheckbox' ),
+          property: model.showValuesProperty,
+          tandem: tandem.createTandem( 'showValuesCheckbox' )
+        },
+        {
+          node: createLabel( massesString, 'showMassesCheckbox' ),
+          property: model.showMassesProperty,
+          tandem: tandem.createTandem( 'showMassesCheckbox' )
+        },
+        {
+          node: createLabel( speedString, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          property: model.showSpeedProperty,
+          tandem: tandem.createTandem( 'showSpeedCheckbox' )
+        }
+      ];
+
       // create the checkboxes
-      var checkboxes = new VBox( {
-        children: [
-          createCheckbox( forceString, model.showForceProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckbox( valuesString, model.showValuesProperty, 'showValuesCheckbox' ),
-          createCheckbox( massesString, model.showMassesProperty, 'showMassesCheckbox' ),
-          createCheckbox( speedString, model.showSpeedProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } )
-        ],
-        align: 'left',
-        spacing: 10
-      } );
+      var checkboxes = new VerticalCheckboxGroup( items );
       containerNode.addChild( checkboxes );
 
 
@@ -218,18 +198,36 @@ define( function( require ) {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
+      var items = [
+        {
+          node: createLabel( forcesString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          property: model.showForceProperty,
+          tandem: tandem.createTandem( 'showForceCheckbox' )
+        },
+        {
+          node: createLabel( sumOfForcesString, 'showSumOfForcesCheckbox' ),
+          property: model.showSumOfForcesProperty,
+          tandem: tandem.createTandem( 'showSumOfForcesCheckbox' )
+        },
+        {
+          node: createLabel( valuesString, 'showValuesCheckbox' ),
+          property: model.showValuesProperty,
+          tandem: tandem.createTandem( 'showValuesCheckbox' )
+        },
+        {
+          node: createLabel( massesString, 'showMassesCheckbox' ),
+          property: model.showMassesProperty,
+          tandem: tandem.createTandem( 'showMassesCheckbox' )
+        },
+        {
+          node: createLabel( speedString, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          property: model.showSpeedProperty,
+          tandem: tandem.createTandem( 'showSpeedCheckbox' )
+        }
+      ];
+
       // create the checkboxes
-      var checkboxes = new VBox( {
-        children: [
-          createCheckbox( forcesString, model.showForceProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckbox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckbox' ),
-          createCheckbox( valuesString, model.showValuesProperty, 'showValuesCheckbox' ),
-          createCheckbox( massesString, model.showMassesProperty, 'showMassesCheckbox' ),
-          createCheckbox( speedString, model.showSpeedProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } )
-        ],
-        align: 'left',
-        spacing: 10
-      } );
+      var checkboxes = new VerticalCheckboxGroup( items );
       containerNode.addChild( checkboxes );
 
       // create a spacer for the checkboxes and the slider
@@ -256,18 +254,40 @@ define( function( require ) {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
-      var checkboxes = new VBox( {
-        children: [
-          createCheckbox( forcesString, model.showForceProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
-          createCheckbox( sumOfForcesString, model.showSumOfForcesProperty, 'showSumOfForcesCheckbox' ),
-          createCheckbox( valuesString, model.showValuesProperty, 'showValuesCheckbox' ),
-          createCheckbox( massesString, model.showMassesProperty, 'showMassesCheckbox' ),
-          createCheckbox( speedString, model.showSpeedProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
-          createCheckbox( accelerationString, model.showAccelerationProperty, 'showAccelerationCheckbox', { icon: accelerometerIcon() } )
-        ],
-        align: 'left',
-        spacing: 10
-      } );
+      var items = [
+        {
+          node: createLabel( forcesString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          property: model.showForceProperty,
+          tandem: tandem.createTandem( 'showForceCheckbox' )
+        },
+        {
+          node: createLabel( sumOfForcesString, 'showSumOfForcesCheckbox' ),
+          property: model.showSumOfForcesProperty,
+          tandem: tandem.createTandem( 'showSumOfForcesCheckbox' )
+        },
+        {
+          node: createLabel( valuesString, 'showValuesCheckbox' ),
+          property: model.showValuesProperty,
+          tandem: tandem.createTandem( 'showValuesCheckbox' )
+        },
+        {
+          node: createLabel( massesString, 'showMassesCheckbox' ),
+          property: model.showMassesProperty,
+          tandem: tandem.createTandem( 'showMassesCheckbox' )
+        },
+        {
+          node: createLabel( speedString, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          property: model.showSpeedProperty,
+          tandem: tandem.createTandem( 'showSpeedCheckbox' )
+        },
+        {
+          node: createLabel( accelerationString, 'showAccelerationCheckbox', { icon: accelerometerIcon() } ),
+          property: model.showAccelerationProperty,
+          tandem: tandem.createTandem( 'showAccelerationCheckbox' )
+        }
+      ];
+
+      var checkboxes = new VerticalCheckboxGroup( items );
       containerNode.addChild( checkboxes );
 
       // create the spacing strut
