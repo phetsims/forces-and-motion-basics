@@ -225,7 +225,7 @@ define( function( require ) {
       return friction !== 0;
     } );
 
-    // @ublic - broadcast messages on step and reset all
+    // @public - broadcast messages on step and reset all
     this.resetAllEmitter = new Emitter();
     this.stepEmitter = new Emitter();
 
