@@ -41,7 +41,8 @@ define( function( require ) {
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
       softwareDevelopment: 'Jesse Greenberg, Sam Reid',
       team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
-      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan,\n\tOliver Orejola, Ben Roberts, Bryan Yoelin'
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Elise Morgan, \n\t' +
+                        'Liam Mulhall, Oliver Orejola, Ben Roberts, Kathryn Woessner, \n\tBryan Yoelin'
     }
   };
 
