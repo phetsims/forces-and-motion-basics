@@ -69,7 +69,7 @@ define( function( require ) {
   var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
 
-  // audio
+  // sounds
   var golfClapSound = require( 'sound!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
 
   // constants
