@@ -36,7 +36,7 @@ define( function( require ) {
         this.instance.reset();
       },
       documentation: 'Resets the model',
-      canBeInvokedForReadOnlyInstances: false
+      invocableForReadOnlyInstances: false
     }
   }, { documentation: 'A Net Force Model type.' } );
 
