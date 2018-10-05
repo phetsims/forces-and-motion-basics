@@ -29,11 +29,21 @@ define( function( require ) {
   phetioInherit( ObjectIO, 'ItemIO', ItemIO, {}, {
     documentation: 'An Item that can be placed dragged into the play area.',
 
+    /**
+     * @param {Item} item
+     * @returns {string}
+     * @override
+     */
     toStateObject: function( item ) {
       assert && assertInstanceOf( item, phet.forcesAndMotionBasics.Item );
       return item.tandem.phetioID;
     },
 
+    /**
+     * @param {Object} stateObject
+     * @returns {string}
+     * @override
+     */
     fromStateObject: function( stateObject ) {
       return stateObject.name;
     }
