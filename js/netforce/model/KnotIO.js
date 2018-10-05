@@ -31,6 +31,11 @@ define( function( require ) {
   phetioInherit( ObjectIO, 'KnotIO', KnotIO, {}, {
     documentation: 'A knot',
 
+    /**
+     * @param {Knot} knot
+     * @returns {string}
+     * @override
+     */
     toStateObject: function( knot ) {
       assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
       if ( knot ) {
@@ -41,6 +46,11 @@ define( function( require ) {
       }
     },
 
+    /**
+     * @param {Object} stateObject
+     * @returns {Knot}
+     * @override
+     */
     fromStateObject: function( stateObject ) {
       if ( stateObject === 'null' ) {
         return null;
