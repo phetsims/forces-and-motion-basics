@@ -29,11 +29,21 @@ define( function( require ) {
   phetioInherit( ObjectIO, 'AnimationStateIO', AnimationStateIO, {}, {
     documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
 
+    /**
+     * @param {Object} animationState
+     * @returns {Object}
+     * @override
+     */
     toStateObject: function( animationState ) {
       assert && assertInstanceOf( animationState, Object );
       return animationState;
     },
 
+    /**
+     * @param {Object} stateObject
+     * @returns {Object}
+     * @override
+     */
     fromStateObject: function( stateObject ) {
       return stateObject;
     }
