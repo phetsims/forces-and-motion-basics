@@ -96,7 +96,10 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      phetioType: EmitterIO( [ NumberIO, StringIO ] )
+      phetioType: EmitterIO( [
+        { name: 'netForce', type: NumberIO },
+        { name: 'knotJSON', type: StringIO }
+      ] )
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
@@ -126,7 +129,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'pauseButton' ),
 
       // a11y
-      tagName:  'button',
+      tagName: 'button',
       focusable: false,
       descriptionContent: pauseButtonDescriptionString
     } );//red
