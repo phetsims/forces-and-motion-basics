@@ -24,9 +24,9 @@ define( function( require ) {
   /**
    * Constructor for the 8 knots that appear along the rope.
    *
-   * @param {number} x the horizontal position (in meters) of the knot
+   * @param {number} x - the horizontal position (in meters) of the knot
    * // TODO: Fix JSDoc
-   * @param {string} type whether the knot is for red or blue pullers
+   * @param {string} type - whether the knot is for red or blue pullers
    * @param ropeStart
    * @param {number} ropeLength - the length of the rope in model coordinates
    * @param {Object} options - required
