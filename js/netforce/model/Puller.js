@@ -19,9 +19,9 @@ define( function( require ) {
   var Vector2IO = require( 'DOT/Vector2IO' );
 
   // ifphetio
-  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var NullableIO = require( 'ifphetio!PHET_IO/types/NullableIO' );
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
+  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var NullableIO = require( 'TANDEM/types/NullableIO' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
 
   /**
    *

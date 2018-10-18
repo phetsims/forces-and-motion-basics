@@ -24,8 +24,8 @@ define( function( require ) {
   var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
 
   // ifphetio
-  var NumberIO = require( 'ifphetio!PHET_IO/types/NumberIO' );
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
+  var NumberIO = require( 'TANDEM/types/NumberIO' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
 
   // strings
   var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );

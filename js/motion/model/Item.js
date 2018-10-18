@@ -23,8 +23,8 @@ define( function( require ) {
   var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
 
   // ifphetio
-  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
-  var StringIO = require( 'ifphetio!PHET_IO/types/StringIO' );
+  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
 
   /**
    * Constructor for Item
