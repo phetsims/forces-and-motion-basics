@@ -8,6 +8,8 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -16,9 +18,6 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-
-  // phet-io types
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
 
   /**
    * Constructor.

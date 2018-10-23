@@ -15,17 +15,15 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberIO = require( 'TANDEM/types/NumberIO' );
   var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
   var Text = require( 'SCENERY/nodes/Text' );
   var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
-
-  // ifphetio
-  var NumberIO = require( 'TANDEM/types/NumberIO' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
 
   // strings
   var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );

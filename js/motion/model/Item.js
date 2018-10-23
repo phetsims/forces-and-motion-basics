@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
+  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
@@ -17,14 +18,11 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Range = require( 'DOT/Range' );
+  var StringIO = require( 'TANDEM/types/StringIO' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
   var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
-
-  // ifphetio
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
 
   /**
    * Constructor for Item

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -21,11 +22,8 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
   var Range = require( 'DOT/Range' );
-  var Vector2 = require( 'DOT/Vector2' );
-
-  // ifphetio
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
   var StringIO = require( 'TANDEM/types/StringIO' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
