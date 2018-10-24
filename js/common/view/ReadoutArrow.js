@@ -9,6 +9,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
