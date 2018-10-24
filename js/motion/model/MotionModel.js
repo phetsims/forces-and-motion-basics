@@ -10,22 +10,13 @@ define( function( require ) {
 
   // modules
   var BooleanIO = require( 'TANDEM/types/BooleanIO' );
-  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
-  var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
-  var girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
-  var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
   var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
-  var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
-  var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
-  var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
@@ -33,9 +24,20 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
   var Range = require( 'DOT/Range' );
   var StringIO = require( 'TANDEM/types/StringIO' );
-  var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // images
+  var crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
+  var fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
+  var girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
+  var girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
+  var girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
+  var manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
+  var manSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-sitting.png' );
+  var manStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-standing.png' );
+  var mysteryObjectImage = require( 'image!FORCES_AND_MOTION_BASICS/mystery-object-01.png' );
+  var trashCanImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/trash-can.png' );
   var waterBucketImage = require( 'image!FORCES_AND_MOTION_BASICS/water-bucket.png' );
 
   /**
