@@ -37,8 +37,6 @@ define( function( require ) {
   var Sound = require( 'VIBE/Sound' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var Text = require( 'SCENERY/nodes/Text' );
-
-  // ifphetio
   var StringIO = require( 'TANDEM/types/StringIO' );
 
   // images
