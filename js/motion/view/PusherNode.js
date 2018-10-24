@@ -8,12 +8,17 @@
 define( function( require ) {
   'use strict';
 
+  // modules
+  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
+  // images
   var pusherFallDownImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_fall_down.png' );
   var pusherImage0 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_0.png' );
   var pusherImage1 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_1.png' );
@@ -47,10 +52,6 @@ define( function( require ) {
   var pusherImage8 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_8.png' );
   var pusherImage9 = require( 'image!FORCES_AND_MOTION_BASICS/pusher_9.png' );
   var pusherStraightImage = require( 'image!FORCES_AND_MOTION_BASICS/pusher_straight_on.png' );
-
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * Constructor for PusherNode
