@@ -15,6 +15,8 @@ define( function( require ) {
   var NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' );
   var Screen = require( 'JOIST/Screen' );
   var Sim = require( 'JOIST/Sim' );
+  var SimLauncher = require( 'JOIST/SimLauncher' );
+  var Tandem = require( 'TANDEM/Tandem' );
 
   // images
   var accelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
@@ -28,9 +30,6 @@ define( function( require ) {
   var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
   var motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' );
   var netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
-
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var Tandem = require( 'TANDEM/Tandem' );
 
   // constants
   var tandem = Tandem.rootTandem;
