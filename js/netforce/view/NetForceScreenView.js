@@ -35,9 +35,8 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
   var Sound = require( 'VIBE/Sound' );
-  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var StringIO = require( 'TANDEM/types/StringIO' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // images
   var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
@@ -65,6 +64,7 @@ define( function( require ) {
   var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
   var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
+  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
 
   // sounds
