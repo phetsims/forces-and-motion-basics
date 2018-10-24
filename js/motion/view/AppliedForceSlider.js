@@ -11,6 +11,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var HSlider = require( 'SUN/HSlider' );

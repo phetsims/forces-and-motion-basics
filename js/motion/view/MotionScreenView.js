@@ -6,15 +6,14 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
-  var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
   var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
   var ForcesAndMotionBasicsQueryParameters = require( 'FORCES_AND_MOTION_BASICS/common/ForcesAndMotionBasicsQueryParameters' );
-  var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -40,7 +39,6 @@ define( function( require ) {
   var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
@@ -61,10 +59,13 @@ define( function( require ) {
 
   // strings
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+  var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
+  var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
   var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
   var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
   var pattern0ValueUnitsNewtonsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsNewtons' );
+  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
 
   /**
    * Constructor for the MotionScreenView
