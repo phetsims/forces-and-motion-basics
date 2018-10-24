@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
