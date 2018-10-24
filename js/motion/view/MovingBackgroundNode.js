@@ -8,18 +8,21 @@
 define( function( require ) {
   'use strict';
 
-  var brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
-  var cloudImage = require( 'image!FORCES_AND_MOTION_BASICS/cloud1.png' );
+  // modules  
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/icicle.png' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Pattern = require( 'SCENERY/util/Pattern' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Util = require( 'DOT/Util' );
+
+  // images
+  var brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
+  var cloudImage = require( 'image!FORCES_AND_MOTION_BASICS/cloud1.png' );
+  var icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/icicle.png' );
+  var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
 
   // constants
   var linear = Util.linear;
