@@ -8,6 +8,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ForcesAndMotionBasicsIconFactory = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsIconFactory' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -17,11 +18,12 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
   var VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
 
+  // strings
+  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
 
   // constants
   var BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
