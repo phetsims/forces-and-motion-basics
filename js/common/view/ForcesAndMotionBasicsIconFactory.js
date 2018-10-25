@@ -13,6 +13,7 @@ define( function( require ) {
   var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
 
   // strings
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
@@ -25,10 +26,8 @@ define( function( require ) {
 
     // the 'speed' option requires the text and a speedometer icon
     var speedometerIconValueProperty = new Property( 0 );
-    return new GaugeNode( speedometerIconValueProperty, speedString, {
-      min: 0,
-      max: MotionConstants.MAX_SPEED
-    }, { scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
+      return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+        { scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
     }
   };
 

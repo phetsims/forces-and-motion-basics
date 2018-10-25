@@ -16,6 +16,7 @@ define( function( require ) {
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Range = require( 'DOT/Range' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -46,10 +47,7 @@ define( function( require ) {
     Node.call( this );
 
     // create the gaugeNode
-    var gaugeNode = new GaugeNode( velocityProperty, speedString, {
-        min: 0,
-        max: MotionConstants.MAX_SPEED
-      },
+    var gaugeNode = new GaugeNode( velocityProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         tandem: tandem.createTandem( 'gaugeNode' )
       } );

@@ -93,10 +93,8 @@ define( function( require ) {
     };
     var speedometerIcon = function() {
       var speedometerIconValueProperty = new Property( 0 );
-      return new GaugeNode( speedometerIconValueProperty, speedString, {
-        min: 0,
-        max: MotionConstants.MAX_SPEED
-      }, { scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
+      return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+        { scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
     };
     var accelerometerIcon = function() {
       var accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
