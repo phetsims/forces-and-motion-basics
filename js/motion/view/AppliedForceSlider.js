@@ -1,4 +1,4 @@
-// Copyright 2016-2017, University of Colorado Boulder
+// Copyright 2016-2018, University of Colorado Boulder
 
 /**
  * Applied Force Slider of the Motion screens.  If the model velocity is larger than the max allowed value,

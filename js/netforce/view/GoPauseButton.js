@@ -1,4 +1,4 @@
-// Copyright 2013-2017, University of Colorado Boulder
+// Copyright 2013-2018, University of Colorado Boulder
 
 /**
  * A big round Go/Pause button that appears when the user has attached any nonzero number of pullers to the rope
