@@ -127,7 +127,7 @@ define( function( require ) {
       }
     } );
 
-    this.addAccessibleInputListener( {
+    this.addInputListener( {
       keydown: function( event ) {
         // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
         //event.preventDefault();

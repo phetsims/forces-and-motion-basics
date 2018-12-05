@@ -262,7 +262,7 @@ define( function( require ) {
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
 
-    this.addAccessibleInputListener( {
+    this.addInputListener( {
       keydown: function( event ) {
 
         // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.

@@ -42,7 +42,7 @@ define( function( require ) {
     // @public - id used to quickly find this element among peers in the DOM
     this.uniqueId = type === 'left' ? 'leftFocusRegion' : 'rightFocusRegion';
 
-    this.addAccessibleInputListener( {
+    this.addInputListener( {
       click: function( event ) {
         // we want exit event bubbling - event fired in children should notify parent.
         // only on escape key
@@ -90,7 +90,7 @@ define( function( require ) {
           child.focusable = false;
 
           // Add event listeners to children for   key navigation.
-          child.addAccessibleInputListener( {
+          child.addInputListener( {
             keydown: function( event ) {
               // prevent default - we are testing only using arrow keys for this navigation
               event.preventDefault();
