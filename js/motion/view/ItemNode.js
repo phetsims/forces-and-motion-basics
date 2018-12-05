@@ -264,18 +264,20 @@ define( function( require ) {
 
     this.addInputListener( {
       keydown: function( event ) {
+  
+        var domEvent = event.domEvent;        
 
         // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
-        event.preventDefault();
+        domEvent.preventDefault();
 
         // on tab, exit the group and focus the next element.
-        if ( event.keyCode === KeyboardUtil.KEY_TAB ) {
+        if ( domEvent.keyCode === KeyboardUtil.KEY_TAB ) {
           itemToolbox.exitGroup( document.getElementById( itemToolbox.uniqueId ) );
         }
 
         // if the puller is not grabbed, grab it for drag and drop
         if ( !item.draggingProperty.get() ) {
-          if ( event.keyCode === KeyboardUtil.KEY_ENTER || event.keyCode === KeyboardUtil.KEY_SPACE ) {
+          if ( domEvent.keyCode === KeyboardUtil.KEY_ENTER || domEvent.keyCode === KeyboardUtil.KEY_SPACE ) {
 
             // remove the item from the stack if it is already there
             var index = model.stack.indexOf( item );

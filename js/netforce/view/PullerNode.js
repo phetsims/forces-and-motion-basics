@@ -129,6 +129,8 @@ define( function( require ) {
 
     this.addInputListener( {
       keydown: function( event ) {
+        var domEvent = event.domEvent;
+
         // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
         //event.preventDefault();
 
@@ -136,12 +138,12 @@ define( function( require ) {
         var actionElement = document.getElementById( 'netForceActionElement' );
 
         // on tab, exit the group and focus the next element in the navigation order
-        if ( event.keyCode === KeyboardUtil.KEY_TAB ) {
+        if ( domEvent.keyCode === KeyboardUtil.KEY_TAB ) {
           pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.uniqueId ) );
         }
 
         // if the puller is not grabbed, grab it for drag and drop
-        if ( event.keyCode === KeyboardUtil.KEY_ENTER || event.keyCode === KeyboardUtil.KEY_SPACE ) {
+        if ( domEvent.keyCode === KeyboardUtil.KEY_ENTER || domEvent.keyCode === KeyboardUtil.KEY_SPACE ) {
           // the puller is already on a rope on the knot.  Place it right back in the toolbox.
           // TODO: This behavior is a placeholder, I am not sure how this should behave.
           if ( self.puller.knotProperty.get() !== null ) {

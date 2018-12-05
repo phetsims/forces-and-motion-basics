@@ -46,7 +46,7 @@ define( function( require ) {
       click: function( event ) {
         // we want exit event bubbling - event fired in children should notify parent.
         // only on escape key
-        if ( event.keyCode === 27 ) {
+        if ( event.domEvent.keyCode === 27 ) {
 
           // a puller was being dragged when escape was pressed - exiting this group, so make sure that all
           // pullers are dropped
@@ -93,7 +93,7 @@ define( function( require ) {
           child.addInputListener( {
             keydown: function( event ) {
               // prevent default - we are testing only using arrow keys for this navigation
-              event.preventDefault();
+              event.domEvent.preventDefault();
             }
           } );
       } );
