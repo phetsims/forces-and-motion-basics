@@ -49,6 +49,7 @@ define( function( require ) {
     // create the gaugeNode
     var gaugeNode = new GaugeNode( velocityProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
+        radius: 67,
         tandem: tandem.createTandem( 'gaugeNode' )
       } );
     this.addChild( gaugeNode );

@@ -27,7 +27,7 @@ define( function( require ) {
     // the 'speed' option requires the text and a speedometer icon
     var speedometerIconValueProperty = new Property( 0 );
       return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
-        { scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
+        { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
     }
   };
 
