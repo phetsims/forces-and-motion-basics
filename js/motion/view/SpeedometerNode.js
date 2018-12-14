@@ -17,10 +17,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Range = require( 'DOT/Range' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
 
   // strings
   var pattern0Name1ValueUnitsVelocityString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsVelocity' );
@@ -50,43 +46,29 @@ define( function( require ) {
     var gaugeNode = new GaugeNode( velocityProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         radius: 67,
-        tandem: tandem.createTandem( 'gaugeNode' )
+        tandem: tandem.createTandem( 'gaugeNode' ),
+        displayValue: true,
+        numberDisplayOptions: {
+          valuePattern: pattern0Name1ValueUnitsVelocityString,
+          font: new PhetFont( 16 ),
+          backgroundStroke: 'black',
+          align: 'center',
+          decimalPlaces: 1,
+          mapValue: function( value ) {
+
+            // Speedometer only reports absolute values
+            return Math.abs( value );
+          }
+        }
       } );
     this.addChild( gaugeNode );
 
-    // create a value readout inside of a panel, maxSpeed for max bounds for layout calculations
-    var maxSpeed = Util.toFixed( MotionConstants.MAX_SPEED, 1 );
-    var valueString = StringUtils.format( pattern0Name1ValueUnitsVelocityString, maxSpeed );
-    var valueTextNode = new Text( valueString, {
-      font: new PhetFont( 16 ),
-      maxWidth: options.radius,
-      tandem: tandem.createTandem( 'valueTextNode' )
-    } );
-    this.addChild( valueTextNode );
-
-    // place valueText inside of a background rectangle
-    var cornerRadius = 5;
-    var valueRectangle = new Rectangle( valueTextNode.bounds.dilated( 4 ), cornerRadius, cornerRadius, {
-      lineWidth: 1,
-      stroke: 'black'
-    } );
-    this.addChild( valueRectangle );
-
-    // update the value whenever the property changes, and reset layout
-    var updateReadout = function( value ) {
-      var readoutValue = Util.toFixed( Math.abs( value ), 1 );
-      valueTextNode.text = StringUtils.format( pattern0Name1ValueUnitsVelocityString, readoutValue );
-
-      valueRectangle.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
-      valueTextNode.center = gaugeNode.center.plusXY( 0, options.radius / 2 );
-    };
-
     // dispose unnecessary for property links, SpeedometerNode exists for the lifetime of the sim
     showSpeedProperty.linkAttribute( this, 'visible' );
-    showValuesProperty.linkAttribute( valueRectangle, 'visible' );
-    showValuesProperty.linkAttribute( valueTextNode, 'visible' );
 
-    velocityProperty.link( updateReadout );
+    showValuesProperty.link( function( showValues ) {
+      gaugeNode.numberDisplayVisible = showValues;
+    } );
 
     // mutate post node construction so we can correctly translate
     this.mutate( options );
