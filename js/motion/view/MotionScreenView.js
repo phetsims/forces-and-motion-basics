@@ -270,7 +270,7 @@ define( function( require ) {
     model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.velocityProperty, model.showSpeedProperty, model.showValuesProperty,
+    var speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
       tandem.createTandem( 'speedometerNode' ), {
         // x: width / 2, // see comments about tween code below
         x: 300,

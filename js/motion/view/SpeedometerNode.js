@@ -25,14 +25,14 @@ define( function( require ) {
   /**
    * Constructor.
    *
-   * @param {Property<number>} velocityProperty
+   * @param {Property<number>} speedProperty
    * @param {Property<number>} showSpeedProperty
    * @param {Property<boolean>} showValuesProperty
    * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function SpeedometerNode( velocityProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
+  function SpeedometerNode( speedProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
 
     options = _.extend( {
       radius: 67,
@@ -43,7 +43,7 @@ define( function( require ) {
     Node.call( this );
 
     // create the gaugeNode
-    var gaugeNode = new GaugeNode( velocityProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+    var gaugeNode = new GaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         radius: 67,
         tandem: tandem.createTandem( 'gaugeNode' ),
@@ -53,12 +53,7 @@ define( function( require ) {
           font: new PhetFont( 16 ),
           backgroundStroke: 'black',
           align: 'center',
-          decimalPlaces: 1,
-          mapValue: function( value ) {
-
-            // Speedometer only reports absolute values
-            return Math.abs( value );
-          }
+          decimalPlaces: 1
         }
       } );
     this.addChild( gaugeNode );
