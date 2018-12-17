@@ -50,9 +50,6 @@ define( function( require ) {
         displayValue: true,
         numberDisplayOptions: {
           valuePattern: pattern0Name1ValueUnitsVelocityString,
-          font: new PhetFont( 16 ),
-          backgroundStroke: 'black',
-          align: 'center',
           decimalPlaces: 1
         }
       } );
