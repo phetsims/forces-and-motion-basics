@@ -11,7 +11,7 @@ define( function( require ) {
 
   //modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  var ValueGaugeNode = require( 'SCENERY_PHET/ValueGaugeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -41,8 +41,7 @@ define( function( require ) {
     // mutate with the options after construction so we can set the 'top'
     Node.call( this );
 
-    // create the gaugeNode
-    var gaugeNode = new GaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+    var gaugeNode = new ValueGaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         radius: 67,
         tandem: tandem.createTandem( 'gaugeNode' ),
