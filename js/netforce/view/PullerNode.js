@@ -121,7 +121,7 @@ define( function( require ) {
 
       // cancel the drag
       if ( puller.draggingProperty.get() ) {
-        dragHandler.endDrag();
+        dragHandler.interrupt();
 
         puller.reset();
       }

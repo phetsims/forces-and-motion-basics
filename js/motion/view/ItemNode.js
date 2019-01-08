@@ -200,7 +200,7 @@ define( function( require ) {
     model.resetAllEmitter.addListener( function() {
       // cancel the drag and reset item
       if ( item.draggingProperty.get() ) {
-        dragHandler.endDrag();
+        dragHandler.interrupt();
         item.reset();
       }
     } );
