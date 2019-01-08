@@ -71,7 +71,7 @@ define( function( require ) {
     /**
      * Reset this knot by resetting its associated model Properties.
      *
-     * @return {}
+     * @returns {}
      */
     reset: function() {
       this.xProperty.reset();

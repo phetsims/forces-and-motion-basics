@@ -635,7 +635,7 @@ define( function( require ) {
 
     /**
      * Get the state of the simulation, for persistence.
-     * @return {{properties: *, stack: Array}}
+     * @returns {{properties: *, stack: Array}}
      */
     getState: function() {
       var self = this;

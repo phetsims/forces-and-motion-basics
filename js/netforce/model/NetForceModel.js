@@ -414,7 +414,7 @@ define( function( require ) {
      * The length of the rope is the spacing between knots times the number of knots plus the difference between
      * the red and blue starting offsets.
      *
-     * @return {number}
+     * @returns {number}
      */
     getRopeLength: function() {
       return 6 * KNOT_SPACING + RED_KNOT_OFFSET - ( BLUE_KNOT_OFFSET + 3 * KNOT_SPACING );
