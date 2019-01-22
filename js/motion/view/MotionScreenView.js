@@ -18,7 +18,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
-  var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
   var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
@@ -44,7 +43,6 @@ define( function( require ) {
   var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
 
   // constants
-  var DEBUG = false; // adds a line at the bottom of the items to assist with layout
   var PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
   var ARROW_TOUCH_DILATION = 7; // dilattion in single dimension for touch areas of the double arrow button
 
@@ -523,18 +521,6 @@ define( function( require ) {
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
-
-    if ( DEBUG ) {
-      for ( var j = 0; j < this.itemNodes.length; j++ ) {
-
-        var itemN = this.itemNodes[ j ];
-
-        // TODO: This should be removed once the layout of items has gone through review.
-        // create a line at the bottom of the fridge to assist with layout
-        var debugLine = new Line( 0, itemN.bottom, this.layoutBounds.width, itemN.bottom, { stroke: 'red' } );
-        self.addChild( debugLine );
-      }
-    }
   }
 
   forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );
