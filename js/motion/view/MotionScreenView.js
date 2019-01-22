@@ -390,17 +390,6 @@ define( function( require ) {
 
     // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
     // toolbox is sitting on.
-    //var getItemToolbox = function( item ) {
-    //   the fridge and the crates both go in hte left toolbox
-    //if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
-    //  return leftItemToolboxNode;
-    //}
-    //else {
-    //  return rightItemToolboxNode;
-    //}
-    //};
-    // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
-    // toolbox is sitting on.
     var getItemSide = function( item ) {
       // the fridge and the crates both go in hte left toolbox
       if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
