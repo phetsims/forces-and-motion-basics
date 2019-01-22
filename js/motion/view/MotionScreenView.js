@@ -7,9 +7,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const FineCoarseSpinner = require( 'SCENERY_PHET/FineCoarseSpinner' );
+  const Vector2 = require( 'DOT/Vector2' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
-  var ArrowButton = require( 'SUN/buttons/ArrowButton' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
@@ -33,7 +34,6 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RichText = require( 'SCENERY/nodes/RichText' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Shape = require( 'KITE/Shape' );
   var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -44,12 +44,6 @@ define( function( require ) {
 
   // constants
   var PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
-  var ARROW_TOUCH_DILATION = 7; // dilattion in single dimension for touch areas of the double arrow button
-
-  // arrow button constants
-  var BUTTON_ARROW_HEIGHT = 14;
-  var BUTTON_ARROW_WIDTH = BUTTON_ARROW_HEIGHT * Math.sqrt( 3 ) / 2;
-  var BUTTON_ARROW_SPACING = -BUTTON_ARROW_HEIGHT * ( 1 / 2.5 );
 
   // images
   var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
@@ -153,113 +147,26 @@ define( function( require ) {
     this.addChild( appliedForceSliderTextNode );
     this.addChild( appliedForceSlider );
 
-    //Position the units to the right of the text box.
-    var readoutTextNode = new Text( '???', {
-      font: new PhetFont( 22 ),
-      pickable: false,
-      maxWidth: maxTextWidth / 3,
-      tandem: tandem.createTandem( 'readoutTextNode' )
+    var appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
+      numberDisplayOptions: {
+        font: new PhetFont( 22 ),
+        valuePattern: pattern0ValueUnitsNewtonsString,
+
+        align: 'center',
+        xMargin: 20,
+        yMargin: 4,
+        numberMaxWidth: maxTextWidth / 3
+      },
+
+      deltaFine: 1,
+      deltaCoarse: 50,
+
+      spacing: 6,
+      centerBottom: new Vector2( width / 2, appliedForceSlider.top - 12 )
     } );
-    readoutTextNode.bottom = appliedForceSlider.top - 15;
-    model.appliedForceProperty.link( function( appliedForce ) {
-
-      //Must match the other formatters below, see roundedAppliedForceProperty near the creation of the ReadoutArrows
-      var roundedValue = Util.toFixed( Util.roundSymmetric( appliedForce ), 0 );
-      var numberText = Util.toFixed( parseInt( roundedValue, 10 ), 0 );
-
-      //Prevent -0 from appearing, see https://github.com/phetsims/forces-and-motion-basics/issues/70
-      if ( numberText === '-0' ) { numberText = '0'; }
-      readoutTextNode.text = StringUtils.format( pattern0ValueUnitsNewtonsString, numberText );
-      readoutTextNode.centerX = width / 2;
-    } );
-
-    //Make 'Newtons Readout' stand out but not look like a text entry field
-    this.textPanelNode = new Rectangle( 0, 0, readoutTextNode.right - readoutTextNode.left + 50, readoutTextNode.height + 4, {
-      fill: 'white',
-      stroke: 'lightgrey',
-      centerX: width / 2,
-      centerY: readoutTextNode.centerY,
-      pickable: false
-    } );
-    this.addChild( this.textPanelNode );
-    this.addChild( readoutTextNode );
-
-    // Show left arrow button 'tweaker' to change the applied force in increments of 50
-    var doubleLeftArrowButton = new ArrowButton( 'left', function() {
-      model.appliedForceProperty.set( Math.max( model.appliedForceProperty.get() - 50, -500 ) );
-    }, {
-      right: this.textPanelNode.left - 6,
-      centerY: this.textPanelNode.centerY,
-      numberOfArrows: 2,
-      arrowSpacing: BUTTON_ARROW_SPACING,
-      arrowHeight: BUTTON_ARROW_HEIGHT,
-      arrowWidth: BUTTON_ARROW_WIDTH,
-      tandem: tandem.createTandem( 'doubleLeftArrowButton' )
-    } );
-
-    // Small left arrow button 'tweaker' to change the applied force in increments of 1
-    var leftArrowButton = new ArrowButton( 'left', function() {
-      model.appliedForceProperty.set( Math.max( model.appliedForceProperty.get() - 1, -500 ) );
-    }, {
-      right: doubleLeftArrowButton.left - 6,
-      centerY: this.textPanelNode.centerY,
-      arrowHeight: BUTTON_ARROW_HEIGHT, // from tip to base
-      arrowWidth: BUTTON_ARROW_WIDTH, // width of base
-      tandem: tandem.createTandem( 'leftArrowButton' )
-    } );
-
-    // define custom touch areas so the arrow buttons don't overlap
-    var doubleLeftShape = new Shape.rect( 0, -ARROW_TOUCH_DILATION, doubleLeftArrowButton.width + ARROW_TOUCH_DILATION, doubleLeftArrowButton.height + 2 * ARROW_TOUCH_DILATION );
-    doubleLeftArrowButton.touchArea = doubleLeftShape;
-
-    //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    Property.multilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
-      var enableButtons = ( stackSize > 0 && (speedClassification === 'LEFT_SPEED_EXCEEDED' ? false : appliedForce > -500 ) );
-      leftArrowButton.enabled = enableButtons;
-      doubleLeftArrowButton.enabled = enableButtons;
-    } );
-    this.addChild( doubleLeftArrowButton );
-    this.addChild( leftArrowButton );
-
-    //Show right arrow button 'tweaker' to change the applied force in increments of 50
-    var doubleRightArrowButton = new ArrowButton( 'right', function() {
-      model.appliedForceProperty.set( Math.min( model.appliedForceProperty.get() + 50, 500 ) );
-    }, {
-      left: this.textPanelNode.right + 6,
-      centerY: this.textPanelNode.centerY,
-      numberOfArrows: 2,
-      arrowSpacing: BUTTON_ARROW_SPACING,
-      arrowHeight: BUTTON_ARROW_HEIGHT,
-      arrowWidth: BUTTON_ARROW_WIDTH,
-      tandem: tandem.createTandem( 'doubleRightArrowButton' )
-    } );
-
-    var rightArrowButton = new ArrowButton( 'right', function() {
-      model.appliedForceProperty.set( Math.min( model.appliedForceProperty.get() + 1, 500 ) );
-    }, {
-      // xMargin: SINGLE_ARROW_X_MARGIN,
-      // yMargin: SINGLE_ARROW_Y_MARGIN,
-      left: doubleRightArrowButton.right + 6,
-      centerY: this.textPanelNode.centerY,
-      arrowHeight: BUTTON_ARROW_HEIGHT, // from tip to base
-      arrowWidth: BUTTON_ARROW_WIDTH, // width of base
-      tandem: tandem.createTandem( 'rightArrowButton' )
-    } );
-
-    var doubleRightShape = new Shape.rect( -ARROW_TOUCH_DILATION, -ARROW_TOUCH_DILATION, doubleLeftArrowButton.width + ARROW_TOUCH_DILATION, doubleLeftArrowButton.height + 2 * ARROW_TOUCH_DILATION );
-    doubleRightArrowButton.touchArea = doubleRightShape;
-
-    //Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    Property.multilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
-      var enableButtons = ( stackSize > 0 && (speedClassification === 'RIGHT_SPEED_EXCEEDED' ? false : appliedForce < 500 ) );
-      doubleRightArrowButton.enabled = enableButtons;
-      rightArrowButton.enabled = enableButtons;
-    } );
-    this.addChild( rightArrowButton );
-    this.addChild( doubleRightArrowButton );
+    this.addChild( appliedForceSpinner );
 
     model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
-    model.stack.lengthProperty.link( disableText( readoutTextNode ) );
     model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
