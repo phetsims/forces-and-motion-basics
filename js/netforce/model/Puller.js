@@ -147,11 +147,6 @@ define( function( require ) {
     //Detach the puller from the knot.
     disconnect: function() {
       this.knotProperty.set( null );
-    },
-
-    //Get the name for the puller, used in a11y
-    get name() {
-      return this.size + ' ' + this.type + ' Puller';
-    } //TODO localize accessibility
+    }
   } );
 } );
