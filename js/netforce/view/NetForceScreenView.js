@@ -24,7 +24,6 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
   var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
   var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
@@ -33,7 +32,6 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
   var Sound = require( 'VIBE/Sound' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
   var Text = require( 'SCENERY/nodes/Text' );
 
   // images
@@ -291,18 +289,6 @@ define( function( require ) {
         lastFlagNode = new FlagNode( model, self.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) );
         self.addChild( lastFlagNode );
       }
-    } );
-
-    // Accessibility for reading out the total force
-    var accessibleTextProperty = new Property( '', {
-      tandem: tandem.createTandem( 'accessibleTextProperty' ),
-      phetioType: PropertyIO( StringIO )
-    } );
-    model.numberPullersAttachedProperty.link( function() {
-      accessibleTextProperty.value = 'Left force: ' + Math.abs( model.getLeftForce() ) + ' Newtons, ' +
-                                     'Right force: ' + Math.abs( model.getRightForce() ) + ' Newtons, ' +
-                                     'Net Force: ' + Math.abs( model.getNetForce() ) + ' Newtons ' +
-                                     (model.getNetForce() === 0 ? '' : model.getNetForce() > 0 ? 'to the right' : 'to the left');
     } );
 
     var golfClap = new Sound( golfClapSound );
