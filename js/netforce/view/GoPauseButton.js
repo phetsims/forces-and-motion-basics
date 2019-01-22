@@ -25,9 +25,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var goButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/goButton.description' );
   var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
-  var pauseButtonDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/pauseButton.description' );
   var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
 
   //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
@@ -111,13 +109,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'goButton' )
     } );//green
 
-    goButton.mutate( {
-      tagName: 'button',
-      descriptionContent: goButtonDescriptionString,
-      descriptionTagName: 'p'
-    } );
-    goButton.setAccessibleAttribute( 'aria-disabled', !isGoButtonEnabled() );
-
     var pauseListener = function() {
       model.runningProperty.set( false );
     };
@@ -125,12 +116,7 @@ define( function( require ) {
       content: wrap( pauseTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
       baseColor: '#df1a22',
       listener: pauseListener,
-      tandem: tandem.createTandem( 'pauseButton' ),
-
-      // a11y
-      tagName: 'button',
-      focusable: false,
-      descriptionContent: pauseButtonDescriptionString
+      tandem: tandem.createTandem( 'pauseButton' )
     } );//red
 
     var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
