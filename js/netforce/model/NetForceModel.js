@@ -144,7 +144,7 @@ define( function( require ) {
       createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
     ];
 
-    //Create the pullers from left to right so the tab order (for accessibility) will be as expected.
+    // create the pullers
     var bigPullerY = 473;
     var mediumPullerY = 426;
     var smallPullerY = 394;
