@@ -32,15 +32,12 @@ define( function( require ) {
    * @param {Image} imageHolding image to be shown if it is a sitting person holding their arms in the air
    * @param {Property} showMassesProperty boolean property of whether the masses should be shown
    * @param {Rectangle} toolboxNode parent toolbox for the WaterBucketNode
-   * @param {string} accessibleDescription
    * @param {Tandem} tandem
    * @constructor
    */
-  function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,
-                            accessibleDescription, tandem ) {
+  function WaterBucketNode( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode, tandem ) {
     this.item = item;
-    ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode,
-      accessibleDescription, tandem );
+    ItemNode.call( this, model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode, tandem );
     var waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
       fill: 'rgb(9, 125, 159)',

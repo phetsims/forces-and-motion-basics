@@ -400,11 +400,6 @@ define( function( require ) {
       }
     };
 
-    // get the accessible description for the item
-    var getAccessibleDescription = function( item ) {
-      return 'Please implement the "getDescriptionContent" function';
-    };
-
     //Iterate over the items in the model and create and add nodes for each one
     var leftItemLayer = new Node( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
     var rightItemLayer = new Node( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
@@ -414,7 +409,6 @@ define( function( require ) {
       var itemSide = getItemSide( item );
       var toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
       var itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
-      var accessibleDescription = getAccessibleDescription();
       var Constructor = item.bucket ? WaterBucketNode : ItemNode;
       var itemNode = new Constructor( model, self, item,
         item.image,
@@ -422,7 +416,6 @@ define( function( require ) {
         item.holdingImage || item.image,
         model.showMassesProperty,
         toolboxNode,
-        accessibleDescription,
         tandem.createTandem( item.name ) );
       this.itemNodes.push( itemNode );
 
@@ -530,9 +523,6 @@ define( function( require ) {
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
-
-    // set the navigation order for this screen
-    this.accessibleOrder = [ leftItemToolboxNode, rightItemToolboxNode ];
 
     if ( DEBUG ) {
       for ( var j = 0; j < this.itemNodes.length; j++ ) {

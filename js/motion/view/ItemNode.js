@@ -39,7 +39,7 @@ define( function( require ) {
    * @param {Rectangle} itemToolbox - The toolbox that contains this item
    * @constructor
    */
-  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, accessibleDescription, tandem ) {
+  function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, tandem ) {
 
     var self = this;
     this.item = item;
