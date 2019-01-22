@@ -385,16 +385,6 @@ define( function( require ) {
           labelText.setText( accelerationString );
           labelText.centerX = accelerometerNode.centerX;
         }
-
-        // accelerometer and speedometer are always to the left of the stack now
-        // TODO: Remove this code once this layout change is verified.
-        // see comments about tween code above.
-        // if( motionView.stackHeight > stackHeightThreshold ) {
-        //   accelerometerWithTickLabels.centerX = 300;
-        // }
-        // else if ( motionView.stackHeight <= stackHeightThreshold ) {
-        //   accelerometerWithTickLabels.centerX = width / 2;
-        // }
       } );
     }
 
