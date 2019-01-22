@@ -36,32 +36,10 @@ define( function( require ) {
         focusable: false
       }
     );
-    var self = this;
     this.netForceModel = netForceModel;
 
     // @public - id used to quickly find this element among peers in the DOM
     this.uniqueId = type === 'left' ? 'leftFocusRegion' : 'rightFocusRegion';
-
-    this.addInputListener( {
-      click: function( event ) {
-        // we want exit event bubbling - event fired in children should notify parent.
-        // only on escape key
-        if ( event.domEvent.keyCode === 27 ) {
-
-          // a puller was being dragged when escape was pressed - exiting this group, so make sure that all
-          // pullers are dropped
-          netForceModel.pullers.forEach( function( puller ) {
-            puller.draggingProperty.set( false );
-          } );
-
-          // exit the group of knots
-          self.exitGroup();
-
-          // reset focus to the puller toolbox.
-          toolboxNode.focus();
-        }
-      }
-    } );
   }
 
   forcesAndMotionBasics.register( 'KnotFocusRegion', KnotFocusRegion );
