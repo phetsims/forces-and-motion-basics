@@ -51,10 +51,7 @@ define( function( require ) {
   var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
 
   // strings
-  var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
   var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
-  var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
-  var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
@@ -78,7 +75,6 @@ define( function( require ) {
 
     ScreenView.call( this, {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
-      screenDescription: netForceDescriptionString,
       tandem: tandem
     } );
 
@@ -160,8 +156,8 @@ define( function( require ) {
     this.addChild( this.ropeNode );
 
     // create the toolboxes that hold the puller children
-    var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', bluePullerGroupDescriptionString );
-    var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', redPullerGroupDescriptionString );
+    var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
+    var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 

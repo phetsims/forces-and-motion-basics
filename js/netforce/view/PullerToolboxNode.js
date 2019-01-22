@@ -27,10 +27,8 @@ define( function( require ) {
    * @param {number} minIndex
    * @param {number} maxIndex
    * @param {string || Color} highlightColor
-   * @param {string} pullerGroupDescriptionString
    */
-  function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor,
-                              pullerGroupDescriptionString ) {
+  function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor ) {
     this.highlightColor = highlightColor;
     this.uniqueId = side + '-pullerToolbox';
     var toolboxHeight = 216;
