@@ -18,7 +18,6 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
-  var ItemToolboxNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemToolboxNode' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
@@ -61,8 +60,6 @@ define( function( require ) {
   var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
   var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
   var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
-  var motionLeftItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.leftItemGroup.description' );
-  var motionRightItemGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/motion.rightItemGroup.description' );
   var pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
   var pattern0ValueUnitsNewtonsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsNewtons' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
@@ -125,18 +122,16 @@ define( function( require ) {
     var showItemToolboxes = ForcesAndMotionBasicsQueryParameters.showItemToolboxes;
     var fill = showItemToolboxes ? '#e7e8e9' : null;
     var stroke = showItemToolboxes ? '#000000' : null;
-    var leftItemToolboxNode = new ItemToolboxNode( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, 'left', {
+    var leftItemToolboxNode = new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
-      descriptionContent: motionLeftItemGroupDescriptionString,
       tandem: tandem.createTandem( 'leftItemToolboxNode' )
     } );
-    var rightItemToolboxNode = new ItemToolboxNode( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, 'right', {
+    var rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
-      descriptionContent: motionRightItemGroupDescriptionString,
       tandem: tandem.createTandem( 'rightItemToolboxNode' )
     } );
 

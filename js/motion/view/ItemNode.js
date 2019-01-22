@@ -37,7 +37,7 @@ define( function( require ) {
    * @param {Image} sittingImage optional image for when the person is sitting down
    * @param {Image} holdingImage optional image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
-   * @param {ItemToolboxNode} itemToolbox - The toolbox that contains this item
+   * @param {Rectangle} itemToolbox - The toolbox that contains this item
    * @constructor
    */
   function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, accessibleDescription, tandem ) {

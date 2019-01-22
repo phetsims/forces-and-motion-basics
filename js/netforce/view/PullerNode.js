@@ -47,7 +47,6 @@ define( function( require ) {
       cursor: 'pointer',
       scale: 0.86
     } );
-    this.accessiblePullerId = this.id; // @private, id to quickly find this node's representation in the accessible DOM
 
     model.startedProperty.link( function() {
       self.updateImage( puller, model );
