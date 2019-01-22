@@ -75,12 +75,6 @@ define( function( require ) {
       phetioType: PropertyIO( StringIO )
     } );
 
-    // @public {string} - text description for accessibility
-    this.textDescriptionProperty = new Property( '', {
-      tandem: tandem.createTandem( 'textDescriptionProperty' ),
-      phetioType: PropertyIO( StringIO )
-    } );
-
     // @public - emits an event when the puller is dropped
     this.droppedEmitter = new Emitter();
 
@@ -88,15 +82,6 @@ define( function( require ) {
     this.draggedEmitter = new Emitter();
 
     this.other = options.other;
-
-    var pullerDescription = (this.type === 'red' ? 'Right Group' : 'Left Group' ) + ': ' +
-                            options.other + ' ' +
-                            (
-                              this.size === 'small' ? 'Strong' :
-                              this.size === 'medium' ? 'Stronger' :
-                              'Strongest'
-                            ) + ' ' + ' person';
-    this.textDescriptionProperty.set( pullerDescription );
 
     //Move with the knot
     var updatePosition = function( knotX ) {
@@ -115,8 +100,6 @@ define( function( require ) {
       if ( newKnot ) {
         newKnot.xProperty.link( updatePosition );
       }
-
-      self.textDescriptionProperty.set( pullerDescription + (newKnot ? '. attached to a knot on the rope' : '' ) );
     } );
   }
 
@@ -133,7 +116,6 @@ define( function( require ) {
       this.knotProperty.reset();
       this.positionProperty.reset();
       this.lastPlacementProperty.reset();
-      this.textDescriptionProperty.reset();
     },
 
     //Detach the puller from the knot.
