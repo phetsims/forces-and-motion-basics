@@ -1,8 +1,7 @@
 // Copyright 2015-2017, University of Colorado Boulder
 
 /**
- * Node representation of the movable cart in Forces and Motion: Basics net force screen.  The node is an image with
- * accessible content that uses an aria-live region to notify accessible technologies of position updates.
+ * Node representation of the movable cart in Forces and Motion: Basics net force screen.
  *
  * @author Jesse Greenberg
  */
@@ -22,11 +21,12 @@ define( function( require ) {
   // strings
   var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
-
   /**
    * Constructor.
    *
    * @param {Cart} cart
+   * @param {NumberProperty} speedProperty
+   * @param {Property.<Boolean>} showSpeedProperty
    * @param {Tandem} tandem
    * @constructor
    */
