@@ -38,11 +38,7 @@ define( function( require ) {
     var toolboxOptions = {
       fill: '#e7e8e9',
       stroke: defaultStroke,
-      lineWidth: defaultLineWidth,
-
-      // a11y
-      tagName: 'div',
-      focusable: true
+      lineWidth: defaultLineWidth
     };
 
     var toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
