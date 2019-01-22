@@ -272,33 +272,6 @@ define( function( require ) {
         top: 8
       } );
 
-    // Due to the addition of the acceleration readout, vertical space above the stack is more limited.  We are trying
-    // out a new layout where the accelerometer and speedometer are always to the left of the stack.
-    // See https://github.com/phetsims/forces-and-motion-basics/issues/153
-    // TODO: Keeping this code until we verify that this is acceptable behavior. Remove this code once verified.
-    //Move away from the stack if the stack getting too high.  No need to record this in the model since it will always be caused deterministically by the model.
-    //Use Tween.JS to smoothly animate
-    // var itemsCenteredProperty = new Property( true );
-    // var stackHeightThreshold = 160;
-    // model.stack.lengthProperty.link( function() {
-
-    //   //Move both the accelerometer and speedometer if the stack is getting too high, based on the height of items in the stack
-    //   if ( motionView.stackHeight > stackHeightThreshold && itemsCenteredProperty.value ) {
-    //     itemsCenteredProperty.value = false;
-    //     new TWEEN.Tween( speedometerNode ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
-    //     if ( accelerometerNode ) {
-    //       new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: 300 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
-    //     }
-    //   }
-    //   else if ( motionView.stackHeight <= stackHeightThreshold && !itemsCenteredProperty.value ) {
-    //     itemsCenteredProperty.value = true;
-
-    //     new TWEEN.Tween( speedometerNode ).to( { x: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
-    //     if ( accelerometerNode ) {
-    //       new TWEEN.Tween( accelerometerWithTickLabels ).to( { centerX: width / 2 }, 400 ).easing( TWEEN.Easing.Cubic.InOut ).start(phet.joist.elapsedTime);
-    //     }
-    //   }
-    // } );
     this.addChild( speedometerNode );
 
     //Create and add the control panel
