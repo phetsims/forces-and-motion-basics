@@ -54,14 +54,10 @@ define( function( require ) {
 
   // strings
   var bluePullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/bluePullerGroup.description' );
-  var groupString = require( 'string!FORCES_AND_MOTION_BASICS/group' );
   var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
-  var leftString = require( 'string!FORCES_AND_MOTION_BASICS/left' );
   var netForceDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/netForce.description' );
-  var pullerString = require( 'string!FORCES_AND_MOTION_BASICS/puller' );
   var redPullerGroupDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/redPullerGroup.description' );
   var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
-  var rightString = require( 'string!FORCES_AND_MOTION_BASICS/right' );
   var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
 
@@ -234,16 +230,6 @@ define( function( require ) {
       return puller.type === 'red' ? rightToolbox : leftToolbox;
     };
 
-    var getAccessiblePullerDescription = function( puller ) {
-      var type = puller.type;
-      var size = puller.size;
-
-      var sideDescription = type === 'blue' ? leftString : rightString;
-
-      // create the accessible description for this puller.
-      return sideDescription + ' ' + groupString + ' ' + size + ' ' + pullerString + ' ';
-    };
-
     var leftPullerLayer = new Node( {
       tandem: tandem.createTandem( 'leftPullerLayer' )
     } );
@@ -257,7 +243,6 @@ define( function( require ) {
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
         getPullerToolbox( puller ),
-        getAccessiblePullerDescription( puller ),
         tandem.createTandem( puller.pullerTandem.tail )
       );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;

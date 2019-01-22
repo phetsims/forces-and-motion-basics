@@ -23,18 +23,16 @@ define( function( require ) {
    * @param {Image} image image of the puller standing upright
    * @param {Image} pullImage image of the puller exerting a force
    * @param {PullerToolboxNode} pullerToolboxNode
-   * @param {string} accessibleDescription
    * @param {Tandem} tandem
    * @param {Object} options
    * @constructor
    */
-  function PullerNode( puller, model, image, pullImage, pullerToolboxNode, accessibleDescription, tandem, options ) {
+  function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem, options ) {
     this.puller = puller;
     var self = this;
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image; // @private
     this.pullImage = pullImage; // @private
-    this.description = accessibleDescription;
     var x = puller.positionProperty.get().x;
     var y = puller.positionProperty.get().y;
 
