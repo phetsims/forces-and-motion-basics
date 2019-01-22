@@ -53,14 +53,6 @@ define( function( require ) {
       self.updateLocation( puller, model );
     } );
 
-    puller.hoverKnotProperty.link( function( hoverKnot ) {
-      if ( hoverKnot ) {
-        var pullingOffset = puller.standOffsetX;
-        var blueOffset = self.puller.type === 'blue' ? -60 + 10 + self.width / 2 : -self.width / 2;
-        self.setTranslation( hoverKnot.xProperty.get() + pullingOffset + blueOffset, hoverKnot.y - self.height + 90 - 120 );
-      }
-    } );
-
     model.startedProperty.link( function() {
       self.updateImage( puller, model );
       self.updateLocation( puller, model );

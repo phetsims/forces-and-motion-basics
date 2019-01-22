@@ -75,13 +75,6 @@ define( function( require ) {
       phetioType: PropertyIO( StringIO )
     } );
 
-    // For keyboard accessibility, the knot that the puller is hovering over
-    // TODO: What are the valid values for this Property?
-    this.hoverKnotProperty = new Property( null, {
-      tandem: tandem.createTandem( 'hoverKnotProperty' ),
-      phetioType: PropertyIO( NullableIO( KnotIO ) )
-    } );
-
     // @public {string} - text description for accessibility
     this.textDescriptionProperty = new Property( '', {
       tandem: tandem.createTandem( 'textDescriptionProperty' ),
@@ -140,7 +133,6 @@ define( function( require ) {
       this.knotProperty.reset();
       this.positionProperty.reset();
       this.lastPlacementProperty.reset();
-      this.hoverKnotProperty.reset();
       this.textDescriptionProperty.reset();
     },
 
