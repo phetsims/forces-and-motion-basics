@@ -19,9 +19,7 @@ define( function( require ) {
 
   // strings
   var blueWinsString = require( 'string!FORCES_AND_MOTION_BASICS/blueWins' );
-  var leftSideWinsDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/leftSideWins.description' );
   var redWinsString = require( 'string!FORCES_AND_MOTION_BASICS/redWins' );
-  var rightSideWinsDescriptionString = require( 'string!FORCES_AND_MOTION_BASICS/rightSideWins.description' );
 
   /**
    * Constructor for FlagNode
@@ -100,25 +98,6 @@ define( function( require ) {
       shape.lineTo( 0, 0 );
       shape.close();
       this.path.shape = shape;
-    },
-
-    /**
-     * Update the accessible game over element in the parallel DOM to notify the user that the game is over and that
-     * a team has won the game of tug of war.
-     *
-     * @public (accessibility)
-     */
-    updateAccessibleGameOverElement: function() {
-
-      // determine which string to use by determining which side won the game
-      var gameOverDescriptionString = ( this.model.cart.xProperty.get() < 0 ) ? leftSideWinsDescriptionString : rightSideWinsDescriptionString;
-
-      // get the live game over element from the DOM
-      var gameOverElement = document.getElementById( 'netForceGameOverElement' );
-
-      // update the description and fire the elements aria events ot notify user that the game is over
-      gameOverElement.innerText = gameOverDescriptionString;
-
     }
   } );
 } );
