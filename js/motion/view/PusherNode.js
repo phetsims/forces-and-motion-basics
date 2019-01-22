@@ -272,7 +272,7 @@ define( function( require ) {
 
       // update visibility and position if pusher is on screen and is still able to push
       else {
-        var index = Math.min( 30, Math.round( Math.abs( appliedForce / 500 * 30 ) ) );
+        var index = Math.min( 30, Util.roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
         }

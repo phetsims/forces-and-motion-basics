@@ -191,16 +191,16 @@ define( function( require ) {
 
             //Discretize the friction so that the new nodes/images are not created at every step
             newFriction = newFriction * 100;
-            newFriction = Math.round( newFriction / 2 ) * 2;
+            newFriction = Util.roundSymmetric( newFriction / 2 ) * 2;
             newFriction = newFriction / 100;
 
             var height = 3;
             var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
             numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-            var desiredBlack = Math.round( numSpecks / 2 );
-            var desiredGray = Math.round( numSpecks / 2 );
-            var desiredWhite = Math.round( numSpecks / 10 );
+            var desiredBlack = Util.roundSymmetric( numSpecks / 2 );
+            var desiredGray = Util.roundSymmetric( numSpecks / 2 );
+            var desiredWhite = Util.roundSymmetric( numSpecks / 10 );
 
             if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
               return;
