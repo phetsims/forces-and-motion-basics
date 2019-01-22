@@ -12,7 +12,6 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -23,14 +22,13 @@ define( function( require ) {
    * @param {NetForceModel} model
    * @param {Image} image image of the puller standing upright
    * @param {Image} pullImage image of the puller exerting a force
-   * @param {KnotFocusRegion} knotRegionNode
    * @param {PullerToolboxNode} pullerToolboxNode
    * @param {string} accessibleDescription
    * @param {Tandem} tandem
    * @param {Object} options
    * @constructor
    */
-  function PullerNode( puller, model, image, pullImage, knotRegionNode, pullerToolboxNode, accessibleDescription, tandem, options ) {
+  function PullerNode( puller, model, image, pullImage, pullerToolboxNode, accessibleDescription, tandem, options ) {
     this.puller = puller;
     var self = this;
     this.puller.node = this; //Wire up so node can be looked up by model element.
@@ -126,70 +124,7 @@ define( function( require ) {
       }
     } );
 
-    this.addInputListener( {
-      keydown: function( event ) {
-        var domEvent = event.domEvent;
-
-        // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
-        //event.preventDefault();
-
-        // get the live action element that notifies the user of how their actions effect the screen layout
-        var actionElement = document.getElementById( 'netForceActionElement' );
-
-        // on tab, exit the group and focus the next element in the navigation order
-        if ( domEvent.keyCode === KeyboardUtil.KEY_TAB ) {
-          pullerToolboxNode.exitGroup( document.getElementById( pullerToolboxNode.uniqueId ) );
-        }
-
-        // if the puller is not grabbed, grab it for drag and drop
-        if ( domEvent.keyCode === KeyboardUtil.KEY_ENTER || domEvent.keyCode === KeyboardUtil.KEY_SPACE ) {
-          // the puller is already on a rope on the knot.  Place it right back in the toolbox.
-          // TODO: This behavior is a placeholder, I am not sure how this should behave.
-          if ( self.puller.knotProperty.get() !== null ) {
-            self.puller.knotProperty.set( null );
-
-            var grabbedPuller = self.puller;
-            grabbedPuller.reset();
-            model.numberPullersAttachedProperty.set( model.countAttachedPullers() );
-            grabbedPuller.draggingProperty.set( false );
-            self.updateImage( grabbedPuller, model );
-            self.updateLocation( grabbedPuller, model );
-
-            // reset the puller's alt text to describe it in the toolbox
-            self.setAccessibleAttribute( 'alt', accessibleDescription );
-
-            // update live action element to tell user that the puller was moved back to the toolbox
-            actionElement.innerText = accessibleDescription + ' placed in toolbox';
-
-          }
-          else {
-            // notify AT that the puller is in a 'grabbed' state
-            self.grabbed = true;
-            self.puller.draggingProperty.set( true );
-
-            // update the live description for the net force screen
-            var actionString = 'Selected ' + accessibleDescription;
-            actionElement.innerText = actionString;
-
-            // enter 'move mode' by exiting this group, and entering the group of knots
-            pullerToolboxNode.exitGroup();
-
-            var knotRegionType = puller.type === 'red' ? 'rightFocusRegion' : 'leftFocusRegion';
-            var knotRegionElement = document.getElementById( knotRegionType );
-            knotRegionNode.enterGroup( knotRegionElement );
-          }
-        }
-      }
-          
-    } );
-
-    this.mutate( _.extend( { 
-
-      // a11y options
-      tagName: 'img',
-      focusable: false,
-      innerContent: accessibleDescription
-    }, options ) );
+    this.mutate( options );
   }
 
   forcesAndMotionBasics.register( 'PullerNode', PullerNode );

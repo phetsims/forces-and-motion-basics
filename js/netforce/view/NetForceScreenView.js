@@ -17,8 +17,6 @@ define( function( require ) {
   var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KnotFocusRegion = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotFocusRegion' );
-  var KnotHighlightNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/KnotHighlightNode' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var NetForceControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceControlPanel' );
   var NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
@@ -173,16 +171,6 @@ define( function( require ) {
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
-    var ropeHeightOffset = 215;
-
-    // region which holds the left knots for drag and drop
-    var leftFocusRegion = new KnotFocusRegion( model, leftToolbox, ropeHeightOffset, 'left' );
-    this.addChild( leftFocusRegion );
-
-    // region which holds the right knots for drag and drop
-    var rightFocusRegion = new KnotFocusRegion( model, rightToolbox, ropeHeightOffset, 'right' );
-    this.addChild( rightFocusRegion );
-
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {
       tandem: tandem.createTandem( 'frontLayer' ),
@@ -241,11 +229,6 @@ define( function( require ) {
              null;
     };
 
-    // get the focus region for a given puller.
-    var getKnotRegion = function( puller ) {
-      return puller.type === 'red' ? rightFocusRegion : leftFocusRegion;
-    };
-
     // get the associated toolbox for the puller
     var getPullerToolbox = function( puller ) {
       return puller.type === 'red' ? rightToolbox : leftToolbox;
@@ -273,7 +256,6 @@ define( function( require ) {
       var pullerNode = new PullerNode( puller, self.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
-        getKnotRegion( puller ),
         getPullerToolbox( puller ),
         getAccessiblePullerDescription( puller ),
         tandem.createTandem( puller.pullerTandem.tail )
@@ -283,41 +265,6 @@ define( function( require ) {
       self.pullerNodes.push( pullerNode );
     } );
 
-    model.knots.forEach( function( knot, i ) {
-      if ( knot.type === 'blue' ) {
-        leftFocusRegion.addChild( new KnotHighlightNode( knot, leftPullerLayer.children, leftFocusRegion, leftToolbox, model, tandem.createTandem( 'blueHighlightNode' + i ) ) );
-      }
-      else if ( knot.type === 'red' ) {
-        rightFocusRegion.addChild( new KnotHighlightNode( knot, rightPullerLayer.children, rightFocusRegion, rightToolbox, model, tandem.createTandem( 'redHighlightNode' + i ) ) );
-      }
-      else {
-        assert && assert( 'Knots can only be of type "red" or "blue" in this sim.' );
-      }
-    } );
-
-    // add puller groups to the toolboxes for nesting hierarchy in parallel DOM.  Specify puller order here.
-    leftToolbox.accessibleOrder = leftPullerLayer.children.sort( function( a, b ) {
-      if ( a.bounds.height < b.bounds.height ) {
-        return 1;
-      }
-      if ( a.bounds.height > b.bounds.height ) {
-        return -1;
-      }
-      else {
-        return 0;
-      }
-    } );
-    rightToolbox.accessibleOrder = rightPullerLayer.children.sort( function( a, b ) {
-      if ( a.bounds.height < b.bounds.height ) {
-        return -1;
-      }
-      if ( a.bounds.height > b.bounds.height ) {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-    } );
     leftToolbox.addChild( leftPullerLayer );
     rightToolbox.addChild( rightPullerLayer );
 
