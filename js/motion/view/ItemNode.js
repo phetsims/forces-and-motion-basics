@@ -12,7 +12,6 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardUtil = require( 'SCENERY/accessibility/KeyboardUtil' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -47,11 +46,6 @@ define( function( require ) {
     Node.call( this, {
       cursor: 'pointer',
       scale: item.imageScaleProperty.get(),
-
-      // add accessible content
-      tagName: 'img',
-      focusable: false,
-      draggable: true,
 
       tandem: tandem
     } );
@@ -261,57 +255,6 @@ define( function( require ) {
     self.addChild( labelNode );
 
     showMassesProperty.link( function( showMasses ) { labelNode.visible = showMasses; } );
-
-    this.addInputListener( {
-      keydown: function( event ) {
-  
-        var domEvent = event.domEvent;        
-
-        // experimenting with restricting choice control to arrow keys.  Come back to this line and discuss with others.
-        domEvent.preventDefault();
-
-        // on tab, exit the group and focus the next element.
-        if ( domEvent.keyCode === KeyboardUtil.KEY_TAB ) {
-          itemToolbox.exitGroup( document.getElementById( itemToolbox.uniqueId ) );
-        }
-
-        // if the puller is not grabbed, grab it for drag and drop
-        if ( !item.draggingProperty.get() ) {
-          if ( domEvent.keyCode === KeyboardUtil.KEY_ENTER || domEvent.keyCode === KeyboardUtil.KEY_SPACE ) {
-
-            // remove the item from the stack if it is already there
-            var index = model.stack.indexOf( item );
-            if ( index >= 0 ) {
-              model.spliceStack( index );
-            }
-
-            // the item is already on the skateboard.  Place it right back in the toolbox.
-            // TODO: This behavior is a placeholder, I am not sure how this should behave.
-            if ( item.positionProperty.get().y < 350 ) {
-              item.onBoardProperty.set( false );
-              item.animateHome();
-            }
-            // the item is in the toolbox
-            else {
-              // notify AT that the item is in a 'grabbed' state
-              self.setAccessibleAttribute( 'aria-grabbed', true );
-
-              // update the live description for the net force screen
-              var actionElement = document.getElementById( 'motionActionElement' );
-              var actionString = 'Selected ' + accessibleDescription;
-              actionElement.innerText = actionString;
-
-              // move the item onto the skateboard
-              moveToStack();
-
-              item.onBoardProperty.set( true );
-
-              self.setAccessibleAttribute( 'aria-grabbed', false );
-            }
-          }
-        }
-      }
-    } );
   }
 
   forcesAndMotionBasics.register( 'ItemNode', ItemNode );
