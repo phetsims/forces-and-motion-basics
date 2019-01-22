@@ -26,20 +26,6 @@
   "leftForce": {
     "value": "Left Force"
   },
-  "group": {
-    "value": "Group",
-    "visible": false
-  },
-  "puller": {
-    "value": "puller",
-    "visible": false
-  },
-  "left": {
-    "value": "left"
-  },
-  "right": {
-    "value": "left"
-  },
   "appliedForce": {
     "value": "Applied Force"
   },
@@ -70,26 +56,6 @@
   "netForce": {
     "value": "Net Force"
   },
-  "netForce.description": {
-    "value": "Forces and Motion Basics. There is a heavily loaded cart on wheels sitting on a track. Attached to the left side of the cart is a thick rope with 4 knots spaced equally along the rope. Standing near this knotted rope is a group of 4 puller people. On the opposite side of the cart, a similar rope with 4 knots is attached to the right side of the cart. There is another group of 4 puller people standing near this rope. The centre position of the cart has been marked on the ground.",
-    "visible": false
-  },
-  "motion.leftItemGroup.description": {
-    "value": "Press enter to activate left object bin. A refrigerator and a wooden crate are in this object bin.",
-    "visible": false
-  },
-  "motion.rightItemGroup.description": {
-    "value": "Press enter to activate right object bin. A girl, a man, a trash can, and a mystery box are in this object bin.",
-    "visible": false
-  },
-  "bluePullerGroup.description": {
-    "value": "Left pullers. Select Enter to choose and place pullers on the rope.",
-    "visible": false
-  },
-  "redPullerGroup.description": {
-    "value": "Right pullers.  Select enter to choose and place pullers on the rope.",
-    "visible": false
-  },
   "motion": {
     "value": "Motion"
   },
@@ -116,21 +82,5 @@
   },
   "pattern.0valueUnitsN": {
     "value": "{0}N"
-  },
-  "goButton.description": {
-    "value": "Select to start pullers.",
-    "visible": false
-  },
-  "pauseButton.description": {
-    "value": "Select to pause pullers.",
-    "visible": false
-  },
-  "rightSideWins.description": {
-    "value": "Right side wins.",
-    "visible": false
-  },
-  "leftSideWins.description": {
-    "value": "Left side wins.",
-    "visible": false
   }
 }
