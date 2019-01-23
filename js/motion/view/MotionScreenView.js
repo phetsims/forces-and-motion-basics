@@ -162,7 +162,9 @@ define( function( require ) {
       deltaCoarse: 50,
 
       spacing: 6,
-      centerBottom: new Vector2( width / 2, appliedForceSlider.top - 12 )
+      centerBottom: new Vector2( width / 2, appliedForceSlider.top - 12 ),
+
+      tandem: tandem.createTandem( 'appliedForceSpinner' )
     } );
     this.addChild( appliedForceSpinner );
 
