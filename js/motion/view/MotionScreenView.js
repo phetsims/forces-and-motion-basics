@@ -168,6 +168,11 @@ define( function( require ) {
     } );
     this.addChild( appliedForceSpinner );
 
+    // force cannot be applied when there is nothing on the stack
+    model.stackSizeProperty.link( function( size ) {
+      appliedForceSpinner.enabled = size > 0;
+    } );
+
     model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
     model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
