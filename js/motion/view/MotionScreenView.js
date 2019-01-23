@@ -174,7 +174,6 @@ define( function( require ) {
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
     var speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
       tandem.createTandem( 'speedometerNode' ), {
-        // x: width / 2, // see comments about tween code below
         x: 300,
         top: 8
       } );
