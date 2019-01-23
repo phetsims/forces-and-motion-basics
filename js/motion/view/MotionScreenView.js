@@ -7,11 +7,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const FineCoarseSpinner = require( 'SCENERY_PHET/FineCoarseSpinner' );
-  const Vector2 = require( 'DOT/Vector2' );
   var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
   var AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var FineCoarseSpinner = require( 'SCENERY_PHET/FineCoarseSpinner' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
   var ForcesAndMotionBasicsQueryParameters = require( 'FORCES_AND_MOTION_BASICS/common/ForcesAndMotionBasicsQueryParameters' );
@@ -40,6 +39,7 @@ define( function( require ) {
   var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
   var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
 
   // constants

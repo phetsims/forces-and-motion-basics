@@ -11,11 +11,11 @@ define( function( require ) {
 
   //modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var ValueGaugeNode = require( 'SCENERY_PHET/ValueGaugeNode' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Range = require( 'DOT/Range' );
+  var ValueGaugeNode = require( 'SCENERY_PHET/ValueGaugeNode' );
 
   // strings
   var pattern0Name1ValueUnitsVelocityString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsVelocity' );
