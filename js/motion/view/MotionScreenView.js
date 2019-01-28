@@ -147,6 +147,21 @@ define( function( require ) {
     this.addChild( appliedForceSliderTextNode );
     this.addChild( appliedForceSlider );
 
+    // The range for the spinner will change depending on whether the stack has exceeded maximum speed. This will
+    // most often be in cases where there is no friction, because the speed will remain at maximum values and we
+    // do not want to allow additional applied force at that time
+    var spinnerRange = new Range( -500, 500 );
+
+    // Do not allow the user to apply a force that would take the object beyond its maximum velocity
+    Property.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
+
+      var enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
+      spinnerRange.max = enableRightButtons ? 500 : 0;
+
+      var enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
+      spinnerRange.min = enableLeftButtons ? -500 : 0;
+    } );
+
     var appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
       numberDisplayOptions: {
         font: new PhetFont( 22 ),
@@ -158,6 +173,8 @@ define( function( require ) {
         numberMaxWidth: maxTextWidth / 3
       },
 
+      range: spinnerRange,
+
       deltaFine: 1,
       deltaCoarse: 50,
 
@@ -166,6 +183,7 @@ define( function( require ) {
 
       tandem: tandem.createTandem( 'appliedForceSpinner' )
     } );
+
     this.addChild( appliedForceSpinner );
 
     // force cannot be applied when there is nothing on the stack
