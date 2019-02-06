@@ -83,7 +83,7 @@ define( function( require ) {
     // TODO: It is possible that this can be removed once these issues are closed, see
     // https://github.com/phetsims/forces-and-motion-basics/issues/240
     // https://github.com/phetsims/axon/issues/135
-    phet.phetIo && phet.phetIo.phetioEngine.setStateEmitter && phet.phetIo.phetioEngine.setStateEmitter.addListener( updateImage );
+    phet.phetIo && phet.phetIo.phetioEngine.phetioStateEngine.setStateEmitter && phet.phetIo.phetioEngine.phetioStateEngine.setStateEmitter.addListener( updateImage );
 
     for ( var i = 0; i < model.items.length; i++ ) {
       model.items[ i ].draggingProperty.link( updateImage );
