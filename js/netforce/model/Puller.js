@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -51,9 +51,8 @@ define( function( require ) {
                  NaN;
 
     // @public {boolean} - whether or not the puller is currently being dragged
-    this.draggingProperty = new Property( false, {
-      tandem: tandem.createTandem( 'draggingProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.draggingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'draggingProperty' )
     } );
 
     // @public {Knot|null} - the knot that this puller is attached to

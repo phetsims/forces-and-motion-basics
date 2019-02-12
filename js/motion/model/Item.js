@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
@@ -68,9 +68,8 @@ define( function( require ) {
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
     // @public {Property.<boolean>} - whether or not the item is being dragged
-    this.draggingProperty = new Property( false, {
-      tandem: tandem.createTandem( 'draggingProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.draggingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'draggingProperty' )
     } );
 
     // @public {Property.<string>} - direction of the item, 'left'|'right'
@@ -92,9 +91,8 @@ define( function( require ) {
     } );
 
     // Flag for whether the item is on the skateboard
-    this.onBoardProperty = new Property( false, {
-      tandem: tandem.createTandem( 'onBoardProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.onBoardProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'onBoardProperty' )
     } );
 
     // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program

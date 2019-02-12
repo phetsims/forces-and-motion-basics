@@ -9,14 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var PhetioObject = require( 'TANDEM/PhetioObject' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var Tandem = require( 'TANDEM/Tandem' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -50,9 +48,8 @@ define( function( require ) {
     } );
 
     // @public {boolean} - whether or not the know is visible
-    this.visibleProperty = new Property( false, {
-      tandem: tandem.createTandem( 'visibleProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.visibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'visibleProperty' )
     } );
 
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.

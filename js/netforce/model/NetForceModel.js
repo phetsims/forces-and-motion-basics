@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
   var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -44,14 +44,12 @@ define( function( require ) {
 
     var self = this;
 
-    this.startedProperty = new Property( false, {
-      tandem: tandem.createTandem( 'startedProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.startedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'startedProperty' )
     } );
 
-    this.runningProperty = new Property( false, {
-      tandem: tandem.createTandem( 'runningProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.runningProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'runningProperty' )
     } );
 
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
@@ -102,21 +100,17 @@ define( function( require ) {
     } );
 
     // User settings
-    this.showSumOfForcesProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showSumOfForcesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showSumOfForcesProperty' )
     } );
-    this.showValuesProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showValuesProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showValuesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showValuesProperty' )
     } );
-    this.showSpeedProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showSpeedProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showSpeedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showSpeedProperty' )
     } );
-    this.volumeOnProperty = new Property( false, {
-      tandem: tandem.createTandem( 'volumeOnProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.volumeOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'volumeOnProperty' )
     } );
 
     this.cartReturnedEmitter = new Emitter();

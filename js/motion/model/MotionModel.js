@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
@@ -118,39 +118,33 @@ define( function( require ) {
     } );
 
     // @public {boolean} - whether or not forces are visible
-    this.showForceProperty = new Property( true, {
-      tandem: tandem.createTandem( 'showForceProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showForceProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'showForceProperty' )
     } );
 
     // @public {boolean} - whether or not values are visible
-    this.showValuesProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showValuesProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showValuesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showValuesProperty' )
     } );
 
     // @public {boolean} - whether or not sum of forces is visible
-    this.showSumOfForcesProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showSumOfForcesProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showSumOfForcesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showSumOfForcesProperty' )
     } );
 
     // @public {boolean} - whether or not speedometer is visible
-    this.showSpeedProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showSpeedProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showSpeedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showSpeedProperty' )
     } );
 
     // @public {boolean} - whether or not mass values are visible
-    this.showMassesProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showMassesProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showMassesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showMassesProperty' )
     } );
 
     // @public {boolean} - whether or not acceleration meter is visible
-    this.showAccelerationProperty = new Property( false, {
-      tandem: tandem.createTandem( 'showAccelerationProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.showAccelerationProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showAccelerationProperty' )
     } );
 
     //  @public Keep track of whether the speed is classified as:
@@ -168,9 +162,8 @@ define( function( require ) {
     } );
 
     // @public {boolean} - whether or not the stack of items is moving to the right
-    this.movingRightProperty = new Property( true, {
-      tandem: tandem.createTandem( 'movingRightProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.movingRightProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'movingRightProperty' )
     } );
 
     // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
@@ -187,9 +180,8 @@ define( function( require ) {
     } );
 
     // @public {boolean} - whether or not the pusher has fallen over
-    this.fallenProperty = new Property( false, {
-      tandem: tandem.createTandem( 'fallenProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.fallenProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'fallenProperty' )
     } );
 
     // @public {string} - 'left'|'right', direction pusher facing when it falls over
@@ -211,9 +203,8 @@ define( function( require ) {
     } );
 
     // @public {boolean} - is the sim running or paused?
-    this.playProperty = new Property( true, {
-      tandem: tandem.createTandem( 'playProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.playProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'playProperty' )
     } );
 
     // @public DerivedProperty to observe whether or not the friction is zero

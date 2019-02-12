@@ -9,14 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   /**
@@ -27,9 +25,8 @@ define( function( require ) {
   function SliderKnob( tandem, options ) {
 
     options = _.extend( {
-      enabledProperty: new Property( true, {
-        tandem: tandem.createTandem( 'enabledProperty' ),
-        phetioType: PropertyIO( BooleanIO )
+      enabledProperty: new BooleanProperty( true, {
+        tandem: tandem.createTandem( 'enabledProperty' )
       } )
     }, options );
     this.enabledProperty = options.enabledProperty;
