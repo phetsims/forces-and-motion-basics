@@ -12,9 +12,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
   var phetioInherit = require( 'TANDEM/phetioInherit' );
-
-  // ifphetio
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
+  var validate = require( 'AXON/validate' );
 
   /**
    * @param {Object} animationState
@@ -22,12 +20,12 @@ define( function( require ) {
    * @constructor
    */
   function AnimationStateIO( animationState, phetioID ) {
-    assert && assertInstanceOf( animationState, Object );
     ObjectIO.call( this, animationState, phetioID );
   }
 
   phetioInherit( ObjectIO, 'AnimationStateIO', AnimationStateIO, {}, {
     documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
+    validator: { valueType: Object },
 
     /**
      * @param {Object} animationState
@@ -35,7 +33,7 @@ define( function( require ) {
      * @override
      */
     toStateObject: function( animationState ) {
-      assert && assertInstanceOf( animationState, Object );
+      validate( animationState, this.validator );
       return animationState;
     },
 

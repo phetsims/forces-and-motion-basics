@@ -15,16 +15,12 @@ define( function( require ) {
   var phetioInherit = require( 'TANDEM/phetioInherit' );
   var VoidIO = require( 'TANDEM/types/VoidIO' );
 
-  // ifphetio
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
-
   /**
    * @param {NetForceModel} netForceModel
    * @param {string} phetioID
    * @constructor
    */
   function NetForceModelIO( netForceModel, phetioID ) {
-    assert && assertInstanceOf( netForceModel, phet.forcesAndMotionBasics.NetForceModel );
     ObjectIO.call( this, netForceModel, phetioID );
   }
 
@@ -38,7 +34,10 @@ define( function( require ) {
       documentation: 'Resets the model',
       invocableForReadOnlyInstances: false
     }
-  }, { documentation: 'A Net Force Model type.' } );
+  }, {
+    documentation: 'A Net Force Model type.',
+    validator: { isValidValue: v => v instanceof phet.forcesAndMotionBasics.NetForceModel }
+  } );
 
   forcesAndMotionBasics.register( 'NetForceModelIO', NetForceModelIO );
 

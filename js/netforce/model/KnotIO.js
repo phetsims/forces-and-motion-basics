@@ -13,9 +13,9 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
   var phetioInherit = require( 'TANDEM/phetioInherit' );
+  var validate = require( 'AXON/validate' );
 
   // ifphetio
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
   var phetioEngine = require( 'ifphetio!PHET_IO/phetioEngine' );
 
   /**
@@ -24,12 +24,12 @@ define( function( require ) {
    * @constructor
    */
   function KnotIO( knot, phetioID ) {
-    assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
     ObjectIO.call( this, knot, phetioID );
   }
 
   phetioInherit( ObjectIO, 'KnotIO', KnotIO, {}, {
     documentation: 'A knot',
+    validator: { isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot },
 
     /**
      * @param {Knot} knot
@@ -37,7 +37,7 @@ define( function( require ) {
      * @override
      */
     toStateObject: function( knot ) {
-      assert && assertInstanceOf( knot, phet.forcesAndMotionBasics.Knot );
+      validate( knot, this.validator );
       if ( knot ) {
         return knot.tandem.phetioID;
       }

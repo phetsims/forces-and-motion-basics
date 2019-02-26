@@ -12,9 +12,7 @@ define( function( require ) {
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
   var phetioInherit = require( 'TANDEM/phetioInherit' );
-
-  // ifphetio
-  var assertInstanceOf = require( 'ifphetio!PHET_IO/assertInstanceOf' );
+  var validate = require( 'AXON/validate' );
 
   /**
    * @param {Item} item
@@ -22,12 +20,12 @@ define( function( require ) {
    * @constructor
    */
   function ItemIO( item, phetioID ) {
-    assert && assertInstanceOf( item, phet.forcesAndMotionBasics.Item );
     ObjectIO.call( this, item, phetioID );
   }
 
   phetioInherit( ObjectIO, 'ItemIO', ItemIO, {}, {
     documentation: 'An Item that can be placed dragged into the play area.',
+    validator: { isValidValue: v => v instanceof phet.forcesAndMotionBasics.Item },
 
     /**
      * @param {Item} item
@@ -35,7 +33,7 @@ define( function( require ) {
      * @override
      */
     toStateObject: function( item ) {
-      assert && assertInstanceOf( item, phet.forcesAndMotionBasics.Item );
+      validate( item, this.validator );
       return item.tandem.phetioID;
     },
 
