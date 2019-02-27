@@ -99,7 +99,7 @@ define( function( require ) {
       ] )
     } );
     var goListener = function() {
-      goButtonPressedEmitter.emit2( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
+      goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
       model.runningProperty.set( true );
     };
     var goButton = new RoundPushButton( {
