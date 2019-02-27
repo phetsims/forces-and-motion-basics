@@ -219,7 +219,7 @@ define( function( require ) {
 
     // @public - broadcast messages on step and reset all
     this.resetAllEmitter = new Emitter();
-    this.stepEmitter = new Emitter();
+    this.stepEmitter = new Emitter( { validationEnabled: false } );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForceProperty.set( 0 ); } } );
@@ -317,7 +317,7 @@ define( function( require ) {
         for ( var i = 0; i < this.stack.length; i++ ) {
           var size = this.view.getSize( this.stack.get( i ) );
           sumHeight += size.height;
-          this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, (this.skateboard ? 334 : 360) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+          this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
       }
 
@@ -457,8 +457,8 @@ define( function( require ) {
 
       this.speedProperty.set( Math.abs( this.velocityProperty.get() ) );
       this.speedClassificationProperty.set( this.velocityProperty.get() >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
-                                 this.velocityProperty.get() <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
-                                 'WITHIN_ALLOWED_RANGE' );
+                                            this.velocityProperty.get() <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
+                                            'WITHIN_ALLOWED_RANGE' );
 
       if ( this.speedClassificationProperty.get() !== 'WITHIN_ALLOWED_RANGE' ) {
         this.timeSinceFallenProperty.set( 0 );
