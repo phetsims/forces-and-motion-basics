@@ -22,7 +22,7 @@ define( function( require ) {
   var StringIO = require( 'TANDEM/types/StringIO' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Vector2IO = require( 'DOT/Vector2IO' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * Constructor for Item
@@ -59,9 +59,8 @@ define( function( require ) {
     this.homeScale = homeScale || 1.0;
 
     // @public {Property.<Vector2>} - the position of the item
-    this.positionProperty = new Property( new Vector2( x, y ), {
-      tandem: tandem.createTandem( 'positionProperty' ),
-      phetioType: PropertyIO( Vector2IO )
+    this.positionProperty = new Vector2Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' )
     } );
 
     // TODO: does this need to be instrumented for phet-io?
