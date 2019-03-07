@@ -58,7 +58,7 @@ define( function( require ) {
     this.mystery = mystery;
     this.homeScale = homeScale || 1.0;
 
-    // @public {Property.<Vector2>} - the position of the item
+    // @public - the position of the item
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' )
     } );
