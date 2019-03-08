@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.7 Tue Nov 06 2018 13:46:09 GMT-0700 (MST)",
+  "comment": "# forces-and-motion-basics 2.3.7 Fri Mar 08 2019 13:17:22 GMT-0500 (EST)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -9,8 +9,8 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "cfca902dca800a6e8b80729a46611346c4f16250",
-    "branch": "HEAD"
+    "sha": "cbc2c734216eb836aa6d844903bbde3d63885ef5",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "chipper": {
     "sha": "7353389141b843779618937d7043cf3e03c8877e",
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "1539888671db3d992607a32ac3d9944e54734a6e",
+    "sha": "505b58bf26ff12306dccaeff8813da2437cc4f7b",
     "branch": "2.3"
   },
   "joist": {
-    "sha": "b0517b67eb2aa7cefd67f37169ddbfc0d9474b31",
-    "branch": "HEAD"
+    "sha": "3c27d349a13d5c52e52914350900567732bb5500",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
