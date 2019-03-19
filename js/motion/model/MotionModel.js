@@ -219,7 +219,7 @@ define( function( require ) {
 
     // @public - broadcast messages on step and reset all
     this.resetAllEmitter = new Emitter();
-    this.stepEmitter = new Emitter( { validationEnabled: false } );
+    this.stepEmitter = new Emitter();
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForceProperty.set( 0 ); } } );
