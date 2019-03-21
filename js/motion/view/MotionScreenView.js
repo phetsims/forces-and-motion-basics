@@ -267,21 +267,21 @@ define( function( require ) {
       } );
 
       // create the tick labels
-      var tickLabel = function( label, tick ) {
+      var tickLabel = function( label, tick, tandemID ) {
         return new Text( label, {
           pickable: false,
           font: new PhetFont( 16 ),
           centerX: tick.centerX,
           top: tick.bottom + 27,
-          tandem: tandem.createTandem( 'tickLabelTextNode_' + label )
+          tandem: tandem.createTandem( 'tickLabelTextNode' + tandemID )
         } );
       };
       var tickLabels = new Node( {
         tandem: tandem.createTandem( 'tickLabels' ),
         children: [
-          tickLabel( '-20', accelerometerNode.ticks[ 0 ] ),
-          tickLabel( '0', accelerometerNode.ticks[ 2 ] ),
-          tickLabel( '20', accelerometerNode.ticks[ 4 ] )
+          tickLabel( '-20', accelerometerNode.ticks[ 0 ], 'Negative20' ),
+          tickLabel( '0', accelerometerNode.ticks[ 2 ], 'Zero' ),
+          tickLabel( '20', accelerometerNode.ticks[ 4 ], 'Positive20' )
         ]
       } );
 
@@ -437,7 +437,7 @@ define( function( require ) {
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], function( appliedForce, frictionForce ) {
-      var sameDirection = (appliedForce < 0 && frictionForce < 0) || (appliedForce > 0 && frictionForce > 0);
+      var sameDirection = ( appliedForce < 0 && frictionForce < 0 ) || ( appliedForce > 0 && frictionForce > 0 );
       self.frictionArrow.overlapsOther = sameDirection;
       self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
 
