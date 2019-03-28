@@ -18,7 +18,8 @@
       "vibe"
     ],
     "preload": [
-      "../sherpa/lib/Tween-r12.js"
+      "../sherpa/lib/Tween-r12.js",
+      "../forces-and-motion-basics/js/preloads/google-diff-match-patch.js"
     ]
   }
 }
