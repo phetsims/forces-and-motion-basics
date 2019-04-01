@@ -32,7 +32,7 @@ define( function( require ) {
         this.instance.reset();
       },
       documentation: 'Resets the model',
-      invocableForReadOnlyInstances: false
+      invocableForReadOnlyElements: false
     }
   }, {
     documentation: 'A Net Force Model type.',
