@@ -3458,7 +3458,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showAccelerationCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3568,7 +3568,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showAccelerationCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3634,7 +3634,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showForceCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3744,7 +3744,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showForceCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3766,7 +3766,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showMassesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3876,7 +3876,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showMassesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3898,7 +3898,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4008,7 +4008,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showSpeedCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4030,7 +4030,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showSumOfForcesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4140,7 +4140,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showSumOfForcesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4162,7 +4162,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4272,7 +4272,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showValuesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13710,7 +13710,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showForceCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13820,7 +13820,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showForceCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13842,7 +13842,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showMassesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13952,7 +13952,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showMassesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13974,7 +13974,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14084,7 +14084,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showSpeedCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14106,7 +14106,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showSumOfForcesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14216,7 +14216,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showSumOfForcesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14238,7 +14238,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14348,7 +14348,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showValuesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25260,7 +25260,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showForceCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25370,7 +25370,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showForceCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25392,7 +25392,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showMassesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25502,7 +25502,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showMassesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25524,7 +25524,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25634,7 +25634,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showSpeedCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25656,7 +25656,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25766,7 +25766,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showValuesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -33587,7 +33587,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.navigationBar.phetButton.pickableProperty": {
       "phetioDocumentation": "Set whether the phetButton will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioEventType": "model",
-      "phetioFeatured": true,
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35380,7 +35380,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35435,7 +35435,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showSpeedCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35457,7 +35457,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showSumOfForcesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35512,7 +35512,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showSumOfForcesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35534,7 +35534,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35589,7 +35589,7 @@ window.phet.phetio.phetioElementsBaseline =
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showValuesCheckbox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
