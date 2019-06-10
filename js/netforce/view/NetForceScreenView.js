@@ -237,7 +237,7 @@ define( function( require ) {
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
         getPullerToolbox( puller ),
-        tandem.createTandem( puller.pullerTandem.tail )
+        tandem.createTandem( puller.pullerTandem.name )
       );
       var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
