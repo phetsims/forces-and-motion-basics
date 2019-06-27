@@ -1775,7 +1775,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.appliedForceSlider.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -1874,7 +1874,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.leftCoarseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -1962,7 +1962,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.leftFineButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -2171,7 +2171,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.rightCoarseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -2259,7 +2259,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.rightFineButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3172,7 +3172,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.frictionSlider.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3480,7 +3480,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showAccelerationCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3656,7 +3656,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showForceCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3788,7 +3788,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showMassesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -3920,7 +3920,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4052,7 +4052,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showSumOfForcesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -4184,7 +4184,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.controlPanel.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -6890,7 +6890,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.playPauseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -9992,7 +9992,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -10377,7 +10377,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.accelerationScreen.view.stepForwardButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -12610,7 +12610,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.appliedForceSlider.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -12709,7 +12709,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.leftCoarseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -12797,7 +12797,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.leftFineButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13006,7 +13006,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.rightCoarseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13094,7 +13094,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.rightFineButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13413,7 +13413,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.frictionSlider.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13765,7 +13765,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showForceCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -13897,7 +13897,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showMassesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14029,7 +14029,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14161,7 +14161,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showSumOfForcesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -14293,7 +14293,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.controlPanel.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -17285,7 +17285,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.playPauseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -20387,7 +20387,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -20772,7 +20772,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.frictionScreen.view.stepForwardButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -21729,7 +21729,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.general.navigationBar.accelerationScreenButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -21916,7 +21916,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.general.navigationBar.frictionScreenButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -22103,7 +22103,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.general.navigationBar.homeButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -22191,7 +22191,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.general.navigationBar.motionScreenButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -22378,7 +22378,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.general.navigationBar.netForceScreenButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25711,7 +25711,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.appliedForceSlider.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25810,7 +25810,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.leftCoarseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -25898,7 +25898,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.leftFineButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -26107,7 +26107,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.rightCoarseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -26195,7 +26195,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.rightFineButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -26459,7 +26459,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showForceCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -26591,7 +26591,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showMassesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -26723,7 +26723,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -26855,7 +26855,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.controlPanel.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -29561,7 +29561,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.playPauseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -32663,7 +32663,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -33092,7 +33092,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.motionScreen.view.stepForwardButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -34896,7 +34896,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.resetAllButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35204,7 +35204,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.soundToggleButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35479,7 +35479,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showSpeedCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35556,7 +35556,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showSumOfForcesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35633,7 +35633,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.controlPanel.verticalCheckboxGroup.showValuesCheckbox.enabledProperty": {
       "phetioDocumentation": "When disabled, the checkbox is grayed out and cannot be pressed.",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -35875,7 +35875,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.goPauseButton.goButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -36040,7 +36040,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.goPauseButton.pauseButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -37041,7 +37041,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     "forcesAndMotionBasics.netForceScreen.view.returnButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioEventType": "model",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,

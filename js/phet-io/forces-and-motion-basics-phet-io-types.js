@@ -1109,7 +1109,6 @@ window.phet.phetio.phetioTypes = assert &&
         "addEventListener",
         "getScreenshotDataURL",
         "getPhetioIDs",
-        "getPhetioTypes",
         "getValues",
         "getState",
         "setState",
@@ -1180,11 +1179,6 @@ window.phet.phetio.phetioTypes = assert &&
         },
         "getPhetioIDs": {
           "documentation": "Gets a list of all of the PhET-iO elements.",
-          "parameterTypes": [],
-          "returnType": "ArrayIO.<StringIO>"
-        },
-        "getPhetioTypes": {
-          "documentation": "Gets a list of all of the PhET-iO types. This list includes types that have no PhET-iO elements associated with it, but may be a supertype, or a method parameter or return type.",
           "parameterTypes": [],
           "returnType": "ArrayIO.<StringIO>"
         },
