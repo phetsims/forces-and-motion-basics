@@ -29,7 +29,7 @@ define( function( require ) {
       returnType: VoidIO,
       parameterTypes: [],
       implementation: function() {
-        this.instance.reset();
+        this.phetioObject.reset();
       },
       documentation: 'Resets the model',
       invocableForReadOnlyElements: false
