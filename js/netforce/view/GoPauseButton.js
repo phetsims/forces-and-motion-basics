@@ -13,7 +13,6 @@ define( function( require ) {
   var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
-  var EmitterIO = require( 'AXON/EmitterIO' );
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberIO = require( 'TANDEM/types/NumberIO' );
@@ -93,10 +92,10 @@ define( function( require ) {
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     var goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      phetioType: EmitterIO( [
-        { name: 'netForce', type: NumberIO },
-        { name: 'knotJSON', type: StringIO }
-      ] )
+      parameters: [
+        { name: 'netForce', phetioType: NumberIO },
+        { name: 'knotJSON', phetioType: StringIO }
+      ]
     } );
     var goListener = function() {
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );

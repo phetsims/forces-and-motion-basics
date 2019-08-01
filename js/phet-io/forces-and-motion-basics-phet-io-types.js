@@ -2,7 +2,7 @@
 window.phet.phetio.phetioTypes = assert &&
   {
     "ActionIO.<>": {
-      "documentation": "Emits when an event occurs. No arguments.",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -20,7 +20,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<>"
     },
     "ActionIO.<BooleanIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>isChecked: BooleanIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -42,7 +42,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<BooleanIO>"
     },
     "ActionIO.<DOMEventIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>event: DOMEventIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -64,7 +64,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<DOMEventIO>"
     },
     "ActionIO.<EventIO, VoidIO, VoidIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>event: EventIO</li>\n<li>targetNode: VoidIO</li>\n<li>callback: VoidIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -90,7 +90,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
     "ActionIO.<NullableIO.<EventIO>, VoidIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>event: NullableIO.<EventIO></li>\n<li>callback: VoidIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -114,7 +114,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<NullableIO.<EventIO>, VoidIO>"
     },
     "ActionIO.<NumberIO, NumberIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>width: NumberIO</li>\n<li>height: NumberIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -138,7 +138,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<NumberIO, NumberIO>"
     },
     "ActionIO.<NumberIO, StringIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>netForce: NumberIO</li>\n<li>knotJSON: StringIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -162,7 +162,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<NumberIO, StringIO>"
     },
     "ActionIO.<NumberIO, Vector2IO, DOMEventIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>id: NumberIO</li>\n<li>point: Vector2IO</li>\n<li>event: DOMEventIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -188,7 +188,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
     "ActionIO.<NumberIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>dt: NumberIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -210,7 +210,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<NumberIO>"
     },
     "ActionIO.<Vector2IO, DOMEventIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>point: Vector2IO</li>\n<li>event: DOMEventIO</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -234,7 +234,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
     "ActionIO.<Vector2IO, VoidIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>point: Vector2IO. the position of the drag start in view coordinates</li>\n<li>event: VoidIO. the scenery pointer Event</li></ol>",
+      "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
       ],
@@ -313,7 +313,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "DerivedPropertyIO.<BooleanIO>"
     },
     "EmitterIO.<>": {
-      "documentation": "Emits when an event occurs. No arguments.",
+      "documentation": "Emits when an event occurs and calls added listeners.",
       "events": [],
       "methodOrder": [],
       "methods": {
@@ -336,7 +336,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "EmitterIO.<>"
     },
     "EmitterIO.<NumberIO, StringIO>": {
-      "documentation": "Emits when an event occurs. The arguments are:<br><ol><li>netForce: NumberIO</li>\n<li>knotJSON: StringIO</li></ol>",
+      "documentation": "Emits when an event occurs and calls added listeners.",
       "events": [],
       "methodOrder": [],
       "methods": {
