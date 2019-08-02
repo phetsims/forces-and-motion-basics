@@ -887,7 +887,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO"
+      "phetioTypeName": "ObservableArrayIO.<ItemIO>"
     },
     "forcesAndMotionBasics.accelerationScreen.model.stackObservableArray.lengthProperty": {
       "phetioDocumentation": "",
@@ -2231,7 +2231,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberControlIO"
+      "phetioTypeName": "NumberDisplayIO"
     },
     "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
@@ -12947,7 +12947,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO"
+      "phetioTypeName": "ObservableArrayIO.<ItemIO>"
     },
     "forcesAndMotionBasics.frictionScreen.model.stackObservableArray.lengthProperty": {
       "phetioDocumentation": "",
@@ -14051,7 +14051,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberControlIO"
+      "phetioTypeName": "NumberDisplayIO"
     },
     "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
@@ -27239,7 +27239,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO"
+      "phetioTypeName": "ObservableArrayIO.<ItemIO>"
     },
     "forcesAndMotionBasics.motionScreen.model.stackObservableArray.lengthProperty": {
       "phetioDocumentation": "",
@@ -28343,7 +28343,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberControlIO"
+      "phetioTypeName": "NumberDisplayIO"
     },
     "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",

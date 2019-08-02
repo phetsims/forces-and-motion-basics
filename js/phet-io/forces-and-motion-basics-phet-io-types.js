@@ -859,13 +859,13 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "NullableIO.<Vector2IO>"
     },
-    "NumberControlIO": {
+    "NumberDisplayIO": {
       "documentation": "A numeric readout with a background",
       "events": [],
       "methodOrder": [],
       "methods": {},
       "supertype": "NodeIO",
-      "typeName": "NumberControlIO"
+      "typeName": "NumberDisplayIO"
     },
     "NumberIO": {
       "documentation": "Wrapper for the built-in JS number type (floating point, but also represents integers)",
@@ -894,7 +894,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": null,
       "typeName": "ObjectIO"
     },
-    "ObservableArrayIO": {
+    "ObservableArrayIO.<ItemIO>": {
       "documentation": "An array that sends notifications when its values have changed.",
       "events": [
         "itemAdded",
@@ -922,8 +922,11 @@ window.phet.phetio.phetioTypes = assert &&
           "returnType": "NumberIO"
         }
       },
+      "parameterTypes": [
+        "ItemIO"
+      ],
       "supertype": "ObjectIO",
-      "typeName": "ObservableArrayIO"
+      "typeName": "ObservableArrayIO.<ItemIO>"
     },
     "PhetButtonIO": {
       "documentation": "The PhET Button in the bottom right of the screen",
