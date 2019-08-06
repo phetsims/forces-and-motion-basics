@@ -25,7 +25,7 @@
     ],
     "simulation": true,
     "phet-io": {
-      "phetLibs": [
+      "wrappers": [
         "phet-io-wrapper-classroom-activity"
       ]
     }
