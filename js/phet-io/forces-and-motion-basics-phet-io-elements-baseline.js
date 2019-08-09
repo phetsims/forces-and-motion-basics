@@ -2257,62 +2257,62 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueNode": {
+    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueText": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": false,
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueNode.opacityProperty": {
+    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueNode.pickableProperty": {
+    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueNode.textProperty": {
+    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueText.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<StringIO>"
     },
-    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueNode.visibleProperty": {
+    "forcesAndMotionBasics.accelerationScreen.view.appliedForceSpinner.numberDisplay.valueText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
@@ -14077,62 +14077,62 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueNode": {
+    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueText": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": false,
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueNode.opacityProperty": {
+    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueNode.pickableProperty": {
+    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueNode.textProperty": {
+    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueText.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<StringIO>"
     },
-    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueNode.visibleProperty": {
+    "forcesAndMotionBasics.frictionScreen.view.appliedForceSpinner.numberDisplay.valueText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
@@ -28369,62 +28369,62 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueNode": {
+    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueText": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": false,
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueNode.opacityProperty": {
+    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueNode.pickableProperty": {
+    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueNode.textProperty": {
+    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueText.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<StringIO>"
     },
-    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueNode.visibleProperty": {
+    "forcesAndMotionBasics.motionScreen.view.appliedForceSpinner.numberDisplay.valueText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": false,
+      "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
