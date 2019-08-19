@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.12 Mon Aug 19 2019 13:37:05 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.3.13-rc.1 Mon Aug 19 2019 16:38:15 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "8c13a3390200a7d13ffcaf8de42bed9e4a362c42",
+    "sha": "614bf8f0ac57c6284571917857036438ca1a2bc7",
     "branch": "2.3"
   },
   "joist": {
     "sha": "421e5d071b9fe830c72ffd5de8231ae8c1d9f560",
-    "branch": "forces-and-motion-basics-2.3"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
@@ -54,7 +54,7 @@
   },
   "scenery-phet": {
     "sha": "313462efc6d1c89916e847565180bc7a302d4056",
-    "branch": "forces-and-motion-basics-2.3"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "dba01386dd884865c2111c0b5c63f31a4cdfbefb",
