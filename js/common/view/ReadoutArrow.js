@@ -28,8 +28,6 @@ define( function( require ) {
   var ARROW_HEAD_HEIGHT = 25;
 
   /**
-   * Main constructor for ReadoutArrow, a scenery.Node that shows arrows with readouts.
-   *
    * @param label the text to show for the arrow
    * @param fill the color of the arrow
    * @param tailX {number} the location of the tail in X

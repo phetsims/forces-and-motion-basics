@@ -40,8 +40,6 @@ define( function( require ) {
   var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   /**
-   * Main constructor for MotionControlPanel
-   *
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {Tandem} tandem
    * @constructor
