@@ -11,43 +11,34 @@ define( function( require ) {
   // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  var phetioInherit = require( 'TANDEM/phetioInherit' );
   var validate = require( 'AXON/validate' );
 
-  /**
-   * @param {Object} animationState
-   * @param {string} phetioID
-   * @constructor
-   */
-  function AnimationStateIO( animationState, phetioID ) {
-    ObjectIO.call( this, animationState, phetioID );
-  }
-
-  phetioInherit( ObjectIO, 'AnimationStateIO', AnimationStateIO, {}, {
-    documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe',
-    validator: { valueType: Object },
+  class AnimationStateIO extends ObjectIO {
 
     /**
      * @param {Object} animationState
      * @returns {Object}
      * @override
      */
-    toStateObject: function( animationState ) {
+    static toStateObject( animationState ) {
       validate( animationState, this.validator );
       return animationState;
-    },
+    }
 
     /**
      * @param {Object} stateObject
      * @returns {Object}
      * @override
      */
-    fromStateObject: function( stateObject ) {
+    static fromStateObject( stateObject ) {
       return stateObject;
     }
-  } );
+  }
 
-  forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
+  AnimationStateIO.documentation = 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe';
+  AnimationStateIO.validator = { valueType: Object };
+  AnimationStateIO.typeName = 'AnimationStateIO';
+  ObjectIO.validateSubtype( AnimationStateIO );
 
-  return AnimationStateIO;
+  return forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
 } );

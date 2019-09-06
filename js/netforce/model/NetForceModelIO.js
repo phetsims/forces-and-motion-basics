@@ -12,19 +12,11 @@ define( function( require ) {
   // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  var phetioInherit = require( 'TANDEM/phetioInherit' );
   var VoidIO = require( 'TANDEM/types/VoidIO' );
 
-  /**
-   * @param {NetForceModel} netForceModel
-   * @param {string} phetioID
-   * @constructor
-   */
-  function NetForceModelIO( netForceModel, phetioID ) {
-    ObjectIO.call( this, netForceModel, phetioID );
-  }
+  class NetForceModelIO extends ObjectIO {}
 
-  phetioInherit( ObjectIO, 'NetForceModelIO', NetForceModelIO, {
+  NetForceModelIO.methods = {
     reset: {
       returnType: VoidIO,
       parameterTypes: [],
@@ -34,12 +26,12 @@ define( function( require ) {
       documentation: 'Resets the model',
       invocableForReadOnlyElements: false
     }
-  }, {
-    documentation: 'A Net Force Model type.',
-    validator: { isValidValue: v => v instanceof phet.forcesAndMotionBasics.NetForceModel }
-  } );
+  };
 
-  forcesAndMotionBasics.register( 'NetForceModelIO', NetForceModelIO );
+  NetForceModelIO.documentation = 'A Net Force Model type.';
+  NetForceModelIO.validator = { isValidValue: v => v instanceof phet.forcesAndMotionBasics.NetForceModel };
+  NetForceModelIO.typeName = 'NetForceModelIO';
+  ObjectIO.validateSubtype( NetForceModelIO );
 
-  return NetForceModelIO;
+  return forcesAndMotionBasics.register( 'NetForceModelIO', NetForceModelIO );
 } );

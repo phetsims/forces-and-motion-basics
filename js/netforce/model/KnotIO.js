@@ -12,31 +12,19 @@ define( function( require ) {
   // modules
   var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   var ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  var phetioInherit = require( 'TANDEM/phetioInherit' );
   var validate = require( 'AXON/validate' );
 
   // ifphetio
   var phetioEngine = require( 'ifphetio!PHET_IO/phetioEngine' );
 
-  /**
-   * @param {Knot} knot
-   * @param {string} phetioID
-   * @constructor
-   */
-  function KnotIO( knot, phetioID ) {
-    ObjectIO.call( this, knot, phetioID );
-  }
-
-  phetioInherit( ObjectIO, 'KnotIO', KnotIO, {}, {
-    documentation: 'A knot',
-    validator: { isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot },
+  class KnotIO extends ObjectIO {
 
     /**
      * @param {Knot} knot
      * @returns {string}
      * @override
      */
-    toStateObject: function( knot ) {
+    static toStateObject( knot ) {
       validate( knot, this.validator );
       if ( knot ) {
         return knot.tandem.phetioID;
@@ -44,14 +32,14 @@ define( function( require ) {
       else {
         return 'null';
       }
-    },
+    }
 
     /**
      * @param {Object} stateObject
      * @returns {Knot}
      * @override
      */
-    fromStateObject: function( stateObject ) {
+    static fromStateObject( stateObject ) {
       if ( stateObject === 'null' ) {
         return null;
       }
@@ -59,10 +47,13 @@ define( function( require ) {
         return phetioEngine.getPhetioObject( stateObject );
       }
     }
-  } );
+  }
 
-  forcesAndMotionBasics.register( 'KnotIO', KnotIO );
+  KnotIO.documentation = 'A knot';
+  KnotIO.validator = { isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot };
+  KnotIO.typeName = 'KnotIO';
+  ObjectIO.validateSubtype( KnotIO );
 
-  return KnotIO;
+  return forcesAndMotionBasics.register( 'KnotIO', KnotIO );
 } );
 
