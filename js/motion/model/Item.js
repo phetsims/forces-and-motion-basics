@@ -5,24 +5,24 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var PhetioObject = require( 'TANDEM/PhetioObject' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-  var Range = require( 'DOT/Range' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Vector2Property = require( 'DOT/Vector2Property' );
+  const AnimationStateIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/AnimationStateIO' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const PhetioObject = require( 'TANDEM/PhetioObject' );
+  const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
+  const Range = require( 'DOT/Range' );
+  const StringIO = require( 'TANDEM/types/StringIO' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   /**
    * Constructor for Item

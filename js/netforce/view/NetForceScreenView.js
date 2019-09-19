@@ -5,59 +5,59 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
-  var CartStopperNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartStopperNode' );
-  var FlagNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/FlagNode' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
-  var GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var NetForceControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceControlPanel' );
-  var NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
-  var PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
-  var PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
-  var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ReturnButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/ReturnButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Shape = require( 'KITE/Shape' );
-  var Sound = require( 'VIBE/Sound' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const CartNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartNode' );
+  const CartStopperNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/CartStopperNode' );
+  const FlagNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/FlagNode' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
+  const GoPauseButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/GoPauseButton' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const NetForceControlPanel = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceControlPanel' );
+  const NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Property = require( 'AXON/Property' );
+  const PullerNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerNode' );
+  const PullerToolboxNode = require( 'FORCES_AND_MOTION_BASICS/netforce/view/PullerToolboxNode' );
+  const ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ReturnButton = require( 'FORCES_AND_MOTION_BASICS/netforce/view/ReturnButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const Shape = require( 'KITE/Shape' );
+  const Sound = require( 'VIBE/Sound' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // images
-  var grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
-  var pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_0.png' );
-  var pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_3.png' );
-  var pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_0.png' );
-  var pullFigureLargeBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_3.png' );
-  var pullFigureLargeRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_0.png' );
-  var pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_3.png' );
-  var pullFigureRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_RED_0.png' );
-  var pullFigureRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_RED_3.png' );
-  var pullFigureSmallBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_BLUE_0.png' );
-  var pullFigureSmallBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_BLUE_3.png' );
-  var pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_0.png' );
-  var pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_3.png' );
-  var ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
+  const grassImage = require( 'image!FORCES_AND_MOTION_BASICS/grass.png' );
+  const pullFigureBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_0.png' );
+  const pullFigureBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_BLUE_3.png' );
+  const pullFigureLargeBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_0.png' );
+  const pullFigureLargeBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_BLUE_3.png' );
+  const pullFigureLargeRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_0.png' );
+  const pullFigureLargeRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_lrg_RED_3.png' );
+  const pullFigureRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_RED_0.png' );
+  const pullFigureRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_RED_3.png' );
+  const pullFigureSmallBlue0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_BLUE_0.png' );
+  const pullFigureSmallBlue3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_BLUE_3.png' );
+  const pullFigureSmallRed0Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_0.png' );
+  const pullFigureSmallRed3Image = require( 'image!FORCES_AND_MOTION_BASICS/pull_figure_small_RED_3.png' );
+  const ropeImage = require( 'image!FORCES_AND_MOTION_BASICS/rope.png' );
 
   // strings
-  var leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
-  var rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
-  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
-  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  const leftForceString = require( 'string!FORCES_AND_MOTION_BASICS/leftForce' );
+  const rightForceString = require( 'string!FORCES_AND_MOTION_BASICS/rightForce' );
+  const sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
+  const sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
 
   // sounds
-  var golfClapSound = require( 'sound!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
+  const golfClapSound = require( 'sound!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
 
   // constants
   var STOPPER_TOP_WIDTH = 11;

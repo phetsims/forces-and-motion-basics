@@ -5,31 +5,31 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var MotionScreen = require( 'FORCES_AND_MOTION_BASICS/motion/MotionScreen' );
-  var NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
-  var NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' );
-  var Screen = require( 'JOIST/Screen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var Tandem = require( 'TANDEM/Tandem' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const MotionScreen = require( 'FORCES_AND_MOTION_BASICS/motion/MotionScreen' );
+  const NetForceModel = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModel' );
+  const NetForceScreenView = require( 'FORCES_AND_MOTION_BASICS/netforce/view/NetForceScreenView' );
+  const Screen = require( 'JOIST/Screen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
+  const Tandem = require( 'TANDEM/Tandem' );
 
   // images
-  var accelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
-  var frictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
-  var motionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
-  var tugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
+  const accelerationIcon = require( 'image!FORCES_AND_MOTION_BASICS/Acceleration_Icon.png' );
+  const frictionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Friction_Icon.png' );
+  const motionIcon = require( 'image!FORCES_AND_MOTION_BASICS/Motion_Icon.png' );
+  const tugIcon = require( 'image!FORCES_AND_MOTION_BASICS/Tug_Icon.png' );
 
   // strings
-  var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
-  var forcesAndMotionBasicsTitleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.title' );
-  var frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
-  var motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' );
-  var netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
+  const accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+  const forcesAndMotionBasicsTitleString = require( 'string!FORCES_AND_MOTION_BASICS/forces-and-motion-basics.title' );
+  const frictionString = require( 'string!FORCES_AND_MOTION_BASICS/friction' );
+  const motionString = require( 'string!FORCES_AND_MOTION_BASICS/motion' );
+  const netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
 
   // constants
   var tandem = Tandem.rootTandem;

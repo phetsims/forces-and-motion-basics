@@ -5,17 +5,17 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // strings
-  var returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
+  const returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
 
   /**
    * @param {NetForceModel} model

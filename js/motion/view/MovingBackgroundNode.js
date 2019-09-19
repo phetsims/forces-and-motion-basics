@@ -5,24 +5,24 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules  
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Pattern = require( 'SCENERY/util/Pattern' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Util = require( 'DOT/Util' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Pattern = require( 'SCENERY/util/Pattern' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Util = require( 'DOT/Util' );
 
   // images
-  var brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
-  var cloudImage = require( 'image!FORCES_AND_MOTION_BASICS/cloud1.png' );
-  var icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/icicle.png' );
-  var mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
+  const brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
+  const cloudImage = require( 'image!FORCES_AND_MOTION_BASICS/cloud1.png' );
+  const icicleImage = require( 'image!FORCES_AND_MOTION_BASICS/icicle.png' );
+  const mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
 
   // constants
   var linear = Util.linear;

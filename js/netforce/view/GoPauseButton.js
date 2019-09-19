@@ -6,26 +6,26 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Emitter = require( 'AXON/Emitter' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberIO = require( 'TANDEM/types/NumberIO' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Property = require( 'AXON/Property' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  const BooleanToggleNode = require( 'SUN/BooleanToggleNode' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Emitter = require( 'AXON/Emitter' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberIO = require( 'TANDEM/types/NumberIO' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Property = require( 'AXON/Property' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  const StringIO = require( 'TANDEM/types/StringIO' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // strings
-  var goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
-  var pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
+  const goString = require( 'string!FORCES_AND_MOTION_BASICS/go' );
+  const pauseString = require( 'string!FORCES_AND_MOTION_BASICS/pause' );
 
   //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
   //If the node is already the largest, don't wrap it.

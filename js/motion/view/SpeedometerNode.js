@@ -6,20 +6,20 @@
  * @author Sam Reid
  * @author Jesse Greenberg
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   //modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Range = require( 'DOT/Range' );
-  var ValueGaugeNode = require( 'SCENERY_PHET/ValueGaugeNode' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Range = require( 'DOT/Range' );
+  const ValueGaugeNode = require( 'SCENERY_PHET/ValueGaugeNode' );
 
   // strings
-  var pattern0Name1ValueUnitsVelocityString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsVelocity' );
-  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  const pattern0Name1ValueUnitsVelocityString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsVelocity' );
+  const speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
   /**
    * Constructor.

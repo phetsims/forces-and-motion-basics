@@ -5,18 +5,18 @@
  *
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
-  var MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  var Property = require( 'AXON/Property' );
-  var Range = require( 'DOT/Range' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
 
   // strings
-  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  const speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
   /**
    * Static object, not meant to be instantiated.

@@ -5,31 +5,31 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var ForcesAndMotionBasicsIconFactory = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsIconFactory' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const ForcesAndMotionBasicsIconFactory = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsIconFactory' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const SoundToggleButton = require( 'SCENERY_PHET/buttons/SoundToggleButton' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VerticalCheckboxGroup = require( 'SUN/VerticalCheckboxGroup' );
 
   // strings
-  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
-  var valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
+  const sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  const valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
 
   // constants
   var BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
 
   // strings
-  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  const speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
   /**
    * Create the NetForceControlPanel.

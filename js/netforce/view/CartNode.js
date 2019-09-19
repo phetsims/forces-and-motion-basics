@@ -5,21 +5,21 @@
  *
  * @author Jesse Greenberg
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Range = require( 'DOT/Range' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Range = require( 'DOT/Range' );
 
   // images
-  var cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
+  const cartImage = require( 'image!FORCES_AND_MOTION_BASICS/cart.png' );
 
   // strings
-  var speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+  const speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
 
   /**
    * Constructor.

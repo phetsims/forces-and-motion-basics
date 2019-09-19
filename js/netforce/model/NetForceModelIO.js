@@ -6,13 +6,13 @@
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Andrew Adare (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  var VoidIO = require( 'TANDEM/types/VoidIO' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const ObjectIO = require( 'TANDEM/types/ObjectIO' );
+  const VoidIO = require( 'TANDEM/types/VoidIO' );
 
   class NetForceModelIO extends ObjectIO {}
 

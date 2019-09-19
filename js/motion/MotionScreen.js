@@ -5,15 +5,15 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' );
-  var MotionScreenView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionScreenView' );
-  var Screen = require( 'JOIST/Screen' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MotionModel = require( 'FORCES_AND_MOTION_BASICS/motion/model/MotionModel' );
+  const MotionScreenView = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionScreenView' );
+  const Screen = require( 'JOIST/Screen' );
 
   /**
    * @param style

@@ -5,25 +5,25 @@
  *
  * @author Sam Reid
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
-  var Emitter = require( 'AXON/Emitter' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
-  var NetForceModelIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModelIO' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var PhetioObject = require( 'TANDEM/PhetioObject' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-  var Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
-  var Range = require( 'DOT/Range' );
-  var StringIO = require( 'TANDEM/types/StringIO' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Cart = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Cart' );
+  const Emitter = require( 'AXON/Emitter' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Knot = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Knot' );
+  const NetForceModelIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/NetForceModelIO' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const PhetioObject = require( 'TANDEM/PhetioObject' );
+  const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
+  const Puller = require( 'FORCES_AND_MOTION_BASICS/netforce/model/Puller' );
+  const Range = require( 'DOT/Range' );
+  const StringIO = require( 'TANDEM/types/StringIO' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over

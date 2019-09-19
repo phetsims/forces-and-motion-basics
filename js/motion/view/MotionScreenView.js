@@ -3,58 +3,58 @@
 /**
  * Main scenery view for the Motion, Friction and Acceleration screens.
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
-  var AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var FineCoarseSpinner = require( 'SCENERY_PHET/FineCoarseSpinner' );
-  var forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  var ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
-  var ForcesAndMotionBasicsQueryParameters = require( 'FORCES_AND_MOTION_BASICS/common/ForcesAndMotionBasicsQueryParameters' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
-  var MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var Property = require( 'AXON/Property' );
-  var PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
-  var Range = require( 'DOT/Range' );
-  var ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
+  const AccelerometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/AccelerometerNode' );
+  const AppliedForceSlider = require( 'FORCES_AND_MOTION_BASICS/motion/view/AppliedForceSlider' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const FineCoarseSpinner = require( 'SCENERY_PHET/FineCoarseSpinner' );
+  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+  const ForcesAndMotionBasicsLayoutBounds = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsLayoutBounds' );
+  const ForcesAndMotionBasicsQueryParameters = require( 'FORCES_AND_MOTION_BASICS/common/ForcesAndMotionBasicsQueryParameters' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
+  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const MotionControlPanel = require( 'FORCES_AND_MOTION_BASICS/motion/view/MotionControlPanel' );
+  const MovingBackgroundNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/MovingBackgroundNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  const Property = require( 'AXON/Property' );
+  const PusherNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/PusherNode' );
+  const Range = require( 'DOT/Range' );
+  const ReadoutArrow = require( 'FORCES_AND_MOTION_BASICS/common/view/ReadoutArrow' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SpeedometerNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/SpeedometerNode' );
+  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
 
   // constants
   var PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
 
   // images
-  var skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
+  const skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
 
   // strings
-  var accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
-  var appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
-  var frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
-  var pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
-  var pattern0ValueUnitsNewtonsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsNewtons' );
-  var sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
+  const accelerationString = require( 'string!FORCES_AND_MOTION_BASICS/acceleration' );
+  const appliedForceString = require( 'string!FORCES_AND_MOTION_BASICS/appliedForce' );
+  const frictionForceString = require( 'string!FORCES_AND_MOTION_BASICS/frictionForce' );
+  const pattern0Name1ValueUnitsAccelerationString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0name.1valueUnitsAcceleration' );
+  const pattern0ValueUnitsNewtonsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsNewtons' );
+  const sumOfForcesEqualsZeroString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForcesEqualsZero' );
 
   /**
    * Constructor for the MotionScreenView
