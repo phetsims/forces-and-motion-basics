@@ -17,7 +17,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // constants
-  var DIRECTIONS = [ 'left', 'right' ];
+  const DIRECTIONS = [ 'left', 'right' ];
 
   /**
    * @constructor
@@ -29,7 +29,7 @@ define( require => {
       fill: 'grey'
     }, options );
 
-    var stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
+    const stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
     Path.call( this, stopperShape );
 
     // flip around the y axis

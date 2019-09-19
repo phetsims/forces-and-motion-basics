@@ -25,7 +25,7 @@ define( require => {
   const mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
 
   // constants
-  var linear = Util.linear;
+  const linear = Util.linear;
 
   /**
    * Constructor for MovingBackgroundNode
@@ -36,7 +36,7 @@ define( require => {
    * @constructor
    */
   function MovingBackgroundNode( model, layoutCenterX, tandem ) {
-    var self = this;
+    const self = this;
     this.model = model;
 
     Node.call( this, {
@@ -45,11 +45,11 @@ define( require => {
       tandem: tandem
     } );
 
-    var L = 900;
+    const L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    var toBackgroundImage = function( offset, image, y, scale, tandemName ) {
-      var node = new Image( image, {
+    const toBackgroundImage = function( offset, image, y, scale, tandemName ) {
+      const node = new Image( image, {
         scale: scale,
         x: offset,
         y: y,
@@ -60,12 +60,12 @@ define( require => {
       return node;
     };
 
-    var stageWidth = L * 2;
+    const stageWidth = L * 2;
 
-    var mountainY = 311;
+    const mountainY = 311;
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy
-    var mountainAndCloudLayer = new Node( {
+    const mountainAndCloudLayer = new Node( {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
@@ -82,17 +82,17 @@ define( require => {
     //Move the background objects
     //TODO: support background objects with scale !== 1
 
-    var getLayerUpdater = function( layer, motionScale ) {
-      var netDelta = 0;
-      var children = layer.children;
+    const getLayerUpdater = function( layer, motionScale ) {
+      let netDelta = 0;
+      const children = layer.children;
       return function( position, oldPosition ) {
-        var delta = -(position - oldPosition) * MotionConstants.POSITION_SCALE / motionScale;
+        const delta = -(position - oldPosition) * MotionConstants.POSITION_SCALE / motionScale;
         netDelta += delta;
         layer.translate( delta, 0 );
 
-        var sign = position > oldPosition ? 1 : -1;
-        for ( var i = 0; i < children.length; i++ ) {
-          var child = children[ i ];
+        const sign = position > oldPosition ? 1 : -1;
+        for ( let i = 0; i < children.length; i++ ) {
+          const child = children[ i ];
 
 //        console.log( child.offsetX + netDelta );
           //model moving right
@@ -124,20 +124,20 @@ define( require => {
 
     model.positionProperty.link( getLayerUpdater( mountainAndCloudLayer, 10 ) );
 
-    var tileWidth = brickTileImage.width;
+    const tileWidth = brickTileImage.width;
 
     //Add the ground, offset the pattern so that the it aligns with the brick image
-    var tilePattern = new Pattern( brickTileImage );
-    var ground = new Rectangle( 0, 0, brickTileImage.width * 14, brickTileImage.height, { fill: tilePattern } );
-    var mod = ground.width / 14;
-    var centerX = layoutCenterX - ground.width / 2;
+    const tilePattern = new Pattern( brickTileImage );
+    const ground = new Rectangle( 0, 0, brickTileImage.width * 14, brickTileImage.height, { fill: tilePattern } );
+    const mod = ground.width / 14;
+    const centerX = layoutCenterX - ground.width / 2;
 
     //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
-    var showGround = true;
+    const showGround = true;
     if ( showGround ) {
       ground.toImage( function( image ) {
-        var groundY = mountainY + 50;
-        var groundImageNode = new Image( image, {
+        const groundY = mountainY + 50;
+        const groundImageNode = new Image( image, {
           y: groundY,
           tandem: tandem.createTandem( 'groundImageNode' )
         } );
@@ -150,20 +150,20 @@ define( require => {
         if ( !model.skateboard ) {
 
           //Add the gravel
-          var gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, { y: -2 } );
+          const gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, { y: -2 } );
 
           //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
           groundImageNode.addChild( gravel );
 
           //Add the ice
-          var iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, { fill: 'rgba(189,227,249,0.87)' } );
+          const iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, { fill: 'rgba(189,227,249,0.87)' } );
           self.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
           //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
           model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
-          var iceLayer = new Node( {
+          const iceLayer = new Node( {
             tandem: tandem.createTandem( 'iceLayer' ),
             children: [
               toBackgroundImage( 0, icicleImage, 0, 0.8, 'iceImageNode1' ),
@@ -178,13 +178,13 @@ define( require => {
 
           self.lastNumSpecks = 0;
 
-          var gravelSource = new Node( {
+          const gravelSource = new Node( {
             tandem: tandem.createTandem( 'gravelSource' )
           } );
 
-          var numBlack = 0;
-          var numGray = 0;
-          var numWhite = 0;
+          let numBlack = 0;
+          let numGray = 0;
+          let numWhite = 0;
 
           //Create the gravel for nonzero friction.
           model.frictionProperty.link( function( newFriction, oldFriction ) {
@@ -194,13 +194,13 @@ define( require => {
             newFriction = Util.roundSymmetric( newFriction / 2 ) * 2;
             newFriction = newFriction / 100;
 
-            var height = 3;
-            var numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
+            const height = 3;
+            let numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
             numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-            var desiredBlack = Util.roundSymmetric( numSpecks / 2 );
-            var desiredGray = Util.roundSymmetric( numSpecks / 2 );
-            var desiredWhite = Util.roundSymmetric( numSpecks / 10 );
+            const desiredBlack = Util.roundSymmetric( numSpecks / 2 );
+            const desiredGray = Util.roundSymmetric( numSpecks / 2 );
+            const desiredWhite = Util.roundSymmetric( numSpecks / 10 );
 
             if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
               return;
@@ -221,8 +221,8 @@ define( require => {
               numWhite++;
             }
 
-            var children;
-            var i;
+            let children;
+            let i;
             while ( numBlack > desiredBlack ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {

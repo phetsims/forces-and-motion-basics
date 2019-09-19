@@ -32,9 +32,9 @@ define( require => {
   const netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
 
   // constants
-  var tandem = Tandem.rootTandem;
+  const tandem = Tandem.rootTandem;
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Ariel Paul, Noah Podolefsky',
       graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
@@ -47,15 +47,15 @@ define( require => {
 
   SimLauncher.launch( function() {
 
-    var netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
-    var motionScreenTandem = tandem.createTandem( 'motionScreen' );
-    var frictionScreenTandem = tandem.createTandem( 'frictionScreen' );
-    var accelerationScreenTandem = tandem.createTandem( 'accelerationScreen' );
+    const netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
+    const motionScreenTandem = tandem.createTandem( 'motionScreen' );
+    const frictionScreenTandem = tandem.createTandem( 'frictionScreen' );
+    const accelerationScreenTandem = tandem.createTandem( 'accelerationScreen' );
 
     //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
     //And lookups will still work properly even if the screens are reduced with ?screens=...
-    var netForceImageNode = new Image( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
-    var netForceScreen = new Screen(
+    const netForceImageNode = new Image( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
+    const netForceScreen = new Screen(
       function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
       function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
         name: netForceString,
@@ -64,21 +64,21 @@ define( require => {
       }
     );
 
-    var motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
+    const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
       name: motionString,
       homeScreenIcon: new Image( motionIcon, {
         tandem: motionScreenTandem.createTandem( 'icon' )
       } )
     } );
 
-    var frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
+    const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
       name: frictionString,
       homeScreenIcon: new Image( frictionIcon, {
         tandem: frictionScreenTandem.createTandem( 'icon' )
       } )
     } );
 
-    var accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
+    const accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
       name: accelerationString,
       homeScreenIcon: new Image( accelerationIcon, {
         tandem: accelerationScreenTandem.createTandem( 'icon' )
@@ -86,7 +86,7 @@ define( require => {
     } );
 
     //Create and start the sim
-    var sim = new Sim( forcesAndMotionBasicsTitleString, [
+    const sim = new Sim( forcesAndMotionBasicsTitleString, [
         netForceScreen,
         motionScreen,
         frictionScreen,

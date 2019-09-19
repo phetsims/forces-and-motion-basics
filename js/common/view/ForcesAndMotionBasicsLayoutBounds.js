@@ -16,7 +16,7 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  var ForcesAndMotionBasicsLayoutBounds = new Bounds2( 0, 0, 981, 604 );
+  const ForcesAndMotionBasicsLayoutBounds = new Bounds2( 0, 0, 981, 604 );
 
   forcesAndMotionBasics.register( 'ForcesAndMotionBasicsLayoutBounds', ForcesAndMotionBasicsLayoutBounds );
 

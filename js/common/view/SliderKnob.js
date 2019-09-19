@@ -32,23 +32,23 @@ define( require => {
     this.enabledProperty = options.enabledProperty;
 
     // different fill colors for when the slider is enabled or disabled
-    var enabledFillColor = '#2FB0E4';
-    var disabledFillColor = 'gray';
-    var enabledColorStop = '#B8E4FB';
-    var disabledColorStop = 'white';
+    const enabledFillColor = '#2FB0E4';
+    const disabledFillColor = 'gray';
+    const enabledColorStop = '#B8E4FB';
+    const disabledColorStop = 'white';
 
     Node.call( this, {
       tandem: tandem
     } );
 
     //Add the rounded rectangle background
-    var scale = 0.8;
-    var width = 20 * scale;
-    var height = 50 * scale;
-    var enabledGradient = new LinearGradient( -width / 2, 0, width / 2, 0 ).addColorStop( 0, enabledFillColor ).addColorStop( 0.5, enabledColorStop ).addColorStop( 1, enabledFillColor );
-    var disabledGradient = new LinearGradient( -width / 2, 0, width / 2, 0 ).addColorStop( 0, disabledFillColor ).addColorStop( 0.5, disabledColorStop ).addColorStop( 1, disabledFillColor );
+    const scale = 0.8;
+    const width = 20 * scale;
+    const height = 50 * scale;
+    const enabledGradient = new LinearGradient( -width / 2, 0, width / 2, 0 ).addColorStop( 0, enabledFillColor ).addColorStop( 0.5, enabledColorStop ).addColorStop( 1, enabledFillColor );
+    const disabledGradient = new LinearGradient( -width / 2, 0, width / 2, 0 ).addColorStop( 0, disabledFillColor ).addColorStop( 0.5, disabledColorStop ).addColorStop( 1, disabledFillColor );
 
-    var rectangle = new Rectangle( -width / 2, 0, width, height, 10 * scale, 10 * scale, {
+    const rectangle = new Rectangle( -width / 2, 0, width, height, 10 * scale, 10 * scale, {
       fill: this.enabledProperty.value ? enabledGradient : 'gray',
       stroke: this.enabledProperty.value ? 'black' : 'gray',
       lineWidth: 2
@@ -62,8 +62,8 @@ define( require => {
     } );
 
     //add a grid of grip dots
-    var dx = width / 5;
-    var dy = height / 6;
+    const dx = width / 5;
+    const dy = height / 6;
     this.addGripDot( -dx, height / 2 - dy );
     this.addGripDot( dx, height / 2 - dy );
     this.addGripDot( -dx, height / 2 );
@@ -80,8 +80,8 @@ define( require => {
 
   return inherit( Node, SliderKnob, {
     addGripDot: function( x, y ) {
-      var radius = 1.8;
-      var stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
+      const radius = 1.8;
+      const stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
       this.addChild( new Circle( radius, {
         x: x,
         y: y,

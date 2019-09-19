@@ -25,7 +25,7 @@ define( require => {
   const pattern0MassUnitsKilogramsString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0massUnitsKilograms' );
 
   //Workaround for https://github.com/phetsims/scenery/issues/108
-  var IDENTITY = Matrix3.scaling( 1, 1 );
+  const IDENTITY = Matrix3.scaling( 1, 1 );
 
   /**
    * Constructor for ItemNode
@@ -41,7 +41,7 @@ define( require => {
    */
   function ItemNode( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, tandem ) {
 
-    var self = this;
+    const self = this;
     this.item = item;
     Node.call( this, {
       cursor: 'pointer',
@@ -55,7 +55,7 @@ define( require => {
     this.translate( item.positionProperty.get() );
 
     //Create the node for the main graphic
-    var normalImageNode = new Image( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
+    const normalImageNode = new Image( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
     this.normalImageNode = normalImageNode;
 
     // keep track of the sitting image to track its width for the pusher
@@ -63,7 +63,7 @@ define( require => {
     this.sittingImage = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
     //When the model changes, update the image location as well as which image is shown
-    var updateImage = function() {
+    const updateImage = function() {
       // var centerX = normalImageNode.centerX;
       if ( (typeof holdingImage !== 'undefined') && (item.armsUp() && item.onBoardProperty.get() ) ) {
         normalImageNode.image = holdingImage;
@@ -85,16 +85,16 @@ define( require => {
     // https://github.com/phetsims/axon/issues/135
     _.hasIn( window, 'phet.phetIo.phetioEngine' ) && phet.phetIo.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
 
-    for ( var i = 0; i < model.items.length; i++ ) {
+    for ( let i = 0; i < model.items.length; i++ ) {
       model.items[ i ].draggingProperty.link( updateImage );
     }
 
     model.stack.lengthProperty.link( updateImage );
 
     //When the user drags the object, start
-    var moveToStack = function() {
+    const moveToStack = function() {
       item.onBoardProperty.set( true );
-      var imageWidth = item.getCurrentScale() * normalImageNode.width;
+      const imageWidth = item.getCurrentScale() * normalImageNode.width;
       item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - self.height, 'stack' );
       model.stack.add( item );
       if ( model.stack.length > 3 ) {
@@ -103,15 +103,15 @@ define( require => {
     };
 
     // called on end drag, update direction of girl or man to match current applied force and velocity of model
-    var updatePersonDirection = function( person ) {
+    const updatePersonDirection = function( person ) {
 
       // default direction is to the left
-      var direction = 'left';
+      let direction = 'left';
 
       // if girl or man is alread on the stack, direction should match person that is already on the stack
-      var personInStack;
-      for ( var i = 0; i < model.stack.length; i++ ) {
-        var itemInStack = model.stack.get( i );
+      let personInStack;
+      for ( let i = 0; i < model.stack.length; i++ ) {
+        const itemInStack = model.stack.get( i );
 
         if ( itemInStack === person ) {
           // skip the person that is currently being dragged
@@ -142,7 +142,7 @@ define( require => {
       person.directionProperty.set( direction );
     };
 
-    var dragHandler = new SimpleDragHandler( {
+    const dragHandler = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       translate: function( options ) {
         item.positionProperty.set( options.position );
@@ -159,7 +159,7 @@ define( require => {
         itemToolbox.moveToFront();
 
         item.draggingProperty.set( true );
-        var index = model.stack.indexOf( item );
+        const index = model.stack.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
@@ -200,7 +200,7 @@ define( require => {
     } );
 
     //Label for the mass (if it is shown)
-    var massLabel = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
+    const massLabel = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'
@@ -208,15 +208,15 @@ define( require => {
       maxWidth: normalImageNode.width / 1.5,
       tandem: tandem.createTandem( 'massLabel' )
     } );
-    var roundedRadius = 10;
-    var roundRect = new Rectangle( 0, 0, massLabel.width + roundedRadius, massLabel.height + roundedRadius, roundedRadius, roundedRadius, {
+    const roundedRadius = 10;
+    const roundRect = new Rectangle( 0, 0, massLabel.width + roundedRadius, massLabel.height + roundedRadius, roundedRadius, roundedRadius, {
       fill: 'white',
       stroke: 'gray'
     } ).mutate( { centerX: massLabel.centerX, centerY: massLabel.centerY } );
 
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n
-    var labelNode = new Node( {
+    const labelNode = new Node( {
       children: [ roundRect, massLabel ],
       scale: 1.0 / item.imageScaleProperty.get(),
       tandem: tandem.createTandem( 'labelNode' )
@@ -228,7 +228,7 @@ define( require => {
 
     // When the object is scaled or change direction, update the image part
     Property.multilink( [ item.interactionScaleProperty, item.directionProperty ], function( interactionScale, direction ) {
-      var scale = item.imageScaleProperty.get() * interactionScale;
+      const scale = item.imageScaleProperty.get() * interactionScale;
       self.setScaleMagnitude( scale );
 
       // make sure that labels remain the same size
@@ -238,7 +238,7 @@ define( require => {
       if ( direction === 'right' ) {
 
         // store the center so that it can be reapplied after change in scale
-        var centerX = normalImageNode.centerX;
+        const centerX = normalImageNode.centerX;
 
         normalImageNode.scale( -1, 1 );
 
@@ -279,7 +279,7 @@ define( require => {
     getScaledWidth: function() {
 
       // if the item has a sitting image, use that image for the width
-      var scaledWidth;
+      let scaledWidth;
       if ( this.sittingImage ) {
         scaledWidth = this.sittingImage.width * this.item.getCurrentScale();
       }

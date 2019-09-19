@@ -24,8 +24,8 @@ define( require => {
   const pattern0ValueUnitsNString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsN' );
 
   // constants
-  var ARROW_HEAD_WIDTH = 50;
-  var ARROW_HEAD_HEIGHT = 25;
+  const ARROW_HEAD_WIDTH = 50;
+  const ARROW_HEAD_HEIGHT = 25;
 
   /**
    * @param label the text to show for the arrow
@@ -39,7 +39,7 @@ define( require => {
    * @constructor
    */
   function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, tandem, options ) {
-    var self = this;
+    const self = this;
 
     //Store fields
     options = _.extend( { labelPosition: 'top', arrowScale: 1 }, options );
@@ -61,7 +61,7 @@ define( require => {
       lineWidth: 1,
       tandem: tandem.createTandem( 'arrowNode' )
     }, options ) );
-    var fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
+    const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
     this.valueNode = new Text( '110N', _.extend( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
     this.labelNode = new Text( label, _.extend( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
     this.addChild( this.arrowNode );
@@ -71,7 +71,7 @@ define( require => {
     //Update when the value changes
     valueProperty.link( function( value ) {
       self.value = value;
-      var roundedValue = Util.toFixed( Math.abs( value ), 0 );
+      const roundedValue = Util.toFixed( Math.abs( value ), 0 );
       self.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
       self.update();
     } );
@@ -104,10 +104,10 @@ define( require => {
 
     //Update the arrow graphics and text labels
     update: function() {
-      var value = this.value * this.options.arrowScale;
+      const value = this.value * this.options.arrowScale;
 
       //Don't show it if it is too small
-      var hidden = Math.abs( value ) < 1E-6;
+      const hidden = Math.abs( value ) < 1E-6;
       this.hidden = hidden;
       this.arrowNode.visible = !hidden;
       this.valueNode.visible = !hidden && this.showValuesProperty.value;
@@ -115,13 +115,13 @@ define( require => {
 
       //Only change the node if visible, for performance
       if ( !hidden ) {
-        var tailX = this.tailX;
-        var tailY = this.tailY;
-        var tailWidth = ARROW_HEAD_HEIGHT;
-        var headWidth = ARROW_HEAD_WIDTH;
+        const tailX = this.tailX;
+        const tailY = this.tailY;
+        const tailWidth = ARROW_HEAD_HEIGHT;
+        const headWidth = ARROW_HEAD_WIDTH;
 
         //For short arrows, the head height should be half of the arrow length.  See https://github.com/phetsims/scenery-phet/issues/30
-        var headHeight = Math.min( Math.abs( value ) / 2, 40 );
+        const headHeight = Math.min( Math.abs( value ) / 2, 40 );
         this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY,
           { tailWidth: tailWidth, headWidth: headWidth, headHeight: headHeight } );
 
@@ -167,7 +167,7 @@ define( require => {
             this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - this.labelNode.height * 3 / 2 : 0;
 
             if ( this.valueNode.width + 5 > this.arrowNode.width ) {
-              var spacingOffset = 5;
+              const spacingOffset = 5;
               if ( value > 0 ) {
                 this.valueNode.left = this.arrowNode.right + spacingOffset;
               }

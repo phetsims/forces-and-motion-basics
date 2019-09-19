@@ -42,7 +42,7 @@ define( require => {
    * @param {boolean} mystery      [description]
    */
   function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
-    var self = this;
+    const self = this;
 
     this.name = name;
 
@@ -100,7 +100,7 @@ define( require => {
     } );
 
     // How much the object grows or shrinks when interacting with it
-    var minValue = homeScale || 1.0;
+    const minValue = homeScale || 1.0;
     this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
       tandem: tandem.createTandem( 'interactionScaleProperty' ),
       range: new Range( minValue, 1.3 )
@@ -193,13 +193,13 @@ define( require => {
       }
 
       if ( this.animationStateProperty.get().enabled ) {
-        var destination = new Vector2( this.animationStateProperty.get().x, this.animationStateProperty.get().y );
+        const destination = new Vector2( this.animationStateProperty.get().x, this.animationStateProperty.get().y );
 
         //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
-        var blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
+        const blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
         this.positionProperty.set( this.positionProperty.get().blend( destination, blendAmount ) );
 
-        var distanceToTarget = this.positionProperty.get().distance( destination );
+        const distanceToTarget = this.positionProperty.get().distance( destination );
         if ( distanceToTarget < 1 && ( this.interactionScaleProperty.get() === 1.3 || this.interactionScaleProperty.get() === this.homeScale ) ) {
 
           //Snap to exact final destination, see #59

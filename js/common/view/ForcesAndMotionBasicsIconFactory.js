@@ -21,11 +21,11 @@ define( require => {
   /**
    * Static object, not meant to be instantiated.
    */
-  var ForcesAndMotionBasicsIconFactory = {
+  const ForcesAndMotionBasicsIconFactory = {
     speedometerIcon: function( tandem ) {
 
     // the 'speed' option requires the text and a speedometer icon
-    var speedometerIconValueProperty = new Property( 0 );
+    const speedometerIconValueProperty = new Property( 0 );
       return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
         { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
     }

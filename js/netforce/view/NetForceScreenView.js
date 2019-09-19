@@ -60,10 +60,10 @@ define( require => {
   const golfClapSound = require( 'sound!FORCES_AND_MOTION_BASICS/golf-clap.mp3' );
 
   // constants
-  var STOPPER_TOP_WIDTH = 11;
-  var STOPPER_BOTTOM_WIDTH = 30;
-  var STOPPER_HEIGHT = 24;
-  var SUM_ARROW_TAIL_Y = 127;
+  const STOPPER_TOP_WIDTH = 11;
+  const STOPPER_BOTTOM_WIDTH = 30;
+  const STOPPER_HEIGHT = 24;
+  const SUM_ARROW_TAIL_Y = 127;
 
   /**
    * @param {NetForceModel} model
@@ -71,7 +71,7 @@ define( require => {
    * @constructor
    */
   function NetForceScreenView( model, tandem ) {
-    var self = this;
+    const self = this;
 
     ScreenView.call( this, {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
@@ -79,15 +79,15 @@ define( require => {
     } );
 
     //Fit to the window and render the initial scene
-    var width = this.layoutBounds.width;
-    var height = this.layoutBounds.height;
+    const width = this.layoutBounds.width;
+    const height = this.layoutBounds.height;
 
     this.model = model;
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
-    var skyHeight = 376;
-    var grassY = 368;
-    var groundHeight = height - skyHeight;
+    const skyHeight = 376;
+    const grassY = 368;
+    const groundHeight = height - skyHeight;
     this.addChild( new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, {
       fill: new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' )
     } ) );
@@ -115,7 +115,7 @@ define( require => {
     this.cartNode = new CartNode( model.cart, model.speedProperty, model.showSpeedProperty, tandem.createTandem( 'cartNode' ) );
 
     //Black caret below the cart
-    var layoutCenterX = this.layoutBounds.width / 2;
+    const layoutCenterX = this.layoutBounds.width / 2;
     this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), {
       stroke: '#000000',
       lineWidth: 3,
@@ -124,9 +124,9 @@ define( require => {
       tandem: tandem.createTandem( 'caretPathNode' )
     } ) );
 
-    var cursorWidth = 18;
+    const cursorWidth = 18;
 
-    var cursorPathNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
+    const cursorPathNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
       fill: 'blue',
       stroke: 'black',
       lineWidth: 1,
@@ -134,12 +134,12 @@ define( require => {
     } );
 
     // cart stoppers that seem to stop cart motion
-    var stopperY = grassY + 5; // a little lower than the grass because the grass includes some sky blue
-    var rightStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'rightStopper' ), {
+    const stopperY = grassY + 5; // a little lower than the grass because the grass includes some sky blue
+    const rightStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'rightStopper' ), {
       left: layoutCenterX + NetForceModel.GAME_LENGTH,
       y: stopperY
     } );
-    var leftStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'leftStopper' ), {
+    const leftStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'leftStopper' ), {
       direction: 'right',
       right: layoutCenterX - NetForceModel.GAME_LENGTH,
       y: stopperY
@@ -156,8 +156,8 @@ define( require => {
     this.addChild( this.ropeNode );
 
     // create the toolboxes that hold the puller children
-    var leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
-    var rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
+    const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
+    const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
@@ -168,7 +168,7 @@ define( require => {
     } ) );
 
     //Create the arrow nodes
-    var opacity = 0.8;
+    const opacity = 0.8;
     this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
@@ -199,9 +199,9 @@ define( require => {
     this.addChild( this.cartNode );
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
-    var getPullerImage = function( puller, leaning ) {
-      var type = puller.type;
-      var size = puller.size;
+    const getPullerImage = function( puller, leaning ) {
+      const type = puller.type;
+      const size = puller.size;
 
       //todo: compress with more ternary?
       return type === 'blue' && size === 'large' && !leaning ? pullFigureLargeBlue0Image :
@@ -220,26 +220,26 @@ define( require => {
     };
 
     // get the associated toolbox for the puller
-    var getPullerToolbox = function( puller ) {
+    const getPullerToolbox = function( puller ) {
       return puller.type === 'red' ? rightToolbox : leftToolbox;
     };
 
-    var leftPullerLayer = new Node( {
+    const leftPullerLayer = new Node( {
       tandem: tandem.createTandem( 'leftPullerLayer' )
     } );
-    var rightPullerLayer = new Node( {
+    const rightPullerLayer = new Node( {
       tandem: tandem.createTandem( 'rightPullerLayer' )
     } );
     this.pullerNodes = [];
 
     this.model.pullers.forEach( function( puller ) {
-      var pullerNode = new PullerNode( puller, self.model,
+      const pullerNode = new PullerNode( puller, self.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
         getPullerToolbox( puller ),
         tandem.createTandem( puller.pullerTandem.name )
       );
-      var pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
+      const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
       self.pullerNodes.push( pullerNode );
     } );
@@ -249,8 +249,8 @@ define( require => {
 
     //Add the go button, but only if there is a puller attached
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
-    var maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
-    var goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, tandem.createTandem( 'goPauseButton' ), {
+    const maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
+    const goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, tandem.createTandem( 'goPauseButton' ), {
       maxWidth: maxWidth,
       tandem: tandem.createTandem( 'goPauseButton' )
     } );
@@ -275,7 +275,7 @@ define( require => {
     } );
     this.addChild( this.controlPanel );
 
-    var lastFlagNode = null;
+    let lastFlagNode = null;
 
     // Show the flag node when pulling is complete
     Property.multilink( [ model.stateProperty, model.cart.xProperty ], function( state, x ) {
@@ -287,7 +287,7 @@ define( require => {
       }
     } );
 
-    var golfClap = new Sound( golfClapSound );
+    const golfClap = new Sound( golfClapSound );
 
     //Play audio golf clap when game completed
     model.stateProperty.link( function( state ) {

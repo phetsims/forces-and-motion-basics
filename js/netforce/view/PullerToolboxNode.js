@@ -14,8 +14,8 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
-  var defaultStroke = 'black';
-  var defaultLineWidth = 1;
+  const defaultStroke = 'black';
+  const defaultLineWidth = 1;
 
   /**
    * Create toolbox backgrounds for the pullers
@@ -31,17 +31,17 @@ define( require => {
   function PullerToolboxNode( model, netForceScreenView, x, side, activePullerIndex, minIndex, maxIndex, highlightColor ) {
     this.highlightColor = highlightColor;
     this.uniqueId = side + '-pullerToolbox';
-    var toolboxHeight = 216;
+    const toolboxHeight = 216;
 
-    var toolboxOptions = {
+    const toolboxOptions = {
       fill: '#e7e8e9',
       stroke: defaultStroke,
       lineWidth: defaultLineWidth
     };
 
-    var toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
-    var toolboxWidth = 324;
-    var toolboxArcWidth = 10;
+    const toolboxY = netForceScreenView.layoutBounds.height - toolboxHeight - 4;
+    const toolboxWidth = 324;
+    const toolboxArcWidth = 10;
     Rectangle.call( this, x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
   }
 

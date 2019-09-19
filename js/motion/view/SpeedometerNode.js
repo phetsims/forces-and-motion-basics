@@ -41,7 +41,7 @@ define( require => {
     // mutate with the options after construction so we can set the 'top'
     Node.call( this );
 
-    var gaugeNode = new ValueGaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+    const gaugeNode = new ValueGaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         radius: 67,
         tandem: tandem.createTandem( 'gaugeNode' ),

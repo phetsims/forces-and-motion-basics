@@ -26,7 +26,7 @@ define( require => {
   function ReturnButton( model, tandem, options ) {
 
     // TODO: this method bound the model. Why?
-    var returnCart = function() {
+    const returnCart = function() {
       model.returnCart();
     };
     TextPushButton.call( this, returnString, {

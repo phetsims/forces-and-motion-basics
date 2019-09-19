@@ -34,10 +34,10 @@ define( require => {
    */
   function AppliedForceSlider( model, range, tandem, options ) {
 
-    var self = this;
+    const self = this;
     this.range = range;
 
-    var sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
+    const sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
     HSlider.call( this, model.appliedForceProperty, range, _.extend( {
       trackSize: new Dimension2( 300, 6 ),
       majorTickLength: 30,
@@ -61,7 +61,7 @@ define( require => {
     // Note: I do not like this method of canceling, it relies on the assumption that the slider will end drag
     // when thisSlider.enabled is set to false. This solution should be fine until we have general support for
     // this kind of thing in scenery
-    var cancelDrag = function() {
+    const cancelDrag = function() {
       self.enabled = false;
       self.enabled = true;
     };
@@ -99,21 +99,21 @@ define( require => {
     } );
 
     //Add ticks at regular intervals in 8 divisions
-    var initialTickValue = range.min;
+    const initialTickValue = range.min;
 
     //Constants and functions for creating the ticks
-    var numDivisions = 10; //e.g. divide the ruler into 1/8ths
-    var numTicks = numDivisions + 1; //ticks on the end
-    var delta = ( range.max - range.min ) / numDivisions;
+    const numDivisions = 10; //e.g. divide the ruler into 1/8ths
+    const numTicks = numDivisions + 1; //ticks on the end
+    const delta = ( range.max - range.min ) / numDivisions;
 
-    var isMajor = function( tickIndex ) { return tickIndex % 5 === 0; };
+    const isMajor = function( tickIndex ) { return tickIndex % 5 === 0; };
 
     //Generate each of the ticks and add to the parent
     _.range( numTicks ).forEach( function( i ) {
 
-      var location = initialTickValue + i * delta;
+      const location = initialTickValue + i * delta;
       if ( isMajor( i ) ) {
-        var label = new Text( location, {
+        const label = new Text( location, {
           font: new PhetFont( 16 ),
           tandem: tandem.createTandem( 'tick' + i )
         } );

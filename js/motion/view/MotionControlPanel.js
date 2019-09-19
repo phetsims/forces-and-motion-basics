@@ -47,29 +47,29 @@ define( require => {
   function MotionControlPanel( model, tandem ) {
     Node.call( this, { tandem: tandem } );
 
-    var fontSize = 18;
-    var maxTextWidth = 120;
+    const fontSize = 18;
+    const maxTextWidth = 120;
 
     /**
      * Create a label node with options icon
      * @param {string} text - the label string
      * @param {Object} [options]
      */
-    var createLabel = function( text, tandemName, options ) {
+    const createLabel = function( text, tandemName, options ) {
       options = _.extend( {
         indent: 0,
         icon: new Node()
       }, options );
 
       // create the label for the checkbox
-      var labelText = new Text( text, {
+      const labelText = new Text( text, {
         font: new PhetFont( fontSize ),
         maxWidth: maxTextWidth,
         tandem: tandem.createTandem( tandemName ).createTandem( 'labelTextNode' ) // this is a bit of a hack to support backwards tandem api
       } );
 
       // optional icon needs spacing next to text
-      var iconSpacer = new HStrut( 0 );
+      let iconSpacer = new HStrut( 0 );
       if ( options.icon ) {
         // create a horizontal spacer for the icon
         iconSpacer = new HStrut( 10 );
@@ -79,7 +79,7 @@ define( require => {
     };
 
     //Icon for the forces in the control panel
-    var createArrowIcon = function( phetioID ) {
+    const createArrowIcon = function( phetioID ) {
       return new ArrowNode( 0, 0, 40, 0, {
         headHeight: 20,
         headWidth: 20,
@@ -89,31 +89,31 @@ define( require => {
         tandem: tandem.createTandem( phetioID )
       } );
     };
-    var speedometerIcon = function() {
-      var speedometerIconValueProperty = new Property( 0 );
+    const speedometerIcon = function() {
+      const speedometerIconValueProperty = new Property( 0 );
       return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
         { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
     };
-    var accelerometerIcon = function() {
-      var accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
+    const accelerometerIcon = function() {
+      const accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
       return new AccelerometerNode( accelerometerIconValueProperty,
         tandem.createTandem( 'accelerometerIcon' ) ).mutate( { scale: 0.3 } );
     };
 
-    var createFrictionSlider = function() {
+    const createFrictionSlider = function() {
 
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
-      var frictionSlider = new HSlider( model.frictionProperty, new Range( 0, MotionConstants.MAX_FRICTION ), {
+      const frictionSlider = new HSlider( model.frictionProperty, new Range( 0, MotionConstants.MAX_FRICTION ), {
         trackSize: new Dimension2( 150, 6 ),
         thumbNode: new SliderKnob( tandem.createTandem( 'sliderKnob' ) ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
         tandem: tandem.createTandem( 'frictionSlider' )
       } );
-      var sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
-      var invisibleSliderTickOptions = _.extend( { visible: false }, sliderTickOptions );
+      const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
+      const invisibleSliderTickOptions = _.extend( { visible: false }, sliderTickOptions );
 
       frictionSlider.addMajorTick( 0, new Text( noneString, _.extend( { tandem: tandem.createTandem( 'zeroTickTextNode' ) }, sliderTickOptions ) ) );
       frictionSlider.addMajorTick( 0, new Text( lotsString, _.extend( { tandem: tandem.createTandem( 'invisibleZeroTickTextNode' ) }, invisibleSliderTickOptions ) ) );
@@ -121,7 +121,7 @@ define( require => {
       frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, _.extend( { tandem: tandem.createTandem( 'maxTickTextNode' ) }, sliderTickOptions ) ) );
       frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, _.extend( { tandem: tandem.createTandem( 'invisibleMaxTickTextNode' ) }, invisibleSliderTickOptions ) ) );
 
-      var frictionTextNode = new Text( frictionString, {
+      const frictionTextNode = new Text( frictionString, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),
         maxWidth: maxTextWidth,
         tandem: tandem.createTandem( 'frictionTextNode' )
@@ -131,15 +131,15 @@ define( require => {
     };
 
     // Create controls for the 'motion' screen
-    var createMotionControls = function() {
+    const createMotionControls = function() {
 
       // container node for checkboxes and an hstrut which makes the panel just a little wider to match the
       // other screens
-      var containerNode = new Node( {
+      const containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
-      var items = [
+      const items = [
         {
           node: createLabel( forceString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
@@ -163,12 +163,12 @@ define( require => {
       ];
 
       // create the checkboxes
-      var checkboxes = new VerticalCheckboxGroup( items );
+      const checkboxes = new VerticalCheckboxGroup( items );
       containerNode.addChild( checkboxes );
 
 
       // create an hStrut to increase the width of the controls to the right
-      var hStrut = new HStrut( 16, { leftCenter: checkboxes.rightCenter } );
+      const hStrut = new HStrut( 16, { leftCenter: checkboxes.rightCenter } );
       containerNode.addChild( hStrut );
 
       return containerNode;
@@ -176,7 +176,7 @@ define( require => {
 
     // if the slider is wider than the group of checkboxes, align the checkboxes to the left of the slider
     // otherwise, center with the checkboxes
-    var layoutFrictionSlider = function( checkboxes, frictionSlider ) {
+    const layoutFrictionSlider = function( checkboxes, frictionSlider ) {
       if ( frictionSlider.width > checkboxes.width ) {
         checkboxes.left = frictionSlider.left;
       }
@@ -187,14 +187,14 @@ define( require => {
 
     // Create controls for the 'friction' screen, including a set of checkboxes and a slider
     // The slider is centered under the checkboxes, which are aligned to the left
-    var createFrictionControls = function() {
+    const createFrictionControls = function() {
 
       // container for all controls
-      var containerNode = new Node( {
+      const containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
-      var items = [
+      const items = [
         {
           node: createLabel( forcesString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
@@ -223,15 +223,15 @@ define( require => {
       ];
 
       // create the checkboxes
-      var checkboxes = new VerticalCheckboxGroup( items );
+      const checkboxes = new VerticalCheckboxGroup( items );
       containerNode.addChild( checkboxes );
 
       // create a spacer for the checkboxes and the slider
-      var strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
+      const strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
       containerNode.addChild( strut );
 
       // create the slider
-      var frictionSlider = createFrictionSlider();
+      const frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
 
       layoutFrictionSlider( checkboxes, frictionSlider );
@@ -243,14 +243,14 @@ define( require => {
 
     // Create controls for the 'acceleration' screen
     // The slider is centered under the checkboxes, which are aligned to the left
-    var createAccelerationControls = function() {
+    const createAccelerationControls = function() {
 
       // node containing checkboxes, spacing, and slider
-      var containerNode = new Node( {
+      const containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
 
-      var items = [
+      const items = [
         {
           node: createLabel( forcesString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
@@ -283,15 +283,15 @@ define( require => {
         }
       ];
 
-      var checkboxes = new VerticalCheckboxGroup( items );
+      const checkboxes = new VerticalCheckboxGroup( items );
       containerNode.addChild( checkboxes );
 
       // create the spacing strut
-      var strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
+      const strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
       containerNode.addChild( strut );
 
       // add the slider friction slider under the checkboxes
-      var frictionSlider = createFrictionSlider();
+      const frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
 
       layoutFrictionSlider( checkboxes, frictionSlider );
@@ -302,11 +302,11 @@ define( require => {
     };
 
     // collect contents for the panel
-    var contents = model.screen === 'motion' ? createMotionControls() :
+    const contents = model.screen === 'motion' ? createMotionControls() :
                    model.screen === 'friction' ? createFrictionControls() :
                    createAccelerationControls();
 
-    var panelNode = new Panel( contents, {
+    const panelNode = new Panel( contents, {
       xMargin: 12,
       yMargin: 7,
       fill: '#e3e980',

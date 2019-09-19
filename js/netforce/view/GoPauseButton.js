@@ -42,8 +42,8 @@ define( require => {
    * @returns {Rectangle}
    */
   function wrap( node, padX, padY, nodes ) {
-    var maxWidth = -1;
-    var maxHeight = -1;
+    let maxWidth = -1;
+    let maxHeight = -1;
     nodes.forEach( function( n ) {
       if ( n.width > maxWidth ) {
         maxWidth = n.width;
@@ -73,57 +73,57 @@ define( require => {
     options = _.extend( {
       top: 400
     }, options );
-    var padX = 15;
-    var padY = 10;
-    var goTextNode = new Text( goString, {
+    const padX = 15;
+    const padY = 10;
+    const goTextNode = new Text( goString, {
       font: new PhetFont( 42 ),
       tandem: tandem.createTandem( 'goTextNode' )
     } );
-    var pauseTextNode = new Text( pauseString, {
+    const pauseTextNode = new Text( pauseString, {
       font: new PhetFont( 30 ),
       tandem: tandem.createTandem( 'pauseTextNode' )
     } );
 
     // boolean function to determine if the go button should be enabled based on model state.
-    var isGoButtonEnabled = function() {
+    const isGoButtonEnabled = function() {
       return model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
     };
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
-    var goButtonPressedEmitter = new Emitter( {
+    const goButtonPressedEmitter = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
       parameters: [
         { name: 'netForce', phetioType: NumberIO },
         { name: 'knotJSON', phetioType: StringIO }
       ]
     } );
-    var goListener = function() {
+    const goListener = function() {
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
       model.runningProperty.set( true );
     };
-    var goButton = new RoundPushButton( {
+    const goButton = new RoundPushButton( {
       content: wrap( goTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
       baseColor: '#94b830',
       listener: goListener,
       tandem: tandem.createTandem( 'goButton' )
     } );//green
 
-    var pauseListener = function() {
+    const pauseListener = function() {
       model.runningProperty.set( false );
     };
-    var pauseButton = new RoundPushButton( {
+    const pauseButton = new RoundPushButton( {
       content: wrap( pauseTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
       baseColor: '#df1a22',
       listener: pauseListener,
       tandem: tandem.createTandem( 'pauseButton' )
     } );//red
 
-    var showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
+    const showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
     BooleanToggleNode.call( this, goButton, pauseButton, showGoButtonProperty, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     Property.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], function() {
-      var enabled = isGoButtonEnabled();
+      const enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;
     } );

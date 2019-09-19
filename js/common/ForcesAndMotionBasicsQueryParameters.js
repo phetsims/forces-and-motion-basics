@@ -11,7 +11,7 @@ define( require => {
   // modules
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
 
-  var ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
+  const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
 
     // Allow hiding the item toolboxes, see https://github.com/phetsims/forces-and-motion-basics/issues/215
     showItemToolboxes: {

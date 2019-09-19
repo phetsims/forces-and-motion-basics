@@ -62,42 +62,42 @@ define( require => {
    * @constructor
    */
   function PusherNode( model, layoutWidth, tandem ) {
-    var self = this;
-    var scale = 0.95;
+    const self = this;
+    const scale = 0.95;
 
     // @private - if there are no items on the stack, the node is not interactive and the
     // drag handler will not do anything
     this.interactive = true;
 
     //Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
-    var pushingRightNodes = [];
-    var pushingLeftNodes = [];
-    var children = [];
-    var standingUp = new Image( pusherStraightImage, {
+    const pushingRightNodes = [];
+    const pushingLeftNodes = [];
+    const children = [];
+    const standingUp = new Image( pusherStraightImage, {
       visible: true,
       pickable: true,
       scale: scale,
       tandem: tandem.createTandem( 'standingUpImageNode' )
     } );
-    var fallLeft = new Image( pusherFallDownImage, {
+    const fallLeft = new Image( pusherFallDownImage, {
       visible: false,
       pickable: false,
       scale: scale,
       tandem: tandem.createTandem( 'fallLeftImage' )
     } );
-    var fallRight = new Image( pusherFallDownImage, {
+    const fallRight = new Image( pusherFallDownImage, {
       visible: false,
       pickable: false,
       scale: new Vector2( -scale, scale ),
       tandem: tandem.createTandem( 'fallRightImage' )
     } );
-    var visibleNode = standingUp;
+    let visibleNode = standingUp;
 
     children.push( standingUp );
     children.push( fallLeft );
     children.push( fallRight );
-    for ( var i = 0; i <= 30; i++ ) {
-      var image = i === 0 ? pusherImage0 :
+    for ( let i = 0; i <= 30; i++ ) {
+      const image = i === 0 ? pusherImage0 :
                   i === 1 ? pusherImage1 :
                   i === 2 ? pusherImage2 :
                   i === 3 ? pusherImage3 :
@@ -129,13 +129,13 @@ define( require => {
                   i === 29 ? pusherImage29 :
                   i === 30 ? pusherImage30 :
                   null;
-      var rightImageNode = new Image( image, {
+      const rightImageNode = new Image( image, {
         visible: false,
         pickable: false,
         scale: scale,
         tandem: tandem.createTandem( 'rightImageNode' + i )
       } );
-      var leftImageNode = new Image( image, {
+      const leftImageNode = new Image( image, {
         visible: false,
         pickable: false,
         scale: new Vector2( -scale, scale ),
@@ -164,7 +164,7 @@ define( require => {
 
     // Update the position when the pusher is not applying force (fallen or standing)
     function updateZeroForcePosition( x ) {
-      var pusherY = 362 - visibleNode.height;
+      const pusherY = 362 - visibleNode.height;
       visibleNode.translate( x, pusherY - visibleNode.y, true );
     }
 
@@ -176,15 +176,15 @@ define( require => {
      *
      * @param  {string} direction description
      */
-    var resetZeroForcePosition = function( direction ) {
-      var item = model.stack.get( 0 );
+    const resetZeroForcePosition = function( direction ) {
+      const item = model.stack.get( 0 );
       if ( item ) {
 
         // get the scaled width of the first image on the stack
-        var scaledWidth = item.view.getScaledWidth();
+        const scaledWidth = item.view.getScaledWidth();
 
         // add a little more space (10) so the pusher isn't exactly touching the stack
-        var delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
+        const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
 
         if ( direction === 'right' ) {
           visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
@@ -204,13 +204,13 @@ define( require => {
      */
     function updateAppliedForcePosition() {
       assert && assert( model.stack.length > 0 );
-      var pusherY = 362 - visibleNode.height;
-      var item = model.stack.get( 0 );
+      const pusherY = 362 - visibleNode.height;
+      const item = model.stack.get( 0 );
 
       // get the scaled width of the first item in the stack
-      var scaledWidth = item.view.getScaledWidth();
+      const scaledWidth = item.view.getScaledWidth();
 
-      var delta = scaledWidth / 2 - item.pusherInsetProperty.get();
+      const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
       if ( model.appliedForceProperty.get() > 0 ) {
         visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
       }
@@ -225,9 +225,9 @@ define( require => {
     // get new position for the pusher node when he falls so that he falls back from
     // the item stack when it is moving too quickly
     // @returns {number}
-    var getPusherNodeDeltaX = function() {
+    const getPusherNodeDeltaX = function() {
       // the change in position for the model
-      var modelDelta = -( model.positionProperty.get() - model.previousModelPosition );
+      const modelDelta = -( model.positionProperty.get() - model.previousModelPosition );
 
       // return, transformed by the view scale
       return modelDelta * MotionConstants.POSITION_SCALE;
@@ -241,20 +241,20 @@ define( require => {
      * @param  {Node} newVisibleNode - visibleNode, should be either falling or standing images of the pusher
      * @param  {string} direction      description
      */
-    var pusherLetGo = function( newVisibleNode, direction ) {
+    const pusherLetGo = function( newVisibleNode, direction ) {
       // update the visible node and place it in a position dependent on the direction
       // of falling or the applied force
       setVisibleNode( newVisibleNode );
       resetZeroForcePosition( direction );
 
       // get the translation delta from the transformed model delta and translate
-      var x = getPusherNodeDeltaX();
+      const x = getPusherNodeDeltaX();
       updateZeroForcePosition( x );
     };
 
      model.fallenProperty.link( function( fallen ) {
       if ( fallen ) {
-        var newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeft : fallRight;
+        const newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeft : fallRight;
         pusherLetGo( newVisibleNode, model.fallenDirectionProperty.get() );
       }
       else {
@@ -272,7 +272,7 @@ define( require => {
 
       // update visibility and position if pusher is on screen and is still able to push
       else {
-        var index = Math.min( 30, Util.roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
+        const index = Math.min( 30, Util.roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
         }
@@ -283,7 +283,7 @@ define( require => {
       }
     } );
 
-    var initializePusherNode = function() {
+    const initializePusherNode = function() {
       // makd sure that the standing node is visible, and place in initial position
       setVisibleNode( standingUp );
       visibleNode.centerX = layoutWidth / 2 + ( model.pusherPositionProperty.get() - model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
@@ -308,7 +308,7 @@ define( require => {
     //Update the rightImage and position when the model changes
     model.positionProperty.link( function() {
       if ( model.appliedForceProperty.get() === 0 || model.fallenProperty.get() ) {
-        var x = getPusherNodeDeltaX();
+        const x = getPusherNodeDeltaX();
         // to save processor time, don't update if the pusher is too far off screen
         if ( Math.abs( x ) < 2000 ) {
           updateZeroForcePosition( x );
@@ -316,17 +316,17 @@ define( require => {
       }
     } );
 
-    var listener = new SimpleDragHandler( {
+    const listener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       allowTouchSnag: true,
       translate: function( options ) {
         if ( self.interactive ) {
-          var newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
-          var clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
+          const newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
+          const clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
           // the new force should be rounded so that applied force is not
           // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
-          var roundedForce = Util.roundSymmetric( clampedAppliedForce );
+          const roundedForce = Util.roundSymmetric( clampedAppliedForce );
 
           //Only apply a force if the pusher is not fallen, see #48
           if ( !model.fallenProperty.get() ) {

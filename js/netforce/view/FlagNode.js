@@ -31,13 +31,13 @@ define( require => {
    * @constructor
    */
   function FlagNode( model, centerX, top, tandem ) {
-    var self = this;
+    const self = this;
     this.model = model;
     Node.call( this, {
       tandem: tandem
     } );
 
-    var textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
+    const textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
       tandem: tandem.createTandem( 'textNode' ),
       font: new PhetFont( 24 ),
       fill: 'white'
@@ -56,7 +56,7 @@ define( require => {
     }
     this.addChild( textNode );
 
-    var update = this.updateFlagShape.bind( this );
+    const update = this.updateFlagShape.bind( this );
 
     // listeners that will dispose the flag node when model is reset or cart is returned -
     // these must also be disposed
@@ -86,11 +86,11 @@ define( require => {
 
     //Update the flag shape, copied from the Java version
     updateFlagShape: function() {
-      var shape = new Shape();
-      var maxX = 220;
-      var maxY = 55;
-      var dy = ( 7 * Math.sin( this.model.timeProperty.get() * 6 ) );
-      var dx = ( 2 * Math.sin( this.model.timeProperty.get() * 5 ) ) + 10;
+      const shape = new Shape();
+      const maxX = 220;
+      const maxY = 55;
+      const dy = ( 7 * Math.sin( this.model.timeProperty.get() * 6 ) );
+      const dx = ( 2 * Math.sin( this.model.timeProperty.get() * 5 ) ) + 10;
       shape.moveTo( 0, 0 );
       shape.cubicCurveTo( maxX / 3 + dx, 25 + dy, 2 * maxX / 3 + dx, -25 - dy, maxX + dx, dy / 2 );
       shape.lineTo( maxX + dx, maxY + dy / 2 );

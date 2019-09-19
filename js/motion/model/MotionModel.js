@@ -51,13 +51,13 @@ define( require => {
 
     //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
-    var self = this;
+    const self = this;
 
     //Constants
     this.screen = screen;
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
-    var frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
+    const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
       phetioType: ObservableArrayIO( ItemIO )
@@ -235,13 +235,13 @@ define( require => {
     this.previousModelPosition = this.positionProperty.value;
 
     // create the items - Initial locations determined empirically
-    var bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
     bucket.bucket = true;
-    var fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
-    var crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crateImage, 50, 129, 507, 0.5 );
-    var crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crateImage, 50, 219, 507, 0.5 );
-    var girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
-    var man = new Item( this, 'man', tandem.createTandem( 'man' ), manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
+    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crateImage, 50, 129, 507, 0.5 );
+    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crateImage, 50, 219, 507, 0.5 );
+    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
+    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
@@ -293,9 +293,9 @@ define( require => {
      * @returns {Array<Item>}
      */
     draggingItems: function() {
-      var draggingItems = [];
-      for ( var i = 0; i < this.items.length; i++ ) {
-        var item = this.items[ i ];
+      const draggingItems = [];
+      for ( let i = 0; i < this.items.length; i++ ) {
+        const item = this.items[ i ];
         if ( item.draggingProperty.get() ) {
           draggingItems.push( item );
         }
@@ -310,12 +310,12 @@ define( require => {
      * @param {number} index - index of item in the stack array
      */
     spliceStack: function( index ) {
-      var item = this.stack.get( index );
+      const item = this.stack.get( index );
       this.stack.remove( item );
       if ( this.stack.length > 0 ) {
-        var sumHeight = 0;
-        for ( var i = 0; i < this.stack.length; i++ ) {
-          var size = this.view.getSize( this.stack.get( i ) );
+        let sumHeight = 0;
+        for ( let i = 0; i < this.stack.length; i++ ) {
+          const size = this.view.getSize( this.stack.get( i ) );
           sumHeight += size.height;
           this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
         }
@@ -331,7 +331,7 @@ define( require => {
 
     //When a 4th item is placed on the stack, move the bottom item home and have the stack fall
     spliceStackBottom: function() {
-      var bottom = this.spliceStack( 0 );
+      const bottom = this.spliceStack( 0 );
       bottom.onBoardProperty.set( false );
       bottom.animateHome();
     },
@@ -357,18 +357,18 @@ define( require => {
      */
     getFrictionForce: function( appliedForce ) {
 
-      var frictionForce;
+      let frictionForce;
 
       // Why does g=10.0?  See https://github.com/phetsims/forces-and-motion-basics/issues/132
       // We decide to keep it as it is, even though 9.8 may be more realistic.
-      var g = 10.0;
+      const g = 10.0;
 
-      var mass = this.getStackMass();
+      const mass = this.getStackMass();
 
-      var frictionForceMagnitude = Math.abs( this.frictionProperty.get() * mass * g );
+      const frictionForceMagnitude = Math.abs( this.frictionProperty.get() * mass * g );
 
       //Friction force only applies above this velocity
-      var velocityThreshold = 1E-12;
+      const velocityThreshold = 1E-12;
 
       //Object is motionless, friction should oppose the applied force
       if ( Math.abs( this.velocityProperty.get() ) <= velocityThreshold ) {
@@ -391,8 +391,8 @@ define( require => {
 
     //Compute the mass of the entire stack, for purposes of momentum computation
     getStackMass: function() {
-      var mass = 0;
-      for ( var i = 0; i < this.stack.length; i++ ) {
+      let mass = 0;
+      for ( let i = 0; i < this.stack.length; i++ ) {
         mass += this.stack.get( i ).mass;
       }
       return mass;
@@ -436,10 +436,10 @@ define( require => {
       this.timeProperty.set( this.timeProperty.get() + dt );
 
       // update the acceleration values
-      var mass = this.getStackMass();
+      const mass = this.getStackMass();
       this.accelerationProperty.set( mass !== 0 ? this.sumOfForcesProperty.get() / mass : 0.0 );
 
-      var newVelocity = this.velocityProperty.get() + this.accelerationProperty.get() * dt;
+      let newVelocity = this.velocityProperty.get() + this.accelerationProperty.get() * dt;
 
       //friction force should not be able to make the object move backwards
       //Also make sure velocity goes exactly to zero when the pusher is pushing so that the friction force will be correctly computed
@@ -469,7 +469,7 @@ define( require => {
 
         // if the pusher is very far off screen, stand up immediately
         // based on width of the background image, determined by visual inspection
-        var relativePosition = this.getRelativePusherPosition();
+        const relativePosition = this.getRelativePusherPosition();
         if ( relativePosition > 1600 || relativePosition < -600 ) {
           this.fallenProperty.set( false );
         }
@@ -523,7 +523,7 @@ define( require => {
       }
 
       // step all model items so that they are interactive while paused
-      for ( var i = 0; i < this.items.length; i++ ) {
+      for ( let i = 0; i < this.items.length; i++ ) {
         this.items[ i ].step( dt );
       }
 
@@ -584,7 +584,7 @@ define( require => {
       this.stackSizeProperty.reset();
       this.playProperty.reset();
 
-      for ( var i = 0; i < this.items.length; i++ ) {
+      for ( let i = 0; i < this.items.length; i++ ) {
         // if the item is being dragged we need to cancel the drag in ItemNode
         if ( !this.items[ i ].draggingProperty.get() ) {
           this.items[ i ].reset();
@@ -610,15 +610,15 @@ define( require => {
      * @param {ScreenView} view
      */
     viewInitialized: function( view ) {
-      var item = this.items[ 1 ];
+      const item = this.items[ 1 ];
       // only move item to the top of the stack if it is not being dragged
       if ( !item.draggingProperty.get() ) {
         this.view = view;
         item.onBoardProperty.set( true );
-        var itemNode = view.itemNodes[ 1 ];
+        const itemNode = view.itemNodes[ 1 ];
         item.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
         item.interactionScaleProperty.set( 1.3 );
-        var scaledWidth = this.view.getSize( item ).width;
+        const scaledWidth = this.view.getSize( item ).width;
         item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
         this.stack.add( item );
       }
@@ -629,7 +629,7 @@ define( require => {
      * @returns {{properties: *, stack: Array}}
      */
     getState: function() {
-      var self = this;
+      const self = this;
       return {
         properties: this.getValues(),
         stack: self.stack.getArray().map( function( item ) {return item.get().name;} ).join( ',' )

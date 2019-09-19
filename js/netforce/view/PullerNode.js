@@ -29,12 +29,12 @@ define( require => {
    */
   function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem, options ) {
     this.puller = puller;
-    var self = this;
+    const self = this;
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image; // @private
     this.pullImage = pullImage; // @private
-    var x = puller.positionProperty.get().x;
-    var y = puller.positionProperty.get().y;
+    const x = puller.positionProperty.get().x;
+    const y = puller.positionProperty.get().y;
 
     Image.call( this, this.standImage, {
       tandem: tandem,
@@ -66,13 +66,13 @@ define( require => {
       self.updateLocation( puller, model );
     } );
 
-    var dragHandler = new SimpleDragHandler( {
+    const dragHandler = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
         allowTouchSnag: true,
         start: function( event ) {
 
           // check to see if a puller is knotted - if it is, store the knot
-          var knot = puller.knotProperty.get();
+          const knot = puller.knotProperty.get();
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();
@@ -132,7 +132,7 @@ define( require => {
      * @param {Knot} knot - the last knot that the puller was holding on to
      */
     updateLocationKnotted: function( puller, model, knot ) {
-      var blueOffset = this.puller.type === 'blue' ? -60 : 0;
+      const blueOffset = this.puller.type === 'blue' ? -60 : 0;
       puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
     },
 
@@ -143,8 +143,8 @@ define( require => {
      * @param  {NetForceModel} model
      */
     updateImage: function( puller, model ) {
-      var knotted = puller.knotProperty.get();
-      var pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
+      const knotted = puller.knotProperty.get();
+      const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
       this.image = pulling ? this.pullImage : this.standImage;
     },
 
@@ -155,11 +155,11 @@ define( require => {
      * @param  {NetForceModel} model
      */
     updateLocation: function( puller, model ) {
-      var knotted = puller.knotProperty.get();
-      var pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
+      const knotted = puller.knotProperty.get();
+      const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
       if ( knotted ) {
-        var pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
-        var blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
+        const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
+        const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
         this.setTranslation( puller.knotProperty.get().xProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get().y - this.height + 90 );
       }
       else {

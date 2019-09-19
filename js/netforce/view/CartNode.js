@@ -42,8 +42,8 @@ define( require => {
     this.xPosition = this.cart.xProperty.get();
 
     // add a speedometer to the cart
-    var speedRange = new Range( 0, 6 ); // speed range of the cart in m/s
-    var speedometerNode = new GaugeNode( speedProperty, speedString, speedRange, {
+    const speedRange = new Range( 0, 6 ); // speed range of the cart in m/s
+    const speedometerNode = new GaugeNode( speedProperty, speedString, speedRange, {
       centerX: this.centerX,
       centerY: this.height / 2,
       radius: this.width * 0.25,

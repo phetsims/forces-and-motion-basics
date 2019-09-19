@@ -43,7 +43,7 @@ define( require => {
   const WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
 
   // constants
-  var PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
+  const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
 
   // images
   const skateboardImage = require( 'image!FORCES_AND_MOTION_BASICS/skateboard.png' );
@@ -75,16 +75,16 @@ define( require => {
     } );
 
     //Variables for this constructor, for convenience
-    var self = this;
-    var width = this.layoutBounds.width;
-    var height = this.layoutBounds.height;
+    const self = this;
+    const width = this.layoutBounds.width;
+    const height = this.layoutBounds.height;
 
     //Constants
-    var skyHeight = 362;
-    var groundHeight = height - skyHeight;
+    const skyHeight = 362;
+    const groundHeight = height - skyHeight;
 
     //Create the static background
-    var skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+    const skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, { fill: skyGradient, pickable: false } );
 
     this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, {
@@ -110,17 +110,17 @@ define( require => {
     }
 
     //Add toolbox backgrounds for the objects
-    var boxHeight = 180;
-    var showItemToolboxes = ForcesAndMotionBasicsQueryParameters.showItemToolboxes;
-    var fill = showItemToolboxes ? '#e7e8e9' : null;
-    var stroke = showItemToolboxes ? '#000000' : null;
-    var leftItemToolboxNode = new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
+    const boxHeight = 180;
+    const showItemToolboxes = ForcesAndMotionBasicsQueryParameters.showItemToolboxes;
+    const fill = showItemToolboxes ? '#e7e8e9' : null;
+    const stroke = showItemToolboxes ? '#000000' : null;
+    const leftItemToolboxNode = new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
       tandem: tandem.createTandem( 'leftItemToolboxNode' )
     } );
-    var rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
+    const rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
@@ -128,17 +128,17 @@ define( require => {
     } );
 
     //Create the slider
-    var disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
+    const disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
 
-    var maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    var appliedForceSliderTextNode = new Text( appliedForceString, {
+    const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
+    const appliedForceSliderTextNode = new Text( appliedForceString, {
       font: new PhetFont( 22 ),
       centerX: width / 2,
       y: 430,
       maxWidth: maxTextWidth,
       tandem: tandem.createTandem( 'appliedForceSliderTextNode' )
     } );
-    var appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
+    const appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
       tandem.createTandem( 'appliedForceSlider' ), {
         centerX: width / 2 + 1,
         y: 555
@@ -150,19 +150,19 @@ define( require => {
     // The range for the spinner will change depending on whether the stack has exceeded maximum speed. This will
     // most often be in cases where there is no friction, because the speed will remain at maximum values and we
     // do not want to allow additional applied force at that time
-    var spinnerRange = new Range( -500, 500 );
+    const spinnerRange = new Range( -500, 500 );
 
     // Do not allow the user to apply a force that would take the object beyond its maximum velocity
     Property.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
 
-      var enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
+      const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
       spinnerRange.max = enableRightButtons ? 500 : 0;
 
-      var enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
+      const enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
       spinnerRange.min = enableLeftButtons ? -500 : 0;
     } );
 
-    var appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
+    const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
       numberDisplayOptions: {
         font: new PhetFont( 22 ),
         valuePattern: pattern0ValueUnitsNewtonsString,
@@ -195,7 +195,7 @@ define( require => {
     model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the location after construction so we can set the 'top'
-    var speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
+    const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
       tandem.createTandem( 'speedometerNode' ), {
         x: 300,
         top: 8
@@ -204,15 +204,15 @@ define( require => {
     this.addChild( speedometerNode );
 
     //Create and add the control panel
-    var controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
+    const controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     // create the play, pause, and step buttons
-    var playPauseButton = new PlayPauseButton( model.playProperty, {
+    const playPauseButton = new PlayPauseButton( model.playProperty, {
       radius: 18,
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
-    var stepForwardButton = new StepForwardButton( {
+    const stepForwardButton = new StepForwardButton( {
       isPlayingProperty: model.playProperty,
       listener: function() { model.manualStep(); },
       radius: 18,
@@ -220,14 +220,14 @@ define( require => {
     } );
 
     // Make the Play/Pause button bigger when it is showing the pause button, see #298
-    var pauseSizeIncreaseFactor = 1.28;
+    const pauseSizeIncreaseFactor = 1.28;
     model.playProperty.lazyLink( function( isPlaying ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
-    var playPauseVerticalOffset = 35;
-    var playPauseStepHBox = new HBox( {
+    const playPauseVerticalOffset = 35;
+    const playPauseStepHBox = new HBox( {
       children: [ playPauseButton, stepForwardButton ],
       spacing: PLAY_PAUSE_BUFFER,
       resize: false,
@@ -255,11 +255,11 @@ define( require => {
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
-      var accelerometerNode = new AccelerometerNode( model.accelerationProperty, tandem.createTandem( 'accelerometerNode' ) );
+      const accelerometerNode = new AccelerometerNode( model.accelerationProperty, tandem.createTandem( 'accelerometerNode' ) );
 
       // build up the string label for the acceleration
-      var labelString = StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, model.accelerationProperty.value );
-      var labelText = new RichText( labelString, {
+      const labelString = StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, model.accelerationProperty.value );
+      const labelText = new RichText( labelString, {
         font: new PhetFont( 18 ),
         supScale: 0.60,
         supYOffset: 2,
@@ -267,7 +267,7 @@ define( require => {
       } );
 
       // create the tick labels
-      var tickLabel = function( label, tick, tandemID ) {
+      const tickLabel = function( label, tick, tandemID ) {
         return new Text( label, {
           pickable: false,
           font: new PhetFont( 16 ),
@@ -276,7 +276,7 @@ define( require => {
           tandem: tandem.createTandem( 'tickLabelTextNode' + tandemID )
         } );
       };
-      var tickLabels = new Node( {
+      const tickLabels = new Node( {
         tandem: tandem.createTandem( 'tickLabels' ),
         children: [
           tickLabel( '-20', accelerometerNode.ticks[ 0 ], 'Negative20' ),
@@ -286,7 +286,7 @@ define( require => {
       } );
 
       // put it all together in a VBox
-      var accelerometerWithTickLabels = new Node( {
+      const accelerometerWithTickLabels = new Node( {
         tandem: tandem.createTandem( 'accelerometerWithTickLabels' ),
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
@@ -300,10 +300,10 @@ define( require => {
       this.addChild( accelerometerWithTickLabels );
 
       // whenever showValues and accleration changes, update the label text
-      var initialLabelWidth = labelText.width;
+      const initialLabelWidth = labelText.width;
       Property.multilink( [ model.showValuesProperty, model.accelerationProperty ], function( showValues, acceleration ) {
         if ( showValues ) {
-          var accelerationValue = Util.toFixed( acceleration, 2 );
+          const accelerationValue = Util.toFixed( acceleration, 2 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
 
           // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
@@ -319,7 +319,7 @@ define( require => {
 
     // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
     // toolbox is sitting on.
-    var getItemSide = function( item ) {
+    const getItemSide = function( item ) {
       // the fridge and the crates both go in hte left toolbox
       if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
         return 'left';
@@ -330,16 +330,16 @@ define( require => {
     };
 
     //Iterate over the items in the model and create and add nodes for each one
-    var leftItemLayer = new Node( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
-    var rightItemLayer = new Node( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
+    const leftItemLayer = new Node( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
+    const rightItemLayer = new Node( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
     this.itemNodes = [];
-    for ( var i = 0; i < model.items.length; i++ ) {
-      var item = model.items[ i ];
-      var itemSide = getItemSide( item );
-      var toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
-      var itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
-      var Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      var itemNode = new Constructor( model, self, item,
+    for ( let i = 0; i < model.items.length; i++ ) {
+      const item = model.items[ i ];
+      const itemSide = getItemSide( item );
+      const toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
+      const itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
+      const Constructor = item.bucket ? WaterBucketNode : ItemNode;
+      const itemNode = new Constructor( model, self, item,
         item.image,
         item.sittingImage || item.image,
         item.holdingImage || item.image,
@@ -357,22 +357,22 @@ define( require => {
     rightItemToolboxNode.addChild( rightItemLayer );
 
     //Add the force arrows & associated readouts in front of the items
-    var arrowScale = 0.3;
+    const arrowScale = 0.3;
 
     //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
-    var roundedAppliedForceProperty = new DerivedProperty(
+    const roundedAppliedForceProperty = new DerivedProperty(
       [ model.appliedForceProperty ],
       function( appliedForce ) {
         return Util.roundSymmetric( appliedForce );
       } );
-    var roundedFrictionForceProperty = new DerivedProperty(
+    const roundedFrictionForceProperty = new DerivedProperty(
       [ model.frictionForceProperty ],
       function( frictionForce ) {
         return Util.roundSymmetric( frictionForce );
       } );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
-    var roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
+    const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
       units: 'newtons'
     } );
@@ -414,7 +414,7 @@ define( require => {
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
-    var toolboxContainer = new Node( { tandem: tandem.createTandem( 'toolboxContainer' ) } );
+    const toolboxContainer = new Node( { tandem: tandem.createTandem( 'toolboxContainer' ) } );
     toolboxContainer.addChild( leftItemToolboxNode );
     toolboxContainer.addChild( rightItemToolboxNode );
     this.addChild( toolboxContainer );
@@ -426,18 +426,18 @@ define( require => {
     this.addChild( this.sumOfForcesText );
 
     //Whichever arrow is smaller should be in front (in z-ordering)
-    var frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
+    const frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
       function( roundedAppliedForce, roundedFrictionForce ) {
         return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
       } );
     frictionLargerProperty.link( function( frictionLarger ) {
-      var node = frictionLarger ? self.appliedForceArrow : self.frictionArrow;
+      const node = frictionLarger ? self.appliedForceArrow : self.frictionArrow;
       node.moveToFront();
     } );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], function( appliedForce, frictionForce ) {
-      var sameDirection = ( appliedForce < 0 && frictionForce < 0 ) || ( appliedForce > 0 && frictionForce > 0 );
+      const sameDirection = ( appliedForce < 0 && frictionForce < 0 ) || ( appliedForce > 0 && frictionForce > 0 );
       self.frictionArrow.overlapsOther = sameDirection;
       self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
 
@@ -460,8 +460,8 @@ define( require => {
 
     //Get the height of the objects in the stack (doesn't include skateboard)
     get stackHeight() {
-      var sum = 0;
-      for ( var i = 0; i < this.model.stack.length; i++ ) {
+      let sum = 0;
+      for ( let i = 0; i < this.model.stack.length; i++ ) {
         sum = sum + this.model.stack.get( i ).view.height;
       }
       return sum;
@@ -469,14 +469,14 @@ define( require => {
 
     //Find the top of the stack, so that a new object can be placed on top
     get topOfStack() {
-      var n = this.model.skateboard ? 334 : 360;
+      const n = this.model.skateboard ? 334 : 360;
       return n - this.stackHeight;
     },
 
     //Get the size of an item's image.  Dependent on the current scale of the image.
     getSize: function( item ) {
       // get the current scale for the element and apply it to the image
-      var scaledWidth = item.view.sittingImage.width * item.getCurrentScale();
+      const scaledWidth = item.view.sittingImage.width * item.getCurrentScale();
       return { width: scaledWidth, height: item.view.height };
     }
   } );

@@ -26,7 +26,7 @@ define( require => {
   const valuesString = require( 'string!FORCES_AND_MOTION_BASICS/values' );
 
   // constants
-  var BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
+  const BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
 
   // strings
   const speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
@@ -43,18 +43,18 @@ define( require => {
     options = _.extend( { tandem: tandem }, options );
     Node.call( this, options );
 
-    var fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
+    const fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
 
     // the content for "show speed" is a label with an icon
-    var speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
-    var showSpeedTextNode = new Text( speedString, _.extend( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
-    var showSpeedContent = new HBox( {
+    const speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
+    const showSpeedTextNode = new Text( speedString, _.extend( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
+    const showSpeedContent = new HBox( {
       children: [ showSpeedTextNode, speedometerIcon ],
       tandem: tandem.createTandem( 'showSpeedContent' ),
       spacing: 10
     } );
 
-    var verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
+    const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
       node: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
@@ -70,7 +70,7 @@ define( require => {
     } ], {
       tandem: verticalCheckboxGroupTandem
     } );
-    var checkboxPanel = new Panel( this.verticalCheckboxGroup, {
+    const checkboxPanel = new Panel( this.verticalCheckboxGroup, {
       xMargin: 10,
       yMargin: 10,
       fill: '#e3e980',
@@ -89,7 +89,7 @@ define( require => {
     } );
     this.addChild( this.resetAllButton );
 
-    var soundToggleButton = new SoundToggleButton( model.volumeOnProperty, {
+    const soundToggleButton = new SoundToggleButton( model.volumeOnProperty, {
       padX: 19,
       padY: 19,
       centerY: this.resetAllButton.centerY,

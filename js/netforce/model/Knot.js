@@ -35,7 +35,7 @@ define( require => {
       tandem: Tandem.required,
       phetioType: KnotIO
     }, options );
-    var tandem = options.tandem;
+    const tandem = options.tandem;
 
     this.initX = x;
     this.type = type;

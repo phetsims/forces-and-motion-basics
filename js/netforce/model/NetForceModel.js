@@ -27,12 +27,12 @@ define( require => {
 
   // constants
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
-  var GAME_LENGTH = 458;
+  const GAME_LENGTH = 458;
 
   // spacing for the knots
-  var KNOT_SPACING = 80;
-  var BLUE_KNOT_OFFSET = 62;
-  var RED_KNOT_OFFSET = 680;
+  const KNOT_SPACING = 80;
+  const BLUE_KNOT_OFFSET = 62;
+  const RED_KNOT_OFFSET = 680;
 
   /**
    * Constructor for the net force model.
@@ -42,7 +42,7 @@ define( require => {
    */
   function NetForceModel( tandem ) {
 
-    var self = this;
+    const self = this;
 
     this.startedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'startedProperty' )
@@ -120,7 +120,7 @@ define( require => {
 
     //Create a knot given a color and index (0-3)
     function createKnot( color, index, tandem ) {
-      var xLocation = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
+      const xLocation = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
       return new Knot( xLocation, color, BLUE_KNOT_OFFSET, self.getRopeLength(), { tandem: tandem } );
     }
 
@@ -139,9 +139,9 @@ define( require => {
     ];
 
     // create the pullers
-    var bigPullerY = 473;
-    var mediumPullerY = 426;
-    var smallPullerY = 394;
+    const bigPullerY = 473;
+    const mediumPullerY = 426;
+    const smallPullerY = 394;
 
     this.pullers = [
       new Puller( 208, bigPullerY, 'blue', 'small', 10, tandem.createTandem( 'smallBluePuller1' ) ),
@@ -164,7 +164,7 @@ define( require => {
         self.numberPullersAttachedProperty.set( self.countAttachedPullers() );
       } );
       puller.droppedEmitter.addListener( function() {
-        var knot = self.getTargetKnot( puller );
+        const knot = self.getTargetKnot( puller );
         self.movePullerToKnot( puller, knot );
       } );
       puller.knotProperty.link( function() {
@@ -213,7 +213,7 @@ define( require => {
       }
 
       //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
-      var newLocation = knot ? 'knot' : 'home';
+      const newLocation = knot ? 'knot' : 'home';
       puller.lastPlacementProperty.set( newLocation );
     },
 
@@ -244,14 +244,14 @@ define( require => {
      */
     shiftPuller: function( puller, leftBoundIndex, rightBoundIndex, delta ) {
       if ( puller.knotProperty.get() ) {
-        var currentIndex = this.knots.indexOf( puller.knotProperty.get() );
+        const currentIndex = this.knots.indexOf( puller.knotProperty.get() );
         if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
-          var nextIndex = currentIndex + delta;
+          const nextIndex = currentIndex + delta;
 
-          var currentKnot = this.knots[ currentIndex ];
-          var nextKnot = this.knots[ nextIndex ];
+          const currentKnot = this.knots[ currentIndex ];
+          const nextKnot = this.knots[ nextIndex ];
 
-          var otherPuller = this.getPuller( nextKnot );
+          const otherPuller = this.getPuller( nextKnot );
 
           puller.setValues( { position: new Vector2( nextKnot.xProperty.get(), nextKnot.y ), knot: nextKnot } );
           otherPuller && otherPuller.setValues( {
@@ -264,8 +264,8 @@ define( require => {
 
     //Count the number of pullers attached to the rope
     countAttachedPullers: function() {
-      var count = 0;
-      for ( var i = 0; i < this.pullers.length; i++ ) {
+      let count = 0;
+      for ( let i = 0; i < this.pullers.length; i++ ) {
         if ( this.pullers[ i ].knotProperty.get() ) {
           count++;
         }
@@ -275,11 +275,11 @@ define( require => {
 
     //Change knot visibility (halo highlight) when the pullers are dragged
     updateVisibleKnots: function() {
-      var self = this;
+      const self = this;
       this.knots.forEach( function( knot ) { knot.visibleProperty.set( false ); } );
       this.pullers.forEach( function( puller ) {
         if ( puller.draggingProperty.get() ) {
-          var knot = self.getTargetKnot( puller );
+          const knot = self.getTargetKnot( puller );
           if ( knot ) {
             knot.visibleProperty.set( true );
           }
@@ -293,7 +293,7 @@ define( require => {
      * @param  {Knot} knot
      */
     getPuller: function( knot ) {
-      var find = _.find( this.pullers, function( puller ) {return puller.knotProperty.get() === knot;} );
+      const find = _.find( this.pullers, function( puller ) {return puller.knotProperty.get() === knot;} );
       return typeof( find ) !== 'undefined' ? find : null;
     },
 
@@ -307,7 +307,7 @@ define( require => {
 
       // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
       // placing the blue pullers
-      var dx = puller.type === 'red' ? 0 : -40;
+      const dx = puller.type === 'red' ? 0 : -40;
       return function( knot ) { return Math.sqrt( Math.pow( knot.xProperty.get() - puller.positionProperty.get().x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.get().y, 2 ) ); };
     },
 
@@ -318,8 +318,8 @@ define( require => {
      * @returns {Knot}
      */
     getClosestOpenKnot: function( puller ) {
-      var self = this;
-      var filter = this.knots.filter( function( knot ) {
+      const self = this;
+      const filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type && self.getPuller( knot ) === null;
       } );
       return _.minBy( filter, this.getKnotPullerDistance( puller ) );
@@ -332,8 +332,8 @@ define( require => {
      * @returns {Knot}
      */
     getClosestOpenKnotFromCart: function( puller ) {
-      var idx = puller.type === 'red' ? 4 : 3;
-      var delta = puller.type === 'red' ? 1 : -1;
+      let idx = puller.type === 'red' ? 4 : 3;
+      const delta = puller.type === 'red' ? 1 : -1;
       while ( this.getPuller( this.knots[ idx ] ) !== null ) {
         idx += delta;
       }
@@ -346,11 +346,11 @@ define( require => {
      * @returns {Knot}
      */
     getTargetKnot: function( puller ) {
-      var target = this.getClosestOpenKnot( puller );
-      var distanceToTarget = this.getKnotPullerDistance( puller )( target );
+      const target = this.getClosestOpenKnot( puller );
+      const distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
       //Only accept a target knot if the puller's head is close enough to the knot
-      var threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
+      const threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
       return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
     },
 
@@ -427,14 +427,14 @@ define( require => {
         this.durationProperty.set( this.durationProperty.get() + dt );
 
         // Make the simulation run about as fast as the Java version
-        var newV = this.cart.vProperty.get() + this.getNetForce() * dt * 0.003;
+        const newV = this.cart.vProperty.get() + this.getNetForce() * dt * 0.003;
         this.speedProperty.set( Math.abs( newV ) );
 
         // calculate new position from velocity
-        var newX = this.cart.xProperty.get() + newV * dt * 60.0;
+        const newX = this.cart.xProperty.get() + newV * dt * 60.0;
 
         //If the cart made it to the end, then stop and signify completion
-        var gameLength = GAME_LENGTH - this.cart.widthToWheel;
+        const gameLength = GAME_LENGTH - this.cart.widthToWheel;
         if ( newX > gameLength || newX < -gameLength ) {
           this.runningProperty.set( false );
           this.stateProperty.set( 'completed' );
@@ -443,7 +443,7 @@ define( require => {
           this.speedProperty.set( 0 );
 
           // set cart and pullers back the to max position
-          var maxLength = newX > gameLength ? gameLength : -gameLength;
+          const maxLength = newX > gameLength ? gameLength : -gameLength;
           this.updateCartAndPullers( this.speedProperty.get(), maxLength );
         }
         else {
@@ -515,19 +515,19 @@ define( require => {
      * @returns {Knot}
      */
     getClosestOpenKnotInDirection: function( puller, delta ) {
-      var self = this;
-      var isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
+      const self = this;
+      const isInRightDirection = function( sourceKnot, destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
         return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
                delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
                'error';
       };
-      var filter = this.knots.filter( function( knot ) {
+      const filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type &&
                self.getPuller( knot ) === null &&
                isInRightDirection( puller.knotProperty.get(), knot, delta );
       } );
-      var result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
+      let result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
       if ( result === Infinity || result === -Infinity ) {
         result = null;
       }
@@ -544,19 +544,19 @@ define( require => {
      * @param {number} delta
      */
     getNextOpenKnotInDirection: function( sourceKnot, puller, delta ) {
-      var self = this;
-      var isInRightDirection = function( destinationKnot, delta ) {
+      const self = this;
+      const isInRightDirection = function( destinationKnot, delta ) {
         assert && assert( delta < 0 || delta > 0 );
         return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
                delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
                'error';
       };
-      var filter = this.knots.filter( function( knot ) {
+      const filter = this.knots.filter( function( knot ) {
         return knot.type === puller.type &&
                self.getPuller( knot ) === null &&
                isInRightDirection( knot, delta );
       } );
-      var result = _.minBy( filter, function( knot ) {
+      let result = _.minBy( filter, function( knot ) {
         return Math.abs( sourceKnot.xProperty.get() - knot.xProperty.get() );
       } );
 
@@ -586,7 +586,7 @@ define( require => {
      * @param  {number} delta
      */
     movePullerToAdjacentOpenKnot: function( puller, delta ) {
-      var closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
+      const closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
       if ( closestOpenKnot ) {
         this.movePullerToKnot( puller, closestOpenKnot );
       }

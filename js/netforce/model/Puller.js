@@ -39,7 +39,7 @@ define( require => {
     this.pullerTandem = tandem;
 
     options = _.extend( { standOffsetX: 0, other: '' }, options );
-    var self = this;
+    const self = this;
 
     this.dragOffsetX = dragOffsetX;
     this.standOffsetX = options.standOffsetX;
@@ -82,7 +82,7 @@ define( require => {
     this.other = options.other;
 
     //Move with the knot
-    var updatePosition = function( knotX ) {
+    const updatePosition = function( knotX ) {
       self.positionProperty.set( new Vector2( knotX, self.positionProperty.get().y ) );
     };
 
