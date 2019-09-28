@@ -98,37 +98,37 @@ define( require => {
     children.push( fallRight );
     for ( let i = 0; i <= 30; i++ ) {
       const image = i === 0 ? pusherImage0 :
-                  i === 1 ? pusherImage1 :
-                  i === 2 ? pusherImage2 :
-                  i === 3 ? pusherImage3 :
-                  i === 4 ? pusherImage4 :
-                  i === 5 ? pusherImage5 :
-                  i === 6 ? pusherImage6 :
-                  i === 7 ? pusherImage7 :
-                  i === 8 ? pusherImage8 :
-                  i === 9 ? pusherImage9 :
-                  i === 10 ? pusherImage10 :
-                  i === 11 ? pusherImage11 :
-                  i === 12 ? pusherImage12 :
-                  i === 13 ? pusherImage13 :
-                  i === 14 ? pusherImage14 :
-                  i === 15 ? pusherImage15 :
-                  i === 16 ? pusherImage16 :
-                  i === 17 ? pusherImage17 :
-                  i === 18 ? pusherImage18 :
-                  i === 19 ? pusherImage19 :
-                  i === 20 ? pusherImage20 :
-                  i === 21 ? pusherImage21 :
-                  i === 22 ? pusherImage22 :
-                  i === 23 ? pusherImage23 :
-                  i === 24 ? pusherImage24 :
-                  i === 25 ? pusherImage25 :
-                  i === 26 ? pusherImage26 :
-                  i === 27 ? pusherImage27 :
-                  i === 28 ? pusherImage28 :
-                  i === 29 ? pusherImage29 :
-                  i === 30 ? pusherImage30 :
-                  null;
+                    i === 1 ? pusherImage1 :
+                    i === 2 ? pusherImage2 :
+                    i === 3 ? pusherImage3 :
+                    i === 4 ? pusherImage4 :
+                    i === 5 ? pusherImage5 :
+                    i === 6 ? pusherImage6 :
+                    i === 7 ? pusherImage7 :
+                    i === 8 ? pusherImage8 :
+                    i === 9 ? pusherImage9 :
+                    i === 10 ? pusherImage10 :
+                    i === 11 ? pusherImage11 :
+                    i === 12 ? pusherImage12 :
+                    i === 13 ? pusherImage13 :
+                    i === 14 ? pusherImage14 :
+                    i === 15 ? pusherImage15 :
+                    i === 16 ? pusherImage16 :
+                    i === 17 ? pusherImage17 :
+                    i === 18 ? pusherImage18 :
+                    i === 19 ? pusherImage19 :
+                    i === 20 ? pusherImage20 :
+                    i === 21 ? pusherImage21 :
+                    i === 22 ? pusherImage22 :
+                    i === 23 ? pusherImage23 :
+                    i === 24 ? pusherImage24 :
+                    i === 25 ? pusherImage25 :
+                    i === 26 ? pusherImage26 :
+                    i === 27 ? pusherImage27 :
+                    i === 28 ? pusherImage28 :
+                    i === 29 ? pusherImage29 :
+                    i === 30 ? pusherImage30 :
+                    null;
       const rightImageNode = new Image( image, {
         visible: false,
         pickable: false,
@@ -189,7 +189,7 @@ define( require => {
         if ( direction === 'right' ) {
           visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
         }
-         else {
+        else {
           visibleNode.centerX = layoutWidth / 2 + visibleNode.width / 2 + delta;
         }
       }
@@ -212,10 +212,10 @@ define( require => {
 
       const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
       if ( model.appliedForceProperty.get() > 0 ) {
-        visibleNode.setTranslation( (layoutWidth / 2 - visibleNode.width - delta), pusherY );
+        visibleNode.setTranslation( ( layoutWidth / 2 - visibleNode.width - delta ), pusherY );
       }
       else {
-        visibleNode.setTranslation( (layoutWidth / 2 + visibleNode.width + delta), pusherY );
+        visibleNode.setTranslation( ( layoutWidth / 2 + visibleNode.width + delta ), pusherY );
       }
 
       // if the user empties the stack, the standing image should be where the applied force position was
@@ -252,7 +252,7 @@ define( require => {
       updateZeroForcePosition( x );
     };
 
-     model.fallenProperty.link( function( fallen ) {
+    model.fallenProperty.link( function( fallen ) {
       if ( fallen ) {
         const newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeft : fallRight;
         pusherLetGo( newVisibleNode, model.fallenDirectionProperty.get() );
@@ -337,7 +337,7 @@ define( require => {
 
       start: function() {
         if ( self.interactive ) {
-          
+
           // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
           if ( !model.playProperty.value ) {
             model.playProperty.set( true );
@@ -351,7 +351,7 @@ define( require => {
           // if the model is paused, the applied force should remain the same
           if ( model.playProperty.value ) {
             model.appliedForceProperty.set( 0 );
-          }           
+          }
         }
       }
     } );
