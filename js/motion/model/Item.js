@@ -13,12 +13,12 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
-  const ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const Property = require( 'AXON/Property' );
   const PropertyIO = require( 'AXON/PropertyIO' );
   const Range = require( 'DOT/Range' );
+  const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const StringIO = require( 'TANDEM/types/StringIO' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -114,7 +114,7 @@ define( require => {
       }
     } );
 
-    PhetioObject.call( this, { tandem: tandem, phetioType: ItemIO } );
+    PhetioObject.call( this, { tandem: tandem, phetioType: ReferenceIO } );
   }
 
   forcesAndMotionBasics.register( 'Item', Item );

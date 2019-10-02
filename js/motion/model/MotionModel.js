@@ -15,7 +15,6 @@ define( require => {
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Item = require( 'FORCES_AND_MOTION_BASICS/motion/model/Item' );
-  const ItemIO = require( 'FORCES_AND_MOTION_BASICS/motion/model/ItemIO' );
   const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
@@ -23,6 +22,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const PropertyIO = require( 'AXON/PropertyIO' );
   const Range = require( 'DOT/Range' );
+  const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const StringIO = require( 'TANDEM/types/StringIO' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -60,7 +60,7 @@ define( require => {
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
     this.stack = new ObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
-      phetioType: ObservableArrayIO( ItemIO )
+      phetioType: ObservableArrayIO( ReferenceIO )
     } );
 
     // @public - force applied to the stack of items by the pusher

@@ -420,18 +420,6 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(BooleanIO,NullableIO<BooleanIO>)=>VoidIO"
     },
-    "FunctionIO(ItemIO)=>VoidIO": {
-      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ItemIO<br><strong>Return Type:</strong> VoidIO",
-      "events": [],
-      "methodOrder": [],
-      "methods": {},
-      "parameterTypes": [
-        "ItemIO",
-        "VoidIO"
-      ],
-      "supertype": "ObjectIO",
-      "typeName": "FunctionIO(ItemIO)=>VoidIO"
-    },
     "FunctionIO(NullableIO<BooleanIO>,NullableIO<NullableIO<BooleanIO>>)=>VoidIO": {
       "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> NullableIO<BooleanIO>, NullableIO<NullableIO<BooleanIO>><br><strong>Return Type:</strong> VoidIO",
       "events": [],
@@ -522,6 +510,18 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(RangeIO,NullableIO<RangeIO>)=>VoidIO"
     },
+    "FunctionIO(ReferenceIO)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ReferenceIO<br><strong>Return Type:</strong> VoidIO",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "ReferenceIO",
+        "VoidIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "FunctionIO(ReferenceIO)=>VoidIO"
+    },
     "FunctionIO(StringIO,NullableIO<StringIO>)=>VoidIO": {
       "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> StringIO, NullableIO<StringIO><br><strong>Return Type:</strong> VoidIO",
       "events": [],
@@ -574,14 +574,6 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(Vector2IO,NullableIO<Vector2IO>)=>VoidIO"
-    },
-    "ItemIO": {
-      "documentation": "An Item that can be placed dragged into the play area.",
-      "events": [],
-      "methodOrder": [],
-      "methods": {},
-      "supertype": "ObjectIO",
-      "typeName": "ItemIO"
     },
     "KnotIO": {
       "documentation": "A knot",
@@ -819,7 +811,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "Object",
       "typeName": "ObjectIO"
     },
-    "ObservableArrayIO<ItemIO>": {
+    "ObservableArrayIO<ReferenceIO>": {
       "documentation": "An array that sends notifications when its values have changed.",
       "events": [
         "itemAdded",
@@ -830,14 +822,14 @@ window.phet.phetio.phetioTypes = assert &&
         "addItemAddedListener": {
           "documentation": "Add a listener that is called when an item is added to the observable array.",
           "parameterTypes": [
-            "FunctionIO(ItemIO)=>VoidIO"
+            "FunctionIO(ReferenceIO)=>VoidIO"
           ],
           "returnType": "VoidIO"
         },
         "addItemRemovedListener": {
           "documentation": "Add a listener that is called when an item is removed from the observable array.",
           "parameterTypes": [
-            "FunctionIO(ItemIO)=>VoidIO"
+            "FunctionIO(ReferenceIO)=>VoidIO"
           ],
           "returnType": "VoidIO"
         },
@@ -848,10 +840,10 @@ window.phet.phetio.phetioTypes = assert &&
         }
       },
       "parameterTypes": [
-        "ItemIO"
+        "ReferenceIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ObservableArrayIO<ItemIO>"
+      "typeName": "ObservableArrayIO<ReferenceIO>"
     },
     "PhetButtonIO": {
       "documentation": "The PhET Button in the bottom right of the screen",
@@ -1495,6 +1487,14 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "ObjectIO",
       "typeName": "RangeIO"
+    },
+    "ReferenceIO": {
+      "documentation": "Uses reference identity for toStateObject/fromStateObject",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ObjectIO",
+      "typeName": "ReferenceIO"
     },
     "ResetAllButtonIO": {
       "documentation": "Button that performs an action while it is being pressed, and stops the action when released",

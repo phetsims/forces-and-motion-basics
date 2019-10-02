@@ -95,7 +95,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.accelerationScreen.model.bucket.animationStateProperty": {
       "phetioDocumentation": "",
@@ -191,7 +191,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.accelerationScreen.model.crate1.animationStateProperty": {
       "phetioDocumentation": "",
@@ -287,7 +287,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.accelerationScreen.model.crate2.animationStateProperty": {
       "phetioDocumentation": "",
@@ -443,7 +443,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.accelerationScreen.model.fridge.animationStateProperty": {
       "phetioDocumentation": "",
@@ -539,7 +539,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.accelerationScreen.model.girl.animationStateProperty": {
       "phetioDocumentation": "",
@@ -635,7 +635,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.accelerationScreen.model.man.animationStateProperty": {
       "phetioDocumentation": "",
@@ -887,7 +887,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ItemIO>"
+      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
     },
     "forcesAndMotionBasics.accelerationScreen.model.stackObservableArray.lengthProperty": {
       "phetioDocumentation": "",
@@ -12059,7 +12059,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.bucket.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12155,7 +12155,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.crate1.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12251,7 +12251,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.crate2.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12407,7 +12407,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.fridge.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12503,7 +12503,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.girl.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12599,7 +12599,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.man.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12707,7 +12707,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.mystery.animationStateProperty": {
       "phetioDocumentation": "",
@@ -12947,7 +12947,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ItemIO>"
+      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
     },
     "forcesAndMotionBasics.frictionScreen.model.stackObservableArray.lengthProperty": {
       "phetioDocumentation": "",
@@ -12995,7 +12995,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.frictionScreen.model.trash.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26351,7 +26351,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.bucket.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26447,7 +26447,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.crate1.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26543,7 +26543,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.crate2.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26699,7 +26699,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.fridge.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26795,7 +26795,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.girl.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26891,7 +26891,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.man.animationStateProperty": {
       "phetioDocumentation": "",
@@ -26999,7 +26999,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.mystery.animationStateProperty": {
       "phetioDocumentation": "",
@@ -27239,7 +27239,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ItemIO>"
+      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
     },
     "forcesAndMotionBasics.motionScreen.model.stackObservableArray.lengthProperty": {
       "phetioDocumentation": "",
@@ -27287,7 +27287,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ItemIO"
+      "phetioTypeName": "ReferenceIO"
     },
     "forcesAndMotionBasics.motionScreen.model.trash.animationStateProperty": {
       "phetioDocumentation": "",
