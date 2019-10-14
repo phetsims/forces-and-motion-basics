@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.15 Thu Oct 03 2019 11:31:00 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.3.15 Mon Oct 14 2019 13:59:32 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "51b4f322b8acea216b6e0cae610297311e0cc3ad",
+    "sha": "416de538c16b5e232f70752c52b5309122d39ffd",
     "branch": "2.3"
   },
   "joist": {
@@ -33,8 +33,8 @@
     "branch": "HEAD"
   },
   "phet-core": {
-    "sha": "a5bb27cd3a7e7fb3e77f15278cfee96193a4f77a",
-    "branch": "HEAD"
+    "sha": "75cf24834a3303a0f6bdc8738a7820e8b6b638a1",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "phetcommon": {
     "sha": "276441fcc00a4588f42b40a90e15e103e3e83498",
@@ -69,7 +69,7 @@
     "branch": "HEAD"
   },
   "vibe": {
-    "sha": "804d8f106ac1e3157c5b89a66928dd14894be6a7",
-    "branch": "HEAD"
+    "sha": "3981024e7ed3299cf57fc92f1e4b425a4c335e08",
+    "branch": "forces-and-motion-basics-2.3"
   }
 }
