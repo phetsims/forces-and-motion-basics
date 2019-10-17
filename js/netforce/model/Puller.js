@@ -14,6 +14,7 @@ define( require => {
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
   const KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
+  const merge = require( 'PHET_CORE/merge' );
   const NullableIO = require( 'TANDEM/types/NullableIO' );
   const Property = require( 'AXON/Property' );
   const PropertyIO = require( 'AXON/PropertyIO' );
@@ -38,7 +39,7 @@ define( require => {
     // @public - to synchronize tandem names with the view
     this.pullerTandem = tandem;
 
-    options = _.extend( { standOffsetX: 0, other: '' }, options );
+    options = merge( { standOffsetX: 0, other: '' }, options );
     const self = this;
 
     this.dragOffsetX = dragOffsetX;

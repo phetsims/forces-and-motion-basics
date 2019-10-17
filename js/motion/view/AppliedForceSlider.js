@@ -16,6 +16,7 @@ define( require => {
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const HSlider = require( 'SUN/HSlider' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
@@ -38,7 +39,7 @@ define( require => {
     this.range = range;
 
     const sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
-    HSlider.call( this, model.appliedForceProperty, range, _.extend( {
+    HSlider.call( this, model.appliedForceProperty, range, merge( {
       trackSize: new Dimension2( 300, 6 ),
       majorTickLength: 30,
       minorTickLength: 22,

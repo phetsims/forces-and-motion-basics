@@ -13,6 +13,7 @@ define( require => {
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
   const KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const Tandem = require( 'TANDEM/Tandem' );
@@ -31,7 +32,7 @@ define( require => {
    */
   function Knot( x, type, ropeStart, ropeLength, options ) {
 
-    options = _.extend( {
+    options = merge( {
       tandem: Tandem.required,
       phetioType: KnotIO
     }, options );

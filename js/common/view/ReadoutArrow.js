@@ -13,6 +13,7 @@ define( require => {
   const ArrowShape = require( 'SCENERY_PHET/ArrowShape' );
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -42,7 +43,7 @@ define( require => {
     const self = this;
 
     //Store fields
-    options = _.extend( { labelPosition: 'top', arrowScale: 1 }, options );
+    options = merge( { labelPosition: 'top', arrowScale: 1 }, options );
     this.options = options; // @private
     this.showValuesProperty = showValuesProperty;
     this.tailX = tailX;
@@ -55,15 +56,15 @@ define( require => {
     } );
 
     //Create and add the children
-    this.arrowNode = new Path( null, _.extend( {
+    this.arrowNode = new Path( null, merge( {
       fill: fill,
       stroke: '#000000',
       lineWidth: 1,
       tandem: tandem.createTandem( 'arrowNode' )
     }, options ) );
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
-    this.valueNode = new Text( '110N', _.extend( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
-    this.labelNode = new Text( label, _.extend( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
+    this.valueNode = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
+    this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );

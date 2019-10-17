@@ -23,6 +23,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const lotsString = require( 'string!FORCES_AND_MOTION_BASICS/lots' );
   const massesString = require( 'string!FORCES_AND_MOTION_BASICS/masses' );
+  const merge = require( 'PHET_CORE/merge' );
   const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   const Node = require( 'SCENERY/nodes/Node' );
   const noneString = require( 'string!FORCES_AND_MOTION_BASICS/none' );
@@ -56,7 +57,7 @@ define( require => {
      * @param {Object} [options]
      */
     const createLabel = function( text, tandemName, options ) {
-      options = _.extend( {
+      options = merge( {
         indent: 0,
         icon: new Node()
       }, options );
@@ -113,13 +114,13 @@ define( require => {
         tandem: tandem.createTandem( 'frictionSlider' )
       } );
       const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
-      const invisibleSliderTickOptions = _.extend( { visible: false }, sliderTickOptions );
+      const invisibleSliderTickOptions = merge( { visible: false }, sliderTickOptions );
 
-      frictionSlider.addMajorTick( 0, new Text( noneString, _.extend( { tandem: tandem.createTandem( 'zeroTickTextNode' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( 0, new Text( lotsString, _.extend( { tandem: tandem.createTandem( 'invisibleZeroTickTextNode' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( noneString, merge( { tandem: tandem.createTandem( 'zeroTickTextNode' ) }, sliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( lotsString, merge( { tandem: tandem.createTandem( 'invisibleZeroTickTextNode' ) }, invisibleSliderTickOptions ) ) );
 
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, _.extend( { tandem: tandem.createTandem( 'maxTickTextNode' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, _.extend( { tandem: tandem.createTandem( 'invisibleMaxTickTextNode' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, merge( { tandem: tandem.createTandem( 'maxTickTextNode' ) }, sliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, merge( { tandem: tandem.createTandem( 'invisibleMaxTickTextNode' ) }, invisibleSliderTickOptions ) ) );
 
       const frictionTextNode = new Text( frictionString, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),

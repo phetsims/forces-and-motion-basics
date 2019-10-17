@@ -14,6 +14,7 @@ define( require => {
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
@@ -24,7 +25,7 @@ define( require => {
    */
   function SliderKnob( tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       enabledProperty: new BooleanProperty( true, {
         tandem: tandem.createTandem( 'enabledProperty' )
       } )

@@ -13,6 +13,7 @@ define( require => {
   const ForcesAndMotionBasicsIconFactory = require( 'FORCES_AND_MOTION_BASICS/common/view/ForcesAndMotionBasicsIconFactory' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -40,14 +41,14 @@ define( require => {
    * @constructor
    */
   function NetForceControlPanel( model, tandem, options ) {
-    options = _.extend( { tandem: tandem }, options );
+    options = merge( { tandem: tandem }, options );
     Node.call( this, options );
 
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
 
     // the content for "show speed" is a label with an icon
     const speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
-    const showSpeedTextNode = new Text( speedString, _.extend( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
+    const showSpeedTextNode = new Text( speedString, merge( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
     const showSpeedContent = new HBox( {
       children: [ showSpeedTextNode, speedometerIcon ],
       tandem: tandem.createTandem( 'showSpeedContent' ),
@@ -56,11 +57,11 @@ define( require => {
 
     const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      node: new Text( sumOfForcesString, _.extend( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
+      node: new Text( sumOfForcesString, merge( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showSumOfForcesCheckbox' )
     }, {
-      node: new Text( valuesString, _.extend( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
+      node: new Text( valuesString, merge( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
       property: model.showValuesProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showValuesCheckbox' )
     }, {

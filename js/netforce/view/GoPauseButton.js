@@ -15,6 +15,7 @@ define( require => {
   const Emitter = require( 'AXON/Emitter' );
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberIO = require( 'TANDEM/types/NumberIO' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
@@ -70,7 +71,7 @@ define( require => {
    */
   function GoPauseButton( model, layoutWidth, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       top: 400
     }, options );
     const padX = 15;

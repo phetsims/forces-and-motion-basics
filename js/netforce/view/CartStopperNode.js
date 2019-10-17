@@ -13,6 +13,7 @@ define( require => {
   // modules
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
 
@@ -23,7 +24,7 @@ define( require => {
    * @constructor
    */
   function CartStopperNode( topWidth, bottomWidth, height, tandem, options ) {
-    options = _.extend( {
+    options = merge( {
       direction: 'left',
       tandem: tandem,
       fill: 'grey'

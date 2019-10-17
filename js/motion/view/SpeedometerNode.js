@@ -12,6 +12,7 @@ define( require => {
   //modules
   const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Range = require( 'DOT/Range' );
@@ -33,7 +34,7 @@ define( require => {
    */
   function SpeedometerNode( speedProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       radius: 67,
       tandem: tandem
     }, options );
