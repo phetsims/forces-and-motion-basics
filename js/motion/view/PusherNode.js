@@ -69,7 +69,7 @@ define( require => {
     // drag handler will not do anything
     this.interactive = true;
 
-    //Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
+    // Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
     const pushingRightNodes = [];
     const pushingLeftNodes = [];
     const children = [];
@@ -169,16 +169,16 @@ define( require => {
     }
 
     /**
-     * Reset the zero force position so that the pusher is at the correct place when the
-     * pusher falls over or when applied force is set to zero after.  Dependent
-     * on the width of the item stack, direction the pusher fell, or the direction
-     * the pusher was applying a force before the force was set to zero.
+     * Reset the zero force position so that the pusher is at the correct place when the pusher falls over or when
+     * applied force is set to zero after.  Dependent on the width of the item stack, direction the pusher fell, or the
+     * direction the pusher was applying a force before the force was set to zero.
      *
-     * @param  {string} direction description
+     * @param {string} direction description
      */
     const resetZeroForcePosition = function( direction ) {
-      const item = model.stack.get( 0 );
-      if ( item ) {
+      if ( model.stack.length > 0 ) {
+
+        const item = model.stack.get( 0 );
 
         // get the scaled width of the first image on the stack
         const scaledWidth = item.view.getScaledWidth();
