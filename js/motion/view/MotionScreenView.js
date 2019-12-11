@@ -210,6 +210,7 @@ define( require => {
     // create the play, pause, and step buttons
     const playPauseButton = new PlayPauseButton( model.playProperty, {
       radius: 18,
+      playButtonScaleFactor: 1.28,
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
     const stepForwardButton = new StepForwardButton( {
@@ -217,12 +218,6 @@ define( require => {
       listener: function() { model.manualStep(); },
       radius: 18,
       tandem: tandem.createTandem( 'stepForwardButton' )
-    } );
-
-    // Make the Play/Pause button bigger when it is showing the pause button, see #298
-    const pauseSizeIncreaseFactor = 1.28;
-    model.playProperty.lazyLink( function( isPlaying ) {
-      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
