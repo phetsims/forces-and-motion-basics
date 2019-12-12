@@ -27418,7 +27418,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "forcesAndMotionBasics.general.soundEnabledProperty": {
+    "forcesAndMotionBasics.general.soundManager.enabledProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
