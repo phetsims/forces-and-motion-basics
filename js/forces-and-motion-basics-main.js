@@ -32,7 +32,7 @@ define( require => {
   const netForceString = require( 'string!FORCES_AND_MOTION_BASICS/netForce' );
 
   // constants
-  const tandem = Tandem.rootTandem;
+  const tandem = Tandem.ROOT;
 
   const simOptions = {
     credits: {

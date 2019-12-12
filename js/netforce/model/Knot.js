@@ -33,7 +33,7 @@ define( require => {
   function Knot( x, type, ropeStart, ropeLength, options ) {
 
     options = merge( {
-      tandem: Tandem.required,
+      tandem: Tandem.REQUIRED,
       phetioType: KnotIO
     }, options );
     const tandem = options.tandem;
