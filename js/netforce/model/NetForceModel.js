@@ -71,19 +71,19 @@ define( require => {
 
     this.netForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'netForceProperty' ),
-      units: 'newtons',
+      units: 'N',
       range: new Range( -350, 350 )
     } );
 
     this.leftForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'leftForceProperty' ),
-      units: 'newtons',
+      units: 'N',
       range: new Range( -350, 0 )
     } );
 
     this.rightForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'rightForceProperty' ),
-      units: 'newtons',
+      units: 'N',
       range: new Range( 0, 350 )
     } );
 

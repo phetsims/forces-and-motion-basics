@@ -66,14 +66,14 @@ define( require => {
     // @public - force applied to the stack of items by the pusher
     this.appliedForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'appliedForceProperty' ),
-      units: 'newtons',
+      units: 'N',
       range: new Range( -500, 500 )
     } );
 
     // @public - force applied to the stack of items by friction
     this.frictionForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'frictionForceProperty' ),
-      units: 'newtons'
+      units: 'N'
     } );
 
     // @public - friction of the ground
@@ -84,7 +84,7 @@ define( require => {
     // @public - sum of all forces acting on the stack of items
     this.sumOfForcesProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'sumOfForcesProperty' ),
-      units: 'newtons'
+      units: 'N'
     } );
 
     // @public - 1-D position of the stack of items
