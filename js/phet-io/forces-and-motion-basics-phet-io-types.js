@@ -41,7 +41,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<BooleanIO>"
     },
-    "ActionIO<DOMEventIO>": {
+    "ActionIO<EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
@@ -52,16 +52,16 @@ window.phet.phetio.phetioTypes = assert &&
           "documentation": "Executes the function the Action is wrapping.",
           "invocableForReadOnlyElements": false,
           "parameterTypes": [
-            "DOMEventIO"
+            "EventIO"
           ],
           "returnType": "VoidIO"
         }
       },
       "parameterTypes": [
-        "DOMEventIO"
+        "EventIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ActionIO<DOMEventIO>"
+      "typeName": "ActionIO<EventIO>"
     },
     "ActionIO<NullableIO<SceneryEventIO>>": {
       "documentation": "Executes when an event occurs.",
@@ -133,7 +133,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<NumberIO, StringIO>"
     },
-    "ActionIO<NumberIO, Vector2IO, DOMEventIO>": {
+    "ActionIO<NumberIO, Vector2IO, EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
@@ -146,7 +146,7 @@ window.phet.phetio.phetioTypes = assert &&
           "parameterTypes": [
             "NumberIO",
             "Vector2IO",
-            "DOMEventIO"
+            "EventIO"
           ],
           "returnType": "VoidIO"
         }
@@ -154,10 +154,10 @@ window.phet.phetio.phetioTypes = assert &&
       "parameterTypes": [
         "NumberIO",
         "Vector2IO",
-        "DOMEventIO"
+        "EventIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ActionIO<NumberIO, Vector2IO, DOMEventIO>"
+      "typeName": "ActionIO<NumberIO, Vector2IO, EventIO>"
     },
     "ActionIO<NumberIO>": {
       "documentation": "Executes when an event occurs.",
@@ -203,7 +203,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<SceneryEventIO>"
     },
-    "ActionIO<Vector2IO, DOMEventIO>": {
+    "ActionIO<Vector2IO, EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
@@ -215,17 +215,17 @@ window.phet.phetio.phetioTypes = assert &&
           "invocableForReadOnlyElements": false,
           "parameterTypes": [
             "Vector2IO",
-            "DOMEventIO"
+            "EventIO"
           ],
           "returnType": "VoidIO"
         }
       },
       "parameterTypes": [
         "Vector2IO",
-        "DOMEventIO"
+        "EventIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ActionIO<Vector2IO, DOMEventIO>"
+      "typeName": "ActionIO<Vector2IO, EventIO>"
     },
     "ActionIO<Vector2IO>": {
       "documentation": "Executes when an event occurs.",
@@ -272,14 +272,6 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "ObjectIO",
       "typeName": "BooleanIO"
-    },
-    "DOMEventIO": {
-      "documentation": "A DOM Event",
-      "events": [],
-      "methodOrder": [],
-      "methods": {},
-      "supertype": "ObjectIO",
-      "typeName": "DOMEventIO"
     },
     "DerivedPropertyIO<BooleanIO>": {
       "documentation": "Like PropertyIO, but not settable.  Instead it is derived from other DerivedPropertyIO or PropertyIO instances",
@@ -395,6 +387,14 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ActionIO<NumberIO, StringIO>",
       "typeName": "EmitterIO<NumberIO, StringIO>"
+    },
+    "EventIO": {
+      "documentation": "A DOM Event",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ObjectIO",
+      "typeName": "EventIO"
     },
     "FocusIO": {
       "documentation": "A IO type for the instance in the simulation which currently has keyboard focus. FocusIO is serialized into and Object with key `focusedPhetioElement` that is a list of PhET-iO elements, from parent-most to child-most cooresponding to the PhET-iO element that was instrumented.",
