@@ -210,7 +210,7 @@ define( require => {
     // create the play, pause, and step buttons
     const playPauseButton = new PlayPauseButton( model.playProperty, {
       radius: 18,
-      playButtonScaleFactor: 1.28,
+      scaleFactorWhenPaused: 1.28,
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
     const stepForwardButton = new StepForwardButton( {
