@@ -15,11 +15,11 @@ define( require => {
   const ItemNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/ItemNode' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  const linear = Util.linear;
+  const linear = Utils.linear;
 
   /**
    * WaterBucketNode constructor

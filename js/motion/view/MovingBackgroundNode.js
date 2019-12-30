@@ -16,7 +16,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Pattern = require( 'SCENERY/util/Pattern' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // images
   const brickTileImage = require( 'image!FORCES_AND_MOTION_BASICS/brick-tile.png' );
@@ -25,7 +25,7 @@ define( require => {
   const mountainImage = require( 'image!FORCES_AND_MOTION_BASICS/mountains.png' );
 
   // constants
-  const linear = Util.linear;
+  const linear = Utils.linear;
 
   /**
    * Constructor for MovingBackgroundNode
@@ -191,16 +191,16 @@ define( require => {
 
             //Discretize the friction so that the new nodes/images are not created at every step
             newFriction = newFriction * 100;
-            newFriction = Util.roundSymmetric( newFriction / 2 ) * 2;
+            newFriction = Utils.roundSymmetric( newFriction / 2 ) * 2;
             newFriction = newFriction / 100;
 
             const height = 3;
             let numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
             numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-            const desiredBlack = Util.roundSymmetric( numSpecks / 2 );
-            const desiredGray = Util.roundSymmetric( numSpecks / 2 );
-            const desiredWhite = Util.roundSymmetric( numSpecks / 10 );
+            const desiredBlack = Utils.roundSymmetric( numSpecks / 2 );
+            const desiredGray = Utils.roundSymmetric( numSpecks / 2 );
+            const desiredWhite = Utils.roundSymmetric( numSpecks / 10 );
 
             if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
               return;

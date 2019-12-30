@@ -22,7 +22,7 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const SliderKnob = require( 'FORCES_AND_MOTION_BASICS/common/view/SliderKnob' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   /**
    * Constructor.
@@ -48,7 +48,7 @@ define( require => {
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
-      constrainValue: function( value ) { return Util.roundSymmetric( value ); },
+      constrainValue: function( value ) { return Utils.roundSymmetric( value ); },
 
       // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
       // up a state of forces

@@ -38,7 +38,7 @@ define( require => {
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const sumOfForcesString = require( 'string!FORCES_AND_MOTION_BASICS/sumOfForces' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const WaterBucketNode = require( 'FORCES_AND_MOTION_BASICS/motion/view/WaterBucketNode' );
 
@@ -298,7 +298,7 @@ define( require => {
       const initialLabelWidth = labelText.width;
       Property.multilink( [ model.showValuesProperty, model.accelerationProperty ], function( showValues, acceleration ) {
         if ( showValues ) {
-          const accelerationValue = Util.toFixed( acceleration, 2 );
+          const accelerationValue = Utils.toFixed( acceleration, 2 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
 
           // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
@@ -358,12 +358,12 @@ define( require => {
     const roundedAppliedForceProperty = new DerivedProperty(
       [ model.appliedForceProperty ],
       function( appliedForce ) {
-        return Util.roundSymmetric( appliedForce );
+        return Utils.roundSymmetric( appliedForce );
       } );
     const roundedFrictionForceProperty = new DerivedProperty(
       [ model.frictionForceProperty ],
       function( frictionForce ) {
-        return Util.roundSymmetric( frictionForce );
+        return Utils.roundSymmetric( frictionForce );
       } );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83

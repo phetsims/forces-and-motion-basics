@@ -24,7 +24,7 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const StringIO = require( 'TANDEM/types/StringIO' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // images
@@ -386,7 +386,7 @@ define( require => {
       }
 
       // round the friction force so that one force is not more precise than another
-      return Util.roundSymmetric( frictionForce );
+      return Utils.roundSymmetric( frictionForce );
     },
 
     //Compute the mass of the entire stack, for purposes of momentum computation

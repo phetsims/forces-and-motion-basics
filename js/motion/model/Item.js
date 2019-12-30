@@ -20,7 +20,7 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const StringIO = require( 'TANDEM/types/StringIO' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
 
@@ -196,7 +196,7 @@ define( require => {
         const destination = new Vector2( this.animationStateProperty.get().x, this.animationStateProperty.get().y );
 
         //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
-        const blendAmount = Util.clamp( 15 * dt, 0.1, 0.9 );
+        const blendAmount = Utils.clamp( 15 * dt, 0.1, 0.9 );
         this.positionProperty.set( this.positionProperty.get().blend( destination, blendAmount ) );
 
         const distanceToTarget = this.positionProperty.get().distance( destination );

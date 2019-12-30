@@ -15,7 +15,7 @@ define( require => {
   const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // images
@@ -272,7 +272,7 @@ define( require => {
 
       // update visibility and position if pusher is on screen and is still able to push
       else {
-        const index = Math.min( 30, Util.roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
+        const index = Math.min( 30, Utils.roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
         }
@@ -326,7 +326,7 @@ define( require => {
 
           // the new force should be rounded so that applied force is not
           // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
-          const roundedForce = Util.roundSymmetric( clampedAppliedForce );
+          const roundedForce = Utils.roundSymmetric( clampedAppliedForce );
 
           //Only apply a force if the pusher is not fallen, see #48
           if ( !model.fallenProperty.get() ) {

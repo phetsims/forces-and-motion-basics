@@ -19,7 +19,7 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // strings
   const pattern0ValueUnitsNString = require( 'string!FORCES_AND_MOTION_BASICS/pattern.0valueUnitsN' );
@@ -72,7 +72,7 @@ define( require => {
     //Update when the value changes
     valueProperty.link( function( value ) {
       self.value = value;
-      const roundedValue = Util.toFixed( Math.abs( value ), 0 );
+      const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
       self.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
       self.update();
     } );
