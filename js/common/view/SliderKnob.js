@@ -21,7 +21,7 @@ define( require => {
   /**
    * Constructor.
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {Object} [options]
    */
   function SliderKnob( tandem, options ) {
 

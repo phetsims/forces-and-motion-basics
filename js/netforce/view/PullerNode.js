@@ -24,7 +24,7 @@ define( require => {
    * @param {Image} pullImage image of the puller exerting a force
    * @param {PullerToolboxNode} pullerToolboxNode
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem, options ) {

@@ -19,6 +19,7 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const Vector2 = require( 'DOT/Vector2' );
 
+  // TODO: Should the "required" options parameter be renamed to config?
   /**
    * Constructor for the 8 knots that appear along the rope.
    *
@@ -27,7 +28,7 @@ define( require => {
    * @param {string} type - whether the knot is for red or blue pullers
    * @param ropeStart
    * @param {number} ropeLength - the length of the rope in model coordinates
-   * @param {Object} options - required
+   * @param {Object} [options] - required
    * @constructor
    */
   function Knot( x, type, ropeStart, ropeLength, options ) {
