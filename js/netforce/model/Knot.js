@@ -15,11 +15,11 @@ define( require => {
   const KnotIO = require( 'FORCES_AND_MOTION_BASICS/netforce/model/KnotIO' );
   const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
+  const required = require( 'PHET_CORE/required' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const Tandem = require( 'TANDEM/Tandem' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  // TODO: Should the "required" options parameter be renamed to config?
   /**
    * Constructor for the 8 knots that appear along the rope.
    *
@@ -28,16 +28,18 @@ define( require => {
    * @param {string} type - whether the knot is for red or blue pullers
    * @param ropeStart
    * @param {number} ropeLength - the length of the rope in model coordinates
-   * @param {Object} [options] - required
+   * @param {Object} config
    * @constructor
    */
-  function Knot( x, type, ropeStart, ropeLength, options ) {
+  function Knot( x, type, ropeStart, ropeLength, config ) {
 
-    options = merge( {
-      tandem: Tandem.REQUIRED,
+    config = merge( {
+
+      // {Tandem}
+      tandem: required( Tandem.REQUIRED ),
       phetioType: KnotIO
-    }, options );
-    const tandem = options.tandem;
+    }, config );
+    const tandem = config.tandem;
 
     this.initX = x;
     this.type = type;
@@ -60,7 +62,7 @@ define( require => {
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
 
-    PhetioObject.call( this, options );
+    PhetioObject.call( this, config );
   }
 
   forcesAndMotionBasics.register( 'Knot', Knot );
