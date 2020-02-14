@@ -14,9 +14,6 @@ define( require => {
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
   const validate = require( 'AXON/validate' );
 
-  // ifphetio
-  const phetioEngine = require( 'ifphetio!PHET_IO/phetioEngine' );
-
   class KnotIO extends ObjectIO {
 
     /**
@@ -44,7 +41,7 @@ define( require => {
         return null;
       }
       else {
-        return phetioEngine.getPhetioObject( stateObject );
+        return phet.phetIo.phetioEngine.getPhetioObject( stateObject );
       }
     }
   }
