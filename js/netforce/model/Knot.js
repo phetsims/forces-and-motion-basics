@@ -28,18 +28,18 @@ define( require => {
    * @param {string} type - whether the knot is for red or blue pullers
    * @param ropeStart
    * @param {number} ropeLength - the length of the rope in model coordinates
-   * @param {Object} config
+   * @param {Object} [options]
    * @constructor
    */
-  function Knot( x, type, ropeStart, ropeLength, config ) {
+  function Knot( x, type, ropeStart, ropeLength, options ) {
 
-    config = merge( {
+    options = merge( {
 
       // {Tandem}
       tandem: required( Tandem.REQUIRED ),
       phetioType: KnotIO
-    }, config );
-    const tandem = config.tandem;
+    }, options );
+    const tandem = options.tandem;
 
     this.initX = x;
     this.type = type;
@@ -62,7 +62,7 @@ define( require => {
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
 
-    PhetioObject.call( this, config );
+    PhetioObject.call( this, options );
   }
 
   forcesAndMotionBasics.register( 'Knot', Knot );
