@@ -30,7 +30,7 @@ define( require => {
   // images
   const crateImage = require( 'image!FORCES_AND_MOTION_BASICS/crate.png' );
   const fridgeImage = require( 'image!FORCES_AND_MOTION_BASICS/fridge.png' );
-  const girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png,level=1' );
+  const girlHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-holding.png' );
   const girlSittingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-sitting.png' );
   const girlStandingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/girl-standing.png' );
   const manHoldingImage = require( 'mipmap!FORCES_AND_MOTION_BASICS/man-holding.png' );
