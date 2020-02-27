@@ -5,40 +5,37 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  const ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  const validate = require( 'AXON/validate' );
+import validate from '../../../../axon/js/validate.js';
+import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-  class AnimationStateIO extends ObjectIO {
+class AnimationStateIO extends ObjectIO {
 
-    /**
-     * @param {Object} animationState
-     * @returns {Object}
-     * @override
-     */
-    static toStateObject( animationState ) {
-      validate( animationState, this.validator );
-      return animationState;
-    }
-
-    /**
-     * @param {Object} stateObject
-     * @returns {Object}
-     * @override
-     */
-    static fromStateObject( stateObject ) {
-      return stateObject;
-    }
+  /**
+   * @param {Object} animationState
+   * @returns {Object}
+   * @override
+   */
+  static toStateObject( animationState ) {
+    validate( animationState, this.validator );
+    return animationState;
   }
 
-  AnimationStateIO.documentation = 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe';
-  AnimationStateIO.validator = { valueType: Object };
-  AnimationStateIO.typeName = 'AnimationStateIO';
-  ObjectIO.validateSubtype( AnimationStateIO );
+  /**
+   * @param {Object} stateObject
+   * @returns {Object}
+   * @override
+   */
+  static fromStateObject( stateObject ) {
+    return stateObject;
+  }
+}
 
-  return forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
-} );
+AnimationStateIO.documentation = 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe';
+AnimationStateIO.validator = { valueType: Object };
+AnimationStateIO.typeName = 'AnimationStateIO';
+ObjectIO.validateSubtype( AnimationStateIO );
+
+forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
+export default AnimationStateIO;

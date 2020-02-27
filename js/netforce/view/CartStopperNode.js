@@ -7,43 +7,39 @@
  * @author Jesse Greenberg
  */
 
-define( require => {
-  'use strict';
+import Shape from '../../../../kite/js/Shape.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-  // modules
-  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Path = require( 'SCENERY/nodes/Path' );
-  const Shape = require( 'KITE/Shape' );
+// constants
+const DIRECTIONS = [ 'left', 'right' ];
 
-  // constants
-  const DIRECTIONS = [ 'left', 'right' ];
+/**
+ * @constructor
+ */
+function CartStopperNode( topWidth, bottomWidth, height, tandem, options ) {
+  options = merge( {
+    direction: 'left',
+    tandem: tandem,
+    fill: 'grey'
+  }, options );
 
-  /**
-   * @constructor
-   */
-  function CartStopperNode( topWidth, bottomWidth, height, tandem, options ) {
-    options = merge( {
-      direction: 'left',
-      tandem: tandem,
-      fill: 'grey'
-    }, options );
+  const stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
+  Path.call( this, stopperShape );
 
-    const stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
-    Path.call( this, stopperShape );
-
-    // flip around the y axis
-    assert && assert( _.includes( DIRECTIONS, options.direction ), 'stopper can only have directon "left" or "right"' );
-    if ( options.direction === 'right' ) {
-      this.scale( -1, 1 );
-    }
-
-    // mutate after scaling so that positioning is correct
-    this.mutate( options );
+  // flip around the y axis
+  assert && assert( _.includes( DIRECTIONS, options.direction ), 'stopper can only have directon "left" or "right"' );
+  if ( options.direction === 'right' ) {
+    this.scale( -1, 1 );
   }
 
-  forcesAndMotionBasics.register( 'CartStopperNode', CartStopperNode );
+  // mutate after scaling so that positioning is correct
+  this.mutate( options );
+}
 
-  return inherit( Path, CartStopperNode );
-} );
+forcesAndMotionBasics.register( 'CartStopperNode', CartStopperNode );
+
+inherit( Path, CartStopperNode );
+export default CartStopperNode;

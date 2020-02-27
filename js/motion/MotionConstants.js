@@ -5,25 +5,22 @@
  *
  * @author Sam Reid
  */
-define( require => {
-  'use strict';
 
-  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 
-  const MotionConstants = {
+const MotionConstants = {
 
-    // The scale mapping between model units (meters) and stage coordinates, How much to translate model
-    // coordinates into view pixels for translating the background ground
-    POSITION_SCALE: 10,
+  // The scale mapping between model units (meters) and stage coordinates, How much to translate model
+  // coordinates into view pixels for translating the background ground
+  POSITION_SCALE: 10,
 
-    //Coefficient of friction (Friction is unitless and not bounded between 0 and 1)
-    MAX_FRICTION: 0.5,
+  //Coefficient of friction (Friction is unitless and not bounded between 0 and 1)
+  MAX_FRICTION: 0.5,
 
-    //Maximum speed in meters/second before the pusher falls down
-    MAX_SPEED: 40
-  };
+  //Maximum speed in meters/second before the pusher falls down
+  MAX_SPEED: 40
+};
 
-  forcesAndMotionBasics.register( 'MotionConstants', MotionConstants );
+forcesAndMotionBasics.register( 'MotionConstants', MotionConstants );
 
-  return MotionConstants;
-} );
+export default MotionConstants;

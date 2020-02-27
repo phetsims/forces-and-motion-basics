@@ -5,33 +5,29 @@
  *
  * @author John Blanco
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  const GaugeNode = require( 'SCENERY_PHET/GaugeNode' );
-  const MotionConstants = require( 'FORCES_AND_MOTION_BASICS/motion/MotionConstants' );
-  const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
+import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
+import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
+import forcesAndMotionBasicsStrings from '../../forces-and-motion-basics-strings.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import MotionConstants from '../../motion/MotionConstants.js';
 
-  // strings
-  const speedString = require( 'string!FORCES_AND_MOTION_BASICS/speed' );
+const speedString = forcesAndMotionBasicsStrings.speed;
 
-  /**
-   * Static object, not meant to be instantiated.
-   */
-  const ForcesAndMotionBasicsIconFactory = {
-    speedometerIcon: function( tandem ) {
+/**
+ * Static object, not meant to be instantiated.
+ */
+const ForcesAndMotionBasicsIconFactory = {
+  speedometerIcon: function( tandem ) {
 
     // the 'speed' option requires the text and a speedometer icon
     const speedometerIconValueProperty = new Property( 0 );
-      return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
-        { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
-    }
-  };
+    return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+      { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
+  }
+};
 
-  forcesAndMotionBasics.register( 'ForcesAndMotionBasicsIconFactory', ForcesAndMotionBasicsIconFactory );
+forcesAndMotionBasics.register( 'ForcesAndMotionBasicsIconFactory', ForcesAndMotionBasicsIconFactory );
 
-  return ForcesAndMotionBasicsIconFactory;
-} );
+export default ForcesAndMotionBasicsIconFactory;

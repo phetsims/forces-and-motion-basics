@@ -5,42 +5,39 @@
  *
  * @author Sam Reid
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const TextPushButton = require( 'SUN/buttons/TextPushButton' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
+import forcesAndMotionBasicsStrings from '../../forces-and-motion-basics-strings.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-  // strings
-  const returnString = require( 'string!FORCES_AND_MOTION_BASICS/return' );
+const returnString = forcesAndMotionBasicsStrings.return;
 
-  /**
-   * @param {NetForceModel} model
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   * @constructor
-   */
-  function ReturnButton( model, tandem, options ) {
+/**
+ * @param {NetForceModel} model
+ * @param {Tandem} tandem
+ * @param {Object} [options]
+ * @constructor
+ */
+function ReturnButton( model, tandem, options ) {
 
-    // TODO: this method bound the model. Why?
-    const returnCart = function() {
-      model.returnCart();
-    };
-    TextPushButton.call( this, returnString, {
-      listener: returnCart,
-      font: new PhetFont( { size: 16, weight: 'bold' } ),
-      baseColor: 'rgb( 254, 192, 0 )',
-      tandem: tandem
-    } );
-    this.mutate( options );
+  // TODO: this method bound the model. Why?
+  const returnCart = function() {
+    model.returnCart();
+  };
+  TextPushButton.call( this, returnString, {
+    listener: returnCart,
+    font: new PhetFont( { size: 16, weight: 'bold' } ),
+    baseColor: 'rgb( 254, 192, 0 )',
+    tandem: tandem
+  } );
+  this.mutate( options );
 
-    model.startedProperty.linkAttribute( this, 'enabled' );
-  }
+  model.startedProperty.linkAttribute( this, 'enabled' );
+}
 
-  forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
+forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
 
-  return inherit( TextPushButton, ReturnButton );
-} );
+inherit( TextPushButton, ReturnButton );
+export default ReturnButton;

@@ -9,16 +9,12 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const forcesAndMotionBasics = require( 'FORCES_AND_MOTION_BASICS/forcesAndMotionBasics' );
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-  const ForcesAndMotionBasicsLayoutBounds = new Bounds2( 0, 0, 981, 604 );
+const ForcesAndMotionBasicsLayoutBounds = new Bounds2( 0, 0, 981, 604 );
 
-  forcesAndMotionBasics.register( 'ForcesAndMotionBasicsLayoutBounds', ForcesAndMotionBasicsLayoutBounds );
+forcesAndMotionBasics.register( 'ForcesAndMotionBasicsLayoutBounds', ForcesAndMotionBasicsLayoutBounds );
 
-  return ForcesAndMotionBasicsLayoutBounds;
-} );
+export default ForcesAndMotionBasicsLayoutBounds;
