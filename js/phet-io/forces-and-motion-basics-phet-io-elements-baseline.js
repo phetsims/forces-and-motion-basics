@@ -27719,7 +27719,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "forcesAndMotionBasics.general.soundManager.enhancedSoundEnabledProperty": {
-      "phetioDocumentation": "If the sim contains sound, then this Property will toggle whether \"enhanced\" sound is enabled or disabled.",
+      "phetioDocumentation": "If the sim contains sound, then this Property will toggle whether \"enhanced\" sound is enabled or disabled. Note that not all simulations that support sound also support enhanced sound.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
