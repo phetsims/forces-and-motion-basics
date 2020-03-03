@@ -7,7 +7,7 @@
   <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1"/>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="phet-sim-level" content="development">
-  
+
   <title>forces-and-motion-basics</title>
 </head>
 
@@ -19,8 +19,70 @@
 
   window.phet = window.phet || {};
   window.phet.chipper = window.phet.chipper || {};
-  window.phet.chipper.packageObject = {"name":"forces-and-motion-basics","version":"2.4.0-dev.3","license":"GPL-3.0","repository":{"type":"git","url":"https://github.com/phetsims/forces-and-motion-basics.git"},"devDependencies":{"grunt":"~1.0.0"},"phet":{"requirejsNamespace":"FORCES_AND_MOTION_BASICS","phetLibs":["vibe"],"preload":["../sherpa/lib/Tween-r12.js"],"runnable":true,"supportedBrands":["phet","phet-io","adapted-from-phet"],"simulation":true,"phet-io":{"wrappers":["phet-io-wrapper-classroom-activity"]}},"eslintConfig":{"extends":"../chipper/eslint/sim_eslintrc.js"}};
-  window.phet.chipper.stringRepos = [{"repo":"forces-and-motion-basics","requirejsNamespace":"FORCES_AND_MOTION_BASICS"},{"repo":"joist","requirejsNamespace":"JOIST"},{"repo":"scenery-phet","requirejsNamespace":"SCENERY_PHET"},{"repo":"sun","requirejsNamespace":"SUN"},{"repo":"tambo","requirejsNamespace":"TAMBO"},{"repo":"vibe","requirejsNamespace":"VIBE"}];
+  window.phet.chipper.packageObject =
+    {
+      "name": "forces-and-motion-basics",
+      "version": "2.4.0-dev.3",
+      "license": "GPL-3.0",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/phetsims/forces-and-motion-basics.git"
+      },
+      "devDependencies": {
+        "grunt": "~1.0.0"
+      },
+      "phet": {
+        "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
+        "phetLibs": [
+          "vibe"
+        ],
+        "preload": [
+          "../sherpa/lib/Tween-r12.js"
+        ],
+        "runnable": true,
+        "supportedBrands": [
+          "phet",
+          "phet-io",
+          "adapted-from-phet"
+        ],
+        "simulation": true,
+        "phet-io": {
+          "wrappers": [
+            "phet-io-wrapper-classroom-activity"
+          ]
+        }
+      },
+      "eslintConfig": {
+        "extends": "../chipper/eslint/sim_eslintrc.js"
+      }
+    };
+  window.phet.chipper.stringRepos =
+    [
+      {
+        "repo": "forces-and-motion-basics",
+        "requirejsNamespace": "FORCES_AND_MOTION_BASICS"
+      },
+      {
+        "repo": "joist",
+        "requirejsNamespace": "JOIST"
+      },
+      {
+        "repo": "scenery-phet",
+        "requirejsNamespace": "SCENERY_PHET"
+      },
+      {
+        "repo": "sun",
+        "requirejsNamespace": "SUN"
+      },
+      {
+        "repo": "tambo",
+        "requirejsNamespace": "TAMBO"
+      },
+      {
+        "repo": "vibe",
+        "requirejsNamespace": "VIBE"
+      }
+    ];
 
   // Identify the brand (assume generated brand if not provided with query parameters)
   const brandMatch = location.search.match( /brand=([^&]+)/ );
