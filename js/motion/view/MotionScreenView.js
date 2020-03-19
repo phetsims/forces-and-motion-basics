@@ -162,13 +162,14 @@ function MotionScreenView( model, tandem ) {
 
   const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
     numberDisplayOptions: {
-      font: new PhetFont( 22 ),
       valuePattern: pattern0ValueUnitsNewtonsString,
-
       align: 'center',
       xMargin: 20,
       yMargin: 4,
-      numberMaxWidth: maxTextWidth / 3
+      textOptions: {
+        font: new PhetFont( 22 ),
+        maxWidth: maxTextWidth / 3
+      }
     },
 
     range: spinnerRange,
