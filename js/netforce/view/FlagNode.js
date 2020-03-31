@@ -12,7 +12,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import forcesAndMotionBasicsStrings from '../../forces-and-motion-basics-strings.js';
+import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 const blueWinsString = forcesAndMotionBasicsStrings.blueWins;

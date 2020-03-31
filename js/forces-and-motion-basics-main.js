@@ -15,7 +15,7 @@ import accelerationIcon from '../images/Acceleration_Icon_png.js';
 import frictionIcon from '../images/Friction_Icon_png.js';
 import motionIcon from '../images/Motion_Icon_png.js';
 import tugIcon from '../images/Tug_Icon_png.js';
-import forcesAndMotionBasicsStrings from './forces-and-motion-basics-strings.js';
+import forcesAndMotionBasicsStrings from './forcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';

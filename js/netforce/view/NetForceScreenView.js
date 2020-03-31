@@ -35,7 +35,7 @@ import ropeImage from '../../../images/rope_png.js';
 import golfClapSound from '../../../sounds/golf-clap_mp3.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
-import forcesAndMotionBasicsStrings from '../../forces-and-motion-basics-strings.js';
+import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceModel from '../model/NetForceModel.js';
 import CartNode from './CartNode.js';

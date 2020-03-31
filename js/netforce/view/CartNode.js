@@ -11,7 +11,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import cartImage from '../../../images/cart_png.js';
-import forcesAndMotionBasicsStrings from '../../forces-and-motion-basics-strings.js';
+import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 const speedString = forcesAndMotionBasicsStrings.speed;

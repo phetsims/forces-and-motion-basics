@@ -19,7 +19,7 @@ import BooleanToggleNode from '../../../../sun/js/BooleanToggleNode.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
-import forcesAndMotionBasicsStrings from '../../forces-and-motion-basics-strings.js';
+import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 const goString = forcesAndMotionBasicsStrings.go;
