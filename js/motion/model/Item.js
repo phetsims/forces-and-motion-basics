@@ -16,6 +16,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -111,7 +112,7 @@ function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, 
     }
   } );
 
-  PhetioObject.call( this, { tandem: tandem, phetioType: ReferenceIO } );
+  PhetioObject.call( this, { tandem: tandem, phetioType: ReferenceIO( ObjectIO ) } );
 }
 
 forcesAndMotionBasics.register( 'Item', Item );
