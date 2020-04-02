@@ -38,7 +38,7 @@ class KnotIO extends ObjectIO {
       return null;
     }
     else {
-      return phet.phetIo.phetioEngine.getPhetioObject( stateObject );
+      return phet.phetio.phetioEngine.getPhetioObject( stateObject );
     }
   }
 }

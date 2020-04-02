@@ -80,7 +80,7 @@ function ItemNode( model, motionView, item, normalImage, sittingImage, holdingIm
   // TODO: It is possible that this can be removed once these issues are closed, see
   // https://github.com/phetsims/forces-and-motion-basics/issues/240
   // https://github.com/phetsims/axon/issues/135
-  _.hasIn( window, 'phet.phetIo.phetioEngine' ) && phet.phetIo.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
+  _.hasIn( window, 'phet.phetio.phetioEngine' ) && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
 
   for ( let i = 0; i < model.items.length; i++ ) {
     model.items[ i ].draggingProperty.link( updateImage );
