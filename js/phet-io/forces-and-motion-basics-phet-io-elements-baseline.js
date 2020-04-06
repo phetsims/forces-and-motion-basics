@@ -1029,10 +1029,10 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "forcesAndMotionBasics.accelerationScreen.nameProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The name of the screen. Changing this value will update the screen name for the screen's corresponding button on the navigation bar and home screen, if they exist. May be null for single-screen simulations.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioIsArchetype": false,
       "phetioPlayback": false,
@@ -14133,10 +14133,10 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "forcesAndMotionBasics.frictionScreen.nameProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The name of the screen. Changing this value will update the screen name for the screen's corresponding button on the navigation bar and home screen, if they exist. May be null for single-screen simulations.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioIsArchetype": false,
       "phetioPlayback": false,
@@ -27640,10 +27640,10 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ScreenIO>"
     },
     "forcesAndMotionBasics.homeScreen.nameProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The name of the screen. Changing this value will update the screen name for the screen's corresponding button on the navigation bar and home screen, if they exist. May be null for single-screen simulations.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioIsArchetype": false,
       "phetioPlayback": false,
@@ -29629,10 +29629,10 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "forcesAndMotionBasics.motionScreen.nameProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The name of the screen. Changing this value will update the screen name for the screen's corresponding button on the navigation bar and home screen, if they exist. May be null for single-screen simulations.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioIsArchetype": false,
       "phetioPlayback": false,
@@ -40796,10 +40796,10 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "forcesAndMotionBasics.netForceScreen.nameProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The name of the screen. Changing this value will update the screen name for the screen's corresponding button on the navigation bar and home screen, if they exist. May be null for single-screen simulations.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioIsArchetype": false,
       "phetioPlayback": false,
