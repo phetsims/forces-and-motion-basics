@@ -553,17 +553,17 @@ window.phet.preloads.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(RangeIO,NullableIO<RangeIO>)=>VoidIO"
     },
-    "FunctionIO(ReferenceIO)=>VoidIO": {
-      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ReferenceIO<br><strong>Return Type:</strong> VoidIO",
+    "FunctionIO(ReferenceIO<ObjectIO>)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ReferenceIO<ObjectIO><br><strong>Return Type:</strong> VoidIO",
       "events": [],
       "methodOrder": [],
       "methods": {},
       "parameterTypes": [
-        "ReferenceIO",
+        "ReferenceIO<ObjectIO>",
         "VoidIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "FunctionIO(ReferenceIO)=>VoidIO"
+      "typeName": "FunctionIO(ReferenceIO<ObjectIO>)=>VoidIO"
     },
     "FunctionIO(ScreenIO,NullableIO<ScreenIO>)=>VoidIO": {
       "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ScreenIO, NullableIO<ScreenIO><br><strong>Return Type:</strong> VoidIO",
@@ -911,7 +911,7 @@ window.phet.preloads.phetio.phetioTypes = assert &&
       "supertype": null,
       "typeName": "ObjectIO"
     },
-    "ObservableArrayIO<ReferenceIO>": {
+    "ObservableArrayIO<ReferenceIO<ObjectIO>>": {
       "documentation": "An array that sends notifications when its values have changed.",
       "events": [
         "itemAdded",
@@ -922,14 +922,14 @@ window.phet.preloads.phetio.phetioTypes = assert &&
         "addItemAddedListener": {
           "documentation": "Add a listener that is called when an item is added to the observable array.",
           "parameterTypes": [
-            "FunctionIO(ReferenceIO)=>VoidIO"
+            "FunctionIO(ReferenceIO<ObjectIO>)=>VoidIO"
           ],
           "returnType": "VoidIO"
         },
         "addItemRemovedListener": {
           "documentation": "Add a listener that is called when an item is removed from the observable array.",
           "parameterTypes": [
-            "FunctionIO(ReferenceIO)=>VoidIO"
+            "FunctionIO(ReferenceIO<ObjectIO>)=>VoidIO"
           ],
           "returnType": "VoidIO"
         },
@@ -940,10 +940,10 @@ window.phet.preloads.phetio.phetioTypes = assert &&
         }
       },
       "parameterTypes": [
-        "ReferenceIO"
+        "ReferenceIO<ObjectIO>"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ObservableArrayIO<ReferenceIO>"
+      "typeName": "ObservableArrayIO<ReferenceIO<ObjectIO>>"
     },
     "PhetButtonIO": {
       "documentation": "The PhET Button in the bottom right of the screen",
@@ -1687,13 +1687,13 @@ window.phet.preloads.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "RangeIO"
     },
-    "ReferenceIO": {
-      "documentation": "Uses reference identity for toStateObject/fromStateObject and validates based on its parameter IO Type.",
+    "ReferenceIO<ObjectIO>": {
+      "documentation": "Uses reference identity for serializing and deserializing, and validates based on its parameter IO Type.",
       "events": [],
       "methodOrder": [],
       "methods": {},
       "supertype": "ObjectIO",
-      "typeName": "ReferenceIO"
+      "typeName": "ReferenceIO<ObjectIO>"
     },
     "RichTextIO": {
       "documentation": "The tandem IO type for the scenery RichText node",
@@ -1727,7 +1727,7 @@ window.phet.preloads.phetio.phetioTypes = assert &&
       "events": [],
       "methodOrder": [],
       "methods": {},
-      "supertype": "ReferenceIO",
+      "supertype": "ReferenceIO<ObjectIO>",
       "typeName": "ScreenIO"
     },
     "SliderIO": {
