@@ -116,7 +116,7 @@ function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem,
 
 forcesAndMotionBasics.register( 'PullerNode', PullerNode );
 
-export default inherit( Image, PullerNode, {
+inherit( Image, PullerNode, {
 
   /**
    * Update the location of the puller immediately after it has been clicked on after being removed from a knot
@@ -164,3 +164,5 @@ export default inherit( Image, PullerNode, {
     }
   }
 } );
+
+export default PullerNode;

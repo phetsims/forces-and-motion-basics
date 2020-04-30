@@ -281,7 +281,7 @@ function MotionModel( screen, tandem ) {
 
 forcesAndMotionBasics.register( 'MotionModel', MotionModel );
 
-export default inherit( Object, MotionModel, {
+inherit( Object, MotionModel, {
 
   /**
    * Get an array representing the items that are being dragged.
@@ -632,3 +632,5 @@ export default inherit( Object, MotionModel, {
     };
   }
 } );
+
+export default MotionModel;

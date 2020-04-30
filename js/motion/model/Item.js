@@ -117,7 +117,7 @@ function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, 
 
 forcesAndMotionBasics.register( 'Item', Item );
 
-export default inherit( PhetioObject, Item, {
+inherit( PhetioObject, Item, {
 
   //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
   get centeringOffset() {
@@ -210,3 +210,5 @@ export default inherit( PhetioObject, Item, {
     }
   }
 } );
+
+export default Item;

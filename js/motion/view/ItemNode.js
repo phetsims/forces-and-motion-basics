@@ -256,7 +256,7 @@ function ItemNode( model, motionView, item, normalImage, sittingImage, holdingIm
 
 forcesAndMotionBasics.register( 'ItemNode', ItemNode );
 
-export default inherit( Node, ItemNode, {
+inherit( Node, ItemNode, {
 
   /**
    * Set the label position relative to the bottom of the image.
@@ -286,3 +286,5 @@ export default inherit( Node, ItemNode, {
     return scaledWidth;
   }
 } );
+
+export default ItemNode;

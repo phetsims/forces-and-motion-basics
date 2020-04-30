@@ -38,7 +38,7 @@ function Cart( tandem ) {
 
 forcesAndMotionBasics.register( 'Cart', Cart );
 
-export default inherit( Object, Cart, {
+inherit( Object, Cart, {
 
   /**
    * Reset the Properties associated with this model.
@@ -49,3 +49,5 @@ export default inherit( Object, Cart, {
     this.vProperty.reset();
   }
 } );
+
+export default Cart;

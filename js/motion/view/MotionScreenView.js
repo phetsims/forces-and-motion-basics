@@ -450,7 +450,7 @@ function MotionScreenView( model, tandem ) {
 
 forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );
 
-export default inherit( ScreenView, MotionScreenView, {
+inherit( ScreenView, MotionScreenView, {
 
   //Get the height of the objects in the stack (doesn't include skateboard)
   get stackHeight() {
@@ -474,3 +474,5 @@ export default inherit( ScreenView, MotionScreenView, {
     return { width: scaledWidth, height: item.view.height };
   }
 } );
+
+export default MotionScreenView;

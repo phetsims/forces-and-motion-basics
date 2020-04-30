@@ -76,7 +76,7 @@ function SliderKnob( tandem, options ) {
 
 forcesAndMotionBasics.register( 'SliderKnob', SliderKnob );
 
-export default inherit( Node, SliderKnob, {
+inherit( Node, SliderKnob, {
   addGripDot: function( x, y ) {
     const radius = 1.8;
     const stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
@@ -89,3 +89,5 @@ export default inherit( Node, SliderKnob, {
     } ) );
   }
 } );
+
+export default SliderKnob;

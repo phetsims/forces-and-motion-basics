@@ -36,7 +36,7 @@ function MotionScreen( style, tandem, options ) {
 
 forcesAndMotionBasics.register( 'MotionScreen', MotionScreen );
 
-export default inherit( Screen, MotionScreen, {
+inherit( Screen, MotionScreen, {
 
   getState: function() {
     return { model: this.model.getState(), view: {} };
@@ -45,3 +45,5 @@ export default inherit( Screen, MotionScreen, {
   setState: function() {
   }
 } );
+
+export default MotionScreen;

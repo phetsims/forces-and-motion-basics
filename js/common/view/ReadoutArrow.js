@@ -84,7 +84,7 @@ function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesPrope
 
 forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
 
-export default inherit( Node, ReadoutArrow, {
+inherit( Node, ReadoutArrow, {
 
   //Sets the arrow dash, which changes when the simulation starts playing
   setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
@@ -183,3 +183,5 @@ export default inherit( Node, ReadoutArrow, {
   ARROW_HEAD_WIDTH: ARROW_HEAD_WIDTH,
   ARROW_HEAD_HEIGHT: ARROW_HEAD_HEIGHT
 } );
+
+export default ReadoutArrow;

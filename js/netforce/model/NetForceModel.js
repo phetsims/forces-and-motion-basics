@@ -186,7 +186,7 @@ function NetForceModel( tandem ) {
 
 forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
 
-export default inherit( PhetioObject, NetForceModel, {
+inherit( PhetioObject, NetForceModel, {
 
   /**
    * Move a puller to a knot.  If no knot is specified, puller is moved to its original location in the Puller
@@ -594,3 +594,5 @@ export default inherit( PhetioObject, NetForceModel, {
   // @public
   GAME_LENGTH: GAME_LENGTH
 } );
+
+export default NetForceModel;

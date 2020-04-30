@@ -75,7 +75,7 @@ function FlagNode( model, centerX, top, tandem ) {
 
 forcesAndMotionBasics.register( 'FlagNode', FlagNode );
 
-export default inherit( Node, FlagNode, {
+inherit( Node, FlagNode, {
   dispose: function() {
     this.disposeFlagNode();
     Node.prototype.dispose.call( this );
@@ -97,3 +97,5 @@ export default inherit( Node, FlagNode, {
     this.path.shape = shape;
   }
 } );
+
+export default FlagNode;

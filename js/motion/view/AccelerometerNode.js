@@ -94,7 +94,7 @@ function AccelerometerNode( accelerationProperty, tandem, options ) {
 
 forcesAndMotionBasics.register( 'AccelerometerNode', AccelerometerNode );
 
-export default inherit( Node, AccelerometerNode, {
+inherit( Node, AccelerometerNode, {
 
   /**
    * Add a the child line as a tick to the accelerometer node
@@ -105,3 +105,5 @@ export default inherit( Node, AccelerometerNode, {
     this.ticks.push( child );
   }
 } );
+
+export default AccelerometerNode;

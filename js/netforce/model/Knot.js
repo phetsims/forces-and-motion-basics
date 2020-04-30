@@ -64,7 +64,7 @@ function Knot( x, type, ropeStart, ropeLength, options ) {
 
 forcesAndMotionBasics.register( 'Knot', Knot );
 
-export default inherit( PhetioObject, Knot, {
+inherit( PhetioObject, Knot, {
 
   /**
    * Reset this knot by resetting its associated model Properties.
@@ -85,3 +85,5 @@ export default inherit( PhetioObject, Knot, {
     return new Vector2( this.xProperty.get(), this.y );
   }
 } );
+
+export default Knot;

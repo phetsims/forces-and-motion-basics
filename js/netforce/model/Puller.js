@@ -101,7 +101,7 @@ function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
 
 forcesAndMotionBasics.register( 'Puller', Puller );
 
-export default inherit( Object, Puller, {
+inherit( Object, Puller, {
 
   /**
    * Reset the model by resetting all associated Properties.
@@ -119,3 +119,5 @@ export default inherit( Object, Puller, {
     this.knotProperty.set( null );
   }
 } );
+
+export default Puller;
