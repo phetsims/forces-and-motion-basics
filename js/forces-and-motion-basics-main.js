@@ -8,7 +8,7 @@
 
 import Screen from '../../joist/js/Screen.js';
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Image from '../../scenery/js/nodes/Image.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import accelerationIcon from '../images/Acceleration_Icon_png.js';
@@ -40,7 +40,7 @@ const simOptions = {
   }
 };
 
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
 
   const netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
   const motionScreenTandem = tandem.createTandem( 'motionScreen' );
