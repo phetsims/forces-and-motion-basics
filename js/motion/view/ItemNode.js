@@ -59,7 +59,7 @@ function ItemNode( model, motionView, item, normalImage, sittingImage, holdingIm
   // @public (read-only)
   this.sittingImage = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
-  //When the model changes, update the image location as well as which image is shown
+  //When the model changes, update the image position as well as which image is shown
   const updateImage = function() {
     // var centerX = normalImageNode.centerX;
     if ( ( typeof holdingImage !== 'undefined' ) && ( item.armsUp() && item.onBoardProperty.get() ) ) {

@@ -28,7 +28,7 @@ const linear = Utils.linear;
  * Constructor for MovingBackgroundNode
  *
  * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
- * @param {number} layoutCenterX the location where the node should be centered horizontally
+ * @param {number} layoutCenterX the position where the node should be centered horizontally
  * @param {Tandem} tandem
  * @constructor
  */

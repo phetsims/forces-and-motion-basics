@@ -17,7 +17,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
  */
 function Cart( tandem ) {
 
-  // @public {number} - 1-D x location of the cart
+  // @public {number} - 1-D x position of the cart
   this.xProperty = new NumberProperty( 0, {
     tandem: tandem.createTandem( 'xProperty' ),
     units: 'meters',

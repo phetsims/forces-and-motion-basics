@@ -138,12 +138,12 @@ inherit( PhetioObject, Item, {
     return this.imageScaleProperty.get() * this.interactionScaleProperty.get();
   },
 
-  //Animate the item to the specified location
+  //Animate the item to the specified position
   animateTo: function( x, y, destination ) {
     this.animationStateProperty.set( { enabled: true, x: x, y: y, destination: destination } );
   },
 
-  //Animate the item to its original location
+  //Animate the item to its original position
   animateHome: function() {
 
     //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16

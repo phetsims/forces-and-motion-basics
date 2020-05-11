@@ -43,24 +43,24 @@ function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem,
 
   model.startedProperty.link( function() {
     self.updateImage( puller, model );
-    self.updateLocation( puller, model );
+    self.updatePosition( puller, model );
   } );
   puller.positionProperty.link( function() {
     self.updateImage( puller, model );
-    self.updateLocation( puller, model );
+    self.updatePosition( puller, model );
   } );
 
   model.startedProperty.link( function() {
     self.updateImage( puller, model );
-    self.updateLocation( puller, model );
+    self.updatePosition( puller, model );
   } );
   model.runningProperty.link( function() {
     self.updateImage( puller, model );
-    self.updateLocation( puller, model );
+    self.updatePosition( puller, model );
   } );
   model.stateProperty.link( function() {
     self.updateImage( puller, model );
-    self.updateLocation( puller, model );
+    self.updatePosition( puller, model );
   } );
 
   const dragHandler = new SimpleDragHandler( {
@@ -80,14 +80,14 @@ function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem,
         self.moveToFront();
         puller.draggedEmitter.emit();
 
-        // if the puller was knotted, update the image location so that it is centered on the knot it was previously
+        // if the puller was knotted, update the image position so that it is centered on the knot it was previously
         // grabbing
         if ( knot ) {
-          self.updateLocationKnotted( puller, model, knot );
+          self.updatePositionKnotted( puller, model, knot );
         }
       },
       end: function() {
-        self.updateLocation( puller, model );
+        self.updatePosition( puller, model );
         puller.draggingProperty.set( false );
         puller.droppedEmitter.emit();
         self.updateImage( puller, model );
@@ -101,7 +101,7 @@ function PullerNode( puller, model, image, pullImage, pullerToolboxNode, tandem,
   self.addInputListener( dragHandler );
 
   model.resetAllEmitter.addListener( function() {
-    self.updateLocation( puller, model );
+    self.updatePosition( puller, model );
 
     // cancel the drag
     if ( puller.draggingProperty.get() ) {
@@ -119,16 +119,16 @@ forcesAndMotionBasics.register( 'PullerNode', PullerNode );
 inherit( Image, PullerNode, {
 
   /**
-   * Update the location of the puller immediately after it has been clicked on after being removed from a knot
+   * Update the position of the puller immediately after it has been clicked on after being removed from a knot
    * position.  Sets the translation of the puller relative to its previous knot position.  This knot position is
-   * lost in updateLocation because the puller has already been disconnected from the knot by the time those functions
+   * lost in updatePosition because the puller has already been disconnected from the knot by the time those functions
    * are called.
    *
    * @param {Puller} puller
    * @param {NetForceModel} model
    * @param {Knot} knot - the last knot that the puller was holding on to
    */
-  updateLocationKnotted: function( puller, model, knot ) {
+  updatePositionKnotted: function(puller, model, knot ) {
     const blueOffset = this.puller.type === 'blue' ? -60 : 0;
     puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
   },
@@ -146,12 +146,12 @@ inherit( Image, PullerNode, {
   },
 
   /**
-   * Update the location of a puller depending on whether it is knotted and pulling.
+   * Update the position of a puller depending on whether it is knotted and pulling.
    *
    * @param  {Puller} puller
    * @param  {NetForceModel} model
    */
-  updateLocation: function( puller, model ) {
+  updatePosition: function(puller, model ) {
     const knotted = puller.knotProperty.get();
     const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
     if ( knotted ) {

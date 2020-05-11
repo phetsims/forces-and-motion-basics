@@ -230,7 +230,7 @@ function MotionModel( screen, tandem ) {
   // the change in model position (this.position - this.previousModelPosition )
   this.previousModelPosition = this.positionProperty.value;
 
-  // create the items - Initial locations determined empirically
+  // create the items - Initial positions determined empirically
   const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
   bucket.bucket = true;
   const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
@@ -595,7 +595,7 @@ inherit( Object, MotionModel, {
 
     this.stack.clear();
 
-    //Move the initial crate to the play area, since it resets to the toolbox, not its initial location.
+    //Move the initial crate to the play area, since it resets to the toolbox, not its initial position.
     this.viewInitialized( this.view );
 
   },

@@ -117,8 +117,8 @@ function NetForceModel( tandem ) {
 
   //Create a knot given a color and index (0-3)
   function createKnot( color, index, tandem ) {
-    const xLocation = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
-    return new Knot( xLocation, color, BLUE_KNOT_OFFSET, self.getRopeLength(), { tandem: tandem } );
+    const xPosition = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
+    return new Knot( xPosition, color, BLUE_KNOT_OFFSET, self.getRopeLength(), { tandem: tandem } );
   }
 
   // Create the knots
@@ -189,7 +189,7 @@ forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
 inherit( PhetioObject, NetForceModel, {
 
   /**
-   * Move a puller to a knot.  If no knot is specified, puller is moved to its original location in the Puller
+   * Move a puller to a knot.  If no knot is specified, puller is moved to its original position in the Puller
    * toolbox.
    *
    * @param {Puller} puller
@@ -209,9 +209,9 @@ inherit( PhetioObject, NetForceModel, {
       puller.positionProperty.reset();
     }
 
-    //Keep track of their location to change the attach/detach thresholds, see NetForceModel.getTargetKnot
-    const newLocation = knot ? 'knot' : 'home';
-    puller.lastPlacementProperty.set( newLocation );
+    //Keep track of their position to change the attach/detach thresholds, see NetForceModel.getTargetKnot
+    const newPosition = knot ? 'knot' : 'home';
+    puller.lastPlacementProperty.set( newPosition );
   },
 
   /**

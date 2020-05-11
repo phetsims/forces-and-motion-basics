@@ -109,16 +109,16 @@ function AppliedForceSlider( model, range, tandem, options ) {
   //Generate each of the ticks and add to the parent
   _.range( numTicks ).forEach( function( i ) {
 
-    const location = initialTickValue + i * delta;
+    const position = initialTickValue + i * delta;
     if ( isMajor( i ) ) {
-      const label = new Text( location, {
+      const label = new Text( position, {
         font: new PhetFont( 16 ),
         tandem: tandem.createTandem( 'tick' + i )
       } );
-      self.addMajorTick( location, label );
+      self.addMajorTick( position, label );
     }
     else {
-      self.addMinorTick( location );
+      self.addMinorTick( position );
     }
   } );
 }

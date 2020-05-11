@@ -64,7 +64,7 @@ function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
     tandem: tandem.createTandem( 'positionProperty' )
   } );
 
-  // @public {string} - a classified location in the play area
+  // @public {string} - a classified position in the play area
   // TODO: What are the valid values for this Property?
   this.lastPlacementProperty = new Property( 'home', {
     tandem: tandem.createTandem( 'lastPlacementProperty' ),
@@ -92,7 +92,7 @@ function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
       oldKnot.xProperty.unlink( updatePosition );
     }
 
-    //Synchronize our location with the knot.
+    //Synchronize our position with the knot.
     if ( newKnot ) {
       newKnot.xProperty.link( updatePosition );
     }

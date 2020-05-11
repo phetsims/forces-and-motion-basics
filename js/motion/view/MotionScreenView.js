@@ -193,7 +193,7 @@ function MotionScreenView( model, tandem ) {
   model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
   model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
 
-  //Create the speedometer.  Specify the location after construction so we can set the 'top'
+  //Create the speedometer.  Specify the position after construction so we can set the 'top'
   const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
     tandem.createTandem( 'speedometerNode' ), {
       x: 300,

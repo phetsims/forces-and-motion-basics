@@ -18,7 +18,7 @@ const defaultLineWidth = 1;
  * Create toolbox backgrounds for the pullers
  * @param {NetForceModel} model
  * @param {NetForceScreenView} netForceScreenView
- * @param {number} x - the screen coordinate for the location of the toolbox
+ * @param {number} x - the screen coordinate for the position of the toolbox
  * @param {number} side - 'left' || 'right'
  * @param {number} activePullerIndex
  * @param {number} minIndex

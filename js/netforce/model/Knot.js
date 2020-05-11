@@ -41,7 +41,7 @@ function Knot( x, type, ropeStart, ropeLength, options ) {
   this.initX = x;
   this.type = type;
 
-  // @public {number} - the 1-D x location of the knot
+  // @public {number} - the 1-D x position of the knot
   this.xProperty = new NumberProperty( x, {
     tandem: tandem.createTandem( 'xProperty' ),
     units: 'meters'
