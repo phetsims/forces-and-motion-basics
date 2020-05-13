@@ -15,6 +15,7 @@ class AnimationStateIO extends ObjectIO {
   /**
    * @param {Object} animationState
    * @returns {Object}
+   * @public
    * @override
    */
   static toStateObject( animationState ) {
@@ -25,6 +26,7 @@ class AnimationStateIO extends ObjectIO {
   /**
    * @param {Object} stateObject
    * @returns {Object}
+   * @public
    * @override
    */
   static fromStateObject( stateObject ) {

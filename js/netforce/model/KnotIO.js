@@ -16,6 +16,7 @@ class KnotIO extends ObjectIO {
   /**
    * @param {Knot} knot
    * @returns {string}
+   * @public
    * @override
    */
   static toStateObject( knot ) {
@@ -31,6 +32,7 @@ class KnotIO extends ObjectIO {
   /**
    * @param {Object} stateObject
    * @returns {Knot}
+   * @public
    * @override
    */
   static fromStateObject( stateObject ) {
