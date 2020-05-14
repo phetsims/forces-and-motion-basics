@@ -7,6 +7,7 @@
  */
 
 import Screen from '../../joist/js/Screen.js';
+import ScreenIcon from '../../joist/js/ScreenIcon.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Image from '../../scenery/js/nodes/Image.js';
@@ -47,37 +48,42 @@ simLauncher.launch( function() {
   const frictionScreenTandem = tandem.createTandem( 'frictionScreen' );
   const accelerationScreenTandem = tandem.createTandem( 'accelerationScreen' );
 
+  const screenIconOptions = {
+    maxIconWidthProportion: 1,
+    maxIconHeightProportion: 1
+  };
+
   //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
   //And lookups will still work properly even if the screens are reduced with ?screens=...
   const netForceImageNode = new Image( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
   const netForceScreen = new Screen(
     function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
-    function( model ) {return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
+    function( model ) { return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
       name: netForceString,
       tandem: netForceScreenTandem,
-      homeScreenIcon: netForceImageNode
+      homeScreenIcon: new ScreenIcon( netForceImageNode, screenIconOptions )
     }
   );
 
   const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
     name: motionString,
-    homeScreenIcon: new Image( motionIcon, {
+    homeScreenIcon: new ScreenIcon( new Image( motionIcon, {
       tandem: motionScreenTandem.createTandem( 'icon' )
-    } )
+    } ), screenIconOptions )
   } );
 
   const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
     name: frictionString,
-    homeScreenIcon: new Image( frictionIcon, {
+    homeScreenIcon: new ScreenIcon( new Image( frictionIcon, {
       tandem: frictionScreenTandem.createTandem( 'icon' )
-    } )
+    } ), screenIconOptions )
   } );
 
   const accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
     name: accelerationString,
-    homeScreenIcon: new Image( accelerationIcon, {
+    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon, {
       tandem: accelerationScreenTandem.createTandem( 'icon' )
-    } )
+    } ), screenIconOptions )
   } );
 
   //Create and start the sim
