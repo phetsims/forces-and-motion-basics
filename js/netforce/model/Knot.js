@@ -45,7 +45,6 @@ function Knot( x, type, ropeStart, ropeLength, options ) {
   this.xProperty = new NumberProperty( x, {
     tandem: tandem.createTandem( 'xProperty' ),
     units: 'meters'
-    // TODO: Fix range, was buggy during https://github.com/phetsims/axon/issues/137 and hence removed
   } );
 
   // @public {boolean} - whether or not the know is visible
