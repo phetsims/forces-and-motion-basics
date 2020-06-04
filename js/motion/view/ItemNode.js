@@ -16,6 +16,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
@@ -80,7 +81,7 @@ function ItemNode( model, motionView, item, normalImage, sittingImage, holdingIm
   // TODO: It is possible that this can be removed once these issues are closed, see
   // https://github.com/phetsims/forces-and-motion-basics/issues/240
   // https://github.com/phetsims/axon/issues/135
-  _.hasIn( window, 'phet.phetio.phetioEngine' ) && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
+  Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
 
   for ( let i = 0; i < model.items.length; i++ ) {
     model.items[ i ].draggingProperty.link( updateImage );
