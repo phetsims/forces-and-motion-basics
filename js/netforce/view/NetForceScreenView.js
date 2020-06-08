@@ -52,8 +52,6 @@ const rightForceString = forcesAndMotionBasicsStrings.rightForce;
 const sumOfForcesEqualsZeroString = forcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
 const sumOfForcesString = forcesAndMotionBasicsStrings.sumOfForces;
 
-// sounds
-
 // constants
 const STOPPER_TOP_WIDTH = 11;
 const STOPPER_BOTTOM_WIDTH = 30;
