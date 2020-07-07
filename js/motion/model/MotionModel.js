@@ -540,7 +540,7 @@ inherit( Object, MotionModel, {
    * @param  {Item} item
    * @returns {boolean}
    */
-  isInStack: function( item ) { return this.stack.contains( item ); },
+  isInStack: function( item ) { return this.stack.includes( item ); },
 
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
