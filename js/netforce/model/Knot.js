@@ -11,7 +11,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
-import required from '../../../../phet-core/js/required.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -33,7 +32,7 @@ function Knot( x, type, ropeStart, ropeLength, options ) {
   options = merge( {
 
     // {Tandem}
-    tandem: required( Tandem.REQUIRED ),
+    tandem: Tandem.REQUIRED,
     phetioType: KnotIO
   }, options );
   const tandem = options.tandem;
