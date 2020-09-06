@@ -48,7 +48,7 @@ class KnotIO extends ObjectIO {
 KnotIO.documentation = 'A knot';
 KnotIO.validator = { isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot };
 KnotIO.typeName = 'KnotIO';
-ObjectIO.validateSubtype( KnotIO );
+ObjectIO.validateIOType( KnotIO );
 
 forcesAndMotionBasics.register( 'KnotIO', KnotIO );
 export default KnotIO;

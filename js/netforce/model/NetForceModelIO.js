@@ -28,7 +28,7 @@ NetForceModelIO.methods = {
 NetForceModelIO.documentation = 'A Net Force Model type.';
 NetForceModelIO.validator = { isValidValue: v => v instanceof phet.forcesAndMotionBasics.NetForceModel };
 NetForceModelIO.typeName = 'NetForceModelIO';
-ObjectIO.validateSubtype( NetForceModelIO );
+ObjectIO.validateIOType( NetForceModelIO );
 
 forcesAndMotionBasics.register( 'NetForceModelIO', NetForceModelIO );
 export default NetForceModelIO;

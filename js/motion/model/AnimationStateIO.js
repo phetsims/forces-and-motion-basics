@@ -37,7 +37,7 @@ class AnimationStateIO extends ObjectIO {
 AnimationStateIO.documentation = 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe';
 AnimationStateIO.validator = { valueType: Object };
 AnimationStateIO.typeName = 'AnimationStateIO';
-ObjectIO.validateSubtype( AnimationStateIO );
+ObjectIO.validateIOType( AnimationStateIO );
 
 forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
 export default AnimationStateIO;
