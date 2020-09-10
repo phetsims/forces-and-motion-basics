@@ -18,7 +18,7 @@ NetForceModelIO.methods = {
     returnType: VoidIO,
     parameterTypes: [],
     implementation: function() {
-      this.phetioObject.reset();
+      this.reset();
     },
     documentation: 'Resets the model',
     invocableForReadOnlyElements: false
