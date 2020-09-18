@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ObservableArray from '../../../../axon/js/ObservableArray.js';
-import ObservableArrayIO from '../../../../axon/js/ObservableArrayIO.js';
 import Property from '../../../../axon/js/Property.js';
 import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Range from '../../../../dot/js/Range.js';
@@ -56,7 +55,7 @@ function MotionModel( screen, tandem ) {
   const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
   this.stack = new ObservableArray( {
     tandem: tandem.createTandem( 'stackObservableArray' ),
-    phetioType: ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
+    phetioType: ObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
   } );
 
   // @public - force applied to the stack of items by the pusher
