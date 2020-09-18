@@ -10,7 +10,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 const AnimationStateIO = new IOType( 'AnimationStateIO', {
-  valueType: Object, // TODO https://github.com/phetsims/tandem/issues/211
+  valueType: Object, // TODO https://github.com/phetsims/tandem/issues/211, convert to a named type
   documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe'
 } );
 
