@@ -7,11 +7,11 @@
  * @author Andrew Adare (PhET Interactive Simulations)
  */
 
-import validate from '../../../../axon/js/validate.js';
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-class KnotIO extends ObjectIO {
+const KnotIO = new IOType( 'KnotIO', {
+  isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot,
 
   /**
    * @param {Knot} knot
@@ -19,15 +19,14 @@ class KnotIO extends ObjectIO {
    * @public
    * @override
    */
-  static toStateObject( knot ) {
-    validate( knot, this.validator );
+  toStateObject( knot ) {
     if ( knot ) {
       return knot.tandem.phetioID;
     }
     else {
       return 'null';
     }
-  }
+  },
 
   /**
    * @param {Object} stateObject
@@ -35,7 +34,7 @@ class KnotIO extends ObjectIO {
    * @public
    * @override
    */
-  static fromStateObject( stateObject ) {
+  fromStateObject( stateObject ) {
     if ( stateObject === 'null' ) {
       return null;
     }
@@ -43,12 +42,7 @@ class KnotIO extends ObjectIO {
       return phet.phetio.phetioEngine.getPhetioObject( stateObject );
     }
   }
-}
-
-KnotIO.documentation = 'A knot';
-KnotIO.validator = { isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot };
-KnotIO.typeName = 'KnotIO';
-ObjectIO.validateIOType( KnotIO );
+} );
 
 forcesAndMotionBasics.register( 'KnotIO', KnotIO );
 export default KnotIO;

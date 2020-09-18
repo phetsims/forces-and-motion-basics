@@ -18,7 +18,7 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import crateImage from '../../../images/crate_png.js';
@@ -56,7 +56,7 @@ function MotionModel( screen, tandem ) {
   const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
   this.stack = new ObservableArray( {
     tandem: tandem.createTandem( 'stackObservableArray' ),
-    phetioType: ObservableArrayIO( ReferenceIO( ObjectIO ) )
+    phetioType: ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
   } );
 
   // @public - force applied to the stack of items by the pusher

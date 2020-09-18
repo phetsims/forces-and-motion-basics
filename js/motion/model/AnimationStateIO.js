@@ -6,38 +6,13 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import validate from '../../../../axon/js/validate.js';
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-class AnimationStateIO extends ObjectIO {
-
-  /**
-   * @param {Object} animationState
-   * @returns {Object}
-   * @public
-   * @override
-   */
-  static toStateObject( animationState ) {
-    validate( animationState, this.validator );
-    return animationState;
-  }
-
-  /**
-   * @param {Object} stateObject
-   * @returns {Object}
-   * @public
-   * @override
-   */
-  static fromStateObject( stateObject ) {
-    return stateObject;
-  }
-}
-
-AnimationStateIO.documentation = 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe';
-AnimationStateIO.validator = { valueType: Object };
-AnimationStateIO.typeName = 'AnimationStateIO';
-ObjectIO.validateIOType( AnimationStateIO );
+const AnimationStateIO = new IOType( 'AnimationStateIO', {
+  valueType: Object, // TODO https://github.com/phetsims/tandem/issues/211
+  documentation: 'Data that is stored in the "Item.animationState" Property. Type to serialize the data object across the iframe'
+} );
 
 forcesAndMotionBasics.register( 'AnimationStateIO', AnimationStateIO );
 export default AnimationStateIO;

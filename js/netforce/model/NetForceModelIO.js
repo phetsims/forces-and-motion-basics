@@ -7,28 +7,24 @@
  * @author Andrew Adare (PhET Interactive Simulations)
  */
 
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import VoidIO from '../../../../tandem/js/types/VoidIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-class NetForceModelIO extends ObjectIO {}
-
-NetForceModelIO.methods = {
-  reset: {
-    returnType: VoidIO,
-    parameterTypes: [],
-    implementation: function() {
-      this.reset();
-    },
-    documentation: 'Resets the model',
-    invocableForReadOnlyElements: false
+const NetForceModelIO = new IOType( 'NetForceModelIO', {
+  isValidValue: v => v instanceof phet.forcesAndMotionBasics.NetForceModel,
+  methods: {
+    reset: {
+      returnType: VoidIO,
+      parameterTypes: [],
+      implementation: function() {
+        this.reset();
+      },
+      documentation: 'Resets the model',
+      invocableForReadOnlyElements: false
+    }
   }
-};
-
-NetForceModelIO.documentation = 'A Net Force Model type.';
-NetForceModelIO.validator = { isValidValue: v => v instanceof phet.forcesAndMotionBasics.NetForceModel };
-NetForceModelIO.typeName = 'NetForceModelIO';
-ObjectIO.validateIOType( NetForceModelIO );
+} );
 
 forcesAndMotionBasics.register( 'NetForceModelIO', NetForceModelIO );
 export default NetForceModelIO;
