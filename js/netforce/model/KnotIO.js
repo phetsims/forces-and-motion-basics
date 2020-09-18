@@ -13,13 +13,8 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 const KnotIO = new IOType( 'KnotIO', {
   isValidValue: v => v instanceof phet.forcesAndMotionBasics.Knot,
 
-  /**
-   * @param {Knot} knot
-   * @returns {string}
-   * @public
-   * @override
-   */
-  toStateObject( knot ) {
+  // TODO: https://github.com/phetsims/tandem/issues/211 use reference type
+  toStateObject: knot => {
     if ( knot ) {
       return knot.tandem.phetioID;
     }
@@ -27,14 +22,7 @@ const KnotIO = new IOType( 'KnotIO', {
       return 'null';
     }
   },
-
-  /**
-   * @param {Object} stateObject
-   * @returns {Knot}
-   * @public
-   * @override
-   */
-  fromStateObject( stateObject ) {
+  fromStateObject: stateObject => {
     if ( stateObject === 'null' ) {
       return null;
     }
