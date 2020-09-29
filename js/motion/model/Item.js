@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -72,7 +71,7 @@ function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, 
   // @public {Property.<string>} - direction of the item, 'left'|'right'
   this.directionProperty = new Property( 'left', {
     tandem: tandem.createTandem( 'directionProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   // @public {Object} - tracks the animation state of the item
@@ -84,7 +83,7 @@ function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, 
     destination: 'home'
   }, {
     tandem: tandem.createTandem( 'animationStateProperty' ),
-    phetioType: PropertyIO( AnimationStateIO )
+    phetioType: Property.PropertyIO( AnimationStateIO )
   } );
 
   // Flag for whether the item is on the skateboard

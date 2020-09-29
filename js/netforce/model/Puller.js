@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import inherit from '../../../../phet-core/js/inherit.js';
@@ -56,7 +55,7 @@ function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
   // @public {Knot|null} - the knot that this puller is attached to
   this.knotProperty = new Property( null, {
     tandem: tandem.createTandem( 'knotProperty' ),
-    phetioType: PropertyIO( NullableIO( KnotIO ) )
+    phetioType: Property.PropertyIO( NullableIO( KnotIO ) )
   } );
 
   // @public {Vector2} - the position of this puller
@@ -68,7 +67,7 @@ function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
   // TODO: What are the valid values for this Property?
   this.lastPlacementProperty = new Property( 'home', {
     tandem: tandem.createTandem( 'lastPlacementProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   // @public - emits an event when the puller is dropped

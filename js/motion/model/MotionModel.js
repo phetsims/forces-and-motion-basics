@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ObservableArray from '../../../../axon/js/ObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -147,13 +146,13 @@ function MotionModel( screen, tandem ) {
   // so that the Applied Force can be stopped if the speed goes out of range.
   this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
     tandem: tandem.createTandem( 'speedClassificationProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   // @public {string} See speedClassification
   this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
     tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   // @public {boolean} - whether or not the stack of items is moving to the right
@@ -164,7 +163,7 @@ function MotionModel( screen, tandem ) {
   // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
   this.directionProperty = new Property( 'none', {
     tandem: tandem.createTandem( 'directionProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   // @public {number} - time since pusher has fallen over, in seconds
@@ -182,7 +181,7 @@ function MotionModel( screen, tandem ) {
   // @public {string} - 'left'|'right', direction pusher facing when it falls over
   this.fallenDirectionProperty = new Property( 'left', {
     tandem: tandem.createTandem( 'fallenDirectionProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   // @public {number} - how long the simulation has been running

@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
@@ -57,13 +56,13 @@ function NetForceModel( tandem ) {
   // TODO what are the valid values?
   this.stateProperty = new Property( 'experimenting', {
     tandem: tandem.createTandem( 'stateProperty' ),
-    phetioType: PropertyIO( StringIO )
+    phetioType: Property.PropertyIO( StringIO )
   } );
 
   this.timeProperty = new Property( 0, {
     // TODO: Removed this property for phet-io spam
     // tandem: tandem.createTandem( 'timeProperty' )
-    // phetioType: PropertyIO(NumberIO)( 'seconds' )
+    // phetioType: Property.PropertyIO(NumberIO)( 'seconds' )
   } );
 
   this.netForceProperty = new NumberProperty( 0, {
