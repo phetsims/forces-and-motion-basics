@@ -14,11 +14,12 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
+import VoidIO from '../../../../tandem/js/types/VoidIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
 import Knot from './Knot.js';
-import NetForceModelIO from './NetForceModelIO.js';
 import Puller from './Puller.js';
 
 // constants
@@ -178,7 +179,7 @@ function NetForceModel( tandem ) {
 
   PhetioObject.call( this, {
     tandem: tandem,
-    phetioType: NetForceModelIO,
+    phetioType: NetForceModel.NetForceModelIO,
     phetioState: false
   } );
 }
@@ -592,6 +593,21 @@ inherit( PhetioObject, NetForceModel, {
   // @static
   // @public
   GAME_LENGTH: GAME_LENGTH
+} );
+
+NetForceModel.NetForceModelIO = new IOType( 'NetForceModelIO', {
+  valueType: NetForceModel,
+  methods: {
+    reset: {
+      returnType: VoidIO,
+      parameterTypes: [],
+      implementation: function() {
+        this.reset();
+      },
+      documentation: 'Resets the model',
+      invocableForReadOnlyElements: false
+    }
+  }
 } );
 
 export default NetForceModel;
