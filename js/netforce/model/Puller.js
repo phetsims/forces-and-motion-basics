@@ -16,7 +16,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import KnotIO from './KnotIO.js';
+import Knot from './Knot.js';
 
 /**
  *
@@ -55,7 +55,7 @@ function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
   // @public {Knot|null} - the knot that this puller is attached to
   this.knotProperty = new Property( null, {
     tandem: tandem.createTandem( 'knotProperty' ),
-    phetioType: Property.PropertyIO( NullableIO( KnotIO ) )
+    phetioType: Property.PropertyIO( NullableIO( Knot.KnotIO ) )
   } );
 
   // @public {Vector2} - the position of this puller

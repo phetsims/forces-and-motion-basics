@@ -13,8 +13,8 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import KnotIO from './KnotIO.js';
 
 /**
  * Constructor for the 8 knots that appear along the rope.
@@ -33,7 +33,7 @@ function Knot( x, type, ropeStart, ropeLength, options ) {
 
     // {Tandem}
     tandem: Tandem.REQUIRED,
-    phetioType: KnotIO
+    phetioType: Knot.KnotIO
   }, options );
   const tandem = options.tandem;
 
@@ -81,6 +81,28 @@ inherit( PhetioObject, Knot, {
    */
   get position() {
     return new Vector2( this.xProperty.get(), this.y );
+  }
+} );
+
+Knot.KnotIO = new IOType( 'KnotIO', {
+  valueType: Knot,
+
+  // TODO: https://github.com/phetsims/tandem/issues/215 use ReferenceIO or equivalent
+  toStateObject: knot => {
+    if ( knot ) {
+      return knot.tandem.phetioID;
+    }
+    else {
+      return 'null';
+    }
+  },
+  fromStateObject: stateObject => {
+    if ( stateObject === 'null' ) {
+      return null;
+    }
+    else {
+      return phet.phetio.phetioEngine.getPhetioObject( stateObject );
+    }
   }
 } );
 
