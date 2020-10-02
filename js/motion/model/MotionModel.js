@@ -10,7 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -52,9 +52,9 @@ function MotionModel( screen, tandem ) {
   this.skateboard = screen === 'motion';
   this.accelerometer = screen === 'acceleration';
   const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-  this.stack = new ObservableArray( {
+  this.stack = createObservableArray( {
     tandem: tandem.createTandem( 'stackObservableArray' ),
-    phetioType: ObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
+    phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
   } );
 
   // @public - force applied to the stack of items by the pusher
