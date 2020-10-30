@@ -6,7 +6,6 @@
  * @author Sam Reid
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
@@ -23,11 +22,9 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 function SliderKnob( tandem, options ) {
 
   options = merge( {
-    enabledProperty: new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'enabledProperty' )
-    } )
+    tandem: tandem,
+    enabledPropertyPhetioInstrumented: true
   }, options );
-  this.enabledProperty = options.enabledProperty;
 
   // different fill colors for when the slider is enabled or disabled
   const enabledFillColor = '#2FB0E4';
@@ -35,9 +32,7 @@ function SliderKnob( tandem, options ) {
   const enabledColorStop = '#B8E4FB';
   const disabledColorStop = 'white';
 
-  Node.call( this, {
-    tandem: tandem
-  } );
+  Node.call( this, options );
 
   //Add the rounded rectangle background
   const scale = 0.8;
@@ -55,9 +50,9 @@ function SliderKnob( tandem, options ) {
 
   // link the fill to the enabled property
   // slider knob exists for lifetime of sim, no dispose necessary
-  this.enabledProperty.link( function( enabled ) {
+  this.enabledPropertyListener = function( enabled ) {
     rectangle.fill = enabled ? enabledGradient : disabledGradient;
-  } );
+  };
 
   //add a grid of grip dots
   const dx = width / 5;
@@ -77,6 +72,22 @@ function SliderKnob( tandem, options ) {
 forcesAndMotionBasics.register( 'SliderKnob', SliderKnob );
 
 inherit( Node, SliderKnob, {
+
+  /**
+   * This type implemented enabled differently from the default, so support that here.
+   * @protected
+   * @override
+   * @param {boolean} enabled
+   */
+  onEnabledPropertyChange: function( enabled ) {
+    this.enabledPropertyListener( enabled );
+  },
+
+  /**
+   * @private
+   * @param {number} x
+   * @param {number} y
+   */
   addGripDot: function( x, y ) {
     const radius = 1.8;
     const stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
