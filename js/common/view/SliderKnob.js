@@ -48,8 +48,7 @@ function SliderKnob( tandem, options ) {
   } );
   this.addChild( rectangle );
 
-  // link the fill to the enabled property
-  // slider knob exists for lifetime of sim, no dispose necessary
+  // @private - link the fill to the enabled property. Slider knob exists for lifetime of sim, no dispose necessary.
   this.enabledPropertyListener = function( enabled ) {
     rectangle.fill = enabled ? enabledGradient : disabledGradient;
   };
