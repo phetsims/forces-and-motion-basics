@@ -49,9 +49,9 @@ function SliderKnob( tandem, options ) {
   this.addChild( rectangle );
 
   // @private - link the fill to the enabled property. Slider knob exists for lifetime of sim, no dispose necessary.
-  this.enabledPropertyListener = function( enabled ) {
+  this.enabledProperty.link( enabled => {
     rectangle.fill = enabled ? enabledGradient : disabledGradient;
-  };
+  } );
 
   //add a grid of grip dots
   const dx = width / 5;
@@ -71,16 +71,6 @@ function SliderKnob( tandem, options ) {
 forcesAndMotionBasics.register( 'SliderKnob', SliderKnob );
 
 inherit( Node, SliderKnob, {
-
-  /**
-   * This type implemented enabled differently from the default, so support that here.
-   * @protected
-   * @override
-   * @param {boolean} enabled
-   */
-  onEnabledPropertyChange: function( enabled ) {
-    this.enabledPropertyListener( enabled );
-  },
 
   /**
    * @private
