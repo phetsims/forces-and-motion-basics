@@ -14,6 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 /**
@@ -86,24 +87,7 @@ inherit( PhetioObject, Knot, {
 
 Knot.KnotIO = new IOType( 'KnotIO', {
   valueType: Knot,
-
-  // TODO: https://github.com/phetsims/tandem/issues/215 use ReferenceIO or equivalent
-  toStateObject: knot => {
-    if ( knot ) {
-      return knot.tandem.phetioID;
-    }
-    else {
-      return 'null';
-    }
-  },
-  fromStateObject: stateObject => {
-    if ( stateObject === 'null' ) {
-      return null;
-    }
-    else {
-      return phet.phetio.phetioEngine.getPhetioObject( stateObject );
-    }
-  }
+  supertype: ReferenceIO( IOType.ObjectIO )
 } );
 
 export default Knot;
