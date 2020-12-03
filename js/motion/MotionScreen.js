@@ -25,12 +25,8 @@ class MotionScreen extends Screen {
     options.tandem = tandem;
 
     super(
-      function() {
-        return new MotionModel( style, tandem.createTandem( 'model' ) );
-      },
-      function( model ) {
-        return new MotionScreenView( model, tandem.createTandem( 'view' ) );
-      },
+      () => new MotionModel( style, tandem.createTandem( 'model' ) ),
+      model => new MotionScreenView( model, tandem.createTandem( 'view' ) ),
       options );
   }
 

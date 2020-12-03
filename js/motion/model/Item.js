@@ -13,7 +13,6 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
@@ -21,137 +20,135 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import AnimationStateIO from './AnimationStateIO.js';
 
-/**
- * Constructor for Item
- *
- * @param {MotionModel || NetForceModel} context - model context in which this item exists
- * @param {string} name - string describing this type of item
- * @param {Tandem} tandem
- * @param {image} image - image from the 'image!' plugin, representing the item
- * @param {number} mass - model mass of the item
- * @param {number} x - home value x position for the item
- * @param {number} y - home value y position for the item
- * @param {number} imageScale - base scacle of the image
- * @param {number} homeScale - additional scale factor for when the item is in the toolbox
- * @param {number} pusherInset - inset value to align the item with the pusher's hands
- * @param {image} sittingImage - image from the 'image!' plugin, representing a 'sitting' item
- * @param {image} holdingImage - image from the 'image!' plugin, representing a 'sitting' item
- * @param {boolean} mystery      [description]
- */
-function Item( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
-  const self = this;
+class Item extends PhetioObject {
 
-  this.name = name;
+  /**
+   * Constructor for Item
+   *
+   * @param {MotionModel || NetForceModel} context - model context in which this item exists
+   * @param {string} name - string describing this type of item
+   * @param {Tandem} tandem
+   * @param {image} image - image from the 'image!' plugin, representing the item
+   * @param {number} mass - model mass of the item
+   * @param {number} x - home value x position for the item
+   * @param {number} y - home value y position for the item
+   * @param {number} imageScale - base scacle of the image
+   * @param {number} homeScale - additional scale factor for when the item is in the toolbox
+   * @param {number} pusherInset - inset value to align the item with the pusher's hands
+   * @param {image} sittingImage - image from the 'image!' plugin, representing a 'sitting' item
+   * @param {image} holdingImage - image from the 'image!' plugin, representing a 'sitting' item
+   * @param {boolean} mystery      [description]
+   */
+  constructor( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
 
-  //Non-observable properties
-  this.initialX = x;
-  this.initialY = y;
-  this.image = image;
-  this.mass = mass;
-  this.pusherInset = pusherInset;
-  this.sittingImage = sittingImage;
-  this.holdingImage = holdingImage;
-  this.context = context;
-  this.mystery = mystery;
-  this.homeScale = homeScale || 1.0;
+    super( { tandem: tandem, phetioType: ReferenceIO( IOType.ObjectIO ) } );
 
-  // @public - the position of the item
-  this.positionProperty = new Vector2Property( new Vector2( x, y ), {
-    tandem: tandem.createTandem( 'positionProperty' )
-  } );
+    this.name = name;
 
-  // TODO: does this need to be instrumented for phet-io?
-  this.pusherInsetProperty = new Property( pusherInset || 0 );
+    //Non-observable properties
+    this.initialX = x;
+    this.initialY = y;
+    this.image = image;
+    this.mass = mass;
+    this.pusherInset = pusherInset;
+    this.sittingImage = sittingImage;
+    this.holdingImage = holdingImage;
+    this.context = context;
+    this.mystery = mystery;
+    this.homeScale = homeScale || 1.0;
 
-  // @public {Property.<boolean>} - whether or not the item is being dragged
-  this.draggingProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'draggingProperty' )
-  } );
+    // @public - the position of the item
+    this.positionProperty = new Vector2Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' )
+    } );
 
-  // @public {Property.<string>} - direction of the item, 'left'|'right'
-  this.directionProperty = new Property( 'left', {
-    tandem: tandem.createTandem( 'directionProperty' ),
-    phetioType: Property.PropertyIO( StringIO )
-  } );
+    // TODO: does this need to be instrumented for phet-io?
+    this.pusherInsetProperty = new Property( pusherInset || 0 );
 
-  // @public {Object} - tracks the animation state of the item
-  this.animationStateProperty = new Property( {
-    enabled: false,
-    x: 0,
-    y: 0,
-    end: null,
-    destination: 'home'
-  }, {
-    tandem: tandem.createTandem( 'animationStateProperty' ),
-    phetioType: Property.PropertyIO( AnimationStateIO )
-  } );
+    // @public {Property.<boolean>} - whether or not the item is being dragged
+    this.draggingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'draggingProperty' )
+    } );
 
-  // Flag for whether the item is on the skateboard
-  this.onBoardProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'onBoardProperty' )
-  } );
+    // @public {Property.<string>} - direction of the item, 'left'|'right'
+    this.directionProperty = new Property( 'left', {
+      tandem: tandem.createTandem( 'directionProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
+    } );
 
-  // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
-  this.imageScaleProperty = new NumberProperty( imageScale || 1.0, {
-    tandem: tandem.createTandem( 'imageScaleProperty' )
-  } );
+    // @public {Object} - tracks the animation state of the item
+    this.animationStateProperty = new Property( {
+      enabled: false,
+      x: 0,
+      y: 0,
+      end: null,
+      destination: 'home'
+    }, {
+      tandem: tandem.createTandem( 'animationStateProperty' ),
+      phetioType: Property.PropertyIO( AnimationStateIO )
+    } );
 
-  // How much the object grows or shrinks when interacting with it
-  const minValue = homeScale || 1.0;
-  this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
-    tandem: tandem.createTandem( 'interactionScaleProperty' ),
-    range: new Range( minValue, 1.3 )
-  } );
+    // Flag for whether the item is on the skateboard
+    this.onBoardProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'onBoardProperty' )
+    } );
 
-  this.context.directionProperty.link( function( direction ) {
+    // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
+    this.imageScaleProperty = new NumberProperty( imageScale || 1.0, {
+      tandem: tandem.createTandem( 'imageScaleProperty' )
+    } );
 
-    //only change directions if on the board, and always choose one of left/right, and only for people
-    if ( self.onBoardProperty.get() && direction !== 'none' && sittingImage ) {
-      self.directionProperty.set( direction );
-    }
-  } );
+    // How much the object grows or shrinks when interacting with it
+    const minValue = homeScale || 1.0;
+    this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
+      tandem: tandem.createTandem( 'interactionScaleProperty' ),
+      range: new Range( minValue, 1.3 )
+    } );
 
-  PhetioObject.call( this, { tandem: tandem, phetioType: ReferenceIO( IOType.ObjectIO ) } );
-}
+    this.context.directionProperty.link( direction => {
 
-forcesAndMotionBasics.register( 'Item', Item );
-
-inherit( PhetioObject, Item, {
+      //only change directions if on the board, and always choose one of left/right, and only for people
+      if ( this.onBoardProperty.get() && direction !== 'none' && sittingImage ) {
+        this.directionProperty.set( direction );
+      }
+    } );
+  }
 
   //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
   get centeringOffset() {
     return this.image === 'trash-can.png' ? 5 : 0;
-  },
+  }
 
-  //Return true if the arms should be up (for a human)
-  armsUp: function() {
+  // @public - Return true if the arms should be up (for a human)
+  armsUp() {
     return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
-  },
+  }
 
   /**
    * Get the current scale for the Item.  The Item has two scales, imageScale and interactionScale.
    * The current scale is the product of these two scales.  This is used throughout the simulation, primarily
    * for transformations.
+   * @public
    */
-  getCurrentScale: function() {
+  getCurrentScale() {
     return this.imageScaleProperty.get() * this.interactionScaleProperty.get();
-  },
+  }
 
-  //Animate the item to the specified position
-  animateTo: function( x, y, destination ) {
+  // @public - Animate the item to the specified position
+  animateTo( x, y, destination ) {
     this.animationStateProperty.set( { enabled: true, x: x, y: y, destination: destination } );
-  },
+  }
 
-  //Animate the item to its original position
-  animateHome: function() {
+  // @public - Animate the item to its original position
+  animateHome() {
 
     //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
     this.directionProperty.set( 'left' );
     this.animateTo( this.initialX, this.initialY, 'home' );
-  },
+  }
 
-  //Cancel an animation when the user clicks on an item
-  cancelAnimation: function() {
+  // @public - Cancel an animation when the user clicks on an item
+  cancelAnimation() {
     if ( this.animationStateProperty.get().enabled ) {
       if ( this.draggingProperty.get() ) {
         this.interactionScaleProperty.set( 1.3 );
@@ -163,13 +160,13 @@ inherit( PhetioObject, Item, {
       }
       this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null, destination: 'home' } );
     }
-  },
+  }
 
   /**
    * Reset the item to its initial state by resetting all Properties.
    * @public
    */
-  reset: function() {
+  reset() {
     this.positionProperty.reset();
     this.pusherInsetProperty.reset();
     this.draggingProperty.reset();
@@ -178,10 +175,10 @@ inherit( PhetioObject, Item, {
     this.onBoardProperty.reset();
     this.imageScaleProperty.reset();
     this.interactionScaleProperty.reset();
-  },
+  }
 
-  //Step the item in time, making it grow or shrink (if necessary), or animate to its destination
-  step: function( dt ) {
+  // @public - Step the item in time, making it grow or shrink (if necessary), or animate to its destination
+  step( dt ) {
     if ( this.draggingProperty.get() ) {
       this.interactionScaleProperty.set( Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 ) );
     }
@@ -208,6 +205,8 @@ inherit( PhetioObject, Item, {
       }
     }
   }
-} );
+}
+
+forcesAndMotionBasics.register( 'Item', Item );
 
 export default Item;

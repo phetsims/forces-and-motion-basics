@@ -10,12 +10,11 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Property from '../../../../axon/js/Property.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
@@ -34,259 +33,253 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 import Item from './Item.js';
 
-/**
- * Constructor for the motion model
- *
- * @param {string} screen String that indicates which of the 3 screens this model represents
- * @param {Tandem} tandem
- * @constructor
- */
-function MotionModel( screen, tandem ) {
+class MotionModel {
 
-  //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
-  assert && assert( screen );
-  const self = this;
+  /**
+   * Constructor for the motion model
+   *
+   * @param {string} screen String that indicates which of the 3 screens this model represents
+   * @param {Tandem} tandem
+   */
+  constructor( screen, tandem ) {
 
-  //Constants
-  this.screen = screen;
-  this.skateboard = screen === 'motion';
-  this.accelerometer = screen === 'acceleration';
-  const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-  this.stack = createObservableArray( {
-    tandem: tandem.createTandem( 'stackObservableArray' ),
-    phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
-  } );
+    //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
+    assert && assert( screen );
 
-  // @public - force applied to the stack of items by the pusher
-  this.appliedForceProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'appliedForceProperty' ),
-    units: 'N',
-    range: new Range( -500, 500 )
-  } );
+    //Constants
+    this.screen = screen;
+    this.skateboard = screen === 'motion';
+    this.accelerometer = screen === 'acceleration';
+    const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
+    this.stack = createObservableArray( {
+      tandem: tandem.createTandem( 'stackObservableArray' ),
+      phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
+    } );
 
-  // @public - force applied to the stack of items by friction
-  this.frictionForceProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'frictionForceProperty' ),
-    units: 'N'
-  } );
+    // @public - force applied to the stack of items by the pusher
+    this.appliedForceProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'appliedForceProperty' ),
+      units: 'N',
+      range: new Range( -500, 500 )
+    } );
 
-  // @public - friction of the ground
-  this.frictionProperty = new NumberProperty( frictionValue, {
-    tandem: tandem.createTandem( 'frictionProperty' )
-  } );
+    // @public - force applied to the stack of items by friction
+    this.frictionForceProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'frictionForceProperty' ),
+      units: 'N'
+    } );
 
-  // @public - sum of all forces acting on the stack of items
-  this.sumOfForcesProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'sumOfForcesProperty' ),
-    units: 'N'
-  } );
+    // @public - friction of the ground
+    this.frictionProperty = new NumberProperty( frictionValue, {
+      tandem: tandem.createTandem( 'frictionProperty' )
+    } );
 
-  // @public - 1-D position of the stack of items
-  this.positionProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'positionProperty' ),
-    units: 'meters'
-  } );
+    // @public - sum of all forces acting on the stack of items
+    this.sumOfForcesProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'sumOfForcesProperty' ),
+      units: 'N'
+    } );
 
-  // @public - speed of the stack of items, in the x direction
-  this.speedProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'speedProperty' ),
-    units: 'meters/second'
-  } );
+    // @public - 1-D position of the stack of items
+    this.positionProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      units: 'meters'
+    } );
 
-  // @public - elocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-  this.velocityProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'velocityProperty' ),
-    units: 'meters/second'
-  } );
+    // @public - speed of the stack of items, in the x direction
+    this.speedProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'speedProperty' ),
+      units: 'meters/second'
+    } );
 
-  // @public - 1-d acceleration of the stack of items
-  this.accelerationProperty = new NumberProperty( 0, {
-    tandem: tandem.createTandem( 'accelerationProperty' ),
-    units: 'meters/second/second'
-  } );
+    // @public - elocity is a 1-d vector, where the direction (right or left) is indicated by the sign
+    this.velocityProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'velocityProperty' ),
+      units: 'meters/second'
+    } );
 
-  // @public {number} - initially to the left of the box by this many meters
-  this.pusherPositionProperty = new NumberProperty( -16, {
-    tandem: tandem.createTandem( 'pusherPositionProperty' ),
-    units: 'meters'
-  } );
+    // @public - 1-d acceleration of the stack of items
+    this.accelerationProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'accelerationProperty' ),
+      units: 'meters/second/second'
+    } );
 
-  // @public {boolean} - whether or not forces are visible
-  this.showForceProperty = new BooleanProperty( true, {
-    tandem: tandem.createTandem( 'showForceProperty' )
-  } );
+    // @public {number} - initially to the left of the box by this many meters
+    this.pusherPositionProperty = new NumberProperty( -16, {
+      tandem: tandem.createTandem( 'pusherPositionProperty' ),
+      units: 'meters'
+    } );
 
-  // @public {boolean} - whether or not values are visible
-  this.showValuesProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'showValuesProperty' )
-  } );
+    // @public {boolean} - whether or not forces are visible
+    this.showForceProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'showForceProperty' )
+    } );
 
-  // @public {boolean} - whether or not sum of forces is visible
-  this.showSumOfForcesProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'showSumOfForcesProperty' )
-  } );
+    // @public {boolean} - whether or not values are visible
+    this.showValuesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showValuesProperty' )
+    } );
 
-  // @public {boolean} - whether or not speedometer is visible
-  this.showSpeedProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'showSpeedProperty' )
-  } );
+    // @public {boolean} - whether or not sum of forces is visible
+    this.showSumOfForcesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showSumOfForcesProperty' )
+    } );
 
-  // @public {boolean} - whether or not mass values are visible
-  this.showMassesProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'showMassesProperty' )
-  } );
+    // @public {boolean} - whether or not speedometer is visible
+    this.showSpeedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showSpeedProperty' )
+    } );
 
-  // @public {boolean} - whether or not acceleration meter is visible
-  this.showAccelerationProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'showAccelerationProperty' )
-  } );
+    // @public {boolean} - whether or not mass values are visible
+    this.showMassesProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showMassesProperty' )
+    } );
 
-  //  @public Keep track of whether the speed is classified as:
-  // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
-  // so that the Applied Force can be stopped if the speed goes out of range.
-  this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
-    tandem: tandem.createTandem( 'speedClassificationProperty' ),
-    phetioType: Property.PropertyIO( StringIO )
-  } );
+    // @public {boolean} - whether or not acceleration meter is visible
+    this.showAccelerationProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showAccelerationProperty' )
+    } );
 
-  // @public {string} See speedClassification
-  this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
-    tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-    phetioType: Property.PropertyIO( StringIO )
-  } );
+    //  @public Keep track of whether the speed is classified as:
+    // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
+    // so that the Applied Force can be stopped if the speed goes out of range.
+    this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
+      tandem: tandem.createTandem( 'speedClassificationProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
+    } );
 
-  // @public {boolean} - whether or not the stack of items is moving to the right
-  this.movingRightProperty = new BooleanProperty( true, {
-    tandem: tandem.createTandem( 'movingRightProperty' )
-  } );
+    // @public {string} See speedClassification
+    this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
+      tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
+    } );
 
-  // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
-  this.directionProperty = new Property( 'none', {
-    tandem: tandem.createTandem( 'directionProperty' ),
-    phetioType: Property.PropertyIO( StringIO )
-  } );
+    // @public {boolean} - whether or not the stack of items is moving to the right
+    this.movingRightProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'movingRightProperty' )
+    } );
 
-  // @public {number} - time since pusher has fallen over, in seconds
-  // TODO: Should we this have a tandem? It spams the data stream.
-  // TODO: Why is default value 10?
-  this.timeSinceFallenProperty = new NumberProperty( 10, {
-    units: 'seconds'
-  } );
+    // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
+    this.directionProperty = new Property( 'none', {
+      tandem: tandem.createTandem( 'directionProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
+    } );
 
-  // @public {boolean} - whether or not the pusher has fallen over
-  this.fallenProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'fallenProperty' )
-  } );
+    // @public {number} - time since pusher has fallen over, in seconds
+    // TODO: Should we this have a tandem? It spams the data stream.
+    // TODO: Why is default value 10?
+    this.timeSinceFallenProperty = new NumberProperty( 10, {
+      units: 'seconds'
+    } );
 
-  // @public {string} - 'left'|'right', direction pusher facing when it falls over
-  this.fallenDirectionProperty = new Property( 'left', {
-    tandem: tandem.createTandem( 'fallenDirectionProperty' ),
-    phetioType: Property.PropertyIO( StringIO )
-  } );
+    // @public {boolean} - whether or not the pusher has fallen over
+    this.fallenProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'fallenProperty' )
+    } );
 
-  // @public {number} - how long the simulation has been running
-  // TODO: Should we this have a tandem? It spams the data stream.
-  this.timeProperty = new NumberProperty( 0, {
-    units: 'seconds'
-  } );
+    // @public {string} - 'left'|'right', direction pusher facing when it falls over
+    this.fallenDirectionProperty = new Property( 'left', {
+      tandem: tandem.createTandem( 'fallenDirectionProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
+    } );
 
-  //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
-  this.stackSizeProperty = new NumberProperty( 1, {
-    tandem: tandem.createTandem( 'stackSizeProperty' )
-  } );
+    // @public {number} - how long the simulation has been running
+    // TODO: Should we this have a tandem? It spams the data stream.
+    this.timeProperty = new NumberProperty( 0, {
+      units: 'seconds'
+    } );
 
-  // @public {boolean} - is the sim running or paused?
-  this.playProperty = new BooleanProperty( true, {
-    tandem: tandem.createTandem( 'playProperty' )
-  } );
+    //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
+    //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
+    this.stackSizeProperty = new NumberProperty( 1, {
+      tandem: tandem.createTandem( 'stackSizeProperty' )
+    } );
 
-  // @public DerivedProperty to observe whether or not the friction is zero
-  this.frictionZeroProperty = new DerivedProperty( [ this.frictionProperty ], function( friction ) {
-    return friction === 0;
-  } );
+    // @public {boolean} - is the sim running or paused?
+    this.playProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'playProperty' )
+    } );
 
-  // @public DerivedProperty to observe whether or not the friction is zero
-  this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionProperty ], function( friction ) {
-    return friction !== 0;
-  } );
+    // @public DerivedProperty to observe whether or not the friction is zero
+    this.frictionZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction === 0 );
 
-  // @public - broadcast messages on step and reset all
-  this.resetAllEmitter = new Emitter();
-  this.stepEmitter = new Emitter();
+    // @public DerivedProperty to observe whether or not the friction is zero
+    this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction !== 0 );
 
-  //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
-  this.stack.lengthProperty.link( function( length ) { if ( length === 0 ) { self.appliedForceProperty.set( 0 ); } } );
+    // @public - broadcast messages on step and reset all
+    this.resetAllEmitter = new Emitter();
+    this.stepEmitter = new Emitter();
 
-  // TODO: Should stacksize Property be removed?
-  this.stack.lengthProperty.link( function( length ) {
-    self.stackSizeProperty.set( length );
-  } );
+    //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
+    this.stack.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
 
-  // track the previous model position when model position changes
-  // animation for the pusher and background nodes is based off of
-  // the change in model position (this.position - this.previousModelPosition )
-  this.previousModelPosition = this.positionProperty.value;
+    // TODO: Should stacksize Property be removed?
+    this.stack.lengthProperty.link( length => {
+      this.stackSizeProperty.set( length );
+    } );
 
-  // create the items - Initial positions determined empirically
-  const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
-  bucket.bucket = true;
-  const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
-  const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crateImage, 50, 129, 507, 0.5 );
-  const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crateImage, 50, 219, 507, 0.5 );
-  const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
-  const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
-  this.items = this.accelerometer ?
-    [ fridge, crate1, crate2, girl, man, bucket ] :
-    [ fridge, crate1, crate2, girl, man,
-      new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCanImage, 100, 816, 496, 0.7, 1.0, 5 ),
-      new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObjectImage, 50, 888, 513, 0.3, 1.0, undefined, undefined, undefined, true )
-    ];
+    // track the previous model position when model position changes
+    // animation for the pusher and background nodes is based off of
+    // the change in model position (this.position - this.previousModelPosition )
+    this.previousModelPosition = this.positionProperty.value;
 
-  this.appliedForceProperty.link( function( appliedForce ) {
-    self.directionProperty.set( appliedForce > 0 ? 'right' :
-                                appliedForce < 0 ? 'left' :
-                                'none' );
+    // create the items - Initial positions determined empirically
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
+    bucket.bucket = true;
+    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crateImage, 50, 129, 507, 0.5 );
+    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crateImage, 50, 219, 507, 0.5 );
+    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
+    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
+    this.items = this.accelerometer ?
+      [ fridge, crate1, crate2, girl, man, bucket ] :
+      [ fridge, crate1, crate2, girl, man,
+        new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCanImage, 100, 816, 496, 0.7, 1.0, 5 ),
+        new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObjectImage, 50, 888, 513, 0.3, 1.0, undefined, undefined, undefined, true )
+      ];
 
-    // if the applied force changes and the pusher is fallen, stand up to push immediately
-    if ( self.fallenProperty.get() && appliedForce !== 0 ) {
-      self.fallenProperty.set( !self.fallenProperty.get() );
-    }
-  } );
+    this.appliedForceProperty.link( appliedForce => {
+      this.directionProperty.set( appliedForce > 0 ? 'right' :
+                                  appliedForce < 0 ? 'left' :
+                                  'none' );
 
-  //Applied force should drop to zero if max speed reached
-  this.speedClassificationProperty.link( function( speedClassification ) {
-    if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
-      self.appliedForceProperty.set( 0 );
-    }
-  } );
+      // if the applied force changes and the pusher is fallen, stand up to push immediately
+      if ( this.fallenProperty.get() && appliedForce !== 0 ) {
+        this.fallenProperty.set( !this.fallenProperty.get() );
+      }
+    } );
 
-  // when we fall down, we want the applied force to immediately be zero
-  // see https://github.com/phetsims/forces-and-motion-basics/issues/180
-  this.fallenProperty.link( function( fallen ) {
-    if ( fallen ) {
-      self.appliedForceProperty.set( 0 );
-    }
-  } );
+    //Applied force should drop to zero if max speed reached
+    this.speedClassificationProperty.link( speedClassification => {
+      if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
+        this.appliedForceProperty.set( 0 );
+      }
+    } );
 
-  // update the previous model position for computations based on the delta
-  // linked lazily so that oldPosition is always defined
-  this.positionProperty.lazyLink( function( position, oldPosition ) {
-    self.previousModelPosition = oldPosition;
-  } );
+    // when we fall down, we want the applied force to immediately be zero
+    // see https://github.com/phetsims/forces-and-motion-basics/issues/180
+    this.fallenProperty.link( fallen => {
+      if ( fallen ) {
+        this.appliedForceProperty.set( 0 );
+      }
+    } );
 
-}
+    // update the previous model position for computations based on the delta
+    // linked lazily so that oldPosition is always defined
+    this.positionProperty.lazyLink( ( position, oldPosition ) => {
+      this.previousModelPosition = oldPosition;
+    } );
 
-forcesAndMotionBasics.register( 'MotionModel', MotionModel );
+  }
 
-inherit( Object, MotionModel, {
 
   /**
    * Get an array representing the items that are being dragged.
    *
    * @returns {Array<Item>}
+   * @public
    */
-  draggingItems: function() {
+  draggingItems() {
     const draggingItems = [];
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[ i ];
@@ -295,15 +288,16 @@ inherit( Object, MotionModel, {
       }
     }
     return draggingItems;
-  },
+  }
 
   /**
    * Upper items should fall if an item removed from beneath
    * Uses the view to get item dimensions.
    *
    * @param {number} index - index of item in the stack array
+   * @public
    */
-  spliceStack: function( index ) {
+  spliceStack( index ) {
     const item = this.stack.get( index );
     this.stack.remove( item );
     if ( this.stack.length > 0 ) {
@@ -321,24 +315,25 @@ inherit( Object, MotionModel, {
       this.accelerationProperty.set( 0 );
     }
     return item;
-  },
+  }
 
-  //When a 4th item is placed on the stack, move the bottom item home and have the stack fall
-  spliceStackBottom: function() {
+  // @public - When a 4th item is placed on the stack, move the bottom item home and have the stack fall
+  spliceStackBottom() {
     const bottom = this.spliceStack( 0 );
     bottom.onBoardProperty.set( false );
     bottom.animateHome();
-  },
+  }
 
   /**
    * Determine whether a value is positive, negative, or zero for the physics computations.
    *
    * @param  {number} value
    * @returns {number}
+   * @public
    */
-  getSign: function( value ) {
+  getSign( value ) {
     return value > 0 ? 1 : value < 0 ? -1 : 0;
-  },
+  }
 
   /**
    * Returns the friction force on an object given the applied force.  The friction and applied
@@ -348,8 +343,9 @@ inherit( Object, MotionModel, {
    *
    * @param  {number} appliedForce
    * @returns {number}
+   * @public
    */
-  getFrictionForce: function( appliedForce ) {
+  getFrictionForce( appliedForce ) {
 
     let frictionForce;
 
@@ -381,50 +377,53 @@ inherit( Object, MotionModel, {
 
     // round the friction force so that one force is not more precise than another
     return Utils.roundSymmetric( frictionForce );
-  },
+  }
 
-  //Compute the mass of the entire stack, for purposes of momentum computation
-  getStackMass: function() {
+  // @public - Compute the mass of the entire stack, for purposes of momentum computation
+  getStackMass() {
     let mass = 0;
     for ( let i = 0; i < this.stack.length; i++ ) {
       mass += this.stack.get( i ).mass;
     }
     return mass;
-  },
+  }
 
   /**
    * Determine whether a value is positive, negative or zero to determine wheter the object changed directions.
    * @param  {number} value
    * @returns {number}
+   * @public
    */
-  sign: function( value ) {
+  sign( value ) {
     return value < 0 ? 'negative' :
            value > 0 ? 'positive' :
            'zero';
-  },
+  }
 
   /**
    * Determine whether a velocity value changed direction.
    * @param  {number} a - initial value
    * @param  {number} b - second value
    * @returns {boolean}
+   * @public
    */
-  changedDirection: function( a, b ) {
+  changedDirection( a, b ) {
     return this.sign( a ) === 'negative' && this.sign( b ) === 'positive' ||
            this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
-  },
+  }
 
-  // get the pusher position relative to the center and layout bounds of the view
-  getRelativePusherPosition: function() {
+  // @public - get the pusher position relative to the center and layout bounds of the view
+  getRelativePusherPosition() {
     return this.view.layoutBounds.width / 2 + ( this.pusherPositionProperty.get() - this.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
-  },
+  }
 
   /**
    * Step function for this model, function of the time step.  Called by step and manualStep functions below.
    *
    * @param {number} dt - time step
+   * @public
    */
-  stepModel: function( dt ) {
+  stepModel( dt ) {
 
     // update the tracked time which is used by the WaterBucketNode and the Accelerometer
     this.timeProperty.set( this.timeProperty.get() + dt );
@@ -492,14 +491,15 @@ inherit( Object, MotionModel, {
       this.fallenProperty.set( false );
     }
 
-  },
+  }
 
   /**
    * Update the physics.
    *
    * @param {number} dt
+   * @public
    */
-  step: function( dt ) {
+  step( dt ) {
 
     // Computes the new forces and sets them to the corresponding properties
     // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
@@ -523,33 +523,36 @@ inherit( Object, MotionModel, {
 
     // notify that the sim has stepped to calculate forces.  This needs to update even when the sim is paused.
     this.stepEmitter.emit();
-  },
+  }
 
   /**
    * Manually step the model by a small time step.  This function is used by the 'step' button under
    * the control panel.  Assumes 60 frames per second.
+   * @public
    */
-  manualStep: function() {
+  manualStep() {
     this.stepModel( 1 / 60 );
-  },
+  }
 
   /**
    * Determine whether an item is in the stack.
    * @param  {Item} item
    * @returns {boolean}
+   * @public
    */
-  isInStack: function( item ) { return this.stack.includes( item ); },
+  isInStack( item ) { return this.stack.includes( item ); }
 
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
    *
    * @param  {Item}
    * @returns {boolean}
+   * @public
    */
-  isItemStackedAbove: function( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;},
+  isItemStackedAbove( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;}
 
-  //Reset the model
-  reset: function() {
+  // @public - Reset the model
+  reset() {
 
     // reset all Properties of this model.
     this.appliedForceProperty.reset();
@@ -596,14 +599,15 @@ inherit( Object, MotionModel, {
     //Move the initial crate to the play area, since it resets to the toolbox, not its initial position.
     this.viewInitialized( this.view );
 
-  },
+  }
 
   /**
    * After the view is constructed, move one of the blocks to the top of the stack.
    * It would be better if more of this could be done in the model constructor, but it would be difficult with the way things are currently set up.
    * @param {ScreenView} view
+   * @public
    */
-  viewInitialized: function( view ) {
+  viewInitialized( view ) {
     const item = this.items[ 1 ];
     // only move item to the top of the stack if it is not being dragged
     if ( !item.draggingProperty.get() ) {
@@ -616,19 +620,21 @@ inherit( Object, MotionModel, {
       item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
       this.stack.add( item );
     }
-  },
+  }
 
   /**
    * Get the state of the simulation, for persistence.
    * @returns {{properties: *, stack: Array}}
+   * @public
    */
-  getState: function() {
-    const self = this;
+  getState() {
     return {
       properties: this.getValues(),
-      stack: self.stack.getArray().map( function( item ) {return item.get().name;} ).join( ',' )
+      stack: this.stack.getArray().map( item => item.get().name ).join( ',' )
     };
   }
-} );
+}
+
+forcesAndMotionBasics.register( 'MotionModel', MotionModel );
 
 export default MotionModel;

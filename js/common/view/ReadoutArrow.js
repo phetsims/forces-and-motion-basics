@@ -8,7 +8,6 @@
  */
 
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
@@ -16,8 +15,8 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 
 const pattern0ValueUnitsNString = forcesAndMotionBasicsStrings.pattern[ '0valueUnitsN' ];
 
@@ -25,69 +24,64 @@ const pattern0ValueUnitsNString = forcesAndMotionBasicsStrings.pattern[ '0valueU
 const ARROW_HEAD_WIDTH = 50;
 const ARROW_HEAD_HEIGHT = 25;
 
-/**
- * @param label the text to show for the arrow
- * @param fill the color of the arrow
- * @param tailX {number} the position of the tail in X
- * @param tailY {number} the position of the tail in Y
- * @param valueProperty {Property<Number>} the property for the value to display
- * @param showValuesProperty {Property<Boolean>} whether or not to display the values
- * @param {Tandem} tandem
- * @param {Object} [options] 'labelPosition' where the label text should be {side|top}
- * @constructor
- */
-function ReadoutArrow( label, fill, tailX, tailY, valueProperty, showValuesProperty, tandem, options ) {
-  const self = this;
+class ReadoutArrow extends Node {
+  /**
+   * @param label the text to show for the arrow
+   * @param fill the color of the arrow
+   * @param tailX {number} the position of the tail in X
+   * @param tailY {number} the position of the tail in Y
+   * @param valueProperty {Property<Number>} the property for the value to display
+   * @param showValuesProperty {Property<Boolean>} whether or not to display the values
+   * @param {Tandem} tandem
+   * @param {Object} [options] 'labelPosition' where the label text should be {side|top}
+   */
+  constructor( label, fill, tailX, tailY, valueProperty, showValuesProperty, tandem, options ) {
 
-  //Store fields
-  options = merge( { labelPosition: 'top', arrowScale: 1 }, options );
-  this.options = options; // @private
-  this.showValuesProperty = showValuesProperty;
-  this.tailX = tailX;
-  this.tailY = tailY;
+    //Call the super class.  Render in svg to make the text crisper on retina display.
+    super( {
+      tandem: tandem,
+      pickable: false
+    } );
 
-  //Call the super class.  Render in svg to make the text crisper on retina display.
-  Node.call( this, {
-    tandem: tandem,
-    pickable: false
-  } );
+    //Store fields
+    options = merge( { labelPosition: 'top', arrowScale: 1 }, options );
+    this.options = options; // @private
+    this.showValuesProperty = showValuesProperty;
+    this.tailX = tailX;
+    this.tailY = tailY;
 
-  //Create and add the children
-  this.arrowNode = new Path( null, merge( {
-    fill: fill,
-    stroke: '#000000',
-    lineWidth: 1,
-    tandem: tandem.createTandem( 'arrowNode' )
-  }, options ) );
-  const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
-  this.valueNode = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
-  this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
-  this.addChild( this.arrowNode );
-  this.addChild( this.valueNode );
-  this.addChild( this.labelNode );
+    //Create and add the children
+    this.arrowNode = new Path( null, merge( {
+      fill: fill,
+      stroke: '#000000',
+      lineWidth: 1,
+      tandem: tandem.createTandem( 'arrowNode' )
+    }, options ) );
+    const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
+    this.valueNode = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
+    this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
+    this.addChild( this.arrowNode );
+    this.addChild( this.valueNode );
+    this.addChild( this.labelNode );
 
-  //Update when the value changes
-  valueProperty.link( function( value ) {
-    self.value = value;
-    const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
-    self.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
-    self.update();
-  } );
+    //Update when the value changes
+    valueProperty.link( value => {
+      this.value = value;
+      const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
+      this.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
+      this.update();
+    } );
 
-  // @public {boolean} - if the arrow overlaps another, we change the layout of the arrow labels so none of the
-  // text overlaps eachother
-  this.overlapsOther = false;
+    // @public {boolean} - if the arrow overlaps another, we change the layout of the arrow labels so none of the
+    // text overlaps eachother
+    this.overlapsOther = false;
 
-  //Update when the numeric readout visibility is toggled
-  showValuesProperty.link( this.update.bind( this ) );
-}
+    //Update when the numeric readout visibility is toggled
+    showValuesProperty.link( this.update.bind( this ) );
+  }
 
-forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
-
-inherit( Node, ReadoutArrow, {
-
-  //Sets the arrow dash, which changes when the simulation starts playing
-  setArrowDash: function( lineDash ) { this.arrowNode.lineDash = lineDash; },
+  // @public - Sets the arrow dash, which changes when the simulation starts playing
+  setArrowDash( lineDash ) { this.arrowNode.lineDash = lineDash; }
 
   //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
   set labelPosition( position ) {
@@ -95,13 +89,13 @@ inherit( Node, ReadoutArrow, {
       this.options.labelPosition = position;
       this.update();
     }
-  },
+  }
 
   //Get the label position
-  get labelPosition() { return this.options.labelPosition; },
+  get labelPosition() { return this.options.labelPosition; }
 
-  //Update the arrow graphics and text labels
-  update: function() {
+  // @public - Update the arrow graphics and text labels
+  update() {
     const value = this.value * this.options.arrowScale;
 
     //Don't show it if it is too small
@@ -177,11 +171,14 @@ inherit( Node, ReadoutArrow, {
       }
     }
   }
-}, {
 
-  // statics
-  ARROW_HEAD_WIDTH: ARROW_HEAD_WIDTH,
-  ARROW_HEAD_HEIGHT: ARROW_HEAD_HEIGHT
-} );
+}
+
+
+// statics
+ReadoutArrow.ARROW_HEAD_WIDTH = ARROW_HEAD_WIDTH;
+ReadoutArrow.ARROW_HEAD_HEIGHT = ARROW_HEAD_HEIGHT;
+
+forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
 
 export default ReadoutArrow;

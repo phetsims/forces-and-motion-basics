@@ -20,12 +20,12 @@ import Sound from '../../../../vibe/js/Sound.js';
 import grassImage from '../../../images/grass_png.js';
 import pullFigureBlue0Image from '../../../images/pull_figure_BLUE_0_png.js';
 import pullFigureBlue3Image from '../../../images/pull_figure_BLUE_3_png.js';
+import pullFigureRed0Image from '../../../images/pull_figure_RED_0_png.js';
+import pullFigureRed3Image from '../../../images/pull_figure_RED_3_png.js';
 import pullFigureLargeBlue0Image from '../../../images/pull_figure_lrg_BLUE_0_png.js';
 import pullFigureLargeBlue3Image from '../../../images/pull_figure_lrg_BLUE_3_png.js';
 import pullFigureLargeRed0Image from '../../../images/pull_figure_lrg_RED_0_png.js';
 import pullFigureLargeRed3Image from '../../../images/pull_figure_lrg_RED_3_png.js';
-import pullFigureRed0Image from '../../../images/pull_figure_RED_0_png.js';
-import pullFigureRed3Image from '../../../images/pull_figure_RED_3_png.js';
 import pullFigureSmallBlue0Image from '../../../images/pull_figure_small_BLUE_0_png.js';
 import pullFigureSmallBlue3Image from '../../../images/pull_figure_small_BLUE_3_png.js';
 import pullFigureSmallRed0Image from '../../../images/pull_figure_small_RED_0_png.js';
@@ -69,8 +69,6 @@ class NetForceScreenView extends ScreenView {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
       tandem: tandem
     } );
-    const self = this;
-
     //Fit to the window and render the initial scene
     const width = this.layoutBounds.width;
     const height = this.layoutBounds.height;
@@ -176,23 +174,23 @@ class NetForceScreenView extends ScreenView {
       } );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
-    this.model.runningProperty.link( function( running ) {
-      [ self.sumArrow, self.leftArrow, self.rightArrow ].forEach( function( arrow ) {
+    this.model.runningProperty.link( running => {
+      [ this.sumArrow, this.leftArrow, this.rightArrow ].forEach( arrow => {
         arrow.setArrowDash( running ? [] : [ 10, 5 ] );
       } );
     } );
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.model.cart.xProperty.link( function( x ) {
-      self.cartNode.x = x + 412;
-      self.ropeNode.x = x + 51;
+    this.model.cart.xProperty.link( x => {
+      this.cartNode.x = x + 412;
+      this.ropeNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
-    const getPullerImage = function( puller, leaning ) {
+    const getPullerImage = ( puller, leaning ) => {
       const type = puller.type;
       const size = puller.size;
 
@@ -213,9 +211,7 @@ class NetForceScreenView extends ScreenView {
     };
 
     // get the associated toolbox for the puller
-    const getPullerToolbox = function( puller ) {
-      return puller.type === 'red' ? rightToolbox : leftToolbox;
-    };
+    const getPullerToolbox = puller => puller.type === 'red' ? rightToolbox : leftToolbox;
 
     const leftPullerLayer = new Node( {
       tandem: tandem.createTandem( 'leftPullerLayer' )
@@ -225,8 +221,8 @@ class NetForceScreenView extends ScreenView {
     } );
     this.pullerNodes = [];
 
-    this.model.pullers.forEach( function( puller ) {
-      const pullerNode = new PullerNode( puller, self.model,
+    this.model.pullers.forEach( puller => {
+      const pullerNode = new PullerNode( puller, this.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
         getPullerToolbox( puller ),
@@ -234,7 +230,7 @@ class NetForceScreenView extends ScreenView {
       );
       const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
-      self.pullerNodes.push( pullerNode );
+      this.pullerNodes.push( pullerNode );
     } );
 
     leftToolbox.addChild( leftPullerLayer );
@@ -271,19 +267,19 @@ class NetForceScreenView extends ScreenView {
     let lastFlagNode = null;
 
     // Show the flag node when pulling is complete
-    Property.multilink( [ model.stateProperty, model.cart.xProperty ], function( state, x ) {
+    Property.multilink( [ model.stateProperty, model.cart.xProperty ], ( state, x ) => {
       lastFlagNode && lastFlagNode.dispose();
       lastFlagNode = null;
       if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {
-        lastFlagNode = new FlagNode( model, self.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) );
-        self.addChild( lastFlagNode );
+        lastFlagNode = new FlagNode( model, this.layoutBounds.width / 2, 8, tandem.createTandem( 'flagNode' ) );
+        this.addChild( lastFlagNode );
       }
     } );
 
     const golfClap = new Sound( golfClapSound );
 
     //Play audio golf clap when game completed
-    model.stateProperty.link( function( state ) {
+    model.stateProperty.link( state => {
       if ( state === 'completed' && model.volumeOnProperty.get() ) {
         golfClap.play();
       }
@@ -298,7 +294,7 @@ class NetForceScreenView extends ScreenView {
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
 
-    Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], function( netForce, showSumOfForces ) { self.sumOfForcesText.visible = !netForce && showSumOfForces; } );
+    Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], ( netForce, showSumOfForces ) => { this.sumOfForcesText.visible = !netForce && showSumOfForces; } );
     this.addChild( this.sumOfForcesText );
 
     cursorPathNode.visible = false;

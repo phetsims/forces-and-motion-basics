@@ -63,47 +63,45 @@ class PullerNode extends Image {
       this.updatePosition( puller, model );
     } );
 
-    const self = this;
-
     const dragHandler = new SimpleDragHandler( {
         tandem: tandem.createTandem( 'dragHandler' ),
         allowTouchSnag: true,
-        start: function( event ) {
+        start: event => {
 
           // check to see if a puller is knotted - if it is, store the knot
           const knot = puller.knotProperty.get();
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();
-          self.updateImage( puller, model );
+          this.updateImage( puller, model );
 
           // fire updates
           puller.draggingProperty.set( true );
-          self.moveToFront();
+          this.moveToFront();
           puller.draggedEmitter.emit();
 
           // if the puller was knotted, update the image position so that it is centered on the knot it was previously
           // grabbing
           if ( knot ) {
-            self.updatePositionKnotted( puller, model, knot );
+            this.updatePositionKnotted( puller, model, knot );
           }
         },
-        end: function() {
-          self.updatePosition( puller, model );
+        end: () => {
+          this.updatePosition( puller, model );
           puller.draggingProperty.set( false );
           puller.droppedEmitter.emit();
-          self.updateImage( puller, model );
+          this.updateImage( puller, model );
         },
-        translate: function( event ) {
-          self.updateImage( puller, model );
-          self.puller.positionProperty.set( event.position );
+        translate: event => {
+          this.updateImage( puller, model );
+          this.puller.positionProperty.set( event.position );
         }
       }
     );
-    self.addInputListener( dragHandler );
+    this.addInputListener( dragHandler );
 
-    model.resetAllEmitter.addListener( function() {
-      self.updatePosition( puller, model );
+    model.resetAllEmitter.addListener( () => {
+      this.updatePosition( puller, model );
 
       // cancel the drag
       if ( puller.draggingProperty.get() ) {

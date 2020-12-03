@@ -23,7 +23,7 @@ class ReturnButton extends TextPushButton {
   constructor( model, tandem, options ) {
 
     // TODO: this method bound the model. Why?
-    const returnCart = function() {
+    const returnCart = () => {
       model.returnCart();
     };
 

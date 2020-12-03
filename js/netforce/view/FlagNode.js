@@ -7,82 +7,79 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 
 const blueWinsString = forcesAndMotionBasicsStrings.blueWins;
 const redWinsString = forcesAndMotionBasicsStrings.redWins;
 
-/**
- * Constructor for FlagNode
- *
- * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
- * @param {number} centerX center for layout
- * @param {number} top top for layout
- * @param {Tandem} tandem
- * @constructor
- */
-function FlagNode( model, centerX, top, tandem ) {
-  const self = this;
-  this.model = model;
-  Node.call( this, {
-    tandem: tandem
-  } );
+class FlagNode extends Node {
 
-  const textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
-    tandem: tandem.createTandem( 'textNode' ),
-    font: new PhetFont( 24 ),
-    fill: 'white'
-  } );
-  this.path = new Path( null, {
-    fill: model.cart.xProperty.get() < 0 ? 'blue' : 'red',
-    stroke: 'black',
-    lineWidth: 2,
-    tandem: tandem.createTandem( 'pathNode' )
-  } );
-  this.addChild( this.path );
+  /**
+   * Constructor for FlagNode
+   *
+   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param {number} centerX center for layout
+   * @param {number} top top for layout
+   * @param {Tandem} tandem
+   */
+  constructor( model, centerX, top, tandem ) {
+    super( {
+      tandem: tandem
+    } );
+    this.model = model;
 
-  //Shrink the text to fit on the flag if necessary
-  if ( textNode.width > 220 ) {
-    textNode.scale( 220 / textNode.width );
+    const textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
+      tandem: tandem.createTandem( 'textNode' ),
+      font: new PhetFont( 24 ),
+      fill: 'white'
+    } );
+    this.path = new Path( null, {
+      fill: model.cart.xProperty.get() < 0 ? 'blue' : 'red',
+      stroke: 'black',
+      lineWidth: 2,
+      tandem: tandem.createTandem( 'pathNode' )
+    } );
+    this.addChild( this.path );
+
+    //Shrink the text to fit on the flag if necessary
+    if ( textNode.width > 220 ) {
+      textNode.scale( 220 / textNode.width );
+    }
+    this.addChild( textNode );
+
+    const update = this.updateFlagShape.bind( this );
+
+    // listeners that will dispose the flag node when model is reset or cart is returned -
+    // these must also be disposed
+
+    this.disposeFlagNode = () => {
+      this.detach();
+      model.timeProperty.unlink( update );
+      textNode.dispose();
+      this.path.dispose();
+    };
+
+    //When the clock ticks, wave the flag
+    model.timeProperty.link( update );
+    textNode.centerX = this.path.centerX;
+    textNode.centerY = this.path.centerY;
+    this.centerX = centerX;
+    this.top = top;
   }
-  this.addChild( textNode );
 
-  const update = this.updateFlagShape.bind( this );
-
-  // listeners that will dispose the flag node when model is reset or cart is returned -
-  // these must also be disposed
-
-  this.disposeFlagNode = function() {
-    self.detach();
-    model.timeProperty.unlink( update );
-    textNode.dispose();
-    self.path.dispose();
-  };
-
-  //When the clock ticks, wave the flag
-  model.timeProperty.link( update );
-  textNode.centerX = this.path.centerX;
-  textNode.centerY = this.path.centerY;
-  this.centerX = centerX;
-  this.top = top;
-}
-
-forcesAndMotionBasics.register( 'FlagNode', FlagNode );
-
-inherit( Node, FlagNode, {
-  dispose: function() {
+  // @public
+  dispose() {
     this.disposeFlagNode();
-    Node.prototype.dispose.call( this );
-  },
+    super.dispose();
+  }
 
-  //Update the flag shape, copied from the Java version
-  updateFlagShape: function() {
+  // @public - Update the flag shape, copied from the Java version
+  updateFlagShape() {
     const shape = new Shape();
     const maxX = 220;
     const maxY = 55;
@@ -96,6 +93,8 @@ inherit( Node, FlagNode, {
     shape.close();
     this.path.shape = shape;
   }
-} );
+}
+
+forcesAndMotionBasics.register( 'FlagNode', FlagNode );
 
 export default FlagNode;

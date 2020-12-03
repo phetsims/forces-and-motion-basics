@@ -11,112 +11,109 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
 
-/**
- *
- * @param x initial x-coordinate (in meters)
- * @param y initial y-coordinate (in meters)
- * @param type 'red'|'blue'
- * @param size 'small'|'medium'|'large'
- * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
- * @param {Tandem} tandem
- * @param {Object} [options]
- * @constructor
- */
-function Puller( x, y, type, size, dragOffsetX, tandem, options ) {
-  assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
+class Puller {
 
-  // @public - to synchronize tandem names with the view
-  this.pullerTandem = tandem;
+  /**
+   * @param x initial x-coordinate (in meters)
+   * @param y initial y-coordinate (in meters)
+   * @param type 'red'|'blue'
+   * @param size 'small'|'medium'|'large'
+   * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   */
+  constructor( x, y, type, size, dragOffsetX, tandem, options ) {
+    assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
 
-  options = merge( { standOffsetX: 0, other: '' }, options );
-  const self = this;
+    // @public - to synchronize tandem names with the view
+    this.pullerTandem = tandem;
 
-  this.dragOffsetX = dragOffsetX;
-  this.standOffsetX = options.standOffsetX;
-  this.type = type;
-  this.size = size;
-  this.force = this.size === 'small' ? 10 * 5 :
-               this.size === 'medium' ? 20 * 5 :
-               this.size === 'large' ? 30 * 5 :
-               NaN;
+    options = merge( { standOffsetX: 0, other: '' }, options );
 
-  // @public {boolean} - whether or not the puller is currently being dragged
-  this.draggingProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'draggingProperty' )
-  } );
+    this.dragOffsetX = dragOffsetX;
+    this.standOffsetX = options.standOffsetX;
+    this.type = type;
+    this.size = size;
+    this.force = this.size === 'small' ? 10 * 5 :
+                 this.size === 'medium' ? 20 * 5 :
+                 this.size === 'large' ? 30 * 5 :
+                 NaN;
 
-  // @public {Knot|null} - the knot that this puller is attached to
-  this.knotProperty = new Property( null, {
-    tandem: tandem.createTandem( 'knotProperty' ),
-    phetioType: Property.PropertyIO( NullableIO( Knot.KnotIO ) )
-  } );
+    // @public {boolean} - whether or not the puller is currently being dragged
+    this.draggingProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'draggingProperty' )
+    } );
 
-  // @public {Vector2} - the position of this puller
-  this.positionProperty = new Vector2Property( new Vector2( x, y ), {
-    tandem: tandem.createTandem( 'positionProperty' )
-  } );
+    // @public {Knot|null} - the knot that this puller is attached to
+    this.knotProperty = new Property( null, {
+      tandem: tandem.createTandem( 'knotProperty' ),
+      phetioType: Property.PropertyIO( NullableIO( Knot.KnotIO ) )
+    } );
 
-  // @public {string} - a classified position in the play area
-  // TODO: What are the valid values for this Property?
-  this.lastPlacementProperty = new Property( 'home', {
-    tandem: tandem.createTandem( 'lastPlacementProperty' ),
-    phetioType: Property.PropertyIO( StringIO )
-  } );
+    // @public {Vector2} - the position of this puller
+    this.positionProperty = new Vector2Property( new Vector2( x, y ), {
+      tandem: tandem.createTandem( 'positionProperty' )
+    } );
 
-  // @public - emits an event when the puller is dropped
-  this.droppedEmitter = new Emitter();
+    // @public {string} - a classified position in the play area
+    // TODO: What are the valid values for this Property?
+    this.lastPlacementProperty = new Property( 'home', {
+      tandem: tandem.createTandem( 'lastPlacementProperty' ),
+      phetioType: Property.PropertyIO( StringIO )
+    } );
 
-  // @public - emits an event when the puller is dragged
-  this.draggedEmitter = new Emitter();
+    // @public - emits an event when the puller is dropped
+    this.droppedEmitter = new Emitter();
 
-  this.other = options.other;
+    // @public - emits an event when the puller is dragged
+    this.draggedEmitter = new Emitter();
 
-  //Move with the knot
-  const updatePosition = function( knotX ) {
-    self.positionProperty.set( new Vector2( knotX, self.positionProperty.get().y ) );
-  };
+    this.other = options.other;
 
-  //When the knot changes, wire up as a listener to the new knot
-  this.knotProperty.link( function( newKnot, oldKnot ) {
+    //Move with the knot
+    const updatePosition = knotX => {
+      this.positionProperty.set( new Vector2( knotX, this.positionProperty.get().y ) );
+    };
 
-    //Unlink from the previous knot if there was one
-    if ( oldKnot ) {
-      oldKnot.xProperty.unlink( updatePosition );
-    }
+    //When the knot changes, wire up as a listener to the new knot
+    this.knotProperty.link( ( newKnot, oldKnot ) => {
 
-    //Synchronize our position with the knot.
-    if ( newKnot ) {
-      newKnot.xProperty.link( updatePosition );
-    }
-  } );
-}
+      //Unlink from the previous knot if there was one
+      if ( oldKnot ) {
+        oldKnot.xProperty.unlink( updatePosition );
+      }
 
-forcesAndMotionBasics.register( 'Puller', Puller );
+      //Synchronize our position with the knot.
+      if ( newKnot ) {
+        newKnot.xProperty.link( updatePosition );
+      }
+    } );
+  }
 
-inherit( Object, Puller, {
 
   /**
    * Reset the model by resetting all associated Properties.
    * @public
    */
-  reset: function() {
+  reset() {
     this.draggingProperty.reset();
     this.knotProperty.reset();
     this.positionProperty.reset();
     this.lastPlacementProperty.reset();
-  },
+  }
 
-  //Detach the puller from the knot.
-  disconnect: function() {
+  // @public - Detach the puller from the knot.
+  disconnect() {
     this.knotProperty.set( null );
   }
-} );
+}
+
+forcesAndMotionBasics.register( 'Puller', Puller );
 
 export default Puller;

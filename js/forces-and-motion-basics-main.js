@@ -41,7 +41,7 @@ const simOptions = {
   }
 };
 
-simLauncher.launch( function() {
+simLauncher.launch( () => {
 
   const netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
   const motionScreenTandem = tandem.createTandem( 'motionScreen' );
@@ -57,8 +57,8 @@ simLauncher.launch( function() {
   //And lookups will still work properly even if the screens are reduced with ?screens=...
   const netForceImageNode = new Image( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
   const netForceScreen = new Screen(
-    function() {return new NetForceModel( netForceScreenTandem.createTandem( 'model' ) );},
-    function( model ) { return new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) );}, {
+    () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
+    model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
       name: netForceString,
       tandem: netForceScreenTandem,
       homeScreenIcon: new ScreenIcon( netForceImageNode, screenIconOptions )

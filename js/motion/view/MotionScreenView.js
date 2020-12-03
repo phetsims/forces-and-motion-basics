@@ -12,11 +12,11 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import PlayPauseButton from '../../../../scenery-phet/js/buttons/PlayPauseButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
-import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -69,7 +69,6 @@ class MotionScreenView extends ScreenView {
     this.model = model;
 
     //Variables for this constructor, for convenience
-    const self = this;
     const width = this.layoutBounds.width;
     const height = this.layoutBounds.height;
 
@@ -122,7 +121,7 @@ class MotionScreenView extends ScreenView {
     } );
 
     //Create the slider
-    const disableText = function( node ) { return function( length ) {node.fill = length === 0 ? 'gray' : 'black';}; };
+    const disableText = node => length => {node.fill = length === 0 ? 'gray' : 'black';};
 
     const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
     const appliedForceSliderTextNode = new Text( appliedForceString, {
@@ -147,7 +146,7 @@ class MotionScreenView extends ScreenView {
     const spinnerRange = new Range( -500, 500 );
 
     // Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    Property.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], function( appliedForce, speedClassification, stackSize ) {
+    Property.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], ( appliedForce, speedClassification, stackSize ) => {
 
       const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
       spinnerRange.max = enableRightButtons ? 500 : 0;
@@ -182,12 +181,12 @@ class MotionScreenView extends ScreenView {
     this.addChild( appliedForceSpinner );
 
     // force cannot be applied when there is nothing on the stack
-    model.stackSizeProperty.link( function( size ) {
+    model.stackSizeProperty.link( size => {
       appliedForceSpinner.enabled = size > 0;
     } );
 
     model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
-    model.stack.lengthProperty.link( function( length ) { appliedForceSlider.enabled = length > 0; } );
+    model.stack.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
@@ -210,7 +209,7 @@ class MotionScreenView extends ScreenView {
     } );
     const stepForwardButton = new StepForwardButton( {
       isPlayingProperty: model.playProperty,
-      listener: function() { model.manualStep(); },
+      listener: () => { model.manualStep(); },
       radius: 18,
       tandem: tandem.createTandem( 'stepForwardButton' )
     } );
@@ -228,7 +227,7 @@ class MotionScreenView extends ScreenView {
     //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
     //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var?
     this.resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
       },
       radius: 23,
@@ -257,15 +256,13 @@ class MotionScreenView extends ScreenView {
       } );
 
       // create the tick labels
-      const tickLabel = function( label, tick, tandemID ) {
-        return new Text( label, {
+      const tickLabel = ( label, tick, tandemID ) => new Text( label, {
           pickable: false,
           font: new PhetFont( 16 ),
           centerX: tick.centerX,
           top: tick.bottom + 27,
           tandem: tandem.createTandem( 'tickLabelTextNode' + tandemID )
         } );
-      };
       const tickLabels = new Node( {
         tandem: tandem.createTandem( 'tickLabels' ),
         children: [
@@ -291,7 +288,7 @@ class MotionScreenView extends ScreenView {
 
       // whenever showValues and accleration changes, update the label text
       const initialLabelWidth = labelText.width;
-      Property.multilink( [ model.showValuesProperty, model.accelerationProperty ], function( showValues, acceleration ) {
+      Property.multilink( [ model.showValuesProperty, model.accelerationProperty ], ( showValues, acceleration ) => {
         if ( showValues ) {
           const accelerationValue = Utils.toFixed( acceleration, 2 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
@@ -309,7 +306,7 @@ class MotionScreenView extends ScreenView {
 
     // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
     // toolbox is sitting on.
-    const getItemSide = function( item ) {
+    const getItemSide = item => {
       // the fridge and the crates both go in hte left toolbox
       if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
         return 'left';
@@ -329,7 +326,7 @@ class MotionScreenView extends ScreenView {
       const toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
       const itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
       const Constructor = item.bucket ? WaterBucketNode : ItemNode;
-      const itemNode = new Constructor( model, self, item,
+      const itemNode = new Constructor( model, this, item,
         item.image,
         item.sittingImage || item.image,
         item.holdingImage || item.image,
@@ -352,14 +349,10 @@ class MotionScreenView extends ScreenView {
     //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
     const roundedAppliedForceProperty = new DerivedProperty(
       [ model.appliedForceProperty ],
-      function( appliedForce ) {
-        return Utils.roundSymmetric( appliedForce );
-      } );
+      appliedForce => Utils.roundSymmetric( appliedForce ) );
     const roundedFrictionForceProperty = new DerivedProperty(
       [ model.frictionForceProperty ],
-      function( frictionForce ) {
-        return Utils.roundSymmetric( frictionForce );
-      } );
+      frictionForce => Utils.roundSymmetric( frictionForce ) );
 
     //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
     const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
@@ -367,7 +360,7 @@ class MotionScreenView extends ScreenView {
       units: 'N'
     } );
 
-    model.stepEmitter.addListener( function() {
+    model.stepEmitter.addListener( () => {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
@@ -387,9 +380,7 @@ class MotionScreenView extends ScreenView {
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
-      function( showSumOfForces, sumOfForces ) {
-        return showSumOfForces && sumOfForces === 0;
-      } ).linkAttribute( self.sumOfForcesText, 'visible' );
+      ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty,
       tandem.createTandem( 'appliedForceArrow' ), {
         labelPosition: 'side',
@@ -417,23 +408,21 @@ class MotionScreenView extends ScreenView {
 
     //Whichever arrow is smaller should be in front (in z-ordering)
     const frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
-      function( roundedAppliedForce, roundedFrictionForce ) {
-        return Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce );
-      } );
-    frictionLargerProperty.link( function( frictionLarger ) {
-      const node = frictionLarger ? self.appliedForceArrow : self.frictionArrow;
+      ( roundedAppliedForce, roundedFrictionForce ) => Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce ) );
+    frictionLargerProperty.link( frictionLarger => {
+      const node = frictionLarger ? this.appliedForceArrow : this.frictionArrow;
       node.moveToFront();
     } );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], function( appliedForce, frictionForce ) {
+    Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], ( appliedForce, frictionForce ) => {
       const sameDirection = ( appliedForce < 0 && frictionForce < 0 ) || ( appliedForce > 0 && frictionForce > 0 );
-      self.frictionArrow.overlapsOther = sameDirection;
-      self.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
+      this.frictionArrow.overlapsOther = sameDirection;
+      this.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';
 
       // the applied force arrow must be updated directly since its label position doesn't change
-      self.appliedForceArrow.overlapsOther = sameDirection;
-      self.appliedForceArrow.update();
+      this.appliedForceArrow.overlapsOther = sameDirection;
+      this.appliedForceArrow.update();
     } );
 
     model.showForceProperty.linkAttribute( this.appliedForceArrow, 'visible' );

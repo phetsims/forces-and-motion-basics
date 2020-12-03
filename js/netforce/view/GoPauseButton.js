@@ -38,10 +38,10 @@ const pauseString = forcesAndMotionBasicsStrings.pause;
  * @param  {Array<Node>} nodes
  * @returns {Rectangle}
  */
-function wrap( node, padX, padY, nodes ) {
+const wrap = ( node, padX, padY, nodes ) => {
   let maxWidth = -1;
   let maxHeight = -1;
-  nodes.forEach( function( n ) {
+  nodes.forEach( n => {
     if ( n.width > maxWidth ) {
       maxWidth = n.width;
     }
@@ -54,7 +54,7 @@ function wrap( node, padX, padY, nodes ) {
   node.centerX = maxWidth / 2;
   node.centerY = maxHeight / 2;
   return new Rectangle( 0, 0, maxWidth, maxHeight, { children: [ node ] } );
-}
+};
 
 class GoPauseButton extends BooleanToggleNode {
 
@@ -83,9 +83,7 @@ class GoPauseButton extends BooleanToggleNode {
     } );
 
     // boolean function to determine if the go button should be enabled based on model state.
-    const isGoButtonEnabled = function() {
-      return model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
-    };
+    const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     const goButtonPressedEmitter = new Emitter( {
@@ -95,7 +93,7 @@ class GoPauseButton extends BooleanToggleNode {
         { name: 'knotJSON', phetioType: StringIO }
       ]
     } );
-    const goListener = function() {
+    const goListener = () => {
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
       model.runningProperty.set( true );
     };
@@ -106,7 +104,7 @@ class GoPauseButton extends BooleanToggleNode {
       tandem: tandem.createTandem( 'goButton' )
     } );//green
 
-    const pauseListener = function() {
+    const pauseListener = () => {
       model.runningProperty.set( false );
     };
     const pauseButton = new RoundPushButton( {
@@ -116,12 +114,12 @@ class GoPauseButton extends BooleanToggleNode {
       tandem: tandem.createTandem( 'pauseButton' )
     } );//red
 
-    const showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], function( running ) { return !running; } );
+    const showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], running => !running );
 
     super( goButton, pauseButton, showGoButtonProperty, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
-    Property.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], function() {
+    Property.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
       const enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;
