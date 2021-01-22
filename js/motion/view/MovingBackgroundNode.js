@@ -7,6 +7,7 @@
  */
 
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 // modules
 import Utils from '../../../../dot/js/Utils.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -203,17 +204,17 @@ class MovingBackgroundNode extends Node {
             }
   
             while ( numBlack < desiredBlack ) {
-              gravelSource.addChild( new Rectangle( Math.floor( phet.joist.random.nextDouble() * ( tileWidth + 1 ) ), Math.floor( phet.joist.random.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'black' } ) );
+              gravelSource.addChild( new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'black' } ) );
               numBlack++;
             }
   
             while ( numGray < desiredGray ) {
-              gravelSource.addChild( new Rectangle( Math.floor( phet.joist.random.nextDouble() * ( tileWidth + 1 ) ), Math.floor( phet.joist.random.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'gray' } ) );
+              gravelSource.addChild( new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'gray' } ) );
               numGray++;
             }
   
             while ( numWhite < desiredWhite ) {
-              gravelSource.addChild( new Rectangle( Math.floor( phet.joist.random.nextDouble() * ( tileWidth + 1 ) ), Math.floor( phet.joist.random.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'white' } ) );
+              gravelSource.addChild( new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'white' } ) );
               numWhite++;
             }
   
