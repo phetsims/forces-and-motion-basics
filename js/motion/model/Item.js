@@ -15,10 +15,10 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
+import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import AnimationStateIO from './AnimationStateIO.js';
 
 class Item extends PhetioObject {
 
@@ -85,7 +85,7 @@ class Item extends PhetioObject {
       destination: 'home'
     }, {
       tandem: tandem.createTandem( 'animationStateProperty' ),
-      phetioType: Property.PropertyIO( AnimationStateIO )
+      phetioType: Property.PropertyIO( ObjectLiteralIO )
     } );
 
     // Flag for whether the item is on the skateboard
