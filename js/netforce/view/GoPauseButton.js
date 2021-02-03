@@ -35,7 +35,7 @@ const pauseString = forcesAndMotionBasicsStrings.pause;
  * @param  {Node} node
  * @param  {number} padX
  * @param  {number} padY
- * @param  {Array<Node>} nodes
+ * @param  {Array.<Node>} nodes
  * @returns {Rectangle}
  */
 const wrap = ( node, padX, padY, nodes ) => {

@@ -276,7 +276,7 @@ class MotionModel {
   /**
    * Get an array representing the items that are being dragged.
    *
-   * @returns {Array<Item>}
+   * @returns {Array.<Item>}
    * @public
    */
   draggingItems() {

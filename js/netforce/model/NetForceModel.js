@@ -480,7 +480,7 @@ class NetForceModel extends PhetioObject {
   /**
    * Get an array of pullers of the specified type (color string)
    * @param  {string} type - one of 'red' or 'blue'
-   * @returns {Array<Puller>}
+   * @returns {Array.<Puller>}
    * @public
    */
   getPullers( type ) {
