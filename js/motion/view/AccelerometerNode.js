@@ -18,7 +18,7 @@ class AccelerometerNode extends Node {
   /**
    * Constructor.
    *
-   * @param {Property<number>} accelerationProperty
+   * @param {Property.<number>} accelerationProperty
    * @param {Tandem} tandem
    * @param {Object} [options]
    */

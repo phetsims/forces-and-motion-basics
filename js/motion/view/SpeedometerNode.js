@@ -24,9 +24,9 @@ class SpeedometerNode extends Node {
   /**
    * Constructor.
    *
-   * @param {Property<number>} speedProperty
-   * @param {Property<number>} showSpeedProperty
-   * @param {Property<boolean>} showValuesProperty
+   * @param {Property.<number>} speedProperty
+   * @param {Property.<number>} showSpeedProperty
+   * @param {Property.<boolean>} showValuesProperty
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
