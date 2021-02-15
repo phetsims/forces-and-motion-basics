@@ -204,7 +204,7 @@ class MotionScreenView extends ScreenView {
     // create the play, pause, and step buttons
     const playPauseButton = new PlayPauseButton( model.playProperty, {
       radius: 18,
-      scaleFactorWhenPaused: 1.28,
+      scaleFactorWhenNotPlaying: 1.28,
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
     const stepForwardButton = new StepForwardButton( {
