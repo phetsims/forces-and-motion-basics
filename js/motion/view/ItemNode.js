@@ -38,29 +38,29 @@ class ItemNode extends Node {
    * @param {Rectangle} itemToolbox - The toolbox that contains this item
    */
   constructor( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, tandem ) {
-  
+
     super( {
       cursor: 'pointer',
       scale: item.imageScaleProperty.get(),
-  
+
       tandem: tandem
     } );
 
     this.item = item;
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
-  
+
     // translate this node to the item's position
     this.translate( item.positionProperty.get() );
-  
+
     //Create the node for the main graphic
     const normalImageNode = new Image( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
     this.normalImageNode = normalImageNode;
-  
+
     // keep track of the sitting image to track its width for the pusher
     // @public (read-only)
     this.sittingImage = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
-  
+
     //When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
       // var centerX = normalImageNode.centerX;
@@ -77,19 +77,19 @@ class ItemNode extends Node {
         this.updateLabelPosition();
       }
     };
-  
+
     // Make sure the arms are updated (even if nothing else changed)
     // TODO: It is possible that this can be removed once these issues are closed, see
     // https://github.com/phetsims/forces-and-motion-basics/issues/240
     // https://github.com/phetsims/axon/issues/135
     Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
-  
+
     for ( let i = 0; i < model.items.length; i++ ) {
       model.items[ i ].draggingProperty.link( updateImage );
     }
-  
+
     model.stack.lengthProperty.link( updateImage );
-  
+
     //When the user drags the object, start
     const moveToStack = () => {
       item.onBoardProperty.set( true );
@@ -100,18 +100,18 @@ class ItemNode extends Node {
         model.spliceStackBottom();
       }
     };
-  
+
     // called on end drag, update direction of girl or man to match current applied force and velocity of model
     const updatePersonDirection = person => {
-  
+
       // default direction is to the left
       let direction = 'left';
-  
+
       // if girl or man is alread on the stack, direction should match person that is already on the stack
       let personInStack;
       for ( let i = 0; i < model.stack.length; i++ ) {
         const itemInStack = model.stack.get( i );
-  
+
         if ( itemInStack === person ) {
           // skip the person that is currently being dragged
           continue;
@@ -140,41 +140,41 @@ class ItemNode extends Node {
       }
       person.directionProperty.set( direction );
     };
-  
+
     const dragHandler = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragHandler' ),
       translate: options => {
         item.positionProperty.set( options.position );
       },
-  
+
       //When picking up an object, remove it from the stack.
       start: () => {
-  
+
         //Move it to front (z-order)
         this.moveToFront();
-  
+
         // move the parent toolbox to the front so that items of one toolbox are not in front of another
         // itemToolbox is in a container so it should not occlude other items in the screen view
         itemToolbox.moveToFront();
-  
+
         item.draggingProperty.set( true );
         const index = model.stack.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
         item.onBoardProperty.set( false );
-  
+
         //Don't allow the user to translate the object while it is animating
         item.cancelAnimation();
       },
-  
+
       //End the drag
       end: () => {
         item.draggingProperty.set( false );
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.positionProperty.get().y < 350 ) {
           moveToStack();
-  
+
           // if item is man or girl, rotate depending on the current model velocity and applied force
           if ( item.name === 'man' || item.name === 'girl' ) {
             updatePersonDirection( item );
@@ -188,7 +188,7 @@ class ItemNode extends Node {
       }
     } );
     this.addInputListener( dragHandler );
-  
+
     // if the item is being dragged, cancel the drag on reset
     model.resetAllEmitter.addListener( () => {
       // cancel the drag and reset item
@@ -197,7 +197,7 @@ class ItemNode extends Node {
         item.reset();
       }
     } );
-  
+
     //Label for the mass (if it is shown)
     const massLabel = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
       font: new PhetFont( {
@@ -212,7 +212,7 @@ class ItemNode extends Node {
       fill: 'white',
       stroke: 'gray'
     } ).mutate( { centerX: massLabel.centerX, centerY: massLabel.centerY } );
-  
+
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n
     const labelNode = new Node( {
@@ -221,38 +221,38 @@ class ItemNode extends Node {
       tandem: tandem.createTandem( 'labelNode' )
     } );
     this.labelNode = labelNode;
-  
+
     //Update the position of the item
     item.positionProperty.link( position => { this.setTranslation( position ); } );
-  
+
     // When the object is scaled or change direction, update the image part
     Property.multilink( [ item.interactionScaleProperty, item.directionProperty ], ( interactionScale, direction ) => {
       const scale = item.imageScaleProperty.get() * interactionScale;
       this.setScaleMagnitude( scale );
-  
+
       // make sure that labels remain the same size
       labelNode.setScaleMagnitude( 1 / scale );
-  
+
       normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
-  
+
         // store the center so that it can be reapplied after change in scale
         const centerX = normalImageNode.centerX;
-  
+
         normalImageNode.scale( -1, 1 );
-  
+
         // reapply the center
         normalImageNode.centerX = centerX;
       }
-  
+
       // when scale or direction change, make sure that the label is still centered
       this.updateLabelPosition();
     } );
     item.onBoardProperty.link( updateImage );
-  
+
     this.addChild( normalImageNode );
     this.addChild( labelNode );
-  
+
     showMassesProperty.link( showMasses => { labelNode.visible = showMasses; } );
   }
 

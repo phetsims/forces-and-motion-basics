@@ -33,12 +33,12 @@ class AccelerometerNode extends Node {
     const barSideInset = 7;
     const gradient = new LinearGradient( 0, 4, 0, height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb( 207, 208, 210 )' );
     const background = new Rectangle( 0 - barSideInset, 0, barWidth + barSideInset * 2, height, 10, 10, { fill: gradient } );
-  
+
     this.addChild( background );
-  
+
     //Tweaked to get 10m/s/s to line up with 1st tick.
     const scale = 4.22;
-  
+
     //The bar that gets bigger or smaller based on the acceleration.
     const bar = new Rectangle( barWidth / 2, 0, 25, height, { fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(218,140,180)' ).addColorStop( 1, 'rgb(130,80,100)' ) } );
     accelerationProperty.link( acceleration => {
@@ -52,7 +52,7 @@ class AccelerometerNode extends Node {
       }
     } );
     this.addChild( bar );
-  
+
     //Show the knob, which just covers the edge of the bar
     const knobThickness = 1;
     const knob = new Rectangle( barWidth / 2, 0, knobThickness, height, { fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(248,194,216)' ).addColorStop( 1, 'rgb(154,105,127)' ) } );
@@ -61,10 +61,10 @@ class AccelerometerNode extends Node {
       knob.setRect( barWidth / 2 + scaled - knobThickness / 2, 0, knobThickness, height );
     } );
     this.addChild( knob );
-  
+
     //Outline
     this.addChild( new Rectangle( 0 - barSideInset, 0, barWidth + barSideInset * 2, height, 10, 10, { stroke: 'black' } ) );
-  
+
     //Tick marks
     const majorTickInset = 6;
     const minorTickInset = 7;
@@ -89,7 +89,7 @@ class AccelerometerNode extends Node {
       stroke: 'black',
       tandem: tandem.createTandem( 'tick5' )
     } ) );
-  
+
     this.mutate( options );
   }
 

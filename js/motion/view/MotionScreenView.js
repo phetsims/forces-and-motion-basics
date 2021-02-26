@@ -257,12 +257,12 @@ class MotionScreenView extends ScreenView {
 
       // create the tick labels
       const tickLabel = ( label, tick, tandemID ) => new Text( label, {
-          pickable: false,
-          font: new PhetFont( 16 ),
-          centerX: tick.centerX,
-          top: tick.bottom + 27,
-          tandem: tandem.createTandem( 'tickLabelTextNode' + tandemID )
-        } );
+        pickable: false,
+        font: new PhetFont( 16 ),
+        centerX: tick.centerX,
+        top: tick.bottom + 27,
+        tandem: tandem.createTandem( 'tickLabelTextNode' + tandemID )
+      } );
       const tickLabels = new Node( {
         tandem: tandem.createTandem( 'tickLabels' ),
         children: [

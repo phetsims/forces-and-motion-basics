@@ -24,16 +24,16 @@ class CartStopperNode extends Path {
       tandem: tandem,
       fill: 'grey'
     }, options );
-  
+
     const stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
     super( stopperShape );
-  
+
     // flip around the y axis
     assert && assert( _.includes( DIRECTIONS, options.direction ), 'stopper can only have directon "left" or "right"' );
     if ( options.direction === 'right' ) {
       this.scale( -1, 1 );
     }
-  
+
     // mutate after scaling so that positioning is correct
     this.mutate( options );
   }

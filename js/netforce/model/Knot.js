@@ -29,9 +29,9 @@ class Knot extends PhetioObject {
    * @param {Object} [options]
    */
   constructor( x, type, ropeStart, ropeLength, options ) {
-  
+
     options = merge( {
-  
+
       // {Tandem}
       tandem: Tandem.REQUIRED,
       phetioType: Knot.KnotIO
@@ -39,24 +39,24 @@ class Knot extends PhetioObject {
     const tandem = options.tandem;
 
     super( options );
-  
+
     this.initX = x;
     this.type = type;
-  
+
     // @public {number} - the 1-D x position of the knot
     this.xProperty = new NumberProperty( x, {
       tandem: tandem.createTandem( 'xProperty' ),
       units: 'meters'
     } );
-  
+
     // @public {boolean} - whether or not the know is visible
     this.visibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'visibleProperty' )
     } );
-  
+
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
     this.acessibleKnotId = 'knot-' + type + '-' + this.initX;
-  
+
     // Constant value for the y position (in screen coordinates)
     this.y = 285;
   }

@@ -31,15 +31,15 @@ class SpeedometerNode extends Node {
    * @param {Object} [options]
    */
   constructor( speedProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
-  
+
     options = merge( {
       radius: 67,
       tandem: tandem
     }, options );
-  
+
     // mutate with the options after construction so we can set the 'top'
     super();
-  
+
     const gaugeNode = new ValueGaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         radius: 67,
@@ -51,14 +51,14 @@ class SpeedometerNode extends Node {
         }
       } );
     this.addChild( gaugeNode );
-  
+
     // dispose unnecessary for property links, SpeedometerNode exists for the lifetime of the sim
     showSpeedProperty.linkAttribute( this, 'visible' );
-  
+
     showValuesProperty.link( showValues => {
       gaugeNode.numberDisplayVisible = showValues;
     } );
-  
+
     // mutate post node construction so we can correctly translate
     this.mutate( options );
   }
