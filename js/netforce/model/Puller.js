@@ -9,11 +9,11 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
 
@@ -63,9 +63,9 @@ class Puller {
 
     // @public {string} - a classified position in the play area
     // TODO: What are the valid values for this Property?
-    this.lastPlacementProperty = new Property( 'home', {
-      tandem: tandem.createTandem( 'lastPlacementProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    // TODO: Why not an enum?
+    this.lastPlacementProperty = new StringProperty( 'home', {
+      tandem: tandem.createTandem( 'lastPlacementProperty' )
     } );
 
     // @public - emits an event when the puller is dropped

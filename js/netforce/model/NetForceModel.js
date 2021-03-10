@@ -10,11 +10,11 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import VoidIO from '../../../../tandem/js/types/VoidIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
@@ -59,9 +59,9 @@ class NetForceModel extends PhetioObject {
     } );
 
     // TODO what are the valid values?
-    this.stateProperty = new Property( 'experimenting', {
-      tandem: tandem.createTandem( 'stateProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    // TODO: Why not an enum?
+    this.stateProperty = new StringProperty( 'experimenting', {
+      tandem: tandem.createTandem( 'stateProperty' )
     } );
 
     this.timeProperty = new Property( 0, {

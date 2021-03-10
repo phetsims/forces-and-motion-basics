@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -17,7 +18,6 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 class Item extends PhetioObject {
@@ -71,9 +71,9 @@ class Item extends PhetioObject {
     } );
 
     // @public {Property.<string>} - direction of the item, 'left'|'right'
-    this.directionProperty = new Property( 'left', {
-      tandem: tandem.createTandem( 'directionProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    // TODO: Why not an enum?
+    this.directionProperty = new StringProperty( 'left', {
+      tandem: tandem.createTandem( 'directionProperty' )
     } );
 
     // @public {Object} - tracks the animation state of the item

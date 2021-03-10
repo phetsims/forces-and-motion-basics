@@ -10,14 +10,13 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import crateImage from '../../../images/crate_png.js';
 import fridgeImage from '../../../images/fridge_png.js';
 import mysteryObjectImage from '../../../images/mystery-object-01_png.js';
@@ -143,15 +142,15 @@ class MotionModel {
     //  @public Keep track of whether the speed is classified as:
     // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
     // so that the Applied Force can be stopped if the speed goes out of range.
-    this.speedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
-      tandem: tandem.createTandem( 'speedClassificationProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    // TODO: Why not an enum?
+    this.speedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
+      tandem: tandem.createTandem( 'speedClassificationProperty' )
     } );
 
     // @public {string} See speedClassification
-    this.previousSpeedClassificationProperty = new Property( 'WITHIN_ALLOWED_RANGE', {
-      tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    // TODO: Why not an enum?
+    this.previousSpeedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
+      tandem: tandem.createTandem( 'previousSpeedClassificationProperty' )
     } );
 
     // @public {boolean} - whether or not the stack of items is moving to the right
@@ -160,9 +159,9 @@ class MotionModel {
     } );
 
     // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
-    this.directionProperty = new Property( 'none', {
-      tandem: tandem.createTandem( 'directionProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    // TODO: Why not an enum?
+    this.directionProperty = new StringProperty( 'none', {
+      tandem: tandem.createTandem( 'directionProperty' )
     } );
 
     // @public {number} - time since pusher has fallen over, in seconds
@@ -178,9 +177,8 @@ class MotionModel {
     } );
 
     // @public {string} - 'left'|'right', direction pusher facing when it falls over
-    this.fallenDirectionProperty = new Property( 'left', {
-      tandem: tandem.createTandem( 'fallenDirectionProperty' ),
-      phetioType: Property.PropertyIO( StringIO )
+    this.fallenDirectionProperty = new StringProperty( 'left', {
+      tandem: tandem.createTandem( 'fallenDirectionProperty' )
     } );
 
     // @public {number} - how long the simulation has been running
