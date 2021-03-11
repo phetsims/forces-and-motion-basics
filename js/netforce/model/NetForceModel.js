@@ -90,13 +90,13 @@ class NetForceModel extends PhetioObject {
 
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
-      units: 'meters/second',
+      units: 'm/s',
       range: new Range( 0, 6 )
     } );
 
     this.durationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'durationProperty' ),
-      units: 'seconds',
+      units: 's',
       range: new Range( 0, Number.POSITIVE_INFINITY )
     } );
 

@@ -19,14 +19,14 @@ class Cart {
     // @public {number} - 1-D x position of the cart
     this.xProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'xProperty' ),
-      units: 'meters',
+      units: 'm',
       range: new Range( -403, 403 )
     } );
 
     // @public {number} - 1-D velocity in MKS
     this.vProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'vProperty' ),
-      units: 'meters/second',
+      units: 'm/s',
       range: new Range( -6, 6 )
     } );
 

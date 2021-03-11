@@ -82,31 +82,31 @@ class MotionModel {
     // @public - 1-D position of the stack of items
     this.positionProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'positionProperty' ),
-      units: 'meters'
+      units: 'm'
     } );
 
     // @public - speed of the stack of items, in the x direction
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
-      units: 'meters/second'
+      units: 'm/s'
     } );
 
     // @public - elocity is a 1-d vector, where the direction (right or left) is indicated by the sign
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
-      units: 'meters/second'
+      units: 'm/s'
     } );
 
     // @public - 1-d acceleration of the stack of items
     this.accelerationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'accelerationProperty' ),
-      units: 'meters/second/second'
+      units: 'm/s/s'
     } );
 
     // @public {number} - initially to the left of the box by this many meters
     this.pusherPositionProperty = new NumberProperty( -16, {
       tandem: tandem.createTandem( 'pusherPositionProperty' ),
-      units: 'meters'
+      units: 'm'
     } );
 
     // @public {boolean} - whether or not forces are visible
@@ -168,7 +168,7 @@ class MotionModel {
     // TODO: Should we this have a tandem? It spams the data stream.
     // TODO: Why is default value 10?
     this.timeSinceFallenProperty = new NumberProperty( 10, {
-      units: 'seconds'
+      units: 's'
     } );
 
     // @public {boolean} - whether or not the pusher has fallen over
@@ -184,7 +184,7 @@ class MotionModel {
     // @public {number} - how long the simulation has been running
     // TODO: Should we this have a tandem? It spams the data stream.
     this.timeProperty = new NumberProperty( 0, {
-      units: 'seconds'
+      units: 's'
     } );
 
     //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js

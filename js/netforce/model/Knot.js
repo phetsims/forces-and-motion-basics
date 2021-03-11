@@ -46,7 +46,7 @@ class Knot extends PhetioObject {
     // @public {number} - the 1-D x position of the knot
     this.xProperty = new NumberProperty( x, {
       tandem: tandem.createTandem( 'xProperty' ),
-      units: 'meters'
+      units: 'm'
     } );
 
     // @public {boolean} - whether or not the know is visible
