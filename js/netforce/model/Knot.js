@@ -55,7 +55,7 @@ class Knot extends PhetioObject {
     } );
 
     // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
-    this.acessibleKnotId = 'knot-' + type + '-' + this.initX;
+    this.acessibleKnotId = `knot-${type}-${this.initX}`;
 
     // Constant value for the y position (in screen coordinates)
     this.y = 285;

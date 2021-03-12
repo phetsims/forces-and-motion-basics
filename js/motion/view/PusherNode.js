@@ -122,13 +122,13 @@ class PusherNode extends Node {
         visible: false,
         pickable: false,
         scale: scale,
-        tandem: tandem.createTandem( 'rightImageNode' + i )
+        tandem: tandem.createTandem( `rightImageNode${i}` )
       } );
       const leftImageNode = new Image( image, {
         visible: false,
         pickable: false,
         scale: new Vector2( -scale, scale ),
-        tandem: tandem.createTandem( 'leftImageNode' + i )
+        tandem: tandem.createTandem( `leftImageNode${i}` )
       } );
       pushingRightNodes.push( rightImageNode );
       pushingLeftNodes.push( leftImageNode );

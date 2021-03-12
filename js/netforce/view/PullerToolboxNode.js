@@ -42,7 +42,7 @@ class PullerToolboxNode extends Rectangle {
     super( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, toolboxOptions );
 
     this.highlightColor = highlightColor;
-    this.uniqueId = side + '-pullerToolbox';
+    this.uniqueId = `${side}-pullerToolbox`;
   }
 }
 
