@@ -30,14 +30,14 @@ class AppliedForceSlider extends HSlider {
    */
   constructor( model, range, tandem, options ) {
 
-    const sliderKnob = new SliderKnob( tandem.createTandem( 'sliderKnob' ) );
+    const thumbNode = new SliderKnob( tandem.createTandem( 'thumbNode' ) );
 
     super( model.appliedForceProperty, range, merge( {
       trackSize: new Dimension2( 300, 6 ),
       majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
-      thumbNode: sliderKnob,
+      thumbNode: thumbNode,
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
@@ -93,7 +93,7 @@ class AppliedForceSlider extends HSlider {
     // when the slider is disabled, the thumb should be disabled as well
     // no need for dispose, slider exist for lifetime of sim
     this.enabledProperty.link( enabled => {
-      sliderKnob.enabledProperty.value = enabled;
+      thumbNode.enabledProperty.value = enabled;
     } );
 
     //Add ticks at regular intervals in 8 divisions

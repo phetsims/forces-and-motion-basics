@@ -105,7 +105,7 @@ class MotionControlPanel extends Node {
       // but this makes it work with VBox/HBox
       const frictionSlider = new HSlider( model.frictionProperty, new Range( 0, MotionConstants.MAX_FRICTION ), {
         trackSize: new Dimension2( 150, 6 ),
-        thumbNode: new SliderKnob( tandem.createTandem( 'sliderKnob' ) ),
+        thumbNode: new SliderKnob( tandem.createTandem( 'thumbNode' ) ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
         tandem: tandem.createTandem( 'frictionSlider' )
