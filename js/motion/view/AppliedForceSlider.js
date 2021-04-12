@@ -17,6 +17,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
+import Slider from '../../../../sun/js/Slider.js';
 import SliderKnob from '../../common/view/SliderKnob.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
@@ -30,7 +31,7 @@ class AppliedForceSlider extends HSlider {
    */
   constructor( model, range, tandem, options ) {
 
-    const thumbNode = new SliderKnob( tandem.createTandem( 'thumbNode' ) );
+    const thumbNode = new SliderKnob( tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME ) );
 
     super( model.appliedForceProperty, range, merge( {
       trackSize: new Dimension2( 300, 6 ),
