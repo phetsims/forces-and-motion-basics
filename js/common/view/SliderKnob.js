@@ -24,7 +24,7 @@ class SliderKnob extends Node {
 
     options = merge( {
       tandem: tandem,
-      enabledPropertyPhetioInstrumented: true
+      phetioEnabledPropertyInstrumented: true
     }, options );
 
     // different fill colors for when the slider is enabled or disabled
