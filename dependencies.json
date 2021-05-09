@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.17-rc.1 Fri Apr 23 2021 12:56:05 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.3.17-rc.1 Sat May 08 2021 21:41:23 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "50a4a28af687fd79f71f2abe0d37f3cce8a9516a",
+    "sha": "c12c5af3ba9151bed613a4a6a98074e40092a27e",
     "branch": "2.3"
   },
   "joist": {
@@ -41,8 +41,8 @@
     "branch": "HEAD"
   },
   "phetmarks": {
-    "sha": "d2ceb4af52ddea03fe473ea3d3aec078aca57a42",
-    "branch": "HEAD"
+    "sha": "748865c3dadc35197b9c215e2f8a87fb451f92ac",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
