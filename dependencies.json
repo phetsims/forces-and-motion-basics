@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.17-rc.1 Sat May 08 2021 21:41:23 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.3.17-rc.1 Mon May 10 2021 14:49:56 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "c12c5af3ba9151bed613a4a6a98074e40092a27e",
+    "sha": "3355caff24da6f4509c6676aa5f5a2f5de95691d",
     "branch": "2.3"
   },
   "joist": {
@@ -42,15 +42,15 @@
   },
   "phetmarks": {
     "sha": "748865c3dadc35197b9c215e2f8a87fb451f92ac",
-    "branch": "forces-and-motion-basics-2.3"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "cadfb0722d5fc1ca857fef0b567f55f44b9291de",
-    "branch": "HEAD"
+    "sha": "393caf6698899e0d23957ecf6408af23d9eb93b8",
+    "branch": "forces-and-motion-basics-2.3"
   },
   "scenery-phet": {
     "sha": "313462efc6d1c89916e847565180bc7a302d4056",
