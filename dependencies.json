@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "633cf3fa98bb1f3c87e491fdb6847bbdbd3bb689",
+    "sha": "c5aa24c00b7efccbfa884b4d73ab7cf03ce4b289",
     "branch": "2.1-phetio"
   },
   "joist": {
-    "sha": "2ea2008ae6e7c88e71452f890296fb31b10a8ce8",
+    "sha": "3326512fc24f0fd0748d1663dceaf3431b9076e3",
     "branch": "HEAD"
   },
   "kite": {
