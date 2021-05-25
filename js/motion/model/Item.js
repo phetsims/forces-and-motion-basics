@@ -41,7 +41,11 @@ class Item extends PhetioObject {
    */
   constructor( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
 
-    super( { tandem: tandem, phetioType: ReferenceIO( IOType.ObjectIO ) } );
+    super( {
+      tandem: tandem,
+      phetioType: ReferenceIO( IOType.ObjectIO ),
+      phetioState: false
+    } );
 
     this.name = name;
 
