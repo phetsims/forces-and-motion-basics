@@ -28,21 +28,17 @@ class FlagNode extends Node {
    * @param {Tandem} tandem
    */
   constructor( model, centerX, top, tandem ) {
-    super( {
-      tandem: tandem
-    } );
+    super();
     this.model = model;
 
     const textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
-      tandem: tandem.createTandem( 'textNode' ),
       font: new PhetFont( 24 ),
       fill: 'white'
     } );
     this.path = new Path( null, {
       fill: model.cart.xProperty.get() < 0 ? 'blue' : 'red',
       stroke: 'black',
-      lineWidth: 2,
-      tandem: tandem.createTandem( 'pathNode' )
+      lineWidth: 2
     } );
     this.addChild( this.path );
 
