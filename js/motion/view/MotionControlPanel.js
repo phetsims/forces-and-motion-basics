@@ -66,7 +66,9 @@ class MotionControlPanel extends Node {
       const labelText = new Text( text, {
         font: new PhetFont( fontSize ),
         maxWidth: maxTextWidth,
-        tandem: tandem.createTandem( tandemName ).createTandem( 'labelTextNode' ) // this is a bit of a hack to support backwards tandem api
+
+        // this is a bit of a hack to support backwards tandem API
+        tandem: tandem.createTandem( tandemName ).createTandem( 'labelTextNode' )
       } );
 
       // optional icon needs spacing next to text
