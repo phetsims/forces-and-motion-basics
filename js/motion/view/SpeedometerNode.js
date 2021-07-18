@@ -3,7 +3,7 @@
 /**
  * Speedometer used in Forces and Motion: Basics.  This is a typical gauge node with a value readout near the bottom.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Jesse Greenberg
  */
 

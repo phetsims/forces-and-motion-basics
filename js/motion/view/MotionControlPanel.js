@@ -3,7 +3,7 @@
 /**
  * Scenery node that shows the control panel for the Motion, Friction and Acceleration screens.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';

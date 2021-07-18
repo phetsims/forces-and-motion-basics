@@ -3,7 +3,7 @@
 /**
  * Model for the 8 knots that appear on the rope.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

@@ -3,7 +3,7 @@
 /**
  * Model for the Motion, Friction and Acceleration screens
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

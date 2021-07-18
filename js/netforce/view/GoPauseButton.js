@@ -4,7 +4,7 @@
  * A big round Go/Pause button that appears when the user has attached any nonzero number of pullers to the rope
  * which can be used to start/pause the animation.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

@@ -3,7 +3,7 @@
 /**
  * In the 'Acceleration' screen, this horizontal indicator shows the amount of acceleration (like a moving bubble).
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Shape from '../../../../kite/js/Shape.js';

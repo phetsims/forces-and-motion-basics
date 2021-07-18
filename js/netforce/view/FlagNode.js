@@ -3,7 +3,7 @@
 /**
  * Node that shows the waving flag when the net force game is complete.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Shape from '../../../../kite/js/Shape.js';

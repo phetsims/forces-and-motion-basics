@@ -3,7 +3,7 @@
 /**
  * Shows the graphic for the puller, which can be dragged from the toolbox to the rope to apply force.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';

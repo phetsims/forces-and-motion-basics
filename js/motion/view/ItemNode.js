@@ -3,7 +3,7 @@
 /**
  * Shows the draggable node for any of the items in the Motion, Friction and Acceleration screens.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';

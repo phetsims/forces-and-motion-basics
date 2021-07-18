@@ -3,7 +3,7 @@
 /**
  * Entry point for PhET Interactive Simulation's Forces and Motion: Basics application.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Screen from '../../joist/js/Screen.js';

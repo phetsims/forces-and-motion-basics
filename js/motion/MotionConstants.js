@@ -3,7 +3,7 @@
 /**
  * Constants just used for the motion screens
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';

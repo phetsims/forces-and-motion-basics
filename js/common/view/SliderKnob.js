@@ -3,7 +3,7 @@
 /**
  * A rounded slider knob that shows with grip 'dots' to indicate that it is grabbable.  Based on artwork by Noah Podolefsky.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import merge from '../../../../phet-core/js/merge.js';

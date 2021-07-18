@@ -5,7 +5,7 @@
  * one half of the slider will become disabled depending on the direction of velocity.  The slider is also disabled
  * when the pusher has fallen over and there is no friction in the model.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  * @author Jesse Greenberg
  */
 

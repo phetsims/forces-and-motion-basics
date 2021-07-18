@@ -3,7 +3,7 @@
 /**
  * Shows a button that allows the user to "return" the cart after a match has completed.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';

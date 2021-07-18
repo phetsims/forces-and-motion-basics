@@ -3,7 +3,7 @@
 /**
  * The model for an item that can be dragged out of the toolbox and put into the play area to be pushed.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

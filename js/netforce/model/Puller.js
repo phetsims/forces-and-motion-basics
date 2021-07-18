@@ -3,7 +3,7 @@
 /**
  * Model for the red/blue pullers which can be dragged to the rope, and exert a force on the rope.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

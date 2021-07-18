@@ -3,7 +3,7 @@
 /**
  * This scenery.Node shows the interactive water bucket.  The user can drag it from the toolbox to the play area, and the water sloshes based on the acceleration.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

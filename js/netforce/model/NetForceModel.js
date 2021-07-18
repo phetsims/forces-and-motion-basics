@@ -3,7 +3,7 @@
 /**
  * Model for the Net Force screen, in which Pullers can pull on a rope with different forces.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
