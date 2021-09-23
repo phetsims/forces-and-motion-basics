@@ -208,7 +208,7 @@ class MotionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'playPauseButton' )
     } );
     const stepForwardButton = new StepForwardButton( {
-      isPlayingProperty: model.playProperty,
+      enabledProperty: DerivedProperty.not( model.playProperty ),
       listener: () => { model.manualStep(); },
       radius: 18,
       tandem: tandem.createTandem( 'stepForwardButton' )
