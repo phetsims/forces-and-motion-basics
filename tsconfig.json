@@ -5,7 +5,7 @@
       "path": "../vibe"
     },
     {
-      "path": "../joist"
+      "path": "../joist/tsconfig-module.json"
     }
   ],
   "include": [
