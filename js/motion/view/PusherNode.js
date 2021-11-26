@@ -8,9 +8,9 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import pusherImage0 from '../../../images/pusher_0_png.js';
 import pusherImage10 from '../../../images/pusher_10_png.js';
 import pusherImage11 from '../../../images/pusher_11_png.js';

@@ -12,7 +12,7 @@
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';

@@ -10,10 +10,10 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 // modules
 import Utils from '../../../../dot/js/Utils.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Pattern from '../../../../scenery/js/util/Pattern.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { Pattern } from '../../../../scenery/js/imports.js';
 import brickTileImage from '../../../images/brick-tile_png.js';
 import cloudImage from '../../../images/cloud1_png.js';
 import icicleImage from '../../../images/icicle_png.js';

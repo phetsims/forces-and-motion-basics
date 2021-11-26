@@ -10,7 +10,7 @@ import Screen from '../../joist/js/Screen.js';
 import ScreenIcon from '../../joist/js/ScreenIcon.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
-import Image from '../../scenery/js/nodes/Image.js';
+import { Image } from '../../scenery/js/imports.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import accelerationIcon from '../images/Acceleration_Icon_png.js';
 import frictionIcon from '../images/Friction_Icon_png.js';
