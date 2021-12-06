@@ -45,9 +45,22 @@ git clone https://github.com/phetsims/twixt.git
 git clone https://github.com/phetsims/utterance-queue.git
 git clone https://github.com/phetsims/vibe.git
 ```
-(2) Start an http-server
 
-(3) Open `http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
+(2) Change directory to `chipper/`, and install dependencies by running `npm install`
+
+(3) Still in directory `chipper/`, transpile the code to JavaScript by running `node js/scripts/transpile.js` (or add `--watch` to enable a file watching process)
+
+(4) Start an http-server
+
+(5) Open in the browser: `http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
+
+#### Optional: Build the simulation into a single file
+
+(1) Change directory to the simulation directory: `cd forces-and-motion-basics`
+
+(2) Build the sim: `grunt --brands=adapted-from-phet`
+
+(3) Open in the browser: `http://localhost/forces-and-motion-basics/build/adapted-from-phet/forces-and-motion-basics_en_adapted-from-phet.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
 
 ### Get Involved
 
