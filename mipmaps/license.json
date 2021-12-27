@@ -1,5 +1,5 @@
 {
-  "girl-holding.png": {
+  "girlHolding.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from balancing act"
   },
-  "girl-sitting.png": {
+  "girlSitting.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -15,7 +15,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from balancing act"
   },
-  "girl-standing.png": {
+  "girlStanding.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -23,7 +23,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "balancing act"
   },
-  "man-holding.png": {
+  "manHolding.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -31,7 +31,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from balancing act"
   },
-  "man-sitting.png": {
+  "manSitting.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -39,7 +39,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from balancing act"
   },
-  "man-standing.png": {
+  "manStanding.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -47,7 +47,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from balancing act"
   },
-  "trash-can.png": {
+  "trashCan.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],

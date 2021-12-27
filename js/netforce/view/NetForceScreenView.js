@@ -17,21 +17,21 @@ import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
 import Sound from '../../../../vibe/js/Sound.js';
-import grassImage from '../../../images/grass_png.js';
-import pullFigureBlue0Image from '../../../images/pull_figure_BLUE_0_png.js';
-import pullFigureBlue3Image from '../../../images/pull_figure_BLUE_3_png.js';
-import pullFigureRed0Image from '../../../images/pull_figure_RED_0_png.js';
-import pullFigureRed3Image from '../../../images/pull_figure_RED_3_png.js';
-import pullFigureLargeBlue0Image from '../../../images/pull_figure_lrg_BLUE_0_png.js';
-import pullFigureLargeBlue3Image from '../../../images/pull_figure_lrg_BLUE_3_png.js';
-import pullFigureLargeRed0Image from '../../../images/pull_figure_lrg_RED_0_png.js';
-import pullFigureLargeRed3Image from '../../../images/pull_figure_lrg_RED_3_png.js';
-import pullFigureSmallBlue0Image from '../../../images/pull_figure_small_BLUE_0_png.js';
-import pullFigureSmallBlue3Image from '../../../images/pull_figure_small_BLUE_3_png.js';
-import pullFigureSmallRed0Image from '../../../images/pull_figure_small_RED_0_png.js';
-import pullFigureSmallRed3Image from '../../../images/pull_figure_small_RED_3_png.js';
-import ropeImage from '../../../images/rope_png.js';
-import golfClapSound from '../../../sounds/golf-clap_mp3.js';
+import grass_png from '../../../images/grass_png.js';
+import pull_figure_BLUE_0_png from '../../../images/pull_figure_BLUE_0_png.js';
+import pull_figure_BLUE_3_png from '../../../images/pull_figure_BLUE_3_png.js';
+import pull_figure_RED_0_png from '../../../images/pull_figure_RED_0_png.js';
+import pull_figure_RED_3_png from '../../../images/pull_figure_RED_3_png.js';
+import pull_figure_lrg_BLUE_0_png from '../../../images/pull_figure_lrg_BLUE_0_png.js';
+import pull_figure_lrg_BLUE_3_png from '../../../images/pull_figure_lrg_BLUE_3_png.js';
+import pull_figure_lrg_RED_0_png from '../../../images/pull_figure_lrg_RED_0_png.js';
+import pull_figure_lrg_RED_3_png from '../../../images/pull_figure_lrg_RED_3_png.js';
+import pull_figure_small_BLUE_0_png from '../../../images/pull_figure_small_BLUE_0_png.js';
+import pull_figure_small_BLUE_3_png from '../../../images/pull_figure_small_BLUE_3_png.js';
+import pull_figure_small_RED_0_png from '../../../images/pull_figure_small_RED_0_png.js';
+import pull_figure_small_RED_3_png from '../../../images/pull_figure_small_RED_3_png.js';
+import rope_png from '../../../images/rope_png.js';
+import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -87,19 +87,19 @@ class NetForceScreenView extends ScreenView {
     } ) );
 
     //Show the grass.
-    this.addChild( new Image( grassImage, {
+    this.addChild( new Image( grass_png, {
       tandem: tandem.createTandem( 'grassImage1' ),
       x: 13,
       y: grassY
     } ) );
-    this.addChild( new Image( grassImage, {
+    this.addChild( new Image( grass_png, {
       tandem: tandem.createTandem( 'grassImage2' ),
-      x: 13 - grassImage.width,
+      x: 13 - grass_png.width,
       y: grassY
     } ) );
-    this.addChild( new Image( grassImage, {
+    this.addChild( new Image( grass_png, {
       tandem: tandem.createTandem( 'grassImage3' ),
-      x: 13 + grassImage.width,
+      x: 13 + grass_png.width,
       y: grassY
     } ) );
 
@@ -139,7 +139,7 @@ class NetForceScreenView extends ScreenView {
     this.addChild( leftStopper );
 
     // create and add the rope node as an image
-    this.ropeNode = new Image( ropeImage, {
+    this.ropeNode = new Image( rope_png, {
       tandem: tandem.createTandem( 'ropeImageNode' ),
       x: 51,
       y: 273
@@ -195,18 +195,18 @@ class NetForceScreenView extends ScreenView {
       const size = puller.size;
 
       //todo: compress with more ternary?
-      return type === 'blue' && size === 'large' && !leaning ? pullFigureLargeBlue0Image :
-             type === 'blue' && size === 'large' && leaning ? pullFigureLargeBlue3Image :
-             type === 'blue' && size === 'medium' && !leaning ? pullFigureBlue0Image :
-             type === 'blue' && size === 'medium' && leaning ? pullFigureBlue3Image :
-             type === 'blue' && size === 'small' && !leaning ? pullFigureSmallBlue0Image :
-             type === 'blue' && size === 'small' && leaning ? pullFigureSmallBlue3Image :
-             type === 'red' && size === 'large' && !leaning ? pullFigureLargeRed0Image :
-             type === 'red' && size === 'large' && leaning ? pullFigureLargeRed3Image :
-             type === 'red' && size === 'medium' && !leaning ? pullFigureRed0Image :
-             type === 'red' && size === 'medium' && leaning ? pullFigureRed3Image :
-             type === 'red' && size === 'small' && !leaning ? pullFigureSmallRed0Image :
-             type === 'red' && size === 'small' && leaning ? pullFigureSmallRed3Image :
+      return type === 'blue' && size === 'large' && !leaning ? pull_figure_lrg_BLUE_0_png :
+             type === 'blue' && size === 'large' && leaning ? pull_figure_lrg_BLUE_3_png :
+             type === 'blue' && size === 'medium' && !leaning ? pull_figure_BLUE_0_png :
+             type === 'blue' && size === 'medium' && leaning ? pull_figure_BLUE_3_png :
+             type === 'blue' && size === 'small' && !leaning ? pull_figure_small_BLUE_0_png :
+             type === 'blue' && size === 'small' && leaning ? pull_figure_small_BLUE_3_png :
+             type === 'red' && size === 'large' && !leaning ? pull_figure_lrg_RED_0_png :
+             type === 'red' && size === 'large' && leaning ? pull_figure_lrg_RED_3_png :
+             type === 'red' && size === 'medium' && !leaning ? pull_figure_RED_0_png :
+             type === 'red' && size === 'medium' && leaning ? pull_figure_RED_3_png :
+             type === 'red' && size === 'small' && !leaning ? pull_figure_small_RED_0_png :
+             type === 'red' && size === 'small' && leaning ? pull_figure_small_RED_3_png :
              null;
     };
 
@@ -276,7 +276,7 @@ class NetForceScreenView extends ScreenView {
       }
     } );
 
-    const golfClap = new Sound( golfClapSound );
+    const golfClap = new Sound( golfClap_mp3 );
 
     //Play audio golf clap when game completed
     model.stateProperty.link( state => {

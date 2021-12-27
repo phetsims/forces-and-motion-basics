@@ -14,10 +14,10 @@ import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Pattern } from '../../../../scenery/js/imports.js';
-import brickTileImage from '../../../images/brick-tile_png.js';
-import cloudImage from '../../../images/cloud1_png.js';
-import icicleImage from '../../../images/icicle_png.js';
-import mountainImage from '../../../images/mountains_png.js';
+import brickTile_png from '../../../images/brickTile_png.js';
+import cloud1_png from '../../../images/cloud1_png.js';
+import icicle_png from '../../../images/icicle_png.js';
+import mountains_png from '../../../images/mountains_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 
@@ -66,12 +66,12 @@ class MovingBackgroundNode extends Node {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
-        toBackgroundImage( L / 2, mountainImage, mountainY, 1, 'mountainImage1' ),
-        toBackgroundImage( L, mountainImage, mountainY, 1, 'mountainImage2' ),
-        toBackgroundImage( -L / 3, mountainImage, mountainY, 1, 'mountainImage3' ),
-        toBackgroundImage( 0, cloudImage, 10, 0.7, 'cloudImage1' ),
-        toBackgroundImage( L - 100, cloudImage, -30, 0.8, 'cloudImage2' ),
-        toBackgroundImage( -L / 3 - 100, cloudImage, 5, 1, 'cloudImage3' )
+        toBackgroundImage( L / 2, mountains_png, mountainY, 1, 'mountainImage1' ),
+        toBackgroundImage( L, mountains_png, mountainY, 1, 'mountainImage2' ),
+        toBackgroundImage( -L / 3, mountains_png, mountainY, 1, 'mountainImage3' ),
+        toBackgroundImage( 0, cloud1_png, 10, 0.7, 'cloudImage1' ),
+        toBackgroundImage( L - 100, cloud1_png, -30, 0.8, 'cloudImage2' ),
+        toBackgroundImage( -L / 3 - 100, cloud1_png, 5, 1, 'cloudImage3' )
       ]
     } );
     this.addChild( mountainAndCloudLayer );
@@ -121,11 +121,11 @@ class MovingBackgroundNode extends Node {
 
     model.positionProperty.link( getLayerUpdater( mountainAndCloudLayer, 10 ) );
 
-    const tileWidth = brickTileImage.width;
+    const tileWidth = brickTile_png.width;
 
     //Add the ground, offset the pattern so that the it aligns with the brick image
-    const tilePattern = new Pattern( brickTileImage );
-    const ground = new Rectangle( 0, 0, brickTileImage.width * 14, brickTileImage.height, { fill: tilePattern } );
+    const tilePattern = new Pattern( brickTile_png );
+    const ground = new Rectangle( 0, 0, brickTile_png.width * 14, brickTile_png.height, { fill: tilePattern } );
     const mod = ground.width / 14;
     const centerX = layoutCenterX - ground.width / 2;
 
@@ -147,13 +147,13 @@ class MovingBackgroundNode extends Node {
         if ( !model.skateboard ) {
 
           //Add the gravel
-          const gravel = new Rectangle( 0, 0, brickTileImage.width * 14, 4, { y: -2 } );
+          const gravel = new Rectangle( 0, 0, brickTile_png.width * 14, 4, { y: -2 } );
 
           //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
           groundImageNode.addChild( gravel );
 
           //Add the ice
-          const iceOverlay = new Rectangle( -400, groundY, brickTileImage.width * 15, brickTileImage.height, { fill: 'rgba(189,227,249,0.87)' } );
+          const iceOverlay = new Rectangle( -400, groundY, brickTile_png.width * 15, brickTile_png.height, { fill: 'rgba(189,227,249,0.87)' } );
           this.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
@@ -163,8 +163,8 @@ class MovingBackgroundNode extends Node {
           const iceLayer = new Node( {
             tandem: tandem.createTandem( 'iceLayer' ),
             children: [
-              toBackgroundImage( 0, icicleImage, 0, 0.8, 'iceImageNode1' ),
-              toBackgroundImage( 300, icicleImage, 0, 0.8, 'iceImageNode2' )
+              toBackgroundImage( 0, icicle_png, 0, 0.8, 'iceImageNode1' ),
+              toBackgroundImage( 300, icicle_png, 0, 0.8, 'iceImageNode2' )
             ], x: layoutCenterX, y: groundY + ground.height
           } );
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );

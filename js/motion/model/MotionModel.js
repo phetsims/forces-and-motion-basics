@@ -17,17 +17,17 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import crateImage from '../../../images/crate_png.js';
-import fridgeImage from '../../../images/fridge_png.js';
-import mysteryObjectImage from '../../../images/mystery-object-01_png.js';
-import waterBucketImage from '../../../images/water-bucket_png.js';
-import girlHoldingImage from '../../../mipmaps/girl-holding_png.js';
-import girlSittingImage from '../../../mipmaps/girl-sitting_png.js';
-import girlStandingImage from '../../../mipmaps/girl-standing_png.js';
-import manHoldingImage from '../../../mipmaps/man-holding_png.js';
-import manSittingImage from '../../../mipmaps/man-sitting_png.js';
-import manStandingImage from '../../../mipmaps/man-standing_png.js';
-import trashCanImage from '../../../mipmaps/trash-can_png.js';
+import crate_png from '../../../images/crate_png.js';
+import fridge_png from '../../../images/fridge_png.js';
+import mysteryObject01_png from '../../../images/mysteryObject01_png.js';
+import waterBucket_png from '../../../images/waterBucket_png.js';
+import girlHolding_png from '../../../mipmaps/girlHolding_png.js';
+import girlSitting_png from '../../../mipmaps/girlSitting_png.js';
+import girlStanding_png from '../../../mipmaps/girlStanding_png.js';
+import manHolding_png from '../../../mipmaps/manHolding_png.js';
+import manSitting_png from '../../../mipmaps/manSitting_png.js';
+import manStanding_png from '../../../mipmaps/manStanding_png.js';
+import trashCan_png from '../../../mipmaps/trashCan_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 import Item from './Item.js';
@@ -222,18 +222,18 @@ class MotionModel {
     this.previousModelPosition = this.positionProperty.value;
 
     // create the items - Initial positions determined empirically
-    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucketImage, 100, 840, 547 + -45, 0.78, 1.0, 8 );
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, 840, 547 + -45, 0.78, 1.0, 8 );
     bucket.bucket = true;
-    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridgeImage, 200, 23, 437, 0.8, 1.1, 4 );
-    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crateImage, 50, 129, 507, 0.5 );
-    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crateImage, 50, 219, 507, 0.5 );
-    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStandingImage, 40, 689, 465, 0.6, 1.0, 4.2, girlSittingImage, girlHoldingImage[ 1 ].img );
-    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStandingImage, 80, 750, 428, 0.6, 0.92, 5, manSittingImage, manHoldingImage );
+    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_png, 200, 23, 437, 0.8, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_png, 50, 129, 507, 0.5 );
+    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_png, 50, 219, 507, 0.5 );
+    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStanding_png, 40, 689, 465, 0.6, 1.0, 4.2, girlSitting_png, girlHolding_png[ 1 ].img );
+    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStanding_png, 80, 750, 428, 0.6, 0.92, 5, manSitting_png, manHolding_png );
     this.items = this.accelerometer ?
       [ fridge, crate1, crate2, girl, man, bucket ] :
       [ fridge, crate1, crate2, girl, man,
-        new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCanImage, 100, 816, 496, 0.7, 1.0, 5 ),
-        new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObjectImage, 50, 888, 513, 0.3, 1.0, undefined, undefined, undefined, true )
+        new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_png, 100, 816, 496, 0.7, 1.0, 5 ),
+        new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, 888, 513, 0.3, 1.0, undefined, undefined, undefined, true )
       ];
 
     this.appliedForceProperty.link( appliedForce => {

@@ -1,5 +1,5 @@
 {
-  "Acceleration_Icon.png": {
+  "accelerationIcon.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "screenshot taken directly from sim"
   },
-  "brick-tile.png": {
+  "brickTile.png": {
     "text": [
       "Public Domain"
     ],
@@ -39,7 +39,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Noah Podolefsky"
   },
-  "Friction_Icon.png": {
+  "frictionIcon.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -71,7 +71,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Noah Podolefsky"
   },
-  "Motion_Icon.png": {
+  "motionIcon.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -87,7 +87,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from Energy Skate Park"
   },
-  "mystery-object-01.png": {
+  "mysteryObject01.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -471,7 +471,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Noah Podolefsky"
   },
-  "Tug_Icon.png": {
+  "tugIcon.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
@@ -479,7 +479,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "screenshot taken directly from sim"
   },
-  "water-bucket.png": {
+  "waterBucket.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],

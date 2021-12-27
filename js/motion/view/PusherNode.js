@@ -11,39 +11,39 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import pusherImage0 from '../../../images/pusher_0_png.js';
-import pusherImage10 from '../../../images/pusher_10_png.js';
-import pusherImage11 from '../../../images/pusher_11_png.js';
-import pusherImage12 from '../../../images/pusher_12_png.js';
-import pusherImage13 from '../../../images/pusher_13_png.js';
-import pusherImage14 from '../../../images/pusher_14_png.js';
-import pusherImage15 from '../../../images/pusher_15_png.js';
-import pusherImage16 from '../../../images/pusher_16_png.js';
-import pusherImage17 from '../../../images/pusher_17_png.js';
-import pusherImage18 from '../../../images/pusher_18_png.js';
-import pusherImage19 from '../../../images/pusher_19_png.js';
-import pusherImage1 from '../../../images/pusher_1_png.js';
-import pusherImage20 from '../../../images/pusher_20_png.js';
-import pusherImage21 from '../../../images/pusher_21_png.js';
-import pusherImage22 from '../../../images/pusher_22_png.js';
-import pusherImage23 from '../../../images/pusher_23_png.js';
-import pusherImage24 from '../../../images/pusher_24_png.js';
-import pusherImage25 from '../../../images/pusher_25_png.js';
-import pusherImage26 from '../../../images/pusher_26_png.js';
-import pusherImage27 from '../../../images/pusher_27_png.js';
-import pusherImage28 from '../../../images/pusher_28_png.js';
-import pusherImage29 from '../../../images/pusher_29_png.js';
-import pusherImage2 from '../../../images/pusher_2_png.js';
-import pusherImage30 from '../../../images/pusher_30_png.js';
-import pusherImage3 from '../../../images/pusher_3_png.js';
-import pusherImage4 from '../../../images/pusher_4_png.js';
-import pusherImage5 from '../../../images/pusher_5_png.js';
-import pusherImage6 from '../../../images/pusher_6_png.js';
-import pusherImage7 from '../../../images/pusher_7_png.js';
-import pusherImage8 from '../../../images/pusher_8_png.js';
-import pusherImage9 from '../../../images/pusher_9_png.js';
-import pusherFallDownImage from '../../../images/pusher_fall_down_png.js';
-import pusherStraightImage from '../../../images/pusher_straight_on_png.js';
+import pusher_0_png from '../../../images/pusher_0_png.js';
+import pusher_10_png from '../../../images/pusher_10_png.js';
+import pusher_11_png from '../../../images/pusher_11_png.js';
+import pusher_12_png from '../../../images/pusher_12_png.js';
+import pusher_13_png from '../../../images/pusher_13_png.js';
+import pusher_14_png from '../../../images/pusher_14_png.js';
+import pusher_15_png from '../../../images/pusher_15_png.js';
+import pusher_16_png from '../../../images/pusher_16_png.js';
+import pusher_17_png from '../../../images/pusher_17_png.js';
+import pusher_18_png from '../../../images/pusher_18_png.js';
+import pusher_19_png from '../../../images/pusher_19_png.js';
+import pusher_1_png from '../../../images/pusher_1_png.js';
+import pusher_20_png from '../../../images/pusher_20_png.js';
+import pusher_21_png from '../../../images/pusher_21_png.js';
+import pusher_22_png from '../../../images/pusher_22_png.js';
+import pusher_23_png from '../../../images/pusher_23_png.js';
+import pusher_24_png from '../../../images/pusher_24_png.js';
+import pusher_25_png from '../../../images/pusher_25_png.js';
+import pusher_26_png from '../../../images/pusher_26_png.js';
+import pusher_27_png from '../../../images/pusher_27_png.js';
+import pusher_28_png from '../../../images/pusher_28_png.js';
+import pusher_29_png from '../../../images/pusher_29_png.js';
+import pusher_2_png from '../../../images/pusher_2_png.js';
+import pusher_30_png from '../../../images/pusher_30_png.js';
+import pusher_3_png from '../../../images/pusher_3_png.js';
+import pusher_4_png from '../../../images/pusher_4_png.js';
+import pusher_5_png from '../../../images/pusher_5_png.js';
+import pusher_6_png from '../../../images/pusher_6_png.js';
+import pusher_7_png from '../../../images/pusher_7_png.js';
+import pusher_8_png from '../../../images/pusher_8_png.js';
+import pusher_9_png from '../../../images/pusher_9_png.js';
+import pusher_fall_down_png from '../../../images/pusher_fall_down_png.js';
+import pusher_straight_on_png from '../../../images/pusher_straight_on_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 
@@ -62,19 +62,19 @@ class PusherNode extends Node {
     const pushingRightNodes = [];
     const pushingLeftNodes = [];
     const children = [];
-    const standingUp = new Image( pusherStraightImage, {
+    const standingUp = new Image( pusher_straight_on_png, {
       visible: true,
       pickable: true,
       scale: scale,
       tandem: tandem.createTandem( 'standingUpImageNode' )
     } );
-    const fallLeft = new Image( pusherFallDownImage, {
+    const fallLeft = new Image( pusher_fall_down_png, {
       visible: false,
       pickable: false,
       scale: scale,
       tandem: tandem.createTandem( 'fallLeftImage' )
     } );
-    const fallRight = new Image( pusherFallDownImage, {
+    const fallRight = new Image( pusher_fall_down_png, {
       visible: false,
       pickable: false,
       scale: new Vector2( -scale, scale ),
@@ -86,37 +86,37 @@ class PusherNode extends Node {
     children.push( fallLeft );
     children.push( fallRight );
     for ( let i = 0; i <= 30; i++ ) {
-      const image = i === 0 ? pusherImage0 :
-                    i === 1 ? pusherImage1 :
-                    i === 2 ? pusherImage2 :
-                    i === 3 ? pusherImage3 :
-                    i === 4 ? pusherImage4 :
-                    i === 5 ? pusherImage5 :
-                    i === 6 ? pusherImage6 :
-                    i === 7 ? pusherImage7 :
-                    i === 8 ? pusherImage8 :
-                    i === 9 ? pusherImage9 :
-                    i === 10 ? pusherImage10 :
-                    i === 11 ? pusherImage11 :
-                    i === 12 ? pusherImage12 :
-                    i === 13 ? pusherImage13 :
-                    i === 14 ? pusherImage14 :
-                    i === 15 ? pusherImage15 :
-                    i === 16 ? pusherImage16 :
-                    i === 17 ? pusherImage17 :
-                    i === 18 ? pusherImage18 :
-                    i === 19 ? pusherImage19 :
-                    i === 20 ? pusherImage20 :
-                    i === 21 ? pusherImage21 :
-                    i === 22 ? pusherImage22 :
-                    i === 23 ? pusherImage23 :
-                    i === 24 ? pusherImage24 :
-                    i === 25 ? pusherImage25 :
-                    i === 26 ? pusherImage26 :
-                    i === 27 ? pusherImage27 :
-                    i === 28 ? pusherImage28 :
-                    i === 29 ? pusherImage29 :
-                    i === 30 ? pusherImage30 :
+      const image = i === 0 ? pusher_0_png :
+                    i === 1 ? pusher_1_png :
+                    i === 2 ? pusher_2_png :
+                    i === 3 ? pusher_3_png :
+                    i === 4 ? pusher_4_png :
+                    i === 5 ? pusher_5_png :
+                    i === 6 ? pusher_6_png :
+                    i === 7 ? pusher_7_png :
+                    i === 8 ? pusher_8_png :
+                    i === 9 ? pusher_9_png :
+                    i === 10 ? pusher_10_png :
+                    i === 11 ? pusher_11_png :
+                    i === 12 ? pusher_12_png :
+                    i === 13 ? pusher_13_png :
+                    i === 14 ? pusher_14_png :
+                    i === 15 ? pusher_15_png :
+                    i === 16 ? pusher_16_png :
+                    i === 17 ? pusher_17_png :
+                    i === 18 ? pusher_18_png :
+                    i === 19 ? pusher_19_png :
+                    i === 20 ? pusher_20_png :
+                    i === 21 ? pusher_21_png :
+                    i === 22 ? pusher_22_png :
+                    i === 23 ? pusher_23_png :
+                    i === 24 ? pusher_24_png :
+                    i === 25 ? pusher_25_png :
+                    i === 26 ? pusher_26_png :
+                    i === 27 ? pusher_27_png :
+                    i === 28 ? pusher_28_png :
+                    i === 29 ? pusher_29_png :
+                    i === 30 ? pusher_30_png :
                     null;
       const rightImageNode = new Image( image, {
         visible: false,

@@ -120,7 +120,7 @@ class Item extends PhetioObject {
 
   //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
   get centeringOffset() {
-    return this.image === 'trash-can.png' ? 5 : 0;
+    return this.image === 'trashCan.png' ? 5 : 0;
   }
 
   // @public - Return true if the arms should be up (for a human)

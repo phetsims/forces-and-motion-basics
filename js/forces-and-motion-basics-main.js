@@ -12,10 +12,10 @@ import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import { Image } from '../../scenery/js/imports.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import accelerationIcon from '../images/Acceleration_Icon_png.js';
-import frictionIcon from '../images/Friction_Icon_png.js';
-import motionIcon from '../images/Motion_Icon_png.js';
-import tugIcon from '../images/Tug_Icon_png.js';
+import accelerationIcon_png from '../images/accelerationIcon_png.js';
+import frictionIcon_png from '../images/frictionIcon_png.js';
+import motionIcon_png from '../images/motionIcon_png.js';
+import tugIcon_png from '../images/tugIcon_png.js';
 import forcesAndMotionBasicsStrings from './forcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
@@ -55,7 +55,7 @@ simLauncher.launch( () => {
 
   //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
   //And lookups will still work properly even if the screens are reduced with ?screens=...
-  const netForceImageNode = new Image( tugIcon, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
+  const netForceImageNode = new Image( tugIcon_png, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
   const netForceScreen = new Screen(
     () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
@@ -67,21 +67,21 @@ simLauncher.launch( () => {
 
   const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
     name: motionString,
-    homeScreenIcon: new ScreenIcon( new Image( motionIcon, {
+    homeScreenIcon: new ScreenIcon( new Image( motionIcon_png, {
       tandem: motionScreenTandem.createTandem( 'icon' )
     } ), screenIconOptions )
   } );
 
   const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
     name: frictionString,
-    homeScreenIcon: new ScreenIcon( new Image( frictionIcon, {
+    homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png, {
       tandem: frictionScreenTandem.createTandem( 'icon' )
     } ), screenIconOptions )
   } );
 
   const accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
     name: accelerationString,
-    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon, {
+    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png, {
       tandem: accelerationScreenTandem.createTandem( 'icon' )
     } ), screenIconOptions )
   } );

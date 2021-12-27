@@ -24,7 +24,7 @@ import { Rectangle } from '../../../../scenery/js/imports.js';
 import { RichText } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
-import skateboardImage from '../../../images/skateboard_png.js';
+import skateboard_png from '../../../images/skateboard_png.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
@@ -95,7 +95,7 @@ class MotionScreenView extends ScreenView {
 
     // Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( skateboardImage, {
+      this.addChild( new Image( skateboard_png, {
         centerX: width / 2, y: 315 + 12,
         pickable: false,
         tandem: tandem.createTandem( 'skateboardImageNode' )
