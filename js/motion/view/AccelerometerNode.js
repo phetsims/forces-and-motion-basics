@@ -1,4 +1,4 @@
-// Copyright 2013-2021, University of Colorado Boulder
+// Copyright 2013-2022, University of Colorado Boulder
 
 /**
  * In the 'Acceleration' screen, this horizontal indicator shows the amount of acceleration (like a moving bubble).
