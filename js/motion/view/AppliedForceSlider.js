@@ -33,12 +33,15 @@ class AppliedForceSlider extends HSlider {
 
     const thumbNode = new SliderKnob( tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME ) );
 
+    const enabledRangeProperty = new Property( range );
+
     super( model.appliedForceProperty, range, merge( {
       trackSize: new Dimension2( 300, 6 ),
       majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
       thumbNode: thumbNode,
+      enabledRangeProperty: enabledRangeProperty,
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
@@ -73,20 +76,20 @@ class AppliedForceSlider extends HSlider {
             cancelDrag();
           }
           else {
-            this.enabledRange = new Range( range.min, range.max );
+            enabledRangeProperty.value = new Range( range.min, range.max );
           }
         }
         else {
 
           // otherwise, we will want to disable a portion of the slider depending on the direciton of the stacks
           if ( speedClassification === 'RIGHT_SPEED_EXCEEDED' ) {
-            this.enabledRange = new Range( range.min, 0 );
+            enabledRangeProperty.value = new Range( range.min, 0 );
           }
           else if ( speedClassification === 'LEFT_SPEED_EXCEEDED' ) {
-            this.enabledRange = new Range( 0, range.max );
+            enabledRangeProperty.value = new Range( 0, range.max );
           }
           else {
-            this.enabledRange = new Range( range.min, range.max );
+            enabledRangeProperty.value = new Range( range.min, range.max );
           }
         }
       } );
