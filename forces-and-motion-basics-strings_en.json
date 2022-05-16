@@ -36,7 +36,7 @@
     "value": "{0} kg"
   },
   "pattern.0valueUnitsNewtons": {
-    "value": "{0} Newtons"
+    "value": "{0} newtons"
   },
   "acceleration": {
     "value": "Acceleration"
