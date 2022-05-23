@@ -9,7 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
@@ -119,7 +119,7 @@ class GoPauseButton extends BooleanToggleNode {
     super( goButton, pauseButton, showGoButtonProperty, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
-    Property.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
+    Multilink.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
       const enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;

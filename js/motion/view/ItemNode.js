@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -226,7 +226,7 @@ class ItemNode extends Node {
     item.positionProperty.link( position => { this.setTranslation( position ); } );
 
     // When the object is scaled or change direction, update the image part
-    Property.multilink( [ item.interactionScaleProperty, item.directionProperty ], ( interactionScale, direction ) => {
+    Multilink.multilink( [ item.interactionScaleProperty, item.directionProperty ], ( interactionScale, direction ) => {
       const scale = item.imageScaleProperty.get() * interactionScale;
       this.setScaleMagnitude( scale );
 

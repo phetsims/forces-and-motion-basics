@@ -10,6 +10,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -66,7 +67,7 @@ class AppliedForceSlider extends HSlider {
       this.enabled = true;
     };
 
-    Property.multilink(
+    Multilink.multilink(
       [ model.speedClassificationProperty, model.frictionProperty ],
       ( speedClassification, friction ) => {
         if ( friction > 0 ) {

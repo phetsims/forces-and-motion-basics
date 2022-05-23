@@ -6,7 +6,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -146,7 +146,7 @@ class MotionScreenView extends ScreenView {
     const spinnerRange = new Range( -500, 500 );
 
     // Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    Property.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], ( appliedForce, speedClassification, stackSize ) => {
+    Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], ( appliedForce, speedClassification, stackSize ) => {
 
       const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
       spinnerRange.max = enableRightButtons ? 500 : 0;
@@ -288,7 +288,7 @@ class MotionScreenView extends ScreenView {
 
       // whenever showValues and accleration changes, update the label text
       const initialLabelWidth = labelText.width;
-      Property.multilink( [ model.showValuesProperty, model.accelerationProperty ], ( showValues, acceleration ) => {
+      Multilink.multilink( [ model.showValuesProperty, model.accelerationProperty ], ( showValues, acceleration ) => {
         if ( showValues ) {
           const accelerationValue = Utils.toFixed( acceleration, 2 );
           labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
@@ -415,7 +415,7 @@ class MotionScreenView extends ScreenView {
     } );
 
     //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-    Property.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], ( appliedForce, frictionForce ) => {
+    Multilink.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], ( appliedForce, frictionForce ) => {
       const sameDirection = ( appliedForce < 0 && frictionForce < 0 ) || ( appliedForce > 0 && frictionForce > 0 );
       this.frictionArrow.overlapsOther = sameDirection;
       this.frictionArrow.labelPosition = sameDirection ? 'bottom' : 'side';

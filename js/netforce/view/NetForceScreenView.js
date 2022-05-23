@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -267,7 +267,7 @@ class NetForceScreenView extends ScreenView {
     let lastFlagNode = null;
 
     // Show the flag node when pulling is complete
-    Property.multilink( [ model.stateProperty, model.cart.xProperty ], ( state, x ) => {
+    Multilink.multilink( [ model.stateProperty, model.cart.xProperty ], ( state, x ) => {
       lastFlagNode && lastFlagNode.dispose();
       lastFlagNode = null;
       if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {
@@ -294,7 +294,7 @@ class NetForceScreenView extends ScreenView {
       tandem: tandem.createTandem( 'sumOfForcesTextNode' )
     } );
 
-    Property.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], ( netForce, showSumOfForces ) => { this.sumOfForcesText.visible = !netForce && showSumOfForces; } );
+    Multilink.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], ( netForce, showSumOfForces ) => { this.sumOfForcesText.visible = !netForce && showSumOfForces; } );
     this.addChild( this.sumOfForcesText );
 
     cursorPathNode.visible = false;
