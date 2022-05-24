@@ -35,10 +35,12 @@
     "visible": false
   },
   "left": {
-    "value": "left"
+    "value": "left",
+    "visible": false
   },
   "right": {
-    "value": "left"
+    "value": "left",
+    "visible": false
   },
   "appliedForce": {
     "value": "Applied Force"
