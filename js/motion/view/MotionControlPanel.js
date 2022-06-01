@@ -13,12 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { HStrut } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
-import { VStrut } from '../../../../scenery/js/imports.js';
+import { HBox, HStrut, Node, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Slider from '../../../../sun/js/Slider.js';
@@ -129,7 +124,7 @@ class MotionControlPanel extends Node {
         tandem: tandem.createTandem( 'frictionTextNode' )
       } );
 
-      return new VBox( { spacing: -2, children: [ frictionTextNode, frictionSlider ], resize: false } );
+      return new VBox( { children: [ frictionTextNode, frictionSlider ], resize: false } );
     };
 
     // Create controls for the 'motion' screen
