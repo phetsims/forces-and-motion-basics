@@ -116,7 +116,7 @@ class GoPauseButton extends BooleanToggleNode {
 
     const showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], running => !running );
 
-    super( goButton, pauseButton, showGoButtonProperty, options );
+    super( showGoButtonProperty, goButton, pauseButton, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     Multilink.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
