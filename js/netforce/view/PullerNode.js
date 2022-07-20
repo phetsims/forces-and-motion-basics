@@ -7,8 +7,7 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { SimpleDragHandler } from '../../../../scenery/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
+import { Image, SimpleDragHandler } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 class PullerNode extends Image {

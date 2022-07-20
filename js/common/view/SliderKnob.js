@@ -7,10 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import { Circle, LinearGradient, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 class SliderKnob extends Node {
