@@ -53,7 +53,7 @@ class Puller {
     // @public {Knot|null} - the knot that this puller is attached to
     this.knotProperty = new Property( null, {
       tandem: tandem.createTandem( 'knotProperty' ),
-      phetioType: Property.PropertyIO( NullableIO( Knot.KnotIO ) )
+      phetioValueType: NullableIO( Knot.KnotIO )
     } );
 
     // @public {Vector2} - the position of this puller

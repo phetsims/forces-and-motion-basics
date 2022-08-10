@@ -89,7 +89,7 @@ class Item extends PhetioObject {
       destination: 'home'
     }, {
       tandem: tandem.createTandem( 'animationStateProperty' ),
-      phetioType: Property.PropertyIO( ObjectLiteralIO )
+      phetioValueType: ObjectLiteralIO
     } );
 
     // Flag for whether the item is on the skateboard
