@@ -67,7 +67,8 @@ class NetForceModel extends PhetioObject {
     this.timeProperty = new Property( 0, {
       // TODO: Removed this property for phet-io spam
       // tandem: tandem.createTandem( 'timeProperty' )
-      // phetioType: Property.PropertyIO(NumberIO)( 'seconds' )
+      // phetioValueType: NumberIO,
+      // units: 'seconds'
     } );
 
     this.netForceProperty = new NumberProperty( 0, {
