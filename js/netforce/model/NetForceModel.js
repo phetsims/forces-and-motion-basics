@@ -1,4 +1,4 @@
-// Copyright 2013-2021, University of Colorado Boulder
+// Copyright 2013-2022, University of Colorado Boulder
 
 /**
  * Model for the Net Force screen, in which Pullers can pull on a rope with different forces.
