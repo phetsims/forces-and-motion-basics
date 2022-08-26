@@ -8,6 +8,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
@@ -24,7 +25,7 @@ const ForcesAndMotionBasicsIconFactory = {
     // the 'speed' option requires the text and a speedometer icon
     const speedometerIconValueProperty = new Property( 0 );
     return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
-      { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
+      { radius: 67, scale: 0.2, tandem: Tandem.OPT_OUT } );
   }
 };
 

@@ -41,7 +41,7 @@ class NetForceControlPanel extends Node {
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
 
     // the content for "show speed" is a label with an icon
-    const speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIcon' ) );
+    const speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
     const showSpeedTextNode = new Text( speedString, merge( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
     const showSpeedContent = new HBox( {
       children: [ showSpeedTextNode, speedometerIcon ],

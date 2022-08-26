@@ -88,7 +88,7 @@ class MotionControlPanel extends Node {
     const speedometerIcon = () => {
       const speedometerIconValueProperty = new Property( 0 );
       return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
-        { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIcon' ) } );
+        { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIconNode' ) } );
     };
     const accelerometerIcon = () => {
       const accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
