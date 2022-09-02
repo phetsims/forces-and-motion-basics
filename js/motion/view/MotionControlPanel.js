@@ -160,7 +160,9 @@ class MotionControlPanel extends Node {
       ];
 
       // create the checkboxes
-      const checkboxes = new VerticalCheckboxGroup( items );
+      const checkboxes = new VerticalCheckboxGroup( items, {
+        tandem: tandem.createTandem( 'checkboxGroup' )
+      } );
       containerNode.addChild( checkboxes );
 
 
@@ -220,7 +222,9 @@ class MotionControlPanel extends Node {
       ];
 
       // create the checkboxes
-      const checkboxes = new VerticalCheckboxGroup( items );
+      const checkboxes = new VerticalCheckboxGroup( items, {
+        tandem: tandem.createTandem( 'checkboxGroup' )
+      } );
       containerNode.addChild( checkboxes );
 
       // create a spacer for the checkboxes and the slider
@@ -280,7 +284,9 @@ class MotionControlPanel extends Node {
         }
       ];
 
-      const checkboxes = new VerticalCheckboxGroup( items );
+      const checkboxes = new VerticalCheckboxGroup( items, {
+        tandem: tandem.createTandem( 'checkboxGroup' )
+      } );
       containerNode.addChild( checkboxes );
 
       // create the spacing strut
