@@ -22,7 +22,7 @@ import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
 const accelerationString = forcesAndMotionBasicsStrings.acceleration;
-const forcesAndMotionBasicsTitleString = forcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].title;
+const forcesAndMotionBasicsTitleStringProperty = forcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
 const frictionString = forcesAndMotionBasicsStrings.friction;
 const motionString = forcesAndMotionBasicsStrings.motion;
 const netForceString = forcesAndMotionBasicsStrings.netForce;
@@ -87,7 +87,7 @@ simLauncher.launch( () => {
   } );
 
   //Create and start the sim
-  const sim = new Sim( forcesAndMotionBasicsTitleString, [
+  const sim = new Sim( forcesAndMotionBasicsTitleStringProperty, [
       netForceScreen,
       motionScreen,
       frictionScreen,
