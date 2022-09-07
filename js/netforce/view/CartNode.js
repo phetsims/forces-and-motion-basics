@@ -11,9 +11,9 @@ import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import cart_png from '../../../images/cart_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const speedString = forcesAndMotionBasicsStrings.speed;
+const speedString = ForcesAndMotionBasicsStrings.speed;
 
 class CartNode extends Image {
   /**

@@ -73,8 +73,8 @@ type StringsType = {
   'massesStringProperty': TReadOnlyProperty<string>;
 };
 
-const forcesAndMotionBasicsStrings = getStringModule( 'FORCES_AND_MOTION_BASICS' ) as StringsType;
+const ForcesAndMotionBasicsStrings = getStringModule( 'FORCES_AND_MOTION_BASICS' ) as StringsType;
 
-forcesAndMotionBasics.register( 'forcesAndMotionBasicsStrings', forcesAndMotionBasicsStrings );
+forcesAndMotionBasics.register( 'ForcesAndMotionBasicsStrings', ForcesAndMotionBasicsStrings );
 
-export default forcesAndMotionBasicsStrings;
+export default ForcesAndMotionBasicsStrings;

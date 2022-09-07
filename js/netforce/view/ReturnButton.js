@@ -9,9 +9,9 @@
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const returnString = forcesAndMotionBasicsStrings.return;
+const returnString = ForcesAndMotionBasicsStrings.return;
 
 class ReturnButton extends TextPushButton {
 

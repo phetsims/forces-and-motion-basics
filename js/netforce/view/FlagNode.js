@@ -10,10 +10,10 @@ import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const blueWinsString = forcesAndMotionBasicsStrings.blueWins;
-const redWinsString = forcesAndMotionBasicsStrings.redWins;
+const blueWinsString = ForcesAndMotionBasicsStrings.blueWins;
+const redWinsString = ForcesAndMotionBasicsStrings.redWins;
 
 class FlagNode extends Node {
 

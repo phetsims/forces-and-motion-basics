@@ -23,7 +23,7 @@ import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBa
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import AccelerometerNode from './AccelerometerNode.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
 import ItemNode from './ItemNode.js';
@@ -33,18 +33,18 @@ import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
 
-const sumOfForcesString = forcesAndMotionBasicsStrings.sumOfForces;
+const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
 
 // constants
 const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
 
 // strings
-const accelerationString = forcesAndMotionBasicsStrings.acceleration;
-const appliedForceString = forcesAndMotionBasicsStrings.appliedForce;
-const frictionForceString = forcesAndMotionBasicsStrings.frictionForce;
-const pattern0Name1ValueUnitsAccelerationString = forcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAcceleration' ];
-const pattern0ValueUnitsNewtonsString = forcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtons' ];
-const sumOfForcesEqualsZeroString = forcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
+const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
+const appliedForceString = ForcesAndMotionBasicsStrings.appliedForce;
+const frictionForceString = ForcesAndMotionBasicsStrings.frictionForce;
+const pattern0Name1ValueUnitsAccelerationString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAcceleration' ];
+const pattern0ValueUnitsNewtonsString = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtons' ];
+const sumOfForcesEqualsZeroString = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
 
 class MotionScreenView extends ScreenView {
 

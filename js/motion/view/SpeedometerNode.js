@@ -14,11 +14,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
 
-const pattern0Name1ValueUnitsVelocityString = forcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocity' ];
-const speedString = forcesAndMotionBasicsStrings.speed;
+const pattern0Name1ValueUnitsVelocityString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocity' ];
+const speedString = ForcesAndMotionBasicsStrings.speed;
 
 class SpeedometerNode extends Node {
   /**

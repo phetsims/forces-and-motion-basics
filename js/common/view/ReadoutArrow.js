@@ -14,9 +14,9 @@ import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const pattern0ValueUnitsNString = forcesAndMotionBasicsStrings.pattern[ '0valueUnitsN' ];
+const pattern0ValueUnitsNString = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsN' ];
 
 // constants
 const ARROW_HEAD_WIDTH = 50;

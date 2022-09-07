@@ -20,20 +20,20 @@ import Slider from '../../../../sun/js/Slider.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import SliderKnob from '../../common/view/SliderKnob.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
 
-const accelerationString = forcesAndMotionBasicsStrings.acceleration;
-const forcesString = forcesAndMotionBasicsStrings.forces;
-const forceString = forcesAndMotionBasicsStrings.force;
-const frictionString = forcesAndMotionBasicsStrings.friction;
-const lotsString = forcesAndMotionBasicsStrings.lots;
-const massesString = forcesAndMotionBasicsStrings.masses;
-const noneString = forcesAndMotionBasicsStrings.none;
-const speedString = forcesAndMotionBasicsStrings.speed;
-const sumOfForcesString = forcesAndMotionBasicsStrings.sumOfForces;
-const valuesString = forcesAndMotionBasicsStrings.values;
+const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
+const forcesString = ForcesAndMotionBasicsStrings.forces;
+const forceString = ForcesAndMotionBasicsStrings.force;
+const frictionString = ForcesAndMotionBasicsStrings.friction;
+const lotsString = ForcesAndMotionBasicsStrings.lots;
+const massesString = ForcesAndMotionBasicsStrings.masses;
+const noneString = ForcesAndMotionBasicsStrings.none;
+const speedString = ForcesAndMotionBasicsStrings.speed;
+const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
+const valuesString = ForcesAndMotionBasicsStrings.values;
 
 class MotionControlPanel extends Node {
   /**

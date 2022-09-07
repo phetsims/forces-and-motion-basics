@@ -18,10 +18,10 @@ import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const goString = forcesAndMotionBasicsStrings.go;
-const pauseString = forcesAndMotionBasicsStrings.pause;
+const goString = ForcesAndMotionBasicsStrings.go;
+const pauseString = ForcesAndMotionBasicsStrings.pause;
 
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.

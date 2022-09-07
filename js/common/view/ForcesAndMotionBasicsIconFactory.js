@@ -11,10 +11,10 @@ import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../../motion/MotionConstants.js';
 
-const speedString = forcesAndMotionBasicsStrings.speed;
+const speedString = ForcesAndMotionBasicsStrings.speed;
 
 /**
  * Static object, not meant to be instantiated.

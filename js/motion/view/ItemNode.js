@@ -13,9 +13,9 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Image, Node, Rectangle, SimpleDragHandler, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const pattern0MassUnitsKilogramsString = forcesAndMotionBasicsStrings.pattern[ '0massUnitsKilograms' ];
+const pattern0MassUnitsKilogramsString = ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilograms' ];
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );

@@ -15,16 +15,16 @@ import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionBasicsIconFactory.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const sumOfForcesString = forcesAndMotionBasicsStrings.sumOfForces;
-const valuesString = forcesAndMotionBasicsStrings.values;
+const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
+const valuesString = ForcesAndMotionBasicsStrings.values;
 
 // constants
 const BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
 
 // strings
-const speedString = forcesAndMotionBasicsStrings.speed;
+const speedString = ForcesAndMotionBasicsStrings.speed;
 
 class NetForceControlPanel extends Node {
   /**

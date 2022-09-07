@@ -16,16 +16,16 @@ import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
 import motionIcon_png from '../images/motionIcon_png.js';
 import tugIcon_png from '../images/tugIcon_png.js';
-import forcesAndMotionBasicsStrings from './forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
-const accelerationString = forcesAndMotionBasicsStrings.acceleration;
-const forcesAndMotionBasicsTitleStringProperty = forcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
-const frictionString = forcesAndMotionBasicsStrings.friction;
-const motionString = forcesAndMotionBasicsStrings.motion;
-const netForceString = forcesAndMotionBasicsStrings.netForce;
+const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
+const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
+const frictionString = ForcesAndMotionBasicsStrings.friction;
+const motionString = ForcesAndMotionBasicsStrings.motion;
+const netForceString = ForcesAndMotionBasicsStrings.netForce;
 
 // constants
 const tandem = Tandem.ROOT;

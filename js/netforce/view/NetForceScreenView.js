@@ -30,7 +30,7 @@ import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import forcesAndMotionBasicsStrings from '../../forcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
 import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
@@ -41,10 +41,10 @@ import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 
-const leftForceString = forcesAndMotionBasicsStrings.leftForce;
-const rightForceString = forcesAndMotionBasicsStrings.rightForce;
-const sumOfForcesEqualsZeroString = forcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
-const sumOfForcesString = forcesAndMotionBasicsStrings.sumOfForces;
+const leftForceString = ForcesAndMotionBasicsStrings.leftForce;
+const rightForceString = ForcesAndMotionBasicsStrings.rightForce;
+const sumOfForcesEqualsZeroString = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
+const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
 
 // constants
 const STOPPER_TOP_WIDTH = 11;
