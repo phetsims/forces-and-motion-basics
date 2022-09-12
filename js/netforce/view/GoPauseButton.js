@@ -72,13 +72,13 @@ class GoPauseButton extends BooleanToggleNode {
     }, options );
     const padX = 15;
     const padY = 10;
-    const goTextNode = new Text( goString, {
+    const goText = new Text( goString, {
       font: new PhetFont( 42 ),
-      tandem: tandem.createTandem( 'goTextNode' )
+      tandem: tandem.createTandem( 'goText' )
     } );
-    const pauseTextNode = new Text( pauseString, {
+    const pauseText = new Text( pauseString, {
       font: new PhetFont( 30 ),
-      tandem: tandem.createTandem( 'pauseTextNode' )
+      tandem: tandem.createTandem( 'pauseText' )
     } );
 
     // boolean function to determine if the go button should be enabled based on model state.
@@ -97,7 +97,7 @@ class GoPauseButton extends BooleanToggleNode {
       model.runningProperty.set( true );
     };
     const goButton = new RoundPushButton( {
-      content: wrap( goTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
+      content: wrap( goText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#94b830',
       listener: goListener,
       tandem: tandem.createTandem( 'goButton' )
@@ -107,7 +107,7 @@ class GoPauseButton extends BooleanToggleNode {
       model.runningProperty.set( false );
     };
     const pauseButton = new RoundPushButton( {
-      content: wrap( pauseTextNode, padX, padY, [ goTextNode, pauseTextNode ] ),
+      content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
       baseColor: '#df1a22',
       listener: pauseListener,
       tandem: tandem.createTandem( 'pauseButton' )

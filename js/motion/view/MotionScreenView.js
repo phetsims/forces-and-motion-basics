@@ -118,12 +118,12 @@ class MotionScreenView extends ScreenView {
     const disableText = node => length => {node.fill = length === 0 ? 'gray' : 'black';};
 
     const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    const appliedForceSliderTextNode = new Text( appliedForceString, {
+    const appliedForceSliderText = new Text( appliedForceString, {
       font: new PhetFont( 22 ),
       centerX: width / 2,
       y: 430,
       maxWidth: maxTextWidth,
-      tandem: tandem.createTandem( 'appliedForceSliderTextNode' )
+      tandem: tandem.createTandem( 'appliedForceSliderText' )
     } );
     const appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
       tandem.createTandem( 'appliedForceSlider' ), {
@@ -131,7 +131,7 @@ class MotionScreenView extends ScreenView {
         y: 555
       } );
 
-    this.addChild( appliedForceSliderTextNode );
+    this.addChild( appliedForceSliderText );
     this.addChild( appliedForceSlider );
 
     // The range for the spinner will change depending on whether the stack has exceeded maximum speed. This will
@@ -179,7 +179,7 @@ class MotionScreenView extends ScreenView {
       appliedForceSpinner.enabled = size > 0;
     } );
 
-    model.stack.lengthProperty.link( disableText( appliedForceSliderTextNode ) );
+    model.stack.lengthProperty.link( disableText( appliedForceSliderText ) );
     model.stack.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
@@ -255,7 +255,7 @@ class MotionScreenView extends ScreenView {
         font: new PhetFont( 16 ),
         centerX: tick.centerX,
         top: tick.bottom + 27,
-        tandem: tandem.createTandem( `tickLabelTextNode${tandemID}` )
+        tandem: tandem.createTandem( `tickLabel${tandemID}Text` )
       } );
       const tickLabels = new Node( {
         tandem: tandem.createTandem( 'tickLabels' ),
@@ -369,7 +369,7 @@ class MotionScreenView extends ScreenView {
       centerX: width / 2,
       y: 195,
       maxWidth: 125,
-      tandem: tandem.createTandem( 'sumOfForcesTextNode' )
+      tandem: tandem.createTandem( 'sumOfForcesText' )
     } );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76

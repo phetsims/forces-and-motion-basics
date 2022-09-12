@@ -56,8 +56,8 @@ class ReadoutArrow extends Node {
       tandem: tandem.createTandem( 'arrowNode' )
     }, options ) );
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
-    this.valueNode = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueTextNode' ) }, fontOptions ) );
-    this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelTextNode' ) }, fontOptions ) );
+    this.valueNode = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueText' ) }, fontOptions ) );
+    this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelText' ) }, fontOptions ) );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );

@@ -41,21 +41,21 @@ class NetForceControlPanel extends Node {
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
 
     // the content for "show speed" is a label with an icon
-    const speedometerIcon = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
-    const showSpeedTextNode = new Text( speedString, merge( { tandem: tandem.createTandem( 'showSpeedTextNode' ) }, fontOptions ) );
+    const speedometerIconNode = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
+    const showSpeedTextNode = new Text( speedString, merge( { tandem: tandem.createTandem( 'showSpeedText' ) }, fontOptions ) );
     const showSpeedContent = new HBox( {
-      children: [ showSpeedTextNode, speedometerIcon ],
+      children: [ showSpeedTextNode, speedometerIconNode ],
       tandem: tandem.createTandem( 'showSpeedContent' ),
       spacing: 10
     } );
 
     const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      node: new Text( sumOfForcesString, merge( { tandem: tandem.createTandem( 'showSumOfForcesTextNode' ) }, fontOptions ) ),
+      node: new Text( sumOfForcesString, merge( { tandem: tandem.createTandem( 'showSumOfForcesText' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showSumOfForcesCheckbox' )
     }, {
-      node: new Text( valuesString, merge( { tandem: tandem.createTandem( 'showValuesTextNode' ) }, fontOptions ) ),
+      node: new Text( valuesString, merge( { tandem: tandem.createTandem( 'showValuesText' ) }, fontOptions ) ),
       property: model.showValuesProperty,
       tandem: verticalCheckboxGroupTandem.createTandem( 'showValuesCheckbox' )
     }, {

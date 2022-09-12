@@ -63,7 +63,7 @@ class MotionControlPanel extends Node {
         maxWidth: maxTextWidth,
 
         // this is a bit of a hack to support backwards tandem API
-        tandem: tandem.createTandem( tandemName ).createTandem( 'labelTextNode' )
+        tandem: tandem.createTandem( tandemName ).createTandem( 'labelText' )
       } );
 
       // optional icon needs spacing next to text
@@ -112,19 +112,19 @@ class MotionControlPanel extends Node {
       const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
       const invisibleSliderTickOptions = merge( { visible: false }, sliderTickOptions );
 
-      frictionSlider.addMajorTick( 0, new Text( noneString, merge( { tandem: tandem.createTandem( 'zeroTickTextNode' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( 0, new Text( lotsString, merge( { tandem: tandem.createTandem( 'invisibleZeroTickTextNode' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( noneString, merge( { tandem: tandem.createTandem( 'zeroTickText' ) }, sliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( lotsString, merge( { tandem: tandem.createTandem( 'invisibleZeroTickText' ) }, invisibleSliderTickOptions ) ) );
 
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, merge( { tandem: tandem.createTandem( 'maxTickTextNode' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, merge( { tandem: tandem.createTandem( 'invisibleMaxTickTextNode' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, merge( { tandem: tandem.createTandem( 'maxTickText' ) }, sliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, merge( { tandem: tandem.createTandem( 'invisibleMaxTickText' ) }, invisibleSliderTickOptions ) ) );
 
-      const frictionTextNode = new Text( frictionString, {
+      const frictionText = new Text( frictionString, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),
         maxWidth: maxTextWidth,
-        tandem: tandem.createTandem( 'frictionTextNode' )
+        tandem: tandem.createTandem( 'frictionText' )
       } );
 
-      return new VBox( { children: [ frictionTextNode, frictionSlider ], resize: false } );
+      return new VBox( { children: [ frictionText, frictionSlider ], resize: false } );
     };
 
     // Create controls for the 'motion' screen

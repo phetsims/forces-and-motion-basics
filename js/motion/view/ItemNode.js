@@ -195,28 +195,28 @@ class ItemNode extends Node {
     } );
 
     //Label for the mass (if it is shown)
-    const massLabel = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
+    const massLabelText = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'
       } ),
       maxWidth: normalImageNode.width / 1.5,
-      tandem: tandem.createTandem( 'massLabel' )
+      tandem: tandem.createTandem( 'massLabelText' )
     } );
     const roundedRadius = 10;
-    const roundRect = new Rectangle( 0, 0, massLabel.width + roundedRadius, massLabel.height + roundedRadius, roundedRadius, roundedRadius, {
+    const roundRect = new Rectangle( 0, 0, massLabelText.width + roundedRadius, massLabelText.height + roundedRadius, roundedRadius, roundedRadius, {
       fill: 'white',
       stroke: 'gray'
-    } ).mutate( { centerX: massLabel.centerX, centerY: massLabel.centerY } );
+    } ).mutate( { centerX: massLabelText.centerX, centerY: massLabelText.centerY } );
 
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n
-    const labelNode = new Node( {
-      children: [ roundRect, massLabel ],
+    const labelText = new Node( {
+      children: [ roundRect, massLabelText ],
       scale: 1.0 / item.imageScaleProperty.get(),
-      tandem: tandem.createTandem( 'labelNode' )
+      tandem: tandem.createTandem( 'labelText' )
     } );
-    this.labelNode = labelNode;
+    this.labelNode = labelText;
 
     //Update the position of the item
     item.positionProperty.link( position => { this.setTranslation( position ); } );
@@ -227,7 +227,7 @@ class ItemNode extends Node {
       this.setScaleMagnitude( scale );
 
       // make sure that labels remain the same size
-      labelNode.setScaleMagnitude( 1 / scale );
+      labelText.setScaleMagnitude( 1 / scale );
 
       normalImageNode.setMatrix( IDENTITY );
       if ( direction === 'right' ) {
@@ -247,9 +247,9 @@ class ItemNode extends Node {
     item.onBoardProperty.link( updateImage );
 
     this.addChild( normalImageNode );
-    this.addChild( labelNode );
+    this.addChild( labelText );
 
-    showMassesProperty.link( showMasses => { labelNode.visible = showMasses; } );
+    showMassesProperty.link( showMasses => { labelText.visible = showMasses; } );
   }
 
 

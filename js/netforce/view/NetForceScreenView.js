@@ -286,7 +286,7 @@ class NetForceScreenView extends ScreenView {
       centerX: width / 2,
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
       maxWidth: 280,
-      tandem: tandem.createTandem( 'sumOfForcesTextNode' )
+      tandem: tandem.createTandem( 'sumOfForcesText' )
     } );
 
     Multilink.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], ( netForce, showSumOfForces ) => { this.sumOfForcesText.visible = !netForce && showSumOfForces; } );
