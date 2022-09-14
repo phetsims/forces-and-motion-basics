@@ -21,11 +21,7 @@ import MotionScreen from './motion/MotionScreen.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
-const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
 const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
-const frictionString = ForcesAndMotionBasicsStrings.friction;
-const motionString = ForcesAndMotionBasicsStrings.motion;
-const netForceString = ForcesAndMotionBasicsStrings.netForce;
 
 // constants
 const tandem = Tandem.ROOT;
@@ -59,28 +55,28 @@ simLauncher.launch( () => {
   const netForceScreen = new Screen(
     () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
-      name: netForceString,
+      name: ForcesAndMotionBasicsStrings.netForceStringProperty,
       tandem: netForceScreenTandem,
       homeScreenIcon: new ScreenIcon( netForceImageNode, screenIconOptions )
     }
   );
 
   const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
-    name: motionString,
+    name: ForcesAndMotionBasicsStrings.motionStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( motionIcon_png, {
       tandem: motionScreenTandem.createTandem( 'icon' )
     } ), screenIconOptions )
   } );
 
   const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
-    name: frictionString,
+    name: ForcesAndMotionBasicsStrings.frictionStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png, {
       tandem: frictionScreenTandem.createTandem( 'icon' )
     } ), screenIconOptions )
   } );
 
   const accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
-    name: accelerationString,
+    name: ForcesAndMotionBasicsStrings.accelerationStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png, {
       tandem: accelerationScreenTandem.createTandem( 'icon' )
     } ), screenIconOptions )
