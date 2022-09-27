@@ -43,25 +43,24 @@ class NetForceControlPanel extends Node {
     // the content for "show speed" is a label with an icon
     const speedometerIconNode = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
     const showSpeedTextNode = new Text( speedString, merge( { tandem: tandem.createTandem( 'showSpeedText' ) }, fontOptions ) );
-    const showSpeedContent = new HBox( {
-      children: [ showSpeedTextNode, speedometerIconNode ],
-      tandem: tandem.createTandem( 'showSpeedContent' ),
-      spacing: 10
-    } );
 
     const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      node: new Text( sumOfForcesString, merge( { tandem: tandem.createTandem( 'showSumOfForcesText' ) }, fontOptions ) ),
+      createNode: tandem => new Text( sumOfForcesString, merge( { tandem: tandem.createTandem( 'showSumOfForcesText' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
-      tandem: verticalCheckboxGroupTandem.createTandem( 'showSumOfForcesCheckbox' )
+      tandemName: 'showSumOfForcesCheckbox'
     }, {
-      node: new Text( valuesString, merge( { tandem: tandem.createTandem( 'showValuesText' ) }, fontOptions ) ),
+      createNode: tandem => new Text( valuesString, merge( { tandem: tandem.createTandem( 'showValuesText' ) }, fontOptions ) ),
       property: model.showValuesProperty,
-      tandem: verticalCheckboxGroupTandem.createTandem( 'showValuesCheckbox' )
+      tandemName: 'showValuesCheckbox'
     }, {
-      node: showSpeedContent,
+      createNode: tandem => new HBox( {
+        children: [ showSpeedTextNode, speedometerIconNode ],
+        tandem: tandem.createTandem( 'showSpeedContent' ),
+        spacing: 10
+      } ),
       property: model.showSpeedProperty,
-      tandem: verticalCheckboxGroupTandem.createTandem( 'showSpeedCheckbox' )
+      tandemName: 'showSpeedCheckbox'
     } ], {
       tandem: verticalCheckboxGroupTandem
     } );
