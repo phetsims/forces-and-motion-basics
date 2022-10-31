@@ -285,14 +285,14 @@ class MotionScreenView extends ScreenView {
       Multilink.multilink( [ model.showValuesProperty, model.accelerationProperty ], ( showValues, acceleration ) => {
         if ( showValues ) {
           const accelerationValue = Utils.toFixed( acceleration, 2 );
-          labelText.setText( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
+          labelText.setString( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
 
           // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
           // in width.
           labelText.centerX = accelerometerNode.centerX + ( labelText.width - initialLabelWidth ) / 2 - 10;
         }
         else {
-          labelText.setText( accelerationString );
+          labelText.setString( accelerationString );
           labelText.centerX = accelerometerNode.centerX;
         }
       } );
