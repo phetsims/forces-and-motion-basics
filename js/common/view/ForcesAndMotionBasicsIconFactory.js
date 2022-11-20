@@ -14,7 +14,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../../motion/MotionConstants.js';
 
-const speedString = ForcesAndMotionBasicsStrings.speed;
+const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
 /**
  * Static object, not meant to be instantiated.
@@ -24,7 +24,7 @@ const ForcesAndMotionBasicsIconFactory = {
 
     // the 'speed' option requires the text and a speedometer icon
     const speedometerIconValueProperty = new Property( 0 );
-    return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+    return new GaugeNode( speedometerIconValueProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ),
       { radius: 67, scale: 0.2, tandem: Tandem.OPT_OUT } );
   }
 };

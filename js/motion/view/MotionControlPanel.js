@@ -31,7 +31,7 @@ const frictionString = ForcesAndMotionBasicsStrings.friction;
 const lotsString = ForcesAndMotionBasicsStrings.lots;
 const massesString = ForcesAndMotionBasicsStrings.masses;
 const noneString = ForcesAndMotionBasicsStrings.none;
-const speedString = ForcesAndMotionBasicsStrings.speed;
+const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
 const valuesString = ForcesAndMotionBasicsStrings.values;
 
@@ -87,7 +87,7 @@ class MotionControlPanel extends Node {
     } );
     const speedometerIcon = () => {
       const speedometerIconValueProperty = new Property( 0 );
-      return new GaugeNode( speedometerIconValueProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+      return new GaugeNode( speedometerIconValueProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ),
         { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIconNode' ) } );
     };
     const accelerometerIcon = () => {
@@ -153,7 +153,7 @@ class MotionControlPanel extends Node {
           tandemName: 'showMassesCheckbox'
         },
         {
-          createNode: tandem => createLabel( speedString, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createNode: tandem => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
           tandemName: 'showSpeedCheckbox'
         }
@@ -215,7 +215,7 @@ class MotionControlPanel extends Node {
           tandemName: 'showMassesCheckbox'
         },
         {
-          createNode: tandem => createLabel( speedString, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createNode: tandem => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
           tandemName: 'showSpeedCheckbox'
         }
@@ -273,7 +273,7 @@ class MotionControlPanel extends Node {
           tandemName: 'showMassesCheckbox'
         },
         {
-          createNode: tandem => createLabel( speedString, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createNode: tandem => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
           tandemName: 'showSpeedCheckbox'
         },

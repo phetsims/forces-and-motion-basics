@@ -18,7 +18,7 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import MotionConstants from '../MotionConstants.js';
 
 const pattern0Name1ValueUnitsVelocityString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocity' ];
-const speedString = ForcesAndMotionBasicsStrings.speed;
+const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
 class SpeedometerNode extends Node {
   /**
@@ -40,7 +40,7 @@ class SpeedometerNode extends Node {
     // mutate with the options after construction so we can set the 'top'
     super();
 
-    const gaugeNode = new ValueGaugeNode( speedProperty, speedString, new Range( 0, MotionConstants.MAX_SPEED ),
+    const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ),
       {
         radius: 67,
         tandem: tandem.createTandem( 'gaugeNode' ),

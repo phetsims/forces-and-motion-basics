@@ -13,7 +13,7 @@ import cart_png from '../../../images/cart_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const speedString = ForcesAndMotionBasicsStrings.speed;
+const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
 class CartNode extends Image {
   /**
@@ -34,7 +34,7 @@ class CartNode extends Image {
 
     // add a speedometer to the cart
     const speedRange = new Range( 0, 6 ); // speed range of the cart in m/s
-    const speedometerNode = new GaugeNode( speedProperty, speedString, speedRange, {
+    const speedometerNode = new GaugeNode( speedProperty, speedStringProperty, speedRange, {
       centerX: this.centerX,
       centerY: this.height / 2,
       radius: this.width * 0.25,
