@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "10fa7db19f7e26fbd8092f562a9f30cde5f33846",
+    "sha": "61fa5b72eb859b59db74aacd8a28ba3860dca59b",
     "branch": "2.1-phetio"
   },
   "joist": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "63c15fd4e6c2afbdb8dcb780ab1c5db1516db2db",
+    "sha": "4780526c29dcc53d3cbf025c22f8445e0f00db26",
     "branch": "HEAD"
   },
   "scenery-phet": {
