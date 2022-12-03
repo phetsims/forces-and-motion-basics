@@ -149,7 +149,7 @@ class MotionScreenView extends ScreenView {
       spinnerRange.min = enableLeftButtons ? -500 : 0;
     } );
 
-    const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty.asRanged(), {
+    const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
       numberDisplayOptions: {
         valuePattern: pattern0ValueUnitsNewtonsString,
         align: 'center',
