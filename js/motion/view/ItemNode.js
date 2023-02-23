@@ -27,7 +27,7 @@ class ItemNode extends Node {
    * @param {MotionModel} model the entire model for the containing screen
    * @param {MotionScreenView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
-   * @param {Image} normalImage the scenery.Image to show for this node
+   * @param {Image} normalImage the phet.scenery.Image to show for this node
    * @param {Image} sittingImage optional image for when the person is sitting down
    * @param {Image} holdingImage optional image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
