@@ -66,7 +66,7 @@ class ReadoutArrow extends Node {
     valueProperty.link( value => {
       this.value = value;
       const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
-      this.valueNode.text = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
+      this.valueNode.string = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
       this.update();
     } );
 
