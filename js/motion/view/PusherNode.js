@@ -306,7 +306,7 @@ class PusherNode extends Node {
     } );
 
     const listener = new SimpleDragHandler( {
-      tandem: tandem.createTandem( 'dragHandler' ),
+      tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
       translate: options => {
         if ( this.interactive ) {

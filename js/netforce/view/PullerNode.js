@@ -63,7 +63,7 @@ class PullerNode extends Image {
     } );
 
     const dragHandler = new SimpleDragHandler( {
-        tandem: tandem.createTandem( 'dragHandler' ),
+        tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         start: event => {
 

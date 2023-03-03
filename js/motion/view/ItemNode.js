@@ -138,7 +138,7 @@ class ItemNode extends Node {
     };
 
     const dragHandler = new SimpleDragHandler( {
-      tandem: tandem.createTandem( 'dragHandler' ),
+      tandem: tandem.createTandem( 'dragListener' ),
       translate: options => {
         item.positionProperty.set( options.position );
       },
