@@ -20,6 +20,12 @@
     "preload": [
       "../sherpa/lib/Tween-r12.js",
       "../forces-and-motion-basics/js/preloads/google-diff-match-patch.js"
+    ],
+    "screenNameKeys": [
+      "FORCES_AND_MOTION_BASICS/netForce",
+      "FORCES_AND_MOTION_BASICS/motion",
+      "FORCES_AND_MOTION_BASICS/friction",
+      "FORCES_AND_MOTION_BASICS/acceleration"
     ]
   }
 }
