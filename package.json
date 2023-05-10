@@ -16,6 +16,12 @@
     ],
     "preload": [
       "../sherpa/lib/Tween-r12.js"
+    ],
+    "screenNameKeys": [
+      "FORCES_AND_MOTION_BASICS/netForce",
+      "FORCES_AND_MOTION_BASICS/motion",
+      "FORCES_AND_MOTION_BASICS/friction",
+      "FORCES_AND_MOTION_BASICS/acceleration"
     ]
   }
 }
