@@ -17,6 +17,9 @@
     "phetLibs": [
       "vibe"
     ],
+    "phet-io": {
+      "allowPublicAccess": true
+    },
     "preload": [
       "../sherpa/lib/Tween-r12.js"
     ]
