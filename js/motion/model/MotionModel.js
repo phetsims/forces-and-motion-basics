@@ -221,29 +221,29 @@ class MotionModel {
     // the change in model position (this.position - this.previousModelPosition )
     this.previousModelPosition = this.positionProperty.value;
 
-    const leftmostItemXLeft = 23; // x-position of the refrigerator
-    const crate1Spacing = 106; // distance between the refrigerator and the middle crate
-    const crate2Spacing = 90; // distance between the crates
-
-    const leftmostItemXRight = this.accelerometer ? 678 : 689; // x-position of the girl
-    const manSpacing = this.accelerometer ? 47 : 61; // distance between the girl and the man
-    const trashSpacing = this.accelerometer ? 53 : 66; // distance between the man and the trash can
-    const mysterySpacing = this.accelerometer ? 51 : 72; // distance between the trash can and the mystery box
-    const bucketSpacing = 63; // distance between the mystery box and the water bucket
+    const leftmostItemX = this.accelerometer ? 678 : 689;
+    const itemSpacing = this.accelerometer ? 47 : 60;
+    const trashSpacing = this.accelerometer ? 50 : 1.05 * itemSpacing;
+    const mysterySpacing = this.accelerometer ? 51 : 1.1 * itemSpacing;
+    const bucketSpacing = 54;
 
     // create the items - Initial positions determined empirically
-    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_png, 200, leftmostItemXLeft, 437, 0.8, 1.1, 4 );
-    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_png, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
-    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_png, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
-    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStanding_png, 40, leftmostItemXRight, 465, 0.6, 1.0, 4.2, girlSitting_png, girlHolding_png[ 1 ].img );
-    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStanding_png, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 5, manSitting_png, manHolding_png );
-    const trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_png, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.7, 1.0, 5 );
-    const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.3, 1.0, undefined, undefined, undefined, true );
-    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
+    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_png, 200, 23, 437, 0.8, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_png, 50, 129, 507, 0.5 );
+    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_png, 50, 219, 507, 0.5 );
+    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStanding_png, 40, leftmostItemX, 465, 0.6, 1.0, 4.2, girlSitting_png, girlHolding_png[ 1 ].img );
+    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStanding_png, 80, leftmostItemX + itemSpacing, 428, 0.6, 0.92, 5, manSitting_png, manHolding_png );
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, leftmostItemX + 4 * bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
     bucket.bucket = true;
 
-    const itemsToAdd = this.accelerometer ? [ bucket ] : [];
-    this.items = [ fridge, crate1, crate2, girl, man, trashCan, mysteryBox, ...itemsToAdd ];
+    this.items = [ fridge, crate1, crate2, girl, man,
+      new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_png, 100, leftmostItemX + 2 * trashSpacing, 496, 0.7, 1.0, 5 ),
+      new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, leftmostItemX + 3 * mysterySpacing, 513, 0.3, 1.0, undefined, undefined, undefined, true )
+    ];
+
+    if ( this.accelerometer ) {
+      this.items.push( bucket );
+    }
 
     this.appliedForceProperty.link( appliedForce => {
       this.directionProperty.set( appliedForce > 0 ? 'right' :
