@@ -10,11 +10,11 @@ For a description of this simulation, associated resources, and a link to the pu
 <a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html" target="_blank">Click here to run "Forces and Motion: Basics".</a>
 
 <a href="https://phet.colorado.edu/sims/html/forces-and-motion-basics/latest/forces-and-motion-basics_en.html" target="_blank">
-<img src="https://raw.githubusercontent.com/phetsims/forces-and-motion-basics/master/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
+<img src="https://raw.githubusercontent.com/phetsims/forces-and-motion-basics/main/assets/forces-and-motion-basics-screenshot.png" alt="Screenshot" style="width: 400px;"/>
 </a>
 
 ### Documentation
-The <a href="https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md" target="_blank">PhET Development Overview</a> is the most complete guide to PhET Simulation
+The <a href="https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md" target="_blank">PhET Development Overview</a> is the most complete guide to PhET Simulation
 Development. This guide includes how to obtain simulation code and its dependencies, notes about architecture & design, how to test and build
 the sims, as well as other important information.
 
@@ -79,4 +79,4 @@ Contact us at our Google Group: <a href="http://groups.google.com/forum/#!forum/
 Help us improve, create a <a href="http://github.com/phetsims/forces-and-motion-basics/issues/new" target="_blank">New Issue</a>
 
 ### License
-See the <a href="https://github.com/phetsims/forces-and-motion-basics/blob/master/LICENSE" target="_blank">LICENSE</a>
+See the <a href="https://github.com/phetsims/forces-and-motion-basics/blob/main/LICENSE" target="_blank">LICENSE</a>
