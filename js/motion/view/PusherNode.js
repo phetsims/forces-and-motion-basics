@@ -60,29 +60,29 @@ class PusherNode extends Node {
     const pushingRightNodes = [];
     const pushingLeftNodes = [];
     const children = [];
-    const standingUp = new Image( pusher_straight_on_png, {
+    const standingUpImageNode = new Image( pusher_straight_on_png, {
       visible: true,
       pickable: true,
       scale: scale,
       tandem: tandem.createTandem( 'standingUpImageNode' )
     } );
-    const fallLeft = new Image( pusher_fall_down_png, {
+    const fallLeftImage = new Image( pusher_fall_down_png, {
       visible: false,
       pickable: false,
       scale: scale,
       tandem: tandem.createTandem( 'fallLeftImage' )
     } );
-    const fallRight = new Image( pusher_fall_down_png, {
+    const fallRightImage = new Image( pusher_fall_down_png, {
       visible: false,
       pickable: false,
       scale: new Vector2( -scale, scale ),
       tandem: tandem.createTandem( 'fallRightImage' )
     } );
-    let visibleNode = standingUp;
+    let visibleNode = standingUpImageNode;
 
-    children.push( standingUp );
-    children.push( fallLeft );
-    children.push( fallRight );
+    children.push( standingUpImageNode );
+    children.push( fallLeftImage );
+    children.push( fallRightImage );
     for ( let i = 0; i <= 30; i++ ) {
       const image = i === 0 ? pusher_0_png :
                     i === 1 ? pusher_1_png :
@@ -167,9 +167,9 @@ class PusherNode extends Node {
      * @param {string} direction description
      */
     const resetZeroForcePosition = direction => {
-      if ( model.stack.length > 0 ) {
+      if ( model.stackObservableArray.length > 0 ) {
 
-        const item = model.stack.get( 0 );
+        const item = model.stackObservableArray.get( 0 );
 
         // get the scaled width of the first image on the stack
         const scaledWidth = item.view.getScaledWidth();
@@ -192,9 +192,9 @@ class PusherNode extends Node {
      * of the applied force
      */
     const updateAppliedForcePosition = () => {
-      assert && assert( model.stack.length > 0 );
+      assert && assert( model.stackObservableArray.length > 0 );
       const pusherY = 362 - visibleNode.height;
-      const item = model.stack.get( 0 );
+      const item = model.stackObservableArray.get( 0 );
 
       // get the scaled width of the first item in the stack
       const scaledWidth = item.view.getScaledWidth();
@@ -208,7 +208,7 @@ class PusherNode extends Node {
       }
 
       // if the user empties the stack, the standing image should be where the applied force position was
-      standingUp.centerX = visibleNode.centerX;
+      standingUpImageNode.centerX = visibleNode.centerX;
     };
 
     // get new position for the pusher node when he falls so that he falls back from
@@ -243,20 +243,20 @@ class PusherNode extends Node {
 
     model.fallenProperty.link( fallen => {
       if ( fallen ) {
-        const newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeft : fallRight;
+        const newVisibleNode = model.fallenDirectionProperty.get() === 'left' ? fallLeftImage : fallRightImage;
         pusherLetGo( newVisibleNode, model.fallenDirectionProperty.get() );
       }
       else {
         // the pusher just stood up after falling, set center standing image at the current
         // fallen position
-        standingUp.centerX = visibleNode.centerX;
-        setVisibleNode( standingUp );
+        standingUpImageNode.centerX = visibleNode.centerX;
+        setVisibleNode( standingUpImageNode );
       }
     } );
 
     model.appliedForceProperty.link( ( appliedForce, previousAppliedForce ) => {
       if ( appliedForce === 0 ) {
-        pusherLetGo( standingUp, previousAppliedForce > 0 ? 'right' : 'left' );
+        pusherLetGo( standingUpImageNode, previousAppliedForce > 0 ? 'right' : 'left' );
       }
 
       // update visibility and position if pusher is on screen and is still able to push
@@ -274,7 +274,7 @@ class PusherNode extends Node {
 
     const initializePusherNode = () => {
       // makd sure that the standing node is visible, and place in initial position
-      setVisibleNode( standingUp );
+      setVisibleNode( standingUpImageNode );
       visibleNode.centerX = layoutWidth / 2 + ( model.pusherPositionProperty.get() - model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
     };
 
@@ -305,7 +305,7 @@ class PusherNode extends Node {
       }
     } );
 
-    const listener = new SimpleDragHandler( {
+    const dragListener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
       translate: options => {
@@ -344,10 +344,10 @@ class PusherNode extends Node {
         }
       }
     } );
-    this.addInputListener( listener );
+    this.addInputListener( dragListener );
 
     //Make it so you cannot drag the pusher until one ItemNode is in the play area
-    model.stack.lengthProperty.link( length => {
+    model.stackObservableArray.lengthProperty.link( length => {
       if ( length === 0 ) {
         this.cursor = 'default';
         this.interactive = false;

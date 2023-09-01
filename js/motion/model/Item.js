@@ -55,7 +55,7 @@ class Item extends PhetioObject {
     this.image = image;
     this.mass = mass;
     this.pusherInset = pusherInset;
-    this.sittingImage = sittingImage;
+    this.sittingImageNode = sittingImage;
     this.holdingImage = holdingImage;
     this.context = context;
     this.mystery = mystery;

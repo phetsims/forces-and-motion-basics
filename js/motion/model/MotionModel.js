@@ -50,7 +50,7 @@ class MotionModel {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
-    this.stack = createObservableArray( {
+    this.stackObservableArray = createObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
       phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
     } );
@@ -209,10 +209,10 @@ class MotionModel {
     this.stepEmitter = new Emitter();
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
-    this.stack.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
+    this.stackObservableArray.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
 
     // TODO: Should stacksize Property be removed?
-    this.stack.lengthProperty.link( length => {
+    this.stackObservableArray.lengthProperty.link( length => {
       this.stackSizeProperty.set( length );
     } );
 
@@ -296,19 +296,19 @@ class MotionModel {
    * @public
    */
   spliceStack( index ) {
-    const item = this.stack.get( index );
-    this.stack.remove( item );
-    if ( this.stack.length > 0 ) {
+    const item = this.stackObservableArray.get( index );
+    this.stackObservableArray.remove( item );
+    if ( this.stackObservableArray.length > 0 ) {
       let sumHeight = 0;
-      for ( let i = 0; i < this.stack.length; i++ ) {
-        const size = this.view.getSize( this.stack.get( i ) );
+      for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
+        const size = this.view.getSize( this.stackObservableArray.get( i ) );
         sumHeight += size.height;
-        this.stack.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stack.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stackObservableArray.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
       }
     }
 
     //If the stack is emptied, stop the motion
-    if ( this.stack.length === 0 ) {
+    if ( this.stackObservableArray.length === 0 ) {
       this.velocityProperty.set( 0 );
       this.accelerationProperty.set( 0 );
     }
@@ -380,8 +380,8 @@ class MotionModel {
   // @public - Compute the mass of the entire stack, for purposes of momentum computation
   getStackMass() {
     let mass = 0;
-    for ( let i = 0; i < this.stack.length; i++ ) {
-      mass += this.stack.get( i ).mass;
+    for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
+      mass += this.stackObservableArray.get( i ).mass;
     }
     return mass;
   }
@@ -538,7 +538,7 @@ class MotionModel {
    * @returns {boolean}
    * @public
    */
-  isInStack( item ) { return this.stack.includes( item ); }
+  isInStack( item ) { return this.stackObservableArray.includes( item ); }
 
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
@@ -547,7 +547,7 @@ class MotionModel {
    * @returns {boolean}
    * @public
    */
-  isItemStackedAbove( item ) { return this.isInStack( item ) && this.stack.indexOf( item ) < this.stack.length - 1;}
+  isItemStackedAbove( item ) { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
 
   // @public - Reset the model
   reset() {
@@ -592,7 +592,7 @@ class MotionModel {
     // notify that a reset was triggered
     this.resetAllEmitter.emit();
 
-    this.stack.clear();
+    this.stackObservableArray.clear();
 
     //Move the initial crate to the play area, since it resets to the toolbox, not its initial position.
     this.viewInitialized( this.view );
@@ -616,7 +616,7 @@ class MotionModel {
       item.interactionScaleProperty.set( 1.3 );
       const scaledWidth = this.view.getSize( item ).width;
       item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
-      this.stack.add( item );
+      this.stackObservableArray.add( item );
     }
   }
 
@@ -628,7 +628,7 @@ class MotionModel {
   getState() {
     return {
       properties: this.getValues(),
-      stack: this.stack.getArray().map( item => item.get().name ).join( ',' )
+      stack: this.stackObservableArray.getArray().map( item => item.get().name ).join( ',' )
     };
   }
 }

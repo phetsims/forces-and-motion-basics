@@ -160,14 +160,14 @@ class MotionControlPanel extends Node {
       ];
 
       // create the checkboxes
-      const checkboxes = new VerticalCheckboxGroup( items, {
+      const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' )
       } );
-      containerNode.addChild( checkboxes );
+      containerNode.addChild( checkboxGroup );
 
 
       // create an hStrut to increase the width of the controls to the right
-      const hStrut = new HStrut( 16, { leftCenter: checkboxes.rightCenter } );
+      const hStrut = new HStrut( 16, { leftCenter: checkboxGroup.rightCenter } );
       containerNode.addChild( hStrut );
 
       return containerNode;
@@ -222,20 +222,20 @@ class MotionControlPanel extends Node {
       ];
 
       // create the checkboxes
-      const checkboxes = new VerticalCheckboxGroup( items, {
+      const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' )
       } );
-      containerNode.addChild( checkboxes );
+      containerNode.addChild( checkboxGroup );
 
       // create a spacer for the checkboxes and the slider
-      const strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
+      const strut = new VStrut( 12, { centerTop: checkboxGroup.centerBottom } );
       containerNode.addChild( strut );
 
       // create the slider
       const frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
 
-      layoutFrictionSlider( checkboxes, frictionSlider );
+      layoutFrictionSlider( checkboxGroup, frictionSlider );
 
       containerNode.addChild( frictionSlider );
 
@@ -284,20 +284,20 @@ class MotionControlPanel extends Node {
         }
       ];
 
-      const checkboxes = new VerticalCheckboxGroup( items, {
+      const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' )
       } );
-      containerNode.addChild( checkboxes );
+      containerNode.addChild( checkboxGroup );
 
       // create the spacing strut
-      const strut = new VStrut( 12, { centerTop: checkboxes.centerBottom } );
+      const strut = new VStrut( 12, { centerTop: checkboxGroup.centerBottom } );
       containerNode.addChild( strut );
 
       // add the slider friction slider under the checkboxes
       const frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
 
-      layoutFrictionSlider( checkboxes, frictionSlider );
+      layoutFrictionSlider( checkboxGroup, frictionSlider );
 
       containerNode.addChild( frictionSlider );
 
@@ -309,14 +309,14 @@ class MotionControlPanel extends Node {
                      model.screen === 'friction' ? createFrictionControls() :
                      createAccelerationControls();
 
-    const panelNode = new Panel( contents, {
+    const panel = new Panel( contents, {
       xMargin: 12,
       yMargin: 7,
       fill: '#e3e980',
       resize: false,
       tandem: tandem.createTandem( 'panel' )
     } );
-    this.addChild( panelNode.mutate( { left: 981 - panelNode.width - 5, top: 5 } ) );
+    this.addChild( panel.mutate( { left: 981 - panel.width - 5, top: 5 } ) );
   }
 }
 

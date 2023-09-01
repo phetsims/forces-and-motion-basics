@@ -134,12 +134,12 @@ class NetForceScreenView extends ScreenView {
     this.addChild( leftStopper );
 
     // create and add the rope node as an image
-    this.ropeNode = new Image( rope_png, {
+    this.ropeImageNode = new Image( rope_png, {
       tandem: tandem.createTandem( 'ropeImageNode' ),
       x: 51,
       y: 273
     } );
-    this.addChild( this.ropeNode );
+    this.addChild( this.ropeImageNode );
 
     // create the toolboxes that hold the puller children
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
@@ -179,7 +179,7 @@ class NetForceScreenView extends ScreenView {
 
     this.model.cart.xProperty.link( x => {
       this.cartNode.x = x + 412;
-      this.ropeNode.x = x + 51;
+      this.ropeImageNode.x = x + 51;
     } );
 
     this.addChild( this.cartNode );

@@ -62,7 +62,7 @@ class PullerNode extends Image {
       this.updatePosition( puller, model );
     } );
 
-    const dragHandler = new SimpleDragHandler( {
+    const dragListener = new SimpleDragHandler( {
         tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         start: event => {
@@ -97,14 +97,14 @@ class PullerNode extends Image {
         }
       }
     );
-    this.addInputListener( dragHandler );
+    this.addInputListener( dragListener );
 
     model.resetAllEmitter.addListener( () => {
       this.updatePosition( puller, model );
 
       // cancel the drag
       if ( puller.draggingProperty.get() ) {
-        dragHandler.interrupt();
+        dragListener.interrupt();
 
         puller.reset();
       }

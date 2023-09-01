@@ -55,7 +55,7 @@ class ItemNode extends Node {
 
     // keep track of the sitting image to track its width for the pusher
     // @public (read-only)
-    this.sittingImage = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
+    this.sittingImageNode = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
     //When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
@@ -84,15 +84,15 @@ class ItemNode extends Node {
       model.items[ i ].draggingProperty.link( updateImage );
     }
 
-    model.stack.lengthProperty.link( updateImage );
+    model.stackObservableArray.lengthProperty.link( updateImage );
 
     //When the user drags the object, start
     const moveToStack = () => {
       item.onBoardProperty.set( true );
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
       item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - this.height, 'stack' );
-      model.stack.add( item );
-      if ( model.stack.length > 3 ) {
+      model.stackObservableArray.add( item );
+      if ( model.stackObservableArray.length > 3 ) {
         model.spliceStackBottom();
       }
     };
@@ -105,8 +105,8 @@ class ItemNode extends Node {
 
       // if girl or man is alread on the stack, direction should match person that is already on the stack
       let personInStack;
-      for ( let i = 0; i < model.stack.length; i++ ) {
-        const itemInStack = model.stack.get( i );
+      for ( let i = 0; i < model.stackObservableArray.length; i++ ) {
+        const itemInStack = model.stackObservableArray.get( i );
 
         if ( itemInStack === person ) {
           // skip the person that is currently being dragged
@@ -137,7 +137,7 @@ class ItemNode extends Node {
       person.directionProperty.set( direction );
     };
 
-    const dragHandler = new SimpleDragHandler( {
+    const dragListener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragListener' ),
       translate: options => {
         item.positionProperty.set( options.position );
@@ -154,7 +154,7 @@ class ItemNode extends Node {
         itemToolbox.moveToFront();
 
         item.draggingProperty.set( true );
-        const index = model.stack.indexOf( item );
+        const index = model.stackObservableArray.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
@@ -183,13 +183,13 @@ class ItemNode extends Node {
         }
       }
     } );
-    this.addInputListener( dragHandler );
+    this.addInputListener( dragListener );
 
     // if the item is being dragged, cancel the drag on reset
     model.resetAllEmitter.addListener( () => {
       // cancel the drag and reset item
       if ( item.draggingProperty.get() ) {
-        dragHandler.interrupt();
+        dragListener.interrupt();
         item.reset();
       }
     } );
@@ -273,8 +273,8 @@ class ItemNode extends Node {
 
     // if the item has a sitting image, use that image for the width
     let scaledWidth;
-    if ( this.sittingImage ) {
-      scaledWidth = this.sittingImage.width * this.item.getCurrentScale();
+    if ( this.sittingImageNode ) {
+      scaledWidth = this.sittingImageNode.width * this.item.getCurrentScale();
     }
     else {
       scaledWidth = this.normalImageNode.width * this.item.getCurrentScale();

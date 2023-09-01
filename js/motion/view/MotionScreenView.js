@@ -179,8 +179,8 @@ class MotionScreenView extends ScreenView {
       appliedForceSpinner.enabled = size > 0;
     } );
 
-    model.stack.lengthProperty.link( disableText( appliedForceSliderText ) );
-    model.stack.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
+    model.stackObservableArray.lengthProperty.link( disableText( appliedForceSliderText ) );
+    model.stackObservableArray.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
@@ -322,7 +322,7 @@ class MotionScreenView extends ScreenView {
       const Constructor = item.bucket ? WaterBucketNode : ItemNode;
       const itemNode = new Constructor( model, this, item,
         item.image,
-        item.sittingImage || item.image,
+        item.sittingImageNode || item.image,
         item.holdingImage || item.image,
         model.showMassesProperty,
         toolboxNode,
@@ -430,8 +430,8 @@ class MotionScreenView extends ScreenView {
   // @private Get the height of the objects in the stack (doesn't include skateboard)
   get stackHeight() {
     let sum = 0;
-    for ( let i = 0; i < this.model.stack.length; i++ ) {
-      sum = sum + this.model.stack.get( i ).view.height;
+    for ( let i = 0; i < this.model.stackObservableArray.length; i++ ) {
+      sum = sum + this.model.stackObservableArray.get( i ).view.height;
     }
     return sum;
   }
@@ -445,7 +445,7 @@ class MotionScreenView extends ScreenView {
   // @public Get the size of an item's image.  Dependent on the current scale of the image.
   getSize( item ) {
     // get the current scale for the element and apply it to the image
-    const scaledWidth = item.view.sittingImage.width * item.getCurrentScale();
+    const scaledWidth = item.view.sittingImageNode.width * item.getCurrentScale();
     return { width: scaledWidth, height: item.view.height };
   }
 }

@@ -64,13 +64,13 @@ class NetForceControlPanel extends Node {
     } ], {
       tandem: verticalCheckboxGroupTandem
     } );
-    const checkboxPanel = new Panel( this.verticalCheckboxGroup, {
+    const verticalCheckboxGroupPanel = new Panel( this.verticalCheckboxGroup, {
       xMargin: 10,
       yMargin: 10,
       fill: '#e3e980',
       tandem: tandem.createTandem( 'verticalCheckboxGroupPanel' )
     } );
-    this.addChild( checkboxPanel );
+    this.addChild( verticalCheckboxGroupPanel );
 
     //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
     this.resetAllButton = new ResetAllButton( {
@@ -78,7 +78,7 @@ class NetForceControlPanel extends Node {
         model.reset();
       },
       radius: 23,
-      rightCenter: checkboxPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 ),
+      rightCenter: verticalCheckboxGroupPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 ),
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
@@ -91,7 +91,7 @@ class NetForceControlPanel extends Node {
     } );
 
     // layout
-    soundToggleButton.left = checkboxPanel.left + BUTTON_PADDING;
+    soundToggleButton.left = verticalCheckboxGroupPanel.left + BUTTON_PADDING;
 
     // i18n - if the strings are too short, the sound toggle button will overlap the reset all button, add some padding
     if ( this.resetAllButton.left < soundToggleButton.right ) {
