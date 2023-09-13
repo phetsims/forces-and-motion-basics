@@ -22,7 +22,7 @@ class ReturnButton extends TextPushButton {
    */
   constructor( model, tandem, options ) {
 
-    // TODO: this method bound the model. Why?
+    // TODO: this method bound the model. Why? https://github.com/phetsims/tasks/issues/1129
     const returnCart = () => {
       model.returnCart();
     };

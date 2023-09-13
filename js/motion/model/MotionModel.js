@@ -142,13 +142,13 @@ class MotionModel {
     //  @public Keep track of whether the speed is classified as:
     // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
     // so that the Applied Force can be stopped if the speed goes out of range.
-    // TODO: Why not an enum?
+    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.speedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'speedClassificationProperty' )
     } );
 
     // @public {string} See speedClassification
-    // TODO: Why not an enum?
+    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.previousSpeedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'previousSpeedClassificationProperty' )
     } );
@@ -159,14 +159,14 @@ class MotionModel {
     } );
 
     // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
-    // TODO: Why not an enum?
+    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.directionProperty = new StringProperty( 'none', {
       tandem: tandem.createTandem( 'directionProperty' )
     } );
 
     // @public {number} - time since pusher has fallen over, in seconds
-    // TODO: Should we this have a tandem? It spams the data stream.
-    // TODO: Why is default value 10?
+    // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
+    // TODO: Why is default value 10? https://github.com/phetsims/tasks/issues/1129
     this.timeSinceFallenProperty = new NumberProperty( 10, {
       units: 's'
     } );
@@ -182,13 +182,13 @@ class MotionModel {
     } );
 
     // @public {number} - how long the simulation has been running
-    // TODO: Should we this have a tandem? It spams the data stream.
+    // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
     this.timeProperty = new NumberProperty( 0, {
       units: 's'
     } );
 
     //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-    //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
+    //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value https://github.com/phetsims/tasks/issues/1129
     this.stackSizeProperty = new NumberProperty( 1, {
       tandem: tandem.createTandem( 'stackSizeProperty' )
     } );
@@ -211,7 +211,7 @@ class MotionModel {
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stackObservableArray.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
 
-    // TODO: Should stacksize Property be removed?
+    // TODO: Should stacksize Property be removed? https://github.com/phetsims/tasks/issues/1129
     this.stackObservableArray.lengthProperty.link( length => {
       this.stackSizeProperty.set( length );
     } );
@@ -303,7 +303,7 @@ class MotionModel {
       for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
         const size = this.view.getSize( this.stackObservableArray.get( i ) );
         sumHeight += size.height;
-        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stackObservableArray.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack
+        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stackObservableArray.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/tasks/issues/1129
       }
     }
 

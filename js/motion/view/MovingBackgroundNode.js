@@ -59,7 +59,7 @@ class MovingBackgroundNode extends Node {
 
     const mountainY = 311;
 
-    //TODO: It would be good to use cssTransforms here but they are a bit buggy
+    //TODO: It would be good to use cssTransforms here but they are a bit buggy https://github.com/phetsims/tasks/issues/1129
     const mountainAndCloudLayer = new Node( {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
@@ -75,7 +75,7 @@ class MovingBackgroundNode extends Node {
     this.addChild( mountainAndCloudLayer );
 
     //Move the background objects
-    //TODO: support background objects with scale !== 1
+    //TODO: support background objects with scale !== 1 https://github.com/phetsims/tasks/issues/1129
 
     const getLayerUpdater = ( layer, motionScale ) => {
       let netDelta = 0;
@@ -94,7 +94,7 @@ class MovingBackgroundNode extends Node {
           if ( sign === 1 ) {
             //            console.log( child.offsetX + netDelta, -800 );
 
-            //TODO: use modulus instead of while loop
+            //TODO: use modulus instead of while loop https://github.com/phetsims/tasks/issues/1129
             while ( child.offsetX + netDelta < -L ) {
               //              console.log( 'jump 1' );
               child.offsetX += stageWidth;
@@ -106,7 +106,7 @@ class MovingBackgroundNode extends Node {
           else {
             //          console.log( child.offsetX + netDelta, L );
 
-            //TODO: use modulus instead of while loop
+            //TODO: use modulus instead of while loop https://github.com/phetsims/tasks/issues/1129
             while ( child.offsetX + netDelta > L ) {
               //              console.log( 'jump 2' );
               child.offsetX -= stageWidth;
@@ -168,7 +168,7 @@ class MovingBackgroundNode extends Node {
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
           this.addChild( iceLayer );
 
-          //TODO: could prevent updater from firing if ice is not visible
+          //TODO: could prevent updater from firing if ice is not visible https://github.com/phetsims/tasks/issues/1129
           model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
 
           this.lastNumSpecks = 0;
@@ -251,7 +251,7 @@ class MovingBackgroundNode extends Node {
               numWhite--;
             }
 
-            //TODO: get rid of pattern here, possibly by converting it too to an image?
+            //TODO: get rid of pattern here, possibly by converting it too to an image? https://github.com/phetsims/tasks/issues/1129
             gravelSource.toImage( image => { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
           } );
         }

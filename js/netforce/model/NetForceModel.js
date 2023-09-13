@@ -58,14 +58,14 @@ class NetForceModel extends PhetioObject {
       range: new Range( 0, 8 )
     } );
 
-    // TODO what are the valid values?
-    // TODO: Why not an enum?
+    // TODO what are the valid values? https://github.com/phetsims/tasks/issues/1129
+    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.stateProperty = new StringProperty( 'experimenting', {
       tandem: tandem.createTandem( 'stateProperty' )
     } );
 
     this.timeProperty = new Property( 0, {
-      // TODO: Removed this property for phet-io spam
+      // TODO: Removed this property for phet-io spam https://github.com/phetsims/tasks/issues/1129
       // tandem: tandem.createTandem( 'timeProperty' )
       // phetioValueType: NumberIO,
       // units: 'seconds'
@@ -569,7 +569,7 @@ class NetForceModel extends PhetioObject {
    */
   getKnotDescription() {
     return this.pullers.map( puller => ( {
-      id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller
+      id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/tasks/issues/1129
       knot: puller.knotProperty.get() && puller.knotProperty.get().phetioID
     } ) );
   }

@@ -66,7 +66,7 @@ class Item extends PhetioObject {
       tandem: tandem.createTandem( 'positionProperty' )
     } );
 
-    // TODO: does this need to be instrumented for phet-io?
+    // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/tasks/issues/1129
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
     // @public {Property.<boolean>} - whether or not the item is being dragged
@@ -75,7 +75,7 @@ class Item extends PhetioObject {
     } );
 
     // @public {Property.<string>} - direction of the item, 'left'|'right'
-    // TODO: Why not an enum?
+    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.directionProperty = new StringProperty( 'left', {
       tandem: tandem.createTandem( 'directionProperty' )
     } );

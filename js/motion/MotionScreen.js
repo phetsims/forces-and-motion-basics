@@ -1,7 +1,7 @@
 // Copyright 2015-2020, University of Colorado Boulder
 
 /**
- * TODO
+ * TODO https://github.com/phetsims/tasks/issues/1129
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
@@ -31,7 +31,7 @@ class MotionScreen extends Screen {
   }
 
   /**
-   * TODO
+   * TODO https://github.com/phetsims/tasks/issues/1129
    * @returns TODO
    * @public
    */
@@ -40,7 +40,7 @@ class MotionScreen extends Screen {
   }
 
   /**
-   * TODO
+   * TODO https://github.com/phetsims/tasks/issues/1129
    * @public
    */
   setState() {

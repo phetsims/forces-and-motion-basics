@@ -62,8 +62,8 @@ class Puller {
     } );
 
     // @public {string} - a classified position in the play area
-    // TODO: What are the valid values for this Property?
-    // TODO: Why not an enum?
+    // TODO: What are the valid values for this Property? https://github.com/phetsims/tasks/issues/1129
+    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.lastPlacementProperty = new StringProperty( 'home', {
       tandem: tandem.createTandem( 'lastPlacementProperty' )
     } );

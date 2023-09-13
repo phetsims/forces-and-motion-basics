@@ -75,7 +75,7 @@ class ItemNode extends Node {
     };
 
     // Make sure the arms are updated (even if nothing else changed)
-    // TODO: It is possible that this can be removed once these issues are closed, see
+    // TODO: It is possible that this can be removed once these issues are closed, see https://github.com/phetsims/tasks/issues/1129
     // https://github.com/phetsims/forces-and-motion-basics/issues/240
     // https://github.com/phetsims/axon/issues/135
     Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );

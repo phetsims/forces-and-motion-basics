@@ -26,7 +26,7 @@ const pauseString = ForcesAndMotionBasicsStrings.pause;
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
 //Centers all the nodes in the parent wrappers
-//TODO: Would be good to factor this out or provide better library support
+//TODO: Would be good to factor this out or provide better library support https://github.com/phetsims/tasks/issues/1129
 /**
  * Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the
  * bounds will match up.  If the node is already the largest, don't wrap it.
