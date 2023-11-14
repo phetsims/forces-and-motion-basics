@@ -84,6 +84,8 @@ class WaterBucketNode extends ItemNode {
       const composite = sum / history.length;
 
       return model.isInStack( item ) ? -composite / 50 : 0;
+    }, {
+      accessNonDependencies: true
     } );
 
     //When the shape has really changed, update the water node
