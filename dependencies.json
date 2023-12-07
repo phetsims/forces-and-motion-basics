@@ -52,10 +52,6 @@
     "sha": "f92afd6467a8b47a700be111f6a6944759969db0",
     "branch": "HEAD"
   },
-  "phet-io-wrapper-sonification": {
-    "sha": "b41b1360aa6a69814c9ba0b9af30bac8d87202d0",
-    "branch": "HEAD"
-  },
   "phet-io-wrappers": {
     "sha": "839481188ef57b5f69fc6d69a8591b63cdc198b1",
     "branch": "HEAD"
