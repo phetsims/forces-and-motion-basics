@@ -35,7 +35,7 @@ class Knot extends PhetioObject {
       // {Tandem}
       tandem: Tandem.REQUIRED,
       phetioType: Knot.KnotIO,
-      phetioState: false // Because IO Type extends ReferenceIO
+      phetioState: false // Because IOType extends ReferenceIO
     }, options );
     const tandem = options.tandem;
 
