@@ -2,6 +2,9 @@
 
 /**
  * Main scenery view for the Motion, Friction and Acceleration screens.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Jesse Greenberg (PhET Interactive Simulations)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
