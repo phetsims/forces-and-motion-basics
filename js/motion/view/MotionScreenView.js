@@ -15,12 +15,11 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import PlayPauseButton from '../../../../scenery-phet/js/buttons/PlayPauseButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import StepForwardButton from '../../../../scenery-phet/js/buttons/StepForwardButton.js';
 import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
+import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
+import { Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
 import skateboard_png from '../../../images/skateboard_png.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
@@ -198,26 +197,15 @@ class MotionScreenView extends ScreenView {
     const controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
-    // create the play, pause, and step buttons
-    const playPauseButton = new PlayPauseButton( model.playProperty, {
-      radius: 18,
-      scaleFactorWhenNotPlaying: 1.28,
-      tandem: tandem.createTandem( 'playPauseButton' )
-    } );
-    const stepForwardButton = new StepForwardButton( {
-      enabledProperty: DerivedProperty.not( model.playProperty ),
-      listener: () => { model.manualStep(); },
-      radius: 18,
-      tandem: tandem.createTandem( 'stepForwardButton' )
-    } );
-
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     const playPauseVerticalOffset = 35;
-    const playPauseStepHBox = new HBox( {
-      children: [ playPauseButton, stepForwardButton ],
-      spacing: PLAY_PAUSE_BUFFER,
-      resize: false,
-      leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset )
+    const playPauseStepHBox = new TimeControlNode( model.playProperty, {
+      leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset ),
+      playPauseStepButtonOptions: {
+        stepForwardButtonOptions: {
+          listener: () => { model.manualStep(); }
+        }
+      }
     } );
     this.addChild( playPauseStepHBox );
 
