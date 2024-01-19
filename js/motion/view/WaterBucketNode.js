@@ -85,7 +85,7 @@ class WaterBucketNode extends ItemNode {
 
       return model.isInStack( item ) ? -composite / 50 : 0;
     }, {
-      strictAxonDependencies: false
+      strictAxonDependencies: false //TOD https://github.com/phetsims/forces-and-motion-basics/issues/306
     } );
 
     //When the shape has really changed, update the water node
