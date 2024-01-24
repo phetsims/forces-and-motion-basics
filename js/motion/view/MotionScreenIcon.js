@@ -23,12 +23,12 @@ export default class MotionScreenIcon extends ScreenIcon {
    */
   constructor( portrayals, options, tandem ) {
 
-    const motionScreenImages = portrayals.map( massPlayerPortrayal => {
+    const motionScreenImages = portrayals.map( ( massPlayerPortrayal, index ) => {
       return new Image( massPlayerPortrayal.screenIcon, {
         visibleProperty: new DerivedProperty( [ PreferencesModelSingleton.localizationModel.regionAndCulturePortrayalProperty ], portrayal => {
           return portrayal === massPlayerPortrayal;
         } ),
-        tandem: tandem.createTandem( 'icon' )
+        tandem: tandem.createTandem( 'icon' + index )
       } );
     } );
 
