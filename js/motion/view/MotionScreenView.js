@@ -311,10 +311,12 @@ class MotionScreenView extends ScreenView {
       const toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
       const itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
       const Constructor = item.bucket ? WaterBucketNode : ItemNode;
+      const sittingImageProperty = item.sittingImageProperty.value ? item.sittingImageProperty : item.imageProperty;
+      const holdingImageProperty = item.holdingImageProperty.value ? item.holdingImageProperty : item.imageProperty;
       const itemNode = new Constructor( model, this, item,
-        item.image,
-        item.sittingImageNode || item.image,
-        item.holdingImage || item.image,
+        item.imageProperty,
+        sittingImageProperty,
+        holdingImageProperty,
         model.showMassesProperty,
         toolboxNode,
         tandem.createTandem( item.name ) );

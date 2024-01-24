@@ -25,15 +25,15 @@ class WaterBucketNode extends ItemNode {
    * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {MotionScreenView} motionView the view for the entire 'motion', 'friction' or 'acceleration' screen
    * @param {Item} item the model for the item itself
-   * @param {Image} image image to be shown when in the toolbox or being dragged
-   * @param {Image} imageSitting image to be shown if it is a sitting person
-   * @param {Image} imageHolding image to be shown if it is a sitting person holding their arms in the air
+   * @param {Image} imageProperty imageProperty holds image to be shown when in the toolbox or being dragged
+   * @param {Image} imageSittingProperty imageProperty holds image to be shown if it is a sitting person
+   * @param {Image} imageHoldingProperty imageProperty holds image to be shown if it is a sitting person holding their arms in the air
    * @param {Property} showMassesProperty boolean property of whether the masses should be shown
    * @param {Rectangle} toolboxNode parent toolbox for the WaterBucketNode
    * @param {Tandem} tandem
    */
-  constructor( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode, tandem ) {
-    super( model, motionView, item, image, imageSitting, imageHolding, showMassesProperty, toolboxNode, tandem );
+  constructor( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem ) {
+    super( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem );
     this.item = item;
     const waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
@@ -50,7 +50,7 @@ class WaterBucketNode extends ItemNode {
     //Metrics based on original image size of 98 pixels wide.
     const padX = 4.5;
     const padY = 9;
-    const s = image.width / 98.0;
+    const s = imageProperty.value.width / 98.0;
 
     const leftLineX = x => linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );
     const leftLineY = x => linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x );

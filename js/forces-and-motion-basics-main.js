@@ -14,10 +14,12 @@ import { Image } from '../../scenery/js/imports.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
-import motionIcon_png from '../images/motionIcon_png.js';
 import tugIcon_png from '../images/tugIcon_png.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
+import PreferencesModelSingleton from './motion/PreferencesModelSingleton.js';
+import MassPlayerImages from './motion/view/MassPlayerImages.js';
+import MotionScreenIcon from './motion/view/MotionScreenIcon.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
@@ -27,6 +29,7 @@ const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ '
 const tandem = Tandem.ROOT;
 
 const simOptions = {
+  preferencesModel: PreferencesModelSingleton,
   credits: {
     leadDesign: 'Ariel Paul, Noah Podolefsky',
     graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
@@ -63,9 +66,7 @@ simLauncher.launch( () => {
 
   const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
     name: ForcesAndMotionBasicsStrings.motionStringProperty,
-    homeScreenIcon: new ScreenIcon( new Image( motionIcon_png, {
-      tandem: motionScreenTandem.createTandem( 'icon' )
-    } ), screenIconOptions )
+    homeScreenIcon: new MotionScreenIcon( MassPlayerImages.MASS_PLAYER_PORTRAYALS, screenIconOptions, motionScreenTandem )
   } );
 
   const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {

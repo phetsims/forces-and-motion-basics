@@ -21,15 +21,10 @@ import crate_png from '../../../images/crate_png.js';
 import fridge_png from '../../../images/fridge_png.js';
 import mysteryObject01_png from '../../../images/mysteryObject01_png.js';
 import waterBucket_png from '../../../images/waterBucket_png.js';
-import girlHolding_png from '../../../mipmaps/girlHolding_png.js';
-import girlSitting_png from '../../../mipmaps/girlSitting_png.js';
-import girlStanding_png from '../../../mipmaps/girlStanding_png.js';
-import manHolding_png from '../../../mipmaps/manHolding_png.js';
-import manSitting_png from '../../../mipmaps/manSitting_png.js';
-import manStanding_png from '../../../mipmaps/manStanding_png.js';
 import trashCan_png from '../../../mipmaps/trashCan_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
+import HumanTypeEnum from './HumanTypeEnum.js';
 import Item from './Item.js';
 
 class MotionModel {
@@ -235,8 +230,8 @@ class MotionModel {
     const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_png, 200, leftmostItemXLeft, 437, 0.8, 1.1, 4 );
     const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_png, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
     const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_png, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
-    const girl = new Item( this, 'girl', tandem.createTandem( 'girl' ), girlStanding_png, 40, leftmostItemXRight, 465, 0.6, 1.0, 4.2, girlSitting_png, girlHolding_png[ 1 ].img );
-    const man = new Item( this, 'man', tandem.createTandem( 'man' ), manStanding_png, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 5, manSitting_png, manHolding_png );
+    const girl = new Item( this, HumanTypeEnum.GIRL, tandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, 1.0, 4.2 );
+    const man = new Item( this, HumanTypeEnum.MAN, tandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 5 );
     const trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_png, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.7, 1.0, 5 );
     const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.3, 1.0, undefined, undefined, undefined, true );
     const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
@@ -312,7 +307,7 @@ class MotionModel {
       for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
         const size = this.view.getSize( this.stackObservableArray.get( i ) );
         sumHeight += size.height;
-        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2 + this.stackObservableArray.get( i ).centeringOffset, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/tasks/issues/1129
+        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/tasks/issues/1129
       }
     }
 

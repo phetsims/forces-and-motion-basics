@@ -14,6 +14,7 @@ import { Image, Node, Rectangle, SimpleDragHandler, Text } from '../../../../sce
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import PreferencesModelSingleton from '../PreferencesModelSingleton.js';
 
 const pattern0MassUnitsKilogramsString = ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilograms' ];
 
@@ -27,13 +28,14 @@ class ItemNode extends Node {
    * @param {MotionModel} model the entire model for the containing screen
    * @param {MotionScreenView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
-   * @param {Image} normalImage the phet.scenery.Image to show for this node
-   * @param {Image} sittingImage optional image for when the person is sitting down
-   * @param {Image} holdingImage optional image for when the person is holding an object
+   * @param {Property<Image>} normalImageProperty property for the phet.scenery.Image to show for this node
+   * @param {Property<Image>} sittingImageProperty property fot optional sitting image for when the person is sitting down
+   * @param {Property<Image>} holdingImageProperty property for optional holding image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
    * @param {Rectangle} itemToolbox - The toolbox that contains this item
+   * @param {Tandem} tandem
    */
-  constructor( model, motionView, item, normalImage, sittingImage, holdingImage, showMassesProperty, itemToolbox, tandem ) {
+  constructor( model, motionView, item, normalImageProperty, sittingImageProperty, holdingImageProperty, showMassesProperty, itemToolbox, tandem ) {
 
     super( {
       cursor: 'pointer',
@@ -50,24 +52,24 @@ class ItemNode extends Node {
     this.translate( item.positionProperty.get() );
 
     //Create the node for the main graphic
-    const normalImageNode = new Image( normalImage, { tandem: tandem.createTandem( 'normalImageNode' ) } );
+    const normalImageNode = new Image( normalImageProperty.value, { tandem: tandem.createTandem( 'normalImageNode' ) } );
     this.normalImageNode = normalImageNode;
 
     // keep track of the sitting image to track its width for the pusher
     // @public (read-only)
-    this.sittingImageNode = new Image( sittingImage, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
+    this.sittingImageNode = new Image( sittingImageProperty.value, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
     //When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
       // var centerX = normalImageNode.centerX;
-      if ( ( typeof holdingImage !== 'undefined' ) && ( item.armsUp() && item.onBoardProperty.get() ) ) {
-        normalImageNode.image = holdingImage;
+      if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.onBoardProperty.get() ) ) {
+        normalImageNode.image = holdingImageProperty.value;
       }
-      else if ( item.onBoardProperty.get() && typeof sittingImage !== 'undefined' ) {
-        normalImageNode.image = sittingImage;
+      else if ( item.onBoardProperty.get() && typeof sittingImageProperty.value !== 'undefined' ) {
+        normalImageNode.image = sittingImageProperty.value;
       }
       else {
-        normalImageNode.image = normalImage;
+        normalImageNode.image = normalImageProperty.value;
       }
       if ( this.labelNode ) {
         this.updateLabelPosition();
@@ -90,7 +92,7 @@ class ItemNode extends Node {
     const moveToStack = () => {
       item.onBoardProperty.set( true );
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
-      item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2 + item.centeringOffset, motionView.topOfStack - this.height, 'stack' );
+      item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2, motionView.topOfStack - this.height, 'stack' );
       model.stackObservableArray.add( item );
       if ( model.stackObservableArray.length > 3 ) {
         model.spliceStackBottom();
@@ -250,6 +252,8 @@ class ItemNode extends Node {
     this.addChild( labelText );
 
     showMassesProperty.link( showMasses => { labelText.visible = showMasses; } );
+
+    PreferencesModelSingleton.localizationModel.regionAndCulturePortrayalProperty.link( updateImage );
   }
 
 

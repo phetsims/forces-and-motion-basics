@@ -19,6 +19,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import HumanTypeEnum from './HumanTypeEnum.js';
 
 class Item extends PhetioObject {
 
@@ -26,7 +27,7 @@ class Item extends PhetioObject {
    * Constructor for Item
    *
    * @param {MotionModel || NetForceModel} context - model context in which this item exists
-   * @param {string} name - string describing this type of item
+   * @param {string | HumanTypeEnum } name - string describing this type of item, or HumanTypeEnum of this human item
    * @param {Tandem} tandem
    * @param {image} image - image from the 'image!' plugin, representing the item
    * @param {number} mass - model mass of the item
@@ -47,19 +48,35 @@ class Item extends PhetioObject {
       phetioState: false
     } );
 
-    this.name = name;
+    this.name = typeof name === 'string' ? name : name.name.toLowerCase();
+
+    // Set the standing, sitting, and holding image properties if item is human
+    let standingImageProperty;
+    let sittingImageProperty;
+    let holdingImageProperty;
+    if ( name === HumanTypeEnum.GIRL ) {
+      standingImageProperty = HumanTypeEnum.GIRL.standingImageProperty;
+      sittingImageProperty = HumanTypeEnum.GIRL.sittingImageProperty;
+      holdingImageProperty = HumanTypeEnum.GIRL.holdingImageProperty;
+    }
+    else if ( name === HumanTypeEnum.MAN ) {
+      standingImageProperty = HumanTypeEnum.MAN.standingImageProperty;
+      sittingImageProperty = HumanTypeEnum.MAN.sittingImageProperty;
+      holdingImageProperty = HumanTypeEnum.MAN.holdingImageProperty;
+    }
 
     //Non-observable properties
     this.initialX = x;
     this.initialY = y;
-    this.image = image;
     this.mass = mass;
     this.pusherInset = pusherInset;
-    this.sittingImageNode = sittingImage;
-    this.holdingImage = holdingImage;
     this.context = context;
     this.mystery = mystery;
     this.homeScale = homeScale || 1.0;
+
+    this.imageProperty = typeof name === 'string' ? new Property( image ) : standingImageProperty;
+    this.sittingImageProperty = typeof name === 'string' ? new Property( sittingImage ) : sittingImageProperty;
+    this.holdingImageProperty = typeof name === 'string' ? new Property( holdingImage ) : holdingImageProperty;
 
     // @public - the position of the item
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
@@ -112,15 +129,10 @@ class Item extends PhetioObject {
     this.context.directionProperty.link( direction => {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
-      if ( this.onBoardProperty.get() && direction !== 'none' && sittingImage ) {
+      if ( this.onBoardProperty.get() && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
         this.directionProperty.set( direction );
       }
     } );
-  }
-
-  //For unknown reasons, the trash can is not centered when drawn, so we make up for it with a workaround here
-  get centeringOffset() {
-    return this.image === 'trashCan.png' ? 5 : 0;
   }
 
   // @public - Return true if the arms should be up (for a human)
