@@ -1,7 +1,7 @@
 // Copyright 2015-2022, University of Colorado Boulder
 
 /**
- * Node snackType of the movable cart in Forces and Motion: Basics net force screen.
+ * Node representation of the movable cart in Forces and Motion: Basics net force screen.
  *
  * @author Jesse Greenberg
  */

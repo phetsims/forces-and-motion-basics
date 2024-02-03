@@ -268,7 +268,7 @@ class ItemNode extends Node {
 
   /**
    * Get the width of this item node, modified by the current scale factor.  If the item
-   * is using its sitting snackType, use that to get the scaled width
+   * is using its sitting representation, use that to get the scaled width
    *
    * @returns {number}
    * @public
