@@ -18,6 +18,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import { Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
 import skateboard_png from '../../../images/skateboard_png.js';
@@ -196,6 +197,19 @@ class MotionScreenView extends ScreenView {
     //Create and add the control panel
     const controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
+
+    model.stopwatch.positionProperty.value = controlPanel.leftTop.plusXY( -100, 10 );
+
+    const stopwatchNode = new StopwatchNode( model.stopwatch, {
+      visibleProperty: model.showStopwatchProperty,
+      numberDisplayOptions: {
+        textOptions: {
+          maxWidth: 100
+        }
+      }
+    } );
+
+    this.addChild( stopwatchNode );
 
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     const playPauseVerticalOffset = 35;

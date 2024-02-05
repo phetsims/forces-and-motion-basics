@@ -13,10 +13,13 @@ import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
+import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import { HBox, HStrut, Node, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
@@ -30,6 +33,7 @@ const lotsString = ForcesAndMotionBasicsStrings.lots;
 const massesString = ForcesAndMotionBasicsStrings.masses;
 const noneString = ForcesAndMotionBasicsStrings.none;
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
+const stopwatchStringProperty = ForcesAndMotionBasicsStrings.stopwatchStringProperty;
 const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
 const valuesString = ForcesAndMotionBasicsStrings.values;
 
@@ -129,6 +133,33 @@ class MotionControlPanel extends Node {
       return new VBox( { children: [ frictionText, frictionSlider ], resize: false } );
     };
 
+    const createStopwatchIcon = () => {
+
+      const stopwatch = new Stopwatch( {
+        isVisible: true,
+        tandem: Tandem.OPT_OUT
+      } );
+
+      const stopwatchNode = new StopwatchNode( stopwatch, {
+        numberDisplayOptions: {
+          textOptions: {
+            maxWidth: 100
+          }
+        },
+        tandem: Tandem.OPT_OUT
+      } );
+
+      const icon = stopwatchNode.rasterized( {
+        resolution: 5,
+        imageOptions: {
+          cursor: 'pointer'
+        }
+      } );
+      icon.setScaleMagnitude( 0.3 );
+
+      return icon;
+    };
+
     // Create controls for the 'motion' screen
     const createMotionControls = () => {
 
@@ -158,6 +189,11 @@ class MotionControlPanel extends Node {
           createNode: () => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
           tandemName: 'showSpeedCheckbox'
+        },
+        {
+          createNode: () => createLabel( stopwatchStringProperty, 'stopwatchCheckbox', { icon: createStopwatchIcon() } ),
+          property: model.showStopwatchProperty,
+          tandemName: 'showStopwatchCheckbox'
         }
       ];
 
@@ -220,6 +256,11 @@ class MotionControlPanel extends Node {
           createNode: () => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
           tandemName: 'showSpeedCheckbox'
+        },
+        {
+          createNode: () => createLabel( stopwatchStringProperty, 'stopwatchCheckbox', { icon: createStopwatchIcon() } ),
+          property: model.showStopwatchProperty,
+          tandemName: 'showStopwatchCheckbox'
         }
       ];
 

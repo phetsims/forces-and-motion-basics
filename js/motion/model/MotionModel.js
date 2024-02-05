@@ -15,6 +15,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import crate_png from '../../../images/crate_png.js';
@@ -122,6 +123,10 @@ class MotionModel {
     // @public {boolean} - whether or not speedometer is visible
     this.showSpeedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' )
+    } );
+
+    this.showStopwatchProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'showStopwatchProperty' )
     } );
 
     // @public {boolean} - whether or not mass values are visible
@@ -270,6 +275,12 @@ class MotionModel {
     // linked lazily so that oldPosition is always defined
     this.positionProperty.lazyLink( ( position, oldPosition ) => {
       this.previousModelPosition = oldPosition;
+    } );
+
+    this.stopwatch = new Stopwatch( {
+      timePropertyOptions: {
+        time: this.timeProperty
+      }
     } );
 
   }
@@ -429,6 +440,8 @@ class MotionModel {
 
     // update the tracked time which is used by the WaterBucketNode and the Accelerometer
     this.timeProperty.set( this.timeProperty.get() + dt );
+
+    this.stopwatch.step( dt );
 
     // update the acceleration values
     const mass = this.getStackMass();

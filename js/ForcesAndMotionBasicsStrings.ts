@@ -67,6 +67,8 @@ type StringsType = {
   'sumOfForcesStringProperty': LocalizedStringProperty;
   'speed': string;
   'speedStringProperty': LocalizedStringProperty;
+  'stopwatch': string;
+  'stopwatchStringProperty': LocalizedStringProperty;
   'return': string;
   'returnStringProperty': LocalizedStringProperty;
   'masses': string;
