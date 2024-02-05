@@ -101,8 +101,9 @@ class MotionControlPanel extends Node {
       //Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
       // but this makes it work with VBox/HBox
+      const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
       const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
-      const frictionSlider = new HSlider( model.frictionProperty, new Range( 0, MotionConstants.MAX_FRICTION ), {
+      const frictionSlider = new HSlider( model.frictionProperty, frictionRange, {
         trackSize: new Dimension2( 150, 6 ),
         thumbNode: new SliderKnob( frictionSliderTandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME ) ),
         majorTickLength: 18,
@@ -111,6 +112,10 @@ class MotionControlPanel extends Node {
       } );
       const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
       const invisibleSliderTickOptions = merge( { visible: false }, sliderTickOptions );
+
+      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 );
+      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * 2 );
+      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * 3 );
 
       frictionSlider.addMajorTick( 0, new Text( noneString, merge( { tandem: tandem.createTandem( 'zeroTickText' ) }, sliderTickOptions ) ) );
       frictionSlider.addMajorTick( 0, new Text( lotsString, merge( { tandem: tandem.createTandem( 'invisibleZeroTickText' ) }, invisibleSliderTickOptions ) ) );
