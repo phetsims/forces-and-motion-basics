@@ -16,9 +16,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, HStrut, Node, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
-import Slider from '../../../../sun/js/Slider.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
-import SliderKnob from '../../common/view/SliderKnob.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
@@ -105,7 +103,6 @@ class MotionControlPanel extends Node {
       const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
       const frictionSlider = new HSlider( model.frictionProperty, frictionRange, {
         trackSize: new Dimension2( 150, 6 ),
-        thumbNode: new SliderKnob( frictionSliderTandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME ) ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
         tandem: frictionSliderTandem
