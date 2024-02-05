@@ -12,7 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Path, Text } from '../../../../scenery/js/imports.js';
+import { Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
@@ -56,7 +56,15 @@ class ReadoutArrow extends Node {
       tandem: tandem.createTandem( 'arrowNode' )
     }, options ) );
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
-    this.valueNode = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueText' ) }, fontOptions ) );
+    const valueText = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueText' ) }, fontOptions ) );
+    const roundedRadius = 8;
+    this.valueBackgroundRectangle = new Rectangle( 0, 0, valueText.width + roundedRadius, 0.7 * valueText.height + roundedRadius, roundedRadius, roundedRadius, {
+      fill: 'white',
+      opacity: 0.5
+    } ).mutate( { centerX: valueText.centerX, centerY: valueText.centerY } );
+    this.valueNode = new Node( {
+      children: [ this.valueBackgroundRectangle, valueText ]
+    } );
     this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelText' ) }, fontOptions ) );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
@@ -66,7 +74,7 @@ class ReadoutArrow extends Node {
     valueProperty.link( value => {
       this.value = value;
       const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
-      this.valueNode.string = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
+      valueText.string = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
       this.update();
     } );
 
@@ -101,6 +109,7 @@ class ReadoutArrow extends Node {
     this.hidden = hidden;
     this.arrowNode.visible = !hidden;
     this.valueNode.visible = !hidden && this.showValuesProperty.value;
+    this.valueBackgroundRectangle.visible = false;
     this.labelNode.visible = !hidden;
 
     //Only change the node if visible, for performance
@@ -131,6 +140,7 @@ class ReadoutArrow extends Node {
         if ( this.valueNode.width + 5 > this.arrowNode.width || this.overlapsOther ) {
           this.valueNode.top = this.labelNode.bottom;
           this.valueNode.centerX = this.labelNode.centerX;
+          this.valueBackgroundRectangle.visible = true;
         }
       }
       else {
@@ -145,6 +155,7 @@ class ReadoutArrow extends Node {
           // with the arrow label.
           if ( this.valueNode.width + 5 > this.arrowNode.width || this.overlapsOther ) {
             this.valueNode.leftCenter = this.labelNode.rightCenter.plusXY( 5, 0 );
+            this.valueBackgroundRectangle.visible = true;
           }
           else {
             this.valueNode.center = this.arrowNode.center;
@@ -157,6 +168,7 @@ class ReadoutArrow extends Node {
           this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - this.labelNode.height * 3 / 2 : 0;
 
           if ( this.valueNode.width + 5 > this.arrowNode.width ) {
+            this.valueBackgroundRectangle.visible = true;
             const spacingOffset = 5;
             if ( value > 0 ) {
               this.valueNode.left = this.arrowNode.right + spacingOffset;
