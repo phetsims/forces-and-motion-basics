@@ -75,6 +75,7 @@ class ReadoutArrow extends Node {
       this.value = value;
       const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
       valueText.string = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
+      this.valueBackgroundRectangle.setRectWidth( valueText.width + roundedRadius );
       this.update();
     } );
 
