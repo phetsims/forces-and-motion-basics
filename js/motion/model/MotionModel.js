@@ -22,7 +22,6 @@ import crate_png from '../../../images/crate_png.js';
 import fridge_png from '../../../images/fridge_png.js';
 import mysteryObject01_png from '../../../images/mysteryObject01_png.js';
 import waterBucket_png from '../../../images/waterBucket_png.js';
-import trashCan_png from '../../../mipmaps/trashCan_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
@@ -225,11 +224,10 @@ class MotionModel {
     const crate1Spacing = 106; // distance between the refrigerator and the middle crate
     const crate2Spacing = 90; // distance between the crates
 
-    const leftmostItemXRight = this.accelerometer ? 678 : 689; // x-position of the girl
-    const manSpacing = this.accelerometer ? 47 : 61; // distance between the girl and the man
-    const trashSpacing = this.accelerometer ? 53 : 66; // distance between the man and the trash can
-    const mysterySpacing = this.accelerometer ? 51 : 72; // distance between the trash can and the mystery box
-    const bucketSpacing = 63; // distance between the mystery box and the water bucket
+    const leftmostItemXRight = this.accelerometer ? 685 : 689; // x-position of the girl
+    const manSpacing = this.accelerometer ? 55 : 61; // distance between the girl and the man
+    const mysterySpacing = this.accelerometer ? 65 : 72; // distance between the trash can and the mystery box
+    const bucketSpacing = 75; // distance between the mystery box and the water bucket
 
     // create the items - Initial positions determined empirically
     const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_png, 200, leftmostItemXLeft, 437, 0.8, 1.1, 4 );
@@ -237,13 +235,12 @@ class MotionModel {
     const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_png, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
     const girl = new Item( this, HumanTypeEnum.GIRL, tandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, 1.0, 4.2 );
     const man = new Item( this, HumanTypeEnum.MAN, tandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 5 );
-    const trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_png, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.7, 1.0, 5 );
-    const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.3, 1.0, undefined, undefined, undefined, true );
-    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
+    const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, leftmostItemXRight + manSpacing + mysterySpacing, 513, 0.3, 1.0, undefined, undefined, undefined, true );
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, leftmostItemXRight + manSpacing + mysterySpacing + bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
     bucket.bucket = true;
 
     const itemsToAdd = this.accelerometer ? [ bucket ] : [];
-    this.items = [ fridge, crate1, crate2, girl, man, trashCan, mysteryBox, ...itemsToAdd ];
+    this.items = [ fridge, crate1, crate2, girl, man, mysteryBox, ...itemsToAdd ];
 
     this.appliedForceProperty.link( appliedForce => {
       this.directionProperty.set( appliedForce > 0 ? 'right' :
