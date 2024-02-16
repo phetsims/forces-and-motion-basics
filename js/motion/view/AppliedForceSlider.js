@@ -18,8 +18,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
-import Slider from '../../../../sun/js/Slider.js';
-import SliderKnob from '../../common/view/SliderKnob.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 class AppliedForceSlider extends HSlider {
@@ -32,7 +30,6 @@ class AppliedForceSlider extends HSlider {
    */
   constructor( model, range, tandem, options ) {
 
-    const thumbNode = new SliderKnob( tandem.createTandem( Slider.THUMB_NODE_TANDEM_NAME ) );
 
     const enabledRangeProperty = new Property( range );
 
@@ -41,7 +38,6 @@ class AppliedForceSlider extends HSlider {
       majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
-      thumbNode: thumbNode,
       enabledRangeProperty: enabledRangeProperty,
       tandem: tandem,
 
@@ -98,7 +94,7 @@ class AppliedForceSlider extends HSlider {
     // when the slider is disabled, the thumb should be disabled as well
     // no need for dispose, slider exist for lifetime of sim
     this.enabledProperty.link( enabled => {
-      thumbNode.enabledProperty.value = enabled;
+      this.enabledProperty.value = enabled;
     } );
 
     //Add ticks at regular intervals in 8 divisions
