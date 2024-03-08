@@ -1,10 +1,10 @@
 {
-  "trashCan.png": {
+  "usaMotionIcon.png": {
     "text": [
       "Copyright 2002-2015 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "taken from balancing act"
+    "notes": "screenshot taken directly from sim"
   }
 }

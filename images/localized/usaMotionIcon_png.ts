@@ -1,5 +1,5 @@
 /* eslint-disable */
-import asyncLoader from '../../phet-core/js/asyncLoader.js';
+import asyncLoader from '../../../phet-core/js/asyncLoader.js';
 
 const image = new Image();
 const unlock = asyncLoader.createLock( image );
