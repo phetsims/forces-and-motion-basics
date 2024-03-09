@@ -9,13 +9,13 @@
 
 import JoistStrings from '../../../../joist/js/JoistStrings.js';
 import { USA_REGION_AND_CULTURE_ID } from '../../../../joist/js/preferences/RegionAndCulturePortrayal.js';
-import usaMotionIcon_png from '../../../images/localized/usaMotionIcon_png.js';
-import usaGirlHolding_png from '../../../mipmaps/localized/usaGirlHolding_png.js';
-import usaGirlSitting_png from '../../../mipmaps/localized/usaGirlSitting_png.js';
-import usaGirlStanding_png from '../../../mipmaps/localized/usaGirlStanding_png.js';
-import usaManHolding_png from '../../../mipmaps/localized/usaManHolding_png.js';
-import usaManSitting_png from '../../../mipmaps/localized/usaManSitting_png.js';
-import usaManStanding_png from '../../../mipmaps/localized/usaManStanding_png.js';
+import usaMotionIcon_png from '../../../images/usa/usaMotionIcon_png.js';
+import usaGirlHolding_png from '../../../mipmaps/usa/usaGirlHolding_png.js';
+import usaGirlSitting_png from '../../../mipmaps/usa/usaGirlSitting_png.js';
+import usaGirlStanding_png from '../../../mipmaps/usa/usaGirlStanding_png.js';
+import usaManHolding_png from '../../../mipmaps/usa/usaManHolding_png.js';
+import usaManSitting_png from '../../../mipmaps/usa/usaManSitting_png.js';
+import usaManStanding_png from '../../../mipmaps/usa/usaManStanding_png.js';
 import MassPlayerPortrayal from './MassPlayerPortrayal.js';
 
 const MassPlayerPortrayalUSA = new MassPlayerPortrayal(
