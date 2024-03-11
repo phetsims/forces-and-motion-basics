@@ -7,8 +7,6 @@
  *
  */
 
-import JoistStrings from '../../../../joist/js/JoistStrings.js';
-import { USA_REGION_AND_CULTURE_ID } from '../../../../joist/js/preferences/RegionAndCulturePortrayal.js';
 import usaMotionIcon_png from '../../../images/usa/usaMotionIcon_png.js';
 import usaGirlHolding_png from '../../../mipmaps/usa/usaGirlHolding_png.js';
 import usaGirlSitting_png from '../../../mipmaps/usa/usaGirlSitting_png.js';
@@ -19,15 +17,14 @@ import usaManStanding_png from '../../../mipmaps/usa/usaManStanding_png.js';
 import MassPlayerPortrayal from './MassPlayerPortrayal.js';
 
 const MassPlayerPortrayalUSA = new MassPlayerPortrayal(
-  JoistStrings.preferences.tabs.localization.regionAndCulture.portrayalSets.unitedStatesOfAmericaStringProperty,
+  'usa',
   usaGirlHolding_png[ 1 ].img,
   usaGirlSitting_png,
   usaGirlStanding_png,
   usaManHolding_png,
   usaManSitting_png,
   usaManStanding_png,
-  usaMotionIcon_png,
-  USA_REGION_AND_CULTURE_ID
+  usaMotionIcon_png
 );
 
 export default MassPlayerPortrayalUSA;

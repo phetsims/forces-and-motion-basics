@@ -13,7 +13,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 export default class MassPlayerPortrayal extends RegionAndCulturePortrayal {
 
   /**
-   * @param label { LocalizedStringProperty }
+   * @param {RegionAndCulture} regionAndCulture
    * @param girlHolding { HTMLImageElement }
    * @param girlSitting { HTMLImageElement }
    * @param girlStanding { HTMLImageElement }
@@ -21,14 +21,13 @@ export default class MassPlayerPortrayal extends RegionAndCulturePortrayal {
    * @param manSitting { HTMLImageElement }
    * @param manStanding { HTMLImageElement }
    * @param screenIcon { HTMLImageElement }
-   * @param queryParameterValue { string }
    */
-  constructor( label,
+  constructor( regionAndCulture,
                girlHolding, girlSitting, girlStanding,
                manHolding, manSitting, manStanding,
-               screenIcon, queryParameterValue ) {
+               screenIcon ) {
 
-    super( label, queryParameterValue, {} );
+    super( regionAndCulture );
 
     this.girlHolding = girlHolding;
     this.girlSitting = girlSitting;
