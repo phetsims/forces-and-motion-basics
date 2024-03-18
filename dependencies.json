@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "a76323f4a8398eb088ba12dd381827e9c14785e1",
+    "sha": "6001ab4b5a997b176e7a546f43c5acc3f86223ba",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "de32b5091d03f60b0cc694f77663f852b98b2c26",
+    "sha": "4b0cae3cd926f6da6bb49188adc88bec2c0bed22",
     "branch": "2.2-phetio"
   },
   "joist": {
-    "sha": "9b63704ed87b5a6edb12acc84f35d90f0b840989",
+    "sha": "1a843c3e376f22b13771d95ad75e52c630803dac",
     "branch": "HEAD"
   },
   "kite": {
