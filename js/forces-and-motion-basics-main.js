@@ -15,11 +15,10 @@ import Tandem from '../../tandem/js/Tandem.js';
 import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
 import tugIcon_png from '../images/tugIcon_png.js';
+import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import PreferencesModelSingleton from './motion/PreferencesModelSingleton.js';
-import MassPlayerImages from './motion/view/MassPlayerImages.js';
-import MotionScreenIcon from './motion/view/MotionScreenIcon.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
@@ -52,38 +51,32 @@ simLauncher.launch( () => {
     maxIconHeightProportion: 1
   };
 
-  //Provide the screen names as named fields so they can be easily accessed dynamically, for API features
-  //And lookups will still work properly even if the screens are reduced with ?screens=...
-  const netForceImageNode = new Image( tugIcon_png, { tandem: netForceScreenTandem.createTandem( 'icon' ) } );
+  // Provide the screen names as named fields, so they can be easily accessed dynamically, for API features
+  // and lookups will still work properly even if the screens are reduced with ?screens=...
   const netForceScreen = new Screen(
     () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
       name: ForcesAndMotionBasicsStrings.netForceStringProperty,
-      tandem: netForceScreenTandem,
-      homeScreenIcon: new ScreenIcon( netForceImageNode, screenIconOptions )
+      homeScreenIcon: new ScreenIcon( new Image( tugIcon_png ), screenIconOptions )
     }
   );
 
   const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
     name: ForcesAndMotionBasicsStrings.motionStringProperty,
-    homeScreenIcon: new MotionScreenIcon( MassPlayerImages.MASS_PLAYER_PORTRAYALS, screenIconOptions, motionScreenTandem )
+    homeScreenIcon: new ScreenIcon( new Image( ForcesAndMotionBasicsImages.motionIconImageProperty ), screenIconOptions )
   } );
 
   const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
     name: ForcesAndMotionBasicsStrings.frictionStringProperty,
-    homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png, {
-      tandem: frictionScreenTandem.createTandem( 'icon' )
-    } ), screenIconOptions )
+    homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png ), screenIconOptions )
   } );
 
   const accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
     name: ForcesAndMotionBasicsStrings.accelerationStringProperty,
-    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png, {
-      tandem: accelerationScreenTandem.createTandem( 'icon' )
-    } ), screenIconOptions )
+    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png ), screenIconOptions )
   } );
 
-  //Create and start the sim
+  // Create and start the sim
   const sim = new Sim( forcesAndMotionBasicsTitleStringProperty, [
       netForceScreen,
       motionScreen,

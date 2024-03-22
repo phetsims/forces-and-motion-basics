@@ -1,0 +1,11 @@
+{
+  "usa": {
+    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "girlHolding": "mipmaps/usa/usaGirlHolding_png.js",
+    "girlSitting": "mipmaps/usa/usaGirlSitting_png.js",
+    "girlStanding": "mipmaps/usa/usaGirlStanding_png.js",
+    "manHolding": "mipmaps/usa/usaManHolding_png.js",
+    "manSitting": "mipmaps/usa/usaManSitting_png.js",
+    "manStanding": "mipmaps/usa/usaManStanding_png.js"
+  }
+}
