@@ -14,7 +14,6 @@ import { Image, Node, Rectangle, SimpleDragHandler, Text } from '../../../../sce
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-import PreferencesModelSingleton from '../PreferencesModelSingleton.js';
 
 const pattern0MassUnitsKilogramsString = ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilograms' ];
 
@@ -252,8 +251,6 @@ class ItemNode extends Node {
     this.addChild( labelText );
 
     showMassesProperty.link( showMasses => { labelText.visible = showMasses; } );
-
-    PreferencesModelSingleton.localizationModel.regionAndCulturePortrayalProperty.link( updateImage );
   }
 
 

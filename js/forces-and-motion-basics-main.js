@@ -18,7 +18,6 @@ import tugIcon_png from '../images/tugIcon_png.js';
 import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
-import PreferencesModelSingleton from './motion/PreferencesModelSingleton.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
@@ -28,7 +27,6 @@ const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ '
 const tandem = Tandem.ROOT;
 
 const simOptions = {
-  preferencesModel: PreferencesModelSingleton,
   credits: {
     leadDesign: 'Ariel Paul, Noah Podolefsky',
     graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
