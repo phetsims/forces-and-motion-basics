@@ -63,7 +63,7 @@ class WaterBucketNode extends ItemNode {
     //When the model steps in time, update the water shape
     //The delta value is the critical value in determining the water shape.
     //Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
-    const deltaProperty = new DerivedProperty( [ model.timeProperty, item.draggingProperty ], ( time, dragging ) => {
+    const deltaProperty = new DerivedProperty( [ model.timeProperty, item.draggingProperty, model.accelerationProperty ], ( time, dragging, acceleration ) => {
 
       // if the bucket is being dragged, we want delta to be zero, regardless of
       // whether or not the sim is running
@@ -71,7 +71,6 @@ class WaterBucketNode extends ItemNode {
         return 0;
       }
 
-      const acceleration = model.accelerationProperty.get();
       history.push( acceleration );
       while ( history.length > 7 ) {
         history.shift();//remove front item
@@ -84,8 +83,6 @@ class WaterBucketNode extends ItemNode {
       const composite = sum / history.length;
 
       return model.isInStack( item ) ? -composite / 50 : 0;
-    }, {
-      strictAxonDependencies: false //TOD https://github.com/phetsims/forces-and-motion-basics/issues/306
     } );
 
     //When the shape has really changed, update the water node
