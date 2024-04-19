@@ -48,6 +48,9 @@ class MotionControlPanel extends Node {
     const fontSize = 18;
     const maxTextWidth = 120;
 
+    // empirically determined so 'motion' and 'friction' screen controls more closely match the 'acceleration' screen controls
+    const minMotionAndFrictionControlsContentWidth = 185;
+
     /**
      * Create a label node with options icon
      * @param {string} text - the label string
@@ -163,8 +166,7 @@ class MotionControlPanel extends Node {
     // Create controls for the 'motion' screen
     const createMotionControls = () => {
 
-      // container node for checkboxes and an hstrut which makes the panel just a little wider to match the
-      // other screens
+      // container node for checkboxes
       const containerNode = new Node( {
         tandem: tandem.createTandem( 'containerNode' )
       } );
@@ -199,14 +201,10 @@ class MotionControlPanel extends Node {
 
       // create the checkboxes
       const checkboxGroup = new VerticalCheckboxGroup( items, {
-        tandem: tandem.createTandem( 'checkboxGroup' )
+        tandem: tandem.createTandem( 'checkboxGroup' ),
+        minContentWidth: minMotionAndFrictionControlsContentWidth
       } );
       containerNode.addChild( checkboxGroup );
-
-
-      // create an hStrut to increase the width of the controls to the right
-      const hStrut = new HStrut( 16, { leftCenter: checkboxGroup.rightCenter } );
-      containerNode.addChild( hStrut );
 
       return containerNode;
     };
@@ -266,7 +264,8 @@ class MotionControlPanel extends Node {
 
       // create the checkboxes
       const checkboxGroup = new VerticalCheckboxGroup( items, {
-        tandem: tandem.createTandem( 'checkboxGroup' )
+        tandem: tandem.createTandem( 'checkboxGroup' ),
+        minContentWidth: minMotionAndFrictionControlsContentWidth
       } );
       containerNode.addChild( checkboxGroup );
 
