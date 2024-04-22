@@ -11,9 +11,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-
-const blueWinsString = ForcesAndMotionBasicsStrings.blueWins;
-const redWinsString = ForcesAndMotionBasicsStrings.redWins;
+import Multilink from '../../../../axon/js/Multilink.js';
 
 class FlagNode extends Node {
 
@@ -29,7 +27,10 @@ class FlagNode extends Node {
     super();
     this.model = model;
 
-    const textNode = new Text( model.cart.xProperty.get() < 0 ? blueWinsString : redWinsString, {
+    const textNode = new Text( model.cart.xProperty.get() < 0 ?
+                               ForcesAndMotionBasicsStrings.blueWinsStringProperty :
+                               ForcesAndMotionBasicsStrings.redWinsStringProperty, {
+      maxWidth: 220, // empirically determined to fit within the flag
       font: new PhetFont( 24 ),
       fill: 'white'
     } );
@@ -39,31 +40,31 @@ class FlagNode extends Node {
       lineWidth: 2
     } );
     this.addChild( this.path );
-
-    //Shrink the text to fit on the flag if necessary
-    if ( textNode.width > 220 ) {
-      textNode.scale( 220 / textNode.width );
-    }
     this.addChild( textNode );
 
     const update = this.updateFlagShape.bind( this );
 
     // listeners that will dispose the flag node when model is reset or cart is returned -
     // these must also be disposed
-
     this.disposeFlagNode = () => {
       this.detach();
       model.timeProperty.unlink( update );
       textNode.dispose();
+      this.centerTextNodeMultilink.dispose();
       this.path.dispose();
     };
 
     //When the clock ticks, wave the flag
     model.timeProperty.link( update );
-    textNode.centerX = this.path.centerX;
-    textNode.centerY = this.path.centerY;
     this.centerX = centerX;
     this.top = top;
+
+    // Ensure the text is centered on the flag.
+    this.centerTextNodeMultilink = Multilink.multilink( [ ForcesAndMotionBasicsStrings.blueWinsStringProperty,
+      ForcesAndMotionBasicsStrings.redWinsStringProperty ], () => {
+      textNode.centerX = this.path.centerX;
+      textNode.centerY = this.path.centerY;
+    } );
   }
 
   // @public
