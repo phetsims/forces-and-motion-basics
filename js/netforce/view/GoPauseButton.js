@@ -20,9 +20,6 @@ import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const goString = ForcesAndMotionBasicsStrings.go;
-const pauseString = ForcesAndMotionBasicsStrings.pause;
-
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
 //Centers all the nodes in the parent wrappers
@@ -72,12 +69,14 @@ class GoPauseButton extends BooleanToggleNode {
     }, options );
     const padX = 15;
     const padY = 10;
-    const goText = new Text( goString, {
+    const goText = new Text( ForcesAndMotionBasicsStrings.goStringProperty, {
       font: new PhetFont( 42 ),
+      maxWidth: 85,
       tandem: tandem.createTandem( 'goText' )
     } );
-    const pauseText = new Text( pauseString, {
+    const pauseText = new Text( ForcesAndMotionBasicsStrings.pauseStringProperty, {
       font: new PhetFont( 30 ),
+      maxWidth: 85,
       tandem: tandem.createTandem( 'pauseText' )
     } );
 
@@ -96,22 +95,29 @@ class GoPauseButton extends BooleanToggleNode {
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
       model.runningProperty.set( true );
     };
-    const goButton = new RoundPushButton( {
-      content: wrap( goText, padX, padY, [ goText, pauseText ] ),
-      baseColor: '#94b830',
-      listener: goListener,
-      tandem: tandem.createTandem( 'goButton' )
-    } );//green
-
     const pauseListener = () => {
       model.runningProperty.set( false );
     };
-    const pauseButton = new RoundPushButton( {
-      content: wrap( pauseText, padX, padY, [ goText, pauseText ] ),
-      baseColor: '#df1a22',
-      listener: pauseListener,
-      tandem: tandem.createTandem( 'pauseButton' )
-    } );//red
+
+    // Create the buttons.
+    const createButton = ( textNode, baseColor, listener, tandemName, stringProperty ) => {
+      const buttonContent = wrap( textNode, padX, padY, [ goText, pauseText ] );
+      const button = new RoundPushButton( {
+        content: buttonContent,
+        baseColor: baseColor,
+        listener: listener,
+        tandem: tandem.createTandem( tandemName )
+      } );
+
+      // Keep the text centered within the button.
+      stringProperty.link( () => {
+        textNode.centerX = buttonContent.width / 2;
+        textNode.centerY = buttonContent.height / 2;
+      } );
+      return button;
+    };
+    const goButton = createButton( goText, '#94b830', goListener, 'goButton', ForcesAndMotionBasicsStrings.goStringProperty );
+    const pauseButton = createButton( pauseText, '#df1a22', pauseListener, 'pauseButton', ForcesAndMotionBasicsStrings.pauseStringProperty );
 
     const showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], running => !running );
 
