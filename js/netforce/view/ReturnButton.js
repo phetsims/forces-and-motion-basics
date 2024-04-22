@@ -11,8 +11,6 @@ import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const returnString = ForcesAndMotionBasicsStrings.return;
-
 class ReturnButton extends TextPushButton {
 
   /**
@@ -27,7 +25,7 @@ class ReturnButton extends TextPushButton {
       model.returnCart();
     };
 
-    super( returnString, {
+    super( ForcesAndMotionBasicsStrings.returnStringProperty, {
       listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
@@ -35,6 +33,13 @@ class ReturnButton extends TextPushButton {
     } );
 
     this.mutate( options );
+
+    // Ensure return button is horizontally centered.
+    ForcesAndMotionBasicsStrings.returnStringProperty.link( () => {
+      if ( options.centerX !== undefined ) {
+        this.centerX = options.centerX;
+      }
+    } );
 
     model.startedProperty.linkAttribute( this, 'enabled' );
   }
