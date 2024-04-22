@@ -43,7 +43,6 @@ import ReturnButton from './ReturnButton.js';
 
 const leftForceString = ForcesAndMotionBasicsStrings.leftForce;
 const rightForceString = ForcesAndMotionBasicsStrings.rightForce;
-const sumOfForcesEqualsZeroString = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
 const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
 
 // constants
@@ -281,12 +280,14 @@ class NetForceScreenView extends ScreenView {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
+    this.sumOfForcesText = new Text( ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
-      centerX: width / 2,
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
       maxWidth: 280,
       tandem: tandem.createTandem( 'sumOfForcesText' )
+    } );
+    ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty.link( () => {
+      this.sumOfForcesText.centerX = width / 2;
     } );
 
     Multilink.multilink( [ model.netForceProperty, model.showSumOfForcesProperty ], ( netForce, showSumOfForces ) => { this.sumOfForcesText.visible = !netForce && showSumOfForces; } );
