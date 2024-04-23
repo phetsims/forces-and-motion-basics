@@ -7,15 +7,13 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Image, Node, Rectangle, SimpleDragHandler, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-
-const pattern0MassUnitsKilogramsString = ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilograms' ];
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -196,7 +194,10 @@ class ItemNode extends Node {
     } );
 
     //Label for the mass (if it is shown)
-    const massLabelText = new Text( item.mystery ? '?' : StringUtils.format( pattern0MassUnitsKilogramsString, item.mass ), {
+    const unknownValueIndicatorStringProperty = ForcesAndMotionBasicsStrings.unknownValueIndicatorStringProperty;
+    const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
+      ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.mass }, { formatNames: [ 'mass' ] } );
+    const massLabelText = new Text( item.mystery ? unknownValueIndicatorStringProperty : pattern0MassUnitsKilogramsStringProperty, {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'
@@ -209,6 +210,12 @@ class ItemNode extends Node {
       fill: 'white',
       stroke: 'gray'
     } ).mutate( { centerX: massLabelText.centerX, centerY: massLabelText.centerY } );
+
+    // Ensure the massLabelText is centered in the roundRect and fits within the roundRect with dynamic locale
+    Multilink.multilink( [ unknownValueIndicatorStringProperty, pattern0MassUnitsKilogramsStringProperty ], () => {
+      massLabelText.center = roundRect.center;
+      massLabelText.maxWidth = roundRect.width;
+    } );
 
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n

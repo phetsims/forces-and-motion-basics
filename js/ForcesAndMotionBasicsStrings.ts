@@ -73,6 +73,8 @@ type StringsType = {
   'returnStringProperty': LocalizedStringProperty;
   'masses': string;
   'massesStringProperty': LocalizedStringProperty;
+  'unknownValueIndicator': string;
+  'unknownValueIndicatorStringProperty': LocalizedStringProperty;
 };
 
 const ForcesAndMotionBasicsStrings = getStringModule( 'FORCES_AND_MOTION_BASICS' ) as StringsType;
