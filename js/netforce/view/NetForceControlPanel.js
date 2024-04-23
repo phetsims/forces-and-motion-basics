@@ -17,14 +17,8 @@ import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionB
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
-const valuesString = ForcesAndMotionBasicsStrings.values;
-
 // constants
 const BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
-
-// strings
-const speedString = ForcesAndMotionBasicsStrings.speed;
 
 class NetForceControlPanel extends Node {
   /**
@@ -38,26 +32,30 @@ class NetForceControlPanel extends Node {
     options = merge( { tandem: tandem }, options );
     super( options );
 
-    const fontOptions = { font: new PhetFont( 18 ), maxWidth: 230 };
+    const fontOptions = { font: new PhetFont( 18 ), maxWidth: 115 };
 
     // the content for "show speed" is a label with an icon
     const speedometerIconNode = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
-    const showSpeedTextNode = new Text( speedString, merge( { tandem: tandem.createTandem( 'showSpeedText' ) }, fontOptions ) );
+    const speedTextAndSpeedometerIconSpacing = 10;
+
+    // Create a separate font options to account for the speedometerIconNode and speedTextAndSpeedometerIconSpacing
+    const speedFontOptions = { font: fontOptions.font, maxWidth: fontOptions.maxWidth - speedometerIconNode.width - speedTextAndSpeedometerIconSpacing };
+    const showSpeedTextNode = new Text( ForcesAndMotionBasicsStrings.speedStringProperty, merge( { tandem: tandem.createTandem( 'showSpeedText' ) }, speedFontOptions ) );
 
     const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      createNode: tandem => new Text( sumOfForcesString, merge( { tandem: tandem.createTandem( 'showSumOfForcesText' ) }, fontOptions ) ),
+      createNode: tandem => new Text( ForcesAndMotionBasicsStrings.sumOfForcesStringProperty, merge( { tandem: tandem.createTandem( 'showSumOfForcesText' ) }, fontOptions ) ),
       property: model.showSumOfForcesProperty,
       tandemName: 'showSumOfForcesCheckbox'
     }, {
-      createNode: tandem => new Text( valuesString, merge( { tandem: tandem.createTandem( 'showValuesText' ) }, fontOptions ) ),
+      createNode: tandem => new Text( ForcesAndMotionBasicsStrings.valuesStringProperty, merge( { tandem: tandem.createTandem( 'showValuesText' ) }, fontOptions ) ),
       property: model.showValuesProperty,
       tandemName: 'showValuesCheckbox'
     }, {
       createNode: tandem => new HBox( {
         children: [ showSpeedTextNode, speedometerIconNode ],
         tandem: tandem.createTandem( 'showSpeedContent' ),
-        spacing: 10
+        spacing: speedTextAndSpeedometerIconSpacing
       } ),
       property: model.showSpeedProperty,
       tandemName: 'showSpeedCheckbox'
