@@ -12,7 +12,6 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -46,7 +45,7 @@ const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
 const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
 const frictionForceStringProperty = ForcesAndMotionBasicsStrings.frictionForceStringProperty;
 const pattern0Name1ValueUnitsAccelerationString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAcceleration' ];
-const pattern0ValueUnitsNewtonsString = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtons' ];
+const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
 const sumOfForcesEqualsZeroString = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
 
 class MotionScreenView extends ScreenView {
@@ -154,7 +153,7 @@ class MotionScreenView extends ScreenView {
 
     const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
       numberDisplayOptions: {
-        valuePattern: pattern0ValueUnitsNewtonsString,
+        valuePattern: pattern0ValueUnitsNewtonsStringProperty,
         align: 'center',
         xMargin: 20,
         yMargin: 4,
@@ -170,11 +169,11 @@ class MotionScreenView extends ScreenView {
       deltaCoarse: 50,
 
       spacing: 6,
-      centerBottom: new Vector2( width / 2, appliedForceSlider.top - 12 ),
+      bottom: appliedForceSlider.top - 12,
 
       tandem: tandem.createTandem( 'appliedForceSpinner' )
     } );
-
+    pattern0ValueUnitsNewtonsStringProperty.link( () => { appliedForceSpinner.centerX = width / 2; } );
     this.addChild( appliedForceSpinner );
 
     // force cannot be applied when there is nothing on the stack
