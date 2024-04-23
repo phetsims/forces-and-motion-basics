@@ -25,17 +25,17 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
 
-const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
-const forcesString = ForcesAndMotionBasicsStrings.forces;
-const forceString = ForcesAndMotionBasicsStrings.force;
-const frictionString = ForcesAndMotionBasicsStrings.friction;
+const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
+const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;
+const forceStringProperty = ForcesAndMotionBasicsStrings.forceStringProperty;
+const frictionStringProperty = ForcesAndMotionBasicsStrings.frictionStringProperty;
 const lotsString = ForcesAndMotionBasicsStrings.lots;
-const massesString = ForcesAndMotionBasicsStrings.masses;
+const massesStringProperty = ForcesAndMotionBasicsStrings.massesStringProperty;
 const noneString = ForcesAndMotionBasicsStrings.none;
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const stopwatchStringProperty = ForcesAndMotionBasicsStrings.stopwatchStringProperty;
-const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
-const valuesString = ForcesAndMotionBasicsStrings.values;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
+const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
 class MotionControlPanel extends Node {
   /**
@@ -46,7 +46,7 @@ class MotionControlPanel extends Node {
     super( { tandem: tandem } );
 
     const fontSize = 18;
-    const maxTextWidth = 120;
+    const maxTextWidth = 110;
 
     // empirically determined so 'motion' and 'friction' screen controls more closely match the 'acceleration' screen controls
     const minMotionAndFrictionControlsContentWidth = 185;
@@ -127,13 +127,13 @@ class MotionControlPanel extends Node {
       frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, merge( { tandem: tandem.createTandem( 'maxTickText' ) }, sliderTickOptions ) ) );
       frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, merge( { tandem: tandem.createTandem( 'invisibleMaxTickText' ) }, invisibleSliderTickOptions ) ) );
 
-      const frictionText = new Text( frictionString, {
+      const frictionText = new Text( frictionStringProperty, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),
         maxWidth: maxTextWidth,
         tandem: tandem.createTandem( 'frictionText' )
       } );
 
-      return new VBox( { children: [ frictionText, frictionSlider ], resize: false } );
+      return new VBox( { children: [ frictionText, frictionSlider ], resize: true } );
     };
 
     const createStopwatchIcon = () => {
@@ -173,17 +173,17 @@ class MotionControlPanel extends Node {
 
       const items = [
         {
-          createNode: () => createLabel( forceString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createNode: () => createLabel( forceStringProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
           tandemName: 'showForceCheckbox'
         },
         {
-          createNode: () => createLabel( valuesString, 'showValuesCheckbox' ),
+          createNode: () => createLabel( valuesStringProperty, 'showValuesCheckbox' ),
           property: model.showValuesProperty,
           tandemName: 'showValuesCheckbox'
         },
         {
-          createNode: () => createLabel( massesString, 'showMassesCheckbox' ),
+          createNode: () => createLabel( massesStringProperty, 'showMassesCheckbox' ),
           property: model.showMassesProperty,
           tandemName: 'showMassesCheckbox'
         },
@@ -231,22 +231,22 @@ class MotionControlPanel extends Node {
 
       const items = [
         {
-          createNode: () => createLabel( forcesString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createNode: () => createLabel( forcesStringProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
           tandemName: 'showForceCheckbox'
         },
         {
-          createNode: () => createLabel( sumOfForcesString, 'showSumOfForcesCheckbox' ),
+          createNode: () => createLabel( sumOfForcesStringProperty, 'showSumOfForcesCheckbox' ),
           property: model.showSumOfForcesProperty,
           tandemName: 'showSumOfForcesCheckbox'
         },
         {
-          createNode: () => createLabel( valuesString, 'showValuesCheckbox' ),
+          createNode: () => createLabel( valuesStringProperty, 'showValuesCheckbox' ),
           property: model.showValuesProperty,
           tandemName: 'showValuesCheckbox'
         },
         {
-          createNode: () => createLabel( massesString, 'showMassesCheckbox' ),
+          createNode: () => createLabel( massesStringProperty, 'showMassesCheckbox' ),
           property: model.showMassesProperty,
           tandemName: 'showMassesCheckbox'
         },
@@ -295,22 +295,22 @@ class MotionControlPanel extends Node {
 
       const items = [
         {
-          createNode: () => createLabel( forcesString, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createNode: () => createLabel( forcesStringProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
           tandemName: 'showForceCheckbox'
         },
         {
-          createNode: () => createLabel( sumOfForcesString, 'showSumOfForcesCheckbox' ),
+          createNode: () => createLabel( sumOfForcesStringProperty, 'showSumOfForcesCheckbox' ),
           property: model.showSumOfForcesProperty,
           tandemName: 'showSumOfForcesCheckbox'
         },
         {
-          createNode: () => createLabel( valuesString, 'showValuesCheckbox' ),
+          createNode: () => createLabel( valuesStringProperty, 'showValuesCheckbox' ),
           property: model.showValuesProperty,
           tandemName: 'showValuesCheckbox'
         },
         {
-          createNode: () => createLabel( massesString, 'showMassesCheckbox' ),
+          createNode: () => createLabel( massesStringProperty, 'showMassesCheckbox' ),
           property: model.showMassesProperty,
           tandemName: 'showMassesCheckbox'
         },
@@ -320,7 +320,7 @@ class MotionControlPanel extends Node {
           tandemName: 'showSpeedCheckbox'
         },
         {
-          createNode: () => createLabel( accelerationString, 'showAccelerationCheckbox', { icon: accelerometerIcon() } ),
+          createNode: () => createLabel( accelerationStringProperty, 'showAccelerationCheckbox', { icon: accelerometerIcon() } ),
           property: model.showAccelerationProperty,
           tandemName: 'showAccelerationCheckbox'
         }
