@@ -43,8 +43,8 @@ const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, u
 
 // strings
 const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
-const appliedForceString = ForcesAndMotionBasicsStrings.appliedForce;
-const frictionForceString = ForcesAndMotionBasicsStrings.frictionForce;
+const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
+const frictionForceStringProperty = ForcesAndMotionBasicsStrings.frictionForceStringProperty;
 const pattern0Name1ValueUnitsAccelerationString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAcceleration' ];
 const pattern0ValueUnitsNewtonsString = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtons' ];
 const sumOfForcesEqualsZeroString = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
@@ -121,13 +121,13 @@ class MotionScreenView extends ScreenView {
     const disableText = node => length => {node.fill = length === 0 ? 'gray' : 'black';};
 
     const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    const appliedForceSliderText = new Text( appliedForceString, {
+    const appliedForceSliderText = new Text( appliedForceStringProperty, {
       font: new PhetFont( 22 ),
-      centerX: width / 2,
       y: 430,
       maxWidth: maxTextWidth,
       tandem: tandem.createTandem( 'appliedForceSliderText' )
     } );
+    appliedForceStringProperty.link( () => { appliedForceSliderText.centerX = width / 2; } );
     const appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
       tandem.createTandem( 'appliedForceSlider' ), {
         centerX: width / 2 + 1,
@@ -382,12 +382,12 @@ class MotionScreenView extends ScreenView {
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
       ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
-    this.appliedForceArrow = new ReadoutArrow( appliedForceString, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty,
+    this.appliedForceArrow = new ReadoutArrow( appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty,
       tandem.createTandem( 'appliedForceArrow' ), {
         labelPosition: 'side',
         arrowScale: arrowScale
       } );
-    this.frictionArrow = new ReadoutArrow( frictionForceString, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty,
+    this.frictionArrow = new ReadoutArrow( frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty,
       tandem.createTandem( 'frictionArrow' ), {
         labelPosition: 'side',
         arrowScale: arrowScale
