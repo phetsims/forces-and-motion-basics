@@ -29,9 +29,9 @@ const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStri
 const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;
 const forceStringProperty = ForcesAndMotionBasicsStrings.forceStringProperty;
 const frictionStringProperty = ForcesAndMotionBasicsStrings.frictionStringProperty;
-const lotsString = ForcesAndMotionBasicsStrings.lots;
+const lotsStringProperty = ForcesAndMotionBasicsStrings.lotsStringProperty;
 const massesStringProperty = ForcesAndMotionBasicsStrings.massesStringProperty;
-const noneString = ForcesAndMotionBasicsStrings.none;
+const noneStringProperty = ForcesAndMotionBasicsStrings.noneStringProperty;
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const stopwatchStringProperty = ForcesAndMotionBasicsStrings.stopwatchStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
@@ -114,18 +114,18 @@ class MotionControlPanel extends Node {
         tickLabelSpacing: 3,
         tandem: frictionSliderTandem
       } );
-      const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 125 };
+      const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 45 };
       const invisibleSliderTickOptions = merge( { visible: false }, sliderTickOptions );
 
       frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 );
       frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * 2 );
       frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * 3 );
 
-      frictionSlider.addMajorTick( 0, new Text( noneString, merge( { tandem: tandem.createTandem( 'zeroTickText' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( 0, new Text( lotsString, merge( { tandem: tandem.createTandem( 'invisibleZeroTickText' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( noneStringProperty, merge( { tandem: tandem.createTandem( 'zeroTickText' ) }, sliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( lotsStringProperty, merge( { tandem: tandem.createTandem( 'invisibleZeroTickText' ) }, invisibleSliderTickOptions ) ) );
 
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsString, merge( { tandem: tandem.createTandem( 'maxTickText' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneString, merge( { tandem: tandem.createTandem( 'invisibleMaxTickText' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsStringProperty, merge( { tandem: tandem.createTandem( 'maxTickText' ) }, sliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneStringProperty, merge( { tandem: tandem.createTandem( 'invisibleMaxTickText' ) }, invisibleSliderTickOptions ) ) );
 
       const frictionText = new Text( frictionStringProperty, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),
@@ -133,7 +133,10 @@ class MotionControlPanel extends Node {
         tandem: tandem.createTandem( 'frictionText' )
       } );
 
-      return new VBox( { children: [ frictionText, frictionSlider ], resize: true } );
+      // Keep frictionText always centered on the frictionSlider
+      frictionStringProperty.link( () => { frictionText.centerX = frictionSlider.centerX; } );
+
+      return new VBox( { children: [ frictionText, frictionSlider ], resize: false } );
     };
 
     const createStopwatchIcon = () => {
