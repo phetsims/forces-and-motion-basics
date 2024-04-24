@@ -205,7 +205,7 @@ class MotionScreenView extends ScreenView {
       visibleProperty: model.showStopwatchProperty,
       numberDisplayOptions: {
         textOptions: {
-          maxWidth: 100
+          maxWidth: 80
         }
       }
     } );

@@ -149,7 +149,7 @@ class MotionControlPanel extends Node {
       const stopwatchNode = new StopwatchNode( stopwatch, {
         numberDisplayOptions: {
           textOptions: {
-            maxWidth: 100
+            maxWidth: 80
           }
         },
         tandem: Tandem.OPT_OUT
