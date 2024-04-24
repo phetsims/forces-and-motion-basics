@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -41,10 +42,10 @@ const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesString
 const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
 
 // strings
-const accelerationString = ForcesAndMotionBasicsStrings.acceleration;
+const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
 const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
 const frictionForceStringProperty = ForcesAndMotionBasicsStrings.frictionForceStringProperty;
-const pattern0Name1ValueUnitsAccelerationString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAcceleration' ];
+const pattern0Name1ValueUnitsAccelerationStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAccelerationStringProperty' ];
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
 const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
 
@@ -142,7 +143,8 @@ class MotionScreenView extends ScreenView {
     const spinnerRange = new Range( -500, 500 );
 
     // Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ], ( appliedForce, speedClassification, stackSize ) => {
+    Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ],
+      ( appliedForce, speedClassification, stackSize ) => {
 
       const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
       spinnerRange.max = enableRightButtons ? 500 : 0;
@@ -245,8 +247,14 @@ class MotionScreenView extends ScreenView {
       const accelerometerNode = new AccelerometerNode( model.accelerationProperty, tandem.createTandem( 'accelerometerNode' ) );
 
       // build up the string label for the acceleration
-      const labelString = StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, model.accelerationProperty.value );
-      const labelText = new RichText( labelString, {
+      const labelTextStringProperty = new DerivedStringProperty( [
+          model.showValuesProperty, pattern0Name1ValueUnitsAccelerationStringProperty, accelerationStringProperty, model.accelerationProperty ],
+        ( showValues, pattern0Name1ValueUnitsAccelerationString, accelerationString, acceleration ) => {
+          return showValues ?
+                 StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, Utils.toFixed( acceleration, 2 ) ) :
+                 accelerationString;
+        } );
+      const labelText = new RichText( labelTextStringProperty, {
         font: new PhetFont( 18 ),
         supScale: 0.60,
         supYOffset: 2,
@@ -284,21 +292,15 @@ class MotionScreenView extends ScreenView {
 
       this.addChild( accelerometerWithTickLabels );
 
-      // whenever showValues and accleration changes, update the label text
+      // whenever showValues and acceleration changes, update the label text position
       const initialLabelWidth = labelText.width;
-      Multilink.multilink( [ model.showValuesProperty, model.accelerationProperty ], ( showValues, acceleration ) => {
-        if ( showValues ) {
-          const accelerationValue = Utils.toFixed( acceleration, 2 );
-          labelText.setString( StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, accelerationValue ) );
+      Multilink.multilink( [ model.showValuesProperty, labelTextStringProperty ], showValues => {
 
-          // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
-          // in width.
-          labelText.centerX = accelerometerNode.centerX + ( labelText.width - initialLabelWidth ) / 2 - 10;
-        }
-        else {
-          labelText.setString( accelerationString );
-          labelText.centerX = accelerometerNode.centerX;
-        }
+        // Make sure that the acceleration readout does not shift as the value changes by compensating for the change
+        // in width.
+        labelText.centerX = showValues ?
+                            accelerometerNode.centerX + ( labelText.width - initialLabelWidth ) / 2 - 40 :
+                            accelerometerNode.centerX;
       } );
     }
 
