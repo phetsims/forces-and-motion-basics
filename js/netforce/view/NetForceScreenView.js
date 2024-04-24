@@ -41,9 +41,9 @@ import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 
-const leftForceString = ForcesAndMotionBasicsStrings.leftForce;
-const rightForceString = ForcesAndMotionBasicsStrings.rightForce;
-const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
+const leftForceStringProperty = ForcesAndMotionBasicsStrings.leftForceStringProperty;
+const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringProperty;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
 // constants
 const STOPPER_TOP_WIDTH = 11;
@@ -154,15 +154,15 @@ class NetForceScreenView extends ScreenView {
 
     //Create the arrow nodes
     const opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
+    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
       } );
-    this.leftArrow = new ReadoutArrow( leftForceString, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty,
+    this.leftArrow = new ReadoutArrow( leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'leftArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
       } );
-    this.rightArrow = new ReadoutArrow( rightForceString, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty,
+    this.rightArrow = new ReadoutArrow( rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'rightArrow' ), {
         lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
       } );

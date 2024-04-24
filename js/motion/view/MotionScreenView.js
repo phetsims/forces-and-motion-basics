@@ -35,7 +35,7 @@ import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
 
-const sumOfForcesString = ForcesAndMotionBasicsStrings.sumOfForces;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
 // constants
 const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
@@ -46,7 +46,7 @@ const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStri
 const frictionForceStringProperty = ForcesAndMotionBasicsStrings.frictionForceStringProperty;
 const pattern0Name1ValueUnitsAccelerationString = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAcceleration' ];
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
-const sumOfForcesEqualsZeroString = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZero;
+const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
 
 class MotionScreenView extends ScreenView {
 
@@ -364,12 +364,12 @@ class MotionScreenView extends ScreenView {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
-    this.sumArrow = new ReadoutArrow( sumOfForcesString, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty,
+    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
         labelPosition: 'top',
         arrowScale: arrowScale
       } );
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroString, {
+    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroStringProperty, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       centerX: width / 2,

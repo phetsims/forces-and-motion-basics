@@ -7,16 +7,17 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-const pattern0ValueUnitsNString = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsN' ];
+const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNStringProperty' ];
 
 // constants
 const ARROW_HEAD_WIDTH = 50;
@@ -24,7 +25,7 @@ const ARROW_HEAD_HEIGHT = 25;
 
 class ReadoutArrow extends Node {
   /**
-   * @param label the text to show for the arrow
+   * @param label {TReadOnlyProperty<string>} the text to show for the arrow
    * @param fill the color of the arrow
    * @param tailX {number} the position of the tail in X
    * @param tailY {number} the position of the tail in Y
@@ -56,7 +57,11 @@ class ReadoutArrow extends Node {
       tandem: tandem.createTandem( 'arrowNode' )
     }, options ) );
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
-    const valueText = new Text( '110N', merge( { tandem: tandem.createTandem( 'valueText' ) }, fontOptions ) );
+    const valueTextPatternStringProperty = new PatternStringProperty( pattern0ValueUnitsNStringProperty,
+      { value: new DerivedProperty( [ valueProperty ], value => Utils.toFixed( Math.abs( value ), 0 ) ) },
+      { formatNames: [ 'value' ] } );
+    const valueText = new Text( valueTextPatternStringProperty,
+      merge( { tandem: tandem.createTandem( 'valueText' ) }, fontOptions ) );
     const roundedRadius = 8;
     this.valueBackgroundRectangle = new Rectangle( 0, 0, valueText.width + roundedRadius, 0.7 * valueText.height + roundedRadius, roundedRadius, roundedRadius, {
       fill: 'white',
@@ -70,12 +75,27 @@ class ReadoutArrow extends Node {
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
 
+    if ( this.options.labelPosition === 'top' ) {
+
+      // Ensure the labelNode is on top of the arrow with dynamic locale
+      label.lazyLink( () => {
+        this.labelNode.bottom = isFinite( this.arrowNode.top ) ? this.arrowNode.top : 0;
+      } );
+    }
+
+    // Update background rectangle when the value text changes
+    const updateValueBackgroundRectangleWidth = () => { this.valueBackgroundRectangle.setRectWidth( valueText.width + roundedRadius ); };
+
+    // Update background rectangle width and label positions to readout arrow with dynamic locale.
+    valueTextPatternStringProperty.lazyLink( () => {
+      updateValueBackgroundRectangleWidth();
+      this.update();
+    } );
+
     //Update when the value changes
     valueProperty.link( value => {
       this.value = value;
-      const roundedValue = Utils.toFixed( Math.abs( value ), 0 );
-      valueText.string = StringUtils.format( pattern0ValueUnitsNString, roundedValue );
-      this.valueBackgroundRectangle.setRectWidth( valueText.width + roundedRadius );
+      updateValueBackgroundRectangleWidth();
       this.update();
     } );
 
@@ -150,7 +170,7 @@ class ReadoutArrow extends Node {
         //Position the value and label if the label position is on the bottom
         if ( this.options.labelPosition === 'bottom' ) {
           this.labelNode.centerX = this.arrowNode.centerX;
-          this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 5 : 0;
+          this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 10 : 0;
 
           // if the arrow overlaps another or is small, we align the value readout horizontally
           // with the arrow label.
@@ -166,7 +186,7 @@ class ReadoutArrow extends Node {
         //Position the value and label if the label position is on the top
         else {
           this.labelNode.centerX = this.tailX;
-          this.labelNode.bottom = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY - this.labelNode.height * 3 / 2 : 0;
+          this.labelNode.bottom = isFinite( this.arrowNode.top ) ? this.arrowNode.top : 0;
 
           if ( this.valueNode.width + 5 > this.arrowNode.width ) {
             this.valueBackgroundRectangle.visible = true;
