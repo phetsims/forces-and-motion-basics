@@ -26,7 +26,8 @@
     "simFeatures": {
       "supportedRegionsAndCultures": [
         "usa"
-      ]
+      ],
+      "supportsDynamicLocale": true
     },
     "simulation": true,
     "phet-io": {
