@@ -20,6 +20,7 @@ import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
@@ -361,7 +362,7 @@ class MotionControlPanel extends Node {
       resize: false,
       tandem: tandem.createTandem( 'panel' )
     } );
-    this.addChild( panel.mutate( { left: 981 - panel.width - 5, top: 5 } ) );
+    this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5, top: 5 } ) );
   }
 }
 

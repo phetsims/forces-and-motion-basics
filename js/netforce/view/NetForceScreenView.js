@@ -46,6 +46,7 @@ const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringPr
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
 // constants
+const MARGIN_FROM_LAYOUT_BOUNDS = 5;
 const STOPPER_TOP_WIDTH = 11;
 const STOPPER_BOTTOM_WIDTH = 30;
 const STOPPER_HEIGHT = 24;
@@ -242,7 +243,7 @@ class NetForceScreenView extends ScreenView {
     //Return button
     this.addChild( new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
       centerX: this.layoutBounds.centerX,
-      top: goPauseButton.bottom + 5,
+      top: goPauseButton.bottom + MARGIN_FROM_LAYOUT_BOUNDS,
       maxWidth: maxWidth
     } ) );
 
@@ -253,8 +254,8 @@ class NetForceScreenView extends ScreenView {
 
     // Show the control panel
     this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) ).mutate( {
-      right: 981 - 5,
-      top: 5
+      right: this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS,
+      top: MARGIN_FROM_LAYOUT_BOUNDS
     } );
     this.addChild( this.controlPanel );
 
