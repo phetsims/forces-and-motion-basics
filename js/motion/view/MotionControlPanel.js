@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
@@ -168,6 +169,12 @@ class MotionControlPanel extends Node {
       return icon;
     };
 
+    // Ensure the checkboxes are centered with dynamic locale
+    const layoutCheckboxes = ( stringProperties, checkboxes ) => {
+      const checkboxesCenterX = checkboxes.centerX;
+      Multilink.multilink( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
+    };
+
     // Create controls for the 'motion' screen
     const createMotionControls = () => {
 
@@ -210,6 +217,10 @@ class MotionControlPanel extends Node {
         minContentWidth: minMotionAndFrictionControlsContentWidth
       } );
       containerNode.addChild( checkboxGroup );
+
+      layoutCheckboxes(
+        [ forceStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, stopwatchStringProperty ],
+        checkboxGroup );
 
       return containerNode;
     };
@@ -278,6 +289,10 @@ class MotionControlPanel extends Node {
       const strut = new VStrut( 12, { centerTop: checkboxGroup.centerBottom } );
       containerNode.addChild( strut );
 
+      layoutCheckboxes(
+        [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, stopwatchStringProperty ],
+        checkboxGroup );
+
       // create the slider
       const frictionSlider = createFrictionSlider();
       frictionSlider.top = strut.bottom;
@@ -342,6 +357,10 @@ class MotionControlPanel extends Node {
       // create the spacing strut
       const strut = new VStrut( 12, { centerTop: checkboxGroup.centerBottom } );
       containerNode.addChild( strut );
+
+      layoutCheckboxes(
+        [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, accelerationStringProperty ],
+        checkboxGroup );
 
       // add the slider friction slider under the checkboxes
       const frictionSlider = createFrictionSlider();
