@@ -331,7 +331,10 @@ class MotionControlPanel extends Node {
       ];
 
       const checkboxGroup = new VerticalCheckboxGroup( items, {
-        tandem: tandem.createTandem( 'checkboxGroup' )
+        tandem: tandem.createTandem( 'checkboxGroup' ),
+
+        // set so the icons appear right-aligned
+        minContentWidth: minMotionAndFrictionControlsContentWidth + 10 // empirically determined as the 'acceleration' screen controls have longer strings
       } );
       containerNode.addChild( checkboxGroup );
 
