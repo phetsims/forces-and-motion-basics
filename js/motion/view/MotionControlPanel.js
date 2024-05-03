@@ -113,6 +113,7 @@ class MotionControlPanel extends Node {
         trackSize: new Dimension2( 150, 6 ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
+        sizable: false,
         tandem: frictionSliderTandem
       } );
       const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 45 };
