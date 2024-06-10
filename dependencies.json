@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.3.34-rc.1 Thu May 16 2024 07:23:01 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.3.34 Sun Jun 09 2024 18:08:23 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "1f85a22a5114141636c022bc1d5d94980f2a88f1",
+    "sha": "2c78f7016e887a332ed04cd79fc6b2b44d042606",
     "branch": "2.3"
   },
   "joist": {
