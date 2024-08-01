@@ -15,29 +15,21 @@
     "license": "Public Domain",
     "notes": ""
   },
-  "cart.png": {
+  "cart.svg": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
-  "cloud1.png": {
+  "cloud1.svg": {
     "text": [
-      "Public Domain"
-    ],
-    "projectURL": "https://openclipart.org/detail/99229/landscape-by-rg1024",
-    "license": "Public Domain",
-    "notes": ""
-  },
-  "crate.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "Created by Amanada McGarry"
   },
   "crate.svg": {
     "text": [
@@ -45,7 +37,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky and Mariah Hermsmeyer"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "frictionIcon.png": {
     "text": [
@@ -55,21 +47,13 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "screenshot taken directly from sim"
   },
-  "fridge.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "https://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
   "fridge.svg": {
     "text": [
       "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky and Mariah Hermsmeyer"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "grass.png": {
     "text": [
@@ -87,21 +71,13 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Noah Podolefsky"
   },
-  "mountains.png": {
+  "mountains.svg": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
     "notes": "taken from Energy Skate Park"
-  },
-  "mysteryObject01.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "https://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "taken from balancing act"
   },
   "mysteryObject01.svg": {
     "text": [
@@ -109,23 +85,23 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco and Mariah Hermsmeyer"
+    "notes": "created by Amanda McGarry"
   },
-  "rope.png": {
+  "rope.svg": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Mariah Hermsmeyer"
   },
-  "skateboard.png": {
+  "skateboard.svg": {
     "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
+      "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
+    "notes": "created by Amanda McGarry"
   },
   "trashCan.svg": {
     "text": [
@@ -133,7 +109,7 @@
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by John Blanco and Mariah Hermsmeyer"
+    "notes": "created by Mariah Hermsmeyer"
   },
   "tugIcon.png": {
     "text": [
@@ -143,20 +119,12 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "screenshot taken directly from sim"
   },
-  "waterBucket.png": {
-    "text": [
-      "Copyright 2002-2015 University of Colorado Boulder"
-    ],
-    "projectURL": "https://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky"
-  },
   "waterBucket.svg": {
     "text": [
       "Copyright 2024 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Noah Podolefsky and Mariah Hermsmeyer"
+    "notes": "created by Amanda McGarry"
   }
 }

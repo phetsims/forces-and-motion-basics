@@ -21,7 +21,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import { Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
-import skateboard_png from '../../../images/skateboard_png.js';
+import skateboard_svg from '../../../images/skateboard_svg.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
@@ -92,7 +92,8 @@ class MotionScreenView extends ScreenView {
 
     // Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
-      this.addChild( new Image( skateboard_png, {
+      this.addChild( new Image( skateboard_svg, {
+        scale: 0.75,
         centerX: width / 2, y: 315 + 12,
         pickable: false,
         tandem: tandem.createTandem( 'skateboardImageNode' )

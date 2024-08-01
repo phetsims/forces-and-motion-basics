@@ -9,7 +9,7 @@
 import Range from '../../../../dot/js/Range.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import { Image } from '../../../../scenery/js/imports.js';
-import cart_png from '../../../images/cart_png.js';
+import cart_svg from '../../../images/cart_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
@@ -24,7 +24,7 @@ class CartNode extends Image {
    */
   constructor( cart, speedProperty, showSpeedProperty, tandem ) {
     // super constructor
-    super( cart_png, {
+    super( cart_svg, {
       y: 221,
       tandem: tandem
     } );

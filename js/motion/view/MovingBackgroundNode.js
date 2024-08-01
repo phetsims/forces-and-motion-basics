@@ -12,9 +12,9 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Utils from '../../../../dot/js/Utils.js';
 import { Image, Node, Pattern, Rectangle } from '../../../../scenery/js/imports.js';
 import brickTile_png from '../../../images/brickTile_png.js';
-import cloud1_png from '../../../images/cloud1_png.js';
+import cloud1_svg from '../../../images/cloud1_svg.js';
 import icicle_png from '../../../images/icicle_png.js';
-import mountains_png from '../../../images/mountains_png.js';
+import mountains_svg from '../../../images/mountains_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 
@@ -64,12 +64,12 @@ class MovingBackgroundNode extends Node {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
-        toBackgroundImage( L / 2, mountains_png, mountainY, 1, 'mountainImage1' ),
-        toBackgroundImage( L, mountains_png, mountainY, 1, 'mountainImage2' ),
-        toBackgroundImage( -L / 3, mountains_png, mountainY, 1, 'mountainImage3' ),
-        toBackgroundImage( 0, cloud1_png, 10, 0.7, 'cloudImage1' ),
-        toBackgroundImage( L - 100, cloud1_png, -30, 0.8, 'cloudImage2' ),
-        toBackgroundImage( -L / 3 - 100, cloud1_png, 5, 1, 'cloudImage3' )
+        toBackgroundImage( L / 2, mountains_svg, mountainY, 1, 'mountainImage1' ),
+        toBackgroundImage( L, mountains_svg, mountainY, 1, 'mountainImage2' ),
+        toBackgroundImage( -L / 3, mountains_svg, mountainY, 1, 'mountainImage3' ),
+        toBackgroundImage( 0, cloud1_svg, 10, 0.7, 'cloudImage1' ),
+        toBackgroundImage( L - 100, cloud1_svg, -30, 0.8, 'cloudImage2' ),
+        toBackgroundImage( -L / 3 - 100, cloud1_svg, 5, 1, 'cloudImage3' )
       ]
     } );
     this.addChild( mountainAndCloudLayer );
