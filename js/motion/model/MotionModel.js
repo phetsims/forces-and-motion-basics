@@ -18,11 +18,11 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import crate_png from '../../../images/crate_png.js';
-import fridge_png from '../../../images/fridge_png.js';
-import mysteryObject01_png from '../../../images/mysteryObject01_png.js';
-import waterBucket_png from '../../../images/waterBucket_png.js';
-import trashCan_png from '../../../mipmaps/trashCan_png.js';
+import crate_svg from '../../../images/crate_svg.js';
+import fridge_svg from '../../../images/fridge_svg.js';
+import mysteryObject01_svg from '../../../images/mysteryObject01_svg.js';
+import waterBucket_svg from '../../../images/waterBucket_svg.js';
+import trashCan_svg from '../../../images/trashCan_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
@@ -238,16 +238,16 @@ class MotionModel {
     const bucketSpacing = isTrashCanPresent ? 63 : 75; // distance between the mystery box and the water bucket
 
     // create the items - Initial positions determined empirically
-    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_png, 200, leftmostItemXLeft, 437, 0.8, 1.1, 4 );
-    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_png, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
-    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_png, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
+    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
+    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
     const girl = new Item( this, HumanTypeEnum.GIRL, tandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, 1.0, 4.2 );
     const man = new Item( this, HumanTypeEnum.MAN, tandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 5 );
     if ( isTrashCanPresent ) {
-      trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_png, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.7, 1.0, 5 );
+      trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, 1.0, 5 );
     }
-    const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_png, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.3, 1.0, undefined, undefined, undefined, true );
-    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_png, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
+    const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, 1.0, undefined, undefined, undefined, true );
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 547 + -35, 0.68, 1.0, 8 );
     bucket.bucket = true;
 
     const itemsToAdd = this.accelerometer ? [ bucket ] : [];
