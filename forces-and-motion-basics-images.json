@@ -1,11 +1,56 @@
 {
   "usa": {
     "motionIcon": "images/usa/usaMotionIcon_png.ts",
-    "girlHolding": "mipmaps/usa/usaGirlHolding_png.js",
-    "girlSitting": "mipmaps/usa/usaGirlSitting_png.js",
-    "girlStanding": "mipmaps/usa/usaGirlStanding_png.js",
-    "manHolding": "mipmaps/usa/usaManHolding_png.js",
-    "manSitting": "mipmaps/usa/usaManSitting_png.js",
-    "manStanding": "mipmaps/usa/usaManStanding_png.js"
+    "girlHolding": "images/usa/usaGirlHolding_svg.ts",
+    "girlSitting": "images/usa/usaGirlSitting_svg.ts",
+    "girlStanding": "images/usa/usaGirlStanding_svg.ts",
+    "manHolding": "images/usa/usaManHolding_svg.ts",
+    "manSitting": "images/usa/usaManSitting_svg.ts",
+    "manStanding": "images/usa/usaManStanding_svg.ts"
+  },
+  "africa": {
+    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "girlHolding": "images/africa/africaGirlHolding_svg.ts",
+    "girlSitting": "images/africa/africaGirlSitting_svg.ts",
+    "girlStanding": "images/africa/africaGirlStanding_svg.ts",
+    "manHolding": "images/africa/africaManHolding_svg.ts",
+    "manSitting": "images/africa/africaManSitting_svg.ts",
+    "manStanding": "images/africa/africaManStanding_svg.ts"
+  },
+  "africaModest": {
+    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "girlHolding": "images/africa/africaGirlHolding_svg.ts",
+    "girlSitting": "images/africa/africaGirlSitting_svg.ts",
+    "girlStanding": "images/africa/africaGirlStanding_svg.ts",
+    "manHolding": "images/africa/africaManHolding_svg.ts",
+    "manSitting": "images/africa/africaManSitting_svg.ts",
+    "manStanding": "images/africa/africaManStanding_svg.ts"
+  },
+  "asia": {
+    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "girlHolding": "images/asia/asiaGirlHolding_svg.ts",
+    "girlSitting": "images/asia/asiaGirlSitting_svg.ts",
+    "girlStanding": "images/asia/asiaGirlStanding_svg.ts",
+    "manHolding": "images/asia/asiaManHolding_svg.ts",
+    "manSitting": "images/asia/asiaManSitting_svg.ts",
+    "manStanding": "images/asia/asiaManStanding_svg.ts"
+  },
+  "latinAmerica": {
+    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "girlHolding": "images/latinAmerica/latinAmericaGirlHolding_svg.ts",
+    "girlSitting": "images/latinAmerica/latinAmericaGirlSitting_svg.ts",
+    "girlStanding": "images/latinAmerica/latinAmericaGirlStanding_svg.ts",
+    "manHolding": "images/latinAmerica/latinAmericaManHolding_svg.ts",
+    "manSitting": "images/latinAmerica/latinAmericaManSitting_svg.ts",
+    "manStanding": "images/latinAmerica/latinAmericaManStanding_svg.ts"
+  },
+  "oceania": {
+    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "girlHolding": "images/oceania/oceaniaGirlHolding_svg.ts",
+    "girlSitting": "images/oceania/oceaniaGirlSitting_svg.ts",
+    "girlStanding": "images/oceania/oceaniaGirlStanding_svg.ts",
+    "manHolding": "images/oceania/oceaniaManHolding_svg.ts",
+    "manSitting": "images/oceania/oceaniaManSitting_svg.ts",
+    "manStanding": "images/oceania/oceaniaManStanding_svg.ts"
   }
 }

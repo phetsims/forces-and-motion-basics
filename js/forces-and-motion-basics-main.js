@@ -29,7 +29,7 @@ const tandem = Tandem.ROOT;
 const simOptions = {
   credits: {
     leadDesign: 'Ariel Paul, Noah Podolefsky',
-    graphicArts: 'Mariah Hermsmeyer, Sharon Siman-Tov',
+    graphicArts: 'Mariah Hermsmeyer, Amanda McGarry, Sharon Siman-Tov',
     softwareDevelopment: 'Jesse Greenberg, Sam Reid',
     team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Oliver Orejola, Ben Roberts, ' +
