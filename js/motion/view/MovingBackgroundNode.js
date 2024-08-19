@@ -64,12 +64,12 @@ class MovingBackgroundNode extends Node {
       tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
-        toBackgroundImage( L / 2, mountains_svg, mountainY, 1, 'mountainImage1' ),
-        toBackgroundImage( L, mountains_svg, mountainY, 1, 'mountainImage2' ),
-        toBackgroundImage( -L / 3, mountains_svg, mountainY, 1, 'mountainImage3' ),
-        toBackgroundImage( 0, cloud1_svg, 10, 0.7, 'cloudImage1' ),
-        toBackgroundImage( L - 100, cloud1_svg, -30, 0.8, 'cloudImage2' ),
-        toBackgroundImage( -L / 3 - 100, cloud1_svg, 5, 1, 'cloudImage3' )
+        toBackgroundImage( L / 2, mountains_svg, mountainY, 0.84, 'mountainImage1' ),
+        toBackgroundImage( L, mountains_svg, mountainY, 0.84, 'mountainImage2' ),
+        toBackgroundImage( -L / 3, mountains_svg, mountainY, 0.84, 'mountainImage3' ),
+        toBackgroundImage( 0, cloud1_svg, 10, 0.545, 'cloudImage1' ),
+        toBackgroundImage( L - 100, cloud1_svg, -30, 0.62, 'cloudImage2' ),
+        toBackgroundImage( -L / 3 - 100, cloud1_svg, 5, 0.78, 'cloudImage3' )
       ]
     } );
     this.addChild( mountainAndCloudLayer );
