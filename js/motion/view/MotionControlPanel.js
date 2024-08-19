@@ -160,7 +160,7 @@ class MotionControlPanel extends Node {
 
       const icon = stopwatchNode.rasterized( {
         resolution: 5,
-        imageOptions: {
+        nodeOptions: {
           cursor: 'pointer'
         }
       } );
