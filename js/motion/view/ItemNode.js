@@ -25,9 +25,9 @@ class ItemNode extends Node {
    * @param {MotionModel} model the entire model for the containing screen
    * @param {MotionScreenView} motionView the entire view for the containing screen
    * @param {Item} item the corresponding to this ItemNode
-   * @param {Property<Image>} normalImageProperty property for the phet.scenery.Image to show for this node
-   * @param {Property<Image>} sittingImageProperty property fot optional sitting image for when the person is sitting down
-   * @param {Property<Image>} holdingImageProperty property for optional holding image for when the person is holding an object
+   * @param {TReadOnlyProperty<ImageableImage>} normalImageProperty property for the phet.scenery.Image to show for this node
+   * @param {TReadOnlyProperty<ImageableImage>} sittingImageProperty property fot optional sitting image for when the person is sitting down
+   * @param {TReadOnlyProperty<ImageableImage>} holdingImageProperty property for optional holding image for when the person is holding an object
    * @param {Property} showMassesProperty property for whether the mass value should be shown
    * @param {Rectangle} itemToolbox - The toolbox that contains this item
    * @param {Tandem} tandem
@@ -48,25 +48,25 @@ class ItemNode extends Node {
     // translate this node to the item's position
     this.translate( item.positionProperty.get() );
 
-    //Create the node for the main graphic
-    const normalImageNode = new Image( normalImageProperty.value, { tandem: tandem.createTandem( 'normalImageNode' ) } );
+    // Create the node for the main graphic
+    const normalImageNode = new Image( normalImageProperty, { tandem: tandem.createTandem( 'normalImageNode' ) } );
     this.normalImageNode = normalImageNode;
 
     // keep track of the sitting image to track its width for the pusher
     // @public (read-only)
-    this.sittingImageNode = new Image( sittingImageProperty.value, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
+    this.sittingImageNode = new Image( sittingImageProperty, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
     //When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
       // var centerX = normalImageNode.centerX;
       if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.onBoardProperty.get() ) ) {
-        normalImageNode.image = holdingImageProperty.value;
+        normalImageNode.imageProperty = holdingImageProperty;
       }
       else if ( item.onBoardProperty.get() && typeof sittingImageProperty.value !== 'undefined' ) {
-        normalImageNode.image = sittingImageProperty.value;
+        normalImageNode.imageProperty = sittingImageProperty;
       }
       else {
-        normalImageNode.image = normalImageProperty.value;
+        normalImageNode.imageProperty = normalImageProperty;
       }
       if ( this.labelNode ) {
         this.updateLabelPosition();
