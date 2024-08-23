@@ -6,12 +6,15 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-import Multilink from '../../../../axon/js/Multilink.js';
+import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
+import PullerColors from '../model/PullerColors.js';
 
 class FlagNode extends Node {
 
@@ -27,19 +30,34 @@ class FlagNode extends Node {
     super();
     this.model = model;
 
-    const textNode = new Text( model.cart.xProperty.get() < 0 ?
-                               ForcesAndMotionBasicsStrings.blueWinsStringProperty :
-                               ForcesAndMotionBasicsStrings.redWinsStringProperty, {
-      maxWidth: 220, // empirically determined to fit within the flag
-      font: new PhetFont( 24 ),
-      fill: 'white'
-    } );
     this.path = new Path( null, {
-      fill: model.cart.xProperty.get() < 0 ? 'blue' : 'red',
       stroke: 'black',
       lineWidth: 2
     } );
     this.addChild( this.path );
+
+    // Return the string of the winning color and set the fill color of the flag.
+    this.colorWinsStringProperty = new DerivedStringProperty(
+      [ ForcesAndMotionBasicsPreferences.pullerColorProperty, model.cart.xProperty,
+        ForcesAndMotionBasicsStrings.blueWinsStringProperty, ForcesAndMotionBasicsStrings.redWinsStringProperty,
+        ForcesAndMotionBasicsStrings.purpleWinsStringProperty, ForcesAndMotionBasicsStrings.orangeWinsStringProperty ],
+      ( pullerColor, x, blueWinsString, redWinsString, purpleWinsString, orangeWinsString ) => {
+        if ( pullerColor === PullerColors.PURPLE_AND_ORANGE ) {
+          this.path.fill = x < 0 ? '#8a2be2' : '#ff5500'; // purple or orange
+          return x < 0 ? purpleWinsString : orangeWinsString;
+        }
+        else {
+          this.path.fill = x < 0 ? 'blue' : 'red';
+          return x < 0 ? blueWinsString : redWinsString;
+        }
+      }
+    );
+
+    const textNode = new Text( this.colorWinsStringProperty, {
+      maxWidth: 220, // empirically determined to fit within the flag
+      font: new PhetFont( 24 ),
+      fill: 'white'
+    } );
     this.addChild( textNode );
 
     const update = this.updateFlagShape.bind( this );
@@ -52,6 +70,7 @@ class FlagNode extends Node {
       textNode.dispose();
       this.centerTextNodeMultilink.dispose();
       this.path.dispose();
+      this.colorWinsStringProperty.dispose();
     };
 
     //When the clock ticks, wave the flag
@@ -61,7 +80,8 @@ class FlagNode extends Node {
 
     // Ensure the text is centered on the flag.
     this.centerTextNodeMultilink = Multilink.multilink( [ ForcesAndMotionBasicsStrings.blueWinsStringProperty,
-      ForcesAndMotionBasicsStrings.redWinsStringProperty ], () => {
+      ForcesAndMotionBasicsStrings.redWinsStringProperty, ForcesAndMotionBasicsStrings.purpleWinsStringProperty,
+      ForcesAndMotionBasicsStrings.orangeWinsStringProperty, ForcesAndMotionBasicsPreferences.pullerColorProperty ], () => {
       textNode.centerX = this.path.centerX;
       textNode.centerY = this.path.centerY;
     } );
