@@ -20,7 +20,7 @@ class PullerColorControl extends VBox {
   constructor( pullerColorProperty ) {
 
     const text = new Text( ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty, {
-      font: PreferencesDialog.CONTENT_FONT,
+      font: PreferencesDialog.PANEL_SECTION_LABEL_FONT,
       maxWidth: 500
     } );
 
