@@ -37,8 +37,8 @@ class PullerNode extends Image {
 
     this.puller = puller;
     this.puller.node = this; //Wire up so node can be looked up by model element.
-    this.standImage = image; // @private
-    this.pullImage = pullImage; // @private
+    this.standImage = image;
+    this.pullImage = pullImage;
 
     model.startedProperty.link( () => {
       this.updateImage( puller, model );

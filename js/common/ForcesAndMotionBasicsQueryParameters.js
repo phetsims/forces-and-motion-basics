@@ -14,6 +14,15 @@ const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
   showItemToolboxes: {
     type: 'boolean',
     defaultValue: true
+  },
+
+  // The puller / pusher colors to use in the Net Force screen on startup and after a reset.
+  // The valid values represent the color sets Blue and Red, and Purple and Orange.
+  pullerColor: {
+    type: 'string',
+    validValues: [ 'blueRed', 'purpleOrange' ],
+    defaultValue: 'blueRed',
+    public: true
   }
 } );
 

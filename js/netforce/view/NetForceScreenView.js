@@ -17,12 +17,24 @@ import pull_figure_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_
 import pull_figure_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_BLUE_3_png.js';
 import pull_figure_lrg_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_BLUE_0_png.js';
 import pull_figure_lrg_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_lrg_BLUE_3_png.js';
+import pull_figure_lrg_ORANGE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_ORANGE_0_png.js';
+import pull_figure_lrg_ORANGE_3_png from '../../../images/pushPullFigures/pull_figure_lrg_ORANGE_3_png.js';
+import pull_figure_lrg_PURPLE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_PURPLE_0_png.js';
+import pull_figure_lrg_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_lrg_PURPLE_3_png.js';
 import pull_figure_lrg_RED_0_png from '../../../images/pushPullFigures/pull_figure_lrg_RED_0_png.js';
 import pull_figure_lrg_RED_3_png from '../../../images/pushPullFigures/pull_figure_lrg_RED_3_png.js';
+import pull_figure_ORANGE_0_png from '../../../images/pushPullFigures/pull_figure_ORANGE_0_png.js';
+import pull_figure_ORANGE_3_png from '../../../images/pushPullFigures/pull_figure_ORANGE_3_png.js';
+import pull_figure_PURPLE_0_png from '../../../images/pushPullFigures/pull_figure_PURPLE_0_png.js';
+import pull_figure_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_PURPLE_3_png.js';
 import pull_figure_RED_0_png from '../../../images/pushPullFigures/pull_figure_RED_0_png.js';
 import pull_figure_RED_3_png from '../../../images/pushPullFigures/pull_figure_RED_3_png.js';
 import pull_figure_small_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_small_BLUE_0_png.js';
 import pull_figure_small_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_small_BLUE_3_png.js';
+import pull_figure_small_ORANGE_0_png from '../../../images/pushPullFigures/pull_figure_small_ORANGE_0_png.js';
+import pull_figure_small_ORANGE_3_png from '../../../images/pushPullFigures/pull_figure_small_ORANGE_3_png.js';
+import pull_figure_small_PURPLE_0_png from '../../../images/pushPullFigures/pull_figure_small_PURPLE_0_png.js';
+import pull_figure_small_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_small_PURPLE_3_png.js';
 import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_figure_small_RED_0_png.js';
 import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
 import rope_svg from '../../../images/rope_svg.js';
@@ -31,7 +43,9 @@ import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotion
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
+import PullerColors from '../model/PullerColors.js';
 import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
 import FlagNode from './FlagNode.js';
@@ -51,6 +65,70 @@ const STOPPER_TOP_WIDTH = 11;
 const STOPPER_BOTTOM_WIDTH = 30;
 const STOPPER_HEIGHT = 24;
 const SUM_ARROW_TAIL_Y = 127;
+
+// Define the color mapping for the pullers
+const colorMapping = {
+  blueRed: {
+    blue: {
+      large: {
+        notLeaning: pull_figure_lrg_BLUE_0_png,
+        leaning: pull_figure_lrg_BLUE_3_png
+      },
+      medium: {
+        notLeaning: pull_figure_BLUE_0_png,
+        leaning: pull_figure_BLUE_3_png
+      },
+      small: {
+        notLeaning: pull_figure_small_BLUE_0_png,
+        leaning: pull_figure_small_BLUE_3_png
+      }
+    },
+    red: {
+      large: {
+        notLeaning: pull_figure_lrg_RED_0_png,
+        leaning: pull_figure_lrg_RED_3_png
+      },
+      medium: {
+        notLeaning: pull_figure_RED_0_png,
+        leaning: pull_figure_RED_3_png
+      },
+      small: {
+        notLeaning: pull_figure_small_RED_0_png,
+        leaning: pull_figure_small_RED_3_png
+      }
+    }
+  },
+  purpleOrange: {
+    purple: {
+      large: {
+        notLeaning: pull_figure_lrg_PURPLE_0_png,
+        leaning: pull_figure_lrg_PURPLE_3_png
+      },
+      medium: {
+        notLeaning: pull_figure_PURPLE_0_png,
+        leaning: pull_figure_PURPLE_3_png
+      },
+      small: {
+        notLeaning: pull_figure_small_PURPLE_0_png,
+        leaning: pull_figure_small_PURPLE_3_png
+      }
+    },
+    orange: {
+      large: {
+        notLeaning: pull_figure_lrg_ORANGE_0_png,
+        leaning: pull_figure_lrg_ORANGE_3_png
+      },
+      medium: {
+        notLeaning: pull_figure_ORANGE_0_png,
+        leaning: pull_figure_ORANGE_3_png
+      },
+      small: {
+        notLeaning: pull_figure_small_ORANGE_0_png,
+        leaning: pull_figure_small_ORANGE_3_png
+      }
+    }
+  }
+};
 
 class NetForceScreenView extends ScreenView {
 
@@ -187,23 +265,16 @@ class NetForceScreenView extends ScreenView {
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     const getPullerImage = ( puller, leaning ) => {
+      const pullerColor = ForcesAndMotionBasicsPreferences.pullerColorProperty.value;
       const type = puller.type;
       const size = puller.size;
+      const colorSet = pullerColor === PullerColors.BLUE_AND_RED ? colorMapping.blueRed : colorMapping.purpleOrange;
 
-      //todo: compress with more ternary?
-      return type === 'blue' && size === 'large' && !leaning ? pull_figure_lrg_BLUE_0_png :
-             type === 'blue' && size === 'large' && leaning ? pull_figure_lrg_BLUE_3_png :
-             type === 'blue' && size === 'medium' && !leaning ? pull_figure_BLUE_0_png :
-             type === 'blue' && size === 'medium' && leaning ? pull_figure_BLUE_3_png :
-             type === 'blue' && size === 'small' && !leaning ? pull_figure_small_BLUE_0_png :
-             type === 'blue' && size === 'small' && leaning ? pull_figure_small_BLUE_3_png :
-             type === 'red' && size === 'large' && !leaning ? pull_figure_lrg_RED_0_png :
-             type === 'red' && size === 'large' && leaning ? pull_figure_lrg_RED_3_png :
-             type === 'red' && size === 'medium' && !leaning ? pull_figure_RED_0_png :
-             type === 'red' && size === 'medium' && leaning ? pull_figure_RED_3_png :
-             type === 'red' && size === 'small' && !leaning ? pull_figure_small_RED_0_png :
-             type === 'red' && size === 'small' && leaning ? pull_figure_small_RED_3_png :
-             null;
+      // Map the type to the appropriate color based on the pullerColorProperty
+      const mappedType = ( type === 'blue' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'purple' :
+                         ( type === 'red' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'orange' : type;
+
+      return colorSet[ mappedType ][ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
     // get the associated toolbox for the puller
@@ -227,6 +298,15 @@ class NetForceScreenView extends ScreenView {
       const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
       this.pullerNodes.push( pullerNode );
+    } );
+
+    ForcesAndMotionBasicsPreferences.pullerColorProperty.link( () => {
+      this.pullerNodes.forEach( pullerNode => {
+        pullerNode.standImage = getPullerImage( pullerNode.puller, false );
+        pullerNode.pullImage = getPullerImage( pullerNode.puller, true );
+        pullerNode.updateImage( pullerNode.puller, model );
+        pullerNode.updatePosition( pullerNode.puller, model );
+      } );
     } );
 
     leftToolbox.addChild( leftPullerLayer );

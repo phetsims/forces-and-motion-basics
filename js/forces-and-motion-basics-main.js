@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
 import Screen from '../../joist/js/Screen.js';
 import ScreenIcon from '../../joist/js/ScreenIcon.js';
 import Sim from '../../joist/js/Sim.js';
@@ -19,6 +20,7 @@ import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
+import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
 const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
@@ -30,11 +32,18 @@ const simOptions = {
   credits: {
     leadDesign: 'Ariel Paul, Noah Podolefsky',
     graphicArts: 'Mariah Hermsmeyer, Amanda McGarry, Sharon Siman-Tov',
-    softwareDevelopment: 'Jesse Greenberg, Sam Reid',
+    softwareDevelopment: 'Jesse Greenberg, Sam Reid, Luisa Vargas',
     team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
     qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Oliver Orejola, Ben Roberts, ' +
                       'Bryan Yoelin'
-  }
+  },
+  preferencesModel: new PreferencesModel( {
+    simulationOptions: {
+      customPreferences: [ {
+        createContent: () => new ForcesAndMotionBasicsPreferencesNode()
+      } ]
+    }
+  } )
 };
 
 simLauncher.launch( () => {

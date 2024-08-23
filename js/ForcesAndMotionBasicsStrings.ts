@@ -45,6 +45,11 @@ type StringsType = {
   'returnStringProperty': LocalizedStringProperty;
   'massesStringProperty': LocalizedStringProperty;
   'unknownValueIndicatorStringProperty': LocalizedStringProperty;
+  'netForcePullerColorsStringProperty': LocalizedStringProperty;
+  'blueAndRedStringProperty': LocalizedStringProperty;
+  'purpleAndOrangeStringProperty': LocalizedStringProperty;
+  'purpleWinsStringProperty': LocalizedStringProperty;
+  'orangeWinsStringProperty': LocalizedStringProperty;
 };
 
 const ForcesAndMotionBasicsStrings = getStringModule( 'FORCES_AND_MOTION_BASICS' ) as StringsType;
