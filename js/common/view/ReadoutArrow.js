@@ -16,6 +16,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNStringProperty' ];
 
@@ -131,7 +132,9 @@ class ReadoutArrow extends Node {
     this.arrowNode.visible = !hidden;
     this.valueNode.visible = !hidden && this.showValuesProperty.value;
     this.valueBackgroundRectangle.visible = false;
-    this.labelNode.visible = !hidden;
+
+    // The label can also be hidden with a query parameter for screenshots.
+    this.labelNode.visible = !hidden && ForcesAndMotionBasicsQueryParameters.showForceArrowLabels;
 
     //Only change the node if visible, for performance
     if ( !hidden ) {

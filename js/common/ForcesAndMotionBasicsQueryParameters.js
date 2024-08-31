@@ -23,6 +23,14 @@ const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
     validValues: [ 'blueRed', 'purpleOrange' ],
     defaultValue: 'blueRed',
     public: true
+  },
+
+  // For internal use. Screen icons are taken from screenshots in this sim. It is helpful to hide label text
+  // that should not be part of the screenshot.
+  // See https://github.com/phetsims/forces-and-motion-basics/issues/101
+  showForceArrowLabels: {
+    type: 'boolean',
+    defaultValue: true
   }
 } );
 
