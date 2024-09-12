@@ -11,7 +11,7 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Image, Node, Rectangle, SimpleDragHandler, Text } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
@@ -77,7 +77,7 @@ class ItemNode extends Node {
     // TODO: It is possible that this can be removed once these issues are closed, see https://github.com/phetsims/tasks/issues/1129
     // https://github.com/phetsims/forces-and-motion-basics/issues/240
     // https://github.com/phetsims/axon/issues/135
-    Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( updateImage );
+    phetioStateSetEmitter.addListener( updateImage );
 
     for ( let i = 0; i < model.items.length; i++ ) {
       model.items[ i ].draggingProperty.link( updateImage );
