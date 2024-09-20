@@ -56,7 +56,7 @@
         ],
         "parserOptions": {
           "project": [
-            "../forces-and-motion-basics/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
