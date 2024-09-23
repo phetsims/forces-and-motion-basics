@@ -5,7 +5,6 @@
  */
 /* eslint-disable */
 import LocalizedImageProperty from '../../joist/js/i18n/LocalizedImageProperty.js';
-import forcesAndMotionBasics from './forcesAndMotionBasics.js';
 import africaGirlHolding_svg from '../images/africa/africaGirlHolding_svg.js';
 import africaGirlSitting_svg from '../images/africa/africaGirlSitting_svg.js';
 import africaGirlStanding_svg from '../images/africa/africaGirlStanding_svg.js';
@@ -37,6 +36,7 @@ import usaManHolding_svg from '../images/usa/usaManHolding_svg.js';
 import usaManSitting_svg from '../images/usa/usaManSitting_svg.js';
 import usaManStanding_svg from '../images/usa/usaManStanding_svg.js';
 import usaMotionIcon_png from '../images/usa/usaMotionIcon_png.js';
+import forcesAndMotionBasics from './forcesAndMotionBasics.js';
 
 const ForcesAndMotionBasicsImages = {
   girlHoldingImageProperty: new LocalizedImageProperty( 'girlHolding', {
