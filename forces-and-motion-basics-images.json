@@ -17,15 +17,6 @@
     "manSitting": "images/africa/africaManSitting_svg.ts",
     "manStanding": "images/africa/africaManStanding_svg.ts"
   },
-  "africaModest": {
-    "motionIcon": "images/usa/usaMotionIcon_png.ts",
-    "girlHolding": "images/africa/africaGirlHolding_svg.ts",
-    "girlSitting": "images/africa/africaGirlSitting_svg.ts",
-    "girlStanding": "images/africa/africaGirlStanding_svg.ts",
-    "manHolding": "images/africa/africaManHolding_svg.ts",
-    "manSitting": "images/africa/africaManSitting_svg.ts",
-    "manStanding": "images/africa/africaManStanding_svg.ts"
-  },
   "asia": {
     "motionIcon": "images/usa/usaMotionIcon_png.ts",
     "girlHolding": "images/asia/asiaGirlHolding_svg.ts",
