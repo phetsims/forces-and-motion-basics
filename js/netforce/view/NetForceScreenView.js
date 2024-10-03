@@ -37,7 +37,7 @@ import pull_figure_small_PURPLE_0_png from '../../../images/pushPullFigures/pull
 import pull_figure_small_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_small_PURPLE_3_png.js';
 import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_figure_small_RED_0_png.js';
 import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
-import rope_svg from '../../../images/rope_svg.js';
+import rope_png from '../../../images/rope_png.js';
 import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
@@ -212,8 +212,13 @@ class NetForceScreenView extends ScreenView {
     this.addChild( leftStopper );
 
     // create and add the rope node as an image
-    this.ropeImageNode = new Image( rope_svg, {
-      scale: 0.78,
+    const SVG_WIDTH = 1130.2;
+    const PRIOR_SCALE = 0.78;
+    const PNG_WIDTH = 2800;
+    this.ropeImageNode = new Image( rope_png, {
+
+      // Exactly match the dimensions of the prior SVG image
+      scale: ( SVG_WIDTH * PRIOR_SCALE ) / PNG_WIDTH,
       tandem: tandem.createTandem( 'ropeImageNode' ),
       x: 51,
       y: 273
