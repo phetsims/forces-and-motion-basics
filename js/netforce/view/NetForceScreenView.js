@@ -214,7 +214,7 @@ class NetForceScreenView extends ScreenView {
     // create and add the rope node as an image
     const SVG_WIDTH = 1130.2;
     const PRIOR_SCALE = 0.78;
-    const PNG_WIDTH = 2800;
+    const PNG_WIDTH = 2356;
     this.ropeImageNode = new Image( rope_png, {
 
       // Exactly match the dimensions of the prior SVG image
