@@ -247,7 +247,7 @@ class MotionModel {
       trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, 1.0, 5 );
     }
     const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, 1.0, undefined, undefined, undefined, true );
-    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 0 );
+    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 2 );
     bucket.bucket = true;
 
     const itemsToAdd = this.accelerometer ? [ bucket ] : [];
