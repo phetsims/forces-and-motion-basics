@@ -43,6 +43,7 @@ const ForcesAndMotionBasicsImages = {
   girlHoldingImageProperty: new LocalizedImageProperty( 'girlHolding', {
     usa: usaGirlHolding_svg,
     africa: africaGirlHolding_svg,
+    africaModest: africaGirlHolding_svg,
     asia: asiaGirlHolding_svg,
     latinAmerica: latinAmericaGirlHolding_svg,
     oceania: oceaniaGirlHolding_svg
@@ -50,6 +51,7 @@ const ForcesAndMotionBasicsImages = {
   girlSittingImageProperty: new LocalizedImageProperty( 'girlSitting', {
     usa: usaGirlSitting_svg,
     africa: africaGirlSitting_svg,
+    africaModest: africaGirlSitting_svg,
     asia: asiaGirlSitting_svg,
     latinAmerica: latinAmericaGirlSitting_svg,
     oceania: oceaniaGirlSitting_svg
@@ -57,6 +59,7 @@ const ForcesAndMotionBasicsImages = {
   girlStandingImageProperty: new LocalizedImageProperty( 'girlStanding', {
     usa: usaGirlStanding_svg,
     africa: africaGirlStanding_svg,
+    africaModest: africaGirlStanding_svg,
     asia: asiaGirlStanding_svg,
     latinAmerica: latinAmericaGirlStanding_svg,
     oceania: oceaniaGirlStanding_svg
@@ -64,6 +67,7 @@ const ForcesAndMotionBasicsImages = {
   manHoldingImageProperty: new LocalizedImageProperty( 'manHolding', {
     usa: usaManHolding_svg,
     africa: africaManHolding_svg,
+    africaModest: africaManHolding_svg,
     asia: asiaManHolding_svg,
     latinAmerica: latinAmericaManHolding_svg,
     oceania: oceaniaManHolding_svg
@@ -71,6 +75,7 @@ const ForcesAndMotionBasicsImages = {
   manSittingImageProperty: new LocalizedImageProperty( 'manSitting', {
     usa: usaManSitting_svg,
     africa: africaManSitting_svg,
+    africaModest: africaManSitting_svg,
     asia: asiaManSitting_svg,
     latinAmerica: latinAmericaManSitting_svg,
     oceania: oceaniaManSitting_svg
@@ -78,6 +83,7 @@ const ForcesAndMotionBasicsImages = {
   manStandingImageProperty: new LocalizedImageProperty( 'manStanding', {
     usa: usaManStanding_svg,
     africa: africaManStanding_svg,
+    africaModest: africaManStanding_svg,
     asia: asiaManStanding_svg,
     latinAmerica: latinAmericaManStanding_svg,
     oceania: oceaniaManStanding_svg
@@ -85,6 +91,7 @@ const ForcesAndMotionBasicsImages = {
   motionIconImageProperty: new LocalizedImageProperty( 'motionIcon', {
     usa: usaMotionIcon_png,
     africa: usaMotionIcon_png,
+    africaModest: usaMotionIcon_png,
     asia: usaMotionIcon_png,
     latinAmerica: usaMotionIcon_png,
     oceania: usaMotionIcon_png
