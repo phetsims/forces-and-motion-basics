@@ -36,9 +36,9 @@ class PullerColorControl extends VBox {
           font: PreferencesDialog.CONTENT_FONT,
           maxWidth: 500
         } ),
-
-        // pdom
-        labelContent: labelStringProperty
+        options: {
+          accessibleName: labelStringProperty
+        }
       };
     };
 
