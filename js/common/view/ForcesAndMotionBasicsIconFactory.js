@@ -8,8 +8,8 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../../motion/MotionConstants.js';

@@ -8,12 +8,12 @@
  * @author Luisa Vargas
  */
 
+import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
+import { Text, VBox } from '../../../../scenery/js/imports.js';
+import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-import { Text, VBox } from '../../../../scenery/js/imports.js';
 import PullerColors from '../model/PullerColors.js';
-import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
-import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 
 class PullerColorControl extends VBox {
 
