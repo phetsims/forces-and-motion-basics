@@ -4,7 +4,7 @@
 /**
  * Auto-generated from modulify, DO NOT manually modify.
  */
-
+ 
 import LocalizedImageProperty from '../../joist/js/i18n/LocalizedImageProperty.js';
 import forcesAndMotionBasics from './forcesAndMotionBasics.js';
 import africaGirlHolding_svg from '../images/africa/africaGirlHolding_svg.js';
@@ -38,10 +38,6 @@ import usaManHolding_svg from '../images/usa/usaManHolding_svg.js';
 import usaManSitting_svg from '../images/usa/usaManSitting_svg.js';
 import usaManStanding_svg from '../images/usa/usaManStanding_svg.js';
 import usaMotionIcon_png from '../images/usa/usaMotionIcon_png.js';
-import africaMotionIcon_png from '../images/africa/africaMotionIcon_png.js';
-import asiaMotionIcon_png from '../images/asia/asiaMotionIcon_png.js';
-import oceaniaMotionIcon_png from '../images/oceania/oceaniaMotionIcon_png.js';
-import latinAmericaMotionIcon_png from '../images/latinAmerica/latinAmericaMotionIcon_png.js';
 
 const ForcesAndMotionBasicsImages = {
   girlHoldingImageProperty: new LocalizedImageProperty( 'girlHolding', {
@@ -94,11 +90,11 @@ const ForcesAndMotionBasicsImages = {
   } ),
   motionIconImageProperty: new LocalizedImageProperty( 'motionIcon', {
     usa: usaMotionIcon_png,
-    africa: africaMotionIcon_png,
-    africaModest: africaMotionIcon_png,
-    asia: asiaMotionIcon_png,
-    latinAmerica: latinAmericaMotionIcon_png,
-    oceania: oceaniaMotionIcon_png
+    africa: usaMotionIcon_png,
+    africaModest: usaMotionIcon_png,
+    asia: usaMotionIcon_png,
+    latinAmerica: usaMotionIcon_png,
+    oceania: usaMotionIcon_png
   } )
 };
 
