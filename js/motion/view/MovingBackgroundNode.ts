@@ -17,6 +17,8 @@ import icicle_png from '../../../images/icicle_png.js';
 import mountains_svg from '../../../images/mountains_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
+import MotionModel from '../model/MotionModel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const linear = Utils.linear;
@@ -26,23 +28,22 @@ class MovingBackgroundNode extends Node {
   /**
    * Constructor for MovingBackgroundNode
    *
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {number} layoutCenterX the position where the node should be centered horizontally
-   * @param {Tandem} tandem
+   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param layoutCenterX the position where the node should be centered horizontally
+   * @param tandem
    */
-  constructor( model, layoutCenterX, tandem ) {
+  public constructor( private readonly model: MotionModel, layoutCenterX: number, tandem: Tandem ) {
 
     super( {
       pickable: false,
       preventFit: true,
       tandem: tandem
     } );
-    this.model = model;
 
     const L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    const toBackgroundImage = ( offset, image, y, scale, tandemName ) => {
+    const toBackgroundImage = ( offset: number, image: Image, y: number, scale: number, tandemName: string ) => {
 
       const node = new Image( image, {
         scale: scale,
@@ -262,4 +263,5 @@ class MovingBackgroundNode extends Node {
 
 forcesAndMotionBasics.register( 'MovingBackgroundNode', MovingBackgroundNode );
 
+// TODO inline export default https://github.com/phetsims/forces-and-motion-basics/issues/317
 export default MovingBackgroundNode;

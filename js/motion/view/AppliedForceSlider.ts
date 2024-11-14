@@ -19,16 +19,19 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import MotionModel from '../model/MotionModel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 class AppliedForceSlider extends HSlider {
 
   /**
-   * @param {MotionModel} model
-   * @param {Range} range - the range of values for the slider
-   * @param {Tandem} tandem
-   * @param {Object} [options]
+   * @param model
+   * @param range - the range of values for the slider
+   * @param tandem
+   * @param [options]
    */
-  constructor( model, range, tandem, options ) {
+  public constructor( model: MotionModel, private readonly range: Range, tandem: Tandem, options: IntentionalAny ) {
 
 
     const enabledRangeProperty = new Property( range );
@@ -105,7 +108,7 @@ class AppliedForceSlider extends HSlider {
     const numTicks = numDivisions + 1; //ticks on the end
     const delta = ( range.max - range.min ) / numDivisions;
 
-    const isMajor = tickIndex => ( tickIndex % 5 === 0 );
+    const isMajor = ( tickIndex: number ) => ( tickIndex % 5 === 0 );
 
     //Generate each of the ticks and add to the parent
     _.range( numTicks ).forEach( i => {

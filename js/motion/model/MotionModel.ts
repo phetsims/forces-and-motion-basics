@@ -134,9 +134,9 @@ class MotionModel {
   // the change in model position (this.position - this.previousModelPosition )
   private previousModelPosition: number;
 
-  private readonly items: Item[];
+  public readonly items: Item[];
 
-  private readonly stopwatch: Stopwatch;
+  public readonly stopwatch: Stopwatch;
   private readonly view!: ScreenView;
 
   /**

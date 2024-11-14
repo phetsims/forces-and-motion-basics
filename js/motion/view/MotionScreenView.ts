@@ -20,13 +20,14 @@ import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js'
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
-import { Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
+import { Image, LinearGradient, Node, Rectangle, RichText, Text, Path } from '../../../../scenery/js/imports.js';
 import skateboard_svg from '../../../images/skateboard_svg.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import MotionModel from '../model/MotionModel.js';
 import AccelerometerNode from './AccelerometerNode.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
 import ItemNode from './ItemNode.js';
@@ -35,6 +36,8 @@ import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Item from '../model/Item.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
@@ -50,20 +53,25 @@ const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pat
 const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
 
 class MotionScreenView extends ScreenView {
+  private readonly sky: Rectangle;
+  private readonly groundNode: Rectangle;
+  private readonly resetAllButton: ResetAllButton;
+  private readonly sumArrow: ReadoutArrow;
+  private readonly sumOfForcesText: Text;
+  private readonly itemNodes: ItemNode[];
+  private readonly appliedForceArrow: ReadoutArrow;
+  private readonly frictionArrow: ReadoutArrow;
 
   /**
-   * @param {MotionModel} model model for the entire screen
-   * @param {Tandem} tandem
+   * @param model model for the entire screen
+   * @param tandem
    */
-  constructor( model, tandem ) {
+  public constructor( private readonly model: MotionModel, tandem: Tandem ) {
 
     super( {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
       tandem: tandem
     } );
-
-    //TODO visibility? https://github.com/phetsims/tasks/issues/1129
-    this.model = model;
 
     //Variables for this constructor, for convenience
     const width = this.layoutBounds.width;
@@ -119,7 +127,7 @@ class MotionScreenView extends ScreenView {
     } );
 
     //Create the slider
-    const disableText = node => length => {node.fill = length === 0 ? 'gray' : 'black';};
+    const disableText = ( node: Path ) => length => {node.fill = length === 0 ? 'gray' : 'black';};
 
     const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
     const appliedForceSliderText = new Text( appliedForceStringProperty, {
@@ -263,7 +271,7 @@ class MotionScreenView extends ScreenView {
       } );
 
       // create the tick labels
-      const tickLabel = ( label, tick, tandemID ) => new Text( label, {
+      const tickLabel = ( label: string, tick: Node, tandemID: string ) => new Text( label, {
         pickable: false,
         font: new PhetFont( 16 ),
         centerX: tick.centerX,
@@ -307,7 +315,7 @@ class MotionScreenView extends ScreenView {
 
     // Map the items to their correct toolbox, one of left or right, corresponding to the side of the screen that
     // toolbox is sitting on.
-    const getItemSide = item => {
+    const getItemSide = ( item: Item ) => {
       // the fridge and the crates both go in hte left toolbox
       if ( item.name === 'fridge' || item.name === 'crate1' || item.name === 'crate2' ) {
         return 'left';
@@ -436,8 +444,8 @@ class MotionScreenView extends ScreenView {
     model.viewInitialized( this );
   }
 
-  // @private Get the height of the objects in the stack (doesn't include skateboard)
-  get stackHeight() {
+  // Get the height of the objects in the stack (doesn't include skateboard)
+  private get stackHeight(): number {
     let sum = 0;
     for ( let i = 0; i < this.model.stackObservableArray.length; i++ ) {
       sum = sum + this.model.stackObservableArray.get( i ).view.height;
@@ -445,14 +453,14 @@ class MotionScreenView extends ScreenView {
     return sum;
   }
 
-  // @public Find the top of the stack, so that a new object can be placed on top
-  get topOfStack() {
+  // Find the top of the stack, so that a new object can be placed on top
+  private get topOfStack(): number {
     const n = this.model.skateboard ? 334 : 360;
     return n - this.stackHeight;
   }
 
-  // @public Get the size of an item's image.  Dependent on the current scale of the image.
-  getSize( item ) {
+  // Get the size of an item's image.  Dependent on the current scale of the image.
+  private getSize( item: Item ): number {
     // get the current scale for the element and apply it to the image
     const scaledWidth = item.view.sittingImageNode.width * item.getCurrentScale();
     return { width: scaledWidth, height: item.view.height };

@@ -10,29 +10,39 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Image, Node, Rectangle, SimpleDragHandler, Text } from '../../../../scenery/js/imports.js';
+import { Image, Node, Rectangle, SimpleDragHandler, Text, ImageableImage } from '../../../../scenery/js/imports.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import MotionModel from '../model/MotionModel.js';
+import MotionScreenView from './MotionScreenView.js';
+import Item from '../model/Item.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
 class ItemNode extends Node {
+  public readonly uniqueId: number;
+  private readonly labelNode: Node;
+  private readonly normalImageNode: Image;
 
   /**
    * Constructor for ItemNode
-   * @param {MotionModel} model the entire model for the containing screen
-   * @param {MotionScreenView} motionView the entire view for the containing screen
-   * @param {Item} item the corresponding to this ItemNode
-   * @param {TReadOnlyProperty<ImageableImage>} normalImageProperty property for the phet.scenery.Image to show for this node
-   * @param {TReadOnlyProperty<ImageableImage>} sittingImageProperty property fot optional sitting image for when the person is sitting down
-   * @param {TReadOnlyProperty<ImageableImage>} holdingImageProperty property for optional holding image for when the person is holding an object
-   * @param {Property} showMassesProperty property for whether the mass value should be shown
-   * @param {Rectangle} itemToolbox - The toolbox that contains this item
-   * @param {Tandem} tandem
+   * @param model the entire model for the containing screen
+   * @param motionView the entire view for the containing screen
+   * @param item the corresponding to this ItemNode
+   * @param normalImageProperty property for the phet.scenery.Image to show for this node
+   * @param sittingImageProperty property fot optional sitting image for when the person is sitting down
+   * @param holdingImageProperty property for optional holding image for when the person is holding an object
+   * @param showMassesProperty property for whether the mass value should be shown
+   * @param itemToolbox - The toolbox that contains this item
+   * @param tandem
    */
-  constructor( model, motionView, item, normalImageProperty, sittingImageProperty, holdingImageProperty, showMassesProperty, itemToolbox, tandem ) {
+  public constructor( model: MotionModel, motionView: MotionScreenView,
+                      private readonly item: Item, normalImageProperty: TReadOnlyProperty<ImageableImage>, sittingImageProperty: TReadOnlyProperty<ImageableImage>,
+                      holdingImageProperty: TReadOnlyProperty<ImageableImage>, showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Rectangle, tandem: Tandem ) {
 
     super( {
       cursor: 'pointer',
@@ -40,8 +50,6 @@ class ItemNode extends Node {
 
       tandem: tandem
     } );
-
-    this.item = item;
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
@@ -53,7 +61,6 @@ class ItemNode extends Node {
     this.normalImageNode = normalImageNode;
 
     // keep track of the sitting image to track its width for the pusher
-    // @public (read-only)
     this.sittingImageNode = new Image( sittingImageProperty, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
 
     //When the model changes, update the image position as well as which image is shown
@@ -263,9 +270,8 @@ class ItemNode extends Node {
 
   /**
    * Set the label position relative to the bottom of the image.
-   * @private
    */
-  updateLabelPosition() {
+  private updateLabelPosition(): void {
     this.labelNode.bottom = this.normalImageNode.height - 5;
     this.labelNode.centerX = this.normalImageNode.centerX;
   }
@@ -273,11 +279,8 @@ class ItemNode extends Node {
   /**
    * Get the width of this item node, modified by the current scale factor.  If the item
    * is using its sitting representation, use that to get the scaled width
-   *
-   * @returns {number}
-   * @public
    */
-  getScaledWidth() {
+  public getScaledWidth(): number {
 
     // if the item has a sitting image, use that image for the width
     let scaledWidth;

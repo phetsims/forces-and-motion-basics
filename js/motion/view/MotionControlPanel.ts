@@ -26,6 +26,9 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
+import MotionModel from '../model/MotionModel.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
 const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;
@@ -40,11 +43,12 @@ const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesString
 const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
 class MotionControlPanel extends Node {
+
   /**
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {Tandem} tandem
+   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param tandem
    */
-  constructor( model, tandem ) {
+  public constructor( model: MotionModel, tandem: Tandem ) {
     super( { tandem: tandem } );
 
     const fontSize = 18;
@@ -55,10 +59,11 @@ class MotionControlPanel extends Node {
 
     /**
      * Create a label node with options icon
-     * @param {string} text - the label string
-     * @param {Object} [options]
+     * @param text - the label string
+     * @param [options]
      */
-    const createLabel = ( text, tandemName, options ) => {
+    const createLabel = ( text: TReadOnlyProperty<string>, tandemName: string, options?: IntentionalAny ) => {
+      // eslint-disable-next-line phet/bad-typescript-text
       options = merge( {
         indent: 0,
         icon: new Node()
@@ -84,7 +89,7 @@ class MotionControlPanel extends Node {
     };
 
     //Icon for the forces in the control panel
-    const createArrowIcon = phetioID => new ArrowNode( 0, 0, 40, 0, {
+    const createArrowIcon = ( phetioID: string ) => new ArrowNode( 0, 0, 40, 0, {
       headHeight: 20,
       headWidth: 20,
       tailWidth: 10,

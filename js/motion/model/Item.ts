@@ -28,13 +28,13 @@ import { Image } from '../../../../scenery/js/imports.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 
 class Item extends PhetioObject {
-  private readonly name: string;
+  public readonly name: string;
   private readonly initialX: number;
   private readonly initialY: number;
   private readonly homeScale: number;
-  private readonly imageProperty: Property<Image> | LocalizedImageProperty;
-  private readonly sittingImageProperty: LocalizedImageProperty | Property<Image>;
-  private readonly holdingImageProperty: LocalizedImageProperty | Property<Image>;
+  public readonly imageProperty: Property<Image> | LocalizedImageProperty;
+  public readonly sittingImageProperty: LocalizedImageProperty | Property<Image>;
+  public readonly holdingImageProperty: LocalizedImageProperty | Property<Image>;
 
   // the position of the item
   public readonly positionProperty: Vector2Property;
@@ -84,7 +84,7 @@ class Item extends PhetioObject {
     private readonly pusherInset?: number,
     sittingImage?: IntentionalAny,
     holdingImage?: IntentionalAny,
-    private readonly mystery?: boolean ) {
+    public readonly mystery?: boolean ) {
 
     super( {
       tandem: tandem,
