@@ -13,12 +13,12 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import PullerColors from './PullerColors.js';
 
 // map used to set the pusher / puller colors based on the value of a query parameter
-const mapStringToColorSet = new Map( [
+const mapStringToColorSet = new Map<string, PullerColors>( [
   [ 'blueRed', PullerColors.BLUE_AND_RED ],
   [ 'purpleOrange', PullerColors.PURPLE_AND_ORANGE ]
 ] );
 
-const pullerColorString = ForcesAndMotionBasicsQueryParameters.pullerColor;
+const pullerColorString = ForcesAndMotionBasicsQueryParameters.pullerColor; // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/317 this looks broken
 const pullerColor = mapStringToColorSet.get( pullerColorString );
 
 const ForcesAndMotionBasicsPreferences = {

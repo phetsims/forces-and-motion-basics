@@ -10,9 +10,14 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { Path, Image, Rectangle } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ItemNode from './ItemNode.js';
+import MotionScreenView from './MotionScreenView.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Item from '../model/Item.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import MotionModel from '../model/MotionModel.js';
 
 // constants
 const linear = Utils.linear;
@@ -22,19 +27,21 @@ class WaterBucketNode extends ItemNode {
   /**
    * WaterBucketNode constructor
    *
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {MotionScreenView} motionView the view for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {Item} item the model for the item itself
-   * @param {Image} imageProperty imageProperty holds image to be shown when in the toolbox or being dragged
-   * @param {Image} imageSittingProperty imageProperty holds image to be shown if it is a sitting person
-   * @param {Image} imageHoldingProperty imageProperty holds image to be shown if it is a sitting person holding their arms in the air
-   * @param {Property} showMassesProperty boolean property of whether the masses should be shown
-   * @param {Rectangle} toolboxNode parent toolbox for the WaterBucketNode
-   * @param {Tandem} tandem
+   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param motionView the view for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param item the model for the item itself
+   * @param imageProperty imageProperty holds image to be shown when in the toolbox or being dragged
+   * @param imageSittingProperty imageProperty holds image to be shown if it is a sitting person
+   * @param imageHoldingProperty imageProperty holds image to be shown if it is a sitting person holding their arms in the air
+   * @param showMassesProperty boolean property of whether the masses should be shown
+   * @param toolboxNode parent toolbox for the WaterBucketNode
+   * @param tandem
    */
-  constructor( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem ) {
+  public constructor( model: MotionModel, motionView: MotionScreenView,
+                      private readonly item: Item,
+                      imageProperty: Image, imageSittingProperty: Image, imageHoldingProperty: Image, showMassesProperty: TReadOnlyProperty<boolean>,
+                      toolboxNode: Rectangle, tandem: Tandem ) {
     super( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem );
-    this.item = item;
     const waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
       fill: 'rgb(9, 125, 159)',
@@ -45,18 +52,18 @@ class WaterBucketNode extends ItemNode {
     waterPathNode.moveToBack();
 
     //Keep track of the history to show a momentum-based "sloshing" effect
-    const history = [];
+    const history: number[] = [];
 
     //Metrics based on original image size of 98 pixels wide.
     const padX = 4.5;
     const padY = 9;
     const s = imageProperty.value.width / 98.0;
 
-    const leftLineX = x => linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );
-    const leftLineY = x => linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x );
+    const leftLineX = ( x: number ) => linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );
+    const leftLineY = ( x: number ) => linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x );
 
-    const rightLineX = x => linear( 1, 0, ( 87 - padX ) * s, ( 96 - padX ) * s, x );
-    const rightLineY = x => linear( 1, 0, ( 102 - padY ) * s, ( 9 - padY ) * s, x );
+    const rightLineX = ( x: number ) => linear( 1, 0, ( 87 - padX ) * s, ( 96 - padX ) * s, x );
+    const rightLineY = ( x: number ) => linear( 1, 0, ( 102 - padY ) * s, ( 9 - padY ) * s, x );
 
     const min = 0.5; //Water level when acceleration = 0
 

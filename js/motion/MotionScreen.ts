@@ -9,15 +9,12 @@ import Screen from '../../../joist/js/Screen.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import MotionModel from './model/MotionModel.js';
 import MotionScreenView from './view/MotionScreenView.js';
+import IntentionalAny from '../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-class MotionScreen extends Screen {
+class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 
-  /**
-   * @param style
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( style, tandem, options ) {
+  public constructor( style: IntentionalAny, tandem: Tandem, options?: IntentionalAny ) {
 
     options = options || {};
 
@@ -33,17 +30,13 @@ class MotionScreen extends Screen {
   /**
    * TODO https://github.com/phetsims/tasks/issues/1129
    * @returns TODO
-   * @public
    */
-  getState() {
+  public getState(): IntentionalAny {
     return { model: this.model.getState(), view: {} };
   }
 
-  /**
-   * TODO https://github.com/phetsims/tasks/issues/1129
-   * @public
-   */
-  setState() {
+  public setState(): void {
+    // TODO https://github.com/phetsims/tasks/issues/1129
   }
 }
 

@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -17,19 +18,33 @@ import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 class Knot extends PhetioObject {
+  private readonly initX: number;
+
+  // the 1-D x position of the knot
+  public readonly xProperty: NumberProperty;
+
+  // whether or not the know is visible
+  public readonly visibleProperty: BooleanProperty;
+
+  // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
+  public readonly accessibleKnotId: string;
+
+  // Constant value for the y position (in screen coordinates)
+  public readonly y = 285;
 
   /**
    * Constructor for the 8 knots that appear along the rope.
    *
-   * @param {number} x - the horizontal position (in meters) of the knot
+   * @param x - the horizontal position (in meters) of the knot
    * // TODO: Fix JSDoc https://github.com/phetsims/tasks/issues/1129
-   * @param {string} type - whether the knot is for red or blue pullers
+   * @param type - whether the knot is for red or blue pullers
    * @param ropeStart
-   * @param {number} ropeLength - the length of the rope in model coordinates
-   * @param {Object} [options]
+   * @param ropeLength - the length of the rope in model coordinates
+   * @param [options]
    */
-  constructor( x, type, ropeStart, ropeLength, options ) {
+  public constructor( x: number, public readonly type: string, ropeStart: number, ropeLength: number, options?: IntentionalAny ) {
 
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( {
 
       // {Tandem}
@@ -42,43 +57,32 @@ class Knot extends PhetioObject {
     super( options );
 
     this.initX = x;
-    this.type = type;
 
-    // @public {number} - the 1-D x position of the knot
     this.xProperty = new NumberProperty( x, {
       tandem: tandem.createTandem( 'xProperty' ),
       units: 'm'
     } );
 
-    // @public {boolean} - whether or not the know is visible
     this.visibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'visibleProperty' )
     } );
 
-    // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
-    this.acessibleKnotId = `knot-${type}-${this.initX}`;
-
-    // Constant value for the y position (in screen coordinates)
-    this.y = 285;
+    this.accessibleKnotId = `knot-${type}-${this.initX}`; // TODO: see https://github.com/phetsims/forces-and-motion-basics/issues/317
   }
 
 
   /**
    * Reset this knot by resetting its associated model Properties.
-   *
-   * @public
    */
-  reset() {
+  public reset(): void {
     this.xProperty.reset();
     this.visibleProperty.reset();
   }
 
   /**
    * Get the 2-D position of the knot
-   *
-   * @returns {Vector2}
    */
-  get position() {
+  public get position(): Vector2 {
     return new Vector2( this.xProperty.get(), this.y );
   }
 }

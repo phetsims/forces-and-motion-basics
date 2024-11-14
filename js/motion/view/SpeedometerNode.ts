@@ -16,21 +16,16 @@ import { Node } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const pattern0Name1ValueUnitsVelocityStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocityStringProperty' ];
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
 class SpeedometerNode extends Node {
-  /**
-   * Constructor.
-   *
-   * @param {Property.<number>} speedProperty
-   * @param {Property.<number>} showSpeedProperty
-   * @param {Property.<boolean>} showValuesProperty
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( speedProperty, showSpeedProperty, showValuesProperty, tandem, options ) {
+
+  public constructor( speedProperty: TReadOnlyProperty<number>, showSpeedProperty: TReadOnlyProperty<boolean>, showValuesProperty: TReadOnlyProperty<boolean>, tandem: Tandem, options?: IntentionalAny ) {
 
     options = merge( {
       radius: 67,
