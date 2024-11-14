@@ -4,7 +4,7 @@
 /**
  * Auto-generated from modulify, DO NOT manually modify.
  */
-
+ 
 import LocalizedImageProperty from '../../joist/js/i18n/LocalizedImageProperty.js';
 import forcesAndMotionBasics from './forcesAndMotionBasics.js';
 import africaGirlHolding_svg from '../images/africa/africaGirlHolding_svg.js';
@@ -13,24 +13,28 @@ import africaGirlStanding_svg from '../images/africa/africaGirlStanding_svg.js';
 import africaManHolding_svg from '../images/africa/africaManHolding_svg.js';
 import africaManSitting_svg from '../images/africa/africaManSitting_svg.js';
 import africaManStanding_svg from '../images/africa/africaManStanding_svg.js';
+import africaMotionIcon_png from '../images/africa/africaMotionIcon_png.js';
 import asiaGirlHolding_svg from '../images/asia/asiaGirlHolding_svg.js';
 import asiaGirlSitting_svg from '../images/asia/asiaGirlSitting_svg.js';
 import asiaGirlStanding_svg from '../images/asia/asiaGirlStanding_svg.js';
 import asiaManHolding_svg from '../images/asia/asiaManHolding_svg.js';
 import asiaManSitting_svg from '../images/asia/asiaManSitting_svg.js';
 import asiaManStanding_svg from '../images/asia/asiaManStanding_svg.js';
+import asiaMotionIcon_png from '../images/asia/asiaMotionIcon_png.js';
 import latinAmericaGirlHolding_svg from '../images/latinAmerica/latinAmericaGirlHolding_svg.js';
 import latinAmericaGirlSitting_svg from '../images/latinAmerica/latinAmericaGirlSitting_svg.js';
 import latinAmericaGirlStanding_svg from '../images/latinAmerica/latinAmericaGirlStanding_svg.js';
 import latinAmericaManHolding_svg from '../images/latinAmerica/latinAmericaManHolding_svg.js';
 import latinAmericaManSitting_svg from '../images/latinAmerica/latinAmericaManSitting_svg.js';
 import latinAmericaManStanding_svg from '../images/latinAmerica/latinAmericaManStanding_svg.js';
+import latinAmericaMotionIcon_png from '../images/latinAmerica/latinAmericaMotionIcon_png.js';
 import oceaniaGirlHolding_svg from '../images/oceania/oceaniaGirlHolding_svg.js';
 import oceaniaGirlSitting_svg from '../images/oceania/oceaniaGirlSitting_svg.js';
 import oceaniaGirlStanding_svg from '../images/oceania/oceaniaGirlStanding_svg.js';
 import oceaniaManHolding_svg from '../images/oceania/oceaniaManHolding_svg.js';
 import oceaniaManSitting_svg from '../images/oceania/oceaniaManSitting_svg.js';
 import oceaniaManStanding_svg from '../images/oceania/oceaniaManStanding_svg.js';
+import oceaniaMotionIcon_png from '../images/oceania/oceaniaMotionIcon_png.js';
 import usaGirlHolding_svg from '../images/usa/usaGirlHolding_svg.js';
 import usaGirlSitting_svg from '../images/usa/usaGirlSitting_svg.js';
 import usaGirlStanding_svg from '../images/usa/usaGirlStanding_svg.js';
@@ -38,10 +42,6 @@ import usaManHolding_svg from '../images/usa/usaManHolding_svg.js';
 import usaManSitting_svg from '../images/usa/usaManSitting_svg.js';
 import usaManStanding_svg from '../images/usa/usaManStanding_svg.js';
 import usaMotionIcon_png from '../images/usa/usaMotionIcon_png.js';
-import africaMotionIcon_png from '../images/africa/africaMotionIcon_png.js';
-import asiaMotionIcon_png from '../images/asia/asiaMotionIcon_png.js';
-import oceaniaMotionIcon_png from '../images/oceania/oceaniaMotionIcon_png.js';
-import latinAmericaMotionIcon_png from '../images/latinAmerica/latinAmericaMotionIcon_png.js';
 
 const ForcesAndMotionBasicsImages = {
   girlHoldingImageProperty: new LocalizedImageProperty( 'girlHolding', {

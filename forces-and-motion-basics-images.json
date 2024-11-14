@@ -9,7 +9,7 @@
     "manStanding": "images/usa/usaManStanding_svg.ts"
   },
   "africa": {
-    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "motionIcon": "images/africa/africaMotionIcon_png.ts",
     "girlHolding": "images/africa/africaGirlHolding_svg.ts",
     "girlSitting": "images/africa/africaGirlSitting_svg.ts",
     "girlStanding": "images/africa/africaGirlStanding_svg.ts",
@@ -18,7 +18,7 @@
     "manStanding": "images/africa/africaManStanding_svg.ts"
   },
   "africaModest": {
-    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "motionIcon": "images/africa/africaMotionIcon_png.ts",
     "girlHolding": "images/africa/africaGirlHolding_svg.ts",
     "girlSitting": "images/africa/africaGirlSitting_svg.ts",
     "girlStanding": "images/africa/africaGirlStanding_svg.ts",
@@ -27,7 +27,7 @@
     "manStanding": "images/africa/africaManStanding_svg.ts"
   },
   "asia": {
-    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "motionIcon": "images/asia/asiaMotionIcon_png.ts",
     "girlHolding": "images/asia/asiaGirlHolding_svg.ts",
     "girlSitting": "images/asia/asiaGirlSitting_svg.ts",
     "girlStanding": "images/asia/asiaGirlStanding_svg.ts",
@@ -36,7 +36,7 @@
     "manStanding": "images/asia/asiaManStanding_svg.ts"
   },
   "latinAmerica": {
-    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "motionIcon": "images/latinAmerica/latinAmericaMotionIcon_png.ts",
     "girlHolding": "images/latinAmerica/latinAmericaGirlHolding_svg.ts",
     "girlSitting": "images/latinAmerica/latinAmericaGirlSitting_svg.ts",
     "girlStanding": "images/latinAmerica/latinAmericaGirlStanding_svg.ts",
@@ -45,7 +45,7 @@
     "manStanding": "images/latinAmerica/latinAmericaManStanding_svg.ts"
   },
   "oceania": {
-    "motionIcon": "images/usa/usaMotionIcon_png.ts",
+    "motionIcon": "images/oceania/oceaniaMotionIcon_png.ts",
     "girlHolding": "images/oceania/oceaniaGirlHolding_svg.ts",
     "girlSitting": "images/oceania/oceaniaGirlSitting_svg.ts",
     "girlStanding": "images/oceania/oceaniaGirlStanding_svg.ts",
