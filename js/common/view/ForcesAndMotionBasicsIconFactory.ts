@@ -20,7 +20,7 @@ const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
  * Static object, not meant to be instantiated.
  */
 const ForcesAndMotionBasicsIconFactory = {
-  speedometerIcon( tandem ) {
+  speedometerIcon( tandem: Tandem ): GaugeNode {
 
     // the 'speed' option requires the text and a speedometer icon
     const speedometerIconValueProperty = new Property( 0 );

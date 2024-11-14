@@ -10,28 +10,29 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsImages from '../../ForcesAndMotionBasicsImages.js';
+import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 
 export default class HumanTypeEnum extends EnumerationValue {
 
-  static GIRL = new HumanTypeEnum(
+  public static readonly GIRL = new HumanTypeEnum(
     ForcesAndMotionBasicsImages.girlHoldingImageProperty,
     ForcesAndMotionBasicsImages.girlStandingImageProperty,
     ForcesAndMotionBasicsImages.girlSittingImageProperty
   );
 
-  static MAN = new HumanTypeEnum(
+  public static readonly MAN = new HumanTypeEnum(
     ForcesAndMotionBasicsImages.manHoldingImageProperty,
     ForcesAndMotionBasicsImages.manStandingImageProperty,
     ForcesAndMotionBasicsImages.manSittingImageProperty
   );
 
-  static enumeration = new Enumeration( HumanTypeEnum );
+  public static readonly enumeration = new Enumeration( HumanTypeEnum );
 
-  constructor( holdingImageProperty, standingImageProperty, sittingImageProperty ) {
+  public constructor(
+    public readonly holdingImageProperty: LocalizedImageProperty,
+    public readonly standingImageProperty: LocalizedImageProperty,
+    public readonly sittingImageProperty: LocalizedImageProperty ) {
     super();
-    this.holdingImageProperty = holdingImageProperty;
-    this.standingImageProperty = standingImageProperty;
-    this.sittingImageProperty = sittingImageProperty;
   }
 }
 

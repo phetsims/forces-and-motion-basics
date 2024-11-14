@@ -9,16 +9,14 @@
 import merge from '../../../../phet-core/js/merge.js';
 import { Circle, LinearGradient, Node, Rectangle } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 class SliderKnob extends Node {
 
-  /**
-   * Constructor.
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( tandem, options ) {
+  public constructor( tandem: Tandem, options: IntentionalAny ) {
 
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( {
       tandem: tandem,
       phetioEnabledPropertyInstrumented: true
@@ -46,7 +44,7 @@ class SliderKnob extends Node {
     } );
     this.addChild( rectangle );
 
-    // @private - link the fill to the enabled property. Slider knob exists for lifetime of sim, no dispose necessary.
+    // link the fill to the enabled property. Slider knob exists for lifetime of sim, no dispose necessary.
     this.enabledProperty.link( enabled => {
       rectangle.fill = enabled ? enabledGradient : disabledGradient;
     } );
@@ -66,12 +64,7 @@ class SliderKnob extends Node {
     this.translate( 1, 0 );
   }
 
-  /**
-   * @private
-   * @param {number} x
-   * @param {number} y
-   */
-  addGripDot( x, y ) {
+  private addGripDot( x: number, y: number ): void {
     const radius = 1.8;
     const stroke = new LinearGradient( -radius, -radius, radius * 2, radius * 2 ).addColorStop( 0, 'black' ).addColorStop( 0.5, '#56889F' ).addColorStop( 1, 'white' );
     this.addChild( new Circle( radius, {

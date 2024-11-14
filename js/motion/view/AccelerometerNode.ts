@@ -9,17 +9,14 @@
 import { Shape } from '../../../../kite/js/imports.js';
 import { LinearGradient, Node, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 class AccelerometerNode extends Node {
+  private readonly ticks: Node[];
 
-  /**
-   * Constructor.
-   *
-   * @param {Property.<number>} accelerationProperty
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( accelerationProperty, tandem, options ) {
+  public constructor( accelerationProperty: TReadOnlyProperty<number>, tandem: Tandem, options: IntentionalAny ) {
     options = options || {};
     super( {
       tandem: tandem
@@ -92,10 +89,9 @@ class AccelerometerNode extends Node {
 
   /**
    * Add a the child line as a tick to the accelerometer node
-   * @param {Node} child - Line segment to add as a tick
-   * @public
+   * @param child - Line segment to add as a tick
    */
-  addTick( child ) {
+  public addTick( child: Node ): void {
     this.addChild( child );
     this.ticks.push( child );
   }

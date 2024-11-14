@@ -17,6 +17,9 @@ import { Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNStringProperty' ];
 
@@ -25,17 +28,33 @@ const ARROW_HEAD_WIDTH = 50;
 const ARROW_HEAD_HEIGHT = 25;
 
 class ReadoutArrow extends Node {
+  private readonly arrowNode: Path;
+  private readonly valueBackgroundRectangle: Rectangle;
+  private readonly valueNode: Node;
+  private readonly labelNode: Text;
+
+  // if the arrow overlaps another, we change the layout of the arrow labels so none of the text overlaps eachother
+  public overlapsOther = false;
+
   /**
-   * @param label {TReadOnlyProperty<string>} the text to show for the arrow
+   * @param label the text to show for the arrow
    * @param fill the color of the arrow
-   * @param tailX {number} the position of the tail in X
-   * @param tailY {number} the position of the tail in Y
-   * @param valueProperty {Property.<Number>} the property for the value to display
-   * @param showValuesProperty {Property.<Boolean>} whether or not to display the values
-   * @param {Tandem} tandem
-   * @param {Object} [options] 'labelPosition' where the label text should be {side|top}
+   * @param tailX the position of the tail in X
+   * @param tailY the position of the tail in Y
+   * @param valueProperty the property for the value to display
+   * @param showValuesProperty whether or not to display the values
+   * @param tandem
+   * @param [options] 'labelPosition' where the label text should be {side|top}
    */
-  constructor( label, fill, tailX, tailY, valueProperty, showValuesProperty, tandem, options ) {
+  public constructor(
+    label: TReadOnlyProperty<string>,
+    fill,
+    private readonly tailX: number,
+    private readonly tailY: number,
+    valueProperty: TReadOnlyProperty<number>,
+    private readonly showValuesProperty: TReadOnlyProperty<boolean>,
+    tandem: Tandem,
+    private readonly options: IntentionalAny ) {
 
     //Call the super class.  Render in svg to make the text crisper on retina display.
     super( {
@@ -44,11 +63,8 @@ class ReadoutArrow extends Node {
     } );
 
     //Store fields
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( { labelPosition: 'top', arrowScale: 1 }, options );
-    this.options = options; // @private
-    this.showValuesProperty = showValuesProperty;
-    this.tailX = tailX;
-    this.tailY = tailY;
 
     //Create and add the children
     this.arrowNode = new Path( null, merge( {
@@ -99,10 +115,6 @@ class ReadoutArrow extends Node {
       updateValueBackgroundRectangleWidth();
       this.update();
     } );
-
-    // @public {boolean} - if the arrow overlaps another, we change the layout of the arrow labels so none of the
-    // text overlaps eachother
-    this.overlapsOther = false;
 
     //Update when the numeric readout visibility is toggled
     showValuesProperty.link( this.update.bind( this ) );
@@ -205,9 +217,7 @@ class ReadoutArrow extends Node {
       }
     }
   }
-
 }
-
 
 // statics
 ReadoutArrow.ARROW_HEAD_WIDTH = ARROW_HEAD_WIDTH;

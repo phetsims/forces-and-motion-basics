@@ -20,27 +20,71 @@ import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
+import NetForceModel from '../../netforce/model/NetForceModel.js';
+import MotionModel from './MotionModel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 
 class Item extends PhetioObject {
+  private readonly name: string;
+  private readonly initialX: number;
+  private readonly initialY: number;
+  private readonly homeScale: number;
+  private readonly imageProperty: Property<Image> | LocalizedImageProperty;
+  private readonly sittingImageProperty: LocalizedImageProperty | Property<Image>;
+  private readonly holdingImageProperty: LocalizedImageProperty | Property<Image>;
+
+  // the position of the item
+  public readonly positionProperty: Vector2Property;
+
+  // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/tasks/issues/1129
+  public readonly pusherInsetProperty: Property<number>;
+
+  // whether the item is being dragged
+  public readonly draggingProperty: BooleanProperty;
+
+  // direction of the item, 'left'|'right'
+  // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+  public readonly directionProperty: StringProperty;
+
+  // tracks the animation state of the item
+  public readonly animationStateProperty: Property<IntentionalAny>;
+
+  // Flag for whether the item is on the skateboard
+  public readonly onBoardProperty: BooleanProperty;
+
+  // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
+  public readonly imageScaleProperty: NumberProperty;
+  public readonly interactionScaleProperty: NumberProperty;
 
   /**
    * Constructor for Item
    *
-   * @param {MotionModel || NetForceModel} context - model context in which this item exists
-   * @param {string | HumanTypeEnum } name - string describing this type of item, or HumanTypeEnum of this human item
-   * @param {Tandem} tandem
-   * @param {image} image - image from the 'image!' plugin, representing the item
-   * @param {number} mass - model mass of the item
-   * @param {number} x - home value x position for the item
-   * @param {number} y - home value y position for the item
-   * @param {number} imageScale - base scacle of the image
-   * @param {number} homeScale - additional scale factor for when the item is in the toolbox
-   * @param {number} pusherInset - inset value to align the item with the pusher's hands
-   * @param {image} sittingImage - image from the 'image!' plugin, representing a 'sitting' item
-   * @param {image} holdingImage - image from the 'image!' plugin, representing a 'sitting' item
-   * @param {boolean} mystery      [description]
+   * @param context - model context in which this item exists
+   * @param name - string describing this type of item, or HumanTypeEnum of this human item
+   * @param tandem
+   * @param image - image from the 'image!' plugin, representing the item
+   * @param mass - model mass of the item
+   * @param x - home value x position for the item
+   * @param y - home value y position for the item
+   * @param imageScale - base scacle of the image
+   * @param homeScale - additional scale factor for when the item is in the toolbox
+   * @param pusherInset - inset value to align the item with the pusher's hands
+   * @param sittingImage - image from the 'image!' plugin, representing a 'sitting' item
+   * @param holdingImage - image from the 'image!' plugin, representing a 'sitting' item
+   * @param mystery      [description]
    */
-  constructor( context, name, tandem, image, mass, x, y, imageScale, homeScale, pusherInset, sittingImage, holdingImage, mystery ) {
+  public constructor(
+    private readonly context: MotionModel | NetForceModel, name: string | HumanTypeEnum, tandem: Tandem, image: IntentionalAny,
+    public readonly mass: number,
+    x: number, y: number, imageScale: number,
+    homeScale?: number,
+    private readonly pusherInset?: number,
+    sittingImage?: IntentionalAny,
+    holdingImage?: IntentionalAny,
+    private readonly mystery?: boolean ) {
 
     super( {
       tandem: tandem,
@@ -51,9 +95,9 @@ class Item extends PhetioObject {
     this.name = typeof name === 'string' ? name : name.name.toLowerCase();
 
     // Set the standing, sitting, and holding image properties if item is human
-    let standingImageProperty;
-    let sittingImageProperty;
-    let holdingImageProperty;
+    let standingImageProperty: LocalizedImageProperty | null = null;
+    let sittingImageProperty: LocalizedImageProperty | null = null;
+    let holdingImageProperty: LocalizedImageProperty | null = null;
     if ( name === HumanTypeEnum.GIRL ) {
       standingImageProperty = HumanTypeEnum.GIRL.standingImageProperty;
       sittingImageProperty = HumanTypeEnum.GIRL.sittingImageProperty;
@@ -68,36 +112,26 @@ class Item extends PhetioObject {
     //Non-observable properties
     this.initialX = x;
     this.initialY = y;
-    this.mass = mass;
-    this.pusherInset = pusherInset;
-    this.context = context;
-    this.mystery = mystery;
     this.homeScale = homeScale || 1.0;
 
-    this.imageProperty = typeof name === 'string' ? new Property( image ) : standingImageProperty;
-    this.sittingImageProperty = typeof name === 'string' ? new Property( sittingImage ) : sittingImageProperty;
-    this.holdingImageProperty = typeof name === 'string' ? new Property( holdingImage ) : holdingImageProperty;
+    this.imageProperty = typeof name === 'string' ? new Property( image ) : standingImageProperty!;
+    this.sittingImageProperty = typeof name === 'string' ? new Property( sittingImage ) : sittingImageProperty!;
+    this.holdingImageProperty = typeof name === 'string' ? new Property( holdingImage ) : holdingImageProperty!;
 
-    // @public - the position of the item
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' )
     } );
 
-    // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/tasks/issues/1129
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
-    // @public {Property.<boolean>} - whether or not the item is being dragged
     this.draggingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'draggingProperty' )
     } );
 
-    // @public {Property.<string>} - direction of the item, 'left'|'right'
-    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.directionProperty = new StringProperty( 'left', {
       tandem: tandem.createTandem( 'directionProperty' )
     } );
 
-    // @public {Object} - tracks the animation state of the item
     this.animationStateProperty = new Property( {
       enabled: false,
       x: 0,
@@ -109,12 +143,10 @@ class Item extends PhetioObject {
       phetioValueType: ObjectLiteralIO
     } );
 
-    // Flag for whether the item is on the skateboard
     this.onBoardProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'onBoardProperty' )
     } );
 
-    // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
     this.imageScaleProperty = new NumberProperty( imageScale || 1.0, {
       tandem: tandem.createTandem( 'imageScaleProperty' )
     } );
@@ -126,6 +158,7 @@ class Item extends PhetioObject {
       range: new Range( minValue, 1.3 )
     } );
 
+    // @ts-expect-error
     this.context.directionProperty.link( direction => {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
@@ -135,8 +168,9 @@ class Item extends PhetioObject {
     } );
   }
 
-  // @public - Return true if the arms should be up (for a human)
-  armsUp() {
+  // Return true if the arms should be up (for a human)
+  public armsUp(): boolean {
+    // @ts-expect-error
     return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
   }
 
@@ -144,27 +178,26 @@ class Item extends PhetioObject {
    * Get the current scale for the Item.  The Item has two scales, imageScale and interactionScale.
    * The current scale is the product of these two scales.  This is used throughout the simulation, primarily
    * for transformations.
-   * @public
    */
-  getCurrentScale() {
+  public getCurrentScale(): number {
     return this.imageScaleProperty.get() * this.interactionScaleProperty.get();
   }
 
-  // @public - Animate the item to the specified position
-  animateTo( x, y, destination ) {
+  // Animate the item to the specified position
+  public animateTo( x: number, y: number, destination: string ): void {
     this.animationStateProperty.set( { enabled: true, x: x, y: y, destination: destination } );
   }
 
-  // @public - Animate the item to its original position
-  animateHome() {
+  // Animate the item to its original position
+  public animateHome(): void {
 
     //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
     this.directionProperty.set( 'left' );
     this.animateTo( this.initialX, this.initialY, 'home' );
   }
 
-  // @public - Cancel an animation when the user clicks on an item
-  cancelAnimation() {
+  // Cancel an animation when the user clicks on an item
+  public cancelAnimation(): void {
     if ( this.animationStateProperty.get().enabled ) {
       if ( this.draggingProperty.get() ) {
         this.interactionScaleProperty.set( 1.3 );
@@ -180,9 +213,8 @@ class Item extends PhetioObject {
 
   /**
    * Reset the item to its initial state by resetting all Properties.
-   * @public
    */
-  reset() {
+  public reset(): void {
     this.positionProperty.reset();
     this.pusherInsetProperty.reset();
     this.draggingProperty.reset();
@@ -193,8 +225,8 @@ class Item extends PhetioObject {
     this.interactionScaleProperty.reset();
   }
 
-  // @public - Step the item in time, making it grow or shrink (if necessary), or animate to its destination
-  step( dt ) {
+  // Step the item in time, making it grow or shrink (if necessary), or animate to its destination
+  public step( dt: number ): void {
     if ( this.draggingProperty.get() ) {
       this.interactionScaleProperty.set( Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 ) );
     }
@@ -215,6 +247,7 @@ class Item extends PhetioObject {
         //Snap to exact final destination, see #59
         this.positionProperty.set( destination );
         if ( this.animationStateProperty.get().end ) {
+          // @ts-expect-error
           this.animationState.end();
         }
         this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );

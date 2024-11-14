@@ -7,7 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -27,22 +27,128 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import Item from './Item.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ScreenView from '../../../../joist/js/ScreenView.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 class MotionModel {
 
+  // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/317 run the script to restrict access modifiers
+  public skateboard: boolean;
+  public accelerometer: boolean;
+
+  // force applied to the stack of items by the pusher
+  public readonly appliedForceProperty: NumberProperty;
+
+  // force applied to the stack of items by friction
+  public readonly frictionForceProperty: NumberProperty;
+
+  // friction of the ground
+  public readonly frictionProperty: NumberProperty;
+
+  // sum of all forces acting on the stack of items
+  public readonly sumOfForcesProperty: NumberProperty;
+
+  // 1-D position of the stack of items
+  public readonly positionProperty: NumberProperty;
+
+  // speed of the stack of items, in the x direction
+  public readonly speedProperty: NumberProperty;
+
+  // velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
+  public readonly velocityProperty: NumberProperty;
+
+  // 1-d acceleration of the stack of items
+  public readonly accelerationProperty: NumberProperty;
+
+  // initially to the left of the box by this many meters
+  public readonly pusherPositionProperty: NumberProperty;
+
+  public readonly stackObservableArray: ObservableArray<Item>;
+
+  // whether forces are visible
+  public readonly showForceProperty: BooleanProperty;
+
+  // whether values are visible
+  public readonly showValuesProperty: BooleanProperty;
+
+  // whether sum of forces is visible
+  public readonly showSumOfForcesProperty: BooleanProperty;
+
+  // whether speedometer is visible
+  public readonly showSpeedProperty: BooleanProperty;
+
+  // whether stopwatch is visible
+  public readonly showStopwatchProperty: BooleanProperty;
+
+  // whether mass values are visible
+  public readonly showMassesProperty: BooleanProperty;
+
+  // whether acceleration meter is visible
+  public readonly showAccelerationProperty: BooleanProperty;
+  public readonly speedClassificationProperty: StringProperty;
+  public readonly previousSpeedClassificationProperty: StringProperty;
+
+  // whether the stack of items is moving to the right
+  public readonly movingRightProperty: BooleanProperty;
+
+  // 'right'|'left'|none, direction of movement of the stack of items
+  // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+  public readonly directionProperty: StringProperty;
+
+  // time since pusher has fallen over, in seconds
+  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
+  // TODO: Why is default value 10? https://github.com/phetsims/tasks/issues/1129
+  public readonly timeSinceFallenProperty: NumberProperty;
+
+  // whether the pusher has fallen over
+  public readonly fallenProperty: BooleanProperty;
+
+  // 'left'|'right', direction pusher facing when it falls over
+  public readonly fallenDirectionProperty: StringProperty;
+
+  // how long the simulation has been running
+  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
+  public readonly timeProperty: NumberProperty;
+
+  //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
+  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value https://github.com/phetsims/tasks/issues/1129
+  public readonly stackSizeProperty: NumberProperty;
+
+  // is the sim running or paused?
+  public readonly playProperty: BooleanProperty;
+
+  // to observe whether the friction is zero
+  public readonly frictionZeroProperty: TReadOnlyProperty<boolean>;
+
+  // to observe whether the friction is zero
+  public readonly frictionNonZeroProperty: TReadOnlyProperty<boolean>;
+
+  // broadcast messages on step and reset all
+  public readonly resetAllEmitter = new Emitter();
+  public readonly stepEmitter = new Emitter();
+
+  // track the previous model position when model position changes
+  // animation for the pusher and background nodes is based off of
+  // the change in model position (this.position - this.previousModelPosition )
+  private previousModelPosition: number;
+
+  private readonly items: Item[];
+
+  private readonly stopwatch: Stopwatch;
+  private readonly view!: ScreenView;
+
   /**
-   * Constructor for the motion model
-   *
-   * @param {string} screen String that indicates which of the 3 screens this model represents
-   * @param {Tandem} tandem
+   * @param screen String that indicates which of the 3 screens this model represents
+   * @param tandem
    */
-  constructor( screen, tandem ) {
+  public constructor( public readonly screen: string, tandem: Tandem ) {
 
     //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
 
     //Constants
-    this.screen = screen;
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
@@ -51,76 +157,63 @@ class MotionModel {
       phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
     } );
 
-    // @public - force applied to the stack of items by the pusher
     this.appliedForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'appliedForceProperty' ),
       units: 'N',
       range: new Range( -500, 500 )
     } );
 
-    // @public - force applied to the stack of items by friction
     this.frictionForceProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'frictionForceProperty' ),
       units: 'N'
     } );
 
-    // @public - friction of the ground
     this.frictionProperty = new NumberProperty( frictionValue, {
       tandem: tandem.createTandem( 'frictionProperty' )
     } );
 
-    // @public - sum of all forces acting on the stack of items
     this.sumOfForcesProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'sumOfForcesProperty' ),
       units: 'N'
     } );
 
-    // @public - 1-D position of the stack of items
     this.positionProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'positionProperty' ),
       units: 'm'
     } );
 
-    // @public - speed of the stack of items, in the x direction
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
       units: 'm/s'
     } );
 
-    // @public - elocity is a 1-d vector, where the direction (right or left) is indicated by the sign
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
       units: 'm/s'
     } );
 
-    // @public - 1-d acceleration of the stack of items
     this.accelerationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'accelerationProperty' ),
       units: 'm/s/s'
     } );
 
-    // @public {number} - initially to the left of the box by this many meters
     this.pusherPositionProperty = new NumberProperty( -16, {
       tandem: tandem.createTandem( 'pusherPositionProperty' ),
       units: 'm'
     } );
 
-    // @public {boolean} - whether or not forces are visible
     this.showForceProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'showForceProperty' )
     } );
 
-    // @public {boolean} - whether or not values are visible
     this.showValuesProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showValuesProperty' )
     } );
 
-    // @public {boolean} - whether or not sum of forces is visible
     this.showSumOfForcesProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showSumOfForcesProperty' )
     } );
 
-    // @public {boolean} - whether or not speedometer is visible
     this.showSpeedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' )
     } );
@@ -129,17 +222,15 @@ class MotionModel {
       tandem: tandem.createTandem( 'showStopwatchProperty' )
     } );
 
-    // @public {boolean} - whether or not mass values are visible
     this.showMassesProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showMassesProperty' )
     } );
 
-    // @public {boolean} - whether or not acceleration meter is visible
     this.showAccelerationProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showAccelerationProperty' )
     } );
 
-    //  @public Keep track of whether the speed is classified as:
+    //  Keep track of whether the speed is classified as:
     // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
     // so that the Applied Force can be stopped if the speed goes out of range.
     // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
@@ -147,66 +238,47 @@ class MotionModel {
       tandem: tandem.createTandem( 'speedClassificationProperty' )
     } );
 
-    // @public {string} See speedClassification
+    // See speedClassification
     // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.previousSpeedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'previousSpeedClassificationProperty' )
     } );
 
-    // @public {boolean} - whether or not the stack of items is moving to the right
     this.movingRightProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'movingRightProperty' )
     } );
 
-    // @public {string} - 'right'|'left'|none, direction of movement of the stack of items
-    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.directionProperty = new StringProperty( 'none', {
       tandem: tandem.createTandem( 'directionProperty' )
     } );
 
-    // @public {number} - time since pusher has fallen over, in seconds
-    // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
-    // TODO: Why is default value 10? https://github.com/phetsims/tasks/issues/1129
     this.timeSinceFallenProperty = new NumberProperty( 10, {
       units: 's'
     } );
 
-    // @public {boolean} - whether or not the pusher has fallen over
     this.fallenProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'fallenProperty' )
     } );
 
-    // @public {string} - 'left'|'right', direction pusher facing when it falls over
     this.fallenDirectionProperty = new StringProperty( 'left', {
       tandem: tandem.createTandem( 'fallenDirectionProperty' )
     } );
 
-    // @public {number} - how long the simulation has been running
-    // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
     this.timeProperty = new NumberProperty( 0, {
       units: 's'
     } );
 
-    //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-    //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value https://github.com/phetsims/tasks/issues/1129
     this.stackSizeProperty = new NumberProperty( 1, {
       tandem: tandem.createTandem( 'stackSizeProperty' )
     } );
 
-    // @public {boolean} - is the sim running or paused?
     this.playProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'playProperty' )
     } );
 
-    // @public DerivedProperty to observe whether or not the friction is zero
     this.frictionZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction === 0 );
 
-    // @public DerivedProperty to observe whether or not the friction is zero
     this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction !== 0 );
-
-    // @public - broadcast messages on step and reset all
-    this.resetAllEmitter = new Emitter();
-    this.stepEmitter = new Emitter();
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stackObservableArray.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
@@ -216,9 +288,6 @@ class MotionModel {
       this.stackSizeProperty.set( length );
     } );
 
-    // track the previous model position when model position changes
-    // animation for the pusher and background nodes is based off of
-    // the change in model position (this.position - this.previousModelPosition )
     this.previousModelPosition = this.positionProperty.value;
 
     // Create and position all the interactive items in the 'friction', 'motion', and 'acceleration' screens
@@ -299,11 +368,8 @@ class MotionModel {
 
   /**
    * Get an array representing the items that are being dragged.
-   *
-   * @returns {Array.<Item>}
-   * @public
    */
-  draggingItems() {
+  public draggingItems(): Item[] {
     const draggingItems = [];
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[ i ];
@@ -318,10 +384,9 @@ class MotionModel {
    * Upper items should fall if an item removed from beneath
    * Uses the view to get item dimensions.
    *
-   * @param {number} index - index of item in the stack array
-   * @public
+   * @param index - index of item in the stack array
    */
-  spliceStack( index ) {
+  public spliceStack( index: number ): Item {
     const item = this.stackObservableArray.get( index );
     this.stackObservableArray.remove( item );
     if ( this.stackObservableArray.length > 0 ) {
@@ -341,8 +406,8 @@ class MotionModel {
     return item;
   }
 
-  // @public - When a 4th item is placed on the stack, move the bottom item home and have the stack fall
-  spliceStackBottom() {
+  // When a 4th item is placed on the stack, move the bottom item home and have the stack fall
+  public spliceStackBottom(): void {
     const bottom = this.spliceStack( 0 );
     bottom.onBoardProperty.set( false );
     bottom.animateHome();
@@ -350,12 +415,8 @@ class MotionModel {
 
   /**
    * Determine whether a value is positive, negative, or zero for the physics computations.
-   *
-   * @param  {number} value
-   * @returns {number}
-   * @public
    */
-  getSign( value ) {
+  public getSign( value: number ): number {
     return value > 0 ? 1 : value < 0 ? -1 : 0;
   }
 
@@ -364,12 +425,8 @@ class MotionModel {
    * forces are rounded so that they have the same precision. If one force is more precise,
    * a system with seemingly equal forces can lose energy.
    * See https://github.com/phetsims/forces-and-motion-basics/issues/197
-   *
-   * @param  {number} appliedForce
-   * @returns {number}
-   * @public
    */
-  getFrictionForce( appliedForce ) {
+  public getFrictionForce( appliedForce: number ): number {
 
     let frictionForce;
 
@@ -403,8 +460,8 @@ class MotionModel {
     return Utils.roundSymmetric( frictionForce );
   }
 
-  // @public - Compute the mass of the entire stack, for purposes of momentum computation
-  getStackMass() {
+  // Compute the mass of the entire stack, for purposes of momentum computation
+  public getStackMass(): number {
     let mass = 0;
     for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
       mass += this.stackObservableArray.get( i ).mass;
@@ -414,11 +471,8 @@ class MotionModel {
 
   /**
    * Determine whether a value is positive, negative or zero to determine wheter the object changed directions.
-   * @param  {number} value
-   * @returns {number}
-   * @public
    */
-  sign( value ) {
+  public sign( value: number ): 'negative' | 'positive' | 'zero' {
     return value < 0 ? 'negative' :
            value > 0 ? 'positive' :
            'zero';
@@ -426,28 +480,25 @@ class MotionModel {
 
   /**
    * Determine whether a velocity value changed direction.
-   * @param  {number} a - initial value
-   * @param  {number} b - second value
-   * @returns {boolean}
-   * @public
+   * @param a - initial value
+   * @param b - second value
    */
-  changedDirection( a, b ) {
+  public changedDirection( a: number, b: number ): boolean {
     return this.sign( a ) === 'negative' && this.sign( b ) === 'positive' ||
            this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
   }
 
-  // @public - get the pusher position relative to the center and layout bounds of the view
-  getRelativePusherPosition() {
+  // get the pusher position relative to the center and layout bounds of the view
+  public getRelativePusherPosition(): number {
     return this.view.layoutBounds.width / 2 + ( this.pusherPositionProperty.get() - this.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
   }
 
   /**
    * Step function for this model, function of the time step.  Called by step and manualStep functions below.
    *
-   * @param {number} dt - time step
-   * @public
+   * @param dt - time step
    */
-  stepModel( dt ) {
+  public stepModel( dt: number ): void {
 
     // update the tracked time which is used by the WaterBucketNode and the Accelerometer
     this.timeProperty.set( this.timeProperty.get() + dt );
@@ -521,11 +572,8 @@ class MotionModel {
 
   /**
    * Update the physics.
-   *
-   * @param {number} dt
-   * @public
    */
-  step( dt ) {
+  public step( dt: number ): void {
 
     // Computes the new forces and sets them to the corresponding properties
     // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
@@ -554,31 +602,22 @@ class MotionModel {
   /**
    * Manually step the model by a small time step.  This function is used by the 'step' button under
    * the control panel.  Assumes 60 frames per second.
-   * @public
    */
-  manualStep() {
+  public manualStep(): void {
     this.stepModel( 1 / 60 );
   }
 
   /**
    * Determine whether an item is in the stack.
-   * @param  {Item} item
-   * @returns {boolean}
-   * @public
    */
-  isInStack( item ) { return this.stackObservableArray.includes( item ); }
+  public isInStack( item: Item ): boolean { return this.stackObservableArray.includes( item ); }
 
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
-   *
-   * @param  {Item}
-   * @returns {boolean}
-   * @public
    */
-  isItemStackedAbove( item ) { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
+  public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
 
-  // @public - Reset the model
-  reset() {
+  public reset(): void {
 
     // reset all Properties of this model.
     this.appliedForceProperty.reset();
@@ -630,13 +669,12 @@ class MotionModel {
   /**
    * After the view is constructed, move one of the blocks to the top of the stack.
    * It would be better if more of this could be done in the model constructor, but it would be difficult with the way things are currently set up.
-   * @param {ScreenView} view
-   * @public
    */
-  viewInitialized( view ) {
+  public viewInitialized( view: ScreenView ): void {
     const item = this.items[ 1 ];
     // only move item to the top of the stack if it is not being dragged
     if ( !item.draggingProperty.get() ) {
+      // @ts-expect-error
       this.view = view;
       item.onBoardProperty.set( true );
       const itemNode = view.itemNodes[ 1 ];
@@ -650,10 +688,8 @@ class MotionModel {
 
   /**
    * Get the state of the simulation, for persistence.
-   * @returns {{properties: *, stack: Array}}
-   * @public
    */
-  getState() {
+  public getState(): IntentionalAny {
     return {
       properties: this.getValues(),
       stack: this.stackObservableArray.getArray().map( item => item.get().name ).join( ',' )
