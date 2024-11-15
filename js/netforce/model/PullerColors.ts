@@ -15,7 +15,7 @@ export default class PullerColors extends EnumerationValue {
   public static readonly PURPLE_AND_ORANGE = new PullerColors();
 
   // Gets a list of keys, values and mapping between them.  For use in EnumerationProperty
-  public static readonly enumeration = new Enumeration( PullerColors );
+  private static readonly enumeration = new Enumeration( PullerColors );
 }
 
 forcesAndMotionBasics.register( 'PullerColors', PullerColors );

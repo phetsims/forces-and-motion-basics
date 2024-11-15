@@ -31,11 +31,11 @@ export default class MotionScreen extends Screen<MotionModel, MotionScreenView> 
    * TODO https://github.com/phetsims/tasks/issues/1129
    * @returns TODO
    */
-  public getState(): IntentionalAny {
+  private getState(): IntentionalAny {
     return { model: this.model.getState(), view: {} };
   }
 
-  public setState(): void {
+  private setState(): void {
     // TODO https://github.com/phetsims/tasks/issues/1129
   }
 }

@@ -26,7 +26,7 @@ export default class HumanTypeEnum extends EnumerationValue {
     ForcesAndMotionBasicsImages.manSittingImageProperty
   );
 
-  public static readonly enumeration = new Enumeration( HumanTypeEnum );
+  private static readonly enumeration = new Enumeration( HumanTypeEnum );
 
   public constructor(
     public readonly holdingImageProperty: LocalizedImageProperty,

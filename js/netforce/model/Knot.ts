@@ -76,7 +76,7 @@ export default class Knot extends PhetioObject {
   /**
    * Get the 2-D position of the knot
    */
-  public get position(): Vector2 {
+  private get position(): Vector2 {
     return new Vector2( this.xProperty.get(), this.y );
   }
 

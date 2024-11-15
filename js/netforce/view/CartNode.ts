@@ -20,9 +20,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
 export default class CartNode extends Image {
-  public readonly xPosition: number;
+  private readonly xPosition: number;
 
-  public constructor( public readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean>, tandem: Tandem ) {
+  public constructor( private readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean>, tandem: Tandem ) {
     super( cart_svg, {
       y: 221,
       tandem: tandem

@@ -26,7 +26,7 @@ const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ 
 export default class ReadoutArrow extends Node {
 
   public static readonly ARROW_HEAD_WIDTH = 50;
-  public static readonly ARROW_HEAD_HEIGHT = 25;
+  private static readonly ARROW_HEAD_HEIGHT = 25;
 
   private readonly arrowNode: Path;
   private readonly valueBackgroundRectangle: Rectangle;

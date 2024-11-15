@@ -37,7 +37,6 @@ import MotionScreenView from '../view/MotionScreenView.js';
 
 export default class MotionModel {
 
-  // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/317 run the script to restrict access modifiers
   public skateboard: boolean;
   public accelerometer: boolean;
 
@@ -51,7 +50,7 @@ export default class MotionModel {
   public readonly frictionProperty: NumberProperty;
 
   // sum of all forces acting on the stack of items
-  public readonly sumOfForcesProperty: NumberProperty;
+  private readonly sumOfForcesProperty: NumberProperty;
 
   // 1-D position of the stack of items
   public readonly positionProperty: NumberProperty;
@@ -60,7 +59,7 @@ export default class MotionModel {
   public readonly speedProperty: NumberProperty;
 
   // velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-  public readonly velocityProperty: NumberProperty;
+  private readonly velocityProperty: NumberProperty;
 
   // 1-d acceleration of the stack of items
   public readonly accelerationProperty: NumberProperty;
@@ -91,19 +90,19 @@ export default class MotionModel {
   // whether acceleration meter is visible
   public readonly showAccelerationProperty: BooleanProperty;
   public readonly speedClassificationProperty: StringProperty;
-  public readonly previousSpeedClassificationProperty: StringProperty;
+  private readonly previousSpeedClassificationProperty: StringProperty;
 
   // whether the stack of items is moving to the right
-  public readonly movingRightProperty: BooleanProperty;
+  private readonly movingRightProperty: BooleanProperty;
 
   // 'right'|'left'|none, direction of movement of the stack of items
   // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
-  public readonly directionProperty: StringProperty;
+  private readonly directionProperty: StringProperty;
 
   // time since pusher has fallen over, in seconds
   // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
   // TODO: Why is default value 10? https://github.com/phetsims/tasks/issues/1129
-  public readonly timeSinceFallenProperty: NumberProperty;
+  private readonly timeSinceFallenProperty: NumberProperty;
 
   // whether the pusher has fallen over
   public readonly fallenProperty: BooleanProperty;
@@ -141,7 +140,7 @@ export default class MotionModel {
 
   public readonly stopwatch: Stopwatch;
   private readonly view!: MotionScreenView;
-  public cart!: Cart;
+  private cart!: Cart;
 
   /**
    * @param screen String that indicates which of the 3 screens this model represents
@@ -373,7 +372,7 @@ export default class MotionModel {
   /**
    * Get an array representing the items that are being dragged.
    */
-  public draggingItems(): Item[] {
+  private draggingItems(): Item[] {
     const draggingItems = [];
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[ i ];
@@ -420,7 +419,7 @@ export default class MotionModel {
   /**
    * Determine whether a value is positive, negative, or zero for the physics computations.
    */
-  public getSign( value: number ): number {
+  private getSign( value: number ): number {
     return value > 0 ? 1 : value < 0 ? -1 : 0;
   }
 
@@ -430,7 +429,7 @@ export default class MotionModel {
    * a system with seemingly equal forces can lose energy.
    * See https://github.com/phetsims/forces-and-motion-basics/issues/197
    */
-  public getFrictionForce( appliedForce: number ): number {
+  private getFrictionForce( appliedForce: number ): number {
 
     let frictionForce;
 
@@ -465,7 +464,7 @@ export default class MotionModel {
   }
 
   // Compute the mass of the entire stack, for purposes of momentum computation
-  public getStackMass(): number {
+  private getStackMass(): number {
     let mass = 0;
     for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
       mass += this.stackObservableArray.get( i ).mass;
@@ -476,7 +475,7 @@ export default class MotionModel {
   /**
    * Determine whether a value is positive, negative or zero to determine wheter the object changed directions.
    */
-  public sign( value: number ): 'negative' | 'positive' | 'zero' {
+  private sign( value: number ): 'negative' | 'positive' | 'zero' {
     return value < 0 ? 'negative' :
            value > 0 ? 'positive' :
            'zero';
@@ -487,13 +486,13 @@ export default class MotionModel {
    * @param a - initial value
    * @param b - second value
    */
-  public changedDirection( a: number, b: number ): boolean {
+  private changedDirection( a: number, b: number ): boolean {
     return this.sign( a ) === 'negative' && this.sign( b ) === 'positive' ||
            this.sign( b ) === 'negative' && this.sign( a ) === 'positive';
   }
 
   // get the pusher position relative to the center and layout bounds of the view
-  public getRelativePusherPosition(): number {
+  private getRelativePusherPosition(): number {
     return this.view.layoutBounds.width / 2 + ( this.pusherPositionProperty.get() - this.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
   }
 
@@ -502,7 +501,7 @@ export default class MotionModel {
    *
    * @param dt - time step
    */
-  public stepModel( dt: number ): void {
+  private stepModel( dt: number ): void {
 
     // update the tracked time which is used by the WaterBucketNode and the Accelerometer
     this.timeProperty.set( this.timeProperty.get() + dt );
@@ -619,7 +618,7 @@ export default class MotionModel {
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
    */
-  public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
+  private isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
 
   public reset(): void {
 

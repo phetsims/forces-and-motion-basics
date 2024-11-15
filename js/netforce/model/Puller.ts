@@ -50,7 +50,7 @@ export default class Puller {
   public readonly draggedEmitter = new Emitter();
 
   public node: PullerNode | null = null;
-  public other: IntentionalAny;
+  private other: IntentionalAny;
 
   /**
    * @param x initial x-coordinate (in meters)

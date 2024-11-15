@@ -25,7 +25,7 @@ import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
 export default class ItemNode extends Node {
-  public readonly uniqueId: number;
+  private readonly uniqueId: number;
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
   private readonly sittingImageNode: Image;

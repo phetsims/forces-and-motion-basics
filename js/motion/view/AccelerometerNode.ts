@@ -91,7 +91,7 @@ export default class AccelerometerNode extends Node {
    * Add a the child line as a tick to the accelerometer node
    * @param child - Line segment to add as a tick
    */
-  public addTick( child: Node ): void {
+  private addTick( child: Node ): void {
     this.addChild( child );
     this.ticks.push( child );
   }

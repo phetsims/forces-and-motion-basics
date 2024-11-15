@@ -35,7 +35,7 @@ export default class FlagNode extends Node {
    * @param tandem
    */
   public constructor(
-    public readonly model: NetForceModel,
+    private readonly model: NetForceModel,
     centerX: number,
     top: number,
     tandem: Tandem
@@ -105,7 +105,7 @@ export default class FlagNode extends Node {
   }
 
   // Update the flag shape, copied from the Java version
-  public updateFlagShape(): void {
+  private updateFlagShape(): void {
     const shape = new Shape();
     const maxX = 220;
     const maxY = 55;

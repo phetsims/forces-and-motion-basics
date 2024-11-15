@@ -136,7 +136,7 @@ export default class PullerNode extends Image {
    * @param model
    * @param knot - the last knot that the puller was holding on to
    */
-  public updatePositionKnotted( puller: Puller, model: NetForceModel, knot: Knot ): void {
+  private updatePositionKnotted( puller: Puller, model: NetForceModel, knot: Knot ): void {
     const blueOffset = this.puller.type === 'blue' ? -60 : 0;
     puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
   }
