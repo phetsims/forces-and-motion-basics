@@ -11,7 +11,6 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Image, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
-import Sound from '../../../../vibe/js/Sound.js';
 import grass_png from '../../../images/grass_png.js';
 import pull_figure_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_BLUE_0_png.js';
 import pull_figure_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_BLUE_3_png.js';
@@ -56,6 +55,8 @@ import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Puller from '../model/Puller.js';
+import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
+import soundManager from '../../../../tambo/js/soundManager.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsStrings.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringProperty;
@@ -361,7 +362,8 @@ export default class NetForceScreenView extends ScreenView {
       }
     } );
 
-    const golfClap = new Sound( golfClap_mp3 );
+    const golfClap = new SoundClip( golfClap_mp3 );
+    soundManager.addSoundGenerator( golfClap );
 
     //Play audio golf clap when game completed
     model.stateProperty.link( state => {

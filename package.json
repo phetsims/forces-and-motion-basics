@@ -11,9 +11,7 @@
   },
   "phet": {
     "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
-    "phetLibs": [
-      "vibe"
-    ],
+    "phetLibs": [],
     "preload": [
       "../sherpa/lib/Tween-r12.js"
     ],
@@ -32,7 +30,8 @@
         "latinAmerica",
         "oceania"
       ],
-      "supportsDynamicLocale": true
+      "supportsDynamicLocale": true,
+      "supportsSound": true
     },
     "simulation": true,
     "phet-io": {

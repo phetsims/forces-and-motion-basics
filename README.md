@@ -49,7 +49,6 @@ git clone https://github.com/phetsims/tambo.git
 git clone https://github.com/phetsims/tandem.git
 git clone https://github.com/phetsims/twixt.git
 git clone https://github.com/phetsims/utterance-queue.git
-git clone https://github.com/phetsims/vibe.git
 ```
 
 (2) Install dev dependencies:
