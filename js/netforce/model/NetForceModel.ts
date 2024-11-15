@@ -20,10 +20,8 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
 import Knot from './Knot.js';
 import Puller from './Puller.js';
-
-// constants
-// puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
-const GAME_LENGTH = 458;
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 // spacing for the knots
 const KNOT_SPACING = 80;
@@ -32,12 +30,30 @@ const RED_KNOT_OFFSET = 680;
 
 class NetForceModel extends PhetioObject {
 
-  /**
-   * Constructor for the net force model.
-   *
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
+  public static readonly GAME_LENGTH = 458;
+
+  public readonly startedProperty: BooleanProperty;
+  public readonly runningProperty: BooleanProperty;
+  public readonly numberPullersAttachedProperty: NumberProperty;
+  public readonly stateProperty: StringProperty;
+  public readonly timeProperty: Property<number>;
+  public readonly netForceProperty: NumberProperty;
+  public readonly leftForceProperty: NumberProperty;
+  public readonly rightForceProperty: NumberProperty;
+  public readonly speedProperty: NumberProperty;
+  private readonly durationProperty: NumberProperty;
+  public readonly showSumOfForcesProperty: BooleanProperty;
+  public readonly showValuesProperty: BooleanProperty;
+  public readonly showSpeedProperty: BooleanProperty;
+  public readonly volumeOnProperty: BooleanProperty;
+  private readonly cartReturnedEmitter: Emitter;
+  public readonly resetAllEmitter: Emitter;
+  public readonly cart: Cart;
+  private readonly knots: Knot[];
+  public readonly pullers: Puller[];
+
+  public constructor( tandem: Tandem ) {
 
     super( {
       tandem: tandem,
@@ -121,7 +137,7 @@ class NetForceModel extends PhetioObject {
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
     //Create a knot given a color and index (0-3)
-    const createKnot = ( color, index, tandem ) => {
+    const createKnot = ( color: string, index: number, tandem: Tandem ) => {
       const xPosition = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
       return new Knot( xPosition, color, BLUE_KNOT_OFFSET, this.getRopeLength(), { tandem: tandem } );
     };
@@ -166,7 +182,7 @@ class NetForceModel extends PhetioObject {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
       } );
       puller.droppedEmitter.addListener( () => {
-        const knot = this.getTargetKnot( puller );
+        const knot = this.getTargetKnot( puller )!;
         this.movePullerToKnot( puller, knot );
       } );
       puller.knotProperty.link( () => {
@@ -188,11 +204,10 @@ class NetForceModel extends PhetioObject {
    * Move a puller to a knot.  If no knot is specified, puller is moved to its original position in the Puller
    * toolbox.
    *
-   * @param {Puller} puller
-   * @param {Knot} [knot] - optional knot where the puller should be moved.
-   * @public
+   * @param puller
+   * @param [knot] - optional knot where the puller should be moved.
    */
-  movePullerToKnot( puller, knot ) {
+  public movePullerToKnot( puller: Puller, knot: Knot ): void {
 
     //try to snap to a knot
     if ( knot ) {
@@ -213,35 +228,24 @@ class NetForceModel extends PhetioObject {
 
   /**
    * Shift the puller to the left.
-   *
-   * @param  {Puller} puller [description]
-   * @public
    */
-  shiftPullerLeft( puller ) {
+  public shiftPullerLeft( puller: Puller ): void {
     this.shiftPuller( puller, 0, 4, -1 );
   }
 
   /**
    * Shift a puller to the right.
-   *
-   * @param  {Puller} puller
-   * @public
    */
-  shiftPullerRight( puller ) {
+  public shiftPullerRight( puller: Puller ): void {
     this.shiftPuller( puller, 3, 7, 1 );
   }
 
   /**
    * Shift a puller by some delta, restricted by the desired bounds
-   * @param  {Puller} puller
-   * @param  {number} leftBoundIndex
-   * @param  {number} rightBoundIndex
-   * @param  {number} delta
-   * @public
    */
-  shiftPuller( puller, leftBoundIndex, rightBoundIndex, delta ) {
+  public shiftPuller( puller: Puller, leftBoundIndex: number, rightBoundIndex: number, delta: number ): void {
     if ( puller.knotProperty.get() ) {
-      const currentIndex = this.knots.indexOf( puller.knotProperty.get() );
+      const currentIndex = this.knots.indexOf( puller.knotProperty.get()! );
       if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
         const nextIndex = currentIndex + delta;
 
@@ -250,7 +254,10 @@ class NetForceModel extends PhetioObject {
 
         const otherPuller = this.getPuller( nextKnot );
 
+        // @ts-expect-error
         puller.setValues( { position: new Vector2( nextKnot.xProperty.get(), nextKnot.y ), knot: nextKnot } );
+
+        // @ts-expect-error
         otherPuller && otherPuller.setValues( {
           position: new Vector2( currentKnot.xProperty.get(), currentKnot.y ),
           knot: currentKnot
@@ -259,8 +266,8 @@ class NetForceModel extends PhetioObject {
     }
   }
 
-  // @public - Count the number of pullers attached to the rope
-  countAttachedPullers() {
+  // Count the number of pullers attached to the rope
+  public countAttachedPullers(): number {
     let count = 0;
     for ( let i = 0; i < this.pullers.length; i++ ) {
       if ( this.pullers[ i ].knotProperty.get() ) {
@@ -270,8 +277,8 @@ class NetForceModel extends PhetioObject {
     return count;
   }
 
-  // @public - Change knot visibility (halo highlight) when the pullers are dragged
-  updateVisibleKnots() {
+  // Change knot visibility (halo highlight) when the pullers are dragged
+  public updateVisibleKnots(): void {
     this.knots.forEach( knot => { knot.visibleProperty.set( false ); } );
     this.pullers.forEach( puller => {
       if ( puller.draggingProperty.get() ) {
@@ -285,23 +292,16 @@ class NetForceModel extends PhetioObject {
 
   /**
    * Gets the puller attached to a knot, or null if none attached to that knot.
-   *
-   * @param  {Knot} knot
-   * @public
    */
-  getPuller( knot ) {
+  public getPuller( knot: Knot ): Puller | null {
     const find = _.find( this.pullers, puller => puller.knotProperty.get() === knot );
     return typeof ( find ) !== 'undefined' ? find : null;
   }
 
   /**
    * Given a puller, returns a function that computes the distance between that puller and any knot.
-   *
-   * @param  {Puller} puller
-   * @returns {function}
-   * @public
    */
-  getKnotPullerDistance( puller ) {
+  public getKnotPullerDistance( puller: Puller ): ( knot: Knot ) => number {
 
     // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
     // placing the blue pullers
@@ -311,24 +311,18 @@ class NetForceModel extends PhetioObject {
 
   /**
    * Gets the closest unoccupied knot to the given puller, which is being dragged.
-   *
-   * @param  {Puller} puller [description]
-   * @returns {Knot}
-   * @public
    */
-  getClosestOpenKnot( puller ) {
+  public getClosestOpenKnot( puller: Puller ): Knot {
     const filter = this.knots.filter( knot => knot.type === puller.type && this.getPuller( knot ) === null );
+
+    // @ts-expect-error
     return _.minBy( filter, this.getKnotPullerDistance( puller ) );
   }
 
   /**
    * Gets the closest unoccupied knot to the given puller, which is being dragged.
-   *
-   * @param  {Puller} puller
-   * @returns {Knot}
-   * @public
    */
-  getClosestOpenKnotFromCart( puller ) {
+  public getClosestOpenKnotFromCart( puller: Puller ): Knot {
     let idx = puller.type === 'red' ? 4 : 3;
     const delta = puller.type === 'red' ? 1 : -1;
     while ( this.getPuller( this.knots[ idx ] ) !== null ) {
@@ -339,11 +333,8 @@ class NetForceModel extends PhetioObject {
 
   /**
    * Gets the closest unoccupied knot to the given puller if it is close enough to grab.
-   * @param  {Puller} puller
-   * @returns {Knot}
-   * @public
    */
-  getTargetKnot( puller ) {
+  public getTargetKnot( puller: Puller ): Knot | null {
     const target = this.getClosestOpenKnot( puller );
     const distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
@@ -352,8 +343,8 @@ class NetForceModel extends PhetioObject {
     return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
   }
 
-  // @public - Return the cart and prepare the model for another "go" run
-  returnCart() {
+  // Return the cart and prepare the model for another "go" run
+  public returnCart(): void {
     this.cart.reset();
     this.knots.forEach( knot => {knot.reset();} );
     this.runningProperty.set( false );
@@ -367,8 +358,8 @@ class NetForceModel extends PhetioObject {
     this.speedProperty.reset();
   }
 
-  // @public - Reset the entire model when "reset all" is pressed
-  reset() {
+  // Reset the entire model when "reset all" is pressed
+  public reset(): void {
 
     // reset all Properties associated with this model
     this.startedProperty.reset();
@@ -405,21 +396,15 @@ class NetForceModel extends PhetioObject {
   /**
    * The length of the rope is the spacing between knots times the number of knots plus the difference between
    * the red and blue starting offsets.
-   *
-   * @returns {number}
-   * @public
    */
-  getRopeLength() {
+  public getRopeLength(): number {
     return 6 * KNOT_SPACING + RED_KNOT_OFFSET - ( BLUE_KNOT_OFFSET + 3 * KNOT_SPACING );
   }
 
   /**
    * Update the physics when the clock ticks
-   *
-   * @param {number} dt
-   * @public
    */
-  step( dt ) {
+  public step( dt: number ): void {
 
     if ( this.runningProperty.get() ) {
 
@@ -434,7 +419,7 @@ class NetForceModel extends PhetioObject {
       const newX = this.cart.xProperty.get() + newV * dt * 60.0;
 
       //If the cart made it to the end, then stop and signify completion
-      const gameLength = GAME_LENGTH - this.cart.widthToWheel;
+      const gameLength = NetForceModel.GAME_LENGTH - this.cart.widthToWheel;
       if ( newX > gameLength || newX < -gameLength ) {
         this.runningProperty.set( false );
         this.stateProperty.set( 'completed' );
@@ -458,12 +443,8 @@ class NetForceModel extends PhetioObject {
 
   /**
    * Update the velocity and position of the cart and the pullers.
-   *
-   * @private
-   * @param  {number} newV
-   * @param  {number} newX
    */
-  updateCartAndPullers( newV, newX ) {
+  private updateCartAndPullers( newV: number, newX: number ): void {
 
     // move the cart, and update its velocity
     this.cart.vProperty.set( newV );
@@ -473,52 +454,42 @@ class NetForceModel extends PhetioObject {
     this.knots.forEach( knot => { knot.xProperty.set( knot.initX + newX ); } );
   }
 
-  // @public - Gets the net force on the cart, applied by both left and right pullers
-  getNetForce() {
+  // Gets the net force on the cart, applied by both left and right pullers
+  public getNetForce(): number {
     return this.getLeftForce() + this.getRightForce();
   }
 
   /**
    * Get an array of pullers of the specified type (color string)
-   * @param  {string} type - one of 'red' or 'blue'
-   * @returns {Array.<Puller>}
-   * @public
    */
-  getPullers( type ) {
+  public getPullers( type: 'red' | 'blue' ): Puller[] {
+
+    // @ts-expect-error
     return _.filter( this.pullers, p => p.type === type && p.knotProperty.get() );
   }
 
   /**
    * Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
-   *
-   * @param  {string} memo
-   * @param  {Puller} puller
-   * @returns {string}
-   * @public
    */
-  sumForces( memo, puller ) {
+  public sumForces( memo: number, puller: Puller ): number {
     return memo + puller.force;
   }
 
-  // @public - Gets the left force on the cart, applied by left and pullers
-  getLeftForce() {
+  // Gets the left force on the cart, applied by left pullers
+  public getLeftForce(): number {
     return -_.reduce( this.getPullers( 'blue' ), this.sumForces, 0 );
   }
 
-  // @public - Gets the right force on the cart, applied by right pullers
-  getRightForce() {
+  // Gets the right force on the cart, applied by right pullers
+  public getRightForce(): number {
     return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 );
   }
 
   /**
    * Gets the closest unoccupied knot to the given puller, which is being dragged.
-   * @param  {Puller} puller
-   * @param  {number} delta
-   * @returns {Knot}
-   * @public
    */
-  getClosestOpenKnotInDirection( puller, delta ) {
-    const isInRightDirection = ( sourceKnot, destinationKnot, delta ) => {
+  public getClosestOpenKnotInDirection( puller: Puller, delta: number ): Knot | null {
+    const isInRightDirection = ( sourceKnot: Knot, destinationKnot: Knot, delta: number ) => {
       assert && assert( delta < 0 || delta > 0 );
       return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
              delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
@@ -526,26 +497,24 @@ class NetForceModel extends PhetioObject {
     };
     const filter = this.knots.filter( knot => knot.type === puller.type &&
                                               this.getPuller( knot ) === null &&
-                                              isInRightDirection( puller.knotProperty.get(), knot, delta ) );
+                                              isInRightDirection( puller.knotProperty.get()!, knot, delta ) );
     let result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
+    // @ts-expect-error
     if ( result === Infinity || result === -Infinity ) {
+
+      // @ts-expect-error
       result = null;
     }
-    return result;
+    return result || null;
   }
 
   /**
    * Get the next open knot in a given direction.  Very similar to the function above, but with a resultant knot
    * is a function of the distance to the next knot, not of the distance to the puller.  This is necessary because
    * when dragging, the puller does not yet have an associated knot.
-   *
-   * @param {Knot} sourceKnot
-   * @param {Puller} puller
-   * @param {number} delta
-   * @public
    */
-  getNextOpenKnotInDirection( sourceKnot, puller, delta ) {
-    const isInRightDirection = ( destinationKnot, delta ) => {
+  public getNextOpenKnotInDirection( sourceKnot: Knot, puller: Puller, delta: number ): Knot | null {
+    const isInRightDirection = ( destinationKnot: Knot, delta: number ) => {
       assert && assert( delta < 0 || delta > 0 );
       return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
              delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
@@ -557,54 +526,48 @@ class NetForceModel extends PhetioObject {
     let result = _.minBy( filter, knot => Math.abs( sourceKnot.xProperty.get() - knot.xProperty.get() ) );
 
     // we have reached the end of the knots.  Return either the first or last knot to loop the choice.
+    // @ts-expect-error
     if ( result === Infinity || result === -Infinity ) {
+      // @ts-expect-error
       result = null;
     }
-    return result;
+    return result || null;
   }
 
   /**
    * For phet-io, describe what pullers are on what knots
-   * @public
    */
-  getKnotDescription() {
+  public getKnotDescription(): IntentionalAny {
     return this.pullers.map( puller => ( {
       id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/tasks/issues/1129
-      knot: puller.knotProperty.get() && puller.knotProperty.get().phetioID
+      knot: puller.knotProperty.get() && puller.knotProperty.get()!.phetioID
     } ) );
   }
 
   /**
    * Move a puller to an adjacent open knot in a direction specified by delta.
-   *
-   * @param {Puller} puller
-   * @param {number} delta
-   * @public
    */
-  movePullerToAdjacentOpenKnot( puller, delta ) {
+  public movePullerToAdjacentOpenKnot( puller: Puller, delta: number ): void {
     const closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
     if ( closestOpenKnot ) {
       this.movePullerToKnot( puller, closestOpenKnot );
     }
   }
+
+  public static readonly NetForceModelIO = new IOType( 'NetForceModelIO', {
+    valueType: NetForceModel,
+    methods: {
+      reset: {
+        returnType: VoidIO,
+        parameterTypes: [],
+        implementation( this: NetForceModel ) {this.reset();},
+        documentation: 'Resets the model',
+        invocableForReadOnlyElements: false
+      }
+    }
+  } );
 }
 
-// @static @public
-NetForceModel.GAME_LENGTH = GAME_LENGTH;
-
 forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
-
-NetForceModel.NetForceModelIO = new IOType( 'NetForceModelIO', {
-  valueType: NetForceModel,
-  methods: {
-    reset: {
-      returnType: VoidIO,
-      parameterTypes: [],
-      implementation: () => this.reset(),
-      documentation: 'Resets the model',
-      invocableForReadOnlyElements: false
-    }
-  }
-} );
 
 export default NetForceModel;

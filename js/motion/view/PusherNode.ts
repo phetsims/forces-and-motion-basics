@@ -43,22 +43,29 @@ import pusher_9_png from '../../../images/pushPullFigures/pusher_9_png.js';
 import pusher_fall_down_png from '../../../images/pushPullFigures/pusher_fall_down_png.js';
 import pusher_straight_on_png from '../../../images/pushPullFigures/pusher_straight_on_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 class PusherNode extends Node {
+
+  // if there are no items on the stack, the node is not interactive and the drag handler will not do anything
+  private interactive = true;
+
   /**
    * Constructor for PusherNode
    *
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {number} layoutWidth width for the layout for purposes of centering the character when pushing
-   * @param {Tandem} tandem
+   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param layoutWidth width for the layout for purposes of centering the character when pushing
+   * @param tandem
    */
-  constructor( model, layoutWidth, tandem ) {
+  public constructor( model: MotionModel, layoutWidth: number, tandem: Tandem ) {
     const scale = 0.95;
 
     // Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
-    const pushingRightNodes = [];
-    const pushingLeftNodes = [];
+    const pushingRightNodes: Node[] = [];
+    const pushingLeftNodes: Node[] = [];
     const children = [];
     const standingUpImageNode = new Image( pusher_straight_on_png, {
       visible: true,
@@ -78,7 +85,7 @@ class PusherNode extends Node {
       scale: new Vector2( -scale, scale ),
       tandem: tandem.createTandem( 'fallRightImage' )
     } );
-    let visibleNode = standingUpImageNode;
+    let visibleNode: Node = standingUpImageNode;
 
     children.push( standingUpImageNode );
     children.push( fallLeftImage );
@@ -116,13 +123,13 @@ class PusherNode extends Node {
                     i === 29 ? pusher_29_png :
                     i === 30 ? pusher_30_png :
                     null;
-      const rightImageNode = new Image( image, {
+      const rightImageNode = new Image( image!, {
         visible: false,
         pickable: false,
         scale: scale,
         tandem: tandem.createTandem( `rightImageNode${i}` )
       } );
-      const leftImageNode = new Image( image, {
+      const leftImageNode = new Image( image!, {
         visible: false,
         pickable: false,
         scale: new Vector2( -scale, scale ),
@@ -134,7 +141,7 @@ class PusherNode extends Node {
       children.push( leftImageNode );
     }
 
-    const setVisibleNode = node => {
+    const setVisibleNode = ( node: Node ) => {
       if ( node !== visibleNode ) {
         visibleNode.visible = false;
         visibleNode.pickable = false;
@@ -149,12 +156,8 @@ class PusherNode extends Node {
       tandem: tandem
     } );
 
-    // @private - if there are no items on the stack, the node is not interactive and the
-    // drag handler will not do anything
-    this.interactive = true;
-
     // Update the position when the pusher is not applying force (fallen or standing)
-    const updateZeroForcePosition = x => {
+    const updateZeroForcePosition = ( x: number ) => {
       const pusherY = 362 - visibleNode.height;
       visibleNode.translate( x, pusherY - visibleNode.y, true );
     };
@@ -163,16 +166,14 @@ class PusherNode extends Node {
      * Reset the zero force position so that the pusher is at the correct place when the pusher falls over or when
      * applied force is set to zero after.  Dependent on the width of the item stack, direction the pusher fell, or the
      * direction the pusher was applying a force before the force was set to zero.
-     *
-     * @param {string} direction description
      */
-    const resetZeroForcePosition = direction => {
+    const resetZeroForcePosition = ( direction: string ) => {
       if ( model.stackObservableArray.length > 0 ) {
 
         const item = model.stackObservableArray.get( 0 );
 
         // get the scaled width of the first image on the stack
-        const scaledWidth = item.view.getScaledWidth();
+        const scaledWidth = item.view!.getScaledWidth();
 
         // add a little more space (10) so the pusher isn't exactly touching the stack
         const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
@@ -197,7 +198,7 @@ class PusherNode extends Node {
       const item = model.stackObservableArray.get( 0 );
 
       // get the scaled width of the first item in the stack
-      const scaledWidth = item.view.getScaledWidth();
+      const scaledWidth = item.view!.getScaledWidth();
 
       const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
       if ( model.appliedForceProperty.get() > 0 ) {
@@ -213,7 +214,6 @@ class PusherNode extends Node {
 
     // get new position for the pusher node when he falls so that he falls back from
     // the item stack when it is moving too quickly
-    // @returns {number}
     const getPusherNodeDeltaX = () => {
       // the change in position for the model
       const modelDelta = -( model.positionProperty.get() - model.previousModelPosition );
@@ -230,7 +230,7 @@ class PusherNode extends Node {
      * @param  {Node} newVisibleNode - visibleNode, should be either falling or standing images of the pusher
      * @param  {string} direction      description
      */
-    const pusherLetGo = ( newVisibleNode, direction ) => {
+    const pusherLetGo = ( newVisibleNode: Node, direction: string ) => {
       // update the visible node and place it in a position dependent on the direction
       // of falling or the applied force
       setVisibleNode( newVisibleNode );
@@ -256,7 +256,7 @@ class PusherNode extends Node {
 
     model.appliedForceProperty.link( ( appliedForce, previousAppliedForce ) => {
       if ( appliedForce === 0 ) {
-        pusherLetGo( standingUpImageNode, previousAppliedForce > 0 ? 'right' : 'left' );
+        pusherLetGo( standingUpImageNode, previousAppliedForce! > 0 ? 'right' : 'left' );
       }
 
       // update visibility and position if pusher is on screen and is still able to push
@@ -308,7 +308,7 @@ class PusherNode extends Node {
     const dragListener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
-      translate: options => {
+      translate: ( options: IntentionalAny ) => {
         if ( this.interactive ) {
           const newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
           const clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );

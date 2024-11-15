@@ -45,7 +45,7 @@ class AppliedForceSlider extends HSlider {
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
-      constrainValue: value => Utils.roundSymmetric( value ),
+      constrainValue: ( value: number ) => Utils.roundSymmetric( value ),
 
       // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
       // up a state of forces

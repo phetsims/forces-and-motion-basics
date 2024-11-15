@@ -10,7 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Path, Image, Rectangle } from '../../../../scenery/js/imports.js';
+import { Path, Rectangle, ImageableImage } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ItemNode from './ItemNode.js';
 import MotionScreenView from './MotionScreenView.js';
@@ -18,6 +18,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Item from '../model/Item.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import MotionModel from '../model/MotionModel.js';
+import Property from '../../../../axon/js/Property.js';
 
 // constants
 const linear = Utils.linear;
@@ -38,8 +39,8 @@ class WaterBucketNode extends ItemNode {
    * @param tandem
    */
   public constructor( model: MotionModel, motionView: MotionScreenView,
-                      private readonly item: Item,
-                      imageProperty: Image, imageSittingProperty: Image, imageHoldingProperty: Image, showMassesProperty: TReadOnlyProperty<boolean>,
+                      item: Item,
+                      imageProperty: Property<ImageableImage>, imageSittingProperty: Property<ImageableImage>, imageHoldingProperty: Property<ImageableImage>, showMassesProperty: TReadOnlyProperty<boolean>,
                       toolboxNode: Rectangle, tandem: Tandem ) {
     super( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem );
     const waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
@@ -57,6 +58,8 @@ class WaterBucketNode extends ItemNode {
     //Metrics based on original image size of 98 pixels wide.
     const padX = 4.5;
     const padY = 9;
+
+    // @ts-expect-error
     const s = imageProperty.value.width / 98.0;
 
     const leftLineX = ( x: number ) => linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );

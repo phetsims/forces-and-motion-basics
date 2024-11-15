@@ -18,6 +18,9 @@ import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionB
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import NetForceModel from '../model/NetForceModel.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
@@ -28,20 +31,24 @@ const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesString
 const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
 class NetForceControlPanel extends Node {
+  private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
+  private readonly resetAllButton: ResetAllButton;
   /**
    * Create the NetForceControlPanel.
    *
-   * @param {NetForceModel} model the model for this control panel
-   * @param {Tandem} tandem
-   * @param {Object} [options]
+   * @param model the model for this control panel
+   * @param tandem
+   * @param [options]
    */
-  constructor( model, tandem, options ) {
+  public constructor( model: NetForceModel, tandem: Tandem, options?: IntentionalAny ) {
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( { tandem: tandem }, options );
     super( options );
 
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 115 };
 
     // the content for "show speed" is a label with an icon
+    // @ts-expect-error
     const speedometerIconNode = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
     const speedTextAndSpeedometerIconSpacing = 10;
 
@@ -89,6 +96,7 @@ class NetForceControlPanel extends Node {
     this.addChild( this.resetAllButton );
 
     const soundToggleButton = new SoundToggleButton( model.volumeOnProperty, {
+      // @ts-expect-error
       padX: 19,
       padY: 19,
       tandem: tandem.createTandem( 'soundToggleButton' )

@@ -11,11 +11,11 @@ import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 class PullerColors extends EnumerationValue {
-  static BLUE_AND_RED = new PullerColors();
-  static PURPLE_AND_ORANGE = new PullerColors();
+  public static readonly BLUE_AND_RED = new PullerColors();
+  public static readonly PURPLE_AND_ORANGE = new PullerColors();
 
   // Gets a list of keys, values and mapping between them.  For use in EnumerationProperty
-  static enumeration = new Enumeration( PullerColors );
+  public static readonly enumeration = new Enumeration( PullerColors );
 }
 
 forcesAndMotionBasics.register( 'PullerColors', PullerColors );

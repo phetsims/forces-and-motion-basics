@@ -28,24 +28,6 @@ const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ '
 // constants
 const tandem = Tandem.ROOT;
 
-const simOptions = {
-  credits: {
-    leadDesign: 'Ariel Paul, Noah Podolefsky',
-    graphicArts: 'Mariah Hermsmeyer, Amanda McGarry, Sharon Siman-Tov',
-    softwareDevelopment: 'Jesse Greenberg, Sam Reid, Luisa Vargas',
-    team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
-    qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Oliver Orejola, Ben Roberts, ' +
-                      'Bryan Yoelin'
-  },
-  preferencesModel: new PreferencesModel( {
-    simulationOptions: {
-      customPreferences: [ {
-        createContent: () => new ForcesAndMotionBasicsPreferencesNode()
-      } ]
-    }
-  } )
-};
-
 simLauncher.launch( () => {
 
   const netForceScreenTandem = tandem.createTandem( 'netForceScreen' );
@@ -64,7 +46,8 @@ simLauncher.launch( () => {
     () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
       name: ForcesAndMotionBasicsStrings.netForceStringProperty,
-      homeScreenIcon: new ScreenIcon( new Image( tugIcon_png ), screenIconOptions )
+      homeScreenIcon: new ScreenIcon( new Image( tugIcon_png ), screenIconOptions ),
+      tandem: netForceScreenTandem
     }
   );
 
@@ -89,7 +72,22 @@ simLauncher.launch( () => {
       motionScreen,
       frictionScreen,
       accelerationScreen
-    ],
-    simOptions );
+  ], {
+    credits: {
+      leadDesign: 'Ariel Paul, Noah Podolefsky',
+      graphicArts: 'Mariah Hermsmeyer, Amanda McGarry, Sharon Siman-Tov',
+      softwareDevelopment: 'Jesse Greenberg, Sam Reid, Luisa Vargas',
+      team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Oliver Orejola, Ben Roberts, ' +
+                        'Bryan Yoelin'
+    },
+    preferencesModel: new PreferencesModel( {
+      simulationOptions: {
+        customPreferences: [ {
+          createContent: () => new ForcesAndMotionBasicsPreferencesNode()
+        } ]
+      }
+    } )
+  } );
   sim.start();
 } );

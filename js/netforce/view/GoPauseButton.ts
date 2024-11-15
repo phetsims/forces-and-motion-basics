@@ -12,13 +12,17 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Rectangle, Text, Node } from '../../../../scenery/js/imports.js';
 import BooleanToggleNode from '../../../../sun/js/BooleanToggleNode.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import NetForceModel from '../model/NetForceModel.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
@@ -28,13 +32,8 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
  * Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the
  * bounds will match up.  If the node is already the largest, don't wrap it.
  * Centers all the nodes in the parent wrappers.
- * @param  {Node} node
- * @param  {number} padX
- * @param  {number} padY
- * @param  {Array.<Node>} nodes
- * @returns {Rectangle}
  */
-const wrap = ( node, padX, padY, nodes ) => {
+const wrap = ( node: Node, padX: number, padY: number, nodes: Node[] ): Rectangle => {
   let maxWidth = -1;
   let maxHeight = -1;
   nodes.forEach( n => {
@@ -57,13 +56,14 @@ class GoPauseButton extends BooleanToggleNode {
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
    *
-   * @param {NetForceModel} model the NetForceModel
-   * @param {number} layoutWidth the layout width for centering the button
-   * @param {Tandem} tandem
-   * @param {Object} [options]
+   * @param model the NetForceModel
+   * @param layoutWidth the layout width for centering the button
+   * @param tandem
+   * @param [options]
    */
-  constructor( model, layoutWidth, tandem, options ) {
+  public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, options?: IntentionalAny ) {
 
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( {
       top: 400
     }, options );
@@ -92,6 +92,8 @@ class GoPauseButton extends BooleanToggleNode {
       ]
     } );
     const goListener = () => {
+
+      // @ts-expect-error
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
       model.runningProperty.set( true );
     };
@@ -100,7 +102,7 @@ class GoPauseButton extends BooleanToggleNode {
     };
 
     // Create the buttons.
-    const createButton = ( textNode, baseColor, listener, tandemName, stringProperty ) => {
+    const createButton = ( textNode: Text, baseColor: string, listener: () => void, tandemName: string, stringProperty: TReadOnlyProperty<string> ) => {
       const buttonContent = wrap( textNode, padX, padY, [ goText, pauseText ] );
       const button = new RoundPushButton( {
         content: buttonContent,

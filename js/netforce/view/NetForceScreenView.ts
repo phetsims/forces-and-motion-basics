@@ -54,6 +54,8 @@ import NetForceControlPanel from './NetForceControlPanel.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Puller from '../model/Puller.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsStrings.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringProperty;
@@ -131,12 +133,16 @@ const colorMapping = {
 };
 
 class NetForceScreenView extends ScreenView {
+  private readonly cartNode: CartNode;
+  private readonly ropeImageNode: Image;
+  private readonly sumArrow: ReadoutArrow;
+  private readonly leftArrow: ReadoutArrow;
+  private readonly rightArrow: ReadoutArrow;
+  private readonly pullerNodes: PullerNode[] = [];
+  private readonly controlPanel: NetForceControlPanel;
+  private readonly sumOfForcesText: Text;
 
-  /**
-   * @param {NetForceModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
     super( {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
@@ -145,8 +151,6 @@ class NetForceScreenView extends ScreenView {
     //Fit to the window and render the initial scene
     const width = this.layoutBounds.width;
     const height = this.layoutBounds.height;
-
-    this.model = model;
 
     //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     const skyHeight = 376;
@@ -269,7 +273,7 @@ class NetForceScreenView extends ScreenView {
     this.addChild( this.cartNode );
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
-    const getPullerImage = ( puller, leaning ) => {
+    const getPullerImage = ( puller: Puller, leaning: boolean ) => {
       const pullerColor = ForcesAndMotionBasicsPreferences.pullerColorProperty.value;
       const type = puller.type;
       const size = puller.size;
@@ -279,11 +283,12 @@ class NetForceScreenView extends ScreenView {
       const mappedType = ( type === 'blue' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'purple' :
                          ( type === 'red' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'orange' : type;
 
+      // @ts-expect-error
       return colorSet[ mappedType ][ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
     // get the associated toolbox for the puller
-    const getPullerToolbox = puller => puller.type === 'red' ? rightToolbox : leftToolbox;
+    const getPullerToolbox = ( puller: Puller ) => puller.type === 'red' ? rightToolbox : leftToolbox;
 
     const leftPullerLayer = new Node( {
       tandem: tandem.createTandem( 'leftPullerLayer' )
@@ -291,7 +296,6 @@ class NetForceScreenView extends ScreenView {
     const rightPullerLayer = new Node( {
       tandem: tandem.createTandem( 'rightPullerLayer' )
     } );
-    this.pullerNodes = [];
 
     this.model.pullers.forEach( puller => {
       const pullerNode = new PullerNode( puller, this.model,
@@ -345,7 +349,7 @@ class NetForceScreenView extends ScreenView {
     } );
     this.addChild( this.controlPanel );
 
-    let lastFlagNode = null;
+    let lastFlagNode: FlagNode | null = null;
 
     // Show the flag node when pulling is complete
     Multilink.multilink( [ model.stateProperty, model.cart.xProperty ], ( state, x ) => {

@@ -14,7 +14,7 @@ import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 class AccelerometerNode extends Node {
-  private readonly ticks: Node[];
+  public readonly ticks: Node[];
 
   public constructor( accelerationProperty: TReadOnlyProperty<number>, tandem: Tandem, options?: IntentionalAny ) {
     options = options || {};

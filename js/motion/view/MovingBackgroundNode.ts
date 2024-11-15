@@ -10,7 +10,7 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 // modules
 import Utils from '../../../../dot/js/Utils.js';
-import { Image, Node, Pattern, Rectangle } from '../../../../scenery/js/imports.js';
+import { Image, Node, Pattern, Rectangle, ImageableImage } from '../../../../scenery/js/imports.js';
 import brickTile_png from '../../../images/brickTile_png.js';
 import cloud1_svg from '../../../images/cloud1_svg.js';
 import icicle_png from '../../../images/icicle_png.js';
@@ -24,6 +24,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const linear = Utils.linear;
 
 class MovingBackgroundNode extends Node {
+  private lastNumSpecks = 0;
 
   /**
    * Constructor for MovingBackgroundNode
@@ -43,7 +44,7 @@ class MovingBackgroundNode extends Node {
     const L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    const toBackgroundImage = ( offset: number, image: Image, y: number, scale: number, tandemName: string ) => {
+    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => {
 
       const node = new Image( image, {
         scale: scale,
@@ -51,7 +52,9 @@ class MovingBackgroundNode extends Node {
         y: y,
         tandem: tandem.createTandem( tandemName )
       } );
+      // @ts-expect-error
       node.offsetX = offset;
+      // @ts-expect-error
       node.scaleFactor = scale;
       return node;
     };
@@ -78,10 +81,10 @@ class MovingBackgroundNode extends Node {
     //Move the background objects
     //TODO: support background objects with scale !== 1 https://github.com/phetsims/tasks/issues/1129
 
-    const getLayerUpdater = ( layer, motionScale ) => {
+    const getLayerUpdater = ( layer: Node, motionScale: number ) => {
       let netDelta = 0;
       const children = layer.children;
-      return ( position, oldPosition ) => {
+      return ( position: number, oldPosition: number ) => {
         const delta = -( position - oldPosition ) * MotionConstants.POSITION_SCALE / motionScale;
         netDelta += delta;
         layer.translate( delta, 0 );
@@ -96,9 +99,12 @@ class MovingBackgroundNode extends Node {
             //            console.log( child.offsetX + netDelta, -800 );
 
             //TODO: use modulus instead of while loop https://github.com/phetsims/tasks/issues/1129
+            // @ts-expect-error
             while ( child.offsetX + netDelta < -L ) {
               //              console.log( 'jump 1' );
+              // @ts-expect-error
               child.offsetX += stageWidth;
+              // @ts-expect-error
               child.translate( stageWidth / child.scaleFactor, 0 );
             }
           }
@@ -108,9 +114,12 @@ class MovingBackgroundNode extends Node {
             //          console.log( child.offsetX + netDelta, L );
 
             //TODO: use modulus instead of while loop https://github.com/phetsims/tasks/issues/1129
+            // @ts-expect-error
             while ( child.offsetX + netDelta > L ) {
               //              console.log( 'jump 2' );
+              // @ts-expect-error
               child.offsetX -= stageWidth;
+              // @ts-expect-error
               child.translate( -stageWidth / child.scaleFactor, 0 );
             }
           }
@@ -118,6 +127,7 @@ class MovingBackgroundNode extends Node {
       };
     };
 
+    // @ts-expect-error
     model.positionProperty.link( getLayerUpdater( mountainAndCloudLayer, 10 ) );
 
     const tileWidth = brickTile_png.width;
@@ -170,9 +180,8 @@ class MovingBackgroundNode extends Node {
           this.addChild( iceLayer );
 
           //TODO: could prevent updater from firing if ice is not visible https://github.com/phetsims/tasks/issues/1129
+          // @ts-expect-error
           model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
-
-          this.lastNumSpecks = 0;
 
           const gravelSource = new Node( {
             tandem: tandem.createTandem( 'gravelSource' )
@@ -222,6 +231,7 @@ class MovingBackgroundNode extends Node {
             while ( numBlack > desiredBlack ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {
+                // @ts-expect-error
                 if ( children[ i ].fill === 'black' ) {
                   gravelSource.removeChildAt( i );
                   break;
@@ -233,6 +243,7 @@ class MovingBackgroundNode extends Node {
             while ( numGray > desiredGray ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {
+                // @ts-expect-error
                 if ( children[ i ].fill === 'gray' ) {
                   gravelSource.removeChildAt( i );
                   break;
@@ -244,6 +255,7 @@ class MovingBackgroundNode extends Node {
             while ( numWhite > desiredWhite ) {
               children = gravelSource.getChildren();
               for ( i = children.length - 1; i >= 0; i-- ) {
+                // @ts-expect-error
                 if ( children[ i ].fill === 'white' ) {
                   gravelSource.removeChildAt( i );
                   break;

@@ -27,6 +27,7 @@ class SpeedometerNode extends Node {
 
   public constructor( speedProperty: TReadOnlyProperty<number>, showSpeedProperty: TReadOnlyProperty<boolean>, showValuesProperty: TReadOnlyProperty<boolean>, tandem: Tandem, options?: IntentionalAny ) {
 
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( {
       radius: 67,
       tandem: tandem
@@ -36,11 +37,9 @@ class SpeedometerNode extends Node {
     super();
 
     const gaugeRadius = 67;
-    const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ),
-      {
+    const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ), {
         radius: gaugeRadius,
         tandem: tandem.createTandem( 'gaugeNode' ),
-        displayValue: true,
         numberDisplayOptions: {
           valuePattern: pattern0Name1ValueUnitsVelocityStringProperty,
           decimalPlaces: 1,

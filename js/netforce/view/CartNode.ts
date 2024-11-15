@@ -12,24 +12,22 @@ import { Image } from '../../../../scenery/js/imports.js';
 import cart_svg from '../../../images/cart_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import Cart from '../model/Cart.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
 class CartNode extends Image {
-  /**
-   * @param {Cart} cart
-   * @param {NumberProperty} speedProperty
-   * @param {Property.<Boolean>} showSpeedProperty
-   * @param {Tandem} tandem
-   */
-  constructor( cart, speedProperty, showSpeedProperty, tandem ) {
-    // super constructor
+  public readonly xPosition: number;
+
+  public constructor( public readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean>, tandem: Tandem ) {
     super( cart_svg, {
       y: 221,
       tandem: tandem
     } );
 
-    this.cart = cart;
     this.xPosition = this.cart.xProperty.get();
 
     // add a speedometer to the cart

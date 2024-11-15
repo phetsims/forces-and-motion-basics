@@ -15,20 +15,32 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import PullerColors from '../model/PullerColors.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import NetForceModel from '../model/NetForceModel.js';
 
 class FlagNode extends Node {
+  private readonly path: Path;
+  private readonly colorWinsStringProperty: TReadOnlyProperty<string>;
+  private readonly disposeFlagNode: () => void;
+  private readonly centerTextNodeMultilink: IntentionalAny;
 
   /**
    * Constructor for FlagNode
    *
-   * @param {MotionModel} model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param {number} centerX center for layout
-   * @param {number} top top for layout
-   * @param {Tandem} tandem
+   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param centerX center for layout
+   * @param top top for layout
+   * @param tandem
    */
-  constructor( model, centerX, top, tandem ) {
+  public constructor(
+    public readonly model: NetForceModel,
+    centerX: number,
+    top: number,
+    tandem: Tandem
+  ) {
     super();
-    this.model = model;
 
     this.path = new Path( null, {
       stroke: 'black',
@@ -87,14 +99,13 @@ class FlagNode extends Node {
     } );
   }
 
-  // @public
-  dispose() {
+  public override dispose(): void {
     this.disposeFlagNode();
     super.dispose();
   }
 
-  // @public - Update the flag shape, copied from the Java version
-  updateFlagShape() {
+  // Update the flag shape, copied from the Java version
+  public updateFlagShape(): void {
     const shape = new Shape();
     const maxX = 220;
     const maxY = 55;

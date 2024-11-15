@@ -26,6 +26,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
+// eslint-disable-next-line phet/no-view-imported-from-model
+import ItemNode from '../view/ItemNode.js';
 
 class Item extends PhetioObject {
   public readonly name: string;
@@ -58,6 +60,10 @@ class Item extends PhetioObject {
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
   public readonly imageScaleProperty: NumberProperty;
   public readonly interactionScaleProperty: NumberProperty;
+
+  // True if and only if the item is a bucket
+  public bucket = false;
+  public view: ItemNode | null = null;
 
   /**
    * Constructor for Item

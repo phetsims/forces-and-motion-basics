@@ -16,8 +16,41 @@ import merge from '../../../../phet-core/js/merge.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+
+// eslint-disable-next-line phet/no-view-imported-from-model
+import PullerNode from '../view/PullerNode.js';
 
 class Puller {
+
+  // to synchronize tandem names with the view
+  public readonly pullerTandem: Tandem;
+  public readonly standOffsetX: number;
+  public readonly force: number;
+
+  // whether or not the puller is currently being dragged
+  public readonly draggingProperty: BooleanProperty;
+
+  // the knot that this puller is attached to
+  public readonly knotProperty: Property<Knot | null>;
+
+  // the position of this puller
+  public readonly positionProperty: Vector2Property;
+
+  // a classified position in the play area
+  // TODO: What are the valid values for this Property? https://github.com/phetsims/tasks/issues/1129
+  // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+  public readonly lastPlacementProperty: StringProperty;
+
+  // emits an event when the puller is dropped
+  public readonly droppedEmitter = new Emitter();
+
+  // emits an event when the puller is dragged
+  public readonly draggedEmitter = new Emitter();
+
+  public node: PullerNode | null = null;
+  public other: IntentionalAny;
 
   /**
    * @param x initial x-coordinate (in meters)
@@ -25,59 +58,46 @@ class Puller {
    * @param type 'red'|'blue'
    * @param size 'small'|'medium'|'large'
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
-   * @param {Tandem} tandem
-   * @param {Object} [options]
+   * @param tandem
+   * @param [options]
    */
-  constructor( x, y, type, size, dragOffsetX, tandem, options ) {
-    assert && assert( [ 'small', 'medium', 'large' ].indexOf( size ) >= 0 );
+  public constructor( x: number, y: number,
+                      public readonly type: 'red' | 'blue',
+                      public readonly size: 'small' | 'medium' | 'large',
+                      public readonly dragOffsetX: number, tandem: Tandem, options?: IntentionalAny ) {
 
-    // @public - to synchronize tandem names with the view
     this.pullerTandem = tandem;
 
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( { standOffsetX: 0, other: '' }, options );
 
-    this.dragOffsetX = dragOffsetX;
     this.standOffsetX = options.standOffsetX;
-    this.type = type;
-    this.size = size;
     this.force = this.size === 'small' ? 10 * 5 :
                  this.size === 'medium' ? 20 * 5 :
                  this.size === 'large' ? 30 * 5 :
                  NaN;
 
-    // @public {boolean} - whether or not the puller is currently being dragged
     this.draggingProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'draggingProperty' )
     } );
 
-    // @public {Knot|null} - the knot that this puller is attached to
-    this.knotProperty = new Property( null, {
+    this.knotProperty = new Property<Knot | null>( null, {
       tandem: tandem.createTandem( 'knotProperty' ),
       phetioValueType: NullableIO( Knot.KnotIO )
     } );
 
-    // @public {Vector2} - the position of this puller
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' )
     } );
 
-    // @public {string} - a classified position in the play area
-    // TODO: What are the valid values for this Property? https://github.com/phetsims/tasks/issues/1129
-    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
     this.lastPlacementProperty = new StringProperty( 'home', {
       tandem: tandem.createTandem( 'lastPlacementProperty' )
     } );
 
-    // @public - emits an event when the puller is dropped
-    this.droppedEmitter = new Emitter();
-
-    // @public - emits an event when the puller is dragged
-    this.draggedEmitter = new Emitter();
-
     this.other = options.other;
 
     //Move with the knot
-    const updatePosition = knotX => {
+    const updatePosition = ( knotX: number ) => {
       this.positionProperty.set( new Vector2( knotX, this.positionProperty.get().y ) );
     };
 
@@ -99,17 +119,16 @@ class Puller {
 
   /**
    * Reset the model by resetting all associated Properties.
-   * @public
    */
-  reset() {
+  public reset(): void {
     this.draggingProperty.reset();
     this.knotProperty.reset();
     this.positionProperty.reset();
     this.lastPlacementProperty.reset();
   }
 
-  // @public - Detach the puller from the knot.
-  disconnect() {
+  // Detach the puller from the knot.
+  public disconnect(): void {
     this.knotProperty.set( null );
   }
 }

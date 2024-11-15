@@ -19,6 +19,7 @@ import MotionScreenView from './MotionScreenView.js';
 import Item from '../model/Item.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -27,6 +28,7 @@ class ItemNode extends Node {
   public readonly uniqueId: number;
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
+  private readonly sittingImageNode: Image;
 
   /**
    * Constructor for ItemNode
@@ -104,7 +106,7 @@ class ItemNode extends Node {
     };
 
     // called on end drag, update direction of girl or man to match current applied force and velocity of model
-    const updatePersonDirection = person => {
+    const updatePersonDirection = ( person: IntentionalAny ) => {
 
       // default direction is to the left
       let direction = 'left';
@@ -145,6 +147,8 @@ class ItemNode extends Node {
 
     const dragListener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragListener' ),
+
+      // @ts-expect-error
       translate: options => {
         item.positionProperty.set( options.position );
       },

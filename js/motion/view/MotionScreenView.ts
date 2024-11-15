@@ -20,7 +20,7 @@ import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js'
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
-import { Image, LinearGradient, Node, Rectangle, RichText, Text, Path } from '../../../../scenery/js/imports.js';
+import { Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
 import skateboard_svg from '../../../images/skateboard_svg.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
@@ -38,6 +38,7 @@ import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Item from '../model/Item.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
@@ -127,7 +128,7 @@ class MotionScreenView extends ScreenView {
     } );
 
     //Create the slider
-    const disableText = ( node: Path ) => length => {node.fill = length === 0 ? 'gray' : 'black';};
+    const disableText = ( node: Text ) => ( length: number ) => {node.fill = length === 0 ? 'gray' : 'black';};
 
     const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
     const appliedForceSliderText = new Text( appliedForceStringProperty, {
@@ -174,6 +175,7 @@ class MotionScreenView extends ScreenView {
         }
       },
 
+      // @ts-expect-error
       range: spinnerRange,
 
       deltaFine: 1,
@@ -338,6 +340,8 @@ class MotionScreenView extends ScreenView {
       const sittingImageProperty = item.sittingImageProperty.value ? item.sittingImageProperty : item.imageProperty;
       const holdingImageProperty = item.holdingImageProperty.value ? item.holdingImageProperty : item.imageProperty;
       const itemNode = new Constructor( model, this, item,
+
+        // @ts-expect-error
         item.imageProperty,
         sittingImageProperty,
         holdingImageProperty,
@@ -448,22 +452,24 @@ class MotionScreenView extends ScreenView {
   private get stackHeight(): number {
     let sum = 0;
     for ( let i = 0; i < this.model.stackObservableArray.length; i++ ) {
+      // @ts-expect-error
       sum = sum + this.model.stackObservableArray.get( i ).view.height;
     }
     return sum;
   }
 
   // Find the top of the stack, so that a new object can be placed on top
-  private get topOfStack(): number {
+  public get topOfStack(): number {
     const n = this.model.skateboard ? 334 : 360;
     return n - this.stackHeight;
   }
 
   // Get the size of an item's image.  Dependent on the current scale of the image.
-  private getSize( item: Item ): number {
+  public getSize( item: Item ): IntentionalAny {
     // get the current scale for the element and apply it to the image
-    const scaledWidth = item.view.sittingImageNode.width * item.getCurrentScale();
-    return { width: scaledWidth, height: item.view.height };
+    // @ts-expect-error
+    const scaledWidth = item.view!.sittingImageNode.width * item.getCurrentScale();
+    return { width: scaledWidth, height: item.view!.height };
   }
 }
 

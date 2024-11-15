@@ -19,10 +19,13 @@ const mapStringToColorSet = new Map<string, PullerColors>( [
 ] );
 
 const pullerColorString = ForcesAndMotionBasicsQueryParameters.pullerColor; // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/317 this looks broken
+
+// @ts-expect-error
 const pullerColor = mapStringToColorSet.get( pullerColorString );
 
 const ForcesAndMotionBasicsPreferences = {
 
+  // @ts-expect-error
   pullerColorProperty: new EnumerationProperty( pullerColor )
 };
 

@@ -14,10 +14,12 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import PullerColors from '../model/PullerColors.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 class PullerColorControl extends VBox {
 
-  constructor( pullerColorProperty ) {
+  public constructor( pullerColorProperty: IntentionalAny ) {
 
     const text = new Text( ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty, {
       font: PreferencesDialog.PANEL_SECTION_LABEL_FONT,
@@ -29,7 +31,7 @@ class PullerColorControl extends VBox {
      * @param value - value associated with the radio button
      * @param labelStringProperty - label that appears on the radio button
      */
-    const createItem = ( value, labelStringProperty ) => {
+    const createItem = ( value: PullerColors, labelStringProperty: TReadOnlyProperty<string> ) => {
       return {
         value: value,
         createNode: () => new Text( labelStringProperty, {
@@ -54,9 +56,11 @@ class PullerColorControl extends VBox {
       )
     ];
 
+
     const radioButtonGroup = new VerticalAquaRadioButtonGroup( pullerColorProperty, items, {
 
       // pdom
+      // @ts-expect-error
       labelContent: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty
     } );
 

@@ -23,11 +23,11 @@ import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNStringProperty' ];
 
-// constants
-const ARROW_HEAD_WIDTH = 50;
-const ARROW_HEAD_HEIGHT = 25;
-
 class ReadoutArrow extends Node {
+
+  public static readonly ARROW_HEAD_WIDTH = 50;
+  public static readonly ARROW_HEAD_HEIGHT = 25;
+
   private readonly arrowNode: Path;
   private readonly valueBackgroundRectangle: Rectangle;
   private readonly valueNode: Node;
@@ -35,6 +35,8 @@ class ReadoutArrow extends Node {
 
   // if the arrow overlaps another, we change the layout of the arrow labels so none of the text overlaps eachother
   public overlapsOther = false;
+  private hidden!: boolean;
+  private value!: number;
 
   /**
    * @param label the text to show for the arrow
@@ -48,7 +50,7 @@ class ReadoutArrow extends Node {
    */
   public constructor(
     label: TReadOnlyProperty<string>,
-    fill,
+    fill: IntentionalAny,
     private readonly tailX: number,
     private readonly tailY: number,
     valueProperty: TReadOnlyProperty<number>,
@@ -120,11 +122,11 @@ class ReadoutArrow extends Node {
     showValuesProperty.link( this.update.bind( this ) );
   }
 
-  // @public - Sets the arrow dash, which changes when the simulation starts playing
-  setArrowDash( lineDash ) { this.arrowNode.lineDash = lineDash; }
+  // Sets the arrow dash, which changes when the simulation starts playing
+  public setArrowDash( lineDash: number[] ): void { this.arrowNode.lineDash = lineDash; }
 
   //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
-  set labelPosition( position ) {
+  public set labelPosition( position: string ) {
     if ( this.options.labelPosition !== position ) {
       this.options.labelPosition = position;
       this.update();
@@ -132,11 +134,11 @@ class ReadoutArrow extends Node {
   }
 
   //Get the label position
-  get labelPosition() { return this.options.labelPosition; }
+  public get labelPosition(): string { return this.options.labelPosition; }
 
-  // @public - Update the arrow graphics and text labels
-  update() {
-    const value = this.value * this.options.arrowScale;
+  // Update the arrow graphics and text labels
+  public update(): void {
+    const value = this.value * ( this.options.arrowScale || 1 );
 
     //Don't show it if it is too small
     const hidden = Math.abs( value ) < 1E-6;
@@ -152,8 +154,8 @@ class ReadoutArrow extends Node {
     if ( !hidden ) {
       const tailX = this.tailX;
       const tailY = this.tailY;
-      const tailWidth = ARROW_HEAD_HEIGHT;
-      const headWidth = ARROW_HEAD_WIDTH;
+      const tailWidth = ReadoutArrow.ARROW_HEAD_HEIGHT;
+      const headWidth = ReadoutArrow.ARROW_HEAD_WIDTH;
 
       //For short arrows, the head height should be half of the arrow length.  See https://github.com/phetsims/scenery-phet/issues/30
       const headHeight = Math.min( Math.abs( value ) / 2, 40 );
@@ -218,10 +220,6 @@ class ReadoutArrow extends Node {
     }
   }
 }
-
-// statics
-ReadoutArrow.ARROW_HEAD_WIDTH = ARROW_HEAD_WIDTH;
-ReadoutArrow.ARROW_HEAD_HEIGHT = ARROW_HEAD_HEIGHT;
 
 forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
 

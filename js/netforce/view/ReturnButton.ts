@@ -10,15 +10,13 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import TextPushButton from '../../../../sun/js/buttons/TextPushButton.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import NetForceModel from '../model/NetForceModel.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 class ReturnButton extends TextPushButton {
 
-  /**
-   * @param {NetForceModel} model
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( model, tandem, options ) {
+  public constructor( model: NetForceModel, tandem: Tandem, options?: IntentionalAny ) {
 
     // TODO: this method bound the model. Why? https://github.com/phetsims/tasks/issues/1129
     const returnCart = () => {

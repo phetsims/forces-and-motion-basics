@@ -31,6 +31,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Cart from '../../netforce/model/Cart.js';
+// eslint-disable-next-line phet/no-view-imported-from-model
+import MotionScreenView from '../view/MotionScreenView.js';
 
 class MotionModel {
 
@@ -132,12 +135,13 @@ class MotionModel {
   // track the previous model position when model position changes
   // animation for the pusher and background nodes is based off of
   // the change in model position (this.position - this.previousModelPosition )
-  private previousModelPosition: number;
+  public previousModelPosition: number;
 
   public readonly items: Item[];
 
   public readonly stopwatch: Stopwatch;
-  private readonly view!: ScreenView;
+  private readonly view!: MotionScreenView;
+  public cart!: Cart;
 
   /**
    * @param screen String that indicates which of the 3 screens this model represents
@@ -323,6 +327,7 @@ class MotionModel {
     this.items = [ fridge, crate1, crate2, girl, man, mysteryBox, ...itemsToAdd ];
 
     // add the trash can after the man
+    // @ts-expect-error
     isTrashCanPresent && this.items.splice( this.items.indexOf( man ), 0, trashCan );
 
     this.appliedForceProperty.link( appliedForce => {
@@ -359,12 +364,11 @@ class MotionModel {
 
     this.stopwatch = new Stopwatch( {
       timePropertyOptions: {
+        // @ts-expect-error
         time: this.timeProperty
       }
     } );
-
   }
-
 
   /**
    * Get an array representing the items that are being dragged.
@@ -677,10 +681,14 @@ class MotionModel {
       // @ts-expect-error
       this.view = view;
       item.onBoardProperty.set( true );
+
+      // @ts-expect-error
       const itemNode = view.itemNodes[ 1 ];
       item.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
       item.interactionScaleProperty.set( 1.3 );
       const scaledWidth = this.view.getSize( item ).width;
+
+      // @ts-expect-error
       item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
       this.stackObservableArray.add( item );
     }
@@ -691,7 +699,11 @@ class MotionModel {
    */
   public getState(): IntentionalAny {
     return {
+
+      // @ts-expect-error
       properties: this.getValues(),
+
+      // @ts-expect-error
       stack: this.stackObservableArray.getArray().map( item => item.get().name ).join( ',' )
     };
   }

@@ -11,14 +11,16 @@ import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const DIRECTIONS = [ 'left', 'right' ];
 
 class CartStopperNode extends Path {
-  /**
-   */
-  constructor( topWidth, bottomWidth, height, tandem, options ) {
+  public constructor( topWidth: number, bottomWidth: number, height: number, tandem: Tandem, options?: IntentionalAny ) {
+
+    // eslint-disable-next-line phet/bad-typescript-text
     options = merge( {
       direction: 'left',
       tandem: tandem,

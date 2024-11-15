@@ -89,13 +89,13 @@ class MotionControlPanel extends Node {
     };
 
     //Icon for the forces in the control panel
-    const createArrowIcon = ( phetioID: string ) => new ArrowNode( 0, 0, 40, 0, {
+    const createArrowIcon = ( tandemName: string ) => new ArrowNode( 0, 0, 40, 0, {
       headHeight: 20,
       headWidth: 20,
       tailWidth: 10,
       fill: '#e66e23',
       stroke: 'black',
-      tandem: tandem.createTandem( phetioID )
+      tandem: tandem.createTandem( tandemName )
     } );
     const speedometerIcon = () => {
       const speedometerIconValueProperty = new Property( 0 );
@@ -115,10 +115,13 @@ class MotionControlPanel extends Node {
       // but this makes it work with VBox/HBox
       const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
       const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
+
       const frictionSlider = new HSlider( model.frictionProperty, frictionRange, {
         trackSize: new Dimension2( 150, 6 ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
+
+        // @ts-expect-error
         sizable: false,
         tandem: frictionSliderTandem
       } );
@@ -175,7 +178,7 @@ class MotionControlPanel extends Node {
     };
 
     // Ensure the checkboxes are centered with dynamic locale
-    const layoutCheckboxes = ( stringProperties, checkboxes ) => {
+    const layoutCheckboxes = ( stringProperties: IntentionalAny, checkboxes: IntentionalAny ) => {
       const checkboxesCenterX = checkboxes.centerX;
       Multilink.multilink( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
     };
@@ -232,7 +235,7 @@ class MotionControlPanel extends Node {
 
     // if the slider is wider than the group of checkboxes, align the checkboxes to the left of the slider
     // otherwise, center with the checkboxes
-    const layoutFrictionSlider = ( checkboxes, frictionSlider ) => {
+    const layoutFrictionSlider = ( checkboxes: Node, frictionSlider: Node ) => {
       if ( frictionSlider.width > checkboxes.width ) {
         checkboxes.left = frictionSlider.left;
       }

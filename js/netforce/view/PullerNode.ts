@@ -7,22 +7,35 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Image, SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import { Image, SimpleDragHandler, ImageableImage } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import Puller from '../model/Puller.js';
+import NetForceModel from '../model/NetForceModel.js';
+import PullerToolboxNode from './PullerToolboxNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Knot from '../model/Knot.js';
 
 class PullerNode extends Image {
+  public standImage: ImageableImage;
+
   /**
    * Create a PullerNode for the specified puller
    *
-   * @param {Puller} puller
-   * @param {NetForceModel} model
-   * @param {Image} image image of the puller standing upright
-   * @param {Image} pullImage image of the puller exerting a force
-   * @param {PullerToolboxNode} pullerToolboxNode
-   * @param {Tandem} tandem
-   * @param {Object} [options]
+   * @param puller
+   * @param model
+   * @param image image of the puller standing upright
+   * @param pullImage image of the puller exerting a force
+   * @param pullerToolboxNode
+   * @param tandem
+   * @param [options]
    */
-  constructor( puller, model, image, pullImage, pullerToolboxNode, tandem, options ) {
+  public constructor(
+    public readonly puller: Puller,
+    model: NetForceModel,
+    image: ImageableImage,
+    public pullImage: ImageableImage,
+    pullerToolboxNode: PullerToolboxNode, tandem: Tandem, options?: IntentionalAny ) {
 
     const x = puller.positionProperty.get().x;
     const y = puller.positionProperty.get().y;
@@ -35,10 +48,8 @@ class PullerNode extends Image {
       scale: 0.86
     } );
 
-    this.puller = puller;
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image;
-    this.pullImage = pullImage;
 
     model.startedProperty.link( () => {
       this.updateImage( puller, model );
@@ -65,7 +76,8 @@ class PullerNode extends Image {
     const dragListener = new SimpleDragHandler( {
         tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
-        start: event => {
+
+      start: ( event: IntentionalAny ) => {
 
           // check to see if a puller is knotted - if it is, store the knot
           const knot = puller.knotProperty.get();
@@ -91,7 +103,7 @@ class PullerNode extends Image {
           puller.droppedEmitter.emit();
           this.updateImage( puller, model );
         },
-        translate: event => {
+      translate: ( event: IntentionalAny ) => {
           this.updateImage( puller, model );
           this.puller.positionProperty.set( event.position );
         }
@@ -119,25 +131,20 @@ class PullerNode extends Image {
    * position.  Sets the translation of the puller relative to its previous knot position.  This knot position is
    * lost in updatePosition because the puller has already been disconnected from the knot by the time those functions
    * are called.
-   * @public
    *
-   * @param {Puller} puller
-   * @param {NetForceModel} model
-   * @param {Knot} knot - the last knot that the puller was holding on to
+   * @param puller
+   * @param model
+   * @param knot - the last knot that the puller was holding on to
    */
-  updatePositionKnotted( puller, model, knot ) {
+  public updatePositionKnotted( puller: Puller, model: NetForceModel, knot: Knot ): void {
     const blueOffset = this.puller.type === 'blue' ? -60 : 0;
     puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
   }
 
   /**
    * Update the image puller image depending on whether the puller is knotted and pulling
-   * @public
-   *
-   * @param {Puller} puller
-   * @param {NetForceModel} model
    */
-  updateImage( puller, model ) {
+  public updateImage( puller: Puller, model: NetForceModel ): void {
     const knotted = puller.knotProperty.get();
     const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
     this.image = pulling ? this.pullImage : this.standImage;
@@ -145,18 +152,14 @@ class PullerNode extends Image {
 
   /**
    * Update the position of a puller depending on whether it is knotted and pulling.
-   * @public
-   *
-   * @param {Puller} puller
-   * @param {NetForceModel} model
    */
-  updatePosition( puller, model ) {
+  public updatePosition( puller: Puller, model: NetForceModel ): void {
     const knotted = puller.knotProperty.get();
     const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
     if ( knotted ) {
       const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
       const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-      this.setTranslation( puller.knotProperty.get().xProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get().y - this.height + 90 );
+      this.setTranslation( puller.knotProperty.get()!.xProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get()!.y - this.height + 90 );
     }
     else {
       this.setTranslation( puller.positionProperty.get() );
