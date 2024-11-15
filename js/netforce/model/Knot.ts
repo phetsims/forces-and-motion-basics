@@ -26,9 +26,6 @@ export default class Knot extends PhetioObject {
   // whether or not the know is visible
   public readonly visibleProperty: BooleanProperty;
 
-  // the knot needs a unique ID so that it can be easily found by pullers in the Parallel DOM.
-  public readonly accessibleKnotId: string;
-
   // Constant value for the y position (in screen coordinates)
   public readonly y = 285;
 
@@ -66,10 +63,7 @@ export default class Knot extends PhetioObject {
     this.visibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'visibleProperty' )
     } );
-
-    this.accessibleKnotId = `knot-${type}-${this.initX}`; // TODO: see https://github.com/phetsims/forces-and-motion-basics/issues/317
   }
-
 
   /**
    * Reset this knot by resetting its associated model Properties.
