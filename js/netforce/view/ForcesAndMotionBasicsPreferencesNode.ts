@@ -11,7 +11,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import PullerColorControl from './PullerColorControl.js';
 
-class ForcesAndMotionBasicsPreferencesNode extends VBox {
+export default class ForcesAndMotionBasicsPreferencesNode extends VBox {
   public constructor() {
     const pusherPullerColorControl = new PullerColorControl(
       ForcesAndMotionBasicsPreferences.pullerColorProperty
@@ -26,4 +26,3 @@ class ForcesAndMotionBasicsPreferencesNode extends VBox {
 }
 
 forcesAndMotionBasics.register( 'ForcesAndMotionBasicsPreferencesNode', ForcesAndMotionBasicsPreferencesNode );
-export default ForcesAndMotionBasicsPreferencesNode;

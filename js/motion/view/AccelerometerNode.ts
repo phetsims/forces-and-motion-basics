@@ -13,7 +13,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-class AccelerometerNode extends Node {
+export default class AccelerometerNode extends Node {
   public readonly ticks: Node[];
 
   public constructor( accelerationProperty: TReadOnlyProperty<number>, tandem: Tandem, options?: IntentionalAny ) {
@@ -98,5 +98,3 @@ class AccelerometerNode extends Node {
 }
 
 forcesAndMotionBasics.register( 'AccelerometerNode', AccelerometerNode );
-
-export default AccelerometerNode;

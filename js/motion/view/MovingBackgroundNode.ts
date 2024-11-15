@@ -23,7 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 // constants
 const linear = Utils.linear;
 
-class MovingBackgroundNode extends Node {
+export default class MovingBackgroundNode extends Node {
   private lastNumSpecks = 0;
 
   /**
@@ -274,6 +274,3 @@ class MovingBackgroundNode extends Node {
 }
 
 forcesAndMotionBasics.register( 'MovingBackgroundNode', MovingBackgroundNode );
-
-// TODO inline export default https://github.com/phetsims/forces-and-motion-basics/issues/317
-export default MovingBackgroundNode;

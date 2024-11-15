@@ -28,7 +28,7 @@ const KNOT_SPACING = 80;
 const BLUE_KNOT_OFFSET = 62;
 const RED_KNOT_OFFSET = 680;
 
-class NetForceModel extends PhetioObject {
+export default class NetForceModel extends PhetioObject {
 
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
   public static readonly GAME_LENGTH = 458;
@@ -569,5 +569,3 @@ class NetForceModel extends PhetioObject {
 }
 
 forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );
-
-export default NetForceModel;

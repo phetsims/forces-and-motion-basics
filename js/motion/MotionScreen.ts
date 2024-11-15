@@ -12,7 +12,7 @@ import MotionScreenView from './view/MotionScreenView.js';
 import IntentionalAny from '../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 
-class MotionScreen extends Screen<MotionModel, MotionScreenView> {
+export default class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 
   public constructor( style: IntentionalAny, tandem: Tandem, options?: IntentionalAny ) {
 
@@ -41,4 +41,3 @@ class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 }
 
 forcesAndMotionBasics.register( 'MotionScreen', MotionScreen );
-export default MotionScreen;

@@ -23,7 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const pattern0Name1ValueUnitsVelocityStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocityStringProperty' ];
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
-class SpeedometerNode extends Node {
+export default class SpeedometerNode extends Node {
 
   public constructor( speedProperty: TReadOnlyProperty<number>, showSpeedProperty: TReadOnlyProperty<boolean>, showValuesProperty: TReadOnlyProperty<boolean>, tandem: Tandem, options?: IntentionalAny ) {
 
@@ -63,5 +63,3 @@ class SpeedometerNode extends Node {
 }
 
 forcesAndMotionBasics.register( 'SpeedometerNode', SpeedometerNode );
-
-export default SpeedometerNode;

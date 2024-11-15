@@ -16,7 +16,7 @@ import PullerToolboxNode from './PullerToolboxNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Knot from '../model/Knot.js';
 
-class PullerNode extends Image {
+export default class PullerNode extends Image {
   public standImage: ImageableImage;
 
   /**
@@ -168,4 +168,3 @@ class PullerNode extends Image {
 }
 
 forcesAndMotionBasics.register( 'PullerNode', PullerNode );
-export default PullerNode;

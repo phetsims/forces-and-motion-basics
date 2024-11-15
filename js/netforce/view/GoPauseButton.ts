@@ -51,7 +51,7 @@ const wrap = ( node: Node, padX: number, padY: number, nodes: Node[] ): Rectangl
   return new Rectangle( 0, 0, maxWidth, maxHeight, { children: [ node ] } );
 };
 
-class GoPauseButton extends BooleanToggleNode {
+export default class GoPauseButton extends BooleanToggleNode {
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
@@ -137,4 +137,3 @@ class GoPauseButton extends BooleanToggleNode {
 }
 
 forcesAndMotionBasics.register( 'GoPauseButton', GoPauseButton );
-export default GoPauseButton;

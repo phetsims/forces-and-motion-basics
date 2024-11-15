@@ -17,7 +17,7 @@ import PullerColors from '../model/PullerColors.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
-class PullerColorControl extends VBox {
+export default class PullerColorControl extends VBox {
 
   public constructor( pullerColorProperty: IntentionalAny ) {
 
@@ -74,4 +74,3 @@ class PullerColorControl extends VBox {
 }
 
 forcesAndMotionBasics.register( 'PullerColorControl', PullerColorControl );
-export default PullerColorControl;

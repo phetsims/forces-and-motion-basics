@@ -17,7 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 // constants
 const DIRECTIONS = [ 'left', 'right' ];
 
-class CartStopperNode extends Path {
+export default class CartStopperNode extends Path {
   public constructor( topWidth: number, bottomWidth: number, height: number, tandem: Tandem, options?: IntentionalAny ) {
 
     // eslint-disable-next-line phet/bad-typescript-text
@@ -42,5 +42,3 @@ class CartStopperNode extends Path {
 }
 
 forcesAndMotionBasics.register( 'CartStopperNode', CartStopperNode );
-
-export default CartStopperNode;

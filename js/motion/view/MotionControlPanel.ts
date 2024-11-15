@@ -42,7 +42,7 @@ const stopwatchStringProperty = ForcesAndMotionBasicsStrings.stopwatchStringProp
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
-class MotionControlPanel extends Node {
+export default class MotionControlPanel extends Node {
 
   /**
    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
@@ -398,5 +398,3 @@ class MotionControlPanel extends Node {
 }
 
 forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
-
-export default MotionControlPanel;

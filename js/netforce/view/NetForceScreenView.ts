@@ -132,7 +132,7 @@ const colorMapping = {
   }
 };
 
-class NetForceScreenView extends ScreenView {
+export default class NetForceScreenView extends ScreenView {
   private readonly cartNode: CartNode;
   private readonly ropeImageNode: Image;
   private readonly sumArrow: ReadoutArrow;
@@ -390,4 +390,3 @@ class NetForceScreenView extends ScreenView {
 }
 
 forcesAndMotionBasics.register( 'NetForceScreenView', NetForceScreenView );
-export default NetForceScreenView;

@@ -23,7 +23,7 @@ import MotionModel from '../model/MotionModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
-class AppliedForceSlider extends HSlider {
+export default class AppliedForceSlider extends HSlider {
 
   /**
    * @param model
@@ -129,4 +129,3 @@ class AppliedForceSlider extends HSlider {
 }
 
 forcesAndMotionBasics.register( 'AppliedForceSlider', AppliedForceSlider );
-export default AppliedForceSlider;

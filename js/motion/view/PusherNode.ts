@@ -48,7 +48,7 @@ import MotionConstants from '../MotionConstants.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
-class PusherNode extends Node {
+export default class PusherNode extends Node {
 
   // if there are no items on the stack, the node is not interactive and the drag handler will not do anything
   private interactive = true;
@@ -364,5 +364,3 @@ class PusherNode extends Node {
 }
 
 forcesAndMotionBasics.register( 'PusherNode', PusherNode );
-
-export default PusherNode;

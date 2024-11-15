@@ -11,7 +11,7 @@ import Range from '../../../../dot/js/Range.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-class Cart {
+export default class Cart {
 
   // 1-D x position of the cart
   public readonly xProperty: NumberProperty;
@@ -46,5 +46,3 @@ class Cart {
 }
 
 forcesAndMotionBasics.register( 'Cart', Cart );
-
-export default Cart;

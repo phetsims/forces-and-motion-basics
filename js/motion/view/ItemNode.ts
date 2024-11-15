@@ -24,7 +24,7 @@ import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
-class ItemNode extends Node {
+export default class ItemNode extends Node {
   public readonly uniqueId: number;
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
@@ -299,5 +299,3 @@ class ItemNode extends Node {
 }
 
 forcesAndMotionBasics.register( 'ItemNode', ItemNode );
-
-export default ItemNode;

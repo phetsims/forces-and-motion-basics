@@ -17,7 +17,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-class Knot extends PhetioObject {
+export default class Knot extends PhetioObject {
   public readonly initX: number;
 
   // the 1-D x position of the knot
@@ -93,5 +93,3 @@ class Knot extends PhetioObject {
 }
 
 forcesAndMotionBasics.register( 'Knot', Knot );
-
-export default Knot;

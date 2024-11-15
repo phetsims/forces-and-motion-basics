@@ -53,7 +53,7 @@ const pattern0Name1ValueUnitsAccelerationStringProperty = ForcesAndMotionBasicsS
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
 const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
 
-class MotionScreenView extends ScreenView {
+export default class MotionScreenView extends ScreenView {
   private readonly sky: Rectangle;
   private readonly groundNode: Rectangle;
   private readonly resetAllButton: ResetAllButton;
@@ -474,4 +474,3 @@ class MotionScreenView extends ScreenView {
 }
 
 forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );
-export default MotionScreenView;

@@ -14,7 +14,7 @@ import NetForceModel from '../model/NetForceModel.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-class ReturnButton extends TextPushButton {
+export default class ReturnButton extends TextPushButton {
 
   public constructor( model: NetForceModel, tandem: Tandem, options?: IntentionalAny ) {
 
@@ -44,4 +44,3 @@ class ReturnButton extends TextPushButton {
 }
 
 forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );
-export default ReturnButton;

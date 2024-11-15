@@ -22,7 +22,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import PullerNode from '../view/PullerNode.js';
 
-class Puller {
+export default class Puller {
 
   // to synchronize tandem names with the view
   public readonly pullerTandem: Tandem;
@@ -134,5 +134,3 @@ class Puller {
 }
 
 forcesAndMotionBasics.register( 'Puller', Puller );
-
-export default Puller;

@@ -30,7 +30,7 @@ const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
-class NetForceControlPanel extends Node {
+export default class NetForceControlPanel extends Node {
   private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
   private readonly resetAllButton: ResetAllButton;
   /**
@@ -120,5 +120,3 @@ class NetForceControlPanel extends Node {
 }
 
 forcesAndMotionBasics.register( 'NetForceControlPanel', NetForceControlPanel );
-
-export default NetForceControlPanel;

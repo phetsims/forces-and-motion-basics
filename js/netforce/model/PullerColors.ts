@@ -10,7 +10,7 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-class PullerColors extends EnumerationValue {
+export default class PullerColors extends EnumerationValue {
   public static readonly BLUE_AND_RED = new PullerColors();
   public static readonly PURPLE_AND_ORANGE = new PullerColors();
 
@@ -19,4 +19,3 @@ class PullerColors extends EnumerationValue {
 }
 
 forcesAndMotionBasics.register( 'PullerColors', PullerColors );
-export default PullerColors;

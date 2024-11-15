@@ -19,7 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
-class CartNode extends Image {
+export default class CartNode extends Image {
   public readonly xPosition: number;
 
   public constructor( public readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean>, tandem: Tandem ) {
@@ -49,4 +49,3 @@ class CartNode extends Image {
 }
 
 forcesAndMotionBasics.register( 'CartNode', CartNode );
-export default CartNode;

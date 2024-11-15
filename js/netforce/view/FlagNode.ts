@@ -20,7 +20,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import NetForceModel from '../model/NetForceModel.js';
 
-class FlagNode extends Node {
+export default class FlagNode extends Node {
   private readonly path: Path;
   private readonly colorWinsStringProperty: TReadOnlyProperty<string>;
   private readonly disposeFlagNode: () => void;
@@ -122,5 +122,3 @@ class FlagNode extends Node {
 }
 
 forcesAndMotionBasics.register( 'FlagNode', FlagNode );
-
-export default FlagNode;

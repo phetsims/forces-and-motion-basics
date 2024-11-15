@@ -23,7 +23,7 @@ import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNStringProperty' ];
 
-class ReadoutArrow extends Node {
+export default class ReadoutArrow extends Node {
 
   public static readonly ARROW_HEAD_WIDTH = 50;
   public static readonly ARROW_HEAD_HEIGHT = 25;
@@ -222,5 +222,3 @@ class ReadoutArrow extends Node {
 }
 
 forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );
-
-export default ReadoutArrow;

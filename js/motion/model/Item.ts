@@ -29,7 +29,7 @@ import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProp
 // eslint-disable-next-line phet/no-view-imported-from-model
 import ItemNode from '../view/ItemNode.js';
 
-class Item extends PhetioObject {
+export default class Item extends PhetioObject {
   public readonly name: string;
   private readonly initialX: number;
   private readonly initialY: number;
@@ -263,5 +263,3 @@ class Item extends PhetioObject {
 }
 
 forcesAndMotionBasics.register( 'Item', Item );
-
-export default Item;

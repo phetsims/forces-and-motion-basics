@@ -12,7 +12,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-class SliderKnob extends Node {
+export default class SliderKnob extends Node {
 
   public constructor( tandem: Tandem, options: IntentionalAny ) {
 
@@ -78,5 +78,3 @@ class SliderKnob extends Node {
 }
 
 forcesAndMotionBasics.register( 'SliderKnob', SliderKnob );
-
-export default SliderKnob;

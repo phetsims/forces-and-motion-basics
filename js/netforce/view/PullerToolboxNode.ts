@@ -15,7 +15,7 @@ import NetForceScreenView from './NetForceScreenView.js';
 const defaultStroke = 'black';
 const defaultLineWidth = 1;
 
-class PullerToolboxNode extends Rectangle {
+export default class PullerToolboxNode extends Rectangle {
   private readonly uniqueId: string;
 
   /**
@@ -50,5 +50,3 @@ class PullerToolboxNode extends Rectangle {
 }
 
 forcesAndMotionBasics.register( 'PullerToolboxNode', PullerToolboxNode );
-
-export default PullerToolboxNode;

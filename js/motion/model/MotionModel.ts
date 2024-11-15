@@ -35,7 +35,7 @@ import Cart from '../../netforce/model/Cart.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
 
-class MotionModel {
+export default class MotionModel {
 
   // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/317 run the script to restrict access modifiers
   public skateboard: boolean;
@@ -710,5 +710,3 @@ class MotionModel {
 }
 
 forcesAndMotionBasics.register( 'MotionModel', MotionModel );
-
-export default MotionModel;

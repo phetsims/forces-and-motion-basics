@@ -23,7 +23,7 @@ import Property from '../../../../axon/js/Property.js';
 // constants
 const linear = Utils.linear;
 
-class WaterBucketNode extends ItemNode {
+export default class WaterBucketNode extends ItemNode {
 
   /**
    * WaterBucketNode constructor
@@ -111,5 +111,3 @@ class WaterBucketNode extends ItemNode {
 }
 
 forcesAndMotionBasics.register( 'WaterBucketNode', WaterBucketNode );
-
-export default WaterBucketNode;
