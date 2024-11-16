@@ -50,7 +50,7 @@ export default class ReadoutArrow extends Node {
    */
   public constructor(
     label: TReadOnlyProperty<string>,
-    fill: IntentionalAny,
+    fill: string,
     private readonly tailX: number,
     private readonly tailY: number,
     valueProperty: TReadOnlyProperty<number>,

@@ -26,18 +26,6 @@ export default class MotionScreen extends Screen<MotionModel, MotionScreenView> 
       model => new MotionScreenView( model, tandem.createTandem( 'view' ) ),
       options );
   }
-
-  /**
-   * TODO https://github.com/phetsims/tasks/issues/1129
-   * @returns TODO
-   */
-  private getState(): IntentionalAny {
-    return { model: this.model.getState(), view: {} };
-  }
-
-  private setState(): void {
-    // TODO https://github.com/phetsims/tasks/issues/1129
-  }
 }
 
 forcesAndMotionBasics.register( 'MotionScreen', MotionScreen );
