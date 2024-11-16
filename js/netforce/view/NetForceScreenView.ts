@@ -288,9 +288,6 @@ export default class NetForceScreenView extends ScreenView {
       return colorSet[ mappedType ][ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
-    // get the associated toolbox for the puller
-    const getPullerToolbox = ( puller: Puller ) => puller.type === 'red' ? rightToolbox : leftToolbox;
-
     const leftPullerLayer = new Node( {
       tandem: tandem.createTandem( 'leftPullerLayer' )
     } );
@@ -302,7 +299,6 @@ export default class NetForceScreenView extends ScreenView {
       const pullerNode = new PullerNode( puller, this.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
-        getPullerToolbox( puller ),
         tandem.createTandem( puller.pullerTandem.name )
       );
       const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;

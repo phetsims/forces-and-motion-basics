@@ -12,7 +12,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Puller from '../model/Puller.js';
 import NetForceModel from '../model/NetForceModel.js';
-import PullerToolboxNode from './PullerToolboxNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Knot from '../model/Knot.js';
 
@@ -35,7 +34,7 @@ export default class PullerNode extends Image {
     model: NetForceModel,
     image: ImageableImage,
     public pullImage: ImageableImage,
-    pullerToolboxNode: PullerToolboxNode, tandem: Tandem, options?: IntentionalAny ) {
+    tandem: Tandem, options?: IntentionalAny ) {
 
     const x = puller.positionProperty.get().x;
     const y = puller.positionProperty.get().y;
@@ -124,7 +123,6 @@ export default class PullerNode extends Image {
 
     this.mutate( options );
   }
-
 
   /**
    * Update the position of the puller immediately after it has been clicked on after being removed from a knot
