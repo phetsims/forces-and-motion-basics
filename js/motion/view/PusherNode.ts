@@ -46,7 +46,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 export default class PusherNode extends Node {
 
@@ -308,7 +307,7 @@ export default class PusherNode extends Node {
     const dragListener = new SimpleDragHandler( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
-      translate: ( options: IntentionalAny ) => {
+      translate: ( options: { delta: Vector2 } ) => {
         if ( this.interactive ) {
           const newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
           const clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );

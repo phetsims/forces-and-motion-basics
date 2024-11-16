@@ -14,12 +14,12 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import PullerColors from '../model/PullerColors.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class PullerColorControl extends VBox {
 
-  public constructor( pullerColorProperty: IntentionalAny ) {
+  public constructor( pullerColorProperty: Property<PullerColors> ) {
 
     const text = new Text( ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty, {
       font: PreferencesDialog.PANEL_SECTION_LABEL_FONT,

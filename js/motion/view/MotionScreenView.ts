@@ -38,7 +38,6 @@ import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Item from '../model/Item.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
@@ -465,7 +464,7 @@ export default class MotionScreenView extends ScreenView {
   }
 
   // Get the size of an item's image.  Dependent on the current scale of the image.
-  public getSize( item: Item ): IntentionalAny {
+  public getSize( item: Item ): { width: number; height: number } {
     // get the current scale for the element and apply it to the image
     // @ts-expect-error
     const scaledWidth = item.view!.sittingImageNode.width * item.getCurrentScale();

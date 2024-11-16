@@ -50,7 +50,6 @@ export default class Puller {
   public readonly draggedEmitter = new Emitter();
 
   public node: PullerNode | null = null;
-  private other: IntentionalAny;
 
   /**
    * @param x initial x-coordinate (in meters)
@@ -94,7 +93,6 @@ export default class Puller {
       tandem: tandem.createTandem( 'lastPlacementProperty' )
     } );
 
-    this.other = options.other;
 
     //Move with the knot
     const updatePosition = ( knotX: number ) => {

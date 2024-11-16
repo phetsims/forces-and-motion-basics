@@ -35,11 +35,9 @@ export default class Knot extends PhetioObject {
    * @param x - the horizontal position (in meters) of the knot
    * // TODO: Fix JSDoc https://github.com/phetsims/tasks/issues/1129
    * @param type - whether the knot is for red or blue pullers
-   * @param ropeStart
-   * @param ropeLength - the length of the rope in model coordinates
    * @param [options]
    */
-  public constructor( x: number, public readonly type: string, ropeStart: number, ropeLength: number, options?: IntentionalAny ) {
+  public constructor( x: number, public readonly type: string, options?: IntentionalAny ) {
 
     // eslint-disable-next-line phet/bad-typescript-text
     options = merge( {

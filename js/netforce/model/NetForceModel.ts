@@ -139,7 +139,7 @@ export default class NetForceModel extends PhetioObject {
     //Create a knot given a color and index (0-3)
     const createKnot = ( color: string, index: number, tandem: Tandem ) => {
       const xPosition = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
-      return new Knot( xPosition, color, BLUE_KNOT_OFFSET, this.getRopeLength(), { tandem: tandem } );
+      return new Knot( xPosition, color, { tandem: tandem } );
     };
 
     // Create the knots

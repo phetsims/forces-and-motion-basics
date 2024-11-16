@@ -178,7 +178,7 @@ export default class MotionControlPanel extends Node {
     };
 
     // Ensure the checkboxes are centered with dynamic locale
-    const layoutCheckboxes = ( stringProperties: IntentionalAny, checkboxes: IntentionalAny ) => {
+    const layoutCheckboxes = ( stringProperties: IntentionalAny, checkboxes: Node ) => {
       const checkboxesCenterX = checkboxes.centerX;
       Multilink.multilink( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
     };
