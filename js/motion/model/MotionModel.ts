@@ -29,7 +29,6 @@ import HumanTypeEnum from './HumanTypeEnum.js';
 import Item from './Item.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import ScreenView from '../../../../joist/js/ScreenView.js';
 import Cart from '../../netforce/model/Cart.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
@@ -96,7 +95,7 @@ export default class MotionModel {
 
   // 'right'|'left'|none, direction of movement of the stack of items
   // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-  private readonly directionProperty: StringProperty;
+  public readonly directionProperty: StringProperty;
 
   // time since pusher has fallen over, in seconds
   // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/forces-and-motion-basics/issues/319
@@ -138,7 +137,7 @@ export default class MotionModel {
   public readonly items: Item[];
 
   public readonly stopwatch: Stopwatch;
-  private readonly view!: MotionScreenView;
+  private view!: MotionScreenView;
   private cart!: Cart;
 
   /**
@@ -360,18 +359,13 @@ export default class MotionModel {
       this.previousModelPosition = oldPosition;
     } );
 
-    this.stopwatch = new Stopwatch( {
-      timePropertyOptions: {
-        // @ts-expect-error
-        time: this.timeProperty
-      }
-    } );
+    this.stopwatch = new Stopwatch();
   }
 
   /**
    * Get an array representing the items that are being dragged.
    */
-  private draggingItems(): Item[] {
+  public draggingItems(): Item[] {
     const draggingItems = [];
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[ i ];
@@ -617,7 +611,7 @@ export default class MotionModel {
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
    */
-  private isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
+  public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
 
   public reset(): void {
 
@@ -672,21 +666,18 @@ export default class MotionModel {
    * After the view is constructed, move one of the blocks to the top of the stack.
    * It would be better if more of this could be done in the model constructor, but it would be difficult with the way things are currently set up.
    */
-  public viewInitialized( view: ScreenView ): void {
+  public viewInitialized( view: MotionScreenView ): void {
     const item = this.items[ 1 ];
     // only move item to the top of the stack if it is not being dragged
     if ( !item.draggingProperty.get() ) {
-      // @ts-expect-error
       this.view = view;
       item.onBoardProperty.set( true );
 
-      // @ts-expect-error
       const itemNode = view.itemNodes[ 1 ];
       item.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
       item.interactionScaleProperty.set( 1.3 );
       const scaledWidth = this.view.getSize( item ).width;
 
-      // @ts-expect-error
       item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
       this.stackObservableArray.add( item );
     }

@@ -171,7 +171,6 @@ export default class Item extends PhetioObject {
       range: new Range( minValue, 1.3 )
     } );
 
-    // @ts-expect-error
     this.context.directionProperty.link( direction => {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
@@ -183,7 +182,6 @@ export default class Item extends PhetioObject {
 
   // Return true if the arms should be up (for a human)
   public armsUp(): boolean {
-    // @ts-expect-error
     return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
   }
 
@@ -260,8 +258,7 @@ export default class Item extends PhetioObject {
         //Snap to exact final destination, see #59
         this.positionProperty.set( destination );
         if ( this.animationStateProperty.get().end ) {
-          // @ts-expect-error
-          this.animationState.end();
+          this.animationStateProperty.get().end!();
         }
         this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
       }

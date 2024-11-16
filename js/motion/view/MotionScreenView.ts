@@ -58,7 +58,7 @@ export default class MotionScreenView extends ScreenView {
   private readonly resetAllButton: ResetAllButton;
   private readonly sumArrow: ReadoutArrow;
   private readonly sumOfForcesText: Text;
-  private readonly itemNodes: ItemNode[];
+  public readonly itemNodes: ItemNode[];
   private readonly appliedForceArrow: ReadoutArrow;
   private readonly frictionArrow: ReadoutArrow;
 
