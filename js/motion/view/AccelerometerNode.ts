@@ -7,17 +7,15 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import { LinearGradient, Node, Path, Rectangle } from '../../../../scenery/js/imports.js';
+import { LinearGradient, Node, Path, Rectangle, NodeOptions } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class AccelerometerNode extends Node {
   public readonly ticks: Node[];
 
-  public constructor( accelerationProperty: TReadOnlyProperty<number>, tandem: Tandem, options?: IntentionalAny ) {
-    options = options || {};
+  public constructor( accelerationProperty: TReadOnlyProperty<number>, tandem: Tandem, options?: NodeOptions ) {
     super( {
       tandem: tandem
     } );
