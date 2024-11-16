@@ -30,7 +30,6 @@ import Item from './Item.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Cart from '../../netforce/model/Cart.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
@@ -691,20 +690,6 @@ export default class MotionModel {
       item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
       this.stackObservableArray.add( item );
     }
-  }
-
-  /**
-   * Get the state of the simulation, for persistence.
-   */
-  public getState(): IntentionalAny {
-    return {
-
-      // @ts-expect-error
-      properties: this.getValues(),
-
-      // @ts-expect-error
-      stack: this.stackObservableArray.getArray().map( item => item.get().name ).join( ',' )
-    };
   }
 }
 
