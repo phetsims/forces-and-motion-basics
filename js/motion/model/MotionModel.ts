@@ -95,12 +95,12 @@ export default class MotionModel {
   private readonly movingRightProperty: BooleanProperty;
 
   // 'right'|'left'|none, direction of movement of the stack of items
-  // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+  // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
   private readonly directionProperty: StringProperty;
 
   // time since pusher has fallen over, in seconds
-  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
-  // TODO: Why is default value 10? https://github.com/phetsims/tasks/issues/1129
+  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/forces-and-motion-basics/issues/319
+  // TODO: Why is default value 10? https://github.com/phetsims/forces-and-motion-basics/issues/319
   private readonly timeSinceFallenProperty: NumberProperty;
 
   // whether the pusher has fallen over
@@ -110,11 +110,11 @@ export default class MotionModel {
   public readonly fallenDirectionProperty: StringProperty;
 
   // how long the simulation has been running
-  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/tasks/issues/1129
+  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly timeProperty: NumberProperty;
 
   //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value https://github.com/phetsims/tasks/issues/1129
+  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly stackSizeProperty: NumberProperty;
 
   // is the sim running or paused?
@@ -235,13 +235,13 @@ export default class MotionModel {
     //  Keep track of whether the speed is classified as:
     // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
     // so that the Applied Force can be stopped if the speed goes out of range.
-    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+    // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.speedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'speedClassificationProperty' )
     } );
 
     // See speedClassification
-    // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+    // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.previousSpeedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
       tandem: tandem.createTandem( 'previousSpeedClassificationProperty' )
     } );
@@ -285,7 +285,7 @@ export default class MotionModel {
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stackObservableArray.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
 
-    // TODO: Should stacksize Property be removed? https://github.com/phetsims/tasks/issues/1129
+    // TODO: Should stacksize Property be removed? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.stackObservableArray.lengthProperty.link( length => {
       this.stackSizeProperty.set( length );
     } );
@@ -396,7 +396,7 @@ export default class MotionModel {
       for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
         const size = this.view.getSize( this.stackObservableArray.get( i ) );
         sumHeight += size.height;
-        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/tasks/issues/1129
+        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/forces-and-motion-basics/issues/319
       }
     }
 

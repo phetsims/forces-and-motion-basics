@@ -47,14 +47,14 @@ export default class Item extends PhetioObject {
   // the position of the item
   public readonly positionProperty: Vector2Property;
 
-  // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/tasks/issues/1129
+  // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly pusherInsetProperty: Property<number>;
 
   // whether the item is being dragged
   public readonly draggingProperty: BooleanProperty;
 
   // direction of the item, 'left'|'right'
-  // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+  // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly directionProperty: StringProperty;
 
   // tracks the animation state of the item

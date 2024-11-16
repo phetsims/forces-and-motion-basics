@@ -39,8 +39,8 @@ export default class Puller {
   public readonly positionProperty: Vector2Property;
 
   // a classified position in the play area
-  // TODO: What are the valid values for this Property? https://github.com/phetsims/tasks/issues/1129
-  // TODO: Why not an enum? https://github.com/phetsims/tasks/issues/1129
+  // TODO: What are the valid values for this Property? https://github.com/phetsims/forces-and-motion-basics/issues/319
+  // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly lastPlacementProperty: StringProperty;
 
   // emits an event when the puller is dropped

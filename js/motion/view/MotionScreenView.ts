@@ -235,7 +235,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( playPauseStepHBox );
 
     //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
-    //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var? https://github.com/phetsims/tasks/issues/1129
+    //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();

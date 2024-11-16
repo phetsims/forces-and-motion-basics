@@ -17,7 +17,7 @@ export default class ReturnButton extends TextPushButton {
 
   public constructor( model: NetForceModel, tandem: Tandem, options: TextPushButtonOptions ) {
 
-    // TODO: this method bound the model. Why? https://github.com/phetsims/tasks/issues/1129
+    // TODO: this method bound the model. Why? https://github.com/phetsims/forces-and-motion-basics/issues/319
     const returnCart = () => {
       model.returnCart();
     };

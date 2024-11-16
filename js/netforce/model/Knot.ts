@@ -33,7 +33,7 @@ export default class Knot extends PhetioObject {
    * Constructor for the 8 knots that appear along the rope.
    *
    * @param x - the horizontal position (in meters) of the knot
-   * // TODO: Fix JSDoc https://github.com/phetsims/tasks/issues/1129
+   * // TODO: Fix JSDoc https://github.com/phetsims/forces-and-motion-basics/issues/319
    * @param type - whether the knot is for red or blue pullers
    * @param [options]
    */
