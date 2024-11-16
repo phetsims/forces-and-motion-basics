@@ -19,7 +19,6 @@ import MotionScreenView from './MotionScreenView.js';
 import Item from '../model/Item.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -106,7 +105,7 @@ export default class ItemNode extends Node {
     };
 
     // called on end drag, update direction of girl or man to match current applied force and velocity of model
-    const updatePersonDirection = ( person: IntentionalAny ) => {
+    const updatePersonDirection = ( person: Item ) => {
 
       // default direction is to the left
       let direction = 'left';

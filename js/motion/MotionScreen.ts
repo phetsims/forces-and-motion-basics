@@ -14,7 +14,7 @@ import Tandem from '../../../tandem/js/Tandem.js';
 
 export default class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 
-  public constructor( style: IntentionalAny, tandem: Tandem, options?: IntentionalAny ) {
+  public constructor( style: string, tandem: Tandem, options?: IntentionalAny ) {
 
     options = options || {};
 

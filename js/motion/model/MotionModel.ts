@@ -59,7 +59,7 @@ export default class MotionModel {
   public readonly speedProperty: NumberProperty;
 
   // velocity is a 1-d vector, where the direction (right or left) is indicated by the sign
-  private readonly velocityProperty: NumberProperty;
+  public readonly velocityProperty: NumberProperty;
 
   // 1-d acceleration of the stack of items
   public readonly accelerationProperty: NumberProperty;

@@ -20,23 +20,29 @@ import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
-import NetForceModel from '../../netforce/model/NetForceModel.js';
 import MotionModel from './MotionModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
-import { Image } from '../../../../scenery/js/imports.js';
+import { ImageableImage } from '../../../../scenery/js/imports.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import ItemNode from '../view/ItemNode.js';
+
+type AnimationState = {
+  enabled: boolean;
+  x: number;
+  y: number;
+  end?: null | ( () => void );
+  destination?: string;
+};
 
 export default class Item extends PhetioObject {
   public readonly name: string;
   private readonly initialX: number;
   private readonly initialY: number;
   private readonly homeScale: number;
-  public readonly imageProperty: Property<Image> | LocalizedImageProperty;
-  public readonly sittingImageProperty: LocalizedImageProperty | Property<Image>;
-  public readonly holdingImageProperty: LocalizedImageProperty | Property<Image>;
+  public readonly imageProperty: Property<ImageableImage> | LocalizedImageProperty;
+  public readonly sittingImageProperty: LocalizedImageProperty | Property<ImageableImage>;
+  public readonly holdingImageProperty: LocalizedImageProperty | Property<ImageableImage>;
 
   // the position of the item
   public readonly positionProperty: Vector2Property;
@@ -52,7 +58,7 @@ export default class Item extends PhetioObject {
   public readonly directionProperty: StringProperty;
 
   // tracks the animation state of the item
-  public readonly animationStateProperty: Property<IntentionalAny>;
+  public readonly animationStateProperty: Property<AnimationState>;
 
   // Flag for whether the item is on the skateboard
   public readonly onBoardProperty: BooleanProperty;
@@ -83,13 +89,14 @@ export default class Item extends PhetioObject {
    * @param mystery      [description]
    */
   public constructor(
-    private readonly context: MotionModel | NetForceModel, name: string | HumanTypeEnum, tandem: Tandem, image: IntentionalAny,
+    public readonly context: MotionModel, name: string | HumanTypeEnum, tandem: Tandem,
+    image: ImageableImage | undefined,
     public readonly mass: number,
     x: number, y: number, imageScale: number,
     homeScale?: number,
-    private readonly pusherInset?: number,
-    sittingImage?: IntentionalAny,
-    holdingImage?: IntentionalAny,
+    pusherInset?: number,
+    sittingImage?: ImageableImage,
+    holdingImage?: ImageableImage,
     public readonly mystery?: boolean ) {
 
     super( {
@@ -120,9 +127,9 @@ export default class Item extends PhetioObject {
     this.initialY = y;
     this.homeScale = homeScale || 1.0;
 
-    this.imageProperty = typeof name === 'string' ? new Property( image ) : standingImageProperty!;
-    this.sittingImageProperty = typeof name === 'string' ? new Property( sittingImage ) : sittingImageProperty!;
-    this.holdingImageProperty = typeof name === 'string' ? new Property( holdingImage ) : holdingImageProperty!;
+    this.imageProperty = typeof name === 'string' ? new Property( image! ) : standingImageProperty!;
+    this.sittingImageProperty = typeof name === 'string' ? new Property( sittingImage! ) : sittingImageProperty!;
+    this.holdingImageProperty = typeof name === 'string' ? new Property( holdingImage! ) : holdingImageProperty!;
 
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' )
@@ -138,7 +145,7 @@ export default class Item extends PhetioObject {
       tandem: tandem.createTandem( 'directionProperty' )
     } );
 
-    this.animationStateProperty = new Property( {
+    this.animationStateProperty = new Property<AnimationState>( {
       enabled: false,
       x: 0,
       y: 0,
