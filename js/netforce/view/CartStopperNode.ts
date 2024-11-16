@@ -1,4 +1,4 @@
-// Copyright 2017-2022, University of Colorado Boulder
+// Copyright 2017-2024, University of Colorado Boulder
 
 /**
  * Constructs a shape that looks like trapezoid.  This shape is to be placed in the screen view at a place that
