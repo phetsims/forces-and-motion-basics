@@ -10,7 +10,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Image, Node, Rectangle, SimpleDragHandler, Text, ImageableImage } from '../../../../scenery/js/imports.js';
+import { Image, ImageableImage, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
@@ -19,6 +19,7 @@ import MotionScreenView from './MotionScreenView.js';
 import Item from '../model/Item.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -144,13 +145,9 @@ export default class ItemNode extends Node {
       person.directionProperty.set( direction );
     };
 
-    const dragListener = new SimpleDragHandler( {
+    const dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
-
-      // @ts-expect-error
-      translate: options => {
-        item.positionProperty.set( options.position );
-      },
+      positionProperty: item.positionProperty,
 
       //When picking up an object, remove it from the stack.
       start: () => {

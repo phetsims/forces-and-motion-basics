@@ -7,13 +7,14 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Image, SimpleDragHandler, ImageableImage } from '../../../../scenery/js/imports.js';
+import { Image, ImageableImage } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Puller from '../model/Puller.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Knot from '../model/Knot.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 export default class PullerNode extends Image {
   public standImage: ImageableImage;
@@ -72,11 +73,11 @@ export default class PullerNode extends Image {
       this.updatePosition( puller, model );
     } );
 
-    const dragListener = new SimpleDragHandler( {
+    const dragListener = new SoundDragListener( {
         tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
-
-      start: ( event: IntentionalAny ) => {
+        positionProperty: puller.positionProperty,
+        start: ( event: IntentionalAny ) => {
 
           // check to see if a puller is knotted - if it is, store the knot
           const knot = puller.knotProperty.get();
@@ -101,10 +102,6 @@ export default class PullerNode extends Image {
           puller.draggingProperty.set( false );
           puller.droppedEmitter.emit();
           this.updateImage( puller, model );
-        },
-      translate: ( event: IntentionalAny ) => {
-          this.updateImage( puller, model );
-          this.puller.positionProperty.set( event.position );
         }
       }
     );

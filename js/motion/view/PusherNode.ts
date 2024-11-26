@@ -8,7 +8,7 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Image, Node, SimpleDragHandler } from '../../../../scenery/js/imports.js';
+import { DragListener, Image, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
 import pusher_0_png from '../../../images/pushPullFigures/pusher_0_png.js';
 import pusher_10_png from '../../../images/pushPullFigures/pusher_10_png.js';
 import pusher_11_png from '../../../images/pushPullFigures/pusher_11_png.js';
@@ -46,6 +46,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 export default class PusherNode extends Node {
 
@@ -304,12 +305,12 @@ export default class PusherNode extends Node {
       }
     } );
 
-    const dragListener = new SimpleDragHandler( {
+    const dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
-      translate: ( options: { delta: Vector2 } ) => {
+      drag: ( event: SceneryEvent, listener: DragListener ) => {
         if ( this.interactive ) {
-          const newAppliedForce = model.appliedForceProperty.get() + options.delta.x;
+          const newAppliedForce = model.appliedForceProperty.get() + listener.modelDelta.x;
           const clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
           // the new force should be rounded so that applied force is not
