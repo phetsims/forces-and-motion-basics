@@ -1,7 +1,7 @@
 // Copyright 2013-2024, University of Colorado Boulder
 
 /**
- * This class shows all of the moving background, including the mountains, clouds and brick tile on the ground.
+ * This class shows all the moving backgrounds, including the mountains, clouds and brick tile on the ground.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -89,6 +89,7 @@ export default class MovingBackgroundNode extends Node {
             //            console.log( child.offsetX + netDelta, -800 );
 
             //TODO: use modulus instead of while loop https://github.com/phetsims/forces-and-motion-basics/issues/319
+            // The following code is currently not being used...
             // @ts-expect-error
             while ( child.offsetX + netDelta < -L ) {
               //              console.log( 'jump 1' );

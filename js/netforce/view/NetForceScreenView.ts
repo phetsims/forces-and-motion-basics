@@ -70,8 +70,27 @@ const STOPPER_HEIGHT = 24;
 const SUM_ARROW_TAIL_Y = 127;
 
 // Define the color mapping for the pullers
-const colorMapping = {
-  blueRed: {
+type ColorTypeSet = {
+  large: {
+    leaning: HTMLImageElement;
+    notLeaning: HTMLImageElement;
+  };
+  medium: {
+    leaning: HTMLImageElement;
+    notLeaning: HTMLImageElement;
+  };
+  small: {
+    leaning: HTMLImageElement;
+    notLeaning: HTMLImageElement;
+  };
+};
+type ColorMap = {
+  blue: ColorTypeSet;
+  red: ColorTypeSet;
+  purple: ColorTypeSet;
+  orange: ColorTypeSet;
+};
+const colorMapping: ColorMap = {
     blue: {
       large: {
         notLeaning: pull_figure_lrg_BLUE_0_png,
@@ -99,9 +118,7 @@ const colorMapping = {
         notLeaning: pull_figure_small_RED_0_png,
         leaning: pull_figure_small_RED_3_png
       }
-    }
-  },
-  purpleOrange: {
+    },
     purple: {
       large: {
         notLeaning: pull_figure_lrg_PURPLE_0_png,
@@ -130,7 +147,6 @@ const colorMapping = {
         leaning: pull_figure_small_ORANGE_3_png
       }
     }
-  }
 };
 
 export default class NetForceScreenView extends ScreenView {
@@ -278,14 +294,13 @@ export default class NetForceScreenView extends ScreenView {
       const pullerColor = ForcesAndMotionBasicsPreferences.pullerColorProperty.value;
       const type = puller.type;
       const size = puller.size;
-      const colorSet = pullerColor === PullerColors.BLUE_AND_RED ? colorMapping.blueRed : colorMapping.purpleOrange;
 
       // Map the type to the appropriate color based on the pullerColorProperty
       const mappedType = ( type === 'blue' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'purple' :
                          ( type === 'red' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'orange' : type;
 
-      // @ts-expect-error
-      return colorSet[ mappedType ][ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
+      const colorTypeSet: ColorTypeSet = colorMapping[ mappedType ];
+      return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
     const leftPullerLayer = new Node( {

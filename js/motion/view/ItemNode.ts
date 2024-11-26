@@ -28,7 +28,7 @@ export default class ItemNode extends Node {
   private readonly uniqueId: number;
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
-  private readonly sittingImageNode: Image;
+  public readonly sittingImageNode: Image;
 
   /**
    * Constructor for ItemNode

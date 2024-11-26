@@ -238,6 +238,7 @@ export default class NetForceModel extends PhetioObject {
   /**
    * Shift a puller by some delta, restricted by the desired bounds
    */
+  // TODO: This function is not used... https://github.com/phetsims/forces-and-motion-basics/issues/317
   private shiftPuller( puller: Puller, leftBoundIndex: number, rightBoundIndex: number, delta: number ): void {
     if ( puller.knotProperty.get() ) {
       const currentIndex = this.knots.indexOf( puller.knotProperty.get()! );
@@ -310,8 +311,9 @@ export default class NetForceModel extends PhetioObject {
   private getClosestOpenKnot( puller: Puller ): Knot {
     const filter = this.knots.filter( knot => knot.type === puller.type && this.getPuller( knot ) === null );
 
-    // @ts-expect-error
-    return _.minBy( filter, this.getKnotPullerDistance( puller ) );
+    const knot = _.minBy( filter, this.getKnotPullerDistance( puller ) );
+    assert && assert( knot, 'There should always be an open knot' );
+    return knot!;
   }
 
   /**
@@ -531,7 +533,7 @@ export default class NetForceModel extends PhetioObject {
   /**
    * For phet-io, describe what pullers are on what knots
    */
-  private getKnotDescription(): IntentionalAny {
+  public getKnotDescription(): IntentionalAny {
     return this.pullers.map( puller => ( {
       id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/forces-and-motion-basics/issues/319
       knot: puller.knotProperty.get() && puller.knotProperty.get()!.phetioID

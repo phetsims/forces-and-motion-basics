@@ -48,8 +48,7 @@ export default class NetForceControlPanel extends Node {
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 115 };
 
     // the content for "show speed" is a label with an icon
-    // @ts-expect-error
-    const speedometerIconNode = ForcesAndMotionBasicsIconFactory.speedometerIcon( tandem.createTandem( 'speedometerIconNode' ) );
+    const speedometerIconNode = ForcesAndMotionBasicsIconFactory.speedometerIcon();
     const speedTextAndSpeedometerIconSpacing = 10;
 
     // Create a separate font options to account for the speedometerIconNode and speedTextAndSpeedometerIconSpacing

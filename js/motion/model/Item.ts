@@ -24,8 +24,6 @@ import MotionModel from './MotionModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { ImageableImage } from '../../../../scenery/js/imports.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
-// eslint-disable-next-line phet/no-view-imported-from-model
-import ItemNode from '../view/ItemNode.js';
 
 type AnimationState = {
   enabled: boolean;
@@ -69,7 +67,6 @@ export default class Item extends PhetioObject {
 
   // True if and only if the item is a bucket
   public bucket = false;
-  public view: ItemNode | null = null;
 
   /**
    * Constructor for Item

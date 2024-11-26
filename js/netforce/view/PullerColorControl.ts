@@ -60,8 +60,7 @@ export default class PullerColorControl extends VBox {
     const radioButtonGroup = new VerticalAquaRadioButtonGroup( pullerColorProperty, items, {
 
       // pdom
-      // @ts-expect-error
-      labelContent: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty
+      accessibleName: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty
     } );
 
     super( {

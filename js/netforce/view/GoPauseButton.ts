@@ -23,6 +23,7 @@ import NetForceModel from '../model/NetForceModel.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import TEmitter from '../../../../axon/js/TEmitter.js';
 
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
@@ -84,16 +85,14 @@ export default class GoPauseButton extends BooleanToggleNode {
     const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
-    const goButtonPressedEmitter = new Emitter( {
+    const goButtonPressedEmitter: TEmitter<[number, string]> = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
       parameters: [
-        { name: 'netForce', phetioType: NumberIO },
+        { valueType: 'number', name: 'netForce', phetioType: NumberIO },
         { name: 'knotJSON', phetioType: StringIO }
       ]
     } );
     const goListener = () => {
-
-      // @ts-expect-error
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
       model.runningProperty.set( true );
     };

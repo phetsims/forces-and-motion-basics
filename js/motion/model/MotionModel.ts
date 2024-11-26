@@ -324,8 +324,7 @@ export default class MotionModel {
     this.items = [ fridge, crate1, crate2, girl, man, mysteryBox, ...itemsToAdd ];
 
     // add the trash can after the man
-    // @ts-expect-error
-    isTrashCanPresent && this.items.splice( this.items.indexOf( man ), 0, trashCan );
+    isTrashCanPresent && this.items.splice( this.items.indexOf( man ), 0, ...( trashCan ? [ trashCan ] : [] ) );
 
     this.appliedForceProperty.link( appliedForce => {
       this.directionProperty.set( appliedForce > 0 ? 'right' :

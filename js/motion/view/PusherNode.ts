@@ -47,6 +47,8 @@ import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import Item from '../model/Item.js';
+import ItemNode from './ItemNode.js';
 
 export default class PusherNode extends Node {
 
@@ -58,9 +60,10 @@ export default class PusherNode extends Node {
    *
    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @param layoutWidth width for the layout for purposes of centering the character when pushing
+   * @param itemModelToNodeMap
    * @param tandem
    */
-  public constructor( model: MotionModel, layoutWidth: number, tandem: Tandem ) {
+  public constructor( model: MotionModel, layoutWidth: number, itemModelToNodeMap: Map<Item, ItemNode>, tandem: Tandem ) {
     const scale = 0.95;
 
     // Create all the images up front, add as children and toggle their visible for performance and reduced garbage collection
@@ -171,9 +174,11 @@ export default class PusherNode extends Node {
       if ( model.stackObservableArray.length > 0 ) {
 
         const item = model.stackObservableArray.get( 0 );
+        const itemNode = itemModelToNodeMap.get( item );
+        assert && assert( itemNode, 'itemNode is null for itemModel' );
 
         // get the scaled width of the first image on the stack
-        const scaledWidth = item.view!.getScaledWidth();
+        const scaledWidth = itemNode!.getScaledWidth();
 
         // add a little more space (10) so the pusher isn't exactly touching the stack
         const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
@@ -196,9 +201,11 @@ export default class PusherNode extends Node {
       assert && assert( model.stackObservableArray.length > 0 );
       const pusherY = 362 - visibleNode.height;
       const item = model.stackObservableArray.get( 0 );
+      const itemNode = itemModelToNodeMap.get( item );
+      assert && assert( itemNode, 'itemNode is null for itemModel' );
 
       // get the scaled width of the first item in the stack
-      const scaledWidth = item.view!.getScaledWidth();
+      const scaledWidth = itemNode!.getScaledWidth();
 
       const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
       if ( model.appliedForceProperty.get() > 0 ) {

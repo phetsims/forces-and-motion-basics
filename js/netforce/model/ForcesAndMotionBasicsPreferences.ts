@@ -21,11 +21,10 @@ const mapStringToColorSet = new Map<string, PullerColors>( [
 const pullerColorString = ForcesAndMotionBasicsQueryParameters.pullerColor!;
 
 const pullerColor = mapStringToColorSet.get( pullerColorString );
+assert && assert( pullerColor, `invalid pullerColorString: ${pullerColorString}` );
 
 const ForcesAndMotionBasicsPreferences = {
-
-  // @ts-expect-error
-  pullerColorProperty: new EnumerationProperty( pullerColor )
+  pullerColorProperty: new EnumerationProperty( pullerColor! )
 };
 
 forcesAndMotionBasics.register( 'ForcesAndMotionBasicsPreferences', ForcesAndMotionBasicsPreferences );

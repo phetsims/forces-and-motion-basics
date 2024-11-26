@@ -61,6 +61,7 @@ export default class MotionScreenView extends ScreenView {
   public readonly itemNodes: ItemNode[];
   private readonly appliedForceArrow: ReadoutArrow;
   private readonly frictionArrow: ReadoutArrow;
+  private readonly itemModelToNodeMap = new Map<Item, ItemNode>();
 
   /**
    * @param model model for the entire screen
@@ -96,7 +97,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2, tandem.createTandem( 'movingBackgroundNode' ) ).mutate( { layerSplit: true } ) );
 
     // The pusher should be behind the skateboard
-    this.addChild( new PusherNode( model, this.layoutBounds.width, tandem.createTandem( 'pusherNode' ) ) );
+    this.addChild( new PusherNode( model, this.layoutBounds.width, this.itemModelToNodeMap, tandem.createTandem( 'pusherNode' ) ) );
 
     // Add the skateboard if on the 'motion' screen
     if ( model.skateboard ) {
@@ -146,20 +147,18 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( appliedForceSliderText );
     this.addChild( appliedForceSlider );
 
-    // The range for the spinner will change depending on whether the stack has exceeded maximum speed. This will
+    // Do not allow the user to apply a force that would take the object beyond its maximum velocity
+    // The appliedForce range will change depending on whether the stack has exceeded maximum speed. This will
     // most often be in cases where there is no friction, because the speed will remain at maximum values and we
     // do not want to allow additional applied force at that time
-    const spinnerRange = new Range( -500, 500 );
-
-    // Do not allow the user to apply a force that would take the object beyond its maximum velocity
     Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ],
       ( appliedForce, speedClassification, stackSize ) => {
 
       const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
-      spinnerRange.max = enableRightButtons ? 500 : 0;
+      model.appliedForceProperty.range.max = enableRightButtons ? 500 : 0;
 
       const enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
-      spinnerRange.min = enableLeftButtons ? -500 : 0;
+      model.appliedForceProperty.range.min = enableLeftButtons ? -500 : 0;
     } );
 
     const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
@@ -173,10 +172,6 @@ export default class MotionScreenView extends ScreenView {
           maxWidth: maxTextWidth / 3
         }
       },
-
-      // @ts-expect-error
-      range: spinnerRange,
-
       deltaFine: 1,
       deltaCoarse: 50,
 
@@ -350,7 +345,7 @@ export default class MotionScreenView extends ScreenView {
       this.itemNodes.push( itemNode );
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
-      item.view = itemNode;
+      this.itemModelToNodeMap.set( item, itemNode );
       itemLayer.addChild( itemNode );
     }
 
@@ -451,8 +446,10 @@ export default class MotionScreenView extends ScreenView {
   private get stackHeight(): number {
     let sum = 0;
     for ( let i = 0; i < this.model.stackObservableArray.length; i++ ) {
-      // @ts-expect-error
-      sum = sum + this.model.stackObservableArray.get( i ).view.height;
+      const itemNode = this.itemModelToNodeMap.get( this.model.stackObservableArray.get( i ) );
+
+      assert && assert( itemNode, 'itemNode should not be null' );
+      sum = sum + itemNode!.height;
     }
     return sum;
   }
@@ -466,9 +463,10 @@ export default class MotionScreenView extends ScreenView {
   // Get the size of an item's image.  Dependent on the current scale of the image.
   public getSize( item: Item ): { width: number; height: number } {
     // get the current scale for the element and apply it to the image
-    // @ts-expect-error
-    const scaledWidth = item.view!.sittingImageNode.width * item.getCurrentScale();
-    return { width: scaledWidth, height: item.view!.height };
+    const itemNode = this.itemModelToNodeMap.get( item );
+    assert && assert( itemNode, 'itemNode should not be null' );
+    const scaledWidth = itemNode!.sittingImageNode.width * item.getCurrentScale();
+    return { width: scaledWidth, height: itemNode!.height };
   }
 }
 
