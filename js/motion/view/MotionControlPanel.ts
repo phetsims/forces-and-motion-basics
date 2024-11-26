@@ -116,10 +116,14 @@ export default class MotionControlPanel extends Node {
       const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
       const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
 
+      const numberOfMinorTicks = 3;
       const frictionSlider = new HSlider( model.frictionProperty, frictionRange, {
         trackSize: new Dimension2( 150, 6 ),
         majorTickLength: 18,
         tickLabelSpacing: 3,
+        valueChangeSoundGeneratorOptions: {
+          numberOfMiddleThresholds: numberOfMinorTicks
+        },
 
         // @ts-expect-error
         sizable: false,
@@ -128,9 +132,9 @@ export default class MotionControlPanel extends Node {
       const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 45 };
       const invisibleSliderTickOptions = merge( { visible: false }, sliderTickOptions );
 
-      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 );
-      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * 2 );
-      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * 3 );
+      _.times( numberOfMinorTicks, i => {
+        frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * ( i + 1 ) );
+      } );
 
       frictionSlider.addMajorTick( 0, new Text( noneStringProperty, merge( { tandem: tandem.createTandem( 'zeroTickText' ) }, sliderTickOptions ) ) );
       frictionSlider.addMajorTick( 0, new Text( lotsStringProperty, merge( { tandem: tandem.createTandem( 'invisibleZeroTickText' ) }, invisibleSliderTickOptions ) ) );

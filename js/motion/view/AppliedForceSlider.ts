@@ -14,34 +14,41 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
-import HSlider from '../../../../sun/js/HSlider.js';
+import HSlider, { HSliderOptions } from '../../../../sun/js/HSlider.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
+const NUMBER_OF_DIVISIONS = 10; //e.g. divide the ruler into 1/8ths
+const NUMBER_OF_TICKS = NUMBER_OF_DIVISIONS + 1; //ticks on the end
+
+type SelfOptions = EmptySelfOptions;
+type AppliedForceSliderOptions = HSliderOptions & SelfOptions;
 export default class AppliedForceSlider extends HSlider {
 
   /**
    * @param model
    * @param range - the range of values for the slider
    * @param tandem
-   * @param [options]
+   * @param providedOptions
    */
-  public constructor( model: MotionModel, private readonly range: Range, tandem: Tandem, options: IntentionalAny ) {
+  public constructor( model: MotionModel, private readonly range: Range, tandem: Tandem, providedOptions: AppliedForceSliderOptions ) {
 
 
     const enabledRangeProperty = new Property( range );
 
-    super( model.appliedForceProperty, range, merge( {
+    const options = optionize<AppliedForceSliderOptions, SelfOptions, HSliderOptions>()( {
       trackSize: new Dimension2( 300, 6 ),
-      majorTickLength: 30,
+        majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
       enabledRangeProperty: enabledRangeProperty,
+      valueChangeSoundGeneratorOptions: {
+        numberOfMiddleThresholds: NUMBER_OF_DIVISIONS - 1
+      },
       tandem: tandem,
 
       // round so that applied force is not more precise than friction force
@@ -50,11 +57,12 @@ export default class AppliedForceSlider extends HSlider {
       // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
       // up a state of forces
       endDrag: () => {
-        if ( model.playProperty.get() ) {
-          model.appliedForceProperty.set( 0 );
-        }
+      if ( model.playProperty.get() ) {
+        model.appliedForceProperty.set( 0 );
       }
-    }, options ) );
+    }
+    }, providedOptions );
+    super( model.appliedForceProperty, range, options );
 
     this.range = range;
 
@@ -104,14 +112,11 @@ export default class AppliedForceSlider extends HSlider {
     const initialTickValue = range.min;
 
     //Constants and functions for creating the ticks
-    const numDivisions = 10; //e.g. divide the ruler into 1/8ths
-    const numTicks = numDivisions + 1; //ticks on the end
-    const delta = ( range.max - range.min ) / numDivisions;
-
+    const delta = ( range.max - range.min ) / NUMBER_OF_DIVISIONS;
     const isMajor = ( tickIndex: number ) => ( tickIndex % 5 === 0 );
 
     //Generate each of the ticks and add to the parent
-    _.range( numTicks ).forEach( i => {
+    _.times( NUMBER_OF_TICKS, i => {
 
       const position = initialTickValue + i * delta;
       if ( isMajor( i ) ) {
