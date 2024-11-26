@@ -29,6 +29,7 @@ import AccelerometerNode from './AccelerometerNode.js';
 import MotionModel from '../model/MotionModel.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import LocalizedStringProperty from '../../../../chipper/js/LocalizedStringProperty.js';
 
 const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
 const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;
@@ -125,6 +126,7 @@ export default class MotionControlPanel extends Node {
           numberOfMiddleThresholds: numberOfMinorTicks
         },
 
+        // TODO: We should be able to set sizable in Slider... https://github.com/phetsims/forces-and-motion-basics/issues/317
         // @ts-expect-error
         sizable: false,
         tandem: frictionSliderTandem
@@ -182,9 +184,9 @@ export default class MotionControlPanel extends Node {
     };
 
     // Ensure the checkboxes are centered with dynamic locale
-    const layoutCheckboxes = ( stringProperties: IntentionalAny, checkboxes: Node ) => {
+    const layoutCheckboxes = ( stringProperties: LocalizedStringProperty[], checkboxes: Node ) => {
       const checkboxesCenterX = checkboxes.centerX;
-      Multilink.multilink( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
+      Multilink.multilinkAny( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
     };
 
     // Create controls for the 'motion' screen

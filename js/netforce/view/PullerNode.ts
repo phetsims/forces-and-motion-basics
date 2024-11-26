@@ -77,7 +77,7 @@ export default class PullerNode extends Image {
         tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
-        start: ( event: IntentionalAny ) => {
+        start: () => {
 
           // check to see if a puller is knotted - if it is, store the knot
           const knot = puller.knotProperty.get();

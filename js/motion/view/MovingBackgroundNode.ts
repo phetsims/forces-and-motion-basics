@@ -44,20 +44,10 @@ export default class MovingBackgroundNode extends Node {
     const L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => {
-
-      const node = new Image( image, {
-        scale: scale,
+    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => new Image( image, { scale: scale,
         x: offset,
         y: y,
-        tandem: tandem.createTandem( tandemName )
-      } );
-      // @ts-expect-error
-      node.offsetX = offset;
-      // @ts-expect-error
-      node.scaleFactor = scale;
-      return node;
-    };
+        tandem: tandem.createTandem( tandemName ) } );
 
     const stageWidth = L * 2;
 
