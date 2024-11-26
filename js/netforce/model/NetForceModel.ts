@@ -46,7 +46,6 @@ export default class NetForceModel extends PhetioObject {
   public readonly showSumOfForcesProperty: BooleanProperty;
   public readonly showValuesProperty: BooleanProperty;
   public readonly showSpeedProperty: BooleanProperty;
-  public readonly volumeOnProperty: BooleanProperty;
   private readonly cartReturnedEmitter: Emitter;
   public readonly resetAllEmitter: Emitter;
   public readonly cart: Cart;
@@ -127,10 +126,6 @@ export default class NetForceModel extends PhetioObject {
     this.showSpeedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'showSpeedProperty' )
     } );
-    this.volumeOnProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'volumeOnProperty' )
-    } );
-
     this.cartReturnedEmitter = new Emitter();
     this.resetAllEmitter = new Emitter();
 
@@ -375,7 +370,6 @@ export default class NetForceModel extends PhetioObject {
     this.showSumOfForcesProperty.reset();
     this.showValuesProperty.reset();
     this.showSpeedProperty.reset();
-    this.volumeOnProperty.reset();
 
     //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
     this.pullers.forEach( puller => {puller.disconnect();} );

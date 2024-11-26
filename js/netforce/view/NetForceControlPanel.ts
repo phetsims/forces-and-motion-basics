@@ -9,7 +9,6 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import SoundToggleButton from '../../../../scenery-phet/js/buttons/SoundToggleButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -33,6 +32,7 @@ const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 export default class NetForceControlPanel extends Node {
   private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
   private readonly resetAllButton: ResetAllButton;
+
   /**
    * Create the NetForceControlPanel.
    *
@@ -95,26 +95,10 @@ export default class NetForceControlPanel extends Node {
     } );
     this.addChild( this.resetAllButton );
 
-    const soundToggleButton = new SoundToggleButton( model.volumeOnProperty, {
-      // @ts-expect-error
-      padX: 19,
-      padY: 19,
-      tandem: tandem.createTandem( 'soundToggleButton' )
-    } );
-
-    this.addChild( soundToggleButton );
-
     // Update the layout to support dynamic locale
     Multilink.multilink( [ sumOfForcesStringProperty, valuesStringProperty, speedStringProperty ], () => {
       verticalCheckboxGroupPanel.right = ForcesAndMotionBasicsLayoutBounds.width - 5;
       this.resetAllButton.rightCenter = verticalCheckboxGroupPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 );
-      soundToggleButton.left = verticalCheckboxGroupPanel.left + BUTTON_PADDING;
-      soundToggleButton.centerY = this.resetAllButton.centerY;
-
-      // i18n - if the strings are too short, the sound toggle button will overlap the reset all button, add some padding
-      if ( this.resetAllButton.left < soundToggleButton.right ) {
-        soundToggleButton.right = this.resetAllButton.left - 2 * BUTTON_PADDING;
-      }
     } );
   }
 }

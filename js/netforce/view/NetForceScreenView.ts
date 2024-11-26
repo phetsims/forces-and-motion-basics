@@ -363,7 +363,7 @@ export default class NetForceScreenView extends ScreenView {
 
     //Play audio golf clap when game completed
     model.stateProperty.link( state => {
-      if ( state === 'completed' && model.volumeOnProperty.get() ) {
+      if ( state === 'completed' ) {
         golfClap.play();
       }
     } );
