@@ -6,21 +6,22 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { Circle, LinearGradient, Node, Rectangle } from '../../../../scenery/js/imports.js';
+import { Circle, LinearGradient, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
+type SelfOptions = EmptySelfOptions;
+type SliderKnobOptions = StrictOmit<NodeOptions, 'tandem' | 'phetioEnabledPropertyInstrumented'> & SelfOptions;
 export default class SliderKnob extends Node {
 
-  public constructor( tandem: Tandem, options: IntentionalAny ) {
+  public constructor( tandem: Tandem, providedOptions: SliderKnobOptions ) {
 
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( {
+    const options = optionize<SliderKnobOptions, SelfOptions, NodeOptions>()( {
       tandem: tandem,
       phetioEnabledPropertyInstrumented: true
-    }, options );
+    }, providedOptions );
 
     // different fill colors for when the slider is enabled or disabled
     const enabledFillColor = '#2FB0E4';

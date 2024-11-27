@@ -10,7 +10,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { HBox, Node, Text } from '../../../../scenery/js/imports.js';
+import { HBox, Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionBasicsIconFactory.js';
@@ -18,8 +18,8 @@ import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotion
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
@@ -29,6 +29,8 @@ const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
+type SelfOptions = EmptySelfOptions;
+type NetForceControlPanelOptions = NodeOptions & SelfOptions;
 export default class NetForceControlPanel extends Node {
   private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
   private readonly resetAllButton: ResetAllButton;
@@ -38,11 +40,12 @@ export default class NetForceControlPanel extends Node {
    *
    * @param model the model for this control panel
    * @param tandem
-   * @param [options]
+   * @param providedOptions
    */
-  public constructor( model: NetForceModel, tandem: Tandem, options?: IntentionalAny ) {
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( { tandem: tandem }, options );
+  public constructor( model: NetForceModel, tandem: Tandem, providedOptions?: NetForceControlPanelOptions ) {
+    const options = optionize<NetForceControlPanelOptions, SelfOptions, NodeOptions>()( {
+      tandem: tandem
+    }, providedOptions );
     super( options );
 
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 115 };

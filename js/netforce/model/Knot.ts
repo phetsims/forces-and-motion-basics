@@ -9,14 +9,15 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
+type SelfOptions = EmptySelfOptions;
+type KnotOptions = PhetioObjectOptions & SelfOptions;
 export default class Knot extends PhetioObject {
   public readonly initX: number;
 
@@ -35,18 +36,17 @@ export default class Knot extends PhetioObject {
    * @param x - the horizontal position (in meters) of the knot
    * // TODO: Fix JSDoc https://github.com/phetsims/forces-and-motion-basics/issues/319
    * @param type - whether the knot is for red or blue pullers
-   * @param [options]
+   * @param providedOptions
    */
-  public constructor( x: number, public readonly type: string, options?: IntentionalAny ) {
+  public constructor( x: number, public readonly type: string, providedOptions?: KnotOptions ) {
 
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( {
+    const options = optionize<KnotOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // {Tandem}
       tandem: Tandem.REQUIRED,
       phetioType: Knot.KnotIO,
       phetioState: false // Because IOType extends ReferenceIO
-    }, options );
+    }, providedOptions );
     const tandem = options.tandem;
 
     super( options );

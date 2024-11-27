@@ -91,62 +91,62 @@ type ColorMap = {
   orange: ColorTypeSet;
 };
 const colorMapping: ColorMap = {
-    blue: {
-      large: {
-        notLeaning: pull_figure_lrg_BLUE_0_png,
-        leaning: pull_figure_lrg_BLUE_3_png
-      },
-      medium: {
-        notLeaning: pull_figure_BLUE_0_png,
-        leaning: pull_figure_BLUE_3_png
-      },
-      small: {
-        notLeaning: pull_figure_small_BLUE_0_png,
-        leaning: pull_figure_small_BLUE_3_png
-      }
+  blue: {
+    large: {
+      notLeaning: pull_figure_lrg_BLUE_0_png,
+      leaning: pull_figure_lrg_BLUE_3_png
     },
-    red: {
-      large: {
-        notLeaning: pull_figure_lrg_RED_0_png,
-        leaning: pull_figure_lrg_RED_3_png
-      },
-      medium: {
-        notLeaning: pull_figure_RED_0_png,
-        leaning: pull_figure_RED_3_png
-      },
-      small: {
-        notLeaning: pull_figure_small_RED_0_png,
-        leaning: pull_figure_small_RED_3_png
-      }
+    medium: {
+      notLeaning: pull_figure_BLUE_0_png,
+      leaning: pull_figure_BLUE_3_png
     },
-    purple: {
-      large: {
-        notLeaning: pull_figure_lrg_PURPLE_0_png,
-        leaning: pull_figure_lrg_PURPLE_3_png
-      },
-      medium: {
-        notLeaning: pull_figure_PURPLE_0_png,
-        leaning: pull_figure_PURPLE_3_png
-      },
-      small: {
-        notLeaning: pull_figure_small_PURPLE_0_png,
-        leaning: pull_figure_small_PURPLE_3_png
-      }
-    },
-    orange: {
-      large: {
-        notLeaning: pull_figure_lrg_ORANGE_0_png,
-        leaning: pull_figure_lrg_ORANGE_3_png
-      },
-      medium: {
-        notLeaning: pull_figure_ORANGE_0_png,
-        leaning: pull_figure_ORANGE_3_png
-      },
-      small: {
-        notLeaning: pull_figure_small_ORANGE_0_png,
-        leaning: pull_figure_small_ORANGE_3_png
-      }
+    small: {
+      notLeaning: pull_figure_small_BLUE_0_png,
+      leaning: pull_figure_small_BLUE_3_png
     }
+  },
+  red: {
+    large: {
+      notLeaning: pull_figure_lrg_RED_0_png,
+      leaning: pull_figure_lrg_RED_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_RED_0_png,
+      leaning: pull_figure_RED_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_RED_0_png,
+      leaning: pull_figure_small_RED_3_png
+    }
+  },
+  purple: {
+    large: {
+      notLeaning: pull_figure_lrg_PURPLE_0_png,
+      leaning: pull_figure_lrg_PURPLE_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_PURPLE_0_png,
+      leaning: pull_figure_PURPLE_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_PURPLE_0_png,
+      leaning: pull_figure_small_PURPLE_3_png
+    }
+  },
+  orange: {
+    large: {
+      notLeaning: pull_figure_lrg_ORANGE_0_png,
+      leaning: pull_figure_lrg_ORANGE_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_ORANGE_0_png,
+      leaning: pull_figure_ORANGE_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_ORANGE_0_png,
+      leaning: pull_figure_small_ORANGE_3_png
+    }
+  }
 };
 
 export default class NetForceScreenView extends ScreenView {
@@ -262,15 +262,24 @@ export default class NetForceScreenView extends ScreenView {
     const opacity = 0.8;
     this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'sumArrow' ), {
-        lineDash: [ 10, 5 ], labelPosition: 'top', opacity: opacity
+        labelPosition: 'top', opacity: opacity,
+        arrowNodeOptions: {
+          lineDash: [ 10, 5 ]
+        }
       } );
     this.leftArrow = new ReadoutArrow( leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'leftArrow' ), {
-        lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
+        labelPosition: 'side', opacity: opacity,
+        arrowNodeOptions: {
+          lineDash: [ 10, 5 ]
+        }
       } );
     this.rightArrow = new ReadoutArrow( rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty,
       tandem.createTandem( 'rightArrow' ), {
-        lineDash: [ 10, 5 ], labelPosition: 'side', opacity: opacity
+        labelPosition: 'side', opacity: opacity,
+        arrowNodeOptions: {
+          lineDash: [ 10, 5 ]
+        }
       } );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'

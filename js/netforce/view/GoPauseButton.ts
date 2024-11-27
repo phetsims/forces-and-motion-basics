@@ -10,20 +10,19 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Rectangle, Text, Node } from '../../../../scenery/js/imports.js';
-import BooleanToggleNode from '../../../../sun/js/BooleanToggleNode.js';
+import { Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import BooleanToggleNode, { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
 import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import TEmitter from '../../../../axon/js/TEmitter.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
@@ -52,6 +51,8 @@ const wrap = ( node: Node, padX: number, padY: number, nodes: Node[] ): Rectangl
   return new Rectangle( 0, 0, maxWidth, maxHeight, { children: [ node ] } );
 };
 
+type SelfOptions = EmptySelfOptions;
+type GoPauseButtonOptions = BooleanToggleNodeOptions & SelfOptions;
 export default class GoPauseButton extends BooleanToggleNode {
 
   /**
@@ -60,14 +61,13 @@ export default class GoPauseButton extends BooleanToggleNode {
    * @param model the NetForceModel
    * @param layoutWidth the layout width for centering the button
    * @param tandem
-   * @param [options]
+   * @param providedOptions
    */
-  public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, options?: IntentionalAny ) {
+  public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
 
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( {
+    const options = optionize<GoPauseButtonOptions, SelfOptions, BooleanToggleNodeOptions>()( {
       top: 400
-    }, options );
+    }, providedOptions );
     const padX = 15;
     const padY = 10;
     const goText = new Text( ForcesAndMotionBasicsStrings.goStringProperty, {
@@ -85,7 +85,7 @@ export default class GoPauseButton extends BooleanToggleNode {
     const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
-    const goButtonPressedEmitter: TEmitter<[number, string]> = new Emitter( {
+    const goButtonPressedEmitter: TEmitter<[ number, string ]> = new Emitter( {
       tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
       parameters: [
         { valueType: 'number', name: 'netForce', phetioType: NumberIO },

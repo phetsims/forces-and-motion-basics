@@ -8,24 +8,27 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import { Path, PathOptions } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // constants
 const DIRECTIONS = [ 'left', 'right' ];
 
+type SelfOptions = {
+  direction?: 'left' | 'right';
+};
+type CartStopperNodeOptions = StrictOmit<PathOptions, 'fill'> & SelfOptions;
 export default class CartStopperNode extends Path {
-  public constructor( topWidth: number, bottomWidth: number, height: number, tandem: Tandem, options?: IntentionalAny ) {
+  public constructor( topWidth: number, bottomWidth: number, height: number, tandem: Tandem, providedOptions?: CartStopperNodeOptions ) {
 
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( {
+    const options = optionize<CartStopperNodeOptions, SelfOptions, PathOptions>()( {
       direction: 'left',
       tandem: tandem,
       fill: 'grey'
-    }, options );
+    }, providedOptions );
 
     const stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
     super( stopperShape );

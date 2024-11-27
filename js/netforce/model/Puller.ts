@@ -12,16 +12,19 @@ import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 // eslint-disable-next-line phet/no-view-imported-from-model
 import PullerNode from '../view/PullerNode.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
+type PullerOptions = {
+  standOffsetX?: number;
+  other?: string;
+};
 export default class Puller {
 
   // to synchronize tandem names with the view
@@ -58,17 +61,16 @@ export default class Puller {
    * @param size 'small'|'medium'|'large'
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
    * @param tandem
-   * @param [options]
+   * @param providedOptions
    */
   public constructor( x: number, y: number,
                       public readonly type: 'red' | 'blue',
                       public readonly size: 'small' | 'medium' | 'large',
-                      public readonly dragOffsetX: number, tandem: Tandem, options?: IntentionalAny ) {
+                      public readonly dragOffsetX: number, tandem: Tandem, providedOptions?: PullerOptions ) {
 
     this.pullerTandem = tandem;
 
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( { standOffsetX: 0, other: '' }, options );
+    const options = optionize<PullerOptions>()( { standOffsetX: 0, other: '' }, providedOptions );
 
     this.standOffsetX = options.standOffsetX;
     this.force = this.size === 'small' ? 10 * 5 :

@@ -16,7 +16,7 @@ import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
-import { HBox, HStrut, Node, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
+import { HBox, HBoxOptions, HStrut, Node, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
@@ -27,9 +27,10 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
 import MotionModel from '../model/MotionModel.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import LocalizedStringProperty from '../../../../chipper/js/LocalizedStringProperty.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
 const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;
@@ -63,12 +64,16 @@ export default class MotionControlPanel extends Node {
      * @param text - the label string
      * @param [options]
      */
-    const createLabel = ( text: TReadOnlyProperty<string>, tandemName: string, options?: IntentionalAny ) => {
-      // eslint-disable-next-line phet/bad-typescript-text
-      options = merge( {
+    type LabelSelfOptions = {
+      indent?: number;
+      icon?: Node;
+    };
+    type LabelOptions = StrictOmit<HBoxOptions, 'children' | 'spacing'> & LabelSelfOptions;
+    const createLabel = ( text: TReadOnlyProperty<string>, tandemName: string, providedOptions?: LabelOptions ) => {
+      const options = optionize<LabelOptions, LabelSelfOptions, HBoxOptions>()( {
         indent: 0,
         icon: new Node()
-      }, options );
+      }, providedOptions );
 
       // create the label for the checkbox
       const labelText = new Text( text, {
@@ -86,7 +91,10 @@ export default class MotionControlPanel extends Node {
         iconSpacer = new HStrut( 10 );
       }
 
-      return new HBox( { spacing: 0, children: [ labelText, iconSpacer, options.icon ] } );
+      const hBoxOptions = combineOptions<HBoxOptions>( {
+        spacing: 0, children: [ labelText, iconSpacer, options.icon ]
+      }, options );
+      return new HBox( hBoxOptions );
     };
 
     //Icon for the forces in the control panel
@@ -112,8 +120,8 @@ export default class MotionControlPanel extends Node {
     const createFrictionSlider = () => {
 
       //Create the friction slider and its labels.
-      // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the track of the slider,
-      // but this makes it work with VBox/HBox
+      // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the
+      // track of the slider, but this makes it work with VBox/HBox
       const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
       const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
 

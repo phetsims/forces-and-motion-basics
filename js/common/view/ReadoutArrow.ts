@@ -13,16 +13,23 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Path, PathOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNStringProperty' ];
 
+type SelfOptions = {
+  labelPosition?: 'top' | 'bottom' | 'side';
+  arrowScale?: number;
+  arrowNodeOptions?: PathOptions;
+};
+type ReadoutArrowOptions = StrictOmit<NodeOptions, 'pickable' | 'tandem'> & SelfOptions;
 export default class ReadoutArrow extends Node {
 
   public static readonly ARROW_HEAD_WIDTH = 50;
@@ -33,10 +40,13 @@ export default class ReadoutArrow extends Node {
   private readonly valueNode: Node;
   private readonly labelNode: Text;
 
-  // if the arrow overlaps another, we change the layout of the arrow labels so none of the text overlaps eachother
+  // if the arrow overlaps another, we change the layout of the arrow labels so none of the text overlaps each other
   public overlapsOther = false;
   private hidden!: boolean;
   private value!: number;
+
+  private labelPositionOption: string;
+  private readonly arrowScale: number;
 
   /**
    * @param label the text to show for the arrow
@@ -46,7 +56,7 @@ export default class ReadoutArrow extends Node {
    * @param valueProperty the property for the value to display
    * @param showValuesProperty whether or not to display the values
    * @param tandem
-   * @param [options] 'labelPosition' where the label text should be {side|top}
+   * @param providedOptions 'labelPosition' where the label text should be {side|top}
    */
   public constructor(
     label: TReadOnlyProperty<string>,
@@ -56,25 +66,31 @@ export default class ReadoutArrow extends Node {
     valueProperty: TReadOnlyProperty<number>,
     private readonly showValuesProperty: TReadOnlyProperty<boolean>,
     tandem: Tandem,
-    private readonly options: IntentionalAny ) {
-
-    //Call the super class.  Render in svg to make the text crisper on retina display.
-    super( {
-      tandem: tandem,
-      pickable: false
-    } );
+    providedOptions: ReadoutArrowOptions ) {
 
     //Store fields
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( { labelPosition: 'top', arrowScale: 1 }, options );
+    const options = optionize<ReadoutArrowOptions, SelfOptions, NodeOptions>()( {
+      labelPosition: 'top',
+      arrowScale: 1,
+      arrowNodeOptions: {},
+      tandem: tandem,
+      pickable: false
+    }, providedOptions );
+
+    //Call the super class.  Render in svg to make the text crisper on retina display.
+    super( options );
+    this.labelPositionOption = options.labelPosition;
+    this.arrowScale = options.arrowScale;
 
     //Create and add the children
-    this.arrowNode = new Path( null, merge( {
+    const arrowNodeOptions = combineOptions<PathOptions>( {
       fill: fill,
       stroke: '#000000',
       lineWidth: 1,
       tandem: tandem.createTandem( 'arrowNode' )
-    }, options ) );
+    }, options );
+    this.arrowNode = new Path( null, arrowNodeOptions );
+
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
     const valueTextPatternStringProperty = new PatternStringProperty( pattern0ValueUnitsNStringProperty,
       { value: new DerivedProperty( [ valueProperty ], value => Utils.toFixed( Math.abs( value ), 0 ) ) },
@@ -94,7 +110,7 @@ export default class ReadoutArrow extends Node {
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );
 
-    if ( this.options.labelPosition === 'top' ) {
+    if ( this.labelPositionOption === 'top' ) {
 
       // Ensure the labelNode is on top of the arrow with dynamic locale
       label.lazyLink( () => {
@@ -127,18 +143,18 @@ export default class ReadoutArrow extends Node {
 
   //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
   public set labelPosition( position: string ) {
-    if ( this.options.labelPosition !== position ) {
-      this.options.labelPosition = position;
+    if ( this.labelPositionOption !== position ) {
+      this.labelPositionOption = position;
       this.update();
     }
   }
 
   //Get the label position
-  public get labelPosition(): string { return this.options.labelPosition; }
+  public get labelPosition(): string { return this.labelPositionOption; }
 
   // Update the arrow graphics and text labels
   public update(): void {
-    const value = this.value * ( this.options.arrowScale || 1 );
+    const value = this.value * ( this.arrowScale || 1 );
 
     //Don't show it if it is too small
     const hidden = Math.abs( value ) < 1E-6;
@@ -162,8 +178,8 @@ export default class ReadoutArrow extends Node {
       this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY,
         { tailWidth: tailWidth, headWidth: headWidth, headHeight: headHeight } );
 
-      //Position the value and label if the label position is on the side
-      if ( this.options.labelPosition === 'side' ) {
+      // Position the value and label if the label position is on the side
+      if ( this.labelPositionOption === 'side' ) {
         if ( value > 0 ) {
           this.labelNode.left = this.arrowNode.right + 5;
         }
@@ -185,7 +201,7 @@ export default class ReadoutArrow extends Node {
         this.valueNode.center = this.arrowNode.center;
 
         //Position the value and label if the label position is on the bottom
-        if ( this.options.labelPosition === 'bottom' ) {
+        if ( this.labelPositionOption === 'bottom' ) {
           this.labelNode.centerX = this.arrowNode.centerX;
           this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 10 : 0;
 
