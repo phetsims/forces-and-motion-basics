@@ -10,7 +10,7 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 // modules
 import Utils from '../../../../dot/js/Utils.js';
-import { Image, Node, Pattern, Rectangle, ImageableImage } from '../../../../scenery/js/imports.js';
+import { Image, Node, Pattern, Rectangle, ImageableImage, Path } from '../../../../scenery/js/imports.js';
 import brickTile_png from '../../../images/brickTile_png.js';
 import cloud1_svg from '../../../images/cloud1_svg.js';
 import icicle_png from '../../../images/icicle_png.js';
@@ -126,8 +126,7 @@ export default class MovingBackgroundNode extends Node {
           this.addChild( iceLayer );
 
           //TODO: could prevent updater from firing if ice is not visible https://github.com/phetsims/forces-and-motion-basics/issues/319
-          // @ts-expect-error
-          model.positionProperty.link( getLayerUpdater( iceLayer, 1 ) );
+          model.positionProperty.link( () => getLayerUpdater( iceLayer, 1 ) );
 
           const gravelSource = new Node( {
             tandem: tandem.createTandem( 'gravelSource' )
@@ -175,9 +174,8 @@ export default class MovingBackgroundNode extends Node {
             let children;
             let i;
             while ( numBlack > desiredBlack ) {
-              children = gravelSource.getChildren();
+              children = gravelSource.getChildren() as Path[];
               for ( i = children.length - 1; i >= 0; i-- ) {
-                // @ts-expect-error
                 if ( children[ i ].fill === 'black' ) {
                   gravelSource.removeChildAt( i );
                   break;
@@ -187,9 +185,8 @@ export default class MovingBackgroundNode extends Node {
             }
 
             while ( numGray > desiredGray ) {
-              children = gravelSource.getChildren();
+              children = gravelSource.getChildren() as Path[];
               for ( i = children.length - 1; i >= 0; i-- ) {
-                // @ts-expect-error
                 if ( children[ i ].fill === 'gray' ) {
                   gravelSource.removeChildAt( i );
                   break;
@@ -199,9 +196,8 @@ export default class MovingBackgroundNode extends Node {
             }
 
             while ( numWhite > desiredWhite ) {
-              children = gravelSource.getChildren();
+              children = gravelSource.getChildren() as Path[];
               for ( i = children.length - 1; i >= 0; i-- ) {
-                // @ts-expect-error
                 if ( children[ i ].fill === 'white' ) {
                   gravelSource.removeChildAt( i );
                   break;
