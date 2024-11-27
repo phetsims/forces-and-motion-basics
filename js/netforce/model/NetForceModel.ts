@@ -13,15 +13,15 @@ import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import VoidIO from '../../../../tandem/js/types/VoidIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
 import Knot from './Knot.js';
 import Puller from './Puller.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 
 // spacing for the knots
 const KNOT_SPACING = 80;

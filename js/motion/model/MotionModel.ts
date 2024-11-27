@@ -12,10 +12,12 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import crate_svg from '../../../images/crate_svg.js';
@@ -24,14 +26,12 @@ import mysteryObject01_svg from '../../../images/mysteryObject01_svg.js';
 import trashCan_svg from '../../../images/trashCan_svg.js';
 import waterBucket_svg from '../../../images/waterBucket_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import MotionConstants from '../MotionConstants.js';
-import HumanTypeEnum from './HumanTypeEnum.js';
-import Item from './Item.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Cart from '../../netforce/model/Cart.js';
+import MotionConstants from '../MotionConstants.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
+import HumanTypeEnum from './HumanTypeEnum.js';
+import Item from './Item.js';
 
 export default class MotionModel {
 

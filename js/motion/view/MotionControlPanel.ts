@@ -8,9 +8,13 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import LocalizedStringProperty from '../../../../chipper/js/LocalizedStringProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -24,13 +28,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
-import MotionModel from '../model/MotionModel.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import LocalizedStringProperty from '../../../../chipper/js/LocalizedStringProperty.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
 const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;

@@ -7,14 +7,14 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { Image, ImageableImage } from '../../../../scenery/js/imports.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
-import Puller from '../model/Puller.js';
-import NetForceModel from '../model/NetForceModel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Knot from '../model/Knot.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import { Image, ImageableImage } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import Knot from '../model/Knot.js';
+import NetForceModel from '../model/NetForceModel.js';
+import Puller from '../model/Puller.js';
 
 export default class PullerNode extends Image {
   public standImage: ImageableImage;

@@ -6,11 +6,11 @@
  */
 
 import Screen from '../../../joist/js/Screen.js';
+import IntentionalAny from '../../../phet-core/js/types/IntentionalAny.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import MotionModel from './model/MotionModel.js';
 import MotionScreenView from './view/MotionScreenView.js';
-import IntentionalAny from '../../../phet-core/js/types/IntentionalAny.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 
 export default class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 

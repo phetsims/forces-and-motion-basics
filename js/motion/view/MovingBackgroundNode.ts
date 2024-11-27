@@ -10,15 +10,15 @@
 import dotRandom from '../../../../dot/js/dotRandom.js';
 // modules
 import Utils from '../../../../dot/js/Utils.js';
-import { Image, Node, Pattern, Rectangle, ImageableImage, Path } from '../../../../scenery/js/imports.js';
+import { Image, ImageableImage, Node, Path, Pattern, Rectangle } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import brickTile_png from '../../../images/brickTile_png.js';
 import cloud1_svg from '../../../images/cloud1_svg.js';
 import icicle_png from '../../../images/icicle_png.js';
 import mountains_svg from '../../../images/mountains_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import MotionConstants from '../MotionConstants.js';
 import MotionModel from '../model/MotionModel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import MotionConstants from '../MotionConstants.js';
 
 // constants
 const linear = Utils.linear;

@@ -6,11 +6,11 @@
  * @author Luisa Vargas
  */
 
+import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsImages from '../../ForcesAndMotionBasicsImages.js';
-import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 
 export default class HumanTypeEnum extends EnumerationValue {
 

@@ -6,11 +6,11 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { Circle, LinearGradient, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import { Circle, LinearGradient, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 type SelfOptions = EmptySelfOptions;
 type SliderKnobOptions = StrictOmit<NodeOptions, 'tandem' | 'phetioEnabledPropertyInstrumented'> & SelfOptions;

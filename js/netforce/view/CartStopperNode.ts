@@ -8,11 +8,11 @@
  */
 
 import { Shape } from '../../../../kite/js/imports.js';
-import { Path, PathOptions } from '../../../../scenery/js/imports.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import { Path, PathOptions } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 // constants
 const DIRECTIONS = [ 'left', 'right' ];

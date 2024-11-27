@@ -8,7 +8,9 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import { DragListener, Image, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import pusher_0_png from '../../../images/pushPullFigures/pusher_0_png.js';
 import pusher_10_png from '../../../images/pushPullFigures/pusher_10_png.js';
 import pusher_11_png from '../../../images/pushPullFigures/pusher_11_png.js';
@@ -43,11 +45,9 @@ import pusher_9_png from '../../../images/pushPullFigures/pusher_9_png.js';
 import pusher_fall_down_png from '../../../images/pushPullFigures/pusher_fall_down_png.js';
 import pusher_straight_on_png from '../../../images/pushPullFigures/pusher_straight_on_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import Item from '../model/Item.js';
 import ItemNode from './ItemNode.js';
 
 export default class PusherNode extends Node {

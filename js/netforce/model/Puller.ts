@@ -12,14 +12,14 @@ import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import Knot from './Knot.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 // eslint-disable-next-line phet/no-view-imported-from-model
 import PullerNode from '../view/PullerNode.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import Knot from './Knot.js';
 
 type PullerOptions = {
   standOffsetX?: number;

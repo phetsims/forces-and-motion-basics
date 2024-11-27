@@ -8,18 +8,18 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import { Image, ImageableImage, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionScreenView from './MotionScreenView.js';
-import Item from '../model/Item.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );

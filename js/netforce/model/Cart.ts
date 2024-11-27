@@ -8,8 +8,8 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class Cart {
 

@@ -14,13 +14,13 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import HSlider, { HSliderOptions } from '../../../../sun/js/HSlider.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 const NUMBER_OF_DIVISIONS = 10; //e.g. divide the ruler into 1/8ths
 const NUMBER_OF_TICKS = NUMBER_OF_DIVISIONS + 1; //ticks on the end

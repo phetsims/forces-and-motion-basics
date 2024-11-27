@@ -8,17 +8,17 @@
  */
 
 
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 //modules
 import Range from '../../../../dot/js/Range.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const pattern0Name1ValueUnitsVelocityStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocityStringProperty' ];
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;

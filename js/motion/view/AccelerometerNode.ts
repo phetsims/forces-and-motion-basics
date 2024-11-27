@@ -6,11 +6,11 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
-import { LinearGradient, Node, Path, Rectangle, NodeOptions } from '../../../../scenery/js/imports.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { Shape } from '../../../../kite/js/imports.js';
+import { LinearGradient, Node, NodeOptions, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class AccelerometerNode extends Node {
   public readonly ticks: Node[];

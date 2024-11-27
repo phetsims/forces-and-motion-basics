@@ -7,18 +7,18 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Path, Rectangle, ImageableImage } from '../../../../scenery/js/imports.js';
+import { ImageableImage, Path, Rectangle } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import Item from '../model/Item.js';
+import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
 import MotionScreenView from './MotionScreenView.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Item from '../model/Item.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import MotionModel from '../model/MotionModel.js';
-import Property from '../../../../axon/js/Property.js';
 
 // constants
 const linear = Utils.linear;
