@@ -10,44 +10,53 @@
 
 //modules
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 const pattern0Name1ValueUnitsVelocityStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocityStringProperty' ];
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 
+type SelfOptions = {
+  radius?: number;
+};
+type SpeedometerNodeOptions = StrictOmit<NodeOptions, 'children'> & SelfOptions;
 export default class SpeedometerNode extends Node {
 
-  public constructor( speedProperty: TReadOnlyProperty<number>, showSpeedProperty: TReadOnlyProperty<boolean>, showValuesProperty: TReadOnlyProperty<boolean>, tandem: Tandem, options?: IntentionalAny ) {
+  public constructor(
+    speedProperty: TReadOnlyProperty<number>,
+    showSpeedProperty: TReadOnlyProperty<boolean>,
+    showValuesProperty: TReadOnlyProperty<boolean>,
+    tandem: Tandem,
+    providedOptions?: SpeedometerNodeOptions
+  ) {
 
-    // eslint-disable-next-line phet/bad-typescript-text
-    options = merge( {
+    const options = optionize<SpeedometerNodeOptions, SelfOptions, NodeOptions>()( {
       radius: 67,
       tandem: tandem
-    }, options );
+    }, providedOptions );
 
     // mutate with the options after construction so we can set the 'top'
     super();
 
-    const gaugeRadius = 67;
+    const gaugeRadius = options.radius;
     const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ), {
-        radius: gaugeRadius,
-        tandem: tandem.createTandem( 'gaugeNode' ),
-        numberDisplayOptions: {
-          valuePattern: pattern0Name1ValueUnitsVelocityStringProperty,
-          decimalPlaces: 1,
-          textOptions: {
-            maxWidth: gaugeRadius * 1.3
-          }
+      radius: gaugeRadius,
+      tandem: tandem.createTandem( 'gaugeNode' ),
+      numberDisplayOptions: {
+        valuePattern: pattern0Name1ValueUnitsVelocityStringProperty,
+        decimalPlaces: 1,
+        textOptions: {
+          maxWidth: gaugeRadius * 1.3
         }
-      } );
+      }
+    } );
     this.addChild( gaugeNode );
 
     // dispose unnecessary for property links, SpeedometerNode exists for the lifetime of the sim
