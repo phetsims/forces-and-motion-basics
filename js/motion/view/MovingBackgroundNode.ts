@@ -49,8 +49,6 @@ export default class MovingBackgroundNode extends Node {
         y: y,
         tandem: tandem.createTandem( tandemName ) } );
 
-    const stageWidth = L * 2;
-
     const mountainY = 311;
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy https://github.com/phetsims/forces-and-motion-basics/issues/319
@@ -70,56 +68,13 @@ export default class MovingBackgroundNode extends Node {
 
     //Move the background objects
     //TODO: support background objects with scale !== 1 https://github.com/phetsims/forces-and-motion-basics/issues/319
-
     const getLayerUpdater = ( layer: Node, motionScale: number ) => {
-      let netDelta = 0;
-      const children = layer.children;
       return ( position: number, oldPosition: number ) => {
         const delta = -( position - oldPosition ) * MotionConstants.POSITION_SCALE / motionScale;
-        netDelta += delta;
         layer.translate( delta, 0 );
-
-        const sign = position > oldPosition ? 1 : -1;
-        for ( let i = 0; i < children.length; i++ ) {
-          const child = children[ i ];
-
-          //        console.log( child.offsetX + netDelta );
-          //model moving right
-          if ( sign === 1 ) {
-            //            console.log( child.offsetX + netDelta, -800 );
-
-            //TODO: use modulus instead of while loop https://github.com/phetsims/forces-and-motion-basics/issues/319
-            // The following code is currently not being used...
-            // @ts-expect-error
-            while ( child.offsetX + netDelta < -L ) {
-              //              console.log( 'jump 1' );
-              // @ts-expect-error
-              child.offsetX += stageWidth;
-              // @ts-expect-error
-              child.translate( stageWidth / child.scaleFactor, 0 );
-            }
-          }
-
-          //model moving left
-          else {
-            //          console.log( child.offsetX + netDelta, L );
-
-            //TODO: use modulus instead of while loop https://github.com/phetsims/forces-and-motion-basics/issues/319
-            // @ts-expect-error
-            while ( child.offsetX + netDelta > L ) {
-              //              console.log( 'jump 2' );
-              // @ts-expect-error
-              child.offsetX -= stageWidth;
-              // @ts-expect-error
-              child.translate( -stageWidth / child.scaleFactor, 0 );
-            }
-          }
-        }
       };
     };
-
-    // @ts-expect-error
-    model.positionProperty.link( getLayerUpdater( mountainAndCloudLayer, 10 ) );
+    model.positionProperty.link( () => getLayerUpdater( mountainAndCloudLayer, 10 ) );
 
     const tileWidth = brickTile_png.width;
 
