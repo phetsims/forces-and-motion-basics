@@ -221,47 +221,6 @@ export default class NetForceModel extends PhetioObject {
     puller.lastPlacementProperty.set( newPosition );
   }
 
-  /**
-   * Shift the puller to the left.
-   */
-  private shiftPullerLeft( puller: Puller ): void {
-    this.shiftPuller( puller, 0, 4, -1 );
-  }
-
-  /**
-   * Shift a puller to the right.
-   */
-  private shiftPullerRight( puller: Puller ): void {
-    this.shiftPuller( puller, 3, 7, 1 );
-  }
-
-  /**
-   * Shift a puller by some delta, restricted by the desired bounds
-   */
-  // TODO: This function is not used... https://github.com/phetsims/forces-and-motion-basics/issues/317
-  private shiftPuller( puller: Puller, leftBoundIndex: number, rightBoundIndex: number, delta: number ): void {
-    if ( puller.knotProperty.get() ) {
-      const currentIndex = this.knots.indexOf( puller.knotProperty.get()! );
-      if ( currentIndex !== leftBoundIndex && currentIndex !== rightBoundIndex ) {
-        const nextIndex = currentIndex + delta;
-
-        const currentKnot = this.knots[ currentIndex ];
-        const nextKnot = this.knots[ nextIndex ];
-
-        const otherPuller = this.getPuller( nextKnot );
-
-        // @ts-expect-error
-        puller.setValues( { position: new Vector2( nextKnot.xProperty.get(), nextKnot.y ), knot: nextKnot } );
-
-        // @ts-expect-error
-        otherPuller && otherPuller.setValues( {
-          position: new Vector2( currentKnot.xProperty.get(), currentKnot.y ),
-          knot: currentKnot
-        } );
-      }
-    }
-  }
-
   // Count the number of pullers attached to the rope
   private countAttachedPullers(): number {
     let count = 0;
