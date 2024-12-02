@@ -280,7 +280,8 @@ export default class PusherNode extends Node {
     } );
 
     const initializePusherNode = () => {
-      // makd sure that the standing node is visible, and place in initial position
+
+      // make sure that the standing node is visible, and place in initial position
       setVisibleNode( standingUpImageNode );
       visibleNode.centerX = layoutWidth / 2 + ( model.pusherPositionProperty.get() - model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
     };
@@ -294,7 +295,7 @@ export default class PusherNode extends Node {
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
     model.stackSizeProperty.link( stackSize => {
       if ( stackSize > 0 ) {
-        // only do this if the pusher is standing and there is non zero applied force
+        // only do this if the pusher is standing and there is non-zero applied force
         if ( !model.fallenProperty.get() && model.appliedForceProperty.get() !== 0 ) {
           updateAppliedForcePosition();
         }
@@ -315,6 +316,7 @@ export default class PusherNode extends Node {
     const dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
+      enabledProperty: model.pusherInteractionsEnabledProperty,
       drag: ( event: SceneryEvent, listener: DragListener ) => {
         if ( this.interactive ) {
           const newAppliedForce = model.appliedForceProperty.get() + listener.modelDelta.x;
@@ -354,14 +356,14 @@ export default class PusherNode extends Node {
     this.addInputListener( dragListener );
 
     //Make it so you cannot drag the pusher until one ItemNode is in the play area
-    model.stackObservableArray.lengthProperty.link( length => {
-      if ( length === 0 ) {
-        this.cursor = 'default';
-        this.interactive = false;
-      }
-      else {
+    model.pusherInteractionsEnabledProperty.link( enabled => {
+      if ( enabled ) {
         this.cursor = 'pointer';
         this.interactive = true;
+      }
+      else {
+        this.cursor = 'default';
+        this.interactive = false;
       }
     } );
 

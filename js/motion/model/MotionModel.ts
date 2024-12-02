@@ -11,6 +11,7 @@ import createObservableArray, { ObservableArray } from '../../../../axon/js/crea
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -65,6 +66,9 @@ export default class MotionModel {
   // initially to the left of the box by this many meters
   public readonly pusherPositionProperty: NumberProperty;
 
+  // When there are zero items in the stack, the pusher should not be interactive.
+  public readonly pusherInteractionsEnabledProperty: Property<boolean>;
+
   public readonly stackObservableArray: ObservableArray<Item>;
 
   // whether forces are visible
@@ -113,7 +117,8 @@ export default class MotionModel {
   public readonly timeProperty: NumberProperty;
 
   //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value https://github.com/phetsims/forces-and-motion-basics/issues/319
+  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
+  // https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly stackSizeProperty: NumberProperty;
 
   // is the sim running or paused?
@@ -203,6 +208,10 @@ export default class MotionModel {
       units: 'm'
     } );
 
+    this.pusherInteractionsEnabledProperty = new BooleanProperty( this.stackObservableArray.length > 0, {
+      tandem: tandem.createTandem( 'pusherInteractionsEnabledProperty' )
+    } );
+
     this.showForceProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'showForceProperty' )
     } );
@@ -283,6 +292,10 @@ export default class MotionModel {
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stackObservableArray.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
+
+    this.stackObservableArray.lengthProperty.link( length => {
+      this.pusherInteractionsEnabledProperty.value = length > 0;
+    } );
 
     // TODO: Should stacksize Property be removed? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.stackObservableArray.lengthProperty.link( length => {
