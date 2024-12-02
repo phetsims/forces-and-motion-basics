@@ -373,7 +373,7 @@ export default class MotionModel {
 
     this.stopwatch = new Stopwatch( {
       timePropertyOptions: {
-        range: new Range( 0, 3600 )
+        range: new Range( 0, 3599.99 )
       }
     } );
     this.showStopwatchProperty.link( () => {
