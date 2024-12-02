@@ -359,6 +359,10 @@ export default class MotionModel {
     } );
 
     this.stopwatch = new Stopwatch();
+    this.showStopwatchProperty.link( () => {
+      this.stopwatch.timeProperty.set( 0 );
+      this.stopwatch.isRunningProperty.value = false;
+    } );
   }
 
   /**
@@ -640,6 +644,7 @@ export default class MotionModel {
     this.timeProperty.reset();
     this.stackSizeProperty.reset();
     this.playProperty.reset();
+    this.showStopwatchProperty.reset();
 
     for ( let i = 0; i < this.items.length; i++ ) {
       // if the item is being dragged we need to cancel the drag in ItemNode
