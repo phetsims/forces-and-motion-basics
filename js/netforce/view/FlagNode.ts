@@ -7,12 +7,10 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, Path, Text } from '../../../../scenery/js/imports.js';
+import { ManualConstraint, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
@@ -24,7 +22,7 @@ export default class FlagNode extends Node {
   private readonly path: Path;
   private readonly colorWinsStringProperty: TReadOnlyProperty<string>;
   private readonly disposeFlagNode: () => void;
-  private readonly centerTextNodeMultilink: IntentionalAny;
+  private readonly repositionNodesManualConstraint: ManualConstraint<Node[]>;
 
   /**
    * Constructor for FlagNode
@@ -80,7 +78,7 @@ export default class FlagNode extends Node {
       this.detach();
       model.timeProperty.unlink( update );
       textNode.dispose();
-      this.centerTextNodeMultilink.dispose();
+      this.repositionNodesManualConstraint.dispose();
       this.path.dispose();
       this.colorWinsStringProperty.dispose();
     };
@@ -90,12 +88,10 @@ export default class FlagNode extends Node {
     this.centerX = centerX;
     this.top = top;
 
-    // Ensure the text is centered on the flag.
-    this.centerTextNodeMultilink = Multilink.multilink( [ ForcesAndMotionBasicsStrings.blueWinsStringProperty,
-      ForcesAndMotionBasicsStrings.redWinsStringProperty, ForcesAndMotionBasicsStrings.purpleWinsStringProperty,
-      ForcesAndMotionBasicsStrings.orangeWinsStringProperty, ForcesAndMotionBasicsPreferences.pullerColorProperty ], () => {
-      textNode.centerX = this.path.centerX;
-      textNode.centerY = this.path.centerY;
+
+    this.repositionNodesManualConstraint = ManualConstraint.create( this, [ textNode, this.path ], ( textNodeProxy, pathProxy ) => {
+      textNodeProxy.center = pathProxy.center;
+      this.top = top;
     } );
   }
 
