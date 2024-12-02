@@ -24,7 +24,7 @@ export default class Knot extends PhetioObject {
   // the 1-D x position of the knot
   public readonly xProperty: NumberProperty;
 
-  // whether or not the know is visible
+  // whether the knot is visible
   public readonly visibleProperty: BooleanProperty;
 
   // Constant value for the y position (in screen coordinates)
