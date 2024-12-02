@@ -371,7 +371,11 @@ export default class MotionModel {
       this.previousModelPosition = oldPosition;
     } );
 
-    this.stopwatch = new Stopwatch();
+    this.stopwatch = new Stopwatch( {
+      timePropertyOptions: {
+        range: new Range( 0, 3600 )
+      }
+    } );
     this.showStopwatchProperty.link( () => {
       this.stopwatch.timeProperty.set( 0 );
       this.stopwatch.isRunningProperty.value = false;
