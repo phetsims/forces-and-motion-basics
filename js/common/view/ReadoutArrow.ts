@@ -34,6 +34,7 @@ export default class ReadoutArrow extends Node {
 
   public static readonly ARROW_HEAD_WIDTH = 50;
   private static readonly ARROW_HEAD_HEIGHT = 25;
+  private static readonly ARROW_LINE_WIDTH = 1;
 
   private readonly arrowNode: Path;
   private readonly valueBackgroundRectangle: Rectangle;
@@ -86,7 +87,7 @@ export default class ReadoutArrow extends Node {
     const arrowNodeOptions = combineOptions<PathOptions>( {
       fill: fill,
       stroke: '#000000',
-      lineWidth: 1,
+      lineWidth: ReadoutArrow.ARROW_LINE_WIDTH,
       tandem: tandem.createTandem( 'arrowNode' )
     }, options );
     this.arrowNode = new Path( null, arrowNodeOptions );
@@ -219,7 +220,7 @@ export default class ReadoutArrow extends Node {
         //Position the value and label if the label position is on the top
         else {
           this.labelNode.centerX = this.tailX;
-          this.labelNode.bottom = isFinite( this.arrowNode.top ) ? this.arrowNode.top : 0;
+          this.labelNode.bottom = tailY - ReadoutArrow.ARROW_HEAD_WIDTH / 2 - ReadoutArrow.ARROW_LINE_WIDTH * 2;
 
           if ( this.valueNode.width + 5 > this.arrowNode.width ) {
             this.valueBackgroundRectangle.visible = true;
