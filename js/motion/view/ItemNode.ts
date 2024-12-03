@@ -20,6 +20,7 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionScreenView from './MotionScreenView.js';
+import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -204,34 +205,43 @@ export default class ItemNode extends Node {
     const unknownValueIndicatorStringProperty = ForcesAndMotionBasicsStrings.unknownValueIndicatorStringProperty;
     const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
       ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.mass }, { formatNames: [ 'mass' ] } );
+
+    // Denominator empirically determined to prevent most labels from overlapping. The second value was empirically
+    // determined to prevent the label from overlapping on larger images.
+    const maxWidth = Math.min( normalImageNode.width / 1.6, 70 );
     const massLabelText = new Text( item.mystery ? unknownValueIndicatorStringProperty : pattern0MassUnitsKilogramsStringProperty, {
       font: new PhetFont( {
         size: 15,
         weight: 'bold'
       } ),
-      maxWidth: normalImageNode.width / 1.5,
+      maxWidth: maxWidth, // Denominator empirically determined to prevent labels from overlapping.
       tandem: tandem.createTandem( 'massLabelText' )
     } );
     const roundedRadius = 10;
-    const roundRect = new Rectangle( 0, 0, massLabelText.width + roundedRadius, massLabelText.height + roundedRadius, roundedRadius, roundedRadius, {
-      fill: 'white',
-      stroke: 'gray'
-    } ).mutate( { centerX: massLabelText.centerX, centerY: massLabelText.centerY } );
 
-    // Ensure the massLabelText is centered in the roundRect and fits within the roundRect with dynamic locale
-    Multilink.multilink( [ unknownValueIndicatorStringProperty, pattern0MassUnitsKilogramsStringProperty ], () => {
-      massLabelText.center = roundRect.center;
-      massLabelText.maxWidth = roundRect.width;
+    const massLabelBackground = new BackgroundNode( massLabelText, {
+      rectangleOptions: {
+        cornerRadius: roundedRadius,
+        opacity: 1,
+        fill: 'white',
+        stroke: 'gray'
+      },
+      xMargin: roundedRadius / 2
     } );
 
     // the label needs to be scaled back up after the image was scaled down
     // normalize the maximum width to then restrict the labels for i18n
     const labelText = new Node( {
-      children: [ roundRect, massLabelText ],
+      children: [ massLabelBackground ],
       scale: 1.0 / item.imageScaleProperty.get(),
       tandem: tandem.createTandem( 'labelText' )
     } );
     this.labelNode = labelText;
+
+    // Ensure the massLabelText is centered in the roundRect and fits within the roundRect with dynamic locale
+    Multilink.multilink( [ unknownValueIndicatorStringProperty, pattern0MassUnitsKilogramsStringProperty ], () => {
+      this.updateLabelPosition();
+    } );
 
     //Update the position of the item
     item.positionProperty.link( position => { this.setTranslation( position ); } );
