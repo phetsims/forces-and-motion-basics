@@ -16,7 +16,7 @@ import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { Node, NodeOptions, Path, PathOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { ManualConstraint, Node, NodeOptions, Path, PathOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
@@ -132,6 +132,10 @@ export default class ReadoutArrow extends Node {
     valueProperty.link( value => {
       this.value = value;
       updateValueBackgroundRectangleWidth();
+      this.update();
+    } );
+
+    ManualConstraint.create( this, [ this.labelNode ], () => {
       this.update();
     } );
 
