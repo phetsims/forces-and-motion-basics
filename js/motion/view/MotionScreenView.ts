@@ -233,6 +233,7 @@ export default class MotionScreenView extends ScreenView {
     //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
+        this.interruptSubtreeInput();
         model.reset();
       },
       radius: 23,
