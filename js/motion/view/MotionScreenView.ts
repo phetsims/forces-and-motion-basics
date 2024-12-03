@@ -20,7 +20,7 @@ import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js'
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
-import { Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
+import { AlignBox, Image, LinearGradient, Node, Rectangle, RichText, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import skateboard_svg from '../../../images/skateboard_svg.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
@@ -382,10 +382,14 @@ export default class MotionScreenView extends ScreenView {
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroStringProperty, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
-      centerX: width / 2,
-      y: 195,
       maxWidth: 125,
       tandem: tandem.createTandem( 'sumOfForcesText' )
+    } );
+    const sumOfForcesAlignBox = new AlignBox( this.sumOfForcesText, {
+      alignBounds: this.layoutBounds,
+      xAlign: 'center',
+      y: 195,
+      yAlign: 'top'
     } );
 
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
@@ -414,7 +418,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
-    this.addChild( this.sumOfForcesText );
+    this.addChild( sumOfForcesAlignBox );
 
     //Whichever arrow is smaller should be in front (in z-ordering)
     const frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
