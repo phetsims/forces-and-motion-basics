@@ -10,7 +10,7 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import { ManualConstraint, Node, Path, Text } from '../../../../scenery/js/imports.js';
+import { AlignBox, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
@@ -22,20 +22,15 @@ export default class FlagNode extends Node {
   private readonly path: Path;
   private readonly colorWinsStringProperty: TReadOnlyProperty<string>;
   private readonly disposeFlagNode: () => void;
-  private readonly repositionNodesManualConstraint: ManualConstraint<Node[]>;
 
   /**
    * Constructor for FlagNode
    *
    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param centerX center for layout
-   * @param top top for layout
    * @param tandem
    */
   public constructor(
     private readonly model: NetForceModel,
-    centerX: number,
-    top: number,
     tandem: Tandem
   ) {
     super();
@@ -68,7 +63,6 @@ export default class FlagNode extends Node {
       font: new PhetFont( 24 ),
       fill: 'white'
     } );
-    this.addChild( textNode );
 
     const update = this.updateFlagShape.bind( this );
 
@@ -78,21 +72,17 @@ export default class FlagNode extends Node {
       this.detach();
       model.timeProperty.unlink( update );
       textNode.dispose();
-      this.repositionNodesManualConstraint.dispose();
       this.path.dispose();
       this.colorWinsStringProperty.dispose();
     };
 
     //When the clock ticks, wave the flag
     model.timeProperty.link( update );
-    this.centerX = centerX;
-    this.top = top;
 
-
-    this.repositionNodesManualConstraint = ManualConstraint.create( this, [ textNode, this.path ], ( textNodeProxy, pathProxy ) => {
-      textNodeProxy.center = pathProxy.center;
-      this.top = top;
+    const textNodeAlignBox = new AlignBox( textNode, {
+      alignBounds: this.path.bounds
     } );
+    this.addChild( textNodeAlignBox );
   }
 
   public override dispose(): void {
