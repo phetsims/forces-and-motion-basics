@@ -57,6 +57,7 @@ import NetForceControlPanel from './NetForceControlPanel.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
+import KnotHighlightNode from './KnotHighlightNode.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsStrings.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringProperty;
@@ -245,6 +246,19 @@ export default class NetForceScreenView extends ScreenView {
       y: 273
     } );
     this.addChild( this.ropeImageNode );
+
+    model.knots.forEach( ( knot, i ) => {
+      if ( knot.type === 'blue' ) {
+        this.addChild( new KnotHighlightNode( knot, tandem.createTandem( 'blueHighlightNode' + i ) ) );
+      }
+      else if ( knot.type === 'red' ) {
+        this.addChild( new KnotHighlightNode( knot, tandem.createTandem( 'redHighlightNode' + i ) ) );
+      }
+      else {
+        assert && assert( false, 'Knots can only be of type "red" or "blue" in this sim.' );
+      }
+    } );
+
 
     // create the toolboxes that hold the puller children
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );

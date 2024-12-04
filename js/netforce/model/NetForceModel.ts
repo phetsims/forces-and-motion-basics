@@ -20,7 +20,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import VoidIO from '../../../../tandem/js/types/VoidIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
-import Knot from './Knot.js';
+import Knot, { KnotType } from './Knot.js';
 import Puller from './Puller.js';
 
 // spacing for the knots
@@ -49,7 +49,7 @@ export default class NetForceModel extends PhetioObject {
   private readonly cartReturnedEmitter: Emitter;
   public readonly resetAllEmitter: Emitter;
   public readonly cart: Cart;
-  private readonly knots: Knot[];
+  public readonly knots: Knot[];
   public readonly pullers: Puller[];
 
   public constructor( tandem: Tandem ) {
@@ -132,7 +132,7 @@ export default class NetForceModel extends PhetioObject {
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
     //Create a knot given a color and index (0-3)
-    const createKnot = ( color: string, index: number, tandem: Tandem ) => {
+    const createKnot = ( color: KnotType, index: number, tandem: Tandem ) => {
       const xPosition = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
       return new Knot( xPosition, color, { tandem: tandem } );
     };
