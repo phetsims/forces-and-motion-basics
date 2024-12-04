@@ -453,14 +453,11 @@ export default class NetForceModel extends PhetioObject {
     const filter = this.knots.filter( knot => knot.type === puller.type &&
                                               this.getPuller( knot ) === null &&
                                               isInRightDirection( puller.knotProperty.get()!, knot, delta ) );
-    let result = _.minBy( filter, this.getKnotPullerDistance( puller ) );
-    // @ts-expect-error
-    if ( result === Infinity || result === -Infinity ) {
-
-      // @ts-expect-error
+    let result: Knot | null = _.minBy( filter, this.getKnotPullerDistance( puller ) ) || null;
+    if ( result && ( this.getKnotPullerDistance( puller )( result ) === Infinity || this.getKnotPullerDistance( puller )( result ) === -Infinity ) ) {
       result = null;
     }
-    return result || null;
+    return result;
   }
 
   /**
