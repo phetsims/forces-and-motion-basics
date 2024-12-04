@@ -158,7 +158,13 @@ export default class MotionScreenView extends ScreenView {
 
         const rangeMax = enableRightButtons ? 500 : 0;
         const rangeMin = enableLeftButtons ? -500 : 0;
-        model.appliedForceProperty.range = new Range( rangeMin, rangeMax );
+        const range = new Range( rangeMin, rangeMax );
+
+        // The applied force Property has a dynamic range that changes depending on whether the max speed has been
+        // reached or not. Therefore, we need to ensure that the applied force value is clamped within range
+        // when the range changes.
+        model.appliedForceProperty.value = Utils.clamp( model.appliedForceProperty.value, range.min, range.max );
+        model.appliedForceProperty.range = range;
       } );
 
     const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
