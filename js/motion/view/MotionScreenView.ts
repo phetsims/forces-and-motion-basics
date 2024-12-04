@@ -153,13 +153,13 @@ export default class MotionScreenView extends ScreenView {
     // do not want to allow additional applied force at that time
     Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ],
       ( appliedForce, speedClassification, stackSize ) => {
+        const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
+        const enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
 
-      const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
-      model.appliedForceProperty.range.max = enableRightButtons ? 500 : 0;
-
-      const enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
-      model.appliedForceProperty.range.min = enableLeftButtons ? -500 : 0;
-    } );
+        const rangeMax = enableRightButtons ? 500 : 0;
+        const rangeMin = enableLeftButtons ? -500 : 0;
+        model.appliedForceProperty.range = new Range( rangeMin, rangeMax );
+      } );
 
     const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
       numberDisplayOptions: {
@@ -174,13 +174,15 @@ export default class MotionScreenView extends ScreenView {
       },
       deltaFine: 1,
       deltaCoarse: 50,
-
       spacing: 6,
       bottom: appliedForceSlider.top - 12,
 
       tandem: tandem.createTandem( 'appliedForceSpinner' )
     } );
     pattern0ValueUnitsNewtonsStringProperty.link( () => { appliedForceSpinner.centerX = width / 2; } );
+    model.fallenProperty.link( fallen => {
+      fallen && appliedForceSpinner.interruptSubtreeInput();
+    } );
     this.addChild( appliedForceSpinner );
 
     // force cannot be applied when there is nothing on the stack
@@ -356,7 +358,8 @@ export default class MotionScreenView extends ScreenView {
     //Add the force arrows & associated readouts in front of the items
     const arrowScale = 0.3;
 
-    //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and  https://github.com/phetsims/forces-and-motion-basics/issues/74
+    //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and
+    // https://github.com/phetsims/forces-and-motion-basics/issues/74
     const roundedAppliedForceProperty = new DerivedProperty(
       [ model.appliedForceProperty ],
       appliedForce => Utils.roundSymmetric( appliedForce ) );
@@ -364,7 +367,8 @@ export default class MotionScreenView extends ScreenView {
       [ model.frictionForceProperty ],
       frictionForce => Utils.roundSymmetric( frictionForce ) );
 
-    //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see https://github.com/phetsims/forces-and-motion-basics/issues/83
+    //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see
+    // https://github.com/phetsims/forces-and-motion-basics/issues/83
     const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
       units: 'N'
