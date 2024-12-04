@@ -1,18 +1,18 @@
 // Copyright 2013-2024, University of Colorado Boulder
 
 /**
- * This phet.scenery.Node shows the interactive water bucket.  The user can drag it from the toolbox to the play area, and the water sloshes based on the acceleration.
+ * This phet.scenery.Node shows the interactive water bucket.  The user can drag it from the toolbox to the play area, and the water sloshes based on the
+ * acceleration.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { ImageableImage, Path, Rectangle } from '../../../../scenery/js/imports.js';
+import { Image, ImageableImage, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Item from '../model/Item.js';
@@ -40,7 +40,10 @@ export default class WaterBucketNode extends ItemNode {
    */
   public constructor( model: MotionModel, motionView: MotionScreenView,
                       item: Item,
-                      imageProperty: Property<ImageableImage>, imageSittingProperty: Property<ImageableImage>, imageHoldingProperty: Property<ImageableImage>, showMassesProperty: TReadOnlyProperty<boolean>,
+                      imageProperty: TReadOnlyProperty<ImageableImage>,
+                      imageSittingProperty: TReadOnlyProperty<ImageableImage>,
+                      imageHoldingProperty: TReadOnlyProperty<ImageableImage>,
+                      showMassesProperty: TReadOnlyProperty<boolean>,
                       toolboxNode: Rectangle, tandem: Tandem ) {
     super( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem );
     const waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
@@ -59,8 +62,8 @@ export default class WaterBucketNode extends ItemNode {
     const padX = 4.5;
     const padY = 9;
 
-    // @ts-expect-error
-    const s = imageProperty.value.width / 98.0;
+    const imageWidth = new Image( imageProperty.value ).width;
+    const s = imageWidth / 98.0;
 
     const leftLineX = ( x: number ) => linear( 0, 1, ( 1 + padX ) * s, ( 10 + padX ) * s, x );
     const leftLineY = ( x: number ) => linear( 0, 1, ( 9 - padY ) * s, ( 102 - padY ) * s, x );

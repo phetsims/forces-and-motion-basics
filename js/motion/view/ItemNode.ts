@@ -44,8 +44,11 @@ export default class ItemNode extends Node {
    * @param tandem
    */
   public constructor( model: MotionModel, motionView: MotionScreenView,
-                      private readonly item: Item, normalImageProperty: TReadOnlyProperty<ImageableImage>, sittingImageProperty: TReadOnlyProperty<ImageableImage>,
-                      holdingImageProperty: TReadOnlyProperty<ImageableImage>, showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Rectangle, tandem: Tandem ) {
+                      private readonly item: Item,
+                      normalImageProperty: TReadOnlyProperty<ImageableImage>,
+                      sittingImageProperty: TReadOnlyProperty<ImageableImage>,
+                      holdingImageProperty: TReadOnlyProperty<ImageableImage>,
+                      showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Rectangle, tandem: Tandem ) {
 
     super( {
       cursor: 'pointer',

@@ -24,6 +24,7 @@ import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import MotionModel from './MotionModel.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type AnimationState = {
   enabled: boolean;
@@ -38,7 +39,7 @@ export default class Item extends PhetioObject {
   private readonly initialX: number;
   private readonly initialY: number;
   private readonly homeScale: number;
-  public readonly imageProperty: Property<ImageableImage> | LocalizedImageProperty;
+  public readonly imageProperty: TReadOnlyProperty<ImageableImage> | LocalizedImageProperty;
   public readonly sittingImageProperty: LocalizedImageProperty | Property<ImageableImage>;
   public readonly holdingImageProperty: LocalizedImageProperty | Property<ImageableImage>;
 

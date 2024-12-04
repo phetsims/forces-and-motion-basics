@@ -337,8 +337,6 @@ export default class MotionScreenView extends ScreenView {
       const sittingImageProperty = item.sittingImageProperty.value ? item.sittingImageProperty : item.imageProperty;
       const holdingImageProperty = item.holdingImageProperty.value ? item.holdingImageProperty : item.imageProperty;
       const itemNode = new Constructor( model, this, item,
-
-        // @ts-expect-error
         item.imageProperty,
         sittingImageProperty,
         holdingImageProperty,
