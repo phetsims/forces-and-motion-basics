@@ -5,21 +5,20 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Screen from '../../../joist/js/Screen.js';
-import IntentionalAny from '../../../phet-core/js/types/IntentionalAny.js';
-import Tandem from '../../../tandem/js/Tandem.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import MotionModel from './model/MotionModel.js';
 import MotionScreenView from './view/MotionScreenView.js';
+import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 
+type SelfOptions = EmptySelfOptions;
+type MotionScreenOptions = ScreenOptions;
 export default class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 
-  public constructor( style: string, tandem: Tandem, options?: IntentionalAny ) {
+  public constructor( style: string, providedOptions?: MotionScreenOptions ) {
 
-    options = options || {};
-
-    assert && assert( !options.tandem, 'tandem is a constructor param, not an option' );
-    options.tandem = tandem;
+    const options = optionize<MotionScreenOptions, SelfOptions, ScreenOptions>()( {}, providedOptions );
+    const tandem = options.tandem;
 
     super(
       () => new MotionModel( style, tandem.createTandem( 'model' ) ),

@@ -7,15 +7,17 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import { Image, ImageableImage } from '../../../../scenery/js/imports.js';
+import { Image, ImageableImage, ImageOptions } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
+type SelfOptions = EmptySelfOptions;
+type PullerNodeOptions = ImageOptions & SelfOptions;
 export default class PullerNode extends Image {
   public standImage: ImageableImage;
 
@@ -26,20 +28,20 @@ export default class PullerNode extends Image {
    * @param model
    * @param image image of the puller standing upright
    * @param pullImage image of the puller exerting a force
-   * @param pullerToolboxNode
    * @param tandem
-   * @param [options]
+   * @param [providedOptions]
    */
   public constructor(
     public readonly puller: Puller,
     model: NetForceModel,
     image: ImageableImage,
     public pullImage: ImageableImage,
-    tandem: Tandem, options?: IntentionalAny ) {
+    tandem: Tandem, providedOptions?: PullerNodeOptions ) {
 
     const x = puller.positionProperty.get().x;
     const y = puller.positionProperty.get().y;
 
+    const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {}, providedOptions );
     super( image, {
       tandem: tandem,
       x: x,

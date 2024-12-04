@@ -51,19 +51,22 @@ simLauncher.launch( () => {
     }
   );
 
-  const motionScreen = new MotionScreen( 'motion', motionScreenTandem, {
+  const motionScreen = new MotionScreen( 'motion', {
     name: ForcesAndMotionBasicsStrings.motionStringProperty,
-    homeScreenIcon: new ScreenIcon( new Image( ForcesAndMotionBasicsImages.motionIconImageProperty ), screenIconOptions )
+    homeScreenIcon: new ScreenIcon( new Image( ForcesAndMotionBasicsImages.motionIconImageProperty ), screenIconOptions ),
+    tandem: motionScreenTandem
   } );
 
-  const frictionScreen = new MotionScreen( 'friction', frictionScreenTandem, {
+  const frictionScreen = new MotionScreen( 'friction', {
     name: ForcesAndMotionBasicsStrings.frictionStringProperty,
-    homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png ), screenIconOptions )
+    homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png ), screenIconOptions ),
+    tandem: frictionScreenTandem
   } );
 
-  const accelerationScreen = new MotionScreen( 'acceleration', accelerationScreenTandem, {
+  const accelerationScreen = new MotionScreen( 'acceleration', {
     name: ForcesAndMotionBasicsStrings.accelerationStringProperty,
-    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png ), screenIconOptions )
+    homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png ), screenIconOptions ),
+    tandem: accelerationScreenTandem
   } );
 
   // Create and start the sim
