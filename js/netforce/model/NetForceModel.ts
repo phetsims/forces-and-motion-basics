@@ -418,9 +418,7 @@ export default class NetForceModel extends PhetioObject {
    * Get an array of pullers of the specified type (color string)
    */
   private getPullers( type: 'red' | 'blue' ): Puller[] {
-
-    // @ts-expect-error
-    return _.filter( this.pullers, p => p.type === type && p.knotProperty.get() );
+    return _.filter( this.pullers, ( puller: Puller ) => puller.type === type && puller.knotProperty.value !== null );
   }
 
   /**
@@ -458,32 +456,6 @@ export default class NetForceModel extends PhetioObject {
       result = null;
     }
     return result;
-  }
-
-  /**
-   * Get the next open knot in a given direction.  Very similar to the function above, but with a resultant knot
-   * is a function of the distance to the next knot, not of the distance to the puller.  This is necessary because
-   * when dragging, the puller does not yet have an associated knot.
-   */
-  private getNextOpenKnotInDirection( sourceKnot: Knot, puller: Puller, delta: number ): Knot | null {
-    const isInRightDirection = ( destinationKnot: Knot, delta: number ) => {
-      assert && assert( delta < 0 || delta > 0 );
-      return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
-             delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
-             'error';
-    };
-    const filter = this.knots.filter( knot => knot.type === puller.type &&
-                                              this.getPuller( knot ) === null &&
-                                              isInRightDirection( knot, delta ) );
-    let result = _.minBy( filter, knot => Math.abs( sourceKnot.xProperty.get() - knot.xProperty.get() ) );
-
-    // we have reached the end of the knots.  Return either the first or last knot to loop the choice.
-    // @ts-expect-error
-    if ( result === Infinity || result === -Infinity ) {
-      // @ts-expect-error
-      result = null;
-    }
-    return result || null;
   }
 
   /**
