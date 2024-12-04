@@ -13,7 +13,6 @@ import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -28,6 +27,10 @@ const KNOT_SPACING = 80;
 const BLUE_KNOT_OFFSET = 62;
 const RED_KNOT_OFFSET = 680;
 
+type KnotDescription = {
+  id: string;
+  knot: string | null;
+};
 export default class NetForceModel extends PhetioObject {
 
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
@@ -461,7 +464,7 @@ export default class NetForceModel extends PhetioObject {
   /**
    * For phet-io, describe what pullers are on what knots
    */
-  public getKnotDescription(): IntentionalAny {
+  public getKnotDescription(): KnotDescription[] {
     return this.pullers.map( puller => ( {
       id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/forces-and-motion-basics/issues/319
       knot: puller.knotProperty.get() && puller.knotProperty.get()!.phetioID
