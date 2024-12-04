@@ -133,9 +133,6 @@ export default class MotionControlPanel extends Node {
         valueChangeSoundGeneratorOptions: {
           numberOfMiddleThresholds: numberOfMinorTicks
         },
-
-        // TODO: We should be able to set sizable in Slider... https://github.com/phetsims/forces-and-motion-basics/issues/317
-        // @ts-expect-error
         sizable: false,
         tandem: frictionSliderTandem
       } );
