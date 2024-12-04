@@ -15,13 +15,17 @@ import { Image } from '../../scenery/js/imports.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
-import tugIcon_png from '../images/tugIcon_png.js';
 import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
+import ToggleNode from '../../sun/js/ToggleNode.js';
+import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
+import PullerColors from './netforce/model/PullerColors.js';
+import tugIconBlueRed_png from '../images/tugIconBlueRed_png.js';
+import tugIconPurpleOrange_png from '../images/tugIconPurpleOrange_png.js';
 
 const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
 
@@ -42,11 +46,22 @@ simLauncher.launch( () => {
 
   // Provide the screen names as named fields, so they can be easily accessed dynamically, for API features
   // and lookups will still work properly even if the screens are reduced with ?screens=...
+
+  const netForceScreenIconNode = new ToggleNode( ForcesAndMotionBasicsPreferences.pullerColorProperty, [
+    {
+      value: PullerColors.BLUE_AND_RED,
+      createNode: () => new Image( tugIconBlueRed_png )
+    },
+    {
+      value: PullerColors.PURPLE_AND_ORANGE,
+      createNode: () => new Image( tugIconPurpleOrange_png )
+    }
+  ] );
   const netForceScreen = new Screen(
     () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
       name: ForcesAndMotionBasicsStrings.netForceStringProperty,
-      homeScreenIcon: new ScreenIcon( new Image( tugIcon_png ), screenIconOptions ),
+      homeScreenIcon: new ScreenIcon( netForceScreenIconNode, screenIconOptions ),
       tandem: netForceScreenTandem
     }
   );
