@@ -8,9 +8,6 @@
   ],
   "references": [
     {
-      "path": "../vibe/tsconfig.json"
-    },
-    {
       "path": "../perennial-alias/tsconfig/buildjson/tsconfig.json"
     }
   ]
