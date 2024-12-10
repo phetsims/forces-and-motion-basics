@@ -87,9 +87,8 @@ export default class ReadoutArrow extends Node {
     const arrowNodeOptions = combineOptions<PathOptions>( {
       fill: fill,
       stroke: '#000000',
-      lineWidth: ReadoutArrow.ARROW_LINE_WIDTH,
-      tandem: tandem.createTandem( 'arrowNode' )
-    }, options );
+      lineWidth: ReadoutArrow.ARROW_LINE_WIDTH
+    }, options, { tandem: tandem.createTandem( 'arrowNode' ) } );
     this.arrowNode = new Path( null, arrowNodeOptions );
 
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
