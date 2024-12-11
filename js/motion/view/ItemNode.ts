@@ -12,7 +12,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import { Image, ImageableImage, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Image, ImageableImage, ManualConstraint, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -211,7 +211,7 @@ export default class ItemNode extends Node {
 
     // Denominator empirically determined to prevent most labels from overlapping. The second value was empirically
     // determined to prevent the label from overlapping on larger images.
-    const maxWidth = Math.min( normalImageNode.width / 1.6, 70 );
+    const maxWidth = Math.min( normalImageNode.width / 1.7, 70 );
     const massLabelText = new Text( item.mystery ? unknownValueIndicatorStringProperty : pattern0MassUnitsKilogramsStringProperty, {
       font: new PhetFont( {
         size: 15,
@@ -242,7 +242,7 @@ export default class ItemNode extends Node {
     this.labelNode = labelText;
 
     // Ensure the massLabelText is centered in the roundRect and fits within the roundRect with dynamic locale
-    Multilink.multilink( [ unknownValueIndicatorStringProperty, pattern0MassUnitsKilogramsStringProperty ], () => {
+    ManualConstraint.create( this, [ labelText, this.normalImageNode ], () => {
       this.updateLabelPosition();
     } );
 
