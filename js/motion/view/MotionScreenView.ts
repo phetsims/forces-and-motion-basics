@@ -11,6 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
@@ -38,11 +39,12 @@ import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
+import Property from '../../../../axon/js/Property.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
 // constants
-const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, usedful for i18n
+const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, useful for i18n
 
 // strings
 const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
@@ -53,8 +55,7 @@ const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pat
 const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
 
 export default class MotionScreenView extends ScreenView {
-  private readonly sky: Rectangle;
-  private readonly groundNode: Rectangle;
+
   private readonly resetAllButton: ResetAllButton;
   private readonly sumArrow: ReadoutArrow;
   private readonly sumOfForcesText: Text;
@@ -84,14 +85,14 @@ export default class MotionScreenView extends ScreenView {
 
     //Create the static background
     const skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, { fill: skyGradient, pickable: false } );
+    const sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, { fill: skyGradient, pickable: false } );
 
-    this.groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, {
+    const groundNode = new Rectangle( -width, skyHeight, width * 3, groundHeight * 3, {
       fill: '#c59a5b',
       pickable: false
     } );
-    this.addChild( this.sky );
-    this.addChild( this.groundNode );
+    this.addChild( sky );
+    this.addChild( groundNode );
 
     //Create the dynamic (moving) background
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2, tandem.createTandem( 'movingBackgroundNode' ) ).mutate( { layerSplit: true } ) );
@@ -212,16 +213,20 @@ export default class MotionScreenView extends ScreenView {
     const controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
-    model.stopwatch.positionProperty.value = controlPanel.leftTop.plusXY( -100, 10 );
-
+    const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );
     const stopwatchNode = new StopwatchNode( model.stopwatch, {
       visibleProperty: model.showStopwatchProperty,
+      dragBoundsProperty: new Property( stopwatchDragBounds ),
+      dragListenerOptions: {
+        positionProperty: model.stopwatch.positionProperty
+      },
       numberDisplayOptions: {
         textOptions: {
           maxWidth: 80
         }
       }
     } );
+    model.stopwatch.positionProperty.value = controlPanel.leftTop.plusXY( -stopwatchNode.width, 10 );
 
     this.addChild( stopwatchNode );
 
@@ -243,6 +248,9 @@ export default class MotionScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput();
         model.reset();
+
+        // We want to reset the position to what was explicitly set after the stopwatchNode was created.
+        this.model.stopwatch.positionProperty.value = controlPanel.leftTop.plusXY( -stopwatchNode.width, 10 );
       },
       radius: 23,
       rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
