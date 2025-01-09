@@ -100,7 +100,11 @@ export default class NetForceControlPanel extends Node {
     // Update the layout to support dynamic locale
     Multilink.multilink( [ sumOfForcesStringProperty, valuesStringProperty, speedStringProperty ], () => {
       verticalCheckboxGroupPanel.right = ForcesAndMotionBasicsLayoutBounds.width - 5;
-      this.resetAllButton.rightCenter = verticalCheckboxGroupPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 );
+
+      // TODO: How should layout occur here when checkbox is hidden? https://github.com/phetsims/forces-and-motion-basics/issues/342
+      if ( verticalCheckboxGroupPanel.bounds.isFinite() ) {
+        this.resetAllButton.rightCenter = verticalCheckboxGroupPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 );
+      }
     } );
   }
 }
