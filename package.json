@@ -22,6 +22,7 @@
       "FORCES_AND_MOTION_BASICS/motion",
       "FORCES_AND_MOTION_BASICS/friction",
       "FORCES_AND_MOTION_BASICS/acceleration"
-    ]
+    ],
+    "published": true
   }
 }
