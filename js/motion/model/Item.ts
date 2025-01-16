@@ -20,6 +20,7 @@ import { ImageableImage } from '../../../../scenery/js/imports.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
+import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
@@ -146,6 +147,11 @@ export default class Item extends PhetioObject {
       y: 0,
       end: null,
       destination: 'home'
+    }, {
+
+      // Instrumentation needed to get the object size correct in phet-io state
+      tandem: tandem.createTandem( 'animationStateProperty' ),
+      phetioValueType: ObjectLiteralIO
     } );
 
     this.onBoardProperty = new BooleanProperty( false, {
@@ -159,7 +165,10 @@ export default class Item extends PhetioObject {
     // How much the object grows or shrinks when interacting with it
     const minValue = homeScale || 1.0;
     this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
-      range: new Range( minValue, 1.3 )
+      range: new Range( minValue, 1.3 ),
+
+      // Instrumentation needed to get the object size correct in phet-io state
+      tandem: tandem.createTandem( 'interactionScaleProperty' )
     } );
 
     this.context.directionProperty.link( direction => {
