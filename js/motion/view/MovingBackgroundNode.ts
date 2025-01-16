@@ -11,7 +11,6 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 // modules
 import Utils from '../../../../dot/js/Utils.js';
 import { Image, ImageableImage, Node, Path, Pattern, Rectangle } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import brickTile_png from '../../../images/brickTile_png.js';
 import cloud1_svg from '../../../images/cloud1_svg.js';
 import icicle_png from '../../../images/icicle_png.js';
@@ -33,27 +32,26 @@ export default class MovingBackgroundNode extends Node {
    * @param layoutCenterX the position where the node should be centered horizontally
    * @param tandem
    */
-  public constructor( private readonly model: MotionModel, layoutCenterX: number, tandem: Tandem ) {
+  public constructor( private readonly model: MotionModel, layoutCenterX: number ) {
 
     super( {
       pickable: false,
-      preventFit: true,
-      tandem: tandem
+      preventFit: true
     } );
 
     const L = 900;
 
     //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => new Image( image, { scale: scale,
-        x: offset,
-        y: y,
-        tandem: tandem.createTandem( tandemName ) } );
+    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => new Image( image, {
+      scale: scale,
+      x: offset,
+      y: y
+    } );
 
     const mountainY = 311;
 
     //TODO: It would be good to use cssTransforms here but they are a bit buggy https://github.com/phetsims/forces-and-motion-basics/issues/319
     const mountainAndCloudLayer = new Node( {
-      tandem: tandem.createTandem( 'mountainAndCloudLayer' ),
       x: layoutCenterX,
       children: [
         toBackgroundImage( L / 2, mountains_svg, mountainY, 0.84, 'mountainImage1' ),
@@ -90,8 +88,7 @@ export default class MovingBackgroundNode extends Node {
       ground.toImage( image => {
         const groundY = mountainY + 50;
         const groundImageNode = new Image( image, {
-          y: groundY,
-          tandem: tandem.createTandem( 'groundImageNode' )
+          y: groundY
         } );
         this.addChild( groundImageNode );
         model.positionProperty.link( position => {
@@ -116,7 +113,6 @@ export default class MovingBackgroundNode extends Node {
           model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
           const iceLayer = new Node( {
-            tandem: tandem.createTandem( 'iceLayer' ),
             children: [
               toBackgroundImage( 0, icicle_png, 0, 0.8, 'iceImageNode1' ),
               toBackgroundImage( 300, icicle_png, 0, 0.8, 'iceImageNode2' )
@@ -128,9 +124,7 @@ export default class MovingBackgroundNode extends Node {
           //TODO: could prevent updater from firing if ice is not visible https://github.com/phetsims/forces-and-motion-basics/issues/319
           model.positionProperty.link( () => getLayerUpdater( iceLayer, 1 ) );
 
-          const gravelSource = new Node( {
-            tandem: tandem.createTandem( 'gravelSource' )
-          } );
+          const gravelSource = new Node();
 
           let numBlack = 0;
           let numGray = 0;

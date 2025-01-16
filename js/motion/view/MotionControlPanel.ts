@@ -78,10 +78,7 @@ export default class MotionControlPanel extends Node {
       // create the label for the checkbox
       const labelText = new Text( text, {
         font: new PhetFont( fontSize ),
-        maxWidth: maxTextWidth,
-
-        // this is a bit of a hack to support backwards tandem API
-        tandem: tandem.createTandem( tandemName ).createTandem( 'labelText' )
+        maxWidth: maxTextWidth
       } );
 
       // optional icon needs spacing next to text
@@ -103,18 +100,16 @@ export default class MotionControlPanel extends Node {
       headWidth: 20,
       tailWidth: 10,
       fill: '#e66e23',
-      stroke: 'black',
-      tandem: tandem.createTandem( tandemName )
+      stroke: 'black'
     } );
     const speedometerIcon = () => {
       const speedometerIconValueProperty = new Property( 0 );
       return new GaugeNode( speedometerIconValueProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ),
-        { radius: 67, scale: 0.2, tandem: tandem.createTandem( 'speedometerIconNode' ) } );
+        { radius: 67, scale: 0.2 } );
     };
     const accelerometerIcon = () => {
       const accelerometerIconValueProperty = new Property( 5 ); // the acclerometer icon looks best with ~5 m/s^2 filled in
-      return new AccelerometerNode( accelerometerIconValueProperty,
-        tandem.createTandem( 'accelerometerIcon' ) ).mutate( { scale: 0.3 } );
+      return new AccelerometerNode( accelerometerIconValueProperty ).mutate( { scale: 0.3 } );
     };
 
     const createFrictionSlider = () => {
@@ -143,16 +138,15 @@ export default class MotionControlPanel extends Node {
         frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * ( i + 1 ) );
       } );
 
-      frictionSlider.addMajorTick( 0, new Text( noneStringProperty, merge( { tandem: tandem.createTandem( 'zeroTickText' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( 0, new Text( lotsStringProperty, merge( { tandem: tandem.createTandem( 'invisibleZeroTickText' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( 0, new Text( noneStringProperty, sliderTickOptions ) );
+      frictionSlider.addMajorTick( 0, new Text( lotsStringProperty, invisibleSliderTickOptions ) );
 
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsStringProperty, merge( { tandem: tandem.createTandem( 'maxTickText' ) }, sliderTickOptions ) ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneStringProperty, merge( { tandem: tandem.createTandem( 'invisibleMaxTickText' ) }, invisibleSliderTickOptions ) ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsStringProperty, sliderTickOptions ) );
+      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneStringProperty, invisibleSliderTickOptions ) );
 
       const frictionText = new Text( frictionStringProperty, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),
-        maxWidth: maxTextWidth,
-        tandem: tandem.createTandem( 'frictionText' )
+        maxWidth: maxTextWidth
       } );
 
       // Keep frictionText always centered on the frictionSlider

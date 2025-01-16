@@ -73,20 +73,17 @@ export default class PusherNode extends Node {
     const standingUpImageNode = new Image( pusher_straight_on_png, {
       visible: true,
       pickable: true,
-      scale: scale,
-      tandem: tandem.createTandem( 'standingUpImageNode' )
+      scale: scale
     } );
     const fallLeftImage = new Image( pusher_fall_down_png, {
       visible: false,
       pickable: false,
-      scale: scale,
-      tandem: tandem.createTandem( 'fallLeftImage' )
+      scale: scale
     } );
     const fallRightImage = new Image( pusher_fall_down_png, {
       visible: false,
       pickable: false,
-      scale: new Vector2( -scale, scale ),
-      tandem: tandem.createTandem( 'fallRightImage' )
+      scale: new Vector2( -scale, scale )
     } );
     let visibleNode: Node = standingUpImageNode;
 
@@ -129,14 +126,12 @@ export default class PusherNode extends Node {
       const rightImageNode = new Image( image!, {
         visible: false,
         pickable: false,
-        scale: scale,
-        tandem: tandem.createTandem( `rightImageNode${i}` )
+        scale: scale
       } );
       const leftImageNode = new Image( image!, {
         visible: false,
         pickable: false,
-        scale: new Vector2( -scale, scale ),
-        tandem: tandem.createTandem( `leftImageNode${i}` )
+        scale: new Vector2( -scale, scale )
       } );
       pushingRightNodes.push( rightImageNode );
       pushingLeftNodes.push( leftImageNode );
@@ -155,8 +150,7 @@ export default class PusherNode extends Node {
     };
 
     super( {
-      children: children,
-      tandem: tandem
+      children: children
     } );
 
     // Update the position when the pusher is not applying force (fallen or standing)

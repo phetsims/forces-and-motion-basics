@@ -274,22 +274,19 @@ export default class NetForceScreenView extends ScreenView {
 
     //Create the arrow nodes
     const opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty,
-      tandem.createTandem( 'sumArrow' ), {
+    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty, {
         labelPosition: 'top', opacity: opacity,
         arrowNodeOptions: {
           lineDash: [ 10, 5 ]
         }
       } );
-    this.leftArrow = new ReadoutArrow( leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty,
-      tandem.createTandem( 'leftArrow' ), {
+    this.leftArrow = new ReadoutArrow( leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty, {
         labelPosition: 'side', opacity: opacity,
         arrowNodeOptions: {
           lineDash: [ 10, 5 ]
         }
       } );
-    this.rightArrow = new ReadoutArrow( rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty,
-      tandem.createTandem( 'rightArrow' ), {
+    this.rightArrow = new ReadoutArrow( rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty, {
         labelPosition: 'side', opacity: opacity,
         arrowNodeOptions: {
           lineDash: [ 10, 5 ]

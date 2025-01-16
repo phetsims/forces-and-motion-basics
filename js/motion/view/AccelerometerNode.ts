@@ -9,16 +9,13 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import { LinearGradient, Node, NodeOptions, Path, Rectangle } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class AccelerometerNode extends Node {
   public readonly ticks: Node[];
 
-  public constructor( accelerationProperty: TReadOnlyProperty<number>, tandem: Tandem, options?: NodeOptions ) {
-    super( {
-      tandem: tandem
-    } );
+  public constructor( accelerationProperty: TReadOnlyProperty<number>, options?: NodeOptions ) {
+    super();
     this.ticks = [];
     const height = 15;
     const barWidth = 170;
@@ -61,26 +58,11 @@ export default class AccelerometerNode extends Node {
     const majorTickInset = 6;
     const minorTickInset = 7;
     const line = Shape.lineSegment;
-    this.addTick( new Path( line( 0, majorTickInset, 0, height - majorTickInset ), {
-      stroke: 'black',
-      tandem: tandem.createTandem( 'tick1' )
-    } ) );
-    this.addTick( new Path( line( barWidth / 4, minorTickInset, barWidth / 4, height - minorTickInset ), {
-      stroke: 'black',
-      tandem: tandem.createTandem( 'tick2' )
-    } ) );
-    this.addTick( new Path( line( barWidth / 2, majorTickInset, barWidth / 2, height - majorTickInset ), {
-      stroke: 'black',
-      tandem: tandem.createTandem( 'tick3' )
-    } ) );
-    this.addTick( new Path( line( 3 * barWidth / 4, minorTickInset, 3 * barWidth / 4, height - minorTickInset ), {
-      stroke: 'black',
-      tandem: tandem.createTandem( 'tick4' )
-    } ) );
-    this.addTick( new Path( line( barWidth, majorTickInset, barWidth, height - majorTickInset ), {
-      stroke: 'black',
-      tandem: tandem.createTandem( 'tick5' )
-    } ) );
+    this.addTick( new Path( line( 0, majorTickInset, 0, height - majorTickInset ), { stroke: 'black' } ) );
+    this.addTick( new Path( line( barWidth / 4, minorTickInset, barWidth / 4, height - minorTickInset ), { stroke: 'black' } ) );
+    this.addTick( new Path( line( barWidth / 2, majorTickInset, barWidth / 2, height - majorTickInset ), { stroke: 'black' } ) );
+    this.addTick( new Path( line( 3 * barWidth / 4, minorTickInset, 3 * barWidth / 4, height - minorTickInset ), { stroke: 'black' } ) );
+    this.addTick( new Path( line( barWidth, majorTickInset, barWidth, height - majorTickInset ), { stroke: 'black' } ) );
 
     this.mutate( options );
   }

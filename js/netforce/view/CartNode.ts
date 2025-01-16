@@ -39,8 +39,7 @@ export default class CartNode extends Image {
       majorTickLength: 8,
       minorTickLength: 4,
       majorTickLineWidth: 1,
-      maxLabelWidthScale: 1.0,
-      tandem: tandem.createTandem( 'speedometerNode' )
+      maxLabelWidthScale: 1.0
     } );
 
     showSpeedProperty.linkAttribute( speedometerNode, 'visible' );

@@ -10,6 +10,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import { Image, ImageableImage, ManualConstraint, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
@@ -20,7 +21,6 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionScreenView from './MotionScreenView.js';
-import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -63,11 +63,11 @@ export default class ItemNode extends Node {
     this.translate( item.positionProperty.get() );
 
     // Create the node for the main graphic
-    const normalImageNode = new Image( normalImageProperty, { tandem: tandem.createTandem( 'normalImageNode' ) } );
+    const normalImageNode = new Image( normalImageProperty );
     this.normalImageNode = normalImageNode;
 
     // keep track of the sitting image to track its width for the pusher
-    this.sittingImageNode = new Image( sittingImageProperty, { tandem: tandem.createTandem( 'sittingImageNode' ) } );
+    this.sittingImageNode = new Image( sittingImageProperty );
 
     //When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
@@ -217,8 +217,7 @@ export default class ItemNode extends Node {
         size: 15,
         weight: 'bold'
       } ),
-      maxWidth: maxWidth, // Denominator empirically determined to prevent labels from overlapping.
-      tandem: tandem.createTandem( 'massLabelText' )
+      maxWidth: maxWidth // Denominator empirically determined to prevent labels from overlapping.
     } );
     const roundedRadius = 10;
 
@@ -236,8 +235,7 @@ export default class ItemNode extends Node {
     // normalize the maximum width to then restrict the labels for i18n
     const labelText = new Node( {
       children: [ massLabelBackground ],
-      scale: 1.0 / item.imageScaleProperty.get(),
-      tandem: tandem.createTandem( 'labelText' )
+      scale: 1.0 / item.imageScaleProperty.get()
     } );
     this.labelNode = labelText;
 

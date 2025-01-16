@@ -11,13 +11,11 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import { ManualConstraint, Node, NodeOptions, Path, PathOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
@@ -66,7 +64,6 @@ export default class ReadoutArrow extends Node {
     private readonly tailY: number,
     valueProperty: TReadOnlyProperty<number>,
     private readonly showValuesProperty: TReadOnlyProperty<boolean>,
-    tandem: Tandem,
     providedOptions: ReadoutArrowOptions ) {
 
     //Store fields
@@ -74,7 +71,6 @@ export default class ReadoutArrow extends Node {
       labelPosition: 'top',
       arrowScale: 1,
       arrowNodeOptions: {},
-      tandem: tandem,
       pickable: false
     }, providedOptions );
 
@@ -88,15 +84,14 @@ export default class ReadoutArrow extends Node {
       fill: fill,
       stroke: '#000000',
       lineWidth: ReadoutArrow.ARROW_LINE_WIDTH
-    }, options, { tandem: tandem.createTandem( 'arrowNode' ) } );
+    }, options );
     this.arrowNode = new Path( null, arrowNodeOptions );
 
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
     const valueTextPatternStringProperty = new PatternStringProperty( pattern0ValueUnitsNStringProperty,
       { value: new DerivedProperty( [ valueProperty ], value => Utils.toFixed( Math.abs( value ), 0 ) ) },
       { formatNames: [ 'value' ] } );
-    const valueText = new Text( valueTextPatternStringProperty,
-      merge( { tandem: tandem.createTandem( 'valueText' ) }, fontOptions ) );
+    const valueText = new Text( valueTextPatternStringProperty, fontOptions );
     const roundedRadius = 8;
     this.valueBackgroundRectangle = new Rectangle( 0, 0, valueText.width + roundedRadius, 0.7 * valueText.height + roundedRadius, roundedRadius, roundedRadius, {
       fill: 'white',
@@ -105,7 +100,7 @@ export default class ReadoutArrow extends Node {
     this.valueNode = new Node( {
       children: [ this.valueBackgroundRectangle, valueText ]
     } );
-    this.labelNode = new Text( label, merge( { tandem: tandem.createTandem( 'labelText' ) }, fontOptions ) );
+    this.labelNode = new Text( label, fontOptions );
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
     this.addChild( this.labelNode );

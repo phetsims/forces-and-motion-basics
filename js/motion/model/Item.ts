@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -19,12 +20,10 @@ import { ImageableImage } from '../../../../scenery/js/imports.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import MotionModel from './MotionModel.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type AnimationState = {
   enabled: boolean;
@@ -135,9 +134,7 @@ export default class Item extends PhetioObject {
 
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
-    this.draggingProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'draggingProperty' )
-    } );
+    this.draggingProperty = new BooleanProperty( false );
 
     this.directionProperty = new StringProperty( 'left', {
       tandem: tandem.createTandem( 'directionProperty' )
@@ -149,9 +146,6 @@ export default class Item extends PhetioObject {
       y: 0,
       end: null,
       destination: 'home'
-    }, {
-      tandem: tandem.createTandem( 'animationStateProperty' ),
-      phetioValueType: ObjectLiteralIO
     } );
 
     this.onBoardProperty = new BooleanProperty( false, {
@@ -165,7 +159,6 @@ export default class Item extends PhetioObject {
     // How much the object grows or shrinks when interacting with it
     const minValue = homeScale || 1.0;
     this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
-      tandem: tandem.createTandem( 'interactionScaleProperty' ),
       range: new Range( minValue, 1.3 )
     } );
 

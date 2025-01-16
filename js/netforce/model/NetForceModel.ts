@@ -89,20 +89,21 @@ export default class NetForceModel extends PhetioObject {
       // units: 'seconds'
     } );
 
+    const forcesTandem = tandem.createTandem( 'forces' );
     this.netForceProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'netForceProperty' ),
+      tandem: forcesTandem.createTandem( 'netForceProperty' ),
       units: 'N',
       range: new Range( -350, 350 )
     } );
 
     this.leftForceProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'leftForceProperty' ),
+      tandem: forcesTandem.createTandem( 'leftForceProperty' ),
       units: 'N',
       range: new Range( -350, 0 )
     } );
 
     this.rightForceProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'rightForceProperty' ),
+      tandem: forcesTandem.createTandem( 'rightForceProperty' ),
       units: 'N',
       range: new Range( 0, 350 )
     } );
@@ -119,15 +120,17 @@ export default class NetForceModel extends PhetioObject {
       range: new Range( 0, Number.POSITIVE_INFINITY )
     } );
 
+    const visiblePropertyTandem = tandem.createTandem( 'visibleProperties' );
+
     // User settings
     this.showSumOfForcesProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showSumOfForcesProperty' )
+      tandem: visiblePropertyTandem.createTandem( 'showSumOfForcesProperty' )
     } );
     this.showValuesProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showValuesProperty' )
+      tandem: visiblePropertyTandem.createTandem( 'showValuesProperty' )
     } );
     this.showSpeedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showSpeedProperty' )
+      tandem: visiblePropertyTandem.createTandem( 'showSpeedProperty' )
     } );
     this.cartReturnedEmitter = new Emitter();
     this.resetAllEmitter = new Emitter();
@@ -140,18 +143,19 @@ export default class NetForceModel extends PhetioObject {
       return new Knot( xPosition, color, { tandem: tandem } );
     };
 
+    const knotsTandem = tandem.createTandem( 'knots' );
     // Create the knots
     // To support PhET-iO, the knots should be created before the pullers.
     // This allows the pullers to be attached to the knots using the PhET-iO API
     this.knots = [
-      createKnot( 'blue', 0, tandem.createTandem( 'blueKnot0' ) ),
-      createKnot( 'blue', 1, tandem.createTandem( 'blueKnot1' ) ),
-      createKnot( 'blue', 2, tandem.createTandem( 'blueKnot2' ) ),
-      createKnot( 'blue', 3, tandem.createTandem( 'blueKnot3' ) ),
-      createKnot( 'red', 0, tandem.createTandem( 'redKnot0' ) ),
-      createKnot( 'red', 1, tandem.createTandem( 'redKnot1' ) ),
-      createKnot( 'red', 2, tandem.createTandem( 'redKnot2' ) ),
-      createKnot( 'red', 3, tandem.createTandem( 'redKnot3' ) )
+      createKnot( 'blue', 0, knotsTandem.createTandem( 'blueKnot0' ) ),
+      createKnot( 'blue', 1, knotsTandem.createTandem( 'blueKnot1' ) ),
+      createKnot( 'blue', 2, knotsTandem.createTandem( 'blueKnot2' ) ),
+      createKnot( 'blue', 3, knotsTandem.createTandem( 'blueKnot3' ) ),
+      createKnot( 'red', 0, knotsTandem.createTandem( 'redKnot0' ) ),
+      createKnot( 'red', 1, knotsTandem.createTandem( 'redKnot1' ) ),
+      createKnot( 'red', 2, knotsTandem.createTandem( 'redKnot2' ) ),
+      createKnot( 'red', 3, knotsTandem.createTandem( 'redKnot3' ) )
     ];
 
     // create the pullers
@@ -159,15 +163,16 @@ export default class NetForceModel extends PhetioObject {
     const mediumPullerY = 426;
     const smallPullerY = 394;
 
+    const pullersTandem = tandem.createTandem( 'pullers' );
     this.pullers = [
-      new Puller( 208, bigPullerY, 'blue', 'small', 10, tandem.createTandem( 'smallBluePuller1' ) ),
-      new Puller( 278, bigPullerY, 'blue', 'small', 10, tandem.createTandem( 'smallBluePuller2' ), { other: 'other' } ),
-      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, tandem.createTandem( 'mediumBluePuller' ), { standOffsetX: -5 } ),
-      new Puller( 38, smallPullerY, 'blue', 'large', 70, tandem.createTandem( 'largeBluePuller' ), { standOffsetX: -18 } ),
-      new Puller( 648, bigPullerY, 'red', 'small', 10, tandem.createTandem( 'smallRedPuller1' ) ),
-      new Puller( 717, bigPullerY, 'red', 'small', 10, tandem.createTandem( 'smallRedPuller2' ), { other: 'other' } ),
-      new Puller( 789, mediumPullerY, 'red', 'medium', 20, tandem.createTandem( 'mediumRedPuller' ) ),
-      new Puller( 860, smallPullerY, 'red', 'large', 30, tandem.createTandem( 'largeRedPuller' ) )
+      new Puller( 208, bigPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallBluePuller1' ) ),
+      new Puller( 278, bigPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallBluePuller2' ), { other: 'other' } ),
+      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, pullersTandem.createTandem( 'mediumBluePuller' ), { standOffsetX: -5 } ),
+      new Puller( 38, smallPullerY, 'blue', 'large', 70, pullersTandem.createTandem( 'largeBluePuller' ), { standOffsetX: -18 } ),
+      new Puller( 648, bigPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRedPuller1' ) ),
+      new Puller( 717, bigPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRedPuller2' ), { other: 'other' } ),
+      new Puller( 789, mediumPullerY, 'red', 'medium', 20, pullersTandem.createTandem( 'mediumRedPuller' ) ),
+      new Puller( 860, smallPullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRedPuller' ) )
     ];
 
 

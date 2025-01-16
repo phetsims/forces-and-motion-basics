@@ -158,28 +158,30 @@ export default class MotionModel {
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
+
     this.stackObservableArray = createObservableArray( {
       tandem: tandem.createTandem( 'stackObservableArray' ),
       phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
     } );
 
+    const forcesTandem = tandem.createTandem( 'forces' );
     this.appliedForceProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'appliedForceProperty' ),
+      tandem: forcesTandem.createTandem( 'appliedForceProperty' ),
       units: 'N',
       range: new Range( -500, 500 )
     } );
 
     this.frictionForceProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'frictionForceProperty' ),
+      tandem: forcesTandem.createTandem( 'frictionForceProperty' ),
       units: 'N'
     } );
 
     this.frictionProperty = new NumberProperty( frictionValue, {
-      tandem: tandem.createTandem( 'frictionProperty' )
+      tandem: forcesTandem.createTandem( 'frictionProperty' )
     } );
 
     this.sumOfForcesProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'sumOfForcesProperty' ),
+      tandem: forcesTandem.createTandem( 'sumOfForcesProperty' ),
       units: 'N'
     } );
 
@@ -212,32 +214,34 @@ export default class MotionModel {
       tandem: tandem.createTandem( 'pusherInteractionsEnabledProperty' )
     } );
 
+    const visiblePropertiesTandem = tandem.createTandem( 'visibleProperties' );
+
     this.showForceProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'showForceProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showForceProperty' )
     } );
 
     this.showValuesProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showValuesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showValuesProperty' )
     } );
 
     this.showSumOfForcesProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showSumOfForcesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' )
     } );
 
     this.showSpeedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showSpeedProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showSpeedProperty' )
     } );
 
     this.showStopwatchProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showStopwatchProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showStopwatchProperty' )
     } );
 
     this.showMassesProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showMassesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showMassesProperty' )
     } );
 
     this.showAccelerationProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'showAccelerationProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showAccelerationProperty' )
     } );
 
     //  Keep track of whether the speed is classified as:
@@ -320,17 +324,19 @@ export default class MotionModel {
     const mysterySpacing = this.accelerometer ? ( isTrashCanPresent ? 51 : 65 ) : 72; // distance between the trash can and the mystery box
     const bucketSpacing = isTrashCanPresent ? 63 : 75; // distance between the mystery box and the water bucket
 
+    const itemsTandem = tandem.createTandem( 'items' );
+
     // create the items - Initial positions determined empirically
-    const fridge = new Item( this, 'fridge', tandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, 1.1, 4 );
-    const crate1 = new Item( this, 'crate1', tandem.createTandem( 'crate1' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
-    const crate2 = new Item( this, 'crate2', tandem.createTandem( 'crate2' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
-    const girl = new Item( this, HumanTypeEnum.GIRL, tandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, 1.0, 8.2 );
-    const man = new Item( this, HumanTypeEnum.MAN, tandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 9.75 );
+    const fridge = new Item( this, 'fridge', itemsTandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', itemsTandem.createTandem( 'crate1' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
+    const crate2 = new Item( this, 'crate2', itemsTandem.createTandem( 'crate2' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
+    const girl = new Item( this, HumanTypeEnum.GIRL, itemsTandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, 1.0, 8.2 );
+    const man = new Item( this, HumanTypeEnum.MAN, itemsTandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 9.75 );
     if ( isTrashCanPresent ) {
-      trashCan = new Item( this, 'trash', tandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, 1.0, 5 );
+      trashCan = new Item( this, 'trash', itemsTandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, 1.0, 5 );
     }
-    const mysteryBox = new Item( this, 'mystery', tandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, 1.0, undefined, undefined, undefined, true );
-    const bucket = new Item( this, 'bucket', tandem.createTandem( 'bucket' ), waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 2 );
+    const mysteryBox = new Item( this, 'mystery', itemsTandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, 1.0, undefined, undefined, undefined, true );
+    const bucket = new Item( this, 'bucket', itemsTandem.createTandem( 'bucket' ), waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 2 );
     bucket.bucket = true;
 
     const itemsToAdd = this.accelerometer ? [ bucket ] : [];

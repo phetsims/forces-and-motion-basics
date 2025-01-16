@@ -11,6 +11,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -39,7 +40,6 @@ import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
-import Property from '../../../../axon/js/Property.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 
@@ -95,7 +95,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( groundNode );
 
     //Create the dynamic (moving) background
-    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2, tandem.createTandem( 'movingBackgroundNode' ) ).mutate( { layerSplit: true } ) );
+    this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
 
     // The pusher should be behind the skateboard
     this.addChild( new PusherNode( model, this.layoutBounds.width, this.itemModelToNodeMap, tandem.createTandem( 'pusherNode' ) ) );
@@ -105,8 +105,7 @@ export default class MotionScreenView extends ScreenView {
       this.addChild( new Image( skateboard_svg, {
         scale: 0.75,
         centerX: width / 2, y: 315 + 12,
-        pickable: false,
-        tandem: tandem.createTandem( 'skateboardImageNode' )
+        pickable: false
       } ) );
     }
 
@@ -118,14 +117,12 @@ export default class MotionScreenView extends ScreenView {
     const leftItemToolboxNode = new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
-      lineWidth: 1,
-      tandem: tandem.createTandem( 'leftItemToolboxNode' )
+      lineWidth: 1
     } );
     const rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
-      lineWidth: 1,
-      tandem: tandem.createTandem( 'rightItemToolboxNode' )
+      lineWidth: 1
     } );
 
     //Create the slider
@@ -135,8 +132,7 @@ export default class MotionScreenView extends ScreenView {
     const appliedForceSliderText = new Text( appliedForceStringProperty, {
       font: new PhetFont( 22 ),
       y: 430,
-      maxWidth: maxTextWidth,
-      tandem: tandem.createTandem( 'appliedForceSliderText' )
+      maxWidth: maxTextWidth
     } );
     appliedForceStringProperty.link( () => { appliedForceSliderText.centerX = width / 2; } );
     const appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
@@ -201,8 +197,7 @@ export default class MotionScreenView extends ScreenView {
     model.stackObservableArray.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
-    const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty,
-      tandem.createTandem( 'speedometerNode' ), {
+    const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
         x: 300,
         top: 8
       } );
@@ -266,7 +261,7 @@ export default class MotionScreenView extends ScreenView {
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
-      const accelerometerNode = new AccelerometerNode( model.accelerationProperty, tandem.createTandem( 'accelerometerNode' ) );
+      const accelerometerNode = new AccelerometerNode( model.accelerationProperty );
 
       // build up the string label for the acceleration
       const labelTextStringProperty = new DerivedStringProperty( [
@@ -288,11 +283,9 @@ export default class MotionScreenView extends ScreenView {
         pickable: false,
         font: new PhetFont( 16 ),
         centerX: tick.centerX,
-        top: tick.bottom + 27,
-        tandem: tandem.createTandem( `tickLabel${tandemID}Text` )
+        top: tick.bottom + 27
       } );
       const tickLabels = new Node( {
-        tandem: tandem.createTandem( 'tickLabels' ),
         children: [
           tickLabel( '-20', accelerometerNode.ticks[ 0 ], 'Negative20' ),
           tickLabel( '0', accelerometerNode.ticks[ 2 ], 'Zero' ),
@@ -302,7 +295,6 @@ export default class MotionScreenView extends ScreenView {
 
       // put it all together in a VBox
       const accelerometerWithTickLabels = new Node( {
-        tandem: tandem.createTandem( 'accelerometerWithTickLabels' ),
         children: [ labelText, accelerometerNode, tickLabels ],
         pickable: false,
         centerX: 300,
@@ -390,16 +382,14 @@ export default class MotionScreenView extends ScreenView {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
-    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty,
-      tandem.createTandem( 'sumArrow' ), {
+    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
         labelPosition: 'top',
         arrowScale: arrowScale
       } );
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroStringProperty, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
-      maxWidth: 125,
-      tandem: tandem.createTandem( 'sumOfForcesText' )
+      maxWidth: 125
     } );
     const sumOfForcesAlignBox = new AlignBox( this.sumOfForcesText, {
       alignBounds: this.layoutBounds,
@@ -411,13 +401,11 @@ export default class MotionScreenView extends ScreenView {
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
       ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
-    this.appliedForceArrow = new ReadoutArrow( appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty,
-      tandem.createTandem( 'appliedForceArrow' ), {
+    this.appliedForceArrow = new ReadoutArrow( appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
         labelPosition: 'side',
         arrowScale: arrowScale
       } );
-    this.frictionArrow = new ReadoutArrow( frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty,
-      tandem.createTandem( 'frictionArrow' ), {
+    this.frictionArrow = new ReadoutArrow( frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
         labelPosition: 'side',
         arrowScale: arrowScale
       } );

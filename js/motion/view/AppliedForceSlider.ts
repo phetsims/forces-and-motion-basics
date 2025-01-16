@@ -121,8 +121,7 @@ export default class AppliedForceSlider extends HSlider {
       const position = initialTickValue + i * delta;
       if ( isMajor( i ) ) {
         const label = new Text( position, {
-          font: new PhetFont( 16 ),
-          tandem: tandem.createTandem( `tick${i}Text` )
+          font: new PhetFont( 16 )
         } );
         this.addMajorTick( position, label );
       }

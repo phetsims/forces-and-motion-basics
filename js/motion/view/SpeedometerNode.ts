@@ -15,7 +15,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionConstants from '../MotionConstants.js';
@@ -33,13 +32,11 @@ export default class SpeedometerNode extends Node {
     speedProperty: TReadOnlyProperty<number>,
     showSpeedProperty: TReadOnlyProperty<boolean>,
     showValuesProperty: TReadOnlyProperty<boolean>,
-    tandem: Tandem,
     providedOptions?: SpeedometerNodeOptions
   ) {
 
     const options = optionize<SpeedometerNodeOptions, SelfOptions, NodeOptions>()( {
-      radius: 67,
-      tandem: tandem
+      radius: 67
     }, providedOptions );
 
     // mutate with the options after construction so we can set the 'top'
@@ -48,7 +45,6 @@ export default class SpeedometerNode extends Node {
     const gaugeRadius = options.radius;
     const gaugeNode = new ValueGaugeNode( speedProperty, speedStringProperty, new Range( 0, MotionConstants.MAX_SPEED ), {
       radius: gaugeRadius,
-      tandem: tandem.createTandem( 'gaugeNode' ),
       numberDisplayOptions: {
         valuePattern: pattern0Name1ValueUnitsVelocityStringProperty,
         decimalPlaces: 1,

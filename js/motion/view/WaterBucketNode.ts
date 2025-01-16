@@ -49,8 +49,7 @@ export default class WaterBucketNode extends ItemNode {
     const waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',
       fill: 'rgb(9, 125, 159)',
-      lineWidth: 1,
-      tandem: tandem.createTandem( 'waterPathNode' )
+      lineWidth: 1
     } );
     this.addChild( waterPathNode );
     waterPathNode.moveToBack();
