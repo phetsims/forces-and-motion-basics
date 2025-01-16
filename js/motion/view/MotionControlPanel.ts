@@ -395,8 +395,7 @@ export default class MotionControlPanel extends Node {
       xMargin: 12,
       yMargin: 7,
       fill: '#e3e980',
-      resize: false,
-      tandem: tandem.createTandem( 'panel' )
+      resize: false
     } );
     this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5, top: 5 } ) );
   }
