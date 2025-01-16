@@ -7,25 +7,23 @@
  * @author Sam Reid
  */
 
+import { Shape } from '../../../../kite/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import { Shape } from '../../../../kite/js/imports.js';
 import Knot from '../model/Knot.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 const knotWidth = 20;
 
 export default class KnotHighlightNode extends Path {
 
-  public constructor( knot: Knot, tandem: Tandem ) {
+  public constructor( knot: Knot ) {
 
     super( Shape.circle( 0, 0, knotWidth ), {
       stroke: '#FFFF00',
       lineWidth: 4,
       visibleProperty: knot.visibleProperty,
       x: knot.xProperty.get(),
-      y: knot.y,
-      tandem: tandem
+      y: knot.y
     } );
 
     knot.xProperty.link( x => {

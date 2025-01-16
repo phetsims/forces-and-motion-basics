@@ -7,7 +7,6 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -56,15 +55,15 @@ export default class NetForceControlPanel extends Node {
 
     // Create a separate font options to account for the speedometerIconNode and speedTextAndSpeedometerIconSpacing
     const speedFontOptions = { font: fontOptions.font, maxWidth: fontOptions.maxWidth - speedometerIconNode.width - speedTextAndSpeedometerIconSpacing };
-    const showSpeedTextNode = new Text( speedStringProperty, merge( { tandem: tandem.createTandem( 'showSpeedText' ) }, speedFontOptions ) );
+    const showSpeedTextNode = new Text( speedStringProperty, speedFontOptions );
 
     const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      createNode: tandem => new Text( sumOfForcesStringProperty, merge( { tandem: tandem.createTandem( 'showSumOfForcesText' ) }, fontOptions ) ),
+      createNode: tandem => new Text( sumOfForcesStringProperty, fontOptions ),
       property: model.showSumOfForcesProperty,
       tandemName: 'showSumOfForcesCheckbox'
     }, {
-      createNode: tandem => new Text( valuesStringProperty, merge( { tandem: tandem.createTandem( 'showValuesText' ) }, fontOptions ) ),
+      createNode: tandem => new Text( valuesStringProperty, fontOptions ),
       property: model.showValuesProperty,
       tandemName: 'showValuesCheckbox'
     }, {

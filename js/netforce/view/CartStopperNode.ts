@@ -11,7 +11,6 @@ import { Shape } from '../../../../kite/js/imports.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import { Path, PathOptions } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 // constants
@@ -22,11 +21,10 @@ type SelfOptions = {
 };
 type CartStopperNodeOptions = StrictOmit<PathOptions, 'fill'> & SelfOptions;
 export default class CartStopperNode extends Path {
-  public constructor( topWidth: number, bottomWidth: number, height: number, tandem: Tandem, providedOptions?: CartStopperNodeOptions ) {
+  public constructor( topWidth: number, bottomWidth: number, height: number, providedOptions?: CartStopperNodeOptions ) {
 
     const options = optionize<CartStopperNodeOptions, SelfOptions, PathOptions>()( {
       direction: 'left',
-      tandem: tandem,
       fill: 'grey'
     }, providedOptions );
 

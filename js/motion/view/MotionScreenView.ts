@@ -334,21 +334,21 @@ export default class MotionScreenView extends ScreenView {
     const leftItemLayer = new Node( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
     const rightItemLayer = new Node( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
     this.itemNodes = [];
+
+    const itemsTandem = tandem.createTandem( 'items' );
     for ( let i = 0; i < model.items.length; i++ ) {
       const item = model.items[ i ];
       const itemSide = getItemSide( item );
       const toolboxNode = itemSide === 'left' ? leftItemToolboxNode : rightItemToolboxNode;
       const itemLayer = itemSide === 'left' ? leftItemLayer : rightItemLayer;
-      const Constructor = item.bucket ? WaterBucketNode : ItemNode;
+
       const sittingImageProperty = item.sittingImageProperty.value ? item.sittingImageProperty : item.imageProperty;
       const holdingImageProperty = item.holdingImageProperty.value ? item.holdingImageProperty : item.imageProperty;
-      const itemNode = new Constructor( model, this, item,
-        item.imageProperty,
-        sittingImageProperty,
-        holdingImageProperty,
-        model.showMassesProperty,
-        toolboxNode,
-        tandem.createTandem( item.name ) );
+
+      const itemNode = item.bucket ?
+                       new WaterBucketNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, toolboxNode, itemsTandem.createTandem( item.name ) ) :
+                       new ItemNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, toolboxNode, itemsTandem.createTandem( item.name ) );
+
       this.itemNodes.push( itemNode );
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily

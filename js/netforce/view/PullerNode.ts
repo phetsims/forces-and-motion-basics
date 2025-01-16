@@ -43,7 +43,6 @@ export default class PullerNode extends Image {
 
     const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {}, providedOptions );
     super( image, {
-      tandem: tandem,
       x: x,
       y: y,
       cursor: 'pointer',

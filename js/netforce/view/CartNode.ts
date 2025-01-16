@@ -11,7 +11,6 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import { Image } from '../../../../scenery/js/imports.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import cart_svg from '../../../images/cart_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
@@ -22,10 +21,9 @@ const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 export default class CartNode extends Image {
   private readonly xPosition: number;
 
-  public constructor( private readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean>, tandem: Tandem ) {
+  public constructor( private readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean> ) {
     super( cart_svg, {
-      y: 221,
-      tandem: tandem
+      y: 221
     } );
 
     this.xPosition = this.cart.xProperty.get();

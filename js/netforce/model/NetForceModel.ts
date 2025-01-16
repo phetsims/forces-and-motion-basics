@@ -82,12 +82,7 @@ export default class NetForceModel extends PhetioObject {
       tandem: tandem.createTandem( 'stateProperty' )
     } );
 
-    this.timeProperty = new Property( 0, {
-      // TODO: Removed this property for phet-io spam https://github.com/phetsims/forces-and-motion-basics/issues/319
-      // tandem: tandem.createTandem( 'timeProperty' )
-      // phetioValueType: NumberIO,
-      // units: 'seconds'
-    } );
+    this.timeProperty = new Property( 0 );
 
     const forcesTandem = tandem.createTandem( 'forces' );
     this.netForceProperty = new NumberProperty( 0, {
@@ -148,14 +143,14 @@ export default class NetForceModel extends PhetioObject {
     // To support PhET-iO, the knots should be created before the pullers.
     // This allows the pullers to be attached to the knots using the PhET-iO API
     this.knots = [
-      createKnot( 'blue', 0, knotsTandem.createTandem( 'blueKnot0' ) ),
-      createKnot( 'blue', 1, knotsTandem.createTandem( 'blueKnot1' ) ),
-      createKnot( 'blue', 2, knotsTandem.createTandem( 'blueKnot2' ) ),
-      createKnot( 'blue', 3, knotsTandem.createTandem( 'blueKnot3' ) ),
-      createKnot( 'red', 0, knotsTandem.createTandem( 'redKnot0' ) ),
-      createKnot( 'red', 1, knotsTandem.createTandem( 'redKnot1' ) ),
-      createKnot( 'red', 2, knotsTandem.createTandem( 'redKnot2' ) ),
-      createKnot( 'red', 3, knotsTandem.createTandem( 'redKnot3' ) )
+      createKnot( 'blue', 0, knotsTandem.createTandem( 'leftKnot0' ) ),
+      createKnot( 'blue', 1, knotsTandem.createTandem( 'leftKnot1' ) ),
+      createKnot( 'blue', 2, knotsTandem.createTandem( 'leftKnot2' ) ),
+      createKnot( 'blue', 3, knotsTandem.createTandem( 'leftKnot3' ) ),
+      createKnot( 'red', 0, knotsTandem.createTandem( 'rightKnot0' ) ),
+      createKnot( 'red', 1, knotsTandem.createTandem( 'rightKnot1' ) ),
+      createKnot( 'red', 2, knotsTandem.createTandem( 'rightKnot2' ) ),
+      createKnot( 'red', 3, knotsTandem.createTandem( 'rightKnot3' ) )
     ];
 
     // create the pullers
@@ -165,14 +160,14 @@ export default class NetForceModel extends PhetioObject {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
     this.pullers = [
-      new Puller( 208, bigPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallBluePuller1' ) ),
-      new Puller( 278, bigPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallBluePuller2' ), { other: 'other' } ),
-      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, pullersTandem.createTandem( 'mediumBluePuller' ), { standOffsetX: -5 } ),
-      new Puller( 38, smallPullerY, 'blue', 'large', 70, pullersTandem.createTandem( 'largeBluePuller' ), { standOffsetX: -18 } ),
-      new Puller( 648, bigPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRedPuller1' ) ),
-      new Puller( 717, bigPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRedPuller2' ), { other: 'other' } ),
-      new Puller( 789, mediumPullerY, 'red', 'medium', 20, pullersTandem.createTandem( 'mediumRedPuller' ) ),
-      new Puller( 860, smallPullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRedPuller' ) )
+      new Puller( 208, bigPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller1' ) ),
+      new Puller( 278, bigPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller2' ), { other: 'other' } ),
+      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, pullersTandem.createTandem( 'mediumLeftPuller' ), { standOffsetX: -5 } ),
+      new Puller( 38, smallPullerY, 'blue', 'large', 70, pullersTandem.createTandem( 'largeLeftPuller' ), { standOffsetX: -18 } ),
+      new Puller( 648, bigPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller1' ) ),
+      new Puller( 717, bigPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller2' ), { other: 'other' } ),
+      new Puller( 789, mediumPullerY, 'red', 'medium', 20, pullersTandem.createTandem( 'mediumRightPuller' ) ),
+      new Puller( 860, smallPullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRightPuller' ) )
     ];
 
 

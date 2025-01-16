@@ -53,11 +53,11 @@ import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
 import FlagNode from './FlagNode.js';
 import GoPauseButton from './GoPauseButton.js';
+import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
-import KnotHighlightNode from './KnotHighlightNode.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsStrings.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringProperty;
@@ -183,22 +183,19 @@ export default class NetForceScreenView extends ScreenView {
 
     //Show the grass.
     this.addChild( new Image( grass_png, {
-      tandem: tandem.createTandem( 'grassImage1' ),
       x: 13,
       y: grassY
     } ) );
     this.addChild( new Image( grass_png, {
-      tandem: tandem.createTandem( 'grassImage2' ),
       x: 13 - grass_png.width,
       y: grassY
     } ) );
     this.addChild( new Image( grass_png, {
-      tandem: tandem.createTandem( 'grassImage3' ),
       x: 13 + grass_png.width,
       y: grassY
     } ) );
 
-    this.cartNode = new CartNode( model.cart, model.speedProperty, model.showSpeedProperty, tandem.createTandem( 'cartNode' ) );
+    this.cartNode = new CartNode( model.cart, model.speedProperty, model.showSpeedProperty );
 
     //Black caret below the cart
     const layoutCenterX = this.layoutBounds.width / 2;
@@ -206,8 +203,7 @@ export default class NetForceScreenView extends ScreenView {
       stroke: '#000000',
       lineWidth: 3,
       x: layoutCenterX,
-      y: grassY + 10,
-      tandem: tandem.createTandem( 'caretPathNode' )
+      y: grassY + 10
     } ) );
 
     const cursorWidth = 18;
@@ -215,17 +211,16 @@ export default class NetForceScreenView extends ScreenView {
     const cursorPathNode = new Path( new Shape().moveTo( 0, 0 ).lineTo( cursorWidth, 0 ).lineTo( cursorWidth / 2, cursorWidth / 10 * 8 ).close(), {
       fill: 'blue',
       stroke: 'black',
-      lineWidth: 1,
-      tandem: tandem.createTandem( 'cursorPathNode' )
+      lineWidth: 1
     } );
 
     // cart stoppers that seem to stop cart motion
     const stopperY = grassY + 5; // a little lower than the grass because the grass includes some sky blue
-    const rightStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'rightStopper' ), {
+    const rightStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, {
       left: layoutCenterX + NetForceModel.GAME_LENGTH,
       y: stopperY
     } );
-    const leftStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, tandem.createTandem( 'leftStopper' ), {
+    const leftStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, {
       direction: 'right',
       right: layoutCenterX - NetForceModel.GAME_LENGTH,
       y: stopperY
@@ -241,7 +236,6 @@ export default class NetForceScreenView extends ScreenView {
 
       // Exactly match the dimensions of the prior SVG image
       scale: ( SVG_WIDTH * PRIOR_SCALE ) / PNG_WIDTH,
-      tandem: tandem.createTandem( 'ropeImageNode' ),
       x: 51,
       y: 273
     } );
@@ -249,10 +243,10 @@ export default class NetForceScreenView extends ScreenView {
 
     model.knots.forEach( ( knot, i ) => {
       if ( knot.type === 'blue' ) {
-        this.addChild( new KnotHighlightNode( knot, tandem.createTandem( 'blueHighlightNode' + i ) ) );
+        this.addChild( new KnotHighlightNode( knot ) );
       }
       else if ( knot.type === 'red' ) {
-        this.addChild( new KnotHighlightNode( knot, tandem.createTandem( 'redHighlightNode' + i ) ) );
+        this.addChild( new KnotHighlightNode( knot ) );
       }
       else {
         assert && assert( false, 'Knots can only be of type "red" or "blue" in this sim.' );
@@ -268,7 +262,6 @@ export default class NetForceScreenView extends ScreenView {
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {
-      tandem: tandem.createTandem( 'frontLayer' ),
       layerSplit: true
     } ) );
 
@@ -323,18 +316,15 @@ export default class NetForceScreenView extends ScreenView {
       return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
-    const leftPullerLayer = new Node( {
-      tandem: tandem.createTandem( 'leftPullerLayer' )
-    } );
-    const rightPullerLayer = new Node( {
-      tandem: tandem.createTandem( 'rightPullerLayer' )
-    } );
+    const leftPullerLayer = new Node();
+    const rightPullerLayer = new Node();
 
+    const pullersTandem = tandem.createTandem( 'pullers' );
     this.model.pullers.forEach( puller => {
       const pullerNode = new PullerNode( puller, this.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ),
-        tandem.createTandem( puller.pullerTandem.name )
+        pullersTandem.createTandem( puller.pullerTandem.name )
       );
       const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
@@ -409,8 +399,7 @@ export default class NetForceScreenView extends ScreenView {
     this.sumOfForcesText = new Text( ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
-      maxWidth: 280,
-      tandem: tandem.createTandem( 'sumOfForcesText' )
+      maxWidth: 280
     } );
     ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty.link( () => {
       this.sumOfForcesText.centerX = width / 2;

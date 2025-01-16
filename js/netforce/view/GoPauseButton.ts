@@ -72,13 +72,11 @@ export default class GoPauseButton extends BooleanToggleNode {
     const padY = 10;
     const goText = new Text( ForcesAndMotionBasicsStrings.goStringProperty, {
       font: new PhetFont( 42 ),
-      maxWidth: 85,
-      tandem: tandem.createTandem( 'goText' )
+      maxWidth: 85
     } );
     const pauseText = new Text( ForcesAndMotionBasicsStrings.pauseStringProperty, {
       font: new PhetFont( 30 ),
-      maxWidth: 85,
-      tandem: tandem.createTandem( 'pauseText' )
+      maxWidth: 85
     } );
 
     // boolean function to determine if the go button should be enabled based on model state.
