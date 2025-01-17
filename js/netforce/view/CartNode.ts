@@ -1,4 +1,4 @@
-// Copyright 2015-2024, University of Colorado Boulder
+// Copyright 2015-2025, University of Colorado Boulder
 
 /**
  * Node representation of the movable cart in Forces and Motion: Basics net force screen.

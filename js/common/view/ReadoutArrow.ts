@@ -1,4 +1,4 @@
-// Copyright 2013-2024, University of Colorado Boulder
+// Copyright 2013-2025, University of Colorado Boulder
 
 /**
  * Arrow that displays a numerical value inside the arrow (if there is room) or above the arrow.

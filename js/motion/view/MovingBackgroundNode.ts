@@ -1,4 +1,4 @@
-// Copyright 2013-2024, University of Colorado Boulder
+// Copyright 2013-2025, University of Colorado Boulder
 
 /**
  * This class shows all the moving backgrounds, including the mountains, clouds and brick tile on the ground.
