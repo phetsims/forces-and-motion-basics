@@ -20,7 +20,7 @@ import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
-import { HBox, HBoxOptions, HStrut, Node, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
+import { HBox, HBoxOptions, HStrut, Node, rasterized, Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
@@ -171,7 +171,7 @@ export default class MotionControlPanel extends Node {
         tandem: Tandem.OPT_OUT
       } );
 
-      const icon = stopwatchNode.rasterized( {
+      const icon = rasterized( stopwatchNode, {
         resolution: 5,
         nodeOptions: {
           cursor: 'pointer'
