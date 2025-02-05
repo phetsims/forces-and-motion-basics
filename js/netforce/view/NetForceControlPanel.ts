@@ -59,11 +59,11 @@ export default class NetForceControlPanel extends Node {
 
     const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
-      createNode: tandem => new Text( sumOfForcesStringProperty, fontOptions ),
+      createNode: () => new Text( sumOfForcesStringProperty, fontOptions ),
       property: model.showSumOfForcesProperty,
       tandemName: 'showSumOfForcesCheckbox'
     }, {
-      createNode: tandem => new Text( valuesStringProperty, fontOptions ),
+      createNode: () => new Text( valuesStringProperty, fontOptions ),
       property: model.showValuesProperty,
       tandemName: 'showValuesCheckbox'
     }, {
