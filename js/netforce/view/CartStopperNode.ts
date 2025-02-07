@@ -7,10 +7,10 @@
  * @author Jesse Greenberg
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import { Path, PathOptions } from '../../../../scenery/js/imports.js';
+import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 // constants

@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { Rectangle } from '../../../../scenery/js/imports.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceScreenView from './NetForceScreenView.js';

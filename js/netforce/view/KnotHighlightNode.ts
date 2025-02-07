@@ -7,8 +7,8 @@
  * @author Sam Reid
  */
 
-import { Shape } from '../../../../kite/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
+import Shape from '../../../../kite/js/Shape.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 

@@ -11,21 +11,21 @@ import Screen from '../../joist/js/Screen.js';
 import ScreenIcon from '../../joist/js/ScreenIcon.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
-import { Image } from '../../scenery/js/imports.js';
+import Image from '../../scenery/js/nodes/Image.js';
+import ToggleNode from '../../sun/js/ToggleNode.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
+import tugIconBlueRed_png from '../images/tugIconBlueRed_png.js';
+import tugIconPurpleOrange_png from '../images/tugIconPurpleOrange_png.js';
 import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
+import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
+import PullerColors from './netforce/model/PullerColors.js';
 import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
-import ToggleNode from '../../sun/js/ToggleNode.js';
-import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
-import PullerColors from './netforce/model/PullerColors.js';
-import tugIconBlueRed_png from '../images/tugIconBlueRed_png.js';
-import tugIconPurpleOrange_png from '../images/tugIconPurpleOrange_png.js';
 
 const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
 

@@ -9,7 +9,10 @@
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import { DragListener, Image, Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import pusher_0_png from '../../../images/pushPullFigures/pusher_0_png.js';
 import pusher_10_png from '../../../images/pushPullFigures/pusher_10_png.js';
