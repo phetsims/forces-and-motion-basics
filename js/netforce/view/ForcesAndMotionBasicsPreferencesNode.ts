@@ -1,4 +1,4 @@
-// Copyright 2024, University of Colorado Boulder
+// Copyright 2024-2025, University of Colorado Boulder
 /**
  *  ForcesAndMotionBasicsPreferencesNode is the user interface for sim-specific preferences, accessed via the
  *  Preferences dialog. These preferences are global and affect all screens.
