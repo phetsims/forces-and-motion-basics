@@ -26,7 +26,7 @@ import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VStrut from '../../../../scenery/js/nodes/VStrut.js';
-import { rasterized } from '../../../../scenery/js/util/rasterized.js';
+import { rasterizeNode } from '../../../../scenery/js/util/rasterizeNode.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
@@ -177,7 +177,7 @@ export default class MotionControlPanel extends Node {
         tandem: Tandem.OPT_OUT
       } );
 
-      const icon = rasterized( stopwatchNode, {
+      const icon = rasterizeNode( stopwatchNode, {
         resolution: 5,
         nodeOptions: {
           cursor: 'pointer'
