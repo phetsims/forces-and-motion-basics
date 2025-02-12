@@ -21,9 +21,6 @@ const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 export default class CartNode extends Image {
   private readonly xPosition: number;
 
-
-
-
   public constructor( private readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean> ) {
     super( cart_svg, {
       y: 221
