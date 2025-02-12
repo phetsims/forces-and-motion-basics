@@ -13,6 +13,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -21,14 +22,15 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import PullerNode from '../view/PullerNode.js';
 import Knot from './Knot.js';
 
-type PullerOptions = {
+type SelfOptions = {
   standOffsetX?: number;
   other?: string;
 };
-export default class Puller {
+type PullerOptions = SelfOptions & PhetioObjectOptions;
+
+export default class Puller extends PhetioObject {
 
   // to synchronize tandem names with the view
-  public readonly pullerTandem: Tandem;
   public readonly standOffsetX: number;
   public readonly force: number;
 
@@ -68,9 +70,13 @@ export default class Puller {
                       public readonly size: 'small' | 'medium' | 'large',
                       public readonly dragOffsetX: number, tandem: Tandem, providedOptions?: PullerOptions ) {
 
-    this.pullerTandem = tandem;
+    const options = optionize<PullerOptions, SelfOptions, PhetioObjectOptions>()( {
+      standOffsetX: 0,
+      other: '',
+      tandem: tandem
+    }, providedOptions );
 
-    const options = optionize<PullerOptions>()( { standOffsetX: 0, other: '' }, providedOptions );
+    super( options );
 
     this.standOffsetX = options.standOffsetX;
     this.force = this.size === 'small' ? 10 * 5 :

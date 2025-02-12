@@ -466,7 +466,7 @@ export default class NetForceModel extends PhetioObject {
    */
   public getKnotDescription(): KnotDescription[] {
     return this.pullers.map( puller => ( {
-      id: puller.pullerTandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/forces-and-motion-basics/issues/319
+      id: puller.tandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/forces-and-motion-basics/issues/319
       knot: puller.knotProperty.get() && puller.knotProperty.get()!.phetioID
     } ) );
   }

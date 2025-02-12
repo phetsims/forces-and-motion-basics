@@ -11,7 +11,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -29,7 +28,6 @@ export default class PullerNode extends Image {
    * @param model
    * @param image image of the puller standing upright
    * @param pullImage image of the puller exerting a force
-   * @param tandem
    * @param [providedOptions]
    */
   public constructor(
@@ -37,12 +35,16 @@ export default class PullerNode extends Image {
     model: NetForceModel,
     image: ImageableImage,
     public pullImage: ImageableImage,
-    tandem: Tandem, providedOptions?: PullerNodeOptions ) {
+    providedOptions?: PullerNodeOptions ) {
 
     const x = puller.positionProperty.get().x;
     const y = puller.positionProperty.get().y;
 
-    const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {}, providedOptions );
+    // TODO: visibleProperty will probably want to be in Puller, and reset the knotProperty, https://github.com/phetsims/forces-and-motion-basics/issues/343
+    const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {
+      phetioInputEnabledPropertyInstrumented: true
+    }, providedOptions );
+
     super( image, {
       x: x,
       y: y,
@@ -76,7 +78,7 @@ export default class PullerNode extends Image {
     } );
 
     const dragListener = new SoundDragListener( {
-        tandem: tandem.createTandem( 'dragListener' ),
+        tandem: options.tandem?.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
         start: () => {
@@ -121,6 +123,10 @@ export default class PullerNode extends Image {
     } );
 
     this.mutate( options );
+
+    this.addLinkedElement( this.puller, {
+      tandemName: 'puller'
+    } );
   }
 
   /**

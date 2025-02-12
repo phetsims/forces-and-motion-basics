@@ -273,23 +273,23 @@ export default class NetForceScreenView extends ScreenView {
     //Create the arrow nodes
     const opacity = 0.8;
     this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty, {
-        labelPosition: 'top', opacity: opacity,
-        arrowNodeOptions: {
-          lineDash: [ 10, 5 ]
-        }
-      } );
+      labelPosition: 'top', opacity: opacity,
+      arrowNodeOptions: {
+        lineDash: [ 10, 5 ]
+      }
+    } );
     this.leftArrow = new ReadoutArrow( leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty, {
-        labelPosition: 'side', opacity: opacity,
-        arrowNodeOptions: {
-          lineDash: [ 10, 5 ]
-        }
-      } );
+      labelPosition: 'side', opacity: opacity,
+      arrowNodeOptions: {
+        lineDash: [ 10, 5 ]
+      }
+    } );
     this.rightArrow = new ReadoutArrow( rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty, {
-        labelPosition: 'side', opacity: opacity,
-        arrowNodeOptions: {
-          lineDash: [ 10, 5 ]
-        }
-      } );
+      labelPosition: 'side', opacity: opacity,
+      arrowNodeOptions: {
+        lineDash: [ 10, 5 ]
+      }
+    } );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.runningProperty.link( running => {
@@ -328,8 +328,9 @@ export default class NetForceScreenView extends ScreenView {
     this.model.pullers.forEach( puller => {
       const pullerNode = new PullerNode( puller, this.model,
         getPullerImage( puller, false ),
-        getPullerImage( puller, true ),
-        pullersTandem.createTandem( puller.pullerTandem.name )
+        getPullerImage( puller, true ), {
+          tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` )
+        }
       );
       const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
       pullerLayer.addChild( pullerNode );
