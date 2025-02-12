@@ -389,17 +389,17 @@ export default class MotionModel {
   }
 
   /**
-   * Get an array representing the items that are being dragged.
+   * Get an array representing the items that are being user controlled.
    */
-  public draggingItems(): Item[] {
-    const draggingItems = [];
+  public userControlledItems(): Item[] {
+    const userControlledItems = [];
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[ i ];
-      if ( item.draggingProperty.get() ) {
-        draggingItems.push( item );
+      if ( item.userControlledProperty.get() ) {
+        userControlledItems.push( item );
       }
     }
-    return draggingItems;
+    return userControlledItems;
   }
 
   /**
@@ -670,8 +670,8 @@ export default class MotionModel {
     this.showStopwatchProperty.reset();
 
     for ( let i = 0; i < this.items.length; i++ ) {
-      // if the item is being dragged we need to cancel the drag in ItemNode
-      if ( !this.items[ i ].draggingProperty.get() ) {
+      // if the item is being user controlled we need to cancel the drag in ItemNode
+      if ( !this.items[ i ].userControlledProperty.get() ) {
         this.items[ i ].reset();
       }
     }
@@ -695,8 +695,8 @@ export default class MotionModel {
    */
   public viewInitialized( view: MotionScreenView ): void {
     const item = this.items[ 1 ];
-    // only move item to the top of the stack if it is not being dragged
-    if ( !item.draggingProperty.get() ) {
+    // only move item to the top of the stack if it is not being user controlled
+    if ( !item.userControlledProperty.get() ) {
       this.view = view;
       item.onBoardProperty.set( true );
 

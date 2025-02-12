@@ -35,7 +35,7 @@ export default class Puller extends PhetioObject {
   public readonly force: number;
 
   // whether or not the puller is currently being dragged
-  public readonly draggingProperty: BooleanProperty;
+  public readonly userControlledProperty: BooleanProperty;
 
   // the knot that this puller is attached to
   public readonly knotProperty: Property<Knot | null>;
@@ -51,8 +51,8 @@ export default class Puller extends PhetioObject {
   // emits an event when the puller is dropped
   public readonly droppedEmitter = new Emitter();
 
-  // emits an event when the puller is dragged
-  public readonly draggedEmitter = new Emitter();
+  // emits an event when the puller starts being user controlled
+  public readonly userControlledEmitter = new Emitter();
 
   public node: PullerNode | null = null;
 
@@ -84,8 +84,9 @@ export default class Puller extends PhetioObject {
                  this.size === 'large' ? 30 * 5 :
                  NaN;
 
-    this.draggingProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'draggingProperty' )
+    this.userControlledProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'userControlledProperty' ),
+      phetioReadOnly: true
     } );
 
     this.knotProperty = new Property<Knot | null>( null, {
@@ -127,7 +128,7 @@ export default class Puller extends PhetioObject {
    * Reset the model by resetting all associated Properties.
    */
   public reset(): void {
-    this.draggingProperty.reset();
+    this.userControlledProperty.reset();
     this.knotProperty.reset();
     this.positionProperty.reset();
     this.lastPlacementProperty.reset();

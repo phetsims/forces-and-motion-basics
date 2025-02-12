@@ -98,7 +98,7 @@ export default class ItemNode extends Node {
     phetioStateSetEmitter.addListener( updateImage );
 
     for ( let i = 0; i < model.items.length; i++ ) {
-      model.items[ i ].draggingProperty.link( updateImage );
+      model.items[ i ].userControlledProperty.link( updateImage );
     }
 
     model.stackObservableArray.lengthProperty.link( updateImage );
@@ -168,20 +168,20 @@ export default class ItemNode extends Node {
         // itemToolbox is in a container so it should not occlude other items in the screen view
         itemToolbox.moveToFront();
 
-        item.draggingProperty.set( true );
+        item.userControlledProperty.set( true );
         const index = model.stackObservableArray.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
         item.onBoardProperty.set( false );
 
-        //Don't allow the user to translate the object while it is animating
+        // Don't allow the user to translate the object while it is animating
         item.cancelAnimation();
       },
 
-      //End the drag
+      // End the drag
       end: () => {
-        item.draggingProperty.set( false );
+        item.userControlledProperty.set( false );
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         if ( item.positionProperty.get().y < 350 ) {
           moveToStack();
@@ -203,7 +203,7 @@ export default class ItemNode extends Node {
     // if the item is being dragged, cancel the drag on reset
     model.resetAllEmitter.addListener( () => {
       // cancel the drag and reset item
-      if ( item.draggingProperty.get() ) {
+      if ( item.userControlledProperty.get() ) {
         dragListener.interrupt();
         item.reset();
       }

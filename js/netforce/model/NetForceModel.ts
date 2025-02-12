@@ -176,7 +176,7 @@ export default class NetForceModel extends PhetioObject {
     this.pullers.forEach( puller => {
 
       puller.positionProperty.link( this.updateVisibleKnots.bind( this ) );
-      puller.draggedEmitter.addListener( () => {
+      puller.userControlledEmitter.addListener( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
       } );
       puller.droppedEmitter.addListener( () => {
@@ -239,7 +239,7 @@ export default class NetForceModel extends PhetioObject {
   private updateVisibleKnots(): void {
     this.knots.forEach( knot => { knot.visibleProperty.set( false ); } );
     this.pullers.forEach( puller => {
-      if ( puller.draggingProperty.get() ) {
+      if ( puller.userControlledProperty.get() ) {
         const knot = this.getTargetKnot( puller );
         if ( knot ) {
           knot.visibleProperty.set( true );
@@ -341,7 +341,7 @@ export default class NetForceModel extends PhetioObject {
     this.cart.reset();
     this.pullers.forEach( puller => {
       // if the puller is being dragged, we will need to cancel the drag in PullerNode
-      if ( !puller.draggingProperty.get() ) {
+      if ( !puller.userControlledProperty.get() ) {
         puller.reset();
       }
     } );

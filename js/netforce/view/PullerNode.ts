@@ -91,9 +91,9 @@ export default class PullerNode extends Image {
           this.updateImage( puller, model );
 
           // fire updates
-          puller.draggingProperty.set( true );
+          puller.userControlledProperty.set( true );
           this.moveToFront();
-          puller.draggedEmitter.emit();
+          puller.userControlledEmitter.emit();
 
           // if the puller was knotted, update the image position so that it is centered on the knot it was previously
           // grabbing
@@ -103,7 +103,7 @@ export default class PullerNode extends Image {
         },
         end: () => {
           this.updatePosition( puller, model );
-          puller.draggingProperty.set( false );
+          puller.userControlledProperty.set( false );
           puller.droppedEmitter.emit();
           this.updateImage( puller, model );
         }
@@ -115,7 +115,7 @@ export default class PullerNode extends Image {
       this.updatePosition( puller, model );
 
       // cancel the drag
-      if ( puller.draggingProperty.get() ) {
+      if ( puller.userControlledProperty.get() ) {
         dragListener.interrupt();
 
         puller.reset();

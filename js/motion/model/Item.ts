@@ -49,8 +49,8 @@ export default class Item extends PhetioObject {
   // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly pusherInsetProperty: Property<number>;
 
-  // whether the item is being dragged
-  public readonly draggingProperty: BooleanProperty;
+  // whether the item is being user controlled (dragged)
+  public readonly userControlledProperty: BooleanProperty;
 
   // direction of the item, 'left'|'right'
   // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
@@ -135,7 +135,7 @@ export default class Item extends PhetioObject {
 
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
-    this.draggingProperty = new BooleanProperty( false );
+    this.userControlledProperty = new BooleanProperty( false );
 
     this.directionProperty = new StringProperty( 'left', {
       tandem: tandem.createTandem( 'directionProperty' )
@@ -182,7 +182,7 @@ export default class Item extends PhetioObject {
 
   // Return true if the arms should be up (for a human)
   public armsUp(): boolean {
-    return this.context.draggingItems().length > 0 || this.context.isItemStackedAbove( this );
+    return this.context.userControlledItems().length > 0 || this.context.isItemStackedAbove( this );
   }
 
   /**
@@ -210,7 +210,7 @@ export default class Item extends PhetioObject {
   // Cancel an animation when the user clicks on an item
   public cancelAnimation(): void {
     if ( this.animationStateProperty.get().enabled ) {
-      if ( this.draggingProperty.get() ) {
+      if ( this.userControlledProperty.get() ) {
         this.interactionScaleProperty.set( 1.3 );
       }
       else {
@@ -228,7 +228,7 @@ export default class Item extends PhetioObject {
   public reset(): void {
     this.positionProperty.reset();
     this.pusherInsetProperty.reset();
-    this.draggingProperty.reset();
+    this.userControlledProperty.reset();
     this.directionProperty.reset();
     this.animationStateProperty.reset();
     this.onBoardProperty.reset();
@@ -238,7 +238,7 @@ export default class Item extends PhetioObject {
 
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination
   public step( dt: number ): void {
-    if ( this.draggingProperty.get() ) {
+    if ( this.userControlledProperty.get() ) {
       this.interactionScaleProperty.set( Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 ) );
     }
     else if ( this.animationStateProperty.get().destination === 'home' ) {

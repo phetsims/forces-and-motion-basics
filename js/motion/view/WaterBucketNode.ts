@@ -78,11 +78,11 @@ export default class WaterBucketNode extends ItemNode {
     //When the model steps in time, update the water shape
     //The delta value is the critical value in determining the water shape.
     //Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
-    const deltaProperty = new DerivedProperty( [ model.timeProperty, item.draggingProperty, model.accelerationProperty ], ( time, dragging, acceleration ) => {
+    const deltaProperty = new DerivedProperty( [ model.timeProperty, item.userControlledProperty, model.accelerationProperty ], ( time, userControlled, acceleration ) => {
 
       // if the bucket is being dragged, we want delta to be zero, regardless of
       // whether or not the sim is running
-      if ( dragging ) {
+      if ( userControlled ) {
         return 0;
       }
 
