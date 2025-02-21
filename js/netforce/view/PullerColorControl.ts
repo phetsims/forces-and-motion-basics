@@ -10,7 +10,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import PreferencesDialog from '../../../../joist/js/preferences/PreferencesDialog.js';
+import PreferencesDialogConstants from '../../../../joist/js/preferences/PreferencesDialogConstants.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
@@ -23,7 +23,7 @@ export default class PullerColorControl extends VBox {
   public constructor( pullerColorProperty: Property<PullerColors> ) {
 
     const text = new Text( ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty, {
-      font: PreferencesDialog.PANEL_SECTION_LABEL_FONT,
+      font: PreferencesDialogConstants.PANEL_SECTION_LABEL_FONT,
       maxWidth: 500
     } );
 
@@ -36,7 +36,7 @@ export default class PullerColorControl extends VBox {
       return {
         value: value,
         createNode: () => new Text( labelStringProperty, {
-          font: PreferencesDialog.CONTENT_FONT,
+          font: PreferencesDialogConstants.CONTENT_FONT,
           maxWidth: 500
         } ),
         options: {
