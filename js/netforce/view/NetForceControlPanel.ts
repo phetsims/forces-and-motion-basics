@@ -63,11 +63,11 @@ export default class NetForceControlPanel extends Node {
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
       createNode: () => new Text( sumOfForcesStringProperty, fontOptions ),
       property: model.showSumOfForcesProperty,
-      tandemName: 'showSumOfForcesCheckbox'
+      tandemName: 'sumOfForcesCheckbox'
     }, {
       createNode: () => new Text( valuesStringProperty, fontOptions ),
       property: model.showValuesProperty,
-      tandemName: 'showValuesCheckbox'
+      tandemName: 'valuesCheckbox'
     }, {
       createNode: tandem => new HBox( {
         children: [ showSpeedTextNode, speedometerIconNode ],
@@ -75,7 +75,7 @@ export default class NetForceControlPanel extends Node {
         spacing: speedTextAndSpeedometerIconSpacing
       } ),
       property: model.showSpeedProperty,
-      tandemName: 'showSpeedCheckbox'
+      tandemName: 'speedCheckbox'
     } ], {
       tandem: verticalCheckboxGroupTandem,
       minContentWidth: 100

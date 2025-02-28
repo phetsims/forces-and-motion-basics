@@ -204,29 +204,29 @@ export default class MotionControlPanel extends Node {
 
       const items = [
         {
-          createNode: () => createLabel( forceStringProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createNode: () => createLabel( forceStringProperty, 'forceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
-          tandemName: 'showForceCheckbox'
+          tandemName: 'forceCheckbox'
         },
         {
-          createNode: () => createLabel( valuesStringProperty, 'showValuesCheckbox' ),
+          createNode: () => createLabel( valuesStringProperty, 'valuesCheckbox' ),
           property: model.showValuesProperty,
-          tandemName: 'showValuesCheckbox'
+          tandemName: 'valuesCheckbox'
         },
         {
-          createNode: () => createLabel( massesStringProperty, 'showMassesCheckbox' ),
+          createNode: () => createLabel( massesStringProperty, 'massesCheckbox' ),
           property: model.showMassesProperty,
-          tandemName: 'showMassesCheckbox'
+          tandemName: 'massesCheckbox'
         },
         {
-          createNode: () => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createNode: () => createLabel( speedStringProperty, 'speedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
-          tandemName: 'showSpeedCheckbox'
+          tandemName: 'speedCheckbox'
         },
         {
           createNode: () => createLabel( stopwatchStringProperty, 'stopwatchCheckbox', { icon: createStopwatchIcon() } ),
           property: model.showStopwatchProperty,
-          tandemName: 'showStopwatchCheckbox'
+          tandemName: 'stopwatchCheckbox'
         }
       ];
 
@@ -266,34 +266,34 @@ export default class MotionControlPanel extends Node {
 
       const items = [
         {
-          createNode: () => createLabel( forcesStringProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createNode: () => createLabel( forcesStringProperty, 'forcesCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
-          tandemName: 'showForceCheckbox'
+          tandemName: 'forcesCheckbox'
         },
         {
-          createNode: () => createLabel( sumOfForcesStringProperty, 'showSumOfForcesCheckbox' ),
+          createNode: () => createLabel( sumOfForcesStringProperty, 'sumOfForcesCheckbox' ),
           property: model.showSumOfForcesProperty,
-          tandemName: 'showSumOfForcesCheckbox'
+          tandemName: 'sumOfForcesCheckbox'
         },
         {
-          createNode: () => createLabel( valuesStringProperty, 'showValuesCheckbox' ),
+          createNode: () => createLabel( valuesStringProperty, 'valuesCheckbox' ),
           property: model.showValuesProperty,
-          tandemName: 'showValuesCheckbox'
+          tandemName: 'valuesCheckbox'
         },
         {
-          createNode: () => createLabel( massesStringProperty, 'showMassesCheckbox' ),
+          createNode: () => createLabel( massesStringProperty, 'massesCheckbox' ),
           property: model.showMassesProperty,
-          tandemName: 'showMassesCheckbox'
+          tandemName: 'massesCheckbox'
         },
         {
-          createNode: () => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createNode: () => createLabel( speedStringProperty, 'speedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
-          tandemName: 'showSpeedCheckbox'
+          tandemName: 'speedCheckbox'
         },
         {
           createNode: () => createLabel( stopwatchStringProperty, 'stopwatchCheckbox', { icon: createStopwatchIcon() } ),
           property: model.showStopwatchProperty,
-          tandemName: 'showStopwatchCheckbox'
+          tandemName: 'stopwatchCheckbox'
         }
       ];
 
@@ -334,34 +334,34 @@ export default class MotionControlPanel extends Node {
 
       const items = [
         {
-          createNode: () => createLabel( forcesStringProperty, 'showForceCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
+          createNode: () => createLabel( forcesStringProperty, 'forcesCheckbox', { icon: createArrowIcon( 'showForceArrowIcon' ) } ),
           property: model.showForceProperty,
-          tandemName: 'showForceCheckbox'
+          tandemName: 'forcesCheckbox'
         },
         {
-          createNode: () => createLabel( sumOfForcesStringProperty, 'showSumOfForcesCheckbox' ),
+          createNode: () => createLabel( sumOfForcesStringProperty, 'sumOfForcesCheckbox' ),
           property: model.showSumOfForcesProperty,
-          tandemName: 'showSumOfForcesCheckbox'
+          tandemName: 'sumOfForcesCheckbox'
         },
         {
-          createNode: () => createLabel( valuesStringProperty, 'showValuesCheckbox' ),
+          createNode: () => createLabel( valuesStringProperty, 'valuesCheckbox' ),
           property: model.showValuesProperty,
-          tandemName: 'showValuesCheckbox'
+          tandemName: 'valuesCheckbox'
         },
         {
-          createNode: () => createLabel( massesStringProperty, 'showMassesCheckbox' ),
+          createNode: () => createLabel( massesStringProperty, 'massesCheckbox' ),
           property: model.showMassesProperty,
-          tandemName: 'showMassesCheckbox'
+          tandemName: 'massesCheckbox'
         },
         {
-          createNode: () => createLabel( speedStringProperty, 'showSpeedCheckbox', { icon: speedometerIcon() } ),
+          createNode: () => createLabel( speedStringProperty, 'speedCheckbox', { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
-          tandemName: 'showSpeedCheckbox'
+          tandemName: 'speedCheckbox'
         },
         {
-          createNode: () => createLabel( accelerationStringProperty, 'showAccelerationCheckbox', { icon: accelerometerIcon() } ),
+          createNode: () => createLabel( accelerationStringProperty, 'accelerationCheckbox', { icon: accelerometerIcon() } ),
           property: model.showAccelerationProperty,
-          tandemName: 'showAccelerationCheckbox'
+          tandemName: 'accelerationCheckbox'
         }
       ];
 
