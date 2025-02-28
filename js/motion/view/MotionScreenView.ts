@@ -178,7 +178,8 @@ export default class MotionScreenView extends ScreenView {
         yMargin: 4,
         textOptions: {
           font: new PhetFont( 22 ),
-          maxWidth: maxTextWidth / 3
+          maxWidth: maxTextWidth / 3,
+          tandem: Tandem.OPT_OUT
         }
       },
       deltaFine: 1,
