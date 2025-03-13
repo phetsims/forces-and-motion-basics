@@ -363,7 +363,7 @@ export default class NetForceScreenView extends ScreenView {
     } );
     this.addChild( goPauseButton );
 
-    //Return button
+    // Return button
     this.addChild( new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
       centerX: this.layoutBounds.centerX,
       top: goPauseButton.bottom + MARGIN_FROM_LAYOUT_BOUNDS,

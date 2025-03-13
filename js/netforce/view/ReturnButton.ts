@@ -26,7 +26,10 @@ export default class ReturnButton extends TextPushButton {
       listener: returnCart,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
-      tandem: tandem
+      tandem: tandem,
+      enabledPropertyOptions: {
+        phetioReadOnly: true
+      }
     } );
 
     this.mutate( options );
