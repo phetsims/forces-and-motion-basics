@@ -41,7 +41,10 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
   public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
 
     const options = optionize<GoPauseButtonOptions, SelfOptions, BooleanToggleNodeOptions>()( {
-      top: 400
+      top: 400,
+      enabledPropertyOptions: {
+        phetioReadOnly: true
+      }
     }, providedOptions );
     const goText = new Text( ForcesAndMotionBasicsStrings.goStringProperty, {
       font: new PhetFont( 42 ),
