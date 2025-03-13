@@ -7,18 +7,14 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import TEmitter from '../../../../axon/js/TEmitter.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import BooleanToggleNode, { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
-import RoundPushButton from '../../../../sun/js/buttons/RoundPushButton.js';
+import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
+import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
@@ -29,33 +25,10 @@ import NetForceModel from '../model/NetForceModel.js';
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
 //Centers all the nodes in the parent wrappers
-//TODO: Would be good to factor this out or provide better library support https://github.com/phetsims/forces-and-motion-basics/issues/319
-/**
- * Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the
- * bounds will match up.  If the node is already the largest, don't wrap it.
- * Centers all the nodes in the parent wrappers.
- */
-const wrap = ( node: Node, padX: number, padY: number, nodes: Node[] ): Rectangle => {
-  let maxWidth = -1;
-  let maxHeight = -1;
-  nodes.forEach( n => {
-    if ( n.width > maxWidth ) {
-      maxWidth = n.width;
-    }
-    if ( n.height > maxHeight ) {
-      maxHeight = n.height;
-    }
-  } );
-  maxWidth += padX;
-  maxHeight += padY;
-  node.centerX = maxWidth / 2;
-  node.centerY = maxHeight / 2;
-  return new Rectangle( 0, 0, maxWidth, maxHeight, { children: [ node ] } );
-};
 
 type SelfOptions = EmptySelfOptions;
 type GoPauseButtonOptions = BooleanToggleNodeOptions & SelfOptions;
-export default class GoPauseButton extends BooleanToggleNode {
+export default class GoPauseButton extends BooleanRoundToggleButton {
 
   /**
    * Create a GoPauseButton that appears below the candy cart when a puller has been attached to the rope.
@@ -70,8 +43,6 @@ export default class GoPauseButton extends BooleanToggleNode {
     const options = optionize<GoPauseButtonOptions, SelfOptions, BooleanToggleNodeOptions>()( {
       top: 400
     }, providedOptions );
-    const padX = 15;
-    const padY = 10;
     const goText = new Text( ForcesAndMotionBasicsStrings.goStringProperty, {
       font: new PhetFont( 42 ),
       maxWidth: 85
@@ -92,43 +63,20 @@ export default class GoPauseButton extends BooleanToggleNode {
         { name: 'knotJSON', phetioType: StringIO }
       ]
     } );
-    const goListener = () => {
-      goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
-      model.isRunningProperty.set( true );
-    };
-    const pauseListener = () => {
-      model.isRunningProperty.set( false );
-    };
 
-    // Create the buttons.
-    const createButton = ( textNode: Text, baseColor: string, listener: () => void, tandemName: string, stringProperty: TReadOnlyProperty<string> ) => {
-      const buttonContent = wrap( textNode, padX, padY, [ goText, pauseText ] );
-      const button = new RoundPushButton( {
-        content: buttonContent,
-        baseColor: baseColor,
-        listener: listener,
-        tandem: tandem.createTandem( tandemName )
-      } );
+    super( model.isRunningProperty, pauseText, goText, options );
 
-      // Keep the text centered within the button.
-      stringProperty.link( () => {
-        textNode.centerX = buttonContent.width / 2;
-        textNode.centerY = buttonContent.height / 2;
-      } );
-      return button;
-    };
-    const goButton = createButton( goText, '#94b830', goListener, 'goButton', ForcesAndMotionBasicsStrings.goStringProperty );
-    const pauseButton = createButton( pauseText, '#df1a22', pauseListener, 'pauseButton', ForcesAndMotionBasicsStrings.pauseStringProperty );
+    model.isRunningProperty.link( isRunning => {
+      this.baseColor = isRunning ? '#df1a22' : '#94b830';
 
-    const showGoButtonProperty = new DerivedProperty( [ model.isRunningProperty ], running => !running );
-
-    super( showGoButtonProperty, goButton, pauseButton, options );
+      if ( isRunning ) {
+        goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
+      }
+    } );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     Multilink.multilink( [ model.isRunningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
-      const enabled = isGoButtonEnabled();
-      goButton.enabled = enabled;
-      pauseButton.enabled = enabled;
+      this.enabled = isGoButtonEnabled();
     } );
 
     this.centerX = layoutWidth / 2;

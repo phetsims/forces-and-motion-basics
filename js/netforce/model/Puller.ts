@@ -71,7 +71,8 @@ export default class Puller extends PhetioObject {
     const options = optionize<PullerOptions, SelfOptions, PhetioObjectOptions>()( {
       standOffsetX: 0,
       other: '',
-      tandem: tandem
+      tandem: tandem,
+      phetioFeatured: true
     }, providedOptions );
 
     super( options );

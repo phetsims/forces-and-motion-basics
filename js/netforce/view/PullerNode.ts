@@ -42,7 +42,8 @@ export default class PullerNode extends Image {
 
     // TODO: visibleProperty will probably want to be in Puller, and reset the knotProperty, https://github.com/phetsims/forces-and-motion-basics/issues/343
     const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {
-      phetioInputEnabledPropertyInstrumented: true
+      phetioInputEnabledPropertyInstrumented: true,
+      phetioFeatured: true
     }, providedOptions );
 
     super( image, {
