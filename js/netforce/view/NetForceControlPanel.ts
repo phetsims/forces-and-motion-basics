@@ -94,7 +94,9 @@ export default class NetForceControlPanel extends Node {
         model.reset();
       },
       radius: 23,
-      tandem: tandem.createTandem( 'resetAllButton' )
+
+      // TODO: Want to move this to another file? See https://github.com/phetsims/forces-and-motion-basics/issues/343
+      tandem: tandem.parentTandem!.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
 
