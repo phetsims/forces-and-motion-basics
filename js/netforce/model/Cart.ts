@@ -14,24 +14,24 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 export default class Cart {
 
   // 1-D x position of the cart
-  public readonly xProperty: NumberProperty;
+  public readonly positionProperty: NumberProperty;
 
   // 1-D velocity in MKS
-  public readonly vProperty: NumberProperty;
+  public readonly velocityProperty: NumberProperty;
 
   // width from the center of the cart to the wheels, used to determine when a wheel touches a game stopper in meters
   public readonly widthToWheel = 55;
 
   public constructor( tandem: Tandem ) {
-    this.xProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'xProperty' ),
+    this.positionProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
       units: 'm',
       range: new Range( -403, 403 )
     } );
 
-    this.vProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'vProperty' ),
+    this.velocityProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'velocityProperty' ),
       phetioReadOnly: true,
       units: 'm/s',
       range: new Range( -6, 6 )
@@ -42,8 +42,8 @@ export default class Cart {
    * Reset the Properties associated with this model.
    */
   public reset(): void {
-    this.xProperty.reset();
-    this.vProperty.reset();
+    this.positionProperty.reset();
+    this.velocityProperty.reset();
   }
 }
 

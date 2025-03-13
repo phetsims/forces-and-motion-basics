@@ -38,7 +38,7 @@ export default class ReturnButton extends TextPushButton {
       }
     } );
 
-    model.startedProperty.linkAttribute( this, 'enabled' );
+    model.hasStartedProperty.linkAttribute( this, 'enabled' );
   }
 }
 

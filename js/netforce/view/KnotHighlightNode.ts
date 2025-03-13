@@ -21,12 +21,12 @@ export default class KnotHighlightNode extends Path {
     super( Shape.circle( 0, 0, knotWidth ), {
       stroke: '#FFFF00',
       lineWidth: 4,
-      visibleProperty: knot.visibleProperty,
-      x: knot.xProperty.get(),
+      visibleProperty: knot.isHighlightedProperty,
+      x: knot.positionProperty.get(),
       y: knot.y
     } );
 
-    knot.xProperty.link( x => {
+    knot.positionProperty.link( x => {
       this.x = x;
     } );
   }

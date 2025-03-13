@@ -26,7 +26,7 @@ export default class CartNode extends Image {
       y: 221
     } );
 
-    this.xPosition = this.cart.xProperty.get();
+    this.xPosition = this.cart.positionProperty.get();
 
     // add a speedometer to the cart
     const speedRange = new Range( 0, 6 ); // speed range of the cart in m/s

@@ -46,7 +46,7 @@ export default class FlagNode extends Node {
 
     // Return the string of the winning color and set the fill color of the flag.
     this.colorWinsStringProperty = new DerivedStringProperty(
-      [ ForcesAndMotionBasicsPreferences.pullerColorProperty, model.cart.xProperty,
+      [ ForcesAndMotionBasicsPreferences.pullerColorProperty, model.cart.positionProperty,
         ForcesAndMotionBasicsStrings.blueWinsStringProperty, ForcesAndMotionBasicsStrings.redWinsStringProperty,
         ForcesAndMotionBasicsStrings.purpleWinsStringProperty, ForcesAndMotionBasicsStrings.orangeWinsStringProperty ],
       ( pullerColor, x, blueWinsString, redWinsString, purpleWinsString, orangeWinsString ) => {

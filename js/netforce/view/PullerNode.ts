@@ -55,7 +55,7 @@ export default class PullerNode extends Image {
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image;
 
-    model.startedProperty.link( () => {
+    model.hasStartedProperty.link( () => {
       this.updateImage( puller, model );
       this.updatePosition( puller, model );
     } );
@@ -64,11 +64,11 @@ export default class PullerNode extends Image {
       this.updatePosition( puller, model );
     } );
 
-    model.startedProperty.link( () => {
+    model.hasStartedProperty.link( () => {
       this.updateImage( puller, model );
       this.updatePosition( puller, model );
     } );
-    model.runningProperty.link( () => {
+    model.isRunningProperty.link( () => {
       this.updateImage( puller, model );
       this.updatePosition( puller, model );
     } );
@@ -141,7 +141,7 @@ export default class PullerNode extends Image {
    */
   private updatePositionKnotted( puller: Puller, model: NetForceModel, knot: Knot ): void {
     const blueOffset = this.puller.type === 'blue' ? -60 : 0;
-    puller.positionProperty.set( new Vector2( knot.xProperty.get() + blueOffset, knot.y - this.height + 90 ) );
+    puller.positionProperty.set( new Vector2( knot.positionProperty.get() + blueOffset, knot.y - this.height + 90 ) );
   }
 
   /**
@@ -149,7 +149,7 @@ export default class PullerNode extends Image {
    */
   public updateImage( puller: Puller, model: NetForceModel ): void {
     const knotted = puller.knotProperty.get();
-    const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
+    const pulling = model.hasStartedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
     this.image = pulling ? this.pullImage : this.standImage;
   }
 
@@ -158,11 +158,11 @@ export default class PullerNode extends Image {
    */
   public updatePosition( puller: Puller, model: NetForceModel ): void {
     const knotted = puller.knotProperty.get();
-    const pulling = model.startedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
+    const pulling = model.hasStartedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
     if ( knotted ) {
       const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
       const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-      this.setTranslation( puller.knotProperty.get()!.xProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get()!.y - this.height + 90 );
+      this.setTranslation( puller.knotProperty.get()!.positionProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get()!.y - this.height + 90 );
     }
     else {
       this.setTranslation( puller.positionProperty.get() );

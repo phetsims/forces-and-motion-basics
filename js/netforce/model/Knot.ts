@@ -22,11 +22,11 @@ export type KnotType = 'blue' | 'red';
 export default class Knot extends PhetioObject {
 
   // the 1-D x position of the knot
-  public readonly xProperty: NumberProperty;
+  public readonly positionProperty: NumberProperty;
 
   // The knots are always visible as part of the image, but when the visible flag is set,
   // the highlight is shown.
-  public readonly visibleProperty: BooleanProperty;
+  public readonly isHighlightedProperty: BooleanProperty;
 
   // Constant value for the y position (in screen coordinates)
   public readonly y = 285;
@@ -52,13 +52,13 @@ export default class Knot extends PhetioObject {
 
     super( options );
 
-    this.xProperty = new NumberProperty( this.initX, {
-      tandem: tandem.createTandem( 'xProperty' ),
+    this.positionProperty = new NumberProperty( this.initX, {
+      tandem: tandem.createTandem( 'positionProperty' ),
       units: 'm'
     } );
 
-    this.visibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'visibleProperty' )
+    this.isHighlightedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isHighlightedProperty' )
     } );
   }
 
@@ -66,8 +66,8 @@ export default class Knot extends PhetioObject {
    * Reset this knot by resetting its associated model Properties.
    */
   public reset(): void {
-    this.xProperty.reset();
-    this.visibleProperty.reset();
+    this.positionProperty.reset();
+    this.isHighlightedProperty.reset();
   }
 
   public static KnotIO = new IOType( 'KnotIO', {

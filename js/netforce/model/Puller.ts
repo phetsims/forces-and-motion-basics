@@ -115,12 +115,12 @@ export default class Puller extends PhetioObject {
 
       //Unlink from the previous knot if there was one
       if ( oldKnot ) {
-        oldKnot.xProperty.unlink( updatePosition );
+        oldKnot.positionProperty.unlink( updatePosition );
       }
 
       //Synchronize our position with the knot.
       if ( newKnot ) {
-        newKnot.xProperty.link( updatePosition );
+        newKnot.positionProperty.link( updatePosition );
       }
     } );
   }

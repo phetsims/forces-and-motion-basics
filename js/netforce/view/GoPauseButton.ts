@@ -82,7 +82,7 @@ export default class GoPauseButton extends BooleanToggleNode {
     } );
 
     // boolean function to determine if the go button should be enabled based on model state.
-    const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.runningProperty.get() );
+    const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.isRunningProperty.get() );
 
     // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
     const goButtonPressedEmitter: TEmitter<[ number, string ]> = new Emitter( {
@@ -94,10 +94,10 @@ export default class GoPauseButton extends BooleanToggleNode {
     } );
     const goListener = () => {
       goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
-      model.runningProperty.set( true );
+      model.isRunningProperty.set( true );
     };
     const pauseListener = () => {
-      model.runningProperty.set( false );
+      model.isRunningProperty.set( false );
     };
 
     // Create the buttons.
@@ -120,12 +120,12 @@ export default class GoPauseButton extends BooleanToggleNode {
     const goButton = createButton( goText, '#94b830', goListener, 'goButton', ForcesAndMotionBasicsStrings.goStringProperty );
     const pauseButton = createButton( pauseText, '#df1a22', pauseListener, 'pauseButton', ForcesAndMotionBasicsStrings.pauseStringProperty );
 
-    const showGoButtonProperty = new DerivedProperty( [ model.runningProperty ], running => !running );
+    const showGoButtonProperty = new DerivedProperty( [ model.isRunningProperty ], running => !running );
 
     super( showGoButtonProperty, goButton, pauseButton, options );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
-    Multilink.multilink( [ model.runningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
+    Multilink.multilink( [ model.isRunningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
       const enabled = isGoButtonEnabled();
       goButton.enabled = enabled;
       pauseButton.enabled = enabled;

@@ -297,7 +297,7 @@ export default class NetForceScreenView extends ScreenView {
     } );
 
     //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
-    this.model.runningProperty.link( running => {
+    this.model.isRunningProperty.link( running => {
       [ this.sumArrow, this.leftArrow, this.rightArrow ].forEach( arrow => {
         arrow.setArrowDash( running ? [] : [ 10, 5 ] );
       } );
@@ -305,7 +305,7 @@ export default class NetForceScreenView extends ScreenView {
 
     this.model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    this.model.cart.xProperty.link( x => {
+    this.model.cart.positionProperty.link( x => {
       this.cartNode.x = x + 412;
       this.ropeImageNode.x = x + 51;
     } );
@@ -402,7 +402,7 @@ export default class NetForceScreenView extends ScreenView {
     let lastFlagNode: FlagNode | null = null;
 
     // Show the flag node when pulling is complete
-    Multilink.multilink( [ model.stateProperty, model.cart.xProperty ], ( state, x ) => {
+    Multilink.multilink( [ model.stateProperty, model.cart.positionProperty ], ( state, x ) => {
       lastFlagNode && lastFlagNode.dispose();
       lastFlagNode = null;
       if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {

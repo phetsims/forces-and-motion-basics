@@ -36,8 +36,8 @@ export default class NetForceModel extends PhetioObject {
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
   public static readonly GAME_LENGTH = 458;
 
-  public readonly startedProperty: BooleanProperty;
-  public readonly runningProperty: BooleanProperty;
+  public readonly hasStartedProperty: BooleanProperty;
+  public readonly isRunningProperty: BooleanProperty;
   public readonly numberPullersAttachedProperty: NumberProperty;
   public readonly stateProperty: StringProperty;
   public readonly timeProperty: Property<number>;
@@ -63,14 +63,14 @@ export default class NetForceModel extends PhetioObject {
       phetioState: false
     } );
 
-    this.startedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'startedProperty' ),
+    this.hasStartedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'hasStartedProperty' ),
       phetioDocumentation: 'Indicates the tug-of-war has started.',
       phetioReadOnly: true
     } );
 
-    this.runningProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'runningProperty' )
+    this.isRunningProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isRunningProperty' )
     } );
 
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
@@ -199,7 +199,7 @@ export default class NetForceModel extends PhetioObject {
     } );
 
     //Update the started flag
-    this.runningProperty.link( running => { if ( running ) { this.startedProperty.set( true ); }} );
+    this.isRunningProperty.link( running => { if ( running ) { this.hasStartedProperty.set( true ); }} );
 
     //Update the forces when the number of attached pullers changes
     this.numberPullersAttachedProperty.link( () => { this.netForceProperty.set( this.getNetForce() ); } );
@@ -220,7 +220,7 @@ export default class NetForceModel extends PhetioObject {
     //try to snap to a knot
     if ( knot ) {
 
-      puller.positionProperty.set( new Vector2( knot.xProperty.get(), knot.y ) );
+      puller.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
       puller.knotProperty.set( knot );
     }
 
@@ -247,12 +247,12 @@ export default class NetForceModel extends PhetioObject {
 
   // Change knot visibility (halo highlight) when the pullers are dragged
   private updateVisibleKnots(): void {
-    this.knots.forEach( knot => { knot.visibleProperty.set( false ); } );
+    this.knots.forEach( knot => { knot.isHighlightedProperty.set( false ); } );
     this.pullers.forEach( puller => {
       if ( puller.userControlledProperty.get() ) {
         const knot = this.getTargetKnot( puller );
         if ( knot ) {
-          knot.visibleProperty.set( true );
+          knot.isHighlightedProperty.set( true );
         }
       }
     } );
@@ -274,7 +274,7 @@ export default class NetForceModel extends PhetioObject {
     // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
     // placing the blue pullers
     const dx = puller.type === 'red' ? 0 : -40;
-    return knot => Math.sqrt( Math.pow( knot.xProperty.get() - puller.positionProperty.get().x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.get().y, 2 ) );
+    return knot => Math.sqrt( Math.pow( knot.positionProperty.get() - puller.positionProperty.get().x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.get().y, 2 ) );
   }
 
   /**
@@ -316,13 +316,13 @@ export default class NetForceModel extends PhetioObject {
   public returnCart(): void {
     this.cart.reset();
     this.knots.forEach( knot => {knot.reset();} );
-    this.runningProperty.set( false );
+    this.isRunningProperty.set( false );
     this.stateProperty.set( 'experimenting' );
 
     // broadcast a message that the cart was returned
     this.cartReturnedEmitter.emit();
 
-    this.startedProperty.set( false );
+    this.hasStartedProperty.set( false );
     this.durationProperty.set( 0 ); // Reset tug-of-war timer
     this.speedProperty.reset();
   }
@@ -331,8 +331,8 @@ export default class NetForceModel extends PhetioObject {
   public reset(): void {
 
     // reset all Properties associated with this model
-    this.startedProperty.reset();
-    this.runningProperty.reset();
+    this.hasStartedProperty.reset();
+    this.isRunningProperty.reset();
     this.numberPullersAttachedProperty.reset();
     this.stateProperty.reset();
     this.timeProperty.reset();
@@ -374,22 +374,22 @@ export default class NetForceModel extends PhetioObject {
    */
   public step( dt: number ): void {
 
-    if ( this.runningProperty.get() ) {
+    if ( this.isRunningProperty.get() ) {
 
       // Increment tug-of-war timer
       this.durationProperty.set( this.durationProperty.get() + dt );
 
       // Make the simulation run about as fast as the Java version
-      const newV = this.cart.vProperty.get() + this.getNetForce() * dt * 0.003;
+      const newV = this.cart.velocityProperty.get() + this.getNetForce() * dt * 0.003;
       this.speedProperty.set( Math.abs( newV ) );
 
       // calculate new position from velocity
-      const newX = this.cart.xProperty.get() + newV * dt * 60.0;
+      const newX = this.cart.positionProperty.get() + newV * dt * 60.0;
 
       //If the cart made it to the end, then stop and signify completion
       const gameLength = NetForceModel.GAME_LENGTH - this.cart.widthToWheel;
       if ( newX > gameLength || newX < -gameLength ) {
-        this.runningProperty.set( false );
+        this.isRunningProperty.set( false );
         this.stateProperty.set( 'completed' );
 
         // zero out the velocity
@@ -415,11 +415,11 @@ export default class NetForceModel extends PhetioObject {
   private updateCartAndPullers( newV: number, newX: number ): void {
 
     // move the cart, and update its velocity
-    this.cart.vProperty.set( newV );
-    this.cart.xProperty.set( newX );
+    this.cart.velocityProperty.set( newV );
+    this.cart.positionProperty.set( newX );
 
     // move the knots and the pullers on those knots
-    this.knots.forEach( knot => { knot.xProperty.set( knot.initX + newX ); } );
+    this.knots.forEach( knot => { knot.positionProperty.set( knot.initX + newX ); } );
   }
 
   // Gets the net force on the cart, applied by both left and right pullers
@@ -457,8 +457,8 @@ export default class NetForceModel extends PhetioObject {
   private getClosestOpenKnotInDirection( puller: Puller, delta: number ): Knot | null {
     const isInRightDirection = ( sourceKnot: Knot, destinationKnot: Knot, delta: number ) => {
       assert && assert( delta < 0 || delta > 0 );
-      return delta < 0 ? destinationKnot.xProperty.get() < sourceKnot.xProperty.get() :
-             delta > 0 ? destinationKnot.xProperty.get() > sourceKnot.xProperty.get() :
+      return delta < 0 ? destinationKnot.positionProperty.get() < sourceKnot.positionProperty.get() :
+             delta > 0 ? destinationKnot.positionProperty.get() > sourceKnot.positionProperty.get() :
              'error';
     };
     const filter = this.knots.filter( knot => knot.type === puller.type &&
