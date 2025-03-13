@@ -9,7 +9,10 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
+import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -74,6 +77,7 @@ const STOPPER_TOP_WIDTH = 11;
 const STOPPER_BOTTOM_WIDTH = 30;
 const STOPPER_HEIGHT = 24;
 const SUM_ARROW_TAIL_Y = 127;
+const BUTTON_PADDING = 7; // placement padding for the reset all button
 
 // Define the color mapping for the pullers
 type ColorTypeSet = {
@@ -163,6 +167,7 @@ export default class NetForceScreenView extends ScreenView {
   private readonly rightArrow: ReadoutArrow;
   private readonly pullerNodes: PullerNode[] = [];
   private readonly controlPanel: NetForceControlPanel;
+  private readonly resetAllButton: ResetAllButton;
   private readonly sumOfForcesText: Text;
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
@@ -371,11 +376,28 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.sumArrow );
 
     // Show the control panel
-    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) ).mutate( {
-      right: this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS,
-      top: MARGIN_FROM_LAYOUT_BOUNDS
+    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) );
+
+    // Create reset all button
+    this.resetAllButton = new ResetAllButton( {
+      listener: () => {
+        model.reset();
+      },
+      radius: 23,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    this.addChild( this.controlPanel );
+
+    const vBox = new VBox( {
+      spacing: BUTTON_PADDING,
+      children: [ this.controlPanel, this.resetAllButton ],
+      align: 'right'
+    } );
+    this.addChild( vBox );
+
+    ManualConstraint.create( this, [ vBox ], vBoxProxy => {
+      vBoxProxy.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
+      vBoxProxy.top = MARGIN_FROM_LAYOUT_BOUNDS;
+    } );
 
     let lastFlagNode: FlagNode | null = null;
 

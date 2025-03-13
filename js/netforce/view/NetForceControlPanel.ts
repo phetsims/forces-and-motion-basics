@@ -8,7 +8,6 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -22,9 +21,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
 
-// constants
-const BUTTON_PADDING = 7; // placement padding for the reset all button and the mute button
-
 // strings
 const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
@@ -34,7 +30,7 @@ type SelfOptions = EmptySelfOptions;
 type NetForceControlPanelOptions = NodeOptions & SelfOptions;
 export default class NetForceControlPanel extends Node {
   private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
-  private readonly resetAllButton: ResetAllButton;
+  private readonly verticalCheckboxGroupPanel: Panel;
 
   /**
    * Create the NetForceControlPanel.
@@ -80,34 +76,17 @@ export default class NetForceControlPanel extends Node {
       tandem: verticalCheckboxGroupTandem,
       minContentWidth: 100
     } );
-    const verticalCheckboxGroupPanel = new Panel( this.verticalCheckboxGroup, {
+    this.verticalCheckboxGroupPanel = new Panel( this.verticalCheckboxGroup, {
       xMargin: 10,
       yMargin: 10,
       fill: '#e3e980',
       tandem: tandem.createTandem( 'verticalCheckboxGroupPanel' )
     } );
-    this.addChild( verticalCheckboxGroupPanel );
-
-    //Create sound and reset buttons, and size them to be the same height.  They appear below the top panel
-    this.resetAllButton = new ResetAllButton( {
-      listener: () => {
-        model.reset();
-      },
-      radius: 23,
-
-      // TODO: Want to move this to another file? See https://github.com/phetsims/forces-and-motion-basics/issues/343
-      tandem: tandem.parentTandem!.createTandem( 'resetAllButton' )
-    } );
-    this.addChild( this.resetAllButton );
+    this.addChild( this.verticalCheckboxGroupPanel );
 
     // Update the layout to support dynamic locale
     Multilink.multilink( [ sumOfForcesStringProperty, valuesStringProperty, speedStringProperty ], () => {
-      verticalCheckboxGroupPanel.right = ForcesAndMotionBasicsLayoutBounds.width - 5;
-
-      // TODO: How should layout occur here when checkbox is hidden? https://github.com/phetsims/forces-and-motion-basics/issues/342
-      if ( verticalCheckboxGroupPanel.bounds.isFinite() ) {
-        this.resetAllButton.rightCenter = verticalCheckboxGroupPanel.rightBottom.plusXY( -BUTTON_PADDING, 35 );
-      }
+      this.verticalCheckboxGroupPanel.right = ForcesAndMotionBasicsLayoutBounds.width - 5;
     } );
   }
 }
