@@ -95,11 +95,13 @@ export default class Puller extends PhetioObject {
     } );
 
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
-      tandem: tandem.createTandem( 'positionProperty' )
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioReadOnly: true
     } );
 
     this.lastPlacementProperty = new StringProperty( 'home', {
-      tandem: tandem.createTandem( 'lastPlacementProperty' )
+      tandem: tandem.createTandem( 'lastPlacementProperty' ),
+      phetioReadOnly: true
     } );
 
 

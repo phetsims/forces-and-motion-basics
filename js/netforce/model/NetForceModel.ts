@@ -64,7 +64,8 @@ export default class NetForceModel extends PhetioObject {
     } );
 
     this.startedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'startedProperty' )
+      tandem: tandem.createTandem( 'startedProperty' ),
+      phetioReadOnly: true
     } );
 
     this.runningProperty = new BooleanProperty( false, {
@@ -73,13 +74,15 @@ export default class NetForceModel extends PhetioObject {
 
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
+      phetioReadOnly: true,
       range: new Range( 0, 8 )
     } );
 
     // TODO what are the valid values? https://github.com/phetsims/forces-and-motion-basics/issues/319
     // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
     this.stateProperty = new StringProperty( 'experimenting', {
-      tandem: tandem.createTandem( 'stateProperty' )
+      tandem: tandem.createTandem( 'stateProperty' ),
+      phetioReadOnly: true
     } );
 
     this.timeProperty = new Property( 0 );
@@ -87,30 +90,35 @@ export default class NetForceModel extends PhetioObject {
     const forcesTandem = tandem.createTandem( 'forces' );
     this.netForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'netForceProperty' ),
+      phetioReadOnly: true,
       units: 'N',
       range: new Range( -350, 350 )
     } );
 
     this.leftForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'leftForceProperty' ),
+      phetioReadOnly: true,
       units: 'N',
       range: new Range( -350, 0 )
     } );
 
     this.rightForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'rightForceProperty' ),
+      phetioReadOnly: true,
       units: 'N',
       range: new Range( 0, 350 )
     } );
 
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
+      phetioReadOnly: true,
       units: 'm/s',
       range: new Range( 0, 6 )
     } );
 
     this.durationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'durationProperty' ),
+      phetioReadOnly: true,
       units: 's',
       range: new Range( 0, Number.POSITIVE_INFINITY )
     } );

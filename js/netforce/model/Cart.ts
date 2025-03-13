@@ -25,12 +25,14 @@ export default class Cart {
   public constructor( tandem: Tandem ) {
     this.xProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'xProperty' ),
+      phetioReadOnly: true,
       units: 'm',
       range: new Range( -403, 403 )
     } );
 
     this.vProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'vProperty' ),
+      phetioReadOnly: true,
       units: 'm/s',
       range: new Range( -6, 6 )
     } );
