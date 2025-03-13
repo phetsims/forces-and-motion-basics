@@ -65,6 +65,7 @@ export default class NetForceModel extends PhetioObject {
 
     this.startedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'startedProperty' ),
+      phetioDocumentation: 'Indicates the tug-of-war has started.',
       phetioReadOnly: true
     } );
 
@@ -118,6 +119,7 @@ export default class NetForceModel extends PhetioObject {
 
     this.durationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'durationProperty' ),
+      phetioDocumentation: 'Duration of the tug-of-war.',
       phetioReadOnly: true,
       units: 's',
       range: new Range( 0, Number.POSITIVE_INFINITY )
