@@ -55,7 +55,7 @@ export default class NetForceControlPanel extends Node {
     const speedFontOptions = { font: fontOptions.font, maxWidth: fontOptions.maxWidth - speedometerIconNode.width - speedTextAndSpeedometerIconSpacing };
     const showSpeedTextNode = new Text( speedStringProperty, speedFontOptions );
 
-    const verticalCheckboxGroupTandem = tandem.createTandem( 'verticalCheckboxGroup' );
+    const verticalCheckboxGroupTandem = tandem.createTandem( 'checkboxGroup' );
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
       createNode: () => new Text( sumOfForcesStringProperty, fontOptions ),
       property: model.showSumOfForcesProperty,
@@ -79,8 +79,7 @@ export default class NetForceControlPanel extends Node {
     this.verticalCheckboxGroupPanel = new Panel( this.verticalCheckboxGroup, {
       xMargin: 10,
       yMargin: 10,
-      fill: '#e3e980',
-      tandem: tandem.createTandem( 'verticalCheckboxGroupPanel' )
+      fill: '#e3e980'
     } );
     this.addChild( this.verticalCheckboxGroupPanel );
 
