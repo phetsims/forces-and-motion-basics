@@ -100,6 +100,7 @@ export default class Puller extends PhetioObject {
     this.lastPlacementProperty = new StringUnionProperty( 'home', {
       validValues: [ 'home', 'knot' ],
       tandem: tandem.createTandem( 'lastPlacementProperty' ),
+      phetioDocumentation: 'For PhET-iO internal use only, tracks the last placement of the puller for purposes of determining thresholds for where it should drop',
       phetioReadOnly: true
     } );
 
