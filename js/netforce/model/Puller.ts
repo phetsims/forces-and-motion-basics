@@ -9,7 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -44,9 +44,7 @@ export default class Puller extends PhetioObject {
   public readonly positionProperty: Vector2Property;
 
   // a classified position in the play area
-  // TODO: What are the valid values for this Property? https://github.com/phetsims/forces-and-motion-basics/issues/319
-  // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-  public readonly lastPlacementProperty: StringProperty;
+  public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>;
 
   // emits an event when the puller is dropped
   public readonly droppedEmitter = new Emitter();
@@ -99,13 +97,13 @@ export default class Puller extends PhetioObject {
       phetioReadOnly: true
     } );
 
-    this.lastPlacementProperty = new StringProperty( 'home', {
+    this.lastPlacementProperty = new StringUnionProperty( 'home', {
+      validValues: [ 'home', 'knot' ],
       tandem: tandem.createTandem( 'lastPlacementProperty' ),
       phetioReadOnly: true
     } );
 
-
-    //Move with the knot
+    // Move with the knot
     const updatePosition = ( knotX: number ) => {
       this.positionProperty.set( new Vector2( knotX, this.positionProperty.get().y ) );
     };

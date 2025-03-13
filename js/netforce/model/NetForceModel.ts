@@ -11,6 +11,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
@@ -79,9 +80,8 @@ export default class NetForceModel extends PhetioObject {
       range: new Range( 0, 8 )
     } );
 
-    // TODO what are the valid values? https://github.com/phetsims/forces-and-motion-basics/issues/319
-    // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-    this.stateProperty = new StringProperty( 'experimenting', {
+    this.stateProperty = new StringUnionProperty( 'experimenting', {
+      validValues: [ 'experimenting', 'completed' ],
       tandem: tandem.createTandem( 'stateProperty' ),
       phetioReadOnly: true
     } );
@@ -307,7 +307,7 @@ export default class NetForceModel extends PhetioObject {
     const target = this.getClosestOpenKnot( puller );
     const distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
-    //Only accept a target knot if the puller's head is close enough to the knot
+    // Only accept a target knot if the puller's head is close enough to the knot
     const threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
     return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
   }
