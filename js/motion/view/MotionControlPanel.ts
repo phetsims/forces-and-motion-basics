@@ -198,9 +198,7 @@ export default class MotionControlPanel extends Node {
     const createMotionControls = () => {
 
       // container node for checkboxes
-      const containerNode = new Node( {
-        tandem: tandem.createTandem( 'containerNode' )
-      } );
+      const containerNode = new Node();
 
       const items = [
         {
@@ -260,9 +258,7 @@ export default class MotionControlPanel extends Node {
     const createFrictionControls = () => {
 
       // container for all controls
-      const containerNode = new Node( {
-        tandem: tandem.createTandem( 'containerNode' )
-      } );
+      const containerNode = new Node();
 
       const items = [
         {
@@ -328,9 +324,7 @@ export default class MotionControlPanel extends Node {
     const createAccelerationControls = () => {
 
       // node containing checkboxes, spacing, and slider
-      const containerNode = new Node( {
-        tandem: tandem.createTandem( 'containerNode' )
-      } );
+      const containerNode = new Node();
 
       const items = [
         {
