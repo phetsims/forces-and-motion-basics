@@ -77,7 +77,8 @@ export default class NetForceModel extends PhetioObject {
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
       phetioReadOnly: true,
-      range: new Range( 0, 8 )
+      range: new Range( 0, 8 ),
+      numberType: 'Integer'
     } );
 
     this.stateProperty = new StringUnionProperty( 'experimenting', {
