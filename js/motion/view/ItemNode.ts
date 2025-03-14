@@ -58,8 +58,8 @@ export default class ItemNode extends Node {
     super( {
       cursor: 'pointer',
       scale: item.imageScale,
-
-      tandem: tandem
+      tandem: tandem,
+      phetioFeatured: true
     } );
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
@@ -281,6 +281,8 @@ export default class ItemNode extends Node {
     this.addChild( labelText );
 
     showMassesProperty.link( showMasses => { labelText.visible = showMasses; } );
+
+    this.addLinkedElement( item );
   }
 
 

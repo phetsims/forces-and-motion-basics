@@ -99,7 +99,8 @@ export default class Item extends PhetioObject {
     super( {
       tandem: tandem,
       phetioType: ReferenceIO( IOType.ObjectIO ),
-      phetioState: false
+      phetioState: false,
+      phetioFeatured: true
     } );
 
     this.name = typeof name === 'string' ? name : name.name.toLowerCase();
