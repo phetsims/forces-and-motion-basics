@@ -57,7 +57,7 @@ export default class AppliedForceSlider extends HSlider {
       // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
       // up a state of forces
       endDrag: () => {
-      if ( model.playProperty.get() ) {
+      if ( model.isPlayingProperty.get() ) {
         model.appliedForceProperty.set( 0 );
       }
     }

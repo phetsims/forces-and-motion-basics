@@ -122,7 +122,7 @@ export default class MotionModel {
   public readonly stackSizeProperty: NumberProperty;
 
   // is the sim running or paused?
-  public readonly playProperty: BooleanProperty;
+  public readonly isPlayingProperty: BooleanProperty;
 
   // to observe whether the friction is zero
   public readonly frictionZeroProperty: TReadOnlyProperty<boolean>;
@@ -286,8 +286,8 @@ export default class MotionModel {
       tandem: tandem.createTandem( 'stackSizeProperty' )
     } );
 
-    this.playProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'playProperty' )
+    this.isPlayingProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'isPlayingProperty' )
     } );
 
     this.frictionZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction === 0 );
@@ -603,7 +603,7 @@ export default class MotionModel {
     this.frictionForceProperty.set( this.getFrictionForce( this.appliedForceProperty.get() ) );
     this.sumOfForcesProperty.set( this.frictionForceProperty.get() + this.appliedForceProperty.get() );
 
-    if ( this.playProperty.get() ) {
+    if ( this.isPlayingProperty.get() ) {
       this.stepModel( dt );
     }
 
@@ -666,7 +666,7 @@ export default class MotionModel {
     this.fallenDirectionProperty.reset();
     this.timeProperty.reset();
     this.stackSizeProperty.reset();
-    this.playProperty.reset();
+    this.isPlayingProperty.reset();
     this.showStopwatchProperty.reset();
 
     for ( let i = 0; i < this.items.length; i++ ) {

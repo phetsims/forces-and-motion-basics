@@ -234,7 +234,8 @@ export default class MotionScreenView extends ScreenView {
 
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     const playPauseVerticalOffset = 35;
-    const playPauseStepHBox = new TimeControlNode( model.playProperty, {
+    const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
+      tandem: tandem.createTandem( 'timeControlNode' ),
       leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset ),
       playPauseStepButtonOptions: {
         stepForwardButtonOptions: {
@@ -242,7 +243,7 @@ export default class MotionScreenView extends ScreenView {
         }
       }
     } );
-    this.addChild( playPauseStepHBox );
+    this.addChild( timeControlNode );
 
     //Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
     //TODO: Is that OK? or should we invest dynamic search/lookups to keep as closure var? https://github.com/phetsims/forces-and-motion-basics/issues/319
@@ -261,8 +262,8 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( this.resetAllButton );
 
     // i18n - if the play control buttons are too close to reset all, they should be separated
-    if ( playPauseStepHBox.right > this.resetAllButton.left - PLAY_PAUSE_BUFFER ) {
-      playPauseStepHBox.leftCenter = controlPanel.leftBottom.plusXY( -2 * PLAY_PAUSE_BUFFER, playPauseVerticalOffset );
+    if ( timeControlNode.right > this.resetAllButton.left - PLAY_PAUSE_BUFFER ) {
+      timeControlNode.leftCenter = controlPanel.leftBottom.plusXY( -2 * PLAY_PAUSE_BUFFER, playPauseVerticalOffset );
     }
 
     //Add the accelerometer, if on the final screen

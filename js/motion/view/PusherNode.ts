@@ -334,8 +334,8 @@ export default class PusherNode extends Node {
         if ( this.interactive ) {
 
           // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
-          if ( !model.playProperty.value ) {
-            model.playProperty.set( true );
+          if ( !model.isPlayingProperty.value ) {
+            model.isPlayingProperty.set( true );
           }
         }
       },
@@ -344,7 +344,7 @@ export default class PusherNode extends Node {
         if ( this.interactive ) {
 
           // if the model is paused, the applied force should remain the same
-          if ( model.playProperty.value ) {
+          if ( model.isPlayingProperty.value ) {
             model.appliedForceProperty.set( 0 );
           }
         }
