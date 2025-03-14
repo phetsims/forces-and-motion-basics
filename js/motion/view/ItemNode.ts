@@ -101,15 +101,15 @@ export default class ItemNode extends Node {
       model.items[ i ].userControlledProperty.link( updateImage );
     }
 
-    model.stackObservableArray.lengthProperty.link( updateImage );
+    model.stackedItems.lengthProperty.link( updateImage );
 
     //When the user drags the object, start
     const moveToStack = () => {
       item.onBoardProperty.set( true );
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
       item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2, motionView.topOfStack - this.height, 'stack' );
-      model.stackObservableArray.add( item );
-      if ( model.stackObservableArray.length > 3 ) {
+      model.stackedItems.add( item );
+      if ( model.stackedItems.length > 3 ) {
         model.spliceStackBottom();
       }
     };
@@ -122,8 +122,8 @@ export default class ItemNode extends Node {
 
       // if girl or man is alread on the stack, direction should match person that is already on the stack
       let personInStack;
-      for ( let i = 0; i < model.stackObservableArray.length; i++ ) {
-        const itemInStack = model.stackObservableArray.get( i );
+      for ( let i = 0; i < model.stackedItems.length; i++ ) {
+        const itemInStack = model.stackedItems.get( i );
 
         if ( itemInStack === person ) {
           // skip the person that is currently being dragged
@@ -169,7 +169,7 @@ export default class ItemNode extends Node {
         itemToolbox.moveToFront();
 
         item.userControlledProperty.set( true );
-        const index = model.stackObservableArray.indexOf( item );
+        const index = model.stackedItems.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }

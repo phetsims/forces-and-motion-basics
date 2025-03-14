@@ -168,9 +168,9 @@ export default class PusherNode extends Node {
      * direction the pusher was applying a force before the force was set to zero.
      */
     const resetZeroForcePosition = ( direction: string ) => {
-      if ( model.stackObservableArray.length > 0 ) {
+      if ( model.stackedItems.length > 0 ) {
 
-        const item = model.stackObservableArray.get( 0 );
+        const item = model.stackedItems.get( 0 );
         const itemNode = itemModelToNodeMap.get( item );
         assert && assert( itemNode, 'itemNode is null for itemModel' );
 
@@ -195,9 +195,9 @@ export default class PusherNode extends Node {
      * of the applied force
      */
     const updateAppliedForcePosition = () => {
-      assert && assert( model.stackObservableArray.length > 0 );
+      assert && assert( model.stackedItems.length > 0 );
       const pusherY = 362 - visibleNode.height;
-      const item = model.stackObservableArray.get( 0 );
+      const item = model.stackedItems.get( 0 );
       const itemNode = itemModelToNodeMap.get( item );
       assert && assert( itemNode, 'itemNode is null for itemModel' );
 
@@ -352,7 +352,7 @@ export default class PusherNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    //Make it so you cannot drag the pusher until one ItemNode is in the play area
+    // Make it so you cannot drag the pusher until one ItemNode is in the play area
     model.pusherInteractionsEnabledProperty.link( enabled => {
       if ( enabled ) {
         this.cursor = 'pointer';

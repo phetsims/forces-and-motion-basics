@@ -75,7 +75,7 @@ export default class AppliedForceSlider extends HSlider {
     };
 
     Multilink.multilink(
-      [ model.speedClassificationProperty, model.frictionProperty ],
+      [ model.speedClassificationProperty, model.frictionCoefficientProperty ],
       ( speedClassification, friction ) => {
         if ( friction > 0 ) {
           // if we have any friction, all we want to do is cancel the drag so the pusher does not

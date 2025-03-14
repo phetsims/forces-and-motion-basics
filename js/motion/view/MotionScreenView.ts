@@ -200,8 +200,8 @@ export default class MotionScreenView extends ScreenView {
       appliedForceSpinner.enabled = size > 0;
     } );
 
-    model.stackObservableArray.lengthProperty.link( disableText( appliedForceSliderText ) );
-    model.stackObservableArray.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
+    model.stackedItems.lengthProperty.link( disableText( appliedForceSliderText ) );
+    model.stackedItems.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -463,8 +463,8 @@ export default class MotionScreenView extends ScreenView {
   // Get the height of the objects in the stack (doesn't include skateboard)
   private get stackHeight(): number {
     let sum = 0;
-    for ( let i = 0; i < this.model.stackObservableArray.length; i++ ) {
-      const itemNode = this.itemModelToNodeMap.get( this.model.stackObservableArray.get( i ) );
+    for ( let i = 0; i < this.model.stackedItems.length; i++ ) {
+      const itemNode = this.itemModelToNodeMap.get( this.model.stackedItems.get( i ) );
 
       assert && assert( itemNode, 'itemNode should not be null' );
       sum = sum + itemNode!.height;

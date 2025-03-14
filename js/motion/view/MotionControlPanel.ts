@@ -127,7 +127,7 @@ export default class MotionControlPanel extends Node {
       const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
 
       const numberOfMinorTicks = 3;
-      const frictionSlider = new HSlider( model.frictionProperty, frictionRange, {
+      const frictionSlider = new HSlider( model.frictionCoefficientProperty, frictionRange, {
         trackSize: new Dimension2( 150, 6 ),
         majorTickLength: 18,
         tickLabelSpacing: 3,

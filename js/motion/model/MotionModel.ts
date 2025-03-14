@@ -47,7 +47,7 @@ export default class MotionModel {
   public readonly frictionForceProperty: NumberProperty;
 
   // friction of the ground
-  public readonly frictionProperty: NumberProperty;
+  public readonly frictionCoefficientProperty: NumberProperty;
 
   // sum of all forces acting on the stack of items
   private readonly sumOfForcesProperty: NumberProperty;
@@ -70,7 +70,7 @@ export default class MotionModel {
   // When there are zero items in the stack, the pusher should not be interactive.
   public readonly pusherInteractionsEnabledProperty: Property<boolean>;
 
-  public readonly stackObservableArray: ObservableArray<Item>;
+  public readonly stackedItems: ObservableArray<Item>;
 
   // whether forces are visible
   public readonly showForceProperty: BooleanProperty;
@@ -89,11 +89,8 @@ export default class MotionModel {
 
   // whether acceleration meter is visible
   public readonly showAccelerationProperty: BooleanProperty;
-  public readonly speedClassificationProperty: StringProperty;
-  private readonly previousSpeedClassificationProperty: StringProperty;
-
-  // whether the stack of items is moving to the right
-  private readonly movingRightProperty: BooleanProperty;
+  public readonly speedClassificationProperty: StringUnionProperty<'WITHIN_ALLOWED_RANGE' | 'LEFT_SPEED_EXCEEDED' | 'RIGHT_SPEED_EXCEEDED'>;
+  private readonly previousSpeedClassificationProperty: StringUnionProperty<'WITHIN_ALLOWED_RANGE' | 'LEFT_SPEED_EXCEEDED' | 'RIGHT_SPEED_EXCEEDED'>;
 
   // 'right'|'left'|none, direction of movement of the stack of items
   public readonly directionProperty: StringUnionProperty<'left' | 'right' | 'none'>;
@@ -156,8 +153,8 @@ export default class MotionModel {
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
 
-    this.stackObservableArray = createObservableArray( {
-      tandem: tandem.createTandem( 'stackObservableArray' ),
+    this.stackedItems = createObservableArray( {
+      tandem: tandem.createTandem( 'stackedItems' ),
       phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
     } );
 
@@ -174,8 +171,9 @@ export default class MotionModel {
       units: 'N'
     } );
 
-    this.frictionProperty = new NumberProperty( frictionValue, {
-      tandem: forcesTandem.createTandem( 'frictionProperty' ),
+    this.frictionCoefficientProperty = new NumberProperty( frictionValue, {
+      tandem: forcesTandem.createTandem( 'frictionCoefficientProperty' ),
+      phetioDocumentation: 'Coefficient of static friction',
       phetioReadOnly: screen === 'motion'
     } );
 
@@ -207,15 +205,15 @@ export default class MotionModel {
       units: 'm/s/s'
     } );
 
+    const pusherTandem = tandem.createTandem( 'pusher' );
+
     this.pusherPositionProperty = new NumberProperty( -16, {
-      tandem: tandem.createTandem( 'pusherPositionProperty' ),
+      tandem: pusherTandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
       units: 'm'
     } );
 
-    this.pusherInteractionsEnabledProperty = new BooleanProperty( this.stackObservableArray.length > 0, {
-      tandem: tandem.createTandem( 'pusherInteractionsEnabledProperty' )
-    } );
+    this.pusherInteractionsEnabledProperty = new BooleanProperty( this.stackedItems.length > 0 );
 
     const visiblePropertiesTandem = tandem.createTandem( 'visibleProperties' );
 
@@ -246,19 +244,19 @@ export default class MotionModel {
     //  Keep track of whether the speed is classified as:
     // 'RIGHT_SPEED_EXCEEDED', 'LEFT_SPEED_EXCEEDED' or 'WITHIN_ALLOWED_RANGE'
     // so that the Applied Force can be stopped if the speed goes out of range.
-    // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-    this.speedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
-      tandem: tandem.createTandem( 'speedClassificationProperty' )
+    this.speedClassificationProperty = new StringUnionProperty( 'WITHIN_ALLOWED_RANGE', {
+      validValues: [ 'WITHIN_ALLOWED_RANGE', 'LEFT_SPEED_EXCEEDED', 'RIGHT_SPEED_EXCEEDED' ],
+      tandem: tandem.createTandem( 'speedClassificationProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'For PhET-iO internal use only for state'
     } );
 
     // See speedClassification
-    // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-    this.previousSpeedClassificationProperty = new StringProperty( 'WITHIN_ALLOWED_RANGE', {
-      tandem: tandem.createTandem( 'previousSpeedClassificationProperty' )
-    } );
-
-    this.movingRightProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'movingRightProperty' )
+    this.previousSpeedClassificationProperty = new StringUnionProperty( 'WITHIN_ALLOWED_RANGE', {
+      validValues: [ 'WITHIN_ALLOWED_RANGE', 'LEFT_SPEED_EXCEEDED', 'RIGHT_SPEED_EXCEEDED' ],
+      tandem: tandem.createTandem( 'previousSpeedClassificationProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'For PhET-iO internal use only for state'
     } );
 
     this.directionProperty = new StringUnionProperty( 'none', {
@@ -287,6 +285,7 @@ export default class MotionModel {
     } );
 
     this.stackSizeProperty = new NumberProperty( 1, {
+      phetioDocumentation: 'Number of stacked items',
       tandem: tandem.createTandem( 'stackSizeProperty' ),
       phetioReadOnly: true
     } );
@@ -295,19 +294,19 @@ export default class MotionModel {
       tandem: tandem.createTandem( 'isPlayingProperty' )
     } );
 
-    this.frictionZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction === 0 );
+    this.frictionZeroProperty = new DerivedProperty( [ this.frictionCoefficientProperty ], friction => friction === 0 );
 
-    this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionProperty ], friction => friction !== 0 );
+    this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionCoefficientProperty ], friction => friction !== 0 );
 
     //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
-    this.stackObservableArray.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
+    this.stackedItems.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.set( 0 ); } } );
 
-    this.stackObservableArray.lengthProperty.link( length => {
+    this.stackedItems.lengthProperty.link( length => {
       this.pusherInteractionsEnabledProperty.value = length > 0;
     } );
 
     // TODO: Should stacksize Property be removed? https://github.com/phetsims/forces-and-motion-basics/issues/319
-    this.stackObservableArray.lengthProperty.link( length => {
+    this.stackedItems.lengthProperty.link( length => {
       this.stackSizeProperty.set( length );
     } );
 
@@ -415,19 +414,19 @@ export default class MotionModel {
    * @param index - index of item in the stack array
    */
   public spliceStack( index: number ): Item {
-    const item = this.stackObservableArray.get( index );
-    this.stackObservableArray.remove( item );
-    if ( this.stackObservableArray.length > 0 ) {
+    const item = this.stackedItems.get( index );
+    this.stackedItems.remove( item );
+    if ( this.stackedItems.length > 0 ) {
       let sumHeight = 0;
-      for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
-        const size = this.view.getSize( this.stackObservableArray.get( i ) );
+      for ( let i = 0; i < this.stackedItems.length; i++ ) {
+        const size = this.view.getSize( this.stackedItems.get( i ) );
         sumHeight += size.height;
-        this.stackObservableArray.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/forces-and-motion-basics/issues/319
+        this.stackedItems.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/forces-and-motion-basics/issues/319
       }
     }
 
     //If the stack is emptied, stop the motion
-    if ( this.stackObservableArray.length === 0 ) {
+    if ( this.stackedItems.length === 0 ) {
       this.velocityProperty.set( 0 );
       this.accelerationProperty.set( 0 );
     }
@@ -464,7 +463,7 @@ export default class MotionModel {
 
     const mass = this.getStackMass();
 
-    const frictionForceMagnitude = Math.abs( this.frictionProperty.get() * mass * g );
+    const frictionForceMagnitude = Math.abs( this.frictionCoefficientProperty.get() * mass * g );
 
     //Friction force only applies above this velocity
     const velocityThreshold = 1E-12;
@@ -491,8 +490,8 @@ export default class MotionModel {
   // Compute the mass of the entire stack, for purposes of momentum computation
   private getStackMass(): number {
     let mass = 0;
-    for ( let i = 0; i < this.stackObservableArray.length; i++ ) {
-      mass += this.stackObservableArray.get( i ).mass;
+    for ( let i = 0; i < this.stackedItems.length; i++ ) {
+      mass += this.stackedItems.get( i ).mass;
     }
     return mass;
   }
@@ -638,19 +637,19 @@ export default class MotionModel {
   /**
    * Determine whether an item is in the stack.
    */
-  public isInStack( item: Item ): boolean { return this.stackObservableArray.includes( item ); }
+  public isInStack( item: Item ): boolean { return this.stackedItems.includes( item ); }
 
   /**
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
    */
-  public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackObservableArray.indexOf( item ) < this.stackObservableArray.length - 1;}
+  public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackedItems.indexOf( item ) < this.stackedItems.length - 1;}
 
   public reset(): void {
 
     // reset all Properties of this model.
     this.appliedForceProperty.reset();
     this.frictionForceProperty.reset();
-    this.frictionProperty.reset();
+    this.frictionCoefficientProperty.reset();
     this.sumOfForcesProperty.reset();
     this.positionProperty.reset();
     this.speedProperty.reset();
@@ -665,7 +664,6 @@ export default class MotionModel {
     this.showAccelerationProperty.reset();
     this.speedClassificationProperty.reset();
     this.previousSpeedClassificationProperty.reset();
-    this.movingRightProperty.reset();
     this.directionProperty.reset();
     this.timeSinceFallenProperty.reset();
     this.fallenProperty.reset();
@@ -688,7 +686,7 @@ export default class MotionModel {
     // notify that a reset was triggered
     this.resetAllEmitter.emit();
 
-    this.stackObservableArray.clear();
+    this.stackedItems.clear();
 
     //Move the initial crate to the play area, since it resets to the toolbox, not its initial position.
     this.viewInitialized( this.view );
@@ -712,7 +710,7 @@ export default class MotionModel {
       const scaledWidth = this.view.getSize( item ).width;
 
       item.positionProperty.set( new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height ) );
-      this.stackObservableArray.add( item );
+      this.stackedItems.add( item );
     }
   }
 }
