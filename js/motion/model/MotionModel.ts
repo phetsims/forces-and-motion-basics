@@ -262,7 +262,7 @@ export default class MotionModel {
     this.directionProperty = new StringUnionProperty( 'none', {
       phetioDocumentation: 'Direction of the applied force',
       validValues: [ 'right', 'left', 'none' ],
-      tandem: tandem.createTandem( 'directionProperty' )
+      tandem: pusherTandem.createTandem( 'directionProperty' )
     } );
 
     this.timeSinceFallenProperty = new NumberProperty( 10, {
@@ -270,14 +270,14 @@ export default class MotionModel {
     } );
 
     this.fallenProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'fallenProperty' )
+      tandem: pusherTandem.createTandem( 'fallenProperty' )
     } );
 
     this.fallenDirectionProperty = new StringUnionProperty( 'left', {
       validValues: [ 'left', 'right' ],
       phetioReadOnly: true,
       phetioDocumentation: 'For PhET-iO internal use only, the direction of the if fallen',
-      tandem: tandem.createTandem( 'fallenDirectionProperty' )
+      tandem: pusherTandem.createTandem( 'fallenDirectionProperty' )
     } );
 
     this.timeProperty = new NumberProperty( 0, {
