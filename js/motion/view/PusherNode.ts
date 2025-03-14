@@ -153,7 +153,10 @@ export default class PusherNode extends Node {
     };
 
     super( {
-      children: children
+      children: children,
+      tandem: tandem,
+      phetioInputEnabledPropertyInstrumented: true,
+      phetioVisiblePropertyInstrumented: false
     } );
 
     // Update the position when the pusher is not applying force (fallen or standing)
