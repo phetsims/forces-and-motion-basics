@@ -223,7 +223,7 @@ export default class MotionControlPanel extends Node {
         },
         {
           createNode: () => createLabel( stopwatchStringProperty, 'stopwatchCheckbox', { icon: createStopwatchIcon() } ),
-          property: model.showStopwatchProperty,
+          property: model.stopwatch.isVisibleProperty,
           tandemName: 'stopwatchCheckbox'
         }
       ];
@@ -288,7 +288,7 @@ export default class MotionControlPanel extends Node {
         },
         {
           createNode: () => createLabel( stopwatchStringProperty, 'stopwatchCheckbox', { icon: createStopwatchIcon() } ),
-          property: model.showStopwatchProperty,
+          property: model.stopwatch.isVisibleProperty,
           tandemName: 'stopwatchCheckbox'
         }
       ];

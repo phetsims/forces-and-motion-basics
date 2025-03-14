@@ -217,7 +217,8 @@ export default class MotionScreenView extends ScreenView {
 
     const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );
     const stopwatchNode = new StopwatchNode( model.stopwatch, {
-      visibleProperty: model.showStopwatchProperty,
+      tandem: tandem.createTandem( 'stopwatchNode' ),
+      visibleProperty: model.stopwatch.isVisibleProperty,
       dragBoundsProperty: new Property( stopwatchDragBounds ),
       dragListenerOptions: {
         positionProperty: model.stopwatch.positionProperty

@@ -83,9 +83,6 @@ export default class MotionModel {
   // whether speedometer is visible
   public readonly showSpeedProperty: BooleanProperty;
 
-  // whether stopwatch is visible
-  public readonly showStopwatchProperty: BooleanProperty;
-
   // whether mass values are visible
   public readonly showMassesProperty: BooleanProperty;
 
@@ -232,10 +229,6 @@ export default class MotionModel {
       tandem: visiblePropertiesTandem.createTandem( 'showSpeedProperty' )
     } );
 
-    this.showStopwatchProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showStopwatchProperty' )
-    } );
-
     this.showMassesProperty = new BooleanProperty( false, {
       tandem: visiblePropertiesTandem.createTandem( 'showMassesProperty' )
     } );
@@ -378,11 +371,12 @@ export default class MotionModel {
     } );
 
     this.stopwatch = new Stopwatch( {
+      tandem: tandem.createTandem( 'stopwatch' ),
       timePropertyOptions: {
         range: new Range( 0, 3599.99 )
       }
     } );
-    this.showStopwatchProperty.link( () => {
+    this.stopwatch.isVisibleProperty.link( () => {
       this.stopwatch.timeProperty.set( 0 );
       this.stopwatch.isRunningProperty.value = false;
     } );
@@ -667,7 +661,7 @@ export default class MotionModel {
     this.timeProperty.reset();
     this.stackSizeProperty.reset();
     this.isPlayingProperty.reset();
-    this.showStopwatchProperty.reset();
+    this.stopwatch.reset();
 
     for ( let i = 0; i < this.items.length; i++ ) {
       // if the item is being user controlled we need to cancel the drag in ItemNode
