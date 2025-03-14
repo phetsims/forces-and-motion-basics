@@ -13,6 +13,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -95,8 +96,7 @@ export default class MotionModel {
   private readonly movingRightProperty: BooleanProperty;
 
   // 'right'|'left'|none, direction of movement of the stack of items
-  // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-  public readonly directionProperty: StringProperty;
+  public readonly directionProperty: StringUnionProperty<'left' | 'right' | 'none'>;
 
   // time since pusher has fallen over, in seconds
   // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/forces-and-motion-basics/issues/319
@@ -146,7 +146,7 @@ export default class MotionModel {
    * @param screen String that indicates which of the 3 screens this model represents
    * @param tandem
    */
-  public constructor( public readonly screen: string, tandem: Tandem ) {
+  public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', tandem: Tandem ) {
 
     //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
@@ -170,20 +170,24 @@ export default class MotionModel {
 
     this.frictionForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'frictionForceProperty' ),
+      phetioReadOnly: true,
       units: 'N'
     } );
 
     this.frictionProperty = new NumberProperty( frictionValue, {
-      tandem: forcesTandem.createTandem( 'frictionProperty' )
+      tandem: forcesTandem.createTandem( 'frictionProperty' ),
+      phetioReadOnly: screen === 'motion'
     } );
 
     this.sumOfForcesProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'sumOfForcesProperty' ),
+      phetioReadOnly: true,
       units: 'N'
     } );
 
     this.positionProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'positionProperty' ),
+      phetioReadOnly: true,
       units: 'm'
     } );
 
@@ -199,11 +203,13 @@ export default class MotionModel {
 
     this.accelerationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'accelerationProperty' ),
+      phetioReadOnly: true,
       units: 'm/s/s'
     } );
 
     this.pusherPositionProperty = new NumberProperty( -16, {
       tandem: tandem.createTandem( 'pusherPositionProperty' ),
+      phetioReadOnly: true,
       units: 'm'
     } );
 
@@ -255,7 +261,9 @@ export default class MotionModel {
       tandem: tandem.createTandem( 'movingRightProperty' )
     } );
 
-    this.directionProperty = new StringProperty( 'none', {
+    this.directionProperty = new StringUnionProperty( 'none', {
+      phetioDocumentation: 'Direction of the applied force',
+      validValues: [ 'right', 'left', 'none' ],
       tandem: tandem.createTandem( 'directionProperty' )
     } );
 
@@ -267,7 +275,10 @@ export default class MotionModel {
       tandem: tandem.createTandem( 'fallenProperty' )
     } );
 
-    this.fallenDirectionProperty = new StringProperty( 'left', {
+    this.fallenDirectionProperty = new StringUnionProperty( 'left', {
+      validValues: [ 'left', 'right' ],
+      phetioReadOnly: true,
+      phetioDocumentation: 'For PhET-iO internal use only, the direction of the if fallen',
       tandem: tandem.createTandem( 'fallenDirectionProperty' )
     } );
 
@@ -276,7 +287,8 @@ export default class MotionModel {
     } );
 
     this.stackSizeProperty = new NumberProperty( 1, {
-      tandem: tandem.createTandem( 'stackSizeProperty' )
+      tandem: tandem.createTandem( 'stackSizeProperty' ),
+      phetioReadOnly: true
     } );
 
     this.isPlayingProperty = new BooleanProperty( true, {

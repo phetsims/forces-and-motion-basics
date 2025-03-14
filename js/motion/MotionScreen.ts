@@ -6,16 +6,16 @@
  */
 
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
+import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import MotionModel from './model/MotionModel.js';
 import MotionScreenView from './view/MotionScreenView.js';
-import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 type MotionScreenOptions = ScreenOptions;
 export default class MotionScreen extends Screen<MotionModel, MotionScreenView> {
 
-  public constructor( style: string, providedOptions?: MotionScreenOptions ) {
+  public constructor( style: 'motion' | 'friction' | 'acceleration', providedOptions?: MotionScreenOptions ) {
 
     const options = optionize<MotionScreenOptions, SelfOptions, ScreenOptions>()( {}, providedOptions );
     const tandem = options.tandem;
