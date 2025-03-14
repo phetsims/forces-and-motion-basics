@@ -152,7 +152,8 @@ export default class MotionControlPanel extends Node {
 
       const frictionText = new Text( frictionStringProperty, {
         font: new PhetFont( { size: fontSize, weight: 'bold' } ),
-        maxWidth: maxTextWidth
+        maxWidth: maxTextWidth,
+        visibleProperty: frictionSlider.visibleProperty
       } );
 
       // Keep frictionText always centered on the frictionSlider
