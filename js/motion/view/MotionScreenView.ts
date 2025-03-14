@@ -355,8 +355,8 @@ export default class MotionScreenView extends ScreenView {
       const holdingImageProperty = item.holdingImageProperty.value ? item.holdingImageProperty : item.imageProperty;
 
       const itemNode = item.bucket ?
-                       new WaterBucketNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, toolboxNode, itemsTandem.createTandem( item.name ) ) :
-                       new ItemNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, toolboxNode, itemsTandem.createTandem( item.name ) );
+                       new WaterBucketNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, toolboxNode, itemsTandem.createTandem( item.name + 'Node' ) ) :
+                       new ItemNode( model, this, item, item.imageProperty, sittingImageProperty, holdingImageProperty, model.showMassesProperty, toolboxNode, itemsTandem.createTandem( item.name + 'Node' ) );
 
       this.itemNodes.push( itemNode );
 
