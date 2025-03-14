@@ -153,8 +153,10 @@ export default class MotionModel {
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
 
+    const itemsTandem = tandem.createTandem( 'items' );
+
     this.stackedItems = createObservableArray( {
-      tandem: tandem.createTandem( 'stackedItems' ),
+      tandem: itemsTandem.createTandem( 'stackedItems' ),
       phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
     } );
 
@@ -226,7 +228,7 @@ export default class MotionModel {
     } );
 
     this.showSumOfForcesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' )
+      tandem: screen === 'motion' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' )
     } );
 
     this.showSpeedProperty = new BooleanProperty( false, {
@@ -328,8 +330,6 @@ export default class MotionModel {
     const mysterySpacing = this.accelerometer ? ( isTrashCanPresent ? 51 : 65 ) : 72; // distance between the trash can and the mystery box
     const bucketSpacing = isTrashCanPresent ? 63 : 75; // distance between the mystery box and the water bucket
 
-    const itemsTandem = tandem.createTandem( 'items' );
-
     // create the items - Initial positions determined empirically
     const fridge = new Item( this, 'fridge', itemsTandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, 1.1, 4 );
     const crate1 = new Item( this, 'crate1', itemsTandem.createTandem( 'crate1' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
@@ -340,7 +340,11 @@ export default class MotionModel {
       trashCan = new Item( this, 'trash', itemsTandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, 1.0, 5 );
     }
     const mysteryBox = new Item( this, 'mystery', itemsTandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, 1.0, undefined, undefined, undefined, true );
-    const bucket = new Item( this, 'bucket', itemsTandem.createTandem( 'bucket' ), waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 2 );
+    const bucket = new Item(
+      this,
+      'bucket',
+      screen === 'acceleration' ? itemsTandem.createTandem( 'bucket' ) : Tandem.OPT_OUT,
+      waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 2 );
     bucket.bucket = true;
 
     const itemsToAdd = this.accelerometer ? [ bucket ] : [];
@@ -436,7 +440,7 @@ export default class MotionModel {
   // When a 4th item is placed on the stack, move the bottom item home and have the stack fall
   public spliceStackBottom(): void {
     const bottom = this.spliceStack( 0 );
-    bottom.onBoardProperty.set( false );
+    bottom.inStackProperty.set( false );
     bottom.animateHome();
   }
 
@@ -702,7 +706,7 @@ export default class MotionModel {
     // only move item to the top of the stack if it is not being user controlled
     if ( !item.userControlledProperty.get() ) {
       this.view = view;
-      item.onBoardProperty.set( true );
+      item.inStackProperty.set( true );
 
       const itemNode = view.itemNodes[ 1 ];
       item.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );

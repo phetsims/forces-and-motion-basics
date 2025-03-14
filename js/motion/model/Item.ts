@@ -9,7 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -53,17 +53,16 @@ export default class Item extends PhetioObject {
   public readonly userControlledProperty: BooleanProperty;
 
   // direction of the item, 'left'|'right'
-  // TODO: Why not an enum? https://github.com/phetsims/forces-and-motion-basics/issues/319
-  public readonly directionProperty: StringProperty;
+  public readonly directionProperty: StringUnionProperty<'left' | 'right'>;
 
   // tracks the animation state of the item
   public readonly animationStateProperty: Property<AnimationState>;
 
   // Flag for whether the item is on the skateboard
-  public readonly onBoardProperty: BooleanProperty;
+  public readonly inStackProperty: BooleanProperty;
 
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
-  public readonly imageScaleProperty: NumberProperty;
+  public readonly imageScale: number;
   public readonly interactionScaleProperty: NumberProperty;
 
   // True if and only if the item is a bucket
@@ -137,8 +136,11 @@ export default class Item extends PhetioObject {
 
     this.userControlledProperty = new BooleanProperty( false );
 
-    this.directionProperty = new StringProperty( 'left', {
-      tandem: tandem.createTandem( 'directionProperty' )
+    this.directionProperty = new StringUnionProperty( 'left', {
+      validValues: [ 'left', 'right' ],
+      tandem: tandem.createTandem( 'directionProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'For PhET-iO internal use only, tracks the direction of the item for state'
     } );
 
     this.animationStateProperty = new Property<AnimationState>( {
@@ -151,16 +153,18 @@ export default class Item extends PhetioObject {
 
       // Instrumentation needed to get the object size correct in phet-io state
       tandem: tandem.createTandem( 'animationStateProperty' ),
-      phetioValueType: ObjectLiteralIO
+      phetioValueType: ObjectLiteralIO,
+      phetioReadOnly: true,
+      phetioDocumentation: 'For PhET-iO internal use only, tracks the animation state of the item to get the size correct in state'
     } );
 
-    this.onBoardProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'onBoardProperty' )
+    this.inStackProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'inStackProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'Indicates the item is part of the experiment.'
     } );
 
-    this.imageScaleProperty = new NumberProperty( imageScale || 1.0, {
-      tandem: tandem.createTandem( 'imageScaleProperty' )
-    } );
+    this.imageScale = imageScale || 1.0;
 
     // How much the object grows or shrinks when interacting with it
     const minValue = homeScale || 1.0;
@@ -174,7 +178,7 @@ export default class Item extends PhetioObject {
     this.context.directionProperty.link( direction => {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
-      if ( this.onBoardProperty.get() && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
+      if ( this.inStackProperty.get() && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
         this.directionProperty.set( direction );
       }
     } );
@@ -191,7 +195,7 @@ export default class Item extends PhetioObject {
    * for transformations.
    */
   public getCurrentScale(): number {
-    return this.imageScaleProperty.get() * this.interactionScaleProperty.get();
+    return this.imageScale * this.interactionScaleProperty.get();
   }
 
   // Animate the item to the specified position
@@ -231,8 +235,7 @@ export default class Item extends PhetioObject {
     this.userControlledProperty.reset();
     this.directionProperty.reset();
     this.animationStateProperty.reset();
-    this.onBoardProperty.reset();
-    this.imageScaleProperty.reset();
+    this.inStackProperty.reset();
     this.interactionScaleProperty.reset();
   }
 

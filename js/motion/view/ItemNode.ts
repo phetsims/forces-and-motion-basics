@@ -57,7 +57,7 @@ export default class ItemNode extends Node {
 
     super( {
       cursor: 'pointer',
-      scale: item.imageScaleProperty.get(),
+      scale: item.imageScale,
 
       tandem: tandem
     } );
@@ -77,10 +77,10 @@ export default class ItemNode extends Node {
     //When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
       // var centerX = normalImageNode.centerX;
-      if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.onBoardProperty.get() ) ) {
+      if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.inStackProperty.get() ) ) {
         normalImageNode.imageProperty = holdingImageProperty;
       }
-      else if ( item.onBoardProperty.get() && typeof sittingImageProperty.value !== 'undefined' ) {
+      else if ( item.inStackProperty.get() && typeof sittingImageProperty.value !== 'undefined' ) {
         normalImageNode.imageProperty = sittingImageProperty;
       }
       else {
@@ -105,7 +105,7 @@ export default class ItemNode extends Node {
 
     //When the user drags the object, start
     const moveToStack = () => {
-      item.onBoardProperty.set( true );
+      item.inStackProperty.set( true );
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
       item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2, motionView.topOfStack - this.height, 'stack' );
       model.stackedItems.add( item );
@@ -118,7 +118,7 @@ export default class ItemNode extends Node {
     const updatePersonDirection = ( person: Item ) => {
 
       // default direction is to the left
-      let direction = 'left';
+      let direction: 'left' | 'right' = 'left';
 
       // if girl or man is alread on the stack, direction should match person that is already on the stack
       let personInStack;
@@ -173,7 +173,7 @@ export default class ItemNode extends Node {
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
-        item.onBoardProperty.set( false );
+        item.inStackProperty.set( false );
 
         // Don't allow the user to translate the object while it is animating
         item.cancelAnimation();
@@ -240,7 +240,7 @@ export default class ItemNode extends Node {
     // normalize the maximum width to then restrict the labels for i18n
     const labelText = new Node( {
       children: [ massLabelBackground ],
-      scale: 1.0 / item.imageScaleProperty.get()
+      scale: 1.0 / item.imageScale
     } );
     this.labelNode = labelText;
 
@@ -254,7 +254,7 @@ export default class ItemNode extends Node {
 
     // When the object is scaled or change direction, update the image part
     Multilink.multilink( [ item.interactionScaleProperty, item.directionProperty ], ( interactionScale, direction ) => {
-      const scale = item.imageScaleProperty.get() * interactionScale;
+      const scale = item.imageScale * interactionScale;
       this.setScaleMagnitude( scale );
 
       // make sure that labels remain the same size
@@ -275,7 +275,7 @@ export default class ItemNode extends Node {
       // when scale or direction change, make sure that the label is still centered
       this.updateLabelPosition();
     } );
-    item.onBoardProperty.link( updateImage );
+    item.inStackProperty.link( updateImage );
 
     this.addChild( normalImageNode );
     this.addChild( labelText );
