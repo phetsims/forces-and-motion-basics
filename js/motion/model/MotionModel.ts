@@ -163,6 +163,7 @@ export default class MotionModel {
     const forcesTandem = tandem.createTandem( 'forces' );
     this.appliedForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'appliedForceProperty' ),
+      phetioFeatured: true,
       units: 'N',
       range: new Range( -500, 500 )
     } );

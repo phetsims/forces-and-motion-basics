@@ -13,15 +13,14 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
+import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -39,7 +38,7 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import AccelerometerNode from './AccelerometerNode.js';
-import AppliedForceSlider from './AppliedForceSlider.js';
+import AppliedForceControl from './AppliedForceControl.js';
 import ItemNode from './ItemNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
@@ -57,7 +56,6 @@ const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStri
 const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
 const frictionForceStringProperty = ForcesAndMotionBasicsStrings.frictionForceStringProperty;
 const pattern0Name1ValueUnitsAccelerationStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAccelerationStringProperty' ];
-const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
 const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
 
 export default class MotionScreenView extends ScreenView {
@@ -131,77 +129,15 @@ export default class MotionScreenView extends ScreenView {
       lineWidth: 1
     } );
 
-    //Create the slider
-    const disableText = ( node: Text ) => ( length: number ) => {node.fill = length === 0 ? 'gray' : 'black';};
+    const appliedForceControl = new AppliedForceControl( tandem.createTandem( 'appliedForceControl' ), ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model );
 
-    const maxTextWidth = ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10;
-    const appliedForceSliderText = new Text( appliedForceStringProperty, {
-      font: new PhetFont( 22 ),
-      y: 430,
-      maxWidth: maxTextWidth
-    } );
-    appliedForceStringProperty.link( () => { appliedForceSliderText.centerX = width / 2; } );
-    const appliedForceSlider = new AppliedForceSlider( model, new Range( -500, 500 ),
-      tandem.createTandem( 'appliedForceSlider' ), {
-        centerX: width / 2 + 1,
-        y: 555
-      } );
-
-    this.addChild( appliedForceSliderText );
-    this.addChild( appliedForceSlider );
-
-    // Do not allow the user to apply a force that would take the object beyond its maximum velocity
-    // The appliedForce range will change depending on whether the stack has exceeded maximum speed. This will
-    // most often be in cases where there is no friction, because the speed will remain at maximum values and we
-    // do not want to allow additional applied force at that time
-    Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ],
-      ( appliedForce, speedClassification, stackSize ) => {
-        const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
-        const enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
-
-        const rangeMax = enableRightButtons ? 500 : 0;
-        const rangeMin = enableLeftButtons ? -500 : 0;
-        const range = new Range( rangeMin, rangeMax );
-
-        // The applied force Property has a dynamic range that changes depending on whether the max speed has been
-        // reached or not. Therefore, we need to ensure that the applied force value is clamped within range
-        // when the range changes.
-        model.appliedForceProperty.value = Utils.clamp( model.appliedForceProperty.value, range.min, range.max );
-        model.appliedForceProperty.range = range;
-      } );
-
-    const appliedForceSpinner = new FineCoarseSpinner( model.appliedForceProperty, {
-      numberDisplayOptions: {
-        valuePattern: pattern0ValueUnitsNewtonsStringProperty,
-        align: 'center',
-        xMargin: 20,
-        yMargin: 4,
-        textOptions: {
-          font: new PhetFont( 22 ),
-          maxWidth: maxTextWidth / 3,
-          tandem: Tandem.OPT_OUT
-        }
-      },
-      deltaFine: 1,
-      deltaCoarse: 50,
-      spacing: 6,
-      bottom: appliedForceSlider.top - 12,
-
-      tandem: tandem.createTandem( 'appliedForceSpinner' )
-    } );
-    pattern0ValueUnitsNewtonsStringProperty.link( () => { appliedForceSpinner.centerX = width / 2; } );
-    model.fallenProperty.link( fallen => {
-      fallen && appliedForceSpinner.interruptSubtreeInput();
-    } );
-    this.addChild( appliedForceSpinner );
-
-    // force cannot be applied when there is nothing on the stack
-    model.stackSizeProperty.link( size => {
-      appliedForceSpinner.enabled = size > 0;
+    const top = leftItemToolboxNode.top - 4;
+    ManualConstraint.create( this, [ appliedForceControl ], appliedForceControlProxy => {
+      appliedForceControlProxy.centerX = this.layoutBounds.centerX;
+      appliedForceControlProxy.top = top;
     } );
 
-    model.stackedItems.lengthProperty.link( disableText( appliedForceSliderText ) );
-    model.stackedItems.lengthProperty.link( length => { appliedForceSlider.enabled = length > 0; } );
+    this.addChild( appliedForceControl );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {

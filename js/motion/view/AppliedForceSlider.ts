@@ -14,10 +14,9 @@ import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import HSlider, { HSliderOptions } from '../../../../sun/js/HSlider.js';
+import HSlider from '../../../../sun/js/HSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
@@ -25,8 +24,6 @@ import MotionModel from '../model/MotionModel.js';
 const NUMBER_OF_DIVISIONS = 10; //e.g. divide the ruler into 1/8ths
 const NUMBER_OF_TICKS = NUMBER_OF_DIVISIONS + 1; //ticks on the end
 
-type SelfOptions = EmptySelfOptions;
-type AppliedForceSliderOptions = HSliderOptions & SelfOptions;
 export default class AppliedForceSlider extends HSlider {
 
   /**
@@ -35,14 +32,13 @@ export default class AppliedForceSlider extends HSlider {
    * @param tandem
    * @param providedOptions
    */
-  public constructor( model: MotionModel, private readonly range: Range, tandem: Tandem, providedOptions: AppliedForceSliderOptions ) {
-
+  public constructor( model: MotionModel, range: Range, tandem: Tandem ) {
 
     const enabledRangeProperty = new Property( range );
 
-    const options = optionize<AppliedForceSliderOptions, SelfOptions, HSliderOptions>()( {
+    super( model.appliedForceProperty, range, {
       trackSize: new Dimension2( 300, 6 ),
-        majorTickLength: 30,
+      majorTickLength: 30,
       minorTickLength: 22,
       tickLabelSpacing: 3,
       enabledRangeProperty: enabledRangeProperty,
@@ -57,14 +53,11 @@ export default class AppliedForceSlider extends HSlider {
       // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
       // up a state of forces
       endDrag: () => {
-      if ( model.isPlayingProperty.get() ) {
-        model.appliedForceProperty.set( 0 );
+        if ( model.isPlayingProperty.get() ) {
+          model.appliedForceProperty.set( 0 );
+        }
       }
-    }
-    }, providedOptions );
-    super( model.appliedForceProperty, range, options );
-
-    this.range = range;
+    } );
 
     // Note: I do not like this method of canceling, it relies on the assumption that the slider will end drag
     // when thisSlider.enabled is set to false. This solution should be fine until we have general support for
