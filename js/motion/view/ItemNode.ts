@@ -59,7 +59,8 @@ export default class ItemNode extends Node {
       cursor: 'pointer',
       scale: item.imageScale,
       tandem: tandem,
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioInputEnabledPropertyInstrumented: true
     } );
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
