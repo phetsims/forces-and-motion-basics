@@ -340,8 +340,8 @@ export default class MotionScreenView extends ScreenView {
     };
 
     //Iterate over the items in the model and create and add nodes for each one
-    const leftItemLayer = new Node( { tandem: tandem.createTandem( 'leftItemLayer' ) } );
-    const rightItemLayer = new Node( { tandem: tandem.createTandem( 'rightItemLayer' ) } );
+    const leftItemLayer = new Node();
+    const rightItemLayer = new Node();
     this.itemNodes = [];
 
     const itemsTandem = tandem.createTandem( 'items' );
@@ -384,7 +384,8 @@ export default class MotionScreenView extends ScreenView {
     // https://github.com/phetsims/forces-and-motion-basics/issues/83
     const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
-      units: 'N'
+      units: 'N',
+      phetioReadOnly: true
     } );
 
     model.stepEmitter.addListener( () => {
