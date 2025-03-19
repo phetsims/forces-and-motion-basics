@@ -279,7 +279,7 @@ export default class MotionModel {
     this.fallenDirectionProperty = new StringUnionProperty( 'left', {
       validValues: [ 'left', 'right' ],
       phetioReadOnly: true,
-      phetioDocumentation: 'For PhET-iO internal use only, the direction of the if fallen',
+      phetioDocumentation: 'For PhET-iO internal use only, the direction of the pusher if fallen',
       tandem: pusherTandem.createTandem( 'fallenDirectionProperty' )
     } );
 
