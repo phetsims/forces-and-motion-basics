@@ -25,7 +25,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import VStrut from '../../../../scenery/js/nodes/VStrut.js';
 import { rasterizeNode } from '../../../../scenery/js/util/rasterizeNode.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
@@ -49,6 +48,8 @@ const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
 const stopwatchStringProperty = ForcesAndMotionBasicsStrings.stopwatchStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
 const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
+
+const VBOX_SPACING = 5;
 
 export default class MotionControlPanel extends Node {
 
@@ -134,7 +135,6 @@ export default class MotionControlPanel extends Node {
         valueChangeSoundGeneratorOptions: {
           numberOfMiddleThresholds: numberOfMinorTicks
         },
-        sizable: false,
         tandem: frictionSliderTandem
       } );
       const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 45 };
@@ -159,7 +159,7 @@ export default class MotionControlPanel extends Node {
       // Keep frictionText always centered on the frictionSlider
       frictionStringProperty.link( () => { frictionText.centerX = frictionSlider.centerX; } );
 
-      return new VBox( { children: [ frictionText, frictionSlider ], resize: false } );
+      return new VBox( { children: [ frictionText, frictionSlider ] } );
     };
 
     const createStopwatchIcon = () => {
@@ -199,7 +199,9 @@ export default class MotionControlPanel extends Node {
     const createMotionControls = () => {
 
       // container node for checkboxes
-      const containerNode = new Node();
+      const containerNode = new VBox( {
+        spacing: VBOX_SPACING
+      } );
 
       const items = [
         {
@@ -243,23 +245,14 @@ export default class MotionControlPanel extends Node {
       return containerNode;
     };
 
-    // if the slider is wider than the group of checkboxes, align the checkboxes to the left of the slider
-    // otherwise, center with the checkboxes
-    const layoutFrictionSlider = ( checkboxes: Node, frictionSlider: Node ) => {
-      if ( frictionSlider.width > checkboxes.width ) {
-        checkboxes.left = frictionSlider.left;
-      }
-      else {
-        frictionSlider.centerX = checkboxes.centerX;
-      }
-    };
-
     // Create controls for the 'friction' screen, including a set of checkboxes and a slider
     // The slider is centered under the checkboxes, which are aligned to the left
     const createFrictionControls = () => {
 
       // container for all controls
-      const containerNode = new Node();
+      const containerNode = new VBox( {
+        spacing: VBOX_SPACING
+      } );
 
       const items = [
         {
@@ -301,21 +294,11 @@ export default class MotionControlPanel extends Node {
       } );
       containerNode.addChild( checkboxGroup );
 
-      // create a spacer for the checkboxes and the slider
-      const strut = new VStrut( 12, { centerTop: checkboxGroup.centerBottom } );
-      containerNode.addChild( strut );
-
       layoutCheckboxes(
         [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, stopwatchStringProperty ],
         checkboxGroup );
 
-      // create the slider
-      const frictionSlider = createFrictionSlider();
-      frictionSlider.top = strut.bottom;
-
-      layoutFrictionSlider( checkboxGroup, frictionSlider );
-
-      containerNode.addChild( frictionSlider );
+      containerNode.addChild( createFrictionSlider() );
 
       return containerNode;
     };
@@ -325,7 +308,9 @@ export default class MotionControlPanel extends Node {
     const createAccelerationControls = () => {
 
       // node containing checkboxes, spacing, and slider
-      const containerNode = new Node();
+      const containerNode = new VBox( {
+        spacing: VBOX_SPACING
+      } );
 
       const items = [
         {
@@ -368,22 +353,12 @@ export default class MotionControlPanel extends Node {
       } );
       containerNode.addChild( checkboxGroup );
 
-      // create the spacing strut
-      const strut = new VStrut( 12, { centerTop: checkboxGroup.centerBottom } );
-      containerNode.addChild( strut );
-
       layoutCheckboxes(
         [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, accelerationStringProperty ],
         checkboxGroup );
 
       // add the slider friction slider under the checkboxes
-      const frictionSlider = createFrictionSlider();
-      frictionSlider.top = strut.bottom;
-
-      layoutFrictionSlider( checkboxGroup, frictionSlider );
-
-      containerNode.addChild( frictionSlider );
-
+      containerNode.addChild( createFrictionSlider() );
       return containerNode;
     };
 
@@ -395,8 +370,7 @@ export default class MotionControlPanel extends Node {
     const panel = new Panel( contents, {
       xMargin: 12,
       yMargin: 7,
-      fill: '#e3e980',
-      resize: false
+      fill: '#e3e980'
     } );
     this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5, top: 5 } ) );
   }
