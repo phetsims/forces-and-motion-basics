@@ -213,7 +213,7 @@ export default class ItemNode extends Node {
     //Label for the mass (if it is shown)
     const unknownValueIndicatorStringProperty = ForcesAndMotionBasicsStrings.unknownValueIndicatorStringProperty;
     const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
-      ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.mass }, { formatNames: [ 'mass' ] } );
+      ForcesAndMotionBasicsStrings.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
 
     // Denominator empirically determined to prevent most labels from overlapping. The second value was empirically
     // determined to prevent the label from overlapping on larger images.

@@ -68,6 +68,9 @@ export default class Item extends PhetioObject {
   // True if and only if the item is a bucket
   public bucket = false;
 
+  // The mass is constant in the PhET brand sim, but can be edited in PhET-iO
+  public readonly massProperty: NumberProperty;
+
   /**
    * Constructor for Item
    *
@@ -88,7 +91,7 @@ export default class Item extends PhetioObject {
   public constructor(
     public readonly context: MotionModel, name: string | HumanTypeEnum, tandem: Tandem,
     image: ImageableImage | undefined,
-    public readonly mass: number,
+    mass: number,
     x: number, y: number, imageScale: number,
     homeScale?: number,
     pusherInset?: number,
@@ -101,6 +104,13 @@ export default class Item extends PhetioObject {
       phetioType: ReferenceIO( IOType.ObjectIO ),
       phetioState: false,
       phetioFeatured: true
+    } );
+
+    this.massProperty = new NumberProperty( mass, {
+      tandem: tandem.createTandem( 'massProperty' ),
+      phetioFeatured: true,
+      numberType: 'FloatingPoint',
+      units: 'kg'
     } );
 
     this.name = typeof name === 'string' ? name : name.name.toLowerCase();

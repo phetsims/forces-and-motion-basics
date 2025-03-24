@@ -496,7 +496,7 @@ export default class MotionModel {
   private getStackMass(): number {
     let mass = 0;
     for ( let i = 0; i < this.stackedItems.length; i++ ) {
-      mass += this.stackedItems.get( i ).mass;
+      mass += this.stackedItems.get( i ).massProperty.value;
     }
     return mass;
   }
