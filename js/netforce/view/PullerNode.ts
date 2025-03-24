@@ -40,7 +40,6 @@ export default class PullerNode extends Image {
     const x = puller.positionProperty.get().x;
     const y = puller.positionProperty.get().y;
 
-    // TODO: visibleProperty will probably want to be in Puller, and reset the knotProperty, https://github.com/phetsims/forces-and-motion-basics/issues/343
     const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {
       phetioInputEnabledPropertyInstrumented: true,
       phetioFeatured: true
@@ -127,6 +126,13 @@ export default class PullerNode extends Image {
 
     this.addLinkedElement( this.puller, {
       tandemName: 'puller'
+    } );
+
+    // When hiding the puller via the PhET-iO API (e.g. in PhET-iO Studio or PhET Studio), detach from the knot and move back to the toolbox, invisibly
+    this.visibleProperty.link( visible => {
+      if ( !visible ) {
+        puller.reset();
+      }
     } );
   }
 
