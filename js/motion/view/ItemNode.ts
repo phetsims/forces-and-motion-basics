@@ -284,6 +284,14 @@ export default class ItemNode extends Node {
     showMassesProperty.link( showMasses => { labelText.visible = showMasses; } );
 
     this.addLinkedElement( item );
+
+    // When hiding the item via the PhET-iO API (e.g. in PhET-iO Studio or PhET Studio), remove from the stack and move back to the toolbox, invisibly
+    this.visibleProperty.link( visible => {
+      if ( !visible ) {
+        model.spliceStack( model.stackedItems.indexOf( item ) );
+        item.reset();
+      }
+    } );
   }
 
 
