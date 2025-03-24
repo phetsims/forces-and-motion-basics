@@ -153,10 +153,8 @@ export default class MotionModel {
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
 
-    const itemsTandem = tandem.createTandem( 'items' );
-
     this.stackedItems = createObservableArray( {
-      tandem: itemsTandem.createTandem( 'stackedItems' ),
+      tandem: tandem.createTandem( 'stackedItems' ),
       phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
     } );
 
@@ -330,6 +328,8 @@ export default class MotionModel {
     const trashSpacing = isTrashCanPresent ? ( this.accelerometer ? 53 : 66 ) : 0; // distance between the man and the trash can
     const mysterySpacing = this.accelerometer ? ( isTrashCanPresent ? 51 : 65 ) : 72; // distance between the trash can and the mystery box
     const bucketSpacing = isTrashCanPresent ? 63 : 75; // distance between the mystery box and the water bucket
+
+    const itemsTandem = tandem.createTandem( 'items' );
 
     // create the items - Initial positions determined empirically
     const fridge = new Item( this, 'fridge', itemsTandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, 1.1, 4 );
