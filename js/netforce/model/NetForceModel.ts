@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
@@ -143,7 +144,7 @@ export default class NetForceModel extends PhetioObject {
 
     this.cart = new Cart( tandem.createTandem( 'cart' ) );
 
-    //Create a knot given a color and index (0-3)
+    // Create a knot given a color and index (0-3)
     const createKnot = ( color: KnotType, index: number, tandem: Tandem ) => {
       const xPosition = ( color === 'blue' ? BLUE_KNOT_OFFSET : RED_KNOT_OFFSET ) + index * KNOT_SPACING;
       return new Knot( xPosition, color, { tandem: tandem } );
@@ -199,13 +200,15 @@ export default class NetForceModel extends PhetioObject {
       } );
     } );
 
-    //Update the started flag
+    // Update the started flag
     this.isRunningProperty.link( running => { if ( running ) { this.hasStartedProperty.set( true ); }} );
 
-    //Update the forces when the number of attached pullers changes
-    this.numberPullersAttachedProperty.link( () => { this.netForceProperty.set( this.getNetForce() ); } );
-    this.numberPullersAttachedProperty.link( () => { this.leftForceProperty.set( this.getLeftForce() ); } );
-    this.numberPullersAttachedProperty.link( () => { this.rightForceProperty.set( this.getRightForce() ); } );
+    // Update the forces when the number of attached pullers changes, or their forces change (PhET-iO)
+    Multilink.multilinkAny( [ ...this.pullers.map( puller => puller.forceProperty ), this.numberPullersAttachedProperty ], () => {
+      this.netForceProperty.set( this.getNetForce() );
+      this.leftForceProperty.set( this.getLeftForce() );
+      this.rightForceProperty.set( this.getRightForce() );
+    } );
   }
 
 
@@ -218,19 +221,19 @@ export default class NetForceModel extends PhetioObject {
    */
   private movePullerToKnot( puller: Puller, knot: Knot ): void {
 
-    //try to snap to a knot
+    // try to snap to a knot
     if ( knot ) {
 
       puller.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
       puller.knotProperty.set( knot );
     }
 
-    //Or go back home
+    // Or go back home
     else {
       puller.positionProperty.reset();
     }
 
-    //Keep track of their position to change the attach/detach thresholds, see NetForceModel.getTargetKnot
+    // Keep track of their position to change the attach/detach thresholds, see NetForceModel.getTargetKnot
     const newPosition = knot ? 'knot' : 'home';
     puller.lastPlacementProperty.set( newPosition );
   }
@@ -346,7 +349,7 @@ export default class NetForceModel extends PhetioObject {
     this.showValuesProperty.reset();
     this.showSpeedProperty.reset();
 
-    //Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
+    // Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
     this.pullers.forEach( puller => {puller.disconnect();} );
 
     this.cart.reset();
@@ -387,7 +390,7 @@ export default class NetForceModel extends PhetioObject {
       // calculate new position from velocity
       const newX = this.cart.positionProperty.get() + newV * dt * 60.0;
 
-      //If the cart made it to the end, then stop and signify completion
+      // If the cart made it to the end, then stop and signify completion
       const gameLength = NetForceModel.GAME_LENGTH - this.cart.widthToWheel;
       if ( newX > gameLength || newX < -gameLength ) {
         this.isRunningProperty.set( false );
@@ -439,7 +442,7 @@ export default class NetForceModel extends PhetioObject {
    * Function for internal use that helps to sum forces in _.reduce, see getLeftForce, getRightForce
    */
   private sumForces( memo: number, puller: Puller ): number {
-    return memo + puller.force;
+    return memo + puller.forceProperty.value;
   }
 
   // Gets the left force on the cart, applied by left pullers

@@ -8,8 +8,10 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -32,7 +34,7 @@ export default class Puller extends PhetioObject {
 
   // to synchronize tandem names with the view
   public readonly standOffsetX: number;
-  public readonly force: number;
+  public readonly forceProperty: TReadOnlyProperty<number>;
 
   // whether or not the puller is currently being dragged
   public readonly userControlledProperty: BooleanProperty;
@@ -78,10 +80,13 @@ export default class Puller extends PhetioObject {
     super( options );
 
     this.standOffsetX = options.standOffsetX;
-    this.force = this.size === 'small' ? 10 * 5 :
-                 this.size === 'medium' ? 20 * 5 :
-                 this.size === 'large' ? 30 * 5 :
-                 NaN;
+    this.forceProperty = new NumberProperty( this.size === 'small' ? 10 * 5 :
+                                             this.size === 'medium' ? 20 * 5 :
+                                             30 * 5, {
+      tandem: tandem.createTandem( 'forceProperty' ),
+      phetioFeatured: true,
+      numberType: 'FloatingPoint'
+    } );
 
     this.userControlledProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'userControlledProperty' ),
@@ -110,7 +115,7 @@ export default class Puller extends PhetioObject {
       this.positionProperty.set( new Vector2( knotX, this.positionProperty.get().y ) );
     };
 
-    //When the knot changes, wire up as a listener to the new knot
+    // When the knot changes, wire up as a listener to the new knot
     this.knotProperty.link( ( newKnot, oldKnot ) => {
 
       //Unlink from the previous knot if there was one
