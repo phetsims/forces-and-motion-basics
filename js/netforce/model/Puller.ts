@@ -85,7 +85,8 @@ export default class Puller extends PhetioObject {
                                              30 * 5, {
       tandem: tandem.createTandem( 'forceProperty' ),
       phetioFeatured: true,
-      numberType: 'FloatingPoint'
+      numberType: 'FloatingPoint',
+      units: 'N'
     } );
 
     this.userControlledProperty = new BooleanProperty( false, {
