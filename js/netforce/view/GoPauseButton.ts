@@ -7,17 +7,13 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import TEmitter from '../../../../axon/js/TEmitter.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import StringIO from '../../../../tandem/js/types/StringIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -58,23 +54,10 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     // boolean function to determine if the go button should be enabled based on model state.
     const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.isRunningProperty.get() );
 
-    // When the go button is pressed, indicate which pullers are on which knots and what the net force is.
-    const goButtonPressedEmitter: TEmitter<[ number, string ]> = new Emitter( {
-      tandem: tandem.createTandem( 'goButtonPressedEmitter' ),
-      parameters: [
-        { valueType: 'number', name: 'netForce', phetioType: NumberIO },
-        { name: 'knotJSON', phetioType: StringIO }
-      ]
-    } );
-
     super( model.isRunningProperty, pauseText, goText, options );
 
     model.isRunningProperty.link( isRunning => {
       this.baseColor = isRunning ? '#df1a22' : '#94b830';
-
-      if ( isRunning ) {
-        goButtonPressedEmitter.emit( model.netForceProperty.get(), JSON.stringify( model.getKnotDescription() ) );
-      }
     } );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
