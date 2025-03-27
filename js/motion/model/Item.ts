@@ -110,7 +110,8 @@ export default class Item extends PhetioObject {
       tandem: tandem.createTandem( 'massProperty' ),
       phetioFeatured: true,
       numberType: 'FloatingPoint',
-      units: 'kg'
+      units: 'kg',
+      range: new Range( 0, 200 )
     } );
 
     this.name = typeof name === 'string' ? name : name.name.toLowerCase();
