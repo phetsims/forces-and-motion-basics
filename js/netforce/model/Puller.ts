@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -86,7 +87,10 @@ export default class Puller extends PhetioObject {
       tandem: tandem.createTandem( 'forceProperty' ),
       phetioFeatured: true,
       numberType: 'FloatingPoint',
-      units: 'N'
+      units: 'N',
+      range: this.size === 'small' ? new Range( 1, 50 ) :
+             this.size === 'medium' ? new Range( 51, 100 ) :
+             new Range( 101, 150 )
     } );
 
     this.userControlledProperty = new BooleanProperty( false, {
