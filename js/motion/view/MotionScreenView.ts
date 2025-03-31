@@ -141,9 +141,9 @@ export default class MotionScreenView extends ScreenView {
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
-        x: 300,
-        top: 8
-      } );
+      x: 300,
+      top: 8
+    } );
 
     this.addChild( speedometerNode );
 
@@ -329,9 +329,9 @@ export default class MotionScreenView extends ScreenView {
     } );
 
     this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
-        labelPosition: 'top',
-        arrowScale: arrowScale
-      } );
+      labelPosition: 'top',
+      arrowScale: arrowScale
+    } );
     this.sumOfForcesText = new Text( sumOfForcesEqualsZeroStringProperty, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
@@ -348,13 +348,13 @@ export default class MotionScreenView extends ScreenView {
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
       ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
-        labelPosition: 'side',
-        arrowScale: arrowScale
-      } );
+      labelPosition: 'side',
+      arrowScale: arrowScale
+    } );
     this.frictionArrow = new ReadoutArrow( frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
-        labelPosition: 'side',
-        arrowScale: arrowScale
-      } );
+      labelPosition: 'side',
+      arrowScale: arrowScale
+    } );
 
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
