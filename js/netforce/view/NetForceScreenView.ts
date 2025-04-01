@@ -56,7 +56,6 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
-import PullerColors from '../model/PullerColors.js';
 import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
 import FlagNode from './FlagNode.js';
@@ -314,13 +313,13 @@ export default class NetForceScreenView extends ScreenView {
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     const getPullerImage = ( puller: Puller, leaning: boolean ) => {
-      const pullerColor = ForcesAndMotionBasicsPreferences.pullerColorProperty.value;
+      const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
       const type = puller.type;
       const size = puller.size;
 
-      // Map the type to the appropriate color based on the pullerColorProperty
-      const mappedType = ( type === 'blue' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'purple' :
-                         ( type === 'red' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'orange' : type;
+      // Map the type to the appropriate color based on the netForcePullerColorsProperty
+      const mappedType = ( type === 'blue' && pullerColor === 'purpleOrange' ) ? 'purple' :
+                         ( type === 'red' && pullerColor === 'purpleOrange' ) ? 'orange' : type;
 
       const colorTypeSet: ColorTypeSet = colorMapping[ mappedType ];
       return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
@@ -342,7 +341,7 @@ export default class NetForceScreenView extends ScreenView {
       this.pullerNodes.push( pullerNode );
     } );
 
-    ForcesAndMotionBasicsPreferences.pullerColorProperty.link( () => {
+    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
       this.pullerNodes.forEach( pullerNode => {
         pullerNode.standImage = getPullerImage( pullerNode.puller, false );
         pullerNode.pullImage = getPullerImage( pullerNode.puller, true );

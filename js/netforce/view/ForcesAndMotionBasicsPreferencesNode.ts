@@ -7,20 +7,22 @@
  */
 
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import PullerColorControl from './PullerColorControl.js';
 
 export default class ForcesAndMotionBasicsPreferencesNode extends VBox {
-  public constructor() {
-    const pusherPullerColorControl = new PullerColorControl(
-      ForcesAndMotionBasicsPreferences.pullerColorProperty
+  public constructor( tandem: Tandem ) {
+    const pullerColorControl = new PullerColorControl(
+      ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty,
+      tandem.createTandem( 'netForcePullerColorsControl' )
     );
-
     super( {
       align: 'left',
-      children: [ pusherPullerColorControl ],
-      spacing: 20
+      children: [ pullerColorControl ],
+      spacing: 20,
+      tandem: tandem
     } );
   }
 }
