@@ -251,7 +251,7 @@ export default class MotionModel {
     } );
 
     this.showAccelerationProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showAccelerationProperty' ),
+      tandem: screen === 'motion' || screen === 'friction' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showAccelerationProperty' ),
       phetioFeatured: true
     } );
 

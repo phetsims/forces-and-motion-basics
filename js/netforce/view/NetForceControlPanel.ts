@@ -67,7 +67,6 @@ export default class NetForceControlPanel extends Node {
     }, {
       createNode: tandem => new HBox( {
         children: [ showSpeedTextNode, speedometerIconNode ],
-        tandem: tandem.createTandem( 'showSpeedContent' ),
         spacing: speedTextAndSpeedometerIconSpacing
       } ),
       property: model.showSpeedProperty,
