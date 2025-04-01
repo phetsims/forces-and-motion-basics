@@ -165,7 +165,11 @@ export default class MotionScreenView extends ScreenView {
         }
       }
     } );
-    model.stopwatch.positionProperty.value = controlPanel.leftTop.plusXY( -stopwatchNode.width, 10 );
+
+    // We want to reset the position to what was explicitly set after the stopwatchNode was created.
+    const stopwatchInitialPosition = controlPanel.leftTop.plusXY( -stopwatchNode.width, 10 );
+    model.stopwatch.positionProperty.setInitialValue( stopwatchInitialPosition );
+    model.stopwatch.positionProperty.value = stopwatchInitialPosition;
 
     this.addChild( stopwatchNode );
 
@@ -188,9 +192,6 @@ export default class MotionScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput();
         model.reset();
-
-        // We want to reset the position to what was explicitly set after the stopwatchNode was created.
-        this.model.stopwatch.positionProperty.value = controlPanel.leftTop.plusXY( -stopwatchNode.width, 10 );
       },
       radius: 23,
       rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
