@@ -74,7 +74,8 @@ export default class NetForceControlPanel extends Node {
       tandemName: 'speedCheckbox'
     } ], {
       tandem: verticalCheckboxGroupTandem,
-      minContentWidth: 100
+      minContentWidth: 100,
+      visiblePropertyOptions: { phetioFeatured: true }
     } );
     this.verticalCheckboxGroupPanel = new Panel( this.verticalCheckboxGroup, {
       xMargin: 10,

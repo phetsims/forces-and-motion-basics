@@ -155,7 +155,8 @@ export default class MotionModel {
 
     this.stackedItems = createObservableArray( {
       tandem: tandem.createTandem( 'stackedItems' ),
-      phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
+      phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) ),
+      phetioFeatured: true
     } );
 
     const forcesTandem = tandem.createTandem( 'forces' );
@@ -169,18 +170,21 @@ export default class MotionModel {
     this.frictionForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'frictionForceProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N'
     } );
 
     this.frictionCoefficientProperty = new NumberProperty( frictionValue, {
       tandem: forcesTandem.createTandem( 'frictionCoefficientProperty' ),
       phetioDocumentation: 'Coefficient of static friction',
-      phetioReadOnly: screen === 'motion'
+      phetioReadOnly: screen === 'motion',
+      phetioFeatured: true
     } );
 
     this.sumOfForcesProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'sumOfForcesProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N'
     } );
 
@@ -192,17 +196,20 @@ export default class MotionModel {
 
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
+      phetioFeatured: true,
       units: 'm/s'
     } );
 
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
+      phetioFeatured: true,
       units: 'm/s'
     } );
 
     this.accelerationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'accelerationProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'm/s/s'
     } );
 
@@ -219,27 +226,33 @@ export default class MotionModel {
     const visiblePropertiesTandem = tandem.createTandem( 'visibleProperties' );
 
     this.showForceProperty = new BooleanProperty( true, {
-      tandem: visiblePropertiesTandem.createTandem( 'showForceProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showForceProperty' ),
+      phetioFeatured: true
     } );
 
     this.showValuesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showValuesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showValuesProperty' ),
+      phetioFeatured: true
     } );
 
     this.showSumOfForcesProperty = new BooleanProperty( false, {
-      tandem: screen === 'motion' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' )
+      tandem: screen === 'motion' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' ),
+      phetioFeatured: true
     } );
 
     this.showSpeedProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showSpeedProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showSpeedProperty' ),
+      phetioFeatured: true
     } );
 
     this.showMassesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showMassesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showMassesProperty' ),
+      phetioFeatured: true
     } );
 
     this.showAccelerationProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showAccelerationProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showAccelerationProperty' ),
+      phetioFeatured: true
     } );
 
     //  Keep track of whether the speed is classified as:
@@ -271,7 +284,8 @@ export default class MotionModel {
     } );
 
     this.fallenProperty = new BooleanProperty( false, {
-      tandem: pusherTandem.createTandem( 'fallenProperty' )
+      tandem: pusherTandem.createTandem( 'fallenProperty' ),
+      phetioFeatured: true
     } );
 
     this.fallenDirectionProperty = new StringUnionProperty( 'left', {
@@ -292,7 +306,8 @@ export default class MotionModel {
     } );
 
     this.isPlayingProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'isPlayingProperty' )
+      tandem: tandem.createTandem( 'isPlayingProperty' ),
+      phetioFeatured: true
     } );
 
     this.frictionZeroProperty = new DerivedProperty( [ this.frictionCoefficientProperty ], friction => friction === 0 );
@@ -388,6 +403,7 @@ export default class MotionModel {
 
     this.stopwatch = new Stopwatch( {
       tandem: tandem.createTandem( 'stopwatch' ),
+      phetioFeatured: true,
       timePropertyOptions: {
         range: new Range( 0, 3599.99 )
       }

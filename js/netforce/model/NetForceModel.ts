@@ -68,11 +68,13 @@ export default class NetForceModel extends PhetioObject {
     this.hasStartedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'hasStartedProperty' ),
       phetioDocumentation: 'Indicates the tug-of-war has started.',
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      phetioFeatured: true
     } );
 
     this.isRunningProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'isRunningProperty' )
+      tandem: tandem.createTandem( 'isRunningProperty' ),
+      phetioFeatured: true
     } );
 
     this.numberPullersAttachedProperty = new NumberProperty( 0, {
@@ -94,6 +96,7 @@ export default class NetForceModel extends PhetioObject {
     this.netForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'netForceProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N',
       range: new Range( -350, 350 )
     } );
@@ -101,6 +104,7 @@ export default class NetForceModel extends PhetioObject {
     this.leftForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'leftForceProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N',
       range: new Range( -350, 0 )
     } );
@@ -108,6 +112,7 @@ export default class NetForceModel extends PhetioObject {
     this.rightForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'rightForceProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N',
       range: new Range( 0, 350 )
     } );
@@ -115,6 +120,7 @@ export default class NetForceModel extends PhetioObject {
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'm/s',
       range: new Range( 0, 6 )
     } );
@@ -131,13 +137,16 @@ export default class NetForceModel extends PhetioObject {
 
     // User settings
     this.showSumOfForcesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertyTandem.createTandem( 'showSumOfForcesProperty' )
+      tandem: visiblePropertyTandem.createTandem( 'showSumOfForcesProperty' ),
+      phetioFeatured: true
     } );
     this.showValuesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertyTandem.createTandem( 'showValuesProperty' )
+      tandem: visiblePropertyTandem.createTandem( 'showValuesProperty' ),
+      phetioFeatured: true
     } );
     this.showSpeedProperty = new BooleanProperty( false, {
-      tandem: visiblePropertyTandem.createTandem( 'showSpeedProperty' )
+      tandem: visiblePropertyTandem.createTandem( 'showSpeedProperty' ),
+      phetioFeatured: true
     } );
     this.cartReturnedEmitter = new Emitter();
     this.resetAllEmitter = new Emitter();

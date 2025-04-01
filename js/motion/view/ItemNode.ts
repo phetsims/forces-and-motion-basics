@@ -60,7 +60,8 @@ export default class ItemNode extends Node {
       scale: item.imageScale,
       tandem: tandem,
       phetioFeatured: true,
-      phetioInputEnabledPropertyInstrumented: true
+      phetioInputEnabledPropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
     } );
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.

@@ -376,7 +376,9 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.sumArrow );
 
     // Show the control panel
-    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) );
+    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ), {
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
 
     // Create reset all button
     this.resetAllButton = new ResetAllButton( {

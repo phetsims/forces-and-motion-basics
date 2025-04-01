@@ -71,6 +71,7 @@ export default class AppliedForceControl extends VBox {
       deltaFine: 1,
       deltaCoarse: 50,
       spacing: 6,
+      visiblePropertyOptions: { phetioFeatured: true },
       tandem: tandem.createTandem( 'spinner' )
     } );
     model.fallenProperty.link( fallen => {

@@ -42,7 +42,8 @@ export default class PullerNode extends Image {
 
     const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {
       phetioInputEnabledPropertyInstrumented: true,
-      phetioFeatured: true
+      phetioFeatured: true,
+      visiblePropertyOptions: { phetioFeatured: true }
     }, providedOptions );
 
     super( image, {

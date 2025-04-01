@@ -173,6 +173,7 @@ export default class Item extends PhetioObject {
     this.inStackProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'inStackProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       phetioDocumentation: 'Indicates the item is part of the experiment.'
     } );
 
