@@ -197,13 +197,15 @@ export default class MotionModel {
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
       phetioFeatured: true,
-      units: 'm/s'
+      units: 'm/s',
+      phetioReadOnly: true
     } );
 
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
       phetioFeatured: true,
-      units: 'm/s'
+      units: 'm/s',
+      phetioReadOnly: true
     } );
 
     this.accelerationProperty = new NumberProperty( 0, {
@@ -285,7 +287,8 @@ export default class MotionModel {
 
     this.fallenProperty = new BooleanProperty( false, {
       tandem: pusherTandem.createTandem( 'fallenProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     this.fallenDirectionProperty = new StringUnionProperty( 'left', {

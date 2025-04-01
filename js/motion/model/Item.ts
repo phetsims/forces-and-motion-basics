@@ -185,7 +185,8 @@ export default class Item extends PhetioObject {
       range: new Range( minValue, 1.3 ),
 
       // Instrumentation needed to get the object size correct in phet-io state
-      tandem: tandem.createTandem( 'interactionScaleProperty' )
+      tandem: tandem.createTandem( 'interactionScaleProperty' ),
+      phetioReadOnly: true
     } );
 
     this.context.directionProperty.link( direction => {
