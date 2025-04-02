@@ -280,10 +280,9 @@ export default class PusherNode extends Node {
       visibleNode.centerX = layoutWidth / 2 + ( model.pusherPositionProperty.get() - model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
     };
 
-    model.fallenProperty.link( ( fallen, wasFallen ) => {
-
-      // on reset all, the model should set the node to the initial pusher position
-      !fallen && wasFallen && initializePusherNode();
+    // on reset all, the model should set the node to the initial pusher position
+    model.resetAllEmitter.addListener( () => {
+      initializePusherNode();
     } );
 
     // when the stack composition changes, we want to update the applied force position
