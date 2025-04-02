@@ -26,6 +26,7 @@ export default class Cart {
     this.positionProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'm',
       range: new Range( -403, 403 )
     } );
@@ -33,6 +34,7 @@ export default class Cart {
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'm/s',
       range: new Range( -6, 6 )
     } );

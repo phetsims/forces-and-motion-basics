@@ -59,8 +59,6 @@ export default class PusherNode extends Node {
   private interactive = true;
 
   /**
-   * Constructor for PusherNode
-   *
    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
    * @param layoutWidth width for the layout for purposes of centering the character when pushing
    * @param itemModelToNodeMap
@@ -166,33 +164,6 @@ export default class PusherNode extends Node {
     };
 
     /**
-     * Reset the zero force position so that the pusher is at the correct place when the pusher falls over or when
-     * applied force is set to zero after.  Dependent on the width of the item stack, direction the pusher fell, or the
-     * direction the pusher was applying a force before the force was set to zero.
-     */
-    const resetZeroForcePosition = ( direction: string ) => {
-      if ( model.stackedItems.length > 0 ) {
-
-        const item = model.stackedItems.get( 0 );
-        const itemNode = itemModelToNodeMap.get( item );
-        assert && assert( itemNode, 'itemNode is null for itemModel' );
-
-        // get the scaled width of the first image on the stack
-        const scaledWidth = itemNode!.getScaledWidth();
-
-        // add a little more space (10) so the pusher isn't exactly touching the stack
-        const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
-
-        if ( direction === 'right' ) {
-          visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
-        }
-        else {
-          visibleNode.centerX = layoutWidth / 2 + visibleNode.width / 2 + delta;
-        }
-      }
-    };
-
-    /**
      * Update the position of the visible node when force is being applied to the stack.
      * Dependent on the width of the stack, the width of the visible node, and direction
      * of the applied force
@@ -202,7 +173,7 @@ export default class PusherNode extends Node {
       const pusherY = 362 - visibleNode.height;
       const item = model.stackedItems.get( 0 );
       const itemNode = itemModelToNodeMap.get( item );
-      assert && assert( itemNode, 'itemNode is null for itemModel' );
+      assert && assert( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
 
       // get the scaled width of the first item in the stack
       const scaledWidth = itemNode!.getScaledWidth();
@@ -231,17 +202,40 @@ export default class PusherNode extends Node {
 
 
     /**
-     * Called when the pusher has let go, either from falling or from setting the
-     * applied force to zero.
+     * Called when the pusher has let go, either from falling or from setting the applied force to zero.
      *
      * @param  {Node} newVisibleNode - visibleNode, should be either falling or standing images of the pusher
      * @param  {string} direction      description
      */
     const pusherLetGo = ( newVisibleNode: Node, direction: string ) => {
+
       // update the visible node and place it in a position dependent on the direction
       // of falling or the applied force
       setVisibleNode( newVisibleNode );
-      resetZeroForcePosition( direction );
+
+      // Reset the zero force position so that the pusher is at the correct place when the pusher falls over or when
+      // applied force is set to zero after.  Dependent on the width of the item stack, direction the pusher fell, or the
+      // direction the pusher was applying a force before the force was set to zero.
+      if ( model.stackedItems.length > 0 ) {
+
+        const item = model.stackedItems.get( 0 );
+        const itemNode = itemModelToNodeMap.get( item );
+
+        assert && assert( itemNode, 'itemNode is null for itemModel' );
+
+        // get the scaled width of the first image on the stack
+        const scaledWidth = itemNode!.getScaledWidth();
+
+        // add a little more space (10) so the pusher isn't exactly touching the stack
+        const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
+
+        if ( direction === 'right' ) {
+          visibleNode.centerX = layoutWidth / 2 - visibleNode.width / 2 - delta;
+        }
+        else {
+          visibleNode.centerX = layoutWidth / 2 + visibleNode.width / 2 + delta;
+        }
+      }
 
       // get the translation delta from the transformed model delta and translate
       const x = getPusherNodeDeltaX();
@@ -293,7 +287,7 @@ export default class PusherNode extends Node {
 
     // when the stack composition changes, we want to update the applied force position
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
-    model.stackSizeProperty.link( stackSize => {
+    model.stackedItems.lengthProperty.link( stackSize => {
       if ( stackSize > 0 ) {
         // only do this if the pusher is standing and there is non-zero applied force
         if ( !model.fallenProperty.get() && model.appliedForceProperty.get() !== 0 ) {

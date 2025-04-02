@@ -46,7 +46,6 @@ export default class Item extends PhetioObject {
   // the position of the item
   public readonly positionProperty: Vector2Property;
 
-  // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly pusherInsetProperty: Property<number>;
 
   // whether the item is being user controlled (dragged)
@@ -173,6 +172,7 @@ export default class Item extends PhetioObject {
     this.inStackProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'inStackProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       phetioDocumentation: 'Indicates the item is part of the experiment.'
     } );
 
@@ -184,7 +184,8 @@ export default class Item extends PhetioObject {
       range: new Range( minValue, 1.3 ),
 
       // Instrumentation needed to get the object size correct in phet-io state
-      tandem: tandem.createTandem( 'interactionScaleProperty' )
+      tandem: tandem.createTandem( 'interactionScaleProperty' ),
+      phetioReadOnly: true
     } );
 
     this.context.directionProperty.link( direction => {

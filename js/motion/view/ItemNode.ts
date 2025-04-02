@@ -60,7 +60,8 @@ export default class ItemNode extends Node {
       scale: item.imageScale,
       tandem: tandem,
       phetioFeatured: true,
-      phetioInputEnabledPropertyInstrumented: true
+      phetioInputEnabledPropertyInstrumented: true,
+      visiblePropertyOptions: { phetioFeatured: true }
     } );
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
@@ -93,9 +94,6 @@ export default class ItemNode extends Node {
     };
 
     // Make sure the arms are updated (even if nothing else changed)
-    // TODO: It is possible that this can be removed once these issues are closed, see https://github.com/phetsims/forces-and-motion-basics/issues/319
-    // https://github.com/phetsims/forces-and-motion-basics/issues/240
-    // https://github.com/phetsims/axon/issues/135
     phetioStateSetEmitter.addListener( updateImage );
 
     for ( let i = 0; i < model.items.length; i++ ) {
@@ -108,6 +106,8 @@ export default class ItemNode extends Node {
     const moveToStack = () => {
       item.inStackProperty.set( true );
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
+
+      // NOTE: similar to MotionModel.spliceStack
       item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2, motionView.topOfStack - this.height, 'stack' );
       model.stackedItems.add( item );
       if ( model.stackedItems.length > 3 ) {

@@ -8,19 +8,19 @@
  * @author Luisa Vargas
  */
 
-import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PreferencesDialogConstants from '../../../../joist/js/preferences/PreferencesDialogConstants.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-import PullerColors from '../model/PullerColors.js';
 
 export default class PullerColorControl extends VBox {
 
-  public constructor( pullerColorProperty: Property<PullerColors> ) {
+  public constructor( netForcePullerColorsProperty: StringUnionProperty<'blueRed' | 'purpleOrange'>, tandem: Tandem ) {
 
     const text = new Text( ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty, {
       font: PreferencesDialogConstants.PANEL_SECTION_LABEL_FONT,
@@ -32,7 +32,7 @@ export default class PullerColorControl extends VBox {
      * @param value - value associated with the radio button
      * @param labelStringProperty - label that appears on the radio button
      */
-    const createItem = ( value: PullerColors, labelStringProperty: TReadOnlyProperty<string> ) => {
+    const createItem = ( value: 'blueRed' | 'purpleOrange', labelStringProperty: TReadOnlyProperty<string> ) => {
       return {
         value: value,
         createNode: () => new Text( labelStringProperty, {
@@ -48,17 +48,17 @@ export default class PullerColorControl extends VBox {
     // Items that describe the radio buttons
     const items = [
       createItem(
-        PullerColors.BLUE_AND_RED,
+        'blueRed',
         ForcesAndMotionBasicsStrings.blueAndRedStringProperty
       ),
       createItem(
-        PullerColors.PURPLE_AND_ORANGE,
+        'purpleOrange',
         ForcesAndMotionBasicsStrings.purpleAndOrangeStringProperty
       )
     ];
 
 
-    const radioButtonGroup = new VerticalAquaRadioButtonGroup( pullerColorProperty, items, {
+    const radioButtonGroup = new VerticalAquaRadioButtonGroup( netForcePullerColorsProperty, items, {
 
       // pdom
       accessibleName: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty
@@ -68,8 +68,15 @@ export default class PullerColorControl extends VBox {
       children: [ text, radioButtonGroup ],
       spacing: 8,
       align: 'center',
-      isDisposable: false
+      isDisposable: false,
+      tandem: tandem,
+      phetioFeatured: true,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     } );
+
+    this.addLinkedElement( netForcePullerColorsProperty );
   }
 }
 

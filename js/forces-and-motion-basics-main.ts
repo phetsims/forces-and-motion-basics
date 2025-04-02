@@ -23,7 +23,6 @@ import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 import MotionScreen from './motion/MotionScreen.js';
 import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
-import PullerColors from './netforce/model/PullerColors.js';
 import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
@@ -47,13 +46,13 @@ simLauncher.launch( () => {
   // Provide the screen names as named fields, so they can be easily accessed dynamically, for API features
   // and lookups will still work properly even if the screens are reduced with ?screens=...
 
-  const netForceScreenIconNode = new ToggleNode( ForcesAndMotionBasicsPreferences.pullerColorProperty, [
+  const netForceScreenIconNode = new ToggleNode( ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty, [
     {
-      value: PullerColors.BLUE_AND_RED,
+      value: 'blueRed',
       createNode: () => new Image( tugIconBlueRed_png )
     },
     {
-      value: PullerColors.PURPLE_AND_ORANGE,
+      value: 'purpleOrange',
       createNode: () => new Image( tugIconPurpleOrange_png )
     }
   ] );
@@ -102,7 +101,7 @@ simLauncher.launch( () => {
     preferencesModel: new PreferencesModel( {
       simulationOptions: {
         customPreferences: [ {
-          createContent: () => new ForcesAndMotionBasicsPreferencesNode()
+          createContent: tandem => new ForcesAndMotionBasicsPreferencesNode( tandem )
         } ]
       }
     } )

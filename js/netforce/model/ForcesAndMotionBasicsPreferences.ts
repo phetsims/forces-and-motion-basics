@@ -1,4 +1,4 @@
-// Copyright 2024, University of Colorado Boulder
+// Copyright 2024-2025, University of Colorado Boulder
 
 /**
  * ForcesAndMotionBasicsPreferences is the model for sim-specific preferences.  The values declared here can be updated via
@@ -7,24 +7,17 @@
  * @author Luisa Vargas
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import PullerColors from './PullerColors.js';
-
-// map used to set the pusher / puller colors based on the value of a query parameter
-const mapStringToColorSet = new Map<string, PullerColors>( [
-  [ 'blueRed', PullerColors.BLUE_AND_RED ],
-  [ 'purpleOrange', PullerColors.PURPLE_AND_ORANGE ]
-] );
-
-const pullerColorString = ForcesAndMotionBasicsQueryParameters.pullerColor!;
-
-const pullerColor = mapStringToColorSet.get( pullerColorString );
-assert && assert( pullerColor, `invalid pullerColorString: ${pullerColorString}` );
 
 const ForcesAndMotionBasicsPreferences = {
-  pullerColorProperty: new EnumerationProperty( pullerColor! )
+  netForcePullerColorsProperty: new StringUnionProperty<'blueRed' | 'purpleOrange'>( ForcesAndMotionBasicsQueryParameters.pullerColor as 'blueRed' | 'purpleOrange', {
+    validValues: [ 'blueRed', 'purpleOrange' ],
+    tandem: Tandem.PREFERENCES.createTandem( 'netForcePullerColorsProperty' ),
+    phetioFeatured: true
+  } )
 };
 
 forcesAndMotionBasics.register( 'ForcesAndMotionBasicsPreferences', ForcesAndMotionBasicsPreferences );

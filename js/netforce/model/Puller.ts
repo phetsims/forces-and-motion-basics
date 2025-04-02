@@ -100,7 +100,8 @@ export default class Puller extends PhetioObject {
 
     this.knotProperty = new Property<Knot | null>( null, {
       tandem: tandem.createTandem( 'knotProperty' ),
-      phetioValueType: NullableIO( Knot.KnotIO )
+      phetioValueType: NullableIO( Knot.KnotIO ),
+      phetioFeatured: true
     } );
 
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {

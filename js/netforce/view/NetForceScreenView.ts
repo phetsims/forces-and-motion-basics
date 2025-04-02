@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -56,7 +55,6 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
-import PullerColors from '../model/PullerColors.js';
 import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
 import FlagNode from './FlagNode.js';
@@ -314,13 +312,13 @@ export default class NetForceScreenView extends ScreenView {
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     const getPullerImage = ( puller: Puller, leaning: boolean ) => {
-      const pullerColor = ForcesAndMotionBasicsPreferences.pullerColorProperty.value;
+      const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
       const type = puller.type;
       const size = puller.size;
 
-      // Map the type to the appropriate color based on the pullerColorProperty
-      const mappedType = ( type === 'blue' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'purple' :
-                         ( type === 'red' && pullerColor === PullerColors.PURPLE_AND_ORANGE ) ? 'orange' : type;
+      // Map the type to the appropriate color based on the netForcePullerColorsProperty
+      const mappedType = ( type === 'blue' && pullerColor === 'purpleOrange' ) ? 'purple' :
+                         ( type === 'red' && pullerColor === 'purpleOrange' ) ? 'orange' : type;
 
       const colorTypeSet: ColorTypeSet = colorMapping[ mappedType ];
       return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
@@ -342,7 +340,7 @@ export default class NetForceScreenView extends ScreenView {
       this.pullerNodes.push( pullerNode );
     } );
 
-    ForcesAndMotionBasicsPreferences.pullerColorProperty.link( () => {
+    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
       this.pullerNodes.forEach( pullerNode => {
         pullerNode.standImage = getPullerImage( pullerNode.puller, false );
         pullerNode.pullImage = getPullerImage( pullerNode.puller, true );
@@ -376,7 +374,9 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.sumArrow );
 
     // Show the control panel
-    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ) );
+    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ), {
+      visiblePropertyOptions: { phetioFeatured: true }
+    } );
 
     // Create reset all button
     this.resetAllButton = new ResetAllButton( {
@@ -387,17 +387,18 @@ export default class NetForceScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    const vBox = new VBox( {
-      spacing: BUTTON_PADDING,
-      children: [ this.controlPanel, this.resetAllButton ],
-      align: 'right'
-    } );
-    this.addChild( vBox );
+    this.addChild( this.controlPanel );
+    this.addChild( this.resetAllButton );
 
-    ManualConstraint.create( this, [ vBox ], vBoxProxy => {
-      vBoxProxy.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
-      vBoxProxy.top = MARGIN_FROM_LAYOUT_BOUNDS;
+    ManualConstraint.create( this, [ this.controlPanel ], controlPanelProxy => {
+      controlPanelProxy.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
+      controlPanelProxy.top = MARGIN_FROM_LAYOUT_BOUNDS;
     } );
+
+    // It was specifically requested that the reset all button not move when the control panel visibleProperty becomes false,
+    // see https://github.com/phetsims/forces-and-motion-basics/issues/353
+    this.resetAllButton.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
+    this.resetAllButton.top = this.controlPanel.bottom + BUTTON_PADDING;
 
     let lastFlagNode: FlagNode | null = null;
 

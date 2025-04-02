@@ -19,7 +19,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
-import PullerColors from '../model/PullerColors.js';
 
 export default class FlagNode extends Node {
   private readonly path: Path;
@@ -46,11 +45,11 @@ export default class FlagNode extends Node {
 
     // Return the string of the winning color and set the fill color of the flag.
     this.colorWinsStringProperty = new DerivedStringProperty(
-      [ ForcesAndMotionBasicsPreferences.pullerColorProperty, model.cart.positionProperty,
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty, model.cart.positionProperty,
         ForcesAndMotionBasicsStrings.blueWinsStringProperty, ForcesAndMotionBasicsStrings.redWinsStringProperty,
         ForcesAndMotionBasicsStrings.purpleWinsStringProperty, ForcesAndMotionBasicsStrings.orangeWinsStringProperty ],
       ( pullerColor, x, blueWinsString, redWinsString, purpleWinsString, orangeWinsString ) => {
-        if ( pullerColor === PullerColors.PURPLE_AND_ORANGE ) {
+        if ( pullerColor === 'purpleOrange' ) {
           this.path.fill = x < 0 ? '#8a2be2' : '#ff5500'; // purple or orange
           return x < 0 ? purpleWinsString : orangeWinsString;
         }

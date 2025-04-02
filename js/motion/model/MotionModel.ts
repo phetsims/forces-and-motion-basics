@@ -96,8 +96,6 @@ export default class MotionModel {
   public readonly directionProperty: StringUnionProperty<'left' | 'right' | 'none'>;
 
   // time since pusher has fallen over, in seconds
-  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/forces-and-motion-basics/issues/319
-  // TODO: Why is default value 10? https://github.com/phetsims/forces-and-motion-basics/issues/319
   private readonly timeSinceFallenProperty: NumberProperty;
 
   // whether the pusher has fallen over
@@ -107,13 +105,7 @@ export default class MotionModel {
   public readonly fallenDirectionProperty: StringProperty;
 
   // how long the simulation has been running
-  // TODO: Should we this have a tandem? It spams the data stream. https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly timeProperty: NumberProperty;
-
-  //stack.length is already a property, but mirror it here to easily multilink with it, see usage in MotionScreenView.js
-  //TODO: Perhaps a DerivedProperty would be more suitable instead of duplicating/synchronizing this value
-  // https://github.com/phetsims/forces-and-motion-basics/issues/319
-  public readonly stackSizeProperty: NumberProperty;
 
   // is the sim running or paused?
   public readonly isPlayingProperty: BooleanProperty;
@@ -155,7 +147,12 @@ export default class MotionModel {
 
     this.stackedItems = createObservableArray( {
       tandem: tandem.createTandem( 'stackedItems' ),
-      phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )
+      phetioType: createObservableArray.ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) ),
+      phetioFeatured: true,
+      lengthPropertyOptions: {
+        phetioFeatured: true,
+        phetioDocumentation: 'Number of stacked items'
+      }
     } );
 
     const forcesTandem = tandem.createTandem( 'forces' );
@@ -169,18 +166,21 @@ export default class MotionModel {
     this.frictionForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'frictionForceProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N'
     } );
 
     this.frictionCoefficientProperty = new NumberProperty( frictionValue, {
       tandem: forcesTandem.createTandem( 'frictionCoefficientProperty' ),
       phetioDocumentation: 'Coefficient of static friction',
-      phetioReadOnly: screen === 'motion'
+      phetioReadOnly: screen === 'motion',
+      phetioFeatured: true
     } );
 
     this.sumOfForcesProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'sumOfForcesProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'N'
     } );
 
@@ -192,17 +192,22 @@ export default class MotionModel {
 
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
-      units: 'm/s'
+      phetioFeatured: true,
+      units: 'm/s',
+      phetioReadOnly: true
     } );
 
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
-      units: 'm/s'
+      phetioFeatured: true,
+      units: 'm/s',
+      phetioReadOnly: true
     } );
 
     this.accelerationProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'accelerationProperty' ),
       phetioReadOnly: true,
+      phetioFeatured: true,
       units: 'm/s/s'
     } );
 
@@ -219,27 +224,33 @@ export default class MotionModel {
     const visiblePropertiesTandem = tandem.createTandem( 'visibleProperties' );
 
     this.showForceProperty = new BooleanProperty( true, {
-      tandem: visiblePropertiesTandem.createTandem( 'showForceProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showForceProperty' ),
+      phetioFeatured: true
     } );
 
     this.showValuesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showValuesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showValuesProperty' ),
+      phetioFeatured: true
     } );
 
     this.showSumOfForcesProperty = new BooleanProperty( false, {
-      tandem: screen === 'motion' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' )
+      tandem: screen === 'motion' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showSumOfForcesProperty' ),
+      phetioFeatured: true
     } );
 
     this.showSpeedProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showSpeedProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showSpeedProperty' ),
+      phetioFeatured: true
     } );
 
     this.showMassesProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showMassesProperty' )
+      tandem: visiblePropertiesTandem.createTandem( 'showMassesProperty' ),
+      phetioFeatured: true
     } );
 
     this.showAccelerationProperty = new BooleanProperty( false, {
-      tandem: visiblePropertiesTandem.createTandem( 'showAccelerationProperty' )
+      tandem: screen === 'motion' || screen === 'friction' ? Tandem.OPT_OUT : visiblePropertiesTandem.createTandem( 'showAccelerationProperty' ),
+      phetioFeatured: true
     } );
 
     //  Keep track of whether the speed is classified as:
@@ -266,12 +277,15 @@ export default class MotionModel {
       tandem: pusherTandem.createTandem( 'directionProperty' )
     } );
 
+    // Start at a value larger than the threshold so the pusher doesn't immediately fall
     this.timeSinceFallenProperty = new NumberProperty( 10, {
       units: 's'
     } );
 
     this.fallenProperty = new BooleanProperty( false, {
-      tandem: pusherTandem.createTandem( 'fallenProperty' )
+      tandem: pusherTandem.createTandem( 'fallenProperty' ),
+      phetioFeatured: true,
+      phetioReadOnly: true
     } );
 
     this.fallenDirectionProperty = new StringUnionProperty( 'left', {
@@ -285,14 +299,9 @@ export default class MotionModel {
       units: 's'
     } );
 
-    this.stackSizeProperty = new NumberProperty( 1, {
-      phetioDocumentation: 'Number of stacked items',
-      tandem: tandem.createTandem( 'stackSizeProperty' ),
-      phetioReadOnly: true
-    } );
-
     this.isPlayingProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'isPlayingProperty' )
+      tandem: tandem.createTandem( 'isPlayingProperty' ),
+      phetioFeatured: true
     } );
 
     this.frictionZeroProperty = new DerivedProperty( [ this.frictionCoefficientProperty ], friction => friction === 0 );
@@ -304,11 +313,6 @@ export default class MotionModel {
 
     this.stackedItems.lengthProperty.link( length => {
       this.pusherInteractionsEnabledProperty.value = length > 0;
-    } );
-
-    // TODO: Should stacksize Property be removed? https://github.com/phetsims/forces-and-motion-basics/issues/319
-    this.stackedItems.lengthProperty.link( length => {
-      this.stackSizeProperty.set( length );
     } );
 
     this.previousModelPosition = this.positionProperty.value;
@@ -388,6 +392,7 @@ export default class MotionModel {
 
     this.stopwatch = new Stopwatch( {
       tandem: tandem.createTandem( 'stopwatch' ),
+      phetioFeatured: true,
       timePropertyOptions: {
         range: new Range( 0, 3599.99 )
       }
@@ -426,7 +431,9 @@ export default class MotionModel {
       for ( let i = 0; i < this.stackedItems.length; i++ ) {
         const size = this.view.getSize( this.stackedItems.get( i ) );
         sumHeight += size.height;
-        this.stackedItems.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );//TODO: factor out this code for layout, which is duplicated in MotionTab.topOfStack https://github.com/phetsims/forces-and-motion-basics/issues/319
+
+        // NOTE: similar code in ItemNode's moveToStack closure function
+        this.stackedItems.get( i ).animateTo( this.view.layoutBounds.width / 2 - size.width / 2, ( this.skateboard ? 334 : 360 ) - sumHeight, 'stack' );
       }
     }
 
@@ -577,7 +584,7 @@ export default class MotionModel {
       }
       this.timeSinceFallenProperty.set( this.timeSinceFallenProperty.get() + dt );
 
-      //Stand up after 2 seconds
+      // Stand up after 2 seconds
       if ( this.timeSinceFallenProperty.get() > 2 ) {
         this.fallenProperty.set( false );
       }
@@ -674,7 +681,6 @@ export default class MotionModel {
     this.fallenProperty.reset();
     this.fallenDirectionProperty.reset();
     this.timeProperty.reset();
-    this.stackSizeProperty.reset();
     this.isPlayingProperty.reset();
     this.stopwatch.reset();
 
