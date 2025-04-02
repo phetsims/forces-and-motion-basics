@@ -53,7 +53,7 @@ export default class AppliedForceControl extends VBox {
         // reached or not. Therefore, we need to ensure that the applied force value is clamped within range
         // when the range changes.
         model.appliedForceProperty.value = Utils.clamp( model.appliedForceProperty.value, range.min, range.max );
-        model.appliedForceProperty.range = range;
+        model.appliedForceProperty.range = range; // This is only helpful for validating that the force is never set outside this range.
       } );
 
     const spinner = new FineCoarseSpinner( model.appliedForceProperty, {

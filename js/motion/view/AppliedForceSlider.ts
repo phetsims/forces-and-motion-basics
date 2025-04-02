@@ -42,6 +42,9 @@ export default class AppliedForceSlider extends HSlider {
       minorTickLength: 22,
       tickLabelSpacing: 3,
       enabledRangeProperty: enabledRangeProperty,
+      enabledPropertyOptions: {
+        phetioReadOnly: true
+      },
       valueChangeSoundGeneratorOptions: {
         numberOfMiddleThresholds: NUMBER_OF_DIVISIONS - 1
       },
