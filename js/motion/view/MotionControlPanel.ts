@@ -58,7 +58,10 @@ export default class MotionControlPanel extends Node {
    * @param tandem
    */
   public constructor( model: MotionModel, tandem: Tandem ) {
-    super( { tandem: tandem } );
+    super( {
+      tandem: tandem,
+      phetioFeatured: true
+    } );
 
     const fontSize = 18;
     const maxTextWidth = 110;
@@ -234,6 +237,7 @@ export default class MotionControlPanel extends Node {
       // create the checkboxes
       const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' ),
+        phetioFeatured: true,
         minContentWidth: minMotionAndFrictionControlsContentWidth
       } );
       containerNode.addChild( checkboxGroup );
@@ -290,6 +294,7 @@ export default class MotionControlPanel extends Node {
       // create the checkboxes
       const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' ),
+        phetioFeatured: true,
         minContentWidth: minMotionAndFrictionControlsContentWidth
       } );
       containerNode.addChild( checkboxGroup );
@@ -347,6 +352,7 @@ export default class MotionControlPanel extends Node {
 
       const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' ),
+        phetioFeatured: true,
 
         // set so the icons appear right-aligned
         minContentWidth: minMotionAndFrictionControlsContentWidth + 10 // empirically determined as the 'acceleration' screen controls have longer strings
