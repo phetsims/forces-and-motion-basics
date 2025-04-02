@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
@@ -13,6 +14,7 @@ import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import pusher_0_png from '../../../images/pushPullFigures/pusher_0_png.js';
 import pusher_10_png from '../../../images/pushPullFigures/pusher_10_png.js';
@@ -283,6 +285,12 @@ export default class PusherNode extends Node {
     // on reset all, the model should set the node to the initial pusher position
     model.resetAllEmitter.addListener( () => {
       initializePusherNode();
+    } );
+
+    phetioStateSetEmitter.addListener( () => {
+      if ( model.appliedForceProperty.value === 0 && !model.fallenProperty.value ) {
+        initializePusherNode();
+      }
     } );
 
     // when the stack composition changes, we want to update the applied force position
