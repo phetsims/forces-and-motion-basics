@@ -1,4 +1,4 @@
-// Copyright 2024, University of Colorado Boulder
+// Copyright 2024-2025, University of Colorado Boulder
 
 /**
  * ForcesAndMotionBasicsPreferences is the model for sim-specific preferences.  The values declared here can be updated via
