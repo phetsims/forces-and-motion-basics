@@ -122,8 +122,8 @@ export default class MotionModel {
 
   // track the previous model position when model position changes
   // animation for the pusher and background nodes is based off of
-  // the change in model position (this.position - this.previousModelPosition )
-  public previousModelPosition: number;
+  // the change in model position (this.position - this.previousModelPositionProperty.value )
+  public readonly previousModelPositionProperty: NumberProperty;
 
   public readonly items: Item[];
 
@@ -315,7 +315,11 @@ export default class MotionModel {
       this.pusherInteractionsEnabledProperty.value = length > 0;
     } );
 
-    this.previousModelPosition = this.positionProperty.value;
+    this.previousModelPositionProperty = new NumberProperty( this.positionProperty.value, {
+      tandem: tandem.createTandem( 'previousModelPositionProperty' ),
+      phetioReadOnly: true,
+      units: 'm'
+    } );
 
     // Create and position all the interactive items in the 'friction', 'motion', and 'acceleration' screens
 
@@ -387,7 +391,7 @@ export default class MotionModel {
     // update the previous model position for computations based on the delta
     // linked lazily so that oldPosition is always defined
     this.positionProperty.lazyLink( ( position, oldPosition ) => {
-      this.previousModelPosition = oldPosition;
+      this.previousModelPositionProperty.value = oldPosition;
     } );
 
     this.stopwatch = new Stopwatch( {
@@ -683,6 +687,7 @@ export default class MotionModel {
     this.timeProperty.reset();
     this.isPlayingProperty.reset();
     this.stopwatch.reset();
+    this.previousModelPositionProperty.reset();
 
     for ( let i = 0; i < this.items.length; i++ ) {
       // if the item is being user controlled we need to cancel the drag in ItemNode
@@ -690,9 +695,6 @@ export default class MotionModel {
         this.items[ i ].reset();
       }
     }
-
-    // also reset the previous model position, used by the pusher to track translations
-    this.previousModelPosition = this.positionProperty.initialValue;
 
     // notify that a reset was triggered
     this.resetAllEmitter.emit();

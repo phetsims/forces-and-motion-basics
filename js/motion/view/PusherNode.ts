@@ -196,7 +196,7 @@ export default class PusherNode extends Node {
     // the item stack when it is moving too quickly
     const getPusherNodeDeltaX = () => {
       // the change in position for the model
-      const modelDelta = -( model.positionProperty.get() - model.previousModelPosition );
+      const modelDelta = -( model.positionProperty.value - model.previousModelPositionProperty.value );
 
       // return, transformed by the view scale
       return modelDelta * MotionConstants.POSITION_SCALE;
@@ -305,7 +305,7 @@ export default class PusherNode extends Node {
     } );
 
     //Update the rightImage and position when the model changes
-    model.positionProperty.link( () => {
+    Multilink.multilink( [ model.positionProperty, model.previousModelPositionProperty ], () => {
       if ( model.appliedForceProperty.get() === 0 || model.fallenProperty.get() ) {
         const x = getPusherNodeDeltaX();
         // to save processor time, don't update if the pusher is too far off screen
