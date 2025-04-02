@@ -75,7 +75,8 @@ export default class Puller extends PhetioObject {
       standOffsetX: 0,
       other: '',
       tandem: tandem,
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioState: false
     }, providedOptions );
 
     super( options );
