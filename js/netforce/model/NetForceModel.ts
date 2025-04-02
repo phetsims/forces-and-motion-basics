@@ -29,10 +29,6 @@ const KNOT_SPACING = 80;
 const BLUE_KNOT_OFFSET = 62;
 const RED_KNOT_OFFSET = 680;
 
-type KnotDescription = {
-  id: string;
-  knot: string | null;
-};
 export default class NetForceModel extends PhetioObject {
 
   // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
@@ -462,46 +458,6 @@ export default class NetForceModel extends PhetioObject {
   // Gets the right force on the cart, applied by right pullers
   private getRightForce(): number {
     return _.reduce( this.getPullers( 'red' ), this.sumForces, 0 );
-  }
-
-  /**
-   * Gets the closest unoccupied knot to the given puller, which is being dragged.
-   */
-  private getClosestOpenKnotInDirection( puller: Puller, delta: number ): Knot | null {
-    const isInRightDirection = ( sourceKnot: Knot, destinationKnot: Knot, delta: number ) => {
-      assert && assert( delta < 0 || delta > 0 );
-      return delta < 0 ? destinationKnot.positionProperty.get() < sourceKnot.positionProperty.get() :
-             delta > 0 ? destinationKnot.positionProperty.get() > sourceKnot.positionProperty.get() :
-             'error';
-    };
-    const filter = this.knots.filter( knot => knot.type === puller.type &&
-                                              this.getPuller( knot ) === null &&
-                                              isInRightDirection( puller.knotProperty.get()!, knot, delta ) );
-    let result: Knot | null = _.minBy( filter, this.getKnotPullerDistance( puller ) ) || null;
-    if ( result && ( this.getKnotPullerDistance( puller )( result ) === Infinity || this.getKnotPullerDistance( puller )( result ) === -Infinity ) ) {
-      result = null;
-    }
-    return result;
-  }
-
-  /**
-   * For phet-io, describe what pullers are on what knots
-   */
-  public getKnotDescription(): KnotDescription[] {
-    return this.pullers.map( puller => ( {
-      id: puller.tandem.phetioID, // TODO: addInstance for Puller https://github.com/phetsims/forces-and-motion-basics/issues/319
-      knot: puller.knotProperty.get() && puller.knotProperty.get()!.phetioID
-    } ) );
-  }
-
-  /**
-   * Move a puller to an adjacent open knot in a direction specified by delta.
-   */
-  private movePullerToAdjacentOpenKnot( puller: Puller, delta: number ): void {
-    const closestOpenKnot = this.getClosestOpenKnotInDirection( puller, delta );
-    if ( closestOpenKnot ) {
-      this.movePullerToKnot( puller, closestOpenKnot );
-    }
   }
 
   private static readonly NetForceModelIO = new IOType( 'NetForceModelIO', {

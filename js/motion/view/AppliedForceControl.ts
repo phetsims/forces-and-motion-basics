@@ -40,7 +40,7 @@ export default class AppliedForceControl extends VBox {
     // The appliedForce range will change depending on whether the stack has exceeded maximum speed. This will
     // most often be in cases where there is no friction, because the speed will remain at maximum values and we
     // do not want to allow additional applied force at that time
-    Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackSizeProperty ],
+    Multilink.lazyMultilink( [ model.appliedForceProperty, model.speedClassificationProperty, model.stackedItems.lengthProperty ],
       ( appliedForce, speedClassification, stackSize ) => {
         const enableRightButtons = ( stackSize > 0 && ( speedClassification !== 'RIGHT_SPEED_EXCEEDED' ) );
         const enableLeftButtons = ( stackSize > 0 && ( speedClassification !== 'LEFT_SPEED_EXCEEDED' ) );
@@ -80,7 +80,7 @@ export default class AppliedForceControl extends VBox {
     // children.push( appliedForceSpinner );
 
     // force cannot be applied when there is nothing on the stack
-    model.stackSizeProperty.link( size => {
+    model.stackedItems.lengthProperty.link( size => {
       spinner.enabled = size > 0;
     } );
 

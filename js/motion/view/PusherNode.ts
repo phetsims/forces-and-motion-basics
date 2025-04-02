@@ -293,7 +293,7 @@ export default class PusherNode extends Node {
 
     // when the stack composition changes, we want to update the applied force position
     // model.stackSize does not need a dispose function since it persists for the duration of the simulation
-    model.stackSizeProperty.link( stackSize => {
+    model.stackedItems.lengthProperty.link( stackSize => {
       if ( stackSize > 0 ) {
         // only do this if the pusher is standing and there is non-zero applied force
         if ( !model.fallenProperty.get() && model.appliedForceProperty.get() !== 0 ) {

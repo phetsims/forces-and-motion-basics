@@ -46,7 +46,6 @@ export default class Item extends PhetioObject {
   // the position of the item
   public readonly positionProperty: Vector2Property;
 
-  // TODO: does this need to be instrumented for phet-io? https://github.com/phetsims/forces-and-motion-basics/issues/319
   public readonly pusherInsetProperty: Property<number>;
 
   // whether the item is being user controlled (dragged)

@@ -55,7 +55,6 @@ export default class MovingBackgroundNode extends Node {
 
     const mountainY = 311;
 
-    //TODO: It would be good to use cssTransforms here but they are a bit buggy https://github.com/phetsims/forces-and-motion-basics/issues/319
     const mountainAndCloudLayer = new Node( {
       x: layoutCenterX,
       children: [
@@ -69,8 +68,7 @@ export default class MovingBackgroundNode extends Node {
     } );
     this.addChild( mountainAndCloudLayer );
 
-    //Move the background objects
-    //TODO: support background objects with scale !== 1 https://github.com/phetsims/forces-and-motion-basics/issues/319
+    // Move the background objects
     const getLayerUpdater = ( layer: Node, motionScale: number ) => {
       return ( position: number, oldPosition: number ) => {
         const delta = -( position - oldPosition ) * MotionConstants.POSITION_SCALE / motionScale;
@@ -81,13 +79,13 @@ export default class MovingBackgroundNode extends Node {
 
     const tileWidth = brickTile_png.width;
 
-    //Add the ground, offset the pattern so that the it aligns with the brick image
+    // Add the ground, offset the pattern so that the it aligns with the brick image
     const tilePattern = new Pattern( brickTile_png );
     const ground = new Rectangle( 0, 0, brickTile_png.width * 14, brickTile_png.height, { fill: tilePattern } );
     const mod = ground.width / 14;
     const centerX = layoutCenterX - ground.width / 2;
 
-    //Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
+    // Rendering as a single image instead of a Pattern significantly improves performance on both iPad and Win8/Chrome
     const showGround = true;
     if ( showGround ) {
       ground.toImage( image => {
@@ -100,21 +98,21 @@ export default class MovingBackgroundNode extends Node {
           groundImageNode.setTranslation( -position * MotionConstants.POSITION_SCALE % mod + centerX, groundY );
         } );
 
-        //Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
+        // Add the gravel and ice.  Do this in the ground callback to keep the z-ordering correct
         if ( !model.skateboard ) {
 
-          //Add the gravel
+          // Add the gravel
           const gravel = new Rectangle( 0, 0, brickTile_png.width * 14, 4, { y: -2 } );
 
-          //Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
+          // Adding the gravel directly to the moving ground makes the performance significantly faster on iPad3
           groundImageNode.addChild( gravel );
 
-          //Add the ice
+          // Add the ice
           const iceOverlay = new Rectangle( -400, groundY, brickTile_png.width * 15, brickTile_png.height, { fill: 'rgba(189,227,249,0.87)' } );
           this.addChild( iceOverlay );
           model.frictionZeroProperty.linkAttribute( iceOverlay, 'visible' );
 
-          //make sure gravel gets exactly removed if friction is zero, in case it improves performance.
+          // make sure gravel gets exactly removed if friction is zero, in case it improves performance.
           model.frictionNonZeroProperty.linkAttribute( gravel, 'visible' );
 
           const iceLayer = new Node( {
@@ -126,7 +124,6 @@ export default class MovingBackgroundNode extends Node {
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
           this.addChild( iceLayer );
 
-          //TODO: could prevent updater from firing if ice is not visible https://github.com/phetsims/forces-and-motion-basics/issues/319
           model.positionProperty.link( () => getLayerUpdater( iceLayer, 1 ) );
 
           const gravelSource = new Node();
@@ -205,7 +202,6 @@ export default class MovingBackgroundNode extends Node {
               numWhite--;
             }
 
-            //TODO: get rid of pattern here, possibly by converting it too to an image? https://github.com/phetsims/forces-and-motion-basics/issues/319
             gravelSource.toImage( image => { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
           } );
         }

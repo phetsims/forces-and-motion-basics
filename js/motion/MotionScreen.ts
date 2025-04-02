@@ -1,7 +1,8 @@
 // Copyright 2015-2025, University of Colorado Boulder
 
 /**
- * TODO https://github.com/phetsims/forces-and-motion-basics/issues/319
+ * The MotionScreen shows the latter 3 screens in the sim.
+ * 
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
