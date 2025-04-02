@@ -32,9 +32,10 @@ export default class PullerColorControl extends VBox {
      * @param value - value associated with the radio button
      * @param labelStringProperty - label that appears on the radio button
      */
-    const createItem = ( value: 'blueRed' | 'purpleOrange', labelStringProperty: TReadOnlyProperty<string> ) => {
+    const createItem = ( value: 'blueRed' | 'purpleOrange', labelStringProperty: TReadOnlyProperty<string>, tandemName: string ) => {
       return {
         value: value,
+        tandemName: tandemName,
         createNode: () => new Text( labelStringProperty, {
           font: PreferencesDialogConstants.CONTENT_FONT,
           maxWidth: 500
@@ -49,19 +50,21 @@ export default class PullerColorControl extends VBox {
     const items = [
       createItem(
         'blueRed',
-        ForcesAndMotionBasicsStrings.blueAndRedStringProperty
+        ForcesAndMotionBasicsStrings.blueAndRedStringProperty,
+        'blueRedRadioButton'
       ),
       createItem(
         'purpleOrange',
-        ForcesAndMotionBasicsStrings.purpleAndOrangeStringProperty
+        ForcesAndMotionBasicsStrings.purpleAndOrangeStringProperty,
+        'purpleOrangeRadioButton'
       )
     ];
-
 
     const radioButtonGroup = new VerticalAquaRadioButtonGroup( netForcePullerColorsProperty, items, {
 
       // pdom
-      accessibleName: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty
+      accessibleName: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty,
+      tandem: tandem.createTandem( 'radioButtonGroup' )
     } );
 
     super( {
