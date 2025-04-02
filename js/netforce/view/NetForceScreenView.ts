@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
@@ -388,17 +387,18 @@ export default class NetForceScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
-    const vBox = new VBox( {
-      spacing: BUTTON_PADDING,
-      children: [ this.controlPanel, this.resetAllButton ],
-      align: 'right'
-    } );
-    this.addChild( vBox );
+    this.addChild( this.controlPanel );
+    this.addChild( this.resetAllButton );
 
-    ManualConstraint.create( this, [ vBox ], vBoxProxy => {
-      vBoxProxy.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
-      vBoxProxy.top = MARGIN_FROM_LAYOUT_BOUNDS;
+    ManualConstraint.create( this, [ this.controlPanel ], controlPanelProxy => {
+      controlPanelProxy.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
+      controlPanelProxy.top = MARGIN_FROM_LAYOUT_BOUNDS;
     } );
+
+    // It was specifically requested that the reset all button not move when the control panel visibleProperty becomes false,
+    // see https://github.com/phetsims/forces-and-motion-basics/issues/353
+    this.resetAllButton.right = this.layoutBounds.width - MARGIN_FROM_LAYOUT_BOUNDS;
+    this.resetAllButton.top = this.controlPanel.bottom + BUTTON_PADDING;
 
     let lastFlagNode: FlagNode | null = null;
 
