@@ -49,7 +49,7 @@ export default class ItemNode extends Node {
    * @param tandem
    */
   public constructor( model: MotionModel, motionView: MotionScreenView,
-                      private readonly item: Item,
+                      public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
                       holdingImageProperty: TReadOnlyProperty<ImageableImage>,

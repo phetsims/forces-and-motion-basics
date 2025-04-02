@@ -301,9 +301,6 @@ export default class MotionScreenView extends ScreenView {
       itemLayer.addChild( itemNode );
     }
 
-    leftItemToolboxNode.addChild( leftItemLayer );
-    rightItemToolboxNode.addChild( rightItemLayer );
-
     //Add the force arrows & associated readouts in front of the items
     const arrowScale = 0.3;
 
@@ -364,11 +361,23 @@ export default class MotionScreenView extends ScreenView {
     toolboxContainer.addChild( rightItemToolboxNode );
     this.addChild( toolboxContainer );
 
+    this.addChild( leftItemLayer );
+    this.addChild( rightItemLayer );
+
     // add the force arrows, which should be in front of all items and pusher
     this.addChild( this.sumArrow );
     this.addChild( this.appliedForceArrow );
     this.addChild( this.frictionArrow );
     this.addChild( sumOfForcesAlignBox );
+
+    // When a PhET-iO client hides the toolbox, hide any items that are in the toolboxes, and vice-versa.
+    toolboxContainer.visibleProperty.link( visible => {
+      this.itemNodes.forEach( itemNode => {
+        if ( !itemNode.item.inStackProperty.value && !itemNode.item.userControlledProperty.value ) {
+          itemNode.visible = visible;
+        }
+      } );
+    } );
 
     //Whichever arrow is smaller should be in front (in z-ordering)
     const frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],

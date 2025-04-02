@@ -31,7 +31,7 @@ type AnimationState = {
   x: number;
   y: number;
   end?: null | ( () => void );
-  destination?: string;
+  destination?: 'home' | 'stack';
 };
 
 export default class Item extends PhetioObject {
@@ -212,7 +212,7 @@ export default class Item extends PhetioObject {
   }
 
   // Animate the item to the specified position
-  public animateTo( x: number, y: number, destination: string ): void {
+  public animateTo( x: number, y: number, destination: 'home' | 'stack' ): void {
     this.animationStateProperty.set( { enabled: true, x: x, y: y, destination: destination } );
   }
 
