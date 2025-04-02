@@ -9,6 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -70,7 +71,7 @@ export default class Knot extends PhetioObject {
     this.isHighlightedProperty.reset();
   }
 
-  public static KnotIO = new IOType( 'KnotIO', {
+  public static KnotIO = new IOType<IntentionalAny, IntentionalAny>( 'KnotIO', {
     valueType: Knot,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );

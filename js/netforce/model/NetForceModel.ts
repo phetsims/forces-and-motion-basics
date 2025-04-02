@@ -15,6 +15,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -495,7 +496,7 @@ export default class NetForceModel extends PhetioObject {
     }
   }
 
-  private static readonly NetForceModelIO = new IOType( 'NetForceModelIO', {
+  private static readonly NetForceModelIO = new IOType<IntentionalAny, IntentionalAny>( 'NetForceModelIO', {
     valueType: NetForceModel,
     methods: {
       reset: {
