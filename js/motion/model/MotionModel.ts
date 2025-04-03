@@ -120,10 +120,7 @@ export default class MotionModel {
   public readonly resetAllEmitter = new Emitter();
   public readonly stepEmitter = new Emitter();
 
-  // track the previous model position when model position changes
-  // animation for the pusher and background nodes is based off of
-  // the change in model position (this.position - this.previousModelPositionProperty.value )
-  public readonly previousModelPositionProperty: NumberProperty;
+  // No longer tracking last position
 
   public readonly items: Item[];
 
@@ -315,11 +312,7 @@ export default class MotionModel {
       this.pusherInteractionsEnabledProperty.value = length > 0;
     } );
 
-    this.previousModelPositionProperty = new NumberProperty( this.positionProperty.value, {
-      tandem: tandem.createTandem( 'previousModelPositionProperty' ),
-      phetioReadOnly: true,
-      units: 'm'
-    } );
+    // Position is now tracked directly by positionProperty
 
     // Create and position all the interactive items in the 'friction', 'motion', and 'acceleration' screens
 
@@ -388,11 +381,7 @@ export default class MotionModel {
       }
     } );
 
-    // update the previous model position for computations based on the delta
-    // linked lazily so that oldPosition is always defined
-    this.positionProperty.lazyLink( ( position, oldPosition ) => {
-      this.previousModelPositionProperty.value = oldPosition;
-    } );
+    // We'll update _lastPosition in the step method instead of using a link
 
     this.stopwatch = new Stopwatch( {
       tandem: tandem.createTandem( 'stopwatch' ),
@@ -617,7 +606,6 @@ export default class MotionModel {
    * Update the physics.
    */
   public step( dt: number ): void {
-
     // Computes the new forces and sets them to the corresponding properties
     // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
     // also be updated when the user changes the friction force or mass while the sim is paused.
@@ -659,6 +647,8 @@ export default class MotionModel {
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
    */
   public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackedItems.indexOf( item ) < this.stackedItems.length - 1;}
+  
+  // No longer need to track position deltas
 
   public reset(): void {
 
@@ -687,7 +677,6 @@ export default class MotionModel {
     this.timeProperty.reset();
     this.isPlayingProperty.reset();
     this.stopwatch.reset();
-    this.previousModelPositionProperty.reset();
 
     for ( let i = 0; i < this.items.length; i++ ) {
       // if the item is being user controlled we need to cancel the drag in ItemNode
