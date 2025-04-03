@@ -280,12 +280,15 @@ export default class PusherNode extends Node {
         const scaledWidth = itemNode!.getScaledWidth();
         const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
 
-        // Set absolute position
+        // Set position based on model position to move with ground
+        const posX = baseX;
+        
+        // Add offset based on fall direction
         if ( this.model.fallenDirectionProperty.get() === 'right' ) {
-          this.visibleNode.centerX = this.layoutWidth / 2 - this.visibleNode.width / 2 - delta;
+          this.visibleNode.centerX = posX - delta;
         }
         else {
-          this.visibleNode.centerX = this.layoutWidth / 2 + this.visibleNode.width / 2 + delta;
+          this.visibleNode.centerX = posX + delta;
         }
       }
       else {
