@@ -48,7 +48,8 @@ export default class ItemNode extends Node {
    * @param itemToolbox - The toolbox that contains this item
    * @param tandem
    */
-  public constructor( model: MotionModel, motionView: MotionScreenView,
+  public constructor( model: MotionModel,
+                      motionView: MotionScreenView,
                       public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
@@ -184,7 +185,7 @@ export default class ItemNode extends Node {
       end: () => {
         item.userControlledProperty.set( false );
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        if ( item.positionProperty.get().y < 350 ) {
+        if ( item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible() ) {
           moveToStack();
 
           // if item is man or girl, rotate depending on the current model velocity and applied force

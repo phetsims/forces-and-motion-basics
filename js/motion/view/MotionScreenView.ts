@@ -67,6 +67,7 @@ export default class MotionScreenView extends ScreenView {
   private readonly appliedForceArrow: ReadoutArrow;
   private readonly frictionArrow: ReadoutArrow;
   private readonly itemModelToNodeMap = new Map<Item, ItemNode>();
+  private readonly toolboxContainer: Node;
 
   /**
    * @param model model for the entire screen
@@ -356,10 +357,10 @@ export default class MotionScreenView extends ScreenView {
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
-    const toolboxContainer = new Node( { tandem: tandem.createTandem( 'toolboxContainer' ) } );
-    toolboxContainer.addChild( leftItemToolboxNode );
-    toolboxContainer.addChild( rightItemToolboxNode );
-    this.addChild( toolboxContainer );
+    this.toolboxContainer = new Node( { tandem: tandem.createTandem( 'toolboxContainer' ) } );
+    this.toolboxContainer.addChild( leftItemToolboxNode );
+    this.toolboxContainer.addChild( rightItemToolboxNode );
+    this.addChild( this.toolboxContainer );
 
     this.addChild( leftItemLayer );
     this.addChild( rightItemLayer );
@@ -371,7 +372,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( sumOfForcesAlignBox );
 
     // When a PhET-iO client hides the toolbox, hide any items that are in the toolboxes, and vice-versa.
-    toolboxContainer.visibleProperty.link( visible => {
+    this.toolboxContainer.visibleProperty.link( visible => {
       this.itemNodes.forEach( itemNode => {
         if ( !itemNode.item.inStackProperty.value && !itemNode.item.userControlledProperty.value ) {
           itemNode.visible = visible;
@@ -431,6 +432,10 @@ export default class MotionScreenView extends ScreenView {
     assert && assert( itemNode, 'itemNode should not be null' );
     const scaledWidth = itemNode!.sittingImageNode.width * item.getCurrentScale();
     return { width: scaledWidth, height: itemNode!.height };
+  }
+
+  public isToolboxContainerVisible(): boolean {
+    return this.toolboxContainer.visible;
   }
 }
 
