@@ -357,7 +357,12 @@ export default class MotionScreenView extends ScreenView {
     // toolboxes and their children should be in front of all above items
     // contain the toolboxes in a parent node so that we can easily change the z-order of each toolbox.  This way
     // items of the right toolbox will not be layered in front of items of left toolbox items
-    this.toolboxContainer = new Node( { tandem: tandem.createTandem( 'toolboxContainer' ) } );
+    this.toolboxContainer = new Node( {
+      tandem: tandem.createTandem( 'toolboxContainer' ),
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
+    } );
     this.toolboxContainer.addChild( leftItemToolboxNode );
     this.toolboxContainer.addChild( rightItemToolboxNode );
     this.addChild( this.toolboxContainer );
