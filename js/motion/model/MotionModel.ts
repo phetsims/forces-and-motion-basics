@@ -120,8 +120,6 @@ export default class MotionModel {
   public readonly resetAllEmitter = new Emitter();
   public readonly stepEmitter = new Emitter();
 
-  // No longer tracking last position
-
   public readonly items: Item[];
 
   public readonly stopwatch: Stopwatch;
@@ -312,8 +310,6 @@ export default class MotionModel {
       this.pusherInteractionsEnabledProperty.value = length > 0;
     } );
 
-    // Position is now tracked directly by positionProperty
-
     // Create and position all the interactive items in the 'friction', 'motion', and 'acceleration' screens
 
     // only add the trash can on the 'friction' and 'motion' screens
@@ -380,8 +376,6 @@ export default class MotionModel {
         this.appliedForceProperty.set( 0 );
       }
     } );
-
-    // We'll update _lastPosition in the step method instead of using a link
 
     this.stopwatch = new Stopwatch( {
       tandem: tandem.createTandem( 'stopwatch' ),
@@ -648,8 +642,6 @@ export default class MotionModel {
    */
   public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackedItems.indexOf( item ) < this.stackedItems.length - 1;}
   
-  // No longer need to track position deltas
-
   public reset(): void {
 
     // reset all Properties of this model.
