@@ -1,7 +1,6 @@
 # Forces and Motion Basics - Development Guide
 
 ## Build Commands
-- `grunt lint --fix`: Run ESLint, automatically addressing formatting issues
 - `grunt type-check`: Run TypeScript type checking
 
 ## Environment
