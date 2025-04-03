@@ -7,7 +7,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
@@ -264,7 +264,7 @@ export default class PusherNode extends Node {
 
       // update visibility and position if pusher is on screen and is still able to push
       else {
-        const index = Math.min( 30, Utils.roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
+        const index = Math.min( 30, roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
         if ( appliedForce > 0 ) {
           setVisibleNode( pushingRightNodes[ index ] );
         }
@@ -326,7 +326,7 @@ export default class PusherNode extends Node {
 
           // the new force should be rounded so that applied force is not
           // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
-          const roundedForce = Utils.roundSymmetric( clampedAppliedForce );
+          const roundedForce = roundSymmetric( clampedAppliedForce );
 
           //Only apply a force if the pusher is not fallen, see #48
           if ( !model.fallenProperty.get() ) {
