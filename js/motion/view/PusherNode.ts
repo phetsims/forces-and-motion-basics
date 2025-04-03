@@ -56,14 +56,13 @@ import ItemNode from './ItemNode.js';
 
 export default class PusherNode extends Node {
 
-  // private fields will be initialized in the constructor after super()
   private interactive: boolean;
   private visibleNode: Node;
-  private standingUpImageNode: Node;
-  private fallLeftImage: Node;
-  private fallRightImage: Node;
-  private pushingRightNodes: Node[];
-  private pushingLeftNodes: Node[];
+  private readonly standingUpImageNode: Node;
+  private readonly fallLeftImage: Node;
+  private readonly fallRightImage: Node;
+  private readonly pushingRightNodes: Node[];
+  private readonly pushingLeftNodes: Node[];
   private readonly layoutWidth: number;
   private readonly model: MotionModel;
   private readonly itemModelToNodeMap: Map<Item, ItemNode>;
@@ -158,7 +157,6 @@ export default class PusherNode extends Node {
       phetioVisiblePropertyInstrumented: false
     } );
 
-    // Initialize class properties
     this.interactive = true;
     this.visibleNode = standingUpImageNode;
     this.standingUpImageNode = standingUpImageNode;
@@ -183,7 +181,7 @@ export default class PusherNode extends Node {
           // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
           const roundedForce = roundSymmetric( clampedAppliedForce );
 
-          //Only apply a force if the pusher is not fallen, see #48
+          // Only apply a force if the pusher is not fallen, see #48
           if ( !model.fallenProperty.get() ) {
             model.appliedForceProperty.set( roundedForce );
           }
@@ -212,33 +210,12 @@ export default class PusherNode extends Node {
     } );
     this.addInputListener( dragListener );
 
-    // Setup listeners for model changes that trigger view updates
-    model.fallenProperty.link( () => {
-      this.updateView();
-    } );
-
-    model.appliedForceProperty.link( () => {
-      this.updateView();
-    } );
-
-    // on reset all, the model should set the node to the initial pusher position
-    model.resetAllEmitter.addListener( () => {
-      this.updateView();
-    } );
-
-    phetioStateSetEmitter.addListener( () => {
-      this.updateView();
-    } );
-
-    // when the stack composition changes, update the view
-    model.stackedItems.lengthProperty.link( () => {
-      this.updateView();
-    } );
-
-    //Update position when the model position changes
-    model.positionProperty.link( () => {
-      this.updateView();
-    } );
+    model.fallenProperty.link( () => this.updateView() );
+    model.appliedForceProperty.link( () => this.updateView() );
+    model.resetAllEmitter.addListener( () => this.updateView() ); // on reset all, the model should set the node to the initial pusher position
+    model.stackedItems.lengthProperty.link( () => this.updateView() ); // when the stack composition changes, update the view
+    model.positionProperty.link( () => this.updateView() ); // Update position when the model position changes
+    phetioStateSetEmitter.addListener( () => this.updateView() );
 
     // Make it so you cannot drag the pusher until one ItemNode is in the play area
     model.pusherInteractionsEnabledProperty.link( enabled => {
@@ -264,7 +241,7 @@ export default class PusherNode extends Node {
     const appliedForce = this.model.appliedForceProperty.get();
     const fallen = this.model.fallenProperty.get();
     const pusherY = 362 - this.visibleNode.height;
-    const baseX = this.getPusherX();
+    const baseX = this.layoutWidth / 2 + ( this.model.pusherPositionProperty.get() - this.model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
 
     // Case 1: Pusher has fallen over
     if ( fallen ) {
@@ -282,7 +259,7 @@ export default class PusherNode extends Node {
 
         // Set position based on model position to move with ground
         const posX = baseX;
-        
+
         // Add offset based on fall direction
         if ( this.model.fallenDirectionProperty.get() === 'right' ) {
           this.visibleNode.centerX = posX - delta;
@@ -358,13 +335,6 @@ export default class PusherNode extends Node {
       node.pickable = true;
       this.visibleNode = node;
     }
-  }
-
-  /**
-   * Get the absolute X position for the pusher based on the model's position
-   */
-  private getPusherX(): number {
-    return this.layoutWidth / 2 + ( this.model.pusherPositionProperty.get() - this.model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
   }
 }
 
