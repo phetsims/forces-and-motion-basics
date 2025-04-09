@@ -298,15 +298,9 @@ export default class PusherNode extends Node {
         const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
 
         // Set absolute position directly
-        if ( appliedForce > 0 ) {
-          this.visibleNode.setTranslation( ( this.layoutWidth / 2 - this.visibleNode.width - delta ), pusherY );
-        }
-        else {
-          this.visibleNode.setTranslation( ( this.layoutWidth / 2 + this.visibleNode.width + delta ), pusherY );
-        }
-
-        // Update standing position for when force returns to zero
-        this.standingUpImageNode.centerX = this.visibleNode.centerX;
+        const offset = appliedForce > 0 ? -delta : delta;
+        this.visibleNode.setTranslation( ( this.layoutWidth / 2 + ( appliedForce > 0 ? -this.visibleNode.width : this.visibleNode.width ) + offset ), pusherY );
+        this.model.pusherPositionProperty.value = this.model.positionProperty.value + ( appliedForce > 0 ? -10 : 10 ); // For when the pusher is not dragging
       }
       else {
         // If no stack, position based on model position

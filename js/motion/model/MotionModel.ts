@@ -600,6 +600,7 @@ export default class MotionModel {
    * Update the physics.
    */
   public step( dt: number ): void {
+
     // Computes the new forces and sets them to the corresponding properties
     // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
     // also be updated when the user changes the friction force or mass while the sim is paused.
@@ -608,11 +609,6 @@ export default class MotionModel {
 
     if ( this.isPlayingProperty.get() ) {
       this.stepModel( dt );
-    }
-
-    // update the pusher position every time step, even if the sim is paused
-    if ( this.appliedForceProperty.get() !== 0 ) {
-      this.pusherPositionProperty.set( this.positionProperty.get() + 2 * ( this.appliedForceProperty.get() > 0 ? -1 : 1 ) );
     }
 
     // step all model items so that they are interactive while paused
@@ -641,7 +637,7 @@ export default class MotionModel {
    * Determine whether an item is stacked above another item, so that the arms can be raised for humans.
    */
   public isItemStackedAbove( item: Item ): boolean { return this.isInStack( item ) && this.stackedItems.indexOf( item ) < this.stackedItems.length - 1;}
-  
+
   public reset(): void {
 
     // reset all Properties of this model.
