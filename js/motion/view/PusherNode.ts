@@ -240,10 +240,11 @@ export default class PusherNode extends Node {
   private updateView(): void {
     const appliedForce = this.model.appliedForceProperty.get();
     const fallen = this.model.fallenProperty.get();
-    const pusherY = 362 - this.visibleNode.height;
+
     const baseX = this.layoutWidth / 2 + ( this.model.pusherPositionProperty.get() - this.model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
 
     // Case 1: Pusher has fallen over
+    const FLOOR_VIEW_Y = 362;
     if ( fallen ) {
       const newVisibleNode = this.model.fallenDirectionProperty.get() === 'left' ? this.fallLeftImage : this.fallRightImage;
       this.setVisibleNode( newVisibleNode );
@@ -274,7 +275,7 @@ export default class PusherNode extends Node {
       }
 
       // Set Y position directly
-      this.visibleNode.y = pusherY;
+      this.visibleNode.y = FLOOR_VIEW_Y - this.visibleNode.height;
     }
     // Case 2: Pusher is applying force
     else if ( appliedForce !== 0 ) {
@@ -299,13 +300,13 @@ export default class PusherNode extends Node {
 
         // Set absolute position directly
         const offset = appliedForce > 0 ? -delta : delta;
-        this.visibleNode.setTranslation( ( this.layoutWidth / 2 + ( appliedForce > 0 ? -this.visibleNode.width : this.visibleNode.width ) + offset ), pusherY );
+        this.visibleNode.setTranslation( ( this.layoutWidth / 2 + ( appliedForce > 0 ? -this.visibleNode.width : this.visibleNode.width ) + offset ), FLOOR_VIEW_Y - this.visibleNode.height );
         this.model.pusherPositionProperty.value = this.model.positionProperty.value + ( appliedForce > 0 ? -10 : 10 ); // For when the pusher is not dragging
       }
       else {
         // If no stack, position based on model position
         this.visibleNode.centerX = baseX;
-        this.visibleNode.y = pusherY;
+        this.visibleNode.y = FLOOR_VIEW_Y - this.visibleNode.height;
       }
     }
     // Case 3: Pusher is standing (zero force)
@@ -314,7 +315,7 @@ export default class PusherNode extends Node {
 
       // Set position directly based on model position without any deltas
       this.visibleNode.centerX = baseX;
-      this.visibleNode.y = pusherY;
+      this.visibleNode.y = FLOOR_VIEW_Y - this.visibleNode.height;
     }
   }
 
