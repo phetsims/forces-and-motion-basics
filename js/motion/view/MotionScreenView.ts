@@ -366,8 +366,8 @@ export default class MotionScreenView extends ScreenView {
     this.toolboxContainer.addChild( rightItemToolboxNode );
     this.addChild( this.toolboxContainer );
 
-    this.addChild( leftItemLayer );
-    this.addChild( rightItemLayer );
+    // Allow moveToFront on the individual layers, while still being behind the arrows and readouts
+    this.addChild( new Node( { children: [ leftItemLayer, rightItemLayer ] } ) );
 
     // add the force arrows, which should be in front of all items and pusher
     this.addChild( this.sumArrow );
