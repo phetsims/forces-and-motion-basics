@@ -15,7 +15,7 @@ import Shape from '../../../../kite/js/Shape.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Item from '../model/Item.js';
@@ -47,7 +47,7 @@ export default class WaterBucketNode extends ItemNode {
                       imageSittingProperty: TReadOnlyProperty<ImageableImage>,
                       imageHoldingProperty: TReadOnlyProperty<ImageableImage>,
                       showMassesProperty: TReadOnlyProperty<boolean>,
-                      toolboxNode: Rectangle, tandem: Tandem ) {
+                      toolboxNode: Node, tandem: Tandem ) {
     super( model, motionView, item, imageProperty, imageSittingProperty, imageHoldingProperty, showMassesProperty, toolboxNode, tandem );
     const waterPathNode = new Path( Shape.lineSegment( new Vector2( 0, 0 ), new Vector2( 0, 18 ) ), {
       stroke: 'black',

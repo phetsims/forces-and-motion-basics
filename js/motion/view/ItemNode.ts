@@ -17,7 +17,6 @@ import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualCo
 import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -54,7 +53,7 @@ export default class ItemNode extends Node {
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
                       holdingImageProperty: TReadOnlyProperty<ImageableImage>,
-                      showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Rectangle, tandem: Tandem ) {
+                      showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Node, tandem: Tandem ) {
 
     super( {
       cursor: 'pointer',
