@@ -1,5 +1,11 @@
 // Copyright 2025, University of Colorado Boulder
 
+/**
+ * Container for all labels and titles for the applied force control.
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+
 import Multilink from '../../../../axon/js/Multilink.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -16,11 +22,6 @@ import AppliedForceSlider from './AppliedForceSlider.js';
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
 const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
 
-/**
- * Container for all labels and titles for the applied force control.
- *
- * @author Sam Reid (PhET Interactive Simulations)
- */
 export default class AppliedForceControl extends VBox {
   public constructor( tandem: Tandem, maxTextWidth: number, model: MotionModel ) {
 
