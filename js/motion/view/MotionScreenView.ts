@@ -214,7 +214,7 @@ export default class MotionScreenView extends ScreenView {
           model.showValuesProperty, pattern0Name1ValueUnitsAccelerationStringProperty, accelerationStringProperty, model.accelerationProperty ],
         ( showValues, pattern0Name1ValueUnitsAccelerationString, accelerationString, acceleration ) => {
           return showValues ?
-                 StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, StringUtils.toSafeFixed( acceleration, 2 ) ) :
+                 StringUtils.format( pattern0Name1ValueUnitsAccelerationString, accelerationString, StringUtils.toFixedLTR( acceleration, 2 ) ) :
                  accelerationString;
         } );
       const labelText = new RichText( labelTextStringProperty, {
