@@ -95,7 +95,8 @@ simLauncher.launch( () => {
       graphicArts: 'Mariah Hermsmeyer, Amanda McGarry, Sharon Siman-Tov',
       softwareDevelopment: 'Jesse Greenberg, Sam Reid, Marla Schulz, Luisa Vargas',
       team: 'Amy Rouinfar, Trish Loeblein, Kathy Perkins',
-      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Matthew Moore, Elise Morgan, Ashton Morris, Oliver Orejola, Ben Roberts, ' +
+      qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Matthew Moore, Elise Morgan, Ashton Morris, ' +
+                        'Oliver Orejola, Valentina Pérez, Ben Roberts, ' +
                         'Nancy Salpepi, Kathryn Woessner, Bryan Yoelin'
     },
     preferencesModel: new PreferencesModel( {
