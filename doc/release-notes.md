@@ -28,5 +28,10 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * ⚠️ Use this icon for a change that is breaking, removes a feature, etc. 
 *
 -->
+## version 2.4 (12/13/2024)
 
-## 1.0 ({{PUBLICATION_DATE}})
+### New Features
+* region and culture
+* puller color preference and query parameter
+* dynamic locale
+* UI sounds
