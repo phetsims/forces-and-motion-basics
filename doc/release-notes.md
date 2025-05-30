@@ -21,7 +21,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 
 ### Bug Fixes
 * Describe a bug fix.
-* 
+* Improve layout for internationalization
 
 ### Other Changes
 * Describe a change.
