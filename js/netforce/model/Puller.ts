@@ -82,9 +82,9 @@ export default class Puller extends PhetioObject {
     super( options );
 
     this.standOffsetX = options.standOffsetX;
-    this.forceProperty = new NumberProperty( this.size === 'small' ? 10 * 5 :
-                                             this.size === 'medium' ? 20 * 5 :
-                                             30 * 5, {
+    this.forceProperty = new NumberProperty( this.size === 'small' ? 50 :
+                                             this.size === 'medium' ? 100 :
+                                             150, {
       tandem: tandem.createTandem( 'forceProperty' ),
       phetioFeatured: true,
       numberType: 'FloatingPoint',
