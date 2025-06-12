@@ -169,7 +169,8 @@ export default class MotionModel {
       tandem: forcesTandem.createTandem( 'frictionCoefficientProperty' ),
       phetioDocumentation: 'Coefficient of static friction',
       phetioReadOnly: screen === 'motion',
-      phetioFeatured: true
+      phetioFeatured: true,
+      range: new Range( 0, MotionConstants.MAX_FRICTION )
     } );
 
     this.sumOfForcesProperty = new NumberProperty( 0, {
