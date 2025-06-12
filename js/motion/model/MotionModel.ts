@@ -456,9 +456,7 @@ export default class MotionModel {
 
     let frictionForce;
 
-    // Why does g=10.0?  See https://github.com/phetsims/forces-and-motion-basics/issues/132
-    // We decide to keep it as it is, even though 9.8 may be more realistic.
-    const g = 10.0;
+    const g = 9.8;
 
     const mass = this.getStackMass();
 
