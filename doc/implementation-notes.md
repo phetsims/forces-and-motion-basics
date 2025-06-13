@@ -1,7 +1,5 @@
 # Forces and Motion: Basics - Implementation Notes
 
-@author Jules (Google)
-
 ## Table of Contents
 
 * [Introduction](#introduction)
