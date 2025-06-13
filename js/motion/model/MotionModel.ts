@@ -166,7 +166,7 @@ export default class MotionModel {
     } );
 
     this.frictionCoefficientProperty = new NumberProperty( frictionValue, {
-      tandem: forcesTandem.createTandem( 'frictionCoefficientProperty' ),
+      tandem: forcesTandem.createTandem( 'frictionStaticCoefficientProperty' ),
       phetioDocumentation: 'Coefficient of static friction',
       phetioReadOnly: screen === 'motion',
       phetioFeatured: true,
