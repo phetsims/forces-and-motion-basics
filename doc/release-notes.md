@@ -12,22 +12,11 @@ Instructions:
 For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/blob/main/doc/release-notes.md
 -->
 
-
-## version 2.5 ({{PUBLICATION_DATE}})
+## version 2.5 (6/27/2025)
 
 ### New Features
 * PhET-iO for PhET Studio
-* 
 
-### Bug Fixes
-* Describe a bug fix.
-* Improve layout for internationalization
-
-### Other Changes
-* Describe a change.
-* ⚠️ Use this icon for a change that is breaking, removes a feature, etc. 
-*
--->
 ## version 2.4 (12/13/2024)
 
 ### New Features
