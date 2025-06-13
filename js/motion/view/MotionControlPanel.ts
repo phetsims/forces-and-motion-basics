@@ -51,6 +51,9 @@ const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
 
 const VBOX_SPACING = 5;
 
+// No icon, so this can be wider
+const SUM_OF_FORCES_MAX_WIDTH = 120;
+
 export default class MotionControlPanel extends Node {
 
   /**
@@ -265,7 +268,7 @@ export default class MotionControlPanel extends Node {
           tandemName: 'forcesCheckbox'
         },
         {
-          createNode: () => createLabel( sumOfForcesStringProperty, {}, 120 ),
+          createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
           property: model.showSumOfForcesProperty,
           tandemName: 'sumOfForcesCheckbox'
         },
@@ -324,7 +327,7 @@ export default class MotionControlPanel extends Node {
           tandemName: 'forcesCheckbox'
         },
         {
-          createNode: () => createLabel( sumOfForcesStringProperty ),
+          createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
           property: model.showSumOfForcesProperty,
           tandemName: 'sumOfForcesCheckbox'
         },
