@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.5.0-rc.1 Mon Jun 02 2025 16:21:45 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.5.0-rc.1 Wed Jun 18 2025 12:52:59 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "7506b57e5b6d5b7472b7afbbeb60312477e3b06f",
-    "branch": "HEAD"
+    "sha": "cedc2735cea38fd69a7722468b9936e27ddb020d",
+    "branch": "forces-and-motion-basics-2.5"
   },
   "dot": {
     "sha": "fc882c815833b67ec5e5a093fb972aef234ff424",
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "70679e9e23a181eb2e7dc048a0fceda0ce187067",
+    "sha": "f145a9a18b223b5d771c43ebde0839abd2263a82",
     "branch": "2.5"
   },
   "joist": {
@@ -37,16 +37,16 @@
     "branch": "HEAD"
   },
   "phet-core": {
-    "sha": "a509474c8405366e098cf283b44cf2e32c70993e",
-    "branch": "HEAD"
+    "sha": "93f2296ab46a038c47673f300e0aafcf64906c09",
+    "branch": "forces-and-motion-basics-2.5"
   },
   "phet-io": {
     "sha": "8d75fbbf7d3da8233606607fe5f8e65cb287126c",
     "branch": "HEAD"
   },
   "phet-io-sim-specific": {
-    "sha": "af3793d66fd1e099a8a716dd74c2c607cf4bab3d",
-    "branch": "HEAD"
+    "sha": "a0850024058753ce3ac5096e0baf84e1be0593cc",
+    "branch": "forces-and-motion-basics-2.5"
   },
   "phet-io-wrappers": {
     "sha": "161c0378b9d64222d346d94bd9a87955c4524697",
@@ -69,8 +69,8 @@
     "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "4e6988bf24543270beb77651f1632b51bde13919",
-    "branch": "HEAD"
+    "sha": "156e171ccfd424af79d8a46efb271bae1608050e",
+    "branch": "forces-and-motion-basics-2.5"
   },
   "sherpa": {
     "sha": "2d6a22df1aa16ee3a962064bf445b9db40d6b852",
