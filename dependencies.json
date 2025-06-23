@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.5.0-rc.2 Wed Jun 18 2025 13:35:23 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# forces-and-motion-basics 2.5.0-rc.2 Mon Jun 23 2025 12:56:42 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "2ee5215da879468b7fc6b98a725fcbcd8be109af",
+    "sha": "1b2d7d5a6ee00db8790aa809fd58e6ccbefdb8ea",
     "branch": "2.5"
   },
   "joist": {
@@ -45,8 +45,8 @@
     "branch": "HEAD"
   },
   "phet-io-sim-specific": {
-    "sha": "a0850024058753ce3ac5096e0baf84e1be0593cc",
-    "branch": "HEAD"
+    "sha": "2e327bfaabf73c2a282f8087531e2e35a9414fd4",
+    "branch": "forces-and-motion-basics-2.5"
   },
   "phet-io-wrappers": {
     "sha": "161c0378b9d64222d346d94bd9a87955c4524697",
