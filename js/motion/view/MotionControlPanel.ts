@@ -9,7 +9,6 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import LocalizedStringProperty from '../../../../chipper/js/browser/LocalizedStringProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -196,7 +195,7 @@ export default class MotionControlPanel extends Node {
     };
 
     // Ensure the checkboxes are centered with dynamic locale
-    const layoutCheckboxes = ( stringProperties: LocalizedStringProperty[], checkboxes: Node ) => {
+    const layoutCheckboxes = ( stringProperties: TReadOnlyProperty<string>[], checkboxes: Node ) => {
       const checkboxesCenterX = checkboxes.centerX;
       Multilink.multilinkAny( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
     };
