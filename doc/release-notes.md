@@ -26,4 +26,4 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * region and culture
 * puller color preference and query parameter
 * dynamic locale
-* UI sounds
+* Basic Sound
