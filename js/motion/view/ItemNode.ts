@@ -61,7 +61,8 @@ export default class ItemNode extends Node {
       tandem: tandem,
       phetioFeatured: true,
       phetioInputEnabledPropertyInstrumented: true,
-      visiblePropertyOptions: { phetioFeatured: true }
+      visiblePropertyOptions: { phetioFeatured: true },
+      tagName: 'button'
     } );
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.

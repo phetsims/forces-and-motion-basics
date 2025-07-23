@@ -367,7 +367,8 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( this.toolboxContainer );
 
     // Allow moveToFront on the individual layers, while still being behind the arrows and readouts
-    this.addChild( new Node( { children: [ leftItemLayer, rightItemLayer ] } ) );
+    const itemLayer = new Node( { children: [ leftItemLayer, rightItemLayer ] } );
+    this.addChild( itemLayer );
 
     // add the force arrows, which should be in front of all items and pusher
     this.addChild( this.sumArrow );
@@ -409,6 +410,17 @@ export default class MotionScreenView extends ScreenView {
 
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
+
+    this.pdomPlayAreaNode.pdomOrder = [
+      itemLayer,
+      appliedForceControl
+    ];
+
+    this.pdomControlAreaNode.pdomOrder = [
+      controlPanel,
+      timeControlNode,
+      this.resetAllButton
+    ];
   }
 
   // Get the height of the objects in the stack (doesn't include skateboard)
