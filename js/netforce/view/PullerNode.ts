@@ -50,7 +50,8 @@ export default class PullerNode extends Image {
       x: x,
       y: y,
       cursor: 'pointer',
-      scale: 0.86
+      scale: 0.86,
+      tagName: 'button'
     } );
 
     this.puller.node = this; //Wire up so node can be looked up by model element.
