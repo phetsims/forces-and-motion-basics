@@ -112,6 +112,69 @@ private updateGroupHighlight(): void {
 
 This pattern can be reused for any UI where multiple related interactive elements should appear as a single tab stop with internal navigation.
 
+### Keyboard Interaction Implementation (Individual Focus Pattern)
+
+**IMPORTANT LESSON LEARNED:** When implementing keyboard interactions for elements that should maintain individual focus (not group focus), the keyboard listeners must be attached to individual elements, not to a parent group.
+
+#### The Problem
+Initial implementation attempted to:
+1. Add keyboard listeners to the `PullerGroupNode` parent
+2. Use group-level properties like `this.selectedIndex` to determine which puller to operate on
+3. Handle events at the group level while individual pullers had focus
+
+This didn't work because:
+- Individual pullers were focused, not the group
+- Group-level keyboard listeners weren't receiving events from focused children
+- The interaction model was mismatched (group handling vs individual focus)
+
+#### The Solution
+**Factory Pattern for Individual Listeners:**
+```typescript
+// Create a factory function that generates unique listeners for each puller
+this.createSelectListener = ( targetPullerNode: PullerNode ) => {
+  return new KeyboardListener( {
+    keys: [ 'enter', 'space' ],
+    fire: () => {
+      // Operate directly on the targetPullerNode passed to this listener
+      const puller = targetPullerNode.puller;
+      // ... keyboard interaction logic
+    }
+  } );
+};
+
+// Attach individual listeners to each puller
+pullerNode.addInputListener( this.createSelectListener( pullerNode ) );
+```
+
+#### Key Implementation Details
+1. **Individual Listeners**: Each puller gets its own unique KeyboardListener instance
+2. **Closure Capture**: The factory function captures the specific `targetPullerNode` in the closure
+3. **Direct Operation**: Each listener operates directly on its associated puller, not on group state
+4. **Focus Model Match**: Matches the focus model (individual pullers are focusable)
+
+#### Drag/Drop Keyboard Interaction Pattern
+For implementing keyboard equivalents of drag/drop interactions:
+
+1. **Two-Phase Interaction**:
+   - First Enter/Space: "Grab" - set `puller.userControlledProperty = true` (shows yellow highlight circles)
+   - Second Enter/Space: "Drop" - emit `puller.droppedEmitter` (uses existing model logic)
+
+2. **Reuse Existing Model Logic**: 
+   - Don't reimplement drop logic - reuse `puller.droppedEmitter.emit()`
+   - The model already handles target selection via `getTargetKnot()` and `getClosestOpenKnot()`
+   - Yellow circles are controlled by `knot.isHighlightedProperty` automatically
+
+3. **Visual Feedback Integration**:
+   - `puller.userControlledProperty = true` triggers the same highlighting system used for mouse drag
+   - `puller.disconnect()` and `updateImage()` maintain visual consistency
+   - `moveToFront()` ensures proper z-ordering during interaction
+
+#### Common Pitfalls to Avoid
+- **Don't mix group and individual focus models** - pick one and implement consistently
+- **Don't reimplement existing model logic** - reuse emitters and property changes that already work
+- **Don't forget method visibility** - may need to make `private` methods `public` for cross-class access
+- **Import required dependencies** - keyboard interactions may need Vector2, shapes, etc.
+
 ## Architecture Overview
 
 ### Simulation Structure

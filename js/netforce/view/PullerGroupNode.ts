@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
@@ -27,7 +28,7 @@ export default class PullerGroupNode extends Node {
   private readonly pullerNodes: PullerNode[] = [];
   private selectedIndex = 0;
   private myGroupFocusHighlight: GroupHighlightPath;
-  private readonly selectListener: KeyboardListener<( 'enter' | 'space' )[]>;
+  private readonly createSelectListener: ( targetPullerNode: PullerNode ) => KeyboardListener<( 'enter' | 'space' )[]>;
   private readonly navigationListener: KeyboardListener<( 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' )[]>;
 
   public constructor( model: NetForceModel, providedOptions: PullerGroupNodeOptions ) {
@@ -77,17 +78,54 @@ export default class PullerGroupNode extends Node {
       }
     } );
 
-    // Keyboard listener for selecting/grabbing a puller
-    this.selectListener = new KeyboardListener( {
-      keys: [ 'enter', 'space' ],
-      fireOnDown: false,
-      fire: () => {
-        console.log( 'selectListener fired' );
-        if ( this.pullerNodes[ this.selectedIndex ] ) {
-          // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/373 add grab support
+    // Create a factory function that creates a select listener for a specific puller
+    this.createSelectListener = ( targetPullerNode: PullerNode ) => {
+      return new KeyboardListener( {
+        keys: [ 'enter', 'space' ],
+        fireOnDown: false,
+        fire: () => {
+          console.log( 'selectListener fired for puller:', targetPullerNode.puller );
+          const puller = targetPullerNode.puller;
+
+          // Two-phase interaction: grab -> show yellow circles -> drop
+          if ( puller.userControlledProperty.get() ) {
+            // Second press: Drop the puller (complete the interaction)
+            puller.userControlledProperty.set( false );
+            puller.droppedEmitter.emit();
+            targetPullerNode.updateImage( puller, model );
+          }
+          else {
+            // First press: Grab the puller (start showing yellow circles)
+            const knot = puller.knotProperty.get();
+            console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
+
+            // Disconnect from current knot if attached
+            puller.disconnect();
+            targetPullerNode.updateImage( puller, model );
+
+            // Set user controlled to show yellow circles on potential drop targets
+            puller.userControlledProperty.set( true );
+            targetPullerNode.moveToFront();
+            puller.userControlledEmitter.emit();
+
+            // If puller was knotted, position it at the knot location for better UX
+            if ( knot ) {
+              console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
+              targetPullerNode.updatePositionKnotted( puller, model, knot );
+              console.log( 'Puller position after move:', puller.positionProperty.get() );
+            }
+            else {
+              // For pullers not yet on the rope, we need to position them near the rope area
+              // so they can be dropped onto knots. Let's move them to a neutral position above the rope.
+              const neutralY = 350; // Y position above the rope where pullers can be dropped
+              const currentPosition = puller.positionProperty.get();
+              puller.positionProperty.set( new Vector2( currentPosition.x, neutralY ) );
+              console.log( 'Moving puller from toolbox to neutral position:', puller.positionProperty.get() );
+            }
+          }
         }
-      }
-    } );
+      } );
+    };
   }
 
   /**
@@ -113,7 +151,7 @@ export default class PullerGroupNode extends Node {
       }
     } );
 
-    pullerNode.addInputListener( this.selectListener );
+    pullerNode.addInputListener( this.createSelectListener( pullerNode ) );
     pullerNode.addInputListener( this.navigationListener );
   }
 
