@@ -1,8 +1,14 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 # Forces and Motion Basics - Development Guide
 
 ## Build Commands
 
 - `grunt type-check`: Run TypeScript type checking
+- `grunt lint --fix`: Run and auto-fix linting issues
+- `grunt modulify --targets=strings`: Update string subsystems after modifying forces-and-motion-basics-strings_en.yaml
 
 ## Environment
 
@@ -30,7 +36,7 @@
 - Use explicit file extensions in imports (.js)
 
 ## Internationalization (i18n)
-- **Source of Truth:** All new strings must be added to the `forces-and-motion-basics-strings_en.yaml` file. The `grunt modulify --targets=strings` command will then automatically update the `membrane-transport-strings_en.json` and `MembraneTransportStrings.ts` files.
+- **Source of Truth:** All new strings must be added to the `forces-and-motion-basics-strings_en.yaml` file. The `grunt modulify --targets=strings` command will then automatically update the `forces-and-motion-basics-strings_en.json` and `ForcesAndMotionBasicsStrings.ts` files.
 - A11y strings often need deeper nesting (component > subcomponent > feature > property)
 - When adding new accessibility text, check existing patterns for proper nesting structure
 
@@ -105,3 +111,51 @@ private updateGroupHighlight(): void {
 - Proper keyboard interaction announcements (TODO: implement screen reader announcements)
 
 This pattern can be reused for any UI where multiple related interactive elements should appear as a single tab stop with internal navigation.
+
+## Architecture Overview
+
+### Simulation Structure
+This simulation consists of 4 screens with distinct but related physics models:
+
+1. **Net Force Screen** (`js/netforce/`) - Tug-of-war with cart and pullers
+   - Model: `NetForceModel.ts` with `Cart`, `Puller`, `Knot` classes
+   - Key concept: Force summation and equilibrium
+
+2. **Motion Screen** (`js/motion/`) - Frictionless pushing of objects
+   - Model: Shared `MotionModel.ts` (skateboard mode)
+   - Objects on skateboard with minimal friction
+
+3. **Friction Screen** (`js/motion/`) - Pushing with adjustable friction
+   - Model: Shared `MotionModel.ts` (friction enabled)
+   - Explores static vs kinetic friction
+
+4. **Acceleration Screen** (`js/motion/`) - Focus on F=ma relationship
+   - Model: Shared `MotionModel.ts` (with accelerometer)
+   - Includes water bucket that spills to show acceleration
+
+### Model-View Architecture Pattern
+- **Models** (`model/` directories): Handle physics calculations, state management
+- **Views** (`view/` directories): Handle visual representation and user interaction
+- **Screens**: Top-level coordination between model and view
+- Models never import from views (strict separation)
+
+### Key PhET Framework Dependencies
+- **joist/**: Simulation framework, screens, home screen
+- **scenery/**: Scene graph for UI rendering
+- **axon/**: Property system for reactive programming (NumberProperty, BooleanProperty)
+- **sun/**: UI components (buttons, sliders, checkboxes)
+- **scenery-phet/**: PhET-specific UI components
+- **tandem/**: PhET-IO instrumentation for data collection
+
+### Common PhET Patterns
+- **Properties**: Use Property classes instead of raw values for reactive updates
+- **Dispose pattern**: Most sim objects live for full simulation lifetime
+- **PhET-IO**: Extensive instrumentation for educational data collection
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+- **Internationalization**: All user-facing strings externalized to YAML
+
+### Physics Implementation Notes
+- **Units**: Forces in Newtons, masses in kg, accelerations in m/s²
+- **Time stepping**: Uses simple Euler integration (position += velocity * dt)
+- **Simplifications**: 1D motion only, g = 10 m/s² for easier calculations
+- **Friction model**: Static friction = kinetic friction, kinetic = 0.75 * static
