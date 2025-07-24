@@ -63,6 +63,7 @@ import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
+import PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 
@@ -357,6 +358,68 @@ export default class NetForceScreenView extends ScreenView {
 
     leftToolbox.addChild( leftPullerGroup );
     rightToolbox.addChild( rightPullerGroup );
+
+    // Create separate rope groups for blue (left) and red (right) pullers
+    const leftRopePullerGroup = new PullersOnRopeGroupNode( model, {
+      side: 'left'
+    } );
+    const rightRopePullerGroup = new PullersOnRopeGroupNode( model, {
+      side: 'right'
+    } );
+    this.addChild( leftRopePullerGroup );
+    this.addChild( rightRopePullerGroup );
+
+    // Set up listeners to transfer pullers between toolbox and rope groups
+    this.pullerNodes.forEach( pullerNode => {
+      const puller = pullerNode.puller;
+
+      // Listen for knot attachment changes to transfer pullers between groups
+      puller.knotProperty.link( ( newKnot, oldKnot ) => {
+        console.log( 'knotProperty changed:', {
+          puller: puller,
+          newKnot: newKnot,
+          oldKnot: oldKnot,
+          userControlled: puller.userControlledProperty.get()
+        } );
+
+        // Only transfer if puller is not being controlled (grabbed)
+        // This prevents transfers during the grab phase when puller.disconnect() is called
+        if ( !puller.userControlledProperty.get() ) {
+          console.log( 'Puller not user controlled, checking for transfer...' );
+
+          const toolboxGroup = puller.type === 'blue' ? leftPullerGroup : rightPullerGroup;
+          const ropeGroup = puller.type === 'blue' ? leftRopePullerGroup : rightRopePullerGroup;
+
+          if ( newKnot !== null && oldKnot === null ) {
+            // Puller moved from toolbox to rope - only transfer if not already in rope group
+            if ( toolboxGroup.hasChild( pullerNode ) && !ropeGroup.hasChild( pullerNode ) ) {
+              console.log( 'TRANSFERRING: toolbox → rope' );
+              toolboxGroup.removePullerNode( pullerNode );
+              ropeGroup.addPullerNode( pullerNode );
+              console.log( 'Transferred puller from toolbox to rope:', puller );
+            }
+            else {
+              console.log( 'Puller already in correct group (rope), skipping transfer' );
+            }
+          }
+          else if ( newKnot === null && oldKnot !== null ) {
+            // Puller moved from rope to toolbox - only transfer if not already in toolbox group
+            if ( ropeGroup.hasChild( pullerNode ) && !toolboxGroup.hasChild( pullerNode ) ) {
+              console.log( 'TRANSFERRING: rope → toolbox' );
+              ropeGroup.removePullerNode( pullerNode );
+              toolboxGroup.addPullerNode( pullerNode );
+              console.log( 'Transferred puller from rope to toolbox:', puller );
+            }
+            else {
+              console.log( 'Puller already in correct group (toolbox), skipping transfer' );
+            }
+          }
+        }
+        else {
+          console.log( 'Puller is user controlled, skipping transfer' );
+        }
+      } );
+    } );
 
     //Add the go button, but only if there is a puller attached
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
