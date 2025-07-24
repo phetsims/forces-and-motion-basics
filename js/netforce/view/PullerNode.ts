@@ -18,6 +18,7 @@ import Puller from '../model/Puller.js';
 
 type SelfOptions = EmptySelfOptions;
 type PullerNodeOptions = ImageOptions & SelfOptions;
+
 export default class PullerNode extends Image {
   public standImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
