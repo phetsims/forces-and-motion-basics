@@ -175,6 +175,106 @@ For implementing keyboard equivalents of drag/drop interactions:
 - **Don't forget method visibility** - may need to make `private` methods `public` for cross-class access
 - **Import required dependencies** - keyboard interactions may need Vector2, shapes, etc.
 
+### Advanced Keyboard Navigation Implementation (PHASE II Lessons)
+
+**CRITICAL LESSON: Property Timing and State Management**
+
+The most challenging aspect was managing the complex state transitions during keyboard interactions. Key insights:
+
+#### 1. **Keyboard Listener Conflicts**
+**Problem**: Having separate navigation and selection listeners on the same keys caused conflicts - only one would "win".
+
+**Solution**: Unified keyboard listener with mode-based routing:
+```typescript
+fire: ( event, keysPressed ) => {
+  const isGrabbed = puller.userControlledProperty.get();
+  
+  if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) {
+    if ( isGrabbed ) {
+      // GRABBED MODE: Navigate between knots
+    } else {
+      // NORMAL MODE: Navigate between pullers
+    }
+  }
+}
+```
+
+#### 2. **Property Setting Order is CRITICAL**
+**Problem**: Setting `userControlledProperty = true` AFTER `puller.disconnect()` caused immediate transfers and focus loss.
+
+**Solution**: Always set user control state BEFORE disconnecting:
+```typescript
+// WRONG - causes premature transfer
+puller.disconnect();  // Sets knotProperty = null, triggers transfer
+puller.userControlledProperty.set( true );
+
+// CORRECT - prevents transfer during grab
+puller.userControlledProperty.set( true );  // Prevents transfer
+puller.disconnect();  // Now safe to disconnect
+```
+
+#### 3. **Parent-Child Relationship Management**
+**Problem**: During knot cycling, pullers could be transferred from rope→rope or toolbox→toolbox, causing "Parent already contains child" errors.
+
+**Solution**: Check parent containment before transfers:
+```typescript
+if ( toolboxGroup.hasChild( pullerNode ) && !ropeGroup.hasChild( pullerNode ) ) {
+  // Only transfer if puller is in source and not in target
+  toolboxGroup.removePullerNode( pullerNode );
+  ropeGroup.addPullerNode( pullerNode );
+}
+```
+
+#### 4. **Dynamic Group Management**
+**Key insight**: Pullers need to transfer between groups while maintaining their keyboard listeners and focus state.
+
+**Implementation Pattern**:
+- Replace keyboard listeners when transferring between groups
+- Each group type (toolbox vs rope) has different navigation behavior
+- Preserve focus during transfers when possible
+
+#### 5. **Multi-Group Architecture**
+**Lesson**: Separate groups by logical function AND team:
+- `leftPullerGroup` (blue toolbox) + `leftRopePullerGroup` (blue on rope)  
+- `rightPullerGroup` (red toolbox) + `rightRopePullerGroup` (red on rope)
+
+**Benefits**:
+- Clear accessibility descriptions for each group
+- Proper tab order reflecting game structure
+- Team-based navigation separation
+
+#### 6. **Debugging Complex Async Interactions**
+**Essential technique**: Strategic console.log placement at state transition points:
+```typescript
+console.log( 'BEFORE disconnect - userControlled:', puller.userControlledProperty.get() );
+puller.userControlledProperty.set( true );
+console.log( 'Set userControlled = true' );
+puller.disconnect();
+console.log( 'AFTER disconnect - knotProperty:', puller.knotProperty.get() );
+```
+
+#### 7. **HOME Waypoint Pattern**
+**Implementation**: Add `null` to waypoints array to represent "return to toolbox":
+```typescript
+const waypoints = [ ...availableKnots, null ]; // null = home position
+```
+
+**Position Management**: Use `puller.positionProperty.reset()` to return to original coordinates.
+
+#### 8. **Focus Management During Transfers**
+**Key insight**: Focus can be lost when nodes are reparented. Minimize transfers and preserve focus state when possible.
+
+**Solution**: Only transfer on actual state changes, not during interaction phases.
+
+### Patterns for Future Complex Keyboard Navigation
+
+1. **Unified Listener Pattern**: One listener per element with mode-based routing
+2. **State-First Property Setting**: Set control state before making model changes  
+3. **Parent Containment Checks**: Always verify parent relationships before transfers
+4. **Strategic Debugging**: Log at every critical state transition point
+5. **Group Architecture**: Design groups around logical user navigation paths
+6. **Property Timing**: Order of property changes can prevent race conditions
+
 ## Architecture Overview
 
 ### Simulation Structure
