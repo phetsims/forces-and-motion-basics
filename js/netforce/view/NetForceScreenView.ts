@@ -61,6 +61,7 @@ import FlagNode from './FlagNode.js';
 import GoPauseButton from './GoPauseButton.js';
 import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
+import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
@@ -324,19 +325,24 @@ export default class NetForceScreenView extends ScreenView {
       return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
-    const leftPullerLayer = new Node();
-    const rightPullerLayer = new Node();
-
     const pullersTandem = tandem.createTandem( 'pullers' );
+
+    const leftPullerGroup = new PullerGroupNode( model, {
+      side: 'left'
+    } );
+    const rightPullerGroup = new PullerGroupNode( model, {
+      side: 'right'
+    } );
     this.model.pullers.forEach( puller => {
       const pullerNode = new PullerNode( puller, this.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
-          tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` )
+          tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
+          accessibleName: puller.size + ' ' + puller.type + ' puller'
         }
       );
-      const pullerLayer = pullerNode.puller.type === 'blue' ? leftPullerLayer : rightPullerLayer;
-      pullerLayer.addChild( pullerNode );
+      const pullerGroup = pullerNode.puller.type === 'blue' ? leftPullerGroup : rightPullerGroup;
+      pullerGroup.addPullerNode( pullerNode );
       this.pullerNodes.push( pullerNode );
     } );
 
@@ -349,8 +355,8 @@ export default class NetForceScreenView extends ScreenView {
       } );
     } );
 
-    leftToolbox.addChild( leftPullerLayer );
-    rightToolbox.addChild( rightPullerLayer );
+    leftToolbox.addChild( leftPullerGroup );
+    rightToolbox.addChild( rightPullerGroup );
 
     //Add the go button, but only if there is a puller attached
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes

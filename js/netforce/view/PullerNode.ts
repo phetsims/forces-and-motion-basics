@@ -20,6 +20,7 @@ type SelfOptions = EmptySelfOptions;
 type PullerNodeOptions = ImageOptions & SelfOptions;
 export default class PullerNode extends Image {
   public standImage: ImageableImage;
+  private readonly dragListener: SoundDragListener;
 
   /**
    * Create a PullerNode for the specified puller
@@ -79,7 +80,7 @@ export default class PullerNode extends Image {
       this.updatePosition( puller, model );
     } );
 
-    const dragListener = new SoundDragListener( {
+    this.dragListener = new SoundDragListener( {
         tandem: options.tandem?.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
@@ -111,14 +112,14 @@ export default class PullerNode extends Image {
         }
       }
     );
-    this.addInputListener( dragListener );
+    this.addInputListener( this.dragListener );
 
     model.resetAllEmitter.addListener( () => {
       this.updatePosition( puller, model );
 
       // cancel the drag
       if ( puller.userControlledProperty.get() ) {
-        dragListener.interrupt();
+        this.dragListener.interrupt();
 
         puller.reset();
       }
