@@ -51,7 +51,7 @@ import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
@@ -65,9 +65,9 @@ import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 
-const leftForceStringProperty = ForcesAndMotionBasicsStrings.leftForceStringProperty;
-const rightForceStringProperty = ForcesAndMotionBasicsStrings.rightForceStringProperty;
-const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
+const leftForceStringProperty = ForcesAndMotionBasicsFluent.leftForceStringProperty;
+const rightForceStringProperty = ForcesAndMotionBasicsFluent.rightForceStringProperty;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
 // constants
 const MARGIN_FROM_LAYOUT_BOUNDS = 5;
@@ -425,12 +425,12 @@ export default class NetForceScreenView extends ScreenView {
     } );
 
     //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
-    this.sumOfForcesText = new Text( ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty, {
+    this.sumOfForcesText = new Text( ForcesAndMotionBasicsFluent.sumOfForcesEqualsZeroStringProperty, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
       maxWidth: 280
     } );
-    ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty.link( () => {
+    ForcesAndMotionBasicsFluent.sumOfForcesEqualsZeroStringProperty.link( () => {
       this.sumOfForcesText.centerX = width / 2;
     } );
 

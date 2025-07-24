@@ -34,7 +34,7 @@ import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBa
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import AccelerometerNode from './AccelerometerNode.js';
@@ -46,17 +46,17 @@ import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
 
-const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
 // constants
 const PLAY_PAUSE_BUFFER = 10; // separation between step and reset all button, useful for i18n
 
 // strings
-const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
-const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
-const frictionForceStringProperty = ForcesAndMotionBasicsStrings.frictionForceStringProperty;
-const pattern0Name1ValueUnitsAccelerationStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsAccelerationStringProperty' ];
-const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesEqualsZeroStringProperty;
+const accelerationStringProperty = ForcesAndMotionBasicsFluent.accelerationStringProperty;
+const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStringProperty;
+const frictionForceStringProperty = ForcesAndMotionBasicsFluent.frictionForceStringProperty;
+const pattern0Name1ValueUnitsAccelerationStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0name' ][ '1valueUnitsAccelerationStringProperty' ];
+const sumOfForcesEqualsZeroStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesEqualsZeroStringProperty;
 
 export default class MotionScreenView extends ScreenView {
 

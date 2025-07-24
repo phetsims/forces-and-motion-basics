@@ -19,14 +19,14 @@ import frictionIcon_png from '../images/frictionIcon_png.js';
 import tugIconBlueRed_png from '../images/tugIconBlueRed_png.js';
 import tugIconPurpleOrange_png from '../images/tugIconPurpleOrange_png.js';
 import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
-import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from './ForcesAndMotionBasicsFluent.js';
 import MotionScreen from './motion/MotionScreen.js';
 import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
-const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsStrings[ 'forces-and-motion-basics' ].titleStringProperty;
+const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsFluent[ 'forces-and-motion-basics' ].titleStringProperty;
 
 // constants
 const tandem = Tandem.ROOT;
@@ -59,26 +59,26 @@ simLauncher.launch( () => {
   const netForceScreen = new Screen(
     () => new NetForceModel( netForceScreenTandem.createTandem( 'model' ) ),
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
-      name: ForcesAndMotionBasicsStrings.netForceStringProperty,
+      name: ForcesAndMotionBasicsFluent.netForceStringProperty,
       homeScreenIcon: new ScreenIcon( netForceScreenIconNode, screenIconOptions ),
       tandem: netForceScreenTandem
     }
   );
 
   const motionScreen = new MotionScreen( 'motion', {
-    name: ForcesAndMotionBasicsStrings.motionStringProperty,
+    name: ForcesAndMotionBasicsFluent.motionStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( ForcesAndMotionBasicsImages.motionIconImageProperty ), screenIconOptions ),
     tandem: motionScreenTandem
   } );
 
   const frictionScreen = new MotionScreen( 'friction', {
-    name: ForcesAndMotionBasicsStrings.frictionStringProperty,
+    name: ForcesAndMotionBasicsFluent.frictionStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png ), screenIconOptions ),
     tandem: frictionScreenTandem
   } );
 
   const accelerationScreen = new MotionScreen( 'acceleration', {
-    name: ForcesAndMotionBasicsStrings.accelerationStringProperty,
+    name: ForcesAndMotionBasicsFluent.accelerationStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png ), screenIconOptions ),
     tandem: accelerationScreenTandem
   } );

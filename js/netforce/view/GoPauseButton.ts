@@ -15,7 +15,7 @@ import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.j
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
@@ -42,11 +42,11 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
         phetioReadOnly: true
       }
     }, providedOptions );
-    const goText = new Text( ForcesAndMotionBasicsStrings.goStringProperty, {
+    const goText = new Text( ForcesAndMotionBasicsFluent.goStringProperty, {
       font: new PhetFont( 42 ),
       maxWidth: 85
     } );
-    const pauseText = new Text( ForcesAndMotionBasicsStrings.pauseStringProperty, {
+    const pauseText = new Text( ForcesAndMotionBasicsFluent.pauseStringProperty, {
       font: new PhetFont( 30 ),
       maxWidth: 85
     } );

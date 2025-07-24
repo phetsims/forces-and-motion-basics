@@ -16,11 +16,11 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionConstants from '../MotionConstants.js';
 
-const pattern0Name1ValueUnitsVelocityStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0name' ][ '1valueUnitsVelocityStringProperty' ];
-const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
+const pattern0Name1ValueUnitsVelocityStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0name' ][ '1valueUnitsVelocityStringProperty' ];
+const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 
 type SelfOptions = {
   radius?: number;

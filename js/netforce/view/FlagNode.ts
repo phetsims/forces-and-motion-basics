@@ -16,7 +16,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
 
@@ -46,8 +46,8 @@ export default class FlagNode extends Node {
     // Return the string of the winning color and set the fill color of the flag.
     this.colorWinsStringProperty = new DerivedStringProperty(
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty, model.cart.positionProperty,
-        ForcesAndMotionBasicsStrings.blueWinsStringProperty, ForcesAndMotionBasicsStrings.redWinsStringProperty,
-        ForcesAndMotionBasicsStrings.purpleWinsStringProperty, ForcesAndMotionBasicsStrings.orangeWinsStringProperty ],
+        ForcesAndMotionBasicsFluent.blueWinsStringProperty, ForcesAndMotionBasicsFluent.redWinsStringProperty,
+        ForcesAndMotionBasicsFluent.purpleWinsStringProperty, ForcesAndMotionBasicsFluent.orangeWinsStringProperty ],
       ( pullerColor, x, blueWinsString, redWinsString, purpleWinsString, orangeWinsString ) => {
         if ( pullerColor === 'purpleOrange' ) {
           this.path.fill = x < 0 ? '#8a2be2' : '#ff5500'; // purple or orange

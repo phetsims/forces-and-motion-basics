@@ -13,10 +13,10 @@ import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import cart_svg from '../../../images/cart_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Cart from '../model/Cart.js';
 
-const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
+const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 
 export default class CartNode extends Image {
   private readonly xPosition: number;

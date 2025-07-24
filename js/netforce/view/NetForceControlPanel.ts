@@ -18,13 +18,13 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionBasicsIconFactory.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
 // strings
-const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
-const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
-const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
+const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
+const valuesStringProperty = ForcesAndMotionBasicsFluent.valuesStringProperty;
 
 type SelfOptions = EmptySelfOptions;
 type NetForceControlPanelOptions = NodeOptions & SelfOptions;

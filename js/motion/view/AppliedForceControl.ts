@@ -15,12 +15,12 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
 
-const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsStrings.pattern[ '0valueUnitsNewtonsStringProperty' ];
-const appliedForceStringProperty = ForcesAndMotionBasicsStrings.appliedForceStringProperty;
+const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0valueUnitsNewtonsStringProperty' ];
+const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStringProperty;
 
 export default class AppliedForceControl extends VBox {
   public constructor( tandem: Tandem, maxTextWidth: number, model: MotionModel ) {

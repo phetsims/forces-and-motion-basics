@@ -1,0 +1,35 @@
+none:                                  None
+force:                                 Force
+values:                                Values
+redWins:                               Red Wins!
+frictionForce:                         Friction Force
+pause:                                 Pause
+friction:                              Friction
+forces-and-motion-basics.title:        'Forces and Motion: Basics'
+leftForce:                             Left Force
+appliedForce:                          Applied Force
+rightForce:                            Right Force
+pattern.0massUnitsKilograms:           '{0} kg'
+pattern.0valueUnitsNewtons:            '{0} newtons'
+acceleration:                          Acceleration
+pattern.0name.1valueUnitsAcceleration: '{0}: {1} m/s<sup>2</sup>'
+pattern.0name.1valueUnitsVelocity:     '{0} m/s'
+lots:                                  Lots
+forces:                                Forces
+netForce:                              Net Force
+motion:                                Motion
+go:                                    Go!
+sumOfForcesEqualsZero:                 Sum of Forces = 0
+blueWins:                              Blue Wins!
+sumOfForces:                           Sum of Forces
+speed:                                 Speed
+stopwatch:                             Stopwatch
+return:                                Return
+masses:                                Masses
+pattern.0valueUnitsN:                  '{0}N'
+unknownValueIndicator:                 '?'
+netForcePullerColors:                  Net Force Puller Colors
+blueAndRed:                            Blue and Red
+purpleAndOrange:                       Purple and Orange
+purpleWins:                            Purple Wins!
+orangeWins:                            Orange Wins!

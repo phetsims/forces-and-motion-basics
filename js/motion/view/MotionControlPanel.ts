@@ -31,22 +31,22 @@ import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
 
-const accelerationStringProperty = ForcesAndMotionBasicsStrings.accelerationStringProperty;
-const forcesStringProperty = ForcesAndMotionBasicsStrings.forcesStringProperty;
-const forceStringProperty = ForcesAndMotionBasicsStrings.forceStringProperty;
-const frictionStringProperty = ForcesAndMotionBasicsStrings.frictionStringProperty;
-const lotsStringProperty = ForcesAndMotionBasicsStrings.lotsStringProperty;
-const massesStringProperty = ForcesAndMotionBasicsStrings.massesStringProperty;
-const noneStringProperty = ForcesAndMotionBasicsStrings.noneStringProperty;
-const speedStringProperty = ForcesAndMotionBasicsStrings.speedStringProperty;
-const stopwatchStringProperty = ForcesAndMotionBasicsStrings.stopwatchStringProperty;
-const sumOfForcesStringProperty = ForcesAndMotionBasicsStrings.sumOfForcesStringProperty;
-const valuesStringProperty = ForcesAndMotionBasicsStrings.valuesStringProperty;
+const accelerationStringProperty = ForcesAndMotionBasicsFluent.accelerationStringProperty;
+const forcesStringProperty = ForcesAndMotionBasicsFluent.forcesStringProperty;
+const forceStringProperty = ForcesAndMotionBasicsFluent.forceStringProperty;
+const frictionStringProperty = ForcesAndMotionBasicsFluent.frictionStringProperty;
+const lotsStringProperty = ForcesAndMotionBasicsFluent.lotsStringProperty;
+const massesStringProperty = ForcesAndMotionBasicsFluent.massesStringProperty;
+const noneStringProperty = ForcesAndMotionBasicsFluent.noneStringProperty;
+const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
+const stopwatchStringProperty = ForcesAndMotionBasicsFluent.stopwatchStringProperty;
+const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
+const valuesStringProperty = ForcesAndMotionBasicsFluent.valuesStringProperty;
 
 const VBOX_SPACING = 5;
 

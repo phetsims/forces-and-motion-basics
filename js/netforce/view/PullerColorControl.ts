@@ -16,13 +16,13 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 export default class PullerColorControl extends VBox {
 
   public constructor( netForcePullerColorsProperty: StringUnionProperty<'blueRed' | 'purpleOrange'>, tandem: Tandem ) {
 
-    const text = new Text( ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty, {
+    const text = new Text( ForcesAndMotionBasicsFluent.netForcePullerColorsStringProperty, {
       font: PreferencesDialogConstants.PANEL_SECTION_LABEL_FONT,
       maxWidth: 500
     } );
@@ -50,12 +50,12 @@ export default class PullerColorControl extends VBox {
     const items = [
       createItem(
         'blueRed',
-        ForcesAndMotionBasicsStrings.blueAndRedStringProperty,
+        ForcesAndMotionBasicsFluent.blueAndRedStringProperty,
         'blueRedRadioButton'
       ),
       createItem(
         'purpleOrange',
-        ForcesAndMotionBasicsStrings.purpleAndOrangeStringProperty,
+        ForcesAndMotionBasicsFluent.purpleAndOrangeStringProperty,
         'purpleOrangeRadioButton'
       )
     ];
@@ -63,7 +63,7 @@ export default class PullerColorControl extends VBox {
     const radioButtonGroup = new VerticalAquaRadioButtonGroup( netForcePullerColorsProperty, items, {
 
       // pdom
-      accessibleName: ForcesAndMotionBasicsStrings.netForcePullerColorsStringProperty,
+      accessibleName: ForcesAndMotionBasicsFluent.netForcePullerColorsStringProperty,
       tandem: tandem.createTandem( 'radioButtonGroup' )
     } );
 
