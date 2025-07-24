@@ -14,6 +14,7 @@ import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighli
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import PullerNode from './PullerNode.js';
 
@@ -26,10 +27,8 @@ type PullerGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class PullerGroupNode extends Node {
   private readonly pullerNodes: PullerNode[] = [];
-  private selectedIndex = 0;
   private myGroupFocusHighlight: GroupHighlightPath;
-  private readonly createSelectListener: ( targetPullerNode: PullerNode ) => KeyboardListener<( 'enter' | 'space' )[]>;
-  private readonly navigationListener: KeyboardListener<( 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' )[]>;
+  private readonly createKeyboardListener: ( targetPullerNode: PullerNode ) => KeyboardListener<( 'enter' | 'space' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' )[]>;
 
   public constructor( model: NetForceModel, providedOptions: PullerGroupNodeOptions ) {
 
@@ -51,74 +50,95 @@ export default class PullerGroupNode extends Node {
     this.groupFocusHighlight = groupHighlightPath;
     this.myGroupFocusHighlight = groupHighlightPath;
 
-    // Keyboard listener for navigating between pullers
-    this.navigationListener = new KeyboardListener( {
-      keys: [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ],
-      fire: ( event, keysPressed ) => {
-
-        const priorPullerNode = this.pullerNodes[ this.selectedIndex ];
-
-        console.log( 'navigationListener fired with keys:', keysPressed );
-        const delta = ( keysPressed === 'arrowLeft' || keysPressed === 'arrowUp' ) ? -1 : 1;
-        const newIndex = this.selectedIndex + delta;
-
-        // Keep selection within bounds
-        if ( newIndex >= 0 && newIndex < this.pullerNodes.length ) {
-          this.selectedIndex = newIndex;
-
-          // make the prior PullerNode non-focusable
-          priorPullerNode.focusable = false;
-
-          // make the new PullerNode focusable
-          const newPullerNode = this.pullerNodes[ this.selectedIndex ];
-          newPullerNode.focusable = true;
-          newPullerNode.focus();
-
-        }
-      }
-    } );
-
-    // Create a factory function that creates a select listener for a specific puller
-    this.createSelectListener = ( targetPullerNode: PullerNode ) => {
+    // Create a unified keyboard listener that handles both navigation and selection based on mode
+    this.createKeyboardListener = ( targetPullerNode: PullerNode ) => {
       return new KeyboardListener( {
-        keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight' ],
+        keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ],
         fireOnDown: false,
         fire: ( event, keysPressed ) => {
-          console.log( 'selectListener fired for puller:', targetPullerNode.puller, 'key:', keysPressed );
+          console.log( 'keyboardListener fired for puller:', targetPullerNode.puller, 'key:', keysPressed );
           const puller = targetPullerNode.puller;
+          const isGrabbed = puller.userControlledProperty.get();
 
-          // Handle arrow keys for knot selection when puller is grabbed
-          if ( ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) && puller.userControlledProperty.get() ) {
-            // Get available knots for this puller's type (blue/red) and side
-            const availableKnots = model.knots.filter( knot =>
-              knot.type === puller.type && model.getPuller( knot ) === null
-            );
+          // ARROW KEY HANDLING - depends on mode
+          if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' || keysPressed === 'arrowUp' || keysPressed === 'arrowDown' ) {
 
-            if ( availableKnots.length > 0 ) {
-              // Find current target knot or start with first available
-              const currentTarget = model.getTargetKnot( puller );
-              const currentIndex = currentTarget ? availableKnots.indexOf( currentTarget ) : -1;
+            if ( isGrabbed ) {
+              // GRABBED MODE: Arrow keys select knots
+              if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) {
+                // Get available knots for this puller's type (blue/red) and side
+                const availableKnots = model.knots.filter( knot =>
+                  knot.type === puller.type && model.getPuller( knot ) === null
+                );
 
-              // Navigate to next/previous knot
-              const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-              const nextIndex = ( currentIndex + delta + availableKnots.length ) % availableKnots.length;
-              const targetKnot = availableKnots[ nextIndex ];
+                if ( availableKnots.length > 0 ) {
+                  // Find current target knot or start with first available
+                  const currentTarget = model.getTargetKnot( puller );
+                  const currentIndex = currentTarget ? availableKnots.indexOf( currentTarget ) : -1;
 
-              // Position puller at the selected knot
-              targetPullerNode.updatePositionKnotted( puller, model, targetKnot );
-              console.log( 'Moved puller to knot:', targetKnot.positionProperty.get() );
+                  // Navigate to next/previous knot
+                  const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+                  const nextIndex = ( currentIndex + delta + availableKnots.length ) % availableKnots.length;
+                  const targetKnot = availableKnots[ nextIndex ];
+
+                  // Position puller at the selected knot
+                  targetPullerNode.updatePositionKnotted( puller, model, targetKnot );
+                  console.log( 'Moved puller to knot:', targetKnot.positionProperty.get() );
+                }
+              }
+              // Ignore up/down arrows when grabbed (only left/right navigate knots)
             }
-            return;
+            else {
+              // NORMAL MODE: Arrow keys navigate between pullers in toolbox
+              const currentIndex = this.pullerNodes.indexOf( targetPullerNode );
+              if ( currentIndex === -1 ) {return;}
+
+              console.log( 'Navigation mode - from puller at index:', currentIndex );
+              const delta = ( keysPressed === 'arrowLeft' || keysPressed === 'arrowUp' ) ? -1 : 1;
+              const newIndex = currentIndex + delta;
+
+              // Keep selection within bounds
+              if ( newIndex >= 0 && newIndex < this.pullerNodes.length ) {
+                // Make current puller non-focusable
+                targetPullerNode.focusable = false;
+
+                // Make new puller focusable and focus it
+                const newPullerNode = this.pullerNodes[ newIndex ];
+                newPullerNode.focusable = true;
+                newPullerNode.focus();
+
+                console.log( 'Navigated from index', currentIndex, 'to index', newIndex );
+              }
+            }
+            return; // Don't process Enter/Space if we handled arrow keys
           }
 
-          // Handle Enter/Space for grab/drop
+          // ENTER/SPACE HANDLING - grab/drop logic
           if ( keysPressed === 'enter' || keysPressed === 'space' ) {
             // Two-phase interaction: grab -> show yellow circles -> drop
             if ( puller.userControlledProperty.get() ) {
               // Second press: Drop the puller (complete the interaction)
+              const wasFromToolbox = puller.knotProperty.get() === null; // Track if puller came from toolbox
+
               puller.userControlledProperty.set( false );
               puller.droppedEmitter.emit();
               targetPullerNode.updateImage( puller, model );
+
+              // PHASE I: If puller was from toolbox, listen for successful attachment to rope
+              if ( wasFromToolbox ) {
+                // Listen for knot attachment change - if it becomes non-null, puller was successfully dropped
+                const knotListener = ( newKnot: Knot | null ) => {
+                  if ( newKnot !== null ) {
+                    // Successfully dropped on rope, focus next puller in toolbox
+                    this.focusNextPullerInToolbox( targetPullerNode );
+                    // Remove the listener since we only need it once
+                    puller.knotProperty.unlink( knotListener );
+                  }
+                };
+
+                // Add the listener temporarily to detect successful drop
+                puller.knotProperty.link( knotListener );
+              }
             }
             else {
               // First press: Grab the puller (start showing yellow circles)
@@ -188,8 +208,7 @@ export default class PullerGroupNode extends Node {
       }
     } );
 
-    pullerNode.addInputListener( this.createSelectListener( pullerNode ) );
-    pullerNode.addInputListener( this.navigationListener );
+    pullerNode.addInputListener( this.createKeyboardListener( pullerNode ) );
   }
 
   /**
@@ -205,6 +224,31 @@ export default class PullerGroupNode extends Node {
   private updateGroupHighlight(): void {
     if ( this.pullerNodes.length > 0 && this.localBounds.isFinite() ) {
       this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
+    }
+  }
+
+  /**
+   * PHASE I: After a puller is successfully dropped from toolbox to rope,
+   * focus the next available puller in the same toolbox
+   */
+  private focusNextPullerInToolbox( droppedPullerNode: PullerNode ): void {
+    // Find pullers still in the toolbox (not attached to knots)
+    const pullersInToolbox = this.pullerNodes.filter( pullerNode =>
+      pullerNode.puller.knotProperty.get() === null && pullerNode !== droppedPullerNode
+    );
+
+    if ( pullersInToolbox.length > 0 ) {
+      // Focus the first available puller in the toolbox
+      const nextPuller = pullersInToolbox[ 0 ];
+
+      // Make sure the next puller is focusable and focus it
+      nextPuller.focusable = true;
+      nextPuller.focus();
+
+      console.log( 'Focused next puller in toolbox:', nextPuller.puller );
+    }
+    else {
+      console.log( 'No more pullers in toolbox to focus' );
     }
   }
 }
