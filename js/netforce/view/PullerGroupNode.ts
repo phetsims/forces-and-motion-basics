@@ -64,26 +64,50 @@ export default class PullerGroupNode extends Node {
           if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' || keysPressed === 'arrowUp' || keysPressed === 'arrowDown' ) {
 
             if ( isGrabbed ) {
-              // GRABBED MODE: Arrow keys select knots
+              // GRABBED MODE: Arrow keys cycle through knots + home position
               if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) {
                 // Get available knots for this puller's type (blue/red) and side
                 const availableKnots = model.knots.filter( knot =>
                   knot.type === puller.type && model.getPuller( knot ) === null
                 );
 
-                if ( availableKnots.length > 0 ) {
-                  // Find current target knot or start with first available
+                // Create waypoints array: [knot1, knot2, ..., knotN, HOME]
+                // HOME is represented by null to distinguish from actual knots
+                const waypoints = [ ...availableKnots, null ]; // null = home position
+
+                if ( waypoints.length > 0 ) {
+                  // Find current waypoint index
                   const currentTarget = model.getTargetKnot( puller );
-                  const currentIndex = currentTarget ? availableKnots.indexOf( currentTarget ) : -1;
+                  let currentIndex;
 
-                  // Navigate to next/previous knot
+                  if ( currentTarget === null ) {
+                    // Currently at home position
+                    currentIndex = waypoints.length - 1; // Home is last waypoint
+                  }
+ else {
+                    // Currently at a knot
+                    currentIndex = availableKnots.indexOf( currentTarget );
+                    if ( currentIndex === -1 ) {
+                      currentIndex = 0; // Default to first waypoint if not found
+                    }
+                  }
+
+                  // Navigate to next/previous waypoint
                   const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-                  const nextIndex = ( currentIndex + delta + availableKnots.length ) % availableKnots.length;
-                  const targetKnot = availableKnots[ nextIndex ];
+                  const nextIndex = ( currentIndex + delta + waypoints.length ) % waypoints.length;
+                  const targetWaypoint = waypoints[ nextIndex ];
 
-                  // Position puller at the selected knot
-                  targetPullerNode.updatePositionKnotted( puller, model, targetKnot );
-                  console.log( 'Moved puller to knot:', targetKnot.positionProperty.get() );
+                  if ( targetWaypoint === null ) {
+                    // Move to home position (original position in toolbox)
+                    puller.positionProperty.reset(); // Reset to original toolbox coordinates
+                    targetPullerNode.updatePosition( puller, model );
+                    console.log( 'Moved puller to HOME position' );
+                  }
+ else {
+                    // Move to knot position
+                    targetPullerNode.updatePositionKnotted( puller, model, targetWaypoint );
+                    console.log( 'Moved puller to knot:', targetWaypoint.positionProperty.get() );
+                  }
                 }
               }
               // Ignore up/down arrows when grabbed (only left/right navigate knots)
@@ -119,13 +143,28 @@ export default class PullerGroupNode extends Node {
             if ( puller.userControlledProperty.get() ) {
               // Second press: Drop the puller (complete the interaction)
               const wasFromToolbox = puller.knotProperty.get() === null; // Track if puller came from toolbox
+              const targetKnot = model.getTargetKnot( puller );
 
-              puller.userControlledProperty.set( false );
-              puller.droppedEmitter.emit();
-              targetPullerNode.updateImage( puller, model );
+              // Check if puller is at HOME waypoint (no target knot)
+              if ( targetKnot === null ) {
+                // Puller is at HOME - return to toolbox
+                puller.userControlledProperty.set( false );
+                puller.reset(); // This returns puller to its original toolbox position
+                targetPullerNode.updateImage( puller, model );
+                console.log( 'Returned puller to toolbox' );
+                
+                // Focus next puller in toolbox since this one returned home
+                this.focusNextPullerInToolbox( targetPullerNode );
+              }
+ else {
+                // Puller is at a knot - normal drop behavior
+                puller.userControlledProperty.set( false );
+                puller.droppedEmitter.emit();
+                targetPullerNode.updateImage( puller, model );
+              }
 
-              // PHASE I: If puller was from toolbox, listen for successful attachment to rope
-              if ( wasFromToolbox ) {
+              // PHASE I: If puller was from toolbox and not returned to HOME, listen for successful attachment to rope
+              if ( wasFromToolbox && targetKnot !== null ) {
                 // Listen for knot attachment change - if it becomes non-null, puller was successfully dropped
                 const knotListener = ( newKnot: Knot | null ) => {
                   if ( newKnot !== null ) {
