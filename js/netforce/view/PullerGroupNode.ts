@@ -81,46 +81,83 @@ export default class PullerGroupNode extends Node {
     // Create a factory function that creates a select listener for a specific puller
     this.createSelectListener = ( targetPullerNode: PullerNode ) => {
       return new KeyboardListener( {
-        keys: [ 'enter', 'space' ],
+        keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight' ],
         fireOnDown: false,
-        fire: () => {
-          console.log( 'selectListener fired for puller:', targetPullerNode.puller );
+        fire: ( event, keysPressed ) => {
+          console.log( 'selectListener fired for puller:', targetPullerNode.puller, 'key:', keysPressed );
           const puller = targetPullerNode.puller;
 
-          // Two-phase interaction: grab -> show yellow circles -> drop
-          if ( puller.userControlledProperty.get() ) {
-            // Second press: Drop the puller (complete the interaction)
-            puller.userControlledProperty.set( false );
-            puller.droppedEmitter.emit();
-            targetPullerNode.updateImage( puller, model );
+          // Handle arrow keys for knot selection when puller is grabbed
+          if ( ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) && puller.userControlledProperty.get() ) {
+            // Get available knots for this puller's type (blue/red) and side
+            const availableKnots = model.knots.filter( knot =>
+              knot.type === puller.type && model.getPuller( knot ) === null
+            );
+
+            if ( availableKnots.length > 0 ) {
+              // Find current target knot or start with first available
+              const currentTarget = model.getTargetKnot( puller );
+              const currentIndex = currentTarget ? availableKnots.indexOf( currentTarget ) : -1;
+
+              // Navigate to next/previous knot
+              const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+              const nextIndex = ( currentIndex + delta + availableKnots.length ) % availableKnots.length;
+              const targetKnot = availableKnots[ nextIndex ];
+
+              // Position puller at the selected knot
+              targetPullerNode.updatePositionKnotted( puller, model, targetKnot );
+              console.log( 'Moved puller to knot:', targetKnot.positionProperty.get() );
+            }
+            return;
           }
-          else {
-            // First press: Grab the puller (start showing yellow circles)
-            const knot = puller.knotProperty.get();
-            console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
 
-            // Disconnect from current knot if attached
-            puller.disconnect();
-            targetPullerNode.updateImage( puller, model );
-
-            // Set user controlled to show yellow circles on potential drop targets
-            puller.userControlledProperty.set( true );
-            targetPullerNode.moveToFront();
-            puller.userControlledEmitter.emit();
-
-            // If puller was knotted, position it at the knot location for better UX
-            if ( knot ) {
-              console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
-              targetPullerNode.updatePositionKnotted( puller, model, knot );
-              console.log( 'Puller position after move:', puller.positionProperty.get() );
+          // Handle Enter/Space for grab/drop
+          if ( keysPressed === 'enter' || keysPressed === 'space' ) {
+            // Two-phase interaction: grab -> show yellow circles -> drop
+            if ( puller.userControlledProperty.get() ) {
+              // Second press: Drop the puller (complete the interaction)
+              puller.userControlledProperty.set( false );
+              puller.droppedEmitter.emit();
+              targetPullerNode.updateImage( puller, model );
             }
             else {
-              // For pullers not yet on the rope, we need to position them near the rope area
-              // so they can be dropped onto knots. Let's move them to a neutral position above the rope.
-              const neutralY = 350; // Y position above the rope where pullers can be dropped
-              const currentPosition = puller.positionProperty.get();
-              puller.positionProperty.set( new Vector2( currentPosition.x, neutralY ) );
-              console.log( 'Moving puller from toolbox to neutral position:', puller.positionProperty.get() );
+              // First press: Grab the puller (start showing yellow circles)
+              const knot = puller.knotProperty.get();
+              console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
+
+              // Disconnect from current knot if attached
+              puller.disconnect();
+              targetPullerNode.updateImage( puller, model );
+
+              // Set user controlled to show yellow circles on potential drop targets
+              puller.userControlledProperty.set( true );
+              targetPullerNode.moveToFront();
+              puller.userControlledEmitter.emit();
+
+              // If puller was knotted, position it at the knot location for better UX
+              if ( knot ) {
+                console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
+                targetPullerNode.updatePositionKnotted( puller, model, knot );
+                console.log( 'Puller position after move:', puller.positionProperty.get() );
+              }
+              else {
+                // For pullers not yet on the rope, move to first available knot position
+                const availableKnots = model.knots.filter( knot =>
+                  knot.type === puller.type && model.getPuller( knot ) === null
+                );
+                if ( availableKnots.length > 0 ) {
+                  const firstKnot = availableKnots[ 0 ];
+                  targetPullerNode.updatePositionKnotted( puller, model, firstKnot );
+                  console.log( 'Moving puller from toolbox to first available knot:', firstKnot.positionProperty.get() );
+                }
+                else {
+                  // Fallback to neutral position if no knots available
+                  const neutralY = 350;
+                  const currentPosition = puller.positionProperty.get();
+                  puller.positionProperty.set( new Vector2( currentPosition.x, neutralY ) );
+                  console.log( 'No available knots, moving to neutral position:', puller.positionProperty.get() );
+                }
+              }
             }
           }
         }

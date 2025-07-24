@@ -271,7 +271,7 @@ export default class NetForceModel extends PhetioObject {
   /**
    * Gets the puller attached to a knot, or null if none attached to that knot.
    */
-  private getPuller( knot: Knot ): Puller | null {
+  public getPuller( knot: Knot ): Puller | null {
     const find = _.find( this.pullers, puller => puller.knotProperty.get() === knot );
     return typeof ( find ) !== 'undefined' ? find : null;
   }
@@ -313,7 +313,7 @@ export default class NetForceModel extends PhetioObject {
   /**
    * Gets the closest unoccupied knot to the given puller if it is close enough to grab.
    */
-  private getTargetKnot( puller: Puller ): Knot | null {
+  public getTargetKnot( puller: Puller ): Knot | null {
     const target = this.getClosestOpenKnot( puller );
     const distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
