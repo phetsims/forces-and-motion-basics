@@ -336,7 +336,7 @@ export default class PullerNode extends Image {
               puller.positionProperty.reset(); // Reset to original toolbox coordinates
               this.updatePosition( puller, this.model );
               this.updateAccessibleDescription( 'return to toolbox' );
-              this.addAccessibleResponse( `Over return to toolbox position` );
+              this.addAccessibleResponse( 'Over return to toolbox position' );
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to HOME position' );
             }
             else {
