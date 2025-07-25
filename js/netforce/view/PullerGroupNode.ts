@@ -193,6 +193,9 @@ export default class PullerGroupNode extends Node {
               targetPullerNode.moveToFront();
               puller.userControlledEmitter.emit();
 
+              // Announce the grab action to the aria live region
+              this.addAccessibleResponse( 'Grabbed' );
+
               // If puller was knotted, position it at the knot location for better UX
               if ( knot ) {
                 console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
@@ -331,7 +334,7 @@ export default class PullerGroupNode extends Node {
     const pullersInToolbox = this.pullerNodes.filter( pullerNode =>
       pullerNode.puller.knotProperty.get() === null
     );
-    
+
     if ( pullersInToolbox.length > 0 ) {
       // Reset focus state - make first puller focusable, others non-focusable initially
       pullersInToolbox.forEach( ( pullerNode, index ) => {

@@ -330,6 +330,71 @@ pullerNode.focusedProperty.lazyLink( focused => {
 6. **Property Timing**: Order of property changes can prevent race conditions
 7. **Focus Restoration**: ALWAYS handle both focus gain AND loss in focusedProperty listeners
 
+## Testing with MCP and Playwright
+
+### Accessibility Testing with Playwright
+
+When testing accessibility features like ARIA live regions, keyboard navigation, or screen reader announcements, use the Playwright MCP tool:
+
+1. **Launch with Query Parameters**: Include debugging parameters for accessibility testing:
+   ```
+   http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses
+   ```
+   - `ea`: Enables accessibility features
+   - `logAriaLiveResponses`: Logs ARIA live region announcements to console
+
+2. **Testing Keyboard Navigation**:
+   ```typescript
+   // Navigate to the page
+   mcp__playwright__browser_navigate({ url: "..." })
+   
+   // Press Tab to focus elements
+   mcp__playwright__browser_press_key({ key: "Tab" })
+   
+   // Press Space/Enter to activate
+   mcp__playwright__browser_press_key({ key: "Space" })
+   ```
+
+3. **Monitoring ARIA Live Announcements**:
+   - Check console messages after interactions
+   - Look for `[ARIA-LIVE]` prefixed messages
+   - Example: `[LOG] [ARIA-LIVE] polite: "Grabbed"`
+
+4. **Visual Verification**:
+   - Take screenshots to verify visual state matches accessibility state
+   - Use `mcp__playwright__browser_take_screenshot()` to capture current state
+   - Compare visual highlights with focus state
+
+5. **Console Message Monitoring**:
+   - Use `mcp__playwright__browser_console_messages()` to see all console output
+   - Useful for debugging keyboard listener firing and state changes
+   - PhET sims log extensively when debugging is enabled
+
+### Key Testing Patterns
+
+1. **Accessibility Announcement Testing**:
+   - Add `this.addAccessibleResponse( 'Message' )` in code
+   - Test with `logAriaLiveResponses` query parameter
+   - Verify announcements appear in console as `[ARIA-LIVE]` messages
+
+2. **Focus Management Testing**:
+   - Tab through all interactive elements
+   - Verify focus order matches visual layout
+   - Check that focus indicators are visible
+   - Test both forward (Tab) and backward (Shift+Tab) navigation
+
+3. **Keyboard Interaction Testing**:
+   - Test all keyboard shortcuts (Space, Enter, Arrow keys)
+   - Verify keyboard interactions match mouse interactions
+   - Check for proper mode switching (e.g., grabbed vs normal state)
+
+### Common Pitfalls
+
+1. **Page Load Timing**: Wait for initial console messages to settle before testing
+2. **Focus State**: The page snapshot from Playwright shows which element has `[active]` state
+3. **Console Noise**: PhET sims log many state changes; filter for relevant messages
+4. **Query Parameters**: Don't forget `ea` to enable accessibility features
+
 ## Architecture Overview
 
 ### Simulation Structure
