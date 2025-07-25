@@ -5,8 +5,12 @@
 /* eslint-disable */
 /* @formatter:off */
 
-import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
+import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import type { FluentVariable } from '../../chipper/js/browser/FluentPattern.js';
+import FluentPattern from '../../chipper/js/browser/FluentPattern.js';
 import FluentContainer from '../../chipper/js/browser/FluentContainer.js';
+import FluentConstant from '../../chipper/js/browser/FluentConstant.js';
+import FluentComment from '../../chipper/js/browser/FluentComment.js';
 import forcesAndMotionBasics from './forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from './ForcesAndMotionBasicsStrings.js';
 
@@ -53,6 +57,27 @@ addToMapIfDefined( 'blueAndRed', 'blueAndRedStringProperty' );
 addToMapIfDefined( 'purpleAndOrange', 'purpleAndOrangeStringProperty' );
 addToMapIfDefined( 'purpleWins', 'purpleWinsStringProperty' );
 addToMapIfDefined( 'orangeWins', 'orangeWinsStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_heading', 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_heading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.headingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_description', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_rope_heading', 'a11y.netForceScreen.screenSummary.playArea.rope.headingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_rope_description', 'a11y.netForceScreen.screenSummary.playArea.rope.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_heading', 'a11y.netForceScreen.screenSummary.controlArea.headingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_description', 'a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_buttons_go', 'a11y.netForceScreen.screenSummary.controlArea.buttons.goStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_buttons_return', 'a11y.netForceScreen.screenSummary.controlArea.buttons.returnStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_sumOfForces', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.sumOfForcesStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_values', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.valuesStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_speed', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.speedStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_cartCentered', 'a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_cartMoving', 'a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -106,7 +131,54 @@ const ForcesAndMotionBasicsFluent = {
   blueAndRedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'blueAndRed', _.get( ForcesAndMotionBasicsStrings, 'blueAndRedStringProperty' ) ),
   purpleAndOrangeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'purpleAndOrange', _.get( ForcesAndMotionBasicsStrings, 'purpleAndOrangeStringProperty' ) ),
   purpleWinsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'purpleWins', _.get( ForcesAndMotionBasicsStrings, 'purpleWinsStringProperty' ) ),
-  orangeWinsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'orangeWins', _.get( ForcesAndMotionBasicsStrings, 'orangeWinsStringProperty' ) )
+  orangeWinsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'orangeWins', _.get( ForcesAndMotionBasicsStrings, 'orangeWinsStringProperty' ) ),
+  _comment_0: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
+  a11y: {
+    netForceScreen: {
+      screenSummary: {
+        playArea: {
+          headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' ) ),
+          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ) ),
+          guidingQuestionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' ) ),
+          toolboxes: {
+            headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.headingStringProperty' ) ),
+            blueTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' ) ),
+            redTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' ) ),
+            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.descriptionStringProperty' ) )
+          },
+          rope: {
+            headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_rope_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.rope.headingStringProperty' ) ),
+            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_rope_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.rope.descriptionStringProperty' ) )
+          }
+        },
+        controlArea: {
+          headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.headingStringProperty' ) ),
+          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty' ) ),
+          buttons: {
+            goStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_buttons_go', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.buttons.goStringProperty' ) ),
+            returnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_buttons_return', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.buttons.returnStringProperty' ) )
+          },
+          checkboxes: {
+            sumOfForcesStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_sumOfForces', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.sumOfForcesStringProperty' ) ),
+            valuesStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_values', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.valuesStringProperty' ) ),
+            speedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_speed', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.speedStringProperty' ) )
+          }
+        },
+        currentDetails: {
+          cartCenteredStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_cartCentered', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty' ) ),
+          noPullersAttachedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' ) ),
+          cartMovingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_cartMoving', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty' ) ),
+          pullersAttachedStringProperty: _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.pullersAttachedStringProperty' ),
+          blueTeamAttachedStringProperty: _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttachedStringProperty' ),
+          redTeamAttachedStringProperty: _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.redTeamAttachedStringProperty' )
+        },
+        interactionHint: {
+          noPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' ) ),
+          withPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' ) )
+        }
+      }
+    }
+  }
 };
 
 export default ForcesAndMotionBasicsFluent;

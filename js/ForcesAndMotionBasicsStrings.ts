@@ -53,6 +53,52 @@ type StringsType = {
   'purpleAndOrangeStringProperty': LocalizedStringProperty;
   'purpleWinsStringProperty': LocalizedStringProperty;
   'orangeWinsStringProperty': LocalizedStringProperty;
+  'a11y': {
+    'netForceScreen': {
+      'screenSummary': {
+        'playArea': {
+          'headingStringProperty': LocalizedStringProperty;
+          'descriptionStringProperty': LocalizedStringProperty;
+          'guidingQuestionStringProperty': LocalizedStringProperty;
+          'toolboxes': {
+            'headingStringProperty': LocalizedStringProperty;
+            'blueTeamHeadingStringProperty': LocalizedStringProperty;
+            'redTeamHeadingStringProperty': LocalizedStringProperty;
+            'descriptionStringProperty': LocalizedStringProperty;
+          };
+          'rope': {
+            'headingStringProperty': LocalizedStringProperty;
+            'descriptionStringProperty': LocalizedStringProperty;
+          }
+        };
+        'controlArea': {
+          'headingStringProperty': LocalizedStringProperty;
+          'descriptionStringProperty': LocalizedStringProperty;
+          'buttons': {
+            'goStringProperty': LocalizedStringProperty;
+            'returnStringProperty': LocalizedStringProperty;
+          };
+          'checkboxes': {
+            'sumOfForcesStringProperty': LocalizedStringProperty;
+            'valuesStringProperty': LocalizedStringProperty;
+            'speedStringProperty': LocalizedStringProperty;
+          }
+        };
+        'currentDetails': {
+          'cartCenteredStringProperty': LocalizedStringProperty;
+          'noPullersAttachedStringProperty': LocalizedStringProperty;
+          'cartMovingStringProperty': LocalizedStringProperty;
+          'pullersAttachedStringProperty': LocalizedStringProperty;
+          'blueTeamAttachedStringProperty': LocalizedStringProperty;
+          'redTeamAttachedStringProperty': LocalizedStringProperty;
+        };
+        'interactionHint': {
+          'noPullersStringProperty': LocalizedStringProperty;
+          'withPullersStringProperty': LocalizedStringProperty;
+        }
+      }
+    }
+  }
 };
 
 const ForcesAndMotionBasicsStrings = getStringModule( 'FORCES_AND_MOTION_BASICS' ) as StringsType;

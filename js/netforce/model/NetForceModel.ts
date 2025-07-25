@@ -38,6 +38,8 @@ export default class NetForceModel extends PhetioObject {
   public readonly hasStartedProperty: BooleanProperty;
   public readonly isRunningProperty: BooleanProperty;
   public readonly numberPullersAttachedProperty: NumberProperty;
+  public readonly numberBluePullersAttachedProperty: NumberProperty;
+  public readonly numberRedPullersAttachedProperty: NumberProperty;
   public readonly stateProperty: StringProperty;
   public readonly timeProperty: Property<number>;
   public readonly netForceProperty: NumberProperty;
@@ -78,6 +80,20 @@ export default class NetForceModel extends PhetioObject {
       tandem: tandem.createTandem( 'numberPullersAttachedProperty' ),
       phetioReadOnly: true,
       range: new Range( 0, 8 ),
+      numberType: 'Integer'
+    } );
+
+    this.numberBluePullersAttachedProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'numberBluePullersAttachedProperty' ),
+      phetioReadOnly: true,
+      range: new Range( 0, 4 ),
+      numberType: 'Integer'
+    } );
+
+    this.numberRedPullersAttachedProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'numberRedPullersAttachedProperty' ),
+      phetioReadOnly: true,
+      range: new Range( 0, 4 ),
       numberType: 'Integer'
     } );
 
@@ -196,6 +212,8 @@ export default class NetForceModel extends PhetioObject {
       puller.positionProperty.link( this.updateVisibleKnots.bind( this ) );
       puller.userControlledEmitter.addListener( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
+        this.numberBluePullersAttachedProperty.set( this.countBluePullersAttached() );
+        this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
       } );
       puller.droppedEmitter.addListener( () => {
         const knot = this.getTargetKnot( puller )!;
@@ -203,6 +221,8 @@ export default class NetForceModel extends PhetioObject {
       } );
       puller.knotProperty.link( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
+        this.numberBluePullersAttachedProperty.set( this.countBluePullersAttached() );
+        this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
       } );
     } );
 
@@ -249,6 +269,28 @@ export default class NetForceModel extends PhetioObject {
     let count = 0;
     for ( let i = 0; i < this.pullers.length; i++ ) {
       if ( this.pullers[ i ].knotProperty.get() ) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  // Count the number of blue team pullers attached to the rope
+  private countBluePullersAttached(): number {
+    let count = 0;
+    for ( let i = 0; i < this.pullers.length; i++ ) {
+      if ( this.pullers[ i ].knotProperty.get() && this.pullers[ i ].type === 'blue' ) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  // Count the number of red team pullers attached to the rope
+  private countRedPullersAttached(): number {
+    let count = 0;
+    for ( let i = 0; i < this.pullers.length; i++ ) {
+      if ( this.pullers[ i ].knotProperty.get() && this.pullers[ i ].type === 'red' ) {
         count++;
       }
     }
@@ -344,6 +386,8 @@ export default class NetForceModel extends PhetioObject {
     this.hasStartedProperty.reset();
     this.isRunningProperty.reset();
     this.numberPullersAttachedProperty.reset();
+    this.numberBluePullersAttachedProperty.reset();
+    this.numberRedPullersAttachedProperty.reset();
     this.stateProperty.reset();
     this.timeProperty.reset();
     this.netForceProperty.reset();

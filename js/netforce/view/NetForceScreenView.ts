@@ -176,6 +176,11 @@ export default class NetForceScreenView extends ScreenView {
   private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
   private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
 
+  // PDOM - A container for accessible content that should be grouped under the Play Area
+  private readonly playAreaContainer: Node = new Node( {
+    accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.headingStringProperty
+  } );
+
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
     super( {
@@ -270,6 +275,8 @@ export default class NetForceScreenView extends ScreenView {
       }
     } );
 
+    // Add the play area container for proper accessibility hierarchy
+    this.addChild( this.playAreaContainer );
 
     // create the toolboxes that hold the puller children
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
@@ -529,6 +536,15 @@ export default class NetForceScreenView extends ScreenView {
 
     cursorPathNode.visible = false;
     this.addChild( cursorPathNode );
+
+    // Set up the pdomOrder for proper accessibility hierarchy
+    this.playAreaContainer.pdomOrder = [
+      leftToolbox,
+      rightToolbox,
+      this.leftRopePullerGroup,
+      this.rightRopePullerGroup,
+      this.cartNode
+    ];
   }
 }
 
