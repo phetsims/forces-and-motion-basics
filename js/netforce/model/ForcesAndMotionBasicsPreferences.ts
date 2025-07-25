@@ -4,7 +4,7 @@
  * ForcesAndMotionBasicsPreferences is the model for sim-specific preferences.  The values declared here can be updated via
  * the Preferences dialog.
  *
- * @author Luisa Vargas
+ * @author Luisa Vargas (PhET Interactive Simulations)
  */
 
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';

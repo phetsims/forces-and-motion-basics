@@ -4,7 +4,7 @@
  * Shows the highlight graphic for a knot.  The knots are always visible as part of the image, but when the visible flag is set,
  * the highlight is shown.
  *
- * @author Sam Reid
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import Shape from '../../../../kite/js/Shape.js';

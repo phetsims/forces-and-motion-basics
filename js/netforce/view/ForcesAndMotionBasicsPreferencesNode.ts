@@ -3,7 +3,7 @@
  *  ForcesAndMotionBasicsPreferencesNode is the user interface for sim-specific preferences, accessed via the
  *  Preferences dialog. These preferences are global and affect all screens.
  *
- * @author Luisa Vargas
+ * @author Luisa Vargas (PhET Interactive Simulations)
  */
 
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';

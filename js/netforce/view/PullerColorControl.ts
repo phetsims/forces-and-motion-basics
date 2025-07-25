@@ -5,7 +5,7 @@
  * The user can change the colors, but they will revert back to the default on a reset. This control is
  * intended to appear in the Preferences dialog.
  *
- * @author Luisa Vargas
+ * @author Luisa Vargas (PhET Interactive Simulations)
  */
 
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';

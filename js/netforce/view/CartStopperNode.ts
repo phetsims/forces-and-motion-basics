@@ -4,7 +4,7 @@
  * Constructs a shape that looks like trapezoid.  This shape is to be placed in the screen view at a place that
  * makes it look like this is the item that is stopping motion when the game of tug of war is over.
  *
- * @author Jesse Greenberg
+ * @author Jesse Greenberg (PhET Interactive Simulations)
  */
 
 import Shape from '../../../../kite/js/Shape.js';

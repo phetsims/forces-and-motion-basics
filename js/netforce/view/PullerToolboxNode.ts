@@ -1,7 +1,7 @@
 // Copyright 2014-2025, University of Colorado Boulder
 
 /**
- *
+ * PullerToolboxNode is the background/container/panel for the pullers in the Net Force screen.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */

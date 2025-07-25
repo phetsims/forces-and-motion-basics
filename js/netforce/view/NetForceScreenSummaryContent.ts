@@ -3,7 +3,7 @@
 /**
  * Implements the screen summary for the Net Force screen in Forces and Motion: Basics.
  *
- * @author Claude (AI Assistant)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import StringProperty from '../../../../axon/js/StringProperty.js';

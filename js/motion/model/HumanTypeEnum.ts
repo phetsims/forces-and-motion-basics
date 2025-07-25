@@ -3,7 +3,7 @@
 /**
  * HumanTypeEnum identifies the human object type and sets the holding, standing, or sitting image for the human.
  *
- * @author Luisa Vargas
+ * @author Luisa Vargas (PhET Interactive Simulations)
  */
 
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';

@@ -6,7 +6,7 @@
  * when the pusher has fallen over and there is no friction in the model.
  *
  * @author Sam Reid (PhET Interactive Simulations)
- * @author Jesse Greenberg
+ * @author Jesse Greenberg (PhET Interactive Simulations)
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';

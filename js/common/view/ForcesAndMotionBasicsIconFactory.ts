@@ -3,7 +3,7 @@
 /**
  * Static factory for creating icons in Forces and Motion: Basics.
  *
- * @author John Blanco
+ * @author John Blanco (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';

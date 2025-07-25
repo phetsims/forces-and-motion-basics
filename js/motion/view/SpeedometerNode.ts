@@ -4,12 +4,10 @@
  * Speedometer used in Forces and Motion: Basics.  This is a typical gauge node with a value readout near the bottom.
  *
  * @author Sam Reid (PhET Interactive Simulations)
- * @author Jesse Greenberg
+ * @author Jesse Greenberg (PhET Interactive Simulations)
  */
 
-
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-//modules
 import Range from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';

@@ -3,7 +3,7 @@
 /**
  * Node representation of the movable cart in Forces and Motion: Basics net force screen.
  *
- * @author Jesse Greenberg
+ * @author Jesse Greenberg (PhET Interactive Simulations)
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
