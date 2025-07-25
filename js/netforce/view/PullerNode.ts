@@ -158,9 +158,12 @@ export default class PullerNode extends Image {
 
           // Add accessible response when a puller is dropped
           if ( puller.knotProperty.get() ) {
-            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to rope.` );
+            const knotDescription = this.getKnotDescription( puller.knotProperty.get()! );
+            this.updateAccessibleDescription( knotDescription );
+            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
           }
           else {
+            this.updateAccessibleDescription( 'toolbox' );
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
           }
         }
@@ -180,6 +183,9 @@ export default class PullerNode extends Image {
     } );
 
     this.mutate( options );
+
+    // Set initial accessible description
+    this.updateAccessibleDescription( 'toolbox' );
 
     this.addLinkedElement( this.puller, {
       tandemName: 'puller'
@@ -258,6 +264,27 @@ export default class PullerNode extends Image {
   }
 
   /**
+   * Get a human-readable description of a knot's position
+   * @param knot - The knot to describe
+   * @returns A string like "left knot 1" or "right knot 3"
+   */
+  private getKnotDescription( knot: Knot ): string {
+    // Find the index of this knot among knots of the same type
+    const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
+    const index = sameTypeKnots.indexOf( knot );
+    const side = knot.type === 'blue' ? 'left' : 'right';
+    return `${side} knot ${index + 1}`;
+  }
+
+  /**
+   * Update the accessible paragraph description based on the puller's current location
+   * @param location - Description of where the puller is
+   */
+  private updateAccessibleDescription( location: string ): void {
+    this.accessibleName = `${this.puller.size} ${this.puller.type} puller at ${location}`;
+  }
+
+  /**
    * Handle keyboard input using the current strategy.
    * This contains all the common keyboard logic that was previously duplicated in the group classes.
    */
@@ -308,11 +335,16 @@ export default class PullerNode extends Image {
               // Move to home position (original position in toolbox)
               puller.positionProperty.reset(); // Reset to original toolbox coordinates
               this.updatePosition( puller, this.model );
+              this.updateAccessibleDescription( 'return to toolbox' );
+              this.addAccessibleResponse( `Over return to toolbox position` );
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to HOME position' );
             }
             else {
               // Move to knot position
               this.updatePositionKnotted( puller, this.model, targetWaypoint );
+              const knotDescription = this.getKnotDescription( targetWaypoint );
+              this.updateAccessibleDescription( knotDescription );
+              this.addAccessibleResponse( `Over ${knotDescription}` );
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to knot:', targetWaypoint.positionProperty.get() );
             }
           }
@@ -437,8 +469,13 @@ export default class PullerNode extends Image {
         this.moveToFront();
         puller.userControlledEmitter.emit();
 
-        // Announce the grab action
-        this.addAccessibleResponse( this.keyboardStrategy.getAccessibilityMessage( 'grabbed', knot ? 'knot' : 'toolbox' ) );
+        // Announce the grab action with current position
+        let locationDescription = 'toolbox';
+        if ( knot ) {
+          locationDescription = this.getKnotDescription( knot );
+        }
+        this.updateAccessibleDescription( locationDescription );
+        this.addAccessibleResponse( `Grabbed from ${locationDescription}` );
 
         // If puller was knotted, position it at the knot location for better UX
         if ( knot ) {
