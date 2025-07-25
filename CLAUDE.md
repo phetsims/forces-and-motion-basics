@@ -266,6 +266,60 @@ const waypoints = [ ...availableKnots, null ]; // null = home position
 
 **Solution**: Only transfer on actual state changes, not during interaction phases.
 
+#### 9. **Focus Restoration Bug Pattern**
+**CRITICAL LESSON**: When using `focusedProperty.lazyLink` to manage focusability across groups, you MUST handle BOTH focus gain AND focus loss.
+
+**The Problem**: `focusedProperty.lazyLink` listeners commonly only handle `focused = true` case:
+```typescript
+pullerNode.focusedProperty.lazyLink( focused => {
+  if ( focused ) {
+    // Make other items non-focusable
+    this.items.forEach( item => {
+      if ( item !== focusedItem ) {
+        item.focusable = false;
+      }
+    } );
+  }
+  // BUG: No else clause means items stay non-focusable forever!
+} );
+```
+
+**The Fix**: Always add focus restoration in the `else` clause:
+```typescript
+pullerNode.focusedProperty.lazyLink( focused => {
+  if ( focused ) {
+    // Make other items non-focusable when this gets focus
+    this.items.forEach( item => {
+      if ( item !== focusedItem ) {
+        item.focusable = false;
+      }
+    } );
+  }
+  else {
+    // CRITICAL: Restore focusability when this loses focus
+    this.items.forEach( item => {
+      // Add conditions as needed (e.g., only toolbox items)
+      if ( item.shouldBeFocusable() ) {
+        item.focusable = true;
+      }
+    } );
+  }
+} );
+```
+
+**Bug Symptoms**: 
+- Tab navigation skips entire groups
+- Shift+Tab doesn't work in reverse direction  
+- Elements become permanently unfocusable after first interaction
+- Focus jumps to unexpected UI elements (menus, buttons)
+
+**When This Occurs**: 
+- Multi-group keyboard navigation systems
+- Dynamic focus management during item transfers
+- Any time you set `focusable = false` based on focus state
+
+**Testing Strategy**: Always test complete tab cycles in BOTH directions (Tab AND Shift+Tab) after implementing focus management.
+
 ### Patterns for Future Complex Keyboard Navigation
 
 1. **Unified Listener Pattern**: One listener per element with mode-based routing
@@ -274,6 +328,7 @@ const waypoints = [ ...availableKnots, null ]; // null = home position
 4. **Strategic Debugging**: Log at every critical state transition point
 5. **Group Architecture**: Design groups around logical user navigation paths
 6. **Property Timing**: Order of property changes can prevent race conditions
+7. **Focus Restoration**: ALWAYS handle both focus gain AND loss in focusedProperty listeners
 
 ## Architecture Overview
 

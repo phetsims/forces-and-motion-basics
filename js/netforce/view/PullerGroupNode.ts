@@ -245,6 +245,15 @@ export default class PullerGroupNode extends Node {
           }
         } );
       }
+      else {
+        // When this puller loses focus, restore focusability to all pullers in the toolbox
+        // (only those not attached to knots)
+        this.pullerNodes.forEach( node => {
+          if ( node.puller.knotProperty.get() === null ) {
+            node.focusable = true;
+          }
+        } );
+      }
     } );
 
     pullerNode.addInputListener( this.createKeyboardListener( pullerNode ) );

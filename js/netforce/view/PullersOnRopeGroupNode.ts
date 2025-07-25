@@ -215,6 +215,12 @@ export default class PullersOnRopeGroupNode extends Node {
           }
         } );
       }
+      else {
+        // When this puller loses focus, restore focusability to all rope pullers
+        this.ropePullerNodes.forEach( node => {
+          node.focusable = true;
+        } );
+      }
     } );
 
     // Replace the puller's existing keyboard listener with the rope-specific one
