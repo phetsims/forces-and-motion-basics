@@ -9,7 +9,6 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -41,9 +40,7 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
 
         const pullerStatus = numberAttached === 0 ?
                              ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty.value :
-                             StringUtils.fillIn( ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.pullersAttachedStringProperty.value, {
-                               0: numberAttached
-                             } );
+                             ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.pullersAttached.format( { count: numberAttached } );
 
         return `${cartStatus} ${pullerStatus}`;
       }
@@ -53,18 +50,14 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     const blueTeamCountProperty = new DerivedProperty(
       [ model.numberBluePullersAttachedProperty ],
       ( count: number ) => {
-        return count > 0 ? StringUtils.fillIn( ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttachedStringProperty.value, {
-          0: count
-        } ) : '';
+        return count > 0 ? ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttached.format( { count: count } ) : '';
       }
     );
 
     const redTeamCountProperty = new DerivedProperty(
       [ model.numberRedPullersAttachedProperty ],
       ( count: number ) => {
-        return count > 0 ? StringUtils.fillIn( ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.redTeamAttachedStringProperty.value, {
-          0: count
-        } ) : '';
+        return count > 0 ? ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.redTeamAttached.format( { count: count } ) : '';
       }
     );
 

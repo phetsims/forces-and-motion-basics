@@ -64,9 +64,21 @@ a11y:
         cartCentered: Currently, the cart is centered and not moving.
         noPullersAttached: No pullers are attached to the ropes.
         cartMoving: The cart is moving.
-        pullersAttached: "{0} pullers are attached to the ropes."
-        blueTeamAttached: "{0} blue team pullers are on the rope."
-        redTeamAttached: "{0} red team pullers are on the rope."
+        pullersAttached: |-
+                     { $count ->
+                       [one] { $count } puller is attached to the ropes.
+                      *[other] { $count } pullers are attached to the ropes.
+                     }
+        blueTeamAttached: |-
+                     { $count ->
+                       [one] { $count } blue team puller is on the rope.
+                      *[other] { $count } blue team pullers are on the rope.
+                     }
+        redTeamAttached: |-
+                     { $count ->
+                       [one] { $count } red team puller is on the rope.
+                      *[other] { $count } red team pullers are on the rope.
+                     }
       interactionHint:
         noPullers: Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
         withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.

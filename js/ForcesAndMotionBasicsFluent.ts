@@ -76,6 +76,9 @@ addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_spe
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_cartCentered', 'a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_cartMoving', 'a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_pullersAttached', 'a11y.netForceScreen.screenSummary.currentDetails.pullersAttachedStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_blueTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttachedStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_redTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.redTeamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' );
 
@@ -168,9 +171,9 @@ const ForcesAndMotionBasicsFluent = {
           cartCenteredStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_cartCentered', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty' ) ),
           noPullersAttachedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' ) ),
           cartMovingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_cartMoving', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty' ) ),
-          pullersAttachedStringProperty: _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.pullersAttachedStringProperty' ),
-          blueTeamAttachedStringProperty: _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttachedStringProperty' ),
-          redTeamAttachedStringProperty: _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.redTeamAttachedStringProperty' )
+          pullersAttached: new FluentPattern<{ count: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_pullersAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.pullersAttachedStringProperty' ), [{"name":"count","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] ),
+          blueTeamAttached: new FluentPattern<{ count: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_blueTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttachedStringProperty' ), [{"name":"count","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] ),
+          redTeamAttached: new FluentPattern<{ count: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_redTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.redTeamAttachedStringProperty' ), [{"name":"count","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] )
         },
         interactionHint: {
           noPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' ) ),

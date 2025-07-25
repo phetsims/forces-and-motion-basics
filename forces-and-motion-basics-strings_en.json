@@ -178,13 +178,13 @@
             "value": "The cart is moving."
           },
           "pullersAttached": {
-            "value": "{0} pullers are attached to the ropes."
+            "value": "{ $count ->\n  [one] { $count } puller is attached to the ropes.\n *[other] { $count } pullers are attached to the ropes.\n}"
           },
           "blueTeamAttached": {
-            "value": "{0} blue team pullers are on the rope."
+            "value": "{ $count ->\n  [one] { $count } blue team puller is on the rope.\n *[other] { $count } blue team pullers are on the rope.\n}"
           },
           "redTeamAttached": {
-            "value": "{0} red team pullers are on the rope."
+            "value": "{ $count ->\n  [one] { $count } red team puller is on the rope.\n *[other] { $count } red team pullers are on the rope.\n}"
           }
         },
         "interactionHint": {
