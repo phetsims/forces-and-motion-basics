@@ -37,7 +37,7 @@ export default class Puller extends PhetioObject {
   public readonly standOffsetX: number;
   public readonly forceProperty: TReadOnlyProperty<number>;
 
-  // whether or not the puller is currently being dragged
+  // whether the puller is currently being dragged
   public readonly userControlledProperty: BooleanProperty;
 
   // the knot that this puller is attached to

@@ -14,7 +14,6 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
@@ -25,15 +24,8 @@ export default class FlagNode extends Node {
   private readonly colorWinsStringProperty: TReadOnlyProperty<string>;
   private readonly disposeFlagNode: () => void;
 
-  /**
-   * Constructor for FlagNode
-   *
-   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param tandem
-   */
   public constructor(
-    private readonly model: NetForceModel,
-    tandem: Tandem
+    private readonly model: NetForceModel
   ) {
     super();
 

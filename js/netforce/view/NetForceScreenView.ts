@@ -504,7 +504,7 @@ export default class NetForceScreenView extends ScreenView {
       lastFlagNode && lastFlagNode.dispose();
       lastFlagNode = null;
       if ( state === 'completed' && Math.abs( x ) > 1E-6 ) {
-        lastFlagNode = new FlagNode( model, tandem.createTandem( 'flagNode' ) );
+        lastFlagNode = new FlagNode( model );
         this.addChild( lastFlagNode );
         lastFlagNode.centerX = this.layoutBounds.width / 2;
         lastFlagNode.top = 8;
