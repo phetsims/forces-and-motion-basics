@@ -221,8 +221,11 @@ export default class NetForceModel extends PhetioObject {
         this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
       } );
       puller.droppedEmitter.addListener( () => {
-        const knot = this.getTargetKnot( puller )!;
-        this.movePullerToKnot( puller, knot );
+        const knot = this.getKnotFromMode( puller );
+        if ( knot ) {
+          this.movePullerToKnot( puller, knot );
+        }
+        // If knot is null (grabbedOverHome), puller returns to toolbox automatically via mode system
       } );
       puller.knotProperty.link( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
@@ -367,6 +370,33 @@ export default class NetForceModel extends PhetioObject {
     // Only accept a target knot if the puller's head is close enough to the knot
     const threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
     return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
+  }
+
+  /**
+   * Get the knot that corresponds to the puller's current mode.
+   * For grabbed modes like 'grabbedOverLeftKnot1', returns the target knot.
+   * For 'grabbedOverHome', returns null.
+   */
+  private getKnotFromMode( puller: Puller ): Knot | null {
+    const mode = puller.modeProperty.get();
+
+    // If grabbed over home, return null (puller should return to toolbox)
+    if ( mode === 'grabbedOverHome' ) {
+      return null;
+    }
+
+    // Extract knot info from grabbed mode (e.g., 'grabbedOverLeftKnot1' -> left, index 0)
+    if ( mode.startsWith( 'grabbedOver' ) ) {
+      const isLeft = mode.includes( 'Left' );
+      const knotNumberMatch = mode.match( /(\d+)$/ );
+      if ( knotNumberMatch ) {
+        const knotIndex = parseInt( knotNumberMatch[ 1 ], 10 ) - 1; // Convert 1-based to 0-based
+        const filteredKnots = this.knots.filter( knot => knot.type === ( isLeft ? 'blue' : 'red' ) );
+        return filteredKnots[ knotIndex ] || null;
+      }
+    }
+
+    return null;
   }
 
   // Return the cart and prepare the model for another "go" run

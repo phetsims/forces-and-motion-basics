@@ -412,8 +412,11 @@ export default class NetForceScreenView extends ScreenView {
           const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
           const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
 
-          const wasInToolbox = oldMode === 'home' || ( oldMode && oldMode.startsWith( 'grabbedOverHome' ) );
-          const wasOnRope = oldMode && ( oldMode.startsWith( 'left' ) || oldMode.startsWith( 'right' ) ) && !oldMode.startsWith( 'grabbedOver' );
+          // Use pre-grab mode for more accurate transfer decisions
+          const preGrabMode = pullerNode.getPreGrabMode() || oldMode;
+          
+          const wasInToolbox = preGrabMode === 'home';
+          const wasOnRope = preGrabMode && ( preGrabMode.startsWith( 'left' ) || preGrabMode.startsWith( 'right' ) );
           
           const nowInToolbox = newMode === 'home';
           const nowOnRope = ( newMode.startsWith( 'left' ) || newMode.startsWith( 'right' ) ) && !newMode.startsWith( 'grabbedOver' );

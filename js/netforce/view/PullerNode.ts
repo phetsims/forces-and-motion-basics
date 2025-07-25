@@ -66,6 +66,9 @@ export default class PullerNode extends Image {
 
   // Track whether this puller was originally attached to a knot when grabbed (for focus management)
   private wasOriginallyOnRope = false;
+  
+  // Track the stable mode before grabbing (for transfer logic)
+  private preGrabMode: string | null = null;
 
   /**
    * Create a PullerNode for the specified puller
@@ -210,7 +213,7 @@ export default class PullerNode extends Image {
    * @param knot - the last knot that the puller was holding on to
    */
   public updatePositionKnotted( puller: Puller, model: NetForceModel, knot: Knot ): void {
-    const blueOffset = this.puller.type === 'blue' ? -60 : 0;
+    const blueOffset = this.puller.type === 'blue' ? -40 : 0;
     puller.positionProperty.set( new Vector2( knot.positionProperty.get() + blueOffset, knot.y - this.height + 90 ) );
   }
 
@@ -237,6 +240,13 @@ export default class PullerNode extends Image {
     else {
       this.setTranslation( puller.positionProperty.get() );
     }
+  }
+
+  /**
+   * Get the stable mode before the current grab (for transfer logic)
+   */
+  public getPreGrabMode(): string | null {
+    return this.preGrabMode;
   }
 
   /**
@@ -389,11 +399,22 @@ export default class PullerNode extends Image {
 
           // Use the new mode system - simply set mode to home
           puller.modeProperty.set( 'home' );
+          
+          // Follow the same sequence as drag end: position, userControlled, emit, image
+          this.updatePosition( puller, this.model );
+          puller.userControlledProperty.set( false );
+          puller.droppedEmitter.emit();
           this.updateImage( puller, this.model );
+          
+          // Add accessibility announcement for HOME drop
+          this.updateAccessibleDescription( 'toolbox' );
+          this.addAccessibleResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+          
           ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned puller to toolbox, wasAlreadyOnRope:', wasAlreadyOnRope );
 
-          // Reset the flag for next interaction
+          // Reset the flags for next interaction
           this.wasOriginallyOnRope = false;
+          this.preGrabMode = null;
 
           // For pullers that originated from rope, maintain focus after transfer
           if ( wasAlreadyOnRope ) {
@@ -428,11 +449,15 @@ export default class PullerNode extends Image {
             ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Set attached mode:', attachedMode );
           }
           
+          // Follow the same sequence as drag end: position, userControlled, emit, image
+          this.updatePosition( puller, this.model );
+          puller.userControlledProperty.set( false );
           puller.droppedEmitter.emit();
           this.updateImage( puller, this.model );
 
-          // Reset the flag for next interaction
+          // Reset the flags for next interaction
           this.wasOriginallyOnRope = false;
+          this.preGrabMode = null;
 
           // PHASE I: Handle focus after successful toolbox-to-rope drop
           if ( wasFromToolbox && originalToolboxStrategy ) {
@@ -471,7 +496,8 @@ export default class PullerNode extends Image {
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stored wasOriginallyOnRope:', this.wasOriginallyOnRope );
 
         const currentMode = puller.modeProperty.get();
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE grab - current mode:', currentMode );
+        this.preGrabMode = currentMode; // Store stable mode before grab
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE grab - current mode:', currentMode, 'stored as preGrabMode' );
 
         // Use the new disconnect method which sets the appropriate grabbed mode
         puller.disconnect();
