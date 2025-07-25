@@ -442,3 +442,56 @@ This simulation consists of 4 screens with distinct but related physics models:
 - **Time stepping**: Uses simple Euler integration (position += velocity * dt)
 - **Simplifications**: 1D motion only, g = 10 m/s² for easier calculations
 - **Friction model**: Static friction = kinetic friction, kinetic = 0.75 * static
+
+## Core Description Implementation (Accessibility)
+
+### Lessons Learned and Gotchas
+
+#### Finding the Implementation Pattern
+- **Use existing exemplars**: Look at `../membrane-transport/js/common/view/MembraneTransportScreenSummaryContent.ts` for the pattern, not documentation
+- **The pattern isn't obvious**: You need to create a separate ScreenSummaryContent class and pass it to the ScreenView constructor - this isn't documented well in quickstart guides
+
+#### Checkbox Context Responses Are Hidden
+- **Non-obvious feature**: `VerticalCheckboxGroup` checkboxes support `accessibleContextResponseChecked` and `accessibleContextResponseUnchecked` options
+- **Just pass strings**: Don't overthink it - simple strings work fine for these responses
+- **Must be in options object**: These go in the `options` property of each checkbox item, not at the top level
+
+#### Component Options Retrofitting Is Tricky
+- **Existing components don't accept options**: Many PhET components (like `PullerToolboxNode`) were written without optionize pattern
+- **Full retrofit required**: Need to import optionize, add type definitions, and restructure constructor
+- **Type definition pattern**:
+  ```typescript
+  type SelfOptions = EmptySelfOptions;
+  type ComponentOptions = ParentOptions & SelfOptions;
+  ```
+- **The optionize call is verbose**: The generic type parameters are required and confusing until you see the pattern
+
+#### Testing Accessibility Is Non-Intuitive  
+- **URL parameters matter**: Must include `?ea&logAriaLiveResponses` or you won't see anything
+- **Playwright shows structure, not behavior**: The snapshot shows the ARIA tree but not the announcements
+- **Console is where announcements appear**: Look for `[ARIA-LIVE]` prefixed messages in console, not in the DOM
+- **Wait for page load**: The accessibility tree isn't ready immediately after navigation
+
+#### StringProperty vs String Confusion
+- **Screen summary expects StringProperty**: But most other accessibility options accept plain strings
+- **Inconsistent patterns**: Some places use StringProperty, others use raw strings - no clear rule
+- **Start simple**: Use plain strings first, convert to StringProperty only if you need reactivity
+
+#### VerticalCheckboxGroup Option Structure Is Weird
+```typescript
+// This structure is not intuitive - options go in a nested object
+{
+  createNode: () => new Text(...),
+  property: model.someProperty,
+  tandemName: 'checkboxName',
+  options: {  // ← This nesting is easy to miss
+    accessibleName: 'Name',
+    accessibleContextResponseChecked: 'Response'
+  }
+}
+```
+
+#### Accessibility Tree Hierarchy Is Strict
+- **Headings matter**: `accessibleHeading` creates actual heading levels, not just labels
+- **Order matters**: The order things are added to scene graph affects reading order
+- **Groups need proper ARIA**: The existing group implementations already handle this, but custom groups need `ariaRole: 'group'`

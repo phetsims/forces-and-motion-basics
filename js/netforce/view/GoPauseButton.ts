@@ -40,7 +40,9 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
       top: 400,
       enabledPropertyOptions: {
         phetioReadOnly: true
-      }
+      },
+      accessibleName: 'Go/Pause Button',
+      accessibleHelpText: 'Press to start or pause the tug-of-war game.'
     }, providedOptions );
     const goText = new Text( ForcesAndMotionBasicsFluent.goStringProperty, {
       font: new PhetFont( 42 ),

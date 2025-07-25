@@ -24,7 +24,9 @@ export default class ReturnButton extends TextPushButton {
       tandem: tandem,
       enabledPropertyOptions: {
         phetioReadOnly: true
-      }
+      },
+      accessibleName: 'Return Cart Button',
+      accessibleHelpText: 'Press to return the cart to the center and reset for a new game.'
     } );
 
     this.mutate( options );

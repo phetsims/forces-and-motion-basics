@@ -59,18 +59,36 @@ export default class NetForceControlPanel extends Node {
     this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
       createNode: () => new Text( sumOfForcesStringProperty, fontOptions ),
       property: model.showSumOfForcesProperty,
-      tandemName: 'sumOfForcesCheckbox'
+      tandemName: 'sumOfForcesCheckbox',
+      options: {
+        accessibleName: 'Sum of Forces',
+        accessibleHelpText: 'Check to show an arrow representing the sum of all forces.',
+        accessibleContextResponseChecked: 'Sum of forces arrow shown.',
+        accessibleContextResponseUnchecked: 'Sum of forces arrow hidden.'
+      }
     }, {
       createNode: () => new Text( valuesStringProperty, fontOptions ),
       property: model.showValuesProperty,
-      tandemName: 'valuesCheckbox'
+      tandemName: 'valuesCheckbox',
+      options: {
+        accessibleName: 'Values',
+        accessibleHelpText: 'Check to show numerical values for the forces.',
+        accessibleContextResponseChecked: 'Force values shown.',
+        accessibleContextResponseUnchecked: 'Force values hidden.'
+      }
     }, {
       createNode: tandem => new HBox( {
         children: [ showSpeedTextNode, speedometerIconNode ],
         spacing: speedTextAndSpeedometerIconSpacing
       } ),
       property: model.showSpeedProperty,
-      tandemName: 'speedCheckbox'
+      tandemName: 'speedCheckbox',
+      options: {
+        accessibleName: 'Speed',
+        accessibleHelpText: 'Check to show the speedometer on the cart.',
+        accessibleContextResponseChecked: 'Speedometer shown on cart.',
+        accessibleContextResponseUnchecked: 'Speedometer hidden.'
+      }
     } ], {
       tandem: verticalCheckboxGroupTandem,
       minContentWidth: 100,

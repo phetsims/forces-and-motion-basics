@@ -61,6 +61,7 @@ import FlagNode from './FlagNode.js';
 import GoPauseButton from './GoPauseButton.js';
 import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
+import NetForceScreenSummaryContent from './NetForceScreenSummaryContent.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
@@ -178,7 +179,8 @@ export default class NetForceScreenView extends ScreenView {
 
     super( {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
-      tandem: tandem
+      tandem: tandem,
+      screenSummaryContent: new NetForceScreenSummaryContent( model )
     } );
     //Fit to the window and render the initial scene
     const width = this.layoutBounds.width;
@@ -269,8 +271,12 @@ export default class NetForceScreenView extends ScreenView {
 
 
     // create the toolboxes that hold the puller children
-    const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue' );
-    const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red' );
+    const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
+      accessibleHeading: 'Blue Team Toolbox'
+    } );
+    const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
+      accessibleHeading: 'Red Team Toolbox'
+    } );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
 
@@ -315,6 +321,9 @@ export default class NetForceScreenView extends ScreenView {
     } );
 
     this.addChild( this.cartNode );
+    
+    // Add accessible description for the cart and rope visual scene
+    this.cartNode.accessibleParagraph = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
 
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     const getPullerImage = ( puller: Puller, leaning: boolean ) => {
@@ -343,7 +352,8 @@ export default class NetForceScreenView extends ScreenView {
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
           tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
-          accessibleName: puller.size + ' ' + puller.type + ' puller'
+          accessibleName: `${puller.size} ${puller.type} puller`,
+          accessibleHelpText: 'Drag to attach to rope knots. Different sizes apply different amounts of force.'
         }
       );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
