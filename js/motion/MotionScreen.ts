@@ -2,7 +2,7 @@
 
 /**
  * The MotionScreen shows the latter 3 screens in the sim.
- * 
+ *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 

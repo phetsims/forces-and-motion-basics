@@ -110,7 +110,7 @@ export default class PullerNode extends Image {
           puller.userControlledProperty.set( false );
           puller.droppedEmitter.emit();
           this.updateImage( puller, model );
-          
+
           // Add accessible response when a puller is dropped
           if ( puller.knotProperty.get() ) {
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to rope.` );

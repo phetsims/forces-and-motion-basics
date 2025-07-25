@@ -322,7 +322,7 @@ export default class NetForceScreenView extends ScreenView {
     } );
 
     this.addChild( this.cartNode );
-    
+
     // Add accessible description for the cart and rope visual scene
     this.cartNode.accessibleParagraph = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
 
@@ -466,7 +466,7 @@ export default class NetForceScreenView extends ScreenView {
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
-        
+
         // Reset the focus state of all puller groups to ensure proper keyboard navigation
         this.leftPullerGroup.reset();
         this.rightPullerGroup.reset();

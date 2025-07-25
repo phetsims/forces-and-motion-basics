@@ -18,8 +18,8 @@ import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
 import tugIconBlueRed_png from '../images/tugIconBlueRed_png.js';
 import tugIconPurpleOrange_png from '../images/tugIconPurpleOrange_png.js';
-import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import ForcesAndMotionBasicsFluent from './ForcesAndMotionBasicsFluent.js';
+import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import MotionScreen from './motion/MotionScreen.js';
 import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
@@ -85,10 +85,10 @@ simLauncher.launch( () => {
 
   // Create and start the sim
   const sim = new Sim( forcesAndMotionBasicsTitleStringProperty, [
-      netForceScreen,
-      motionScreen,
-      frictionScreen,
-      accelerationScreen
+    netForceScreen,
+    motionScreen,
+    frictionScreen,
+    accelerationScreen
   ], {
     credits: {
       leadDesign: 'Ariel Paul, Noah Podolefsky',
