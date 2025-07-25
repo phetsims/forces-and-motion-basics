@@ -156,7 +156,7 @@ class RopeKeyboardStrategy implements PullerKeyboardStrategy {
     return null;
   }
   
-  public onDropComplete( puller: PullerNode, droppedOnKnot: boolean ): void {
+  public onDropComplete( puller: PullerNode, droppedOnKnot: boolean, wasAlreadyOnRope?: boolean ): void {
     // Rope pullers don't need special focus behavior after drops
     // The automatic transfer system in NetForceScreenView will handle group transfers
     // based on knotProperty changes, so we don't manually remove pullers here

@@ -12,8 +12,8 @@ import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js'
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
@@ -30,20 +30,21 @@ export type PullerKeyboardStrategy = {
    * @returns The puller to focus next, or null if navigation not possible
    */
   navigateToPuller( currentPuller: PullerNode, direction: 'left' | 'right' | 'up' | 'down' ): PullerNode | null;
-  
+
   /**
    * Called after a puller is successfully dropped
    * @param puller - The puller that was dropped
    * @param droppedOnKnot - Whether the puller was dropped on a knot (true) or returned to toolbox (false)
+   * @param wasAlreadyOnRope - Optional: For toolbox drops, whether the puller originated from rope (vs toolbox)
    */
-  onDropComplete( puller: PullerNode, droppedOnKnot: boolean ): void;
-  
+  onDropComplete( puller: PullerNode, droppedOnKnot: boolean, wasAlreadyOnRope?: boolean ): void;
+
   /**
    * Get the group of pullers this puller belongs to
    * @returns Array of all pullers in the same context
    */
   getPullerGroup(): PullerNode[];
-  
+
   /**
    * Context-specific accessibility message
    * @param action - The action performed
@@ -62,6 +63,9 @@ export default class PullerNode extends Image {
   private keyboardStrategy: PullerKeyboardStrategy | null = null;
   private keyboardListener: KeyboardListener<( 'enter' | 'space' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' )[]> | null = null;
   private readonly model: NetForceModel;
+
+  // Track whether this puller was originally attached to a knot when grabbed (for focus management)
+  private wasOriginallyOnRope = false;
 
   /**
    * Create a PullerNode for the specified puller
@@ -240,9 +244,9 @@ export default class PullerNode extends Image {
       this.removeInputListener( this.keyboardListener );
       this.keyboardListener = null;
     }
-    
+
     this.keyboardStrategy = strategy;
-    
+
     if ( strategy ) {
       this.keyboardListener = new KeyboardListener( {
         keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ],
@@ -259,14 +263,14 @@ export default class PullerNode extends Image {
    */
   private handleKeyboardInput( keysPressed: string ): void {
     if ( !this.keyboardStrategy ) { return; }
-    
+
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'keyboardListener fired for puller:', this.puller, 'key:', keysPressed );
     const puller = this.puller;
     const isGrabbed = puller.userControlledProperty.get();
-    
+
     // ARROW KEY HANDLING - depends on mode
     if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' || keysPressed === 'arrowUp' || keysPressed === 'arrowDown' ) {
-      
+
       if ( isGrabbed ) {
         // GRABBED MODE: Arrow keys cycle through knots + home position
         if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) {
@@ -274,15 +278,15 @@ export default class PullerNode extends Image {
           const availableKnots = this.model.knots.filter( knot =>
             knot.type === puller.type && this.model.getPuller( knot ) === null
           );
-          
+
           // Create waypoints array: [knot1, knot2, ..., knotN, HOME]
           const waypoints = [ ...availableKnots, null ]; // null = home position
-          
+
           if ( waypoints.length > 0 ) {
             // Find current waypoint index
             const currentTarget = this.model.getTargetKnot( puller );
             let currentIndex;
-            
+
             if ( currentTarget === null ) {
               // Currently at home position
               currentIndex = waypoints.length - 1; // Home is last waypoint
@@ -294,12 +298,12 @@ export default class PullerNode extends Image {
                 currentIndex = 0; // Default to first waypoint if not found
               }
             }
-            
+
             // Navigate to next/previous waypoint
             const delta = keysPressed === 'arrowLeft' ? -1 : 1;
             const nextIndex = ( currentIndex + delta + waypoints.length ) % waypoints.length;
             const targetWaypoint = waypoints[ nextIndex ];
-            
+
             if ( targetWaypoint === null ) {
               // Move to home position (original position in toolbox)
               puller.positionProperty.reset(); // Reset to original toolbox coordinates
@@ -322,56 +326,65 @@ export default class PullerNode extends Image {
         else if ( keysPressed === 'arrowRight' ) { direction = 'right'; }
         else if ( keysPressed === 'arrowUp' ) { direction = 'up'; }
         else { direction = 'down'; }
-        
+
         const nextPuller = this.keyboardStrategy.navigateToPuller( this, direction );
-        
+
         if ( nextPuller ) {
           // Make current puller non-focusable
           this.focusable = false;
-          
+
           // Make new puller focusable and focus it
           nextPuller.focusable = true;
           nextPuller.focus();
-          
+
           ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated to next puller' );
         }
       }
       return; // Don't process Enter/Space if we handled arrow keys
     }
-    
+
     // ENTER/SPACE HANDLING - grab/drop logic
     if ( keysPressed === 'enter' || keysPressed === 'space' ) {
       if ( isGrabbed ) {
         // Second press: Drop the puller (complete the interaction)
         const targetKnot = this.model.getTargetKnot( puller );
-        
+
         // Check if puller is at HOME waypoint (no target knot)
         if ( targetKnot === null ) {
           // Puller is at HOME - return to toolbox
+          // Use the stored flag to determine if puller originally came from the rope
+          const wasAlreadyOnRope = this.wasOriginallyOnRope;
+
           puller.userControlledProperty.set( false );
           puller.reset(); // This returns puller to its original toolbox position
           this.updateImage( puller, this.model );
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned puller to toolbox' );
-          
-          // Notify strategy about drop completion
-          this.keyboardStrategy.onDropComplete( this, false );
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned puller to toolbox, wasAlreadyOnRope:', wasAlreadyOnRope );
+
+          // Reset the flag for next interaction
+          this.wasOriginallyOnRope = false;
+
+          // Notify strategy about drop completion with origin information
+          this.keyboardStrategy.onDropComplete( this, false, wasAlreadyOnRope );
         }
         else {
           // Puller is at a knot - normal drop behavior
-          
+
           // PHASE I: Check if this is a toolbox puller being dropped on rope
           // Capture the strategy BEFORE any drop logic that might change it
           const wasFromToolbox = puller.knotProperty.get() === null;
           const originalToolboxStrategy = wasFromToolbox ? this.keyboardStrategy : null;
-          
+
           if ( originalToolboxStrategy ) {
             ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Captured original strategy:', originalToolboxStrategy.constructor.name );
           }
-          
+
           puller.userControlledProperty.set( false );
           puller.droppedEmitter.emit();
           this.updateImage( puller, this.model );
-          
+
+          // Reset the flag for next interaction
+          this.wasOriginallyOnRope = false;
+
           // PHASE I: Handle focus after successful toolbox-to-rope drop
           if ( wasFromToolbox && originalToolboxStrategy ) {
             // For toolbox pullers, use a one-time listener to detect successful attachment
@@ -382,10 +395,10 @@ export default class PullerNode extends Image {
                 ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Successful toolbox-to-rope drop detected, calling onDropComplete on original strategy:', originalToolboxStrategy.constructor.name );
                 ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: About to call originalToolboxStrategy.onDropComplete( this, true )' );
                 try {
-                  originalToolboxStrategy.onDropComplete( this, true );
+                  originalToolboxStrategy.onDropComplete( this, true, undefined );
                   ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Successfully called onDropComplete' );
                 }
- catch( error ) {
+                catch( error ) {
                   console.error( 'PHASE I: Error calling onDropComplete:', error );
                 }
                 puller.knotProperty.unlink( successListener );
@@ -395,7 +408,7 @@ export default class PullerNode extends Image {
           }
           else if ( !wasFromToolbox ) {
             // For non-toolbox pullers (rope-to-rope moves), notify immediately
-            this.keyboardStrategy.onDropComplete( this, true );
+            this.keyboardStrategy.onDropComplete( this, true, undefined );
           }
         }
       }
@@ -403,26 +416,30 @@ export default class PullerNode extends Image {
         // First press: Grab the puller (start showing yellow circles)
         const knot = puller.knotProperty.get();
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
-        
+
+        // Store whether this puller was originally on the rope (for focus management during HOME drops)
+        this.wasOriginallyOnRope = knot !== null;
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stored wasOriginallyOnRope:', this.wasOriginallyOnRope );
+
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE disconnect - userControlled:', puller.userControlledProperty.get(), 'knotProperty:', puller.knotProperty.get() );
-        
+
         // Set user controlled FIRST to prevent transfer during disconnect
         puller.userControlledProperty.set( true );
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Set userControlled = true' );
-        
+
         // Disconnect from current knot if attached
         puller.disconnect();
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'AFTER disconnect - userControlled:', puller.userControlledProperty.get(), 'knotProperty:', puller.knotProperty.get() );
-        
+
         this.updateImage( puller, this.model );
-        
+
         // Move to front and emit
         this.moveToFront();
         puller.userControlledEmitter.emit();
-        
+
         // Announce the grab action
         this.addAccessibleResponse( this.keyboardStrategy.getAccessibilityMessage( 'grabbed', knot ? 'knot' : 'toolbox' ) );
-        
+
         // If puller was knotted, position it at the knot location for better UX
         if ( knot ) {
           ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );

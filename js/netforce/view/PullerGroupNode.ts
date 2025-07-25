@@ -190,8 +190,8 @@ class ToolboxKeyboardStrategy implements PullerKeyboardStrategy {
     return null;
   }
   
-  public onDropComplete( puller: PullerNode, droppedOnKnot: boolean ): void {
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ToolboxKeyboardStrategy.onDropComplete called:', { puller: puller.puller, droppedOnKnot: droppedOnKnot } );
+  public onDropComplete( puller: PullerNode, droppedOnKnot: boolean, wasAlreadyOnRope?: boolean ): void {
+    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ToolboxKeyboardStrategy.onDropComplete called:', { puller: puller.puller, droppedOnKnot: droppedOnKnot, wasAlreadyOnRope: wasAlreadyOnRope } );
     
     if ( droppedOnKnot ) {
       // PHASE I: Puller was successfully dropped from toolbox to rope
@@ -200,9 +200,11 @@ class ToolboxKeyboardStrategy implements PullerKeyboardStrategy {
       this.groupNode.focusNextPullerInToolbox( puller );
     }
     else {
-      // Returned to toolbox (HOME drop), focus next available puller
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'HOME drop: Focusing next puller in toolbox' );
-      this.groupNode.focusNextPullerInToolbox( puller );
+      // Returned to toolbox (HOME drop)
+      // For ALL HOME drops (regardless of origin), keep focus on the same puller
+      // since the user cycled through all knots and returned to toolbox intentionally
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'HOME drop: Keeping focus on same puller (wasAlreadyOnRope:', wasAlreadyOnRope, ')' );
+      // Keep focus on the current puller (don't change focus)
     }
   }
   
