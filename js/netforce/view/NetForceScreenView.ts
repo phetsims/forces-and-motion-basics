@@ -507,6 +507,7 @@ export default class NetForceScreenView extends ScreenView {
     this.resetAllButton.top = this.controlPanel.bottom + BUTTON_PADDING;
 
     let lastFlagNode: FlagNode | null = null;
+    let hasAnnouncedWinner = false; // Prevent duplicate win announcements
 
     // Show the flag node when pulling is complete
     Multilink.multilink( [ model.stateProperty, model.cart.positionProperty ], ( state, x ) => {
@@ -518,16 +519,19 @@ export default class NetForceScreenView extends ScreenView {
         lastFlagNode.centerX = this.layoutBounds.width / 2;
         lastFlagNode.top = 8;
 
-        // Add ARIA-LIVE announcement for the winner
-        const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
-        let winnerAnnouncement: string;
-        if ( pullerColor === 'purpleOrange' ) {
-          winnerAnnouncement = x < 0 ? 'Purple wins!' : 'Orange wins!';
+        // Add ARIA-LIVE announcement for the winner (only once per game)
+        if ( !hasAnnouncedWinner ) {
+          const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+          let winnerAnnouncement: string;
+          if ( pullerColor === 'purpleOrange' ) {
+            winnerAnnouncement = x < 0 ? 'Purple wins!' : 'Orange wins!';
+          }
+          else {
+            winnerAnnouncement = x < 0 ? 'Blue wins!' : 'Red wins!';
+          }
+          this.addAccessibleResponse( winnerAnnouncement );
+          hasAnnouncedWinner = true;
         }
-        else {
-          winnerAnnouncement = x < 0 ? 'Blue wins!' : 'Red wins!';
-        }
-        this.addAccessibleResponse( winnerAnnouncement );
       }
     } );
 
@@ -538,6 +542,10 @@ export default class NetForceScreenView extends ScreenView {
     model.stateProperty.link( state => {
       if ( state === 'completed' ) {
         golfClap.play();
+      }
+      // Reset the win announcement flag when starting a new game
+      if ( state === 'experimenting' ) {
+        hasAnnouncedWinner = false;
       }
     } );
 
