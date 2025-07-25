@@ -13,6 +13,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -56,7 +57,7 @@ export default class PullerGroupNode extends Node {
         keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ],
         fireOnDown: false,
         fire: ( event, keysPressed ) => {
-          console.log( 'keyboardListener fired for puller:', targetPullerNode.puller, 'key:', keysPressed );
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'keyboardListener fired for puller:', targetPullerNode.puller, 'key:', keysPressed );
           const puller = targetPullerNode.puller;
           const isGrabbed = puller.userControlledProperty.get();
 
@@ -101,12 +102,12 @@ export default class PullerGroupNode extends Node {
                     // Move to home position (original position in toolbox)
                     puller.positionProperty.reset(); // Reset to original toolbox coordinates
                     targetPullerNode.updatePosition( puller, model );
-                    console.log( 'Moved puller to HOME position' );
+                    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to HOME position' );
                   }
                   else {
                     // Move to knot position
                     targetPullerNode.updatePositionKnotted( puller, model, targetWaypoint );
-                    console.log( 'Moved puller to knot:', targetWaypoint.positionProperty.get() );
+                    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to knot:', targetWaypoint.positionProperty.get() );
                   }
                 }
               }
@@ -117,7 +118,7 @@ export default class PullerGroupNode extends Node {
               const currentIndex = this.pullerNodes.indexOf( targetPullerNode );
               if ( currentIndex === -1 ) {return;}
 
-              console.log( 'Navigation mode - from puller at index:', currentIndex );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigation mode - from puller at index:', currentIndex );
               const delta = ( keysPressed === 'arrowLeft' || keysPressed === 'arrowUp' ) ? -1 : 1;
               const newIndex = currentIndex + delta;
 
@@ -131,7 +132,7 @@ export default class PullerGroupNode extends Node {
                 newPullerNode.focusable = true;
                 newPullerNode.focus();
 
-                console.log( 'Navigated from index', currentIndex, 'to index', newIndex );
+                ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from index', currentIndex, 'to index', newIndex );
               }
             }
             return; // Don't process Enter/Space if we handled arrow keys
@@ -151,7 +152,7 @@ export default class PullerGroupNode extends Node {
                 puller.userControlledProperty.set( false );
                 puller.reset(); // This returns puller to its original toolbox position
                 targetPullerNode.updateImage( puller, model );
-                console.log( 'Returned puller to toolbox' );
+                ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned puller to toolbox' );
 
                 // Focus next puller in toolbox since this one returned home
                 this.focusNextPullerInToolbox( targetPullerNode );
@@ -182,7 +183,7 @@ export default class PullerGroupNode extends Node {
             else {
               // First press: Grab the puller (start showing yellow circles)
               const knot = puller.knotProperty.get();
-              console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
 
               // Disconnect from current knot if attached
               puller.disconnect();
@@ -198,9 +199,9 @@ export default class PullerGroupNode extends Node {
 
               // If puller was knotted, position it at the knot location for better UX
               if ( knot ) {
-                console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
+                ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
                 targetPullerNode.updatePositionKnotted( puller, model, knot );
-                console.log( 'Puller position after move:', puller.positionProperty.get() );
+                ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller position after move:', puller.positionProperty.get() );
               }
               else {
                 // For pullers not yet on the rope, move to first available knot position
@@ -210,14 +211,14 @@ export default class PullerGroupNode extends Node {
                 if ( availableKnots.length > 0 ) {
                   const firstKnot = availableKnots[ 0 ];
                   targetPullerNode.updatePositionKnotted( puller, model, firstKnot );
-                  console.log( 'Moving puller from toolbox to first available knot:', firstKnot.positionProperty.get() );
+                  ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moving puller from toolbox to first available knot:', firstKnot.positionProperty.get() );
                 }
                 else {
                   // Fallback to neutral position if no knots available
                   const neutralY = 350;
                   const currentPosition = puller.positionProperty.get();
                   puller.positionProperty.set( new Vector2( currentPosition.x, neutralY ) );
-                  console.log( 'No available knots, moving to neutral position:', puller.positionProperty.get() );
+                  ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No available knots, moving to neutral position:', puller.positionProperty.get() );
                 }
               }
             }
@@ -274,7 +275,7 @@ export default class PullerGroupNode extends Node {
       // Update group highlight after removal
       this.updateGroupHighlight();
 
-      console.log( 'Removed puller from toolbox group:', pullerNode.puller );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed puller from toolbox group:', pullerNode.puller );
     }
   }
 
@@ -312,10 +313,10 @@ export default class PullerGroupNode extends Node {
       nextPuller.focusable = true;
       nextPuller.focus();
 
-      console.log( 'Focused next puller in toolbox:', nextPuller.puller );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focused next puller in toolbox:', nextPuller.puller );
     }
     else {
-      console.log( 'No more pullers in toolbox to focus' );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No more pullers in toolbox to focus' );
     }
   }
 

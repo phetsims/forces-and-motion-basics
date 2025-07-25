@@ -48,6 +48,7 @@ import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_fi
 import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
 import rope_png from '../../../images/rope_png.js';
 import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
+import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -389,7 +390,7 @@ export default class NetForceScreenView extends ScreenView {
 
       // Listen for knot attachment changes to transfer pullers between groups
       puller.knotProperty.link( ( newKnot, oldKnot ) => {
-        console.log( 'knotProperty changed:', {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'knotProperty changed:', {
           puller: puller,
           newKnot: newKnot,
           oldKnot: oldKnot,
@@ -399,7 +400,7 @@ export default class NetForceScreenView extends ScreenView {
         // Only transfer if puller is not being controlled (grabbed)
         // This prevents transfers during the grab phase when puller.disconnect() is called
         if ( !puller.userControlledProperty.get() ) {
-          console.log( 'Puller not user controlled, checking for transfer...' );
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller not user controlled, checking for transfer...' );
 
           const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
           const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
@@ -407,30 +408,30 @@ export default class NetForceScreenView extends ScreenView {
           if ( newKnot !== null && oldKnot === null ) {
             // Puller moved from toolbox to rope - only transfer if not already in rope group
             if ( toolboxGroup.hasChild( pullerNode ) && !ropeGroup.hasChild( pullerNode ) ) {
-              console.log( 'TRANSFERRING: toolbox → rope' );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: toolbox → rope' );
               toolboxGroup.removePullerNode( pullerNode );
               ropeGroup.addPullerNode( pullerNode );
-              console.log( 'Transferred puller from toolbox to rope:', puller );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Transferred puller from toolbox to rope:', puller );
             }
             else {
-              console.log( 'Puller already in correct group (rope), skipping transfer' );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller already in correct group (rope), skipping transfer' );
             }
           }
           else if ( newKnot === null && oldKnot !== null ) {
             // Puller moved from rope to toolbox - only transfer if not already in toolbox group
             if ( ropeGroup.hasChild( pullerNode ) && !toolboxGroup.hasChild( pullerNode ) ) {
-              console.log( 'TRANSFERRING: rope → toolbox' );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: rope → toolbox' );
               ropeGroup.removePullerNode( pullerNode );
               toolboxGroup.addPullerNode( pullerNode );
-              console.log( 'Transferred puller from rope to toolbox:', puller );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Transferred puller from rope to toolbox:', puller );
             }
             else {
-              console.log( 'Puller already in correct group (toolbox), skipping transfer' );
+              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller already in correct group (toolbox), skipping transfer' );
             }
           }
         }
         else {
-          console.log( 'Puller is user controlled, skipping transfer' );
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller is user controlled, skipping transfer' );
         }
       } );
     } );

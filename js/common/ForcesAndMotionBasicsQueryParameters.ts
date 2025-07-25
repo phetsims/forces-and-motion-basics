@@ -32,6 +32,11 @@ const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
   showForceArrowLabels: {
     type: 'boolean',
     defaultValue: true
+  },
+
+  // For development, for internal use, add lots of console.log for debugging alt-input
+  debugAltInput: {
+    type: 'flag'
   }
 } );
 
