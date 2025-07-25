@@ -395,24 +395,30 @@ export default class NetForceScreenView extends ScreenView {
     this.pullerNodes.forEach( pullerNode => {
       const puller = pullerNode.puller;
 
-      // Listen for knot attachment changes to transfer pullers between groups
-      puller.knotProperty.link( ( newKnot, oldKnot ) => {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'knotProperty changed:', {
+      // Listen for mode changes to transfer pullers between groups
+      puller.modeProperty.link( ( newMode, oldMode ) => {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'modeProperty changed:', {
           puller: puller,
-          newKnot: newKnot,
-          oldKnot: oldKnot,
+          newMode: newMode,
+          oldMode: oldMode,
           userControlled: puller.userControlledProperty.get()
         } );
 
         // Only transfer if puller is not being controlled (grabbed)
-        // This prevents transfers during the grab phase when puller.disconnect() is called
-        if ( !puller.userControlledProperty.get() ) {
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller not user controlled, checking for transfer...' );
+        // Grabbed modes (starting with 'grabbedOver') should not trigger transfers
+        if ( !newMode.startsWith( 'grabbedOver' ) ) {
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller not grabbed, checking for transfer...' );
 
           const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
           const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
 
-          if ( newKnot !== null && oldKnot === null ) {
+          const wasInToolbox = oldMode === 'home' || ( oldMode && oldMode.startsWith( 'grabbedOverHome' ) );
+          const wasOnRope = oldMode && ( oldMode.startsWith( 'left' ) || oldMode.startsWith( 'right' ) ) && !oldMode.startsWith( 'grabbedOver' );
+          
+          const nowInToolbox = newMode === 'home';
+          const nowOnRope = ( newMode.startsWith( 'left' ) || newMode.startsWith( 'right' ) ) && !newMode.startsWith( 'grabbedOver' );
+
+          if ( nowOnRope && wasInToolbox ) {
             // Puller moved from toolbox to rope - only transfer if not already in rope group
             if ( toolboxGroup.hasChild( pullerNode ) && !ropeGroup.hasChild( pullerNode ) ) {
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: toolbox → rope' );
@@ -424,7 +430,7 @@ export default class NetForceScreenView extends ScreenView {
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller already in correct group (rope), skipping transfer' );
             }
           }
-          else if ( newKnot === null && oldKnot !== null ) {
+          else if ( nowInToolbox && wasOnRope ) {
             // Puller moved from rope to toolbox - only transfer if not already in toolbox group
             if ( ropeGroup.hasChild( pullerNode ) && !toolboxGroup.hasChild( pullerNode ) ) {
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: rope → toolbox' );
@@ -438,7 +444,7 @@ export default class NetForceScreenView extends ScreenView {
           }
         }
         else {
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller is user controlled, skipping transfer' );
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller is grabbed, skipping transfer' );
         }
       } );
     } );

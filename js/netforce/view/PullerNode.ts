@@ -387,16 +387,26 @@ export default class PullerNode extends Image {
           // Use the stored flag to determine if puller originally came from the rope
           const wasAlreadyOnRope = this.wasOriginallyOnRope;
 
-          puller.userControlledProperty.set( false );
-          puller.reset(); // This returns puller to its original toolbox position
+          // Use the new mode system - simply set mode to home
+          puller.modeProperty.set( 'home' );
           this.updateImage( puller, this.model );
           ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned puller to toolbox, wasAlreadyOnRope:', wasAlreadyOnRope );
 
           // Reset the flag for next interaction
           this.wasOriginallyOnRope = false;
 
-          // Notify strategy about drop completion with origin information
-          this.keyboardStrategy.onDropComplete( this, false, wasAlreadyOnRope );
+          // For pullers that originated from rope, maintain focus after transfer
+          if ( wasAlreadyOnRope ) {
+            // The new mode system will handle the transfer automatically
+            // Just ensure focus is maintained
+            this.focusable = true;
+            this.focus();
+            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Maintained focus on rope puller after transfer to toolbox' );
+          }
+ else {
+            // Only call onDropComplete for pullers that were originally from toolbox
+            this.keyboardStrategy.onDropComplete( this, false, wasAlreadyOnRope );
+          }
         }
         else {
           // Puller is at a knot - normal drop behavior
@@ -410,7 +420,14 @@ export default class PullerNode extends Image {
             ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Captured original strategy:', originalToolboxStrategy.constructor.name );
           }
 
-          puller.userControlledProperty.set( false );
+          // Determine the target knot and set the appropriate mode
+          const targetKnot = this.model.getTargetKnot( puller );
+          if ( targetKnot ) {
+            const attachedMode = puller.getModeForKnot( targetKnot, false );
+            puller.modeProperty.set( attachedMode );
+            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Set attached mode:', attachedMode );
+          }
+          
           puller.droppedEmitter.emit();
           this.updateImage( puller, this.model );
 
@@ -453,15 +470,14 @@ export default class PullerNode extends Image {
         this.wasOriginallyOnRope = knot !== null;
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stored wasOriginallyOnRope:', this.wasOriginallyOnRope );
 
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE disconnect - userControlled:', puller.userControlledProperty.get(), 'knotProperty:', puller.knotProperty.get() );
+        const currentMode = puller.modeProperty.get();
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE grab - current mode:', currentMode );
 
-        // Set user controlled FIRST to prevent transfer during disconnect
-        puller.userControlledProperty.set( true );
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Set userControlled = true' );
-
-        // Disconnect from current knot if attached
+        // Use the new disconnect method which sets the appropriate grabbed mode
         puller.disconnect();
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'AFTER disconnect - userControlled:', puller.userControlledProperty.get(), 'knotProperty:', puller.knotProperty.get() );
+        
+        const newMode = puller.modeProperty.get();
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'AFTER grab - new mode:', newMode );
 
         this.updateImage( puller, this.model );
 
