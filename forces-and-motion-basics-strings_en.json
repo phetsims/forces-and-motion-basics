@@ -115,7 +115,7 @@
             "value": "The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. Blue team pullers are on the left, red team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side."
           },
           "guidingQuestion": {
-            "value": "Which team can pull with more force?"
+            "value": "How does the force from the pullers affect the motion of the cart?"
           },
           "toolboxes": {
             "heading": {

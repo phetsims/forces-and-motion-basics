@@ -41,7 +41,7 @@ a11y:
       playArea:
         heading: Play Area
         description: The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. Blue team pullers are on the left, red team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
-        guidingQuestion: "Which team can pull with more force?"
+        guidingQuestion: "How does the force from the pullers affect the motion of the cart?"
         toolboxes:
           heading: Team Toolboxes
           blueTeamHeading: Blue Team Toolbox
