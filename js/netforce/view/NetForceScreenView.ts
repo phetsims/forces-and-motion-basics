@@ -358,7 +358,7 @@ export default class NetForceScreenView extends ScreenView {
         }
       );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-      pullerGroup.addPullerNode( pullerNode );
+      pullerGroup.addPullerNode( pullerNode, this.model );
       this.pullerNodes.push( pullerNode );
     } );
 
@@ -410,7 +410,7 @@ export default class NetForceScreenView extends ScreenView {
             if ( toolboxGroup.hasChild( pullerNode ) && !ropeGroup.hasChild( pullerNode ) ) {
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: toolbox → rope' );
               toolboxGroup.removePullerNode( pullerNode );
-              ropeGroup.addPullerNode( pullerNode );
+              ropeGroup.addPullerNode( pullerNode, this.model );
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Transferred puller from toolbox to rope:', puller );
             }
             else {
@@ -422,7 +422,7 @@ export default class NetForceScreenView extends ScreenView {
             if ( ropeGroup.hasChild( pullerNode ) && !toolboxGroup.hasChild( pullerNode ) ) {
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: rope → toolbox' );
               ropeGroup.removePullerNode( pullerNode );
-              toolboxGroup.addPullerNode( pullerNode );
+              toolboxGroup.addPullerNode( pullerNode, this.model );
               ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Transferred puller from rope to toolbox:', puller );
             }
             else {
