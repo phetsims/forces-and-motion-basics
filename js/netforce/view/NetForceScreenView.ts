@@ -169,6 +169,10 @@ export default class NetForceScreenView extends ScreenView {
   private readonly controlPanel: NetForceControlPanel;
   private readonly resetAllButton: ResetAllButton;
   private readonly sumOfForcesText: Text;
+  private readonly leftPullerGroup: PullerGroupNode;
+  private readonly rightPullerGroup: PullerGroupNode;
+  private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
+  private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
@@ -328,10 +332,10 @@ export default class NetForceScreenView extends ScreenView {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
 
-    const leftPullerGroup = new PullerGroupNode( model, {
+    this.leftPullerGroup = new PullerGroupNode( model, {
       side: 'left'
     } );
-    const rightPullerGroup = new PullerGroupNode( model, {
+    this.rightPullerGroup = new PullerGroupNode( model, {
       side: 'right'
     } );
     this.model.pullers.forEach( puller => {
@@ -342,7 +346,7 @@ export default class NetForceScreenView extends ScreenView {
           accessibleName: puller.size + ' ' + puller.type + ' puller'
         }
       );
-      const pullerGroup = pullerNode.puller.type === 'blue' ? leftPullerGroup : rightPullerGroup;
+      const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
       pullerGroup.addPullerNode( pullerNode );
       this.pullerNodes.push( pullerNode );
     } );
@@ -356,18 +360,18 @@ export default class NetForceScreenView extends ScreenView {
       } );
     } );
 
-    leftToolbox.addChild( leftPullerGroup );
-    rightToolbox.addChild( rightPullerGroup );
+    leftToolbox.addChild( this.leftPullerGroup );
+    rightToolbox.addChild( this.rightPullerGroup );
 
     // Create separate rope groups for blue (left) and red (right) pullers
-    const leftRopePullerGroup = new PullersOnRopeGroupNode( model, {
+    this.leftRopePullerGroup = new PullersOnRopeGroupNode( model, {
       side: 'left'
     } );
-    const rightRopePullerGroup = new PullersOnRopeGroupNode( model, {
+    this.rightRopePullerGroup = new PullersOnRopeGroupNode( model, {
       side: 'right'
     } );
-    this.addChild( leftRopePullerGroup );
-    this.addChild( rightRopePullerGroup );
+    this.addChild( this.leftRopePullerGroup );
+    this.addChild( this.rightRopePullerGroup );
 
     // Set up listeners to transfer pullers between toolbox and rope groups
     this.pullerNodes.forEach( pullerNode => {
@@ -387,8 +391,8 @@ export default class NetForceScreenView extends ScreenView {
         if ( !puller.userControlledProperty.get() ) {
           console.log( 'Puller not user controlled, checking for transfer...' );
 
-          const toolboxGroup = puller.type === 'blue' ? leftPullerGroup : rightPullerGroup;
-          const ropeGroup = puller.type === 'blue' ? leftRopePullerGroup : rightRopePullerGroup;
+          const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
+          const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
 
           if ( newKnot !== null && oldKnot === null ) {
             // Puller moved from toolbox to rope - only transfer if not already in rope group
@@ -451,6 +455,12 @@ export default class NetForceScreenView extends ScreenView {
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
+        
+        // Reset the focus state of all puller groups to ensure proper keyboard navigation
+        this.leftPullerGroup.reset();
+        this.rightPullerGroup.reset();
+        this.leftRopePullerGroup.reset();
+        this.rightRopePullerGroup.reset();
       },
       radius: 23,
       tandem: tandem.createTandem( 'resetAllButton' )

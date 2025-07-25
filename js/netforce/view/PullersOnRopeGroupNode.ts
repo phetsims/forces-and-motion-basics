@@ -266,6 +266,24 @@ export default class PullersOnRopeGroupNode extends Node {
       this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
     }
   }
+
+  /**
+   * Reset the focus state of all pullers in this rope group to ensure proper tab navigation after reset
+   */
+  public reset(): void {
+    // Restore focusability to all rope pullers
+    this.ropePullerNodes.forEach( pullerNode => {
+      pullerNode.focusable = true;
+    } );
+
+    // If there are pullers on the rope, make the first one focusable but don't focus it
+    if ( this.ropePullerNodes.length > 0 ) {
+      // Reset focus state - make first puller focusable, others non-focusable initially
+      this.ropePullerNodes.forEach( ( pullerNode, index ) => {
+        pullerNode.focusable = index === 0;
+      } );
+    }
+  }
 }
 
 forcesAndMotionBasics.register( 'PullersOnRopeGroupNode', PullersOnRopeGroupNode );

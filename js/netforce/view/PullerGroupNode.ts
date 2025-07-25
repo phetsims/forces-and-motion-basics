@@ -315,6 +315,30 @@ export default class PullerGroupNode extends Node {
       console.log( 'No more pullers in toolbox to focus' );
     }
   }
+
+  /**
+   * Reset the focus state of all pullers in this group to ensure proper tab navigation after reset
+   */
+  public reset(): void {
+    // Restore focusability to all pullers in the toolbox (not attached to knots)
+    this.pullerNodes.forEach( pullerNode => {
+      if ( pullerNode.puller.knotProperty.get() === null ) {
+        pullerNode.focusable = true;
+      }
+    } );
+
+    // If there are pullers in the toolbox, make the first one focusable but don't focus it
+    const pullersInToolbox = this.pullerNodes.filter( pullerNode =>
+      pullerNode.puller.knotProperty.get() === null
+    );
+    
+    if ( pullersInToolbox.length > 0 ) {
+      // Reset focus state - make first puller focusable, others non-focusable initially
+      pullersInToolbox.forEach( ( pullerNode, index ) => {
+        pullerNode.focusable = index === 0;
+      } );
+    }
+  }
 }
 
 forcesAndMotionBasics.register( 'PullerGroupNode', PullerGroupNode );
