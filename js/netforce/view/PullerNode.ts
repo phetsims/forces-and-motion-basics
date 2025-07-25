@@ -16,7 +16,7 @@ import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBa
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
-import Puller from '../model/Puller.js';
+import Puller, { PullerMode } from '../model/Puller.js';
 
 /**
  * Strategy interface for keyboard navigation behavior.
@@ -61,14 +61,18 @@ export default class PullerNode extends Image {
   public standImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
   private keyboardStrategy: PullerKeyboardStrategy | null = null;
-  private keyboardListener: KeyboardListener<( 'enter' | 'space' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' )[]> | null = null;
+  private keyboardListener: KeyboardListener<( 'enter' | 'space' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' | 'escape' )[]> | null = null;
   private readonly model: NetForceModel;
 
   // Track whether this puller was originally attached to a knot when grabbed (for focus management)
   private wasOriginallyOnRope = false;
   
   // Track the stable mode before grabbing (for transfer logic)
-  private preGrabMode: string | null = null;
+  private preGrabMode: PullerMode | null = null;
+  
+  // Track original state for escape key functionality
+  private originalMode: PullerMode | null = null;
+  private originalPosition: Vector2 | null = null;
 
   /**
    * Create a PullerNode for the specified puller
@@ -265,7 +269,7 @@ export default class PullerNode extends Image {
 
     if ( strategy ) {
       this.keyboardListener = new KeyboardListener( {
-        keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ],
+        keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown', 'escape' ],
         fireOnDown: false,
         fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
       } );
@@ -278,7 +282,7 @@ export default class PullerNode extends Image {
    * @param knot - The knot to describe
    * @returns A string like "left knot 1" or "right knot 3"
    */
-  private getKnotDescription( knot: Knot ): string {
+  public getKnotDescription( knot: Knot ): string {
     // Find the index of this knot among knots of the same type
     const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
     const index = sameTypeKnots.indexOf( knot );
@@ -385,6 +389,14 @@ export default class PullerNode extends Image {
       return; // Don't process Enter/Space if we handled arrow keys
     }
 
+    // ESCAPE HANDLING - cancel and return to original position
+    if ( keysPressed === 'escape' ) {
+      if ( isGrabbed ) {
+        this.handleEscapeKey();
+      }
+      return; // Don't process other keys if we handled escape
+    }
+
     // ENTER/SPACE HANDLING - grab/drop logic
     if ( keysPressed === 'enter' || keysPressed === 'space' ) {
       if ( isGrabbed ) {
@@ -415,6 +427,8 @@ export default class PullerNode extends Image {
           // Reset the flags for next interaction
           this.wasOriginallyOnRope = false;
           this.preGrabMode = null;
+          this.originalMode = null;
+          this.originalPosition = null;
 
           // For pullers that originated from rope, maintain focus after transfer
           if ( wasAlreadyOnRope ) {
@@ -458,6 +472,8 @@ export default class PullerNode extends Image {
           // Reset the flags for next interaction
           this.wasOriginallyOnRope = false;
           this.preGrabMode = null;
+          this.originalMode = null;
+          this.originalPosition = null;
 
           // PHASE I: Handle focus after successful toolbox-to-rope drop
           if ( wasFromToolbox && originalToolboxStrategy ) {
@@ -497,7 +513,12 @@ export default class PullerNode extends Image {
 
         const currentMode = puller.modeProperty.get();
         this.preGrabMode = currentMode; // Store stable mode before grab
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE grab - current mode:', currentMode, 'stored as preGrabMode' );
+        
+        // Store original state for escape key functionality
+        this.originalMode = currentMode;
+        this.originalPosition = puller.positionProperty.get().copy();
+        
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE grab - current mode:', currentMode, 'stored as preGrabMode and originalMode' );
 
         // Use the new disconnect method which sets the appropriate grabbed mode
         puller.disconnect();
@@ -545,6 +566,42 @@ export default class PullerNode extends Image {
         }
       }
     }
+  }
+
+  /**
+   * Handle escape key press - return puller to its original position and state
+   */
+  private handleEscapeKey(): void {
+    if ( !this.originalMode || !this.originalPosition ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No original state stored for escape key' );
+      return;
+    }
+
+    const puller = this.puller;
+    
+    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Escape pressed - returning puller to original state:', this.originalMode );
+
+    // Reset to original mode and position
+    puller.modeProperty.set( this.originalMode );
+    puller.positionProperty.set( this.originalPosition );
+    
+    // Follow the same sequence as normal drop: position, userControlled, emit, image
+    this.updatePosition( puller, this.model );
+    puller.userControlledProperty.set( false );
+    puller.droppedEmitter.emit();
+    this.updateImage( puller, this.model );
+
+    // Add accessibility announcement for escape/cancel
+    const wasOnRope = this.originalMode.startsWith( 'left' ) || this.originalMode.startsWith( 'right' );
+    const locationDescription = wasOnRope ? this.getKnotDescription( puller.knotProperty.get()! ) : 'toolbox';
+    this.updateAccessibleDescription( locationDescription );
+    this.addAccessibleResponse( `Cancelled. ${puller.size} ${puller.type} puller returned to ${locationDescription}.` );
+
+    // Reset the stored state for next interaction
+    this.wasOriginallyOnRope = false;
+    this.preGrabMode = null;
+    this.originalMode = null;
+    this.originalPosition = null;
   }
 }
 
