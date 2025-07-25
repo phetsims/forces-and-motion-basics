@@ -414,10 +414,10 @@ export default class NetForceScreenView extends ScreenView {
 
           // Use pre-grab mode for more accurate transfer decisions
           const preGrabMode = pullerNode.getPreGrabMode() || oldMode;
-          
+
           const wasInToolbox = preGrabMode === 'home';
           const wasOnRope = preGrabMode && ( preGrabMode.startsWith( 'left' ) || preGrabMode.startsWith( 'right' ) );
-          
+
           const nowInToolbox = newMode === 'home';
           const nowOnRope = ( newMode.startsWith( 'left' ) || newMode.startsWith( 'right' ) ) && !newMode.startsWith( 'grabbedOver' );
 
@@ -517,6 +517,17 @@ export default class NetForceScreenView extends ScreenView {
         this.addChild( lastFlagNode );
         lastFlagNode.centerX = this.layoutBounds.width / 2;
         lastFlagNode.top = 8;
+
+        // Add ARIA-LIVE announcement for the winner
+        const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+        let winnerAnnouncement: string;
+        if ( pullerColor === 'purpleOrange' ) {
+          winnerAnnouncement = x < 0 ? 'Purple wins!' : 'Orange wins!';
+        }
+        else {
+          winnerAnnouncement = x < 0 ? 'Blue wins!' : 'Red wins!';
+        }
+        this.addAccessibleResponse( winnerAnnouncement );
       }
     } );
 
