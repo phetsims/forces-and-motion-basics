@@ -610,6 +610,29 @@ export default class PullerNode extends Image {
     this.originalMode = null;
     this.originalPosition = null;
   }
+
+  /**
+   * Reset the puller node to its initial state
+   */
+  public reset(): void {
+    // Reset internal tracking state
+    this.wasOriginallyOnRope = false;
+    this.preGrabMode = null;
+    this.originalMode = null;
+    this.originalPosition = null;
+
+    // Update visual state based on reset model
+    this.updateImage( this.puller, this.model );
+    this.updatePosition( this.puller, this.model );
+    
+    // Update accessibility description to reflect toolbox position
+    this.updateAccessibleDescription( 'toolbox' );
+    
+    // Ensure focusable state is correct (pullers in toolbox should be focusable)
+    if ( this.puller.knotProperty.get() === null ) {
+      this.focusable = true;
+    }
+  }
 }
 
 forcesAndMotionBasics.register( 'PullerNode', PullerNode );

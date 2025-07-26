@@ -479,6 +479,9 @@ export default class NetForceScreenView extends ScreenView {
       listener: () => {
         model.reset();
 
+        // Reset all puller nodes
+        this.pullerNodes.forEach( pullerNode => pullerNode.reset() );
+
         // Reset the focus state of all puller groups to ensure proper keyboard navigation
         this.leftPullerGroup.reset();
         this.rightPullerGroup.reset();

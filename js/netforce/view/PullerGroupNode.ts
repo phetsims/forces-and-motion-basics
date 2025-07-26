@@ -145,6 +145,12 @@ export default class PullerGroupNode extends Node {
    * Reset the focus state of all pullers in this group to ensure proper tab navigation after reset
    */
   public reset(): void {
+    // Sort pullers by position to ensure consistent order after reset
+    this.sortPullers();
+    
+    // Update the group highlight bounds after reset
+    this.updateGroupHighlight();
+
     // Restore focusability to all pullers in the toolbox (not attached to knots)
     this.pullerNodes.forEach( pullerNode => {
       if ( pullerNode.puller.knotProperty.get() === null ) {

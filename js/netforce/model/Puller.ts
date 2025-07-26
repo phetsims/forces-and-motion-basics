@@ -245,6 +245,7 @@ export default class Puller extends PhetioObject {
     this.modeProperty.reset(); // This will trigger updates to derived properties
     this.positionProperty.reset();
     this.lastPlacementProperty.reset();
+    // forceProperty is constant for each puller, no need to reset
   }
 
   /**

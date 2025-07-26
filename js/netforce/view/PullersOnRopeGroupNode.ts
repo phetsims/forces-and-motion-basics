@@ -117,6 +117,12 @@ export default class PullersOnRopeGroupNode extends Node {
    * Reset the focus state of all pullers in this rope group to ensure proper tab navigation after reset
    */
   public reset(): void {
+    // Sort pullers by position to ensure consistent order after reset
+    this.sortPullers();
+    
+    // Update the group highlight bounds after reset
+    this.updateGroupHighlight();
+
     // Restore focusability to all rope pullers
     this.ropePullerNodes.forEach( pullerNode => {
       pullerNode.focusable = true;
