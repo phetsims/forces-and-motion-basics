@@ -198,6 +198,15 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
     if ( !droppedOnStack ) {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned stack item to toolbox - transfer system will handle group changes' );
     }
+    else if ( droppedOnStack && wasAlreadyOnStack ) {
+      // Item was dropped back onto stack - ensure other stack items are non-focusable
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped back on stack, managing focus within stack group' );
+      this.groupNode.stackItemNodes.forEach( node => {
+        if ( node !== item ) {
+          node.focusable = false;
+        }
+      } );
+    }
   }
   
   public getItemGroup(): ItemNode[] {

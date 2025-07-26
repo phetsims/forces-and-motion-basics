@@ -519,10 +519,20 @@ export default class ItemNode extends Node {
       }
 
       // Handle focus management after drop
-      if ( droppedOnStack && !this.wasOriginallyOnStack && this.toolboxGroup ) {
-        // Item was dropped from toolbox to stack - focus next toolbox item
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped from toolbox to stack, focusing next toolbox item' );
-        this.toolboxGroup.focusNextItemInToolbox( this );
+      if ( droppedOnStack ) {
+        if ( !this.wasOriginallyOnStack && this.toolboxGroup ) {
+          // Item was dropped from toolbox to stack - focus next toolbox item
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped from toolbox to stack, focusing next toolbox item' );
+          this.toolboxGroup.focusNextItemInToolbox( this );
+        }
+        else if ( this.wasOriginallyOnStack ) {
+          // Item was dropped back onto stack from where it came - preserve focus on this item
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped back onto stack, preserving focus' );
+          // Ensure this item remains focusable and focused after the transfer
+          this.focusable = true;
+          // Focus will be maintained since item is staying on the stack
+          this.focus();
+        }
       }
 
       // Still notify the strategy for other handling
