@@ -40,6 +40,8 @@ import MotionModel from '../model/MotionModel.js';
 import AccelerometerNode from './AccelerometerNode.js';
 import AppliedForceControl from './AppliedForceControl.js';
 import ItemNode from './ItemNode.js';
+import ItemStackGroupNode, { StackKeyboardStrategy } from './ItemStackGroupNode.js';
+import ItemToolboxGroupNode, { ToolboxKeyboardStrategy } from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
@@ -68,6 +70,10 @@ export default class MotionScreenView extends ScreenView {
   private readonly frictionArrow: ReadoutArrow;
   private readonly itemModelToNodeMap = new Map<Item, ItemNode>();
   private readonly toolboxContainer: Node;
+
+  // Keyboard navigation groups
+  private readonly itemToolboxGroup: ItemToolboxGroupNode;
+  private readonly itemStackGroup: ItemStackGroupNode;
 
   /**
    * @param model model for the entire screen
@@ -298,8 +304,22 @@ export default class MotionScreenView extends ScreenView {
 
       //Provide a reference from the item model to its view so that view dimensions can be looked up easily
       this.itemModelToNodeMap.set( item, itemNode );
-      itemLayer.addChild( itemNode );
+      // Don't add to itemLayer yet - will be added to groups
     }
+
+    // Create keyboard navigation groups AFTER items are created
+    this.itemToolboxGroup = new ItemToolboxGroupNode( model, {
+      tandem: tandem.createTandem( 'itemToolboxGroup' )
+    } );
+    this.itemStackGroup = new ItemStackGroupNode( model, {
+      tandem: tandem.createTandem( 'itemStackGroup' )
+    } );
+
+    // Add all items to toolbox group initially and set up keyboard strategies
+    this.itemNodes.forEach( itemNode => {
+      this.itemToolboxGroup.addItemNode( itemNode, model );
+      itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
+    } );
 
     //Add the force arrows & associated readouts in front of the items
     const arrowScale = 0.3;
@@ -366,6 +386,10 @@ export default class MotionScreenView extends ScreenView {
     this.toolboxContainer.addChild( rightItemToolboxNode );
     this.addChild( this.toolboxContainer );
 
+    // Add keyboard navigation groups to scene graph  
+    this.addChild( this.itemToolboxGroup );
+    this.addChild( this.itemStackGroup );
+
     // Allow moveToFront on the individual layers, while still being behind the arrows and readouts
     const itemLayer = new Node( { children: [ leftItemLayer, rightItemLayer ] } );
     this.addChild( itemLayer );
@@ -411,7 +435,12 @@ export default class MotionScreenView extends ScreenView {
     //After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
 
+    // Set up transfer logic for keyboard groups based on item stack state
+    this.setupKeyboardGroupTransfers( model );
+
     this.pdomPlayAreaNode.pdomOrder = [
+      this.itemToolboxGroup,
+      this.itemStackGroup,
       itemLayer,
       appliedForceControl
     ];
@@ -452,6 +481,45 @@ export default class MotionScreenView extends ScreenView {
 
   public isToolboxContainerVisible(): boolean {
     return this.toolboxContainer.visible;
+  }
+
+  /**
+   * Set up the transfer logic for moving items between keyboard groups based on stack state
+   */
+  private setupKeyboardGroupTransfers( model: MotionModel ): void {
+    // Listen to each item's inStackProperty to transfer between groups
+    this.itemNodes.forEach( itemNode => {
+      itemNode.item.inStackProperty.link( inStack => {
+        if ( inStack ) {
+          // Item moved to stack - transfer from toolbox group to stack group
+          if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
+            this.itemToolboxGroup.removeItemNode( itemNode );
+            this.itemStackGroup.addItemNode( itemNode, model );
+            // Update keyboard strategy for stack navigation
+            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+          }
+        }
+        else {
+          // Item moved to toolbox - transfer from stack group to toolbox group
+          if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
+            this.itemStackGroup.removeItemNode( itemNode );
+            this.itemToolboxGroup.addItemNode( itemNode, model );
+            // Update keyboard strategy for toolbox navigation
+            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
+          }
+        }
+      } );
+    } );
+
+    // Listen to model stackedItems changes for proper ordering in stack group
+    model.stackedItems.lengthProperty.link( () => {
+      // Re-sort stack items when stack changes
+      this.itemStackGroup.stackItemNodes.forEach( stackItemNode => {
+        // Trigger re-sort by removing and re-adding
+        this.itemStackGroup.removeItemNode( stackItemNode );
+        this.itemStackGroup.addItemNode( stackItemNode, model );
+      } );
+    } );
   }
 }
 

@@ -10,16 +10,20 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
+import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
@@ -29,11 +33,58 @@ import MotionScreenView from './MotionScreenView.js';
 //Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
+/**
+ * Strategy interface for keyboard navigation behavior.
+ * Different contexts (toolbox vs stack) can provide their own implementations.
+ */
+export type ItemKeyboardStrategy = {
+  /**
+   * Navigate between items in the same context
+   * @param currentItem - The item currently focused
+   * @param direction - The navigation direction
+   * @returns The item to focus next, or null if navigation not possible
+   */
+  navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null;
+
+  /**
+   * Called after an item is successfully dropped
+   * @param item - The item that was dropped
+   * @param droppedOnStack - Whether the item was dropped on stack (true) or returned to toolbox (false)
+   * @param wasAlreadyOnStack - Optional: For toolbox drops, whether the item originated from stack (vs toolbox)
+   */
+  onDropComplete( item: ItemNode, droppedOnStack: boolean, wasAlreadyOnStack?: boolean ): void;
+
+  /**
+   * Get the group of items this item belongs to
+   * @returns Array of all items in the same context
+   */
+  getItemGroup(): ItemNode[];
+
+  /**
+   * Context-specific accessibility message
+   * @param action - The action performed
+   * @param location - Where the action occurred
+   * @returns The accessibility message to announce
+   */
+  getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'stack' | 'toolbox' ): string;
+};
+
 export default class ItemNode extends Node {
   private readonly uniqueId: number;
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
   public readonly sittingImageNode: Image;
+  private readonly dragListener: SoundDragListener;
+  private keyboardStrategy: ItemKeyboardStrategy | null = null;
+  private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
+  private readonly model: MotionModel;
+  private readonly motionView: MotionScreenView;
+
+  // Track whether this item was originally on stack when grabbed (for focus management)
+  private wasOriginallyOnStack = false;
+
+  // Track original state for escape key functionality
+  private originalPosition: Vector2 | null = null;
 
   /**
    * Constructor for ItemNode
@@ -62,8 +113,17 @@ export default class ItemNode extends Node {
       phetioFeatured: true,
       phetioInputEnabledPropertyInstrumented: true,
       visiblePropertyOptions: { phetioFeatured: true },
-      tagName: 'button'
+      tagName: 'button',
+
+      // Keyboard accessibility
+      focusable: true,
+      ariaRole: 'button',
+      accessibleName: `${item.name} item`,
+      descriptionContent: 'Drag to move to skateboard or use keyboard'
     } );
+
+    this.model = model;
+    this.motionView = motionView;
 
     this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
@@ -116,52 +176,16 @@ export default class ItemNode extends Node {
       }
     };
 
-    // called on end drag, update direction of girl or man to match current applied force and velocity of model
-    const updatePersonDirection = ( person: Item ) => {
 
-      // default direction is to the left
-      let direction: 'left' | 'right' = 'left';
-
-      // if girl or man is alread on the stack, direction should match person that is already on the stack
-      let personInStack;
-      for ( let i = 0; i < model.stackedItems.length; i++ ) {
-        const itemInStack = model.stackedItems.get( i );
-
-        if ( itemInStack === person ) {
-          // skip the person that is currently being dragged
-          continue;
-        }
-        if ( itemInStack.name === 'girl' || itemInStack.name === 'man' ) {
-          personInStack = itemInStack;
-        }
-      }
-      if ( personInStack ) {
-        direction = personInStack.directionProperty.get();
-      }
-      else if ( person.context.appliedForceProperty.get() !== 0 ) {
-        // if there is an applied force on the stack, direction should match applied force
-        if ( person.context.appliedForceProperty.get() > 0 ) {
-          direction = 'right';
-        }
-        else {
-          direction = 'left';
-        }
-      }
-      else {
-        // if there is no applied force, check velocity for direction
-        if ( person.context.velocityProperty.get() > 0 ) {
-          direction = 'right';
-        }
-      }
-      person.directionProperty.set( direction );
-    };
-
-    const dragListener = new SoundDragListener( {
+    this.dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       positionProperty: item.positionProperty,
 
       //When picking up an object, remove it from the stack.
       start: () => {
+        // Track original state for keyboard escape functionality
+        this.wasOriginallyOnStack = item.inStackProperty.get();
+        this.originalPosition = item.positionProperty.get().copy();
 
         //Move it to front (z-order)
         this.moveToFront();
@@ -184,13 +208,16 @@ export default class ItemNode extends Node {
       // End the drag
       end: () => {
         item.userControlledProperty.set( false );
+
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        if ( item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible() ) {
+        const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
+
+        if ( droppedOnStack ) {
           moveToStack();
 
           // if item is man or girl, rotate depending on the current model velocity and applied force
           if ( item.name === 'man' || item.name === 'girl' ) {
-            updatePersonDirection( item );
+            this.updatePersonDirection( item );
           }
         }
         else {
@@ -198,15 +225,20 @@ export default class ItemNode extends Node {
           item.animateHome();
           this.labelNode.centerX = normalImageNode.centerX;
         }
+
+        // Notify keyboard strategy about drop completion
+        if ( this.keyboardStrategy ) {
+          this.keyboardStrategy.onDropComplete( this, droppedOnStack, this.wasOriginallyOnStack );
+        }
       }
     } );
-    this.addInputListener( dragListener );
+    this.addInputListener( this.dragListener );
 
     // if the item is being dragged, cancel the drag on reset
     model.resetAllEmitter.addListener( () => {
       // cancel the drag and reset item
       if ( item.userControlledProperty.get() ) {
-        dragListener.interrupt();
+        this.dragListener.interrupt();
         item.reset();
       }
     } );
@@ -320,6 +352,226 @@ export default class ItemNode extends Node {
       scaledWidth = this.normalImageNode.width * this.item.getCurrentScale();
     }
     return scaledWidth;
+  }
+
+  /**
+   * Set the keyboard navigation strategy for this item.
+   * This determines how keyboard interactions behave based on context (toolbox vs stack).
+   * @param strategy - The strategy to use, or null to remove keyboard handling
+   */
+  public setKeyboardStrategy( strategy: ItemKeyboardStrategy | null ): void {
+    // Remove existing keyboard listener if any
+    if ( this.keyboardListener ) {
+      this.removeInputListener( this.keyboardListener );
+      this.keyboardListener = null;
+    }
+
+    this.keyboardStrategy = strategy;
+
+    if ( strategy ) {
+      // Create keyboard listener for item interactions
+      this.keyboardListener = new KeyboardListener( {
+        keys: [
+          'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+          'enter', 'space', 'escape'
+        ],
+        fireOnDown: false,
+        fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
+      } );
+      this.addInputListener( this.keyboardListener );
+    }
+  }
+
+  /**
+   * Handle keyboard input based on current state and strategy
+   * @param keysPressed - The key(s) that were pressed
+   */
+  private handleKeyboardInput( keysPressed: string ): void {
+    if ( !this.keyboardStrategy ) { return; }
+
+    const isGrabbed = this.item.userControlledProperty.get();
+
+    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ItemNode keyboard input:', keysPressed, 'grabbed:', isGrabbed );
+
+    if ( keysPressed === 'escape' ) {
+      this.handleEscapeKey();
+      return;
+    }
+
+    if ( keysPressed === 'enter' || keysPressed === 'space' ) {
+      this.handleSelectKey();
+      return;
+    }
+
+    // Arrow key navigation
+    if ( [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ].includes( keysPressed ) ) {
+      const direction = keysPressed.replace( 'arrow', '' ).toLowerCase() as 'left' | 'right' | 'up' | 'down';
+
+      if ( isGrabbed ) {
+        this.handleGrabbedNavigation( direction );
+      }
+      else {
+        this.handleNormalNavigation( direction );
+      }
+    }
+  }
+
+  /**
+   * Handle escape key to cancel current interaction
+   */
+  private handleEscapeKey(): void {
+    if ( this.item.userControlledProperty.get() && this.originalPosition ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Escape key - canceling interaction' );
+
+      // Cancel interaction and return to original position
+      this.item.userControlledProperty.set( false );
+      this.item.positionProperty.set( this.originalPosition );
+
+      // Restore original stack state
+      if ( this.wasOriginallyOnStack ) {
+        this.item.inStackProperty.set( true );
+        // Add back to stack if it was originally there
+        if ( !this.model.stackedItems.includes( this.item ) ) {
+          this.model.stackedItems.add( this.item );
+        }
+      }
+      else {
+        this.item.inStackProperty.set( false );
+        this.item.animateHome();
+      }
+    }
+  }
+
+  /**
+   * Handle enter/space key to grab or drop item
+   */
+  private handleSelectKey(): void {
+    const isGrabbed = this.item.userControlledProperty.get();
+
+    if ( !isGrabbed ) {
+      // Grab the item
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbing item via keyboard' );
+      this.wasOriginallyOnStack = this.item.inStackProperty.get();
+      this.originalPosition = this.item.positionProperty.get().copy();
+
+      this.item.userControlledProperty.set( true );
+
+      // Remove from stack if it was there
+      const index = this.model.stackedItems.indexOf( this.item );
+      if ( index >= 0 ) {
+        this.model.spliceStack( index );
+      }
+      this.item.inStackProperty.set( false );
+      this.item.cancelAnimation();
+
+      // Move to front
+      this.moveToFront();
+
+      // TODO: Add accessibility announcement, see https://github.com/phetsims/forces-and-motion-basics/issues/374
+    }
+    else {
+      // Drop the item - implement the drop logic manually (similar to dragListener end)
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Dropping item via keyboard' );
+
+      this.item.userControlledProperty.set( false );
+
+      // Determine drop location using same logic as mouse drop
+      const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
+
+      if ( droppedOnStack ) {
+        // Move to stack - reuse the moveToStack logic from dragListener
+        this.item.inStackProperty.set( true );
+        const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
+        this.item.animateTo( this.motionView.layoutBounds.width / 2 - imageWidth / 2, this.motionView.topOfStack - this.height, 'stack' );
+        this.model.stackedItems.add( this.item );
+        if ( this.model.stackedItems.length > 3 ) {
+          this.model.spliceStackBottom();
+        }
+
+        // Handle person direction if needed
+        if ( this.item.name === 'man' || this.item.name === 'girl' ) {
+          // Reuse the updatePersonDirection function from the drag listener
+          this.updatePersonDirection( this.item );
+        }
+      }
+      else {
+        // Return to toolbox
+        this.item.animateHome();
+        this.labelNode.centerX = this.normalImageNode.centerX;
+      }
+
+      // Notify keyboard strategy about drop completion
+      if ( this.keyboardStrategy ) {
+        this.keyboardStrategy.onDropComplete( this, droppedOnStack, this.wasOriginallyOnStack );
+      }
+    }
+  }
+
+  /**
+   * Handle navigation while item is grabbed (cycling through drop positions)
+   */
+  private handleGrabbedNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
+    // TODO: Implement cycling through drop positions (toolbox vs stack positions), see https://github.com/phetsims/forces-and-motion-basics/issues/374
+    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation not yet implemented:', direction );
+  }
+
+  /**
+   * Handle normal navigation between items using strategy
+   */
+  private handleNormalNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
+    if ( !this.keyboardStrategy ) { return; }
+
+    const nextItem = this.keyboardStrategy.navigateToItem( this, direction );
+    if ( nextItem ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigating to next item:', nextItem.item.name );
+
+      // Update focus management
+      this.focusable = false;
+      nextItem.focusable = true;
+      nextItem.focus();
+    }
+  }
+
+  /**
+   * Update direction of girl or man to match current applied force and velocity of model
+   * Called on end drag (both mouse and keyboard)
+   */
+  private updatePersonDirection( person: Item ): void {
+    // default direction is to the left
+    let direction: 'left' | 'right' = 'left';
+
+    // if girl or man is already on the stack, direction should match person that is already on the stack
+    let personInStack;
+    for ( let i = 0; i < this.model.stackedItems.length; i++ ) {
+      const itemInStack = this.model.stackedItems.get( i );
+
+      if ( itemInStack === person ) {
+        // skip the person that is currently being dragged
+        continue;
+      }
+      if ( itemInStack.name === 'girl' || itemInStack.name === 'man' ) {
+        personInStack = itemInStack;
+      }
+    }
+    if ( personInStack ) {
+      direction = personInStack.directionProperty.get();
+    }
+    else if ( person.context.appliedForceProperty.get() !== 0 ) {
+      // if there is an applied force on the stack, direction should match applied force
+      if ( person.context.appliedForceProperty.get() > 0 ) {
+        direction = 'right';
+      }
+      else {
+        direction = 'left';
+      }
+    }
+    else {
+      // if there is no applied force, check velocity for direction
+      if ( person.context.velocityProperty.get() > 0 ) {
+        direction = 'right';
+      }
+    }
+    person.directionProperty.set( direction );
   }
 }
 
