@@ -66,6 +66,11 @@ addToMapIfDefined( 'keyboardHelpDialog_selectPuller', 'keyboardHelpDialog.select
 addToMapIfDefined( 'keyboardHelpDialog_grabPuller', 'keyboardHelpDialog.grabPullerStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedPuller', 'keyboardHelpDialog.moveGrabbedPullerStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropPuller', 'keyboardHelpDialog.dropPullerStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_itemNavigation', 'keyboardHelpDialog.itemNavigationStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_selectItem', 'keyboardHelpDialog.selectItemStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_gameControls', 'keyboardHelpDialog.gameControlsStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_startOrPauseGame', 'keyboardHelpDialog.startOrPauseGameStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_returnCart', 'keyboardHelpDialog.returnCartStringProperty' );
@@ -158,6 +163,11 @@ const ForcesAndMotionBasicsFluent = {
     grabPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_grabPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabPullerStringProperty' ) ),
     moveGrabbedPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_moveGrabbedPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedPullerStringProperty' ) ),
     dropPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_dropPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropPullerStringProperty' ) ),
+    itemNavigationStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_itemNavigation', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.itemNavigationStringProperty' ) ),
+    selectItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_selectItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.selectItemStringProperty' ) ),
+    grabItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_grabItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabItemStringProperty' ) ),
+    moveGrabbedItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_moveGrabbedItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedItemStringProperty' ) ),
+    dropItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_dropItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropItemStringProperty' ) ),
     gameControlsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_gameControls', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.gameControlsStringProperty' ) ),
     startOrPauseGameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_startOrPauseGame', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.startOrPauseGameStringProperty' ) ),
     returnCartStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_returnCart', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.returnCartStringProperty' ) )

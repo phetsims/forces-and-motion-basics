@@ -9,9 +9,9 @@
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
-import NetForceKeyboardHelpContent from '../netforce/view/NetForceKeyboardHelpContent.js';
 import MotionModel from './model/MotionModel.js';
 import MotionScreenView from './view/MotionScreenView.js';
+import MotionKeyboardHelpContent from './view/MotionKeyboardHelpContent.js';
 
 type SelfOptions = EmptySelfOptions;
 type MotionScreenOptions = ScreenOptions;
@@ -21,8 +21,7 @@ export default class MotionScreen extends Screen<MotionModel, MotionScreenView> 
 
     const options = optionize<MotionScreenOptions, SelfOptions, ScreenOptions>()( {
 
-      // TODO: Create separate ones for the motion screens, see https://github.com/phetsims/forces-and-motion-basics/issues/373
-      createKeyboardHelpNode: () => new NetForceKeyboardHelpContent()
+      createKeyboardHelpNode: () => new MotionKeyboardHelpContent()
     }, providedOptions );
     const tandem = options.tandem;
 

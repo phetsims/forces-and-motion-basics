@@ -63,6 +63,11 @@ type StringsType = {
     'grabPullerStringProperty': LocalizedStringProperty;
     'moveGrabbedPullerStringProperty': LocalizedStringProperty;
     'dropPullerStringProperty': LocalizedStringProperty;
+    'itemNavigationStringProperty': LocalizedStringProperty;
+    'selectItemStringProperty': LocalizedStringProperty;
+    'grabItemStringProperty': LocalizedStringProperty;
+    'moveGrabbedItemStringProperty': LocalizedStringProperty;
+    'dropItemStringProperty': LocalizedStringProperty;
     'gameControlsStringProperty': LocalizedStringProperty;
     'startOrPauseGameStringProperty': LocalizedStringProperty;
     'returnCartStringProperty': LocalizedStringProperty;

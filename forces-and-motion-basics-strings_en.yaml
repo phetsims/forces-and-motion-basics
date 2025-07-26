@@ -45,6 +45,11 @@ keyboardHelpDialog:
   grabPuller:                          Grab selected puller
   moveGrabbedPuller:                   Move grabbed puller
   dropPuller:                          Drop puller
+  itemNavigation:                      Item Navigation
+  selectItem:                          Select item
+  grabItem:                            Grab selected item
+  moveGrabbedItem:                     Move grabbed item
+  dropItem:                            Drop item
   gameControls:                        Game Controls
   startOrPauseGame:                    Start or pause game
   returnCart:                          Return cart to center

@@ -132,6 +132,21 @@
     "dropPuller": {
       "value": "Drop puller"
     },
+    "itemNavigation": {
+      "value": "Item Navigation"
+    },
+    "selectItem": {
+      "value": "Select item"
+    },
+    "grabItem": {
+      "value": "Grab selected item"
+    },
+    "moveGrabbedItem": {
+      "value": "Move grabbed item"
+    },
+    "dropItem": {
+      "value": "Drop item"
+    },
     "gameControls": {
       "value": "Game Controls"
     },
