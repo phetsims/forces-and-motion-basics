@@ -220,12 +220,22 @@ export default class NetForceModel extends PhetioObject {
         this.numberBluePullersAttachedProperty.set( this.countBluePullersAttached() );
         this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
       } );
-      puller.droppedEmitter.addListener( () => {
-        const knot = this.getKnotFromMode( puller );
+      puller.droppedEmitter.addListener( ( interactionType: 'mouse' | 'keyboard' ) => {
+        let knot: Knot | null;
+
+        if ( interactionType === 'mouse' ) {
+          // For mouse interactions, use position-based target detection
+          knot = this.getTargetKnot( puller );
+        }
+        else {
+          // For keyboard interactions, use mode-based target detection
+          knot = this.getKnotFromMode( puller );
+        }
+
         if ( knot ) {
           this.movePullerToKnot( puller, knot );
         }
-        // If knot is null (grabbedOverHome), puller returns to toolbox automatically via mode system
+        // If knot is null, puller returns to toolbox automatically via mode system (keyboard) or position (mouse)
       } );
       puller.knotProperty.link( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );

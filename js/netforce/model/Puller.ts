@@ -73,7 +73,9 @@ export default class Puller extends PhetioObject {
   public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>;
 
   // emits an event when the puller is dropped
-  public readonly droppedEmitter = new Emitter();
+  public readonly droppedEmitter = new Emitter<[ 'mouse' | 'keyboard' ]>( {
+    parameters: [ { valueType: 'string' } ]
+  } );
 
   // emits an event when the puller starts being user controlled
   public readonly userControlledEmitter = new Emitter();

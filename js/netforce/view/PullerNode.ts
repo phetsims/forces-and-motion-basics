@@ -162,7 +162,7 @@ export default class PullerNode extends Image {
         end: () => {
           this.updatePosition( puller, model );
           puller.userControlledProperty.set( false );
-          puller.droppedEmitter.emit();
+          puller.droppedEmitter.emit( 'mouse' );
           this.updateImage( puller, model );
 
           // Add accessible response when a puller is dropped
@@ -422,7 +422,7 @@ export default class PullerNode extends Image {
           // Follow the same sequence as drag end: position, userControlled, emit, image
           this.updatePosition( puller, this.model );
           puller.userControlledProperty.set( false );
-          puller.droppedEmitter.emit();
+          puller.droppedEmitter.emit( 'keyboard' );
           this.updateImage( puller, this.model );
           
           // Add accessibility announcement for HOME drop
@@ -473,7 +473,7 @@ export default class PullerNode extends Image {
           // Follow the same sequence as drag end: position, userControlled, emit, image
           this.updatePosition( puller, this.model );
           puller.userControlledProperty.set( false );
-          puller.droppedEmitter.emit();
+          puller.droppedEmitter.emit( 'keyboard' );
           this.updateImage( puller, this.model );
 
           // Reset the flags for next interaction
@@ -595,7 +595,7 @@ export default class PullerNode extends Image {
     // Follow the same sequence as normal drop: position, userControlled, emit, image
     this.updatePosition( puller, this.model );
     puller.userControlledProperty.set( false );
-    puller.droppedEmitter.emit();
+    puller.droppedEmitter.emit( 'keyboard' );
     this.updateImage( puller, this.model );
 
     // Add accessibility announcement for escape/cancel
