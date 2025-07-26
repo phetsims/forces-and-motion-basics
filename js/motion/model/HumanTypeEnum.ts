@@ -1,4 +1,4 @@
-// Copyright 2024, University of Colorado Boulder
+// Copyright 2024-2025, University of Colorado Boulder
 
 /**
  * HumanTypeEnum identifies the human object type and sets the holding, standing, or sitting image for the human.
