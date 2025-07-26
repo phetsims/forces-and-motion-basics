@@ -487,29 +487,65 @@ export default class MotionScreenView extends ScreenView {
    * Set up the transfer logic for moving items between keyboard groups based on stack state
    */
   private setupKeyboardGroupTransfers( model: MotionModel ): void {
-    // Listen to each item's inStackProperty to transfer between groups
-    this.itemNodes.forEach( itemNode => {
-      itemNode.item.inStackProperty.link( inStack => {
-        // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
-        if ( !itemNode.item.userControlledProperty.get() ) {
-          if ( inStack ) {
-            // Item moved to stack - transfer from toolbox group to stack group
-            if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-              this.itemToolboxGroup.removeItemNode( itemNode );
-              this.itemStackGroup.addItemNode( itemNode, model );
-              // Update keyboard strategy for stack navigation
-              itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
-            }
+    // Helper function to perform group transfer logic
+    const performGroupTransfer = ( itemNode: ItemNode ) => {
+      const inStack = itemNode.item.inStackProperty.get();
+      const userControlled = itemNode.item.userControlledProperty.get();
+
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `performGroupTransfer for ${itemNode.item.name}: inStack=${inStack}, userControlled=${userControlled}` );
+
+      // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
+      if ( !userControlled ) {
+        if ( inStack ) {
+          // Item moved to stack - transfer from toolbox group to stack group
+          if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
+            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Transferring ${itemNode.item.name} from toolbox to stack` );
+            this.itemToolboxGroup.removeItemNode( itemNode );
+            this.itemStackGroup.addItemNode( itemNode, model );
+            // Update keyboard strategy for stack navigation
+            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+          }
+        }
+        else {
+          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Transferring ${itemNode.item.name} from stack to toolbox` );
+          // Item moved to toolbox - ensure it's in toolbox group and not in stack group
+          // Remove from stack group if it's there
+          if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
+            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Removing ${itemNode.item.name} from stack group` );
+            this.itemStackGroup.removeItemNode( itemNode );
+          }
+          // Add to toolbox group if it's not already there
+          if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
+            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Adding ${itemNode.item.name} to toolbox group` );
+            this.itemToolboxGroup.addItemNode( itemNode, model );
+            // Update keyboard strategy for toolbox navigation
+            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
           }
           else {
-            // Item moved to toolbox - transfer from stack group to toolbox group
-            if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
-              this.itemStackGroup.removeItemNode( itemNode );
-              this.itemToolboxGroup.addItemNode( itemNode, model );
-              // Update keyboard strategy for toolbox navigation
-              itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
-            }
+            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `${itemNode.item.name} already in toolbox group` );
           }
+        }
+      }
+      else {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Skipping transfer for ${itemNode.item.name} because userControlled=${userControlled}` );
+      }
+    };
+
+    // Listen to each item's properties to transfer between groups
+    this.itemNodes.forEach( itemNode => {
+      // Listen to inStackProperty changes
+      itemNode.item.inStackProperty.link( inStack => {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `inStackProperty changed for ${itemNode.item.name}: inStack=${inStack}, userControlled=${itemNode.item.userControlledProperty.get()}` );
+        performGroupTransfer( itemNode );
+      } );
+
+      // Also listen to userControlledProperty changes to catch cases where
+      // an item finishes animating after a keyboard drop
+      itemNode.item.userControlledProperty.link( userControlled => {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `userControlledProperty changed for ${itemNode.item.name}: userControlled=${userControlled}, inStack=${itemNode.item.inStackProperty.get()}` );
+        // Only trigger transfer when user control ends (not when it starts)
+        if ( !userControlled ) {
+          performGroupTransfer( itemNode );
         }
       } );
     } );
