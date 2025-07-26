@@ -25,6 +25,7 @@ import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBa
 import NetForceModel from './netforce/model/NetForceModel.js';
 import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
 import NetForceScreenView from './netforce/view/NetForceScreenView.js';
+import NetForceKeyboardHelpContent from './netforce/view/NetForceKeyboardHelpContent.js';
 
 const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsFluent[ 'forces-and-motion-basics' ].titleStringProperty;
 
@@ -61,6 +62,7 @@ simLauncher.launch( () => {
     model => new NetForceScreenView( model, netForceScreenTandem.createTandem( 'view' ) ), {
       name: ForcesAndMotionBasicsFluent.netForceStringProperty,
       homeScreenIcon: new ScreenIcon( netForceScreenIconNode, screenIconOptions ),
+      createKeyboardHelpNode: () => new NetForceKeyboardHelpContent(),
       tandem: netForceScreenTandem
     }
   );

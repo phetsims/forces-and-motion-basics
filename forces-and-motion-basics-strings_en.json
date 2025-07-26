@@ -104,6 +104,44 @@
   "orangeWins": {
     "value": "Orange Wins!"
   },
+  "keyboardHelpDialog": {
+    "fromAnywhereInSim": {
+      "value": "From Anywhere in Sim"
+    },
+    "startGame": {
+      "value": "Start game"
+    },
+    "pauseGame": {
+      "value": "Pause game"
+    },
+    "returnCartToCenter": {
+      "value": "Return cart to center"
+    },
+    "pullerNavigation": {
+      "value": "Puller Navigation"
+    },
+    "selectPuller": {
+      "value": "Select puller"
+    },
+    "grabPuller": {
+      "value": "Grab selected puller"
+    },
+    "moveGrabbedPuller": {
+      "value": "Move grabbed puller to knot"
+    },
+    "dropPuller": {
+      "value": "Drop puller"
+    },
+    "gameControls": {
+      "value": "Game Controls"
+    },
+    "startOrPauseGame": {
+      "value": "Start or pause game"
+    },
+    "returnCart": {
+      "value": "Return cart to center"
+    }
+  },
   "a11y": {
     "netForceScreen": {
       "screenSummary": {

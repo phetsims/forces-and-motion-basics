@@ -34,6 +34,21 @@ purpleAndOrange:                       Purple and Orange
 purpleWins:                            Purple Wins!
 orangeWins:                            Orange Wins!
 
+# keyboard help dialog strings
+keyboardHelpDialog:
+  fromAnywhereInSim:                   From Anywhere in Screen
+  startGame:                           Start game
+  pauseGame:                           Pause game
+  returnCartToCenter:                  Return cart to center
+  pullerNavigation:                    Puller Navigation
+  selectPuller:                        Select puller
+  grabPuller:                          Grab selected puller
+  moveGrabbedPuller:                   Move grabbed puller
+  dropPuller:                          Drop puller
+  gameControls:                        Game Controls
+  startOrPauseGame:                    Start or pause game
+  returnCart:                          Return cart to center
+
 # accessibility strings
 a11y:
   netForceScreen:

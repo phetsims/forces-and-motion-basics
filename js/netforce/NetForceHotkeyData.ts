@@ -11,13 +11,16 @@ import TReadOnlyProperty from '../../../axon/js/TReadOnlyProperty.js';
 import HotkeyData from '../../../scenery/js/input/HotkeyData.js';
 import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
 
 function createHotkeyData( keys: OneKeyStroke[],
-                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string> ): HotkeyData {
+                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
+                           global = false ): HotkeyData {
   return new HotkeyData( {
     keys: keys,
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: keyboardHelpDialogLabelStringProperty
+    keyboardHelpDialogLabelStringProperty: keyboardHelpDialogLabelStringProperty,
+    global: global
   } );
 }
 
@@ -49,6 +52,25 @@ export default class NetForceHotkeyData {
       new StringProperty( 'Cancel and return puller to original position' )
     )
   };
+
+  // Global hotkeys
+  public static readonly GO_HOTKEY_DATA = createHotkeyData(
+    [ 'alt+g' ],
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.startGameStringProperty,
+    true
+  );
+
+  public static readonly PAUSE_HOTKEY_DATA = createHotkeyData(
+    [ 'alt+p' ],
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.pauseGameStringProperty,
+    true
+  );
+
+  public static readonly RETURN_CART_HOTKEY_DATA = createHotkeyData(
+    [ 'alt+b' ],
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnCartToCenterStringProperty,
+    true
+  );
 }
 
 forcesAndMotionBasics.register( 'NetForceHotkeyData', NetForceHotkeyData );

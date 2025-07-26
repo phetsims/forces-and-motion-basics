@@ -57,6 +57,18 @@ addToMapIfDefined( 'blueAndRed', 'blueAndRedStringProperty' );
 addToMapIfDefined( 'purpleAndOrange', 'purpleAndOrangeStringProperty' );
 addToMapIfDefined( 'purpleWins', 'purpleWinsStringProperty' );
 addToMapIfDefined( 'orangeWins', 'orangeWinsStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_fromAnywhereInSim', 'keyboardHelpDialog.fromAnywhereInSimStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_startGame', 'keyboardHelpDialog.startGameStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_pauseGame', 'keyboardHelpDialog.pauseGameStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_returnCartToCenter', 'keyboardHelpDialog.returnCartToCenterStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_pullerNavigation', 'keyboardHelpDialog.pullerNavigationStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_selectPuller', 'keyboardHelpDialog.selectPullerStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_grabPuller', 'keyboardHelpDialog.grabPullerStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedPuller', 'keyboardHelpDialog.moveGrabbedPullerStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_dropPuller', 'keyboardHelpDialog.dropPullerStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_gameControls', 'keyboardHelpDialog.gameControlsStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_startOrPauseGame', 'keyboardHelpDialog.startOrPauseGameStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_returnCart', 'keyboardHelpDialog.returnCartStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_heading', 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' );
@@ -135,7 +147,22 @@ const ForcesAndMotionBasicsFluent = {
   purpleAndOrangeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'purpleAndOrange', _.get( ForcesAndMotionBasicsStrings, 'purpleAndOrangeStringProperty' ) ),
   purpleWinsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'purpleWins', _.get( ForcesAndMotionBasicsStrings, 'purpleWinsStringProperty' ) ),
   orangeWinsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'orangeWins', _.get( ForcesAndMotionBasicsStrings, 'orangeWinsStringProperty' ) ),
-  _comment_0: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
+  _comment_0: new FluentComment( {"comment":"keyboard help dialog strings","associatedKey":"keyboardHelpDialog"} ),
+  keyboardHelpDialog: {
+    fromAnywhereInSimStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_fromAnywhereInSim', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.fromAnywhereInSimStringProperty' ) ),
+    startGameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_startGame', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.startGameStringProperty' ) ),
+    pauseGameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_pauseGame', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.pauseGameStringProperty' ) ),
+    returnCartToCenterStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_returnCartToCenter', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.returnCartToCenterStringProperty' ) ),
+    pullerNavigationStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_pullerNavigation', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.pullerNavigationStringProperty' ) ),
+    selectPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_selectPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.selectPullerStringProperty' ) ),
+    grabPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_grabPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabPullerStringProperty' ) ),
+    moveGrabbedPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_moveGrabbedPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedPullerStringProperty' ) ),
+    dropPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_dropPuller', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropPullerStringProperty' ) ),
+    gameControlsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_gameControls', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.gameControlsStringProperty' ) ),
+    startOrPauseGameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_startOrPauseGame', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.startOrPauseGameStringProperty' ) ),
+    returnCartStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_returnCart', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.returnCartStringProperty' ) )
+  },
+  _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
     netForceScreen: {
       screenSummary: {

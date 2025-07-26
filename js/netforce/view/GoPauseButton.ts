@@ -10,6 +10,7 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
@@ -17,6 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
+import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
 //Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 //If the node is already the largest, don't wrap it.
@@ -68,6 +70,25 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     } );
 
     this.centerX = layoutWidth / 2;
+
+    // Create global keyboard listeners for Go (alt+g) and Pause (alt+p)
+    KeyboardListener.createGlobal( this, {
+      keyStringProperties: NetForceHotkeyData.GO_HOTKEY_DATA.keyStringProperties,
+      fire: () => {
+        if ( this.enabled && !model.isRunningProperty.get() ) {
+          model.isRunningProperty.set( true );
+        }
+      }
+    } );
+
+    KeyboardListener.createGlobal( this, {
+      keyStringProperties: NetForceHotkeyData.PAUSE_HOTKEY_DATA.keyStringProperties,
+      fire: () => {
+        if ( this.enabled && model.isRunningProperty.get() ) {
+          model.isRunningProperty.set( false );
+        }
+      }
+    } );
   }
 }
 

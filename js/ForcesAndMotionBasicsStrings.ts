@@ -53,6 +53,20 @@ type StringsType = {
   'purpleAndOrangeStringProperty': LocalizedStringProperty;
   'purpleWinsStringProperty': LocalizedStringProperty;
   'orangeWinsStringProperty': LocalizedStringProperty;
+  'keyboardHelpDialog': {
+    'fromAnywhereInSimStringProperty': LocalizedStringProperty;
+    'startGameStringProperty': LocalizedStringProperty;
+    'pauseGameStringProperty': LocalizedStringProperty;
+    'returnCartToCenterStringProperty': LocalizedStringProperty;
+    'pullerNavigationStringProperty': LocalizedStringProperty;
+    'selectPullerStringProperty': LocalizedStringProperty;
+    'grabPullerStringProperty': LocalizedStringProperty;
+    'moveGrabbedPullerStringProperty': LocalizedStringProperty;
+    'dropPullerStringProperty': LocalizedStringProperty;
+    'gameControlsStringProperty': LocalizedStringProperty;
+    'startOrPauseGameStringProperty': LocalizedStringProperty;
+    'returnCartStringProperty': LocalizedStringProperty;
+  };
   'a11y': {
     'netForceScreen': {
       'screenSummary': {
