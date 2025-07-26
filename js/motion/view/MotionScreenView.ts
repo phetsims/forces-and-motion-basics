@@ -490,22 +490,25 @@ export default class MotionScreenView extends ScreenView {
     // Listen to each item's inStackProperty to transfer between groups
     this.itemNodes.forEach( itemNode => {
       itemNode.item.inStackProperty.link( inStack => {
-        if ( inStack ) {
-          // Item moved to stack - transfer from toolbox group to stack group
-          if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-            this.itemToolboxGroup.removeItemNode( itemNode );
-            this.itemStackGroup.addItemNode( itemNode, model );
-            // Update keyboard strategy for stack navigation
-            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+        // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
+        if ( !itemNode.item.userControlledProperty.get() ) {
+          if ( inStack ) {
+            // Item moved to stack - transfer from toolbox group to stack group
+            if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
+              this.itemToolboxGroup.removeItemNode( itemNode );
+              this.itemStackGroup.addItemNode( itemNode, model );
+              // Update keyboard strategy for stack navigation
+              itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+            }
           }
-        }
-        else {
-          // Item moved to toolbox - transfer from stack group to toolbox group
-          if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
-            this.itemStackGroup.removeItemNode( itemNode );
-            this.itemToolboxGroup.addItemNode( itemNode, model );
-            // Update keyboard strategy for toolbox navigation
-            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
+          else {
+            // Item moved to toolbox - transfer from stack group to toolbox group
+            if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
+              this.itemStackGroup.removeItemNode( itemNode );
+              this.itemToolboxGroup.addItemNode( itemNode, model );
+              // Update keyboard strategy for toolbox navigation
+              itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
+            }
           }
         }
       } );
@@ -513,12 +516,16 @@ export default class MotionScreenView extends ScreenView {
 
     // Listen to model stackedItems changes for proper ordering in stack group
     model.stackedItems.lengthProperty.link( () => {
-      // Re-sort stack items when stack changes
-      this.itemStackGroup.stackItemNodes.forEach( stackItemNode => {
-        // Trigger re-sort by removing and re-adding
-        this.itemStackGroup.removeItemNode( stackItemNode );
-        this.itemStackGroup.addItemNode( stackItemNode, model );
-      } );
+      // Only re-sort when no items are being grabbed (to avoid focus loss during interaction)
+      const anyItemGrabbed = this.itemNodes.some( itemNode => itemNode.item.userControlledProperty.get() );
+      if ( !anyItemGrabbed ) {
+        // Re-sort stack items when stack changes
+        this.itemStackGroup.stackItemNodes.forEach( stackItemNode => {
+          // Trigger re-sort by removing and re-adding
+          this.itemStackGroup.removeItemNode( stackItemNode );
+          this.itemStackGroup.addItemNode( stackItemNode, model );
+        } );
+      }
     } );
   }
 }

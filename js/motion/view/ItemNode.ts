@@ -86,7 +86,7 @@ export default class ItemNode extends Node {
 
   // Track original state for escape key functionality
   private originalPosition: Vector2 | null = null;
-  
+
   // Keep reference to the toolbox group for focus management after drops
   private toolboxGroup: ItemToolboxGroupNode | null = null;
 
@@ -372,7 +372,7 @@ export default class ItemNode extends Node {
     }
 
     this.keyboardStrategy = strategy;
-    
+
     // Store toolbox group reference if provided
     if ( toolboxGroup ) {
       this.toolboxGroup = toolboxGroup;
@@ -524,7 +524,7 @@ export default class ItemNode extends Node {
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped from toolbox to stack, focusing next toolbox item' );
         this.toolboxGroup.focusNextItemInToolbox( this );
       }
-      
+
       // Still notify the strategy for other handling
       if ( this.keyboardStrategy ) {
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Calling keyboardStrategy.onDropComplete with:', {
@@ -546,9 +546,16 @@ export default class ItemNode extends Node {
   private handleGrabbedNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
     if ( !this.originalPosition ) { return; }
 
-    // For grabbed items, any arrow key cycles between home and stack positions
+    // For grabbed items, any arrow key cycles between home (toolbox) and stack positions
     const currentY = this.item.positionProperty.get().y;
-    const isAtHome = currentY > 350; // toolbox position
+
+    // Determine the home position - for items grabbed from stack, use their reset position (toolbox)
+    // For items grabbed from toolbox, use their original position
+    const homePosition = this.wasOriginallyOnStack ?
+                         new Vector2( this.item.positionProperty.initialValue.x, this.item.positionProperty.initialValue.y ) :
+                         this.originalPosition;
+
+    const isAtHome = Math.abs( currentY - homePosition.y ) < 50; // Within 50 pixels of home position
 
     if ( isAtHome ) {
       // Move to stack position
@@ -560,7 +567,7 @@ export default class ItemNode extends Node {
     }
     else {
       // Move back to home position
-      this.item.positionProperty.set( this.originalPosition );
+      this.item.positionProperty.set( homePosition );
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation: moved to home position' );
     }
   }
