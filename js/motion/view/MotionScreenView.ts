@@ -318,7 +318,7 @@ export default class MotionScreenView extends ScreenView {
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
       this.itemToolboxGroup.addItemNode( itemNode, model );
-      itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
+      itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
     } );
 
     //Add the force arrows & associated readouts in front of the items
@@ -505,7 +505,7 @@ export default class MotionScreenView extends ScreenView {
             this.itemStackGroup.removeItemNode( itemNode );
             this.itemToolboxGroup.addItemNode( itemNode, model );
             // Update keyboard strategy for toolbox navigation
-            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
+            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
           }
         }
       } );

@@ -84,8 +84,8 @@ export default class ItemToolboxGroupNode extends Node {
       }
     } );
 
-    // Set the keyboard strategy for toolbox items
-    itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ) );
+    // Set the keyboard strategy for toolbox items and pass reference to this group
+    itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ), this );
   }
 
   /**
@@ -142,10 +142,14 @@ export default class ItemToolboxGroupNode extends Node {
    * focus the next available item in the same toolbox
    */
   public focusNextItemInToolbox( droppedItemNode: ItemNode ): void {
+    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'focusNextItemInToolbox called for:', droppedItemNode.item.name );
+    
     // Find items still in the toolboxes (not on stack)
     const itemsInToolbox = this.itemNodes.filter( itemNode =>
       !itemNode.item.inStackProperty.get() && itemNode !== droppedItemNode
     );
+
+    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Items still in toolbox:', itemsInToolbox.map( item => item.item.name ) );
 
     if ( itemsInToolbox.length > 0 ) {
       // Focus the first available item in the toolboxes
@@ -226,17 +230,17 @@ export class ToolboxKeyboardStrategy implements ItemKeyboardStrategy {
   public onDropComplete( item: ItemNode, droppedOnStack: boolean, wasAlreadyOnStack?: boolean ): void {
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ToolboxKeyboardStrategy.onDropComplete called:', { item: item.item.name, droppedOnStack: droppedOnStack, wasAlreadyOnStack: wasAlreadyOnStack } );
     
-    if ( droppedOnStack ) {
+    if ( droppedOnStack && !wasAlreadyOnStack ) {
       // Item was successfully dropped from toolbox to stack
       // Focus the next available item in the toolbox
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focusing next item in toolbox after successful stack drop' );
       this.groupNode.focusNextItemInToolbox( item );
     }
     else {
-      // Returned to toolbox (HOME drop)
+      // Returned to toolbox (HOME drop) or was already on stack
       // For ALL HOME drops (regardless of origin), keep focus on the same item
       // since the user cycled through all positions and returned to toolbox intentionally
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'HOME drop: Keeping focus on same item (wasAlreadyOnStack:', wasAlreadyOnStack, ')' );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'HOME drop or already on stack: Keeping focus on same item (wasAlreadyOnStack:', wasAlreadyOnStack, ')' );
       // Keep focus on the current item (don't change focus)
     }
   }

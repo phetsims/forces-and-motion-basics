@@ -28,6 +28,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
+import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
 import MotionScreenView from './MotionScreenView.js';
 
 //Workaround for https://github.com/phetsims/scenery/issues/108
@@ -85,6 +86,9 @@ export default class ItemNode extends Node {
 
   // Track original state for escape key functionality
   private originalPosition: Vector2 | null = null;
+  
+  // Keep reference to the toolbox group for focus management after drops
+  private toolboxGroup: ItemToolboxGroupNode | null = null;
 
   /**
    * Constructor for ItemNode
@@ -358,8 +362,9 @@ export default class ItemNode extends Node {
    * Set the keyboard navigation strategy for this item.
    * This determines how keyboard interactions behave based on context (toolbox vs stack).
    * @param strategy - The strategy to use, or null to remove keyboard handling
+   * @param toolboxGroup - Optional reference to the toolbox group (used for focus management)
    */
-  public setKeyboardStrategy( strategy: ItemKeyboardStrategy | null ): void {
+  public setKeyboardStrategy( strategy: ItemKeyboardStrategy | null, toolboxGroup?: ItemToolboxGroupNode ): void {
     // Remove existing keyboard listener if any
     if ( this.keyboardListener ) {
       this.removeInputListener( this.keyboardListener );
@@ -367,6 +372,11 @@ export default class ItemNode extends Node {
     }
 
     this.keyboardStrategy = strategy;
+    
+    // Store toolbox group reference if provided
+    if ( toolboxGroup ) {
+      this.toolboxGroup = toolboxGroup;
+    }
 
     if ( strategy ) {
       // Create keyboard listener for item interactions
@@ -467,19 +477,28 @@ export default class ItemNode extends Node {
       // Move to front
       this.moveToFront();
 
+      // If grabbing from toolbox, immediately move to proposed stack position
+      if ( !this.wasOriginallyOnStack ) {
+        const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
+        const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
+        const stackY = this.motionView.topOfStack - this.height;
+        this.item.positionProperty.set( new Vector2( stackX, stackY ) );
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved to proposed stack position' );
+      }
+
       // TODO: Add accessibility announcement, see https://github.com/phetsims/forces-and-motion-basics/issues/374
     }
     else {
-      // Drop the item - implement the drop logic manually (similar to dragListener end)
+      // Drop the item at current position
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Dropping item via keyboard' );
 
       this.item.userControlledProperty.set( false );
 
-      // Determine drop location using same logic as mouse drop
+      // Determine drop location based on current position
       const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
 
       if ( droppedOnStack ) {
-        // Move to stack - reuse the moveToStack logic from dragListener
+        // Complete the stack placement
         this.item.inStackProperty.set( true );
         const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
         this.item.animateTo( this.motionView.layoutBounds.width / 2 - imageWidth / 2, this.motionView.topOfStack - this.height, 'stack' );
@@ -490,7 +509,6 @@ export default class ItemNode extends Node {
 
         // Handle person direction if needed
         if ( this.item.name === 'man' || this.item.name === 'girl' ) {
-          // Reuse the updatePersonDirection function from the drag listener
           this.updatePersonDirection( this.item );
         }
       }
@@ -500,9 +518,24 @@ export default class ItemNode extends Node {
         this.labelNode.centerX = this.normalImageNode.centerX;
       }
 
-      // Notify keyboard strategy about drop completion
+      // Handle focus management after drop
+      if ( droppedOnStack && !this.wasOriginallyOnStack && this.toolboxGroup ) {
+        // Item was dropped from toolbox to stack - focus next toolbox item
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped from toolbox to stack, focusing next toolbox item' );
+        this.toolboxGroup.focusNextItemInToolbox( this );
+      }
+      
+      // Still notify the strategy for other handling
       if ( this.keyboardStrategy ) {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Calling keyboardStrategy.onDropComplete with:', {
+          strategy: this.keyboardStrategy.constructor.name,
+          droppedOnStack: droppedOnStack,
+          wasOriginallyOnStack: this.wasOriginallyOnStack
+        } );
         this.keyboardStrategy.onDropComplete( this, droppedOnStack, this.wasOriginallyOnStack );
+      }
+      else {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No keyboard strategy to notify about drop' );
       }
     }
   }
@@ -511,8 +544,25 @@ export default class ItemNode extends Node {
    * Handle navigation while item is grabbed (cycling through drop positions)
    */
   private handleGrabbedNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
-    // TODO: Implement cycling through drop positions (toolbox vs stack positions), see https://github.com/phetsims/forces-and-motion-basics/issues/374
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation not yet implemented:', direction );
+    if ( !this.originalPosition ) { return; }
+
+    // For grabbed items, any arrow key cycles between home and stack positions
+    const currentY = this.item.positionProperty.get().y;
+    const isAtHome = currentY > 350; // toolbox position
+
+    if ( isAtHome ) {
+      // Move to stack position
+      const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
+      const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
+      const stackY = this.motionView.topOfStack - this.height;
+      this.item.positionProperty.set( new Vector2( stackX, stackY ) );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation: moved to stack position' );
+    }
+    else {
+      // Move back to home position
+      this.item.positionProperty.set( this.originalPosition );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation: moved to home position' );
+    }
   }
 
   /**
