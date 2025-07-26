@@ -487,16 +487,16 @@ export default class MotionScreenView extends ScreenView {
    * Set up the transfer logic for moving items between keyboard groups based on stack state
    */
   private setupKeyboardGroupTransfers( model: MotionModel ): void {
-    // Helper function to perform group transfer logic
+    // Helper function to perform group transfer logic using unified mode property
     const performGroupTransfer = ( itemNode: ItemNode ) => {
-      const inStack = itemNode.item.inStackProperty.get();
-      const userControlled = itemNode.item.userControlledProperty.get();
+      const mode = itemNode.item.modeProperty.get();
+      const isGrabbed = itemNode.item.isGrabbed();
 
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `performGroupTransfer for ${itemNode.item.name}: inStack=${inStack}, userControlled=${userControlled}` );
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `performGroupTransfer for ${itemNode.item.name}: mode=${mode}, isGrabbed=${isGrabbed}` );
 
       // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
-      if ( !userControlled ) {
-        if ( inStack ) {
+      if ( !isGrabbed ) {
+        if ( mode === 'onStack' ) {
           // Item moved to stack - transfer from toolbox group to stack group
           if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Transferring ${itemNode.item.name} from toolbox to stack` );
@@ -506,7 +506,7 @@ export default class MotionScreenView extends ScreenView {
             itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
           }
         }
-        else {
+        else if ( mode === 'inLeftToolbox' || mode === 'inRightToolbox' ) {
           ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Transferring ${itemNode.item.name} from stack to toolbox` );
           // Item moved to toolbox - ensure it's in toolbox group and not in stack group
           // Remove from stack group if it's there
@@ -525,28 +525,19 @@ export default class MotionScreenView extends ScreenView {
             ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `${itemNode.item.name} already in toolbox group` );
           }
         }
+        // Note: Animation modes are handled automatically and don't require group transfers
       }
       else {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Skipping transfer for ${itemNode.item.name} because userControlled=${userControlled}` );
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Skipping transfer for ${itemNode.item.name} because isGrabbed=${isGrabbed}` );
       }
     };
 
-    // Listen to each item's properties to transfer between groups
+    // Listen to each item's mode property to transfer between groups
     this.itemNodes.forEach( itemNode => {
-      // Listen to inStackProperty changes
-      itemNode.item.inStackProperty.link( inStack => {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `inStackProperty changed for ${itemNode.item.name}: inStack=${inStack}, userControlled=${itemNode.item.userControlledProperty.get()}` );
+      // Listen to mode property changes - this replaces the need for multiple property listeners
+      itemNode.item.modeProperty.link( mode => {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `modeProperty changed for ${itemNode.item.name}: mode=${mode}` );
         performGroupTransfer( itemNode );
-      } );
-
-      // Also listen to userControlledProperty changes to catch cases where
-      // an item finishes animating after a keyboard drop
-      itemNode.item.userControlledProperty.link( userControlled => {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `userControlledProperty changed for ${itemNode.item.name}: userControlled=${userControlled}, inStack=${itemNode.item.inStackProperty.get()}` );
-        // Only trigger transfer when user control ends (not when it starts)
-        if ( !userControlled ) {
-          performGroupTransfer( itemNode );
-        }
       } );
     } );
 

@@ -464,6 +464,15 @@ export default class ItemNode extends Node {
       this.wasOriginallyOnStack = this.item.inStackProperty.get();
       this.originalPosition = this.item.positionProperty.get().copy();
 
+      // Set keyboard grabbed mode based on current location
+      if ( this.wasOriginallyOnStack ) {
+        this.item.setKeyboardGrabbedMode( 'stack' );
+      }
+      else {
+        const toolboxSide = this.item.getToolboxSide();
+        this.item.setKeyboardGrabbedMode( toolboxSide === 'left' ? 'leftToolbox' : 'rightToolbox' );
+      }
+
       this.item.userControlledProperty.set( true );
 
       // Remove from stack if it was there

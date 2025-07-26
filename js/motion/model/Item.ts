@@ -34,6 +34,19 @@ type AnimationState = {
   destination?: 'home' | 'stack';
 };
 
+// Unified mode representing the complete state of an item
+export type ItemMode =
+  | 'inLeftToolbox'        // Item is resting in the left toolbox
+  | 'inRightToolbox'       // Item is resting in the right toolbox  
+  | 'onStack'              // Item is resting on the skateboard stack
+  | 'mouseGrabbed'         // Item is being dragged with mouse
+  | 'keyboardGrabbedFromLeftToolbox'   // Item grabbed from left toolbox via keyboard
+  | 'keyboardGrabbedFromRightToolbox'  // Item grabbed from right toolbox via keyboard
+  | 'keyboardGrabbedFromStack'         // Item grabbed from stack via keyboard
+  | 'animatingToLeftToolbox'   // Item is animating back to left toolbox
+  | 'animatingToRightToolbox'  // Item is animating back to right toolbox
+  | 'animatingToStack';        // Item is animating to stack
+
 export default class Item extends PhetioObject {
   public readonly name: string;
   private readonly initialX: number;
@@ -59,6 +72,9 @@ export default class Item extends PhetioObject {
 
   // Flag for whether the item is on the skateboard
   public readonly inStackProperty: BooleanProperty;
+
+  // Unified mode property representing the complete state of the item
+  public readonly modeProperty: StringUnionProperty<ItemMode>;
 
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
   public readonly imageScale: number;
@@ -176,6 +192,20 @@ export default class Item extends PhetioObject {
       phetioDocumentation: 'Indicates the item is part of the experiment.'
     } );
 
+    // Initialize mode property - start in appropriate toolbox based on item type
+    const initialMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+    this.modeProperty = new StringUnionProperty<ItemMode>( initialMode, {
+      validValues: [
+        'inLeftToolbox', 'inRightToolbox', 'onStack',
+        'mouseGrabbed', 'keyboardGrabbedFromLeftToolbox', 'keyboardGrabbedFromRightToolbox', 'keyboardGrabbedFromStack',
+        'animatingToLeftToolbox', 'animatingToRightToolbox', 'animatingToStack'
+      ],
+      tandem: tandem.createTandem( 'modeProperty' ),
+      phetioReadOnly: true,
+      phetioFeatured: true,
+      phetioDocumentation: 'Unified state representing the current mode and location of the item'
+    } );
+
     this.imageScale = imageScale || 1.0;
 
     // How much the object grows or shrinks when interacting with it
@@ -195,6 +225,9 @@ export default class Item extends PhetioObject {
         this.directionProperty.set( direction );
       }
     } );
+
+    // Set up automatic mode calculation based on existing properties
+    this.setupModeCalculation();
   }
 
   // Return true if the arms should be up (for a human)
@@ -240,6 +273,111 @@ export default class Item extends PhetioObject {
   }
 
   /**
+   * Get which toolbox side this item belongs to based on its type
+   */
+  public getToolboxSide(): 'left' | 'right' {
+    // The fridge and the crates both go in the left toolbox
+    if ( this.name === 'fridge' || this.name === 'crate1' || this.name === 'crate2' ) {
+      return 'left';
+    }
+    else {
+      return 'right';
+    }
+  }
+
+  /**
+   * Set up automatic mode calculation based on changes to existing properties
+   */
+  private setupModeCalculation(): void {
+    const updateMode = () => {
+      const userControlled = this.userControlledProperty.get();
+      const inStack = this.inStackProperty.get();
+      const animating = this.animationStateProperty.get().enabled;
+      const animatingToStack = animating && this.animationStateProperty.get().destination === 'stack';
+      const animatingToHome = animating && this.animationStateProperty.get().destination === 'home';
+
+      let newMode: ItemMode;
+
+      if ( animating ) {
+        if ( animatingToStack ) {
+          newMode = 'animatingToStack';
+        }
+        else if ( animatingToHome ) {
+          // Determine which toolbox based on item type
+          newMode = this.getToolboxSide() === 'left' ? 'animatingToLeftToolbox' : 'animatingToRightToolbox';
+        }
+        else {
+          // Fallback - shouldn't happen but be safe
+          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+        }
+      }
+      else if ( userControlled ) {
+        // Item is grabbed - need to determine context
+        // For now, we'll use mouseGrabbed as default and let view layer override for keyboard
+        newMode = 'mouseGrabbed';
+      }
+      else if ( inStack ) {
+        newMode = 'onStack';
+      }
+      else {
+        // Item is at rest in toolbox
+        newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+      }
+
+      this.modeProperty.set( newMode );
+    };
+
+    // Listen to all relevant property changes
+    this.userControlledProperty.link( updateMode );
+    this.inStackProperty.link( updateMode );
+    this.animationStateProperty.link( updateMode );
+  }
+
+  /**
+   * Manually set the mode to a keyboard-grabbed state (called from view layer)
+   */
+  public setKeyboardGrabbedMode( fromLocation: 'leftToolbox' | 'rightToolbox' | 'stack' ): void {
+    if ( fromLocation === 'leftToolbox' ) {
+      this.modeProperty.set( 'keyboardGrabbedFromLeftToolbox' );
+    }
+    else if ( fromLocation === 'rightToolbox' ) {
+      this.modeProperty.set( 'keyboardGrabbedFromRightToolbox' );
+    }
+    else {
+      this.modeProperty.set( 'keyboardGrabbedFromStack' );
+    }
+  }
+
+  /**
+   * Convenience method to check if item is in any toolbox
+   */
+  public isInToolbox(): boolean {
+    const mode = this.modeProperty.get();
+    return mode === 'inLeftToolbox' || mode === 'inRightToolbox';
+  }
+
+  /**
+   * Convenience method to check if item is being grabbed (any method)
+   */
+  public isGrabbed(): boolean {
+    const mode = this.modeProperty.get();
+    return mode === 'mouseGrabbed' ||
+           mode === 'keyboardGrabbedFromLeftToolbox' ||
+           mode === 'keyboardGrabbedFromRightToolbox' ||
+           mode === 'keyboardGrabbedFromStack';
+  }
+
+  /**
+   * Convenience method to check if item is animating
+   */
+  public isAnimating(): boolean {
+    const mode = this.modeProperty.get();
+    return mode === 'animatingToLeftToolbox' ||
+           mode === 'animatingToRightToolbox' ||
+           mode === 'animatingToStack';
+  }
+
+  /**
    * Reset the item to its initial state by resetting all Properties.
    */
   public reset(): void {
@@ -250,6 +388,7 @@ export default class Item extends PhetioObject {
     this.animationStateProperty.reset();
     this.inStackProperty.reset();
     this.interactionScaleProperty.reset();
+    this.modeProperty.reset();
   }
 
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination
