@@ -25,6 +25,9 @@ type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
 export default class ItemToolboxGroupNode extends Node {
   public readonly itemNodes: ItemNode[] = [];
   private myGroupFocusHighlight: GroupHighlightPath;
+  
+  // Track focus listeners so we can remove them when items leave the group
+  private readonly focusListeners = new Map();
 
   public constructor( model: MotionModel, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
@@ -65,7 +68,8 @@ export default class ItemToolboxGroupNode extends Node {
     // Update group highlight now that we have children
     this.updateGroupHighlight();
 
-    itemNode.focusedProperty.lazyLink( focused => {
+    // Create and store the focus listener for this item
+    const focusListener = ( focused: boolean ) => {
       if ( focused ) {
         this.itemNodes.forEach( node => {
           if ( node !== itemNode ) {
@@ -82,10 +86,20 @@ export default class ItemToolboxGroupNode extends Node {
           }
         } );
       }
-    } );
+    };
+    
+    this.focusListeners.set( itemNode, focusListener );
+    itemNode.focusedProperty.lazyLink( focusListener );
 
     // Set the keyboard strategy for toolbox items and pass reference to this group
     itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ), this );
+    
+    // Ensure items added to toolbox are properly focusable for arrow navigation
+    // Only make focusable if it's not on the stack
+    if ( !itemNode.item.inStackProperty.get() ) {
+      itemNode.focusable = true;
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Made returned item focusable for arrow navigation:', itemNode.item.name );
+    }
   }
 
   /**
@@ -96,6 +110,14 @@ export default class ItemToolboxGroupNode extends Node {
     if ( index !== -1 ) {
       this.itemNodes.splice( index, 1 );
       this.removeChild( itemNode );
+
+      // Clean up the focus listener for this item
+      const focusListener = this.focusListeners.get( itemNode );
+      if ( focusListener ) {
+        itemNode.focusedProperty.unlink( focusListener );
+        this.focusListeners.delete( itemNode );
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Cleaned up focus listener for item:', itemNode.item.name );
+      }
 
       // Update group highlight after removal
       this.updateGroupHighlight();

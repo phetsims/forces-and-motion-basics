@@ -25,6 +25,9 @@ type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
   private myGroupFocusHighlight: GroupHighlightPath;
+  
+  // Track focus listeners so we can remove them when items leave the group  
+  private readonly focusListeners = new Map();
 
   public constructor( model: MotionModel, providedOptions?: ItemStackGroupNodeOptions ) {
 
@@ -65,7 +68,8 @@ export default class ItemStackGroupNode extends Node {
     // Update group highlight now that we have children
     this.updateGroupHighlight();
 
-    itemNode.focusedProperty.lazyLink( focused => {
+    // Create and store the focus listener for this item
+    const focusListener = ( focused: boolean ) => {
       if ( focused ) {
         this.stackItemNodes.forEach( node => {
           if ( node !== itemNode ) {
@@ -79,7 +83,10 @@ export default class ItemStackGroupNode extends Node {
           node.focusable = true;
         } );
       }
-    } );
+    };
+    
+    this.focusListeners.set( itemNode, focusListener );
+    itemNode.focusedProperty.lazyLink( focusListener );
 
     // Set the keyboard strategy for stack items
     itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this, model ) );
@@ -93,6 +100,14 @@ export default class ItemStackGroupNode extends Node {
     if ( index !== -1 ) {
       this.stackItemNodes.splice( index, 1 );
       this.removeChild( itemNode );
+
+      // Clean up the focus listener for this item
+      const focusListener = this.focusListeners.get( itemNode );
+      if ( focusListener ) {
+        itemNode.focusedProperty.unlink( focusListener );
+        this.focusListeners.delete( itemNode );
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Cleaned up focus listener for item:', itemNode.item.name );
+      }
 
       // Update group highlight after removal
       this.updateGroupHighlight();
