@@ -106,7 +106,7 @@
   },
   "keyboardHelpDialog": {
     "fromAnywhereInSim": {
-      "value": "From Anywhere in Sim"
+      "value": "From Anywhere in Screen"
     },
     "startGame": {
       "value": "Start game"
@@ -127,7 +127,7 @@
       "value": "Grab selected puller"
     },
     "moveGrabbedPuller": {
-      "value": "Move grabbed puller to knot"
+      "value": "Move grabbed puller"
     },
     "dropPuller": {
       "value": "Drop puller"
