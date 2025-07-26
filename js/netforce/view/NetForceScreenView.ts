@@ -175,11 +175,8 @@ export default class NetForceScreenView extends ScreenView {
   private readonly rightPullerGroup: PullerGroupNode;
   private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
   private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
+  private readonly returnButton: ReturnButton;
 
-  // PDOM - A container for accessible content that should be grouped under the Play Area
-  private readonly playAreaContainer: Node = new Node( {
-    accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.headingStringProperty
-  } );
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
@@ -275,8 +272,6 @@ export default class NetForceScreenView extends ScreenView {
       }
     } );
 
-    // Add the play area container for proper accessibility hierarchy
-    this.addChild( this.playAreaContainer );
 
     // create the toolboxes that hold the puller children
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
@@ -462,11 +457,12 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( goPauseButton );
 
     // Return button
-    this.addChild( new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
+    this.returnButton = new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
       centerX: this.layoutBounds.centerX,
       top: goPauseButton.bottom + MARGIN_FROM_LAYOUT_BOUNDS,
       maxWidth: maxWidth
-    } ) );
+    } );
+    this.addChild( this.returnButton );
 
     // Add the arrow nodes after the pullers so they will appear in the front in z-ordering
     this.addChild( this.leftArrow );
@@ -566,12 +562,21 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( cursorPathNode );
 
     // Set up the pdomOrder for proper accessibility hierarchy
-    this.playAreaContainer.pdomOrder = [
+    // Play Area: pullers, go/return buttons
+    this.pdomPlayAreaNode.pdomOrder = [
       leftToolbox,
       rightToolbox,
       this.leftRopePullerGroup,
       this.rightRopePullerGroup,
+      goPauseButton,
+      this.returnButton,
       this.cartNode
+    ];
+    
+    // Control Area: control panel and reset button
+    this.pdomControlAreaNode.pdomOrder = [
+      this.controlPanel,
+      this.resetAllButton
     ];
   }
 }
