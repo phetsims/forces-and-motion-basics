@@ -9,11 +9,13 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller, { PullerMode } from '../model/Puller.js';
@@ -61,7 +63,7 @@ export default class PullerNode extends Image {
   public standImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
   private keyboardStrategy: PullerKeyboardStrategy | null = null;
-  private keyboardListener: KeyboardListener<( 'enter' | 'space' | 'arrowLeft' | 'arrowRight' | 'arrowUp' | 'arrowDown' | 'escape' )[]> | null = null;
+  private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
   private readonly model: NetForceModel;
 
   // Track whether this puller was originally attached to a knot when grabbed (for focus management)
@@ -268,8 +270,13 @@ export default class PullerNode extends Image {
     this.keyboardStrategy = strategy;
 
     if ( strategy ) {
+      // Create a single listener that combines all hotkey data
       this.keyboardListener = new KeyboardListener( {
-        keys: [ 'enter', 'space', 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown', 'escape' ],
+        keyStringProperties: [
+          ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
+          ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
+          ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties
+        ],
         fireOnDown: false,
         fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
       } );
