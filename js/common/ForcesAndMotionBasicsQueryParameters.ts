@@ -37,6 +37,11 @@ const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
   // For development, for internal use, add lots of console.log for debugging alt-input
   debugAltInput: {
     type: 'flag'
+  },
+
+  // For development, run keyboard focus behavior unit tests on startup
+  unitTests: {
+    type: 'flag'
   }
 } );
 

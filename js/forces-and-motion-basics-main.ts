@@ -18,14 +18,16 @@ import accelerationIcon_png from '../images/accelerationIcon_png.js';
 import frictionIcon_png from '../images/frictionIcon_png.js';
 import tugIconBlueRed_png from '../images/tugIconBlueRed_png.js';
 import tugIconPurpleOrange_png from '../images/tugIconPurpleOrange_png.js';
+import ForcesAndMotionBasicsQueryParameters from './common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsFluent from './ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsImages from './ForcesAndMotionBasicsImages.js';
 import MotionScreen from './motion/MotionScreen.js';
 import ForcesAndMotionBasicsPreferences from './netforce/model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from './netforce/model/NetForceModel.js';
 import ForcesAndMotionBasicsPreferencesNode from './netforce/view/ForcesAndMotionBasicsPreferencesNode.js';
-import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 import NetForceKeyboardHelpContent from './netforce/view/NetForceKeyboardHelpContent.js';
+import NetForceKeyboardTestHarness from './netforce/view/NetForceKeyboardTestHarness.js';
+import NetForceScreenView from './netforce/view/NetForceScreenView.js';
 
 const forcesAndMotionBasicsTitleStringProperty = ForcesAndMotionBasicsFluent[ 'forces-and-motion-basics' ].titleStringProperty;
 
@@ -109,5 +111,17 @@ simLauncher.launch( () => {
       }
     } )
   } );
+
+
+  sim.simStartedEmitter.addListener( async () => {
+
+    // Run keyboard focus unit tests if requested via query parameter
+    if ( ForcesAndMotionBasicsQueryParameters.unitTests ) {
+
+      const testHarness = new NetForceKeyboardTestHarness( netForceScreen.model, netForceScreen.view );
+      await testHarness.runAllTests();
+    }
+  } );
+
   sim.start();
 } );
