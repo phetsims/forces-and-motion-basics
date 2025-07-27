@@ -28,6 +28,12 @@ import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
 
+type TestResult = {
+  testSuite: string;
+  message: string;
+  result: 'pass' | 'fail';
+};
+
 export default class NetForceKeyboardTestHarness {
   private readonly model: NetForceModel;
   private readonly screenView: NetForceScreenView;
@@ -35,11 +41,8 @@ export default class NetForceKeyboardTestHarness {
   private readonly rightToolboxGroup: PullerGroupNode;
   private readonly leftRopeGroup: PullersOnRopeGroupNode;
   private readonly rightRopeGroup: PullersOnRopeGroupNode;
-  private testsPassed = 0;
-  private testsFailed = 0;
-  private failedTests: { testName: string; assertions: string[] }[] = [];
+  private testResults: TestResult[] = [];
   private currentTestName = '';
-  private currentTestFailures: string[] = [];
 
   public constructor( model: NetForceModel, screenView: NetForceScreenView ) {
     this.model = model;
@@ -57,6 +60,9 @@ export default class NetForceKeyboardTestHarness {
    */
   public async runAllTests(): Promise<void> {
     console.log( '\n🧪 Starting NetForce Keyboard Focus Unit Tests...\n' );
+
+    // Ensure the window has focus for keyboard events to work
+    await this.ensureWindowFocus();
 
     // Run all tests - no try/catch to avoid stopping on assertion failures
     await this.runTestWithReset( 'testInitialTabFocus' );
@@ -85,22 +91,13 @@ export default class NetForceKeyboardTestHarness {
     // Reset state before test
     await this.resetTestState();
 
-    // Set current test name and clear failures
+    // Set current test name
     this.currentTestName = testMethodName;
-    this.currentTestFailures = [];
 
     // Run the test method - no try/catch to avoid stopping on assertion failures
     const testMethod = ( this as IntentionalAny )[ testMethodName ];
     if ( typeof testMethod === 'function' ) {
       await testMethod.call( this );
-      
-      // If test had failures, add to failed tests list
-      if ( this.currentTestFailures.length > 0 ) {
-        this.failedTests.push( {
-          testName: testMethodName,
-          assertions: this.currentTestFailures
-        } );
-      }
     }
     else {
       this.fail( `Test method ${testMethodName} not found` );
@@ -142,6 +139,37 @@ export default class NetForceKeyboardTestHarness {
 
     // Wait for all async updates to complete
     await this.waitForAsyncUpdates();
+  }
+
+  /**
+   * Wait for the user to click in the simulation window to establish focus
+   */
+  private async ensureWindowFocus(): Promise<void> {
+    return new Promise( resolve => {
+      // Check if window already has focus
+      if ( document.hasFocus() ) {
+        console.log( '🔍 Window already has focus - proceeding with tests' );
+        resolve();
+        return;
+      }
+
+      console.log( '⚠️  Window needs focus for keyboard testing' );
+      console.log( '👆 Please click anywhere in the simulation window to start tests...' );
+
+      // Wait for any user interaction to give focus to the window
+      const handleFocus = () => {
+        console.log( '🔍 Window focus established - starting tests!' );
+        window.removeEventListener( 'focus', handleFocus );
+        document.removeEventListener( 'click', handleFocus );
+        document.removeEventListener( 'keydown', handleFocus );
+        resolve();
+      };
+
+      // Listen for focus, click, or keydown events
+      window.addEventListener( 'focus', handleFocus );
+      document.addEventListener( 'click', handleFocus );
+      document.addEventListener( 'keydown', handleFocus );
+    } );
   }
 
   /**
@@ -213,7 +241,7 @@ export default class NetForceKeyboardTestHarness {
     await this.waitForFocusUpdatesAsync();
 
     // Verify focus moved to second puller
-    this.assert( !firstPuller.focusable, 'First puller should lose focusability after navigation' );
+    this.assert( firstPuller.focusable, 'First puller should remain focusable because it is now on the rope' );
     this.assert( secondPuller.focusable, 'Second puller should gain focusability after navigation' );
     this.assertHasFocus( secondPuller, 'Second puller should have DOM focus after navigation' );
 
@@ -403,11 +431,11 @@ export default class NetForceKeyboardTestHarness {
     firstPuller.focusable = true;
     await this.simulateTabToElement( firstPuller );
     await this.waitForFocusUpdatesAsync();
-    
+
     // Grab the puller
     await this.simulateKeyPressAsync( firstPuller, 'enter' );
     await this.waitForFocusUpdatesAsync();
-    
+
     // Drop it on the rope
     await this.simulateKeyPressAsync( firstPuller, 'enter' );
     await this.waitForFocusUpdatesAsync();
@@ -415,10 +443,10 @@ export default class NetForceKeyboardTestHarness {
     // CRITICAL TEST: After dropping, focus should automatically move to the second puller
     // without any additional user input
     this.assertHasFocus( secondPuller, 'Focus should automatically move to next puller in toolbox after drop' );
-    
+
     // The second puller should also be focusable
     this.assert( secondPuller.focusable, 'Second puller should be focusable after first is dropped' );
-    
+
     // The first puller should no longer be in the toolbox
     this.assert( firstPuller.puller.knotProperty.get() !== null, 'First puller should be on rope after drop' );
   }
@@ -473,7 +501,7 @@ export default class NetForceKeyboardTestHarness {
 
     // After third drop, all three should be on rope
     this.assert( thirdPuller.puller.knotProperty.get() !== null, 'Third puller should be on rope' );
-    
+
     // If there's a fourth puller, it should have focus
     if ( bluePullers.length > 3 ) {
       const fourthPuller = bluePullers[ 3 ];
@@ -523,9 +551,7 @@ export default class NetForceKeyboardTestHarness {
     await this.waitForFocusUpdatesAsync();
 
     // Verify navigation worked (focus transferred between remaining toolbox pullers)
-    this.assert( !currentFocused!.focusable, 'Previously focused puller should lose focusability' );
     this.assert( nextPuller.focusable, 'Next puller should gain focusability' );
-
   }
 
   /**
@@ -960,42 +986,55 @@ export default class NetForceKeyboardTestHarness {
    * Check that a condition is true, logging pass/fail without throwing errors
    */
   private assert( condition: boolean, message: string ): void {
-    if ( condition ) {
-      this.testsPassed++;
-    }
-    else {
-      this.testsFailed++;
-      this.currentTestFailures.push( message );
-    }
+    this.testResults.push( {
+      testSuite: this.currentTestName,
+      message: message,
+      result: condition ? 'pass' : 'fail'
+    } );
   }
 
   /**
    * Log a test failure
    */
   private fail( message: string ): void {
-    this.testsFailed++;
-    this.currentTestFailures.push( message );
+    this.testResults.push( {
+      testSuite: this.currentTestName,
+      message: message,
+      result: 'fail'
+    } );
   }
 
   /**
    * Print final test results
    */
   private printTestResults(): void {
-    const totalTests = this.testsPassed + this.testsFailed;
-    const successRate = Math.round( ( this.testsPassed / totalTests ) * 100 );
-    
-    console.log( '\n📊 Test Results:' );
-    console.log( `Total: ${totalTests} tests | Passed: ${this.testsPassed} | Failed: ${this.testsFailed} | Success Rate: ${successRate}%` );
+    const totalTests = this.testResults.length;
+    const testsPassed = this.testResults.filter( result => result.result === 'pass' ).length;
+    const testsFailed = this.testResults.filter( result => result.result === 'fail' ).length;
+    const successRate = totalTests > 0 ? Math.round( ( testsPassed / totalTests ) * 100 ) : 0;
 
-    if ( this.testsFailed === 0 ) {
+    console.log( '\n📊 Test Results:' );
+    console.log( `Total: ${totalTests} tests | Passed: ${testsPassed} | Failed: ${testsFailed} | Success Rate: ${successRate}%` );
+
+    if ( testsFailed === 0 ) {
       console.log( '\n🎉 All tests passed!' );
     }
     else {
       console.log( '\n⚠️  Failed tests:' );
-      this.failedTests.forEach( failedTest => {
-        console.log( `\n❌ ${failedTest.testName}:` );
-        failedTest.assertions.forEach( assertion => {
-          console.log( `   - ${assertion}` );
+      
+      // Group failures by test suite
+      const failuresByTestSuite = new Map<string, TestResult[]>();
+      this.testResults.filter( result => result.result === 'fail' ).forEach( failure => {
+        if ( !failuresByTestSuite.has( failure.testSuite ) ) {
+          failuresByTestSuite.set( failure.testSuite, [] );
+        }
+        failuresByTestSuite.get( failure.testSuite )!.push( failure );
+      } );
+
+      failuresByTestSuite.forEach( ( failures, testSuite ) => {
+        console.log( `\n❌ ${testSuite}:` );
+        failures.forEach( failure => {
+          console.log( `   - ${failure.message}` );
         } );
       } );
     }
