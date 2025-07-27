@@ -21,7 +21,6 @@
 
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import { getPDOMFocusedNode } from '../../../../scenery/js/accessibility/pdomFocusProperty.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceScreenView from './NetForceScreenView.js';
@@ -38,6 +37,9 @@ export default class NetForceKeyboardTestHarness {
   private readonly rightRopeGroup: PullersOnRopeGroupNode;
   private testsPassed = 0;
   private testsFailed = 0;
+  private failedTests: { testName: string; assertions: string[] }[] = [];
+  private currentTestName = '';
+  private currentTestFailures: string[] = [];
 
   public constructor( model: NetForceModel, screenView: NetForceScreenView ) {
     this.model = model;
@@ -55,8 +57,6 @@ export default class NetForceKeyboardTestHarness {
    */
   public async runAllTests(): Promise<void> {
     console.log( '\n🧪 Starting NetForce Keyboard Focus Unit Tests...\n' );
-    console.log( '🎯 These tests simulate REAL keyboard events through the DOM to validate' );
-    console.log( '   the complete round-trip behavior that users actually experience.\n' );
 
     // Run all tests - no try/catch to avoid stopping on assertion failures
     await this.runTestWithReset( 'testInitialTabFocus' );
@@ -64,6 +64,8 @@ export default class NetForceKeyboardTestHarness {
     await this.runTestWithReset( 'testPullerGrabAndDrop' );
     await this.runTestWithReset( 'testRoundTripKeyboardWorkflow' ); // Main integration test
     await this.runTestWithReset( 'testFocusAfterToolboxToRopeDrop' );
+    await this.runTestWithReset( 'testAutoFocusNextPullerAfterDrop' ); // New specific test
+    await this.runTestWithReset( 'testMultipleConsecutiveDrops' ); // Test Tab Enter Enter Enter pattern
     await this.runTestWithReset( 'testContinuedArrowNavigationAfterDrop' );
     await this.runTestWithReset( 'testEscapeKeyBehavior' );
     await this.runTestWithReset( 'testHomeDropBehavior' );
@@ -73,9 +75,7 @@ export default class NetForceKeyboardTestHarness {
     this.printTestResults();
 
     // Final cleanup - reset to normal state for continued use
-    console.log( '\n🧹 Performing final cleanup...' );
     await this.resetTestState();
-    console.log( '✅ All tests completed. Simulation ready for normal use.' );
   }
 
   /**
@@ -85,14 +85,25 @@ export default class NetForceKeyboardTestHarness {
     // Reset state before test
     await this.resetTestState();
 
+    // Set current test name and clear failures
+    this.currentTestName = testMethodName;
+    this.currentTestFailures = [];
+
     // Run the test method - no try/catch to avoid stopping on assertion failures
     const testMethod = ( this as IntentionalAny )[ testMethodName ];
     if ( typeof testMethod === 'function' ) {
       await testMethod.call( this );
-      console.log( `✅ Test ${testMethodName} completed` );
+      
+      // If test had failures, add to failed tests list
+      if ( this.currentTestFailures.length > 0 ) {
+        this.failedTests.push( {
+          testName: testMethodName,
+          assertions: this.currentTestFailures
+        } );
+      }
     }
     else {
-      console.log( `❌ Test method ${testMethodName} not found` );
+      this.fail( `Test method ${testMethodName} not found` );
     }
 
     // Reset state after test to clean up for next test
@@ -150,7 +161,6 @@ export default class NetForceKeyboardTestHarness {
    * Test 1: Initial tab focus should go to the first blue puller in toolbox
    */
   private async testInitialTabFocus(): Promise<void> {
-    console.log( '🔍 Test 1: Initial tab focus behavior' );
 
     // Get the first blue puller that should be focusable
     const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
@@ -169,14 +179,12 @@ export default class NetForceKeyboardTestHarness {
       this.assert( !bluePullers[ i ].focusable, `Blue puller ${i} should NOT be focusable initially` );
     }
 
-    console.log( '✅ Test 1 passed: Initial tab focus correctly set' );
   }
 
   /**
    * Test 2: Arrow keys should navigate between pullers within toolbox
    */
   private async testToolboxArrowNavigation(): Promise<void> {
-    console.log( '🔍 Test 2: Arrow navigation within toolbox' );
 
     // Start with first blue puller focused
     const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
@@ -209,7 +217,6 @@ export default class NetForceKeyboardTestHarness {
     this.assert( secondPuller.focusable, 'Second puller should gain focusability after navigation' );
     this.assertHasFocus( secondPuller, 'Second puller should have DOM focus after navigation' );
 
-    console.log( '✅ Test 2 passed: Arrow navigation works within toolbox' );
   }
 
   /**
@@ -217,7 +224,6 @@ export default class NetForceKeyboardTestHarness {
    * This test follows the exact scenario described: Tab -> Arrow keys -> Enter/Space -> Drop -> Focus management
    */
   private async testRoundTripKeyboardWorkflow(): Promise<void> {
-    console.log( '🔍 🌟 MAIN TEST: Complete round-trip keyboard workflow' );
 
     // Step 1: Verify initial tab focus goes to blue puller group
     const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
@@ -275,14 +281,12 @@ export default class NetForceKeyboardTestHarness {
       this.assert( nextPuller !== undefined, '6️⃣ Arrow keys should continue working on remaining pullers' );
     }
 
-    console.log( '✅ 🌟 MAIN TEST passed: Complete round-trip keyboard workflow works correctly!' );
   }
 
   /**
    * Test 3: Enter/Space should grab puller and show yellow circles
    */
   private async testPullerGrabAndDrop(): Promise<void> {
-    console.log( '🔍 Test 3: Puller grab and drop behavior' );
 
     const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
       node.puller.knotProperty.get() === null
@@ -317,14 +321,12 @@ export default class NetForceKeyboardTestHarness {
       'Puller should be in attached (non-grabbed) mode after drop'
     );
 
-    console.log( '✅ Test 3 passed: Puller grab and drop works correctly' );
   }
 
   /**
    * Test 4: After dropping puller on rope, focus should move to next available toolbox puller
    */
   private async testFocusAfterToolboxToRopeDrop(): Promise<void> {
-    console.log( '🔍 Test 4: Focus after toolbox-to-rope drop' );
 
     // Reset to clean state
     this.model.reset();
@@ -379,15 +381,110 @@ export default class NetForceKeyboardTestHarness {
         this.assert( anyToolboxPullerFocusable, 'At least one remaining toolbox puller should be focusable after rope drop' );
       }
 
-      console.log( '✅ Test 4 passed: Focus correctly transferred to next toolbox puller' );
     } );
+  }
+
+  /**
+   * Test: After dropping a puller on the rope, focus should automatically move to the next puller from the same toolbox
+   * This is a more specific test for the auto-focus behavior
+   */
+  private async testAutoFocusNextPullerAfterDrop(): Promise<void> {
+    // Get all blue pullers in toolbox
+    const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
+      node.puller.knotProperty.get() === null
+    );
+
+    this.assert( bluePullers.length >= 2, 'Need at least 2 blue pullers for auto-focus test' );
+
+    const firstPuller = bluePullers[ 0 ];
+    const secondPuller = bluePullers[ 1 ];
+
+    // Focus first puller and grab it
+    firstPuller.focusable = true;
+    await this.simulateTabToElement( firstPuller );
+    await this.waitForFocusUpdatesAsync();
+    
+    // Grab the puller
+    await this.simulateKeyPressAsync( firstPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+    
+    // Drop it on the rope
+    await this.simulateKeyPressAsync( firstPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+
+    // CRITICAL TEST: After dropping, focus should automatically move to the second puller
+    // without any additional user input
+    this.assertHasFocus( secondPuller, 'Focus should automatically move to next puller in toolbox after drop' );
+    
+    // The second puller should also be focusable
+    this.assert( secondPuller.focusable, 'Second puller should be focusable after first is dropped' );
+    
+    // The first puller should no longer be in the toolbox
+    this.assert( firstPuller.puller.knotProperty.get() !== null, 'First puller should be on rope after drop' );
+  }
+
+  /**
+   * Test: Multiple consecutive drops - Tab then Enter Enter Enter should work for all pullers
+   * This tests that focus management continues to work after multiple drops
+   */
+  private async testMultipleConsecutiveDrops(): Promise<void> {
+    // Get all blue pullers in toolbox
+    const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
+      node.puller.knotProperty.get() === null
+    );
+
+    this.assert( bluePullers.length >= 3, 'Need at least 3 blue pullers for consecutive drops test' );
+
+    const firstPuller = bluePullers[ 0 ];
+    const secondPuller = bluePullers[ 1 ];
+    const thirdPuller = bluePullers[ 2 ];
+
+    // Tab to focus first puller
+    firstPuller.focusable = true;
+    await this.simulateTabToElement( firstPuller );
+    await this.waitForFocusUpdatesAsync();
+    this.assertHasFocus( firstPuller, 'First puller should have focus after tab' );
+
+    // First drop: Enter to grab, Enter to drop
+    await this.simulateKeyPressAsync( firstPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+    await this.simulateKeyPressAsync( firstPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+
+    // After first drop, focus should move to second puller
+    this.assertHasFocus( secondPuller, 'Focus should move to second puller after first drop' );
+    this.assert( firstPuller.puller.knotProperty.get() !== null, 'First puller should be on rope' );
+
+    // Second drop: Enter to grab, Enter to drop (no tab needed!)
+    await this.simulateKeyPressAsync( secondPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+    await this.simulateKeyPressAsync( secondPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+
+    // After second drop, focus should move to third puller
+    this.assertHasFocus( thirdPuller, 'Focus should move to third puller after second drop' );
+    this.assert( secondPuller.puller.knotProperty.get() !== null, 'Second puller should be on rope' );
+
+    // Third drop: Enter to grab, Enter to drop
+    await this.simulateKeyPressAsync( thirdPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+    await this.simulateKeyPressAsync( thirdPuller, 'enter' );
+    await this.waitForFocusUpdatesAsync();
+
+    // After third drop, all three should be on rope
+    this.assert( thirdPuller.puller.knotProperty.get() !== null, 'Third puller should be on rope' );
+    
+    // If there's a fourth puller, it should have focus
+    if ( bluePullers.length > 3 ) {
+      const fourthPuller = bluePullers[ 3 ];
+      this.assertHasFocus( fourthPuller, 'Focus should move to fourth puller after third drop' );
+    }
   }
 
   /**
    * Test 5: Arrow keys should continue working on remaining toolbox pullers
    */
   private async testContinuedArrowNavigationAfterDrop(): Promise<void> {
-    console.log( '🔍 Test 5: Continued arrow navigation after drop' );
 
     // CORRECTED: Each test starts with a fresh state, so we need to simulate the drop first
     const bluePullers = this.leftToolboxGroup.pullerNodes.filter( node =>
@@ -429,14 +526,12 @@ export default class NetForceKeyboardTestHarness {
     this.assert( !currentFocused!.focusable, 'Previously focused puller should lose focusability' );
     this.assert( nextPuller.focusable, 'Next puller should gain focusability' );
 
-    console.log( '✅ Test 5 passed: Arrow navigation continues to work after drops' );
   }
 
   /**
    * Test 6: Escape key should cancel grab and restore original state
    */
   private async testEscapeKeyBehavior(): Promise<void> {
-    console.log( '🔍 Test 6: Escape key behavior' );
 
     const testPuller = this.leftToolboxGroup.pullerNodes.find( node =>
       node.puller.knotProperty.get() === null
@@ -464,20 +559,18 @@ export default class NetForceKeyboardTestHarness {
       'Puller position should be restored after escape'
     );
 
-    console.log( '✅ Test 6 passed: Escape key correctly cancels and restores state' );
   }
 
   /**
    * Test 7: HOME drops should maintain focus appropriately
    */
   private async testHomeDropBehavior(): Promise<void> {
-    console.log( '🔍 Test 7: HOME drop behavior' );
 
     // Get a puller that's on the rope
     const ropePuller = this.leftRopeGroup.ropePullerNodes[ 0 ];
 
     if ( !ropePuller ) {
-      console.log( '⚠️  Test 7 skipped: No pullers on rope to test HOME drop' );
+      // Skip test silently
       return;
     }
 
@@ -503,7 +596,6 @@ export default class NetForceKeyboardTestHarness {
     // For HOME drops, focus should stay on the same puller (per documentation)
     this.waitForAsyncFocusChange( () => {
       this.assert( ropePuller.focusable, 'Puller should maintain focus after HOME drop' );
-      console.log( '✅ Test 7 passed: HOME drop correctly returns puller and maintains focus' );
     } );
   }
 
@@ -511,7 +603,6 @@ export default class NetForceKeyboardTestHarness {
    * Test 8: Focus should transfer properly between groups (toolbox <-> rope)
    */
   private async testFocusTransferBetweenGroups(): Promise<void> {
-    console.log( '🔍 Test 8: Focus transfer between groups' );
 
     // This is a complex integration test - we'll verify that the group memberships are correct
     const allPullerNodes = [
@@ -543,14 +634,12 @@ export default class NetForceKeyboardTestHarness {
       );
     } );
 
-    console.log( '✅ Test 8 passed: Group membership correctly reflects puller states' );
   }
 
   /**
    * Test 9: Reset should restore proper focus state
    */
   private async testResetBehavior(): Promise<void> {
-    console.log( '🔍 Test 9: Reset behavior' );
 
     // Reset the model
     this.model.reset();
@@ -594,7 +683,6 @@ export default class NetForceKeyboardTestHarness {
     this.assert( this.leftRopeGroup.ropePullerNodes.length === 0, 'Left rope group should be empty after reset' );
     this.assert( this.rightRopeGroup.ropePullerNodes.length === 0, 'Right rope group should be empty after reset' );
 
-    console.log( '✅ Test 9 passed: Reset correctly restores focus state' );
   }
 
   /**
@@ -625,15 +713,13 @@ export default class NetForceKeyboardTestHarness {
         const domElement = pdomInstances[ 0 ].peer!.primarySibling;
         if ( domElement ) {
           domElement.dispatchEvent( keyboardEvent );
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Dispatched ${key} event on puller DOM element` );
+          // Silent dispatch
         }
         else {
-          console.warn( `Could not simulate key press "${key}" - pdomInstances found but no domElement, falling back to direct handler call` );
           this.callKeyboardHandlerDirectly( pullerNode, key );
         }
       }
       else {
-        console.warn( `Could not simulate key press "${key}" - no pdomInstances found, falling back to direct handler call` );
         this.callKeyboardHandlerDirectly( pullerNode, key );
       }
     }, 10 ); // Small delay to ensure focus is established
@@ -658,17 +744,14 @@ export default class NetForceKeyboardTestHarness {
 
           // Wait a moment for focus to be processed
           setTimeout( () => {
-            console.log( `Tab navigation simulated to ${targetNode.puller.size} ${targetNode.puller.type} puller` );
             resolve();
           }, 20 );
         }
         else {
-          console.warn( `Could not focus element for ${targetNode.puller.size} ${targetNode.puller.type} puller` );
           resolve();
         }
       }
       else {
-        console.warn( `No DOM element found for ${targetNode.puller.size} ${targetNode.puller.type} puller` );
         resolve();
       }
     } );
@@ -705,12 +788,10 @@ export default class NetForceKeyboardTestHarness {
             this.callKeyboardHandlerDirectly( pullerNode, key );
           }
           else {
-            console.warn( `Could not simulate key press "${key}" - pdomInstances found but no domElement, falling back to direct handler call` );
             this.callKeyboardHandlerDirectly( pullerNode, key );
           }
         }
         else {
-          console.warn( `Could not simulate key press "${key}" - no pdomInstances found, falling back to direct handler call` );
           this.callKeyboardHandlerDirectly( pullerNode, key );
         }
 
@@ -728,9 +809,6 @@ export default class NetForceKeyboardTestHarness {
     const anyPullerNode = pullerNode as IntentionalAny;
     if ( anyPullerNode.handleKeyboardInput ) {
       anyPullerNode.handleKeyboardInput( key );
-    }
-    else {
-      console.warn( 'Could not find handleKeyboardInput method on puller:', pullerNode.puller );
     }
   }
 
@@ -776,14 +854,6 @@ export default class NetForceKeyboardTestHarness {
     // Use Scenery's official focus detection
     const focusedNode = getPDOMFocusedNode();
     const hasDOMFocus = focusedNode === node;
-
-    // Debug information
-    const pullerInfo = `${node.puller.size} ${node.puller.type} puller`;
-
-    // Keep minimal focus debugging for key moments
-    if ( hasDOMFocus ) {
-      console.log( `✓ Focus: ${pullerInfo}` );
-    }
 
     return hasDOMFocus;
   }
@@ -848,11 +918,7 @@ export default class NetForceKeyboardTestHarness {
     const hasFocus = this.hasFocus( pullerNode );
     this.assert( hasFocus, message );
 
-    if ( !hasFocus ) {
-      const currentlyFocused = this.getCurrentlyFocusedPuller();
-      console.warn( `Expected focus on puller: ${pullerNode.puller.size} ${pullerNode.puller.type}` );
-      console.warn( `Actually focused: ${currentlyFocused ? `${currentlyFocused.puller.size} ${currentlyFocused.puller.type}` : 'none'}` );
-    }
+    // Silent assertion
   }
 
   /**
@@ -896,12 +962,10 @@ export default class NetForceKeyboardTestHarness {
   private assert( condition: boolean, message: string ): void {
     if ( condition ) {
       this.testsPassed++;
-      console.log( `  ✅ ${message}` );
     }
     else {
       this.testsFailed++;
-      console.log( `  ❌ ISSUE: ${message}` );
-      // Don't throw - just log and continue
+      this.currentTestFailures.push( message );
     }
   }
 
@@ -910,23 +974,30 @@ export default class NetForceKeyboardTestHarness {
    */
   private fail( message: string ): void {
     this.testsFailed++;
-    console.error( `  ❌ TEST FAILED: ${message}` );
+    this.currentTestFailures.push( message );
   }
 
   /**
    * Print final test results
    */
   private printTestResults(): void {
+    const totalTests = this.testsPassed + this.testsFailed;
+    const successRate = Math.round( ( this.testsPassed / totalTests ) * 100 );
+    
     console.log( '\n📊 Test Results:' );
-    console.log( `✅ Tests Passed: ${this.testsPassed}` );
-    console.log( `❌ Tests Failed: ${this.testsFailed}` );
-    console.log( `📈 Success Rate: ${Math.round( ( this.testsPassed / ( this.testsPassed + this.testsFailed ) ) * 100 )}%` );
+    console.log( `Total: ${totalTests} tests | Passed: ${this.testsPassed} | Failed: ${this.testsFailed} | Success Rate: ${successRate}%` );
 
     if ( this.testsFailed === 0 ) {
-      console.log( '\n🎉 All tests passed! Keyboard focus behavior is working correctly.' );
+      console.log( '\n🎉 All tests passed!' );
     }
     else {
-      console.log( '\n⚠️  Some tests failed. Focus behavior needs to be fixed.' );
+      console.log( '\n⚠️  Failed tests:' );
+      this.failedTests.forEach( failedTest => {
+        console.log( `\n❌ ${failedTest.testName}:` );
+        failedTest.assertions.forEach( assertion => {
+          console.log( `   - ${assertion}` );
+        } );
+      } );
     }
   }
 }

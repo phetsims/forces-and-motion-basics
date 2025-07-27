@@ -24,7 +24,22 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import PullerNode from '../view/PullerNode.js';
 import Knot from './Knot.js';
 
-// Define the possible modes for a puller
+// Define the puller state interface
+export type PullerState = {
+  location: 'toolbox' | 'rope';
+  dragType: 'none' | 'mouse' | 'touch' | 'keyboard';
+  attachedKnot: Knot | null;
+  targetKnot: Knot | null; // For keyboard navigation during grab
+  
+  // Store origin for escape key functionality
+  grabOrigin?: {
+    location: 'toolbox' | 'rope';
+    attachedKnot: Knot | null;
+    position: Vector2;
+  };
+};
+
+// Legacy mode type for backward compatibility during transition
 export type PullerMode =
   | 'home'                           // In toolbox, not grabbed
   | 'mouseDragging'                  // Being dragged by mouse
@@ -61,6 +76,9 @@ export default class Puller extends PhetioObject {
 
   // The current mode of the puller - this is the authoritative state
   public readonly modeProperty: StringUnionProperty<PullerMode>;
+  
+  // NEW: The simplified state representation
+  public readonly state: PullerState;
 
   // whether the puller is currently being dragged (derived from mode)
   public readonly userControlledProperty: BooleanProperty;
@@ -134,6 +152,14 @@ export default class Puller extends PhetioObject {
       phetioFeatured: true,
       phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth'
     } );
+    
+    // Initialize the simplified state
+    this.state = {
+      location: 'toolbox',
+      dragType: 'none',
+      attachedKnot: null,
+      targetKnot: null
+    };
 
     // Derived property: userControlled is true when mode starts with 'grabbedOver'
     this.userControlledProperty = new BooleanProperty( false, {
@@ -144,6 +170,9 @@ export default class Puller extends PhetioObject {
     // Keep userControlled in sync with mode
     this.modeProperty.link( mode => {
       this.userControlledProperty.set( mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'mouseDragging' || mode === 'touchDragging' );
+      
+      // Also update the new state object when mode changes
+      this.updateStateFromMode( mode );
     } );
 
     // Derived property: knotProperty is derived from mode
@@ -266,6 +295,191 @@ export default class Puller extends PhetioObject {
     else if ( currentMode === 'home' ) {
       this.modeProperty.set( 'keyboardGrabbedOverHome' );
     }
+  }
+
+  /**
+   * Update the new state object based on the legacy mode
+   */
+  private updateStateFromMode( mode: PullerMode ): void {
+    // Parse the mode string to update state
+    if ( mode === 'home' ) {
+      this.state.location = 'toolbox';
+      this.state.dragType = 'none';
+      this.state.attachedKnot = null;
+      this.state.targetKnot = null;
+    }
+    else if ( mode === 'mouseDragging' ) {
+      this.state.dragType = 'mouse';
+      // Don't change location - it stays whatever it was
+    }
+    else if ( mode === 'touchDragging' ) {
+      this.state.dragType = 'touch';
+      // Don't change location - it stays whatever it was
+    }
+    else if ( mode.startsWith( 'keyboardGrabbedOver' ) ) {
+      this.state.dragType = 'keyboard';
+      
+      // Parse the target from the mode string
+      if ( mode === 'keyboardGrabbedOverHome' ) {
+        this.state.location = 'toolbox';
+        this.state.targetKnot = null;
+      }
+      else {
+        this.state.location = 'rope';
+        // Extract knot info from mode (e.g., 'keyboardGrabbedOverLeftKnot1')
+        const knotId = this.parseKnotFromMode( mode );
+        this.state.targetKnot = knotId ? this.getKnotById( knotId ) : null;
+      }
+    }
+    else if ( mode.startsWith( 'left' ) || mode.startsWith( 'right' ) ) {
+      // Attached to a knot
+      this.state.location = 'rope';
+      this.state.dragType = 'none';
+      const knotId = this.parseKnotFromMode( mode );
+      this.state.attachedKnot = knotId ? this.getKnotById( knotId ) : null;
+      this.state.targetKnot = null;
+    }
+  }
+
+  /**
+   * Parse knot identifier from mode string
+   */
+  private parseKnotFromMode( mode: string ): { side: 'left' | 'right'; index: number } | null {
+    const match = mode.match( /(left|right)Knot(\d+)/i );
+    if ( match ) {
+      return {
+        side: match[ 1 ].toLowerCase() as 'left' | 'right',
+        index: parseInt( match[ 2 ], 10 ) - 1 // Convert to 0-based
+      };
+    }
+    return null;
+  }
+
+  /**
+   * Get knot by its identifier
+   */
+  private getKnotById( id: { side: 'left' | 'right'; index: number } ): Knot | null {
+    if ( !this.knots ) { return null; }
+    
+    const sideKnots = this.knots.filter( k =>
+      k.type === ( id.side === 'left' ? 'blue' : 'red' )
+    );
+    return sideKnots[ id.index ] || null;
+  }
+
+  /**
+   * Convert current state to legacy mode string (for backward compatibility)
+   */
+  public getModeFromState(): PullerMode {
+    const { location, dragType, attachedKnot, targetKnot } = this.state;
+    
+    if ( dragType === 'mouse' ) { return 'mouseDragging'; }
+    if ( dragType === 'touch' ) { return 'touchDragging'; }
+    
+    if ( location === 'toolbox' && dragType === 'none' ) { return 'home'; }
+    
+    if ( dragType === 'keyboard' ) {
+      if ( location === 'toolbox' ) { return 'keyboardGrabbedOverHome'; }
+      if ( targetKnot ) {
+        return this.getModeForKnot( targetKnot, true );
+      }
+    }
+    
+    if ( location === 'rope' && attachedKnot && dragType === 'none' ) {
+      return this.getModeForKnot( attachedKnot, false );
+    }
+    
+    // Fallback
+    return 'home';
+  }
+
+  /**
+   * Simplified grab method using new state
+   */
+  public grab( dragType: 'mouse' | 'touch' | 'keyboard' ): void {
+    // Store origin for escape functionality
+    this.state.grabOrigin = {
+      location: this.state.location,
+      attachedKnot: this.state.attachedKnot,
+      position: this.positionProperty.get().copy()
+    };
+    
+    // Update state
+    this.state.dragType = dragType;
+    if ( this.state.attachedKnot ) {
+      this.state.targetKnot = this.state.attachedKnot;
+      this.state.attachedKnot = null;
+    }
+    
+    // Sync to legacy mode
+    this.modeProperty.set( this.getModeFromState() );
+  }
+
+  /**
+   * Simplified drop method using new state
+   */
+  public drop(): void {
+    // Clear drag state
+    this.state.dragType = 'none';
+    
+    // If we have a target knot, attach to it
+    if ( this.state.targetKnot ) {
+      this.state.attachedKnot = this.state.targetKnot;
+      this.state.location = 'rope';
+      this.state.targetKnot = null;
+    }
+    else {
+      // Return to toolbox
+      this.state.location = 'toolbox';
+      this.state.attachedKnot = null;
+    }
+    
+    // Clear grab origin
+    this.state.grabOrigin = undefined;
+    
+    // Sync to legacy mode
+    this.modeProperty.set( this.getModeFromState() );
+  }
+
+  /**
+   * Cancel grab and return to origin
+   */
+  public cancelGrab(): void {
+    if ( this.state.grabOrigin ) {
+      // Restore original state
+      this.state.location = this.state.grabOrigin.location;
+      this.state.attachedKnot = this.state.grabOrigin.attachedKnot;
+      this.state.dragType = 'none';
+      this.state.targetKnot = null;
+      this.positionProperty.set( this.state.grabOrigin.position );
+      
+      // Clear grab origin
+      this.state.grabOrigin = undefined;
+      
+      // Sync to legacy mode
+      this.modeProperty.set( this.getModeFromState() );
+    }
+  }
+
+  /**
+   * Check if puller is currently grabbed/dragged
+   */
+  public isGrabbed(): boolean {
+    return this.state.dragType !== 'none';
+  }
+
+  /**
+   * Get the logical group this puller belongs to (for focus management)
+   */
+  public getLogicalGroup(): 'blue-toolbox' | 'red-toolbox' | 'blue-rope' | 'red-rope' | 'dragging' {
+    if ( this.state.dragType === 'mouse' || this.state.dragType === 'touch' ) {
+      return 'dragging';
+    }
+    
+    const colorPrefix = this.type === 'blue' ? 'blue' : 'red';
+    const locationSuffix = this.state.location === 'toolbox' ? 'toolbox' : 'rope';
+    
+    return `${colorPrefix}-${locationSuffix}`;
   }
 }
 

@@ -369,6 +369,19 @@ export default class NetForceScreenView extends ScreenView {
 
       // Register with the centralized focus manager
       this.pullerFocusManager.registerPuller( pullerNode );
+      
+      // Listen for drops to handle auto-focus to next puller
+      puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
+        // Only handle keyboard drops for auto-focus
+        if ( source === 'keyboard' ) {
+          // Check if the puller was dropped on the rope (has a knot)
+          if ( puller.knotProperty.get() !== null ) {
+            // The puller was dropped on the rope, focus next puller in toolbox
+            const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
+            toolboxGroup.focusNextPullerInToolbox( pullerNode );
+          }
+        }
+      } );
     } );
 
     ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {

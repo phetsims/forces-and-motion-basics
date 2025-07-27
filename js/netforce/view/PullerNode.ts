@@ -18,7 +18,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
-import Puller, { PullerMode } from '../model/Puller.js';
+import Puller from '../model/Puller.js';
 import PullerFocusManager from './PullerFocusManager.js';
 
 
@@ -32,15 +32,7 @@ export default class PullerNode extends Image {
   private readonly model: NetForceModel;
   private readonly focusManager: PullerFocusManager;
 
-  // Track whether this puller was originally attached to a knot when grabbed (for focus management)
-  private wasOriginallyOnRope = false;
-  
-  // Track the stable mode before grabbing (for transfer logic)
-  private preGrabMode: PullerMode | null = null;
-  
-  // Track original state for escape key functionality
-  private originalMode: PullerMode | null = null;
-  private originalPosition: Vector2 | null = null;
+  // Note: Redundant state tracking removed - now using puller.state object
 
   /**
    * Create a PullerNode for the specified puller
@@ -224,12 +216,6 @@ export default class PullerNode extends Image {
     }
   }
 
-  /**
-   * Get the stable mode before the current grab (for transfer logic)
-   */
-  public getPreGrabMode(): string | null {
-    return this.preGrabMode;
-  }
 
   /**
    * Set up keyboard navigation for this puller.
@@ -277,329 +263,164 @@ export default class PullerNode extends Image {
   }
 
   /**
-   * Handle keyboard input using the current strategy.
-   * This contains all the common keyboard logic that was previously duplicated in the group classes.
+   * Simplified keyboard input handler using the new state system
    */
   private handleKeyboardInput( keysPressed: string ): void {
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'keyboardListener fired for puller:', this.puller, 'key:', keysPressed );
+    ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+      console.log( 'keyboardListener fired for puller:', this.puller, 'key:', keysPressed );
+    
     const puller = this.puller;
-    const isGrabbed = puller.userControlledProperty.get();
+    const isGrabbed = puller.isGrabbed();
 
-    // ARROW KEY HANDLING - depends on mode
+    // ARROW KEY HANDLING
     if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' || keysPressed === 'arrowUp' || keysPressed === 'arrowDown' ) {
-
       if ( isGrabbed ) {
         // GRABBED MODE: Arrow keys cycle through knots + home position
-        if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' ) {
-          // Get available knots for this puller's type (blue/red) and side
-          const availableKnots = this.model.knots.filter( knot =>
-            knot.type === puller.type && this.model.getPuller( knot ) === null
-          );
-
-          // Create waypoints array: [knot1, knot2, ..., knotN, HOME]
-          const waypoints = [ ...availableKnots, null ]; // null = home position
-
-          if ( waypoints.length > 0 ) {
-            // Find current waypoint index
-            const currentTarget = this.model.getTargetKnot( puller );
-            let currentIndex;
-
-            if ( currentTarget === null ) {
-              // Currently at home position
-              currentIndex = waypoints.length - 1; // Home is last waypoint
-            }
-            else {
-              // Currently at a knot
-              currentIndex = availableKnots.indexOf( currentTarget );
-              if ( currentIndex === -1 ) {
-                currentIndex = 0; // Default to first waypoint if not found
-              }
-            }
-
-            // Navigate to next/previous waypoint
-            const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-            const nextIndex = ( currentIndex + delta + waypoints.length ) % waypoints.length;
-            const targetWaypoint = waypoints[ nextIndex ];
-
-            if ( targetWaypoint === null ) {
-              // Move to home position (original position in toolbox)
-              puller.positionProperty.reset(); // Reset to original toolbox coordinates
-              this.updatePosition( puller, this.model );
-              this.updateAccessibleDescription( 'return to toolbox' );
-              this.addAccessibleResponse( 'Over return to toolbox position' );
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to HOME position' );
-            }
-            else {
-              // Move to knot position
-              this.updatePositionKnotted( puller, this.model, targetWaypoint );
-              const knotDescription = this.getKnotDescription( targetWaypoint );
-              this.updateAccessibleDescription( knotDescription );
-              this.addAccessibleResponse( `Over ${knotDescription}` );
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved puller to knot:', targetWaypoint.positionProperty.get() );
-            }
-          }
-        }
-        // Ignore up/down arrows when grabbed (only left/right navigate knots)
+        this.handleKnotCycling( keysPressed );
       }
       else {
-        // NORMAL MODE: Navigate between pullers based on current mode
-        const currentMode = puller.modeProperty.get();
-        let direction: 'left' | 'right' | 'up' | 'down';
-        if ( keysPressed === 'arrowLeft' ) { direction = 'left'; }
-        else if ( keysPressed === 'arrowRight' ) { direction = 'right'; }
-        else if ( keysPressed === 'arrowUp' ) { direction = 'up'; }
-        else { direction = 'down'; }
-
-        // Get all pullers in the same logical context (toolbox vs rope)
-        const isInToolbox = currentMode === 'home';
-        const allPullers = this.getAllPullersInSameContext( isInToolbox );
-        
-        const currentIndex = allPullers.indexOf( this );
-        
-        if ( currentIndex !== -1 ) {
-          const delta = ( direction === 'left' || direction === 'up' ) ? -1 : 1;
-          const newIndex = currentIndex + delta;
-          
-          // Keep selection within bounds
-          if ( newIndex >= 0 && newIndex < allPullers.length ) {
-            const nextPuller = allPullers[ newIndex ];
-            
-            // FIXED: Prevent focus manager interference during arrow navigation
-            this.focusManager.setNavigating( true );
-            
-            // Ensure target puller is focusable before transferring focus
-            nextPuller.focusable = true;
-            nextPuller.focus();
-            
-            // Re-enable focus manager after navigation completes
-            this.focusManager.setNavigating( false );
-            
-            console.log( `🎯 Arrow navigation: ${this.puller.size} ${this.puller.type} → ${nextPuller.puller.size} ${nextPuller.puller.type}` );
-          }
-          else {
-            console.log( `🎯 Arrow navigation blocked: no more pullers in ${direction} direction` );
-          }
-        }
-        else {
-          console.log( '🎯 Arrow navigation failed: current puller not found in context' );
-        }
+        // NORMAL MODE: Delegate to focus manager for consistent behavior
+        const direction = keysPressed.replace( 'arrow', '' ).toLowerCase() as 'left' | 'right' | 'up' | 'down';
+        this.focusManager.handleArrowNavigation( this, direction );
       }
-      return; // Don't process Enter/Space if we handled arrow keys
-    }
-
-    // ESCAPE HANDLING - cancel and return to original position
-    if ( keysPressed === 'escape' ) {
-      if ( isGrabbed ) {
-        this.handleEscapeKey();
-      }
-      return; // Don't process other keys if we handled escape
-    }
-
-    // ENTER/SPACE HANDLING - grab/drop logic
-    if ( keysPressed === 'enter' || keysPressed === 'space' ) {
-      if ( isGrabbed ) {
-        // Second press: Drop the puller (complete the interaction)
-        const targetKnot = this.model.getTargetKnot( puller );
-
-        // Check if puller is at HOME waypoint (no target knot)
-        if ( targetKnot === null ) {
-          // Puller is at HOME - return to toolbox
-          // Use the stored flag to determine if puller originally came from the rope
-          const wasAlreadyOnRope = this.wasOriginallyOnRope;
-
-          // Use the new mode system - simply set mode to home
-          puller.modeProperty.set( 'home' );
-          
-          // Follow the same sequence as drag end: position, userControlled, emit, image
-          this.updatePosition( puller, this.model );
-          puller.userControlledProperty.set( false );
-          puller.droppedEmitter.emit( 'keyboard' );
-          this.updateImage( puller, this.model );
-          
-          // Add accessibility announcement for HOME drop
-          this.updateAccessibleDescription( 'toolbox' );
-          this.addAccessibleResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
-          
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned puller to toolbox, wasAlreadyOnRope:', wasAlreadyOnRope );
-
-          // Reset the flags for next interaction
-          this.wasOriginallyOnRope = false;
-          this.preGrabMode = null;
-          this.originalMode = null;
-          this.originalPosition = null;
-
-          // For pullers that originated from rope, maintain focus after transfer
-          if ( wasAlreadyOnRope ) {
-            // The new mode system will handle the transfer automatically
-            // Just ensure focus is maintained
-            this.focusable = true;
-            this.focus();
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Maintained focus on rope puller after transfer to toolbox' );
-          }
-          // Focus management for toolbox drops is now handled automatically by PullerFocusManager
-        }
-        else {
-          // Puller is at a knot - normal drop behavior
-
-          // Determine the target knot and set the appropriate mode
-          const targetKnot = this.model.getTargetKnot( puller );
-          if ( targetKnot ) {
-            const attachedMode = puller.getModeForKnot( targetKnot, false );
-            puller.modeProperty.set( attachedMode );
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Set attached mode:', attachedMode );
-          }
-          
-          // Follow the same sequence as drag end: position, userControlled, emit, image
-          this.updatePosition( puller, this.model );
-          puller.userControlledProperty.set( false );
-          puller.droppedEmitter.emit( 'keyboard' );
-          this.updateImage( puller, this.model );
-
-          // Reset the flags for next interaction
-          this.wasOriginallyOnRope = false;
-          this.preGrabMode = null;
-          this.originalMode = null;
-          this.originalPosition = null;
-          
-          // Focus management is now handled automatically by PullerFocusManager
-        }
-      }
-      else {
-        // First press: Grab the puller (start showing yellow circles)
-        const knot = puller.knotProperty.get();
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'First press - puller at position:', puller.positionProperty.get(), 'knot:', knot );
-
-        // Store whether this puller was originally on the rope (for focus management during HOME drops)
-        this.wasOriginallyOnRope = knot !== null;
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stored wasOriginallyOnRope:', this.wasOriginallyOnRope );
-
-        const currentMode = puller.modeProperty.get();
-        this.preGrabMode = currentMode; // Store stable mode before grab
-        
-        // Store original state for escape key functionality
-        this.originalMode = currentMode;
-        this.originalPosition = puller.positionProperty.get().copy();
-        
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'BEFORE grab - current mode:', currentMode, 'stored as preGrabMode and originalMode' );
-
-        // Use the new disconnect method which sets the appropriate grabbed mode
-        puller.disconnect();
-        
-        const newMode = puller.modeProperty.get();
-        const isUserControlled = puller.userControlledProperty.get();
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'AFTER grab - new mode:', newMode, 'userControlled:', isUserControlled );
-        
-        // CRITICAL FIX: Ensure userControlled is properly set for keyboard grabs
-        // The mode should trigger this, but let's ensure it happens
-        if ( newMode.startsWith( 'keyboardGrabbedOver' ) && !isUserControlled ) {
-          console.warn( 'KEYBOARD GRAB BUG: Mode was set to grabbed but userControlled is still false. Fixing...' );
-          puller.userControlledProperty.set( true );
-        }
-
-        this.updateImage( puller, this.model );
-
-        // Move to front and emit
-        this.moveToFront();
-        puller.userControlledEmitter.emit();
-
-        // Announce the grab action with current position
-        let locationDescription = 'toolbox';
-        if ( knot ) {
-          locationDescription = this.getKnotDescription( knot );
-        }
-        this.updateAccessibleDescription( locationDescription );
-        this.addAccessibleResponse( `Grabbed from ${locationDescription}` );
-
-        // If puller was knotted, position it at the knot location for better UX
-        if ( knot ) {
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moving puller to knot position:', knot.positionProperty.get(), knot.y );
-          this.updatePositionKnotted( puller, this.model, knot );
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller position after move:', puller.positionProperty.get() );
-        }
-        else {
-          // For pullers not yet on the rope, move to first available knot position
-          const availableKnots = this.model.knots.filter( knot =>
-            knot.type === puller.type && this.model.getPuller( knot ) === null
-          );
-          if ( availableKnots.length > 0 ) {
-            const firstKnot = availableKnots[ 0 ];
-            this.updatePositionKnotted( puller, this.model, firstKnot );
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moving puller from toolbox to first available knot:', firstKnot.positionProperty.get() );
-          }
-          else {
-            // Fallback to neutral position if no knots available
-            const neutralY = 350;
-            const currentPosition = puller.positionProperty.get();
-            puller.positionProperty.set( new Vector2( currentPosition.x, neutralY ) );
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No available knots, moving to neutral position:', puller.positionProperty.get() );
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Handle escape key press - return puller to its original position and state
-   */
-  private handleEscapeKey(): void {
-    if ( !this.originalMode || !this.originalPosition ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No original state stored for escape key' );
       return;
     }
 
-    const puller = this.puller;
-    
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Escape pressed - returning puller to original state:', this.originalMode );
+    // ESCAPE HANDLING
+    if ( keysPressed === 'escape' ) {
+      if ( isGrabbed ) {
+        puller.cancelGrab();
+        this.updatePosition( puller, this.model );
+        this.updateImage( puller, this.model );
+        this.addAccessibleResponse( `Cancelled. ${puller.size} ${puller.type} puller returned to original position.` );
+      }
+      return;
+    }
 
-    // Reset to original mode and position
-    puller.modeProperty.set( this.originalMode );
-    puller.positionProperty.set( this.originalPosition );
-    
-    // Follow the same sequence as normal drop: position, userControlled, emit, image
-    this.updatePosition( puller, this.model );
-    puller.userControlledProperty.set( false );
-    puller.droppedEmitter.emit( 'keyboard' );
-    this.updateImage( puller, this.model );
-
-    // Add accessibility announcement for escape/cancel
-    const wasOnRope = this.originalMode.startsWith( 'left' ) || this.originalMode.startsWith( 'right' );
-    const locationDescription = wasOnRope ? this.getKnotDescription( puller.knotProperty.get()! ) : 'toolbox';
-    this.updateAccessibleDescription( locationDescription );
-    this.addAccessibleResponse( `Cancelled. ${puller.size} ${puller.type} puller returned to ${locationDescription}.` );
-
-    // Reset the stored state for next interaction
-    this.wasOriginallyOnRope = false;
-    this.preGrabMode = null;
-    this.originalMode = null;
-    this.originalPosition = null;
+    // ENTER/SPACE HANDLING - simplified grab/drop logic
+    if ( keysPressed === 'enter' || keysPressed === 'space' ) {
+      if ( isGrabbed ) {
+        // Drop the puller
+        puller.drop();
+        this.updatePosition( puller, this.model );
+        this.updateImage( puller, this.model );
+        
+        // Let focus manager handle auto-focus
+        this.focusManager.handlePullerDrop( this );
+        
+        // Add accessibility feedback
+        if ( puller.state.attachedKnot ) {
+          const knotDescription = this.getKnotDescription( puller.state.attachedKnot );
+          this.updateAccessibleDescription( knotDescription );
+          this.addAccessibleResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
+        }
+        else {
+          this.updateAccessibleDescription( 'toolbox' );
+          this.addAccessibleResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+        }
+      }
+      else {
+        // Grab the puller
+        puller.grab( 'keyboard' );
+        this.updateImage( puller, this.model );
+        this.moveToFront();
+        puller.userControlledEmitter.emit();
+        
+        // Move to appropriate position for keyboard interaction
+        this.positionForKeyboardGrab();
+        
+        // Add accessibility feedback
+        const currentLocation = puller.state.grabOrigin?.attachedKnot ?
+          this.getKnotDescription( puller.state.grabOrigin.attachedKnot ) : 'toolbox';
+        this.updateAccessibleDescription( currentLocation );
+        this.addAccessibleResponse( `Grabbed from ${currentLocation}` );
+      }
+    }
   }
 
   /**
-   * Get all pullers in the same context (toolbox vs rope) as this puller
+   * Handle knot cycling during grabbed state
    */
-  private getAllPullersInSameContext( isInToolbox: boolean ): PullerNode[] {
-    const allPullers = this.model.pullers.map( puller => puller.node! ).filter( node => node !== null );
+  private handleKnotCycling( keysPressed: string ): void {
+    if ( keysPressed !== 'arrowLeft' && keysPressed !== 'arrowRight' ) {
+      return; // Only left/right navigate knots when grabbed
+    }
     
-    return allPullers.filter( pullerNode => {
-      const pullerMode = pullerNode.puller.modeProperty.get();
-      const pullerIsInToolbox = pullerMode === 'home';
-      const sameContext = pullerIsInToolbox === isInToolbox;
-      const sameType = pullerNode.puller.type === this.puller.type;
-      
-      return sameContext && sameType;
-    } );
+    const puller = this.puller;
+    
+    // Get available knots for this puller's type
+    const availableKnots = this.model.knots.filter( knot =>
+      knot.type === puller.type && this.model.getPuller( knot ) === null
+    );
+
+    // Create waypoints array: [knot1, knot2, ..., knotN, HOME]
+    const waypoints = [ ...availableKnots, null ]; // null = home position
+
+    if ( waypoints.length === 0 ) { return; }
+
+    // Find current waypoint index
+    const currentTarget = puller.state.targetKnot;
+    let currentIndex = currentTarget === null ?
+      waypoints.length - 1 : // Home is last waypoint
+      availableKnots.indexOf( currentTarget );
+    
+    if ( currentIndex === -1 ) { currentIndex = 0; }
+
+    // Navigate to next/previous waypoint
+    const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+    const nextIndex = ( currentIndex + delta + waypoints.length ) % waypoints.length;
+    const targetWaypoint = waypoints[ nextIndex ];
+
+    // Update target in state
+    puller.state.targetKnot = targetWaypoint;
+
+    if ( targetWaypoint === null ) {
+      // Move to home position
+      puller.positionProperty.reset();
+      this.updatePosition( puller, this.model );
+      this.updateAccessibleDescription( 'return to toolbox' );
+      this.addAccessibleResponse( 'Over return to toolbox position' );
+    }
+    else {
+      // Move to knot position
+      this.updatePositionKnotted( puller, this.model, targetWaypoint );
+      const knotDescription = this.getKnotDescription( targetWaypoint );
+      this.updateAccessibleDescription( knotDescription );
+      this.addAccessibleResponse( `Over ${knotDescription}` );
+    }
   }
+
+  /**
+   * Position puller appropriately when grabbed via keyboard
+   */
+  private positionForKeyboardGrab(): void {
+    const puller = this.puller;
+    const grabOrigin = puller.state.grabOrigin;
+    
+    if ( grabOrigin?.attachedKnot ) {
+      // Was on rope - position at that knot
+      this.updatePositionKnotted( puller, this.model, grabOrigin.attachedKnot );
+      puller.state.targetKnot = grabOrigin.attachedKnot;
+    }
+    else {
+      // Was in toolbox - move to first available knot
+      const availableKnots = this.model.knots.filter( knot =>
+        knot.type === puller.type && this.model.getPuller( knot ) === null
+      );
+      
+      if ( availableKnots.length > 0 ) {
+        const firstKnot = availableKnots[ 0 ];
+        this.updatePositionKnotted( puller, this.model, firstKnot );
+        puller.state.targetKnot = firstKnot;
+      }
+    }
+  }
+
 
   /**
    * Reset the puller node to its initial state
    */
   public reset(): void {
-    // Reset internal tracking state
-    this.wasOriginallyOnRope = false;
-    this.preGrabMode = null;
-    this.originalMode = null;
-    this.originalPosition = null;
-
     // Update visual state based on reset model
     this.updateImage( this.puller, this.model );
     this.updatePosition( this.puller, this.model );

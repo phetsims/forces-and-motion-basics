@@ -1,8 +1,11 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * PullerFocusManager provides centralized focus management for puller nodes.
- * It recomputes focusability based on current state rather than maintaining complex listeners.
+ * Simplified PullerFocusManager that uses the new state system and handles auto-focus.
+ * Responsibilities:
+ * 1. Maintain single tab stop per logical group
+ * 2. Handle auto-focus after drops
+ * 3. React to state changes
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -34,37 +37,19 @@ export default class PullerFocusManager {
       }
     } );
 
-    // Also listen for mode changes that affect logical grouping
+    // Listen for state changes (simpler than mode property)
     pullerNode.puller.modeProperty.link( () => {
-      // Mode changed - might affect which group this puller is in
+      // State changed - might affect which group this puller is in
       this.recomputeAllFocusability();
     } );
   }
 
   /**
-   * Determine which logical group a puller belongs to based on its current state
+   * Determine which logical group a puller belongs to using the new state system
    */
   private getLogicalGroup( pullerNode: PullerNode ): LogicalGroup {
-    const mode = pullerNode.puller.modeProperty.get();
-    const type = pullerNode.puller.type;
-
-    // Dragging states don't participate in focus management
-    if ( mode === 'mouseDragging' || mode === 'touchDragging' ) {
-      return 'dragging';
-    }
-
-    // Home = toolbox
-    if ( mode === 'home' ) {
-      return type === 'blue' ? 'blue-toolbox' : 'red-toolbox';
-    }
-
-    // Attached to rope (leftKnot/rightKnot) or keyboard grabbed over rope
-    if ( mode.startsWith( 'left' ) || mode.startsWith( 'right' ) || mode.startsWith( 'keyboardGrabbedOver' ) ) {
-      return type === 'blue' ? 'blue-rope' : 'red-rope';
-    }
-
-    // Fallback
-    return 'dragging';
+    // Use the new simplified method from the puller
+    return pullerNode.puller.getLogicalGroup();
   }
 
   /**
@@ -166,6 +151,93 @@ export default class PullerFocusManager {
    */
   public reset(): void {
     this.setInitialFocusability();
+  }
+
+  /**
+   * Handle auto-focus after a puller is dropped
+   * This is the key new functionality for the simplified system
+   */
+  public handlePullerDrop( droppedPuller: PullerNode ): void {
+    const droppedGroup = this.getLogicalGroup( droppedPuller );
+    
+    ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+      console.log( 'Handling drop for puller, group:', droppedGroup );
+    
+    // If dropped in toolbox, focus next available puller in same toolbox
+    if ( droppedGroup.endsWith( '-toolbox' ) ) {
+      this.focusNextInGroup( droppedGroup, droppedPuller );
+    }
+    // If dropped on rope, focus next available puller in source toolbox
+    else if ( droppedGroup.endsWith( '-rope' ) ) {
+      const sourceToolbox = droppedGroup.replace( '-rope', '-toolbox' ) as LogicalGroup;
+      this.focusNextInGroup( sourceToolbox, droppedPuller );
+    }
+    
+    // Always recompute after drop to ensure consistency
+    this.recomputeAllFocusability();
+  }
+
+  /**
+   * Focus the next available puller in a specific group
+   */
+  private focusNextInGroup( group: LogicalGroup, excludePuller?: PullerNode ): void {
+    const pullersInGroup = this.allPullers.filter( puller =>
+      this.getLogicalGroup( puller ) === group && puller !== excludePuller
+    );
+    
+    if ( pullersInGroup.length > 0 ) {
+      // Sort by position for consistent order
+      pullersInGroup.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
+      
+      const nextPuller = pullersInGroup[ 0 ];
+      nextPuller.focusable = true;
+      nextPuller.focus();
+      
+      ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+        console.log( 'Auto-focused next puller in group', group, ':', nextPuller.puller.size, nextPuller.puller.type );
+    }
+  }
+
+  /**
+   * Handle keyboard navigation between pullers (called from PullerNode)
+   */
+  public handleArrowNavigation( currentPuller: PullerNode, direction: 'left' | 'right' | 'up' | 'down' ): void {
+    // Only handle navigation when not grabbed
+    if ( currentPuller.puller.isGrabbed() ) {
+      return; // Let individual puller handle knot cycling
+    }
+    
+    const currentGroup = this.getLogicalGroup( currentPuller );
+    const pullersInGroup = this.allPullers.filter( puller =>
+      this.getLogicalGroup( puller ) === currentGroup
+    );
+    
+    // Sort by position
+    pullersInGroup.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
+    
+    const currentIndex = pullersInGroup.indexOf( currentPuller );
+    if ( currentIndex === -1 ) { return; }
+    
+    const delta = ( direction === 'left' || direction === 'up' ) ? -1 : 1;
+    const newIndex = currentIndex + delta;
+    
+    // Keep selection within bounds
+    if ( newIndex >= 0 && newIndex < pullersInGroup.length ) {
+      const nextPuller = pullersInGroup[ newIndex ];
+      
+      // Prevent focus manager interference during navigation
+      this.setNavigating( true );
+      
+      // Transfer focus
+      nextPuller.focusable = true;
+      nextPuller.focus();
+      
+      // Re-enable focus manager
+      this.setNavigating( false );
+      
+      ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+        console.log( `Arrow navigation: ${currentPuller.puller.size} ${currentPuller.puller.type} → ${nextPuller.puller.size} ${nextPuller.puller.type}` );
+    }
   }
 
   /**
