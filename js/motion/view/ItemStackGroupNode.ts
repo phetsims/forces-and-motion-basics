@@ -37,7 +37,7 @@ export default class ItemStackGroupNode extends Node {
       // ARIA attributes for the group
       ariaRole: 'group',
       accessibleName: 'Items on Skateboard',
-      descriptionContent: 'Use up and down arrow keys to navigate between stacked items, then press Space or Enter to grab'
+      descriptionContent: 'Use arrow keys to navigate between stacked items, then press Space or Enter to grab'
     }, providedOptions );
 
     super( options );
@@ -168,19 +168,14 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
   public constructor( private readonly groupNode: ItemStackGroupNode, private readonly model: MotionModel ) {}
   
   public navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {
-    // Only up/down navigation in stack (vertical stacking)
-    if ( direction === 'left' || direction === 'right' ) {
-      return null;
-    }
-    
     const stackItems = this.groupNode.stackItemNodes;
     const currentIndex = stackItems.indexOf( currentItem );
     if ( currentIndex === -1 ) { return null; }
     
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stack navigation - from item at index:', currentIndex );
     
-    // Up moves to higher index (towards top of stack), down moves to lower index (towards bottom)
-    const delta = ( direction === 'up' ) ? 1 : -1;
+    // Up/Right moves to higher index (towards top of stack), Down/Left moves to lower index (towards bottom)
+    const delta = ( direction === 'up' || direction === 'right' ) ? 1 : -1;
     const newIndex = currentIndex + delta;
     
     // Keep selection within bounds
