@@ -7,3 +7,7 @@ node_modules/
 *.sublime-project
 *.sublime-workspace
 .eslintcache
+
+# Playwright test artifacts
+playwright-report/
+test-results/

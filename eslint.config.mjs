@@ -10,5 +10,12 @@
 import simEslintConfig from '../perennial-alias/js/eslint/config/sim.eslint.config.mjs';
 
 export default [
-  ...simEslintConfig
+  ...simEslintConfig,
+  {
+    ignores: [
+      'playwright.config.js',
+      'playwright-report/',
+      'test-results/'
+    ]
+  }
 ];

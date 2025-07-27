@@ -308,7 +308,7 @@ export default class PullerNode extends Image {
         // Let focus manager handle auto-focus
         this.focusManager.handlePullerDrop( this );
         
-        // Add accessibility feedback
+        // Add accessibility feedback - check state.attachedKnot for immediate feedback
         if ( puller.state.attachedKnot ) {
           const knotDescription = this.getKnotDescription( puller.state.attachedKnot );
           this.updateAccessibleDescription( knotDescription );

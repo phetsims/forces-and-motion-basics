@@ -159,20 +159,34 @@ export default class PullerFocusManager {
    */
   public handlePullerDrop( droppedPuller: PullerNode ): void {
     const droppedGroup = this.getLogicalGroup( droppedPuller );
-    
+    const grabOrigin = droppedPuller.puller.state.grabOrigin;
+
     ForcesAndMotionBasicsQueryParameters.debugAltInput &&
-      console.log( 'Handling drop for puller, group:', droppedGroup );
-    
-    // If dropped in toolbox, focus next available puller in same toolbox
+    console.log( 'Handling drop for puller, group:', droppedGroup, 'grabOrigin:', grabOrigin );
+
+    // If dropped in toolbox
     if ( droppedGroup.endsWith( '-toolbox' ) ) {
-      this.focusNextInGroup( droppedGroup, droppedPuller );
+
+      // Always maintain focus on the puller that was dropped back to toolbox
+      // This provides consistent UX regardless of grab origin tracking issues
+      ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+      console.log( 'Maintaining focus on puller dropped to toolbox, origin:', grabOrigin );
+
+      // Set focusable and focus, then recompute to ensure consistency
+      droppedPuller.focusable = true;
+      droppedPuller.focus();
+
+      // Recompute to ensure other pullers have correct focusability
+      // Do this after focusing to preserve the focus we just set
+      this.recomputeAllFocusability();
+      return; // Early return to avoid the general recompute below
     }
     // If dropped on rope, focus next available puller in source toolbox
     else if ( droppedGroup.endsWith( '-rope' ) ) {
       const sourceToolbox = droppedGroup.replace( '-rope', '-toolbox' ) as LogicalGroup;
       this.focusNextInGroup( sourceToolbox, droppedPuller );
     }
-    
+
     // Always recompute after drop to ensure consistency
     this.recomputeAllFocusability();
   }
@@ -184,17 +198,17 @@ export default class PullerFocusManager {
     const pullersInGroup = this.allPullers.filter( puller =>
       this.getLogicalGroup( puller ) === group && puller !== excludePuller
     );
-    
+
     if ( pullersInGroup.length > 0 ) {
       // Sort by position for consistent order
       pullersInGroup.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
-      
+
       const nextPuller = pullersInGroup[ 0 ];
       nextPuller.focusable = true;
       nextPuller.focus();
-      
+
       ForcesAndMotionBasicsQueryParameters.debugAltInput &&
-        console.log( 'Auto-focused next puller in group', group, ':', nextPuller.puller.size, nextPuller.puller.type );
+      console.log( 'Auto-focused next puller in group', group, ':', nextPuller.puller.size, nextPuller.puller.type );
     }
   }
 
@@ -206,37 +220,37 @@ export default class PullerFocusManager {
     if ( currentPuller.puller.isGrabbed() ) {
       return; // Let individual puller handle knot cycling
     }
-    
+
     const currentGroup = this.getLogicalGroup( currentPuller );
     const pullersInGroup = this.allPullers.filter( puller =>
       this.getLogicalGroup( puller ) === currentGroup
     );
-    
+
     // Sort by position
     pullersInGroup.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
-    
+
     const currentIndex = pullersInGroup.indexOf( currentPuller );
     if ( currentIndex === -1 ) { return; }
-    
+
     const delta = ( direction === 'left' || direction === 'up' ) ? -1 : 1;
     const newIndex = currentIndex + delta;
-    
+
     // Keep selection within bounds
     if ( newIndex >= 0 && newIndex < pullersInGroup.length ) {
       const nextPuller = pullersInGroup[ newIndex ];
-      
+
       // Prevent focus manager interference during navigation
       this.setNavigating( true );
-      
+
       // Transfer focus
       nextPuller.focusable = true;
       nextPuller.focus();
-      
+
       // Re-enable focus manager
       this.setNavigating( false );
-      
+
       ForcesAndMotionBasicsQueryParameters.debugAltInput &&
-        console.log( `Arrow navigation: ${currentPuller.puller.size} ${currentPuller.puller.type} → ${nextPuller.puller.size} ${nextPuller.puller.type}` );
+      console.log( `Arrow navigation: ${currentPuller.puller.size} ${currentPuller.puller.type} → ${nextPuller.puller.size} ${nextPuller.puller.type}` );
     }
   }
 
