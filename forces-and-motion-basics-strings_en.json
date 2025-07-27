@@ -249,6 +249,39 @@
           }
         }
       }
+    },
+    "motionScreen": {
+      "items": {
+        "itemAccessibleNameWithMass": {
+          "value": "{ $itemName }, { $mass }"
+        },
+        "massUnknown": {
+          "value": "mass unknown"
+        },
+        "names": {
+          "fridge": {
+            "value": "Fridge"
+          },
+          "crate1": {
+            "value": "Crate 1"
+          },
+          "crate2": {
+            "value": "Crate 2"
+          },
+          "girl": {
+            "value": "Girl"
+          },
+          "man": {
+            "value": "Man"
+          },
+          "trash": {
+            "value": "Trash Can"
+          },
+          "mystery": {
+            "value": "Mystery Object"
+          }
+        }
+      }
     }
   }
 }

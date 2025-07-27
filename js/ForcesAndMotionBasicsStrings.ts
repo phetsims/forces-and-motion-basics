@@ -116,6 +116,21 @@ type StringsType = {
           'withPullersStringProperty': LocalizedStringProperty;
         }
       }
+    };
+    'motionScreen': {
+      'items': {
+        'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;
+        'massUnknownStringProperty': LocalizedStringProperty;
+        'names': {
+          'fridgeStringProperty': LocalizedStringProperty;
+          'crate1StringProperty': LocalizedStringProperty;
+          'crate2StringProperty': LocalizedStringProperty;
+          'girlStringProperty': LocalizedStringProperty;
+          'manStringProperty': LocalizedStringProperty;
+          'trashStringProperty': LocalizedStringProperty;
+          'mysteryStringProperty': LocalizedStringProperty;
+        }
+      }
     }
   }
 };

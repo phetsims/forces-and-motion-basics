@@ -98,6 +98,15 @@ addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_blueTeamAtt
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_redTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.redTeamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_itemAccessibleNameWithMass', 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_massUnknown', 'a11y.motionScreen.items.massUnknownStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_fridge', 'a11y.motionScreen.items.names.fridgeStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_crate1', 'a11y.motionScreen.items.names.crate1StringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_crate2', 'a11y.motionScreen.items.names.crate2StringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_girl', 'a11y.motionScreen.items.names.girlStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_man', 'a11y.motionScreen.items.names.manStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_trash', 'a11y.motionScreen.items.names.trashStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_mystery', 'a11y.motionScreen.items.names.mysteryStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -215,6 +224,21 @@ const ForcesAndMotionBasicsFluent = {
         interactionHint: {
           noPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' ) ),
           withPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' ) )
+        }
+      }
+    },
+    motionScreen: {
+      items: {
+        itemAccessibleNameWithMass: new FluentPattern<{ itemName: FluentVariable, mass: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_items_itemAccessibleNameWithMass', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' ), [{"name":"itemName"},{"name":"mass"}] ),
+        massUnknownStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_massUnknown', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.massUnknownStringProperty' ) ),
+        names: {
+          fridgeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_fridge', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.fridgeStringProperty' ) ),
+          crate1StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_crate1', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.crate1StringProperty' ) ),
+          crate2StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_crate2', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.crate2StringProperty' ) ),
+          girlStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_girl', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.girlStringProperty' ) ),
+          manStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_man', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.manStringProperty' ) ),
+          trashStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_trash', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.trashStringProperty' ) ),
+          mysteryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_mystery', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.mysteryStringProperty' ) )
         }
       }
     }

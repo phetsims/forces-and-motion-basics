@@ -102,3 +102,15 @@ a11y:
       interactionHint:
         noPullers: Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
         withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.
+  motionScreen:
+    items:
+      itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
+      massUnknown: 'mass unknown'
+      names:
+        fridge: Fridge
+        crate1: Crate 1
+        crate2: Crate 2
+        girl: Girl
+        man: Man
+        trash: Trash Can
+        mystery: Mystery Object

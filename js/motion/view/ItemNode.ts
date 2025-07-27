@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
@@ -110,6 +111,37 @@ export default class ItemNode extends Node {
                       holdingImageProperty: TReadOnlyProperty<ImageableImage>,
                       showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Node, tandem: Tandem ) {
 
+    // Set up strings for mass labels
+    const unknownValueIndicatorStringProperty = ForcesAndMotionBasicsFluent.unknownValueIndicatorStringProperty;
+    const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
+      ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
+
+    // Get the localized item name
+    const itemNames = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names;
+    const localizedItemNameProperty = item.name === 'fridge' ? itemNames.fridgeStringProperty :
+                                     item.name === 'crate1' ? itemNames.crate1StringProperty :
+                                     item.name === 'crate2' ? itemNames.crate2StringProperty :
+                                     item.name === 'girl' ? itemNames.girlStringProperty :
+                                     item.name === 'man' ? itemNames.manStringProperty :
+                                     item.name === 'trash' ? itemNames.trashStringProperty :
+                                     item.name === 'mystery' ? itemNames.mysteryStringProperty :
+                                     itemNames.fridgeStringProperty; // fallback
+    
+    // Create fluent property for accessible name with mass
+    const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
+    const itemAccessibleNameWithMassProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
+      itemName: localizedItemNameProperty,
+      mass: item.mystery ? massUnknownStringProperty : pattern0MassUnitsKilogramsStringProperty
+    } );
+    
+    // Create a derived property that switches between plain name and name with mass
+    const accessibleNameProperty = new DerivedProperty(
+      [ showMassesProperty, itemAccessibleNameWithMassProperty, localizedItemNameProperty ],
+      ( showMasses: boolean, itemNameWithMass: string, localizedItemName: string ): string => {
+        return showMasses ? itemNameWithMass : localizedItemName;
+      }
+    );
+
     super( {
       cursor: 'pointer',
       scale: item.imageScale,
@@ -122,7 +154,7 @@ export default class ItemNode extends Node {
       // Keyboard accessibility
       focusable: true,
       ariaRole: 'button',
-      accessibleName: `${item.name} item`,
+      accessibleName: accessibleNameProperty,
       descriptionContent: 'Drag to move to skateboard or use keyboard'
     } );
 
@@ -248,10 +280,6 @@ export default class ItemNode extends Node {
     } );
 
     //Label for the mass (if it is shown)
-    const unknownValueIndicatorStringProperty = ForcesAndMotionBasicsFluent.unknownValueIndicatorStringProperty;
-    const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
-      ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
-
     // Denominator empirically determined to prevent most labels from overlapping. The second value was empirically
     // determined to prevent the label from overlapping on larger images.
     const maxWidth = Math.min( normalImageNode.width / 1.7, 70 );
