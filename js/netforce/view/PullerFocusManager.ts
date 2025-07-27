@@ -18,6 +18,7 @@ type LogicalGroup = 'blue-toolbox' | 'red-toolbox' | 'blue-rope' | 'red-rope' | 
 
 export default class PullerFocusManager {
   private readonly allPullers: PullerNode[] = [];
+  private isNavigating = false; // Flag to prevent interference during arrow navigation
 
   /**
    * Register a puller for focus management
@@ -67,9 +68,22 @@ export default class PullerFocusManager {
   }
 
   /**
+   * Set navigation flag to prevent interference during arrow navigation
+   */
+  public setNavigating( navigating: boolean ): void {
+    this.isNavigating = navigating;
+  }
+
+  /**
    * Recompute focusability for all pullers based on current focus state
    */
   private recomputeAllFocusability(): void {
+    // Don't interfere during arrow navigation
+    if ( this.isNavigating ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Skipping focus recomputation during navigation' );
+      return;
+    }
+
     // Find which puller (if any) currently has focus
     const focusedPuller = this.allPullers.find( puller => puller.isFocused );
 

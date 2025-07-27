@@ -14,7 +14,7 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceModel from '../model/NetForceModel.js';
-import PullerNode, { type PullerKeyboardStrategy } from './PullerNode.js';
+import PullerNode from './PullerNode.js';
 
 type SelfOptions = {
   // Which side this group represents
@@ -73,7 +73,7 @@ export default class PullersOnRopeGroupNode extends Node {
     // The complex focus management logic has been centralized
 
     // Set the keyboard strategy for rope pullers
-    pullerNode.setKeyboardStrategy( new RopeKeyboardStrategy( this, model ) );
+    pullerNode.setupKeyboardNavigation();
   }
 
   /**
@@ -141,51 +141,5 @@ export default class PullersOnRopeGroupNode extends Node {
   }
 }
 
-/**
- * Keyboard strategy for pullers on the rope.
- * Handles navigation between rope pullers without focus management after drops.
- */
-class RopeKeyboardStrategy implements PullerKeyboardStrategy {
-  public constructor( private readonly groupNode: PullersOnRopeGroupNode, private readonly model: NetForceModel ) {}
-  
-  public navigateToPuller( currentPuller: PullerNode, direction: 'left' | 'right' | 'up' | 'down' ): PullerNode | null {
-    const pullers = this.groupNode.ropePullerNodes;
-    const currentIndex = pullers.indexOf( currentPuller );
-    if ( currentIndex === -1 ) { return null; }
-    
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Rope navigation mode - from puller at index:', currentIndex );
-    const delta = ( direction === 'left' || direction === 'up' ) ? -1 : 1;
-    const newIndex = currentIndex + delta;
-    
-    // Keep selection within bounds
-    if ( newIndex >= 0 && newIndex < pullers.length ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from rope index', currentIndex, 'to rope index', newIndex );
-      return pullers[ newIndex ];
-    }
-    return null;
-  }
-  
-  public onDropComplete( puller: PullerNode, droppedOnKnot: boolean, wasAlreadyOnRope?: boolean ): void {
-    // Rope pullers don't need special focus behavior after drops
-    // The automatic transfer system in NetForceScreenView will handle group transfers
-    // based on knotProperty changes, so we don't manually remove pullers here
-    if ( !droppedOnKnot ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned rope puller to toolbox - transfer system will handle group changes' );
-    }
-  }
-  
-  public getPullerGroup(): PullerNode[] {
-    return this.groupNode.ropePullerNodes;
-  }
-  
-  public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'knot' | 'toolbox' ): string {
-    if ( action === 'grabbed' ) {
-      return 'Grabbed';
-    }
-    else {
-      return location === 'knot' ? 'Puller moved on rope' : 'Puller returned to toolbox';
-    }
-  }
-}
 
 forcesAndMotionBasics.register( 'PullersOnRopeGroupNode', PullersOnRopeGroupNode );

@@ -355,7 +355,7 @@ export default class NetForceScreenView extends ScreenView {
       side: 'right'
     } );
     this.model.pullers.forEach( puller => {
-      const pullerNode = new PullerNode( puller, this.model,
+      const pullerNode = new PullerNode( puller, this.model, this.pullerFocusManager,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
           tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
@@ -366,7 +366,7 @@ export default class NetForceScreenView extends ScreenView {
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
       pullerGroup.addPullerNode( pullerNode, this.model );
       this.pullerNodes.push( pullerNode );
-      
+
       // Register with the centralized focus manager
       this.pullerFocusManager.registerPuller( pullerNode );
     } );
@@ -433,7 +433,7 @@ export default class NetForceScreenView extends ScreenView {
 
         // Reset the centralized focus management
         this.pullerFocusManager.reset();
-        
+
         // Reset the focus state of all puller groups to ensure proper keyboard navigation
         this.leftPullerGroup.reset();
         this.rightPullerGroup.reset();
@@ -527,7 +527,7 @@ export default class NetForceScreenView extends ScreenView {
       this.returnButton,
       this.cartNode
     ];
-    
+
     // Control Area: control panel and reset button
     this.pdomControlAreaNode.pdomOrder = [
       this.controlPanel,

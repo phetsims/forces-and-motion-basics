@@ -19,42 +19,8 @@ import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller, { PullerMode } from '../model/Puller.js';
+import PullerFocusManager from './PullerFocusManager.js';
 
-/**
- * Strategy interface for keyboard navigation behavior.
- * Different contexts (toolbox vs rope) can provide their own implementations.
- */
-export type PullerKeyboardStrategy = {
-  /**
-   * Navigate between pullers in the same context
-   * @param currentPuller - The puller currently focused
-   * @param direction - The navigation direction
-   * @returns The puller to focus next, or null if navigation not possible
-   */
-  navigateToPuller( currentPuller: PullerNode, direction: 'left' | 'right' | 'up' | 'down' ): PullerNode | null;
-
-  /**
-   * Called after a puller is successfully dropped
-   * @param puller - The puller that was dropped
-   * @param droppedOnKnot - Whether the puller was dropped on a knot (true) or returned to toolbox (false)
-   * @param wasAlreadyOnRope - Optional: For toolbox drops, whether the puller originated from rope (vs toolbox)
-   */
-  onDropComplete( puller: PullerNode, droppedOnKnot: boolean, wasAlreadyOnRope?: boolean ): void;
-
-  /**
-   * Get the group of pullers this puller belongs to
-   * @returns Array of all pullers in the same context
-   */
-  getPullerGroup(): PullerNode[];
-
-  /**
-   * Context-specific accessibility message
-   * @param action - The action performed
-   * @param location - Where the action occurred
-   * @returns The accessibility message to announce
-   */
-  getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'knot' | 'toolbox' ): string;
-};
 
 type SelfOptions = EmptySelfOptions;
 type PullerNodeOptions = ImageOptions & SelfOptions;
@@ -62,9 +28,9 @@ type PullerNodeOptions = ImageOptions & SelfOptions;
 export default class PullerNode extends Image {
   public standImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
-  private keyboardStrategy: PullerKeyboardStrategy | null = null;
   private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
   private readonly model: NetForceModel;
+  private readonly focusManager: PullerFocusManager;
 
   // Track whether this puller was originally attached to a knot when grabbed (for focus management)
   private wasOriginallyOnRope = false;
@@ -88,6 +54,7 @@ export default class PullerNode extends Image {
   public constructor(
     public readonly puller: Puller,
     model: NetForceModel,
+    focusManager: PullerFocusManager,
     image: ImageableImage,
     public pullImage: ImageableImage,
     providedOptions?: PullerNodeOptions ) {
@@ -112,6 +79,7 @@ export default class PullerNode extends Image {
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image;
     this.model = model;
+    this.focusManager = focusManager;
 
     model.hasStartedProperty.link( () => {
       this.updateImage( puller, model );
@@ -264,32 +232,27 @@ export default class PullerNode extends Image {
   }
 
   /**
-   * Set the keyboard navigation strategy for this puller.
-   * This determines how keyboard interactions behave based on context (toolbox vs rope).
-   * @param strategy - The strategy to use, or null to remove keyboard handling
+   * Set up keyboard navigation for this puller.
+   * This creates the keyboard listener for all puller interactions.
    */
-  public setKeyboardStrategy( strategy: PullerKeyboardStrategy | null ): void {
+  public setupKeyboardNavigation(): void {
     // Remove existing keyboard listener if any
     if ( this.keyboardListener ) {
       this.removeInputListener( this.keyboardListener );
       this.keyboardListener = null;
     }
 
-    this.keyboardStrategy = strategy;
-
-    if ( strategy ) {
-      // Create a single listener that combines all hotkey data
-      this.keyboardListener = new KeyboardListener( {
-        keyStringProperties: [
-          ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
-          ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
-          ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties
-        ],
-        fireOnDown: false,
-        fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
-      } );
-      this.addInputListener( this.keyboardListener );
-    }
+    // Create a single listener that combines all hotkey data
+    this.keyboardListener = new KeyboardListener( {
+      keyStringProperties: [
+        ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
+        ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
+        ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties
+      ],
+      fireOnDown: false,
+      fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
+    } );
+    this.addInputListener( this.keyboardListener );
   }
 
   /**
@@ -318,8 +281,6 @@ export default class PullerNode extends Image {
    * This contains all the common keyboard logic that was previously duplicated in the group classes.
    */
   private handleKeyboardInput( keysPressed: string ): void {
-    if ( !this.keyboardStrategy ) { return; }
-
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'keyboardListener fired for puller:', this.puller, 'key:', keysPressed );
     const puller = this.puller;
     const isGrabbed = puller.userControlledProperty.get();
@@ -381,24 +342,46 @@ export default class PullerNode extends Image {
         // Ignore up/down arrows when grabbed (only left/right navigate knots)
       }
       else {
-        // NORMAL MODE: Use strategy to navigate between pullers
+        // NORMAL MODE: Navigate between pullers based on current mode
+        const currentMode = puller.modeProperty.get();
         let direction: 'left' | 'right' | 'up' | 'down';
         if ( keysPressed === 'arrowLeft' ) { direction = 'left'; }
         else if ( keysPressed === 'arrowRight' ) { direction = 'right'; }
         else if ( keysPressed === 'arrowUp' ) { direction = 'up'; }
         else { direction = 'down'; }
 
-        const nextPuller = this.keyboardStrategy.navigateToPuller( this, direction );
-
-        if ( nextPuller ) {
-          // Make current puller non-focusable
-          this.focusable = false;
-
-          // Make new puller focusable and focus it
-          nextPuller.focusable = true;
-          nextPuller.focus();
-
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated to next puller' );
+        // Get all pullers in the same logical context (toolbox vs rope)
+        const isInToolbox = currentMode === 'home';
+        const allPullers = this.getAllPullersInSameContext( isInToolbox );
+        
+        const currentIndex = allPullers.indexOf( this );
+        
+        if ( currentIndex !== -1 ) {
+          const delta = ( direction === 'left' || direction === 'up' ) ? -1 : 1;
+          const newIndex = currentIndex + delta;
+          
+          // Keep selection within bounds
+          if ( newIndex >= 0 && newIndex < allPullers.length ) {
+            const nextPuller = allPullers[ newIndex ];
+            
+            // FIXED: Prevent focus manager interference during arrow navigation
+            this.focusManager.setNavigating( true );
+            
+            // Ensure target puller is focusable before transferring focus
+            nextPuller.focusable = true;
+            nextPuller.focus();
+            
+            // Re-enable focus manager after navigation completes
+            this.focusManager.setNavigating( false );
+            
+            console.log( `🎯 Arrow navigation: ${this.puller.size} ${this.puller.type} → ${nextPuller.puller.size} ${nextPuller.puller.type}` );
+          }
+          else {
+            console.log( `🎯 Arrow navigation blocked: no more pullers in ${direction} direction` );
+          }
+        }
+        else {
+          console.log( '🎯 Arrow navigation failed: current puller not found in context' );
         }
       }
       return; // Don't process Enter/Space if we handled arrow keys
@@ -453,22 +436,10 @@ export default class PullerNode extends Image {
             this.focus();
             ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Maintained focus on rope puller after transfer to toolbox' );
           }
- else {
-            // Only call onDropComplete for pullers that were originally from toolbox
-            this.keyboardStrategy.onDropComplete( this, false, wasAlreadyOnRope );
-          }
+          // Focus management for toolbox drops is now handled automatically by PullerFocusManager
         }
         else {
           // Puller is at a knot - normal drop behavior
-
-          // PHASE I: Check if this is a toolbox puller being dropped on rope
-          // Capture the strategy BEFORE any drop logic that might change it
-          const wasFromToolbox = puller.knotProperty.get() === null;
-          const originalToolboxStrategy = wasFromToolbox ? this.keyboardStrategy : null;
-
-          if ( originalToolboxStrategy ) {
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Captured original strategy:', originalToolboxStrategy.constructor.name );
-          }
 
           // Determine the target knot and set the appropriate mode
           const targetKnot = this.model.getTargetKnot( puller );
@@ -489,32 +460,8 @@ export default class PullerNode extends Image {
           this.preGrabMode = null;
           this.originalMode = null;
           this.originalPosition = null;
-
-          // PHASE I: Handle focus after successful toolbox-to-rope drop
-          if ( wasFromToolbox && originalToolboxStrategy ) {
-            // For toolbox pullers, use a one-time listener to detect successful attachment
-            // This avoids timing issues with immediate checks
-            const successListener = ( newKnot: Knot | null ) => {
-              if ( newKnot !== null ) {
-                // Successfully attached to rope, notify ORIGINAL strategy for focus handling
-                ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Successful toolbox-to-rope drop detected, calling onDropComplete on original strategy:', originalToolboxStrategy.constructor.name );
-                ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: About to call originalToolboxStrategy.onDropComplete( this, true )' );
-                try {
-                  originalToolboxStrategy.onDropComplete( this, true, undefined );
-                  ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'PHASE I: Successfully called onDropComplete' );
-                }
-                catch( error ) {
-                  console.error( 'PHASE I: Error calling onDropComplete:', error );
-                }
-                puller.knotProperty.unlink( successListener );
-              }
-            };
-            puller.knotProperty.link( successListener );
-          }
-          else if ( !wasFromToolbox ) {
-            // For non-toolbox pullers (rope-to-rope moves), notify immediately
-            this.keyboardStrategy.onDropComplete( this, true, undefined );
-          }
+          
+          // Focus management is now handled automatically by PullerFocusManager
         }
       }
       else {
@@ -539,7 +486,15 @@ export default class PullerNode extends Image {
         puller.disconnect();
         
         const newMode = puller.modeProperty.get();
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'AFTER grab - new mode:', newMode );
+        const isUserControlled = puller.userControlledProperty.get();
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'AFTER grab - new mode:', newMode, 'userControlled:', isUserControlled );
+        
+        // CRITICAL FIX: Ensure userControlled is properly set for keyboard grabs
+        // The mode should trigger this, but let's ensure it happens
+        if ( newMode.startsWith( 'keyboardGrabbedOver' ) && !isUserControlled ) {
+          console.warn( 'KEYBOARD GRAB BUG: Mode was set to grabbed but userControlled is still false. Fixing...' );
+          puller.userControlledProperty.set( true );
+        }
 
         this.updateImage( puller, this.model );
 
@@ -617,6 +572,22 @@ export default class PullerNode extends Image {
     this.preGrabMode = null;
     this.originalMode = null;
     this.originalPosition = null;
+  }
+
+  /**
+   * Get all pullers in the same context (toolbox vs rope) as this puller
+   */
+  private getAllPullersInSameContext( isInToolbox: boolean ): PullerNode[] {
+    const allPullers = this.model.pullers.map( puller => puller.node! ).filter( node => node !== null );
+    
+    return allPullers.filter( pullerNode => {
+      const pullerMode = pullerNode.puller.modeProperty.get();
+      const pullerIsInToolbox = pullerMode === 'home';
+      const sameContext = pullerIsInToolbox === isInToolbox;
+      const sameType = pullerNode.puller.type === this.puller.type;
+      
+      return sameContext && sameType;
+    } );
   }
 
   /**
