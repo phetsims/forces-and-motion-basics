@@ -26,24 +26,26 @@ import Knot from './Knot.js';
 
 // Define the possible modes for a puller
 export type PullerMode =
-  | 'home'                    // In toolbox, not grabbed
-  | 'grabbedOverHome'         // Grabbed and positioned over home/toolbox
-  | 'grabbedOverLeftKnot1'    // Grabbed and positioned over left knot 1
-  | 'grabbedOverLeftKnot2'    // Grabbed and positioned over left knot 2
-  | 'grabbedOverLeftKnot3'    // Grabbed and positioned over left knot 3
-  | 'grabbedOverLeftKnot4'    // Grabbed and positioned over left knot 4
-  | 'grabbedOverRightKnot1'   // Grabbed and positioned over right knot 1
-  | 'grabbedOverRightKnot2'   // Grabbed and positioned over right knot 2
-  | 'grabbedOverRightKnot3'   // Grabbed and positioned over right knot 3
-  | 'grabbedOverRightKnot4'   // Grabbed and positioned over right knot 4
-  | 'leftKnot1'               // Attached to left knot 1
-  | 'leftKnot2'               // Attached to left knot 2
-  | 'leftKnot3'               // Attached to left knot 3
-  | 'leftKnot4'               // Attached to left knot 4
-  | 'rightKnot1'              // Attached to right knot 1
-  | 'rightKnot2'              // Attached to right knot 2
-  | 'rightKnot3'              // Attached to right knot 3
-  | 'rightKnot4';             // Attached to right knot 4
+  | 'home'                           // In toolbox, not grabbed
+  | 'mouseDragging'                  // Being dragged by mouse
+  | 'touchDragging'                  // Being dragged by touch
+  | 'keyboardGrabbedOverHome'        // Keyboard grabbed and positioned over home/toolbox
+  | 'keyboardGrabbedOverLeftKnot1'   // Keyboard grabbed and positioned over left knot 1
+  | 'keyboardGrabbedOverLeftKnot2'   // Keyboard grabbed and positioned over left knot 2
+  | 'keyboardGrabbedOverLeftKnot3'   // Keyboard grabbed and positioned over left knot 3
+  | 'keyboardGrabbedOverLeftKnot4'   // Keyboard grabbed and positioned over left knot 4
+  | 'keyboardGrabbedOverRightKnot1'  // Keyboard grabbed and positioned over right knot 1
+  | 'keyboardGrabbedOverRightKnot2'  // Keyboard grabbed and positioned over right knot 2
+  | 'keyboardGrabbedOverRightKnot3'  // Keyboard grabbed and positioned over right knot 3
+  | 'keyboardGrabbedOverRightKnot4'  // Keyboard grabbed and positioned over right knot 4
+  | 'leftKnot1'                      // Attached to left knot 1
+  | 'leftKnot2'                      // Attached to left knot 2
+  | 'leftKnot3'                      // Attached to left knot 3
+  | 'leftKnot4'                      // Attached to left knot 4
+  | 'rightKnot1'                     // Attached to right knot 1
+  | 'rightKnot2'                     // Attached to right knot 2
+  | 'rightKnot3'                     // Attached to right knot 3
+  | 'rightKnot4';                    // Attached to right knot 4
 
 type SelfOptions = {
   standOffsetX?: number;
@@ -122,9 +124,9 @@ export default class Puller extends PhetioObject {
     // Initialize the mode property - this is the authoritative state
     this.modeProperty = new StringUnionProperty<PullerMode>( 'home', {
       validValues: [
-        'home', 'grabbedOverHome',
-        'grabbedOverLeftKnot1', 'grabbedOverLeftKnot2', 'grabbedOverLeftKnot3', 'grabbedOverLeftKnot4',
-        'grabbedOverRightKnot1', 'grabbedOverRightKnot2', 'grabbedOverRightKnot3', 'grabbedOverRightKnot4',
+        'home', 'mouseDragging', 'touchDragging', 'keyboardGrabbedOverHome',
+        'keyboardGrabbedOverLeftKnot1', 'keyboardGrabbedOverLeftKnot2', 'keyboardGrabbedOverLeftKnot3', 'keyboardGrabbedOverLeftKnot4',
+        'keyboardGrabbedOverRightKnot1', 'keyboardGrabbedOverRightKnot2', 'keyboardGrabbedOverRightKnot3', 'keyboardGrabbedOverRightKnot4',
         'leftKnot1', 'leftKnot2', 'leftKnot3', 'leftKnot4',
         'rightKnot1', 'rightKnot2', 'rightKnot3', 'rightKnot4'
       ],
@@ -141,7 +143,7 @@ export default class Puller extends PhetioObject {
 
     // Keep userControlled in sync with mode
     this.modeProperty.link( mode => {
-      this.userControlledProperty.set( mode.startsWith( 'grabbedOver' ) );
+      this.userControlledProperty.set( mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'mouseDragging' || mode === 'touchDragging' );
     } );
 
     // Derived property: knotProperty is derived from mode
@@ -195,7 +197,7 @@ export default class Puller extends PhetioObject {
     this.knots = knots;
     // Create mapping from mode to knot
     const modeToKnot = ( mode: PullerMode ): Knot | null => {
-      if ( mode === 'home' || mode.startsWith( 'grabbedOver' ) ) {
+      if ( mode === 'home' || mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'mouseDragging' || mode === 'touchDragging' ) {
         return null;
       }
 
@@ -218,7 +220,7 @@ export default class Puller extends PhetioObject {
    */
   public getModeForKnot( knot: Knot | null, grabbed = false ): PullerMode {
     if ( knot === null ) {
-      return grabbed ? 'grabbedOverHome' : 'home';
+      return grabbed ? 'keyboardGrabbedOverHome' : 'home';
     }
 
     // Get the knot index from the stored knots array (set up during setupKnotMapping)
@@ -230,7 +232,7 @@ export default class Puller extends PhetioObject {
     const side = isLeft ? 'left' : 'right';
 
     if ( grabbed ) {
-      return `grabbedOver${side.charAt( 0 ).toUpperCase()}${side.slice( 1 )}Knot${knotNumber}` as PullerMode;
+      return `keyboardGrabbedOver${side.charAt( 0 ).toUpperCase()}${side.slice( 1 )}Knot${knotNumber}` as PullerMode;
     }
     else {
       return `${side}Knot${knotNumber}` as PullerMode;
@@ -257,12 +259,12 @@ export default class Puller extends PhetioObject {
     // In the new system, we just set mode to grabbed over current position
     const currentMode = this.modeProperty.get();
     if ( currentMode.startsWith( 'left' ) || currentMode.startsWith( 'right' ) ) {
-      // Convert attached mode to grabbed mode
-      const grabbedMode = `grabbedOver${currentMode.charAt( 0 ).toUpperCase()}${currentMode.slice( 1 )}` as PullerMode;
+      // Convert attached mode to keyboard grabbed mode
+      const grabbedMode = `keyboardGrabbedOver${currentMode.charAt( 0 ).toUpperCase()}${currentMode.slice( 1 )}` as PullerMode;
       this.modeProperty.set( grabbedMode );
     }
     else if ( currentMode === 'home' ) {
-      this.modeProperty.set( 'grabbedOverHome' );
+      this.modeProperty.set( 'keyboardGrabbedOverHome' );
     }
   }
 }

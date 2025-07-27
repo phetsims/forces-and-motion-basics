@@ -139,10 +139,18 @@ export default class PullerNode extends Image {
         tandem: options.tandem?.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
-        start: () => {
+        start: event => {
 
           // check to see if a puller is knotted - if it is, store the knot
           const knot = puller.knotProperty.get();
+
+          // Set the appropriate dragging mode based on input type
+          if ( event.pointer.isTouchLike() ) {
+            puller.modeProperty.set( 'touchDragging' );
+          }
+          else {
+            puller.modeProperty.set( 'mouseDragging' );
+          }
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();

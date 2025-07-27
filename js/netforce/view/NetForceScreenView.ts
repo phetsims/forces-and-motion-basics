@@ -48,7 +48,6 @@ import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_fi
 import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
 import rope_png from '../../../images/rope_png.js';
 import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -63,6 +62,7 @@ import GoPauseButton from './GoPauseButton.js';
 import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
 import NetForceScreenSummaryContent from './NetForceScreenSummaryContent.js';
+import PullerFocusManager from './PullerFocusManager.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
@@ -176,6 +176,7 @@ export default class NetForceScreenView extends ScreenView {
   private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
   private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
   private readonly returnButton: ReturnButton;
+  private readonly pullerFocusManager: PullerFocusManager;
 
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
@@ -344,6 +345,9 @@ export default class NetForceScreenView extends ScreenView {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
 
+    // Initialize the centralized focus manager
+    this.pullerFocusManager = new PullerFocusManager();
+
     this.leftPullerGroup = new PullerGroupNode( model, {
       side: 'left'
     } );
@@ -362,6 +366,9 @@ export default class NetForceScreenView extends ScreenView {
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
       pullerGroup.addPullerNode( pullerNode, this.model );
       this.pullerNodes.push( pullerNode );
+      
+      // Register with the centralized focus manager
+      this.pullerFocusManager.registerPuller( pullerNode );
     } );
 
     ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
@@ -386,66 +393,8 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.leftRopePullerGroup );
     this.addChild( this.rightRopePullerGroup );
 
-    // Set up listeners to transfer pullers between toolbox and rope groups
-    this.pullerNodes.forEach( pullerNode => {
-      const puller = pullerNode.puller;
-
-      // Listen for mode changes to transfer pullers between groups
-      puller.modeProperty.link( ( newMode, oldMode ) => {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'modeProperty changed:', {
-          puller: puller,
-          newMode: newMode,
-          oldMode: oldMode,
-          userControlled: puller.userControlledProperty.get()
-        } );
-
-        // Only transfer if puller is not being controlled (grabbed)
-        // Grabbed modes (starting with 'grabbedOver') should not trigger transfers
-        if ( !newMode.startsWith( 'grabbedOver' ) ) {
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller not grabbed, checking for transfer...' );
-
-          const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-          const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
-
-          // Use pre-grab mode for more accurate transfer decisions
-          const preGrabMode = pullerNode.getPreGrabMode() || oldMode;
-
-          const wasInToolbox = preGrabMode === 'home';
-          const wasOnRope = preGrabMode && ( preGrabMode.startsWith( 'left' ) || preGrabMode.startsWith( 'right' ) );
-
-          const nowInToolbox = newMode === 'home';
-          const nowOnRope = ( newMode.startsWith( 'left' ) || newMode.startsWith( 'right' ) ) && !newMode.startsWith( 'grabbedOver' );
-
-          if ( nowOnRope && wasInToolbox ) {
-            // Puller moved from toolbox to rope - only transfer if not already in rope group
-            if ( toolboxGroup.hasChild( pullerNode ) && !ropeGroup.hasChild( pullerNode ) ) {
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: toolbox → rope' );
-              toolboxGroup.removePullerNode( pullerNode );
-              ropeGroup.addPullerNode( pullerNode, this.model );
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Transferred puller from toolbox to rope:', puller );
-            }
-            else {
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller already in correct group (rope), skipping transfer' );
-            }
-          }
-          else if ( nowInToolbox && wasOnRope ) {
-            // Puller moved from rope to toolbox - only transfer if not already in toolbox group
-            if ( ropeGroup.hasChild( pullerNode ) && !toolboxGroup.hasChild( pullerNode ) ) {
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'TRANSFERRING: rope → toolbox' );
-              ropeGroup.removePullerNode( pullerNode );
-              toolboxGroup.addPullerNode( pullerNode, this.model );
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Transferred puller from rope to toolbox:', puller );
-            }
-            else {
-              ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller already in correct group (toolbox), skipping transfer' );
-            }
-          }
-        }
-        else {
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Puller is grabbed, skipping transfer' );
-        }
-      } );
-    } );
+    // Note: Complex transfer logic has been replaced with centralized focus management.
+    // The PullerFocusManager now handles focus state based on puller modes automatically.
 
     //Add the go button, but only if there is a puller attached
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
@@ -482,6 +431,9 @@ export default class NetForceScreenView extends ScreenView {
         // Reset all puller nodes
         this.pullerNodes.forEach( pullerNode => pullerNode.reset() );
 
+        // Reset the centralized focus management
+        this.pullerFocusManager.reset();
+        
         // Reset the focus state of all puller groups to ensure proper keyboard navigation
         this.leftPullerGroup.reset();
         this.rightPullerGroup.reset();

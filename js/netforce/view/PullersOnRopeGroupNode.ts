@@ -23,9 +23,14 @@ type SelfOptions = {
 
 type PullersOnRopeGroupNodeOptions = SelfOptions & NodeOptions;
 
+type FocusListener = ( focused: boolean ) => void;
+
 export default class PullersOnRopeGroupNode extends Node {
   public readonly ropePullerNodes: PullerNode[] = [];
   private myGroupFocusHighlight: GroupHighlightPath;
+  
+  // Store listener references for cleanup
+  private readonly focusListeners = new Map<PullerNode, FocusListener>();
 
   public constructor( model: NetForceModel, providedOptions: PullersOnRopeGroupNodeOptions ) {
 
@@ -61,21 +66,11 @@ export default class PullersOnRopeGroupNode extends Node {
     // Update group highlight now that we have children
     this.updateGroupHighlight();
 
-    pullerNode.focusedProperty.lazyLink( focused => {
-      if ( focused ) {
-        this.ropePullerNodes.forEach( node => {
-          if ( node !== pullerNode ) {
-            node.focusable = false; // Make other rope pullers non-focusable
-          }
-        } );
-      }
-      else {
-        // When this puller loses focus, restore focusability to all rope pullers
-        this.ropePullerNodes.forEach( node => {
-          node.focusable = true;
-        } );
-      }
-    } );
+    // Ensure the puller is focusable when added to rope group
+    pullerNode.focusable = true;
+
+    // Note: Focus listeners are now handled by PullerFocusManager
+    // The complex focus management logic has been centralized
 
     // Set the keyboard strategy for rope pullers
     pullerNode.setKeyboardStrategy( new RopeKeyboardStrategy( this, model ) );
@@ -89,6 +84,14 @@ export default class PullersOnRopeGroupNode extends Node {
     if ( index !== -1 ) {
       this.ropePullerNodes.splice( index, 1 );
       this.removeChild( pullerNode );
+      
+      // CRITICAL: Unlink the focus listener to prevent conflicts
+      const focusListener = this.focusListeners.get( pullerNode );
+      if ( focusListener ) {
+        pullerNode.focusedProperty.unlink( focusListener );
+        this.focusListeners.delete( pullerNode );
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Unlinked focus listener for rope puller:', pullerNode.puller );
+      }
 
       // Update group highlight after removal
       this.updateGroupHighlight();

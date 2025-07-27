@@ -23,9 +23,14 @@ type SelfOptions = {
 
 type PullerGroupNodeOptions = SelfOptions & NodeOptions;
 
+type Created = ( focused: boolean ) => void;
+
 export default class PullerGroupNode extends Node {
   public readonly pullerNodes: PullerNode[] = [];
   private myGroupFocusHighlight: GroupHighlightPath;
+
+  // Store listener references for cleanup
+  private readonly focusListeners = new Map<PullerNode, Created>();
 
   public constructor( model: NetForceModel, providedOptions: PullerGroupNodeOptions ) {
 
@@ -61,24 +66,13 @@ export default class PullerGroupNode extends Node {
     // Update group highlight now that we have children
     this.updateGroupHighlight();
 
-    pullerNode.focusedProperty.lazyLink( focused => {
-      if ( focused ) {
-        this.pullerNodes.forEach( node => {
-          if ( node !== pullerNode ) {
-            node.focusable = false; // Make other pullers non-focusable
-          }
-        } );
-      }
-      else {
-        // When this puller loses focus, restore focusability to all pullers in the toolbox
-        // (only those not attached to knots)
-        this.pullerNodes.forEach( node => {
-          if ( node.puller.knotProperty.get() === null ) {
-            node.focusable = true;
-          }
-        } );
-      }
-    } );
+    // Ensure the puller is focusable when added to toolbox group (if not attached to knot)
+    if ( pullerNode.puller.knotProperty.get() === null ) {
+      pullerNode.focusable = true;
+    }
+
+    // Note: Focus listeners are now handled by PullerFocusManager
+    // The complex focus management logic has been centralized
 
     // Set the keyboard strategy for toolbox pullers
     pullerNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ) );
@@ -92,6 +86,14 @@ export default class PullerGroupNode extends Node {
     if ( index !== -1 ) {
       this.pullerNodes.splice( index, 1 );
       this.removeChild( pullerNode );
+
+      // CRITICAL: Unlink the focus listener to prevent conflicts
+      const focusListener = this.focusListeners.get( pullerNode );
+      if ( focusListener ) {
+        pullerNode.focusedProperty.unlink( focusListener );
+        this.focusListeners.delete( pullerNode );
+        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Unlinked focus listener for puller:', pullerNode.puller );
+      }
 
       // Update group highlight after removal
       this.updateGroupHighlight();
@@ -147,7 +149,7 @@ export default class PullerGroupNode extends Node {
   public reset(): void {
     // Sort pullers by position to ensure consistent order after reset
     this.sortPullers();
-    
+
     // Update the group highlight bounds after reset
     this.updateGroupHighlight();
 
@@ -178,16 +180,16 @@ export default class PullerGroupNode extends Node {
  */
 class ToolboxKeyboardStrategy implements PullerKeyboardStrategy {
   public constructor( private readonly groupNode: PullerGroupNode, private readonly model: NetForceModel ) {}
-  
+
   public navigateToPuller( currentPuller: PullerNode, direction: 'left' | 'right' | 'up' | 'down' ): PullerNode | null {
     const pullers = this.groupNode.pullerNodes;
     const currentIndex = pullers.indexOf( currentPuller );
     if ( currentIndex === -1 ) { return null; }
-    
+
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigation mode - from puller at index:', currentIndex );
     const delta = ( direction === 'left' || direction === 'up' ) ? -1 : 1;
     const newIndex = currentIndex + delta;
-    
+
     // Keep selection within bounds
     if ( newIndex >= 0 && newIndex < pullers.length ) {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from index', currentIndex, 'to index', newIndex );
@@ -195,10 +197,10 @@ class ToolboxKeyboardStrategy implements PullerKeyboardStrategy {
     }
     return null;
   }
-  
+
   public onDropComplete( puller: PullerNode, droppedOnKnot: boolean, wasAlreadyOnRope?: boolean ): void {
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ToolboxKeyboardStrategy.onDropComplete called:', { puller: puller.puller, droppedOnKnot: droppedOnKnot, wasAlreadyOnRope: wasAlreadyOnRope } );
-    
+
     if ( droppedOnKnot ) {
       // PHASE I: Puller was successfully dropped from toolbox to rope
       // Focus the next available puller in the toolbox
@@ -213,11 +215,11 @@ class ToolboxKeyboardStrategy implements PullerKeyboardStrategy {
       // Keep focus on the current puller (don't change focus)
     }
   }
-  
+
   public getPullerGroup(): PullerNode[] {
     return this.groupNode.pullerNodes;
   }
-  
+
   public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'knot' | 'toolbox' ): string {
     if ( action === 'grabbed' ) {
       return 'Grabbed';

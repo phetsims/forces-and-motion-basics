@@ -269,12 +269,15 @@ export default class NetForceModel extends PhetioObject {
     if ( knot ) {
 
       puller.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
-      puller.knotProperty.set( knot );
+      // Set mode instead of knotProperty directly to trigger group transfers
+      puller.modeProperty.set( puller.getModeForKnot( knot ) );
     }
 
     // Or go back home
     else {
       puller.positionProperty.reset();
+      // Set mode to home to trigger group transfers
+      puller.modeProperty.set( 'home' );
     }
 
     // Keep track of their position to change the attach/detach thresholds, see NetForceModel.getTargetKnot
@@ -384,19 +387,19 @@ export default class NetForceModel extends PhetioObject {
 
   /**
    * Get the knot that corresponds to the puller's current mode.
-   * For grabbed modes like 'grabbedOverLeftKnot1', returns the target knot.
-   * For 'grabbedOverHome', returns null.
+   * For keyboard grabbed modes like 'keyboardGrabbedOverLeftKnot1', returns the target knot.
+   * For 'keyboardGrabbedOverHome', returns null.
    */
   private getKnotFromMode( puller: Puller ): Knot | null {
     const mode = puller.modeProperty.get();
 
     // If grabbed over home, return null (puller should return to toolbox)
-    if ( mode === 'grabbedOverHome' ) {
+    if ( mode === 'keyboardGrabbedOverHome' ) {
       return null;
     }
 
-    // Extract knot info from grabbed mode (e.g., 'grabbedOverLeftKnot1' -> left, index 0)
-    if ( mode.startsWith( 'grabbedOver' ) ) {
+    // Extract knot info from keyboard grabbed mode (e.g., 'keyboardGrabbedOverLeftKnot1' -> left, index 0)
+    if ( mode.startsWith( 'keyboardGrabbedOver' ) ) {
       const isLeft = mode.includes( 'Left' );
       const knotNumberMatch = mode.match( /(\d+)$/ );
       if ( knotNumberMatch ) {
