@@ -377,7 +377,7 @@ export default class PullerNode extends Image {
         const currentLocation = puller.state.grabOrigin?.attachedKnot ?
           this.getKnotDescription( puller.state.grabOrigin.attachedKnot ) : 'toolbox';
         this.updateAccessibleDescription( currentLocation );
-        this.addAccessibleResponse( `Grabbed from ${currentLocation}` );
+        this.addAccessibleResponse( 'Grabbed' );
       }
     }
   }
