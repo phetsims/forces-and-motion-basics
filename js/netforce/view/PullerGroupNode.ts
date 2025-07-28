@@ -39,8 +39,7 @@ export default class PullerGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'group',
-      accessibleName: providedOptions.side === 'left' ? 'Blue Team Pullers' : 'Red Team Pullers',
-      descriptionContent: 'Use arrow keys to select a puller, then press Space or Enter to grab'
+      accessibleName: providedOptions.side === 'left' ? 'Blue Team Pullers' : 'Red Team Pullers'
     }, providedOptions );
 
     super( options );

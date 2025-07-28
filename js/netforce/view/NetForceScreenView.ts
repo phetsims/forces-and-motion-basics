@@ -276,10 +276,12 @@ export default class NetForceScreenView extends ScreenView {
 
     // create the toolboxes that hold the puller children
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
-      accessibleHeading: 'Blue Team Toolbox'
+      accessibleHeading: 'Blue Team Toolbox',
+      descriptionContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots. Different sizes apply different amounts of force.'
     } );
     const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
-      accessibleHeading: 'Red Team Toolbox'
+      accessibleHeading: 'Red Team Toolbox',
+      descriptionContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots. Different sizes apply different amounts of force.'
     } );
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
@@ -359,8 +361,7 @@ export default class NetForceScreenView extends ScreenView {
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
           tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
-          accessibleName: `${puller.size} ${puller.type} puller`,
-          accessibleHelpText: 'Drag to attach to rope knots. Different sizes apply different amounts of force.'
+          accessibleName: `${puller.size} ${puller.type} puller`
         }
       );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
@@ -369,12 +370,12 @@ export default class NetForceScreenView extends ScreenView {
 
       // Register with the centralized focus manager
       this.pullerFocusManager.registerPuller( pullerNode );
-      
+
       // Listen for knot property changes to move pullers between groups
       puller.knotProperty.link( ( newKnot, oldKnot ) => {
         const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
         const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
-        
+
         if ( newKnot !== null && oldKnot === null ) {
           // Puller attached to rope - move from toolbox to rope group
           if ( toolboxGroup.pullerNodes.includes( pullerNode ) ) {
@@ -391,7 +392,7 @@ export default class NetForceScreenView extends ScreenView {
         }
       } );
 
-      
+
       // Listen for drops to handle auto-focus to next puller
       puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
         // Only handle keyboard drops for auto-focus
