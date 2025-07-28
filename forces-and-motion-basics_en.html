@@ -30,7 +30,16 @@
         "url": "https://github.com/phetsims/forces-and-motion-basics.git"
       },
       "devDependencies": {
-        "grunt": "~1.5.3"
+        "grunt": "~1.5.3",
+        "@playwright/test": "^1.40.0"
+      },
+      "scripts": {
+        "test": "playwright test",
+        "test:headed": "playwright test --headed",
+        "test:debug": "playwright test --debug",
+        "test:ui": "playwright test --ui",
+        "test:report": "playwright show-report",
+        "test:record": "playwright codegen \"http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses\""
       },
       "phet": {
         "requirejsNamespace": "FORCES_AND_MOTION_BASICS",
