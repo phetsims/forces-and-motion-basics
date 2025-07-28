@@ -212,7 +212,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
     // Check if medium puller is actually on rope or still in toolbox
     const mediumPullerOnRope = await page.getByRole( 'button', { name: /medium blue puller at.*knot/ } ).isVisible();
     const mediumPullerInToolbox = await page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ).isVisible();
-    
+
     console.log( 'Medium puller on rope:', mediumPullerOnRope );
     console.log( 'Medium puller in toolbox:', mediumPullerInToolbox );
 
@@ -220,7 +220,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
       // If on rope, focus should auto-move to next puller in toolbox (leftmost = large puller)
       await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
     }
- else {
+    else {
       // If still in toolbox, the medium puller should retain focus
       await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
     }
@@ -232,7 +232,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
     await page.keyboard.press( 'Tab' ); // Focus go button or next element
     await page.keyboard.press( 'Shift+Tab' ); // Back to large puller 
     await page.keyboard.press( 'ArrowRight' ); // Move to medium puller
-    
+
     // Verify medium puller has focus
     await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
 
@@ -249,28 +249,31 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
     } );
 
     console.log( 'Active element after medium puller drop:', activeElementAccessibleName );
-    
+
     // Focus should move to the large blue puller (leftmost in toolbox)
     await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
   } );
 
   test( 'should follow correct focus order: left toolbox -> right toolbox -> blue rope group -> red rope group', async ( { page } ) => {
     // Move only one blue puller to rope, leaving others in toolbox to test complete focus order
-    
+
     // Move blue puller to rope
     await page.keyboard.press( 'Tab' ); // Focus blue puller
     await page.keyboard.press( 'Space' ); // Grab
     await page.keyboard.press( 'Space' ); // Drop to rope
     await page.waitForTimeout( 500 );
-    
+
     // DO NOT move red puller - leave it in toolbox to test proper order
 
     // Helper function to get information about the currently focused element
     const getFocusedElementInfo = async () => {
-      return await page.evaluate( () => {
+      return page.evaluate( () => {
+        // eslint-disable-next-line no-undef
         const activeElement = document.activeElement;
-        if ( !activeElement ) return { name: 'No active element', role: null };
-        
+        if ( !activeElement ) {
+          return { name: 'No active element', role: null };
+        }
+
         return {
           name: activeElement.getAttribute( 'aria-label' ) || activeElement.textContent || 'Unnamed element',
           role: activeElement.getAttribute( 'role' ),
@@ -291,16 +294,16 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
 
     // Start from beginning - focus the page first
     await page.keyboard.press( 'Tab' );
-    
+
     while ( tabCount < maxTabs ) {
       const focusInfo = await getFocusedElementInfo();
       focusOrder.push( focusInfo );
-      
+
       // If we've found elements that clearly indicate we're past the groups we care about, stop
       if ( focusInfo.name.includes( 'Reset All' ) || focusInfo.name.includes( 'Control Panel' ) ) {
         break;
       }
-      
+
       await page.keyboard.press( 'Tab' );
       tabCount++;
     }
@@ -320,17 +323,17 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
       const name = item.name.toLowerCase();
       return name.includes( 'blue' ) && name.includes( 'toolbox' );
     } );
-    
+
     const redToolboxPullers = relevantElements.filter( item => {
       const name = item.name.toLowerCase();
       return name.includes( 'red' ) && name.includes( 'toolbox' );
     } );
-    
+
     const blueRopePullers = relevantElements.filter( item => {
       const name = item.name.toLowerCase();
       return name.includes( 'blue' ) && ( name.includes( 'knot' ) || name.includes( 'rope' ) );
     } );
-    
+
     const redRopePullers = relevantElements.filter( item => {
       const name = item.name.toLowerCase();
       return name.includes( 'red' ) && ( name.includes( 'knot' ) || name.includes( 'rope' ) );
@@ -343,26 +346,26 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
 
     // Test assertions
     expect( relevantElements.length ).toBeGreaterThan( 0 );
-    
+
     // Find the index ranges for each category
-    const getIndices = ( elements ) => elements.map( el => relevantElements.indexOf( el ) ).filter( i => i >= 0 );
-    
+    const getIndices = elements => elements.map( el => relevantElements.indexOf( el ) ).filter( i => i >= 0 );
+
     const blueToolboxIndices = getIndices( blueToolboxPullers );
     const redToolboxIndices = getIndices( redToolboxPullers );
     const blueRopeIndices = getIndices( blueRopePullers );
     const redRopeIndices = getIndices( redRopePullers );
-    
+
     // Verify the expected order: ALL toolboxes before ANY rope groups
     const allToolboxIndices = [ ...blueToolboxIndices, ...redToolboxIndices ];
     const allRopeIndices = [ ...blueRopeIndices, ...redRopeIndices ];
-    
+
     if ( allToolboxIndices.length > 0 && allRopeIndices.length > 0 ) {
       const lastToolbox = Math.max( ...allToolboxIndices );
       const firstRope = Math.min( ...allRopeIndices );
       expect( lastToolbox ).toBeLessThan( firstRope );
       console.log( 'Verified: ALL toolbox pullers come before ANY rope pullers' );
     }
-    
+
     // Verify the expected order: toolboxes before rope groups within teams
     if ( blueToolboxIndices.length > 0 && blueRopeIndices.length > 0 ) {
       const lastBlueToolbox = Math.max( ...blueToolboxIndices );
@@ -370,14 +373,14 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
       expect( lastBlueToolbox ).toBeLessThan( firstBlueRope );
       console.log( 'Verified: blue toolbox pullers come before blue rope pullers' );
     }
-    
+
     if ( redToolboxIndices.length > 0 && redRopeIndices.length > 0 ) {
       const lastRedToolbox = Math.max( ...redToolboxIndices );
       const firstRedRope = Math.min( ...redRopeIndices );
       expect( lastRedToolbox ).toBeLessThan( firstRedRope );
       console.log( 'Verified: red toolbox pullers come before red rope pullers' );
     }
-    
+
     // Verify blue comes before red within categories (if both exist)
     if ( blueToolboxIndices.length > 0 && redToolboxIndices.length > 0 ) {
       const lastBlueToolbox = Math.max( ...blueToolboxIndices );
@@ -385,7 +388,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
       expect( lastBlueToolbox ).toBeLessThan( firstRedToolbox );
       console.log( 'Verified: blue toolbox comes before red toolbox' );
     }
-    
+
     if ( blueRopeIndices.length > 0 && redRopeIndices.length > 0 ) {
       const lastBlueRope = Math.max( ...blueRopeIndices );
       const firstRedRope = Math.min( ...redRopeIndices );

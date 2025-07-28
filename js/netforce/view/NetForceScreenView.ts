@@ -390,6 +390,7 @@ export default class NetForceScreenView extends ScreenView {
           }
         }
       } );
+
       
       // Listen for drops to handle auto-focus to next puller
       puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
