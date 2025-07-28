@@ -373,14 +373,26 @@ export default class NetForceScreenView extends ScreenView {
     // Create the toolboxes with dynamic accessibility properties
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
       tagName: 'div',
-      accessibleName: leftTeamHeadingProperty,
-      accessibleParagraph: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+      accessibleName: leftTeamHeadingProperty
     } );
     const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
       tagName: 'div',
-      accessibleName: rightTeamHeadingProperty,
-      accessibleParagraph: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+      accessibleName: rightTeamHeadingProperty
     } );
+
+    // Create instruction nodes that will be read before the puller groups
+    const leftInstructions = new Node( {
+      tagName: 'p',
+      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+    } );
+    const rightInstructions = new Node( {
+      tagName: 'p',
+      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+    } );
+
+    // Add instructions to toolboxes first (so they're read before puller groups)
+    leftToolbox.addChild( leftInstructions );
+    rightToolbox.addChild( rightInstructions );
 
     this.addChild( leftToolbox );
     this.addChild( rightToolbox );
