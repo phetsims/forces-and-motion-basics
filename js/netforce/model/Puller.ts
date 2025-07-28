@@ -472,6 +472,8 @@ export default class Puller extends PhetioObject {
    * Get the logical group this puller belongs to (for focus management)
    */
   public getLogicalGroup(): 'blue-toolbox' | 'red-toolbox' | 'blue-rope' | 'red-rope' | 'dragging' {
+    // Only mouse/touch dragging should be in 'dragging' group
+    // Keyboard grabbed pullers should remain in their logical location group for focus management
     if ( this.state.dragType === 'mouse' || this.state.dragType === 'touch' ) {
       return 'dragging';
     }

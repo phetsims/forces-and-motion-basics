@@ -239,6 +239,7 @@ export default class PullerNode extends Image {
       fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
     } );
     this.addInputListener( this.keyboardListener );
+
   }
 
   /**
@@ -300,10 +301,16 @@ export default class PullerNode extends Image {
     // ENTER/SPACE HANDLING - simplified grab/drop logic
     if ( keysPressed === 'enter' || keysPressed === 'space' ) {
       if ( isGrabbed ) {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+        console.log( 'DROP: About to drop puller:', puller.size, puller.type );
+        
         // Drop the puller
         puller.drop();
         this.updatePosition( puller, this.model );
         this.updateImage( puller, this.model );
+        
+        ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+        console.log( 'DROP: After drop, calling handlePullerDrop' );
         
         // Let focus manager handle auto-focus
         this.focusManager.handlePullerDrop( this );

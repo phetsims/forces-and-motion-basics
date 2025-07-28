@@ -69,6 +69,19 @@ export default class PullerFocusManager {
       return;
     }
 
+    // Don't interfere with keyboard-grabbed pullers that still have focus
+    // This prevents losing focus during the grab-to-drop transition
+    const keyboardGrabbedPuller = this.allPullers.find( puller =>
+      puller.puller.isGrabbed() &&
+      puller.puller.state.dragType === 'keyboard' &&
+      puller.isFocused
+    );
+    
+    if ( keyboardGrabbedPuller ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Skipping focus recomputation - keyboard grabbed puller has focus:', keyboardGrabbedPuller.puller.size, keyboardGrabbedPuller.puller.type );
+      return;
+    }
+
     // Find which puller (if any) currently has focus
     const focusedPuller = this.allPullers.find( puller => puller.isFocused );
 
@@ -87,8 +100,9 @@ export default class PullerFocusManager {
       const pullerGroup = this.getLogicalGroup( puller );
 
       if ( pullerGroup === 'dragging' ) {
-        // Dragging pullers are never focusable via tab
-        puller.focusable = false;
+        // Mouse/touch dragging pullers are not focusable via tab, but keyboard-grabbed pullers should remain focusable
+        const dragType = puller.puller.state.dragType;
+        puller.focusable = ( dragType === 'keyboard' );
       }
       else if ( pullerGroup === focusedGroup ) {
         // Same group as focused puller - only the focused one should be focusable
@@ -162,7 +176,7 @@ export default class PullerFocusManager {
     const grabOrigin = droppedPuller.puller.state.grabOrigin;
 
     ForcesAndMotionBasicsQueryParameters.debugAltInput &&
-    console.log( 'Handling drop for puller, group:', droppedGroup, 'grabOrigin:', grabOrigin );
+    console.log( 'handlePullerDrop CALLED for puller:', droppedPuller.puller.size, droppedPuller.puller.type, 'group:', droppedGroup, 'grabOrigin:', grabOrigin );
 
     // If dropped in toolbox
     if ( droppedGroup.endsWith( '-toolbox' ) ) {
@@ -185,6 +199,11 @@ export default class PullerFocusManager {
     else if ( droppedGroup.endsWith( '-rope' ) ) {
       const sourceToolbox = droppedGroup.replace( '-rope', '-toolbox' ) as LogicalGroup;
       this.focusNextInGroup( sourceToolbox, droppedPuller );
+      
+      // Recompute to ensure other pullers have correct focusability
+      // Do this after focusing to preserve the focus we just set
+      this.recomputeAllFocusability();
+      return; // Early return to avoid the general recompute below
     }
 
     // Always recompute after drop to ensure consistency
@@ -199,16 +218,35 @@ export default class PullerFocusManager {
       this.getLogicalGroup( puller ) === group && puller !== excludePuller
     );
 
+    ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+    console.log( 'focusNextInGroup called for group:', group, 'found pullers:', pullersInGroup.length );
+    
+    ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+    console.log( 'All pullers and their groups:' );
+    
+    ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+    this.allPullers.forEach( puller => {
+      console.log( `  ${puller.puller.size} ${puller.puller.type}: group=${this.getLogicalGroup( puller )}, excluded=${puller === excludePuller}` );
+    } );
+
     if ( pullersInGroup.length > 0 ) {
       // Sort by position for consistent order
       pullersInGroup.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
 
       const nextPuller = pullersInGroup[ 0 ];
+      
+      ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+      console.log( 'Setting focusable=true and calling focus() on:', nextPuller.puller.size, nextPuller.puller.type );
+      
       nextPuller.focusable = true;
       nextPuller.focus();
 
       ForcesAndMotionBasicsQueryParameters.debugAltInput &&
       console.log( 'Auto-focused next puller in group', group, ':', nextPuller.puller.size, nextPuller.puller.type );
+    }
+    else {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+      console.log( 'No pullers found in group', group, 'to focus on' );
     }
   }
 
@@ -242,7 +280,8 @@ export default class PullerFocusManager {
       // Prevent focus manager interference during navigation
       this.setNavigating( true );
 
-      // Transfer focus
+      // Make current puller non-focusable and next puller focusable
+      currentPuller.focusable = false;
       nextPuller.focusable = true;
       nextPuller.focus();
 

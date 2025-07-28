@@ -10,6 +10,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `grunt lint --fix`: Run and auto-fix linting issues
 - `grunt modulify --targets=strings`: Update string subsystems after modifying forces-and-motion-basics-strings_en.yaml
 
+## Testing Commands
+
+- `npm run test -- tests/keyboard-navigation.spec.js --reporter=line`: Run keyboard navigation tests without popup
+- `npm run test -- tests/keyboard-navigation.spec.js --grep "test name" --reporter=line`: Run specific test
+
+### Debug Console Output in Tests
+
+To see debug console output when running tests:
+
+1. **Enable debug flags in the URL**: The test navigation URL must include `debugAltInput` query parameter:
+   ```
+   http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses&debugAltInput
+   ```
+
+2. **Use console.log in test files**: Debug output from `console.log()` statements in the test will appear in test output
+
+3. **Debug output from sim code**: Console logs from the simulation code (e.g., `ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log(...)`) will only appear if:
+   - The `debugAltInput` query parameter is present in the navigation URL
+   - The logs are captured by Playwright's console listener in the test
+
+4. **Example console capture in tests**:
+   ```javascript
+   // Capture console messages for debugging
+   const messages = [];
+   page.on( 'console', msg => {
+     if ( msg.text().includes( '[DEBUG]' ) ) {
+       messages.push( msg.text() );
+     }
+   } );
+   ```
+
+**Note**: Debug output may not appear in all reporter formats. Use `--reporter=dot` or `--reporter=line` for best results.
+
 ## Environment
 
 - This is developed as part of a monorepo. If you need details of any of the dependencies, you can follow the import
@@ -194,6 +227,58 @@ For implementing keyboard equivalents of drag/drop interactions:
 - **Don't forget method visibility** - may need to make `private` methods `public` for cross-class access
 - **Import required dependencies** - keyboard interactions may need Vector2, shapes, etc.
 
+### Focus Management Race Conditions (CRITICAL PATTERN)
+
+**Problem**: Property listeners can interfere with focus state during critical transitions, causing focus loss.
+
+**Pattern**: When implementing reactive focus management systems, property changes during state transitions can trigger unwanted recomputations that interfere with the ongoing operation.
+
+**Example**: In our case, when a puller was grabbed via keyboard:
+1. `puller.grab()` sets `dragType = 'keyboard'` 
+2. This triggers `modeProperty.set()` 
+3. Which triggers `modeProperty.link()` listener
+4. Which calls `recomputeAllFocusability()`
+5. Which could change the puller's focus state before the drop operation completes
+
+**Solution**: Add guard conditions to prevent interference during critical transitions:
+
+```typescript
+// Guard: Don't interfere with keyboard-grabbed pullers that still have focus
+const keyboardGrabbedPuller = this.allPullers.find( puller => 
+  puller.puller.isGrabbed() && 
+  puller.puller.state.dragType === 'keyboard' && 
+  puller.isFocused 
+);
+
+if ( keyboardGrabbedPuller ) {
+  return; // Skip recomputation during grab-to-drop transition
+}
+```
+
+**General Principle**: In reactive systems, always consider whether property listeners should be suppressed during specific state transitions.
+
+### Debugging Complex Async Focus Issues
+
+**Key Technique**: Use targeted console.log with stack traces to identify exactly when and why focus is lost:
+
+```typescript
+// Add focus tracking during development
+if ( ForcesAndMotionBasicsQueryParameters.debugAltInput ) {
+  this.focusedProperty.link( focused => {
+    if ( !focused && this.puller.isGrabbed() && this.puller.state.dragType === 'keyboard' ) {
+      console.log( 'FOCUS LOST during keyboard grab for:', this.puller.size, this.puller.type );
+      console.log( 'Stack trace:', new Error().stack );
+    }
+  } );
+}
+```
+
+**MCP Playwright for Real-Time Debugging**: Use MCP Playwright browser tools to see console output in real-time during interactions, which is more effective than automated test console capture for complex timing issues.
+
+**Manual vs Automated Test Differences**: Manual testing may work while automated tests fail due to timing differences. Always test both scenarios and add appropriate `waitForTimeout()` calls in tests to account for async operations.
+
+**Test Expectation Validation**: When tests fail, verify that the test expectations match the actual correct behavior. Sometimes the test encodes incorrect assumptions about the expected behavior.
+
 ### Advanced Keyboard Navigation Implementation (PHASE II Lessons)
 
 **CRITICAL LESSON: Property Timing and State Management**
@@ -355,12 +440,14 @@ pullerNode.focusedProperty.lazyLink( focused => {
 - Shift+Tab doesn't work in reverse direction
 - Elements become permanently unfocusable after first interaction
 - Focus jumps to unexpected UI elements (menus, buttons)
+- Focus lost completely during grab/drop operations (see Focus Management Race Conditions section above)
 
 **When This Occurs**:
 
 - Multi-group keyboard navigation systems
 - Dynamic focus management during item transfers
 - Any time you set `focusable = false` based on focus state
+- Reactive systems with multiple property listeners affecting focus (see Focus Management Race Conditions section above)
 
 **Testing Strategy**: Always test complete tab cycles in BOTH directions (Tab AND Shift+Tab) after implementing focus
 management.
