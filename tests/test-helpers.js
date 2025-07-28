@@ -221,16 +221,22 @@ async function verifyPullerLocation( page, pullerInfo, expectedLocation ) {
   const { size, color } = pullerInfo;
 
   if ( expectedLocation === 'toolbox' ) {
-    const locator = page.getByRole( 'button', {
-      name: new RegExp( `${size} ${color} puller at toolbox` )
+    // Look for the puller within the toolbox group
+    const toolboxGroupName = color === 'blue' ? 'Blue Team Pullers' : 'Red Team Pullers';
+    const toolboxGroup = page.getByRole( 'group', { name: toolboxGroupName } );
+    const pullerInToolbox = toolboxGroup.getByRole( 'button', {
+      name: new RegExp( `${size} ${color} puller` )
     } );
-    return locator.isVisible();
+    return pullerInToolbox.isVisible();
   }
   else if ( expectedLocation === 'knot' ) {
-    const locator = page.getByRole( 'button', {
-      name: new RegExp( `${size} ${color} puller at.*knot` )
+    // Look for the puller within the rope group
+    const ropeGroupName = color === 'blue' ? 'Blue Team Pullers on Rope' : 'Red Team Pullers on Rope';
+    const ropeGroup = page.getByRole( 'group', { name: ropeGroupName } );
+    const pullerOnRope = ropeGroup.getByRole( 'button', {
+      name: new RegExp( `${size} ${color} puller` )
     } );
-    return locator.isVisible();
+    return pullerOnRope.isVisible();
   }
 
   return false;

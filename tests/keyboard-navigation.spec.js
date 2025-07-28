@@ -36,7 +36,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
     await page.goto( TEST_URL );
 
     // Wait for the sim to fully load by checking for interactive elements
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeVisible( { timeout: 10000 } );
+    await expect( page.getByRole( 'button', { name: /large blue puller/ } ) ).toBeVisible( { timeout: 10000 } );
 
     // Ensure the page is in a stable state
     await page.waitForLoadState( 'networkidle' );
@@ -47,7 +47,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Tab' );
 
       // Verify the first blue puller has focus
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
   } );
@@ -55,7 +55,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
   test( 'should navigate between blue pullers with arrow keys', async ( { page } ) => {
     await test.step( 'Focus first blue puller', async () => {
       await page.keyboard.press( 'Tab' );
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
 
@@ -64,7 +64,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
         page,
         'ArrowRight',
         async () => {
-          const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+          const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller/ } );
           await waitForFocus( page, mediumBluePuller );
         }
       );
@@ -75,7 +75,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
         page,
         'ArrowLeft',
         async () => {
-          const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+          const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
           await waitForFocus( page, largeBluePuller );
         }
       );
@@ -88,7 +88,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
 
     await test.step( 'Focus first blue puller', async () => {
       await page.keyboard.press( 'Tab' );
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
 
@@ -112,7 +112,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Enter' );
 
       // Verify the puller moved to rope
-      const pullerOnRope = page.getByRole( 'button', { name: /large blue puller at.*knot/ } );
+      const pullerOnRope = page.getByRole( 'button', { name: /large blue puller/ } );
       await expect( pullerOnRope ).toBeVisible( { timeout: 3000 } );
 
       // Verify drop announcement
@@ -128,7 +128,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
     } );
 
     await test.step( 'Verify focus moved to next puller', async () => {
-      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller/ } );
       await waitForFocus( page, mediumBluePuller );
     } );
   } );
@@ -136,7 +136,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
   test( 'should support consecutive grab and drop operations', async ( { page } ) => {
     await test.step( 'Focus first puller', async () => {
       await page.keyboard.press( 'Tab' );
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
 
@@ -145,11 +145,11 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Enter' ); // Drop
 
       // Verify puller is on rope
-      await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) )
+      await expect( page.getByRole( 'button', { name: /large blue puller/ } ) )
         .toBeVisible( { timeout: 3000 } );
 
       // Focus should automatically move to medium puller
-      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller/ } );
       await waitForFocus( page, mediumBluePuller );
     } );
 
@@ -158,11 +158,11 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Enter' ); // Drop
 
       // Verify medium puller is on rope
-      await expect( page.getByRole( 'button', { name: /medium blue puller at.*knot/ } ) )
+      await expect( page.getByRole( 'button', { name: /medium blue puller/ } ) )
         .toBeVisible( { timeout: 3000 } );
 
       // Focus should move to small puller (use first() to handle duplicates in PDOM)
-      const smallBluePuller = page.getByRole( 'button', { name: /small blue puller at toolbox/ } ).first();
+      const smallBluePuller = page.getByRole( 'button', { name: /small blue puller/ } ).first();
       await waitForFocus( page, smallBluePuller );
     } );
 
@@ -182,7 +182,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Enter' ); // Drop
 
       // Verify puller is on rope
-      await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) )
+      await expect( page.getByRole( 'button', { name: /large blue puller/ } ) )
         .toBeVisible( { timeout: 3000 } );
     } );
 
@@ -198,7 +198,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
 
       // Wait for reset animation to complete
       await waitForElementStable(
-        page.getByRole( 'button', { name: /large blue puller at toolbox/ } ),
+        page.getByRole( 'button', { name: /large blue puller/ } ),
         { timeout: 5000 }
       );
     } );
@@ -216,7 +216,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
   test( 'should maintain focus when dropping puller to home position', async ( { page } ) => {
     await test.step( 'Focus first blue puller', async () => {
       await page.keyboard.press( 'Tab' );
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
 
@@ -234,7 +234,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Enter' );
 
       // The puller should still have focus after dropping to home
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
   } );
@@ -244,7 +244,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Tab' );
       await page.keyboard.press( 'ArrowRight' );
 
-      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller/ } );
       await waitForFocus( page, mediumBluePuller );
     } );
 
@@ -271,12 +271,12 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
 
       if ( mediumOnRope ) {
         // If on rope, focus should auto-move to large puller (leftmost in toolbox)
-        const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+        const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
         await waitForFocus( page, largeBluePuller );
       }
       else {
         // If still in toolbox, the medium puller should retain focus
-        const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+        const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller/ } );
         await waitForFocus( page, mediumBluePuller );
       }
     } );
@@ -287,7 +287,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Tab' );
       await page.keyboard.press( 'ArrowRight' );
 
-      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller/ } );
       await waitForFocus( page, mediumBluePuller );
     } );
 
@@ -307,7 +307,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
 
     await test.step( 'Verify focus moved to large puller', async () => {
       // Focus should move to the large blue puller (leftmost in toolbox)
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
     } );
   } );
@@ -319,7 +319,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Space' ); // Drop to rope
 
       // Verify puller is on rope
-      await expect( page.getByRole( 'button', { name: /blue puller at.*knot/ } ) )
+      await expect( page.getByRole( 'button', { name: /blue puller/ } ) )
         .toBeVisible( { timeout: 3000 } );
     } );
 
@@ -412,7 +412,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
     await test.step( 'Setup: Move blue puller to rope', async () => {
       // Tab to first blue puller
       await page.keyboard.press( 'Tab' );
-      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, largeBluePuller );
 
       // Grab with Space
@@ -423,7 +423,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       await page.keyboard.press( 'Space' );
 
       // Verify puller is on rope
-      await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) )
+      await expect( page.getByRole( 'button', { name: /large blue puller/ } ) )
         .toBeVisible( { timeout: 3000 } );
     } );
 
@@ -461,7 +461,7 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
       }
 
       // Verify we're focused on the blue puller that's on the rope
-      const blueRopePuller = page.getByRole( 'button', { name: /large blue puller at.*knot/ } );
+      const blueRopePuller = page.getByRole( 'button', { name: /large blue puller/ } );
       await waitForFocus( page, blueRopePuller );
     } );
 

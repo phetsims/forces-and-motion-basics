@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
@@ -58,16 +59,21 @@ export default class PullerNode extends Image {
     const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {
       phetioInputEnabledPropertyInstrumented: true,
       phetioFeatured: true,
-      visiblePropertyOptions: { phetioFeatured: true }
-    }, providedOptions );
-
-    super( image, {
+      visiblePropertyOptions: { phetioFeatured: true },
       x: x,
       y: y,
       cursor: 'pointer',
       scale: 0.86,
-      tagName: 'button'
-    } );
+      tagName: 'button',
+      accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ?
+                             ( puller.type === 'blue' ? 'purple' : 'orange' ) :
+                             puller.type;
+        return `${puller.size} ${displayColor} puller`;
+      } )
+    }, providedOptions );
+
+    super( image, options );
 
     this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image;
@@ -137,11 +143,9 @@ export default class PullerNode extends Image {
           // Add accessible response when a puller is dropped
           if ( puller.knotProperty.get() ) {
             const knotDescription = this.getKnotDescription( puller.knotProperty.get()! );
-            this.updateAccessibleDescription( knotDescription );
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
           }
           else {
-            this.updateAccessibleDescription( 'toolbox' );
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
           }
         }
@@ -158,17 +162,6 @@ export default class PullerNode extends Image {
 
         puller.reset();
       }
-    } );
-
-    this.mutate( options );
-
-    // Set initial accessible description
-    this.updateAccessibleDescription( 'toolbox' );
-
-    // Listen for preference changes to update color in accessibility description
-    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
-      const currentLocation = puller.knotProperty.get() ? this.getKnotDescription( puller.knotProperty.get()! ) : 'toolbox';
-      this.updateAccessibleDescription( currentLocation );
     } );
 
     // DEBUG: Track focus loss during keyboard grab operations
@@ -272,22 +265,6 @@ export default class PullerNode extends Image {
     return `${side} knot ${index + 1}`;
   }
 
-  /**
-   * Update the accessible paragraph description based on the puller's current location
-   * @param location - Description of where the puller is
-   */
-  private updateAccessibleDescription( location: string ): void {
-    // Use dynamic color based on preference
-    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
-    let displayColor: string;
-    if ( pullerColor === 'purpleOrange' ) {
-      displayColor = this.puller.type === 'blue' ? 'purple' : 'orange';
-    }
-    else {
-      displayColor = this.puller.type; // 'blue' or 'red'
-    }
-    this.accessibleName = `${this.puller.size} ${displayColor} puller at ${location}`;
-  }
 
   /**
    * Simplified keyboard input handler using the new state system
@@ -344,11 +321,9 @@ export default class PullerNode extends Image {
         // Add accessibility feedback - check state.attachedKnot for immediate feedback
         if ( puller.state.attachedKnot ) {
           const knotDescription = this.getKnotDescription( puller.state.attachedKnot );
-          this.updateAccessibleDescription( knotDescription );
           this.addAccessibleResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
         }
         else {
-          this.updateAccessibleDescription( 'toolbox' );
           this.addAccessibleResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
         }
       }
@@ -390,9 +365,6 @@ export default class PullerNode extends Image {
         console.log( 'GRAB: After grab for puller:', puller.size, puller.type, 'isFocused:', this.isFocused, 'focusable:', this.focusable );
 
         // Add accessibility feedback
-        const currentLocation = puller.state.grabOrigin?.attachedKnot ?
-                                this.getKnotDescription( puller.state.grabOrigin.attachedKnot ) : 'toolbox';
-        this.updateAccessibleDescription( currentLocation );
         this.addAccessibleResponse( 'Grabbed' );
       }
     }
@@ -438,14 +410,12 @@ export default class PullerNode extends Image {
       // Move to home position
       puller.positionProperty.reset();
       this.updatePosition( puller, this.model );
-      this.updateAccessibleDescription( 'return to toolbox' );
       this.addAccessibleResponse( 'Over return to toolbox position' );
     }
     else {
       // Move to knot position
       this.updatePositionKnotted( puller, this.model, targetWaypoint );
       const knotDescription = this.getKnotDescription( targetWaypoint );
-      this.updateAccessibleDescription( knotDescription );
       this.addAccessibleResponse( `Over ${knotDescription}` );
     }
   }
@@ -484,9 +454,6 @@ export default class PullerNode extends Image {
     // Update visual state based on reset model
     this.updateImage( this.puller, this.model );
     this.updatePosition( this.puller, this.model );
-
-    // Update accessibility description to reflect toolbox position
-    this.updateAccessibleDescription( 'toolbox' );
 
     // Ensure focusable state is correct (pullers in toolbox should be focusable)
     if ( this.puller.knotProperty.get() === null ) {

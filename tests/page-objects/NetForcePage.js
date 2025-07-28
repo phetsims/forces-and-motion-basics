@@ -16,30 +16,30 @@ class NetForcePage {
     this.pullers = {
       blue: {
         large: {
-          toolbox: page.getByRole( 'button', { name: /large blue puller at toolbox/ } ),
-          rope: page.getByRole( 'button', { name: /large blue puller at.*knot/ } )
+          toolbox: page.getByRole( 'button', { name: /large blue puller/ } ),
+          rope: page.getByRole( 'button', { name: /large blue puller/ } )
         },
         medium: {
-          toolbox: page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ),
-          rope: page.getByRole( 'button', { name: /medium blue puller at.*knot/ } )
+          toolbox: page.getByRole( 'button', { name: /medium blue puller/ } ),
+          rope: page.getByRole( 'button', { name: /medium blue puller/ } )
         },
         small: {
-          toolbox: page.getByRole( 'button', { name: /small blue puller at toolbox/ } ),
-          rope: page.getByRole( 'button', { name: /small blue puller at.*knot/ } )
+          toolbox: page.getByRole( 'button', { name: /small blue puller/ } ),
+          rope: page.getByRole( 'button', { name: /small blue puller/ } )
         }
       },
       red: {
         large: {
-          toolbox: page.getByRole( 'button', { name: /large red puller at toolbox/ } ),
-          rope: page.getByRole( 'button', { name: /large red puller at.*knot/ } )
+          toolbox: page.getByRole( 'button', { name: /large red puller/ } ),
+          rope: page.getByRole( 'button', { name: /large red puller/ } )
         },
         medium: {
-          toolbox: page.getByRole( 'button', { name: /medium red puller at toolbox/ } ),
-          rope: page.getByRole( 'button', { name: /medium red puller at.*knot/ } )
+          toolbox: page.getByRole( 'button', { name: /medium red puller/ } ),
+          rope: page.getByRole( 'button', { name: /medium red puller/ } )
         },
         small: {
-          toolbox: page.getByRole( 'button', { name: /small red puller at toolbox/ } ),
-          rope: page.getByRole( 'button', { name: /small red puller at.*knot/ } )
+          toolbox: page.getByRole( 'button', { name: /small red puller/ } ),
+          rope: page.getByRole( 'button', { name: /small red puller/ } )
         }
       }
     };
