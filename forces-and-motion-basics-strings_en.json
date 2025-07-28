@@ -288,6 +288,11 @@
         "value": "Orange Team"
       }
     },
+    "returnButton": {
+      "cartReturnedToCenter": {
+        "value": "Cart returned to center"
+      }
+    },
     "motionScreen": {
       "items": {
         "itemAccessibleNameWithMass": {

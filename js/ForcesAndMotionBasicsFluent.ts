@@ -110,6 +110,7 @@ addToMapIfDefined( 'a11y_colors_blueTeam', 'a11y.colors.blueTeamStringProperty' 
 addToMapIfDefined( 'a11y_colors_redTeam', 'a11y.colors.redTeamStringProperty' );
 addToMapIfDefined( 'a11y_colors_purpleTeam', 'a11y.colors.purpleTeamStringProperty' );
 addToMapIfDefined( 'a11y_colors_orangeTeam', 'a11y.colors.orangeTeamStringProperty' );
+addToMapIfDefined( 'a11y_returnButton_cartReturnedToCenter', 'a11y.returnButton.cartReturnedToCenterStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_itemAccessibleNameWithMass', 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_massUnknown', 'a11y.motionScreen.items.massUnknownStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_fridge', 'a11y.motionScreen.items.names.fridgeStringProperty' );
@@ -252,6 +253,9 @@ const ForcesAndMotionBasicsFluent = {
       redTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_redTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.redTeamStringProperty' ) ),
       purpleTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_purpleTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.purpleTeamStringProperty' ) ),
       orangeTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_orangeTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.orangeTeamStringProperty' ) )
+    },
+    returnButton: {
+      cartReturnedToCenterStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_returnButton_cartReturnedToCenter', _.get( ForcesAndMotionBasicsStrings, 'a11y.returnButton.cartReturnedToCenterStringProperty' ) )
     },
     motionScreen: {
       items: {

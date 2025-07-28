@@ -131,6 +131,9 @@ type StringsType = {
       'purpleTeamStringProperty': LocalizedStringProperty;
       'orangeTeamStringProperty': LocalizedStringProperty;
     };
+    'returnButton': {
+      'cartReturnedToCenterStringProperty': LocalizedStringProperty;
+    };
     'motionScreen': {
       'items': {
         'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;

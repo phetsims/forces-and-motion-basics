@@ -12,6 +12,7 @@ import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/button
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
@@ -20,7 +21,10 @@ export default class ReturnButton extends TextPushButton {
   public constructor( model: NetForceModel, tandem: Tandem, options: TextPushButtonOptions ) {
 
     super( ForcesAndMotionBasicsFluent.returnStringProperty, {
-      listener: () => model.returnCart(),
+      listener: () => {
+        model.returnCart();
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsStrings.a11y.returnButton.cartReturnedToCenterStringProperty );
+      },
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
       tandem: tandem,
@@ -48,6 +52,7 @@ export default class ReturnButton extends TextPushButton {
       fire: () => {
         if ( this.enabled ) {
           model.returnCart();
+          this.addAccessibleContextResponse( ForcesAndMotionBasicsStrings.a11y.returnButton.cartReturnedToCenterStringProperty );
         }
       }
     } );

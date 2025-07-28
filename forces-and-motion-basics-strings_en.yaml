@@ -123,6 +123,8 @@ a11y:
     redTeam: Red Team
     purpleTeam: Purple Team
     orangeTeam: Orange Team
+  returnButton:
+    cartReturnedToCenter: Cart returned to center
   motionScreen:
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
