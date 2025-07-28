@@ -110,7 +110,7 @@ export default class PullersOnRopeGroupNode extends Node {
   /**
    * Update the group highlight to surround all rope pullers
    */
-  private updateGroupHighlight(): void {
+  public updateGroupHighlight(): void {
     if ( this.ropePullerNodes.length > 0 && this.localBounds.isFinite() ) {
       this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
     }

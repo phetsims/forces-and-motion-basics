@@ -13,6 +13,8 @@
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import type PullerNode from './PullerNode.js';
+import type PullerGroupNode from './PullerGroupNode.js';
+import type PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
 
 /**
  * Represents the logical grouping of pullers for focus management
@@ -23,6 +25,16 @@ export default class PullerFocusManager {
   private readonly allPullers: PullerNode[] = [];
   private isNavigating = false; // Flag to prevent interference during arrow navigation
   private isGrabbing = false; // Flag to prevent interference during grab operations
+  
+  // Groups that need their highlights updated after focusability changes
+  private readonly groups: ( PullerGroupNode | PullersOnRopeGroupNode )[] = [];
+
+  /**
+   * Register a group for highlight updates
+   */
+  public registerGroup( group: PullerGroupNode | PullersOnRopeGroupNode ): void {
+    this.groups.push( group );
+  }
 
   /**
    * Register a puller for focus management
@@ -151,6 +163,11 @@ export default class PullerFocusManager {
     } );
 
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focusability updated. Focused group:', focusedGroup );
+    
+    // Update group highlights after focusability changes
+    this.groups.forEach( group => {
+      group.updateGroupHighlight();
+    } );
   }
 
   /**

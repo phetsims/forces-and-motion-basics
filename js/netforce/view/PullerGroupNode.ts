@@ -111,7 +111,7 @@ export default class PullerGroupNode extends Node {
   /**
    * Update the group highlight to surround all pullers
    */
-  private updateGroupHighlight(): void {
+  public updateGroupHighlight(): void {
     if ( this.pullerNodes.length > 0 && this.localBounds.isFinite() ) {
       this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
     }

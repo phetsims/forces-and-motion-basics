@@ -518,6 +518,12 @@ export default class NetForceScreenView extends ScreenView {
     } );
     this.addChild( this.leftRopePullerGroup );
     this.addChild( this.rightRopePullerGroup );
+    
+    // Register all groups with the focus manager for highlight updates
+    this.pullerFocusManager.registerGroup( this.leftPullerGroup );
+    this.pullerFocusManager.registerGroup( this.rightPullerGroup );
+    this.pullerFocusManager.registerGroup( this.leftRopePullerGroup );
+    this.pullerFocusManager.registerGroup( this.rightRopePullerGroup );
 
     // Note: Complex transfer logic has been replaced with centralized focus management.
     // The PullerFocusManager now handles focus state based on puller modes automatically.
