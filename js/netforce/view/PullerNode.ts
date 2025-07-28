@@ -164,6 +164,16 @@ export default class PullerNode extends Image {
     // Set initial accessible description
     this.updateAccessibleDescription( 'toolbox' );
 
+    // DEBUG: Track focus loss during keyboard grab operations
+    if ( ForcesAndMotionBasicsQueryParameters.debugAltInput ) {
+      this.focusedProperty.link( ( focused, wasFocused ) => {
+        if ( wasFocused && !focused && puller.isGrabbed() && puller.state.dragType === 'keyboard' ) {
+          console.log( '🔥 FOCUS LOST during keyboard grab for:', puller.size, puller.type );
+          console.log( 'Stack trace:', new Error().stack );
+        }
+      } );
+    }
+
     this.addLinkedElement( this.puller, {
       tandemName: 'puller'
     } );
@@ -327,6 +337,18 @@ export default class PullerNode extends Image {
         }
       }
       else {
+        ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+        console.log( 'GRAB: Starting grab for puller:', puller.size, puller.type, 'isFocused:', this.isFocused, 'focusable:', this.focusable );
+        
+        // Store current focus state
+        const hadFocus = this.isFocused();
+        
+        // Ensure this puller remains focusable during grab
+        this.focusable = true;
+        
+        // Prevent focus manager interference during grab
+        this.focusManager.setGrabbing( true );
+        
         // Grab the puller
         puller.grab( 'keyboard' );
         this.updateImage( puller, this.model );
@@ -335,6 +357,21 @@ export default class PullerNode extends Image {
         
         // Move to appropriate position for keyboard interaction
         this.positionForKeyboardGrab();
+        
+        // CRITICAL: Force focus to stay on this puller after grab transition
+        if ( hadFocus ) {
+          // Ensure focusability and explicitly focus
+          this.focusable = true;
+          this.focus();
+          ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+          console.log( 'GRAB: Forced focus restoration after grab for:', puller.size, puller.type );
+        }
+        
+        // Re-enable focus manager
+        this.focusManager.setGrabbing( false );
+        
+        ForcesAndMotionBasicsQueryParameters.debugAltInput &&
+        console.log( 'GRAB: After grab for puller:', puller.size, puller.type, 'isFocused:', this.isFocused, 'focusable:', this.focusable );
         
         // Add accessibility feedback
         const currentLocation = puller.state.grabOrigin?.attachedKnot ?

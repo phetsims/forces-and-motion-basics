@@ -22,6 +22,7 @@ type LogicalGroup = 'blue-toolbox' | 'red-toolbox' | 'blue-rope' | 'red-rope' | 
 export default class PullerFocusManager {
   private readonly allPullers: PullerNode[] = [];
   private isNavigating = false; // Flag to prevent interference during arrow navigation
+  private isGrabbing = false; // Flag to prevent interference during grab operations
 
   /**
    * Register a puller for focus management
@@ -33,12 +34,16 @@ export default class PullerFocusManager {
     pullerNode.focusedProperty.link( focused => {
       if ( focused ) {
         // This puller gained focus - recompute everyone's focusability
-        this.recomputeAllFocusability();
+        // But don't interfere if this puller is being grabbed
+        if ( !( pullerNode.puller.isGrabbed() && pullerNode.puller.state.dragType === 'keyboard' ) ) {
+          this.recomputeAllFocusability();
+        }
       }
     } );
 
     // Listen for state changes (simpler than mode property)
-    pullerNode.puller.modeProperty.link( () => {
+    // Use lazyLink to avoid immediate firing during grab transitions
+    pullerNode.puller.modeProperty.lazyLink( () => {
       // State changed - might affect which group this puller is in
       this.recomputeAllFocusability();
     } );
@@ -60,12 +65,25 @@ export default class PullerFocusManager {
   }
 
   /**
+   * Set grabbing flag to prevent interference during grab operations
+   */
+  public setGrabbing( grabbing: boolean ): void {
+    this.isGrabbing = grabbing;
+  }
+
+  /**
    * Recompute focusability for all pullers based on current focus state
    */
   private recomputeAllFocusability(): void {
     // Don't interfere during arrow navigation
     if ( this.isNavigating ) {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Skipping focus recomputation during navigation' );
+      return;
+    }
+
+    // Don't interfere during grab operations
+    if ( this.isGrabbing ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Skipping focus recomputation during grab operation' );
       return;
     }
 
@@ -79,6 +97,18 @@ export default class PullerFocusManager {
     
     if ( keyboardGrabbedPuller ) {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Skipping focus recomputation - keyboard grabbed puller has focus:', keyboardGrabbedPuller.puller.size, keyboardGrabbedPuller.puller.type );
+      return;
+    }
+
+    // ADDITIONAL GUARD: Don't interfere during the grab operation itself
+    // Check if any puller is in the middle of a keyboard grab transition
+    const pullerInGrabTransition = this.allPullers.find( puller =>
+      puller.puller.state.dragType === 'keyboard' &&
+      puller.puller.userControlledProperty.get()
+    );
+    
+    if ( pullerInGrabTransition ) {
+      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Skipping focus recomputation - puller in grab transition:', pullerInGrabTransition.puller.size, pullerInGrabTransition.puller.type );
       return;
     }
 
@@ -98,6 +128,12 @@ export default class PullerFocusManager {
     // Update focusability for all pullers
     this.allPullers.forEach( puller => {
       const pullerGroup = this.getLogicalGroup( puller );
+
+      // SPECIAL CASE: Keyboard-grabbed pullers should always remain focusable and focused
+      if ( puller.puller.isGrabbed() && puller.puller.state.dragType === 'keyboard' && puller === focusedPuller ) {
+        puller.focusable = true;
+        return; // Skip normal group logic for keyboard-grabbed focused pullers
+      }
 
       if ( pullerGroup === 'dragging' ) {
         // Mouse/touch dragging pullers are not focusable via tab, but keyboard-grabbed pullers should remain focusable

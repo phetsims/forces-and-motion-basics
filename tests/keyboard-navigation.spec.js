@@ -405,4 +405,159 @@ test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard',
     } );
   } );
 
+  test( 'should maintain focus when grabbing blue puller from rope after tabbing through groups @critical', async ( { page } ) => {
+    await test.step( 'Setup: Move blue puller to rope', async () => {
+      // Tab to first blue puller
+      await page.keyboard.press( 'Tab' );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+
+      // Grab with Space
+      await page.keyboard.press( 'Space' );
+      await waitForAriaAnnouncement( page, 'Grabbed', { timeout: 2000 } );
+
+      // Drop on rope with Space
+      await page.keyboard.press( 'Space' );
+
+      // Verify puller is on rope
+      await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) )
+        .toBeVisible( { timeout: 3000 } );
+    } );
+
+    await test.step( 'Navigate through groups to blue rope puller', async () => {
+      // Continue tabbing to navigate through groups
+      // This should take us through: remaining blue toolbox -> red toolbox -> blue rope group
+
+      let tabCount = 0;
+      let foundBlueRopePuller = false;
+      const maxTabs = 10;
+
+      while ( tabCount < maxTabs && !foundBlueRopePuller ) {
+        await page.keyboard.press( 'Tab' );
+        tabCount++;
+
+        // Check what currently has focus
+        const focusInfo = await getFocusedElementInfo( page );
+
+        // Look for the blue puller that's now on the rope
+        if ( focusInfo.name && focusInfo.name.toLowerCase().includes( 'blue' ) &&
+             focusInfo.name.toLowerCase().includes( 'knot' ) ) {
+          foundBlueRopePuller = true;
+          break;
+        }
+
+        // Safety check - if we hit Reset All, we've gone too far
+        if ( focusInfo.name && focusInfo.name.includes( 'Reset All' ) ) {
+          throw new Error( `Could not find blue rope puller. Tabbed ${tabCount} times and reached Reset All. Current focus: ${focusInfo.name}` );
+        }
+      }
+
+      if ( !foundBlueRopePuller ) {
+        const currentFocus = await getFocusedElementInfo( page );
+        throw new Error( `Could not find blue rope puller after ${tabCount} tabs. Current focus: ${currentFocus.name}` );
+      }
+
+      // Verify we're focused on the blue puller that's on the rope
+      const blueRopePuller = page.getByRole( 'button', { name: /large blue puller at.*knot/ } );
+      await waitForFocus( page, blueRopePuller );
+    } );
+
+    await test.step( 'Attempt to grab blue puller from rope - THIS IS THE BUG', async () => {
+      // Get focus info before grab attempt
+      const focusBeforeGrab = await getFocusedElementInfo( page );
+
+      // Attempt to grab with Space
+      await page.keyboard.press( 'Space' );
+
+      // Brief wait for any focus/grab processing
+      await page.waitForTimeout( 1000 );
+
+      // Check what has focus after grab attempt
+      const focusAfterGrab = await getFocusedElementInfo( page );
+
+      // EXPECTED: The blue puller should be grabbed and still have focus
+      // ACTUAL: Focus is lost (this is the bug we're testing for)
+
+      // Detailed bug detection and reporting
+      const expectedPullerName = focusBeforeGrab.name;
+      const actualFocusName = focusAfterGrab.name;
+
+      // Clean up the actual focus name if it's too long (likely a content dump)
+      const cleanActualFocusName = actualFocusName.length > 100 ?
+                                   `${actualFocusName.substring( 0, 100 )}... [TRUNCATED - ${actualFocusName.length} chars total]` :
+                                   actualFocusName;
+
+      // Check if focus was completely lost
+      if ( focusAfterGrab.name === 'No active element' ) {
+        throw new Error(
+          'BUG DETECTED: Focus completely lost when grabbing blue puller from rope!\n' +
+          `Focus before grab: "${expectedPullerName}"\n` +
+          'Focus after grab: No active element\n' +
+          'Expected: Blue puller should maintain focus and be grabbed\n' +
+          'Actual: Focus was completely lost'
+        );
+      }
+
+      // Check if focus moved to wrong element
+      if ( !actualFocusName.toLowerCase().includes( 'puller' ) ||
+           !actualFocusName.toLowerCase().includes( 'blue' ) ) {
+        throw new Error(
+          'BUG DETECTED: Focus moved to wrong element when grabbing blue puller from rope!\n' +
+          `Focus before grab: "${expectedPullerName}"\n` +
+          `Focus after grab: "${cleanActualFocusName}"\n` +
+          'Expected: Blue puller should maintain focus and be grabbed\n' +
+          'Actual: Focus moved to different element'
+        );
+      }
+
+      // If we get here, focus seems to be on a blue puller - check if it's the right one
+      // After grab, the puller name changes, so look for "large blue puller" anywhere
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller/ } );
+
+      try {
+        await expect( largeBluePuller ).toBeFocused( { timeout: 1000 } );
+      }
+      catch( focusError ) {
+        // Focus is on some blue puller, but not the one we expect
+        throw new Error(
+          'BUG DETECTED: Focus on wrong blue puller after grab attempt!\n' +
+          `Focus before grab: "${expectedPullerName}"\n` +
+          `Focus after grab: "${cleanActualFocusName}"\n` +
+          'Expected: Large blue puller should maintain focus\n' +
+          'Actual: Focus moved to different element or large blue puller lost focusability\n' +
+          `Original error: ${focusError.message}`
+        );
+      }
+
+      // Check for grab announcement to confirm the action succeeded
+      try {
+        await waitForAriaAnnouncement( page, 'Grabbed', { timeout: 2000 } );
+      }
+      catch( announcementError ) {
+        throw new Error(
+          'BUG DETECTED: No grab announcement after Space press!\n' +
+          `Focus before grab: "${expectedPullerName}"\n` +
+          `Focus after grab: "${cleanActualFocusName}"\n` +
+          'Expected: Puller should be grabbed with announcement\n' +
+          'Actual: No grab announcement received\n' +
+          'This suggests the grab action failed despite having focus'
+        );
+      }
+    } );
+
+    await test.step( 'Verify puller can be moved after successful grab', async () => {
+      // If we got here, the grab worked - try to move and drop
+      await page.keyboard.press( 'ArrowLeft' ); // Navigate to home position
+      await page.keyboard.press( 'Space' ); // Drop
+
+      // Verify puller returned to toolbox
+      const pullerInToolbox = await verifyPullerLocation(
+        page,
+        { size: 'large', color: 'blue' },
+        'toolbox'
+      );
+      expect( pullerInToolbox ).toBe( true );
+    } );
+  } );
+
 } );
