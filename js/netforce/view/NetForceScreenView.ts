@@ -370,6 +370,27 @@ export default class NetForceScreenView extends ScreenView {
       // Register with the centralized focus manager
       this.pullerFocusManager.registerPuller( pullerNode );
       
+      // Listen for knot property changes to move pullers between groups
+      puller.knotProperty.link( ( newKnot, oldKnot ) => {
+        const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
+        const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
+        
+        if ( newKnot !== null && oldKnot === null ) {
+          // Puller attached to rope - move from toolbox to rope group
+          if ( toolboxGroup.pullerNodes.includes( pullerNode ) ) {
+            toolboxGroup.removePullerNode( pullerNode );
+            ropeGroup.addPullerNode( pullerNode, this.model );
+          }
+        }
+        else if ( newKnot === null && oldKnot !== null ) {
+          // Puller detached from rope - move from rope group back to toolbox
+          if ( ropeGroup.ropePullerNodes.includes( pullerNode ) ) {
+            ropeGroup.removePullerNode( pullerNode );
+            toolboxGroup.addPullerNode( pullerNode, this.model );
+          }
+        }
+      } );
+      
       // Listen for drops to handle auto-focus to next puller
       puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
         // Only handle keyboard drops for auto-focus
@@ -530,7 +551,7 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( cursorPathNode );
 
     // Set up the pdomOrder for proper accessibility hierarchy
-    // Play Area: pullers, go/return buttons
+    // Play Area: left toolbox -> right toolbox -> blue rope group -> red rope group -> buttons
     this.pdomPlayAreaNode.pdomOrder = [
       leftToolbox,
       rightToolbox,
