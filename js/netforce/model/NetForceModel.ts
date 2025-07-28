@@ -235,7 +235,12 @@ export default class NetForceModel extends PhetioObject {
         if ( knot ) {
           this.movePullerToKnot( puller, knot );
         }
-        // If knot is null, puller returns to toolbox automatically via mode system (keyboard) or position (mouse)
+        else {
+          // Return puller to toolbox when no valid knot is found
+          puller.positionProperty.reset();
+          puller.modeProperty.set( 'home' );
+          puller.lastPlacementProperty.set( 'home' );
+        }
       } );
       puller.knotProperty.link( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
