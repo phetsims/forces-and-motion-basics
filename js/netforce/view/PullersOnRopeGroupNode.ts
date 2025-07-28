@@ -28,7 +28,7 @@ type FocusListener = ( focused: boolean ) => void;
 export default class PullersOnRopeGroupNode extends Node {
   public readonly ropePullerNodes: PullerNode[] = [];
   private myGroupFocusHighlight: GroupHighlightPath;
-  
+
   // Store listener references for cleanup
   private readonly focusListeners = new Map<PullerNode, FocusListener>();
 
@@ -39,7 +39,7 @@ export default class PullersOnRopeGroupNode extends Node {
 
       // ARIA attributes for the group - fallback names if not provided in options
       ariaRole: 'group',
-      accessibleName: providedOptions.side === 'left' ? 'Blue Team Pullers on Rope' : 'Red Team Pullers on Rope',
+      accessibleHeading: providedOptions.side === 'left' ? 'Blue Team Pullers on Rope' : 'Red Team Pullers on Rope',
       descriptionContent: 'Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab'
     }, providedOptions );
 
@@ -84,7 +84,7 @@ export default class PullersOnRopeGroupNode extends Node {
     if ( index !== -1 ) {
       this.ropePullerNodes.splice( index, 1 );
       this.removeChild( pullerNode );
-      
+
       // CRITICAL: Unlink the focus listener to prevent conflicts
       const focusListener = this.focusListeners.get( pullerNode );
       if ( focusListener ) {
@@ -122,7 +122,7 @@ export default class PullersOnRopeGroupNode extends Node {
   public reset(): void {
     // Sort pullers by position to ensure consistent order after reset
     this.sortPullers();
-    
+
     // Update the group highlight bounds after reset
     this.updateGroupHighlight();
 

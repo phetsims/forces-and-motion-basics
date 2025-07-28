@@ -373,11 +373,11 @@ export default class NetForceScreenView extends ScreenView {
     // Create the toolboxes with dynamic accessibility properties
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
       tagName: 'div',
-      accessibleName: leftTeamHeadingProperty
+      accessibleHeading: leftTeamHeadingProperty
     } );
     const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
       tagName: 'div',
-      accessibleName: rightTeamHeadingProperty
+      accessibleHeading: rightTeamHeadingProperty
     } );
 
     // Create instruction nodes that will be read before the puller groups
@@ -404,11 +404,11 @@ export default class NetForceScreenView extends ScreenView {
 
     this.leftPullerGroup = new PullerGroupNode( model, {
       side: 'left',
-      accessibleName: leftTeamGroupNameProperty
+      accessibleHeading: leftTeamGroupNameProperty
     } );
     this.rightPullerGroup = new PullerGroupNode( model, {
       side: 'right',
-      accessibleName: rightTeamGroupNameProperty
+      accessibleHeading: rightTeamGroupNameProperty
     } );
     this.model.pullers.forEach( puller => {
       // Create dynamic accessibleName property for this puller wired directly to preference
@@ -518,7 +518,7 @@ export default class NetForceScreenView extends ScreenView {
     } );
     this.addChild( this.leftRopePullerGroup );
     this.addChild( this.rightRopePullerGroup );
-    
+
     // Register all groups with the focus manager for highlight updates
     this.pullerFocusManager.registerGroup( this.leftPullerGroup );
     this.pullerFocusManager.registerGroup( this.rightPullerGroup );
@@ -528,14 +528,22 @@ export default class NetForceScreenView extends ScreenView {
     // Note: Complex transfer logic has been replaced with centralized focus management.
     // The PullerFocusManager now handles focus state based on puller modes automatically.
 
-    //Add the go button, but only if there is a puller attached
+    const playAreaControlNode = new Node( {
+      tagName: 'div',
+      accessibleHeading: 'Play Area Controls',
+      descriptionContent: 'Controls to start or pause the tug-of-war, and to return the cart',
+      appendDescription: false
+    } );
+
+    this.addChild( playAreaControlNode );
+
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
     const maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
     const goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, tandem.createTandem( 'goPauseButton' ), {
       maxWidth: maxWidth,
       tandem: tandem.createTandem( 'goPauseButton' )
     } );
-    this.addChild( goPauseButton );
+    playAreaControlNode.addChild( goPauseButton );
 
     // Return button
     this.returnButton = new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
@@ -543,7 +551,7 @@ export default class NetForceScreenView extends ScreenView {
       top: goPauseButton.bottom + MARGIN_FROM_LAYOUT_BOUNDS,
       maxWidth: maxWidth
     } );
-    this.addChild( this.returnButton );
+    playAreaControlNode.addChild( this.returnButton );
 
     // Add the arrow nodes after the pullers so they will appear in the front in z-ordering
     this.addChild( this.leftArrow );
@@ -655,8 +663,7 @@ export default class NetForceScreenView extends ScreenView {
       rightToolbox,
       this.leftRopePullerGroup,
       this.rightRopePullerGroup,
-      goPauseButton,
-      this.returnButton,
+      playAreaControlNode,
       this.cartNode
     ];
 

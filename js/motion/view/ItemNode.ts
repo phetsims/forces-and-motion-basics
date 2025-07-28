@@ -117,15 +117,14 @@ export default class ItemNode extends Node {
       ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
 
     // Get the localized item name
-    const itemNames = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names;
-    const localizedItemNameProperty = item.name === 'fridge' ? itemNames.fridgeStringProperty :
-                                     item.name === 'crate1' ? itemNames.crate1StringProperty :
-                                     item.name === 'crate2' ? itemNames.crate2StringProperty :
-                                     item.name === 'girl' ? itemNames.girlStringProperty :
-                                     item.name === 'man' ? itemNames.manStringProperty :
-                                     item.name === 'trash' ? itemNames.trashStringProperty :
-                                     item.name === 'mystery' ? itemNames.mysteryStringProperty :
-                                     itemNames.fridgeStringProperty; // fallback
+    const localizedItemNameProperty = item.name === 'fridge' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty :
+                                     item.name === 'crate1' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate1StringProperty :
+                                     item.name === 'crate2' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate2StringProperty :
+                                     item.name === 'girl' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.girlStringProperty :
+                                     item.name === 'man' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty :
+                                     item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
+                                     item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
+                                     ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty; // fallback
     
     // Create fluent property for accessible name with mass
     const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
