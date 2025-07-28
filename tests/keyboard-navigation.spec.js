@@ -13,388 +13,396 @@
  */
 
 const { test, expect } = require( '@playwright/test' );
+const {
+  waitForAriaAnnouncement,
+  waitForFocus,
+  getFocusedElementInfo,
+  collectFocusOrder,
+  setupAriaAnnouncementCapture,
+  waitForElementStable,
+  pressKeyAndExpect,
+  verifyPullerLocation
+} = require( './test-helpers' );
 
-test.describe( 'Forces and Motion Basics - Keyboard Navigation', () => {
+
+// Test configuration
+const TEST_URL = 'http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses';
+
+test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard', () => {
 
   // Run each test with a fresh page load
   test.beforeEach( async ( { page } ) => {
     // Navigate to the sim with accessibility enabled
-    await page.goto( 'http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses' );
+    await page.goto( TEST_URL );
 
-    // Wait for the sim to fully load
+    // Wait for the sim to fully load by checking for interactive elements
+    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeVisible( { timeout: 10000 } );
+
+    // Ensure the page is in a stable state
     await page.waitForLoadState( 'networkidle' );
-
-    // Optional: Wait for specific content to be ready
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeVisible();
   } );
 
-  test( 'should focus first blue puller on tab navigation', async ( { page } ) => {
-    // Tab to the first blue puller
-    await page.keyboard.press( 'Tab' );
+  test( 'should focus first blue puller on tab navigation @smoke', async ( { page } ) => {
+    await test.step( 'Tab to first interactive element', async () => {
+      await page.keyboard.press( 'Tab' );
 
-    // Verify the first blue puller has focus
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
+      // Verify the first blue puller has focus
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+    } );
   } );
 
   test( 'should navigate between blue pullers with arrow keys', async ( { page } ) => {
-    // Tab to focus first blue puller
-    await page.keyboard.press( 'Tab' );
+    await test.step( 'Focus first blue puller', async () => {
+      await page.keyboard.press( 'Tab' );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+    } );
 
-    // Use arrow key to navigate to next puller
-    await page.keyboard.press( 'ArrowRight' );
+    await test.step( 'Navigate to medium puller with right arrow', async () => {
+      await pressKeyAndExpect(
+        page,
+        'ArrowRight',
+        async () => {
+          const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+          await waitForFocus( page, mediumBluePuller );
+        }
+      );
+    } );
 
-    // Verify focus moved to the medium blue puller
-    await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
-
-    // Navigate back
-    await page.keyboard.press( 'ArrowLeft' );
-
-    // Verify focus returned to first puller
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
+    await test.step( 'Navigate back with left arrow', async () => {
+      await pressKeyAndExpect(
+        page,
+        'ArrowLeft',
+        async () => {
+          const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+          await waitForFocus( page, largeBluePuller );
+        }
+      );
+    } );
   } );
 
   test( 'should grab and drop puller with Enter key', async ( { page } ) => {
     // Set up console message capture for accessibility announcements
-    const announcements = [];
-    page.on( 'console', msg => {
-      if ( msg.text().includes( '[ARIA-LIVE]' ) ) {
-        announcements.push( msg.text() );
-      }
+    const announcements = setupAriaAnnouncementCapture( page );
+
+    await test.step( 'Focus first blue puller', async () => {
+      await page.keyboard.press( 'Tab' );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
     } );
 
-    // Tab to focus first blue puller
-    await page.keyboard.press( 'Tab' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
+    await test.step( 'Grab the puller', async () => {
+      await page.keyboard.press( 'Enter' );
 
-    // Grab the puller
-    await page.keyboard.press( 'Enter' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
+      // Wait for grab announcement
+      await waitForAriaAnnouncement( page, 'Grabbed', { timeout: 2000 } );
 
-    // Verify grab announcement (more flexible matching)
-    await page.waitForTimeout( 200 ); // Give more time for announcement
-    expect( announcements.some( msg => msg.includes( 'Grabbed' ) ) ).toBe( true );
+      // Alternative check via console messages
+      await expect.poll(
+        () => announcements.some( msg => msg.text.includes( 'Grabbed' ) ),
+        {
+          timeout: 2000,
+          message: 'Expected "Grabbed" announcement in console'
+        }
+      ).toBeTruthy();
+    } );
 
-    // Drop the puller
-    await page.keyboard.press( 'Enter' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
+    await test.step( 'Drop the puller', async () => {
+      await page.keyboard.press( 'Enter' );
 
-    // Verify drop announcement and state change (more flexible matching)
-    await page.waitForTimeout( 200 );
-    expect( announcements.some( msg => msg.includes( 'attached' ) || msg.includes( 'knot' ) ) ).toBe( true );
+      // Verify the puller moved to rope
+      const pullerOnRope = page.getByRole( 'button', { name: /large blue puller at.*knot/ } );
+      await expect( pullerOnRope ).toBeVisible( { timeout: 3000 } );
 
-    // Verify the puller moved to rope (check for any knot position)
-    await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) ).toBeVisible();
+      // Verify drop announcement
+      await expect.poll(
+        () => announcements.some( msg =>
+          msg.text.includes( 'attached' ) || msg.text.includes( 'knot' )
+        ),
+        {
+          timeout: 2000,
+          message: 'Expected attachment announcement in console'
+        }
+      ).toBeTruthy();
+    } );
 
-    // Verify focus automatically moved to next puller in toolbox
-    await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
+    await test.step( 'Verify focus moved to next puller', async () => {
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      await waitForFocus( page, mediumBluePuller );
+    } );
   } );
 
   test( 'should support consecutive grab and drop operations', async ( { page } ) => {
-    // Tab to first puller
-    await page.keyboard.press( 'Tab' );
+    await test.step( 'Focus first puller', async () => {
+      await page.keyboard.press( 'Tab' );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+    } );
 
-    // First drop: large puller
-    await page.keyboard.press( 'Enter' ); // Grab
-    await page.keyboard.press( 'Enter' ); // Drop
+    await test.step( 'Drop large puller', async () => {
+      await page.keyboard.press( 'Enter' ); // Grab
+      await page.keyboard.press( 'Enter' ); // Drop
 
-    // Focus should automatically move to medium puller - no tab needed!
-    await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
+      // Verify puller is on rope
+      await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) )
+        .toBeVisible( { timeout: 3000 } );
 
-    // Second drop: medium puller
-    await page.keyboard.press( 'Enter' ); // Grab
-    await page.keyboard.press( 'Enter' ); // Drop
+      // Focus should automatically move to medium puller
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      await waitForFocus( page, mediumBluePuller );
+    } );
 
-    // Focus should move to next puller (use first() to handle duplicates)
-    await expect( page.getByRole( 'button', { name: /small blue puller at toolbox/ } ).first() ).toBeFocused();
+    await test.step( 'Drop medium puller', async () => {
+      await page.keyboard.press( 'Enter' ); // Grab
+      await page.keyboard.press( 'Enter' ); // Drop
 
-    // Verify both pullers are now on rope (flexible knot matching)
-    await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) ).toBeVisible();
-    await expect( page.getByRole( 'button', { name: /medium blue puller at.*knot/ } ) ).toBeVisible();
+      // Verify medium puller is on rope
+      await expect( page.getByRole( 'button', { name: /medium blue puller at.*knot/ } ) )
+        .toBeVisible( { timeout: 3000 } );
+
+      // Focus should move to small puller (use first() to handle duplicates in PDOM)
+      const smallBluePuller = page.getByRole( 'button', { name: /small blue puller at toolbox/ } ).first();
+      await waitForFocus( page, smallBluePuller );
+    } );
+
+    await test.step( 'Verify both pullers are on rope', async () => {
+      const largeOnRope = await verifyPullerLocation( page, { size: 'large', color: 'blue' }, 'knot' );
+      const mediumOnRope = await verifyPullerLocation( page, { size: 'medium', color: 'blue' }, 'knot' );
+
+      expect( largeOnRope ).toBe( true );
+      expect( mediumOnRope ).toBe( true );
+    } );
   } );
 
   test( 'should reset properly when Reset All is pressed', async ( { page } ) => {
-    // First, add a puller to the rope
-    await page.keyboard.press( 'Tab' );
-    await page.keyboard.press( 'Enter' ); // Grab
-    await page.keyboard.press( 'Enter' ); // Drop
-
-    // Verify puller is on rope
-    await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) ).toBeVisible();
-
-    // Navigate to Reset All button using keyboard 
-    // Start from current focus (should be on a puller) and tab through to find Reset All
-    let resetAllFound = false;
-    let tabCount = 0;
-    const maxTabs = 20; // Safety limit
-
-    while ( !resetAllFound && tabCount < maxTabs ) {
+    await test.step( 'Add a puller to the rope', async () => {
       await page.keyboard.press( 'Tab' );
-      tabCount++;
+      await page.keyboard.press( 'Enter' ); // Grab
+      await page.keyboard.press( 'Enter' ); // Drop
 
-      // Check if current focused element is Reset All
-      const focused = await page.locator( ':focus' );
-      const accessibleName = await focused.getAttribute( 'aria-label' );
-      const textContent = await focused.textContent();
+      // Verify puller is on rope
+      await expect( page.getByRole( 'button', { name: /large blue puller at.*knot/ } ) )
+        .toBeVisible( { timeout: 3000 } );
+    } );
 
-      if ( accessibleName?.includes( 'Reset All' ) || textContent?.includes( 'Reset All' ) ) {
-        resetAllFound = true;
-        break;
-      }
-    }
+    await test.step( 'Navigate to Reset All button', async () => {
+      // Focus the Reset All button directly for more reliable testing
+      const resetButton = page.getByRole( 'button', { name: 'Reset All' } );
+      await resetButton.focus();
+      await expect( resetButton ).toBeFocused();
+    } );
 
-    // Activate Reset All
-    if ( resetAllFound ) {
+    await test.step( 'Activate Reset All', async () => {
       await page.keyboard.press( 'Enter' );
-    }
-    else {
-      // Fallback: try to focus Reset All directly
-      await page.getByRole( 'button', { name: 'Reset All' } ).focus();
-      await page.keyboard.press( 'Enter' );
-    }
 
-    // Wait for reset to complete
-    await page.waitForTimeout( 500 );
+      // Wait for reset animation to complete
+      await waitForElementStable(
+        page.getByRole( 'button', { name: /large blue puller at toolbox/ } ),
+        { timeout: 5000 }
+      );
+    } );
 
-    // Verify puller returned to toolbox
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeVisible();
+    await test.step( 'Verify puller returned to toolbox', async () => {
+      const pullerInToolbox = await verifyPullerLocation(
+        page,
+        { size: 'large', color: 'blue' },
+        'toolbox'
+      );
+      expect( pullerInToolbox ).toBe( true );
+    } );
   } );
 
   test( 'should maintain focus when dropping puller to home position', async ( { page } ) => {
-    // Tab to focus first blue puller
-    await page.keyboard.press( 'Tab' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
+    await test.step( 'Focus first blue puller', async () => {
+      await page.keyboard.press( 'Tab' );
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+    } );
 
-    // Verify initial focus
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
+    await test.step( 'Grab the puller', async () => {
+      await page.keyboard.press( 'Enter' );
+      await waitForAriaAnnouncement( page, 'Grabbed', { timeout: 2000 } );
+    } );
 
-    // Grab the puller
-    await page.keyboard.press( 'Enter' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
+    await test.step( 'Navigate to home position', async () => {
+      // Puller should now be over rope - navigate left to home position
+      await page.keyboard.press( 'ArrowLeft' );
+    } );
 
-    // Puller should now be over rope - navigate left to home position
-    await page.keyboard.press( 'ArrowLeft' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
+    await test.step( 'Drop at home position', async () => {
+      await page.keyboard.press( 'Enter' );
 
-    // Drop puller at home position
-    await page.keyboard.press( 'Enter' );
-    await page.waitForTimeout( 500 ); // Delay for video clarity
-
-    // The puller should still have focus after dropping to home
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
+      // The puller should still have focus after dropping to home
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+    } );
   } );
 
   test( 'should auto-focus next puller when moving medium puller to rope', async ( { page } ) => {
-    // Tab to focus first blue puller (large)
-    await page.keyboard.press( 'Tab' );
+    await test.step( 'Navigate to medium puller', async () => {
+      await page.keyboard.press( 'Tab' );
+      await page.keyboard.press( 'ArrowRight' );
 
-    // Navigate to medium puller with arrow key
-    await page.keyboard.press( 'ArrowRight' );
-
-    // Verify medium puller has focus
-    await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
-
-    // Grab the medium puller
-    await page.keyboard.press( 'Space' );
-    await page.waitForTimeout( 1000 ); // Longer wait to ensure grab completes
-
-    // Drop it on the rope (should attach to first available knot)
-    await page.keyboard.press( 'Space' );
-    await page.waitForTimeout( 1500 ); // Longer wait to ensure drop and focus management completes
-
-    // Check what has focus after the drop
-    const activeElementAccessibleName = await page.evaluate( () => {
-      // eslint-disable-next-line no-undef
-      return document.activeElement?.getAttribute( 'aria-label' ) || 'No active element';
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      await waitForFocus( page, mediumBluePuller );
     } );
 
-    console.log( 'Active element after drop:', activeElementAccessibleName );
+    await test.step( 'Grab and drop medium puller', async () => {
+      await page.keyboard.press( 'Space' ); // Grab
+      await page.keyboard.press( 'Space' ); // Drop
 
-    // Check if medium puller is actually on rope or still in toolbox
-    const mediumPullerOnRope = await page.getByRole( 'button', { name: /medium blue puller at.*knot/ } ).isVisible();
-    const mediumPullerInToolbox = await page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ).isVisible();
+      // Wait for the drop to complete and focus to update
+      await expect.poll( async () => {
+        const focusInfo = await getFocusedElementInfo( page );
+        return focusInfo.name.includes( 'puller' );
+      }, {
+        timeout: 3000,
+        message: 'Expected focus to be on a puller after drop'
+      } ).toBeTruthy();
+    } );
 
-    console.log( 'Medium puller on rope:', mediumPullerOnRope );
-    console.log( 'Medium puller in toolbox:', mediumPullerInToolbox );
+    await test.step( 'Verify focus behavior', async () => {
+      const mediumOnRope = await verifyPullerLocation(
+        page,
+        { size: 'medium', color: 'blue' },
+        'knot'
+      );
 
-    if ( mediumPullerOnRope ) {
-      // If on rope, focus should auto-move to next puller in toolbox (leftmost = large puller)
-      await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
-    }
-    else {
-      // If still in toolbox, the medium puller should retain focus
-      await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
-    }
+      if ( mediumOnRope ) {
+        // If on rope, focus should auto-move to large puller (leftmost in toolbox)
+        const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+        await waitForFocus( page, largeBluePuller );
+      }
+      else {
+        // If still in toolbox, the medium puller should retain focus
+        const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+        await waitForFocus( page, mediumBluePuller );
+      }
+    } );
   } );
 
   test( 'direct medium puller grab/drop test', async ( { page } ) => {
-    // Navigate directly to medium puller using Tab and Shift+Tab
-    await page.keyboard.press( 'Tab' ); // Focus large puller
-    await page.keyboard.press( 'Tab' ); // Focus go button or next element
-    await page.keyboard.press( 'Shift+Tab' ); // Back to large puller 
-    await page.keyboard.press( 'ArrowRight' ); // Move to medium puller
+    await test.step( 'Navigate to medium puller', async () => {
+      await page.keyboard.press( 'Tab' );
+      await page.keyboard.press( 'ArrowRight' );
 
-    // Verify medium puller has focus
-    await expect( page.getByRole( 'button', { name: /medium blue puller at toolbox/ } ) ).toBeFocused();
-
-    // Try basic grab/drop
-    await page.keyboard.press( 'Enter' );
-    await page.waitForTimeout( 500 );
-    await page.keyboard.press( 'Enter' );
-    await page.waitForTimeout( 1500 ); // Longer wait for focus management to complete
-
-    // Some element should have focus after this operation
-    const activeElementAccessibleName = await page.evaluate( () => {
-      // eslint-disable-next-line no-undef
-      return document.activeElement?.getAttribute( 'aria-label' ) || 'No active element';
+      const mediumBluePuller = page.getByRole( 'button', { name: /medium blue puller at toolbox/ } );
+      await waitForFocus( page, mediumBluePuller );
     } );
 
-    console.log( 'Active element after medium puller drop:', activeElementAccessibleName );
+    await test.step( 'Perform grab/drop operation', async () => {
+      await page.keyboard.press( 'Enter' );
+      await page.keyboard.press( 'Enter' );
 
-    // Focus should move to the large blue puller (leftmost in toolbox)
-    await expect( page.getByRole( 'button', { name: /large blue puller at toolbox/ } ) ).toBeFocused();
+      // Wait for focus management to complete
+      await expect.poll( async () => {
+        const focusInfo = await getFocusedElementInfo( page );
+        return focusInfo.name.includes( 'puller' );
+      }, {
+        timeout: 3000,
+        message: 'Expected focus to remain on a puller'
+      } ).toBeTruthy();
+    } );
+
+    await test.step( 'Verify focus moved to large puller', async () => {
+      // Focus should move to the large blue puller (leftmost in toolbox)
+      const largeBluePuller = page.getByRole( 'button', { name: /large blue puller at toolbox/ } );
+      await waitForFocus( page, largeBluePuller );
+    } );
   } );
 
-  test( 'should follow correct focus order: left toolbox -> right toolbox -> blue rope group -> red rope group', async ( { page } ) => {
-    // Move only one blue puller to rope, leaving others in toolbox to test complete focus order
-
-    // Move blue puller to rope
-    await page.keyboard.press( 'Tab' ); // Focus blue puller
-    await page.keyboard.press( 'Space' ); // Grab
-    await page.keyboard.press( 'Space' ); // Drop to rope
-    await page.waitForTimeout( 500 );
-
-    // DO NOT move red puller - leave it in toolbox to test proper order
-
-    // Helper function to get information about the currently focused element
-    const getFocusedElementInfo = async () => {
-      return page.evaluate( () => {
-        // eslint-disable-next-line no-undef
-        const activeElement = document.activeElement;
-        if ( !activeElement ) {
-          return { name: 'No active element', role: null };
-        }
-
-        return {
-          name: activeElement.getAttribute( 'aria-label' ) || activeElement.textContent || 'Unnamed element',
-          role: activeElement.getAttribute( 'role' ),
-          tagName: activeElement.tagName.toLowerCase(),
-          accessibleName: activeElement.getAttribute( 'aria-label' )
-        };
-      } );
-    };
-
-    // Reset focus to start from the beginning
-    await page.keyboard.press( 'Escape' ); // Clear any focus
-    await page.waitForTimeout( 200 );
-
-    // Collect focus order by tabbing through elements
-    const focusOrder = [];
-    const maxTabs = 20; // Increased limit since we have more groups now
-    let tabCount = 0;
-
-    // Start from beginning - focus the page first
-    await page.keyboard.press( 'Tab' );
-
-    while ( tabCount < maxTabs ) {
-      const focusInfo = await getFocusedElementInfo();
-      focusOrder.push( focusInfo );
-
-      // If we've found elements that clearly indicate we're past the groups we care about, stop
-      if ( focusInfo.name.includes( 'Reset All' ) || focusInfo.name.includes( 'Control Panel' ) ) {
-        break;
-      }
-
+  test( 'should follow correct focus order: left toolbox -> right toolbox -> blue rope group -> red rope group @critical', async ( { page } ) => {
+    await test.step( 'Setup: Move one blue puller to rope', async () => {
       await page.keyboard.press( 'Tab' );
-      tabCount++;
-    }
+      await page.keyboard.press( 'Space' ); // Grab
+      await page.keyboard.press( 'Space' ); // Drop to rope
 
-    console.log( 'Focus order found:', focusOrder.map( item => item.name ) );
-
-    // Filter for elements we care about - individual pullers and group containers
-    const relevantElements = focusOrder.filter( item => {
-      const name = item.name.toLowerCase();
-      return name.includes( 'puller' ) || name.includes( 'team' );
+      // Verify puller is on rope
+      await expect( page.getByRole( 'button', { name: /blue puller at.*knot/ } ) )
+        .toBeVisible( { timeout: 3000 } );
     } );
 
-    console.log( 'Relevant elements:', relevantElements.map( item => item.name ) );
+    await test.step( 'Collect focus order', async () => {
+      // Reset focus to start from the beginning
+      await page.keyboard.press( 'Escape' );
+      await page.keyboard.press( 'Tab' );
 
-    // Categorize elements into their types
-    const blueToolboxPullers = relevantElements.filter( item => {
-      const name = item.name.toLowerCase();
-      return name.includes( 'blue' ) && name.includes( 'toolbox' );
+      // Collect focus order
+      const focusOrder = await collectFocusOrder( page, 20 );
+
+      // Filter for relevant elements
+      const relevantElements = focusOrder.filter( item => {
+        const name = item.name.toLowerCase();
+        return name.includes( 'puller' ) || name.includes( 'team' );
+      } );
+
+      expect( relevantElements.length ).toBeGreaterThan( 0 );
     } );
 
-    const redToolboxPullers = relevantElements.filter( item => {
-      const name = item.name.toLowerCase();
-      return name.includes( 'red' ) && name.includes( 'toolbox' );
+    await test.step( 'Verify focus order constraints', async () => {
+      // Collect focus order again for analysis
+      await page.keyboard.press( 'Escape' );
+      await page.keyboard.press( 'Tab' );
+      const focusOrder = await collectFocusOrder( page, 20 );
+
+      const relevantElements = focusOrder.filter( item => {
+        const name = item.name.toLowerCase();
+        return name.includes( 'puller' ) || name.includes( 'team' );
+      } );
+
+      // Categorize elements
+      const categorizeElements = elements => {
+        const blueToolbox = [];
+        const redToolbox = [];
+        const blueRope = [];
+        const redRope = [];
+
+        elements.forEach( ( item, index ) => {
+          const name = item.name.toLowerCase();
+          const elementInfo = { name: item.name, role: item.role, tagName: item.tagName, accessibleName: item.accessibleName, id: item.id, classList: item.classList, index: index };
+
+          if ( name.includes( 'blue' ) && name.includes( 'toolbox' ) ) {
+            blueToolbox.push( elementInfo );
+          }
+          else if ( name.includes( 'red' ) && name.includes( 'toolbox' ) ) {
+            redToolbox.push( elementInfo );
+          }
+          else if ( name.includes( 'blue' ) && ( name.includes( 'knot' ) || name.includes( 'rope' ) ) ) {
+            blueRope.push( elementInfo );
+          }
+          else if ( name.includes( 'red' ) && ( name.includes( 'knot' ) || name.includes( 'rope' ) ) ) {
+            redRope.push( elementInfo );
+          }
+        } );
+
+        return { blueToolbox: blueToolbox, redToolbox: redToolbox, blueRope: blueRope, redRope: redRope };
+      };
+
+      const { blueToolbox, redToolbox, blueRope, redRope } = categorizeElements( relevantElements );
+
+      // Verify order constraints
+      const verifyOrder = ( group1, group2, message ) => {
+        if ( group1.length > 0 && group2.length > 0 ) {
+          const lastGroup1 = Math.max( ...group1.map( el => el.index ) );
+          const firstGroup2 = Math.min( ...group2.map( el => el.index ) );
+          expect( lastGroup1 ).toBeLessThan( firstGroup2 );
+        }
+      };
+
+      // All toolboxes before any rope groups
+      const allToolbox = [ ...blueToolbox, ...redToolbox ];
+      const allRope = [ ...blueRope, ...redRope ];
+      verifyOrder( allToolbox, allRope, 'All toolbox pullers come before any rope pullers' );
+
+      // Blue before red within categories
+      verifyOrder( blueToolbox, redToolbox, 'Blue toolbox comes before red toolbox' );
+      verifyOrder( blueRope, redRope, 'Blue rope pullers come before red rope pullers' );
+
+      // Within teams: toolbox before rope
+      verifyOrder( blueToolbox, blueRope, 'Blue toolbox pullers come before blue rope pullers' );
+      verifyOrder( redToolbox, redRope, 'Red toolbox pullers come before red rope pullers' );
     } );
-
-    const blueRopePullers = relevantElements.filter( item => {
-      const name = item.name.toLowerCase();
-      return name.includes( 'blue' ) && ( name.includes( 'knot' ) || name.includes( 'rope' ) );
-    } );
-
-    const redRopePullers = relevantElements.filter( item => {
-      const name = item.name.toLowerCase();
-      return name.includes( 'red' ) && ( name.includes( 'knot' ) || name.includes( 'rope' ) );
-    } );
-
-    console.log( 'Blue toolbox pullers:', blueToolboxPullers.map( item => item.name ) );
-    console.log( 'Red toolbox pullers:', redToolboxPullers.map( item => item.name ) );
-    console.log( 'Blue rope pullers:', blueRopePullers.map( item => item.name ) );
-    console.log( 'Red rope pullers:', redRopePullers.map( item => item.name ) );
-
-    // Test assertions
-    expect( relevantElements.length ).toBeGreaterThan( 0 );
-
-    // Find the index ranges for each category
-    const getIndices = elements => elements.map( el => relevantElements.indexOf( el ) ).filter( i => i >= 0 );
-
-    const blueToolboxIndices = getIndices( blueToolboxPullers );
-    const redToolboxIndices = getIndices( redToolboxPullers );
-    const blueRopeIndices = getIndices( blueRopePullers );
-    const redRopeIndices = getIndices( redRopePullers );
-
-    // Verify the expected order: ALL toolboxes before ANY rope groups
-    const allToolboxIndices = [ ...blueToolboxIndices, ...redToolboxIndices ];
-    const allRopeIndices = [ ...blueRopeIndices, ...redRopeIndices ];
-
-    if ( allToolboxIndices.length > 0 && allRopeIndices.length > 0 ) {
-      const lastToolbox = Math.max( ...allToolboxIndices );
-      const firstRope = Math.min( ...allRopeIndices );
-      expect( lastToolbox ).toBeLessThan( firstRope );
-      console.log( 'Verified: ALL toolbox pullers come before ANY rope pullers' );
-    }
-
-    // Verify the expected order: toolboxes before rope groups within teams
-    if ( blueToolboxIndices.length > 0 && blueRopeIndices.length > 0 ) {
-      const lastBlueToolbox = Math.max( ...blueToolboxIndices );
-      const firstBlueRope = Math.min( ...blueRopeIndices );
-      expect( lastBlueToolbox ).toBeLessThan( firstBlueRope );
-      console.log( 'Verified: blue toolbox pullers come before blue rope pullers' );
-    }
-
-    if ( redToolboxIndices.length > 0 && redRopeIndices.length > 0 ) {
-      const lastRedToolbox = Math.max( ...redToolboxIndices );
-      const firstRedRope = Math.min( ...redRopeIndices );
-      expect( lastRedToolbox ).toBeLessThan( firstRedRope );
-      console.log( 'Verified: red toolbox pullers come before red rope pullers' );
-    }
-
-    // Verify blue comes before red within categories (if both exist)
-    if ( blueToolboxIndices.length > 0 && redToolboxIndices.length > 0 ) {
-      const lastBlueToolbox = Math.max( ...blueToolboxIndices );
-      const firstRedToolbox = Math.min( ...redToolboxIndices );
-      expect( lastBlueToolbox ).toBeLessThan( firstRedToolbox );
-      console.log( 'Verified: blue toolbox comes before red toolbox' );
-    }
-
-    if ( blueRopeIndices.length > 0 && redRopeIndices.length > 0 ) {
-      const lastBlueRope = Math.max( ...blueRopeIndices );
-      const firstRedRope = Math.min( ...redRopeIndices );
-      expect( lastBlueRope ).toBeLessThan( firstRedRope );
-      console.log( 'Verified: blue rope pullers come before red rope pullers' );
-    }
   } );
 
 } );
