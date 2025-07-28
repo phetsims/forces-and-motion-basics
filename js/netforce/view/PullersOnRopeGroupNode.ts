@@ -37,7 +37,7 @@ export default class PullersOnRopeGroupNode extends Node {
     const options = optionize<PullersOnRopeGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
 
-      // ARIA attributes for the group - different for each side
+      // ARIA attributes for the group - fallback names if not provided in options
       ariaRole: 'group',
       accessibleName: providedOptions.side === 'left' ? 'Blue Team Pullers on Rope' : 'Red Team Pullers on Rope',
       descriptionContent: 'Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab'

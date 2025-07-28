@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -273,19 +274,6 @@ export default class NetForceScreenView extends ScreenView {
       }
     } );
 
-
-    // create the toolboxes that hold the puller children
-    const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
-      accessibleHeading: 'Blue Team Toolbox',
-      descriptionContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots. Different sizes apply different amounts of force.'
-    } );
-    const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
-      accessibleHeading: 'Red Team Toolbox',
-      descriptionContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots. Different sizes apply different amounts of force.'
-    } );
-    this.addChild( leftToolbox );
-    this.addChild( rightToolbox );
-
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {
       layerSplit: true
@@ -331,6 +319,43 @@ export default class NetForceScreenView extends ScreenView {
     // Add accessible description for the cart and rope visual scene
     this.cartNode.accessibleParagraph = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
 
+    // Create DerivedProperties that wire directly to the preference
+    const leftTeamHeadingProperty = new DerivedProperty(
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+      pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
+        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
+        return `${colorKey} Team Toolbox`;
+      }
+    );
+
+    const rightTeamHeadingProperty = new DerivedProperty(
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+      pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
+        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
+        return `${colorKey} Team Toolbox`;
+      }
+    );
+
+    const leftTeamGroupNameProperty = new DerivedProperty(
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+      pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
+        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
+        return `${colorKey} Team Pullers`;
+      }
+    );
+
+    const rightTeamGroupNameProperty = new DerivedProperty(
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+      pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
+        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
+        return `${colorKey} Team Pullers`;
+      }
+    );
+
     //Lookup a puller image given a puller instance and whether they are leaning or not.
     const getPullerImage = ( puller: Puller, leaning: boolean ) => {
       const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
@@ -345,23 +370,55 @@ export default class NetForceScreenView extends ScreenView {
       return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
     };
 
+    // Create the toolboxes with dynamic accessibility properties
+    const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
+      tagName: 'div',
+      accessibleName: leftTeamHeadingProperty,
+      accessibleParagraph: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+    } );
+    const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
+      tagName: 'div',
+      accessibleName: rightTeamHeadingProperty,
+      accessibleParagraph: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+    } );
+
+    this.addChild( leftToolbox );
+    this.addChild( rightToolbox );
+
     const pullersTandem = tandem.createTandem( 'pullers' );
 
     // Initialize the centralized focus manager
     this.pullerFocusManager = new PullerFocusManager();
 
     this.leftPullerGroup = new PullerGroupNode( model, {
-      side: 'left'
+      side: 'left',
+      accessibleName: leftTeamGroupNameProperty
     } );
     this.rightPullerGroup = new PullerGroupNode( model, {
-      side: 'right'
+      side: 'right',
+      accessibleName: rightTeamGroupNameProperty
     } );
     this.model.pullers.forEach( puller => {
+      // Create dynamic accessibleName property for this puller wired directly to preference
+      const dynamicAccessibleNameProperty = new DerivedProperty(
+        [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+        pullerColor => {
+          let displayColor: string;
+          if ( pullerColor === 'purpleOrange' ) {
+            displayColor = puller.type === 'blue' ? 'purple' : 'orange';
+          }
+          else {
+            displayColor = puller.type; // 'blue' or 'red'
+          }
+          return `${puller.size} ${displayColor} puller`;
+        }
+      );
+
       const pullerNode = new PullerNode( puller, this.model, this.pullerFocusManager,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
           tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
-          accessibleName: `${puller.size} ${puller.type} puller`
+          accessibleName: dynamicAccessibleNameProperty
         }
       );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
@@ -419,12 +476,33 @@ export default class NetForceScreenView extends ScreenView {
     leftToolbox.addChild( this.leftPullerGroup );
     rightToolbox.addChild( this.rightPullerGroup );
 
+    // Create DerivedProperties for rope group names
+    const leftRopeGroupNameProperty = new DerivedProperty(
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+      pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
+        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
+        return `${colorKey} Team Pullers on Rope`;
+      }
+    );
+
+    const rightRopeGroupNameProperty = new DerivedProperty(
+      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
+      pullerColor => {
+        const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
+        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
+        return `${colorKey} Team Pullers on Rope`;
+      }
+    );
+
     // Create separate rope groups for blue (left) and red (right) pullers
     this.leftRopePullerGroup = new PullersOnRopeGroupNode( model, {
-      side: 'left'
+      side: 'left',
+      accessibleName: leftRopeGroupNameProperty
     } );
     this.rightRopePullerGroup = new PullersOnRopeGroupNode( model, {
-      side: 'right'
+      side: 'right',
+      accessibleName: rightRopeGroupNameProperty
     } );
     this.addChild( this.leftRopePullerGroup );
     this.addChild( this.rightRopePullerGroup );

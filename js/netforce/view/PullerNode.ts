@@ -15,10 +15,11 @@ import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import NetForceHotkeyData from '../NetForceHotkeyData.js';
+import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
+import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import PullerFocusManager from './PullerFocusManager.js';
 
 
@@ -164,6 +165,12 @@ export default class PullerNode extends Image {
     // Set initial accessible description
     this.updateAccessibleDescription( 'toolbox' );
 
+    // Listen for preference changes to update color in accessibility description
+    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
+      const currentLocation = puller.knotProperty.get() ? this.getKnotDescription( puller.knotProperty.get()! ) : 'toolbox';
+      this.updateAccessibleDescription( currentLocation );
+    } );
+
     // DEBUG: Track focus loss during keyboard grab operations
     if ( ForcesAndMotionBasicsQueryParameters.debugAltInput ) {
       this.focusedProperty.link( ( focused, wasFocused ) => {
@@ -270,7 +277,16 @@ export default class PullerNode extends Image {
    * @param location - Description of where the puller is
    */
   private updateAccessibleDescription( location: string ): void {
-    this.accessibleName = `${this.puller.size} ${this.puller.type} puller at ${location}`;
+    // Use dynamic color based on preference
+    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+    let displayColor: string;
+    if ( pullerColor === 'purpleOrange' ) {
+      displayColor = this.puller.type === 'blue' ? 'purple' : 'orange';
+    }
+    else {
+      displayColor = this.puller.type; // 'blue' or 'red'
+    }
+    this.accessibleName = `${this.puller.size} ${displayColor} puller at ${location}`;
   }
 
   /**
@@ -278,8 +294,8 @@ export default class PullerNode extends Image {
    */
   private handleKeyboardInput( keysPressed: string ): void {
     ForcesAndMotionBasicsQueryParameters.debugAltInput &&
-      console.log( 'keyboardListener fired for puller:', this.puller, 'key:', keysPressed );
-    
+    console.log( 'keyboardListener fired for puller:', this.puller, 'key:', keysPressed );
+
     const puller = this.puller;
     const isGrabbed = puller.isGrabbed();
 
@@ -313,18 +329,18 @@ export default class PullerNode extends Image {
       if ( isGrabbed ) {
         ForcesAndMotionBasicsQueryParameters.debugAltInput &&
         console.log( 'DROP: About to drop puller:', puller.size, puller.type );
-        
+
         // Drop the puller
         puller.drop();
         this.updatePosition( puller, this.model );
         this.updateImage( puller, this.model );
-        
+
         ForcesAndMotionBasicsQueryParameters.debugAltInput &&
         console.log( 'DROP: After drop, calling handlePullerDrop' );
-        
+
         // Let focus manager handle auto-focus
         this.focusManager.handlePullerDrop( this );
-        
+
         // Add accessibility feedback - check state.attachedKnot for immediate feedback
         if ( puller.state.attachedKnot ) {
           const knotDescription = this.getKnotDescription( puller.state.attachedKnot );
@@ -339,25 +355,25 @@ export default class PullerNode extends Image {
       else {
         ForcesAndMotionBasicsQueryParameters.debugAltInput &&
         console.log( 'GRAB: Starting grab for puller:', puller.size, puller.type, 'isFocused:', this.isFocused, 'focusable:', this.focusable );
-        
+
         // Store current focus state
         const hadFocus = this.isFocused();
-        
+
         // Ensure this puller remains focusable during grab
         this.focusable = true;
-        
+
         // Prevent focus manager interference during grab
         this.focusManager.setGrabbing( true );
-        
+
         // Grab the puller
         puller.grab( 'keyboard' );
         this.updateImage( puller, this.model );
         this.moveToFront();
         puller.userControlledEmitter.emit();
-        
+
         // Move to appropriate position for keyboard interaction
         this.positionForKeyboardGrab();
-        
+
         // CRITICAL: Force focus to stay on this puller after grab transition
         if ( hadFocus ) {
           // Ensure focusability and explicitly focus
@@ -366,16 +382,16 @@ export default class PullerNode extends Image {
           ForcesAndMotionBasicsQueryParameters.debugAltInput &&
           console.log( 'GRAB: Forced focus restoration after grab for:', puller.size, puller.type );
         }
-        
+
         // Re-enable focus manager
         this.focusManager.setGrabbing( false );
-        
+
         ForcesAndMotionBasicsQueryParameters.debugAltInput &&
         console.log( 'GRAB: After grab for puller:', puller.size, puller.type, 'isFocused:', this.isFocused, 'focusable:', this.focusable );
-        
+
         // Add accessibility feedback
         const currentLocation = puller.state.grabOrigin?.attachedKnot ?
-          this.getKnotDescription( puller.state.grabOrigin.attachedKnot ) : 'toolbox';
+                                this.getKnotDescription( puller.state.grabOrigin.attachedKnot ) : 'toolbox';
         this.updateAccessibleDescription( currentLocation );
         this.addAccessibleResponse( 'Grabbed' );
       }
@@ -389,9 +405,9 @@ export default class PullerNode extends Image {
     if ( keysPressed !== 'arrowLeft' && keysPressed !== 'arrowRight' ) {
       return; // Only left/right navigate knots when grabbed
     }
-    
+
     const puller = this.puller;
-    
+
     // Get available knots for this puller's type
     const availableKnots = this.model.knots.filter( knot =>
       knot.type === puller.type && this.model.getPuller( knot ) === null
@@ -405,9 +421,9 @@ export default class PullerNode extends Image {
     // Find current waypoint index
     const currentTarget = puller.state.targetKnot;
     let currentIndex = currentTarget === null ?
-      waypoints.length - 1 : // Home is last waypoint
-      availableKnots.indexOf( currentTarget );
-    
+                       waypoints.length - 1 : // Home is last waypoint
+                       availableKnots.indexOf( currentTarget );
+
     if ( currentIndex === -1 ) { currentIndex = 0; }
 
     // Navigate to next/previous waypoint
@@ -440,7 +456,7 @@ export default class PullerNode extends Image {
   private positionForKeyboardGrab(): void {
     const puller = this.puller;
     const grabOrigin = puller.state.grabOrigin;
-    
+
     if ( grabOrigin?.attachedKnot ) {
       // Was on rope - position at that knot
       this.updatePositionKnotted( puller, this.model, grabOrigin.attachedKnot );
@@ -451,7 +467,7 @@ export default class PullerNode extends Image {
       const availableKnots = this.model.knots.filter( knot =>
         knot.type === puller.type && this.model.getPuller( knot ) === null
       );
-      
+
       if ( availableKnots.length > 0 ) {
         const firstKnot = availableKnots[ 0 ];
         this.updatePositionKnotted( puller, this.model, firstKnot );
@@ -468,10 +484,10 @@ export default class PullerNode extends Image {
     // Update visual state based on reset model
     this.updateImage( this.puller, this.model );
     this.updatePosition( this.puller, this.model );
-    
+
     // Update accessibility description to reflect toolbox position
     this.updateAccessibleDescription( 'toolbox' );
-    
+
     // Ensure focusable state is correct (pullers in toolbox should be focusable)
     if ( this.puller.knotProperty.get() === null ) {
       this.focusable = true;

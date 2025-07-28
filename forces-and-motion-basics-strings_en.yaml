@@ -66,6 +66,8 @@ a11y:
           heading: Team Toolboxes
           blueTeamHeading: Blue Team Toolbox
           redTeamHeading: Red Team Toolbox
+          purpleTeamHeading: Purple Team Toolbox
+          orangeTeamHeading: Orange Team Toolbox
           description: Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force.
         rope:
           heading: Rope and Cart
@@ -99,9 +101,28 @@ a11y:
                        [one] { $count } red team puller is on the rope.
                       *[other] { $count } red team pullers are on the rope.
                      }
+        purpleTeamAttached: |-
+                     { $count ->
+                       [one] { $count } purple team puller is on the rope.
+                      *[other] { $count } purple team pullers are on the rope.
+                     }
+        orangeTeamAttached: |-
+                     { $count ->
+                       [one] { $count } orange team puller is on the rope.
+                      *[other] { $count } orange team pullers are on the rope.
+                     }
       interactionHint:
         noPullers: Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
         withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.
+  colors:
+    blue: blue
+    red: red
+    purple: purple
+    orange: orange
+    blueTeam: Blue Team
+    redTeam: Red Team
+    purpleTeam: Purple Team
+    orangeTeam: Orange Team
   motionScreen:
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'

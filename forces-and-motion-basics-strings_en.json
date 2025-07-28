@@ -180,6 +180,12 @@
             "redTeamHeading": {
               "value": "Red Team Toolbox"
             },
+            "purpleTeamHeading": {
+              "value": "Purple Team Toolbox"
+            },
+            "orangeTeamHeading": {
+              "value": "Orange Team Toolbox"
+            },
             "description": {
               "value": "Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force."
             }
@@ -238,6 +244,12 @@
           },
           "redTeamAttached": {
             "value": "{ $count ->\n  [one] { $count } red team puller is on the rope.\n *[other] { $count } red team pullers are on the rope.\n}"
+          },
+          "purpleTeamAttached": {
+            "value": "{ $count ->\n  [one] { $count } purple team puller is on the rope.\n *[other] { $count } purple team pullers are on the rope.\n}"
+          },
+          "orangeTeamAttached": {
+            "value": "{ $count ->\n  [one] { $count } orange team puller is on the rope.\n *[other] { $count } orange team pullers are on the rope.\n}"
           }
         },
         "interactionHint": {
@@ -248,6 +260,32 @@
             "value": "Add more pullers or press Go to start the tug-of-war. The team with more total force wins."
           }
         }
+      }
+    },
+    "colors": {
+      "blue": {
+        "value": "blue"
+      },
+      "red": {
+        "value": "red"
+      },
+      "purple": {
+        "value": "purple"
+      },
+      "orange": {
+        "value": "orange"
+      },
+      "blueTeam": {
+        "value": "Blue Team"
+      },
+      "redTeam": {
+        "value": "Red Team"
+      },
+      "purpleTeam": {
+        "value": "Purple Team"
+      },
+      "orangeTeam": {
+        "value": "Orange Team"
       }
     },
     "motionScreen": {

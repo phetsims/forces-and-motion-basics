@@ -83,6 +83,8 @@ type StringsType = {
             'headingStringProperty': LocalizedStringProperty;
             'blueTeamHeadingStringProperty': LocalizedStringProperty;
             'redTeamHeadingStringProperty': LocalizedStringProperty;
+            'purpleTeamHeadingStringProperty': LocalizedStringProperty;
+            'orangeTeamHeadingStringProperty': LocalizedStringProperty;
             'descriptionStringProperty': LocalizedStringProperty;
           };
           'rope': {
@@ -110,12 +112,24 @@ type StringsType = {
           'pullersAttachedStringProperty': LocalizedStringProperty;
           'blueTeamAttachedStringProperty': LocalizedStringProperty;
           'redTeamAttachedStringProperty': LocalizedStringProperty;
+          'purpleTeamAttachedStringProperty': LocalizedStringProperty;
+          'orangeTeamAttachedStringProperty': LocalizedStringProperty;
         };
         'interactionHint': {
           'noPullersStringProperty': LocalizedStringProperty;
           'withPullersStringProperty': LocalizedStringProperty;
         }
       }
+    };
+    'colors': {
+      'blueStringProperty': LocalizedStringProperty;
+      'redStringProperty': LocalizedStringProperty;
+      'purpleStringProperty': LocalizedStringProperty;
+      'orangeStringProperty': LocalizedStringProperty;
+      'blueTeamStringProperty': LocalizedStringProperty;
+      'redTeamStringProperty': LocalizedStringProperty;
+      'purpleTeamStringProperty': LocalizedStringProperty;
+      'orangeTeamStringProperty': LocalizedStringProperty;
     };
     'motionScreen': {
       'items': {

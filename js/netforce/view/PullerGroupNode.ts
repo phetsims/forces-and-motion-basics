@@ -38,8 +38,8 @@ export default class PullerGroupNode extends Node {
       tagName: 'div',
 
       // ARIA attributes for the group
-      ariaRole: 'group',
-      accessibleName: providedOptions.side === 'left' ? 'Blue Team Pullers' : 'Red Team Pullers'
+      ariaRole: 'group'
+      // accessibleName will be passed through providedOptions
     }, providedOptions );
 
     super( options );
