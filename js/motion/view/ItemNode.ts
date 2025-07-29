@@ -152,8 +152,7 @@ export default class ItemNode extends Node {
       // Keyboard accessibility
       focusable: true,
       ariaRole: 'button',
-      accessibleName: accessibleNameProperty,
-      descriptionContent: 'Drag to move to skateboard or use keyboard'
+      accessibleName: accessibleNameProperty
     } );
 
     this.model = model;

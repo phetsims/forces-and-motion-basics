@@ -25,7 +25,7 @@ type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class ItemToolboxGroupNode extends Node {
   public readonly itemNodes: ItemNode[] = [];
-  
+
   // Track focus listeners so we can remove them when items leave the group
   private readonly focusListeners = new Map();
 
@@ -36,7 +36,7 @@ export default class ItemToolboxGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'group',
-      accessibleName: 'Item Toolboxes',
+      accessibleName: 'Item Toolbox',
       descriptionContent: 'Use arrow keys to select an item, then press Space or Enter to grab'
     }, providedOptions );
 
@@ -58,7 +58,7 @@ export default class ItemToolboxGroupNode extends Node {
     if ( itemNode.parent ) {
       itemNode.parent.removeChild( itemNode );
     }
-    
+
     this.itemNodes.push( itemNode );
     this.addChild( itemNode );
 
@@ -84,13 +84,13 @@ export default class ItemToolboxGroupNode extends Node {
         } );
       }
     };
-    
+
     this.focusListeners.set( itemNode, focusListener );
     itemNode.focusedProperty.lazyLink( focusListener );
 
     // Set the keyboard strategy for toolbox items and pass reference to this group
     itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ), this );
-    
+
     // Ensure items added to toolbox are properly focusable for arrow navigation
     // Only make focusable if it's not on the stack
     if ( !itemNode.item.inStackProperty.get() ) {
@@ -130,15 +130,15 @@ export default class ItemToolboxGroupNode extends Node {
         // fridge and crates go in left toolbox, others go in right
         return ( item.item.name === 'fridge' || item.item.name === 'crate1' || item.item.name === 'crate2' ) ? 'left' : 'right';
       };
-      
+
       const aSide = getSide( a );
       const bSide = getSide( b );
-      
+
       // Left items come first
       if ( aSide !== bSide ) {
         return aSide === 'left' ? -1 : 1;
       }
-      
+
       // Within same side, sort by x position
       return a.item.positionProperty.value.x - b.item.positionProperty.value.x;
     } );
@@ -151,7 +151,7 @@ export default class ItemToolboxGroupNode extends Node {
    */
   public focusNextItemInToolbox( droppedItemNode: ItemNode ): void {
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'focusNextItemInToolbox called for:', droppedItemNode.item.name );
-    
+
     // Find items still in the toolboxes (not on stack)
     const itemsInToolbox = this.itemNodes.filter( itemNode =>
       !itemNode.item.inStackProperty.get() && itemNode !== droppedItemNode
@@ -208,22 +208,22 @@ export default class ItemToolboxGroupNode extends Node {
  */
 export class ToolboxKeyboardStrategy implements ItemKeyboardStrategy {
   public constructor( private readonly groupNode: ItemToolboxGroupNode, private readonly model: MotionModel ) {}
-  
+
   public navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {
     // Only left/right navigation in toolboxes (unified left/right toolbox navigation)
     if ( direction === 'up' || direction === 'down' ) {
       return null;
     }
-    
+
     // Get items currently in toolboxes (not on stack)
     const itemsInToolbox = this.groupNode.itemNodes.filter( item => !item.item.inStackProperty.get() );
     const currentIndex = itemsInToolbox.indexOf( currentItem );
     if ( currentIndex === -1 ) { return null; }
-    
+
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Toolbox navigation - from item at index:', currentIndex );
     const delta = ( direction === 'left' ) ? -1 : 1;
     const newIndex = currentIndex + delta;
-    
+
     // Keep selection within bounds
     if ( newIndex >= 0 && newIndex < itemsInToolbox.length ) {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from index', currentIndex, 'to index', newIndex );
@@ -231,10 +231,10 @@ export class ToolboxKeyboardStrategy implements ItemKeyboardStrategy {
     }
     return null;
   }
-  
+
   public onDropComplete( item: ItemNode, droppedOnStack: boolean, wasAlreadyOnStack?: boolean ): void {
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ToolboxKeyboardStrategy.onDropComplete called:', { item: item.item.name, droppedOnStack: droppedOnStack, wasAlreadyOnStack: wasAlreadyOnStack } );
-    
+
     if ( droppedOnStack && !wasAlreadyOnStack ) {
       // Item was successfully dropped from toolbox to stack
       // Focus the next available item in the toolbox
@@ -249,11 +249,11 @@ export class ToolboxKeyboardStrategy implements ItemKeyboardStrategy {
       // Keep focus on the current item (don't change focus)
     }
   }
-  
+
   public getItemGroup(): ItemNode[] {
     return this.groupNode.itemNodes.filter( item => !item.item.inStackProperty.get() );
   }
-  
+
   public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'stack' | 'toolbox' ): string {
     if ( action === 'grabbed' ) {
       return 'Grabbed';
