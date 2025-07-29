@@ -315,15 +315,6 @@ export default class NetForceScreenView extends ScreenView {
 
     this.addChild( this.cartNode );
 
-    // Add accessible description for the cart and rope visual scene
-    this.cartNode.accessibleParagraph = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
-
-    // const stateDescriptionNode = new Node( {
-    //   // accessibleHeading: 'State Description',
-    //   accessibleParagraph: 'hello'
-    // } );
-    // this.addChild( stateDescriptionNode );
-
     // Create DerivedProperties that wire directly to the preference
     const leftTeamHeadingProperty = new DerivedProperty(
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
