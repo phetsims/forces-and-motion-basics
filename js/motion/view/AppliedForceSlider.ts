@@ -50,6 +50,9 @@ export default class AppliedForceSlider extends HSlider {
       },
       tandem: tandem,
 
+      // Remove the slider from the tab order, the alt-input controls the number control above it, see https://github.com/phetsims/forces-and-motion-basics/issues/378
+      focusable: false,
+
       // round so that applied force is not more precise than friction force
       constrainValue: ( value: number ) => Utils.roundSymmetric( value ),
 
