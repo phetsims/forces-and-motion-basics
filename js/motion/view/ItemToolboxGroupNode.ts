@@ -14,6 +14,7 @@ import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighli
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode, { type ItemKeyboardStrategy } from './ItemNode.js';
 
@@ -36,8 +37,8 @@ export default class ItemToolboxGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'group',
-      accessibleName: 'Item Toolbox',
-      descriptionContent: 'Use arrow keys to select an item, then press Space or Enter to grab'
+      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemToolbox.accessibleNameStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemToolbox.descriptionContentStringProperty
     }, providedOptions );
 
     super( options );

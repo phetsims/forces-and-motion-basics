@@ -132,14 +132,14 @@ export default class MotionScreenView extends ScreenView {
       stroke: stroke,
       lineWidth: 1,
       tagName: 'div',
-      accessibleHeading: 'Left Object Toolbox'
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.leftObjectToolboxStringProperty
     } );
     const rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
       lineWidth: 1,
       tagName: 'div',
-      accessibleHeading: 'Right Object Toolbox'
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.rightObjectToolboxStringProperty
     } );
 
     const appliedForceControl = new AppliedForceControl( tandem.createTandem( 'appliedForceControl' ), ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model );
@@ -216,8 +216,8 @@ export default class MotionScreenView extends ScreenView {
 
     const playAreaControlNode = new Node( {
       tagName: 'div',
-      accessibleHeading: 'Play Area Controls',
-      descriptionContent: 'Controls to start or pause motion, and to reset simulation',
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.motionPlayAreaControls.accessibleHeadingStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionPlayAreaControls.descriptionContentStringProperty,
       appendDescription: false,
       children: [ timeControlNode, this.resetAllButton ]
     } );
@@ -323,11 +323,11 @@ export default class MotionScreenView extends ScreenView {
     // Create keyboard navigation groups AFTER items are created
     this.itemToolboxGroup = new ItemToolboxGroupNode( model, leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
       tandem: tandem.createTandem( 'itemToolboxGroup' ),
-      accessibleHeading: 'Object Toolbox'
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty
     } );
     this.itemStackGroup = new ItemStackGroupNode( model, {
       tandem: tandem.createTandem( 'itemStackGroup' ),
-      accessibleHeading: 'Skateboard'
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.skateboardStringProperty
     } );
 
     // Add all items to toolbox group initially and set up keyboard strategies

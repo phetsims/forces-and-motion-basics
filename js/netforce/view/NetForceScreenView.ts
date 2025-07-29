@@ -526,8 +526,8 @@ export default class NetForceScreenView extends ScreenView {
 
     const playAreaControlNode = new Node( {
       tagName: 'div',
-      accessibleHeading: 'Play Area Controls',
-      descriptionContent: 'Controls to start or pause the tug-of-war, and to return the cart',
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.playAreaControls.accessibleHeadingStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.playAreaControls.descriptionContentStringProperty,
       appendDescription: false
     } );
 

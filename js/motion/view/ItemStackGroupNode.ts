@@ -14,6 +14,7 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode, { type ItemKeyboardStrategy } from './ItemNode.js';
 
@@ -36,8 +37,8 @@ export default class ItemStackGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'group',
-      accessibleName: 'Items on Skateboard',
-      descriptionContent: 'Use arrow keys to navigate between stacked items, then press Space or Enter to grab'
+      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemStackGroup.accessibleNameStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemStackGroup.descriptionContentStringProperty
     }, providedOptions );
 
     super( options );

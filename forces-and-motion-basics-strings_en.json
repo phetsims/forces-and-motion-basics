@@ -291,6 +291,83 @@
     "returnButton": {
       "cartReturnedToCenter": {
         "value": "Cart returned to center"
+      },
+      "accessibleName": {
+        "value": "Return Cart Button"
+      },
+      "accessibleHelpText": {
+        "value": "Press to return the cart to the center and reset for a new game."
+      }
+    },
+    "goPauseButton": {
+      "accessibleName": {
+        "value": "Go/Pause Button"
+      },
+      "accessibleHelpText": {
+        "value": "Press to start or pause the tug-of-war game."
+      }
+    },
+    "pullersOnRope": {
+      "blueTeamHeading": {
+        "value": "Blue Team Pullers on Rope"
+      },
+      "redTeamHeading": {
+        "value": "Red Team Pullers on Rope"
+      },
+      "descriptionContent": {
+        "value": "Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab"
+      }
+    },
+    "netForceControlPanel": {
+      "sumOfForces": {
+        "accessibleName": {
+          "value": "Sum of Forces"
+        },
+        "accessibleHelpText": {
+          "value": "Check to show an arrow representing the sum of all forces."
+        },
+        "accessibleContextResponseChecked": {
+          "value": "Sum of forces arrow shown."
+        },
+        "accessibleContextResponseUnchecked": {
+          "value": "Sum of forces arrow hidden."
+        }
+      },
+      "values": {
+        "accessibleName": {
+          "value": "Values"
+        },
+        "accessibleHelpText": {
+          "value": "Check to show numerical values for the forces."
+        },
+        "accessibleContextResponseChecked": {
+          "value": "Force values shown."
+        },
+        "accessibleContextResponseUnchecked": {
+          "value": "Force values hidden."
+        }
+      },
+      "speed": {
+        "accessibleName": {
+          "value": "Speed"
+        },
+        "accessibleHelpText": {
+          "value": "Check to show the speedometer on the cart."
+        },
+        "accessibleContextResponseChecked": {
+          "value": "Speedometer shown on cart."
+        },
+        "accessibleContextResponseUnchecked": {
+          "value": "Speedometer hidden."
+        }
+      }
+    },
+    "playAreaControls": {
+      "accessibleHeading": {
+        "value": "Play Area Controls"
+      },
+      "descriptionContent": {
+        "value": "Controls to start or pause the tug-of-war, and to return the cart"
       }
     },
     "motionScreen": {
@@ -387,6 +464,158 @@
             "value": "Mystery Object"
           }
         }
+      },
+      "itemToolbox": {
+        "accessibleName": {
+          "value": "Item Toolbox"
+        },
+        "descriptionContent": {
+          "value": "Use arrow keys to select an item, then press Space or Enter to grab"
+        }
+      },
+      "itemStackGroup": {
+        "accessibleName": {
+          "value": "Items on Skateboard"
+        },
+        "descriptionContent": {
+          "value": "Use arrow keys to navigate between stacked items, then press Space or Enter to grab"
+        }
+      },
+      "motionControlPanel": {
+        "force": {
+          "accessibleName": {
+            "value": "Force"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show force arrows."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Force arrows shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Force arrows hidden."
+          }
+        },
+        "values": {
+          "accessibleName": {
+            "value": "Values"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show numerical values for the forces."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Force values shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Force values hidden."
+          }
+        },
+        "masses": {
+          "accessibleName": {
+            "value": "Masses"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show masses of objects."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Object masses shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Object masses hidden."
+          }
+        },
+        "speed": {
+          "accessibleName": {
+            "value": "Speed"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show the speedometer."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Speedometer shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Speedometer hidden."
+          }
+        },
+        "stopwatch": {
+          "accessibleName": {
+            "value": "Stopwatch"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show the stopwatch."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Stopwatch shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Stopwatch hidden."
+          }
+        },
+        "forces": {
+          "accessibleName": {
+            "value": "Forces"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show force arrows."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Force arrows shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Force arrows hidden."
+          }
+        },
+        "sumOfForces": {
+          "accessibleName": {
+            "value": "Sum of Forces"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show an arrow representing the sum of all forces."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Sum of forces arrow shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Sum of forces arrow hidden."
+          }
+        },
+        "acceleration": {
+          "accessibleName": {
+            "value": "Acceleration"
+          },
+          "accessibleHelpText": {
+            "value": "Check to show the accelerometer."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Accelerometer shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Accelerometer hidden."
+          }
+        }
+      }
+    },
+    "objectToolboxes": {
+      "leftObjectToolbox": {
+        "value": "Left Object Toolbox"
+      },
+      "rightObjectToolbox": {
+        "value": "Right Object Toolbox"
+      },
+      "objectToolbox": {
+        "value": "Object Toolbox"
+      },
+      "skateboard": {
+        "value": "Skateboard"
+      }
+    },
+    "motionPlayAreaControls": {
+      "accessibleHeading": {
+        "value": "Play Area Controls"
+      },
+      "descriptionContent": {
+        "value": "Controls to start or pause motion, and to reset simulation"
       }
     }
   }

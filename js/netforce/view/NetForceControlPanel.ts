@@ -61,20 +61,20 @@ export default class NetForceControlPanel extends Node {
       property: model.showSumOfForcesProperty,
       tandemName: 'sumOfForcesCheckbox',
       options: {
-        accessibleName: 'Sum of Forces',
-        accessibleHelpText: 'Check to show an arrow representing the sum of all forces.',
-        accessibleContextResponseChecked: 'Sum of forces arrow shown.',
-        accessibleContextResponseUnchecked: 'Sum of forces arrow hidden.'
+        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleNameStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
       }
     }, {
       createNode: () => new Text( valuesStringProperty, fontOptions ),
       property: model.showValuesProperty,
       tandemName: 'valuesCheckbox',
       options: {
-        accessibleName: 'Values',
-        accessibleHelpText: 'Check to show numerical values for the forces.',
-        accessibleContextResponseChecked: 'Force values shown.',
-        accessibleContextResponseUnchecked: 'Force values hidden.'
+        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleNameStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty
       }
     }, {
       createNode: tandem => new HBox( {
@@ -84,10 +84,10 @@ export default class NetForceControlPanel extends Node {
       property: model.showSpeedProperty,
       tandemName: 'speedCheckbox',
       options: {
-        accessibleName: 'Speed',
-        accessibleHelpText: 'Check to show the speedometer on the cart.',
-        accessibleContextResponseChecked: 'Speedometer shown on cart.',
-        accessibleContextResponseUnchecked: 'Speedometer hidden.'
+        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleNameStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty
       }
     } ], {
       tandem: verticalCheckboxGroupTandem,

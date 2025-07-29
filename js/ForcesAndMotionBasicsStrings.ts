@@ -133,6 +133,41 @@ type StringsType = {
     };
     'returnButton': {
       'cartReturnedToCenterStringProperty': LocalizedStringProperty;
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'goPauseButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'pullersOnRope': {
+      'blueTeamHeadingStringProperty': LocalizedStringProperty;
+      'redTeamHeadingStringProperty': LocalizedStringProperty;
+      'descriptionContentStringProperty': LocalizedStringProperty;
+    };
+    'netForceControlPanel': {
+      'sumOfForces': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+      };
+      'values': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+      };
+      'speed': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+        'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+      }
+    };
+    'playAreaControls': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'descriptionContentStringProperty': LocalizedStringProperty;
     };
     'motionScreen': {
       'screenSummary': {
@@ -180,7 +215,75 @@ type StringsType = {
           'trashStringProperty': LocalizedStringProperty;
           'mysteryStringProperty': LocalizedStringProperty;
         }
+      };
+      'itemToolbox': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'descriptionContentStringProperty': LocalizedStringProperty;
+      };
+      'itemStackGroup': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
+        'descriptionContentStringProperty': LocalizedStringProperty;
+      };
+      'motionControlPanel': {
+        'force': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'values': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'masses': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'speed': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'stopwatch': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'forces': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'sumOfForces': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'acceleration': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        }
       }
+    };
+    'objectToolboxes': {
+      'leftObjectToolboxStringProperty': LocalizedStringProperty;
+      'rightObjectToolboxStringProperty': LocalizedStringProperty;
+      'objectToolboxStringProperty': LocalizedStringProperty;
+      'skateboardStringProperty': LocalizedStringProperty;
+    };
+    'motionPlayAreaControls': {
+      'accessibleHeadingStringProperty': LocalizedStringProperty;
+      'descriptionContentStringProperty': LocalizedStringProperty;
     }
   }
 };

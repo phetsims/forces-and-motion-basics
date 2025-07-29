@@ -111,6 +111,27 @@ addToMapIfDefined( 'a11y_colors_redTeam', 'a11y.colors.redTeamStringProperty' );
 addToMapIfDefined( 'a11y_colors_purpleTeam', 'a11y.colors.purpleTeamStringProperty' );
 addToMapIfDefined( 'a11y_colors_orangeTeam', 'a11y.colors.orangeTeamStringProperty' );
 addToMapIfDefined( 'a11y_returnButton_cartReturnedToCenter', 'a11y.returnButton.cartReturnedToCenterStringProperty' );
+addToMapIfDefined( 'a11y_returnButton_accessibleName', 'a11y.returnButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_returnButton_accessibleHelpText', 'a11y.returnButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_goPauseButton_accessibleName', 'a11y.goPauseButton.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_goPauseButton_accessibleHelpText', 'a11y.goPauseButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_pullersOnRope_blueTeamHeading', 'a11y.pullersOnRope.blueTeamHeadingStringProperty' );
+addToMapIfDefined( 'a11y_pullersOnRope_redTeamHeading', 'a11y.pullersOnRope.redTeamHeadingStringProperty' );
+addToMapIfDefined( 'a11y_pullersOnRope_descriptionContent', 'a11y.pullersOnRope.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleName', 'a11y.netForceControlPanel.sumOfForces.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleHelpText', 'a11y.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', 'a11y.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleContextResponseUnchecked', 'a11y.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_values_accessibleName', 'a11y.netForceControlPanel.values.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_values_accessibleHelpText', 'a11y.netForceControlPanel.values.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_values_accessibleContextResponseChecked', 'a11y.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_values_accessibleContextResponseUnchecked', 'a11y.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_speed_accessibleName', 'a11y.netForceControlPanel.speed.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_speed_accessibleHelpText', 'a11y.netForceControlPanel.speed.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_speed_accessibleContextResponseChecked', 'a11y.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_netForceControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_playAreaControls_accessibleHeading', 'a11y.playAreaControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_playAreaControls_descriptionContent', 'a11y.playAreaControls.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_description', 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_guidingQuestion', 'a11y.motionScreen.screenSummary.playArea.guidingQuestionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' );
@@ -135,6 +156,48 @@ addToMapIfDefined( 'a11y_motionScreen_items_names_girl', 'a11y.motionScreen.item
 addToMapIfDefined( 'a11y_motionScreen_items_names_man', 'a11y.motionScreen.items.names.manStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_trash', 'a11y.motionScreen.items.names.trashStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_mystery', 'a11y.motionScreen.items.names.mysteryStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemToolbox_accessibleName', 'a11y.motionScreen.itemToolbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemToolbox_descriptionContent', 'a11y.motionScreen.itemToolbox.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_accessibleName', 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_descriptionContent', 'a11y.motionScreen.itemStackGroup.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleName', 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleName', 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleName', 'a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleName', 'a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleName', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleName', 'a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleName', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_objectToolboxes_leftObjectToolbox', 'a11y.objectToolboxes.leftObjectToolboxStringProperty' );
+addToMapIfDefined( 'a11y_objectToolboxes_rightObjectToolbox', 'a11y.objectToolboxes.rightObjectToolboxStringProperty' );
+addToMapIfDefined( 'a11y_objectToolboxes_objectToolbox', 'a11y.objectToolboxes.objectToolboxStringProperty' );
+addToMapIfDefined( 'a11y_objectToolboxes_skateboard', 'a11y.objectToolboxes.skateboardStringProperty' );
+addToMapIfDefined( 'a11y_motionPlayAreaControls_accessibleHeading', 'a11y.motionPlayAreaControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_motionPlayAreaControls_descriptionContent', 'a11y.motionPlayAreaControls.descriptionContentStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -270,7 +333,42 @@ const ForcesAndMotionBasicsFluent = {
       orangeTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_orangeTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.orangeTeamStringProperty' ) )
     },
     returnButton: {
-      cartReturnedToCenterStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_returnButton_cartReturnedToCenter', _.get( ForcesAndMotionBasicsStrings, 'a11y.returnButton.cartReturnedToCenterStringProperty' ) )
+      cartReturnedToCenterStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_returnButton_cartReturnedToCenter', _.get( ForcesAndMotionBasicsStrings, 'a11y.returnButton.cartReturnedToCenterStringProperty' ) ),
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_returnButton_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.returnButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_returnButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.returnButton.accessibleHelpTextStringProperty' ) )
+    },
+    goPauseButton: {
+      accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleNameStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleHelpTextStringProperty' ) )
+    },
+    pullersOnRope: {
+      blueTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullersOnRope_blueTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullersOnRope.blueTeamHeadingStringProperty' ) ),
+      redTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullersOnRope_redTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullersOnRope.redTeamHeadingStringProperty' ) ),
+      descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullersOnRope_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullersOnRope.descriptionContentStringProperty' ) )
+    },
+    netForceControlPanel: {
+      sumOfForces: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_sumOfForces_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.sumOfForces.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_sumOfForces_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' ) ),
+        accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' ) ),
+        accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_sumOfForces_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' ) )
+      },
+      values: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.values.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.values.accessibleHelpTextStringProperty' ) ),
+        accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_values_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty' ) ),
+        accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_values_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty' ) )
+      },
+      speed: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_speed_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.speed.accessibleNameStringProperty' ) ),
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_speed_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.speed.accessibleHelpTextStringProperty' ) ),
+        accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_speed_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty' ) ),
+        accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceControlPanel_speed_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty' ) )
+      }
+    },
+    playAreaControls: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_playAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.playAreaControls.accessibleHeadingStringProperty' ) ),
+      descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_playAreaControls_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.playAreaControls.descriptionContentStringProperty' ) )
     },
     motionScreen: {
       screenSummary: {
@@ -318,7 +416,75 @@ const ForcesAndMotionBasicsFluent = {
           trashStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_trash', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.trashStringProperty' ) ),
           mysteryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_mystery', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.mysteryStringProperty' ) )
         }
+      },
+      itemToolbox: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemToolbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemToolbox.accessibleNameStringProperty' ) ),
+        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemToolbox_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemToolbox.descriptionContentStringProperty' ) )
+      },
+      itemStackGroup: {
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemStackGroup_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' ) ),
+        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemStackGroup_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemStackGroup.descriptionContentStringProperty' ) )
+      },
+      motionControlPanel: {
+        force: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        values: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        masses: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        speed: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        stopwatch: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        forces: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        sumOfForces: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' ) )
+        },
+        acceleration: {
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' ) )
+        }
       }
+    },
+    objectToolboxes: {
+      leftObjectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_leftObjectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.leftObjectToolboxStringProperty' ) ),
+      rightObjectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_rightObjectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.rightObjectToolboxStringProperty' ) ),
+      objectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_objectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.objectToolboxStringProperty' ) ),
+      skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.skateboardStringProperty' ) )
+    },
+    motionPlayAreaControls: {
+      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionPlayAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionPlayAreaControls.accessibleHeadingStringProperty' ) ),
+      descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionPlayAreaControls_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionPlayAreaControls.descriptionContentStringProperty' ) )
     }
   }
 };

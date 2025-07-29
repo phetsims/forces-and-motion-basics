@@ -14,6 +14,7 @@ import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighli
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 import PullerNode from './PullerNode.js';
 
@@ -39,8 +40,8 @@ export default class PullersOnRopeGroupNode extends Node {
 
       // ARIA attributes for the group - fallback names if not provided in options
       ariaRole: 'group',
-      accessibleHeading: providedOptions.side === 'left' ? 'Blue Team Pullers on Rope' : 'Red Team Pullers on Rope',
-      descriptionContent: 'Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab'
+      accessibleHeading: providedOptions.side === 'left' ? ForcesAndMotionBasicsFluent.a11y.pullersOnRope.blueTeamHeadingStringProperty : ForcesAndMotionBasicsFluent.a11y.pullersOnRope.redTeamHeadingStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.pullersOnRope.descriptionContentStringProperty
     }, providedOptions );
 
     super( options );

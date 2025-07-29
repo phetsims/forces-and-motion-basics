@@ -31,8 +31,8 @@ export default class ReturnButton extends TextPushButton {
       enabledPropertyOptions: {
         phetioReadOnly: true
       },
-      accessibleName: 'Return Cart Button',
-      accessibleHelpText: 'Press to return the cart to the center and reset for a new game.'
+      accessibleName: ForcesAndMotionBasicsFluent.a11y.returnButton.accessibleNameStringProperty,
+      accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.returnButton.accessibleHelpTextStringProperty
     } );
 
     this.mutate( options );

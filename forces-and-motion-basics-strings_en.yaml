@@ -125,6 +125,34 @@ a11y:
     orangeTeam: Orange Team
   returnButton:
     cartReturnedToCenter: Cart returned to center
+    accessibleName: Return Cart Button
+    accessibleHelpText: Press to return the cart to the center and reset for a new game.
+  goPauseButton:
+    accessibleName: Go/Pause Button
+    accessibleHelpText: Press to start or pause the tug-of-war game.
+  pullersOnRope:
+    blueTeamHeading: Blue Team Pullers on Rope
+    redTeamHeading: Red Team Pullers on Rope
+    descriptionContent: Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab
+  netForceControlPanel:
+    sumOfForces:
+      accessibleName: Sum of Forces
+      accessibleHelpText: Check to show an arrow representing the sum of all forces.
+      accessibleContextResponseChecked: Sum of forces arrow shown.
+      accessibleContextResponseUnchecked: Sum of forces arrow hidden.
+    values:
+      accessibleName: Values
+      accessibleHelpText: Check to show numerical values for the forces.
+      accessibleContextResponseChecked: Force values shown.
+      accessibleContextResponseUnchecked: Force values hidden.
+    speed:
+      accessibleName: Speed
+      accessibleHelpText: Check to show the speedometer on the cart.
+      accessibleContextResponseChecked: Speedometer shown on cart.
+      accessibleContextResponseUnchecked: Speedometer hidden.
+  playAreaControls:
+    accessibleHeading: Play Area Controls
+    descriptionContent: Controls to start or pause the tug-of-war, and to return the cart
   motionScreen:
     screenSummary:
       playArea:
@@ -165,3 +193,58 @@ a11y:
         man: Man
         trash: Trash Can
         mystery: Mystery Object
+    itemToolbox:
+      accessibleName: Item Toolbox
+      descriptionContent: Use arrow keys to select an item, then press Space or Enter to grab
+    itemStackGroup:
+      accessibleName: Items on Skateboard
+      descriptionContent: Use arrow keys to navigate between stacked items, then press Space or Enter to grab
+    motionControlPanel:
+      force:
+        accessibleName: Force
+        accessibleHelpText: Check to show force arrows.
+        accessibleContextResponseChecked: Force arrows shown.
+        accessibleContextResponseUnchecked: Force arrows hidden.
+      values:
+        accessibleName: Values
+        accessibleHelpText: Check to show numerical values for the forces.
+        accessibleContextResponseChecked: Force values shown.
+        accessibleContextResponseUnchecked: Force values hidden.
+      masses:
+        accessibleName: Masses
+        accessibleHelpText: Check to show masses of objects.
+        accessibleContextResponseChecked: Object masses shown.
+        accessibleContextResponseUnchecked: Object masses hidden.
+      speed:
+        accessibleName: Speed
+        accessibleHelpText: Check to show the speedometer.
+        accessibleContextResponseChecked: Speedometer shown.
+        accessibleContextResponseUnchecked: Speedometer hidden.
+      stopwatch:
+        accessibleName: Stopwatch
+        accessibleHelpText: Check to show the stopwatch.
+        accessibleContextResponseChecked: Stopwatch shown.
+        accessibleContextResponseUnchecked: Stopwatch hidden.
+      forces:
+        accessibleName: Forces
+        accessibleHelpText: Check to show force arrows.
+        accessibleContextResponseChecked: Force arrows shown.
+        accessibleContextResponseUnchecked: Force arrows hidden.
+      sumOfForces:
+        accessibleName: Sum of Forces
+        accessibleHelpText: Check to show an arrow representing the sum of all forces.
+        accessibleContextResponseChecked: Sum of forces arrow shown.
+        accessibleContextResponseUnchecked: Sum of forces arrow hidden.
+      acceleration:
+        accessibleName: Acceleration
+        accessibleHelpText: Check to show the accelerometer.
+        accessibleContextResponseChecked: Accelerometer shown.
+        accessibleContextResponseUnchecked: Accelerometer hidden.
+  objectToolboxes:
+    leftObjectToolbox: Left Object Toolbox
+    rightObjectToolbox: Right Object Toolbox
+    objectToolbox: Object Toolbox
+    skateboard: Skateboard
+  motionPlayAreaControls:
+    accessibleHeading: Play Area Controls
+    descriptionContent: Controls to start or pause motion, and to reset simulation
