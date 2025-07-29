@@ -294,6 +294,69 @@
       }
     },
     "motionScreen": {
+      "screenSummary": {
+        "playArea": {
+          "description": {
+            "value": "The play area shows a horizontal surface with objects that can be moved onto a skateboard or cart. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement."
+          },
+          "guidingQuestion": {
+            "value": "How do forces affect the motion of objects?"
+          },
+          "objectToolbox": {
+            "description": {
+              "value": "Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses and friction properties."
+            }
+          },
+          "appliedForceControl": {
+            "description": {
+              "value": "Use arrow keys or mouse to control the applied force. Watch how the objects move as you change the force."
+            }
+          }
+        },
+        "controlArea": {
+          "description": {
+            "value": "Use checkboxes to show or hide forces, values, masses, speed, and other measurements. Use play controls to start, pause, or reset the simulation."
+          }
+        },
+        "currentDetails": {
+          "noObjectsOnSkateboard": {
+            "value": "No objects are currently on the skateboard."
+          },
+          "objectsOnSkateboard": {
+            "value": "{ $count ->\n  [one] { $count } object is on the skateboard.\n *[other] { $count } objects are on the skateboard.\n}"
+          },
+          "motionState": {
+            "stationary": {
+              "value": "Objects are stationary."
+            },
+            "movingRight": {
+              "value": "Objects are moving to the right."
+            },
+            "movingLeft": {
+              "value": "Objects are moving to the left."
+            }
+          },
+          "forceDescription": {
+            "noForce": {
+              "value": "No force is being applied."
+            },
+            "appliedForceRight": {
+              "value": "Applied force is pushing objects to the right."
+            },
+            "appliedForceLeft": {
+              "value": "Applied force is pushing objects to the left."
+            }
+          }
+        },
+        "interactionHint": {
+          "noObjects": {
+            "value": "Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion."
+          },
+          "withObjects": {
+            "value": "Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces."
+          }
+        }
+      },
       "items": {
         "itemAccessibleNameWithMass": {
           "value": "{ $itemName }, { $mass }"

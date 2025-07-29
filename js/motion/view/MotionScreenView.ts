@@ -43,6 +43,7 @@ import ItemNode from './ItemNode.js';
 import ItemStackGroupNode, { StackKeyboardStrategy } from './ItemStackGroupNode.js';
 import ItemToolboxGroupNode, { ToolboxKeyboardStrategy } from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
+import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
@@ -83,7 +84,8 @@ export default class MotionScreenView extends ScreenView {
 
     super( {
       layoutBounds: ForcesAndMotionBasicsLayoutBounds,
-      tandem: tandem
+      tandem: tandem,
+      screenSummaryContent: new MotionScreenSummaryContent( model )
     } );
 
     //Variables for this constructor, for convenience

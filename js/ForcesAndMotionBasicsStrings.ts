@@ -135,6 +135,39 @@ type StringsType = {
       'cartReturnedToCenterStringProperty': LocalizedStringProperty;
     };
     'motionScreen': {
+      'screenSummary': {
+        'playArea': {
+          'descriptionStringProperty': LocalizedStringProperty;
+          'guidingQuestionStringProperty': LocalizedStringProperty;
+          'objectToolbox': {
+            'descriptionStringProperty': LocalizedStringProperty;
+          };
+          'appliedForceControl': {
+            'descriptionStringProperty': LocalizedStringProperty;
+          }
+        };
+        'controlArea': {
+          'descriptionStringProperty': LocalizedStringProperty;
+        };
+        'currentDetails': {
+          'noObjectsOnSkateboardStringProperty': LocalizedStringProperty;
+          'objectsOnSkateboardStringProperty': LocalizedStringProperty;
+          'motionState': {
+            'stationaryStringProperty': LocalizedStringProperty;
+            'movingRightStringProperty': LocalizedStringProperty;
+            'movingLeftStringProperty': LocalizedStringProperty;
+          };
+          'forceDescription': {
+            'noForceStringProperty': LocalizedStringProperty;
+            'appliedForceRightStringProperty': LocalizedStringProperty;
+            'appliedForceLeftStringProperty': LocalizedStringProperty;
+          }
+        };
+        'interactionHint': {
+          'noObjectsStringProperty': LocalizedStringProperty;
+          'withObjectsStringProperty': LocalizedStringProperty;
+        }
+      };
       'items': {
         'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;
         'massUnknownStringProperty': LocalizedStringProperty;
