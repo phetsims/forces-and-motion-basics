@@ -212,27 +212,57 @@ export default class MotionControlPanel extends Node {
         {
           createNode: () => createLabel( forceStringProperty, { icon: createArrowIcon() } ),
           property: model.showForceProperty,
-          tandemName: 'forceCheckbox'
+          tandemName: 'forceCheckbox',
+          options: {
+            accessibleName: 'Force',
+            accessibleHelpText: 'Check to show force arrows.',
+            accessibleContextResponseChecked: 'Force arrows shown.',
+            accessibleContextResponseUnchecked: 'Force arrows hidden.'
+          }
         },
         {
           createNode: () => createLabel( valuesStringProperty ),
           property: model.showValuesProperty,
-          tandemName: 'valuesCheckbox'
+          tandemName: 'valuesCheckbox',
+          options: {
+            accessibleName: 'Values',
+            accessibleHelpText: 'Check to show numerical values for the forces.',
+            accessibleContextResponseChecked: 'Force values shown.',
+            accessibleContextResponseUnchecked: 'Force values hidden.'
+          }
         },
         {
           createNode: () => createLabel( massesStringProperty ),
           property: model.showMassesProperty,
-          tandemName: 'massesCheckbox'
+          tandemName: 'massesCheckbox',
+          options: {
+            accessibleName: 'Masses',
+            accessibleHelpText: 'Check to show masses of objects.',
+            accessibleContextResponseChecked: 'Object masses shown.',
+            accessibleContextResponseUnchecked: 'Object masses hidden.'
+          }
         },
         {
           createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
-          tandemName: 'speedCheckbox'
+          tandemName: 'speedCheckbox',
+          options: {
+            accessibleName: 'Speed',
+            accessibleHelpText: 'Check to show the speedometer on the cart.',
+            accessibleContextResponseChecked: 'Speedometer shown on cart.',
+            accessibleContextResponseUnchecked: 'Speedometer hidden.'
+          }
         },
         {
           createNode: () => createLabel( stopwatchStringProperty, { icon: createStopwatchIcon() } ),
           property: model.stopwatch.isVisibleProperty,
-          tandemName: 'stopwatchCheckbox'
+          tandemName: 'stopwatchCheckbox',
+          options: {
+            accessibleName: 'Stopwatch',
+            accessibleHelpText: 'Check to show the stopwatch.',
+            accessibleContextResponseChecked: 'Stopwatch shown.',
+            accessibleContextResponseUnchecked: 'Stopwatch hidden.'
+          }
         }
       ];
 
@@ -264,32 +294,68 @@ export default class MotionControlPanel extends Node {
         {
           createNode: () => createLabel( forcesStringProperty, { icon: createArrowIcon() } ),
           property: model.showForceProperty,
-          tandemName: 'forcesCheckbox'
+          tandemName: 'forcesCheckbox',
+          options: {
+            accessibleName: 'Forces',
+            accessibleHelpText: 'Check to show force arrows.',
+            accessibleContextResponseChecked: 'Force arrows shown.',
+            accessibleContextResponseUnchecked: 'Force arrows hidden.'
+          }
         },
         {
           createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
           property: model.showSumOfForcesProperty,
-          tandemName: 'sumOfForcesCheckbox'
+          tandemName: 'sumOfForcesCheckbox',
+          options: {
+            accessibleName: 'Sum of Forces',
+            accessibleHelpText: 'Check to show an arrow representing the sum of all forces.',
+            accessibleContextResponseChecked: 'Sum of forces arrow shown.',
+            accessibleContextResponseUnchecked: 'Sum of forces arrow hidden.'
+          }
         },
         {
           createNode: () => createLabel( valuesStringProperty ),
           property: model.showValuesProperty,
-          tandemName: 'valuesCheckbox'
+          tandemName: 'valuesCheckbox',
+          options: {
+            accessibleName: 'Values',
+            accessibleHelpText: 'Check to show numerical values for the forces.',
+            accessibleContextResponseChecked: 'Force values shown.',
+            accessibleContextResponseUnchecked: 'Force values hidden.'
+          }
         },
         {
           createNode: () => createLabel( massesStringProperty ),
           property: model.showMassesProperty,
-          tandemName: 'massesCheckbox'
+          tandemName: 'massesCheckbox',
+          options: {
+            accessibleName: 'Masses',
+            accessibleHelpText: 'Check to show masses of objects.',
+            accessibleContextResponseChecked: 'Object masses shown.',
+            accessibleContextResponseUnchecked: 'Object masses hidden.'
+          }
         },
         {
           createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
-          tandemName: 'speedCheckbox'
+          tandemName: 'speedCheckbox',
+          options: {
+            accessibleName: 'Speed',
+            accessibleHelpText: 'Check to show the speedometer on the cart.',
+            accessibleContextResponseChecked: 'Speedometer shown on cart.',
+            accessibleContextResponseUnchecked: 'Speedometer hidden.'
+          }
         },
         {
           createNode: () => createLabel( stopwatchStringProperty, { icon: createStopwatchIcon() } ),
           property: model.stopwatch.isVisibleProperty,
-          tandemName: 'stopwatchCheckbox'
+          tandemName: 'stopwatchCheckbox',
+          options: {
+            accessibleName: 'Stopwatch',
+            accessibleHelpText: 'Check to show the stopwatch.',
+            accessibleContextResponseChecked: 'Stopwatch shown.',
+            accessibleContextResponseUnchecked: 'Stopwatch hidden.'
+          }
         }
       ];
 
@@ -323,32 +389,68 @@ export default class MotionControlPanel extends Node {
         {
           createNode: () => createLabel( forcesStringProperty, { icon: createArrowIcon() } ),
           property: model.showForceProperty,
-          tandemName: 'forcesCheckbox'
+          tandemName: 'forcesCheckbox',
+          options: {
+            accessibleName: 'Forces',
+            accessibleHelpText: 'Check to show force arrows.',
+            accessibleContextResponseChecked: 'Force arrows shown.',
+            accessibleContextResponseUnchecked: 'Force arrows hidden.'
+          }
         },
         {
           createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
           property: model.showSumOfForcesProperty,
-          tandemName: 'sumOfForcesCheckbox'
+          tandemName: 'sumOfForcesCheckbox',
+          options: {
+            accessibleName: 'Sum of Forces',
+            accessibleHelpText: 'Check to show an arrow representing the sum of all forces.',
+            accessibleContextResponseChecked: 'Sum of forces arrow shown.',
+            accessibleContextResponseUnchecked: 'Sum of forces arrow hidden.'
+          }
         },
         {
           createNode: () => createLabel( valuesStringProperty ),
           property: model.showValuesProperty,
-          tandemName: 'valuesCheckbox'
+          tandemName: 'valuesCheckbox',
+          options: {
+            accessibleName: 'Values',
+            accessibleHelpText: 'Check to show numerical values for the forces.',
+            accessibleContextResponseChecked: 'Force values shown.',
+            accessibleContextResponseUnchecked: 'Force values hidden.'
+          }
         },
         {
           createNode: () => createLabel( massesStringProperty ),
           property: model.showMassesProperty,
-          tandemName: 'massesCheckbox'
+          tandemName: 'massesCheckbox',
+          options: {
+            accessibleName: 'Masses',
+            accessibleHelpText: 'Check to show masses of objects.',
+            accessibleContextResponseChecked: 'Object masses shown.',
+            accessibleContextResponseUnchecked: 'Object masses hidden.'
+          }
         },
         {
           createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
           property: model.showSpeedProperty,
-          tandemName: 'speedCheckbox'
+          tandemName: 'speedCheckbox',
+          options: {
+            accessibleName: 'Speed',
+            accessibleHelpText: 'Check to show the speedometer on the cart.',
+            accessibleContextResponseChecked: 'Speedometer shown on cart.',
+            accessibleContextResponseUnchecked: 'Speedometer hidden.'
+          }
         },
         {
           createNode: () => createLabel( accelerationStringProperty, { icon: accelerometerIcon() } ),
           property: model.showAccelerationProperty,
-          tandemName: 'accelerationCheckbox'
+          tandemName: 'accelerationCheckbox',
+          options: {
+            accessibleName: 'Acceleration',
+            accessibleHelpText: 'Check to show the accelerometer.',
+            accessibleContextResponseChecked: 'Accelerometer shown.',
+            accessibleContextResponseUnchecked: 'Accelerometer hidden.'
+          }
         }
       ];
 

@@ -128,12 +128,16 @@ export default class MotionScreenView extends ScreenView {
     const leftItemToolboxNode = new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
-      lineWidth: 1
+      lineWidth: 1,
+      tagName: 'div',
+      accessibleHeading: 'Left Object Toolbox'
     } );
     const rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
-      lineWidth: 1
+      lineWidth: 1,
+      tagName: 'div',
+      accessibleHeading: 'Right Object Toolbox'
     } );
 
     const appliedForceControl = new AppliedForceControl( tandem.createTandem( 'appliedForceControl' ), ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model );
@@ -191,7 +195,6 @@ export default class MotionScreenView extends ScreenView {
         }
       }
     } );
-    this.addChild( timeControlNode );
 
     // Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
     this.resetAllButton = new ResetAllButton( {
@@ -203,12 +206,20 @@ export default class MotionScreenView extends ScreenView {
       rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
-    this.addChild( this.resetAllButton );
 
     // i18n - if the play control buttons are too close to reset all, they should be separated
     if ( timeControlNode.right > this.resetAllButton.left - PLAY_PAUSE_BUFFER ) {
       timeControlNode.leftCenter = controlPanel.leftBottom.plusXY( -2 * PLAY_PAUSE_BUFFER, playPauseVerticalOffset );
     }
+
+    const playAreaControlNode = new Node( {
+      tagName: 'div',
+      accessibleHeading: 'Play Area Controls',
+      descriptionContent: 'Controls to start or pause motion, and to reset simulation',
+      appendDescription: false,
+      children: [ timeControlNode, this.resetAllButton ]
+    } );
+    this.addChild( playAreaControlNode );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
@@ -309,10 +320,12 @@ export default class MotionScreenView extends ScreenView {
 
     // Create keyboard navigation groups AFTER items are created
     this.itemToolboxGroup = new ItemToolboxGroupNode( model, leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
-      tandem: tandem.createTandem( 'itemToolboxGroup' )
+      tandem: tandem.createTandem( 'itemToolboxGroup' ),
+      accessibleHeading: 'Object Toolbox'
     } );
     this.itemStackGroup = new ItemStackGroupNode( model, {
-      tandem: tandem.createTandem( 'itemStackGroup' )
+      tandem: tandem.createTandem( 'itemStackGroup' ),
+      accessibleHeading: 'Skateboard'
     } );
 
     // Add all items to toolbox group initially and set up keyboard strategies
@@ -451,8 +464,7 @@ export default class MotionScreenView extends ScreenView {
 
     this.pdomControlAreaNode.pdomOrder = [
       controlPanel,
-      timeControlNode,
-      this.resetAllButton
+      playAreaControlNode
     ];
   }
 
