@@ -30,7 +30,6 @@ type SelfOptions = {
   labelPosition?: 'top' | 'bottom' | 'side';
   arrowScale?: number;
   arrowNodeOptions?: PathOptions;
-  showDirection?: boolean; // Whether to show direction (left/right) in accessibility descriptions
 };
 type ReadoutArrowOptions = StrictOmit<NodeOptions, 'pickable' | 'tandem'> & SelfOptions;
 export default class ReadoutArrow extends Node {
@@ -51,7 +50,6 @@ export default class ReadoutArrow extends Node {
 
   private labelPositionOption: string;
   private readonly arrowScale: number;
-  private readonly showDirection: boolean;
 
   /**
    * @param name
@@ -61,6 +59,7 @@ export default class ReadoutArrow extends Node {
    * @param tailY the position of the tail in Y
    * @param valueProperty the property for the value to display
    * @param showValuesProperty whether or not to display the values
+   * @param mode whether this is for netforce or motion screen
    * @param providedOptions 'labelPosition' where the label text should be {side|top}
    */
   public constructor(
@@ -71,6 +70,7 @@ export default class ReadoutArrow extends Node {
     private readonly tailY: number,
     valueProperty: TReadOnlyProperty<number>,
     private readonly showValuesProperty: TReadOnlyProperty<boolean>,
+    private readonly mode: 'netforce' | 'motion',
     providedOptions: ReadoutArrowOptions ) {
 
     //Store fields
@@ -78,7 +78,6 @@ export default class ReadoutArrow extends Node {
       labelPosition: 'top',
       arrowScale: 1,
       arrowNodeOptions: {},
-      showDirection: false,
       pickable: false
     }, providedOptions );
 
@@ -86,7 +85,6 @@ export default class ReadoutArrow extends Node {
     super( options );
     this.labelPositionOption = options.labelPosition;
     this.arrowScale = options.arrowScale;
-    this.showDirection = options.showDirection;
 
     //Create and add the children
     const arrowNodeOptions = combineOptions<PathOptions>( {
@@ -165,14 +163,15 @@ export default class ReadoutArrow extends Node {
   // Update the arrow graphics and text labels
   public update(): void {
 
-    // console.log( this.value );
     const amount = Math.abs( this.value );
-    const amountDescriptor = amount === 50 ? 'small' :
-                             amount === 100 ? 'medium small' :
-                             amount === 150 ? 'medium' :
-                             amount === 200 ? 'medium large' :
-                             amount === 250 ? 'large' :
-                             amount === 300 ? 'very large' :
+    
+    // Use threshold-based descriptors that work for both netforce (quantized) and motion (continuous) values
+    const amountDescriptor = amount < 75 ? 'small' :
+                             amount < 125 ? 'medium small' :
+                             amount < 175 ? 'medium' :
+                             amount < 225 ? 'medium large' :
+                             amount < 275 ? 'large' :
+                             amount < 325 ? 'very large' :
                              'extremely large';
 
     // Build the accessible paragraph description
@@ -181,13 +180,13 @@ export default class ReadoutArrow extends Node {
     }
     else {
       let description = `The ${this.name} force arrow is ${amountDescriptor}`;
-      
-      // Add direction for sum arrows or when showDirection is true
-      if ( this.name === 'sum' || this.showDirection ) {
+
+      // Add direction for sum arrows or for motion screen (except for applied/friction with value 0)
+      if ( this.name === 'sum' || ( this.mode === 'motion' && amount !== 0 ) ) {
         const direction = this.value > 0 ? 'right' : 'left';
         description += `, to the ${direction}`;
       }
-      
+
       this.accessibleParagraph = description;
     }
 
