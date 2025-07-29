@@ -173,9 +173,13 @@ type StringsType = {
       'screenSummary': {
         'playArea': {
           'descriptionStringProperty': LocalizedStringProperty;
+          'frictionDescriptionStringProperty': LocalizedStringProperty;
+          'accelerationDescriptionStringProperty': LocalizedStringProperty;
           'guidingQuestionStringProperty': LocalizedStringProperty;
           'objectToolbox': {
             'descriptionStringProperty': LocalizedStringProperty;
+            'frictionDescriptionStringProperty': LocalizedStringProperty;
+            'accelerationDescriptionStringProperty': LocalizedStringProperty;
           };
           'appliedForceControl': {
             'descriptionStringProperty': LocalizedStringProperty;
@@ -186,7 +190,9 @@ type StringsType = {
         };
         'currentDetails': {
           'noObjectsOnSkateboardStringProperty': LocalizedStringProperty;
+          'noObjectsOnGroundStringProperty': LocalizedStringProperty;
           'objectsOnSkateboardStringProperty': LocalizedStringProperty;
+          'objectsOnGroundStringProperty': LocalizedStringProperty;
           'motionState': {
             'stationaryStringProperty': LocalizedStringProperty;
             'movingRightStringProperty': LocalizedStringProperty;
@@ -200,6 +206,7 @@ type StringsType = {
         };
         'interactionHint': {
           'noObjectsStringProperty': LocalizedStringProperty;
+          'noObjectsOnGroundStringProperty': LocalizedStringProperty;
           'withObjectsStringProperty': LocalizedStringProperty;
         }
       };

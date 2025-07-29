@@ -374,14 +374,26 @@
       "screenSummary": {
         "playArea": {
           "description": {
-            "value": "The play area shows a horizontal surface with objects that can be moved onto a skateboard or cart. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement."
+            "value": "The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement."
+          },
+          "frictionDescription": {
+            "value": "The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero."
+          },
+          "accelerationDescription": {
+            "value": "The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero."
           },
           "guidingQuestion": {
             "value": "How do forces affect the motion of objects?"
           },
           "objectToolbox": {
             "description": {
-              "value": "Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses and friction properties."
+              "value": "Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses."
+            },
+            "frictionDescription": {
+              "value": "Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties."
+            },
+            "accelerationDescription": {
+              "value": "Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties."
             }
           },
           "appliedForceControl": {
@@ -399,8 +411,14 @@
           "noObjectsOnSkateboard": {
             "value": "No objects are currently on the skateboard."
           },
+          "noObjectsOnGround": {
+            "value": "No objects are currently on the ground."
+          },
           "objectsOnSkateboard": {
             "value": "{ $count ->\n  [one] { $count } object is on the skateboard.\n *[other] { $count } objects are on the skateboard.\n}"
+          },
+          "objectsOnGround": {
+            "value": "{ $count ->\n  [one] { $count } object is on the ground.\n *[other] { $count } objects are on the ground.\n}"
           },
           "motionState": {
             "stationary": {
@@ -428,6 +446,9 @@
         "interactionHint": {
           "noObjects": {
             "value": "Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion."
+          },
+          "noObjectsOnGround": {
+            "value": "Drag objects from the toolboxes onto the ground, then use the applied force control to create motion."
           },
           "withObjects": {
             "value": "Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces."

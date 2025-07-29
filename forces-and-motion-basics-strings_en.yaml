@@ -156,20 +156,30 @@ a11y:
   motionScreen:
     screenSummary:
       playArea:
-        description: The play area shows a horizontal surface with objects that can be moved onto a skateboard or cart. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement.
+        description: The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement.
+        frictionDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
+        accelerationDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero.
         guidingQuestion: "How do forces affect the motion of objects?"
         objectToolbox:
-          description: Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses and friction properties.
+          description: Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
+          frictionDescription: Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties.
+          accelerationDescription: Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties.
         appliedForceControl:
           description: Use arrow keys or mouse to control the applied force. Watch how the objects move as you change the force.
       controlArea:
         description: Use checkboxes to show or hide forces, values, masses, speed, and other measurements. Use play controls to start, pause, or reset the simulation.
       currentDetails:
         noObjectsOnSkateboard: No objects are currently on the skateboard.
+        noObjectsOnGround: No objects are currently on the ground.
         objectsOnSkateboard: |-
                      { $count ->
                        [one] { $count } object is on the skateboard.
                       *[other] { $count } objects are on the skateboard.
+                     }
+        objectsOnGround: |-
+                     { $count ->
+                       [one] { $count } object is on the ground.
+                      *[other] { $count } objects are on the ground.
                      }
         motionState:
           stationary: Objects are stationary.
@@ -181,6 +191,7 @@ a11y:
           appliedForceLeft: Applied force is pushing objects to the left.
       interactionHint:
         noObjects: Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion.
+        noObjectsOnGround: Drag objects from the toolboxes onto the ground, then use the applied force control to create motion.
         withObjects: Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces.
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'

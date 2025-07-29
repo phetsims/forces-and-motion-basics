@@ -15,8 +15,8 @@ order to ensure everything is working correctly:
 - `grunt lint --fix`: Run and auto-fix linting issues
 - (optional) Use the playwright mcp to
   launch, http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1,2,3,4&logAriaLiveResponses
-  - Often, you just need to see if it launches. But if you must interact with playwright for your test, use the keyboard
-    only.
+  - **IMPORTANT:** Do NOT attempt to click or interact with elements using playwright. PhET simulations use a parallel DOM (PDOM) architecture since they render in canvas/webgl/svg, making typical browser interactions impossible.
+  - Often, you just need to see if it launches. If you must interact with playwright for your test, use the keyboard only.
   - Change ?screens={number} to test a specific screen. js/netforce is screen 1, js/motion is screen 2-4
 
 ## Environment
