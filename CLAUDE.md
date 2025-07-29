@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Forces and Motion Basics - Development Guide
+# PhET Interactive Simulations - Forces and Motion Basics
 
 ## Testing Commands
 
@@ -23,6 +23,8 @@ order to ensure everything is working correctly:
 
 - This is developed as part of a monorepo. If you need details for any dependencies, you can follow the import paths
   imports. You will be approved to read files outside our working directory.
+- If you would like to see how it was done in other simulations, you can search for patterns in '../' and you will be
+  approved to read the code in those directories.
 - When getting the contents of a file, it probably has a *.ts suffix even though it is imported as *.js.
 - Read ./doc/model.md and ./doc/implementation-notes.md when you need more context about the simulation.
 
