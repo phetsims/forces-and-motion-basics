@@ -12,6 +12,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
+import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode, { type ItemKeyboardStrategy } from './ItemNode.js';
@@ -24,7 +25,6 @@ type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
-  private myGroupFocusHighlight: GroupHighlightPath;
 
   // Track focus listeners so we can remove them when items leave the group  
   private readonly focusListeners = new Map();
@@ -42,12 +42,19 @@ export default class ItemStackGroupNode extends Node {
 
     super( options );
 
-    // Initialize with a minimal highlight that will be updated when items are added
-    const groupHighlightPath = new GroupHighlightPath( Shape.rectangle( 0, 0, 1, 1 ), {
-      innerLineWidth: 5
-    } );
-    this.groupFocusHighlight = groupHighlightPath;
-    this.myGroupFocusHighlight = groupHighlightPath;
+    // Create a constant highlight rectangle in the center of the play area
+    // Based on the skateboard position and typical object sizes
+    const highlightWidth = 200;
+    const highlightHeight = 340;
+    const highlightX = ForcesAndMotionBasicsLayoutBounds.centerX - highlightWidth / 2; // Center around x=400 (layoutBounds.width/2)
+    const highlightY = 10; // Above the skateboard to encompass stacked items
+
+    this.groupFocusHighlight = new GroupHighlightPath(
+      Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ),
+      {
+        innerLineWidth: 5
+      }
+    );
   }
 
   /**
@@ -64,9 +71,6 @@ export default class ItemStackGroupNode extends Node {
 
     // Sort items by their stack position (bottom to top)
     this.sortItems( model );
-
-    // Update group highlight now that we have children
-    this.updateGroupHighlight();
 
     // Create and store the focus listener for this item
     const focusListener = ( focused: boolean ) => {
@@ -109,9 +113,6 @@ export default class ItemStackGroupNode extends Node {
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Cleaned up focus listener for item:', itemNode.item.name );
       }
 
-      // Update group highlight after removal
-      this.updateGroupHighlight();
-
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed item from stack group:', itemNode.item.name );
     }
   }
@@ -129,22 +130,11 @@ export default class ItemStackGroupNode extends Node {
     } );
   }
 
-  /**
-   * Update the group highlight to surround all stack items
-   */
-  private updateGroupHighlight(): void {
-    if ( this.stackItemNodes.length > 0 && this.localBounds.isFinite() ) {
-      this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
-    }
-  }
 
   /**
    * Reset the focus state of all items in this stack group to ensure proper tab navigation after reset
    */
   public reset(): void {
-    // Update the group highlight bounds after reset
-    this.updateGroupHighlight();
-
     // Restore focusability to all stack items
     this.stackItemNodes.forEach( itemNode => {
       itemNode.focusable = true;
