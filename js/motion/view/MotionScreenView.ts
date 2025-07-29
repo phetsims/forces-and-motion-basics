@@ -442,7 +442,11 @@ export default class MotionScreenView extends ScreenView {
       this.itemToolboxGroup,
       this.itemStackGroup,
       itemLayer,
-      appliedForceControl
+      appliedForceControl,
+      this.appliedForceArrow,
+      this.frictionArrow,
+      this.sumArrow,
+      speedometerNode
     ];
 
     this.pdomControlAreaNode.pdomOrder = [
