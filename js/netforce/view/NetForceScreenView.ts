@@ -179,7 +179,6 @@ export default class NetForceScreenView extends ScreenView {
   private readonly returnButton: ReturnButton;
   private readonly pullerFocusManager: PullerFocusManager;
 
-
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
     super( {
@@ -281,19 +280,19 @@ export default class NetForceScreenView extends ScreenView {
 
     //Create the arrow nodes
     const opacity = 0.8;
-    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty, {
+    this.sumArrow = new ReadoutArrow( 'sum', sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty, {
       labelPosition: 'top', opacity: opacity,
       arrowNodeOptions: {
         lineDash: [ 10, 5 ]
       }
     } );
-    this.leftArrow = new ReadoutArrow( leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty, {
+    this.leftArrow = new ReadoutArrow( 'left', leftForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.leftForceProperty, this.model.showValuesProperty, {
       labelPosition: 'side', opacity: opacity,
       arrowNodeOptions: {
         lineDash: [ 10, 5 ]
       }
     } );
-    this.rightArrow = new ReadoutArrow( rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty, {
+    this.rightArrow = new ReadoutArrow( 'right', rightForceStringProperty, '#bf8b63', layoutCenterX, 200, this.model.rightForceProperty, this.model.showValuesProperty, {
       labelPosition: 'side', opacity: opacity,
       arrowNodeOptions: {
         lineDash: [ 10, 5 ]
@@ -318,6 +317,12 @@ export default class NetForceScreenView extends ScreenView {
 
     // Add accessible description for the cart and rope visual scene
     this.cartNode.accessibleParagraph = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
+
+    // const stateDescriptionNode = new Node( {
+    //   // accessibleHeading: 'State Description',
+    //   accessibleParagraph: 'hello'
+    // } );
+    // this.addChild( stateDescriptionNode );
 
     // Create DerivedProperties that wire directly to the preference
     const leftTeamHeadingProperty = new DerivedProperty(
@@ -664,7 +669,11 @@ export default class NetForceScreenView extends ScreenView {
       this.leftRopePullerGroup,
       this.rightRopePullerGroup,
       playAreaControlNode,
-      this.cartNode
+      this.cartNode,
+      // stateDescriptionNode,
+      this.leftArrow,
+      this.rightArrow,
+      this.sumArrow
     ];
 
     // Control Area: control panel and reset button

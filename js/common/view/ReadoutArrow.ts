@@ -52,16 +52,17 @@ export default class ReadoutArrow extends Node {
   private readonly arrowScale: number;
 
   /**
+   * @param name
    * @param label the text to show for the arrow
    * @param fill the color of the arrow
    * @param tailX the position of the tail in X
    * @param tailY the position of the tail in Y
    * @param valueProperty the property for the value to display
    * @param showValuesProperty whether or not to display the values
-   * @param tandem
    * @param providedOptions 'labelPosition' where the label text should be {side|top}
    */
   public constructor(
+    public readonly name: 'left' | 'right' | 'sum' | 'friction' | 'applied',
     label: TReadOnlyProperty<string>,
     fill: string,
     private readonly tailX: number,
@@ -139,6 +140,8 @@ export default class ReadoutArrow extends Node {
 
     //Update when the numeric readout visibility is toggled
     showValuesProperty.link( this.update.bind( this ) );
+
+    this.update();
   }
 
   // Sets the arrow dash, which changes when the simulation starts playing
@@ -157,6 +160,41 @@ export default class ReadoutArrow extends Node {
 
   // Update the arrow graphics and text labels
   public update(): void {
+
+    // console.log( this.value );
+    const amount = Math.abs( this.value );
+    const amountDescriptor = amount === 50 ? 'small' :
+                             amount === 100 ? 'medium small' :
+                             amount === 150 ? 'medium' :
+                             amount === 200 ? 'medium large' :
+                             amount === 250 ? 'large' :
+                             amount === 300 ? 'very large' :
+                             'extremely large';
+
+    // Build the accessible paragraph description
+    if ( amount === 0 ) {
+      this.accessibleParagraph = `There is no ${this.name} force arrow`;
+    }
+    else {
+      let description = `The ${this.name} force arrow is ${amountDescriptor}`;
+      
+      // Add direction for sum arrows
+      if ( this.name === 'sum' ) {
+        const direction = this.value > 0 ? 'right' : 'left';
+        description += `, pointing to the ${direction}`;
+      }
+      
+      this.accessibleParagraph = description;
+    }
+
+    // Add value and units if shown, otherwise just add period
+    if ( this.showValuesProperty.value ) {
+      this.accessibleParagraph += ` at ${amount} newtons.`;
+    }
+    else {
+      this.accessibleParagraph += '.';
+    }
+
     const value = this.value * ( this.arrowScale || 1 );
 
     //Don't show it if it is too small

@@ -345,7 +345,7 @@ export default class MotionScreenView extends ScreenView {
       roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
     } );
 
-    this.sumArrow = new ReadoutArrow( sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
+    this.sumArrow = new ReadoutArrow( 'sum', sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
       labelPosition: 'top',
       arrowScale: arrowScale
     } );
@@ -364,11 +364,11 @@ export default class MotionScreenView extends ScreenView {
     //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
       ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
-    this.appliedForceArrow = new ReadoutArrow( appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
+    this.appliedForceArrow = new ReadoutArrow( 'applied', appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
       labelPosition: 'side',
       arrowScale: arrowScale
     } );
-    this.frictionArrow = new ReadoutArrow( frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
+    this.frictionArrow = new ReadoutArrow( 'friction', frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
       labelPosition: 'side',
       arrowScale: arrowScale
     } );
