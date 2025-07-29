@@ -144,13 +144,21 @@ export default class MotionScreenView extends ScreenView {
 
     const appliedForceControl = new AppliedForceControl( tandem.createTandem( 'appliedForceControl' ), ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model );
 
-    const top = leftItemToolboxNode.top - 4;
-    ManualConstraint.create( this, [ appliedForceControl ], appliedForceControlProxy => {
-      appliedForceControlProxy.centerX = this.layoutBounds.centerX;
-      appliedForceControlProxy.top = top;
+    const appliedForcePlayAreaControlNode = new Node( {
+      tagName: 'div',
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.playAreaControls.accessibleHeadingStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty,
+      appendDescription: false,
+      children: [ appliedForceControl ]
     } );
 
-    this.addChild( appliedForceControl );
+    const top = leftItemToolboxNode.top - 4;
+    ManualConstraint.create( this, [ appliedForcePlayAreaControlNode ], appliedForcePlayAreaControlNodeProxy => {
+      appliedForcePlayAreaControlNodeProxy.centerX = this.layoutBounds.centerX;
+      appliedForcePlayAreaControlNodeProxy.top = top;
+    } );
+
+    this.addChild( appliedForcePlayAreaControlNode );
 
     //Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -214,14 +222,8 @@ export default class MotionScreenView extends ScreenView {
       timeControlNode.leftCenter = controlPanel.leftBottom.plusXY( -2 * PLAY_PAUSE_BUFFER, playPauseVerticalOffset );
     }
 
-    const playAreaControlNode = new Node( {
-      tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.motionPlayAreaControls.accessibleHeadingStringProperty,
-      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionPlayAreaControls.descriptionContentStringProperty,
-      appendDescription: false,
-      children: [ timeControlNode, this.resetAllButton ]
-    } );
-    this.addChild( playAreaControlNode );
+    this.addChild( timeControlNode );
+    this.addChild( this.resetAllButton );
 
     //Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
@@ -457,7 +459,7 @@ export default class MotionScreenView extends ScreenView {
       this.itemToolboxGroup,
       this.itemStackGroup,
       itemLayer,
-      appliedForceControl,
+      appliedForcePlayAreaControlNode,
       this.appliedForceArrow,
       this.frictionArrow,
       this.sumArrow,
@@ -466,7 +468,8 @@ export default class MotionScreenView extends ScreenView {
 
     this.pdomControlAreaNode.pdomOrder = [
       controlPanel,
-      playAreaControlNode
+      timeControlNode,
+      this.resetAllButton
     ];
   }
 
