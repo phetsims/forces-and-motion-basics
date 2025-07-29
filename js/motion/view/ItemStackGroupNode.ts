@@ -25,7 +25,7 @@ type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
   private myGroupFocusHighlight: GroupHighlightPath;
-  
+
   // Track focus listeners so we can remove them when items leave the group  
   private readonly focusListeners = new Map();
 
@@ -58,7 +58,7 @@ export default class ItemStackGroupNode extends Node {
     if ( itemNode.parent ) {
       itemNode.parent.removeChild( itemNode );
     }
-    
+
     this.stackItemNodes.push( itemNode );
     this.addChild( itemNode );
 
@@ -84,7 +84,7 @@ export default class ItemStackGroupNode extends Node {
         } );
       }
     };
-    
+
     this.focusListeners.set( itemNode, focusListener );
     itemNode.focusedProperty.lazyLink( focusListener );
 
@@ -123,7 +123,7 @@ export default class ItemStackGroupNode extends Node {
     this.stackItemNodes.sort( ( a, b ) => {
       const aIndex = model.stackedItems.indexOf( a.item );
       const bIndex = model.stackedItems.indexOf( b.item );
-      
+
       // Items in the stacked items array should be ordered bottom to top
       return aIndex - bIndex;
     } );
@@ -166,18 +166,19 @@ export default class ItemStackGroupNode extends Node {
  */
 export class StackKeyboardStrategy implements ItemKeyboardStrategy {
   public constructor( private readonly groupNode: ItemStackGroupNode, private readonly model: MotionModel ) {}
-  
+
   public navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {
     const stackItems = this.groupNode.stackItemNodes;
     const currentIndex = stackItems.indexOf( currentItem );
     if ( currentIndex === -1 ) { return null; }
-    
+
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stack navigation - from item at index:', currentIndex );
-    
-    // Up/Right moves to higher index (towards top of stack), Down/Left moves to lower index (towards bottom)
-    const delta = ( direction === 'up' || direction === 'right' ) ? 1 : -1;
+
+    // Up/Left moves to higher index (towards top of stack), Down/Right moves to lower index (towards bottom)
+    const delta = ( direction === 'up' || direction === 'left' ) ? 1 :
+                  ( direction === 'down' || direction === 'right' ) ? -1 : 0;
     const newIndex = currentIndex + delta;
-    
+
     // Keep selection within bounds
     if ( newIndex >= 0 && newIndex < stackItems.length ) {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from stack index', currentIndex, 'to stack index', newIndex );
@@ -185,7 +186,7 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
     }
     return null;
   }
-  
+
   public onDropComplete( item: ItemNode, droppedOnStack: boolean, wasAlreadyOnStack?: boolean ): void {
     // Stack items don't need special focus behavior after drops
     // The automatic transfer system in MotionScreenView will handle group transfers
@@ -203,11 +204,11 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
       } );
     }
   }
-  
+
   public getItemGroup(): ItemNode[] {
     return this.groupNode.stackItemNodes;
   }
-  
+
   public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'stack' | 'toolbox' ): string {
     if ( action === 'grabbed' ) {
       return 'Grabbed';

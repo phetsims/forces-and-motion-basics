@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
@@ -24,12 +25,11 @@ type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class ItemToolboxGroupNode extends Node {
   public readonly itemNodes: ItemNode[] = [];
-  private myGroupFocusHighlight: GroupHighlightPath;
   
   // Track focus listeners so we can remove them when items leave the group
   private readonly focusListeners = new Map();
 
-  public constructor( model: MotionModel, providedOptions?: ItemToolboxGroupNodeOptions ) {
+  public constructor( model: MotionModel, leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
     const options = optionize<ItemToolboxGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
@@ -42,12 +42,12 @@ export default class ItemToolboxGroupNode extends Node {
 
     super( options );
 
-    // Initialize with a minimal highlight that will be updated when items are added
-    const groupHighlightPath = new GroupHighlightPath( Shape.rectangle( 0, 0, 1, 1 ), {
+    // Create a constant highlight region from the union of both toolbox bounds
+    const unionBounds = leftToolboxBounds.union( rightToolboxBounds );
+    const dilatedBounds = unionBounds.dilated( 10 );
+    this.groupFocusHighlight = new GroupHighlightPath( Shape.bounds( dilatedBounds ), {
       innerLineWidth: 5
     } );
-    this.groupFocusHighlight = groupHighlightPath;
-    this.myGroupFocusHighlight = groupHighlightPath;
   }
 
   /**
@@ -64,9 +64,6 @@ export default class ItemToolboxGroupNode extends Node {
 
     // Sort items by side and then by position for consistent navigation order
     this.sortItems();
-
-    // Update group highlight now that we have children
-    this.updateGroupHighlight();
 
     // Create and store the focus listener for this item
     const focusListener = ( focused: boolean ) => {
@@ -119,9 +116,6 @@ export default class ItemToolboxGroupNode extends Node {
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Cleaned up focus listener for item:', itemNode.item.name );
       }
 
-      // Update group highlight after removal
-      this.updateGroupHighlight();
-
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed item from toolbox group:', itemNode.item.name );
     }
   }
@@ -150,14 +144,6 @@ export default class ItemToolboxGroupNode extends Node {
     } );
   }
 
-  /**
-   * Update the group highlight to surround all items
-   */
-  private updateGroupHighlight(): void {
-    if ( this.itemNodes.length > 0 && this.localBounds.isFinite() ) {
-      this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
-    }
-  }
 
   /**
    * After an item is successfully dropped from toolbox to stack,
@@ -194,9 +180,6 @@ export default class ItemToolboxGroupNode extends Node {
   public reset(): void {
     // Sort items by position to ensure consistent order after reset
     this.sortItems();
-    
-    // Update the group highlight bounds after reset
-    this.updateGroupHighlight();
 
     // Restore focusability to all items in the toolboxes (not on stack)
     this.itemNodes.forEach( itemNode => {
