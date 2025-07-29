@@ -30,6 +30,7 @@ type SelfOptions = {
   labelPosition?: 'top' | 'bottom' | 'side';
   arrowScale?: number;
   arrowNodeOptions?: PathOptions;
+  showDirection?: boolean; // Whether to show direction (left/right) in accessibility descriptions
 };
 type ReadoutArrowOptions = StrictOmit<NodeOptions, 'pickable' | 'tandem'> & SelfOptions;
 export default class ReadoutArrow extends Node {
@@ -50,6 +51,7 @@ export default class ReadoutArrow extends Node {
 
   private labelPositionOption: string;
   private readonly arrowScale: number;
+  private readonly showDirection: boolean;
 
   /**
    * @param name
@@ -76,6 +78,7 @@ export default class ReadoutArrow extends Node {
       labelPosition: 'top',
       arrowScale: 1,
       arrowNodeOptions: {},
+      showDirection: false,
       pickable: false
     }, providedOptions );
 
@@ -83,6 +86,7 @@ export default class ReadoutArrow extends Node {
     super( options );
     this.labelPositionOption = options.labelPosition;
     this.arrowScale = options.arrowScale;
+    this.showDirection = options.showDirection;
 
     //Create and add the children
     const arrowNodeOptions = combineOptions<PathOptions>( {
@@ -178,10 +182,10 @@ export default class ReadoutArrow extends Node {
     else {
       let description = `The ${this.name} force arrow is ${amountDescriptor}`;
       
-      // Add direction for sum arrows
-      if ( this.name === 'sum' ) {
+      // Add direction for sum arrows or when showDirection is true
+      if ( this.name === 'sum' || this.showDirection ) {
         const direction = this.value > 0 ? 'right' : 'left';
-        description += `, pointing to the ${direction}`;
+        description += `, to the ${direction}`;
       }
       
       this.accessibleParagraph = description;

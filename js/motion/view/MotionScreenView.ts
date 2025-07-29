@@ -366,11 +366,13 @@ export default class MotionScreenView extends ScreenView {
       ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( 'applied', appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
       labelPosition: 'side',
-      arrowScale: arrowScale
+      arrowScale: arrowScale,
+      showDirection: true
     } );
     this.frictionArrow = new ReadoutArrow( 'friction', frictionForceStringProperty, 'red', this.layoutBounds.width / 2, 280, roundedFrictionForceProperty, model.showValuesProperty, {
       labelPosition: 'side',
-      arrowScale: arrowScale
+      arrowScale: arrowScale,
+      showDirection: true
     } );
 
     // toolboxes and their children should be in front of all above items
