@@ -164,10 +164,7 @@ export default class PullerFocusManager {
 
     ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focusability updated. Focused group:', focusedGroup );
     
-    // Update group highlights after focusability changes
-    this.groups.forEach( group => {
-      group.updateGroupHighlight();
-    } );
+    // Group highlights are now static - no need to update them
   }
 
   /**

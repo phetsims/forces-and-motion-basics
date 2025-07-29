@@ -402,11 +402,11 @@ export default class NetForceScreenView extends ScreenView {
     // Initialize the centralized focus manager
     this.pullerFocusManager = new PullerFocusManager();
 
-    this.leftPullerGroup = new PullerGroupNode( model, {
+    this.leftPullerGroup = new PullerGroupNode( model, leftToolbox.bounds, {
       side: 'left',
       accessibleHeading: leftTeamGroupNameProperty
     } );
-    this.rightPullerGroup = new PullerGroupNode( model, {
+    this.rightPullerGroup = new PullerGroupNode( model, rightToolbox.bounds, {
       side: 'right',
       accessibleHeading: rightTeamGroupNameProperty
     } );
@@ -508,11 +508,11 @@ export default class NetForceScreenView extends ScreenView {
     );
 
     // Create separate rope groups for blue (left) and red (right) pullers
-    this.leftRopePullerGroup = new PullersOnRopeGroupNode( model, {
+    this.leftRopePullerGroup = new PullersOnRopeGroupNode( model, leftToolbox.bounds, {
       side: 'left',
       accessibleName: leftRopeGroupNameProperty
     } );
-    this.rightRopePullerGroup = new PullersOnRopeGroupNode( model, {
+    this.rightRopePullerGroup = new PullersOnRopeGroupNode( model, rightToolbox.bounds, {
       side: 'right',
       accessibleName: rightRopeGroupNameProperty
     } );

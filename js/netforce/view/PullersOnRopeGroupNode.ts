@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
@@ -27,12 +28,11 @@ type FocusListener = ( focused: boolean ) => void;
 
 export default class PullersOnRopeGroupNode extends Node {
   public readonly ropePullerNodes: PullerNode[] = [];
-  private myGroupFocusHighlight: GroupHighlightPath;
 
   // Store listener references for cleanup
   private readonly focusListeners = new Map<PullerNode, FocusListener>();
 
-  public constructor( model: NetForceModel, providedOptions: PullersOnRopeGroupNodeOptions ) {
+  public constructor( model: NetForceModel, toolboxBounds: Bounds2, providedOptions: PullersOnRopeGroupNodeOptions ) {
 
     const options = optionize<PullersOnRopeGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
@@ -45,12 +45,10 @@ export default class PullersOnRopeGroupNode extends Node {
 
     super( options );
 
-    // Initialize with a minimal highlight that will be updated when pullers are added
-    const groupHighlightPath = new GroupHighlightPath( Shape.rectangle( 0, 0, 1, 1 ), {
-      innerLineWidth: 5
-    } );
-    this.groupFocusHighlight = groupHighlightPath;
-    this.myGroupFocusHighlight = groupHighlightPath;
+    this.groupFocusHighlight = new GroupHighlightPath(
+      Shape.bounds( new Bounds2( toolboxBounds.minX, toolboxBounds.minY - 230, toolboxBounds.maxX, toolboxBounds.maxY - 230 ).dilated( 10 ) ), {
+        innerLineWidth: 5
+      } );
   }
 
   /**
@@ -62,9 +60,6 @@ export default class PullersOnRopeGroupNode extends Node {
 
     // Sort pullers by position for consistent navigation order
     this.sortPullers();
-
-    // Update group highlight now that we have children
-    this.updateGroupHighlight();
 
     // Ensure the puller is focusable when added to rope group
     pullerNode.focusable = true;
@@ -93,9 +88,6 @@ export default class PullersOnRopeGroupNode extends Node {
         ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Unlinked focus listener for rope puller:', pullerNode.puller );
       }
 
-      // Update group highlight after removal
-      this.updateGroupHighlight();
-
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed puller from rope group:', pullerNode.puller );
     }
   }
@@ -107,14 +99,6 @@ export default class PullersOnRopeGroupNode extends Node {
     this.ropePullerNodes.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
   }
 
-  /**
-   * Update the group highlight to surround all rope pullers
-   */
-  public updateGroupHighlight(): void {
-    if ( this.ropePullerNodes.length > 0 && this.localBounds.isFinite() ) {
-      this.myGroupFocusHighlight.shape = Shape.bounds( this.localBounds.dilated( 15 ) );
-    }
-  }
 
   /**
    * Reset the focus state of all pullers in this rope group to ensure proper tab navigation after reset
@@ -122,9 +106,6 @@ export default class PullersOnRopeGroupNode extends Node {
   public reset(): void {
     // Sort pullers by position to ensure consistent order after reset
     this.sortPullers();
-
-    // Update the group highlight bounds after reset
-    this.updateGroupHighlight();
 
     // Restore focusability to all rope pullers
     this.ropePullerNodes.forEach( pullerNode => {

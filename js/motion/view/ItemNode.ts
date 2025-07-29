@@ -72,7 +72,6 @@ export type ItemKeyboardStrategy = {
 };
 
 export default class ItemNode extends Node {
-  private readonly uniqueId: number;
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
   public readonly sittingImageNode: Image;
@@ -159,8 +158,6 @@ export default class ItemNode extends Node {
 
     this.model = model;
     this.motionView = motionView;
-
-    this.uniqueId = this.id; // use node to generate a specific id to quickly find this element in the parallel DOM.
 
     // translate this node to the item's position
     this.translate( item.positionProperty.get() );

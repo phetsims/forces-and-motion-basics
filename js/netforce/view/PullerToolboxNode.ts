@@ -20,7 +20,6 @@ type SelfOptions = EmptySelfOptions;
 type PullerToolboxNodeOptions = RectangleOptions & SelfOptions;
 
 export default class PullerToolboxNode extends Rectangle {
-  private readonly uniqueId: string;
 
   /**
    * Create toolbox backgrounds for the pullers
@@ -50,8 +49,6 @@ export default class PullerToolboxNode extends Rectangle {
     }, providedOptions );
 
     super( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, options );
-
-    this.uniqueId = `${side}-pullerToolbox`;
   }
 }
 

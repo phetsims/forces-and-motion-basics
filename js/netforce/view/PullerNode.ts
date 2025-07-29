@@ -226,7 +226,6 @@ export default class PullerNode extends Image {
     }
   }
 
-
   /**
    * Set up keyboard navigation for this puller.
    * This creates the keyboard listener for all puller interactions.
@@ -264,7 +263,6 @@ export default class PullerNode extends Image {
     const side = knot.type === 'blue' ? 'left' : 'right';
     return `${side} knot ${index + 1}`;
   }
-
 
   /**
    * Simplified keyboard input handler using the new state system
