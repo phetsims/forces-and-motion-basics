@@ -528,7 +528,7 @@ export default class ItemNode extends Node {
         this.item.positionProperty.set( new Vector2( stackX, stackY ) );
       }
 
-      // TODO: Add accessibility announcement, see https://github.com/phetsims/forces-and-motion-basics/issues/374
+      this.addAccessibleContextResponse( 'grabbed' );
     }
     else {
       // Drop the item at current position
