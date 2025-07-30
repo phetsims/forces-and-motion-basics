@@ -150,7 +150,8 @@ export default class Puller extends PhetioObject {
 
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      valueComparisonStrategy: 'equalsFunction'
     } );
 
     this.lastPlacementProperty = new StringUnionProperty( 'home', {
@@ -230,12 +231,18 @@ export default class Puller extends PhetioObject {
       return `keyboardGrabbedOver${side.charAt( 0 ).toUpperCase()}${side.slice( 1 )}Knot${knotNumber}` as PullerMode;
     }
     else {
-      return `${side}Knot${knotNumber}` as PullerMode;
+      return `attachedTo${side.charAt( 0 ).toUpperCase()}${side.slice( 1 )}Knot${knotNumber}` as PullerMode;
     }
   }
 
   // Store reference to knots for mode conversion
   private knots: Knot[] | null = null;
+
+  // Grab origin storage for cancel functionality
+  private grabOrigin: {
+    mode: PullerMode;
+    position: Vector2;
+  } | null = null;
 
   /**
    * Reset the model by resetting all associated Properties.
@@ -248,19 +255,11 @@ export default class Puller extends PhetioObject {
   }
 
   /**
-   * Disconnect from the current knot (used during grab)
+   * Disconnect from the current knot (used during mouse/touch grab)
    */
   public disconnect(): void {
-    // In the new system, we just set mode to grabbed over current position
-    const currentMode = this.modeProperty.get();
-    if ( currentMode.startsWith( 'left' ) || currentMode.startsWith( 'right' ) ) {
-      // Convert attached mode to keyboard grabbed mode
-      const grabbedMode = `keyboardGrabbedOver${currentMode.charAt( 0 ).toUpperCase()}${currentMode.slice( 1 )}` as PullerMode;
-      this.modeProperty.set( grabbedMode );
-    }
-    else if ( currentMode === 'home' ) {
-      this.modeProperty.set( 'keyboardGrabbedOverHome' );
-    }
+    // For mouse/touch grabs, the mode is already set to 'pointerGrabbed'
+    // No additional action needed - the knotProperty will be derived as null
   }
 
   /**
@@ -290,71 +289,86 @@ export default class Puller extends PhetioObject {
   }
 
   /**
-   * Simplified grab method using new state
+   * Store current state as grab origin for potential cancel operation
    */
-  public grab( dragType: 'mouse' | 'touch' | 'keyboard' ): void {
-    // // Store origin for escape functionality
-    // this.state.grabOrigin = {
-    //   location: this.state.location,
-    //   attachedKnot: this.state.attachedKnot,
-    //   position: this.positionProperty.get().copy()
-    // };
-    //
-    // // Update state
-    // this.state.dragType = dragType;
-    // if ( this.state.attachedKnot ) {
-    //   this.state.targetKnot = this.state.attachedKnot;
-    //   this.state.attachedKnot = null;
-    // }
-    //
-    // // Sync to legacy mode
-    // this.modeProperty.set( this.getModeFromState() );
+  public storeGrabOrigin(): void {
+    this.grabOrigin = {
+      mode: this.modeProperty.get(),
+      position: this.positionProperty.get().copy()
+    };
   }
 
   /**
-   * Simplified drop method using new state
+   * Clear grab origin after successful drop
+   */
+  public clearGrabOrigin(): void {
+    this.grabOrigin = null;
+  }
+
+  /**
+   * Grab method for mouse/touch interactions
+   */
+  public grab( dragType: 'mouse' | 'touch' | 'keyboard' ): void {
+    // Store origin for potential cancel
+    this.storeGrabOrigin();
+
+    if ( dragType === 'mouse' || dragType === 'touch' ) {
+      // For mouse/touch, set to pointerGrabbed and disconnect from knot
+      this.modeProperty.set( 'pointerGrabbed' );
+
+      // The disconnect will happen in the drag listener
+    }
+    // For keyboard grabs, the mode transition is handled by PullerKeyboardSupport
+  }
+
+  /**
+   * Drop method - determine final position based on current position
    */
   public drop(): void {
-    // Clear drag state
-    // this.state.dragType = 'none';
-    //
-    // // If we have a target knot, attach to it
-    // if ( this.state.targetKnot ) {
-    //   this.state.attachedKnot = this.state.targetKnot;
-    //   this.state.location = 'rope';
-    //   this.state.targetKnot = null;
-    // }
-    // else {
-    //   // Return to toolbox
-    //   this.state.location = 'toolbox';
-    //   this.state.attachedKnot = null;
-    // }
-    //
-    // // Clear grab origin
-    // this.state.grabOrigin = undefined;
-    //
-    // // Sync to legacy mode
-    // this.modeProperty.set( this.getModeFromState() );
+    const currentMode = this.modeProperty.get();
+
+    if ( currentMode === 'pointerGrabbed' ) {
+      // For mouse/touch drops, determine destination based on position
+      // This will be handled by the drag listener in PullerNode
+      // The drag listener will call dropAtKnot() or dropAtHome()
+      return;
+    }
+
+    // For keyboard drops, the mode is already set by PullerKeyboardSupport
+    this.clearGrabOrigin();
+  }
+
+  /**
+   * Drop at a specific knot (called by mouse/touch drag listener)
+   */
+  public dropAtKnot( knot: Knot ): void {
+    const newMode = this.getModeForKnot( knot, false );
+    this.modeProperty.set( newMode );
+    this.lastPlacementProperty.set( 'knot' );
+    this.clearGrabOrigin();
+  }
+
+  /**
+   * Drop at home/toolbox (called by mouse/touch drag listener)
+   */
+  public dropAtHome(): void {
+    this.modeProperty.set( 'home' );
+    this.lastPlacementProperty.set( 'home' );
+    this.clearGrabOrigin();
   }
 
   /**
    * Cancel grab and return to origin
    */
   public cancelGrab(): void {
-    // if ( this.state.grabOrigin ) {
-    //   // Restore original state
-    //   this.state.location = this.state.grabOrigin.location;
-    //   this.state.attachedKnot = this.state.grabOrigin.attachedKnot;
-    //   this.state.dragType = 'none';
-    //   this.state.targetKnot = null;
-    //   this.positionProperty.set( this.state.grabOrigin.position );
-    //
-    //   // Clear grab origin
-    //   this.state.grabOrigin = undefined;
-    //
-    //   // Sync to legacy mode
-    //   this.modeProperty.set( this.getModeFromState() );
-    // }
+    if ( this.grabOrigin ) {
+      // Restore original state
+      this.modeProperty.set( this.grabOrigin.mode );
+      this.positionProperty.set( this.grabOrigin.position );
+
+      // Clear grab origin
+      this.grabOrigin = null;
+    }
   }
 
   /**
