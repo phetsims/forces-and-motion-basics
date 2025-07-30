@@ -197,6 +197,18 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         highlightFromNode.setDashed( false );
       }
     } );
+
+    // Create a single listener that combines all hotkey data
+    this.keyboardListener = new KeyboardListener( {
+      keyStringProperties: [
+        ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
+        ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
+        ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties
+      ],
+      fireOnDown: false,
+      fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
+    } );
+    this.addInputListener( this.keyboardListener );
   }
 
   /**
@@ -237,31 +249,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     else {
       this.setTranslation( puller.positionProperty.get() );
     }
-  }
-
-  /**
-   * Set up keyboard navigation for this puller.
-   * This creates the keyboard listener for all puller interactions.
-   */
-  public setupKeyboardNavigation(): void {
-    // Remove existing keyboard listener if any
-    if ( this.keyboardListener ) {
-      this.removeInputListener( this.keyboardListener );
-      this.keyboardListener = null;
-    }
-
-    // Create a single listener that combines all hotkey data
-    this.keyboardListener = new KeyboardListener( {
-      keyStringProperties: [
-        ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
-        ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
-        ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties
-      ],
-      fireOnDown: false,
-      fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
-    } );
-    this.addInputListener( this.keyboardListener );
-
   }
 
   /**

@@ -64,12 +64,6 @@ export default class PullersOnRopeGroupNode extends Node {
 
     // Ensure the puller is focusable when added to rope group
     pullerNode.focusable = true;
-
-    // Note: Focus listeners are now handled by PullerFocusManager
-    // The complex focus management logic has been centralized
-
-    // Set the keyboard strategy for rope pullers
-    pullerNode.setupKeyboardNavigation();
   }
 
   /**

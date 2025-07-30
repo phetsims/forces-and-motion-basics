@@ -65,11 +65,6 @@ export default class PullerGroupNode extends Node {
       pullerNode.focusable = true;
     }
 
-    // Note: Focus listeners are now handled by PullerFocusManager
-    // The complex focus management logic has been centralized
-
-    // Set up keyboard navigation for toolbox pullers
-    pullerNode.setupKeyboardNavigation();
   }
 
   /**
