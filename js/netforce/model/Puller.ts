@@ -78,6 +78,7 @@ export default class Puller extends PhetioObject {
   public readonly modeProperty: StringUnionProperty<PullerMode>;
   
   // NEW: The simplified state representation
+  // TODO: This is redundant, make it transient. see https://github.com/phetsims/forces-and-motion-basics/issues/379
   public readonly state: PullerState;
 
   // whether the puller is currently being dragged (derived from mode)

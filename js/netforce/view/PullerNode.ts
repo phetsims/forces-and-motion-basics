@@ -10,6 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
@@ -182,6 +183,18 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     this.visibleProperty.link( visible => {
       if ( !visible ) {
         puller.reset();
+      }
+    } );
+
+    const highlightFromNode = new HighlightFromNode( this );
+    this.focusHighlight = highlightFromNode;
+
+    puller.modeProperty.link( mode => {
+      if ( mode.startsWith( 'keyboardGrabbed' ) ) {
+        highlightFromNode.setDashed( true );
+      }
+      else {
+        highlightFromNode.setDashed( false );
       }
     } );
   }
