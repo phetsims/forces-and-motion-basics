@@ -203,7 +203,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       keyStringProperties: [
         ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
         ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
-        ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties
+        ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties,
+        ...NetForceHotkeyData.pullerNode.returnToToolbox.keyStringProperties
       ],
       fireOnDown: false,
       fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
@@ -275,7 +276,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const isGrabbed = puller.isGrabbed();
 
     // ARROW KEY HANDLING
-    if ( keysPressed === 'arrowLeft' || keysPressed === 'arrowRight' || keysPressed === 'arrowUp' || keysPressed === 'arrowDown' ) {
+    if ( NetForceHotkeyData.pullerNode.navigation.hasKeyStroke( keysPressed as OneKeyStroke ) ) {
       if ( isGrabbed ) {
         // GRABBED MODE: Arrow keys cycle through knots + home position
         this.handleKnotCycling( keysPressed );
@@ -289,7 +290,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     }
 
     // ESCAPE HANDLING
-    if ( keysPressed === 'escape' ) {
+    if ( NetForceHotkeyData.pullerNode.cancelInteraction.hasKeyStroke( keysPressed as OneKeyStroke ) ) {
       if ( isGrabbed ) {
         puller.cancelGrab();
         this.updatePosition( puller, this.model );
@@ -299,8 +300,20 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       return;
     }
 
+    // DELETE/BACKSPACE HANDLING - Return to toolbox when grabbed
+    if ( NetForceHotkeyData.pullerNode.returnToToolbox.hasKeyStroke( keysPressed as OneKeyStroke ) ) {
+      if ( isGrabbed ) {
+        // Return the puller to the toolbox
+        puller.positionProperty.reset();
+        puller.state.targetKnot = null;
+        this.updatePosition( puller, this.model );
+        this.addAccessibleResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+      }
+      return;
+    }
+
     // ENTER/SPACE HANDLING - simplified grab/drop logic
-    if ( keysPressed === 'enter' || keysPressed === 'space' ) {
+    if ( NetForceHotkeyData.pullerNode.grabOrDrop.hasKeyStroke( keysPressed as OneKeyStroke ) ) {
       if ( isGrabbed ) {
         ForcesAndMotionBasicsQueryParameters.debugAltInput &&
         console.log( 'DROP: About to drop puller:', puller.size, puller.type );

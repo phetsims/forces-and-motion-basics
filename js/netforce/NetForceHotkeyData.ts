@@ -50,6 +50,11 @@ export default class NetForceHotkeyData {
     cancelInteraction: createHotkeyData(
       [ 'escape' ],
       new StringProperty( 'Cancel and return puller to original position' )
+    ),
+    // Return to toolbox
+    returnToToolbox: createHotkeyData(
+      [ 'delete', 'backspace' ],
+      new StringProperty( 'Return puller to toolbox' )
     )
   };
 
