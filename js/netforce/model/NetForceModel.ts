@@ -205,11 +205,6 @@ export default class NetForceModel extends PhetioObject {
       new Puller( this, 860, largePullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRightPuller' ) )
     ];
 
-    // Set up the knot mapping for each puller so they can convert between modes and knots
-    this.pullers.forEach( puller => {
-      puller.setupKnotMapping( this.knots );
-    } );
-
     // When any puller is dragged or moved with phet-io, update the closest knots to be visible
     // and change the numberPullersAttached
     this.pullers.forEach( puller => {

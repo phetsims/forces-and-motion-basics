@@ -182,32 +182,36 @@ export default class Puller extends PhetioObject {
         newKnot.positionProperty.link( updatePosition );
       }
     } );
-  }
 
-
-  /**
-   * Set up the knot mapping after the model is available.
-   * This should be called from the model after all knots are created.
-   */
-  public setupKnotMapping( knots: Knot[] ): void {
-
-    // Create mapping from mode to knot
-    const modeToKnot = ( mode: PullerMode ): Knot | null => {
-      if ( mode === 'home' || mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'pointerGrabbed' ) {
-        return null;
-      }
-
-      // Extract knot info from mode (e.g., 'leftKnot1' -> left, index 0)
-      const isLeft = mode.startsWith( 'left' );
-      const knotIndex = parseInt( mode.slice( -1 ), 10 ) - 1; // Convert 1-based to 0-based
-
-      const filteredKnots = knots.filter( knot => knot.type === ( isLeft ? 'blue' : 'red' ) );
-      return filteredKnots[ knotIndex ] || null;
-    };
-
-    // Keep knotProperty in sync with mode
     this.modeProperty.link( mode => {
-      this.knotProperty.set( modeToKnot( mode ) );
+      if ( mode === 'attachedToLeftKnot1' ) {
+        this.knotProperty.value = this.model.knots[ 0 ];
+      }
+      else if ( mode === 'attachedToLeftKnot2' ) {
+        this.knotProperty.value = this.model.knots[ 1 ];
+      }
+      else if ( mode === 'attachedToLeftKnot3' ) {
+        this.knotProperty.value = this.model.knots[ 2 ];
+      }
+      else if ( mode === 'attachedToLeftKnot4' ) {
+        this.knotProperty.value = this.model.knots[ 3 ];
+      }
+      else if ( mode === 'attachedToRightKnot1' ) {
+        this.knotProperty.value = this.model.knots[ 4 ];
+      }
+      else if ( mode === 'attachedToRightKnot2' ) {
+        this.knotProperty.value = this.model.knots[ 5 ];
+      }
+      else if ( mode === 'attachedToRightKnot3' ) {
+        this.knotProperty.value = this.model.knots[ 6 ];
+      }
+      else if ( mode === 'attachedToRightKnot4' ) {
+        this.knotProperty.value = this.model.knots[ 7 ];
+      }
+      else {
+        // For all other modes (home, pointerGrabbed, keyboardGrabbedOver*), no knot attachment
+        this.knotProperty.value = null;
+      }
     } );
   }
 
@@ -219,7 +223,6 @@ export default class Puller extends PhetioObject {
       return 'home';
     }
 
-    // Get the knot index from the stored knots array (set up during setupKnotMapping)
     const sameTypeKnots = this.model.knots.filter( k => this.type === knot.type ) || [];
     const knotIndex = sameTypeKnots.indexOf( knot );
     const knotNumber = knotIndex + 1; // Convert to 1-based indexing
