@@ -118,7 +118,7 @@ export default class PullerKeyboardSupport {
     }
     else {
       // Find knot from current mode
-      const currentKnot = this.getKnotFromMode( currentMode, model );
+      const currentKnot = puller.getKnot();
       currentWaypointIndex = currentKnot ? availableKnots.indexOf( currentKnot ) : 0;
       if ( currentWaypointIndex === -1 ) {
         currentWaypointIndex = 0; // Default to first knot
@@ -236,12 +236,12 @@ export default class PullerKeyboardSupport {
     else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
       // Drop at knot - convert keyboard grabbed to attached
       const side = currentMode.getKeyboardGrabbedKnotSide();
-      const knot = currentMode.getKeyboardGrabbedKnotIndex();
-      if ( side && knot !== null ) {
-        newMode = PullerModeFactory.attachedToKnot( side, knot );
+      const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
+      if ( side && knotIndex !== null ) {
+        newMode = PullerModeFactory.attachedToKnot( side, knotIndex );
 
-        const knotObject = this.getKnotFromMode( currentMode, model );
-        const knotDescription = knotObject ? this.getKnotDescription( knotObject, model ) : 'knot';
+        const knot = puller.getKnot();
+        const knotDescription = knot ? this.getKnotDescription( knot, model ) : 'knot';
         accessibilityResponse = `${puller.size} ${puller.type} puller attached to ${knotDescription}.`;
       }
       else {
@@ -313,35 +313,6 @@ export default class PullerKeyboardSupport {
       shouldUpdatePosition: true,
       shouldUpdateImage: true
     };
-  }
-
-  /**
-   * Get knot from a structured mode that contains knot information
-   */
-  private static getKnotFromMode( mode: PullerMode, model: NetForceModel ): Knot | null {
-    if ( mode.isAttached() ) {
-      const side = mode.getAttachedSide();
-      const knot = mode.getAttachedKnotIndex();
-      if ( side && knot !== null ) {
-        const filteredKnots = model.knots.filter( k =>
-          k.type === ( side === 'left' ? 'blue' : 'red' )
-        );
-        return filteredKnots[ knot ] || null;
-      }
-    }
-
-    if ( mode.isKeyboardGrabbedOverKnot() ) {
-      const side = mode.getKeyboardGrabbedKnotSide();
-      const knot = mode.getKeyboardGrabbedKnotIndex();
-      if ( side && knot !== null ) {
-        const filteredKnots = model.knots.filter( k =>
-          k.type === ( side === 'left' ? 'blue' : 'red' )
-        );
-        return filteredKnots[ knot ] || null;
-      }
-    }
-
-    return null;
   }
 
   /**

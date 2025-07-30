@@ -32,7 +32,7 @@ const RED_KNOT_OFFSET = 680;
 
 export default class NetForceModel extends PhetioObject {
 
-  // puller game will extend to +/- this value - when the cart wheel hits this length, the game is over
+  // puller game will extend to +/- this value - when the cart's wheel hits this length, the game is over
   public static readonly GAME_LENGTH = 458;
 
   public readonly hasStartedProperty: BooleanProperty;
@@ -209,9 +209,10 @@ export default class NetForceModel extends PhetioObject {
     // and change the numberPullersAttached
     this.pullers.forEach( puller => {
 
-      puller.positionProperty.link( this.updateKnotHighlights.bind( this ) );
-      puller.modeProperty.link( mode => {
-        const knot = this.getKnotFromMode( puller );
+      puller.positionProperty.link( () => this.updateKnotHighlights() );
+      puller.modeProperty.link( () => {
+        this.updateKnotHighlights();
+        const knot = puller.getKnot();
         if ( knot ) {
           this.movePullerToKnot( puller, knot );
         }
@@ -259,7 +260,7 @@ export default class NetForceModel extends PhetioObject {
       // puller.modeProperty.set( PullerModeFactory.home() );
     }
 
-    // Keep track of their position to change the attach/detach thresholds, see NetForceModel.getTargetKnot
+    // Keep track of their position to change the attachment/detach thresholds, see NetForceModel.getTargetKnot
     const newPosition = knot ? 'knot' : 'home';
     puller.lastPlacementProperty.set( newPosition );
   }
@@ -299,15 +300,18 @@ export default class NetForceModel extends PhetioObject {
 
   // Change the knot visibility (halo highlight) when the pullers are dragged
   private updateKnotHighlights(): void {
-    this.knots.forEach( knot => { knot.isHighlightedProperty.set( false ); } );
-    this.pullers.forEach( puller => {
-      if ( puller.modeProperty.value.isUserControlled() ) {
-        const knot = this.getTargetKnot( puller );
-        if ( knot ) {
-          knot.isHighlightedProperty.set( true );
+
+    if ( this.knots ) {
+      this.knots.forEach( knot => { knot.isHighlightedProperty.set( false ); } );
+      this.pullers.forEach( puller => {
+        if ( puller.modeProperty.value.isUserControlled() ) {
+          const knot = this.getTargetKnot( puller );
+          if ( knot ) {
+            knot.isHighlightedProperty.set( true );
+          }
         }
-      }
-    } );
+      } );
+    }
   }
 
   /**
@@ -341,18 +345,6 @@ export default class NetForceModel extends PhetioObject {
   }
 
   /**
-   * Gets the closest unoccupied knot to the given puller, which is being dragged.
-   */
-  private getClosestOpenKnotFromCart( puller: Puller ): Knot {
-    let idx = puller.type === 'red' ? 4 : 3;
-    const delta = puller.type === 'red' ? 1 : -1;
-    while ( this.getPuller( this.knots[ idx ] ) !== null ) {
-      idx += delta;
-    }
-    return this.knots[ idx ];
-  }
-
-  /**
    * Gets the closest unoccupied knot to the given puller if it is close enough to grab.
    */
   public getTargetKnot( puller: Puller ): Knot | null {
@@ -362,32 +354,6 @@ export default class NetForceModel extends PhetioObject {
     // Only accept a target knot if the puller's head is close enough to the knot
     const threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
     return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
-  }
-
-  /**
-   * Get the knot that corresponds to the puller's current mode.
-   * For keyboard grabbed modes, returns the target knot.
-   * For grabbed over home, returns null.
-   */
-  private getKnotFromMode( puller: Puller ): Knot | null {
-    const mode = puller.modeProperty.get();
-
-    // If grabbed over home, return null (puller should return to toolbox)
-    if ( mode.isKeyboardGrabbedOverHome() ) {
-      return null;
-    }
-
-    // Extract knot info from keyboard grabbed mode
-    if ( mode.isKeyboardGrabbedOverKnot() ) {
-      const side = mode.getKeyboardGrabbedKnotSide();
-      const knotIndex = mode.getKeyboardGrabbedKnotIndex();
-      if ( side && knotIndex !== null ) {
-        const filteredKnots = this.knots.filter( knot => knot.type === ( side === 'left' ? 'blue' : 'red' ) );
-        return filteredKnots[ knotIndex ] || null;
-      }
-    }
-
-    return null;
   }
 
   // Return the cart and prepare the model for another "go" run
@@ -439,14 +405,6 @@ export default class NetForceModel extends PhetioObject {
 
     // notify that the model was reset
     this.resetAllEmitter.emit();
-  }
-
-  /**
-   * The length of the rope is the spacing between knots times the number of knots plus the difference between
-   * the red and blue starting offsets.
-   */
-  private getRopeLength(): number {
-    return 6 * KNOT_SPACING + RED_KNOT_OFFSET - ( BLUE_KNOT_OFFSET + 3 * KNOT_SPACING );
   }
 
   /**
