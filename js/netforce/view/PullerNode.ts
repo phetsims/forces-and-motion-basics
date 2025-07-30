@@ -10,6 +10,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
@@ -23,11 +24,10 @@ import Puller from '../model/Puller.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import PullerFocusManager from './PullerFocusManager.js';
 
-
 type SelfOptions = EmptySelfOptions;
 type PullerNodeOptions = ImageOptions & SelfOptions;
 
-export default class PullerNode extends Image {
+export default class PullerNode extends InteractiveHighlighting( Image ) {
   public standImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
   private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
