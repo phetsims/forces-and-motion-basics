@@ -128,18 +128,29 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           }
         },
         end: () => {
+          // Determine drop location using the model's existing getTargetKnot method
+          const dropKnot = model.getTargetKnot( puller );
+          
+          if ( dropKnot ) {
+            puller.dropAtKnot( dropKnot );
+          }
+ else {
+            puller.dropAtHome();
+          }
+          
+          // Update visuals
           this.updatePosition( puller, model );
-          // puller.modeProperty.value =
-          // puller.userControlledProperty.set( false );
-          puller.droppedEmitter.emit( 'mouse' );
           this.updateImage( puller, model );
+          
+          // Emit dropped event
+          puller.droppedEmitter.emit( 'mouse' );
 
-          // Add accessible response when a puller is dropped
+          // Add accessible response
           if ( puller.knotProperty.get() ) {
             const knotDescription = this.getKnotDescription( puller.knotProperty.get()! );
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
           }
-          else {
+ else {
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
           }
         }
@@ -325,31 +336,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     }
   }
 
-
-  /**
-   * Find the nearest available knot for mouse/touch drop operations
-   */
-  private findNearestAvailableKnot( puller: Puller, model: NetForceModel ): Knot | null {
-    const pullerPosition = puller.positionProperty.get();
-    const availableKnots = model.knots.filter( knot =>
-      knot.type === puller.type && model.getPuller( knot ) === null
-    );
-    
-    // Simple distance-based selection (can be enhanced with drop zones)
-    let nearestKnot: Knot | null = null;
-    let minDistance = Infinity;
-    
-    availableKnots.forEach( knot => {
-      const knotPosition = new Vector2( knot.positionProperty.get(), knot.y );
-      const distance = pullerPosition.distance( knotPosition );
-      if ( distance < minDistance && distance < 100 ) { // Within reasonable drop distance
-        minDistance = distance;
-        nearestKnot = knot;
-      }
-    } );
-    
-    return nearestKnot;
-  }
 
   /**
    * Reset the puller node to its initial state

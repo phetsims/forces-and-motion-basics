@@ -194,15 +194,15 @@ export default class NetForceModel extends PhetioObject {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
     this.pullers = [
-      new Puller( 38, largePullerY, 'blue', 'large', 70, pullersTandem.createTandem( 'largeLeftPuller' ), { standOffsetX: -18 } ),
-      new Puller( 127, mediumPullerY, 'blue', 'medium', 50, pullersTandem.createTandem( 'mediumLeftPuller' ), { standOffsetX: -5 } ),
-      new Puller( 208, smallPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller1' ) ),
-      new Puller( 278, smallPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller2' ), { other: 'other' } ),
+      new Puller( this, 38, largePullerY, 'blue', 'large', 70, pullersTandem.createTandem( 'largeLeftPuller' ), { standOffsetX: -18 } ),
+      new Puller( this, 127, mediumPullerY, 'blue', 'medium', 50, pullersTandem.createTandem( 'mediumLeftPuller' ), { standOffsetX: -5 } ),
+      new Puller( this, 208, smallPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller1' ) ),
+      new Puller( this, 278, smallPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller2' ), { other: 'other' } ),
 
-      new Puller( 648, smallPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller1' ) ),
-      new Puller( 717, smallPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller2' ), { other: 'other' } ),
-      new Puller( 789, mediumPullerY, 'red', 'medium', 20, pullersTandem.createTandem( 'mediumRightPuller' ) ),
-      new Puller( 860, largePullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRightPuller' ) )
+      new Puller( this, 648, smallPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller1' ) ),
+      new Puller( this, 717, smallPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller2' ), { other: 'other' } ),
+      new Puller( this, 789, mediumPullerY, 'red', 'medium', 20, pullersTandem.createTandem( 'mediumRightPuller' ) ),
+      new Puller( this, 860, largePullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRightPuller' ) )
     ];
 
     // Set up the knot mapping for each puller so they can convert between modes and knots

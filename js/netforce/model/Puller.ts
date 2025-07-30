@@ -22,6 +22,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
+import NetForceModel from './NetForceModel.js';
 
 // Legacy mode type for backward compatibility during transition
 export type PullerMode =
@@ -81,6 +82,7 @@ export default class Puller extends PhetioObject {
   public readonly userControlledEmitter = new Emitter();
 
   /**
+   * @param model the NetForceModel that this puller is associated with, for context
    * @param x initial x-coordinate (in meters)
    * @param y initial y-coordinate (in meters)
    * @param type 'red'|'blue'
@@ -89,7 +91,8 @@ export default class Puller extends PhetioObject {
    * @param tandem
    * @param providedOptions
    */
-  public constructor( x: number, y: number,
+  public constructor( public readonly model: NetForceModel,
+                      x: number, y: number,
                       public readonly type: 'red' | 'blue',
                       public readonly size: 'small' | 'medium' | 'large',
                       public readonly dragOffsetX: number, tandem: Tandem, providedOptions?: PullerOptions ) {
@@ -188,9 +191,6 @@ export default class Puller extends PhetioObject {
    */
   public setupKnotMapping( knots: Knot[] ): void {
 
-    // Store reference for mode conversion
-    this.knots = knots;
-
     // Create mapping from mode to knot
     const modeToKnot = ( mode: PullerMode ): Knot | null => {
       if ( mode === 'home' || mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'pointerGrabbed' ) {
@@ -214,29 +214,26 @@ export default class Puller extends PhetioObject {
   /**
    * Get the mode string for a given knot
    */
-  public getModeForKnot( knot: Knot | null, grabbed = false ): PullerMode {
+  public getModeForKnot( knot: Knot | null ): PullerMode {
     if ( knot === null ) {
-      return grabbed ? 'keyboardGrabbedOverHome' : 'home';
+      return 'home';
     }
 
     // Get the knot index from the stored knots array (set up during setupKnotMapping)
-    const sameTypeKnots = this.knots?.filter( k => k.type === knot.type ) || [];
+    const sameTypeKnots = this.model.knots.filter( k => this.type === knot.type ) || [];
     const knotIndex = sameTypeKnots.indexOf( knot );
     const knotNumber = knotIndex + 1; // Convert to 1-based indexing
 
-    const isLeft = knot.type === 'blue';
-    const side = isLeft ? 'left' : 'right';
-
-    if ( grabbed ) {
-      return `keyboardGrabbedOver${side.charAt( 0 ).toUpperCase()}${side.slice( 1 )}Knot${knotNumber}` as PullerMode;
-    }
-    else {
-      return `attachedTo${side.charAt( 0 ).toUpperCase()}${side.slice( 1 )}Knot${knotNumber}` as PullerMode;
-    }
+    return knot.type === 'blue'
+           ? ( knotNumber === 1 ? 'attachedToLeftKnot1' :
+               knotNumber === 2 ? 'attachedToLeftKnot2' :
+               knotNumber === 3 ? 'attachedToLeftKnot3' :
+               knotNumber === 4 ? 'attachedToLeftKnot4' : 'home' )
+           : ( knotNumber === 1 ? 'attachedToRightKnot1' :
+               knotNumber === 2 ? 'attachedToRightKnot2' :
+               knotNumber === 3 ? 'attachedToRightKnot3' :
+               knotNumber === 4 ? 'attachedToRightKnot4' : 'home' );
   }
-
-  // Store reference to knots for mode conversion
-  private knots: Knot[] | null = null;
 
   // Grab origin storage for cancel functionality
   private grabOrigin: {
@@ -274,18 +271,6 @@ export default class Puller extends PhetioObject {
       };
     }
     return null;
-  }
-
-  /**
-   * Get knot by its identifier
-   */
-  private getKnotById( id: { side: 'left' | 'right'; index: number } ): Knot | null {
-    if ( !this.knots ) { return null; }
-
-    const sideKnots = this.knots.filter( k =>
-      k.type === ( id.side === 'left' ? 'blue' : 'red' )
-    );
-    return sideKnots[ id.index ] || null;
   }
 
   /**
@@ -342,7 +327,7 @@ export default class Puller extends PhetioObject {
    * Drop at a specific knot (called by mouse/touch drag listener)
    */
   public dropAtKnot( knot: Knot ): void {
-    const newMode = this.getModeForKnot( knot, false );
+    const newMode = this.getModeForKnot( knot );
     this.modeProperty.set( newMode );
     this.lastPlacementProperty.set( 'knot' );
     this.clearGrabOrigin();
