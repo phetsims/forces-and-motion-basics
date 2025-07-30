@@ -55,6 +55,7 @@ export default abstract class PullerMode {
 
   public getKnot( model: NetForceModel ): Knot | null {
     const knotIndex = this.getKnotIndex();
+    console.log( `PullerMode.getKnot: knotIndex=${knotIndex}` );
     if ( knotIndex !== null ) {
       return model.knots[ knotIndex ];
     }

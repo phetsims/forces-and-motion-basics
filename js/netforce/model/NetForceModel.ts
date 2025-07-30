@@ -314,7 +314,7 @@ export default class NetForceModel extends PhetioObject {
    * Gets the puller attached to a knot, or null if none attached to that knot.
    */
   public getPuller( knot: Knot ): Puller | null {
-    const find = _.find( this.pullers, puller => puller.modeProperty.value.getKnotIndex() === this.knots.indexOf( knot ) );
+    const find = _.find( this.pullers, puller => puller.getKnot() === knot );
     return typeof ( find ) !== 'undefined' ? find : null;
   }
 
