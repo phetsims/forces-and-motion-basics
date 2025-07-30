@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceModel from '../model/NetForceModel.js';
 import PullerNode from './PullerNode.js';
@@ -81,10 +80,7 @@ export default class PullerGroupNode extends Node {
       if ( focusListener ) {
         pullerNode.focusedProperty.unlink( focusListener );
         this.focusListeners.delete( pullerNode );
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Unlinked focus listener for puller:', pullerNode.puller );
       }
-
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed puller from toolbox group:', pullerNode.puller );
     }
   }
 
@@ -113,11 +109,6 @@ export default class PullerGroupNode extends Node {
       // Make sure the next puller is focusable and focus it
       nextPuller.focusable = true;
       nextPuller.focus();
-
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focused next puller in toolbox:', nextPuller.puller );
-    }
-    else {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No more pullers in toolbox to focus' );
     }
   }
 

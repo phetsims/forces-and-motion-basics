@@ -25,7 +25,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
@@ -441,8 +440,6 @@ export default class ItemNode extends Node {
 
     const isGrabbed = this.item.userControlledProperty.get();
 
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ItemNode keyboard input:', keysPressed, 'grabbed:', isGrabbed );
-
     if ( keysPressed === 'escape' ) {
       this.handleEscapeKey();
       return;
@@ -471,7 +468,6 @@ export default class ItemNode extends Node {
    */
   private handleEscapeKey(): void {
     if ( this.item.userControlledProperty.get() && this.originalPosition ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Escape key - canceling interaction' );
 
       // Cancel interaction and return to original position
       const toolboxSide = this.item.getToolboxSide();
@@ -501,7 +497,6 @@ export default class ItemNode extends Node {
 
     if ( !isGrabbed ) {
       // Grab the item
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbing item via keyboard' );
       this.wasOriginallyOnStack = this.item.inStackProperty.get();
       this.originalPosition = this.item.positionProperty.get().copy();
 
@@ -531,14 +526,12 @@ export default class ItemNode extends Node {
         const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
         const stackY = this.motionView.topOfStack - this.height;
         this.item.positionProperty.set( new Vector2( stackX, stackY ) );
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Moved to proposed stack position' );
       }
 
       // TODO: Add accessibility announcement, see https://github.com/phetsims/forces-and-motion-basics/issues/374
     }
     else {
       // Drop the item at current position
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Dropping item via keyboard' );
 
       // Reset mode to a non-grabbed state to trigger proper mode calculation
       const toolboxSide = this.item.getToolboxSide();
@@ -572,12 +565,10 @@ export default class ItemNode extends Node {
       if ( droppedOnStack ) {
         if ( !this.wasOriginallyOnStack && this.toolboxGroup ) {
           // Item was dropped from toolbox to stack - focus next toolbox item
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped from toolbox to stack, focusing next toolbox item' );
           this.toolboxGroup.focusNextItemInToolbox( this );
         }
         else if ( this.wasOriginallyOnStack ) {
           // Item was dropped back onto stack from where it came - preserve focus on this item
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped back onto stack, preserving focus' );
           // Ensure this item remains focusable and focused after the transfer
           this.focusable = true;
           // Focus will be maintained since item is staying on the stack
@@ -587,15 +578,7 @@ export default class ItemNode extends Node {
 
       // Still notify the strategy for other handling
       if ( this.keyboardStrategy ) {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Calling keyboardStrategy.onDropComplete with:', {
-          strategy: this.keyboardStrategy.constructor.name,
-          droppedOnStack: droppedOnStack,
-          wasOriginallyOnStack: this.wasOriginallyOnStack
-        } );
         this.keyboardStrategy.onDropComplete( this, droppedOnStack, this.wasOriginallyOnStack );
-      }
-      else {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No keyboard strategy to notify about drop' );
       }
     }
   }
@@ -623,12 +606,10 @@ export default class ItemNode extends Node {
       const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
       const stackY = this.motionView.topOfStack - this.height;
       this.item.positionProperty.set( new Vector2( stackX, stackY ) );
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation: moved to stack position' );
     }
     else {
       // Move back to home position
       this.item.positionProperty.set( homePosition );
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Grabbed navigation: moved to home position' );
     }
   }
 
@@ -640,7 +621,6 @@ export default class ItemNode extends Node {
 
     const nextItem = this.keyboardStrategy.navigateToItem( this, direction );
     if ( nextItem ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigating to next item:', nextItem.item.name );
 
       // Update focus management
       this.focusable = false;

@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -80,10 +79,7 @@ export default class PullersOnRopeGroupNode extends Node {
       if ( focusListener ) {
         pullerNode.focusedProperty.unlink( focusListener );
         this.focusListeners.delete( pullerNode );
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Unlinked focus listener for rope puller:', pullerNode.puller );
       }
-
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed puller from rope group:', pullerNode.puller );
     }
   }
 

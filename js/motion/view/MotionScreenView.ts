@@ -513,14 +513,11 @@ export default class MotionScreenView extends ScreenView {
       const mode = itemNode.item.modeProperty.get();
       const isGrabbed = itemNode.item.isGrabbed();
 
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `performGroupTransfer for ${itemNode.item.name}: mode=${mode}, isGrabbed=${isGrabbed}` );
-
       // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
       if ( !isGrabbed ) {
         if ( mode === 'onStack' ) {
           // Item moved to stack - transfer from toolbox group to stack group
           if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Transferring ${itemNode.item.name} from toolbox to stack` );
             this.itemToolboxGroup.removeItemNode( itemNode );
             this.itemStackGroup.addItemNode( itemNode, model );
             // Update keyboard strategy for stack navigation
@@ -528,28 +525,19 @@ export default class MotionScreenView extends ScreenView {
           }
         }
         else if ( mode === 'inLeftToolbox' || mode === 'inRightToolbox' ) {
-          ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Transferring ${itemNode.item.name} from stack to toolbox` );
           // Item moved to toolbox - ensure it's in toolbox group and not in stack group
           // Remove from stack group if it's there
           if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Removing ${itemNode.item.name} from stack group` );
             this.itemStackGroup.removeItemNode( itemNode );
           }
           // Add to toolbox group if it's not already there
           if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Adding ${itemNode.item.name} to toolbox group` );
             this.itemToolboxGroup.addItemNode( itemNode, model );
             // Update keyboard strategy for toolbox navigation
             itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
           }
-          else {
-            ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `${itemNode.item.name} already in toolbox group` );
-          }
         }
         // Note: Animation modes are handled automatically and don't require group transfers
-      }
-      else {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `Skipping transfer for ${itemNode.item.name} because isGrabbed=${isGrabbed}` );
       }
     };
 
@@ -557,7 +545,6 @@ export default class MotionScreenView extends ScreenView {
     this.itemNodes.forEach( itemNode => {
       // Listen to mode property changes - this replaces the need for multiple property listeners
       itemNode.item.modeProperty.link( mode => {
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( `modeProperty changed for ${itemNode.item.name}: mode=${mode}` );
         performGroupTransfer( itemNode );
       } );
     } );

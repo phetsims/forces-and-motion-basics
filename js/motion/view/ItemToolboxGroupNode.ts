@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
@@ -96,7 +95,6 @@ export default class ItemToolboxGroupNode extends Node {
     // Only make focusable if it's not on the stack
     if ( !itemNode.item.inStackProperty.get() ) {
       itemNode.focusable = true;
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Made returned item focusable for arrow navigation:', itemNode.item.name );
     }
   }
 
@@ -114,10 +112,7 @@ export default class ItemToolboxGroupNode extends Node {
       if ( focusListener ) {
         itemNode.focusedProperty.unlink( focusListener );
         this.focusListeners.delete( itemNode );
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Cleaned up focus listener for item:', itemNode.item.name );
       }
-
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed item from toolbox group:', itemNode.item.name );
     }
   }
 
@@ -151,14 +146,11 @@ export default class ItemToolboxGroupNode extends Node {
    * focus the next available item in the same toolbox
    */
   public focusNextItemInToolbox( droppedItemNode: ItemNode ): void {
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'focusNextItemInToolbox called for:', droppedItemNode.item.name );
 
     // Find items still in the toolboxes (not on stack)
     const itemsInToolbox = this.itemNodes.filter( itemNode =>
       !itemNode.item.inStackProperty.get() && itemNode !== droppedItemNode
     );
-
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Items still in toolbox:', itemsInToolbox.map( item => item.item.name ) );
 
     if ( itemsInToolbox.length > 0 ) {
       // Focus the first available item in the toolboxes
@@ -167,11 +159,6 @@ export default class ItemToolboxGroupNode extends Node {
       // Make sure the next item is focusable and focus it
       nextItem.focusable = true;
       nextItem.focus();
-
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focused next item in toolbox:', nextItem.item.name );
-    }
-    else {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'No more items in toolbox to focus' );
     }
   }
 
@@ -221,32 +208,27 @@ export class ToolboxKeyboardStrategy implements ItemKeyboardStrategy {
     const currentIndex = itemsInToolbox.indexOf( currentItem );
     if ( currentIndex === -1 ) { return null; }
 
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Toolbox navigation - from item at index:', currentIndex );
     const delta = ( direction === 'left' ) ? -1 : 1;
     const newIndex = currentIndex + delta;
 
     // Keep selection within bounds
     if ( newIndex >= 0 && newIndex < itemsInToolbox.length ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from index', currentIndex, 'to index', newIndex );
       return itemsInToolbox[ newIndex ];
     }
     return null;
   }
 
   public onDropComplete( item: ItemNode, droppedOnStack: boolean, wasAlreadyOnStack?: boolean ): void {
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'ToolboxKeyboardStrategy.onDropComplete called:', { item: item.item.name, droppedOnStack: droppedOnStack, wasAlreadyOnStack: wasAlreadyOnStack } );
 
     if ( droppedOnStack && !wasAlreadyOnStack ) {
       // Item was successfully dropped from toolbox to stack
       // Focus the next available item in the toolbox
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Focusing next item in toolbox after successful stack drop' );
       this.groupNode.focusNextItemInToolbox( item );
     }
     else {
       // Returned to toolbox (HOME drop) or was already on stack
       // For ALL HOME drops (regardless of origin), keep focus on the same item
       // since the user cycled through all positions and returned to toolbox intentionally
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'HOME drop or already on stack: Keeping focus on same item (wasAlreadyOnStack:', wasAlreadyOnStack, ')' );
       // Keep focus on the current item (don't change focus)
     }
   }

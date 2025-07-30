@@ -11,7 +11,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -111,10 +110,7 @@ export default class ItemStackGroupNode extends Node {
       if ( focusListener ) {
         itemNode.focusedProperty.unlink( focusListener );
         this.focusListeners.delete( itemNode );
-        ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Cleaned up focus listener for item:', itemNode.item.name );
       }
-
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Removed item from stack group:', itemNode.item.name );
     }
   }
 
@@ -163,8 +159,6 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
     const currentIndex = stackItems.indexOf( currentItem );
     if ( currentIndex === -1 ) { return null; }
 
-    ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Stack navigation - from item at index:', currentIndex );
-
     // Up/Left moves to higher index (towards top of stack), Down/Right moves to lower index (towards bottom)
     const delta = ( direction === 'up' || direction === 'left' ) ? 1 :
                   ( direction === 'down' || direction === 'right' ) ? -1 : 0;
@@ -172,7 +166,6 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
 
     // Keep selection within bounds
     if ( newIndex >= 0 && newIndex < stackItems.length ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Navigated from stack index', currentIndex, 'to stack index', newIndex );
       return stackItems[ newIndex ];
     }
     return null;
@@ -183,11 +176,11 @@ export class StackKeyboardStrategy implements ItemKeyboardStrategy {
     // The automatic transfer system in MotionScreenView will handle group transfers
     // based on inStackProperty changes, so we don't manually remove items here
     if ( !droppedOnStack ) {
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Returned stack item to toolbox - transfer system will handle group changes' );
+
+      // nothing to do here
     }
     else if ( droppedOnStack && wasAlreadyOnStack ) {
       // Item was dropped back onto stack - ensure other stack items are non-focusable
-      ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Item dropped back on stack, managing focus within stack group' );
       this.groupNode.stackItemNodes.forEach( node => {
         if ( node !== item ) {
           node.focusable = false;

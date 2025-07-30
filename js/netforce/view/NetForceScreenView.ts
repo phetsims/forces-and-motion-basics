@@ -63,7 +63,6 @@ import GoPauseButton from './GoPauseButton.js';
 import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
 import NetForceScreenSummaryContent from './NetForceScreenSummaryContent.js';
-import PullerFocusManager from './PullerFocusManager.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
@@ -177,7 +176,8 @@ export default class NetForceScreenView extends ScreenView {
   private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
   private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
   private readonly returnButton: ReturnButton;
-  private readonly pullerFocusManager: PullerFocusManager;
+
+  // private readonly pullerFocusManager: PullerFocusManager;
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
@@ -396,7 +396,7 @@ export default class NetForceScreenView extends ScreenView {
     const pullersTandem = tandem.createTandem( 'pullers' );
 
     // Initialize the centralized focus manager
-    this.pullerFocusManager = new PullerFocusManager();
+    // this.pullerFocusManager = new PullerFocusManager();
 
     this.leftPullerGroup = new PullerGroupNode( model, leftToolbox.bounds, {
       side: 'left',
@@ -422,7 +422,7 @@ export default class NetForceScreenView extends ScreenView {
         }
       );
 
-      const pullerNode = new PullerNode( puller, this.model, this.pullerFocusManager,
+      const pullerNode = new PullerNode( puller, this.model,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
           tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
@@ -434,7 +434,7 @@ export default class NetForceScreenView extends ScreenView {
       this.pullerNodes.push( pullerNode );
 
       // Register with the centralized focus manager
-      this.pullerFocusManager.registerPuller( pullerNode );
+      // this.pullerFocusManager.registerPuller( pullerNode );
 
       // Listen for knot property changes to move pullers between groups
       puller.knotProperty.link( ( newKnot, oldKnot ) => {
@@ -516,10 +516,10 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.rightRopePullerGroup );
 
     // Register all groups with the focus manager for highlight updates
-    this.pullerFocusManager.registerGroup( this.leftPullerGroup );
-    this.pullerFocusManager.registerGroup( this.rightPullerGroup );
-    this.pullerFocusManager.registerGroup( this.leftRopePullerGroup );
-    this.pullerFocusManager.registerGroup( this.rightRopePullerGroup );
+    // this.pullerFocusManager.registerGroup( this.leftPullerGroup );
+    // this.pullerFocusManager.registerGroup( this.rightPullerGroup );
+    // this.pullerFocusManager.registerGroup( this.leftRopePullerGroup );
+    // this.pullerFocusManager.registerGroup( this.rightRopePullerGroup );
 
     // Note: Complex transfer logic has been replaced with centralized focus management.
     // The PullerFocusManager now handles focus state based on puller modes automatically.
@@ -568,7 +568,7 @@ export default class NetForceScreenView extends ScreenView {
         this.pullerNodes.forEach( pullerNode => pullerNode.reset() );
 
         // Reset the centralized focus management
-        this.pullerFocusManager.reset();
+        // this.pullerFocusManager.reset();
 
         // Reset the focus state of all puller groups to ensure proper keyboard navigation
         this.leftPullerGroup.reset();

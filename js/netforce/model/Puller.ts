@@ -6,7 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -18,32 +18,15 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-// eslint-disable-next-line phet/no-view-imported-from-model
-import PullerNode from '../view/PullerNode.js';
 import Knot from './Knot.js';
-
-// Define the puller state interface
-export type PullerState = {
-  location: 'toolbox' | 'rope';
-  dragType: 'none' | 'mouse' | 'touch' | 'keyboard';
-  attachedKnot: Knot | null;
-  targetKnot: Knot | null; // For keyboard navigation during grab
-  
-  // Store origin for escape key functionality
-  grabOrigin?: {
-    location: 'toolbox' | 'rope';
-    attachedKnot: Knot | null;
-    position: Vector2;
-  };
-};
 
 // Legacy mode type for backward compatibility during transition
 export type PullerMode =
   | 'home'                           // In toolbox, not grabbed
-  | 'mouseDragging'                  // Being dragged by mouse
-  | 'touchDragging'                  // Being dragged by touch
+  | 'pointerGrabbed'                 // Being dragged by mouse
   | 'keyboardGrabbedOverHome'        // Keyboard grabbed and positioned over home/toolbox
   | 'keyboardGrabbedOverLeftKnot1'   // Keyboard grabbed and positioned over left knot 1
   | 'keyboardGrabbedOverLeftKnot2'   // Keyboard grabbed and positioned over left knot 2
@@ -53,14 +36,14 @@ export type PullerMode =
   | 'keyboardGrabbedOverRightKnot2'  // Keyboard grabbed and positioned over right knot 2
   | 'keyboardGrabbedOverRightKnot3'  // Keyboard grabbed and positioned over right knot 3
   | 'keyboardGrabbedOverRightKnot4'  // Keyboard grabbed and positioned over right knot 4
-  | 'leftKnot1'                      // Attached to left knot 1
-  | 'leftKnot2'                      // Attached to left knot 2
-  | 'leftKnot3'                      // Attached to left knot 3
-  | 'leftKnot4'                      // Attached to left knot 4
-  | 'rightKnot1'                     // Attached to right knot 1
-  | 'rightKnot2'                     // Attached to right knot 2
-  | 'rightKnot3'                     // Attached to right knot 3
-  | 'rightKnot4';                    // Attached to right knot 4
+  | 'attachedToLeftKnot1'            // Attached to left knot 1
+  | 'attachedToLeftKnot2'            // Attached to left knot 2
+  | 'attachedToLeftKnot3'            // Attached to left knot 3
+  | 'attachedToLeftKnot4'            // Attached to left knot 4
+  | 'attachedToRightKnot1'           // Attached to right knot 1
+  | 'attachedToRightKnot2'           // Attached to right knot 2
+  | 'attachedToRightKnot3'           // Attached to right knot 3
+  | 'attachedToRightKnot4';          // Attached to right knot 4
 
 type SelfOptions = {
   standOffsetX?: number;
@@ -76,13 +59,9 @@ export default class Puller extends PhetioObject {
 
   // The current mode of the puller - this is the authoritative state
   public readonly modeProperty: StringUnionProperty<PullerMode>;
-  
-  // NEW: The simplified state representation
-  // TODO: This is redundant, make it transient. see https://github.com/phetsims/forces-and-motion-basics/issues/379
-  public readonly state: PullerState;
 
   // whether the puller is currently being dragged (derived from mode)
-  public readonly userControlledProperty: BooleanProperty;
+  public readonly userControlledProperty: TReadOnlyProperty<boolean>;
 
   // the knot that this puller is attached to (derived from mode)
   public readonly knotProperty: Property<Knot | null>;
@@ -100,8 +79,6 @@ export default class Puller extends PhetioObject {
 
   // emits an event when the puller starts being user controlled
   public readonly userControlledEmitter = new Emitter();
-
-  public node: PullerNode | null = null;
 
   /**
    * @param x initial x-coordinate (in meters)
@@ -143,37 +120,23 @@ export default class Puller extends PhetioObject {
     // Initialize the mode property - this is the authoritative state
     this.modeProperty = new StringUnionProperty<PullerMode>( 'home', {
       validValues: [
-        'home', 'mouseDragging', 'touchDragging', 'keyboardGrabbedOverHome',
+        'home', 'pointerGrabbed', 'keyboardGrabbedOverHome',
         'keyboardGrabbedOverLeftKnot1', 'keyboardGrabbedOverLeftKnot2', 'keyboardGrabbedOverLeftKnot3', 'keyboardGrabbedOverLeftKnot4',
         'keyboardGrabbedOverRightKnot1', 'keyboardGrabbedOverRightKnot2', 'keyboardGrabbedOverRightKnot3', 'keyboardGrabbedOverRightKnot4',
-        'leftKnot1', 'leftKnot2', 'leftKnot3', 'leftKnot4',
-        'rightKnot1', 'rightKnot2', 'rightKnot3', 'rightKnot4'
+        'attachedToLeftKnot1', 'attachedToLeftKnot2', 'attachedToLeftKnot3', 'attachedToLeftKnot4',
+        'attachedToRightKnot1', 'attachedToRightKnot2', 'attachedToRightKnot3', 'attachedToRightKnot4'
       ],
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth'
     } );
-    
-    // Initialize the simplified state
-    this.state = {
-      location: 'toolbox',
-      dragType: 'none',
-      attachedKnot: null,
-      targetKnot: null
-    };
 
     // Derived property: userControlled is true when mode starts with 'grabbedOver'
-    this.userControlledProperty = new BooleanProperty( false, {
+    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], mode => {
+      return mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'pointerGrabbed';
+    }, {
       tandem: tandem.createTandem( 'userControlledProperty' ),
-      phetioReadOnly: true
-    } );
-
-    // Keep userControlled in sync with mode
-    this.modeProperty.link( mode => {
-      this.userControlledProperty.set( mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'mouseDragging' || mode === 'touchDragging' );
-      
-      // Also update the new state object when mode changes
-      this.updateStateFromMode( mode );
+      phetioValueType: BooleanIO
     } );
 
     // Derived property: knotProperty is derived from mode
@@ -223,11 +186,13 @@ export default class Puller extends PhetioObject {
    * This should be called from the model after all knots are created.
    */
   public setupKnotMapping( knots: Knot[] ): void {
+
     // Store reference for mode conversion
     this.knots = knots;
+
     // Create mapping from mode to knot
     const modeToKnot = ( mode: PullerMode ): Knot | null => {
-      if ( mode === 'home' || mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'mouseDragging' || mode === 'touchDragging' ) {
+      if ( mode === 'home' || mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'pointerGrabbed' ) {
         return null;
       }
 
@@ -299,50 +264,6 @@ export default class Puller extends PhetioObject {
   }
 
   /**
-   * Update the new state object based on the legacy mode
-   */
-  private updateStateFromMode( mode: PullerMode ): void {
-    // Parse the mode string to update state
-    if ( mode === 'home' ) {
-      this.state.location = 'toolbox';
-      this.state.dragType = 'none';
-      this.state.attachedKnot = null;
-      this.state.targetKnot = null;
-    }
-    else if ( mode === 'mouseDragging' ) {
-      this.state.dragType = 'mouse';
-      // Don't change location - it stays whatever it was
-    }
-    else if ( mode === 'touchDragging' ) {
-      this.state.dragType = 'touch';
-      // Don't change location - it stays whatever it was
-    }
-    else if ( mode.startsWith( 'keyboardGrabbedOver' ) ) {
-      this.state.dragType = 'keyboard';
-      
-      // Parse the target from the mode string
-      if ( mode === 'keyboardGrabbedOverHome' ) {
-        this.state.location = 'toolbox';
-        this.state.targetKnot = null;
-      }
-      else {
-        this.state.location = 'rope';
-        // Extract knot info from mode (e.g., 'keyboardGrabbedOverLeftKnot1')
-        const knotId = this.parseKnotFromMode( mode );
-        this.state.targetKnot = knotId ? this.getKnotById( knotId ) : null;
-      }
-    }
-    else if ( mode.startsWith( 'left' ) || mode.startsWith( 'right' ) ) {
-      // Attached to a knot
-      this.state.location = 'rope';
-      this.state.dragType = 'none';
-      const knotId = this.parseKnotFromMode( mode );
-      this.state.attachedKnot = knotId ? this.getKnotById( knotId ) : null;
-      this.state.targetKnot = null;
-    }
-  }
-
-  /**
    * Parse knot identifier from mode string
    */
   private parseKnotFromMode( mode: string ): { side: 'left' | 'right'; index: number } | null {
@@ -361,7 +282,7 @@ export default class Puller extends PhetioObject {
    */
   private getKnotById( id: { side: 'left' | 'right'; index: number } ): Knot | null {
     if ( !this.knots ) { return null; }
-    
+
     const sideKnots = this.knots.filter( k =>
       k.type === ( id.side === 'left' ? 'blue' : 'red' )
     );
@@ -369,51 +290,25 @@ export default class Puller extends PhetioObject {
   }
 
   /**
-   * Convert current state to legacy mode string (for backward compatibility)
-   */
-  public getModeFromState(): PullerMode {
-    const { location, dragType, attachedKnot, targetKnot } = this.state;
-    
-    if ( dragType === 'mouse' ) { return 'mouseDragging'; }
-    if ( dragType === 'touch' ) { return 'touchDragging'; }
-    
-    if ( location === 'toolbox' && dragType === 'none' ) { return 'home'; }
-    
-    if ( dragType === 'keyboard' ) {
-      if ( location === 'toolbox' ) { return 'keyboardGrabbedOverHome'; }
-      if ( targetKnot ) {
-        return this.getModeForKnot( targetKnot, true );
-      }
-    }
-    
-    if ( location === 'rope' && attachedKnot && dragType === 'none' ) {
-      return this.getModeForKnot( attachedKnot, false );
-    }
-    
-    // Fallback
-    return 'home';
-  }
-
-  /**
    * Simplified grab method using new state
    */
   public grab( dragType: 'mouse' | 'touch' | 'keyboard' ): void {
-    // Store origin for escape functionality
-    this.state.grabOrigin = {
-      location: this.state.location,
-      attachedKnot: this.state.attachedKnot,
-      position: this.positionProperty.get().copy()
-    };
-    
-    // Update state
-    this.state.dragType = dragType;
-    if ( this.state.attachedKnot ) {
-      this.state.targetKnot = this.state.attachedKnot;
-      this.state.attachedKnot = null;
-    }
-    
-    // Sync to legacy mode
-    this.modeProperty.set( this.getModeFromState() );
+    // // Store origin for escape functionality
+    // this.state.grabOrigin = {
+    //   location: this.state.location,
+    //   attachedKnot: this.state.attachedKnot,
+    //   position: this.positionProperty.get().copy()
+    // };
+    //
+    // // Update state
+    // this.state.dragType = dragType;
+    // if ( this.state.attachedKnot ) {
+    //   this.state.targetKnot = this.state.attachedKnot;
+    //   this.state.attachedKnot = null;
+    // }
+    //
+    // // Sync to legacy mode
+    // this.modeProperty.set( this.getModeFromState() );
   }
 
   /**
@@ -421,68 +316,52 @@ export default class Puller extends PhetioObject {
    */
   public drop(): void {
     // Clear drag state
-    this.state.dragType = 'none';
-    
-    // If we have a target knot, attach to it
-    if ( this.state.targetKnot ) {
-      this.state.attachedKnot = this.state.targetKnot;
-      this.state.location = 'rope';
-      this.state.targetKnot = null;
-    }
-    else {
-      // Return to toolbox
-      this.state.location = 'toolbox';
-      this.state.attachedKnot = null;
-    }
-    
-    // Clear grab origin
-    this.state.grabOrigin = undefined;
-    
-    // Sync to legacy mode
-    this.modeProperty.set( this.getModeFromState() );
+    // this.state.dragType = 'none';
+    //
+    // // If we have a target knot, attach to it
+    // if ( this.state.targetKnot ) {
+    //   this.state.attachedKnot = this.state.targetKnot;
+    //   this.state.location = 'rope';
+    //   this.state.targetKnot = null;
+    // }
+    // else {
+    //   // Return to toolbox
+    //   this.state.location = 'toolbox';
+    //   this.state.attachedKnot = null;
+    // }
+    //
+    // // Clear grab origin
+    // this.state.grabOrigin = undefined;
+    //
+    // // Sync to legacy mode
+    // this.modeProperty.set( this.getModeFromState() );
   }
 
   /**
    * Cancel grab and return to origin
    */
   public cancelGrab(): void {
-    if ( this.state.grabOrigin ) {
-      // Restore original state
-      this.state.location = this.state.grabOrigin.location;
-      this.state.attachedKnot = this.state.grabOrigin.attachedKnot;
-      this.state.dragType = 'none';
-      this.state.targetKnot = null;
-      this.positionProperty.set( this.state.grabOrigin.position );
-      
-      // Clear grab origin
-      this.state.grabOrigin = undefined;
-      
-      // Sync to legacy mode
-      this.modeProperty.set( this.getModeFromState() );
-    }
+    // if ( this.state.grabOrigin ) {
+    //   // Restore original state
+    //   this.state.location = this.state.grabOrigin.location;
+    //   this.state.attachedKnot = this.state.grabOrigin.attachedKnot;
+    //   this.state.dragType = 'none';
+    //   this.state.targetKnot = null;
+    //   this.positionProperty.set( this.state.grabOrigin.position );
+    //
+    //   // Clear grab origin
+    //   this.state.grabOrigin = undefined;
+    //
+    //   // Sync to legacy mode
+    //   this.modeProperty.set( this.getModeFromState() );
+    // }
   }
 
   /**
    * Check if puller is currently grabbed/dragged
    */
   public isGrabbed(): boolean {
-    return this.state.dragType !== 'none';
-  }
-
-  /**
-   * Get the logical group this puller belongs to (for focus management)
-   */
-  public getLogicalGroup(): 'blue-toolbox' | 'red-toolbox' | 'blue-rope' | 'red-rope' | 'dragging' {
-    // Only mouse/touch dragging should be in 'dragging' group
-    // Keyboard grabbed pullers should remain in their logical location group for focus management
-    if ( this.state.dragType === 'mouse' || this.state.dragType === 'touch' ) {
-      return 'dragging';
-    }
-    
-    const colorPrefix = this.type === 'blue' ? 'blue' : 'red';
-    const locationSuffix = this.state.location === 'toolbox' ? 'toolbox' : 'rope';
-    
-    return `${colorPrefix}-${locationSuffix}`;
+    return this.modeProperty.value.includes( 'Grabbed' );
   }
 }
 
