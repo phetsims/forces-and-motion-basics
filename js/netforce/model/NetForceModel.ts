@@ -209,35 +209,14 @@ export default class NetForceModel extends PhetioObject {
     // and change the numberPullersAttached
     this.pullers.forEach( puller => {
 
-      puller.positionProperty.link( this.updateVisibleKnots.bind( this ) );
-      puller.userControlledEmitter.addListener( () => {
-        this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
-        this.numberBluePullersAttachedProperty.set( this.countBluePullersAttached() );
-        this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
-      } );
-      puller.droppedEmitter.addListener( ( interactionType: 'mouse' | 'keyboard' ) => {
-        let knot: Knot | null;
-
-        if ( interactionType === 'mouse' ) {
-          // For mouse interactions, use position-based target detection
-          knot = this.getTargetKnot( puller );
-        }
-        else {
-          // For keyboard interactions, use mode-based target detection
-          knot = this.getKnotFromMode( puller );
-        }
-
+      puller.positionProperty.link( this.updateKnotHighlights.bind( this ) );
+      puller.modeProperty.link( mode => {
+        const knot = this.getKnotFromMode( puller );
         if ( knot ) {
           this.movePullerToKnot( puller, knot );
         }
-        else {
-          // Return puller to toolbox when no valid knot is found
-          puller.positionProperty.reset();
-          puller.modeProperty.set( 'home' );
-          puller.lastPlacementProperty.set( 'home' );
-        }
       } );
-      puller.knotProperty.link( () => {
+      puller.modeProperty.link( () => {
         this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
         this.numberBluePullersAttachedProperty.set( this.countBluePullersAttached() );
         this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
@@ -270,14 +249,14 @@ export default class NetForceModel extends PhetioObject {
 
       puller.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
       // Set mode instead of knotProperty directly to trigger group transfers
-      puller.modeProperty.set( puller.getModeForKnot( knot ) );
+      // puller.modeProperty.set( puller.getModeForKnot( knot ) );
     }
 
     // Or go back home
     else {
       puller.positionProperty.reset();
       // Set mode to home to trigger group transfers
-      puller.modeProperty.set( 'home' );
+      // puller.modeProperty.set( PullerModeFactory.home() );
     }
 
     // Keep track of their position to change the attach/detach thresholds, see NetForceModel.getTargetKnot
@@ -289,7 +268,7 @@ export default class NetForceModel extends PhetioObject {
   private countAttachedPullers(): number {
     let count = 0;
     for ( let i = 0; i < this.pullers.length; i++ ) {
-      if ( this.pullers[ i ].knotProperty.get() ) {
+      if ( this.pullers[ i ].modeProperty.value.isAttached() ) {
         count++;
       }
     }
@@ -300,7 +279,7 @@ export default class NetForceModel extends PhetioObject {
   private countBluePullersAttached(): number {
     let count = 0;
     for ( let i = 0; i < this.pullers.length; i++ ) {
-      if ( this.pullers[ i ].knotProperty.get() && this.pullers[ i ].type === 'blue' ) {
+      if ( this.pullers[ i ].modeProperty.value.isAttached() && this.pullers[ i ].type === 'blue' ) {
         count++;
       }
     }
@@ -311,18 +290,18 @@ export default class NetForceModel extends PhetioObject {
   private countRedPullersAttached(): number {
     let count = 0;
     for ( let i = 0; i < this.pullers.length; i++ ) {
-      if ( this.pullers[ i ].knotProperty.get() && this.pullers[ i ].type === 'red' ) {
+      if ( this.pullers[ i ].modeProperty.value.isAttached() && this.pullers[ i ].type === 'red' ) {
         count++;
       }
     }
     return count;
   }
 
-  // Change knot visibility (halo highlight) when the pullers are dragged
-  private updateVisibleKnots(): void {
+  // Change the knot visibility (halo highlight) when the pullers are dragged
+  private updateKnotHighlights(): void {
     this.knots.forEach( knot => { knot.isHighlightedProperty.set( false ); } );
     this.pullers.forEach( puller => {
-      if ( puller.userControlledProperty.get() ) {
+      if ( puller.modeProperty.value.isUserControlled() ) {
         const knot = this.getTargetKnot( puller );
         if ( knot ) {
           knot.isHighlightedProperty.set( true );
@@ -335,7 +314,7 @@ export default class NetForceModel extends PhetioObject {
    * Gets the puller attached to a knot, or null if none attached to that knot.
    */
   public getPuller( knot: Knot ): Puller | null {
-    const find = _.find( this.pullers, puller => puller.knotProperty.get() === knot );
+    const find = _.find( this.pullers, puller => puller.modeProperty.value.getKnotIndex() === this.knots.indexOf( knot ) );
     return typeof ( find ) !== 'undefined' ? find : null;
   }
 
@@ -387,24 +366,23 @@ export default class NetForceModel extends PhetioObject {
 
   /**
    * Get the knot that corresponds to the puller's current mode.
-   * For keyboard grabbed modes like 'keyboardGrabbedOverLeftKnot1', returns the target knot.
-   * For 'keyboardGrabbedOverHome', returns null.
+   * For keyboard grabbed modes, returns the target knot.
+   * For grabbed over home, returns null.
    */
   private getKnotFromMode( puller: Puller ): Knot | null {
     const mode = puller.modeProperty.get();
 
     // If grabbed over home, return null (puller should return to toolbox)
-    if ( mode === 'keyboardGrabbedOverHome' ) {
+    if ( mode.isKeyboardGrabbedOverHome() ) {
       return null;
     }
 
-    // Extract knot info from keyboard grabbed mode (e.g., 'keyboardGrabbedOverLeftKnot1' -> left, index 0)
-    if ( mode.startsWith( 'keyboardGrabbedOver' ) ) {
-      const isLeft = mode.includes( 'Left' );
-      const knotNumberMatch = mode.match( /(\d+)$/ );
-      if ( knotNumberMatch ) {
-        const knotIndex = parseInt( knotNumberMatch[ 1 ], 10 ) - 1; // Convert 1-based to 0-based
-        const filteredKnots = this.knots.filter( knot => knot.type === ( isLeft ? 'blue' : 'red' ) );
+    // Extract knot info from keyboard grabbed mode
+    if ( mode.isKeyboardGrabbedOverKnot() ) {
+      const side = mode.getKeyboardGrabbedKnotSide();
+      const knotIndex = mode.getKeyboardGrabbedKnotIndex();
+      if ( side && knotIndex !== null ) {
+        const filteredKnots = this.knots.filter( knot => knot.type === ( side === 'left' ? 'blue' : 'red' ) );
         return filteredKnots[ knotIndex ] || null;
       }
     }
@@ -453,7 +431,7 @@ export default class NetForceModel extends PhetioObject {
     this.cart.reset();
     this.pullers.forEach( puller => {
       // if the puller is being dragged, we will need to cancel the drag in PullerNode
-      if ( !puller.userControlledProperty.get() ) {
+      if ( !puller.modeProperty.value.isUserControlled() ) {
         puller.reset();
       }
     } );
@@ -522,6 +500,8 @@ export default class NetForceModel extends PhetioObject {
 
     // move the knots and the pullers on those knots
     this.knots.forEach( knot => { knot.positionProperty.set( knot.initX + newX ); } );
+
+    this.pullers.forEach( puller => puller.step() );
   }
 
   // Gets the net force on the cart, applied by both left and right pullers
@@ -533,7 +513,7 @@ export default class NetForceModel extends PhetioObject {
    * Get an array of pullers of the specified type (color string)
    */
   private getPullers( type: 'red' | 'blue' ): Puller[] {
-    return _.filter( this.pullers, ( puller: Puller ) => puller.type === type && puller.knotProperty.value !== null );
+    return _.filter( this.pullers, ( puller: Puller ) => puller.type === type && puller.modeProperty.value.isAttached() );
   }
 
   /**

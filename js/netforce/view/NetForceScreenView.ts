@@ -430,46 +430,47 @@ export default class NetForceScreenView extends ScreenView {
         }
       );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-      pullerGroup.addPullerNode( pullerNode, this.model );
+      pullerGroup.addChild( pullerNode );
       this.pullerNodes.push( pullerNode );
 
       // Register with the centralized focus manager
       // this.pullerFocusManager.registerPuller( pullerNode );
 
       // Listen for knot property changes to move pullers between groups
-      puller.knotProperty.link( ( newKnot, oldKnot ) => {
-        const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-        const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
+      puller.modeProperty.link( ( mode, oldMode ) => {
+        // const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
+        // const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
 
-        if ( newKnot !== null && oldKnot === null ) {
-          // Puller attached to rope - move from toolbox to rope group
-          if ( toolboxGroup.pullerNodes.includes( pullerNode ) ) {
-            toolboxGroup.removePullerNode( pullerNode );
-            ropeGroup.addPullerNode( pullerNode, this.model );
-          }
-        }
-        else if ( newKnot === null && oldKnot !== null ) {
-          // Puller detached from rope - move from rope group back to toolbox
-          if ( ropeGroup.ropePullerNodes.includes( pullerNode ) ) {
-            ropeGroup.removePullerNode( pullerNode );
-            toolboxGroup.addPullerNode( pullerNode, this.model );
-          }
-        }
+        // TODO see https://github.com/phetsims/forces-and-motion-basics/issues/379
+        // if ( newKnot !== null && oldKnot === null ) {
+        //   // Puller attached to rope - move from toolbox to rope group
+        //   if ( toolboxGroup.pullerNodes.includes( pullerNode ) ) {
+        //     toolboxGroup.removePullerNode( pullerNode );
+        //     ropeGroup.addPullerNode( pullerNode, this.model );
+        //   }
+        // }
+        // else if ( newKnot === null && oldKnot !== null ) {
+        //   // Puller detached from rope - move from rope group back to toolbox
+        //   if ( ropeGroup.ropePullerNodes.includes( pullerNode ) ) {
+        //     ropeGroup.removePullerNode( pullerNode );
+        //     toolboxGroup.addPullerNode( pullerNode, this.model );
+        //   }
+        // }
       } );
 
 
       // Listen for drops to handle auto-focus to next puller
-      puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
-        // Only handle keyboard drops for auto-focus
-        if ( source === 'keyboard' ) {
-          // Check if the puller was dropped on the rope (has a knot)
-          if ( puller.knotProperty.get() !== null ) {
-            // The puller was dropped on the rope, focus next puller in toolbox
-            const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-            toolboxGroup.focusNextPullerInToolbox( pullerNode );
-          }
-        }
-      } );
+      // puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
+      //   // Only handle keyboard drops for auto-focus
+      //   if ( source === 'keyboard' ) {
+      //     // Check if the puller was dropped on the rope (has a knot)
+      //     if ( puller.knotProperty.get() !== null ) {
+      //       // The puller was dropped on the rope, focus next puller in toolbox
+      //       const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
+      //       toolboxGroup.focusNextPullerInToolbox( pullerNode );
+      //     }
+      //   }
+      // } );
     } );
 
     ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
@@ -571,10 +572,10 @@ export default class NetForceScreenView extends ScreenView {
         // this.pullerFocusManager.reset();
 
         // Reset the focus state of all puller groups to ensure proper keyboard navigation
-        this.leftPullerGroup.reset();
-        this.rightPullerGroup.reset();
-        this.leftRopePullerGroup.reset();
-        this.rightRopePullerGroup.reset();
+        // this.leftPullerGroup.reset();
+        // this.rightPullerGroup.reset();
+        // this.leftRopePullerGroup.reset();
+        // this.rightRopePullerGroup.reset();
       },
       radius: 23,
       tandem: tandem.createTandem( 'resetAllButton' )

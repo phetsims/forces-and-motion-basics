@@ -6,8 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -18,33 +16,15 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
 import NetForceModel from './NetForceModel.js';
 
-// Legacy mode type for backward compatibility during transition
-export type PullerMode =
-  | 'home'                           // In toolbox, not grabbed
-  | 'pointerGrabbed'                 // Being dragged by mouse
-  | 'keyboardGrabbedOverHome'        // Keyboard grabbed and positioned over home/toolbox
-  | 'keyboardGrabbedOverLeftKnot1'   // Keyboard grabbed and positioned over left knot 1
-  | 'keyboardGrabbedOverLeftKnot2'   // Keyboard grabbed and positioned over left knot 2
-  | 'keyboardGrabbedOverLeftKnot3'   // Keyboard grabbed and positioned over left knot 3
-  | 'keyboardGrabbedOverLeftKnot4'   // Keyboard grabbed and positioned over left knot 4
-  | 'keyboardGrabbedOverRightKnot1'  // Keyboard grabbed and positioned over right knot 1
-  | 'keyboardGrabbedOverRightKnot2'  // Keyboard grabbed and positioned over right knot 2
-  | 'keyboardGrabbedOverRightKnot3'  // Keyboard grabbed and positioned over right knot 3
-  | 'keyboardGrabbedOverRightKnot4'  // Keyboard grabbed and positioned over right knot 4
-  | 'attachedToLeftKnot1'            // Attached to left knot 1
-  | 'attachedToLeftKnot2'            // Attached to left knot 2
-  | 'attachedToLeftKnot3'            // Attached to left knot 3
-  | 'attachedToLeftKnot4'            // Attached to left knot 4
-  | 'attachedToRightKnot1'           // Attached to right knot 1
-  | 'attachedToRightKnot2'           // Attached to right knot 2
-  | 'attachedToRightKnot3'           // Attached to right knot 3
-  | 'attachedToRightKnot4';          // Attached to right knot 4
+import PullerMode from './PullerMode.js';
+import PullerModeFactory from './PullerModeFactory.js';
 
 type SelfOptions = {
   standOffsetX?: number;
@@ -59,27 +39,13 @@ export default class Puller extends PhetioObject {
   public readonly forceProperty: TReadOnlyProperty<number>;
 
   // The current mode of the puller - this is the authoritative state
-  public readonly modeProperty: StringUnionProperty<PullerMode>;
-
-  // whether the puller is currently being dragged (derived from mode)
-  public readonly userControlledProperty: TReadOnlyProperty<boolean>;
-
-  // the knot that this puller is attached to (derived from mode)
-  public readonly knotProperty: Property<Knot | null>;
+  public readonly modeProperty: Property<PullerMode>;
 
   // the position of this puller
   public readonly positionProperty: Vector2Property;
 
   // a classified position in the play area
   public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>;
-
-  // emits an event when the puller is dropped
-  public readonly droppedEmitter = new Emitter<[ 'mouse' | 'keyboard' ]>( {
-    parameters: [ { valueType: 'string' } ]
-  } );
-
-  // emits an event when the puller starts being user controlled
-  public readonly userControlledEmitter = new Emitter();
 
   /**
    * @param model the NetForceModel that this puller is associated with, for context
@@ -121,35 +87,18 @@ export default class Puller extends PhetioObject {
     } );
 
     // Initialize the mode property - this is the authoritative state
-    this.modeProperty = new StringUnionProperty<PullerMode>( 'home', {
-      validValues: [
-        'home', 'pointerGrabbed', 'keyboardGrabbedOverHome',
-        'keyboardGrabbedOverLeftKnot1', 'keyboardGrabbedOverLeftKnot2', 'keyboardGrabbedOverLeftKnot3', 'keyboardGrabbedOverLeftKnot4',
-        'keyboardGrabbedOverRightKnot1', 'keyboardGrabbedOverRightKnot2', 'keyboardGrabbedOverRightKnot3', 'keyboardGrabbedOverRightKnot4',
-        'attachedToLeftKnot1', 'attachedToLeftKnot2', 'attachedToLeftKnot3', 'attachedToLeftKnot4',
-        'attachedToRightKnot1', 'attachedToRightKnot2', 'attachedToRightKnot3', 'attachedToRightKnot4'
-      ],
+    this.modeProperty = new Property<PullerMode>( PullerModeFactory.home(), {
+      valueType: PullerMode,
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioFeatured: true,
-      phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth'
+      phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth',
+      phetioValueType: PullerModeIO,
+      valueComparisonStrategy: 'equalsFunction'
     } );
 
-    // Derived property: userControlled is true when mode starts with 'grabbedOver'
-    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], mode => {
-      return mode.startsWith( 'keyboardGrabbedOver' ) || mode === 'pointerGrabbed';
-    }, {
-      tandem: tandem.createTandem( 'userControlledProperty' ),
-      phetioValueType: BooleanIO
+    this.modeProperty.link( mode => {
+      console.log( `Puller mode changed to: ${mode.toString()}` );
     } );
-
-    // Derived property: knotProperty is derived from mode
-    this.knotProperty = new Property<Knot | null>( null, {
-      tandem: tandem.createTandem( 'knotProperty' ),
-      phetioValueType: NullableIO( Knot.KnotIO ),
-      phetioFeatured: true
-    } );
-
-    // We'll set up the mode -> knot mapping after we have access to the model/knots
 
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
@@ -164,78 +113,41 @@ export default class Puller extends PhetioObject {
       phetioReadOnly: true
     } );
 
-    // Move with the knot
-    const updatePosition = ( knotX: number ) => {
-      this.positionProperty.set( new Vector2( knotX, this.positionProperty.get().y ) );
-    };
-
     // When the knot changes, wire up as a listener to the new knot
-    this.knotProperty.link( ( newKnot, oldKnot ) => {
+    this.modeProperty.link( ( newMode, oldMode ) => {
 
-      //Unlink from the previous knot if there was one
-      if ( oldKnot ) {
-        oldKnot.positionProperty.unlink( updatePosition );
-      }
+      const newKnot = newMode.getKnotIndex();
 
       //Synchronize our position with the knot.
       if ( newKnot ) {
-        newKnot.positionProperty.link( updatePosition );
-      }
-    } );
-
-    this.modeProperty.link( mode => {
-      if ( mode === 'attachedToLeftKnot1' ) {
-        this.knotProperty.value = this.model.knots[ 0 ];
-      }
-      else if ( mode === 'attachedToLeftKnot2' ) {
-        this.knotProperty.value = this.model.knots[ 1 ];
-      }
-      else if ( mode === 'attachedToLeftKnot3' ) {
-        this.knotProperty.value = this.model.knots[ 2 ];
-      }
-      else if ( mode === 'attachedToLeftKnot4' ) {
-        this.knotProperty.value = this.model.knots[ 3 ];
-      }
-      else if ( mode === 'attachedToRightKnot1' ) {
-        this.knotProperty.value = this.model.knots[ 4 ];
-      }
-      else if ( mode === 'attachedToRightKnot2' ) {
-        this.knotProperty.value = this.model.knots[ 5 ];
-      }
-      else if ( mode === 'attachedToRightKnot3' ) {
-        this.knotProperty.value = this.model.knots[ 6 ];
-      }
-      else if ( mode === 'attachedToRightKnot4' ) {
-        this.knotProperty.value = this.model.knots[ 7 ];
-      }
-      else {
-        // For all other modes (home, pointerGrabbed, keyboardGrabbedOver*), no knot attachment
-        this.knotProperty.value = null;
+        model.knots[ newKnot ].positionProperty.set( this.positionProperty.get().x );
       }
     } );
   }
 
+  public step(): void {
+    if ( this.getKnot() ) {
+      // If attached to a knot, update position to match the knot's position
+      const knot = this.getKnot();
+      if ( knot ) {
+        this.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
+      }
+    }
+  }
+
   /**
-   * Get the mode string for a given knot
+   * Get the mode for attachment to a given knot
    */
   public getModeForKnot( knot: Knot | null ): PullerMode {
     if ( knot === null ) {
-      return 'home';
+      return PullerModeFactory.home();
     }
 
     const sameTypeKnots = this.model.knots.filter( k => this.type === knot.type ) || [];
     const knotIndex = sameTypeKnots.indexOf( knot );
-    const knotNumber = knotIndex + 1; // Convert to 1-based indexing
+    const side = knot.type === 'blue' ? 'left' : 'right';
 
-    return knot.type === 'blue'
-           ? ( knotNumber === 1 ? 'attachedToLeftKnot1' :
-               knotNumber === 2 ? 'attachedToLeftKnot2' :
-               knotNumber === 3 ? 'attachedToLeftKnot3' :
-               knotNumber === 4 ? 'attachedToLeftKnot4' : 'home' )
-           : ( knotNumber === 1 ? 'attachedToRightKnot1' :
-               knotNumber === 2 ? 'attachedToRightKnot2' :
-               knotNumber === 3 ? 'attachedToRightKnot3' :
-               knotNumber === 4 ? 'attachedToRightKnot4' : 'home' );
+    return PullerModeFactory.attachedToKnot( side, knotIndex );
   }
 
   // Grab origin storage for cancel functionality
@@ -262,19 +174,6 @@ export default class Puller extends PhetioObject {
     // No additional action needed - the knotProperty will be derived as null
   }
 
-  /**
-   * Parse knot identifier from mode string
-   */
-  private parseKnotFromMode( mode: string ): { side: 'left' | 'right'; index: number } | null {
-    const match = mode.match( /(left|right)Knot(\d+)/i );
-    if ( match ) {
-      return {
-        side: match[ 1 ].toLowerCase() as 'left' | 'right',
-        index: parseInt( match[ 2 ], 10 ) - 1 // Convert to 0-based
-      };
-    }
-    return null;
-  }
 
   /**
    * Store current state as grab origin for potential cancel operation
@@ -302,7 +201,7 @@ export default class Puller extends PhetioObject {
 
     if ( dragType === 'mouse' || dragType === 'touch' ) {
       // For mouse/touch, set to pointerGrabbed and disconnect from knot
-      this.modeProperty.set( 'pointerGrabbed' );
+      this.modeProperty.set( PullerModeFactory.pointerGrabbed() );
 
       // The disconnect will happen in the drag listener
     }
@@ -315,7 +214,7 @@ export default class Puller extends PhetioObject {
   public drop(): void {
     const currentMode = this.modeProperty.get();
 
-    if ( currentMode === 'pointerGrabbed' ) {
+    if ( currentMode.isPointerGrabbed() ) {
       // For mouse/touch drops, determine destination based on position
       // This will be handled by the drag listener in PullerNode
       // The drag listener will call dropAtKnot() or dropAtHome()
@@ -340,7 +239,7 @@ export default class Puller extends PhetioObject {
    * Drop at home/toolbox (called by mouse/touch drag listener)
    */
   public dropAtHome(): void {
-    this.modeProperty.set( 'home' );
+    this.modeProperty.set( PullerModeFactory.home() );
     this.lastPlacementProperty.set( 'home' );
     this.clearGrabOrigin();
   }
@@ -363,8 +262,36 @@ export default class Puller extends PhetioObject {
    * Check if puller is currently grabbed/dragged
    */
   public isGrabbed(): boolean {
-    return this.modeProperty.value.includes( 'Grabbed' );
+    return this.modeProperty.value.isGrabbed();
+  }
+
+  public getKnot(): Knot | null {
+    return this.modeProperty.value.getKnot( this.model );
   }
 }
+
+type PullerModeState = {
+  knot: number | null;
+};
+
+const PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
+  valueType: PullerMode,
+  stateSchema: {
+    knot: NullableIO( NumberIO )
+  },
+  toStateObject: pullerMode => {
+    return {
+      knot: pullerMode.getKnotIndex()
+    };
+  },
+  fromStateObject: stateObject => {
+    if ( stateObject.knot === null ) {
+      return PullerModeFactory.home();
+    }
+    else {
+      return PullerModeFactory.attachedToKnot( stateObject.knot <= 3 ? 'left' : 'right', stateObject.knot );
+    }
+  }
+} );
 
 forcesAndMotionBasics.register( 'Puller', Puller );

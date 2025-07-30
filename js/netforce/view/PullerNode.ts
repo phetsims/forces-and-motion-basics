@@ -21,6 +21,8 @@ import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPref
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
+import PullerMode from '../model/PullerMode.js';
+import PullerModeFactory from '../model/PullerModeFactory.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import PullerKeyboardSupport from './PullerKeyboardSupport.js';
 
@@ -108,9 +110,9 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         start: event => {
 
           // check to see if a puller is knotted - if it is, store the knot
-          const knot = puller.knotProperty.get();
+          const knot = puller.modeProperty.value.getKnot( this.puller.model );
 
-          puller.modeProperty.set( 'pointerGrabbed' );
+          puller.modeProperty.set( PullerModeFactory.pointerGrabbed() );
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();
@@ -119,7 +121,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           // fire updates
           // puller.userControlledProperty.set( true );
           this.moveToFront();
-          puller.userControlledEmitter.emit();
 
           // if the puller was knotted, update the image position so that it is centered on the knot it was previously
           // grabbing
@@ -128,29 +129,28 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           }
         },
         end: () => {
+
           // Determine drop location using the model's existing getTargetKnot method
           const dropKnot = model.getTargetKnot( puller );
-          
+
           if ( dropKnot ) {
             puller.dropAtKnot( dropKnot );
           }
- else {
+          else {
             puller.dropAtHome();
           }
-          
+
           // Update visuals
           this.updatePosition( puller, model );
           this.updateImage( puller, model );
-          
-          // Emit dropped event
-          puller.droppedEmitter.emit( 'mouse' );
 
           // Add accessible response
-          if ( puller.knotProperty.get() ) {
-            const knotDescription = this.getKnotDescription( puller.knotProperty.get()! );
+          const knot = puller.modeProperty.value.getKnot( puller.model );
+          if ( knot ) {
+            const knotDescription = this.getKnotDescription( knot );
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
           }
- else {
+          else {
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
           }
         }
@@ -162,7 +162,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       this.updatePosition( puller, model );
 
       // cancel the drag
-      if ( puller.userControlledProperty.get() ) {
+      if ( puller.modeProperty.value.isUserControlled() ) {
         this.dragListener.interrupt();
 
         puller.reset();
@@ -184,7 +184,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     this.focusHighlight = highlightFromNode;
 
     puller.modeProperty.link( mode => {
-      if ( mode.startsWith( 'keyboardGrabbed' ) ) {
+      if ( mode.isKeyboardGrabbed() ) {
         highlightFromNode.setDashed( true );
       }
       else {
@@ -209,7 +209,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       if ( !focused && puller.isGrabbed() ) {
         // Handle focus blur during keyboard grab - drop the puller
         const result = PullerKeyboardSupport.handleKeyboardInput( this, this.model, 'enter' );
-        
+
         if ( result.handled ) {
           if ( result.shouldUpdatePosition ) {
             this.updatePosition( this.puller, this.model );
@@ -241,7 +241,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
    * Update the image puller image depending on whether the puller is knotted and pulling
    */
   public updateImage( puller: Puller, model: NetForceModel ): void {
-    const knotted = puller.knotProperty.get();
+    const knotted = puller.getKnot();
     const pulling = model.hasStartedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
     this.image = pulling ? this.pullImage : this.standImage;
   }
@@ -251,21 +251,21 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
    */
   public updatePosition( puller: Puller, model: NetForceModel ): void {
     const currentMode = puller.modeProperty.get();
-    const knotted = puller.knotProperty.get();
-    const pulling = model.hasStartedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
-    
-    if ( currentMode.startsWith( 'keyboardGrabbedOver' ) && currentMode !== 'keyboardGrabbedOverHome' ) {
+    const knot = puller.getKnot();
+    const pulling = model.hasStartedProperty.get() && knot && model.stateProperty.get() !== 'completed';
+
+    if ( currentMode.isKeyboardGrabbedOverKnot() ) {
       // Position over the target knot for keyboard navigation
       const targetKnot = this.getKnotFromKeyboardMode( currentMode, model );
       if ( targetKnot ) {
         this.updatePositionKnotted( puller, model, targetKnot );
       }
     }
-    else if ( knotted ) {
+    else if ( knot ) {
       // Normal attached position
       const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
       const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-      this.setTranslation( puller.knotProperty.get()!.positionProperty.get() + pullingOffset + blueOffset, puller.knotProperty.get()!.y - this.height + 90 );
+      this.setTranslation( knot.positionProperty.get() + pullingOffset + blueOffset, knot.y - this.height + 90 );
     }
     else {
       // Home position (toolbox or pointerGrabbed)
@@ -274,21 +274,20 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   }
 
   /**
-   * Get knot from keyboard grabbed mode string
+   * Get knot from keyboard grabbed mode structure
    */
-  private getKnotFromKeyboardMode( mode: string, model: NetForceModel ): Knot | null {
-    // Extract knot info from mode (e.g., 'keyboardGrabbedOverLeftKnot1' -> left, index 0)
-    const match = mode.match( /keyboardGrabbedOver(Left|Right)Knot(\d+)/i );
-    if ( !match ) {return null;}
-    
-    const isLeft = match[ 1 ].toLowerCase() === 'left';
-    const knotIndex = parseInt( match[ 2 ], 10 ) - 1; // Convert 1-based to 0-based
-    
-    const filteredKnots = model.knots.filter( knot =>
-      knot.type === ( isLeft ? 'blue' : 'red' )
-    );
-    
-    return filteredKnots[ knotIndex ] || null;
+  private getKnotFromKeyboardMode( mode: PullerMode, model: NetForceModel ): Knot | null {
+    if ( mode.isKeyboardGrabbedOverKnot() ) {
+      const side = mode.getKeyboardGrabbedKnotSide();
+      const knot = mode.getKeyboardGrabbedKnotIndex();
+      if ( side && knot !== null ) {
+        const filteredKnots = model.knots.filter( k =>
+          k.type === ( side === 'left' ? 'blue' : 'red' )
+        );
+        return filteredKnots[ knot ] || null;
+      }
+    }
+    return null;
   }
 
   /**
@@ -301,7 +300,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
     const index = sameTypeKnots.indexOf( knot );
     const side = knot.type === 'blue' ? 'left' : 'right';
-    return `${side} knot ${index + 1}`;
+    return `${side} knot ${index}`;
   }
 
   /**
@@ -309,26 +308,25 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
    */
   private handleKeyboardInput( keysPressed: string ): void {
     const result = PullerKeyboardSupport.handleKeyboardInput( this, this.model, keysPressed );
-    
+
     if ( result.handled ) {
       // Update position if needed
       if ( result.shouldUpdatePosition ) {
         this.updatePosition( this.puller, this.model );
       }
-      
+
       // Update image if needed
       if ( result.shouldUpdateImage ) {
         this.updateImage( this.puller, this.model );
       }
-      
+
       // Handle focus if needed
       if ( result.shouldFocus ) {
         this.focusable = true;
         this.focus();
         this.moveToFront();
-        this.puller.userControlledEmitter.emit();
       }
-      
+
       // Add accessibility response if provided
       if ( result.accessibilityResponse ) {
         this.addAccessibleResponse( result.accessibilityResponse );
@@ -346,7 +344,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     this.updatePosition( this.puller, this.model );
 
     // Ensure focusable state is correct (pullers in toolbox should be focusable)
-    if ( this.puller.knotProperty.get() === null ) {
+    if ( this.puller.getKnot() === null ) {
       this.focusable = true;
     }
   }

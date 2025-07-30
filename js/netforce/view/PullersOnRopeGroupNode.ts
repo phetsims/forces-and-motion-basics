@@ -15,7 +15,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
-import PullerNode from './PullerNode.js';
 
 type SelfOptions = {
   // Which side this group represents
@@ -24,13 +23,7 @@ type SelfOptions = {
 
 type PullersOnRopeGroupNodeOptions = SelfOptions & NodeOptions;
 
-type FocusListener = ( focused: boolean ) => void;
-
 export default class PullersOnRopeGroupNode extends Node {
-  public readonly ropePullerNodes: PullerNode[] = [];
-
-  // Store listener references for cleanup
-  private readonly focusListeners = new Map<PullerNode, FocusListener>();
 
   public constructor( model: NetForceModel, toolboxBounds: Bounds2, providedOptions: PullersOnRopeGroupNodeOptions ) {
 
@@ -49,67 +42,6 @@ export default class PullersOnRopeGroupNode extends Node {
       Shape.bounds( new Bounds2( toolboxBounds.minX, toolboxBounds.minY - 230, toolboxBounds.maxX, toolboxBounds.maxY - 230 ).dilated( 10 ) ), {
         innerLineWidth: 5
       } );
-  }
-
-  /**
-   * Add a puller node to the rope group
-   */
-  public addPullerNode( pullerNode: PullerNode, model: NetForceModel ): void {
-    this.ropePullerNodes.push( pullerNode );
-    this.addChild( pullerNode );
-
-    // Sort pullers by position for consistent navigation order
-    this.sortPullers();
-
-    // Ensure the puller is focusable when added to rope group
-    pullerNode.focusable = true;
-  }
-
-  /**
-   * Remove a puller node from the rope group (when it returns to toolbox)
-   */
-  public removePullerNode( pullerNode: PullerNode ): void {
-    const index = this.ropePullerNodes.indexOf( pullerNode );
-    if ( index !== -1 ) {
-      this.ropePullerNodes.splice( index, 1 );
-      this.removeChild( pullerNode );
-
-      // CRITICAL: Unlink the focus listener to prevent conflicts
-      const focusListener = this.focusListeners.get( pullerNode );
-      if ( focusListener ) {
-        pullerNode.focusedProperty.unlink( focusListener );
-        this.focusListeners.delete( pullerNode );
-      }
-    }
-  }
-
-  /**
-   * Sort pullers by their x position for consistent left-to-right navigation
-   */
-  private sortPullers(): void {
-    this.ropePullerNodes.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
-  }
-
-
-  /**
-   * Reset the focus state of all pullers in this rope group to ensure proper tab navigation after reset
-   */
-  public reset(): void {
-    // Sort pullers by position to ensure consistent order after reset
-    this.sortPullers();
-
-    // Restore focusability to all rope pullers
-    this.ropePullerNodes.forEach( pullerNode => {
-      pullerNode.focusable = true;
-    } );
-
-    // If there are pullers on the rope, make the first one focusable but don't focus it
-    if ( this.ropePullerNodes.length > 0 ) {
-      // Reset focus state - make first puller focusable, others non-focusable initially
-      this.ropePullerNodes.forEach( ( pullerNode, index ) => {
-        pullerNode.focusable = index === 0;
-      } );
-    }
   }
 }
 
