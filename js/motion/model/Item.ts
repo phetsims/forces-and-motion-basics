@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -62,7 +63,7 @@ export default class Item extends PhetioObject {
   public readonly pusherInsetProperty: Property<number>;
 
   // whether the item is being user controlled (dragged)
-  public readonly userControlledProperty: BooleanProperty;
+  public readonly userControlledProperty: TReadOnlyProperty<boolean>;
 
   // direction of the item, 'left'|'right'
   public readonly directionProperty: StringUnionProperty<'left' | 'right'>;
@@ -161,7 +162,28 @@ export default class Item extends PhetioObject {
 
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
-    this.userControlledProperty = new BooleanProperty( false );
+    // Initialize mode property first - start in appropriate toolbox based on item type
+    const initialMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+    this.modeProperty = new StringUnionProperty<ItemMode>( initialMode, {
+      validValues: [
+        'inLeftToolbox', 'inRightToolbox', 'onStack',
+        'mouseGrabbed', 'keyboardGrabbedFromLeftToolbox', 'keyboardGrabbedFromRightToolbox', 'keyboardGrabbedFromStack',
+        'animatingToLeftToolbox', 'animatingToRightToolbox', 'animatingToStack'
+      ],
+      tandem: tandem.createTandem( 'modeProperty' ),
+      phetioReadOnly: true,
+      phetioFeatured: true,
+      phetioDocumentation: 'Unified state representing the current mode and location of the item'
+    } );
+
+    // userControlledProperty is now derived from modeProperty
+    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: ItemMode ) => {
+      // Item is user controlled if it's grabbed by mouse or keyboard
+      return mode === 'mouseGrabbed' ||
+             mode === 'keyboardGrabbedFromLeftToolbox' ||
+             mode === 'keyboardGrabbedFromRightToolbox' ||
+             mode === 'keyboardGrabbedFromStack';
+    } );
 
     this.directionProperty = new StringUnionProperty( 'left', {
       validValues: [ 'left', 'right' ],
@@ -190,20 +212,6 @@ export default class Item extends PhetioObject {
       phetioReadOnly: true,
       phetioFeatured: true,
       phetioDocumentation: 'Indicates the item is part of the experiment.'
-    } );
-
-    // Initialize mode property - start in appropriate toolbox based on item type
-    const initialMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
-    this.modeProperty = new StringUnionProperty<ItemMode>( initialMode, {
-      validValues: [
-        'inLeftToolbox', 'inRightToolbox', 'onStack',
-        'mouseGrabbed', 'keyboardGrabbedFromLeftToolbox', 'keyboardGrabbedFromRightToolbox', 'keyboardGrabbedFromStack',
-        'animatingToLeftToolbox', 'animatingToRightToolbox', 'animatingToStack'
-      ],
-      tandem: tandem.createTandem( 'modeProperty' ),
-      phetioReadOnly: true,
-      phetioFeatured: true,
-      phetioDocumentation: 'Unified state representing the current mode and location of the item'
     } );
 
     this.imageScale = imageScale || 1.0;
@@ -290,7 +298,6 @@ export default class Item extends PhetioObject {
    */
   private setupModeCalculation(): void {
     const updateMode = () => {
-      const userControlled = this.userControlledProperty.get();
       const inStack = this.inStackProperty.get();
       const animating = this.animationStateProperty.get().enabled;
       const animatingToStack = animating && this.animationStateProperty.get().destination === 'stack';
@@ -311,24 +318,31 @@ export default class Item extends PhetioObject {
           newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
         }
       }
-      else if ( userControlled ) {
-        // Item is grabbed - need to determine context
-        // For now, we'll use mouseGrabbed as default and let view layer override for keyboard
-        newMode = 'mouseGrabbed';
-      }
       else if ( inStack ) {
         newMode = 'onStack';
       }
       else {
-        // Item is at rest in toolbox
-        newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+        // Item is at rest in toolbox (when not animating and not in stack)
+        // Keep current mode if it's a grabbed state - only update if it's not
+        const currentMode = this.modeProperty.get();
+        const isGrabbed = currentMode === 'mouseGrabbed' ||
+                         currentMode === 'keyboardGrabbedFromLeftToolbox' ||
+                         currentMode === 'keyboardGrabbedFromRightToolbox' ||
+                         currentMode === 'keyboardGrabbedFromStack';
+        
+        if ( !isGrabbed ) {
+          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+        }
+        else {
+          // Keep the current grabbed state
+          newMode = currentMode;
+        }
       }
 
       this.modeProperty.set( newMode );
     };
 
-    // Listen to all relevant property changes
-    this.userControlledProperty.link( updateMode );
+    // Listen to all relevant property changes (not userControlledProperty since it's derived from modeProperty)
     this.inStackProperty.link( updateMode );
     this.animationStateProperty.link( updateMode );
   }
@@ -383,7 +397,7 @@ export default class Item extends PhetioObject {
   public reset(): void {
     this.positionProperty.reset();
     this.pusherInsetProperty.reset();
-    this.userControlledProperty.reset();
+    // userControlledProperty is derived from modeProperty, so no need to reset it
     this.directionProperty.reset();
     this.animationStateProperty.reset();
     this.inStackProperty.reset();

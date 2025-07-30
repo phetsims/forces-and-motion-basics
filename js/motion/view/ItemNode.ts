@@ -15,6 +15,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
@@ -117,21 +118,21 @@ export default class ItemNode extends Node {
 
     // Get the localized item name
     const localizedItemNameProperty = item.name === 'fridge' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty :
-                                     item.name === 'crate1' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate1StringProperty :
-                                     item.name === 'crate2' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate2StringProperty :
-                                     item.name === 'girl' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.girlStringProperty :
-                                     item.name === 'man' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty :
-                                     item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
-                                     item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
-                                     ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty; // fallback
-    
+                                      item.name === 'crate1' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate1StringProperty :
+                                      item.name === 'crate2' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate2StringProperty :
+                                      item.name === 'girl' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.girlStringProperty :
+                                      item.name === 'man' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty :
+                                      item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
+                                      item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
+                                      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty; // fallback
+
     // Create fluent property for accessible name with mass
     const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
     const itemAccessibleNameWithMassProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
       itemName: localizedItemNameProperty,
       mass: item.mystery ? massUnknownStringProperty : pattern0MassUnitsKilogramsStringProperty
     } );
-    
+
     // Create a derived property that switches between plain name and name with mass
     const accessibleNameProperty = new DerivedProperty(
       [ showMassesProperty, itemAccessibleNameWithMassProperty, localizedItemNameProperty ],
@@ -225,7 +226,8 @@ export default class ItemNode extends Node {
         // itemToolbox is in a container so it should not occlude other items in the screen view
         itemToolbox.moveToFront();
 
-        item.userControlledProperty.set( true );
+        // Set mode to mouseGrabbed when dragging with mouse
+        item.modeProperty.set( 'mouseGrabbed' );
         const index = model.stackedItems.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
@@ -238,7 +240,10 @@ export default class ItemNode extends Node {
 
       // End the drag
       end: () => {
-        item.userControlledProperty.set( false );
+        // Reset mode based on where the item ends up (let setupModeCalculation handle it)
+        // We'll temporarily set to a non-grabbed state to trigger the update
+        const toolboxSide = item.getToolboxSide();
+        item.modeProperty.set( toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox' );
 
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
@@ -353,6 +358,18 @@ export default class ItemNode extends Node {
         item.reset();
       }
     } );
+
+    const highlightFromNode = new HighlightFromNode( this );
+    this.focusHighlight = highlightFromNode;
+
+    item.modeProperty.link( mode => {
+      if ( mode.startsWith( 'keyboardGrabbed' ) ) {
+        highlightFromNode.setDashed( true );
+      }
+      else {
+        highlightFromNode.setDashed( false );
+      }
+    } );
   }
 
 
@@ -457,7 +474,8 @@ export default class ItemNode extends Node {
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Escape key - canceling interaction' );
 
       // Cancel interaction and return to original position
-      this.item.userControlledProperty.set( false );
+      const toolboxSide = this.item.getToolboxSide();
+      this.item.modeProperty.set( toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox' );
       this.item.positionProperty.set( this.originalPosition );
 
       // Restore original stack state
@@ -496,8 +514,6 @@ export default class ItemNode extends Node {
         this.item.setKeyboardGrabbedMode( toolboxSide === 'left' ? 'leftToolbox' : 'rightToolbox' );
       }
 
-      this.item.userControlledProperty.set( true );
-
       // Remove from stack if it was there
       const index = this.model.stackedItems.indexOf( this.item );
       if ( index >= 0 ) {
@@ -524,7 +540,9 @@ export default class ItemNode extends Node {
       // Drop the item at current position
       ForcesAndMotionBasicsQueryParameters.debugAltInput && console.log( 'Dropping item via keyboard' );
 
-      this.item.userControlledProperty.set( false );
+      // Reset mode to a non-grabbed state to trigger proper mode calculation
+      const toolboxSide = this.item.getToolboxSide();
+      this.item.modeProperty.set( toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox' );
 
       // Determine drop location based on current position
       const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
