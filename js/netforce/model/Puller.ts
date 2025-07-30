@@ -98,7 +98,8 @@ export default class Puller extends PhetioObject {
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
-      valueComparisonStrategy: 'equalsFunction'
+      valueComparisonStrategy: 'equalsFunction',
+      reentrant: true
     } );
 
     this.lastPlacementProperty = new StringUnionProperty( 'home', {

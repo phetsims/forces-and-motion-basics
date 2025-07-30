@@ -167,7 +167,7 @@ export default class NetForceScreenView extends ScreenView {
   private readonly sumArrow: ReadoutArrow;
   private readonly leftArrow: ReadoutArrow;
   private readonly rightArrow: ReadoutArrow;
-  private readonly pullerNodes: PullerNode[] = [];
+  public readonly pullerNodes: PullerNode[] = [];
   private readonly controlPanel: NetForceControlPanel;
   private readonly resetAllButton: ResetAllButton;
   private readonly sumOfForcesText: Text;
@@ -422,7 +422,7 @@ export default class NetForceScreenView extends ScreenView {
         }
       );
 
-      const pullerNode = new PullerNode( puller, this.model,
+      const pullerNode = new PullerNode( puller, this,
         getPullerImage( puller, false ),
         getPullerImage( puller, true ), {
           tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),

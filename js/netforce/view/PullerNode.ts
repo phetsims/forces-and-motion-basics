@@ -7,6 +7,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { clamp } from '../../../../dot/js/util/clamp.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
@@ -23,32 +24,30 @@ import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
 import PullerMode from '../model/PullerMode.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
-import PullerKeyboardSupport from './PullerKeyboardSupport.js';
+import NetForceScreenView from './NetForceScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
 type PullerNodeOptions = ImageOptions & SelfOptions;
 
 export default class PullerNode extends InteractiveHighlighting( Image ) {
+
   public standImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
-  private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
+  private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
   private readonly model: NetForceModel;
-  // private readonly focusManager: PullerFocusManager;
-
-  // Note: Redundant state tracking removed - now using puller.state object
 
   /**
    * Create a PullerNode for the specified puller
    *
    * @param puller
-   * @param model
+   * @param view
    * @param image image of the puller standing upright
    * @param pullImage image of the puller exerting a force
    * @param [providedOptions]
    */
   public constructor(
     public readonly puller: Puller,
-    model: NetForceModel,
+    public readonly view: NetForceScreenView,
     image: ImageableImage,
     public pullImage: ImageableImage,
     providedOptions?: PullerNodeOptions ) {
@@ -77,8 +76,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     // this.puller.node = this; //Wire up so node can be looked up by model element.
     this.standImage = image;
+    const model = puller.model;
     this.model = model;
-    // this.focusManager = focusManager;
 
     model.hasStartedProperty.link( () => {
       this.updateImage( puller, model );
@@ -86,7 +85,10 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     } );
     puller.positionProperty.link( () => {
       this.updateImage( puller, model );
-      this.updatePosition( puller, model );
+
+      if ( this.puller.modeProperty.value.isPointerGrabbed() ) {
+        this.updatePosition( puller, model );
+      }
     } );
 
     model.hasStartedProperty.link( () => {
@@ -200,23 +202,213 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         ...NetForceHotkeyData.pullerNode.returnToToolbox.keyStringProperties
       ],
       fireOnDown: false,
-      fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
+      fire: ( event, keysPressed ) => {
+
+        console.log( event, keysPressed );
+        const isGrabbed = puller.isGrabbed();
+
+        // NAVIGATION (Arrow Keys)
+        if ( NetForceHotkeyData.pullerNode.navigation.hasKeyStroke( keysPressed ) ) {
+          if ( isGrabbed ) {
+
+            // Only left/right keys navigate when grabbed
+            if ( keysPressed !== 'arrowLeft' && keysPressed !== 'arrowRight' ) {
+              return;
+            }
+
+            const puller = this.puller;
+            const direction = keysPressed === 'arrowLeft' ? -1 : 1;
+
+            // Get available knots for this puller's type
+            const availableKnots = model.knots.filter( knot =>
+              knot.type === puller.type && model.getPuller( knot ) === null
+            );
+
+            // Create navigation waypoints: [knot1, knot2, ..., knotN, HOME]
+            const waypoints: ( Knot | null )[] = [ ...availableKnots, null ]; // null = home position
+
+            if ( waypoints.length <= 1 ) {
+              return; // no navigation possible
+            }
+
+            // Find current waypoint index based on current mode
+            const currentMode = puller.modeProperty.get();
+            let currentWaypointIndex = 0;
+
+            if ( currentMode.isKeyboardGrabbedOverHome() ) {
+              currentWaypointIndex = waypoints.length - 1; // Home is last waypoint
+            }
+            else {
+              // Find the knot from current mode
+              const currentKnot = puller.getKnot();
+              currentWaypointIndex = currentKnot ? availableKnots.indexOf( currentKnot ) : 0;
+              if ( currentWaypointIndex === -1 ) {
+                currentWaypointIndex = 0; // Default to first knot
+              }
+            }
+
+            // Navigate to next/previous waypoint
+            const nextIndex = ( currentWaypointIndex + direction + waypoints.length ) % waypoints.length;
+            const targetWaypoint = waypoints[ nextIndex ];
+
+            // Update puller mode based on target waypoint
+            const newMode = PullerNode.getModeForWaypoint( targetWaypoint, puller );
+            puller.modeProperty.set( newMode );
+
+            // Generate accessibility response
+            const accessibilityResponse = targetWaypoint === null
+                                          ? 'Over return to toolbox position'
+                                          : `Over ${this.getKnotDescription( targetWaypoint )}`;
+
+            this.addAccessibleContextResponse( accessibilityResponse );
+          }
+          else {
+
+            // select the next puller, and make it focusable, then focus it.
+            if ( this.puller.modeProperty.value.isHome() ) {
+
+              // Find all pullers of the same type in the toolbox
+              const availablePullers = this.view.pullerNodes.filter( pullerNode =>
+                pullerNode.puller.type === this.puller.type &&
+                pullerNode.puller.getKnot() === null
+              );
+
+              if ( availablePullers.length > 1 ) {
+
+                // Sort by position for consistent order
+                availablePullers.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
+
+                // find our index in the list
+                const currentIndex = availablePullers.indexOf( this );
+
+                const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+                const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
+
+                if ( newIndex !== currentIndex ) {
+                  const nextPuller = availablePullers[ newIndex ];
+
+                  nextPuller.focusable = true;
+                  nextPuller.focus();
+                  this.focusable = false;
+                }
+              }
+            }
+          }
+        }
+
+        // GRAB/DROP (Enter/Space)
+        if ( NetForceHotkeyData.pullerNode.grabOrDrop.hasKeyStroke( keysPressed ) ) {
+          if ( isGrabbed ) {
+
+            const puller = this.puller;
+            const currentMode = puller.modeProperty.get();
+
+            // Determine where to drop based on current mode
+            let newMode: PullerMode;
+
+            if ( currentMode.isKeyboardGrabbedOverHome() ) {
+              // Drop at home (toolbox)
+              newMode = PullerMode.home();
+              this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+            }
+            else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
+              // Drop at knot - convert keyboard grabbed to attached
+              const side = currentMode.getKeyboardGrabbedKnotSide();
+              const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
+              if ( side && knotIndex !== null ) {
+                newMode = PullerMode.attachedToKnot( side, knotIndex );
+
+                const knot = puller.getKnot();
+                const knotDescription = knot ? this.getKnotDescription( knot ) : 'knot';
+                this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
+              }
+              else {
+                // Fallback to home
+                newMode = PullerMode.home();
+                this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+              }
+            }
+            else {
+              // Fallback to home
+              newMode = PullerMode.home();
+              this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+            }
+
+            // Clear grab origin
+            puller.clearGrabOrigin();
+
+            // Update mode
+            puller.modeProperty.set( newMode );
+
+          }
+          else {
+
+            const puller = this.puller;
+
+            // Store current state for potential cancel operation
+            puller.storeGrabOrigin();
+
+            // Determine initial grabbed mode based on current position
+            let newMode: PullerMode;
+
+            // Was in toolbox - start with first available knot or home
+            const availableKnots = model.knots.filter( knot =>
+              knot.type === puller.type && model.getPuller( knot ) === null
+            );
+
+            if ( availableKnots.length > 0 ) {
+              newMode = PullerNode.getModeForWaypoint( availableKnots[ 0 ], this.puller );
+            }
+            else {
+              newMode = PullerMode.keyboardGrabbedOverHome();
+            }
+
+            puller.modeProperty.set( newMode );
+
+          }
+        }
+
+        // CANCEL (Escape)
+        if ( NetForceHotkeyData.pullerNode.cancelInteraction.hasKeyStroke( keysPressed ) ) {
+          if ( isGrabbed ) {
+            // return this.handleCancel( pullerNode, model );
+          }
+        }
+
+        // RETURN TO TOOLBOX (Delete/Backspace)
+        if ( NetForceHotkeyData.pullerNode.returnToToolbox.hasKeyStroke( keysPressed ) ) {
+          if ( isGrabbed ) {
+            // return this.handleReturnToToolbox( pullerNode, model );
+          }
+        }
+      }
     } );
     this.addInputListener( this.keyboardListener );
 
     this.focusedProperty.lazyLink( focused => {
+
+      if ( focused ) {
+
+        // make other members of this group unfocusable
+        this.view.pullerNodes.forEach( pullerNode => {
+          if ( pullerNode.puller.type === this.puller.type && pullerNode !== this ) {
+            pullerNode.focusable = false;
+          }
+        } );
+      }
+
       if ( !focused && puller.isGrabbed() ) {
         // Handle focus blur during keyboard grab - drop the puller
-        const result = PullerKeyboardSupport.handleKeyboardInput( this, this.model, 'enter' );
-
-        if ( result.handled ) {
-          if ( result.shouldUpdatePosition ) {
-            this.updatePosition( this.puller, this.model );
-          }
-          if ( result.shouldUpdateImage ) {
-            this.updateImage( this.puller, this.model );
-          }
-        }
+        // const result = PullerKeyboardSupport.handleKeyboardInput( this, model, 'enter' );
+        //
+        // if ( result.handled ) {
+        //   if ( result.shouldUpdatePosition ) {
+        //     this.updatePosition( this.puller, model );
+        //   }
+        //   if ( result.shouldUpdateImage ) {
+        //     this.updateImage( this.puller, model );
+        //   }
+        // }
       }
     } );
   }
@@ -303,38 +495,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   }
 
   /**
-   * Handle keyboard input using the centralized PullerKeyboardSupport
-   */
-  private handleKeyboardInput( keysPressed: string ): void {
-    const result = PullerKeyboardSupport.handleKeyboardInput( this, this.model, keysPressed );
-
-    if ( result.handled ) {
-      // Update position if needed
-      if ( result.shouldUpdatePosition ) {
-        this.updatePosition( this.puller, this.model );
-      }
-
-      // Update image if needed
-      if ( result.shouldUpdateImage ) {
-        this.updateImage( this.puller, this.model );
-      }
-
-      // Handle focus if needed
-      if ( result.shouldFocus ) {
-        this.focusable = true;
-        this.focus();
-        this.moveToFront();
-      }
-
-      // Add accessibility response if provided
-      if ( result.accessibilityResponse ) {
-        this.addAccessibleResponse( result.accessibilityResponse );
-      }
-    }
-  }
-
-
-  /**
    * Reset the puller node to its initial state
    */
   public reset(): void {
@@ -347,6 +507,25 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       this.focusable = true;
     }
   }
+
+
+  /**
+   * Get mode for a specific waypoint (knot or home)
+   */
+  private static getModeForWaypoint( waypoint: Knot | null, puller: Puller ): PullerMode {
+    if ( waypoint === null ) {
+      return PullerMode.keyboardGrabbedOverHome();
+    }
+
+    // Get the knot index from the model knots array
+    const sameTypeKnots = puller.model.knots.filter( k => k.type === waypoint.type );
+    const knotIndex = sameTypeKnots.indexOf( waypoint );
+
+    const side = waypoint.type === 'blue' ? 'left' : 'right';
+
+    return PullerMode.keyboardGrabbedOverKnot( side, knotIndex );
+  }
+
 }
 
 forcesAndMotionBasics.register( 'PullerNode', PullerNode );
