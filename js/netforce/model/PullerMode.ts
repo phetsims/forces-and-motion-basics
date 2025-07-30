@@ -18,7 +18,7 @@ export default class PullerMode {
   public readonly type: PullerModeType;
   private readonly method?: GrabMethod;
   private readonly side?: 'left' | 'right';
-  private readonly knot?: number;
+  private readonly knotIndex?: number;
   private readonly overHome?: boolean;
 
   private constructor(
@@ -26,14 +26,14 @@ export default class PullerMode {
     options?: {
       method?: GrabMethod;
       side?: 'left' | 'right';
-      knot?: number;
+      knotIndex?: number;
       overHome?: boolean;
     }
   ) {
     this.type = type;
     this.method = options?.method;
     this.side = options?.side;
-    this.knot = options?.knot;
+    this.knotIndex = options?.knotIndex;
     this.overHome = options?.overHome;
   }
 
@@ -49,12 +49,12 @@ export default class PullerMode {
     return new PullerMode( 'grabbed', { method: 'keyboard', overHome: true } );
   }
 
-  public static keyboardGrabbedOverKnot( side: 'left' | 'right', knot: number ): PullerMode {
-    return new PullerMode( 'grabbed', { method: 'keyboard', side: side, knot: knot } );
+  public static keyboardGrabbedOverKnot( side: 'left' | 'right', knotIndex: number ): PullerMode {
+    return new PullerMode( 'grabbed', { method: 'keyboard', side: side, knotIndex: knotIndex } );
   }
 
-  public static attachedToKnot( side: 'left' | 'right', knot: number ): PullerMode {
-    return new PullerMode( 'attached', { side: side, knot: knot } );
+  public static attachedToKnot( side: 'left' | 'right', knotIndex: number ): PullerMode {
+    return new PullerMode( 'attached', { side: side, knotIndex: knotIndex } );
   }
 
   public isHome(): boolean {
@@ -81,34 +81,24 @@ export default class PullerMode {
     return this.type === 'grabbed' && this.method === 'keyboard';
   }
 
-  public getKnotIndex(): number | null {
-    if ( this.type === 'attached' && this.side !== undefined && this.knot !== undefined ) {
-      return this.side === 'left' ? this.knot : this.knot + 4;
-    }
-    else if ( this.type === 'grabbed' && this.method === 'keyboard' && !this.overHome && this.side !== undefined && this.knot !== undefined ) {
-      return this.side === 'left' ? this.knot : this.knot + 4;
-    }
-    return null;
-  }
-
   public isKeyboardGrabbedOverHome(): boolean {
     return this.type === 'grabbed' && this.method === 'keyboard' && this.overHome === true;
   }
 
   public isKeyboardGrabbedOverKnot(): boolean {
-    return this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knot !== undefined;
+    return this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knotIndex !== undefined;
   }
 
   public getKeyboardGrabbedKnotSide(): 'left' | 'right' | null {
-    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knot !== undefined ) {
+    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knotIndex !== undefined ) {
       return this.side;
     }
     return null;
   }
 
   public getKeyboardGrabbedKnotIndex(): number | null {
-    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knot !== undefined && this.side !== undefined ) {
-      return this.knot;
+    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined && this.side !== undefined ) {
+      return this.knotIndex;
     }
     return null;
   }
@@ -121,8 +111,8 @@ export default class PullerMode {
   }
 
   public getAttachedKnotIndex(): number | null {
-    if ( this.type === 'attached' && this.knot !== undefined ) {
-      return this.knot;
+    if ( this.type === 'attached' && this.knotIndex !== undefined ) {
+      return this.knotIndex;
     }
     return null;
   }
@@ -131,7 +121,7 @@ export default class PullerMode {
     return this.type === other.type &&
            this.method === other.method &&
            this.side === other.side &&
-           this.knot === other.knot &&
+           this.knotIndex === other.knotIndex &&
            this.overHome === other.overHome;
   }
 
@@ -145,19 +135,18 @@ export default class PullerMode {
     else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.overHome ) {
       return 'keyboardGrabbedOverHome';
     }
-    else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side && this.knot !== undefined ) {
-      return `keyboardGrabbedOver${this.side === 'left' ? 'Left' : 'Right'}Knot${this.knot}`;
+    else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side && this.knotIndex !== undefined ) {
+      return `keyboardGrabbedOver${this.side === 'left' ? 'Left' : 'Right'}Knot${this.knotIndex}`;
     }
-    else if ( this.type === 'attached' && this.side && this.knot !== undefined ) {
-      return `attachedTo${this.side === 'left' ? 'Left' : 'Right'}Knot${this.knot}`;
+    else if ( this.type === 'attached' && this.side && this.knotIndex !== undefined ) {
+      return `attachedTo${this.side === 'left' ? 'Left' : 'Right'}Knot${this.knotIndex}`;
     }
     return 'unknown';
   }
 
   public getKnot( model: NetForceModel ): Knot | null {
-    const knotIndex = this.getKnotIndex();
-    console.log( `PullerMode.getKnot: knotIndex=${knotIndex}` );
-    if ( knotIndex !== null ) {
+    const knotIndex = this.knotIndex;
+    if ( knotIndex !== null && knotIndex !== undefined ) {
       return model.knots[ knotIndex ];
     }
     else {

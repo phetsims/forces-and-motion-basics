@@ -280,7 +280,7 @@ const PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
   },
   toStateObject: pullerMode => {
     return {
-      knot: pullerMode.getKnotIndex()
+      knot: pullerMode.getAttachedKnotIndex()
     };
   },
   fromStateObject: stateObject => {

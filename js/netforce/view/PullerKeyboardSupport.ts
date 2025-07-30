@@ -116,7 +116,7 @@ export default class PullerKeyboardSupport {
       currentWaypointIndex = waypoints.length - 1; // Home is last waypoint
     }
     else {
-      // Find knot from current mode
+      // Find the knot from current mode
       const currentKnot = puller.getKnot();
       currentWaypointIndex = currentKnot ? availableKnots.indexOf( currentKnot ) : 0;
       if ( currentWaypointIndex === -1 ) {
