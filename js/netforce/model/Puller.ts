@@ -24,7 +24,6 @@ import Knot from './Knot.js';
 import NetForceModel from './NetForceModel.js';
 
 import PullerMode from './PullerMode.js';
-import PullerModeFactory from './PullerModeFactory.js';
 
 type SelfOptions = {
   standOffsetX?: number;
@@ -87,7 +86,7 @@ export default class Puller extends PhetioObject {
     } );
 
     // Initialize the mode property - this is the authoritative state
-    this.modeProperty = new Property<PullerMode>( PullerModeFactory.home(), {
+    this.modeProperty = new Property<PullerMode>( PullerMode.home(), {
       valueType: PullerMode,
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioFeatured: true,
@@ -140,14 +139,14 @@ export default class Puller extends PhetioObject {
    */
   public getModeForKnot( knot: Knot | null ): PullerMode {
     if ( knot === null ) {
-      return PullerModeFactory.home();
+      return PullerMode.home();
     }
 
     const sameTypeKnots = this.model.knots.filter( k => this.type === knot.type ) || [];
     const knotIndex = sameTypeKnots.indexOf( knot );
     const side = knot.type === 'blue' ? 'left' : 'right';
 
-    return PullerModeFactory.attachedToKnot( side, knotIndex );
+    return PullerMode.attachedToKnot( side, knotIndex );
   }
 
   // Grab origin storage for cancel functionality
@@ -201,7 +200,7 @@ export default class Puller extends PhetioObject {
 
     if ( dragType === 'mouse' || dragType === 'touch' ) {
       // For mouse/touch, set to pointerGrabbed and disconnect from knot
-      this.modeProperty.set( PullerModeFactory.pointerGrabbed() );
+      this.modeProperty.set( PullerMode.pointerGrabbed() );
 
       // The disconnect will happen in the drag listener
     }
@@ -239,7 +238,7 @@ export default class Puller extends PhetioObject {
    * Drop at home/toolbox (called by mouse/touch drag listener)
    */
   public dropAtHome(): void {
-    this.modeProperty.set( PullerModeFactory.home() );
+    this.modeProperty.set( PullerMode.home() );
     this.lastPlacementProperty.set( 'home' );
     this.clearGrabOrigin();
   }
@@ -286,10 +285,10 @@ const PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
   },
   fromStateObject: stateObject => {
     if ( stateObject.knot === null ) {
-      return PullerModeFactory.home();
+      return PullerMode.home();
     }
     else {
-      return PullerModeFactory.attachedToKnot( stateObject.knot <= 3 ? 'left' : 'right', stateObject.knot );
+      return PullerMode.attachedToKnot( stateObject.knot <= 3 ? 'left' : 'right', stateObject.knot );
     }
   }
 } );

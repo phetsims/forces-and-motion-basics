@@ -14,7 +14,6 @@ import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
 import PullerMode from '../model/PullerMode.js';
-import PullerModeFactory from '../model/PullerModeFactory.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import PullerNode from './PullerNode.js';
 
@@ -182,10 +181,10 @@ export default class PullerKeyboardSupport {
       const side = currentMode.getAttachedSide();
       const knot = currentMode.getAttachedKnotIndex();
       if ( side && knot !== null ) {
-        newMode = PullerModeFactory.keyboardGrabbedOverKnot( side, knot );
+        newMode = PullerMode.keyboardGrabbedOverKnot( side, knot );
       }
       else {
-        newMode = PullerModeFactory.keyboardGrabbedOverHome();
+        newMode = PullerMode.keyboardGrabbedOverHome();
       }
     }
     else {
@@ -198,7 +197,7 @@ export default class PullerKeyboardSupport {
         newMode = this.getModeForWaypoint( availableKnots[ 0 ], puller );
       }
       else {
-        newMode = PullerModeFactory.keyboardGrabbedOverHome();
+        newMode = PullerMode.keyboardGrabbedOverHome();
       }
     }
 
@@ -230,7 +229,7 @@ export default class PullerKeyboardSupport {
 
     if ( currentMode.isKeyboardGrabbedOverHome() ) {
       // Drop at home (toolbox)
-      newMode = PullerModeFactory.home();
+      newMode = PullerMode.home();
       accessibilityResponse = `${puller.size} ${puller.type} puller returned to toolbox.`;
     }
     else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
@@ -238,7 +237,7 @@ export default class PullerKeyboardSupport {
       const side = currentMode.getKeyboardGrabbedKnotSide();
       const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
       if ( side && knotIndex !== null ) {
-        newMode = PullerModeFactory.attachedToKnot( side, knotIndex );
+        newMode = PullerMode.attachedToKnot( side, knotIndex );
 
         const knot = puller.getKnot();
         const knotDescription = knot ? this.getKnotDescription( knot, model ) : 'knot';
@@ -246,13 +245,13 @@ export default class PullerKeyboardSupport {
       }
       else {
         // Fallback to home
-        newMode = PullerModeFactory.home();
+        newMode = PullerMode.home();
         accessibilityResponse = `${puller.size} ${puller.type} puller returned to toolbox.`;
       }
     }
     else {
       // Fallback to home
-      newMode = PullerModeFactory.home();
+      newMode = PullerMode.home();
       accessibilityResponse = `${puller.size} ${puller.type} puller returned to toolbox.`;
     }
 
@@ -305,7 +304,7 @@ export default class PullerKeyboardSupport {
     const puller = pullerNode.puller;
 
     // Return to toolbox
-    puller.modeProperty.set( PullerModeFactory.keyboardGrabbedOverHome() );
+    puller.modeProperty.set( PullerMode.keyboardGrabbedOverHome() );
 
     return {
       handled: true,
@@ -320,7 +319,7 @@ export default class PullerKeyboardSupport {
    */
   private static getModeForWaypoint( waypoint: Knot | null, puller: Puller ): PullerMode {
     if ( waypoint === null ) {
-      return PullerModeFactory.keyboardGrabbedOverHome();
+      return PullerMode.keyboardGrabbedOverHome();
     }
 
     // Get the knot index from the model knots array
@@ -329,7 +328,7 @@ export default class PullerKeyboardSupport {
 
     const side = waypoint.type === 'blue' ? 'left' : 'right';
 
-    return PullerModeFactory.keyboardGrabbedOverKnot( side, knotIndex );
+    return PullerMode.keyboardGrabbedOverKnot( side, knotIndex );
   }
 
   /**

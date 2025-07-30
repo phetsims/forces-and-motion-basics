@@ -22,7 +22,6 @@ import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
 import PullerMode from '../model/PullerMode.js';
-import PullerModeFactory from '../model/PullerModeFactory.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import PullerKeyboardSupport from './PullerKeyboardSupport.js';
 
@@ -112,7 +111,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           // check to see if a puller is knotted - if it is, store the knot
           const knot = puller.modeProperty.value.getKnot( this.puller.model );
 
-          puller.modeProperty.set( PullerModeFactory.pointerGrabbed() );
+          puller.modeProperty.set( PullerMode.pointerGrabbed() );
 
           // disconnect the puller from the knot and update the image
           puller.disconnect();
