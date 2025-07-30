@@ -96,10 +96,6 @@ export default class Puller extends PhetioObject {
       valueComparisonStrategy: 'equalsFunction'
     } );
 
-    this.modeProperty.link( mode => {
-      console.log( `Puller mode changed to: ${mode.toString()}` );
-    } );
-
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
@@ -114,13 +110,17 @@ export default class Puller extends PhetioObject {
     } );
 
     // When the knot changes, wire up as a listener to the new knot
-    this.modeProperty.link( ( newMode, oldMode ) => {
+    this.modeProperty.link( ( mode, oldMode ) => {
 
-      const newKnot = newMode.getKnotIndex();
+      const knot = mode.getKnot( model );
 
-      //Synchronize our position with the knot.
-      if ( newKnot ) {
-        model.knots[ newKnot ].positionProperty.set( this.positionProperty.get().x );
+      // Synchronize our position with the knot.
+      if ( knot ) {
+        this.positionProperty.value = new Vector2( knot.positionProperty.get(), knot.y );
+      }
+
+      if ( mode.isHome() ) {
+        this.positionProperty.reset();
       }
     } );
   }

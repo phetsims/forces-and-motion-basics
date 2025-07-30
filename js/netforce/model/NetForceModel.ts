@@ -249,15 +249,11 @@ export default class NetForceModel extends PhetioObject {
     if ( knot ) {
 
       puller.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
-      // Set mode instead of knotProperty directly to trigger group transfers
-      // puller.modeProperty.set( puller.getModeForKnot( knot ) );
     }
 
     // Or go back home
     else {
       puller.positionProperty.reset();
-      // Set mode to home to trigger group transfers
-      // puller.modeProperty.set( PullerModeFactory.home() );
     }
 
     // Keep track of their position to change the attachment/detach thresholds, see NetForceModel.getTargetKnot
