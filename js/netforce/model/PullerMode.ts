@@ -1,4 +1,4 @@
-// Copyright 2013-2025, University of Colorado Boulder
+// Copyright 2025, University of Colorado Boulder
 
 /**
  * PullerMode represents the various states a puller can be in during the simulation.
