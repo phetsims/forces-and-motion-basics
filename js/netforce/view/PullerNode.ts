@@ -17,6 +17,7 @@ import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import Knot from '../model/Knot.js';
@@ -86,7 +87,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     puller.positionProperty.link( () => {
       this.updateImage( puller, model );
 
-      if ( this.puller.modeProperty.value.isPointerGrabbed() ) {
+      if ( this.puller.modeProperty.value.isPointerGrabbed() || isSettingPhetioStateProperty.value ) {
         this.updatePosition( puller, model );
       }
     } );
