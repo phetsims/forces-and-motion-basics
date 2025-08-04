@@ -165,7 +165,41 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
         // NAVIGATION (Arrow Keys)
         if ( NetForceHotkeyData.pullerNode.navigation.hasKeyStroke( keysPressed ) ) {
-          if ( isGrabbed ) {
+
+          // When no puller is grabbed, select between available pullers of the same type
+          if ( !isGrabbed ) {
+
+            // select the next puller, and make it focusable, then focus it.
+            if ( this.puller.modeProperty.value.isHome() ) {
+
+              // Find all pullers of the same type in the toolbox
+              const availablePullers = this.view.pullerNodes.filter( pullerNode =>
+                pullerNode.puller.type === this.puller.type &&
+                pullerNode.puller.getKnot() === null
+              );
+
+              if ( availablePullers.length > 1 ) {
+
+                // Sort by position for consistent order
+                availablePullers.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
+
+                // find our index in the list
+                const currentIndex = availablePullers.indexOf( this );
+
+                const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+                const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
+
+                if ( newIndex !== currentIndex ) {
+                  const nextPuller = availablePullers[ newIndex ];
+
+                  nextPuller.focusable = true;
+                  nextPuller.focus();
+                  this.focusable = false;
+                }
+              }
+            }
+          }
+          else {
 
             // Only left/right keys navigate when grabbed
             if ( keysPressed !== 'arrowLeft' && keysPressed !== 'arrowRight' ) {
@@ -217,38 +251,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                                           : `Over ${this.getKnotDescription( targetWaypoint )}`;
 
             this.addAccessibleContextResponse( accessibilityResponse );
-          }
-          else {
-
-            // select the next puller, and make it focusable, then focus it.
-            if ( this.puller.modeProperty.value.isHome() ) {
-
-              // Find all pullers of the same type in the toolbox
-              const availablePullers = this.view.pullerNodes.filter( pullerNode =>
-                pullerNode.puller.type === this.puller.type &&
-                pullerNode.puller.getKnot() === null
-              );
-
-              if ( availablePullers.length > 1 ) {
-
-                // Sort by position for consistent order
-                availablePullers.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
-
-                // find our index in the list
-                const currentIndex = availablePullers.indexOf( this );
-
-                const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-                const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
-
-                if ( newIndex !== currentIndex ) {
-                  const nextPuller = availablePullers[ newIndex ];
-
-                  nextPuller.focusable = true;
-                  nextPuller.focus();
-                  this.focusable = false;
-                }
-              }
-            }
           }
         }
 
