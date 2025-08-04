@@ -477,8 +477,6 @@ export default class NetForceScreenView extends ScreenView {
       this.pullerNodes.forEach( pullerNode => {
         pullerNode.standImage = getPullerImage( pullerNode.puller, false );
         pullerNode.pullImage = getPullerImage( pullerNode.puller, true );
-        pullerNode.updateImage( pullerNode.puller, model );
-        pullerNode.updatePosition( pullerNode.puller, model );
       } );
     } );
 

@@ -167,15 +167,6 @@ export default class Puller extends PhetioObject {
   }
 
   /**
-   * Disconnect from the current knot (used during mouse/touch grab)
-   */
-  public disconnect(): void {
-    // For mouse/touch grabs, the mode is already set to 'pointerGrabbed'
-    // No additional action needed - the knotProperty will be derived as null
-  }
-
-
-  /**
    * Store current state as grab origin for potential cancel operation
    */
   public storeGrabOrigin(): void {

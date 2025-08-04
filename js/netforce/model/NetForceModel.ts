@@ -387,9 +387,6 @@ export default class NetForceModel extends PhetioObject {
     this.showValuesProperty.reset();
     this.showSpeedProperty.reset();
 
-    // Unset the knots before calling reset since the change of the number of attached pullers causes the force arrows to update
-    this.pullers.forEach( puller => {puller.disconnect();} );
-
     this.cart.reset();
     this.pullers.forEach( puller => {
       // if the puller is being dragged, we will need to cancel the drag in PullerNode

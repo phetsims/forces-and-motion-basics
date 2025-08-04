@@ -7,8 +7,8 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import { clamp } from '../../../../dot/js/util/clamp.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
@@ -17,7 +17,6 @@ import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import Knot from '../model/Knot.js';
@@ -80,55 +79,16 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const model = puller.model;
     this.model = model;
 
-    model.hasStartedProperty.link( () => {
-      this.updateImage( puller, model );
-      this.updatePosition( puller, model );
-    } );
-    puller.positionProperty.link( () => {
-      this.updateImage( puller, model );
-
-      if ( this.puller.modeProperty.value.isPointerGrabbed() || isSettingPhetioStateProperty.value ) {
-        this.updatePosition( puller, model );
-      }
-    } );
-
-    model.hasStartedProperty.link( () => {
-      this.updateImage( puller, model );
-      this.updatePosition( puller, model );
-    } );
-    model.isRunningProperty.link( () => {
-      this.updateImage( puller, model );
-      this.updatePosition( puller, model );
-    } );
-    model.stateProperty.link( () => {
-      this.updateImage( puller, model );
-      this.updatePosition( puller, model );
-    } );
-
     this.dragListener = new SoundDragListener( {
         tandem: options.tandem?.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
         start: event => {
 
-          // check to see if a puller is knotted - if it is, store the knot
-          const knot = puller.modeProperty.value.getKnot( this.puller.model );
-
           puller.modeProperty.set( PullerMode.pointerGrabbed() );
 
-          // disconnect the puller from the knot and update the image
-          puller.disconnect();
-          this.updateImage( puller, model );
-
           // fire updates
-          // puller.userControlledProperty.set( true );
           this.moveToFront();
-
-          // if the puller was knotted, update the image position so that it is centered on the knot it was previously
-          // grabbing
-          if ( knot ) {
-            this.updatePositionKnotted( puller, model, knot );
-          }
         },
         end: () => {
 
@@ -141,10 +101,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           else {
             puller.dropAtHome();
           }
-
-          // Update visuals
-          this.updatePosition( puller, model );
-          this.updateImage( puller, model );
 
           // Add accessible response
           const knot = puller.modeProperty.value.getKnot( puller.model );
@@ -161,7 +117,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     this.addInputListener( this.dragListener );
 
     model.resetAllEmitter.addListener( () => {
-      this.updatePosition( puller, model );
 
       // cancel the drag
       if ( puller.modeProperty.value.isUserControlled() ) {
@@ -412,57 +367,28 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         // }
       }
     } );
-  }
 
-  /**
-   * Update the position of the puller immediately after it has been clicked on after being removed from a knot
-   * position.  Sets the translation of the puller relative to its previous knot position.  This knot position is
-   * lost in updatePosition because the puller has already been disconnected from the knot by the time those functions
-   * are called.
-   *
-   * @param puller
-   * @param model
-   * @param knot - the last knot that the puller was holding on to
-   */
-  public updatePositionKnotted( puller: Puller, model: NetForceModel, knot: Knot ): void {
-    const blueOffset = this.puller.type === 'blue' ? -40 : 0;
-    puller.positionProperty.set( new Vector2( knot.positionProperty.get() + blueOffset, knot.y - this.height + 90 ) );
-  }
 
-  /**
-   * Update the image puller image depending on whether the puller is knotted and pulling
-   */
-  public updateImage( puller: Puller, model: NetForceModel ): void {
-    const knotted = puller.getKnot();
-    const pulling = model.hasStartedProperty.get() && knotted && model.stateProperty.get() !== 'completed';
-    this.image = pulling ? this.pullImage : this.standImage;
-  }
+    Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty ], ( mode, hasStarted, position ) => {
+      const knotted = this.puller.getKnot();
+      const pulling = hasStarted && knotted && this.puller.model.stateProperty.get() !== 'completed';
+      this.image = pulling ? this.pullImage : this.standImage;
 
-  /**
-   * Update the position of a puller depending on its current mode.
-   */
-  public updatePosition( puller: Puller, model: NetForceModel ): void {
-    const currentMode = puller.modeProperty.get();
-    const knot = puller.getKnot();
-    const pulling = model.hasStartedProperty.get() && knot && model.stateProperty.get() !== 'completed';
+      const puller = this.puller;
+      const knot = this.puller.getKnot();
+      if ( knot ) {
 
-    if ( currentMode.isKeyboardGrabbedOverKnot() ) {
-      // Position over the target knot for keyboard navigation
-      const targetKnot = this.getKnotFromKeyboardMode( currentMode, model );
-      if ( targetKnot ) {
-        this.updatePositionKnotted( puller, model, targetKnot );
+        // Normal attached position
+        const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
+        const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
+        this.setTranslation( knot.positionProperty.get() + pullingOffset + blueOffset, knot.y - this.height + 90 );
       }
-    }
-    else if ( knot ) {
-      // Normal attached position
-      const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
-      const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-      this.setTranslation( knot.positionProperty.get() + pullingOffset + blueOffset, knot.y - this.height + 90 );
-    }
-    else {
-      // Home position (toolbox or pointerGrabbed)
-      this.setTranslation( puller.positionProperty.get() );
-    }
+      else {
+
+        // Home position (toolbox or pointerGrabbed)
+        this.setTranslation( position );
+      }
+    } );
   }
 
   /**
@@ -499,16 +425,12 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
    * Reset the puller node to its initial state
    */
   public reset(): void {
-    // Update visual state based on reset model
-    this.updateImage( this.puller, this.model );
-    this.updatePosition( this.puller, this.model );
 
     // Ensure focusable state is correct (pullers in toolbox should be focusable)
     if ( this.puller.getKnot() === null ) {
       this.focusable = true;
     }
   }
-
 
   /**
    * Get mode for a specific waypoint (knot or home)
