@@ -201,11 +201,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           }
           else {
 
-            // Only left/right keys navigate when grabbed
-            if ( keysPressed !== 'arrowLeft' && keysPressed !== 'arrowRight' ) {
-              return;
-            }
-
             const puller = this.puller;
             const direction = keysPressed === 'arrowLeft' ? -1 : 1;
 
