@@ -27,13 +27,13 @@ export default class SimpleFocusManager {
    */
   public handlePullerDrop( droppedPuller: PullerNode, model: NetForceModel ): void {
     const droppedPullerAttached = droppedPuller.puller.getKnot() !== null;
-    
+
     if ( !droppedPullerAttached ) {
       // Puller was dropped in toolbox - maintain focus on it
       droppedPuller.focusable = true;
       droppedPuller.focus();
     }
- else {
+    else {
       // Puller was dropped on rope - focus next available puller in same type toolbox
       this.focusNextInToolbox( droppedPuller, model );
     }
@@ -55,7 +55,7 @@ export default class SimpleFocusManager {
       availablePullers.sort( ( a, b ) =>
         a.puller.positionProperty.value.x - b.puller.positionProperty.value.x
       );
-      
+
       const nextPuller = availablePullers[ 0 ];
       nextPuller.focusable = true;
       nextPuller.focus();
@@ -74,7 +74,7 @@ export default class SimpleFocusManager {
     // Get pullers in the same logical group (toolbox vs rope, same type)
     const currentAttached = currentPuller.puller.getKnot() !== null;
     const currentType = currentPuller.puller.type;
-    
+
     const groupPullers = this.allPullers.filter( pullerNode =>
       pullerNode.puller.type === currentType &&
       ( pullerNode.puller.getKnot() !== null ) === currentAttached

@@ -52,7 +52,7 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
                  ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty.value :
                  ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty.value;
         }
- else {
+        else {
           return model.screen === 'motion' ?
                  ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboard.format( { count: stackLength } ) :
                  ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnGround.format( { count: stackLength } );
@@ -126,7 +126,7 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
                  ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsStringProperty.value :
                  ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty.value;
         }
- else {
+        else {
           return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty.value;
         }
       }

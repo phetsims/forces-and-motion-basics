@@ -326,10 +326,10 @@ export default class Item extends PhetioObject {
         // Keep current mode if it's a grabbed state - only update if it's not
         const currentMode = this.modeProperty.get();
         const isGrabbed = currentMode === 'mouseGrabbed' ||
-                         currentMode === 'keyboardGrabbedFromLeftToolbox' ||
-                         currentMode === 'keyboardGrabbedFromRightToolbox' ||
-                         currentMode === 'keyboardGrabbedFromStack';
-        
+                          currentMode === 'keyboardGrabbedFromLeftToolbox' ||
+                          currentMode === 'keyboardGrabbedFromRightToolbox' ||
+                          currentMode === 'keyboardGrabbedFromStack';
+
         if ( !isGrabbed ) {
           newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
         }

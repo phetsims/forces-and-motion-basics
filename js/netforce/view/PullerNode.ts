@@ -342,7 +342,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
               if ( availableHomePullers.length > 0 ) {
                 // Sort by position for consistent order
                 availableHomePullers.sort( ( a, b ) => a.centerX - b.centerX );
-                
+
                 // Focus the first available puller
                 const nextPuller = availableHomePullers[ 0 ];
                 nextPuller.focusable = true;
@@ -359,7 +359,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           if ( puller.isGrabbed() ) {
             // Cancel the grab and return to original position
             puller.cancelGrab();
-            
+
             // Add accessibility response
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller interaction canceled.` );
           }
@@ -369,10 +369,10 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         if ( NetForceHotkeyData.pullerNode.returnToToolbox.hasKeyStroke( keysPressed ) ) {
           if ( puller.isGrabbed() ) {
             puller.clearGrabOrigin();
-            
+
             // Move puller back to home and retain focus
             puller.modeProperty.set( PullerMode.home() );
-            
+
             // Add accessibility response
             this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
           }

@@ -315,7 +315,7 @@ export default class ItemNode extends Node {
     } );
 
     //Update the position of the item
-    item.positionProperty.link( position => { this.setTranslation( position ); } );
+    item.positionProperty.link( position => this.setTranslation( position ) );
 
     // When the object is scaled or change direction, update the image part
     Multilink.multilink( [ item.interactionScaleProperty, item.directionProperty ], ( interactionScale, direction ) => {

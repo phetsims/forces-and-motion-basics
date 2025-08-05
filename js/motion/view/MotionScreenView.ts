@@ -543,8 +543,8 @@ export default class MotionScreenView extends ScreenView {
 
     // Listen to each item's mode property to transfer between groups
     this.itemNodes.forEach( itemNode => {
-      // Listen to mode property changes - this replaces the need for multiple property listeners
-      itemNode.item.modeProperty.link( mode => {
+
+      itemNode.item.modeProperty.link( () => {
         performGroupTransfer( itemNode );
       } );
     } );

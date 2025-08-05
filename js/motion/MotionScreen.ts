@@ -10,8 +10,8 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import optionize, { EmptySelfOptions } from '../../../phet-core/js/optionize.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import MotionModel from './model/MotionModel.js';
-import MotionScreenView from './view/MotionScreenView.js';
 import MotionKeyboardHelpContent from './view/MotionKeyboardHelpContent.js';
+import MotionScreenView from './view/MotionScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
 type MotionScreenOptions = ScreenOptions;

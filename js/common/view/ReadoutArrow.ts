@@ -164,7 +164,7 @@ export default class ReadoutArrow extends Node {
   public update(): void {
 
     const amount = Math.abs( this.value );
-    
+
     // Use threshold-based descriptors that work for both netforce (quantized) and motion (continuous) values
     const amountDescriptor = amount < 75 ? 'small' :
                              amount < 125 ? 'medium small' :

@@ -46,11 +46,11 @@ export default class CartNode extends Image {
 
     // Speed varies between -3.76215, 3.76215
     // Position varies between -403, 403
-    Multilink.multilink( [ this.cart.positionProperty, speedProperty, showSpeedProperty ], ( position, speed, showSpeed ) => {
-      
+    Multilink.multilink( [ this.cart.positionProperty, speedProperty, showSpeedProperty ], ( position, speed ) => {
+
       // Build the accessible paragraph description
       let description = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
-      
+
       // Add position description
       // Position ranges from -403 to 403, with 0 being center
       const positionDescriptor = position <= -400 ? 'all the way to the left' :
@@ -60,18 +60,18 @@ export default class CartNode extends Image {
                                  position < 150 ? 'slightly to the right' :
                                  position < 400 ? 'to the right' :
                                  'all the way to the right';
-      
+
       description += ` The cart is ${positionDescriptor}`;
-      
+
       // Add speed description
       const absSpeed = Math.abs( speed );
       const speedDescriptor = absSpeed === 0 ? 'stopped' :
-                             absSpeed < 0.5 ? 'moving slowly' :
-                             absSpeed < 1.5 ? 'moving' :
-                             absSpeed < 2.5 ? 'moving quickly' :
-                             absSpeed < 3.5 ? 'moving very quickly' :
-                             'moving extremely quickly';
-      
+                              absSpeed < 0.5 ? 'moving slowly' :
+                              absSpeed < 1.5 ? 'moving' :
+                              absSpeed < 2.5 ? 'moving quickly' :
+                              absSpeed < 3.5 ? 'moving very quickly' :
+                              'moving extremely quickly';
+
       if ( absSpeed === 0 ) {
         description += ' and is stopped';
       }
@@ -79,9 +79,9 @@ export default class CartNode extends Image {
         const direction = speed > 0 ? 'right' : 'left';
         description += ` and is ${speedDescriptor} to the ${direction}`;
       }
-      
+
       description += '.';
-      
+
       this.accessibleParagraph = description;
     } );
   }

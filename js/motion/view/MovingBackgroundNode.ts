@@ -133,7 +133,7 @@ export default class MovingBackgroundNode extends Node {
           let numWhite = 0;
 
           //Create the gravel for nonzero friction.
-          model.frictionCoefficientProperty.link( ( newFriction, oldFriction ) => {
+          model.frictionCoefficientProperty.link( newFriction => {
 
             //Discretize the friction so that the new nodes/images are not created at every step
             newFriction = newFriction * 100;
