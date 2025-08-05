@@ -251,8 +251,34 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
         // GRAB/DROP (Enter/Space)
         if ( NetForceHotkeyData.pullerNode.grabOrDrop.hasKeyStroke( keysPressed ) ) {
-          if ( puller.isGrabbed() ) {
 
+          // Pick up an ungrabbed puller
+          if ( !puller.isGrabbed() ) {
+            const puller = this.puller;
+
+            // Store current state for potential cancel operation
+            puller.storeGrabOrigin();
+
+            // Determine initial grabbed mode based on current position
+            let newMode: PullerMode;
+
+            // Was in toolbox - start with first available knot or home
+            const availableKnots = model.knots.filter( knot =>
+              knot.type === puller.type && model.getPuller( knot ) === null
+            );
+
+            if ( availableKnots.length > 0 ) {
+              newMode = PullerNode.getModeForWaypoint( availableKnots[ 0 ], this.puller );
+            }
+            else {
+              newMode = PullerMode.keyboardGrabbedOverHome();
+            }
+
+            puller.modeProperty.set( newMode );
+          }
+          else {
+
+            // Drop the grabbed puller
             const puller = this.puller;
             const currentMode = puller.modeProperty.get();
 
@@ -291,31 +317,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.clearGrabOrigin();
 
             // Update mode
-            puller.modeProperty.set( newMode );
-
-          }
-          else {
-
-            const puller = this.puller;
-
-            // Store current state for potential cancel operation
-            puller.storeGrabOrigin();
-
-            // Determine initial grabbed mode based on current position
-            let newMode: PullerMode;
-
-            // Was in toolbox - start with first available knot or home
-            const availableKnots = model.knots.filter( knot =>
-              knot.type === puller.type && model.getPuller( knot ) === null
-            );
-
-            if ( availableKnots.length > 0 ) {
-              newMode = PullerNode.getModeForWaypoint( availableKnots[ 0 ], this.puller );
-            }
-            else {
-              newMode = PullerMode.keyboardGrabbedOverHome();
-            }
-
             puller.modeProperty.set( newMode );
 
           }
