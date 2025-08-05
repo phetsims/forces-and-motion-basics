@@ -357,14 +357,24 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         // CANCEL (Escape)
         if ( NetForceHotkeyData.pullerNode.cancelInteraction.hasKeyStroke( keysPressed ) ) {
           if ( puller.isGrabbed() ) {
-            // return this.handleCancel( pullerNode, model );
+            // Cancel the grab and return to original position
+            puller.cancelGrab();
+            
+            // Add accessibility response
+            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller interaction canceled.` );
           }
         }
 
         // RETURN TO TOOLBOX (Delete/Backspace)
         if ( NetForceHotkeyData.pullerNode.returnToToolbox.hasKeyStroke( keysPressed ) ) {
           if ( puller.isGrabbed() ) {
-            // return this.handleReturnToToolbox( pullerNode, model );
+            puller.clearGrabOrigin();
+            
+            // Move puller back to home and retain focus
+            puller.modeProperty.set( PullerMode.home() );
+            
+            // Add accessibility response
+            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
           }
         }
       }
