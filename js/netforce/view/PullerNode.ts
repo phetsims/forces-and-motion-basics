@@ -206,10 +206,12 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
             // Get available knots for this puller's type
             const availableKnots = model.knots.filter( knot =>
-              knot.type === puller.type && model.getPuller( knot ) === null
+
+              // Include the current puller's knot so we can index it, and know which is before/after
+              knot.type === puller.type && model.getPuller( knot ) === null || model.getPuller( knot ) === puller
             );
 
-            console.log( 'availableKnots', availableKnots.map( knot => knot.tandem.name ) );
+            // console.log( 'puller is at knot: ' + puller.getKnot()!.tandem.name + ', availableKnots', availableKnots.map( knot => knot.tandem.name ) );
 
             // Create navigation waypoints: [knot1, knot2, ..., knotN, HOME]
             const waypoints: ( Knot | null )[] = [ ...availableKnots, null ]; // null = home position

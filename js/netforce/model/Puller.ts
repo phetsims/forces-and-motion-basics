@@ -111,6 +111,7 @@ export default class Puller extends PhetioObject {
 
     // When the knot changes, wire up as a listener to the new knot
     this.modeProperty.link( ( mode, oldMode ) => {
+      console.log( 'puller mode: ' + this.modeProperty.value.toString() );
 
       const knot = mode.getKnot( model );
 
