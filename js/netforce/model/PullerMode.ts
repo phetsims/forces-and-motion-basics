@@ -89,6 +89,18 @@ export default class PullerMode {
     return this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knotIndex !== undefined;
   }
 
+  public isKeyboardGrabbedOverSpecificKnot( knot: Knot, model: NetForceModel ): boolean {
+    if ( !this.isKeyboardGrabbedOverKnot() ) {
+      return false;
+    }
+    
+    // Get the knot from the mode's stored index
+    const modeKnot = this.getKnot( model );
+    
+    // Check if it's the same knot
+    return modeKnot === knot;
+  }
+
   public getKeyboardGrabbedKnotSide(): 'left' | 'right' | null {
     if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knotIndex !== undefined ) {
       return this.side;

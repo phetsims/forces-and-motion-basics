@@ -261,17 +261,7 @@ export default class NetForceScreenView extends ScreenView {
     } );
     this.addChild( this.ropeImageNode );
 
-    model.knots.forEach( ( knot, i ) => {
-      if ( knot.type === 'blue' ) {
-        this.addChild( new KnotHighlightNode( knot ) );
-      }
-      else if ( knot.type === 'red' ) {
-        this.addChild( new KnotHighlightNode( knot ) );
-      }
-      else {
-        assert && assert( false, 'Knots can only be of type "red" or "blue" in this sim.' );
-      }
-    } );
+    model.knots.forEach( ( knot, i ) => this.addChild( new KnotHighlightNode( knot ) ) );
 
     //Split into another canvas to speed up rendering
     this.addChild( new Node( {

@@ -298,14 +298,26 @@ export default class NetForceModel extends PhetioObject {
   private updateKnotHighlights(): void {
 
     if ( this.knots ) {
-      this.knots.forEach( knot => { knot.isHighlightedProperty.set( false ); } );
-      this.pullers.forEach( puller => {
-        if ( puller.modeProperty.value.isUserControlled() ) {
-          const knot = this.getTargetKnot( puller );
-          if ( knot ) {
-            knot.isHighlightedProperty.set( true );
+      this.knots.forEach( knot => {
+
+        let isHighlighted = false;
+
+        // iterate through the pullers and see if any are grabbing or referencing this knot
+        this.pullers.forEach( puller => {
+          if ( puller.modeProperty.value.isPointerGrabbed() ) {
+            const targetKnot = this.getTargetKnot( puller );
+            if ( targetKnot && targetKnot === knot ) {
+              isHighlighted = true;
+            }
           }
-        }
+
+          // check if the keyboard grab is hovering over the knot
+          if ( puller.modeProperty.value.isKeyboardGrabbedOverSpecificKnot( knot, this ) ) {
+            isHighlighted = true;
+          }
+        } );
+
+        knot.isHighlightedProperty.value = isHighlighted;
       } );
     }
   }
