@@ -170,33 +170,26 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           // When no puller is grabbed, select between available pullers of the same type
           if ( !puller.isGrabbed() ) {
 
-            // select the next puller, and make it focusable, then focus it.
-            if ( this.puller.modeProperty.value.isHome() ) {
+            // Find all pullers of the same type in the toolbox
+            const availablePullers = this.view.pullerNodes.filter( pullerNode => pullerNode.puller.type === this.puller.type );
 
-              // Find all pullers of the same type in the toolbox
-              const availablePullers = this.view.pullerNodes.filter( pullerNode =>
-                pullerNode.puller.type === this.puller.type &&
-                pullerNode.puller.getKnot() === null
-              );
+            if ( availablePullers.length > 1 ) {
 
-              if ( availablePullers.length > 1 ) {
+              // Sort by position for consistent order
+              availablePullers.sort( ( a, b ) => a.centerX - b.centerX );
 
-                // Sort by position for consistent order
-                availablePullers.sort( ( a, b ) => a.puller.positionProperty.value.x - b.puller.positionProperty.value.x );
+              // find our index in the list
+              const currentIndex = availablePullers.indexOf( this );
 
-                // find our index in the list
-                const currentIndex = availablePullers.indexOf( this );
+              const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+              const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
 
-                const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-                const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
+              if ( newIndex !== currentIndex ) {
+                const nextPuller = availablePullers[ newIndex ];
 
-                if ( newIndex !== currentIndex ) {
-                  const nextPuller = availablePullers[ newIndex ];
-
-                  nextPuller.focusable = true;
-                  nextPuller.focus();
-                  this.focusable = false;
-                }
+                nextPuller.focusable = true;
+                nextPuller.focus();
+                this.focusable = false;
               }
             }
           }
