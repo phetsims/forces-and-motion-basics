@@ -30,6 +30,9 @@ import NetForceScreenView from './NetForceScreenView.js';
 type SelfOptions = EmptySelfOptions;
 type PullerNodeOptions = ImageOptions & SelfOptions;
 
+// Vertical offset when keyboard grabbed to show puller is "above" and not connected
+const KEYBOARD_GRABBED_Y_OFFSET = 20;
+
 export default class PullerNode extends InteractiveHighlighting( Image ) {
 
   public standImage: ImageableImage;
@@ -380,8 +383,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
         // Normal attached position
         const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
-        const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
-        this.setTranslation( knot.positionProperty.get() + pullingOffset + blueOffset, knot.y - this.height + 90 );
+        this.setKnotTranslation( knot, pullingOffset );
       }
       else if ( mode.isHome() ) {
         this.setTranslation( puller.positionProperty.initialValue );
@@ -392,7 +394,18 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         this.setTranslation( position );
       }
       else if ( mode.isKeyboardGrabbed() ) {
-        // TODO: see https://github.com/phetsims/forces-and-motion-basics/issues/379
+        if ( mode.isKeyboardGrabbedOverHome() ) {
+          this.setTranslation( puller.positionProperty.initialValue.plusXY( 0, -KEYBOARD_GRABBED_Y_OFFSET ) );
+        }
+        else if ( mode.isKeyboardGrabbedOverKnot() ) {
+
+          // Position at knot when keyboard grabbed over a knot
+          const knot = this.getKnotFromKeyboardMode( mode, this.model );
+          affirm( knot, 'Expected knot to be defined when keyboard grabbed over knot' );
+
+          // Use similar positioning as attached mode, but offset upward to show not connected
+          this.setKnotTranslation( knot, puller.standOffsetX, KEYBOARD_GRABBED_Y_OFFSET );
+        }
       }
     } );
   }
@@ -436,6 +449,17 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     if ( this.puller.getKnot() === null ) {
       this.focusable = true;
     }
+  }
+
+  /**
+   * Set the translation for a puller at a knot position
+   * @param knot - The knot to position the puller at
+   * @param offset - The horizontal offset (standOffsetX or dragOffsetX)
+   * @param verticalOffset - Additional vertical offset (0 for attached, KEYBOARD_GRABBED_Y_OFFSET for grabbed)
+   */
+  private setKnotTranslation( knot: Knot, offset: number, verticalOffset = 0 ): void {
+    const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
+    this.setTranslation( knot.positionProperty.get() + offset + blueOffset, knot.y - this.height + 90 - verticalOffset );
   }
 
   /**
