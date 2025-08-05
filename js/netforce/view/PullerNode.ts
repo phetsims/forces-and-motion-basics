@@ -9,6 +9,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import { clamp } from '../../../../dot/js/util/clamp.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
@@ -372,18 +373,26 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       this.image = pulling ? this.pullImage : this.standImage;
 
       const puller = this.puller;
-      const knot = this.puller.getKnot();
-      if ( knot ) {
+
+      if ( mode.isAttached() ) {
+        const knot = this.puller.getKnot();
+        affirm( knot, 'PullerNode expected to have a knot when in attached mode' );
 
         // Normal attached position
         const pullingOffset = pulling ? -puller.dragOffsetX : puller.standOffsetX;
         const blueOffset = this.puller.type === 'blue' ? -60 + 10 : 0;
         this.setTranslation( knot.positionProperty.get() + pullingOffset + blueOffset, knot.y - this.height + 90 );
       }
-      else {
+      else if ( mode.isHome() ) {
+        this.setTranslation( puller.positionProperty.initialValue );
+      }
+      else if ( mode.isPointerGrabbed() ) {
 
         // Home position (toolbox or pointerGrabbed)
         this.setTranslation( position );
+      }
+      else if ( mode.isKeyboardGrabbed() ) {
+        // TODO: see https://github.com/phetsims/forces-and-motion-basics/issues/379
       }
     } );
   }
