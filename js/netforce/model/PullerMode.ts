@@ -93,10 +93,10 @@ export default class PullerMode {
     if ( !this.isKeyboardGrabbedOverKnot() ) {
       return false;
     }
-    
+
     // Get the knot from the mode's stored index
     const modeKnot = this.getKnot( model );
-    
+
     // Check if it's the same knot
     return modeKnot === knot;
   }
@@ -158,8 +158,10 @@ export default class PullerMode {
 
   public getKnot( model: NetForceModel ): Knot | null {
     const knotIndex = this.knotIndex;
+
+    const sideOffset = this.side === 'left' ? 0 : 4;
     if ( knotIndex !== null && knotIndex !== undefined ) {
-      return model.knots[ knotIndex ];
+      return model.knots[ knotIndex + sideOffset ];
     }
     else {
       return null;

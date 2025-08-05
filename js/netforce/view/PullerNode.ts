@@ -204,11 +204,14 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
             const direction = keysPressed === 'arrowLeft' ? -1 : 1;
 
+            console.log( puller.type );
+            console.log( puller.modeProperty.value.toString() );
+
             // Get available knots for this puller's type
             const availableKnots = model.knots.filter( knot =>
 
               // Include the current puller's knot so we can index it, and know which is before/after
-              knot.type === puller.type && model.getPuller( knot ) === null || model.getPuller( knot ) === puller
+              knot.type === puller.type && ( model.getPuller( knot ) === null || model.getPuller( knot ) === puller )
             );
 
             // console.log( 'puller is at knot: ' + puller.getKnot()!.tandem.name + ', availableKnots', availableKnots.map( knot => knot.tandem.name ) );
@@ -360,7 +363,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         puller.modeProperty.value = PullerMode.home();
       }
     } );
-
 
     Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty ], ( mode, hasStarted, position ) => {
       const knotted = this.puller.getKnot();
