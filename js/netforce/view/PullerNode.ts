@@ -87,7 +87,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         tandem: options.tandem?.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
-        start: event => {
+        start: () => {
 
           puller.modeProperty.set( PullerMode.pointerGrabbed() );
 
@@ -164,14 +164,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       fireOnDown: false,
       fire: ( event, keysPressed ) => {
 
-        console.log( event, keysPressed );
-        const isGrabbed = puller.isGrabbed();
-
         // NAVIGATION (Arrow Keys)
         if ( NetForceHotkeyData.pullerNode.navigation.hasKeyStroke( keysPressed ) ) {
 
           // When no puller is grabbed, select between available pullers of the same type
-          if ( !isGrabbed ) {
+          if ( !puller.isGrabbed() ) {
 
             // select the next puller, and make it focusable, then focus it.
             if ( this.puller.modeProperty.value.isHome() ) {
@@ -205,13 +202,14 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           }
           else {
 
-            const puller = this.puller;
             const direction = keysPressed === 'arrowLeft' ? -1 : 1;
 
             // Get available knots for this puller's type
             const availableKnots = model.knots.filter( knot =>
               knot.type === puller.type && model.getPuller( knot ) === null
             );
+
+            console.log( 'availableKnots', availableKnots.map( knot => knot.tandem.name ) );
 
             // Create navigation waypoints: [knot1, knot2, ..., knotN, HOME]
             const waypoints: ( Knot | null )[] = [ ...availableKnots, null ]; // null = home position
@@ -222,7 +220,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
             // Find current waypoint index based on current mode
             const currentMode = puller.modeProperty.get();
-            let currentWaypointIndex = 0;
+            let currentWaypointIndex: number;
 
             if ( currentMode.isKeyboardGrabbedOverHome() ) {
               currentWaypointIndex = waypoints.length - 1; // Home is last waypoint
@@ -255,7 +253,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
         // GRAB/DROP (Enter/Space)
         if ( NetForceHotkeyData.pullerNode.grabOrDrop.hasKeyStroke( keysPressed ) ) {
-          if ( isGrabbed ) {
+          if ( puller.isGrabbed() ) {
 
             const puller = this.puller;
             const currentMode = puller.modeProperty.get();
@@ -327,14 +325,14 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
         // CANCEL (Escape)
         if ( NetForceHotkeyData.pullerNode.cancelInteraction.hasKeyStroke( keysPressed ) ) {
-          if ( isGrabbed ) {
+          if ( puller.isGrabbed() ) {
             // return this.handleCancel( pullerNode, model );
           }
         }
 
         // RETURN TO TOOLBOX (Delete/Backspace)
         if ( NetForceHotkeyData.pullerNode.returnToToolbox.hasKeyStroke( keysPressed ) ) {
-          if ( isGrabbed ) {
+          if ( puller.isGrabbed() ) {
             // return this.handleReturnToToolbox( pullerNode, model );
           }
         }
