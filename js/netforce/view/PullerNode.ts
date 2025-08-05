@@ -254,7 +254,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
           // Pick up an ungrabbed puller
           if ( !puller.isGrabbed() ) {
-            const puller = this.puller;
+
+            const wasInHome = puller.modeProperty.get().isHome();
 
             // Store current state for potential cancel operation
             puller.storeGrabOrigin();
@@ -267,10 +268,16 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
               knot.type === puller.type && model.getPuller( knot ) === null
             );
 
-            if ( availableKnots.length > 0 ) {
+            if ( availableKnots.length > 0 && wasInHome ) {
               newMode = PullerNode.getModeForWaypoint( availableKnots[ 0 ], this.puller );
             }
+            else if ( puller.modeProperty.get().isAttached() ) {
+              // Puller is attached to a knot - grab it over that knot
+              const currentKnot = puller.getKnot();
+              newMode = PullerNode.getModeForWaypoint( currentKnot, puller );
+            }
             else {
+              // Fallback to keyboard grabbed over home
               newMode = PullerMode.keyboardGrabbedOverHome();
             }
 
@@ -279,7 +286,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           else {
 
             // Drop the grabbed puller
-            const puller = this.puller;
             const currentMode = puller.modeProperty.get();
 
             // Determine where to drop based on current mode
@@ -362,8 +368,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       const knotted = this.puller.getKnot();
       const pulling = hasStarted && knotted && this.puller.model.stateProperty.get() !== 'completed';
       this.image = pulling ? this.pullImage : this.standImage;
-
-      const puller = this.puller;
 
       if ( mode.isAttached() ) {
         const knot = this.puller.getKnot();
