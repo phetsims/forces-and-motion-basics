@@ -36,133 +36,133 @@ orangeWins:                            Orange Wins!
 
 # keyboard help dialog strings
 keyboardHelpDialog:
-  fromAnywhereInSim:                   From Anywhere in Screen
-  startGame:                           Start game
-  pauseGame:                           Pause game
-  returnCartToCenter:                  Return cart to center
-  pullerNavigation:                    Puller Navigation
-  selectPuller:                        Select puller
-  grabPuller:                          Grab selected puller
-  moveGrabbedPuller:                   Move grabbed puller
-  dropPuller:                          Drop puller
-  itemNavigation:                      Item Navigation
-  selectItem:                          Select item
-  grabItem:                            Grab selected item
-  moveGrabbedItem:                     Move grabbed item
-  dropItem:                            Drop item
-  gameControls:                        Game Controls
-  startOrPauseGame:                    Start or pause game
-  returnCart:                          Return cart to center
+  fromAnywhereInSim:  From Anywhere in Screen
+  startGame:          Start game
+  pauseGame:          Pause game
+  returnCartToCenter: Return cart to center
+  pullerNavigation:   Puller Navigation
+  selectPuller:       Select puller
+  grabPuller:         Grab selected puller
+  moveGrabbedPuller:  Move grabbed puller
+  dropPuller:         Drop puller
+  itemNavigation:     Item Navigation
+  selectItem:         Select item
+  grabItem:           Grab selected item
+  moveGrabbedItem:    Move grabbed item
+  dropItem:           Drop item
+  gameControls:       Game Controls
+  startOrPauseGame:   Start or pause game
+  returnCart:         Return cart to center
 
 # accessibility strings
 a11y:
   netForceScreen:
     screenSummary:
       playArea:
-        heading: Play Area
-        description: The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. Blue team pullers are on the left, red team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
+        heading:         Play Area
+        description:     The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. Blue team pullers are on the left, red team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
         guidingQuestion: "How does the force from the pullers affect the motion of the cart?"
         toolboxes:
-          heading: Team Toolboxes
-          blueTeamHeading: Blue Team Toolbox
-          redTeamHeading: Red Team Toolbox
+          heading:           Team Toolboxes
+          blueTeamHeading:   Blue Team Toolbox
+          redTeamHeading:    Red Team Toolbox
           purpleTeamHeading: Purple Team Toolbox
           orangeTeamHeading: Orange Team Toolbox
-          description: Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force.
+          description:       Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force.
         rope:
-          heading: Rope and Cart
+          heading:     Rope and Cart
           description: A wheeled cart sits on a flat surface with a rope attached to both sides. Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab.
       controlArea:
-        heading: Control Area
+        heading:     Control Area
         description: Additionally, access game controls to start the tug-of-war, return the cart to center, and show force information.
         buttons:
-          go: Press to start or pause the tug-of-war game.
+          go:     Press to start or pause the tug-of-war game.
           return: Press to return the cart to the center and reset for a new game.
         checkboxes:
           sumOfForces: Check to show an arrow representing the sum of all forces.
-          values: Check to show numerical values for the forces.
-          speed: Check to show the speedometer on the cart.
+          values:      Check to show numerical values for the forces.
+          speed:       Check to show the speedometer on the cart.
       currentDetails:
-        cartCentered: Currently, the cart is centered and not moving.
-        noPullersAttached: No pullers are attached to the ropes.
-        cartMoving: The cart is moving.
-        pullersAttached: |-
-                     { $count ->
-                       [one] { $count } puller is attached to the ropes.
-                      *[other] { $count } pullers are attached to the ropes.
-                     }
-        blueTeamAttached: |-
-                     { $count ->
-                       [one] { $count } blue team puller is on the rope.
-                      *[other] { $count } blue team pullers are on the rope.
-                     }
-        redTeamAttached: |-
-                     { $count ->
-                       [one] { $count } red team puller is on the rope.
-                      *[other] { $count } red team pullers are on the rope.
-                     }
+        cartCentered:       Currently, the cart is centered and not moving.
+        noPullersAttached:  No pullers are attached to the ropes.
+        cartMoving:         The cart is moving.
+        pullersAttached:    |-
+                            { $count ->
+                              [one] { $count } puller is attached to the ropes.
+                             *[other] { $count } pullers are attached to the ropes.
+                            }
+        blueTeamAttached:   |-
+                            { $count ->
+                              [one] { $count } blue team puller is on the rope.
+                             *[other] { $count } blue team pullers are on the rope.
+                            }
+        redTeamAttached:    |-
+                            { $count ->
+                              [one] { $count } red team puller is on the rope.
+                             *[other] { $count } red team pullers are on the rope.
+                            }
         purpleTeamAttached: |-
-                     { $count ->
-                       [one] { $count } purple team puller is on the rope.
-                      *[other] { $count } purple team pullers are on the rope.
-                     }
+                            { $count ->
+                              [one] { $count } purple team puller is on the rope.
+                             *[other] { $count } purple team pullers are on the rope.
+                            }
         orangeTeamAttached: |-
-                     { $count ->
-                       [one] { $count } orange team puller is on the rope.
-                      *[other] { $count } orange team pullers are on the rope.
-                     }
+                            { $count ->
+                              [one] { $count } orange team puller is on the rope.
+                             *[other] { $count } orange team pullers are on the rope.
+                            }
       interactionHint:
-        noPullers: Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
+        noPullers:   Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
         withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.
   colors:
-    blue: blue
-    red: red
-    purple: purple
-    orange: orange
-    blueTeam: Blue Team
-    redTeam: Red Team
+    blue:       blue
+    red:        red
+    purple:     purple
+    orange:     orange
+    blueTeam:   Blue Team
+    redTeam:    Red Team
     purpleTeam: Purple Team
     orangeTeam: Orange Team
   returnButton:
     cartReturnedToCenter: Cart returned to center
-    accessibleName: Return Cart Button
-    accessibleHelpText: Press to return the cart to the center and reset for a new game.
+    accessibleName:       Return Cart Button
+    accessibleHelpText:   Press to return the cart to the center and reset for a new game.
   goPauseButton:
-    accessibleName: Go/Pause Button
+    accessibleName:     Go/Pause Button
     accessibleHelpText: Press to start or pause the tug-of-war game.
   pullersOnRope:
-    blueTeamHeading: Blue Team Pullers on Rope
-    redTeamHeading: Red Team Pullers on Rope
+    blueTeamHeading:    Blue Team Pullers on Rope
+    redTeamHeading:     Red Team Pullers on Rope
     descriptionContent: Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab
   netForceControlPanel:
     sumOfForces:
-      accessibleName: Sum of Forces
-      accessibleHelpText: Check to show an arrow representing the sum of all forces.
-      accessibleContextResponseChecked: Sum of forces arrow shown.
+      accessibleName:                     Sum of Forces
+      accessibleHelpText:                 Check to show an arrow representing the sum of all forces.
+      accessibleContextResponseChecked:   Sum of forces arrow shown.
       accessibleContextResponseUnchecked: Sum of forces arrow hidden.
     values:
-      accessibleName: Values
-      accessibleHelpText: Check to show numerical values for the forces.
-      accessibleContextResponseChecked: Force values shown.
+      accessibleName:                     Values
+      accessibleHelpText:                 Check to show numerical values for the forces.
+      accessibleContextResponseChecked:   Force values shown.
       accessibleContextResponseUnchecked: Force values hidden.
     speed:
-      accessibleName: Speed
-      accessibleHelpText: Check to show the speedometer on the cart.
-      accessibleContextResponseChecked: Speedometer shown on cart.
+      accessibleName:                     Speed
+      accessibleHelpText:                 Check to show the speedometer on the cart.
+      accessibleContextResponseChecked:   Speedometer shown on cart.
       accessibleContextResponseUnchecked: Speedometer hidden.
   playAreaControls:
-    accessibleHeading: Play Area Controls
+    accessibleHeading:  Play Area Controls
     descriptionContent: Controls to start or pause the tug-of-war, and to return the cart
   motionScreen:
     screenSummary:
       playArea:
-        description: The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement.
-        frictionDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
+        description:             The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement.
+        frictionDescription:     The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
         accelerationDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero.
-        guidingQuestion: "How do forces affect the motion of objects?"
+        guidingQuestion:         "How do forces affect the motion of objects?"
         objectToolbox:
-          description: Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
-          frictionDescription: Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties.
+          description:             Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
+          frictionDescription:     Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties.
           accelerationDescription: Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties.
         appliedForceControl:
           description: Use arrow keys or mouse to control the applied force. Watch how the objects move as you change the force.
@@ -170,92 +170,92 @@ a11y:
         description: Use checkboxes to show or hide forces, values, masses, speed, and other measurements. Use play controls to start, pause, or reset the simulation.
       currentDetails:
         noObjectsOnSkateboard: No objects are currently on the skateboard.
-        noObjectsOnGround: No objects are currently on the ground.
-        objectsOnSkateboard: |-
-                     { $count ->
-                       [one] { $count } object is on the skateboard.
-                      *[other] { $count } objects are on the skateboard.
-                     }
-        objectsOnGround: |-
-                     { $count ->
-                       [one] { $count } object is on the ground.
-                      *[other] { $count } objects are on the ground.
-                     }
+        noObjectsOnGround:     No objects are currently on the ground.
+        objectsOnSkateboard:   |-
+                               { $count ->
+                                 [one] { $count } object is on the skateboard.
+                                *[other] { $count } objects are on the skateboard.
+                               }
+        objectsOnGround:       |-
+                               { $count ->
+                                 [one] { $count } object is on the ground.
+                                *[other] { $count } objects are on the ground.
+                               }
         motionState:
-          stationary: Objects are stationary.
+          stationary:  Objects are stationary.
           movingRight: Objects are moving to the right.
-          movingLeft: Objects are moving to the left.
+          movingLeft:  Objects are moving to the left.
         forceDescription:
-          noForce: No force is being applied.
+          noForce:           No force is being applied.
           appliedForceRight: Applied force is pushing objects to the right.
-          appliedForceLeft: Applied force is pushing objects to the left.
+          appliedForceLeft:  Applied force is pushing objects to the left.
       interactionHint:
-        noObjects: Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion.
+        noObjects:         Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion.
         noObjectsOnGround: Drag objects from the toolboxes onto the ground, then use the applied force control to create motion.
-        withObjects: Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces.
+        withObjects:       Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces.
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
-      massUnknown: 'mass unknown'
+      massUnknown:                'mass unknown'
       names:
-        fridge: Fridge
-        crate1: Crate 1
-        crate2: Crate 2
-        girl: Girl
-        man: Man
-        trash: Trash Can
+        fridge:  Fridge
+        crate1:  Crate 1
+        crate2:  Crate 2
+        girl:    Girl
+        man:     Man
+        trash:   Trash Can
         mystery: Mystery Object
     itemToolbox:
-      accessibleName: Item Toolbox
+      accessibleName:     Item Toolbox
       descriptionContent: Use arrow keys to select an item, then press Space or Enter to grab
     itemStackGroup:
-      accessibleName: Items on Skateboard
+      accessibleName:     Items on Skateboard
       descriptionContent: Use arrow keys to navigate between stacked items, then press Space or Enter to grab
     motionControlPanel:
       force:
-        accessibleName: Force
-        accessibleHelpText: Check to show force arrows.
-        accessibleContextResponseChecked: Force arrows shown.
+        accessibleName:                     Force
+        accessibleHelpText:                 Explore with or without force arrows.
+        accessibleContextResponseChecked:   Force arrows shown.
         accessibleContextResponseUnchecked: Force arrows hidden.
       values:
-        accessibleName: Values
-        accessibleHelpText: Check to show numerical values for the forces.
-        accessibleContextResponseChecked: Force values shown.
+        accessibleName:                     Values
+        accessibleHelpText:                 Check to show numerical values for the forces.
+        accessibleContextResponseChecked:   Force values shown.
         accessibleContextResponseUnchecked: Force values hidden.
       masses:
-        accessibleName: Masses
-        accessibleHelpText: Check to show masses of objects.
-        accessibleContextResponseChecked: Object masses shown.
+        accessibleName:                     Masses
+        accessibleHelpText:                 Check to show masses of objects.
+        accessibleContextResponseChecked:   Object masses shown.
         accessibleContextResponseUnchecked: Object masses hidden.
       speed:
-        accessibleName: Speed
-        accessibleHelpText: Check to show the speedometer.
-        accessibleContextResponseChecked: Speedometer shown.
+        accessibleName:                     Speed
+        accessibleHelpText:                 Check to show the speedometer.
+        accessibleContextResponseChecked:   Speedometer shown.
         accessibleContextResponseUnchecked: Speedometer hidden.
       stopwatch:
-        accessibleName: Stopwatch
-        accessibleHelpText: Check to show the stopwatch.
-        accessibleContextResponseChecked: Stopwatch shown.
+        accessibleName:                     Stopwatch
+        accessibleHelpText:                 Check to show the stopwatch.
+        accessibleContextResponseChecked:   Stopwatch shown.
         accessibleContextResponseUnchecked: Stopwatch hidden.
       forces:
-        accessibleName: Forces
-        accessibleHelpText: Check to show force arrows.
-        accessibleContextResponseChecked: Force arrows shown.
+        accessibleName:                     Forces
+        accessibleHelpText:                 Explore with or without force arrows.
+        accessibleContextResponseChecked:   Force arrows shown.
         accessibleContextResponseUnchecked: Force arrows hidden.
       sumOfForces:
-        accessibleName: Sum of Forces
-        accessibleHelpText: Check to show an arrow representing the sum of all forces.
-        accessibleContextResponseChecked: Sum of forces arrow shown.
+        accessibleName:                     Sum of Forces
+        accessibleHelpText:                 Check to show an arrow representing the sum of all forces.
+        accessibleContextResponseChecked:   Sum of forces arrow shown.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       acceleration:
-        accessibleName: Acceleration
-        accessibleHelpText: Check to show the accelerometer.
-        accessibleContextResponseChecked: Accelerometer shown.
+        accessibleName:                     Acceleration
+        accessibleHelpText:                 Check to show the accelerometer.
+        accessibleContextResponseChecked:   Accelerometer shown.
         accessibleContextResponseUnchecked: Accelerometer hidden.
   objectToolboxes:
-    leftObjectToolbox: Left Object Toolbox
+    leftObjectToolbox:  Left Object Toolbox
     rightObjectToolbox: Right Object Toolbox
-    objectToolbox: Object Toolbox
-    skateboard: Skateboard
+    objectToolbox:      Object Toolbox
+    skateboard:         Skateboard
   motionPlayAreaControls:
-    accessibleHeading: Play Area Controls
+    accessibleHeading:  Play Area Controls
     descriptionContent: Controls to start or pause motion, and to reset simulation
