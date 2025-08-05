@@ -62,6 +62,7 @@ import FlagNode from './FlagNode.js';
 import GoPauseButton from './GoPauseButton.js';
 import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
+import NetForceGrabReleaseCueNode from './NetForceGrabReleaseCueNode.js';
 import NetForceScreenSummaryContent from './NetForceScreenSummaryContent.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
@@ -176,6 +177,7 @@ export default class NetForceScreenView extends ScreenView {
   private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
   private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
   private readonly returnButton: ReturnButton;
+  private readonly grabReleaseCueNode: NetForceGrabReleaseCueNode;
 
   // private readonly pullerFocusManager: PullerFocusManager;
 
@@ -422,45 +424,6 @@ export default class NetForceScreenView extends ScreenView {
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
       pullerGroup.addChild( pullerNode );
       this.pullerNodes.push( pullerNode );
-
-      // Register with the centralized focus manager
-      // this.pullerFocusManager.registerPuller( pullerNode );
-
-      // Listen for knot property changes to move pullers between groups
-      puller.modeProperty.link( ( mode, oldMode ) => {
-        // const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-        // const ropeGroup = puller.type === 'blue' ? this.leftRopePullerGroup : this.rightRopePullerGroup;
-
-        // TODO see https://github.com/phetsims/forces-and-motion-basics/issues/379
-        // if ( newKnot !== null && oldKnot === null ) {
-        //   // Puller attached to rope - move from toolbox to rope group
-        //   if ( toolboxGroup.pullerNodes.includes( pullerNode ) ) {
-        //     toolboxGroup.removePullerNode( pullerNode );
-        //     ropeGroup.addPullerNode( pullerNode, this.model );
-        //   }
-        // }
-        // else if ( newKnot === null && oldKnot !== null ) {
-        //   // Puller detached from rope - move from rope group back to toolbox
-        //   if ( ropeGroup.ropePullerNodes.includes( pullerNode ) ) {
-        //     ropeGroup.removePullerNode( pullerNode );
-        //     toolboxGroup.addPullerNode( pullerNode, this.model );
-        //   }
-        // }
-      } );
-
-
-      // Listen for drops to handle auto-focus to next puller
-      // puller.droppedEmitter.addListener( ( source: 'mouse' | 'keyboard' ) => {
-      //   // Only handle keyboard drops for auto-focus
-      //   if ( source === 'keyboard' ) {
-      //     // Check if the puller was dropped on the rope (has a knot)
-      //     if ( puller.knotProperty.get() !== null ) {
-      //       // The puller was dropped on the rope, focus next puller in toolbox
-      //       const toolboxGroup = puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
-      //       toolboxGroup.focusNextPullerInToolbox( pullerNode );
-      //     }
-      //   }
-      // } );
     } );
 
     ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
@@ -504,15 +467,6 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.leftRopePullerGroup );
     this.addChild( this.rightRopePullerGroup );
 
-    // Register all groups with the focus manager for highlight updates
-    // this.pullerFocusManager.registerGroup( this.leftPullerGroup );
-    // this.pullerFocusManager.registerGroup( this.rightPullerGroup );
-    // this.pullerFocusManager.registerGroup( this.leftRopePullerGroup );
-    // this.pullerFocusManager.registerGroup( this.rightRopePullerGroup );
-
-    // Note: Complex transfer logic has been replaced with centralized focus management.
-    // The PullerFocusManager now handles focus state based on puller modes automatically.
-
     const playAreaControlNode = new Node( {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.playAreaControls.accessibleHeadingStringProperty,
@@ -555,6 +509,9 @@ export default class NetForceScreenView extends ScreenView {
 
         // Reset all puller nodes
         this.pullerNodes.forEach( pullerNode => pullerNode.reset() );
+
+        // Reset the grab release cue node
+        this.grabReleaseCueNode.reset();
 
         // Reset the centralized focus management
         // this.pullerFocusManager.reset();
@@ -661,6 +618,18 @@ export default class NetForceScreenView extends ScreenView {
       this.controlPanel,
       this.resetAllButton
     ];
+
+    this.grabReleaseCueNode = new NetForceGrabReleaseCueNode( this.pullerNodes, this.layoutBounds, tandem.createTandem( 'grabReleaseCueNode' ) );
+    this.addChild( this.grabReleaseCueNode );
+
+    // Hide cue node after any interaction with pullers
+    this.pullerNodes.forEach( pullerNode => {
+      pullerNode.puller.modeProperty.link( mode => {
+        if ( mode.isKeyboardGrabbed() ) {
+          this.grabReleaseCueNode.hasInteractedProperty.value = true;
+        }
+      } );
+    } );
   }
 }
 
