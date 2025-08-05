@@ -257,6 +257,13 @@ export default class Puller extends PhetioObject {
     return this.modeProperty.value.isGrabbed();
   }
 
+  /**
+   * Get the grab origin if it exists
+   */
+  public getGrabOrigin(): { mode: PullerMode; position: Vector2 } | null {
+    return this.grabOrigin;
+  }
+
   public getKnot(): Knot | null {
     return this.modeProperty.value.getKnot( this.model );
   }
