@@ -355,17 +355,9 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       }
 
       if ( !focused && puller.isGrabbed() ) {
+
         // Handle focus blur during keyboard grab - drop the puller
-        // const result = PullerKeyboardSupport.handleKeyboardInput( this, model, 'enter' );
-        //
-        // if ( result.handled ) {
-        //   if ( result.shouldUpdatePosition ) {
-        //     this.updatePosition( this.puller, model );
-        //   }
-        //   if ( result.shouldUpdateImage ) {
-        //     this.updateImage( this.puller, model );
-        //   }
-        // }
+        puller.modeProperty.value = PullerMode.home();
       }
     } );
 
