@@ -508,7 +508,7 @@
             "value": "Force"
           },
           "accessibleHelpText": {
-            "value": "Check to show force arrows."
+            "value": "Explore with or without force arrows."
           },
           "accessibleContextResponseChecked": {
             "value": "Force arrows shown."
@@ -578,7 +578,7 @@
             "value": "Forces"
           },
           "accessibleHelpText": {
-            "value": "Check to show force arrows."
+            "value": "Explore with or without force arrows."
           },
           "accessibleContextResponseChecked": {
             "value": "Force arrows shown."
