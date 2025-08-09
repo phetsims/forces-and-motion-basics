@@ -26,7 +26,7 @@ const {
 
 
 // Test configuration
-const TEST_URL = 'http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses';
+const TEST_URL = 'http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logInteractiveDescriptionResponses';
 
 test.describe( 'Forces and Motion Basics - Keyboard Navigation @a11y @keyboard', () => {
 

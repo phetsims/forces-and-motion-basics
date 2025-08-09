@@ -2,7 +2,7 @@ Instructions: Follow the numbered steps. After each step, check the expected out
 
 # Test 1. Basic Puller Alt-Input
 
-1. Launch http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses
+1. Launch http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logInteractiveDescriptionResponses
    using the playwright mcp.
 2. Press tab. => "large blue puller" must have focus.
 3. Press enter. => There must be a "Grabbed" message from aria-live.
@@ -11,7 +11,7 @@ Instructions: Follow the numbered steps. After each step, check the expected out
 
 # Test 2. Putting a Puller on the Rope, then bringing back to the toolbox
 
-1. Launch http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses
+1. Launch http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logInteractiveDescriptionResponses
    using the playwright mcp.
 2. Press tab. => "large blue puller" must have focus.
 3. Press enter. => There must be a "Grabbed" message from aria-live.

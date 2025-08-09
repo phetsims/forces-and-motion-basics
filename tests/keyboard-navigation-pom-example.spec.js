@@ -10,7 +10,7 @@
 const { test, expect } = require( '@playwright/test' );
 const { NetForcePage } = require( './page-objects/NetForcePage' );
 
-const TEST_URL = 'http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logAriaLiveResponses';
+const TEST_URL = 'http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logInteractiveDescriptionResponses';
 
 test.describe( 'Net Force Page Object Model Example @pom', () => {
 
