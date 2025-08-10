@@ -350,11 +350,11 @@ export default class NetForceScreenView extends ScreenView {
     // Create instruction nodes that will be read before the puller groups
     const leftInstructions = new Node( {
       tagName: 'p',
-      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.'
     } );
     const rightInstructions = new Node( {
       tagName: 'p',
-      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Drag to attach to rope knots.'
+      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.'
     } );
 
     // Add instructions to toolboxes first (so they're read before puller groups)
