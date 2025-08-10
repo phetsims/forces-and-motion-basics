@@ -303,10 +303,9 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             }
             else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
               // Drop at knot - convert keyboard grabbed to attached
-              const side = currentMode.getKeyboardGrabbedKnotSide();
               const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
-              if ( side && knotIndex !== null ) {
-                newMode = PullerMode.attachedToKnot( side, knotIndex );
+              if ( knotIndex !== null ) {
+                newMode = PullerMode.attachedToKnot( knotIndex );
                 droppedOnRope = true;
 
                 const knot = puller.getKnot();
@@ -401,12 +400,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     } );
 
     Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty ], ( mode, hasStarted, position ) => {
-      const knotted = this.puller.getKnot();
-      const pulling = hasStarted && knotted && this.puller.model.stateProperty.get() !== 'completed';
+      const knot = this.puller.getKnot();
+      const pulling = hasStarted && knot && this.puller.model.stateProperty.get() !== 'completed';
       this.image = pulling ? this.pullImage : this.standImage;
 
       if ( mode.isAttached() ) {
-        const knot = this.puller.getKnot();
         affirm( knot, 'PullerNode expected to have a knot when in attached mode' );
 
         // Normal attached position
@@ -428,7 +426,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         else if ( mode.isKeyboardGrabbedOverKnot() ) {
 
           // Position at knot when keyboard grabbed over a knot
-          const knot = this.getKnotFromKeyboardMode( mode, this.model );
+          const knot = mode.getKnot( puller.model );
           affirm( knot, 'Expected knot to be defined when keyboard grabbed over knot' );
 
           // Use similar positioning as attached mode, but offset upward to show not connected
@@ -436,23 +434,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         }
       }
     } );
-  }
-
-  /**
-   * Get knot from keyboard grabbed mode structure
-   */
-  private getKnotFromKeyboardMode( mode: PullerMode, model: NetForceModel ): Knot | null {
-    if ( mode.isKeyboardGrabbedOverKnot() ) {
-      const side = mode.getKeyboardGrabbedKnotSide();
-      const knot = mode.getKeyboardGrabbedKnotIndex();
-      if ( side && knot !== null ) {
-        const filteredKnots = model.knots.filter( k =>
-          k.type === ( side === 'left' ? 'blue' : 'red' )
-        );
-        return filteredKnots[ knot ] || null;
-      }
-    }
-    return null;
   }
 
   /**
@@ -498,13 +479,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       return PullerMode.keyboardGrabbedOverHome();
     }
 
-    // Get the knot index from the model knots array
-    const sameTypeKnots = puller.model.knots.filter( k => k.type === waypoint.type );
-    const knotIndex = sameTypeKnots.indexOf( waypoint );
+    // Get the absolute knot index from the model knots array
+    const knotIndex = puller.model.knots.indexOf( waypoint );
+    affirm( knotIndex >= 0 && knotIndex <= 7, `knotIndex must be 0-7 for absolute indexing, got ${knotIndex}` );
 
-    const side = waypoint.type === 'blue' ? 'left' : 'right';
-
-    return PullerMode.keyboardGrabbedOverKnot( side, knotIndex );
+    return PullerMode.keyboardGrabbedOverKnot( knotIndex );
   }
 
 }

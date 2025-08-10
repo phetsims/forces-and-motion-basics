@@ -13,6 +13,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -144,11 +145,11 @@ export default class Puller extends PhetioObject {
       return PullerMode.home();
     }
 
-    const sameTypeKnots = this.model.knots.filter( k => this.type === knot.type ) || [];
-    const knotIndex = sameTypeKnots.indexOf( knot );
-    const side = knot.type === 'blue' ? 'left' : 'right';
+    // Find the absolute index in the knots array
+    const knotIndex = this.model.knots.indexOf( knot );
+    affirm( knotIndex >= 0 && knotIndex <= 7, `knotIndex must be 0-7 for absolute indexing, got ${knotIndex}` );
 
-    return PullerMode.attachedToKnot( side, knotIndex );
+    return PullerMode.attachedToKnot( knotIndex );
   }
 
   // Grab origin storage for cancel functionality
@@ -288,7 +289,7 @@ const PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
       return PullerMode.home();
     }
     else {
-      return PullerMode.attachedToKnot( stateObject.knot <= 3 ? 'left' : 'right', stateObject.knot );
+      return PullerMode.attachedToKnot( stateObject.knot );
     }
   }
 } );

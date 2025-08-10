@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
 import NetForceModel from './NetForceModel.js';
@@ -17,7 +18,6 @@ type GrabMethod = 'pointer' | 'keyboard';
 export default class PullerMode {
   public readonly type: PullerModeType;
   private readonly method?: GrabMethod;
-  private readonly side?: 'left' | 'right';
   private readonly knotIndex?: number;
   private readonly overHome?: boolean;
 
@@ -25,14 +25,12 @@ export default class PullerMode {
     type: PullerModeType,
     options?: {
       method?: GrabMethod;
-      side?: 'left' | 'right';
       knotIndex?: number;
       overHome?: boolean;
     }
   ) {
     this.type = type;
     this.method = options?.method;
-    this.side = options?.side;
     this.knotIndex = options?.knotIndex;
     this.overHome = options?.overHome;
   }
@@ -49,12 +47,14 @@ export default class PullerMode {
     return new PullerMode( 'grabbed', { method: 'keyboard', overHome: true } );
   }
 
-  public static keyboardGrabbedOverKnot( side: 'left' | 'right', knotIndex: number ): PullerMode {
-    return new PullerMode( 'grabbed', { method: 'keyboard', side: side, knotIndex: knotIndex } );
+  public static keyboardGrabbedOverKnot( knotIndex: number ): PullerMode {
+    affirm( knotIndex >= 0 && knotIndex <= 7, `knotIndex must be 0-7 for absolute indexing, got ${knotIndex}` );
+    return new PullerMode( 'grabbed', { method: 'keyboard', knotIndex: knotIndex } );
   }
 
-  public static attachedToKnot( side: 'left' | 'right', knotIndex: number ): PullerMode {
-    return new PullerMode( 'attached', { side: side, knotIndex: knotIndex } );
+  public static attachedToKnot( knotIndex: number ): PullerMode {
+    affirm( knotIndex >= 0 && knotIndex <= 7, `knotIndex must be 0-7 for absolute indexing, got ${knotIndex}` );
+    return new PullerMode( 'attached', { knotIndex: knotIndex } );
   }
 
   public isHome(): boolean {
@@ -86,7 +86,7 @@ export default class PullerMode {
   }
 
   public isKeyboardGrabbedOverKnot(): boolean {
-    return this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knotIndex !== undefined;
+    return this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined;
   }
 
   public isKeyboardGrabbedOverSpecificKnot( knot: Knot, model: NetForceModel ): boolean {
@@ -102,22 +102,22 @@ export default class PullerMode {
   }
 
   public getKeyboardGrabbedKnotSide(): 'left' | 'right' | null {
-    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side !== undefined && this.knotIndex !== undefined ) {
-      return this.side;
+    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined ) {
+      return this.knotIndex <= 3 ? 'left' : 'right';
     }
     return null;
   }
 
   public getKeyboardGrabbedKnotIndex(): number | null {
-    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined && this.side !== undefined ) {
+    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined ) {
       return this.knotIndex;
     }
     return null;
   }
 
   public getAttachedSide(): 'left' | 'right' | null {
-    if ( this.type === 'attached' && this.side !== undefined ) {
-      return this.side;
+    if ( this.type === 'attached' && this.knotIndex !== undefined ) {
+      return this.knotIndex <= 3 ? 'left' : 'right';
     }
     return null;
   }
@@ -132,7 +132,6 @@ export default class PullerMode {
   public equals( other: PullerMode ): boolean {
     return this.type === other.type &&
            this.method === other.method &&
-           this.side === other.side &&
            this.knotIndex === other.knotIndex &&
            this.overHome === other.overHome;
   }
@@ -147,11 +146,13 @@ export default class PullerMode {
     else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.overHome ) {
       return 'keyboardGrabbedOverHome';
     }
-    else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.side && this.knotIndex !== undefined ) {
-      return `keyboardGrabbedOver${this.side === 'left' ? 'Left' : 'Right'}Knot${this.knotIndex}`;
+    else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined ) {
+      const side = this.knotIndex <= 3 ? 'Left' : 'Right';
+      return `keyboardGrabbedOver${side}Knot${this.knotIndex}`;
     }
-    else if ( this.type === 'attached' && this.side && this.knotIndex !== undefined ) {
-      return `attachedTo${this.side === 'left' ? 'Left' : 'Right'}Knot${this.knotIndex}`;
+    else if ( this.type === 'attached' && this.knotIndex !== undefined ) {
+      const side = this.knotIndex <= 3 ? 'Left' : 'Right';
+      return `attachedTo${side}Knot${this.knotIndex}`;
     }
     return 'unknown';
   }
@@ -159,9 +160,11 @@ export default class PullerMode {
   public getKnot( model: NetForceModel ): Knot | null {
     const knotIndex = this.knotIndex;
 
-    const sideOffset = this.side === 'left' ? 0 : 4;
     if ( knotIndex !== null && knotIndex !== undefined ) {
-      return model.knots[ knotIndex + sideOffset ];
+      affirm( knotIndex >= 0 && knotIndex <= 7, `knotIndex must be 0-7 for absolute indexing, got ${knotIndex}` );
+      const knot = model.knots[ knotIndex ];
+      affirm( knot !== undefined, `Knot index ${knotIndex} is out of bounds` );
+      return knot;
     }
     else {
       return null;
