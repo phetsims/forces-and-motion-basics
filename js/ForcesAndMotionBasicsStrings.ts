@@ -80,7 +80,6 @@ type StringsType = {
           'descriptionStringProperty': LocalizedStringProperty;
           'guidingQuestionStringProperty': LocalizedStringProperty;
           'toolboxes': {
-            'headingStringProperty': LocalizedStringProperty;
             'blueTeamHeadingStringProperty': LocalizedStringProperty;
             'redTeamHeadingStringProperty': LocalizedStringProperty;
             'purpleTeamHeadingStringProperty': LocalizedStringProperty;
@@ -139,11 +138,6 @@ type StringsType = {
     'goPauseButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-    };
-    'pullersOnRope': {
-      'blueTeamHeadingStringProperty': LocalizedStringProperty;
-      'redTeamHeadingStringProperty': LocalizedStringProperty;
-      'descriptionContentStringProperty': LocalizedStringProperty;
     };
     'netForceControlPanel': {
       'sumOfForces': {

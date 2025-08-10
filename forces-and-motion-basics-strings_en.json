@@ -171,20 +171,17 @@
             "value": "How does the force from the pullers affect the motion of the cart?"
           },
           "toolboxes": {
-            "heading": {
-              "value": "Team Toolboxes"
-            },
             "blueTeamHeading": {
-              "value": "Blue Team Toolbox"
+              "value": "Blue Team"
             },
             "redTeamHeading": {
-              "value": "Red Team Toolbox"
+              "value": "Red Team"
             },
             "purpleTeamHeading": {
-              "value": "Purple Team Toolbox"
+              "value": "Purple Team"
             },
             "orangeTeamHeading": {
-              "value": "Orange Team Toolbox"
+              "value": "Orange Team"
             },
             "description": {
               "value": "Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force."
@@ -305,17 +302,6 @@
       },
       "accessibleHelpText": {
         "value": "Press to start or pause the tug-of-war game."
-      }
-    },
-    "pullersOnRope": {
-      "blueTeamHeading": {
-        "value": "Blue Team Pullers on Rope"
-      },
-      "redTeamHeading": {
-        "value": "Red Team Pullers on Rope"
-      },
-      "descriptionContent": {
-        "value": "Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab"
       }
     },
     "netForceControlPanel": {

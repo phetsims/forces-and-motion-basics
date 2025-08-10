@@ -77,7 +77,6 @@ addToMapIfDefined( 'keyboardHelpDialog_returnCart', 'keyboardHelpDialog.returnCa
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_heading', 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_heading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_purpleTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty' );
@@ -115,9 +114,6 @@ addToMapIfDefined( 'a11y_returnButton_accessibleName', 'a11y.returnButton.access
 addToMapIfDefined( 'a11y_returnButton_accessibleHelpText', 'a11y.returnButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_goPauseButton_accessibleName', 'a11y.goPauseButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_goPauseButton_accessibleHelpText', 'a11y.goPauseButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_pullersOnRope_blueTeamHeading', 'a11y.pullersOnRope.blueTeamHeadingStringProperty' );
-addToMapIfDefined( 'a11y_pullersOnRope_redTeamHeading', 'a11y.pullersOnRope.redTeamHeadingStringProperty' );
-addToMapIfDefined( 'a11y_pullersOnRope_descriptionContent', 'a11y.pullersOnRope.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleName', 'a11y.netForceControlPanel.sumOfForces.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleHelpText', 'a11y.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', 'a11y.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' );
@@ -288,7 +284,6 @@ const ForcesAndMotionBasicsFluent = {
           descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ) ),
           guidingQuestionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' ) ),
           toolboxes: {
-            headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.headingStringProperty' ) ),
             blueTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' ) ),
             redTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' ) ),
             purpleTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_purpleTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty' ) ),
@@ -347,11 +342,6 @@ const ForcesAndMotionBasicsFluent = {
     goPauseButton: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleNameStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleHelpTextStringProperty' ) )
-    },
-    pullersOnRope: {
-      blueTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullersOnRope_blueTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullersOnRope.blueTeamHeadingStringProperty' ) ),
-      redTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullersOnRope_redTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullersOnRope.redTeamHeadingStringProperty' ) ),
-      descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullersOnRope_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullersOnRope.descriptionContentStringProperty' ) )
     },
     netForceControlPanel: {
       sumOfForces: {

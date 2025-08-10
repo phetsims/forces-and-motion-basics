@@ -66,7 +66,6 @@ import NetForceGrabReleaseCueNode from './NetForceGrabReleaseCueNode.js';
 import NetForceScreenSummaryContent from './NetForceScreenSummaryContent.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
-import PullersOnRopeGroupNode from './PullersOnRopeGroupNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 
@@ -174,8 +173,6 @@ export default class NetForceScreenView extends ScreenView {
   private readonly sumOfForcesText: Text;
   private readonly leftPullerGroup: PullerGroupNode;
   private readonly rightPullerGroup: PullerGroupNode;
-  private readonly leftRopePullerGroup: PullersOnRopeGroupNode;
-  private readonly rightRopePullerGroup: PullersOnRopeGroupNode;
   private readonly returnButton: ReturnButton;
   private readonly grabReleaseCueNode: NetForceGrabReleaseCueNode;
 
@@ -436,37 +433,6 @@ export default class NetForceScreenView extends ScreenView {
     leftToolbox.addChild( this.leftPullerGroup );
     rightToolbox.addChild( this.rightPullerGroup );
 
-    // Create DerivedProperties for rope group names
-    const leftRopeGroupNameProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-      pullerColor => {
-        const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
-        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team Pullers on Rope`;
-      }
-    );
-
-    const rightRopeGroupNameProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-      pullerColor => {
-        const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
-        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team Pullers on Rope`;
-      }
-    );
-
-    // Create separate rope groups for blue (left) and red (right) pullers
-    this.leftRopePullerGroup = new PullersOnRopeGroupNode( model, leftToolbox.bounds, {
-      side: 'left',
-      accessibleName: leftRopeGroupNameProperty
-    } );
-    this.rightRopePullerGroup = new PullersOnRopeGroupNode( model, rightToolbox.bounds, {
-      side: 'right',
-      accessibleName: rightRopeGroupNameProperty
-    } );
-    this.addChild( this.leftRopePullerGroup );
-    this.addChild( this.rightRopePullerGroup );
-
     const playAreaControlNode = new Node( {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.playAreaControls.accessibleHeadingStringProperty,
@@ -603,8 +569,6 @@ export default class NetForceScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       leftToolbox,
       rightToolbox,
-      this.leftRopePullerGroup,
-      this.rightRopePullerGroup,
       playAreaControlNode,
       this.cartNode,
       // stateDescriptionNode,

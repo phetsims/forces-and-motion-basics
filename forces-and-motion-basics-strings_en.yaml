@@ -63,11 +63,10 @@ a11y:
         description:     The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. Blue team pullers are on the left, red team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
         guidingQuestion: "How does the force from the pullers affect the motion of the cart?"
         toolboxes:
-          heading:           Team Toolboxes
-          blueTeamHeading:   Blue Team Toolbox
-          redTeamHeading:    Red Team Toolbox
-          purpleTeamHeading: Purple Team Toolbox
-          orangeTeamHeading: Orange Team Toolbox
+          blueTeamHeading:   Blue Team
+          redTeamHeading:    Red Team
+          purpleTeamHeading: Purple Team
+          orangeTeamHeading: Orange Team
           description:       Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force.
         rope:
           heading:     Rope and Cart
@@ -130,10 +129,6 @@ a11y:
   goPauseButton:
     accessibleName:     Go/Pause Button
     accessibleHelpText: Press to start or pause the tug-of-war game.
-  pullersOnRope:
-    blueTeamHeading:    Blue Team Pullers on Rope
-    redTeamHeading:     Red Team Pullers on Rope
-    descriptionContent: Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab
   netForceControlPanel:
     sumOfForces:
       accessibleName:                     Sum of Forces
