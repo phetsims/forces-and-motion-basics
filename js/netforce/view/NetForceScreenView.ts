@@ -310,7 +310,7 @@ export default class NetForceScreenView extends ScreenView {
       pullerColor => {
         const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
         const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team Toolbox`;
+        return `${colorKey} Team`;
       }
     );
 
@@ -319,25 +319,7 @@ export default class NetForceScreenView extends ScreenView {
       pullerColor => {
         const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
         const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team Toolbox`;
-      }
-    );
-
-    const leftTeamGroupNameProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-      pullerColor => {
-        const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
-        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team Pullers`;
-      }
-    );
-
-    const rightTeamGroupNameProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-      pullerColor => {
-        const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
-        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team Pullers`;
+        return `${colorKey} Team`;
       }
     );
 
@@ -384,16 +366,11 @@ export default class NetForceScreenView extends ScreenView {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
 
-    // Initialize the centralized focus manager
-    // this.pullerFocusManager = new PullerFocusManager();
-
     this.leftPullerGroup = new PullerGroupNode( model, leftToolbox.bounds, {
-      side: 'left',
-      accessibleHeading: leftTeamGroupNameProperty
+      side: 'left'
     } );
     this.rightPullerGroup = new PullerGroupNode( model, rightToolbox.bounds, {
-      side: 'right',
-      accessibleHeading: rightTeamGroupNameProperty
+      side: 'right'
     } );
     this.model.pullers.forEach( puller => {
       // Create dynamic accessibleName property for this puller wired directly to preference
