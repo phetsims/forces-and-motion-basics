@@ -201,7 +201,7 @@
             "value": "Control Area"
           },
           "description": {
-            "value": "Additionally, access game controls to start the tug-of-war, return the cart to center, and show force information."
+            "value": "Access game controls to start the tug-of-war, return the cart to center, and show force information."
           },
           "buttons": {
             "go": {
@@ -233,20 +233,17 @@
           "cartMoving": {
             "value": "The cart is moving."
           },
-          "pullersAttached": {
-            "value": "{ $count ->\n  [one] { $count } puller is attached to the ropes.\n *[other] { $count } pullers are attached to the ropes.\n}"
-          },
           "blueTeamAttached": {
-            "value": "{ $count ->\n  [one] { $count } blue team puller is on the rope.\n *[other] { $count } blue team pullers are on the rope.\n}"
+            "value": "{ $count ->\n  [0] No blue team pullers are on the rope.\n  [one] { $count } blue team puller is on the rope.\n *[other] { $count } blue team pullers are on the rope.\n}"
           },
           "redTeamAttached": {
-            "value": "{ $count ->\n  [one] { $count } red team puller is on the rope.\n *[other] { $count } red team pullers are on the rope.\n}"
+            "value": "{ $count ->\n  [0] No red team pullers are on the rope.\n  [one] { $count } red team puller is on the rope.\n *[other] { $count } red team pullers are on the rope.\n}"
           },
           "purpleTeamAttached": {
-            "value": "{ $count ->\n  [one] { $count } purple team puller is on the rope.\n *[other] { $count } purple team pullers are on the rope.\n}"
+            "value": "{ $count ->\n  [0] No purple team pullers are on the rope.\n  [one] { $count } purple team puller is on the rope.\n *[other] { $count } purple team pullers are on the rope.\n}"
           },
           "orangeTeamAttached": {
-            "value": "{ $count ->\n  [one] { $count } orange team puller is on the rope.\n *[other] { $count } orange team pullers are on the rope.\n}"
+            "value": "{ $count ->\n  [0] No orange team pullers are on the rope.\n  [one] { $count } orange team puller is on the rope.\n *[other] { $count } orange team pullers are on the rope.\n}"
           }
         },
         "interactionHint": {

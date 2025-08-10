@@ -108,7 +108,6 @@ type StringsType = {
           'cartCenteredStringProperty': LocalizedStringProperty;
           'noPullersAttachedStringProperty': LocalizedStringProperty;
           'cartMovingStringProperty': LocalizedStringProperty;
-          'pullersAttachedStringProperty': LocalizedStringProperty;
           'blueTeamAttachedStringProperty': LocalizedStringProperty;
           'redTeamAttachedStringProperty': LocalizedStringProperty;
           'purpleTeamAttachedStringProperty': LocalizedStringProperty;

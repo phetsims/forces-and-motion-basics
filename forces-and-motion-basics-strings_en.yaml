@@ -73,7 +73,7 @@ a11y:
           description: A wheeled cart sits on a flat surface with a rope attached to both sides. Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab.
       controlArea:
         heading:     Control Area
-        description: Additionally, access game controls to start the tug-of-war, return the cart to center, and show force information.
+        description: Access game controls to start the tug-of-war, return the cart to center, and show force information.
         buttons:
           go:     Press to start or pause the tug-of-war game.
           return: Press to return the cart to the center and reset for a new game.
@@ -85,28 +85,27 @@ a11y:
         cartCentered:       Currently, the cart is centered and not moving.
         noPullersAttached:  No pullers are attached to the ropes.
         cartMoving:         The cart is moving.
-        pullersAttached:    |-
-                            { $count ->
-                              [one] { $count } puller is attached to the ropes.
-                             *[other] { $count } pullers are attached to the ropes.
-                            }
         blueTeamAttached:   |-
                             { $count ->
+                              [0] No blue team pullers are on the rope.
                               [one] { $count } blue team puller is on the rope.
                              *[other] { $count } blue team pullers are on the rope.
                             }
         redTeamAttached:    |-
                             { $count ->
+                              [0] No red team pullers are on the rope.
                               [one] { $count } red team puller is on the rope.
                              *[other] { $count } red team pullers are on the rope.
                             }
         purpleTeamAttached: |-
                             { $count ->
+                              [0] No purple team pullers are on the rope.
                               [one] { $count } purple team puller is on the rope.
                              *[other] { $count } purple team pullers are on the rope.
                             }
         orangeTeamAttached: |-
                             { $count ->
+                              [0] No orange team pullers are on the rope.
                               [one] { $count } orange team puller is on the rope.
                              *[other] { $count } orange team pullers are on the rope.
                             }

@@ -38,11 +38,7 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
                            ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty.value :
                            ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty.value;
 
-        const pullerStatus = numberAttached === 0 ?
-                             ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty.value :
-                             ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.pullersAttached.format( { count: numberAttached } );
-
-        return `${cartStatus} ${pullerStatus}`;
+        return cartStatus;
       }
     );
 
@@ -50,14 +46,14 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     const blueTeamCountProperty = new DerivedProperty(
       [ model.numberBluePullersAttachedProperty ],
       ( count: number ) => {
-        return count > 0 ? ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttached.format( { count: count } ) : '';
+        return ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.blueTeamAttached.format( { count: count } );
       }
     );
 
     const redTeamCountProperty = new DerivedProperty(
       [ model.numberRedPullersAttachedProperty ],
       ( count: number ) => {
-        return count > 0 ? ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.redTeamAttached.format( { count: count } ) : '';
+        return ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.redTeamAttached.format( { count: count } );
       }
     );
 
