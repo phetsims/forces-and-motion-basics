@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -38,12 +39,15 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
    */
   public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
 
+    // Create a derived property for the accessible name that updates based on the button state
+    const dynamicAccessibleNameProperty = new DerivedProperty( [ model.isRunningProperty ], isRunning => isRunning ? 'Pause' : 'Go' );
+
     const options = optionize<GoPauseButtonOptions, SelfOptions, BooleanToggleNodeOptions>()( {
       top: 400,
       enabledPropertyOptions: {
         phetioReadOnly: true
       },
-      accessibleName: ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleNameStringProperty,
+      accessibleName: dynamicAccessibleNameProperty,
       accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleHelpTextStringProperty
     }, providedOptions );
     const goText = new Text( ForcesAndMotionBasicsFluent.goStringProperty, {
