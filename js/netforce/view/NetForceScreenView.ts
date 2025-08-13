@@ -267,7 +267,21 @@ export default class NetForceScreenView extends ScreenView {
           else {
             displayColor = puller.type; // 'blue' or 'red'
           }
-          return `${puller.size} ${displayColor} puller`;
+          
+          // Add numbers to disambiguate between the two small pullers of each color
+          let pullerLabel = `${puller.size} ${displayColor} puller`;
+          if ( puller.size === 'small' ) {
+            // Extract the number from the tandem name (e.g., 'smallLeftPuller1' or 'smallRightPuller2')
+            const tandemName = puller.tandem.name;
+            if ( tandemName.includes( '1' ) ) {
+              pullerLabel = `${puller.size} ${displayColor} puller 1`;
+            }
+            else if ( tandemName.includes( '2' ) ) {
+              pullerLabel = `${puller.size} ${displayColor} puller 2`;
+            }
+          }
+          
+          return pullerLabel;
         }
       );
 
