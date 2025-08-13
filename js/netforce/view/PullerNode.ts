@@ -18,6 +18,30 @@ import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
+import pull_figure_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_BLUE_0_png.js';
+import pull_figure_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_BLUE_3_png.js';
+import pull_figure_lrg_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_BLUE_0_png.js';
+import pull_figure_lrg_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_lrg_BLUE_3_png.js';
+import pull_figure_lrg_ORANGE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_ORANGE_0_png.js';
+import pull_figure_lrg_ORANGE_3_png from '../../../images/pushPullFigures/pull_figure_lrg_ORANGE_3_png.js';
+import pull_figure_lrg_PURPLE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_PURPLE_0_png.js';
+import pull_figure_lrg_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_lrg_PURPLE_3_png.js';
+import pull_figure_lrg_RED_0_png from '../../../images/pushPullFigures/pull_figure_lrg_RED_0_png.js';
+import pull_figure_lrg_RED_3_png from '../../../images/pushPullFigures/pull_figure_lrg_RED_3_png.js';
+import pull_figure_ORANGE_0_png from '../../../images/pushPullFigures/pull_figure_ORANGE_0_png.js';
+import pull_figure_ORANGE_3_png from '../../../images/pushPullFigures/pull_figure_ORANGE_3_png.js';
+import pull_figure_PURPLE_0_png from '../../../images/pushPullFigures/pull_figure_PURPLE_0_png.js';
+import pull_figure_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_PURPLE_3_png.js';
+import pull_figure_RED_0_png from '../../../images/pushPullFigures/pull_figure_RED_0_png.js';
+import pull_figure_RED_3_png from '../../../images/pushPullFigures/pull_figure_RED_3_png.js';
+import pull_figure_small_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_small_BLUE_0_png.js';
+import pull_figure_small_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_small_BLUE_3_png.js';
+import pull_figure_small_ORANGE_0_png from '../../../images/pushPullFigures/pull_figure_small_ORANGE_0_png.js';
+import pull_figure_small_ORANGE_3_png from '../../../images/pushPullFigures/pull_figure_small_ORANGE_3_png.js';
+import pull_figure_small_PURPLE_0_png from '../../../images/pushPullFigures/pull_figure_small_PURPLE_0_png.js';
+import pull_figure_small_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_small_PURPLE_3_png.js';
+import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_figure_small_RED_0_png.js';
+import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import Knot from '../model/Knot.js';
@@ -33,28 +57,129 @@ type PullerNodeOptions = ImageOptions & SelfOptions;
 // Vertical offset when keyboard grabbed to show puller is "above" and not connected
 const KEYBOARD_GRABBED_Y_OFFSET = 20;
 
+// Define the color mapping for the pullers
+type ColorTypeSet = {
+  large: {
+    leaning: HTMLImageElement;
+    notLeaning: HTMLImageElement;
+  };
+  medium: {
+    leaning: HTMLImageElement;
+    notLeaning: HTMLImageElement;
+  };
+  small: {
+    leaning: HTMLImageElement;
+    notLeaning: HTMLImageElement;
+  };
+};
+type ColorMap = {
+  blue: ColorTypeSet;
+  red: ColorTypeSet;
+  purple: ColorTypeSet;
+  orange: ColorTypeSet;
+};
+
+const colorMapping: ColorMap = {
+  blue: {
+    large: {
+      notLeaning: pull_figure_lrg_BLUE_0_png,
+      leaning: pull_figure_lrg_BLUE_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_BLUE_0_png,
+      leaning: pull_figure_BLUE_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_BLUE_0_png,
+      leaning: pull_figure_small_BLUE_3_png
+    }
+  },
+  red: {
+    large: {
+      notLeaning: pull_figure_lrg_RED_0_png,
+      leaning: pull_figure_lrg_RED_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_RED_0_png,
+      leaning: pull_figure_RED_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_RED_0_png,
+      leaning: pull_figure_small_RED_3_png
+    }
+  },
+  purple: {
+    large: {
+      notLeaning: pull_figure_lrg_PURPLE_0_png,
+      leaning: pull_figure_lrg_PURPLE_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_PURPLE_0_png,
+      leaning: pull_figure_PURPLE_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_PURPLE_0_png,
+      leaning: pull_figure_small_PURPLE_3_png
+    }
+  },
+  orange: {
+    large: {
+      notLeaning: pull_figure_lrg_ORANGE_0_png,
+      leaning: pull_figure_lrg_ORANGE_3_png
+    },
+    medium: {
+      notLeaning: pull_figure_ORANGE_0_png,
+      leaning: pull_figure_ORANGE_3_png
+    },
+    small: {
+      notLeaning: pull_figure_small_ORANGE_0_png,
+      leaning: pull_figure_small_ORANGE_3_png
+    }
+  }
+};
+
 export default class PullerNode extends InteractiveHighlighting( Image ) {
 
   public standImage: ImageableImage;
+  public pullImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
   private readonly model: NetForceModel;
+
+  /**
+   * Get the appropriate puller image based on the current color preference
+   * @param puller - The puller model
+   * @param leaning - Whether the puller is leaning (pulling) or standing
+   * @returns The appropriate image for the puller
+   */
+  public static getPullerImage( puller: Puller, leaning: boolean ): ImageableImage {
+    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+    const type = puller.type;
+    const size = puller.size;
+
+    // Map the type to the appropriate color based on the netForcePullerColorsProperty
+    const mappedType = ( type === 'blue' && pullerColor === 'purpleOrange' ) ? 'purple' :
+                       ( type === 'red' && pullerColor === 'purpleOrange' ) ? 'orange' : type;
+
+    const colorTypeSet: ColorTypeSet = colorMapping[ mappedType ];
+    return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
+  }
 
   /**
    * Create a PullerNode for the specified puller
    *
    * @param puller
    * @param view
-   * @param image image of the puller standing upright
-   * @param pullImage image of the puller exerting a force
    * @param [providedOptions]
    */
   public constructor(
     public readonly puller: Puller,
     public readonly view: NetForceScreenView,
-    image: ImageableImage,
-    public pullImage: ImageableImage,
     providedOptions?: PullerNodeOptions ) {
+
+    // Get the initial images based on current color preference
+    const standImage = PullerNode.getPullerImage( puller, false );
+    const pullImage = PullerNode.getPullerImage( puller, true );
 
     const x = puller.positionProperty.get().x;
     const y = puller.positionProperty.get().y;
@@ -76,12 +201,22 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       } )
     }, providedOptions );
 
-    super( image, options );
+    super( standImage, options );
 
     // this.puller.node = this; //Wire up so node can be looked up by model element.
-    this.standImage = image;
+    this.standImage = standImage;
+    this.pullImage = pullImage;
     const model = puller.model;
     this.model = model;
+
+    // Listen to color preference changes and update images accordingly
+    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.lazyLink( () => {
+
+      // Get updated images based on current color preference
+      const standImage = PullerNode.getPullerImage( this.puller, false );
+      const pullImage = PullerNode.getPullerImage( this.puller, true );
+      this.updateImages( standImage, pullImage );
+    } );
 
     this.dragListener = new SoundDragListener( {
         tandem: options.tandem?.createTandem( 'dragListener' ),
@@ -447,6 +582,21 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const index = sameTypeKnots.indexOf( knot );
     const side = knot.type === 'blue' ? 'left' : 'right';
     return `${side} knot ${index}`;
+  }
+
+  /**
+   * Update the puller's images when the color scheme changes
+   * @param standImage - The new standing image
+   * @param pullImage - The new pulling image
+   */
+  public updateImages( standImage: ImageableImage, pullImage: ImageableImage ): void {
+    this.standImage = standImage;
+    this.pullImage = pullImage;
+    
+    // Update the current displayed image based on whether the puller is pulling or standing
+    const knot = this.puller.getKnot();
+    const pulling = this.model.hasStartedProperty.value && knot && this.model.stateProperty.value !== 'completed';
+    this.image = pulling ? this.pullImage : this.standImage;
   }
 
   /**
