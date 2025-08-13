@@ -458,6 +458,33 @@ export default class NetForceScreenView extends ScreenView {
         }
       } );
     } );
+
+    // Update PDOM order whenever any puller's mode changes to match X-coordinate focus order
+    this.model.pullers.forEach( puller => {
+      puller.modeProperty.link( () => {
+        this.updatePullerPDOMOrder();
+      } );
+    } );
+
+    // Set initial PDOM order
+    this.updatePullerPDOMOrder();
+  }
+
+  /**
+   * Updates the PDOM order of puller nodes to match their X-coordinate positions.
+   * This ensures keyboard navigation follows the visual left-to-right order.
+   */
+  private updatePullerPDOMOrder(): void {
+    // Sort all puller nodes by their current X position
+    const sortedPullerNodes = [ ...this.pullerNodes ].sort( ( a, b ) => a.centerX - b.centerX );
+
+    // Separate into left and right groups
+    const leftPullers = sortedPullerNodes.filter( node => node.puller.type === 'blue' );
+    const rightPullers = sortedPullerNodes.filter( node => node.puller.type === 'red' );
+
+    // Set PDOM order for each group
+    this.leftPullerGroup.pdomOrder = leftPullers;
+    this.rightPullerGroup.pdomOrder = rightPullers;
   }
 }
 
