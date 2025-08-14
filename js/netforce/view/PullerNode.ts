@@ -314,7 +314,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
               availablePullers.sort( ( a, b ) => {
                 const aOnRope = a.puller.modeProperty.value.isAttached();
                 const bOnRope = b.puller.modeProperty.value.isAttached();
-                
+
                 // If one is on rope and the other isn't, rope puller comes first
                 if ( aOnRope && !bOnRope ) {
                   return -1;
@@ -322,7 +322,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                 if ( !aOnRope && bOnRope ) {
                   return 1;
                 }
-                
+
                 // If both are in same location (both on rope or both in toolbox), sort by X position
                 return a.centerX - b.centerX;
               } );
@@ -595,7 +595,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
     const index = sameTypeKnots.indexOf( knot );
     const side = knot.type === 'blue' ? 'left' : 'right';
-    return `${side} knot ${index}`;
+    return `${side} knot ${index + 1}`;
   }
 
   /**
@@ -606,7 +606,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   public updateImages( standImage: ImageableImage, pullImage: ImageableImage ): void {
     this.standImage = standImage;
     this.pullImage = pullImage;
-    
+
     // Update the current displayed image based on whether the puller is pulling or standing
     const knot = this.puller.getKnot();
     const pulling = this.model.hasStartedProperty.value && knot && this.model.stateProperty.value !== 'completed';
