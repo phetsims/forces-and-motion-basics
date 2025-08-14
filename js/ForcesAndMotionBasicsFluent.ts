@@ -200,6 +200,13 @@ addToMapIfDefined( 'a11y_objectToolboxes_objectToolbox', 'a11y.objectToolboxes.o
 addToMapIfDefined( 'a11y_objectToolboxes_skateboard', 'a11y.objectToolboxes.skateboardStringProperty' );
 addToMapIfDefined( 'a11y_motionPlayAreaControls_accessibleHeading', 'a11y.motionPlayAreaControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_motionPlayAreaControls_descriptionContent', 'a11y.motionPlayAreaControls.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_pullers_pullerInstruction', 'a11y.pullers.pullerInstructionStringProperty' );
+addToMapIfDefined( 'a11y_pullers_largePuller', 'a11y.pullers.largePullerStringProperty' );
+addToMapIfDefined( 'a11y_pullers_mediumPuller', 'a11y.pullers.mediumPullerStringProperty' );
+addToMapIfDefined( 'a11y_pullers_smallPuller', 'a11y.pullers.smallPullerStringProperty' );
+addToMapIfDefined( 'a11y_pullers_puller', 'a11y.pullers.pullerStringProperty' );
+addToMapIfDefined( 'a11y_cart_cartDescription', 'a11y.cart.cartDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -487,6 +494,19 @@ const ForcesAndMotionBasicsFluent = {
     motionPlayAreaControls: {
       accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionPlayAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionPlayAreaControls.accessibleHeadingStringProperty' ) ),
       descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionPlayAreaControls_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionPlayAreaControls.descriptionContentStringProperty' ) )
+    },
+    pullers: {
+      pullerInstructionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_pullerInstruction', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerInstructionStringProperty' ) ),
+      largePullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_largePuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.largePullerStringProperty' ) ),
+      mediumPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_mediumPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.mediumPullerStringProperty' ) ),
+      smallPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_smallPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.smallPullerStringProperty' ) ),
+      pullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_puller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerStringProperty' ) )
+    },
+    cart: {
+      cartDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_cart_cartDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.cart.cartDescriptionStringProperty' ) )
+    },
+    forceArrows: {
+      noForceArrow: new FluentPattern<{ name: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forceArrows_noForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forceArrows.noForceArrowStringProperty' ), [{"name":"name"}] )
     }
   }
 };

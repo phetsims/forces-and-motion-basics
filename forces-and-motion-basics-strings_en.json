@@ -621,6 +621,33 @@
       "descriptionContent": {
         "value": "Controls to start or pause motion, and to reset simulation"
       }
+    },
+    "pullers": {
+      "pullerInstruction": {
+        "value": "Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot."
+      },
+      "largePuller": {
+        "value": "large"
+      },
+      "mediumPuller": {
+        "value": "medium"
+      },
+      "smallPuller": {
+        "value": "small"
+      },
+      "puller": {
+        "value": "puller"
+      }
+    },
+    "cart": {
+      "cartDescription": {
+        "value": "A wheeled cart sits on a flat surface with a rope attached to both sides."
+      }
+    },
+    "forceArrows": {
+      "noForceArrow": {
+        "value": "There is no { $name } force arrow"
+      }
     }
   }
 }

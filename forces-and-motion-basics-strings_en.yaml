@@ -253,3 +253,13 @@ a11y:
   motionPlayAreaControls:
     accessibleHeading:  Play Area Controls
     descriptionContent: Controls to start or pause motion, and to reset simulation
+  pullers:
+    pullerInstruction: Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.
+    largePuller: large
+    mediumPuller: medium
+    smallPuller: small
+    puller: puller
+  cart:
+    cartDescription: A wheeled cart sits on a flat surface with a rope attached to both sides.
+  forceArrows:
+    noForceArrow: 'There is no { $name } force arrow'

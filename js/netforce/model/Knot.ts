@@ -25,8 +25,7 @@ export default class Knot extends PhetioObject {
   // the 1-D x position of the knot
   public readonly positionProperty: NumberProperty;
 
-  // The knots are always visible as part of the image, but when the visible flag is set,
-  // the highlight is shown.
+  // The knots are always visible as part of the image, but when the visible flag is set, the highlight is shown.
   public readonly isHighlightedProperty: BooleanProperty;
 
   // Constant value for the y position (in screen coordinates)

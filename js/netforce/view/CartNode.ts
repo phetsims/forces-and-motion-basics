@@ -49,7 +49,7 @@ export default class CartNode extends Image {
     Multilink.multilink( [ this.cart.positionProperty, speedProperty, showSpeedProperty ], ( position, speed ) => {
 
       // Build the accessible paragraph description
-      let description = 'A wheeled cart sits on a flat surface with a rope attached to both sides.';
+      let description = ForcesAndMotionBasicsFluent.a11y.cart.cartDescriptionStringProperty.value;
 
       // Add position description
       // Position ranges from -403 to 403, with 0 being center

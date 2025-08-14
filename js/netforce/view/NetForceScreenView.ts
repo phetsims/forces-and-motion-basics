@@ -204,18 +204,18 @@ export default class NetForceScreenView extends ScreenView {
     const leftTeamHeadingProperty = new DerivedProperty(
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
       pullerColor => {
-        const displayColor = pullerColor === 'purpleOrange' ? 'purple' : 'blue';
-        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team`;
+        return pullerColor === 'purpleOrange' ?
+               ForcesAndMotionBasicsFluent.a11y.colors.purpleTeamStringProperty.value :
+               ForcesAndMotionBasicsFluent.a11y.colors.blueTeamStringProperty.value;
       }
     );
 
     const rightTeamHeadingProperty = new DerivedProperty(
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
       pullerColor => {
-        const displayColor = pullerColor === 'purpleOrange' ? 'orange' : 'red';
-        const colorKey = displayColor.charAt( 0 ).toUpperCase() + displayColor.slice( 1 );
-        return `${colorKey} Team`;
+        return pullerColor === 'purpleOrange' ?
+               ForcesAndMotionBasicsFluent.a11y.colors.orangeTeamStringProperty.value :
+               ForcesAndMotionBasicsFluent.a11y.colors.redTeamStringProperty.value;
       }
     );
 
@@ -233,11 +233,11 @@ export default class NetForceScreenView extends ScreenView {
     // Create instruction nodes that will be read before the puller groups
     const leftInstructions = new Node( {
       tagName: 'p',
-      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.'
+      innerContent: ForcesAndMotionBasicsFluent.a11y.pullers.pullerInstructionStringProperty
     } );
     const rightInstructions = new Node( {
       tagName: 'p',
-      innerContent: 'Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.'
+      innerContent: ForcesAndMotionBasicsFluent.a11y.pullers.pullerInstructionStringProperty
     } );
 
     // Add instructions to toolboxes first (so they're read before puller groups)
@@ -262,25 +262,37 @@ export default class NetForceScreenView extends ScreenView {
         pullerColor => {
           let displayColor: string;
           if ( pullerColor === 'purpleOrange' ) {
-            displayColor = puller.type === 'blue' ? 'purple' : 'orange';
+            displayColor = puller.type === 'blue' ? ForcesAndMotionBasicsFluent.a11y.colors.purpleStringProperty.value : ForcesAndMotionBasicsFluent.a11y.colors.orangeStringProperty.value;
           }
           else {
-            displayColor = puller.type; // 'blue' or 'red'
+            displayColor = puller.type === 'blue' ? ForcesAndMotionBasicsFluent.a11y.colors.blueStringProperty.value : ForcesAndMotionBasicsFluent.a11y.colors.redStringProperty.value;
           }
-          
+
+          // Get the size string
+          let sizeString: string;
+          if ( puller.size === 'large' ) {
+            sizeString = ForcesAndMotionBasicsFluent.a11y.pullers.largePullerStringProperty.value;
+          }
+          else if ( puller.size === 'medium' ) {
+            sizeString = ForcesAndMotionBasicsFluent.a11y.pullers.mediumPullerStringProperty.value;
+          }
+          else {
+            sizeString = ForcesAndMotionBasicsFluent.a11y.pullers.smallPullerStringProperty.value;
+          }
+
           // Add numbers to disambiguate between the two small pullers of each color
-          let pullerLabel = `${puller.size} ${displayColor} puller`;
+          let pullerLabel = `${sizeString} ${displayColor} ${ForcesAndMotionBasicsFluent.a11y.pullers.pullerStringProperty.value}`;
           if ( puller.size === 'small' ) {
             // Extract the number from the tandem name (e.g., 'smallLeftPuller1' or 'smallRightPuller2')
             const tandemName = puller.tandem.name;
             if ( tandemName.includes( '1' ) ) {
-              pullerLabel = `${puller.size} ${displayColor} puller 1`;
+              pullerLabel = `${sizeString} ${displayColor} ${ForcesAndMotionBasicsFluent.a11y.pullers.pullerStringProperty.value} 1`;
             }
             else if ( tandemName.includes( '2' ) ) {
-              pullerLabel = `${puller.size} ${displayColor} puller 2`;
+              pullerLabel = `${sizeString} ${displayColor} ${ForcesAndMotionBasicsFluent.a11y.pullers.pullerStringProperty.value} 2`;
             }
           }
-          
+
           return pullerLabel;
         }
       );

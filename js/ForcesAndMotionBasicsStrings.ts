@@ -284,6 +284,19 @@ type StringsType = {
     'motionPlayAreaControls': {
       'accessibleHeadingStringProperty': LocalizedStringProperty;
       'descriptionContentStringProperty': LocalizedStringProperty;
+    };
+    'pullers': {
+      'pullerInstructionStringProperty': LocalizedStringProperty;
+      'largePullerStringProperty': LocalizedStringProperty;
+      'mediumPullerStringProperty': LocalizedStringProperty;
+      'smallPullerStringProperty': LocalizedStringProperty;
+      'pullerStringProperty': LocalizedStringProperty;
+    };
+    'cart': {
+      'cartDescriptionStringProperty': LocalizedStringProperty;
+    };
+    'forceArrows': {
+      'noForceArrowStringProperty': LocalizedStringProperty;
     }
   }
 };
