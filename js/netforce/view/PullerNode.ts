@@ -305,13 +305,27 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           // When no puller is grabbed, select between available pullers of the same type
           if ( !puller.isGrabbed() ) {
 
-            // Find all pullers of the same type in the toolbox
+            // Find all pullers of the same type
             const availablePullers = this.view.pullerNodes.filter( pullerNode => pullerNode.puller.type === this.puller.type );
 
             if ( availablePullers.length > 1 ) {
 
-              // Sort by position for consistent order
-              availablePullers.sort( ( a, b ) => a.centerX - b.centerX );
+              // Sort: pullers on rope first (left to right), then pullers in toolbox (left to right)
+              availablePullers.sort( ( a, b ) => {
+                const aOnRope = a.puller.modeProperty.value.isAttached();
+                const bOnRope = b.puller.modeProperty.value.isAttached();
+                
+                // If one is on rope and the other isn't, rope puller comes first
+                if ( aOnRope && !bOnRope ) {
+                  return -1;
+                }
+                if ( !aOnRope && bOnRope ) {
+                  return 1;
+                }
+                
+                // If both are in same location (both on rope or both in toolbox), sort by X position
+                return a.centerX - b.centerX;
+              } );
 
               // find our index in the list
               const currentIndex = availablePullers.indexOf( this );

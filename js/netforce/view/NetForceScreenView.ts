@@ -483,14 +483,22 @@ export default class NetForceScreenView extends ScreenView {
   }
 
   /**
-   * Updates the PDOM order of puller nodes to match their X-coordinate positions.
-   * This ensures keyboard navigation follows the visual left-to-right order.
+   * Updates the PDOM order of puller nodes to prioritize pullers on the rope first,
+   * then pullers in the toolbox, all ordered left to right.
    */
   private updatePullerPDOMOrder(): void {
-    // Sort all puller nodes by their current X position
-    const sortedPullerNodes = [ ...this.pullerNodes ].sort( ( a, b ) => a.centerX - b.centerX );
+    // Separate pullers into those on rope and those in toolbox
+    const pullersOnRope = this.pullerNodes.filter( node => node.puller.modeProperty.value.isAttached() );
+    const pullersInToolbox = this.pullerNodes.filter( node => !node.puller.modeProperty.value.isAttached() );
 
-    // Separate into left and right groups
+    // Sort each group by X position (left to right)
+    pullersOnRope.sort( ( a, b ) => a.centerX - b.centerX );
+    pullersInToolbox.sort( ( a, b ) => a.centerX - b.centerX );
+
+    // Combine: rope pullers first, then toolbox pullers
+    const sortedPullerNodes = [ ...pullersOnRope, ...pullersInToolbox ];
+
+    // Separate into left and right groups while maintaining the rope-first order
     const leftPullers = sortedPullerNodes.filter( node => node.puller.type === 'blue' );
     const rightPullers = sortedPullerNodes.filter( node => node.puller.type === 'red' );
 
