@@ -48,9 +48,6 @@ export default class CartNode extends Image {
     // Position varies between -403, 403
     Multilink.multilink( [ this.cart.positionProperty, speedProperty, showSpeedProperty ], ( position, speed ) => {
 
-      // Build the accessible paragraph description
-      let description = ForcesAndMotionBasicsFluent.a11y.cart.cartDescriptionStringProperty.value;
-
       // Add position description
       // Position ranges from -403 to 403, with 0 being center
       const positionDescriptor = position <= -400 ? 'all the way to the left' :
@@ -61,7 +58,7 @@ export default class CartNode extends Image {
                                  position < 400 ? 'to the right' :
                                  'all the way to the right';
 
-      description += ` The cart is ${positionDescriptor}`;
+      let description = ` The cart is ${positionDescriptor}`;
 
       // Add speed description
       const absSpeed = Math.abs( speed );

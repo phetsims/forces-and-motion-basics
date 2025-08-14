@@ -259,7 +259,5 @@ a11y:
     mediumPuller: medium
     smallPuller: small
     puller: puller
-  cart:
-    cartDescription: A wheeled cart sits on a flat surface with a rope attached to both sides.
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'

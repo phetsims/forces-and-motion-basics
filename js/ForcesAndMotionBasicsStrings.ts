@@ -292,9 +292,6 @@ type StringsType = {
       'smallPullerStringProperty': LocalizedStringProperty;
       'pullerStringProperty': LocalizedStringProperty;
     };
-    'cart': {
-      'cartDescriptionStringProperty': LocalizedStringProperty;
-    };
     'forceArrows': {
       'noForceArrowStringProperty': LocalizedStringProperty;
     }

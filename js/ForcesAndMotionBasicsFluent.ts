@@ -205,7 +205,6 @@ addToMapIfDefined( 'a11y_pullers_largePuller', 'a11y.pullers.largePullerStringPr
 addToMapIfDefined( 'a11y_pullers_mediumPuller', 'a11y.pullers.mediumPullerStringProperty' );
 addToMapIfDefined( 'a11y_pullers_smallPuller', 'a11y.pullers.smallPullerStringProperty' );
 addToMapIfDefined( 'a11y_pullers_puller', 'a11y.pullers.pullerStringProperty' );
-addToMapIfDefined( 'a11y_cart_cartDescription', 'a11y.cart.cartDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
@@ -501,9 +500,6 @@ const ForcesAndMotionBasicsFluent = {
       mediumPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_mediumPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.mediumPullerStringProperty' ) ),
       smallPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_smallPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.smallPullerStringProperty' ) ),
       pullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_puller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerStringProperty' ) )
-    },
-    cart: {
-      cartDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_cart_cartDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.cart.cartDescriptionStringProperty' ) )
     },
     forceArrows: {
       noForceArrow: new FluentPattern<{ name: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forceArrows_noForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forceArrows.noForceArrowStringProperty' ), [{"name":"name"}] )
