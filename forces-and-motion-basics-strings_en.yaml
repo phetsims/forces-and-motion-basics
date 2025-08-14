@@ -264,5 +264,9 @@ a11y:
     knotDescription: '{ $side } knot { $number }'
     leftSide: left
     rightSide: right
+  tugOfWar:
+    heading: Tug of War
+    noPullersOnRope: No pullers on rope
+    knotOccupied: '{ $side } knot { $number }: { $pullerName }'
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'

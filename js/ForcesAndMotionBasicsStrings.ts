@@ -297,6 +297,11 @@ type StringsType = {
       'leftSideStringProperty': LocalizedStringProperty;
       'rightSideStringProperty': LocalizedStringProperty;
     };
+    'tugOfWar': {
+      'headingStringProperty': LocalizedStringProperty;
+      'noPullersOnRopeStringProperty': LocalizedStringProperty;
+      'knotOccupiedStringProperty': LocalizedStringProperty;
+    };
     'forceArrows': {
       'noForceArrowStringProperty': LocalizedStringProperty;
     }

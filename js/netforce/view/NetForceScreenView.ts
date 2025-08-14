@@ -8,8 +8,10 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
+import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
@@ -440,11 +442,92 @@ export default class NetForceScreenView extends ScreenView {
     cursorPathNode.visible = false;
     this.addChild( cursorPathNode );
 
+    // Create Tug of War overview node
+    const tugOfWarOverviewNode = new Node( {
+      tagName: 'div',
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.tugOfWar.headingStringProperty
+    } );
+
+    // Create dynamic content for rope overview - either a simple text node or an AccessibleListNode
+    let ropeOverviewContent: Node;
+
+    // Function to update rope overview content
+    const updateRopeOverview = () => {
+      // Remove existing content
+      tugOfWarOverviewNode.removeAllChildren();
+
+      // Get all pullers attached to knots, sorted by position
+      const attachedPullers = this.model.pullers.filter( puller => puller.modeProperty.value.isAttached() );
+
+      if ( attachedPullers.length === 0 ) {
+        // Create simple text node for empty rope
+        ropeOverviewContent = new Node( {
+          tagName: 'div',
+          innerContent: ForcesAndMotionBasicsFluent.a11y.tugOfWar.noPullersOnRopeStringProperty.value
+        } );
+        tugOfWarOverviewNode.addChild( ropeOverviewContent );
+      }
+      else {
+        // Sort pullers by their knot positions (left to right)
+        const sortedPullers = attachedPullers.sort( ( a, b ) => {
+          const aKnot = a.getKnot()!;
+          const bKnot = b.getKnot()!;
+          return this.model.knots.indexOf( aKnot ) - this.model.knots.indexOf( bKnot );
+        } );
+
+        // Build list of occupied knots
+        const knotDescriptions = sortedPullers.map( puller => {
+          const knot = puller.getKnot()!;
+          const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
+          const index = sameTypeKnots.indexOf( knot );
+          const side = knot.type === 'blue' ?
+                       ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty.value :
+                       ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
+
+          // Find the corresponding puller node to get its accessible name
+          const pullerNode = this.pullerNodes.find( node => node.puller === puller );
+          const pullerName = pullerNode ? pullerNode.accessibleName! : `${puller.size} ${puller.type} puller`;
+
+          // Use Fluent pattern to create knot description
+          const knotOccupiedProperty = ForcesAndMotionBasicsFluent.a11y.tugOfWar.knotOccupied.createProperty( {
+            side: side,
+            number: ( index + 1 ).toString(),
+            pullerName: pullerName
+          } );
+          return knotOccupiedProperty.value;
+        } );
+
+        // Create AccessibleListNode for the occupied knots
+        // Convert strings to StringProperties as required by AccessibleListNode
+        const knotDescriptionProperties = knotDescriptions.map( description => new StringProperty( description ) );
+        ropeOverviewContent = new AccessibleListNode( knotDescriptionProperties );
+        tugOfWarOverviewNode.addChild( ropeOverviewContent );
+      }
+    };
+
+    this.addChild( tugOfWarOverviewNode );
+
+    // Update overview when pullers change position
+    this.model.pullers.forEach( puller => {
+      puller.modeProperty.link( () => {
+        updateRopeOverview();
+      } );
+    } );
+
+    // Update overview when puller colors change
+    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
+      updateRopeOverview();
+    } );
+
+    // Initial update
+    updateRopeOverview();
+
     // Set up the pdomOrder for proper accessibility hierarchy
-    // Play Area: left toolbox -> right toolbox -> blue rope group -> red rope group -> buttons
+    // Play Area: left toolbox -> right toolbox -> tug of war overview -> play area controls -> cart -> arrows
     this.pdomPlayAreaNode.pdomOrder = [
       leftToolbox,
       rightToolbox,
+      tugOfWarOverviewNode,
       playAreaControlNode,
       this.cartNode,
       // stateDescriptionNode,

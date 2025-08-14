@@ -654,6 +654,17 @@
         "value": "right"
       }
     },
+    "tugOfWar": {
+      "heading": {
+        "value": "Tug of War"
+      },
+      "noPullersOnRope": {
+        "value": "No pullers on rope"
+      },
+      "knotOccupied": {
+        "value": "{ $side } knot { $number }: { $pullerName }"
+      }
+    },
     "forceArrows": {
       "noForceArrow": {
         "value": "There is no { $name } force arrow"

@@ -210,6 +210,9 @@ addToMapIfDefined( 'a11y_pullers_overKnotDescription', 'a11y.pullers.overKnotDes
 addToMapIfDefined( 'a11y_pullers_knotDescription', 'a11y.pullers.knotDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_pullers_leftSide', 'a11y.pullers.leftSideStringProperty' );
 addToMapIfDefined( 'a11y_pullers_rightSide', 'a11y.pullers.rightSideStringProperty' );
+addToMapIfDefined( 'a11y_tugOfWar_heading', 'a11y.tugOfWar.headingStringProperty' );
+addToMapIfDefined( 'a11y_tugOfWar_noPullersOnRope', 'a11y.tugOfWar.noPullersOnRopeStringProperty' );
+addToMapIfDefined( 'a11y_tugOfWar_knotOccupied', 'a11y.tugOfWar.knotOccupiedStringProperty' );
 addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
@@ -510,6 +513,11 @@ const ForcesAndMotionBasicsFluent = {
       knotDescription: new FluentPattern<{ number: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_pullers_knotDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.knotDescriptionStringProperty' ), [{"name":"number"},{"name":"side"}] ),
       leftSideStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_leftSide', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.leftSideStringProperty' ) ),
       rightSideStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_rightSide', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.rightSideStringProperty' ) )
+    },
+    tugOfWar: {
+      headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_tugOfWar_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.headingStringProperty' ) ),
+      noPullersOnRopeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_tugOfWar_noPullersOnRope', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.noPullersOnRopeStringProperty' ) ),
+      knotOccupied: new FluentPattern<{ number: FluentVariable, pullerName: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_tugOfWar_knotOccupied', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.knotOccupiedStringProperty' ), [{"name":"number"},{"name":"pullerName"},{"name":"side"}] )
     },
     forceArrows: {
       noForceArrow: new FluentPattern<{ name: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forceArrows_noForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forceArrows.noForceArrowStringProperty' ), [{"name":"name"}] )
