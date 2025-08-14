@@ -259,5 +259,10 @@ a11y:
     mediumPuller: medium
     smallPuller: small
     puller: puller
+    overReturnToToolbox: Over return to toolbox position
+    overKnotDescription: 'Over { $side } knot { $number }'
+    knotDescription: '{ $side } knot { $number }'
+    leftSide: left
+    rightSide: right
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'

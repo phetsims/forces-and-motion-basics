@@ -176,17 +176,9 @@ export default class ReadoutArrow extends Node {
 
     // Build the accessible paragraph description
     if ( amount === 0 ) {
-      // After grunt modulify, this will be a FluentPattern
-      const noForceArrowPattern = ForcesAndMotionBasicsFluent.a11y.forceArrows.noForceArrow;
-      if ( noForceArrowPattern && typeof noForceArrowPattern.createProperty === 'function' ) {
-        // Use Fluent pattern with variable
-        const noForceArrowProperty = noForceArrowPattern.createProperty( { name: this.name } );
-        this.accessibleParagraph = noForceArrowProperty.value;
-      }
-      else {
-        // Fallback for before grunt modulify is run
-        this.accessibleParagraph = `There is no ${this.name} force arrow`;
-      }
+      // Use Fluent pattern with variable
+      const noForceArrowProperty = ForcesAndMotionBasicsFluent.a11y.forceArrows.noForceArrow.createProperty( { name: this.name } );
+      this.accessibleParagraph = noForceArrowProperty.value;
     }
     else {
       let description = `The ${this.name} force arrow is ${amountDescriptor}`;

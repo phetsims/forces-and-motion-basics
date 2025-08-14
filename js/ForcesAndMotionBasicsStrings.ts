@@ -291,6 +291,11 @@ type StringsType = {
       'mediumPullerStringProperty': LocalizedStringProperty;
       'smallPullerStringProperty': LocalizedStringProperty;
       'pullerStringProperty': LocalizedStringProperty;
+      'overReturnToToolboxStringProperty': LocalizedStringProperty;
+      'overKnotDescriptionStringProperty': LocalizedStringProperty;
+      'knotDescriptionStringProperty': LocalizedStringProperty;
+      'leftSideStringProperty': LocalizedStringProperty;
+      'rightSideStringProperty': LocalizedStringProperty;
     };
     'forceArrows': {
       'noForceArrowStringProperty': LocalizedStringProperty;

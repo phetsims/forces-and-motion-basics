@@ -637,6 +637,21 @@
       },
       "puller": {
         "value": "puller"
+      },
+      "overReturnToToolbox": {
+        "value": "Over return to toolbox position"
+      },
+      "overKnotDescription": {
+        "value": "Over { $side } knot { $number }"
+      },
+      "knotDescription": {
+        "value": "{ $side } knot { $number }"
+      },
+      "leftSide": {
+        "value": "left"
+      },
+      "rightSide": {
+        "value": "right"
       }
     },
     "forceArrows": {

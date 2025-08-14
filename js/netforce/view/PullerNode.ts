@@ -43,6 +43,7 @@ import pull_figure_small_PURPLE_3_png from '../../../images/pushPullFigures/pull
 import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_figure_small_RED_0_png.js';
 import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -391,10 +392,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.modeProperty.set( newMode );
 
             // Generate accessibility response
-            const accessibilityResponse = targetWaypoint === null
-                                          ? 'Over return to toolbox position'
-                                          : `Over ${this.getKnotDescription( targetWaypoint )}`;
-
+            const accessibilityResponse = this.getAccessibilityResponseForWaypoint( targetWaypoint );
             this.addAccessibleContextResponse( accessibilityResponse );
           }
         }
@@ -432,6 +430,14 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             }
 
             puller.modeProperty.set( newMode );
+
+            // Announce current position when grabbed - reuse the same logic as navigation
+            const currentMode = puller.modeProperty.get();
+            const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
+            const targetWaypoint = knotIndex !== null ? model.knots[ knotIndex ] : null;
+
+            const grabAccessibilityResponse = this.getAccessibilityResponseForWaypoint( targetWaypoint );
+            this.addAccessibleContextResponse( grabAccessibilityResponse );
           }
           else {
 
@@ -595,8 +601,42 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     // Find the index of this knot among knots of the same type
     const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
     const index = sameTypeKnots.indexOf( knot );
-    const side = knot.type === 'blue' ? 'left' : 'right';
-    return `${side} knot ${index + 1}`;
+    const side = knot.type === 'blue' ?
+                 ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty.value :
+                 ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
+
+    // Use Fluent pattern with variables
+    const knotDescriptionProperty = ForcesAndMotionBasicsFluent.a11y.pullers.knotDescription.createProperty( {
+      side: side,
+      number: ( index + 1 ).toString()
+    } );
+    return knotDescriptionProperty.value;
+  }
+
+  /**
+   * Get accessibility response for a given waypoint (knot or null for home)
+   * @param waypoint - The waypoint to describe, or null for home
+   * @returns The accessibility response string
+   */
+  private getAccessibilityResponseForWaypoint( waypoint: Knot | null ): string {
+    if ( waypoint === null ) {
+      return ForcesAndMotionBasicsFluent.a11y.pullers.overReturnToToolboxStringProperty.value;
+    }
+    else {
+      // Use the internationalized "Over knot description" pattern
+      const sameTypeKnots = this.model.knots.filter( k => k.type === waypoint.type );
+      const index = sameTypeKnots.indexOf( waypoint );
+      const side = waypoint.type === 'blue' ?
+                   ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty.value :
+                   ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
+
+      // Use Fluent pattern with variables
+      const overKnotDescriptionProperty = ForcesAndMotionBasicsFluent.a11y.pullers.overKnotDescription.createProperty( {
+        side: side,
+        number: ( index + 1 ).toString()
+      } );
+      return overKnotDescriptionProperty.value;
+    }
   }
 
   /**

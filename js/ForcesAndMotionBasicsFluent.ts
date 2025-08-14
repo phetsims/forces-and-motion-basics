@@ -205,6 +205,11 @@ addToMapIfDefined( 'a11y_pullers_largePuller', 'a11y.pullers.largePullerStringPr
 addToMapIfDefined( 'a11y_pullers_mediumPuller', 'a11y.pullers.mediumPullerStringProperty' );
 addToMapIfDefined( 'a11y_pullers_smallPuller', 'a11y.pullers.smallPullerStringProperty' );
 addToMapIfDefined( 'a11y_pullers_puller', 'a11y.pullers.pullerStringProperty' );
+addToMapIfDefined( 'a11y_pullers_overReturnToToolbox', 'a11y.pullers.overReturnToToolboxStringProperty' );
+addToMapIfDefined( 'a11y_pullers_overKnotDescription', 'a11y.pullers.overKnotDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_pullers_knotDescription', 'a11y.pullers.knotDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_pullers_leftSide', 'a11y.pullers.leftSideStringProperty' );
+addToMapIfDefined( 'a11y_pullers_rightSide', 'a11y.pullers.rightSideStringProperty' );
 addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
@@ -499,7 +504,12 @@ const ForcesAndMotionBasicsFluent = {
       largePullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_largePuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.largePullerStringProperty' ) ),
       mediumPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_mediumPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.mediumPullerStringProperty' ) ),
       smallPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_smallPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.smallPullerStringProperty' ) ),
-      pullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_puller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerStringProperty' ) )
+      pullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_puller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerStringProperty' ) ),
+      overReturnToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_overReturnToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.overReturnToToolboxStringProperty' ) ),
+      overKnotDescription: new FluentPattern<{ number: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_pullers_overKnotDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.overKnotDescriptionStringProperty' ), [{"name":"number"},{"name":"side"}] ),
+      knotDescription: new FluentPattern<{ number: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_pullers_knotDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.knotDescriptionStringProperty' ), [{"name":"number"},{"name":"side"}] ),
+      leftSideStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_leftSide', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.leftSideStringProperty' ) ),
+      rightSideStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_rightSide', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.rightSideStringProperty' ) )
     },
     forceArrows: {
       noForceArrow: new FluentPattern<{ name: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forceArrows_noForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forceArrows.noForceArrowStringProperty' ), [{"name":"name"}] )
