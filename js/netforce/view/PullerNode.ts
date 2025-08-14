@@ -198,7 +198,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                              ( puller.type === 'blue' ? 'purple' : 'orange' ) :
                              puller.type;
         return `${puller.size} ${displayColor} puller`;
-      } )
+      } ),
+      accessibleRoleDescription: 'navigable'
     }, providedOptions );
 
     super( standImage, options );
