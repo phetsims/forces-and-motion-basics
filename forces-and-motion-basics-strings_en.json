@@ -208,7 +208,7 @@
               "value": "Press to start or pause the tug-of-war game."
             },
             "return": {
-              "value": "Press to return the cart to the center and reset for a new game."
+              "value": "Return cart to center."
             }
           },
           "checkboxes": {
@@ -284,7 +284,7 @@
     },
     "returnButton": {
       "cartReturnedToCenter": {
-        "value": "Cart returned to center"
+        "value": "Cart returned to center."
       },
       "accessibleName": {
         "value": "Return Cart Button"
@@ -307,7 +307,7 @@
           "value": "Sum of Forces"
         },
         "accessibleHelpText": {
-          "value": "Check to show an arrow representing the sum of all forces."
+          "value": "Show or hide sum of forces arrow."
         },
         "accessibleContextResponseChecked": {
           "value": "Sum of forces arrow shown."
@@ -321,7 +321,7 @@
           "value": "Values"
         },
         "accessibleHelpText": {
-          "value": "Check to show numerical values for the forces."
+          "value": "Show or hide force values."
         },
         "accessibleContextResponseChecked": {
           "value": "Force values shown."
@@ -335,7 +335,7 @@
           "value": "Speed"
         },
         "accessibleHelpText": {
-          "value": "Check to show the speedometer on the cart."
+          "value": "Show or hide speedometer."
         },
         "accessibleContextResponseChecked": {
           "value": "Speedometer shown on cart."
