@@ -113,10 +113,10 @@ a11y:
         noPullers:   Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
         withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.
   colors:
-    blue:       blue
-    red:        red
-    purple:     purple
-    orange:     orange
+    blue:       Blue
+    red:        Red
+    purple:     Purple
+    orange:     Orange
     blueTeam:   Blue Team
     redTeam:    Red Team
     purpleTeam: Purple Team
@@ -255,15 +255,15 @@ a11y:
     descriptionContent: Controls to start or pause motion, and to reset simulation
   pullers:
     pullerInstruction: Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.
-    largePuller: large
-    mediumPuller: medium
-    smallPuller: small
-    puller: puller
+    largePuller: Large
+    mediumPuller: Medium
+    smallPuller: Small
+    puller: Puller
     overReturnToToolbox: Over return to toolbox position
     overKnotDescription: 'Over { $side } knot { $number }'
     knotDescription: '{ $side } knot { $number }'
-    leftSide: left
-    rightSide: right
+    leftSide: Left
+    rightSide: Right
   tugOfWar:
     heading: Tug of War
     noPullersOnRope: No pullers on rope

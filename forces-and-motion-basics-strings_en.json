@@ -258,16 +258,16 @@
     },
     "colors": {
       "blue": {
-        "value": "blue"
+        "value": "Blue"
       },
       "red": {
-        "value": "red"
+        "value": "Red"
       },
       "purple": {
-        "value": "purple"
+        "value": "Purple"
       },
       "orange": {
-        "value": "orange"
+        "value": "Orange"
       },
       "blueTeam": {
         "value": "Blue Team"
@@ -627,16 +627,16 @@
         "value": "Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot."
       },
       "largePuller": {
-        "value": "large"
+        "value": "Large"
       },
       "mediumPuller": {
-        "value": "medium"
+        "value": "Medium"
       },
       "smallPuller": {
-        "value": "small"
+        "value": "Small"
       },
       "puller": {
-        "value": "puller"
+        "value": "Puller"
       },
       "overReturnToToolbox": {
         "value": "Over return to toolbox position"
@@ -648,10 +648,10 @@
         "value": "{ $side } knot { $number }"
       },
       "leftSide": {
-        "value": "left"
+        "value": "Left"
       },
       "rightSide": {
-        "value": "right"
+        "value": "Right"
       }
     },
     "tugOfWar": {
