@@ -76,7 +76,7 @@ a11y:
         description: Access game controls to start the tug-of-war, return the cart to center, and show force information.
         buttons:
           go:     Press to start or pause the tug-of-war game.
-          return: Press to return the cart to the center and reset for a new game.
+          return: Return cart to center.
         checkboxes:
           sumOfForces: Check to show an arrow representing the sum of all forces.
           values:      Check to show numerical values for the forces.
@@ -122,7 +122,7 @@ a11y:
     purpleTeam: Purple Team
     orangeTeam: Orange Team
   returnButton:
-    cartReturnedToCenter: Cart returned to center
+    cartReturnedToCenter: Cart returned to center.
     accessibleName:       Return Cart Button
     accessibleHelpText:   Press to return the cart to the center and reset for a new game.
   goPauseButton:
@@ -131,17 +131,17 @@ a11y:
   netForceControlPanel:
     sumOfForces:
       accessibleName:                     Sum of Forces
-      accessibleHelpText:                 Check to show an arrow representing the sum of all forces.
+      accessibleHelpText:                 Show or hide sum of forces arrow.
       accessibleContextResponseChecked:   Sum of forces arrow shown.
       accessibleContextResponseUnchecked: Sum of forces arrow hidden.
     values:
       accessibleName:                     Values
-      accessibleHelpText:                 Check to show numerical values for the forces.
+      accessibleHelpText:                 Show or hide force values.
       accessibleContextResponseChecked:   Force values shown.
       accessibleContextResponseUnchecked: Force values hidden.
     speed:
       accessibleName:                     Speed
-      accessibleHelpText:                 Check to show the speedometer on the cart.
+      accessibleHelpText:                 Show or hide speedometer.
       accessibleContextResponseChecked:   Speedometer shown on cart.
       accessibleContextResponseUnchecked: Speedometer hidden.
   playAreaControls:
