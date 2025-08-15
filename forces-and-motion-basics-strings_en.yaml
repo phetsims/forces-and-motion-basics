@@ -265,7 +265,7 @@ a11y:
     leftSide: Left
     rightSide: Right
   tugOfWar:
-    heading: Tug of War
+    heading: Tug-of-War
     noPullersOnRope: No pullers on rope
     knotOccupied: '{ $side } knot { $number }: { $pullerName }'
   forceArrows:
