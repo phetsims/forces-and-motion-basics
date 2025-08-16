@@ -23,7 +23,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
-import getQualitativeForceDescription from './getQualitativeForceDescription.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0valueUnitsNStringProperty' ];
 
@@ -163,37 +162,6 @@ export default class ReadoutArrow extends Node {
 
   // Update the arrow graphics and text labels
   public update(): void {
-
-    const amount = Math.abs( this.value );
-
-    // Use threshold-based descriptors that work for both netforce (quantized) and motion (continuous) values
-    const amountDescriptor = getQualitativeForceDescription( amount );
-
-    // Build the accessible paragraph description
-    if ( amount === 0 ) {
-      // Use Fluent pattern with variable
-      const noForceArrowProperty = ForcesAndMotionBasicsFluent.a11y.forceArrows.noForceArrow.createProperty( { name: this.name } );
-      this.accessibleParagraph = noForceArrowProperty.value;
-    }
-    else {
-      let description = `The ${this.name} force arrow is ${amountDescriptor}`;
-
-      // Add direction for sum arrows or for motion screen (except for applied/friction with value 0)
-      if ( this.name === 'sum' || ( this.mode === 'motion' && amount !== 0 ) ) {
-        const direction = this.value > 0 ? 'right' : 'left';
-        description += `, to the ${direction}`;
-      }
-
-      this.accessibleParagraph = description;
-    }
-
-    // Add value and units if shown, otherwise just add period
-    if ( this.showValuesProperty.value ) {
-      this.accessibleParagraph += ` at ${amount} newtons.`;
-    }
-    else {
-      this.accessibleParagraph += '.';
-    }
 
     const value = this.value * ( this.arrowScale || 1 );
 
