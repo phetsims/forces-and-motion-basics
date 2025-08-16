@@ -44,6 +44,17 @@ export default class CartNode extends Image {
     showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
+    cart.velocityProperty.lazyLink( ( velocity, oldVelocity ) => {
+
+      // Detect direction changes and announce them
+      if ( oldVelocity < 0 && velocity > 0 ) {
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingRightStringProperty.value );
+      }
+      else if ( oldVelocity > 0 && velocity < 0 ) {
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingLeftStringProperty.value );
+      }
+    } );
+
     // Speed varies between -3.76215, 3.76215
     // Position varies between -403, 403
     Multilink.multilink( [ this.cart.positionProperty, speedProperty, showSpeedProperty ], ( position, speed ) => {

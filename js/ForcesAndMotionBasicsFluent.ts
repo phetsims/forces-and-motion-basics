@@ -113,6 +113,12 @@ addToMapIfDefined( 'a11y_returnButton_accessibleName', 'a11y.returnButton.access
 addToMapIfDefined( 'a11y_returnButton_accessibleHelpText', 'a11y.returnButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_goPauseButton_accessibleName', 'a11y.goPauseButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_goPauseButton_accessibleHelpText', 'a11y.goPauseButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_goPauseButton_cartMovingLeft', 'a11y.goPauseButton.cartMovingLeftStringProperty' );
+addToMapIfDefined( 'a11y_goPauseButton_cartMovingRight', 'a11y.goPauseButton.cartMovingRightStringProperty' );
+addToMapIfDefined( 'a11y_goPauseButton_cartStationary', 'a11y.goPauseButton.cartStationaryStringProperty' );
+addToMapIfDefined( 'a11y_goPauseButton_cartPaused', 'a11y.goPauseButton.cartPausedStringProperty' );
+addToMapIfDefined( 'a11y_cart_directionChangeLeft', 'a11y.cart.directionChangeLeftStringProperty' );
+addToMapIfDefined( 'a11y_cart_directionChangeRight', 'a11y.cart.directionChangeRightStringProperty' );
 addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleName', 'a11y.netForceControlPanel.sumOfForces.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleHelpText', 'a11y.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', 'a11y.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' );
@@ -375,7 +381,15 @@ const ForcesAndMotionBasicsFluent = {
     },
     goPauseButton: {
       accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleNameStringProperty' ) ),
-      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleHelpTextStringProperty' ) )
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.accessibleHelpTextStringProperty' ) ),
+      cartMovingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_cartMovingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.cartMovingLeftStringProperty' ) ),
+      cartMovingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_cartMovingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.cartMovingRightStringProperty' ) ),
+      cartStationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_cartStationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.cartStationaryStringProperty' ) ),
+      cartPausedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_goPauseButton_cartPaused', _.get( ForcesAndMotionBasicsStrings, 'a11y.goPauseButton.cartPausedStringProperty' ) )
+    },
+    cart: {
+      directionChangeLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_cart_directionChangeLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.cart.directionChangeLeftStringProperty' ) ),
+      directionChangeRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_cart_directionChangeRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.cart.directionChangeRightStringProperty' ) )
     },
     netForceControlPanel: {
       sumOfForces: {

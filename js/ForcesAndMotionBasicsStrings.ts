@@ -137,6 +137,14 @@ type StringsType = {
     'goPauseButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'cartMovingLeftStringProperty': LocalizedStringProperty;
+      'cartMovingRightStringProperty': LocalizedStringProperty;
+      'cartStationaryStringProperty': LocalizedStringProperty;
+      'cartPausedStringProperty': LocalizedStringProperty;
+    };
+    'cart': {
+      'directionChangeLeftStringProperty': LocalizedStringProperty;
+      'directionChangeRightStringProperty': LocalizedStringProperty;
     };
     'netForceControlPanel': {
       'sumOfForces': {

@@ -66,6 +66,37 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
 
     model.isRunningProperty.link( isRunning => {
       this.baseColor = isRunning ? '#df1a22' : '#94b830';
+
+      // Add accessible context response when Go is pressed
+      if ( isRunning ) {
+        const velocity = model.cart.velocityProperty.value;
+        let movementMessage: string;
+
+        if ( Math.abs( velocity ) < 1E-6 ) {
+          // If velocity is essentially zero, check net force to predict movement
+          const netForce = model.netForceProperty.value;
+          if ( Math.abs( netForce ) < 1E-6 ) {
+            movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartStationaryStringProperty.value;
+          }
+          else if ( netForce > 0 ) {
+            movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingRightStringProperty.value;
+          }
+          else {
+            movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingLeftStringProperty.value;
+          }
+        }
+        else if ( velocity > 0 ) {
+          movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingRightStringProperty.value;
+        }
+        else {
+          movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingLeftStringProperty.value;
+        }
+
+        this.addAccessibleContextResponse( movementMessage );
+      }
+      else {
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartPausedStringProperty.value );
+      }
     } );
 
     //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61

@@ -128,6 +128,13 @@ a11y:
   goPauseButton:
     accessibleName:     Go/Pause Button
     accessibleHelpText: Press to start or pause the tug-of-war game.
+    cartMovingLeft:     Cart moving left.
+    cartMovingRight:    Cart moving right.
+    cartStationary:     Cart stationary.
+    cartPaused:         Cart paused.
+  cart:
+    directionChangeLeft:  Left.
+    directionChangeRight: Right.
   netForceControlPanel:
     sumOfForces:
       accessibleName:                     Sum of Forces
@@ -254,45 +261,45 @@ a11y:
     accessibleHeading:  Play Area Controls
     descriptionContent: Controls to start or pause motion, and to reset simulation
   pullers:
-    pullerInstruction: Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.
-    largePuller: Large
-    mediumPuller: Medium
-    smallPuller: Small
-    puller: Puller
+    pullerInstruction:   Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.
+    largePuller:         Large
+    mediumPuller:        Medium
+    smallPuller:         Small
+    puller:              Puller
     overReturnToToolbox: Over return to toolbox position
     overKnotDescription: 'Over { $side } knot { $number }'
-    knotDescription: '{ $side } knot { $number }'
-    leftSide: Left
-    rightSide: Right
+    knotDescription:     '{ $side } knot { $number }'
+    leftSide:            Left
+    rightSide:           Right
   tugOfWar:
-    heading: Tug-of-War
+    heading:         Tug-of-War
     noPullersOnRope: No pullers on rope
-    knotOccupied: '{ $side } knot { $number }: { $pullerName }'
+    knotOccupied:    '{ $side } knot { $number }: { $pullerName }'
   forces:
-    heading: Forces
-    leftForceArrow: 'Left force arrow is { $description }'
-    rightForceArrow: 'Right force arrow is { $description }'
-    sumOfForcesArrow: 'Sum of forces arrow is { $description }, pointing { $direction }'
-    sumOfForcesZero: 'Sum of forces is 0'
+    heading:                 Forces
+    leftForceArrow:          'Left force arrow is { $description }'
+    rightForceArrow:         'Right force arrow is { $description }'
+    sumOfForcesArrow:        'Sum of forces arrow is { $description }, pointing { $direction }'
+    sumOfForcesZero:         'Sum of forces is 0'
     quantitativeDescription: '{ $forceMagnitude } newtons'
     qualitativeDescriptions:
-      small: small
-      medium: medium
-      mediumSmall: medium small
-      mediumLarge: medium large
-      large: large
-      veryLarge: very large
+      small:          small
+      medium:         medium
+      mediumSmall:    medium small
+      mediumLarge:    medium large
+      large:          large
+      veryLarge:      very large
       extremelyLarge: extremely large
-      left: left
-      right: right
+      left:           left
+      right:          right
   speed:
-    heading: Speed
+    heading:   Speed
     cartSpeed: 'Cart speed is { $speedDescription }'
     qualitativeDescriptions:
       stationary: zero
-      verySlow: very slow
-      slow: slow
-      medium: medium
-      fast: fast
+      verySlow:   very slow
+      slow:       slow
+      medium:     medium
+      fast:       fast
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'

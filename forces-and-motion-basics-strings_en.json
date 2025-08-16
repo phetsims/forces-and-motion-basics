@@ -299,6 +299,26 @@
       },
       "accessibleHelpText": {
         "value": "Press to start or pause the tug-of-war game."
+      },
+      "cartMovingLeft": {
+        "value": "Cart moving left."
+      },
+      "cartMovingRight": {
+        "value": "Cart moving right."
+      },
+      "cartStationary": {
+        "value": "Cart stationary."
+      },
+      "cartPaused": {
+        "value": "Cart paused."
+      }
+    },
+    "cart": {
+      "directionChangeLeft": {
+        "value": "Left."
+      },
+      "directionChangeRight": {
+        "value": "Right."
       }
     },
     "netForceControlPanel": {
