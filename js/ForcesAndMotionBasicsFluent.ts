@@ -221,7 +221,10 @@ addToMapIfDefined( 'a11y_forces_sumOfForcesZero', 'a11y.forces.sumOfForcesZeroSt
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_small', 'a11y.forces.qualitativeDescriptions.smallStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_medium', 'a11y.forces.qualitativeDescriptions.mediumStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_mediumSmall', 'a11y.forces.qualitativeDescriptions.mediumSmallStringProperty' );
+addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_mediumLarge', 'a11y.forces.qualitativeDescriptions.mediumLargeStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_large', 'a11y.forces.qualitativeDescriptions.largeStringProperty' );
+addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_veryLarge', 'a11y.forces.qualitativeDescriptions.veryLargeStringProperty' );
+addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_extremelyLarge', 'a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_left', 'a11y.forces.qualitativeDescriptions.leftStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_right', 'a11y.forces.qualitativeDescriptions.rightStringProperty' );
 addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
@@ -540,7 +543,10 @@ const ForcesAndMotionBasicsFluent = {
         smallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_small', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.smallStringProperty' ) ),
         mediumStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_medium', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.mediumStringProperty' ) ),
         mediumSmallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_mediumSmall', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.mediumSmallStringProperty' ) ),
+        mediumLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_mediumLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.mediumLargeStringProperty' ) ),
         largeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_large', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.largeStringProperty' ) ),
+        veryLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_veryLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.veryLargeStringProperty' ) ),
+        extremelyLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_extremelyLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty' ) ),
         leftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_left', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.leftStringProperty' ) ),
         rightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_right', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.rightStringProperty' ) )
       }

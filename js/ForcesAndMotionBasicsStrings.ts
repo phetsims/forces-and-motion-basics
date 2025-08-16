@@ -312,7 +312,10 @@ type StringsType = {
         'smallStringProperty': LocalizedStringProperty;
         'mediumStringProperty': LocalizedStringProperty;
         'mediumSmallStringProperty': LocalizedStringProperty;
+        'mediumLargeStringProperty': LocalizedStringProperty;
         'largeStringProperty': LocalizedStringProperty;
+        'veryLargeStringProperty': LocalizedStringProperty;
+        'extremelyLargeStringProperty': LocalizedStringProperty;
         'leftStringProperty': LocalizedStringProperty;
         'rightStringProperty': LocalizedStringProperty;
       }

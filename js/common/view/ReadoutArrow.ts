@@ -23,6 +23,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
+import getQualitativeForceDescription from './getQualitativeForceDescription.js';
 
 const pattern0ValueUnitsNStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0valueUnitsNStringProperty' ];
 
@@ -166,13 +167,7 @@ export default class ReadoutArrow extends Node {
     const amount = Math.abs( this.value );
 
     // Use threshold-based descriptors that work for both netforce (quantized) and motion (continuous) values
-    const amountDescriptor = amount < 75 ? 'small' :
-                             amount < 125 ? 'medium small' :
-                             amount < 175 ? 'medium' :
-                             amount < 225 ? 'medium large' :
-                             amount < 275 ? 'large' :
-                             amount < 325 ? 'very large' :
-                             'extremely large';
+    const amountDescriptor = getQualitativeForceDescription( amount );
 
     // Build the accessible paragraph description
     if ( amount === 0 ) {

@@ -691,8 +691,17 @@
         "mediumSmall": {
           "value": "medium small"
         },
+        "mediumLarge": {
+          "value": "medium large"
+        },
         "large": {
           "value": "large"
+        },
+        "veryLarge": {
+          "value": "very large"
+        },
+        "extremelyLarge": {
+          "value": "extremely large"
         },
         "left": {
           "value": "left"

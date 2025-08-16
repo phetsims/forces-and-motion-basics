@@ -278,7 +278,10 @@ a11y:
       small: small
       medium: medium
       mediumSmall: medium small
+      mediumLarge: medium large
       large: large
+      veryLarge: very large
+      extremelyLarge: extremely large
       left: left
       right: right
   forceArrows:

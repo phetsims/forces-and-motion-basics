@@ -10,6 +10,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -112,18 +113,7 @@ export default class ForcesListDescription extends Node {
     }
     else {
       // Qualitative description using same thresholds as ReadoutArrow
-      if ( magnitude < 75 ) {
-        return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.smallStringProperty.value;
-      }
-      else if ( magnitude < 125 ) {
-        return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumSmallStringProperty.value;
-      }
-      else if ( magnitude < 175 ) {
-        return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumStringProperty.value;
-      }
-      else {
-        return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.largeStringProperty.value;
-      }
+      return getQualitativeForceDescription( magnitude );
     }
   }
 }
