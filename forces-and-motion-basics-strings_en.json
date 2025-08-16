@@ -665,6 +665,43 @@
         "value": "{ $side } knot { $number }: { $pullerName }"
       }
     },
+    "forces": {
+      "heading": {
+        "value": "Forces"
+      },
+      "leftForceArrow": {
+        "value": "Left force arrow is { $description }"
+      },
+      "rightForceArrow": {
+        "value": "Right force arrow is { $description }"
+      },
+      "sumOfForcesArrow": {
+        "value": "Sum of forces arrow is { $description }, pointing { $direction }"
+      },
+      "sumOfForcesZero": {
+        "value": "Sum of forces is 0"
+      },
+      "qualitativeDescriptions": {
+        "small": {
+          "value": "small"
+        },
+        "medium": {
+          "value": "medium"
+        },
+        "mediumSmall": {
+          "value": "medium small"
+        },
+        "large": {
+          "value": "large"
+        },
+        "left": {
+          "value": "left"
+        },
+        "right": {
+          "value": "right"
+        }
+      }
+    },
     "forceArrows": {
       "noForceArrow": {
         "value": "There is no { $name } force arrow"

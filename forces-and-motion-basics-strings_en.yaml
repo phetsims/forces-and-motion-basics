@@ -268,5 +268,18 @@ a11y:
     heading: Tug-of-War
     noPullersOnRope: No pullers on rope
     knotOccupied: '{ $side } knot { $number }: { $pullerName }'
+  forces:
+    heading: Forces
+    leftForceArrow: 'Left force arrow is { $description }'
+    rightForceArrow: 'Right force arrow is { $description }'
+    sumOfForcesArrow: 'Sum of forces arrow is { $description }, pointing { $direction }'
+    sumOfForcesZero: 'Sum of forces is 0'
+    qualitativeDescriptions:
+      small: small
+      medium: medium
+      mediumSmall: medium small
+      large: large
+      left: left
+      right: right
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'

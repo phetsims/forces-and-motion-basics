@@ -302,6 +302,21 @@ type StringsType = {
       'noPullersOnRopeStringProperty': LocalizedStringProperty;
       'knotOccupiedStringProperty': LocalizedStringProperty;
     };
+    'forces': {
+      'headingStringProperty': LocalizedStringProperty;
+      'leftForceArrowStringProperty': LocalizedStringProperty;
+      'rightForceArrowStringProperty': LocalizedStringProperty;
+      'sumOfForcesArrowStringProperty': LocalizedStringProperty;
+      'sumOfForcesZeroStringProperty': LocalizedStringProperty;
+      'qualitativeDescriptions': {
+        'smallStringProperty': LocalizedStringProperty;
+        'mediumStringProperty': LocalizedStringProperty;
+        'mediumSmallStringProperty': LocalizedStringProperty;
+        'largeStringProperty': LocalizedStringProperty;
+        'leftStringProperty': LocalizedStringProperty;
+        'rightStringProperty': LocalizedStringProperty;
+      }
+    };
     'forceArrows': {
       'noForceArrowStringProperty': LocalizedStringProperty;
     }
