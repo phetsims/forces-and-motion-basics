@@ -42,3 +42,7 @@ order to ensure everything is working correctly:
   `grunt modulify --targets=strings` command will then automatically update the
   `forces-and-motion-basics-strings_en.json` and `ForcesAndMotionBasicsStrings.ts` and `ForcesAndMotionBasicsFluent.ts`
   files.
+
+## Gotchas!
+
+- Adding a node to the pdom order is not enough, it must also be this.addChild( node ) to the display list.
