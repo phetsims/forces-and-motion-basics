@@ -274,6 +274,7 @@ a11y:
     rightForceArrow: 'Right force arrow is { $description }'
     sumOfForcesArrow: 'Sum of forces arrow is { $description }, pointing { $direction }'
     sumOfForcesZero: 'Sum of forces is 0'
+    quantitativeDescription: '{ $forceMagnitude } newtons'
     qualitativeDescriptions:
       small: small
       medium: medium

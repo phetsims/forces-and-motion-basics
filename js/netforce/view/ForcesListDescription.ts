@@ -108,8 +108,10 @@ export default class ForcesListDescription extends Node {
     const magnitude = Math.abs( force );
     
     if ( showValues ) {
-      // Quantitative description with newtons
-      return `${magnitude} newtons`;
+      // Quantitative description with newtons using Fluent pattern
+      return ForcesAndMotionBasicsFluent.a11y.forces.quantitativeDescription.createProperty( {
+        forceMagnitude: magnitude.toString()
+      } ).value;
     }
     else {
       // Qualitative description using same thresholds as ReadoutArrow

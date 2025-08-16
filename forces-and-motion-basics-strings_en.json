@@ -681,6 +681,9 @@
       "sumOfForcesZero": {
         "value": "Sum of forces is 0"
       },
+      "quantitativeDescription": {
+        "value": "{ $forceMagnitude } newtons"
+      },
       "qualitativeDescriptions": {
         "small": {
           "value": "small"

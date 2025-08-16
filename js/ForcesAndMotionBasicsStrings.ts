@@ -308,6 +308,7 @@ type StringsType = {
       'rightForceArrowStringProperty': LocalizedStringProperty;
       'sumOfForcesArrowStringProperty': LocalizedStringProperty;
       'sumOfForcesZeroStringProperty': LocalizedStringProperty;
+      'quantitativeDescriptionStringProperty': LocalizedStringProperty;
       'qualitativeDescriptions': {
         'smallStringProperty': LocalizedStringProperty;
         'mediumStringProperty': LocalizedStringProperty;
