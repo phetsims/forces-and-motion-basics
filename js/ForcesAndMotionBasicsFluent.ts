@@ -228,6 +228,13 @@ addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_veryLarge', 'a11y.forces
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_extremelyLarge', 'a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_left', 'a11y.forces.qualitativeDescriptions.leftStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_right', 'a11y.forces.qualitativeDescriptions.rightStringProperty' );
+addToMapIfDefined( 'a11y_speed_heading', 'a11y.speed.headingStringProperty' );
+addToMapIfDefined( 'a11y_speed_cartSpeed', 'a11y.speed.cartSpeedStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_stationary', 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_verySlow', 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_slow', 'a11y.speed.qualitativeDescriptions.slowStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_medium', 'a11y.speed.qualitativeDescriptions.mediumStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_fast', 'a11y.speed.qualitativeDescriptions.fastStringProperty' );
 addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
@@ -551,6 +558,17 @@ const ForcesAndMotionBasicsFluent = {
         extremelyLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_extremelyLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty' ) ),
         leftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_left', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.leftStringProperty' ) ),
         rightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_right', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.rightStringProperty' ) )
+      }
+    },
+    speed: {
+      headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.headingStringProperty' ) ),
+      cartSpeed: new FluentPattern<{ speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_cartSpeed', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.cartSpeedStringProperty' ), [{"name":"speedDescription"}] ),
+      qualitativeDescriptions: {
+        stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' ) ),
+        verySlowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_verySlow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' ) ),
+        slowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_slow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.slowStringProperty' ) ),
+        mediumStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_medium', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.mediumStringProperty' ) ),
+        fastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_fast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.fastStringProperty' ) )
       }
     },
     forceArrows: {

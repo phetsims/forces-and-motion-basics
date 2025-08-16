@@ -45,6 +45,7 @@ import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
 import TugOfWarDescription from './TugOfWarDescription.js';
 import ForcesListDescription from './ForcesListDescription.js';
+import SpeedDescription from './SpeedDescription.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsFluent.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsFluent.rightForceStringProperty;
@@ -450,13 +451,18 @@ export default class NetForceScreenView extends ScreenView {
     const forcesListDescription = new ForcesListDescription( model );
     this.addChild( forcesListDescription );
 
+    // Create Speed description node
+    const speedDescription = new SpeedDescription( model );
+    this.addChild( speedDescription );
+
     // Set up the pdomOrder for proper accessibility hierarchy
-    // Play Area: left toolbox -> right toolbox -> tug of war overview -> forces list -> play area controls -> cart -> arrows
+    // Play Area: left toolbox -> right toolbox -> tug of war overview -> forces list -> speed -> play area controls -> cart -> arrows
     this.pdomPlayAreaNode.pdomOrder = [
       leftToolbox,
       rightToolbox,
       tugOfWarOverviewNode,
       forcesListDescription,
+      speedDescription,
       playAreaControlNode,
       this.cartNode,
       // stateDescriptionNode,

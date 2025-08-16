@@ -285,5 +285,14 @@ a11y:
       extremelyLarge: extremely large
       left: left
       right: right
+  speed:
+    heading: Speed
+    cartSpeed: 'Cart speed is { $speedDescription }'
+    qualitativeDescriptions:
+      stationary: zero
+      verySlow: very slow
+      slow: slow
+      medium: medium
+      fast: fast
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'

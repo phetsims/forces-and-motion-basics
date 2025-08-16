@@ -321,6 +321,17 @@ type StringsType = {
         'rightStringProperty': LocalizedStringProperty;
       }
     };
+    'speed': {
+      'headingStringProperty': LocalizedStringProperty;
+      'cartSpeedStringProperty': LocalizedStringProperty;
+      'qualitativeDescriptions': {
+        'stationaryStringProperty': LocalizedStringProperty;
+        'verySlowStringProperty': LocalizedStringProperty;
+        'slowStringProperty': LocalizedStringProperty;
+        'mediumStringProperty': LocalizedStringProperty;
+        'fastStringProperty': LocalizedStringProperty;
+      }
+    };
     'forceArrows': {
       'noForceArrowStringProperty': LocalizedStringProperty;
     }

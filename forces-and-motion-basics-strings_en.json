@@ -714,6 +714,31 @@
         }
       }
     },
+    "speed": {
+      "heading": {
+        "value": "Speed"
+      },
+      "cartSpeed": {
+        "value": "Cart speed is { $speedDescription }"
+      },
+      "qualitativeDescriptions": {
+        "stationary": {
+          "value": "zero"
+        },
+        "verySlow": {
+          "value": "very slow"
+        },
+        "slow": {
+          "value": "slow"
+        },
+        "medium": {
+          "value": "medium"
+        },
+        "fast": {
+          "value": "fast"
+        }
+      }
+    },
     "forceArrows": {
       "noForceArrow": {
         "value": "There is no { $name } force arrow"
