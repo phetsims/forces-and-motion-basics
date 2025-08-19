@@ -7,7 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -15,49 +15,58 @@ import NetForceModel from '../model/NetForceModel.js';
 
 export default class SpeedDescription extends Node {
 
-  private speedList: AccessibleListNode | null = null;
+  public constructor( model: NetForceModel ) {
+    // Create a derived property for the speed description paragraph
+    const speedDescriptionProperty = new DerivedProperty(
+      [
+        model.speedProperty,
+        model.showSpeedProperty,
+        model.netForceProperty,
+        model.cart.velocityProperty,
+        // String dependencies from getQualitativeSpeedDescription
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.stationaryStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.verySlowStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty,
+        // String dependencies from getAccelerationDescription
+        ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.speedingUpStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.slowingDownStringProperty
+      ],
+      ( speed, showSpeed, netForce, velocity ) => {
+        if ( showSpeed ) {
+          const qualitativeSpeed = this.getQualitativeSpeedDescription( Math.abs( speed ) );
+          const accelerationDescription = this.getAccelerationDescription( netForce, velocity );
 
-  public constructor( private readonly model: NetForceModel ) {
+          // Use different strings based on whether there's acceleration
+          if ( accelerationDescription ) {
+            return ForcesAndMotionBasicsFluent.a11y.speed.cartSpeedWithAcceleration.createProperty( {
+              speedDescription: qualitativeSpeed,
+              accelerationDescription: accelerationDescription
+            } ).value;
+          }
+          else {
+            return ForcesAndMotionBasicsFluent.a11y.speed.cartSpeed.createProperty( {
+              speedDescription: qualitativeSpeed
+            } ).value;
+          }
+        }
+        else {
+          return '';
+        }
+      }
+    );
+
     super( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.speed.headingStringProperty
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.speed.headingStringProperty,
+      accessibleParagraph: speedDescriptionProperty
     } );
 
-    // Update the speed list when relevant properties change
-    const updateListener = () => this.updateSpeedList();
-    
-    this.model.speedProperty.link( updateListener );
-    this.model.showSpeedProperty.link( updateListener );
-
-    // Initial update
-    this.updateSpeedList();
-  }
-
-  /**
-   * Updates the speed list content based on current speed and visibility
-   */
-  private updateSpeedList(): void {
-    // Remove existing list
-    this.removeAllChildren();
-
-    const showSpeed = this.model.showSpeedProperty.value;
-    
-    // Only show the component if speed checkbox is checked
-    if ( showSpeed ) {
-      const speed = Math.abs( this.model.speedProperty.value );
-      const speedDescription = this.getQualitativeSpeedDescription( speed );
-      
-      const speedProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeed.createProperty( {
-        speedDescription: speedDescription
-      } );
-      
-      this.speedList = new AccessibleListNode( [ speedProperty ] );
-      this.addChild( this.speedList );
-      this.visible = true;
-    }
-    else {
-      this.visible = false;
-    }
+    // Update visibility based on showSpeedProperty
+    model.showSpeedProperty.link( showSpeed => {
+      this.visible = showSpeed;
+    } );
   }
 
   /**
@@ -79,6 +88,34 @@ export default class SpeedDescription extends Node {
     }
     else {
       return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty.value;
+    }
+  }
+
+  /**
+   * Gets the appropriate acceleration description based on net force and velocity direction
+   * If there is no net force, no acceleration description is added.
+   * If net force is in the same direction as velocity, the cart is speeding up.
+   * If net force is opposite to velocity, the cart is slowing down.
+   */
+  private getAccelerationDescription( netForce: number, velocity: number ): string {
+    // No net force means no acceleration
+    if ( Math.abs( netForce ) < 0.1 ) {
+      return '';
+    }
+
+    // If velocity is very small, don't add acceleration description (cart is essentially stationary)
+    if ( Math.abs( velocity ) < 0.1 ) {
+      return '';
+    }
+
+    // Check if force and velocity are in the same direction
+    const sameDirection = ( netForce > 0 && velocity > 0 ) || ( netForce < 0 && velocity < 0 );
+
+    if ( sameDirection ) {
+      return ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.speedingUpStringProperty.value;
+    }
+    else {
+      return ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.slowingDownStringProperty.value;
     }
   }
 }

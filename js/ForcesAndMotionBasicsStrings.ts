@@ -333,12 +333,17 @@ type StringsType = {
     'speed': {
       'headingStringProperty': LocalizedStringProperty;
       'cartSpeedStringProperty': LocalizedStringProperty;
+      'cartSpeedWithAccelerationStringProperty': LocalizedStringProperty;
       'qualitativeDescriptions': {
         'stationaryStringProperty': LocalizedStringProperty;
         'verySlowStringProperty': LocalizedStringProperty;
         'slowStringProperty': LocalizedStringProperty;
         'mediumStringProperty': LocalizedStringProperty;
         'fastStringProperty': LocalizedStringProperty;
+      };
+      'accelerationDescriptions': {
+        'speedingUpStringProperty': LocalizedStringProperty;
+        'slowingDownStringProperty': LocalizedStringProperty;
       }
     };
     'forceArrows': {

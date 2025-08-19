@@ -295,12 +295,16 @@ a11y:
       right:          right
   speed:
     heading:   Speed
-    cartSpeed: 'Cart speed is { $speedDescription }'
+    cartSpeed: 'Cart speed is { $speedDescription }.'
+    cartSpeedWithAcceleration: 'Cart speed is { $speedDescription } and { $accelerationDescription }.'
     qualitativeDescriptions:
       stationary: zero
       verySlow:   very slow
       slow:       slow
       medium:     medium
       fast:       fast
+    accelerationDescriptions:
+      speedingUp:  'speeding up'
+      slowingDown: 'slowing down'
   forceArrows:
     noForceArrow: 'There is no { $name } force arrow'
