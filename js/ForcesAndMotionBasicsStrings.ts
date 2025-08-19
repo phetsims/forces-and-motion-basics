@@ -136,7 +136,8 @@ type StringsType = {
     };
     'goPauseButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextGoStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextPauseStringProperty': LocalizedStringProperty;
       'cartMovingLeftStringProperty': LocalizedStringProperty;
       'cartMovingRightStringProperty': LocalizedStringProperty;
       'cartStationaryStringProperty': LocalizedStringProperty;

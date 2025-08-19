@@ -40,7 +40,19 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
   public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
 
     // Create a derived property for the accessible name that updates based on the button state
-    const dynamicAccessibleNameProperty = new DerivedProperty( [ model.isRunningProperty ], isRunning => isRunning ? 'Pause' : 'Go' );
+    const dynamicAccessibleNameProperty = new DerivedProperty( [
+        model.isRunningProperty,
+        ForcesAndMotionBasicsFluent.goStringProperty,
+        ForcesAndMotionBasicsFluent.pauseStringProperty ],
+      ( isRunning, goString, pauseString ) => isRunning ? pauseString : goString );
+
+    // Create a derived property for the help text that updates based on the button state
+    const dynamicAccessibleHelpTextProperty = new DerivedProperty( [ model.isRunningProperty,
+        ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleHelpTextPauseStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleHelpTextGoStringProperty
+      ], ( isRunning, accessibleHelpTextPauseString, accessibleHelpTextGoString ) =>
+        isRunning ? accessibleHelpTextPauseString : accessibleHelpTextGoString
+    );
 
     const options = optionize<GoPauseButtonOptions, SelfOptions, BooleanToggleNodeOptions>()( {
       top: 400,
@@ -48,7 +60,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
         phetioReadOnly: true
       },
       accessibleName: dynamicAccessibleNameProperty,
-      accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleHelpTextStringProperty
+      accessibleHelpText: dynamicAccessibleHelpTextProperty
     }, providedOptions );
     const goText = new Text( ForcesAndMotionBasicsFluent.goStringProperty, {
       font: new PhetFont( 42 ),

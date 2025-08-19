@@ -127,7 +127,8 @@ a11y:
     accessibleHelpText:   Press to return the cart to the center and reset for a new game.
   goPauseButton:
     accessibleName:     Go/Pause Button
-    accessibleHelpText: Press to start or pause the tug-of-war game.
+    accessibleHelpTextGo: Start tug-of-war game.
+    accessibleHelpTextPause: Pause tug-of-war game.
     cartMovingLeft:     Cart moving left.
     cartMovingRight:    Cart moving right.
     cartStationary:     Cart stationary.

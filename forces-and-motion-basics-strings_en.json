@@ -297,8 +297,11 @@
       "accessibleName": {
         "value": "Go/Pause Button"
       },
-      "accessibleHelpText": {
-        "value": "Press to start or pause the tug-of-war game."
+      "accessibleHelpTextGo": {
+        "value": "Start tug-of-war game."
+      },
+      "accessibleHelpTextPause": {
+        "value": "Pause tug-of-war game."
       },
       "cartMovingLeft": {
         "value": "Cart moving left."
