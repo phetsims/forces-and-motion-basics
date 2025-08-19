@@ -60,7 +60,7 @@ a11y:
     screenSummary:
       playArea:
         heading:         Play Area
-        description:     The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. Blue team pullers are on the left, red team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
+        description:     'The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. { $leftTeamName } team pullers are on the left, { $rightTeamName } team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.'
         guidingQuestion: "How does the force from the pullers affect the motion of the cart?"
         toolboxes:
           blueTeamHeading:   Blue Team
@@ -85,29 +85,17 @@ a11y:
         cartCentered:       Currently, the cart is centered and not moving.
         noPullersAttached:  No pullers are attached to the ropes.
         cartMoving:         The cart is moving.
-        blueTeamAttached:   |-
+        leftTeamAttached:   |-
                             { $count ->
-                              [0] No blue team pullers are on the rope.
-                              [one] { $count } blue team puller is on the rope.
-                             *[other] { $count } blue team pullers are on the rope.
+                              [0] No { $leftTeamName } team pullers are on the rope.
+                              [one] { $count } { $leftTeamName } team puller is on the rope.
+                             *[other] { $count } { $leftTeamName } team pullers are on the rope.
                             }
-        redTeamAttached:    |-
+        rightTeamAttached:  |-
                             { $count ->
-                              [0] No red team pullers are on the rope.
-                              [one] { $count } red team puller is on the rope.
-                             *[other] { $count } red team pullers are on the rope.
-                            }
-        purpleTeamAttached: |-
-                            { $count ->
-                              [0] No purple team pullers are on the rope.
-                              [one] { $count } purple team puller is on the rope.
-                             *[other] { $count } purple team pullers are on the rope.
-                            }
-        orangeTeamAttached: |-
-                            { $count ->
-                              [0] No orange team pullers are on the rope.
-                              [one] { $count } orange team puller is on the rope.
-                             *[other] { $count } orange team pullers are on the rope.
+                              [0] No { $rightTeamName } team pullers are on the rope.
+                              [one] { $count } { $rightTeamName } team puller is on the rope.
+                             *[other] { $count } { $rightTeamName } team pullers are on the rope.
                             }
       interactionHint:
         noPullers:   Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.

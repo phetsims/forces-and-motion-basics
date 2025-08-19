@@ -247,10 +247,10 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           const knot = puller.modeProperty.value.getKnot( puller.model );
           if ( knot ) {
             const knotDescription = this.getKnotDescription( knot );
-            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
+            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller attached to ${knotDescription}.` );
           }
           else {
-            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
           }
         }
       }
@@ -455,7 +455,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             if ( currentMode.isKeyboardGrabbedOverHome() ) {
               // Drop at home (toolbox)
               newMode = PullerMode.home();
-              this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+              this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
             }
             else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
               // Drop at knot - convert keyboard grabbed to attached
@@ -466,18 +466,18 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
                 const knot = puller.getKnot();
                 const knotDescription = knot ? this.getKnotDescription( knot ) : 'knot';
-                this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller attached to ${knotDescription}.` );
+                this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller attached to ${knotDescription}.` );
               }
               else {
                 // Fallback to home
                 newMode = PullerMode.home();
-                this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+                this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
               }
             }
             else {
               // Fallback to home
               newMode = PullerMode.home();
-              this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+              this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
             }
 
             // Clear grab origin
@@ -516,7 +516,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.cancelGrab();
 
             // Add accessibility response
-            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller interaction canceled.` );
+            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller interaction canceled.` );
           }
         }
 
@@ -529,7 +529,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.modeProperty.set( PullerMode.home() );
 
             // Add accessibility response
-            this.addAccessibleContextResponse( `${puller.size} ${puller.type} puller returned to toolbox.` );
+            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
           }
         }
       }
@@ -663,6 +663,16 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     if ( this.puller.getKnot() === null ) {
       this.focusable = true;
     }
+  }
+
+  /**
+   * Get the dynamic color name for this puller based on current preferences
+   */
+  private getDynamicColorName(): string {
+    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+    return pullerColor === 'purpleOrange' ?
+           ( this.puller.type === 'blue' ? 'purple' : 'orange' ) :
+           this.puller.type;
   }
 
   /**

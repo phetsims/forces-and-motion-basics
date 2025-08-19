@@ -208,8 +208,8 @@ export default class NetForceScreenView extends ScreenView {
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
       pullerColor => {
         return pullerColor === 'purpleOrange' ?
-               ForcesAndMotionBasicsFluent.a11y.colors.purpleTeamStringProperty.value :
-               ForcesAndMotionBasicsFluent.a11y.colors.blueTeamStringProperty.value;
+               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty.value :
+               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty.value;
       }
     );
 
@@ -217,8 +217,8 @@ export default class NetForceScreenView extends ScreenView {
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
       pullerColor => {
         return pullerColor === 'purpleOrange' ?
-               ForcesAndMotionBasicsFluent.a11y.colors.orangeTeamStringProperty.value :
-               ForcesAndMotionBasicsFluent.a11y.colors.redTeamStringProperty.value;
+               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.orangeTeamHeadingStringProperty.value :
+               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty.value;
       }
     );
 

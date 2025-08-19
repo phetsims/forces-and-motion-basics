@@ -108,10 +108,8 @@ type StringsType = {
           'cartCenteredStringProperty': LocalizedStringProperty;
           'noPullersAttachedStringProperty': LocalizedStringProperty;
           'cartMovingStringProperty': LocalizedStringProperty;
-          'blueTeamAttachedStringProperty': LocalizedStringProperty;
-          'redTeamAttachedStringProperty': LocalizedStringProperty;
-          'purpleTeamAttachedStringProperty': LocalizedStringProperty;
-          'orangeTeamAttachedStringProperty': LocalizedStringProperty;
+          'leftTeamAttachedStringProperty': LocalizedStringProperty;
+          'rightTeamAttachedStringProperty': LocalizedStringProperty;
         };
         'interactionHint': {
           'noPullersStringProperty': LocalizedStringProperty;

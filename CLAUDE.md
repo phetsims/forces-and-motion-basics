@@ -43,6 +43,38 @@ order to ensure everything is working correctly:
   `forces-and-motion-basics-strings_en.json` and `ForcesAndMotionBasicsStrings.ts` and `ForcesAndMotionBasicsFluent.ts`
   files.
 
+## **IMPORTANT: DerivedProperty Dependencies**
+
+**Any Property value consulted during a DerivedProperty calculation MUST be listed in the dependency array.**
+
+When creating a DerivedProperty, you must include ALL Properties that are accessed during the calculation, including:
+- Direct property accesses (e.g., `someProperty.value`)
+- Properties accessed through method calls
+- String Properties from internationalization (e.g., `ForcesAndMotionBasicsFluent.a11y.someStringProperty`)
+- Properties accessed recursively through helper methods
+
+**Example Problem:**
+```typescript
+// WRONG - Missing string dependencies
+const derivedProperty = new DerivedProperty(
+  [ model.speedProperty ],
+  speed => this.getSpeedDescription( speed ) // This method accesses string Properties!
+);
+
+// CORRECT - All dependencies included
+const derivedProperty = new DerivedProperty(
+  [ 
+    model.speedProperty,
+    // Must include ALL string Properties accessed in getSpeedDescription
+    SomeStrings.slowStringProperty,
+    SomeStrings.fastStringProperty
+  ],
+  speed => this.getSpeedDescription( speed )
+);
+```
+
+**Why this matters:** If dependencies are missing, the DerivedProperty won't recalculate when those Properties change (such as during language switching), leading to stale or incorrect values.
+
 ## Gotchas!
 
 - Adding a node to the pdom order is not enough, it must also be this.addChild( node ) to the display list.
