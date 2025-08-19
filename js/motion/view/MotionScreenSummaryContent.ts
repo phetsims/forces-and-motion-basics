@@ -21,7 +21,7 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
    */
   public constructor( model: MotionModel ) {
 
-    // Play area content includes screen-specific description and guiding question
+    // Play area content includes screen-specific description
     const getPlayAreaDescription = () => {
       switch( model.screen ) {
         case 'motion':
@@ -36,8 +36,7 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
     };
 
     const playAreaContent = [
-      getPlayAreaDescription(),
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.guidingQuestionStringProperty
+      getPlayAreaDescription()
     ];
 
     // Control area content

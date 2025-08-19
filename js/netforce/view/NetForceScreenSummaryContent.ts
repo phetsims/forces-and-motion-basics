@@ -22,7 +22,7 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
    */
   public constructor( model: NetForceModel ) {
 
-    // Play area content includes description and guiding question, similar to Center and Variability
+    // Play area content includes description, similar to Center and Variability
     // Note: description is now a dynamic property that needs team names, so we'll create a derived property
     const playAreaDescriptionProperty = new DerivedProperty(
       [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty,
@@ -41,8 +41,7 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     );
 
     const playAreaContent = [
-      playAreaDescriptionProperty,
-      ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty
+      playAreaDescriptionProperty
     ];
 
     // Control area content

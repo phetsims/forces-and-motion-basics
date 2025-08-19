@@ -76,7 +76,6 @@ addToMapIfDefined( 'keyboardHelpDialog_startOrPauseGame', 'keyboardHelpDialog.st
 addToMapIfDefined( 'keyboardHelpDialog_returnCart', 'keyboardHelpDialog.returnCartStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_heading', 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_purpleTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty' );
@@ -135,7 +134,6 @@ addToMapIfDefined( 'a11y_playAreaControls_descriptionContent', 'a11y.playAreaCon
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_description', 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_guidingQuestion', 'a11y.motionScreen.screenSummary.playArea.guidingQuestionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.accelerationDescriptionStringProperty' );
@@ -325,7 +323,6 @@ const ForcesAndMotionBasicsFluent = {
         playArea: {
           headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' ) ),
           description: new FluentPattern<{ leftTeamName: FluentVariable, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ), [{"name":"leftTeamName"},{"name":"rightTeamName"}] ),
-          guidingQuestionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_guidingQuestion', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.guidingQuestionStringProperty' ) ),
           toolboxes: {
             blueTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' ) ),
             redTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' ) ),
@@ -422,7 +419,6 @@ const ForcesAndMotionBasicsFluent = {
           descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' ) ),
           frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' ) ),
           accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' ) ),
-          guidingQuestionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_guidingQuestion', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.guidingQuestionStringProperty' ) ),
           objectToolbox: {
             descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' ) ),
             frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.frictionDescriptionStringProperty' ) ),

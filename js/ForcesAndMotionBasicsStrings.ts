@@ -78,7 +78,6 @@ type StringsType = {
         'playArea': {
           'headingStringProperty': LocalizedStringProperty;
           'descriptionStringProperty': LocalizedStringProperty;
-          'guidingQuestionStringProperty': LocalizedStringProperty;
           'toolboxes': {
             'blueTeamHeadingStringProperty': LocalizedStringProperty;
             'redTeamHeadingStringProperty': LocalizedStringProperty;
@@ -175,7 +174,6 @@ type StringsType = {
           'descriptionStringProperty': LocalizedStringProperty;
           'frictionDescriptionStringProperty': LocalizedStringProperty;
           'accelerationDescriptionStringProperty': LocalizedStringProperty;
-          'guidingQuestionStringProperty': LocalizedStringProperty;
           'objectToolbox': {
             'descriptionStringProperty': LocalizedStringProperty;
             'frictionDescriptionStringProperty': LocalizedStringProperty;

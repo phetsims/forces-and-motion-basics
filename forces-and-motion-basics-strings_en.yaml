@@ -60,8 +60,7 @@ a11y:
     screenSummary:
       playArea:
         heading:         Play Area
-        description:     'The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. { $leftTeamName } team pullers are on the left, { $rightTeamName } team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.'
-        guidingQuestion: "How does the force from the pullers affect the motion of the cart?"
+        description:     The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. { $leftTeamName } team pullers are on the left, { $rightTeamName } team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
         toolboxes:
           blueTeamHeading:   Blue Team
           redTeamHeading:    Red Team
@@ -82,21 +81,21 @@ a11y:
           values:      Check to show numerical values for the forces.
           speed:       Check to show the speedometer on the cart.
       currentDetails:
-        cartCentered:       Currently, the cart is centered and not moving.
-        noPullersAttached:  No pullers are attached to the ropes.
-        cartMoving:         The cart is moving.
-        leftTeamAttached:   |-
-                            { $count ->
-                              [0] No { $leftTeamName } team pullers are on the rope.
-                              [one] { $count } { $leftTeamName } team puller is on the rope.
-                             *[other] { $count } { $leftTeamName } team pullers are on the rope.
-                            }
-        rightTeamAttached:  |-
-                            { $count ->
-                              [0] No { $rightTeamName } team pullers are on the rope.
-                              [one] { $count } { $rightTeamName } team puller is on the rope.
-                             *[other] { $count } { $rightTeamName } team pullers are on the rope.
-                            }
+        cartCentered:      Currently, the cart is centered and not moving.
+        noPullersAttached: No pullers are attached to the ropes.
+        cartMoving:        The cart is moving.
+        leftTeamAttached:  |-
+                           { $count ->
+                             [0] No { $leftTeamName } team pullers are on the rope.
+                             [one] { $count } { $leftTeamName } team puller is on the rope.
+                            *[other] { $count } { $leftTeamName } team pullers are on the rope.
+                           }
+        rightTeamAttached: |-
+                           { $count ->
+                             [0] No { $rightTeamName } team pullers are on the rope.
+                             [one] { $count } { $rightTeamName } team puller is on the rope.
+                            *[other] { $count } { $rightTeamName } team pullers are on the rope.
+                           }
       interactionHint:
         noPullers:   Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
         withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.
@@ -114,13 +113,13 @@ a11y:
     accessibleName:       Return Cart Button
     accessibleHelpText:   Press to return the cart to the center and reset for a new game.
   goPauseButton:
-    accessibleName:     Go/Pause Button
-    accessibleHelpTextGo: Start tug-of-war game.
+    accessibleName:          Go/Pause Button
+    accessibleHelpTextGo:    Start tug-of-war game.
     accessibleHelpTextPause: Pause tug-of-war game.
-    cartMovingLeft:     Cart moving left.
-    cartMovingRight:    Cart moving right.
-    cartStationary:     Cart stationary.
-    cartPaused:         Cart paused.
+    cartMovingLeft:          Cart moving left.
+    cartMovingRight:         Cart moving right.
+    cartStationary:          Cart stationary.
+    cartPaused:              Cart paused.
   cart:
     directionChangeLeft:  Left.
     directionChangeRight: Right.
@@ -149,7 +148,6 @@ a11y:
         description:             The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement.
         frictionDescription:     The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
         accelerationDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero.
-        guidingQuestion:         "How do forces affect the motion of objects?"
         objectToolbox:
           description:             Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
           frictionDescription:     Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties.
@@ -282,8 +280,8 @@ a11y:
       left:           left
       right:          right
   speed:
-    heading:   Speed
-    cartSpeed: 'Cart speed is { $speedDescription }.'
+    heading:                   Speed
+    cartSpeed:                 'Cart speed is { $speedDescription }.'
     cartSpeedWithAcceleration: 'Cart speed is { $speedDescription } and { $accelerationDescription }.'
     qualitativeDescriptions:
       stationary: zero

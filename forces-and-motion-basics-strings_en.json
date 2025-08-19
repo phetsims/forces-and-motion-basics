@@ -167,9 +167,6 @@
           "description": {
             "value": "The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. { $leftTeamName } team pullers are on the left, { $rightTeamName } team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side."
           },
-          "guidingQuestion": {
-            "value": "How does the force from the pullers affect the motion of the cart?"
-          },
           "toolboxes": {
             "blueTeamHeading": {
               "value": "Blue Team"
@@ -381,9 +378,6 @@
           },
           "accelerationDescription": {
             "value": "The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero."
-          },
-          "guidingQuestion": {
-            "value": "How do forces affect the motion of objects?"
           },
           "objectToolbox": {
             "description": {
