@@ -48,15 +48,12 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     const controlAreaContent = ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty;
 
     // Dynamic current details based on cart position and puller attachments
-    const currentDetailsStringProperty = new DerivedProperty(
-      [ model.cart.positionProperty, model.numberPullersAttachedProperty ],
-      ( cartPosition: number, numberAttached: number ) => {
-        const cartStatus = Math.abs( cartPosition ) < 0.1 ?
-                           ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty.value :
-                           ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty.value;
-
-        return cartStatus;
-      }
+    const currentDetailsStringProperty = new DerivedProperty( [
+        model.isRunningProperty,
+        ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.accessibleNameInProgressStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty
+      ],
+      ( isRunning, inProgress, notStarted ) => isRunning ? inProgress : notStarted
     );
 
     // Team-specific puller information with dynamic team names

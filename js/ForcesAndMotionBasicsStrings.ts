@@ -104,9 +104,9 @@ type StringsType = {
           }
         };
         'currentDetails': {
-          'cartCenteredStringProperty': LocalizedStringProperty;
+          'accessibleNameNotStartedStringProperty': LocalizedStringProperty;
+          'accessibleNameInProgressStringProperty': LocalizedStringProperty;
           'noPullersAttachedStringProperty': LocalizedStringProperty;
-          'cartMovingStringProperty': LocalizedStringProperty;
           'leftTeamAttachedStringProperty': LocalizedStringProperty;
           'rightTeamAttachedStringProperty': LocalizedStringProperty;
         };

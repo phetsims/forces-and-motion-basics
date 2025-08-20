@@ -221,14 +221,14 @@
           }
         },
         "currentDetails": {
-          "cartCentered": {
-            "value": "Currently, the cart is centered and not moving."
+          "accessibleNameNotStarted": {
+            "value": "Currently, tug-of-war game not started."
+          },
+          "accessibleNameInProgress": {
+            "value": "Currently, tug-of-war game in progress."
           },
           "noPullersAttached": {
             "value": "No pullers are attached to the ropes."
-          },
-          "cartMoving": {
-            "value": "The cart is moving."
           },
           "leftTeamAttached": {
             "value": "{ $count ->\n  [0] No { $leftTeamName } team pullers are on the rope.\n  [one] { $count } { $leftTeamName } team puller is on the rope.\n *[other] { $count } { $leftTeamName } team pullers are on the rope.\n}"

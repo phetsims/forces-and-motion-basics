@@ -90,9 +90,9 @@ addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_buttons_return
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_sumOfForces', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.sumOfForcesStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_values', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.valuesStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_speed', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.speedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_cartCentered', 'a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameNotStarted', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameInProgress', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameInProgressStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_cartMoving', 'a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_leftTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_rightTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' );
@@ -349,9 +349,9 @@ const ForcesAndMotionBasicsFluent = {
           }
         },
         currentDetails: {
-          cartCenteredStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_cartCentered', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.cartCenteredStringProperty' ) ),
+          accessibleNameNotStartedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameNotStarted', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty' ) ),
+          accessibleNameInProgressStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameInProgress', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameInProgressStringProperty' ) ),
           noPullersAttachedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' ) ),
-          cartMovingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_cartMoving', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.cartMovingStringProperty' ) ),
           leftTeamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, leftTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_leftTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"leftTeamName"}] ),
           rightTeamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_rightTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"rightTeamName"}] )
         },
