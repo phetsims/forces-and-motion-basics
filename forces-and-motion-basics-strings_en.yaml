@@ -60,7 +60,7 @@ a11y:
     screenSummary:
       playArea:
         heading:     Play Area
-        description: The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. { $leftTeamName } team pullers are on the left, { $rightTeamName } team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side.
+        description: There is a tug-of-war game between { $leftTeamName } and { $rightTeamName } teams over wheeled cart full of candy. { $leftTeamName } team pullers are on left, { $rightTeamName } team pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center.
         toolboxes:
           blueTeamHeading:   Blue Team
           redTeamHeading:    Red Team
@@ -72,7 +72,7 @@ a11y:
           description: A wheeled cart sits on a flat surface with a rope attached to both sides. Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab.
       controlArea:
         heading:     Control Area
-        description: Access game controls to start the tug-of-war, return the cart to center, and show force information.
+        description: Turn on sum of forces, values, or speed. Reset sim to start over.
         buttons:
           go:     Press to start or pause the tug-of-war game.
           return: Return cart to center.
@@ -246,12 +246,12 @@ a11y:
     accessibleHeading:  Play Area Controls
     descriptionContent: Controls to start or pause motion, and to reset simulation
   pullers:
-    pullerInstruction:   Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot.
+    pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position.
     largePuller:         Large
     mediumPuller:        Medium
     smallPuller:         Small
     puller:              Puller
-    overReturnToToolbox: Over return to toolbox position
+    overReturnToToolbox: Over toolbox
     overKnotDescription: 'Over { $side } knot { $number }'
     knotDescription:     '{ $side } knot { $number }'
     leftSide:            Left
