@@ -113,49 +113,49 @@ type StringsType = {
         'accessibleNameWithIndexStringProperty': LocalizedStringProperty;
         'accessibleNameWithoutIndexStringProperty': LocalizedStringProperty;
         'sizeStringProperty': LocalizedStringProperty;
-      }
-    };
-    'returnButton': {
-      'cartReturnedToCenterStringProperty': LocalizedStringProperty;
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-    };
-    'goPauseButton': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextGoStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextPauseStringProperty': LocalizedStringProperty;
-      'cartMovingLeftStringProperty': LocalizedStringProperty;
-      'cartMovingRightStringProperty': LocalizedStringProperty;
-      'cartStationaryStringProperty': LocalizedStringProperty;
-      'cartPausedStringProperty': LocalizedStringProperty;
-    };
-    'cart': {
-      'directionChangeLeftStringProperty': LocalizedStringProperty;
-      'directionChangeRightStringProperty': LocalizedStringProperty;
-    };
-    'netForceControlPanel': {
-      'sumOfForces': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-        'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-        'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
       };
-      'values': {
+      'returnButton': {
+        'cartReturnedToCenterStringProperty': LocalizedStringProperty;
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
-        'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-        'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
       };
-      'speed': {
+      'goPauseButton': {
         'accessibleNameStringProperty': LocalizedStringProperty;
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-        'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-        'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextGoStringProperty': LocalizedStringProperty;
+        'accessibleHelpTextPauseStringProperty': LocalizedStringProperty;
+        'cartMovingLeftStringProperty': LocalizedStringProperty;
+        'cartMovingRightStringProperty': LocalizedStringProperty;
+        'cartStationaryStringProperty': LocalizedStringProperty;
+        'cartPausedStringProperty': LocalizedStringProperty;
+      };
+      'cart': {
+        'directionChangeLeftStringProperty': LocalizedStringProperty;
+        'directionChangeRightStringProperty': LocalizedStringProperty;
+      };
+      'netForceControlPanel': {
+        'sumOfForces': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'values': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'speed': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        }
+      };
+      'playAreaControls': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'descriptionContentStringProperty': LocalizedStringProperty;
       }
-    };
-    'playAreaControls': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'descriptionContentStringProperty': LocalizedStringProperty;
     };
     'motionScreen': {
       'screenSummary': {
@@ -267,6 +267,9 @@ type StringsType = {
           'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         }
+      };
+      'playAreaControls': {
+        'accessibleHeadingStringProperty': LocalizedStringProperty;
       }
     };
     'objectToolboxes': {

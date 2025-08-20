@@ -242,100 +242,100 @@
         "size": {
           "value": "{ $size ->\n  [small] Small\n  [medium] Medium\n *[large] Large\n}"
         }
-      }
-    },
-    "returnButton": {
-      "cartReturnedToCenter": {
-        "value": "Cart returned to center."
       },
-      "accessibleName": {
-        "value": "Return Cart Button"
-      },
-      "accessibleHelpText": {
-        "value": "Press to return the cart to the center and reset for a new game."
-      }
-    },
-    "goPauseButton": {
-      "accessibleName": {
-        "value": "Go/Pause Button"
-      },
-      "accessibleHelpTextGo": {
-        "value": "Start tug-of-war game."
-      },
-      "accessibleHelpTextPause": {
-        "value": "Pause tug-of-war game."
-      },
-      "cartMovingLeft": {
-        "value": "Cart moving left."
-      },
-      "cartMovingRight": {
-        "value": "Cart moving right."
-      },
-      "cartStationary": {
-        "value": "Cart stationary."
-      },
-      "cartPaused": {
-        "value": "Cart paused."
-      }
-    },
-    "cart": {
-      "directionChangeLeft": {
-        "value": "Left."
-      },
-      "directionChangeRight": {
-        "value": "Right."
-      }
-    },
-    "netForceControlPanel": {
-      "sumOfForces": {
+      "returnButton": {
+        "cartReturnedToCenter": {
+          "value": "Cart returned to center."
+        },
         "accessibleName": {
-          "value": "Sum of Forces"
+          "value": "Return Cart Button"
         },
         "accessibleHelpText": {
-          "value": "Show or hide sum of forces arrow."
-        },
-        "accessibleContextResponseChecked": {
-          "value": "Sum of forces arrow shown."
-        },
-        "accessibleContextResponseUnchecked": {
-          "value": "Sum of forces arrow hidden."
+          "value": "Press to return the cart to the center and reset for a new game."
         }
       },
-      "values": {
+      "goPauseButton": {
         "accessibleName": {
-          "value": "Values"
+          "value": "Go/Pause Button"
         },
-        "accessibleHelpText": {
-          "value": "Show or hide force values."
+        "accessibleHelpTextGo": {
+          "value": "Start tug-of-war game."
         },
-        "accessibleContextResponseChecked": {
-          "value": "Force values shown."
+        "accessibleHelpTextPause": {
+          "value": "Pause tug-of-war game."
         },
-        "accessibleContextResponseUnchecked": {
-          "value": "Force values hidden."
+        "cartMovingLeft": {
+          "value": "Cart moving left."
+        },
+        "cartMovingRight": {
+          "value": "Cart moving right."
+        },
+        "cartStationary": {
+          "value": "Cart stationary."
+        },
+        "cartPaused": {
+          "value": "Cart paused."
         }
       },
-      "speed": {
-        "accessibleName": {
-          "value": "Speed"
+      "cart": {
+        "directionChangeLeft": {
+          "value": "Left."
         },
-        "accessibleHelpText": {
-          "value": "Show or hide speedometer."
-        },
-        "accessibleContextResponseChecked": {
-          "value": "Speedometer shown on cart."
-        },
-        "accessibleContextResponseUnchecked": {
-          "value": "Speedometer hidden."
+        "directionChangeRight": {
+          "value": "Right."
         }
-      }
-    },
-    "playAreaControls": {
-      "accessibleHeading": {
-        "value": "Play Area Controls"
       },
-      "descriptionContent": {
-        "value": "Controls to start or pause the tug-of-war, and to return the cart"
+      "netForceControlPanel": {
+        "sumOfForces": {
+          "accessibleName": {
+            "value": "Sum of Forces"
+          },
+          "accessibleHelpText": {
+            "value": "Show or hide sum of forces arrow."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Sum of forces arrow shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Sum of forces arrow hidden."
+          }
+        },
+        "values": {
+          "accessibleName": {
+            "value": "Values"
+          },
+          "accessibleHelpText": {
+            "value": "Show or hide force values."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Force values shown."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Force values hidden."
+          }
+        },
+        "speed": {
+          "accessibleName": {
+            "value": "Speed"
+          },
+          "accessibleHelpText": {
+            "value": "Show or hide speedometer."
+          },
+          "accessibleContextResponseChecked": {
+            "value": "Speedometer shown on cart."
+          },
+          "accessibleContextResponseUnchecked": {
+            "value": "Speedometer hidden."
+          }
+        }
+      },
+      "playAreaControls": {
+        "accessibleHeading": {
+          "value": "Play Area Controls"
+        },
+        "descriptionContent": {
+          "value": "Controls to start or pause the tug-of-war, and to return the cart"
+        }
       }
     },
     "motionScreen": {
@@ -579,6 +579,11 @@
           "accessibleContextResponseUnchecked": {
             "value": "Accelerometer hidden."
           }
+        }
+      },
+      "playAreaControls": {
+        "accessibleHeading": {
+          "value": "Play Area Controls"
         }
       }
     },

@@ -266,8 +266,8 @@ export default class NetForceScreenView extends ScreenView {
 
     const playAreaControlNode = new Node( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.playAreaControls.accessibleHeadingStringProperty,
-      descriptionContent: ForcesAndMotionBasicsFluent.a11y.playAreaControls.descriptionContentStringProperty,
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.playAreaControls.accessibleHeadingStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.netForceScreen.playAreaControls.descriptionContentStringProperty,
       appendDescription: false
     } );
 

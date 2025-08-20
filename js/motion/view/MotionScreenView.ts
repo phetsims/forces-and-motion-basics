@@ -146,7 +146,7 @@ export default class MotionScreenView extends ScreenView {
 
     const appliedForcePlayAreaControlNode = new Node( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.playAreaControls.accessibleHeadingStringProperty,
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.motionScreen.playAreaControls.accessibleHeadingStringProperty,
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty,
       appendDescription: false,
       children: [ appliedForceControl ]

@@ -12,7 +12,6 @@ import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/button
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
@@ -23,7 +22,7 @@ export default class ReturnButton extends TextPushButton {
     super( ForcesAndMotionBasicsFluent.returnStringProperty, {
       listener: () => {
         model.returnCart();
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsStrings.a11y.returnButton.cartReturnedToCenterStringProperty );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.cartReturnedToCenterStringProperty.value );
       },
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
@@ -31,8 +30,8 @@ export default class ReturnButton extends TextPushButton {
       enabledPropertyOptions: {
         phetioReadOnly: true
       },
-      accessibleName: ForcesAndMotionBasicsFluent.a11y.returnButton.accessibleNameStringProperty,
-      accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.returnButton.accessibleHelpTextStringProperty
+      accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.accessibleNameStringProperty,
+      accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.accessibleHelpTextStringProperty
     } );
 
     this.mutate( options );
@@ -52,7 +51,7 @@ export default class ReturnButton extends TextPushButton {
       fire: () => {
         if ( this.enabled ) {
           model.returnCart();
-          this.addAccessibleContextResponse( ForcesAndMotionBasicsStrings.a11y.returnButton.cartReturnedToCenterStringProperty );
+          this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.cartReturnedToCenterStringProperty.value );
         }
       }
     } );

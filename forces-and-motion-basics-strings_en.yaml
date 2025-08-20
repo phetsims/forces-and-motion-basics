@@ -110,40 +110,40 @@ a11y:
                                     [medium] Medium
                                    *[large] Large
                                   }
-  returnButton:
-    cartReturnedToCenter: Cart returned to center.
-    accessibleName:       Return Cart Button
-    accessibleHelpText:   Press to return the cart to the center and reset for a new game.
-  goPauseButton:
-    accessibleName:          Go/Pause Button
-    accessibleHelpTextGo:    Start tug-of-war game.
-    accessibleHelpTextPause: Pause tug-of-war game.
-    cartMovingLeft:          Cart moving left.
-    cartMovingRight:         Cart moving right.
-    cartStationary:          Cart stationary.
-    cartPaused:              Cart paused.
-  cart:
-    directionChangeLeft:  Left.
-    directionChangeRight: Right.
-  netForceControlPanel:
-    sumOfForces:
-      accessibleName:                     Sum of Forces
-      accessibleHelpText:                 Show or hide sum of forces arrow.
-      accessibleContextResponseChecked:   Sum of forces arrow shown.
-      accessibleContextResponseUnchecked: Sum of forces arrow hidden.
-    values:
-      accessibleName:                     Values
-      accessibleHelpText:                 Show or hide force values.
-      accessibleContextResponseChecked:   Force values shown.
-      accessibleContextResponseUnchecked: Force values hidden.
-    speed:
-      accessibleName:                     Speed
-      accessibleHelpText:                 Show or hide speedometer.
-      accessibleContextResponseChecked:   Speedometer shown on cart.
-      accessibleContextResponseUnchecked: Speedometer hidden.
-  playAreaControls:
-    accessibleHeading:  Play Area Controls
-    descriptionContent: Controls to start or pause the tug-of-war, and to return the cart
+    returnButton:
+      cartReturnedToCenter: Cart returned to center.
+      accessibleName:       Return Cart Button
+      accessibleHelpText:   Press to return the cart to the center and reset for a new game.
+    goPauseButton:
+      accessibleName:          Go/Pause Button
+      accessibleHelpTextGo:    Start tug-of-war game.
+      accessibleHelpTextPause: Pause tug-of-war game.
+      cartMovingLeft:          Cart moving left.
+      cartMovingRight:         Cart moving right.
+      cartStationary:          Cart stationary.
+      cartPaused:              Cart paused.
+    cart:
+      directionChangeLeft:  Left.
+      directionChangeRight: Right.
+    netForceControlPanel:
+      sumOfForces:
+        accessibleName:                     Sum of Forces
+        accessibleHelpText:                 Show or hide sum of forces arrow.
+        accessibleContextResponseChecked:   Sum of forces arrow shown.
+        accessibleContextResponseUnchecked: Sum of forces arrow hidden.
+      values:
+        accessibleName:                     Values
+        accessibleHelpText:                 Show or hide force values.
+        accessibleContextResponseChecked:   Force values shown.
+        accessibleContextResponseUnchecked: Force values hidden.
+      speed:
+        accessibleName:                     Speed
+        accessibleHelpText:                 Show or hide speedometer.
+        accessibleContextResponseChecked:   Speedometer shown on cart.
+        accessibleContextResponseUnchecked: Speedometer hidden.
+    playAreaControls:
+      accessibleHeading:  Play Area Controls
+      descriptionContent: Controls to start or pause the tug-of-war, and to return the cart
   motionScreen:
     screenSummary:
       playArea:
@@ -241,6 +241,8 @@ a11y:
         accessibleHelpText:                 Check to show the accelerometer.
         accessibleContextResponseChecked:   Accelerometer shown.
         accessibleContextResponseUnchecked: Accelerometer hidden.
+    playAreaControls:
+      accessibleHeading: Play Area Controls
   objectToolboxes:
     leftObjectToolbox:  Left Object Toolbox
     rightObjectToolbox: Right Object Toolbox

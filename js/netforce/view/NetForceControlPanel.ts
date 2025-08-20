@@ -61,20 +61,20 @@ export default class NetForceControlPanel extends Node {
       property: model.showSumOfForcesProperty,
       tandemName: 'sumOfForcesCheckbox',
       options: {
-        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleNameStringProperty,
-        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
-        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
+        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleNameStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
       }
     }, {
       createNode: () => new Text( valuesStringProperty, fontOptions ),
       property: model.showValuesProperty,
       tandemName: 'valuesCheckbox',
       options: {
-        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleNameStringProperty,
-        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty,
-        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty
+        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleNameStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty
       }
     }, {
       createNode: tandem => new HBox( {
@@ -84,10 +84,10 @@ export default class NetForceControlPanel extends Node {
       property: model.showSpeedProperty,
       tandemName: 'speedCheckbox',
       options: {
-        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleNameStringProperty,
-        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty,
-        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty
+        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleNameStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty
       }
     } ], {
       tandem: verticalCheckboxGroupTandem,

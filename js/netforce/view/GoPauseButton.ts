@@ -48,8 +48,8 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
 
     // Create a derived property for the help text that updates based on the button state
     const dynamicAccessibleHelpTextProperty = new DerivedProperty( [ model.isRunningProperty,
-        ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleHelpTextPauseStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.goPauseButton.accessibleHelpTextGoStringProperty
+        ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.accessibleHelpTextPauseStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.accessibleHelpTextGoStringProperty
       ], ( isRunning, accessibleHelpTextPauseString, accessibleHelpTextGoString ) =>
         isRunning ? accessibleHelpTextPauseString : accessibleHelpTextGoString
     );
@@ -88,26 +88,26 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
           // If velocity is essentially zero, check net force to predict movement
           const netForce = model.netForceProperty.value;
           if ( Math.abs( netForce ) < 1E-6 ) {
-            movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartStationaryStringProperty.value;
+            movementMessage = ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartStationaryStringProperty.value;
           }
           else if ( netForce > 0 ) {
-            movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingRightStringProperty.value;
+            movementMessage = ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty.value;
           }
           else {
-            movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingLeftStringProperty.value;
+            movementMessage = ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty.value;
           }
         }
         else if ( velocity > 0 ) {
-          movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingRightStringProperty.value;
+          movementMessage = ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty.value;
         }
         else {
-          movementMessage = ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartMovingLeftStringProperty.value;
+          movementMessage = ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty.value;
         }
 
         this.addAccessibleContextResponse( movementMessage );
       }
       else {
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.goPauseButton.cartPausedStringProperty.value );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartPausedStringProperty.value );
       }
     } );
 
