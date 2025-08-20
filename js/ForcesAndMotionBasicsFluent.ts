@@ -95,8 +95,7 @@ addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleN
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_leftTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_rightTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttachedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint', 'a11y.netForceScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_colors_blue', 'a11y.colors.blueStringProperty' );
 addToMapIfDefined( 'a11y_colors_red', 'a11y.colors.redStringProperty' );
 addToMapIfDefined( 'a11y_colors_purple', 'a11y.colors.purpleStringProperty' );
@@ -355,10 +354,7 @@ const ForcesAndMotionBasicsFluent = {
           leftTeamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, leftTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_leftTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"leftTeamName"}] ),
           rightTeamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_rightTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"rightTeamName"}] )
         },
-        interactionHint: {
-          noPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_noPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty' ) ),
-          withPullersStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint_withPullers', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty' ) )
-        }
+        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHintStringProperty' ) )
       }
     },
     colors: {

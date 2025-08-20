@@ -238,12 +238,7 @@
           }
         },
         "interactionHint": {
-          "noPullers": {
-            "value": "Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war."
-          },
-          "withPullers": {
-            "value": "Add more pullers or press Go to start the tug-of-war. The team with more total force wins."
-          }
+          "value": "Place pullers on knots to begin tug-of-war game."
         }
       }
     },

@@ -96,9 +96,7 @@ a11y:
                                     [one] { $count } { $rightTeamName } team puller is on the rope.
                                    *[other] { $count } { $rightTeamName } team pullers are on the rope.
                                   }
-      interactionHint:
-        noPullers:   Drag pullers from the toolboxes to attach them to knots on the rope. Press Go to start the tug-of-war.
-        withPullers: Add more pullers or press Go to start the tug-of-war. The team with more total force wins.
+      interactionHint: Place pullers on knots to begin tug-of-war game.
   colors:
     blue:       Blue
     red:        Red

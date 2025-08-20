@@ -110,10 +110,7 @@ type StringsType = {
           'leftTeamAttachedStringProperty': LocalizedStringProperty;
           'rightTeamAttachedStringProperty': LocalizedStringProperty;
         };
-        'interactionHint': {
-          'noPullersStringProperty': LocalizedStringProperty;
-          'withPullersStringProperty': LocalizedStringProperty;
-        }
+        'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
     'colors': {

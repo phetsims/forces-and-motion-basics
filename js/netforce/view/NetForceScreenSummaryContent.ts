@@ -107,23 +107,13 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
       ]
     } );
 
-    // Dynamic interaction hint based on whether pullers are attached
-    const interactionHintContentProperty = new DerivedProperty(
-      [ model.numberPullersAttachedProperty ],
-      ( numberAttached: number ) => {
-        return numberAttached === 0 ?
-               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.interactionHint.noPullersStringProperty.value :
-               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.interactionHint.withPullersStringProperty.value;
-      }
-    );
-
     super( {
       playAreaContent: playAreaContent,
       controlAreaContent: controlAreaContent,
       currentDetailsContent: {
         node: currentDetailsNode
       },
-      interactionHintContent: interactionHintContentProperty
+      interactionHintContent: ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }
