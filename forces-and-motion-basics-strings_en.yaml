@@ -57,16 +57,26 @@ keyboardHelpDialog:
 # accessibility strings
 a11y:
   netForceScreen:
+    colorName: |-
+               { $color ->
+                   [blue]   Blue
+                   [red]    Red
+                   [purple] Purple
+                  *[orange] Orange
+               }
+    teamName:  |-
+               { $color ->
+                   [blue]   Blue Team
+                   [red]    Red Team
+                   [purple] Purple Team
+                  *[orange] Orange Team
+               }
     screenSummary:
       playArea:
         heading:     Play Area
-        description: There is a tug-of-war game between { $leftTeamName } and { $rightTeamName } teams over wheeled cart full of candy. { $leftTeamName } team pullers are on left, { $rightTeamName } team pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center.
+        description: There is a tug-of-war game between { $leftColor } and { $rightColor } teams over a wheeled cart full of candy. { $leftTeamName } pullers are on left, { $rightTeamName } pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center.
         toolboxes:
-          blueTeamHeading:   Blue Team
-          redTeamHeading:    Red Team
-          purpleTeamHeading: Purple Team
-          orangeTeamHeading: Orange Team
-          description:       Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force.
+          description: Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force.
         rope:
           heading:     Rope and Cart
           description: A wheeled cart sits on a flat surface with a rope attached to both sides. Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab.
@@ -84,28 +94,22 @@ a11y:
         accessibleNameNotStarted: Currently, tug-of-war game not started.
         accessibleNameInProgress: Currently, tug-of-war game in progress.
         noPullersAttached:        No pullers are attached to the ropes.
-        leftTeamAttached:         |-
+        teamAttached:             |-
                                   { $count ->
-                                    [0] No { $leftTeamName } team pullers are on the rope.
-                                    [one] { $count } { $leftTeamName } team puller is on the rope.
-                                   *[other] { $count } { $leftTeamName } team pullers are on the rope.
-                                  }
-        rightTeamAttached:        |-
-                                  { $count ->
-                                    [0] No { $rightTeamName } team pullers are on the rope.
-                                    [one] { $count } { $rightTeamName } team puller is on the rope.
-                                   *[other] { $count } { $rightTeamName } team pullers are on the rope.
+                                    [0] No { $teamName } pullers are on the rope.
+                                    [one] { $count } { $teamName } puller is on the rope.
+                                   *[other] { $count } { $teamName } pullers are on the rope.
                                   }
       interactionHint: Place pullers on knots to begin tug-of-war game.
-  colors:
-    blue:       Blue
-    red:        Red
-    purple:     Purple
-    orange:     Orange
-    blueTeam:   Blue Team
-    redTeam:    Red Team
-    purpleTeam: Purple Team
-    orangeTeam: Orange Team
+    puller:
+      accessibleNameWithIndex:    '{ a11y.netForceScreen.puller.size } { a11y.netForceScreen.colorName } Puller { $index }'
+      accessibleNameWithoutIndex: '{ a11y.netForceScreen.puller.size } { a11y.netForceScreen.colorName } Puller'
+      size:                       |-
+                                  { $size ->
+                                    [small] Small
+                                    [medium] Medium
+                                   *[large] Large
+                                  }
   returnButton:
     cartReturnedToCenter: Cart returned to center.
     accessibleName:       Return Cart Button

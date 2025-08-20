@@ -159,27 +159,21 @@
   },
   "a11y": {
     "netForceScreen": {
+      "colorName": {
+        "value": "{ $color ->\n    [blue]   Blue\n    [red]    Red\n    [purple] Purple\n   *[orange] Orange\n}"
+      },
+      "teamName": {
+        "value": "{ $color ->\n    [blue]   Blue Team\n    [red]    Red Team\n    [purple] Purple Team\n   *[orange] Orange Team\n}"
+      },
       "screenSummary": {
         "playArea": {
           "heading": {
             "value": "Play Area"
           },
           "description": {
-            "value": "The play area shows a tug-of-war game. In the center is a cart on wheels with ropes attached to both sides. { $leftTeamName } team pullers are on the left, { $rightTeamName } team pullers are on the right. When pullers are attached to the rope and the game starts, they pull the cart. The team with more force wins by pulling the cart to their side."
+            "value": "There is a tug-of-war game between { $leftColor } and { $rightColor } teams over a wheeled cart full of candy. { $leftTeamName } pullers are on left, { $rightTeamName } pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center."
           },
           "toolboxes": {
-            "blueTeamHeading": {
-              "value": "Blue Team"
-            },
-            "redTeamHeading": {
-              "value": "Red Team"
-            },
-            "purpleTeamHeading": {
-              "value": "Purple Team"
-            },
-            "orangeTeamHeading": {
-              "value": "Orange Team"
-            },
             "description": {
               "value": "Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force."
             }
@@ -198,7 +192,7 @@
             "value": "Control Area"
           },
           "description": {
-            "value": "Access game controls to start the tug-of-war, return the cart to center, and show force information."
+            "value": "Turn on sum of forces, values, or speed. Reset sim to start over."
           },
           "buttons": {
             "go": {
@@ -230,42 +224,24 @@
           "noPullersAttached": {
             "value": "No pullers are attached to the ropes."
           },
-          "leftTeamAttached": {
-            "value": "{ $count ->\n  [0] No { $leftTeamName } team pullers are on the rope.\n  [one] { $count } { $leftTeamName } team puller is on the rope.\n *[other] { $count } { $leftTeamName } team pullers are on the rope.\n}"
-          },
-          "rightTeamAttached": {
-            "value": "{ $count ->\n  [0] No { $rightTeamName } team pullers are on the rope.\n  [one] { $count } { $rightTeamName } team puller is on the rope.\n *[other] { $count } { $rightTeamName } team pullers are on the rope.\n}"
+          "teamAttached": {
+            "value": "{ $count ->\n  [0] No { $teamName } pullers are on the rope.\n  [one] { $count } { $teamName } puller is on the rope.\n *[other] { $count } { $teamName } pullers are on the rope.\n}"
           }
         },
         "interactionHint": {
           "value": "Place pullers on knots to begin tug-of-war game."
         }
-      }
-    },
-    "colors": {
-      "blue": {
-        "value": "Blue"
       },
-      "red": {
-        "value": "Red"
-      },
-      "purple": {
-        "value": "Purple"
-      },
-      "orange": {
-        "value": "Orange"
-      },
-      "blueTeam": {
-        "value": "Blue Team"
-      },
-      "redTeam": {
-        "value": "Red Team"
-      },
-      "purpleTeam": {
-        "value": "Purple Team"
-      },
-      "orangeTeam": {
-        "value": "Orange Team"
+      "puller": {
+        "accessibleNameWithIndex": {
+          "value": "{ a11y_netForceScreen_puller_size } { a11y_netForceScreen_colorName } Puller { $index }"
+        },
+        "accessibleNameWithoutIndex": {
+          "value": "{ a11y_netForceScreen_puller_size } { a11y_netForceScreen_colorName } Puller"
+        },
+        "size": {
+          "value": "{ $size ->\n  [small] Small\n  [medium] Medium\n *[large] Large\n}"
+        }
       }
     },
     "returnButton": {
@@ -630,7 +606,7 @@
     },
     "pullers": {
       "pullerInstruction": {
-        "value": "Use arrow keys to select a puller, then press Space or Enter to grab. Release to attach at rope knot."
+        "value": "Grab puller. Once grabbed, use keyboard shortcuts to change position."
       },
       "largePuller": {
         "value": "Large"
@@ -645,7 +621,7 @@
         "value": "Puller"
       },
       "overReturnToToolbox": {
-        "value": "Over return to toolbox position"
+        "value": "Over toolbox"
       },
       "overKnotDescription": {
         "value": "Over { $side } knot { $number }"

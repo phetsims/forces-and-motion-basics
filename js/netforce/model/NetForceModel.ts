@@ -7,12 +7,14 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
@@ -22,6 +24,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import VoidIO from '../../../../tandem/js/types/VoidIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
+import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import Knot, { KnotType } from './Knot.js';
 import Puller from './Puller.js';
 
@@ -55,6 +58,8 @@ export default class NetForceModel extends PhetioObject {
   public readonly cart: Cart;
   public readonly knots: Knot[];
   public readonly pullers: Puller[];
+  public readonly leftTeamColorProperty: TReadOnlyProperty<'red' | 'orange'>;
+  public readonly rightTeamColorProperty: TReadOnlyProperty<'blue' | 'purple'>;
 
   public constructor( tandem: Tandem ) {
 
@@ -62,6 +67,14 @@ export default class NetForceModel extends PhetioObject {
       tandem: tandem,
       phetioType: NetForceModel.NetForceModelIO,
       phetioState: false
+    } );
+
+    this.leftTeamColorProperty = new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
+      return pullerColor === 'purpleOrange' ? 'orange' : 'red';
+    } );
+
+    this.rightTeamColorProperty = new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
+      return pullerColor === 'purpleOrange' ? 'purple' : 'blue';
     } );
 
     this.hasStartedProperty = new BooleanProperty( false, {

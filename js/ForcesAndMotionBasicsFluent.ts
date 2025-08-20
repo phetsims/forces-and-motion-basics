@@ -74,12 +74,10 @@ addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemSt
 addToMapIfDefined( 'keyboardHelpDialog_gameControls', 'keyboardHelpDialog.gameControlsStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_startOrPauseGame', 'keyboardHelpDialog.startOrPauseGameStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_returnCart', 'keyboardHelpDialog.returnCartStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_teamName', 'a11y.netForceScreen.teamNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_heading', 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_purpleTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_orangeTeamHeading', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.orangeTeamHeadingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_description', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_rope_heading', 'a11y.netForceScreen.screenSummary.playArea.rope.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_rope_description', 'a11y.netForceScreen.screenSummary.playArea.rope.descriptionStringProperty' );
@@ -93,17 +91,11 @@ addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_spe
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameNotStarted', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameInProgress', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameInProgressStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_leftTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttachedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_rightTeamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttachedStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_teamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.teamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint', 'a11y.netForceScreen.screenSummary.interactionHintStringProperty' );
-addToMapIfDefined( 'a11y_colors_blue', 'a11y.colors.blueStringProperty' );
-addToMapIfDefined( 'a11y_colors_red', 'a11y.colors.redStringProperty' );
-addToMapIfDefined( 'a11y_colors_purple', 'a11y.colors.purpleStringProperty' );
-addToMapIfDefined( 'a11y_colors_orange', 'a11y.colors.orangeStringProperty' );
-addToMapIfDefined( 'a11y_colors_blueTeam', 'a11y.colors.blueTeamStringProperty' );
-addToMapIfDefined( 'a11y_colors_redTeam', 'a11y.colors.redTeamStringProperty' );
-addToMapIfDefined( 'a11y_colors_purpleTeam', 'a11y.colors.purpleTeamStringProperty' );
-addToMapIfDefined( 'a11y_colors_orangeTeam', 'a11y.colors.orangeTeamStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_puller_accessibleNameWithIndex', 'a11y.netForceScreen.puller.accessibleNameWithIndexStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_puller_accessibleNameWithoutIndex', 'a11y.netForceScreen.puller.accessibleNameWithoutIndexStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_puller_size', 'a11y.netForceScreen.puller.sizeStringProperty' );
 addToMapIfDefined( 'a11y_returnButton_cartReturnedToCenter', 'a11y.returnButton.cartReturnedToCenterStringProperty' );
 addToMapIfDefined( 'a11y_returnButton_accessibleName', 'a11y.returnButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_returnButton_accessibleHelpText', 'a11y.returnButton.accessibleHelpTextStringProperty' );
@@ -318,15 +310,13 @@ const ForcesAndMotionBasicsFluent = {
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
     netForceScreen: {
+      colorName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_colorName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.colorNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),
+      teamName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_teamName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.teamNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),
       screenSummary: {
         playArea: {
           headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' ) ),
-          description: new FluentPattern<{ leftTeamName: FluentVariable, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ), [{"name":"leftTeamName"},{"name":"rightTeamName"}] ),
+          description: new FluentPattern<{ leftColor: FluentVariable, leftTeamName: FluentVariable, rightColor: FluentVariable, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ), [{"name":"leftColor"},{"name":"leftTeamName"},{"name":"rightColor"},{"name":"rightTeamName"}] ),
           toolboxes: {
-            blueTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_blueTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty' ) ),
-            redTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_redTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty' ) ),
-            purpleTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_purpleTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty' ) ),
-            orangeTeamHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_orangeTeamHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.orangeTeamHeadingStringProperty' ) ),
             descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.descriptionStringProperty' ) )
           },
           rope: {
@@ -351,21 +341,15 @@ const ForcesAndMotionBasicsFluent = {
           accessibleNameNotStartedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameNotStarted', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty' ) ),
           accessibleNameInProgressStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameInProgress', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameInProgressStringProperty' ) ),
           noPullersAttachedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty' ) ),
-          leftTeamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, leftTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_leftTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"leftTeamName"}] ),
-          rightTeamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_rightTeamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"rightTeamName"}] )
+          teamAttached: new FluentPattern<{ count: 0 | number | 'one' | number | 'other' | TReadOnlyProperty<0 | number | 'one' | number | 'other'>, teamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_teamAttached', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.teamAttachedStringProperty' ), [{"name":"count","variants":[0,{"type":"number","value":"one"},{"type":"number","value":"other"}]},{"name":"teamName"}] )
         },
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_interactionHint', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.interactionHintStringProperty' ) )
+      },
+      puller: {
+        accessibleNameWithIndex: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'>, index: FluentVariable, size: 'small' | 'medium' | 'large' | TReadOnlyProperty<'small' | 'medium' | 'large'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_puller_accessibleNameWithIndex', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.puller.accessibleNameWithIndexStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]},{"name":"index"},{"name":"size","variants":["small","medium","large"]}] ),
+        accessibleNameWithoutIndex: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'>, size: 'small' | 'medium' | 'large' | TReadOnlyProperty<'small' | 'medium' | 'large'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_puller_accessibleNameWithoutIndex', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.puller.accessibleNameWithoutIndexStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]},{"name":"size","variants":["small","medium","large"]}] ),
+        size: new FluentPattern<{ size: 'small' | 'medium' | 'large' | TReadOnlyProperty<'small' | 'medium' | 'large'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_puller_size', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.puller.sizeStringProperty' ), [{"name":"size","variants":["small","medium","large"]}] )
       }
-    },
-    colors: {
-      blueStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_blue', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.blueStringProperty' ) ),
-      redStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_red', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.redStringProperty' ) ),
-      purpleStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_purple', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.purpleStringProperty' ) ),
-      orangeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_orange', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.orangeStringProperty' ) ),
-      blueTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_blueTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.blueTeamStringProperty' ) ),
-      redTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_redTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.redTeamStringProperty' ) ),
-      purpleTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_purpleTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.purpleTeamStringProperty' ) ),
-      orangeTeamStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_colors_orangeTeam', _.get( ForcesAndMotionBasicsStrings, 'a11y.colors.orangeTeamStringProperty' ) )
     },
     returnButton: {
       cartReturnedToCenterStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_returnButton_cartReturnedToCenter', _.get( ForcesAndMotionBasicsStrings, 'a11y.returnButton.cartReturnedToCenterStringProperty' ) ),

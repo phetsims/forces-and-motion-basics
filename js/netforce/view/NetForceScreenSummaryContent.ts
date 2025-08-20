@@ -12,7 +12,6 @@ import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
 
 export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
@@ -21,28 +20,6 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
    * @param model - The NetForceModel for the screen
    */
   public constructor( model: NetForceModel ) {
-
-    // Play area content includes description, similar to Center and Variability
-    // Note: description is now a dynamic property that needs team names, so we'll create a derived property
-    const playAreaDescriptionProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty,
-        ForcesAndMotionBasicsFluent.a11y.colors.blueStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.colors.redStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.colors.purpleStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.colors.orangeStringProperty ],
-      ( pullerColor, blueString, redString, purpleString, orangeString ) => {
-        const leftTeamName = pullerColor === 'purpleOrange' ? purpleString : blueString;
-        const rightTeamName = pullerColor === 'purpleOrange' ? orangeString : redString;
-        return ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.description.createProperty( {
-          leftTeamName: leftTeamName,
-          rightTeamName: rightTeamName
-        } ).value;
-      }
-    );
-
-    const playAreaContent = [
-      playAreaDescriptionProperty
-    ];
 
     // Control area content
     const controlAreaContent = ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty;
@@ -57,29 +34,15 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     );
 
     // Team-specific puller information with dynamic team names
-    const leftTeamCountProperty = new DerivedProperty(
-      [ model.numberBluePullersAttachedProperty, ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty,
-        ForcesAndMotionBasicsFluent.a11y.colors.blueStringProperty, ForcesAndMotionBasicsFluent.a11y.colors.purpleStringProperty ],
-      ( count: number, pullerColor, blueString, purpleString ) => {
-        const teamName = pullerColor === 'purpleOrange' ? purpleString : blueString;
-        return ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.leftTeamAttached.createProperty( {
-          count: count,
-          leftTeamName: teamName
-        } ).value;
-      }
-    );
+    const leftTeamCountProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.teamAttached.createProperty( {
+      count: model.numberBluePullersAttachedProperty,
+      teamName: model.leftTeamColorProperty
+    } );
 
-    const rightTeamCountProperty = new DerivedProperty(
-      [ model.numberRedPullersAttachedProperty, ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty,
-        ForcesAndMotionBasicsFluent.a11y.colors.redStringProperty, ForcesAndMotionBasicsFluent.a11y.colors.orangeStringProperty ],
-      ( count: number, pullerColor, redString, orangeString ) => {
-        const teamName = pullerColor === 'purpleOrange' ? orangeString : redString;
-        return ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.rightTeamAttached.createProperty( {
-          count: count,
-          rightTeamName: teamName
-        } ).value;
-      }
-    );
+    const rightTeamCountProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.teamAttached.createProperty( {
+      count: model.numberRedPullersAttachedProperty,
+      teamName: model.rightTeamColorProperty
+    } );
 
     // Combine team information for additional details
     const teamDetailsStringProperty = DerivedProperty.deriveAny(
@@ -108,7 +71,20 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     } );
 
     super( {
-      playAreaContent: playAreaContent,
+      playAreaContent: ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.description.createProperty( {
+        leftColor: ForcesAndMotionBasicsFluent.a11y.netForceScreen.colorName.createProperty( {
+          color: model.leftTeamColorProperty
+        } ),
+        rightColor: ForcesAndMotionBasicsFluent.a11y.netForceScreen.colorName.createProperty( {
+          color: model.rightTeamColorProperty
+        } ),
+        leftTeamName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.teamName.createProperty( {
+          color: model.leftTeamColorProperty
+        } ),
+        rightTeamName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.teamName.createProperty( {
+          color: model.rightTeamColorProperty
+        } )
+      } ),
       controlAreaContent: controlAreaContent,
       currentDetailsContent: {
         node: currentDetailsNode

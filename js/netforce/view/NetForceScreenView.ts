@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -34,6 +33,7 @@ import NetForceModel from '../model/NetForceModel.js';
 import CartNode from './CartNode.js';
 import CartStopperNode from './CartStopperNode.js';
 import FlagNode from './FlagNode.js';
+import ForcesListDescription from './ForcesListDescription.js';
 import GoPauseButton from './GoPauseButton.js';
 import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
@@ -43,9 +43,8 @@ import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
-import TugOfWarDescription from './TugOfWarDescription.js';
-import ForcesListDescription from './ForcesListDescription.js';
 import SpeedDescription from './SpeedDescription.js';
+import TugOfWarDescription from './TugOfWarDescription.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsFluent.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsFluent.rightForceStringProperty;
@@ -203,34 +202,18 @@ export default class NetForceScreenView extends ScreenView {
 
     this.addChild( this.cartNode );
 
-    // Create DerivedProperties that wire directly to the preference
-    const leftTeamHeadingProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-      pullerColor => {
-        return pullerColor === 'purpleOrange' ?
-               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.purpleTeamHeadingStringProperty.value :
-               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.blueTeamHeadingStringProperty.value;
-      }
-    );
-
-    const rightTeamHeadingProperty = new DerivedProperty(
-      [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-      pullerColor => {
-        return pullerColor === 'purpleOrange' ?
-               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.orangeTeamHeadingStringProperty.value :
-               ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.playArea.toolboxes.redTeamHeadingStringProperty.value;
-      }
-    );
-
-
     // Create the toolboxes with dynamic accessibility properties
     const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
       tagName: 'div',
-      accessibleHeading: leftTeamHeadingProperty
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.teamName.createProperty( {
+        color: model.leftTeamColorProperty
+      } )
     } );
     const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
       tagName: 'div',
-      accessibleHeading: rightTeamHeadingProperty
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.teamName.createProperty( {
+        color: model.rightTeamColorProperty
+      } )
     } );
 
     // Create instruction nodes that will be read before the puller groups
@@ -259,50 +242,19 @@ export default class NetForceScreenView extends ScreenView {
       side: 'right'
     } );
     this.model.pullers.forEach( puller => {
-      // Create dynamic accessibleName property for this puller wired directly to preference
-      const dynamicAccessibleNameProperty = new DerivedProperty(
-        [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ],
-        pullerColor => {
-          let displayColor: string;
-          if ( pullerColor === 'purpleOrange' ) {
-            displayColor = puller.type === 'blue' ? ForcesAndMotionBasicsFluent.a11y.colors.purpleStringProperty.value : ForcesAndMotionBasicsFluent.a11y.colors.orangeStringProperty.value;
-          }
-          else {
-            displayColor = puller.type === 'blue' ? ForcesAndMotionBasicsFluent.a11y.colors.blueStringProperty.value : ForcesAndMotionBasicsFluent.a11y.colors.redStringProperty.value;
-          }
 
-          // Get the size string
-          let sizeString: string;
-          if ( puller.size === 'large' ) {
-            sizeString = ForcesAndMotionBasicsFluent.a11y.pullers.largePullerStringProperty.value;
-          }
-          else if ( puller.size === 'medium' ) {
-            sizeString = ForcesAndMotionBasicsFluent.a11y.pullers.mediumPullerStringProperty.value;
-          }
-          else {
-            sizeString = ForcesAndMotionBasicsFluent.a11y.pullers.smallPullerStringProperty.value;
-          }
-
-          // Add numbers to disambiguate between the two small pullers of each color
-          let pullerLabel = `${sizeString} ${displayColor} ${ForcesAndMotionBasicsFluent.a11y.pullers.pullerStringProperty.value}`;
-          if ( puller.size === 'small' ) {
-            // Extract the number from the tandem name (e.g., 'smallLeftPuller1' or 'smallRightPuller2')
-            const tandemName = puller.tandem.name;
-            if ( tandemName.includes( '1' ) ) {
-              pullerLabel = `${sizeString} ${displayColor} ${ForcesAndMotionBasicsFluent.a11y.pullers.pullerStringProperty.value} 1`;
-            }
-            else if ( tandemName.includes( '2' ) ) {
-              pullerLabel = `${sizeString} ${displayColor} ${ForcesAndMotionBasicsFluent.a11y.pullers.pullerStringProperty.value} 2`;
-            }
-          }
-
-          return pullerLabel;
-        }
-      );
+      const accessibleNameProperty = puller.tandem.name.includes( '1' ) || puller.tandem.name.includes( '2' ) ? ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleNameWithIndex.createProperty( {
+        size: puller.size,
+        color: puller.type,
+        index: puller.tandem.name.includes( '1' ) ? '1' : '2' // Extract index from tandem name for small pullers
+      } ) : ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleNameWithoutIndex.createProperty( {
+        size: puller.size,
+        color: puller.type
+      } );
 
       const pullerNode = new PullerNode( puller, this, {
         tandem: pullersTandem.createTandem( `${puller.tandem.name}Node` ),
-        accessibleName: dynamicAccessibleNameProperty
+        accessibleName: accessibleNameProperty
       } );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
       pullerGroup.addChild( pullerNode );

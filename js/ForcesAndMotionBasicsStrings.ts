@@ -74,15 +74,13 @@ type StringsType = {
   };
   'a11y': {
     'netForceScreen': {
+      'colorNameStringProperty': LocalizedStringProperty;
+      'teamNameStringProperty': LocalizedStringProperty;
       'screenSummary': {
         'playArea': {
           'headingStringProperty': LocalizedStringProperty;
           'descriptionStringProperty': LocalizedStringProperty;
           'toolboxes': {
-            'blueTeamHeadingStringProperty': LocalizedStringProperty;
-            'redTeamHeadingStringProperty': LocalizedStringProperty;
-            'purpleTeamHeadingStringProperty': LocalizedStringProperty;
-            'orangeTeamHeadingStringProperty': LocalizedStringProperty;
             'descriptionStringProperty': LocalizedStringProperty;
           };
           'rope': {
@@ -107,21 +105,15 @@ type StringsType = {
           'accessibleNameNotStartedStringProperty': LocalizedStringProperty;
           'accessibleNameInProgressStringProperty': LocalizedStringProperty;
           'noPullersAttachedStringProperty': LocalizedStringProperty;
-          'leftTeamAttachedStringProperty': LocalizedStringProperty;
-          'rightTeamAttachedStringProperty': LocalizedStringProperty;
+          'teamAttachedStringProperty': LocalizedStringProperty;
         };
         'interactionHintStringProperty': LocalizedStringProperty;
+      };
+      'puller': {
+        'accessibleNameWithIndexStringProperty': LocalizedStringProperty;
+        'accessibleNameWithoutIndexStringProperty': LocalizedStringProperty;
+        'sizeStringProperty': LocalizedStringProperty;
       }
-    };
-    'colors': {
-      'blueStringProperty': LocalizedStringProperty;
-      'redStringProperty': LocalizedStringProperty;
-      'purpleStringProperty': LocalizedStringProperty;
-      'orangeStringProperty': LocalizedStringProperty;
-      'blueTeamStringProperty': LocalizedStringProperty;
-      'redTeamStringProperty': LocalizedStringProperty;
-      'purpleTeamStringProperty': LocalizedStringProperty;
-      'orangeTeamStringProperty': LocalizedStringProperty;
     };
     'returnButton': {
       'cartReturnedToCenterStringProperty': LocalizedStringProperty;
