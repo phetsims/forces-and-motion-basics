@@ -243,13 +243,10 @@ export default class NetForceScreenView extends ScreenView {
     } );
     this.model.pullers.forEach( puller => {
 
-      const accessibleNameProperty = puller.tandem.name.includes( '1' ) || puller.tandem.name.includes( '2' ) ? ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleNameWithIndex.createProperty( {
+      const accessibleNameProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleName.createProperty( {
         size: puller.size,
         color: puller.type,
-        index: puller.tandem.name.includes( '1' ) ? '1' : '2' // Extract index from tandem name for small pullers
-      } ) : ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleNameWithoutIndex.createProperty( {
-        size: puller.size,
-        color: puller.type
+        index: puller.descriptionIndex
       } );
 
       const pullerNode = new PullerNode( puller, this, {

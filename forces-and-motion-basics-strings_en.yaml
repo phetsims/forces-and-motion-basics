@@ -102,14 +102,17 @@ a11y:
                                   }
       interactionHint: Place pullers on knots to begin tug-of-war game.
     puller:
-      accessibleNameWithIndex:    '{ a11y.netForceScreen.puller.size } { a11y.netForceScreen.colorName } Puller { $index }'
-      accessibleNameWithoutIndex: '{ a11y.netForceScreen.puller.size } { a11y.netForceScreen.colorName } Puller'
-      size:                       |-
-                                  { $size ->
-                                    [small] Small
-                                    [medium] Medium
-                                   *[large] Large
-                                  }
+      # Note that index may be the empty string. This string will always be trimmed() removing whitespace.
+      accessibleName: '{ a11y.netForceScreen.puller.size } { a11y.netForceScreen.colorName } Puller { $index }'
+      size:           |-
+                      { $size ->
+                        [small] Small
+                        [medium] Medium
+                       *[large] Large
+                      }
+    pullerResponses:
+      pullerAttachedToKnot:    '{ a11y.netForceScreen.puller.accessibleName } attached to { $knotDescription }'
+      pullerReturnedToToolbox: '{ a11y.netForceScreen.puller.accessibleName } returned to toolbox.'
     returnButton:
       cartReturnedToCenter: Cart returned to center.
       accessibleName:       Return Cart Button

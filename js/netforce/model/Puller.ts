@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -21,6 +22,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import Knot from './Knot.js';
 import NetForceModel from './NetForceModel.js';
 
@@ -47,6 +49,11 @@ export default class Puller extends PhetioObject {
   // a classified position in the play area
   public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>;
 
+  // Accounts for the ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
+  public readonly colorProperty: TReadOnlyProperty<'red' | 'blue' | 'purple' | 'orange'>;
+
+  public readonly descriptionIndex: '1' | '2' | '';
+
   /**
    * @param model the NetForceModel that this puller is associated with, for context
    * @param x initial x-coordinate (in meters)
@@ -72,6 +79,8 @@ export default class Puller extends PhetioObject {
     }, providedOptions );
 
     super( options );
+
+    this.descriptionIndex = tandem.name.includes( '1' ) ? '1' : tandem.name.includes( '2' ) ? '2' : '';
 
     this.standOffsetX = options.standOffsetX;
     this.forceProperty = new NumberProperty( this.size === 'small' ? 50 :
@@ -108,6 +117,13 @@ export default class Puller extends PhetioObject {
       tandem: tandem.createTandem( 'lastPlacementProperty' ),
       phetioDocumentation: 'For PhET-iO internal use only, tracks the last placement of the puller for purposes of determining thresholds for where it should drop',
       phetioReadOnly: true
+    } );
+
+    this.colorProperty = new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], preference => {
+      return preference === 'blueRed' && this.type === 'red' ? 'red' :
+             preference === 'blueRed' && this.type === 'blue' ? 'blue' :
+             preference === 'purpleOrange' && this.type === 'red' ? 'orange' :
+             'purple';
     } );
 
     // When the knot changes, wire up as a listener to the new knot

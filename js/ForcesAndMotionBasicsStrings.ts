@@ -110,9 +110,12 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       };
       'puller': {
-        'accessibleNameWithIndexStringProperty': LocalizedStringProperty;
-        'accessibleNameWithoutIndexStringProperty': LocalizedStringProperty;
+        'accessibleNameStringProperty': LocalizedStringProperty;
         'sizeStringProperty': LocalizedStringProperty;
+      };
+      'pullerResponses': {
+        'pullerAttachedToKnotStringProperty': LocalizedStringProperty;
+        'pullerReturnedToToolboxStringProperty': LocalizedStringProperty;
       };
       'returnButton': {
         'cartReturnedToCenterStringProperty': LocalizedStringProperty;

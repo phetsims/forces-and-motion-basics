@@ -247,10 +247,19 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
           const knot = puller.modeProperty.value.getKnot( puller.model );
           if ( knot ) {
             const knotDescription = this.getKnotDescription( knot );
-            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller attached to ${knotDescription}.` );
+            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerAttachedToKnot.format( {
+              size: puller.size,
+              color: puller.colorProperty,
+              knotDescription: knotDescription,
+              index: puller.descriptionIndex
+            } ) );
           }
           else {
-            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
+            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
+              size: puller.size,
+              color: puller.colorProperty,
+              index: puller.descriptionIndex
+            } ) );
           }
         }
       }

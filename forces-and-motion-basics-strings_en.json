@@ -233,14 +233,19 @@
         }
       },
       "puller": {
-        "accessibleNameWithIndex": {
+        "accessibleName": {
           "value": "{ a11y_netForceScreen_puller_size } { a11y_netForceScreen_colorName } Puller { $index }"
-        },
-        "accessibleNameWithoutIndex": {
-          "value": "{ a11y_netForceScreen_puller_size } { a11y_netForceScreen_colorName } Puller"
         },
         "size": {
           "value": "{ $size ->\n  [small] Small\n  [medium] Medium\n *[large] Large\n}"
+        }
+      },
+      "pullerResponses": {
+        "pullerAttachedToKnot": {
+          "value": "{ a11y_netForceScreen_puller_accessibleName } attached to { $knotDescription }"
+        },
+        "pullerReturnedToToolbox": {
+          "value": "{ a11y_netForceScreen_puller_accessibleName } returned to toolbox."
         }
       },
       "returnButton": {
