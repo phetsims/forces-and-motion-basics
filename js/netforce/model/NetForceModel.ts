@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -43,7 +42,7 @@ export default class NetForceModel extends PhetioObject {
   public readonly numberPullersAttachedProperty: NumberProperty;
   public readonly numberBluePullersAttachedProperty: NumberProperty;
   public readonly numberRedPullersAttachedProperty: NumberProperty;
-  public readonly stateProperty: StringProperty;
+  public readonly stateProperty: StringUnionProperty<'experimenting' | 'completed'>;
   public readonly timeProperty: Property<number>;
   public readonly netForceProperty: NumberProperty;
   public readonly leftForceProperty: NumberProperty;
@@ -270,8 +269,7 @@ export default class NetForceModel extends PhetioObject {
     }
 
     // Keep track of their position to change the attachment/detach thresholds, see NetForceModel.getTargetKnot
-    const newPosition = knot ? 'knot' : 'home';
-    puller.lastPlacementProperty.value = newPosition;
+    puller.lastPlacementProperty.value = knot ? 'knot' : 'home';
   }
 
   // Count the number of pullers attached to the rope

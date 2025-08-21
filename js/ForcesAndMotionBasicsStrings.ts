@@ -104,6 +104,7 @@ type StringsType = {
         'currentDetails': {
           'accessibleNameNotStartedStringProperty': LocalizedStringProperty;
           'accessibleNameInProgressStringProperty': LocalizedStringProperty;
+          'accessibleNameCompletedStringProperty': LocalizedStringProperty;
           'noPullersAttachedStringProperty': LocalizedStringProperty;
           'teamAttachedStringProperty': LocalizedStringProperty;
         };

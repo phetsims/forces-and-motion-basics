@@ -93,6 +93,7 @@ a11y:
       currentDetails:
         accessibleNameNotStarted: Currently, tug-of-war game not started.
         accessibleNameInProgress: Currently, tug-of-war game in progress.
+        accessibleNameCompleted:  Currently, tug-of-war game completed.
         noPullersAttached:        No pullers are attached to the ropes.
         teamAttached:             |-
                                   { $count ->

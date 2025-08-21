@@ -221,6 +221,9 @@
           "accessibleNameInProgress": {
             "value": "Currently, tug-of-war game in progress."
           },
+          "accessibleNameCompleted": {
+            "value": "Currently, tug-of-war game completed."
+          },
           "noPullersAttached": {
             "value": "No pullers are attached to the ropes."
           },
