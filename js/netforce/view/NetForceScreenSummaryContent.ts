@@ -36,26 +36,19 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
     // Team-specific puller information with dynamic team names
     const leftTeamCountProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.teamAttached.createProperty( {
       count: model.numberBluePullersAttachedProperty,
-      teamName: model.leftTeamColorProperty
+      color: model.leftTeamColorProperty
     } );
 
     const rightTeamCountProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.teamAttached.createProperty( {
       count: model.numberRedPullersAttachedProperty,
-      teamName: model.rightTeamColorProperty
+      color: model.rightTeamColorProperty
     } );
 
-    // Combine team information for additional details
-    const teamDetailsStringProperty = DerivedProperty.deriveAny(
-      [ leftTeamCountProperty, rightTeamCountProperty ],
-      () => {
-        const leftText = leftTeamCountProperty.value;
-        const rightText = rightTeamCountProperty.value;
-        const parts = [ leftText, rightText ].filter( text => text.length > 0 );
-        return parts.length > 0 ? parts.join( ' ' ) : '';
-      }
-    );
+    const hasAnyPullersAttachedProperty = new DerivedProperty( [
+      model.numberBluePullersAttachedProperty,
+      model.numberRedPullersAttachedProperty
+    ], ( leftCount, rightCount ) => leftCount + rightCount > 0 );
 
-    // Current details node that combines all the dynamic information
     const currentDetailsNode = new Node( {
       children: [
         new Node( {
@@ -64,8 +57,18 @@ export default class NetForceScreenSummaryContent extends ScreenSummaryContent {
         } ),
         new Node( {
           tagName: 'p',
-          accessibleName: teamDetailsStringProperty,
-          visibleProperty: DerivedProperty.valueNotEqualsConstant( teamDetailsStringProperty, '' )
+          accessibleName: leftTeamCountProperty,
+          visibleProperty: hasAnyPullersAttachedProperty
+        } ),
+        new Node( {
+          tagName: 'p',
+          accessibleName: rightTeamCountProperty,
+          visibleProperty: hasAnyPullersAttachedProperty
+        } ),
+        new Node( {
+          tagName: 'p',
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenSummary.currentDetails.noPullersAttachedStringProperty,
+          visibleProperty: DerivedProperty.not( hasAnyPullersAttachedProperty )
         } )
       ]
     } );

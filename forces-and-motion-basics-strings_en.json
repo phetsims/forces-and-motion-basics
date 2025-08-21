@@ -225,7 +225,7 @@
             "value": "No pullers are attached to the ropes."
           },
           "teamAttached": {
-            "value": "{ $count ->\n  [0] No { $teamName } pullers are on the rope.\n  [one] { $count } { $teamName } puller is on the rope.\n *[other] { $count } { $teamName } pullers are on the rope.\n}"
+            "value": "{ $count ->\n  [0] No { a11y_netForceScreen_colorName } pullers are on the rope.\n  [one] { $count } { a11y_netForceScreen_colorName } puller is on the rope.\n *[other] { $count } { a11y_netForceScreen_colorName } pullers are on the rope.\n}"
           }
         },
         "interactionHint": {

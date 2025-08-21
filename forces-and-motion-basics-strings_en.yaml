@@ -96,9 +96,9 @@ a11y:
         noPullersAttached:        No pullers are attached to the ropes.
         teamAttached:             |-
                                   { $count ->
-                                    [0] No { $teamName } pullers are on the rope.
-                                    [one] { $count } { $teamName } puller is on the rope.
-                                   *[other] { $count } { $teamName } pullers are on the rope.
+                                    [0] No { a11y.netForceScreen.colorName } pullers are on the rope.
+                                    [one] { $count } { a11y.netForceScreen.colorName } puller is on the rope.
+                                   *[other] { $count } { a11y.netForceScreen.colorName } pullers are on the rope.
                                   }
       interactionHint: Place pullers on knots to begin tug-of-war game.
     puller:

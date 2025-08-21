@@ -58,8 +58,8 @@ export default class NetForceModel extends PhetioObject {
   public readonly cart: Cart;
   public readonly knots: Knot[];
   public readonly pullers: Puller[];
-  public readonly leftTeamColorProperty: TReadOnlyProperty<'red' | 'orange'>;
-  public readonly rightTeamColorProperty: TReadOnlyProperty<'blue' | 'purple'>;
+  public readonly leftTeamColorProperty: TReadOnlyProperty<'blue' | 'purple'>;
+  public readonly rightTeamColorProperty: TReadOnlyProperty<'red' | 'orange'>;
 
   public constructor( tandem: Tandem ) {
 
@@ -70,11 +70,11 @@ export default class NetForceModel extends PhetioObject {
     } );
 
     this.leftTeamColorProperty = new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
-      return pullerColor === 'purpleOrange' ? 'orange' : 'red';
+      return pullerColor === 'purpleOrange' ? 'purple' : 'blue';
     } );
 
     this.rightTeamColorProperty = new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
-      return pullerColor === 'purpleOrange' ? 'purple' : 'blue';
+      return pullerColor === 'purpleOrange' ? 'orange' : 'red';
     } );
 
     this.hasStartedProperty = new BooleanProperty( false, {
