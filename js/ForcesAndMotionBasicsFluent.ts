@@ -108,7 +108,6 @@ addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleHel
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleContextResponseChecked', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_playAreaControls_accessibleHeading', 'a11y.netForceScreen.playAreaControls.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_playAreaControls_descriptionContent', 'a11y.netForceScreen.playAreaControls.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_description', 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
@@ -352,8 +351,7 @@ const ForcesAndMotionBasicsFluent = {
         }
       },
       playAreaControls: {
-        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_playAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.playAreaControls.accessibleHeadingStringProperty' ) ),
-        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_playAreaControls_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.playAreaControls.descriptionContentStringProperty' ) )
+        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_playAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.playAreaControls.accessibleHeadingStringProperty' ) )
       }
     },
     motionScreen: {

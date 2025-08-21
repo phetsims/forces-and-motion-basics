@@ -285,9 +285,6 @@
       "playAreaControls": {
         "accessibleHeading": {
           "value": "Tug-of-War Controls"
-        },
-        "descriptionContent": {
-          "value": "Controls to start or pause the tug-of-war, and to return the cart"
         }
       }
     },

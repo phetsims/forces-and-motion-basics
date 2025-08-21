@@ -133,7 +133,6 @@ type StringsType = {
       };
       'playAreaControls': {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
-        'descriptionContentStringProperty': LocalizedStringProperty;
       }
     };
     'motionScreen': {

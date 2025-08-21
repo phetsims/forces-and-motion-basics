@@ -127,7 +127,6 @@ a11y:
         accessibleContextResponseUnchecked: Speedometer hidden.
     playAreaControls:
       accessibleHeading:  Tug-of-War Controls
-      descriptionContent: Controls to start or pause the tug-of-war, and to return the cart
   motionScreen:
     screenSummary:
       playArea:
