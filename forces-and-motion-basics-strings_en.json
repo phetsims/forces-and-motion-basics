@@ -146,15 +146,6 @@
     },
     "dropItem": {
       "value": "Drop item"
-    },
-    "gameControls": {
-      "value": "Game Controls"
-    },
-    "startOrPauseGame": {
-      "value": "Start or pause game"
-    },
-    "returnCart": {
-      "value": "Return cart to center"
     }
   },
   "a11y": {
@@ -167,51 +158,13 @@
       },
       "screenSummary": {
         "playArea": {
-          "heading": {
-            "value": "Play Area"
-          },
           "description": {
             "value": "There is a tug-of-war game between { $leftColor } and { $rightColor } teams over a wheeled cart full of candy. { $leftTeamName } pullers are on left, { $rightTeamName } pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center."
-          },
-          "toolboxes": {
-            "description": {
-              "value": "Drag pullers from the toolboxes to attach them to knots on the rope. Different sizes apply different amounts of force."
-            }
-          },
-          "rope": {
-            "heading": {
-              "value": "Rope and Cart"
-            },
-            "description": {
-              "value": "A wheeled cart sits on a flat surface with a rope attached to both sides. Use arrow keys to navigate between pullers on the rope, then press Space or Enter to grab."
-            }
           }
         },
         "controlArea": {
-          "heading": {
-            "value": "Control Area"
-          },
           "description": {
             "value": "Turn on sum of forces, values, or speed. Reset sim to start over."
-          },
-          "buttons": {
-            "go": {
-              "value": "Press to start or pause the tug-of-war game."
-            },
-            "return": {
-              "value": "Return cart to center."
-            }
-          },
-          "checkboxes": {
-            "sumOfForces": {
-              "value": "Check to show an arrow representing the sum of all forces."
-            },
-            "values": {
-              "value": "Check to show numerical values for the forces."
-            },
-            "speed": {
-              "value": "Check to show the speedometer on the cart."
-            }
           }
         },
         "currentDetails": {
@@ -266,9 +219,6 @@
         }
       },
       "goPauseButton": {
-        "accessibleName": {
-          "value": "Go/Pause Button"
-        },
         "accessibleHelpTextGo": {
           "value": "Start tug-of-war game."
         },
@@ -356,12 +306,6 @@
           "objectToolbox": {
             "description": {
               "value": "Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses."
-            },
-            "frictionDescription": {
-              "value": "Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties."
-            },
-            "accelerationDescription": {
-              "value": "Drag objects from the toolboxes to place them on the ground. Different objects have different masses and friction properties."
             }
           },
           "appliedForceControl": {
@@ -604,29 +548,9 @@
         "value": "Skateboard"
       }
     },
-    "motionPlayAreaControls": {
-      "accessibleHeading": {
-        "value": "Play Area Controls"
-      },
-      "descriptionContent": {
-        "value": "Controls to start or pause motion, and to reset simulation"
-      }
-    },
     "pullers": {
       "pullerInstruction": {
         "value": "Grab puller. Once grabbed, use keyboard shortcuts to change position."
-      },
-      "largePuller": {
-        "value": "Large"
-      },
-      "mediumPuller": {
-        "value": "Medium"
-      },
-      "smallPuller": {
-        "value": "Small"
-      },
-      "puller": {
-        "value": "Puller"
       },
       "overReturnToToolbox": {
         "value": "Over toolbox"
@@ -738,11 +662,6 @@
         "slowingDown": {
           "value": "slowing down"
         }
-      }
-    },
-    "forceArrows": {
-      "noForceArrow": {
-        "value": "There is no { $name } force arrow"
       }
     }
   }

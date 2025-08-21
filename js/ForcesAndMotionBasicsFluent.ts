@@ -71,23 +71,10 @@ addToMapIfDefined( 'keyboardHelpDialog_selectItem', 'keyboardHelpDialog.selectIt
 addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_gameControls', 'keyboardHelpDialog.gameControlsStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_startOrPauseGame', 'keyboardHelpDialog.startOrPauseGameStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_returnCart', 'keyboardHelpDialog.returnCartStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_teamName', 'a11y.netForceScreen.teamNameStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_heading', 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_toolboxes_description', 'a11y.netForceScreen.screenSummary.playArea.toolboxes.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_rope_heading', 'a11y.netForceScreen.screenSummary.playArea.rope.headingStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_rope_description', 'a11y.netForceScreen.screenSummary.playArea.rope.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_heading', 'a11y.netForceScreen.screenSummary.controlArea.headingStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_description', 'a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_buttons_go', 'a11y.netForceScreen.screenSummary.controlArea.buttons.goStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_buttons_return', 'a11y.netForceScreen.screenSummary.controlArea.buttons.returnStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_sumOfForces', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.sumOfForcesStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_values', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.valuesStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_speed', 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.speedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameNotStarted', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameInProgress', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameInProgressStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameCompleted', 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameCompletedStringProperty' );
@@ -102,7 +89,6 @@ addToMapIfDefined( 'a11y_netForceScreen_pullerResponses_pullerInteractionCancell
 addToMapIfDefined( 'a11y_netForceScreen_returnButton_cartReturnedToCenter', 'a11y.netForceScreen.returnButton.cartReturnedToCenterStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_returnButton_accessibleName', 'a11y.netForceScreen.returnButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_returnButton_accessibleHelpText', 'a11y.netForceScreen.returnButton.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_accessibleName', 'a11y.netForceScreen.goPauseButton.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_accessibleHelpTextGo', 'a11y.netForceScreen.goPauseButton.accessibleHelpTextGoStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_accessibleHelpTextPause', 'a11y.netForceScreen.goPauseButton.accessibleHelpTextPauseStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartMovingLeft', 'a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty' );
@@ -127,8 +113,6 @@ addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_description', 'a11y
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.frictionDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.accelerationDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_description', 'a11y.motionScreen.screenSummary.controlArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnSkateboard', 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty' );
@@ -194,13 +178,7 @@ addToMapIfDefined( 'a11y_objectToolboxes_leftObjectToolbox', 'a11y.objectToolbox
 addToMapIfDefined( 'a11y_objectToolboxes_rightObjectToolbox', 'a11y.objectToolboxes.rightObjectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_objectToolbox', 'a11y.objectToolboxes.objectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_skateboard', 'a11y.objectToolboxes.skateboardStringProperty' );
-addToMapIfDefined( 'a11y_motionPlayAreaControls_accessibleHeading', 'a11y.motionPlayAreaControls.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_motionPlayAreaControls_descriptionContent', 'a11y.motionPlayAreaControls.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_pullers_pullerInstruction', 'a11y.pullers.pullerInstructionStringProperty' );
-addToMapIfDefined( 'a11y_pullers_largePuller', 'a11y.pullers.largePullerStringProperty' );
-addToMapIfDefined( 'a11y_pullers_mediumPuller', 'a11y.pullers.mediumPullerStringProperty' );
-addToMapIfDefined( 'a11y_pullers_smallPuller', 'a11y.pullers.smallPullerStringProperty' );
-addToMapIfDefined( 'a11y_pullers_puller', 'a11y.pullers.pullerStringProperty' );
 addToMapIfDefined( 'a11y_pullers_overReturnToToolbox', 'a11y.pullers.overReturnToToolboxStringProperty' );
 addToMapIfDefined( 'a11y_pullers_overKnotDescription', 'a11y.pullers.overKnotDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_pullers_knotDescription', 'a11y.pullers.knotDescriptionStringProperty' );
@@ -234,7 +212,6 @@ addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_medium', 'a11y.speed.qual
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_fast', 'a11y.speed.qualitativeDescriptions.fastStringProperty' );
 addToMapIfDefined( 'a11y_speed_accelerationDescriptions_speedingUp', 'a11y.speed.accelerationDescriptions.speedingUpStringProperty' );
 addToMapIfDefined( 'a11y_speed_accelerationDescriptions_slowingDown', 'a11y.speed.accelerationDescriptions.slowingDownStringProperty' );
-addToMapIfDefined( 'a11y_forceArrows_noForceArrow', 'a11y.forceArrows.noForceArrowStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -304,10 +281,7 @@ const ForcesAndMotionBasicsFluent = {
     selectItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_selectItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.selectItemStringProperty' ) ),
     grabItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_grabItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabItemStringProperty' ) ),
     moveGrabbedItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_moveGrabbedItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedItemStringProperty' ) ),
-    dropItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_dropItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropItemStringProperty' ) ),
-    gameControlsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_gameControls', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.gameControlsStringProperty' ) ),
-    startOrPauseGameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_startOrPauseGame', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.startOrPauseGameStringProperty' ) ),
-    returnCartStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_returnCart', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.returnCartStringProperty' ) )
+    dropItemStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'keyboardHelpDialog_dropItem', _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropItemStringProperty' ) )
   },
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
@@ -316,28 +290,10 @@ const ForcesAndMotionBasicsFluent = {
       teamName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_teamName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.teamNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),
       screenSummary: {
         playArea: {
-          headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.headingStringProperty' ) ),
-          description: new FluentPattern<{ leftColor: FluentVariable, leftTeamName: FluentVariable, rightColor: FluentVariable, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ), [{"name":"leftColor"},{"name":"leftTeamName"},{"name":"rightColor"},{"name":"rightTeamName"}] ),
-          toolboxes: {
-            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_toolboxes_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.toolboxes.descriptionStringProperty' ) )
-          },
-          rope: {
-            headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_rope_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.rope.headingStringProperty' ) ),
-            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_rope_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.rope.descriptionStringProperty' ) )
-          }
+          description: new FluentPattern<{ leftColor: FluentVariable, leftTeamName: FluentVariable, rightColor: FluentVariable, rightTeamName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' ), [{"name":"leftColor"},{"name":"leftTeamName"},{"name":"rightColor"},{"name":"rightTeamName"}] )
         },
         controlArea: {
-          headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.headingStringProperty' ) ),
-          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty' ) ),
-          buttons: {
-            goStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_buttons_go', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.buttons.goStringProperty' ) ),
-            returnStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_buttons_return', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.buttons.returnStringProperty' ) )
-          },
-          checkboxes: {
-            sumOfForcesStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_sumOfForces', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.sumOfForcesStringProperty' ) ),
-            valuesStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_values', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.valuesStringProperty' ) ),
-            speedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_checkboxes_speed', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.checkboxes.speedStringProperty' ) )
-          }
+          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_controlArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.controlArea.descriptionStringProperty' ) )
         },
         currentDetails: {
           accessibleNameNotStartedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenSummary_currentDetails_accessibleNameNotStarted', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenSummary.currentDetails.accessibleNameNotStartedStringProperty' ) ),
@@ -365,8 +321,6 @@ const ForcesAndMotionBasicsFluent = {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_returnButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.returnButton.accessibleHelpTextStringProperty' ) )
       },
       goPauseButton: {
-        _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.accessibleNameStringProperty' ) ),
         accessibleHelpTextGoStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_accessibleHelpTextGo', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.accessibleHelpTextGoStringProperty' ) ),
         accessibleHelpTextPauseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_accessibleHelpTextPause', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.accessibleHelpTextPauseStringProperty' ) ),
         cartMovingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_cartMovingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty' ) ),
@@ -409,9 +363,7 @@ const ForcesAndMotionBasicsFluent = {
           frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' ) ),
           accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' ) ),
           objectToolbox: {
-            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' ) ),
-            frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.frictionDescriptionStringProperty' ) ),
-            accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.accelerationDescriptionStringProperty' ) )
+            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' ) )
           },
           appliedForceControl: {
             descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' ) )
@@ -533,16 +485,8 @@ const ForcesAndMotionBasicsFluent = {
       objectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_objectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.objectToolboxStringProperty' ) ),
       skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.skateboardStringProperty' ) )
     },
-    motionPlayAreaControls: {
-      accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionPlayAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionPlayAreaControls.accessibleHeadingStringProperty' ) ),
-      descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionPlayAreaControls_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionPlayAreaControls.descriptionContentStringProperty' ) )
-    },
     pullers: {
       pullerInstructionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_pullerInstruction', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerInstructionStringProperty' ) ),
-      largePullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_largePuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.largePullerStringProperty' ) ),
-      mediumPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_mediumPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.mediumPullerStringProperty' ) ),
-      smallPullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_smallPuller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.smallPullerStringProperty' ) ),
-      pullerStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_puller', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerStringProperty' ) ),
       overReturnToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_overReturnToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.overReturnToToolboxStringProperty' ) ),
       overKnotDescription: new FluentPattern<{ number: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_pullers_overKnotDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.overKnotDescriptionStringProperty' ), [{"name":"number"},{"name":"side"}] ),
       knotDescription: new FluentPattern<{ number: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_pullers_knotDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.knotDescriptionStringProperty' ), [{"name":"number"},{"name":"side"}] ),
@@ -588,9 +532,6 @@ const ForcesAndMotionBasicsFluent = {
         speedingUpStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_accelerationDescriptions_speedingUp', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.accelerationDescriptions.speedingUpStringProperty' ) ),
         slowingDownStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_accelerationDescriptions_slowingDown', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.accelerationDescriptions.slowingDownStringProperty' ) )
       }
-    },
-    forceArrows: {
-      noForceArrow: new FluentPattern<{ name: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forceArrows_noForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forceArrows.noForceArrowStringProperty' ), [{"name":"name"}] )
     }
   }
 };

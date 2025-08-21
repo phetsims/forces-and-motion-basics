@@ -68,9 +68,6 @@ type StringsType = {
     'grabItemStringProperty': LocalizedStringProperty;
     'moveGrabbedItemStringProperty': LocalizedStringProperty;
     'dropItemStringProperty': LocalizedStringProperty;
-    'gameControlsStringProperty': LocalizedStringProperty;
-    'startOrPauseGameStringProperty': LocalizedStringProperty;
-    'returnCartStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'netForceScreen': {
@@ -78,28 +75,10 @@ type StringsType = {
       'teamNameStringProperty': LocalizedStringProperty;
       'screenSummary': {
         'playArea': {
-          'headingStringProperty': LocalizedStringProperty;
           'descriptionStringProperty': LocalizedStringProperty;
-          'toolboxes': {
-            'descriptionStringProperty': LocalizedStringProperty;
-          };
-          'rope': {
-            'headingStringProperty': LocalizedStringProperty;
-            'descriptionStringProperty': LocalizedStringProperty;
-          }
         };
         'controlArea': {
-          'headingStringProperty': LocalizedStringProperty;
           'descriptionStringProperty': LocalizedStringProperty;
-          'buttons': {
-            'goStringProperty': LocalizedStringProperty;
-            'returnStringProperty': LocalizedStringProperty;
-          };
-          'checkboxes': {
-            'sumOfForcesStringProperty': LocalizedStringProperty;
-            'valuesStringProperty': LocalizedStringProperty;
-            'speedStringProperty': LocalizedStringProperty;
-          }
         };
         'currentDetails': {
           'accessibleNameNotStartedStringProperty': LocalizedStringProperty;
@@ -125,7 +104,6 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
       };
       'goPauseButton': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextGoStringProperty': LocalizedStringProperty;
         'accessibleHelpTextPauseStringProperty': LocalizedStringProperty;
         'cartMovingLeftStringProperty': LocalizedStringProperty;
@@ -166,8 +144,6 @@ type StringsType = {
           'accelerationDescriptionStringProperty': LocalizedStringProperty;
           'objectToolbox': {
             'descriptionStringProperty': LocalizedStringProperty;
-            'frictionDescriptionStringProperty': LocalizedStringProperty;
-            'accelerationDescriptionStringProperty': LocalizedStringProperty;
           };
           'appliedForceControl': {
             'descriptionStringProperty': LocalizedStringProperty;
@@ -279,16 +255,8 @@ type StringsType = {
       'objectToolboxStringProperty': LocalizedStringProperty;
       'skateboardStringProperty': LocalizedStringProperty;
     };
-    'motionPlayAreaControls': {
-      'accessibleHeadingStringProperty': LocalizedStringProperty;
-      'descriptionContentStringProperty': LocalizedStringProperty;
-    };
     'pullers': {
       'pullerInstructionStringProperty': LocalizedStringProperty;
-      'largePullerStringProperty': LocalizedStringProperty;
-      'mediumPullerStringProperty': LocalizedStringProperty;
-      'smallPullerStringProperty': LocalizedStringProperty;
-      'pullerStringProperty': LocalizedStringProperty;
       'overReturnToToolboxStringProperty': LocalizedStringProperty;
       'overKnotDescriptionStringProperty': LocalizedStringProperty;
       'knotDescriptionStringProperty': LocalizedStringProperty;
@@ -334,9 +302,6 @@ type StringsType = {
         'speedingUpStringProperty': LocalizedStringProperty;
         'slowingDownStringProperty': LocalizedStringProperty;
       }
-    };
-    'forceArrows': {
-      'noForceArrowStringProperty': LocalizedStringProperty;
     }
   }
 };
