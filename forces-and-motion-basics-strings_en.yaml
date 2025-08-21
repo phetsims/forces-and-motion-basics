@@ -77,12 +77,12 @@ a11y:
         accessibleNameNotStarted: Currently, tug-of-war game not started.
         accessibleNameInProgress: Currently, tug-of-war game in progress.
         accessibleNameCompleted:  Currently, tug-of-war game completed.
-        noPullersAttached:        No pullers are attached to the ropes.
+        noPullersAttached:        No pullers attached to ropes.
         teamAttached:             |-
                                   { $count ->
-                                    [0] No { a11y.netForceScreen.colorName } pullers are on the rope.
-                                    [one] { $count } { a11y.netForceScreen.colorName } puller is on the rope.
-                                   *[other] { $count } { a11y.netForceScreen.colorName } pullers are on the rope.
+                                    [0] No { a11y.netForceScreen.colorName } pullers are on rope.
+                                    [one] { $count } { a11y.netForceScreen.colorName } puller is on rope.
+                                   *[other] { $count } { a11y.netForceScreen.colorName } pullers are on rope.
                                   }
       interactionHint: Place pullers on knots to begin tug-of-war game.
     puller:
@@ -95,13 +95,13 @@ a11y:
                        *[large] Large
                       }
     pullerResponses:
-      pullerAttachedToKnot:       '{ a11y.netForceScreen.puller.accessibleName } attached to { $knotDescription }'
+      pullerAttachedToKnot:       '{ a11y.netForceScreen.puller.accessibleName } attached to { $knotDescription }.'
       pullerReturnedToToolbox:    '{ a11y.netForceScreen.puller.accessibleName } returned to toolbox.'
       pullerInteractionCancelled: '{ a11y.netForceScreen.puller.accessibleName } interaction cancelled.'
     returnButton:
       cartReturnedToCenter: Cart returned to center.
-      accessibleName:       Return Cart Button
-      accessibleHelpText:   Press to return the cart to the center and reset for a new game.
+      accessibleName:       Return Cart
+      accessibleHelpText:   Return cart to center.
     goPauseButton:
       accessibleHelpTextGo:    Start tug-of-war game.
       accessibleHelpTextPause: Pause tug-of-war game.
@@ -126,7 +126,7 @@ a11y:
         accessibleContextResponseChecked:   Speedometer shown on cart.
         accessibleContextResponseUnchecked: Speedometer hidden.
     playAreaControls:
-      accessibleHeading:  Play Area Controls
+      accessibleHeading:  Tug-of-War Controls
       descriptionContent: Controls to start or pause the tug-of-war, and to return the cart
   motionScreen:
     screenSummary:
