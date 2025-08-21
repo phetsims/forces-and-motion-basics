@@ -380,9 +380,9 @@ export default class NetForceModel extends PhetioObject {
   // Return the cart and prepare the model for another "go" run
   public returnCart(): void {
     this.cart.reset();
-    this.knots.forEach( knot => {knot.reset();} );
-    this.isRunningProperty.set( false );
-    this.stateProperty.set( 'experimenting' );
+    this.knots.forEach( knot => knot.reset() );
+    this.isRunningProperty.value = false;
+    this.stateProperty.value = 'experimenting';
 
     // broadcast a message that the cart was returned
     this.cartReturnedEmitter.emit();
@@ -425,6 +425,10 @@ export default class NetForceModel extends PhetioObject {
     this.resetAllEmitter.emit();
   }
 
+  public get gameLength(): number {
+    return NetForceModel.GAME_LENGTH - this.cart.widthToWheel;
+  }
+
   /**
    * Update the physics when the clock ticks
    */
@@ -443,10 +447,8 @@ export default class NetForceModel extends PhetioObject {
       const newX = this.cart.positionProperty.get() + newV * dt * 60.0;
 
       // If the cart made it to the end, then stop and signify completion
-      const gameLength = NetForceModel.GAME_LENGTH - this.cart.widthToWheel;
+      const gameLength = this.gameLength;
       if ( newX > gameLength || newX < -gameLength ) {
-        this.isRunningProperty.set( false );
-        this.stateProperty.set( 'completed' );
 
         // zero out the velocity
         this.speedProperty.set( 0 );
@@ -454,6 +456,10 @@ export default class NetForceModel extends PhetioObject {
         // set cart and pullers back the to max position
         const maxLength = newX > gameLength ? gameLength : -gameLength;
         this.updateCartAndPullers( this.speedProperty.get(), maxLength );
+
+        // Do this after updating the cart position, since in GoPauseButton we check the cart position for the description
+        this.isRunningProperty.value = false;
+        this.stateProperty.value = 'completed';
       }
       else {
 

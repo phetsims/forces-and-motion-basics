@@ -107,7 +107,14 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
         this.addAccessibleContextResponse( movementMessage );
       }
       else {
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartPausedStringProperty.value );
+        const position = model.cart.positionProperty.value;
+        console.log( position, ' game length', model.gameLength );
+        if ( Math.abs( position ) >= model.gameLength ) {
+          this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartStationaryStringProperty.value );
+        }
+        else {
+          this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartPausedStringProperty.value );
+        }
       }
     } );
 
@@ -123,7 +130,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
       keyStringProperties: NetForceHotkeyData.GO_HOTKEY_DATA.keyStringProperties,
       fire: () => {
         if ( this.enabled && !model.isRunningProperty.get() ) {
-          model.isRunningProperty.set( true );
+          model.isRunningProperty.value = true;
         }
       }
     } );
@@ -132,7 +139,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
       keyStringProperties: NetForceHotkeyData.PAUSE_HOTKEY_DATA.keyStringProperties,
       fire: () => {
         if ( this.enabled && model.isRunningProperty.get() ) {
-          model.isRunningProperty.set( false );
+          model.isRunningProperty.value = false;
         }
       }
     } );
