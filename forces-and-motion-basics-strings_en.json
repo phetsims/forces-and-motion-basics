@@ -178,10 +178,10 @@
             "value": "Currently, tug-of-war game completed."
           },
           "noPullersAttached": {
-            "value": "No pullers are attached to the ropes."
+            "value": "No pullers attached to ropes."
           },
           "teamAttached": {
-            "value": "{ $count ->\n  [0] No { a11y_netForceScreen_colorName } pullers are on the rope.\n  [one] { $count } { a11y_netForceScreen_colorName } puller is on the rope.\n *[other] { $count } { a11y_netForceScreen_colorName } pullers are on the rope.\n}"
+            "value": "{ $count ->\n  [0] No { a11y_netForceScreen_colorName } pullers are on rope.\n  [one] { $count } { a11y_netForceScreen_colorName } puller is on rope.\n *[other] { $count } { a11y_netForceScreen_colorName } pullers are on rope.\n}"
           }
         },
         "interactionHint": {
@@ -198,7 +198,7 @@
       },
       "pullerResponses": {
         "pullerAttachedToKnot": {
-          "value": "{ a11y_netForceScreen_puller_accessibleName } attached to { $knotDescription }"
+          "value": "{ a11y_netForceScreen_puller_accessibleName } attached to { $knotDescription }."
         },
         "pullerReturnedToToolbox": {
           "value": "{ a11y_netForceScreen_puller_accessibleName } returned to toolbox."
@@ -212,10 +212,10 @@
           "value": "Cart returned to center."
         },
         "accessibleName": {
-          "value": "Return Cart Button"
+          "value": "Return Cart"
         },
         "accessibleHelpText": {
-          "value": "Press to return the cart to the center and reset for a new game."
+          "value": "Return cart to center."
         }
       },
       "goPauseButton": {
@@ -284,7 +284,7 @@
       },
       "playAreaControls": {
         "accessibleHeading": {
-          "value": "Play Area Controls"
+          "value": "Tug-of-War Controls"
         },
         "descriptionContent": {
           "value": "Controls to start or pause the tug-of-war, and to return the cart"
