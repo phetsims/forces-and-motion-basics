@@ -109,8 +109,6 @@ addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartMovingLeft', 'a11y.net
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartMovingRight', 'a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartStationary', 'a11y.netForceScreen.goPauseButton.cartStationaryStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartPaused', 'a11y.netForceScreen.goPauseButton.cartPausedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_cart_directionChangeLeft', 'a11y.netForceScreen.cart.directionChangeLeftStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_cart_directionChangeRight', 'a11y.netForceScreen.cart.directionChangeRightStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleName', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' );
@@ -375,10 +373,6 @@ const ForcesAndMotionBasicsFluent = {
         cartMovingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_cartMovingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty' ) ),
         cartStationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_cartStationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.cartStationaryStringProperty' ) ),
         cartPausedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_goPauseButton_cartPaused', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.goPauseButton.cartPausedStringProperty' ) )
-      },
-      cart: {
-        directionChangeLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_cart_directionChangeLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.cart.directionChangeLeftStringProperty' ) ),
-        directionChangeRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_cart_directionChangeRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.cart.directionChangeRightStringProperty' ) )
       },
       netForceControlPanel: {
         sumOfForces: {

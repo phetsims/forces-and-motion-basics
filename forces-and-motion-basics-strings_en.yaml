@@ -127,9 +127,6 @@ a11y:
       cartMovingRight:         Cart moving right.
       cartStationary:          Cart stationary.
       cartPaused:              Cart paused.
-    cart:
-      directionChangeLeft:  Left.
-      directionChangeRight: Right.
     netForceControlPanel:
       sumOfForces:
         accessibleName:                     Sum of Forces

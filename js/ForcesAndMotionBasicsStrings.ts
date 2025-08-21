@@ -133,10 +133,6 @@ type StringsType = {
         'cartStationaryStringProperty': LocalizedStringProperty;
         'cartPausedStringProperty': LocalizedStringProperty;
       };
-      'cart': {
-        'directionChangeLeftStringProperty': LocalizedStringProperty;
-        'directionChangeRightStringProperty': LocalizedStringProperty;
-      };
       'netForceControlPanel': {
         'sumOfForces': {
           'accessibleNameStringProperty': LocalizedStringProperty;

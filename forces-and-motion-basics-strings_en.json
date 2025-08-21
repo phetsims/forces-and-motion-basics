@@ -288,14 +288,6 @@
           "value": "Cart paused."
         }
       },
-      "cart": {
-        "directionChangeLeft": {
-          "value": "Left."
-        },
-        "directionChangeRight": {
-          "value": "Right."
-        }
-      },
       "netForceControlPanel": {
         "sumOfForces": {
           "accessibleName": {
