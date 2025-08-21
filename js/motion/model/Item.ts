@@ -230,7 +230,7 @@ export default class Item extends PhetioObject {
 
       //only change directions if on the board, and always choose one of left/right, and only for people
       if ( this.inStackProperty.get() && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
-        this.directionProperty.set( direction );
+        this.directionProperty.value = direction;
       }
     } );
 
@@ -254,14 +254,14 @@ export default class Item extends PhetioObject {
 
   // Animate the item to the specified position
   public animateTo( x: number, y: number, destination: 'home' | 'stack' ): void {
-    this.animationStateProperty.set( { enabled: true, x: x, y: y, destination: destination } );
+    this.animationStateProperty.value = { enabled: true, x: x, y: y, destination: destination };
   }
 
   // Animate the item to its original position
   public animateHome(): void {
 
     //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
-    this.directionProperty.set( 'left' );
+    this.directionProperty.value = 'left';
     this.animateTo( this.initialX, this.initialY, 'home' );
   }
 
@@ -269,14 +269,14 @@ export default class Item extends PhetioObject {
   public cancelAnimation(): void {
     if ( this.animationStateProperty.get().enabled ) {
       if ( this.userControlledProperty.get() ) {
-        this.interactionScaleProperty.set( 1.3 );
+        this.interactionScaleProperty.value = 1.3;
       }
       else {
         if ( this.animationStateProperty.get().destination === 'home' ) {
-          this.interactionScaleProperty.set( this.homeScale );
+          this.interactionScaleProperty.value = this.homeScale;
         }
       }
-      this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null, destination: 'home' } );
+      this.animationStateProperty.value = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
     }
   }
 
@@ -339,7 +339,7 @@ export default class Item extends PhetioObject {
         }
       }
 
-      this.modeProperty.set( newMode );
+      this.modeProperty.value = newMode;
     };
 
     // Listen to all relevant property changes (not userControlledProperty since it's derived from modeProperty)
@@ -352,13 +352,13 @@ export default class Item extends PhetioObject {
    */
   public setKeyboardGrabbedMode( fromLocation: 'leftToolbox' | 'rightToolbox' | 'stack' ): void {
     if ( fromLocation === 'leftToolbox' ) {
-      this.modeProperty.set( 'keyboardGrabbedFromLeftToolbox' );
+      this.modeProperty.value = 'keyboardGrabbedFromLeftToolbox';
     }
     else if ( fromLocation === 'rightToolbox' ) {
-      this.modeProperty.set( 'keyboardGrabbedFromRightToolbox' );
+      this.modeProperty.value = 'keyboardGrabbedFromRightToolbox';
     }
     else {
-      this.modeProperty.set( 'keyboardGrabbedFromStack' );
+      this.modeProperty.value = 'keyboardGrabbedFromStack';
     }
   }
 
@@ -408,10 +408,10 @@ export default class Item extends PhetioObject {
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination
   public step( dt: number ): void {
     if ( this.userControlledProperty.get() ) {
-      this.interactionScaleProperty.set( Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 ) );
+      this.interactionScaleProperty.value = Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 );
     }
     else if ( this.animationStateProperty.get().destination === 'home' ) {
-      this.interactionScaleProperty.set( Math.max( this.interactionScaleProperty.get() - 9 * dt, this.homeScale ) );
+      this.interactionScaleProperty.value = Math.max( this.interactionScaleProperty.get() - 9 * dt, this.homeScale );
     }
 
     if ( this.animationStateProperty.get().enabled ) {
@@ -419,17 +419,17 @@ export default class Item extends PhetioObject {
 
       //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
       const blendAmount = Utils.clamp( 15 * dt, 0.1, 0.9 );
-      this.positionProperty.set( this.positionProperty.get().blend( destination, blendAmount ) );
+      this.positionProperty.value = this.positionProperty.get().blend( destination, blendAmount );
 
       const distanceToTarget = this.positionProperty.get().distance( destination );
       if ( distanceToTarget < 1 && ( this.interactionScaleProperty.get() === 1.3 || this.interactionScaleProperty.get() === this.homeScale ) ) {
 
         //Snap to exact final destination, see #59
-        this.positionProperty.set( destination );
+        this.positionProperty.value = destination;
         if ( this.animationStateProperty.get().end ) {
           this.animationStateProperty.get().end!();
         }
-        this.animationStateProperty.set( { enabled: false, x: 0, y: 0, end: null } );
+        this.animationStateProperty.value = { enabled: false, x: 0, y: 0, end: null };
       }
     }
   }

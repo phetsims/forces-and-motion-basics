@@ -60,7 +60,7 @@ export default class AppliedForceSlider extends HSlider {
       // up a state of forces
       endDrag: () => {
         if ( model.isPlayingProperty.get() ) {
-          model.appliedForceProperty.set( 0 );
+          model.appliedForceProperty.value = 0;
         }
       }
     } );

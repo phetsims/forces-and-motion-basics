@@ -183,7 +183,7 @@ export default class PusherNode extends Node {
 
           // Only apply a force if the pusher is not fallen, see #48
           if ( !model.fallenProperty.get() ) {
-            model.appliedForceProperty.set( roundedForce );
+            model.appliedForceProperty.value = roundedForce;
           }
         }
       },
@@ -193,7 +193,7 @@ export default class PusherNode extends Node {
 
           // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
           if ( !model.isPlayingProperty.value ) {
-            model.isPlayingProperty.set( true );
+            model.isPlayingProperty.value = true;
           }
         }
       },
@@ -203,7 +203,7 @@ export default class PusherNode extends Node {
 
           // if the model is paused, the applied force should remain the same
           if ( model.isPlayingProperty.value ) {
-            model.appliedForceProperty.set( 0 );
+            model.appliedForceProperty.value = 0;
           }
         }
       }

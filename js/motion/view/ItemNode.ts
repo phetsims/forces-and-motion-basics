@@ -196,7 +196,7 @@ export default class ItemNode extends Node {
 
     //When the user drags the object, start
     const moveToStack = () => {
-      item.inStackProperty.set( true );
+      item.inStackProperty.value = true;
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
 
       // NOTE: similar to MotionModel.spliceStack
@@ -226,12 +226,12 @@ export default class ItemNode extends Node {
         itemToolbox.moveToFront();
 
         // Set mode to mouseGrabbed when dragging with mouse
-        item.modeProperty.set( 'mouseGrabbed' );
+        item.modeProperty.value = 'mouseGrabbed';
         const index = model.stackedItems.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
-        item.inStackProperty.set( false );
+        item.inStackProperty.value = false;
 
         // Don't allow the user to translate the object while it is animating
         item.cancelAnimation();
@@ -242,7 +242,7 @@ export default class ItemNode extends Node {
         // Reset mode based on where the item ends up (let setupModeCalculation handle it)
         // We'll temporarily set to a non-grabbed state to trigger the update
         const toolboxSide = item.getToolboxSide();
-        item.modeProperty.set( toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox' );
+        item.modeProperty.value = toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
 
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
@@ -471,19 +471,19 @@ export default class ItemNode extends Node {
 
       // Cancel interaction and return to original position
       const toolboxSide = this.item.getToolboxSide();
-      this.item.modeProperty.set( toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox' );
-      this.item.positionProperty.set( this.originalPosition );
+      this.item.modeProperty.value = toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+      this.item.positionProperty.value = this.originalPosition;
 
       // Restore original stack state
       if ( this.wasOriginallyOnStack ) {
-        this.item.inStackProperty.set( true );
+        this.item.inStackProperty.value = true;
         // Add back to stack if it was originally there
         if ( !this.model.stackedItems.includes( this.item ) ) {
           this.model.stackedItems.add( this.item );
         }
       }
       else {
-        this.item.inStackProperty.set( false );
+        this.item.inStackProperty.value = false;
         this.item.animateHome();
       }
     }
@@ -514,7 +514,7 @@ export default class ItemNode extends Node {
       if ( index >= 0 ) {
         this.model.spliceStack( index );
       }
-      this.item.inStackProperty.set( false );
+      this.item.inStackProperty.value = false;
       this.item.cancelAnimation();
 
       // Move to front
@@ -525,7 +525,7 @@ export default class ItemNode extends Node {
         const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
         const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
         const stackY = this.motionView.topOfStack - this.height;
-        this.item.positionProperty.set( new Vector2( stackX, stackY ) );
+        this.item.positionProperty.value = new Vector2( stackX, stackY );
       }
 
       this.addAccessibleContextResponse( 'grabbed' );
@@ -535,14 +535,14 @@ export default class ItemNode extends Node {
 
       // Reset mode to a non-grabbed state to trigger proper mode calculation
       const toolboxSide = this.item.getToolboxSide();
-      this.item.modeProperty.set( toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox' );
+      this.item.modeProperty.value = toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
 
       // Determine drop location based on current position
       const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
 
       if ( droppedOnStack ) {
         // Complete the stack placement
-        this.item.inStackProperty.set( true );
+        this.item.inStackProperty.value = true;
         const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
         this.item.animateTo( this.motionView.layoutBounds.width / 2 - imageWidth / 2, this.motionView.topOfStack - this.height, 'stack' );
         this.model.stackedItems.add( this.item );
@@ -605,11 +605,11 @@ export default class ItemNode extends Node {
       const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
       const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
       const stackY = this.motionView.topOfStack - this.height;
-      this.item.positionProperty.set( new Vector2( stackX, stackY ) );
+      this.item.positionProperty.value = new Vector2( stackX, stackY );
     }
     else {
       // Move back to home position
-      this.item.positionProperty.set( homePosition );
+      this.item.positionProperty.value = homePosition;
     }
   }
 
@@ -668,7 +668,7 @@ export default class ItemNode extends Node {
         direction = 'right';
       }
     }
-    person.directionProperty.set( direction );
+    person.directionProperty.value = direction;
   }
 }
 

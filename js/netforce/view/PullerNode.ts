@@ -226,7 +226,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         positionProperty: puller.positionProperty,
         start: () => {
 
-          puller.modeProperty.set( PullerMode.pointerGrabbed() );
+          puller.modeProperty.value = PullerMode.pointerGrabbed();
 
           // fire updates
           this.moveToFront();
@@ -398,7 +398,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
             // Update puller mode based on target waypoint
             const newMode = PullerNode.getModeForWaypoint( targetWaypoint, puller );
-            puller.modeProperty.set( newMode );
+            puller.modeProperty.value = newMode;
 
             // Generate accessibility response
             const accessibilityResponse = this.getAccessibilityResponseForWaypoint( targetWaypoint );
@@ -438,7 +438,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
               newMode = PullerMode.keyboardGrabbedOverHome();
             }
 
-            puller.modeProperty.set( newMode );
+            puller.modeProperty.value = newMode;
 
             // Announce current position when grabbed - reuse the same logic as navigation
             const currentMode = puller.modeProperty.get();
@@ -511,7 +511,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.clearGrabOrigin();
 
             // Update mode
-            puller.modeProperty.set( newMode );
+            puller.modeProperty.value = newMode;
 
             // If puller was from home and dropped on rope, autofocus next available home puller
             if ( wasFromHome && droppedOnRope ) {
@@ -557,7 +557,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.clearGrabOrigin();
 
             // Move puller back to home and retain focus
-            puller.modeProperty.set( PullerMode.home() );
+            puller.modeProperty.value = PullerMode.home();
 
             // Add accessibility response
             this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {

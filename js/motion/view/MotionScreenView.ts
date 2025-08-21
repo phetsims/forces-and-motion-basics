@@ -359,7 +359,7 @@ export default class MotionScreenView extends ScreenView {
     } );
 
     model.stepEmitter.addListener( () => {
-      roundedSumProperty.set( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get() );
+      roundedSumProperty.value = roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get();
     } );
 
     this.sumArrow = new ReadoutArrow( 'sum', sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, 'motion', {

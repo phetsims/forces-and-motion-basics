@@ -148,7 +148,7 @@ export default class Puller extends PhetioObject {
       // If attached to a knot, update position to match the knot's position
       const knot = this.getKnot();
       if ( knot ) {
-        this.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
+        this.positionProperty.value = new Vector2( knot.positionProperty.get(), knot.y );
       }
     }
   }
@@ -210,7 +210,7 @@ export default class Puller extends PhetioObject {
 
     if ( dragType === 'mouse' || dragType === 'touch' ) {
       // For mouse/touch, set to pointerGrabbed and disconnect from knot
-      this.modeProperty.set( PullerMode.pointerGrabbed() );
+      this.modeProperty.value = PullerMode.pointerGrabbed();
 
       // The disconnect will happen in the drag listener
     }
@@ -239,8 +239,8 @@ export default class Puller extends PhetioObject {
    */
   public dropAtKnot( knot: Knot ): void {
     const newMode = this.getModeForKnot( knot );
-    this.modeProperty.set( newMode );
-    this.lastPlacementProperty.set( 'knot' );
+    this.modeProperty.value = newMode;
+    this.lastPlacementProperty.value = 'knot';
     this.clearGrabOrigin();
   }
 
@@ -248,8 +248,8 @@ export default class Puller extends PhetioObject {
    * Drop at home/toolbox (called by mouse/touch drag listener)
    */
   public dropAtHome(): void {
-    this.modeProperty.set( PullerMode.home() );
-    this.lastPlacementProperty.set( 'home' );
+    this.modeProperty.value = PullerMode.home();
+    this.lastPlacementProperty.value = 'home';
     this.clearGrabOrigin();
   }
 
@@ -259,8 +259,8 @@ export default class Puller extends PhetioObject {
   public cancelGrab(): void {
     if ( this.grabOrigin ) {
       // Restore original state
-      this.modeProperty.set( this.grabOrigin.mode );
-      this.positionProperty.set( this.grabOrigin.position );
+      this.modeProperty.value = this.grabOrigin.mode;
+      this.positionProperty.value = this.grabOrigin.position;
 
       // Clear grab origin
       this.grabOrigin = null;

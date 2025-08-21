@@ -231,20 +231,20 @@ export default class NetForceModel extends PhetioObject {
         }
       } );
       puller.modeProperty.link( () => {
-        this.numberPullersAttachedProperty.set( this.countAttachedPullers() );
-        this.numberBluePullersAttachedProperty.set( this.countBluePullersAttached() );
-        this.numberRedPullersAttachedProperty.set( this.countRedPullersAttached() );
+        this.numberPullersAttachedProperty.value = this.countAttachedPullers();
+        this.numberBluePullersAttachedProperty.value = this.countBluePullersAttached();
+        this.numberRedPullersAttachedProperty.value = this.countRedPullersAttached();
       } );
     } );
 
     // Update the started flag
-    this.isRunningProperty.link( running => { if ( running ) { this.hasStartedProperty.set( true ); }} );
+    this.isRunningProperty.link( running => { if ( running ) { this.hasStartedProperty.value = true; }} );
 
     // Update the forces when the number of attached pullers changes, or their forces change (PhET-iO)
     Multilink.multilinkAny( [ ...this.pullers.map( puller => puller.forceProperty ), this.numberPullersAttachedProperty ], () => {
-      this.netForceProperty.set( this.getNetForce() );
-      this.leftForceProperty.set( this.getLeftForce() );
-      this.rightForceProperty.set( this.getRightForce() );
+      this.netForceProperty.value = this.getNetForce();
+      this.leftForceProperty.value = this.getLeftForce();
+      this.rightForceProperty.value = this.getRightForce();
     } );
   }
 
@@ -261,7 +261,7 @@ export default class NetForceModel extends PhetioObject {
     // try to snap to a knot
     if ( knot ) {
 
-      puller.positionProperty.set( new Vector2( knot.positionProperty.get(), knot.y ) );
+      puller.positionProperty.value = new Vector2( knot.positionProperty.get(), knot.y );
     }
 
     // Or go back home
@@ -271,7 +271,7 @@ export default class NetForceModel extends PhetioObject {
 
     // Keep track of their position to change the attachment/detach thresholds, see NetForceModel.getTargetKnot
     const newPosition = knot ? 'knot' : 'home';
-    puller.lastPlacementProperty.set( newPosition );
+    puller.lastPlacementProperty.value = newPosition;
   }
 
   // Count the number of pullers attached to the rope
@@ -387,8 +387,8 @@ export default class NetForceModel extends PhetioObject {
     // broadcast a message that the cart was returned
     this.cartReturnedEmitter.emit();
 
-    this.hasStartedProperty.set( false );
-    this.durationProperty.set( 0 ); // Reset tug-of-war timer
+    this.hasStartedProperty.value = false;
+    this.durationProperty.value = 0; // Reset tug-of-war timer
     this.speedProperty.reset();
   }
 
@@ -437,11 +437,11 @@ export default class NetForceModel extends PhetioObject {
     if ( this.isRunningProperty.get() ) {
 
       // Increment tug-of-war timer
-      this.durationProperty.set( this.durationProperty.get() + dt );
+      this.durationProperty.value = this.durationProperty.get() + dt;
 
       // Make the simulation run about as fast as the Java version
       const newV = this.cart.velocityProperty.get() + this.getNetForce() * dt * 0.003;
-      this.speedProperty.set( Math.abs( newV ) );
+      this.speedProperty.value = Math.abs( newV );
 
       // calculate new position from velocity
       const newX = this.cart.positionProperty.get() + newV * dt * 60.0;
@@ -451,7 +451,7 @@ export default class NetForceModel extends PhetioObject {
       if ( newX > gameLength || newX < -gameLength ) {
 
         // zero out the velocity
-        this.speedProperty.set( 0 );
+        this.speedProperty.value = 0;
 
         // set cart and pullers back the to max position
         const maxLength = newX > gameLength ? gameLength : -gameLength;
@@ -468,7 +468,7 @@ export default class NetForceModel extends PhetioObject {
       }
     }
 
-    this.timeProperty.set( this.timeProperty.get() + dt );
+    this.timeProperty.value = this.timeProperty.get() + dt;
   }
 
   /**
@@ -477,11 +477,11 @@ export default class NetForceModel extends PhetioObject {
   private updateCartAndPullers( newV: number, newX: number ): void {
 
     // move the cart, and update its velocity
-    this.cart.velocityProperty.set( newV );
-    this.cart.positionProperty.set( newX );
+    this.cart.velocityProperty.value = newV;
+    this.cart.positionProperty.value = newX;
 
     // move the knots and the pullers on those knots
-    this.knots.forEach( knot => { knot.positionProperty.set( knot.initX + newX ); } );
+    this.knots.forEach( knot => { knot.positionProperty.value = knot.initX + newX; } );
 
     this.pullers.forEach( puller => puller.step() );
   }
