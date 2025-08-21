@@ -116,6 +116,7 @@ type StringsType = {
       'pullerResponses': {
         'pullerAttachedToKnotStringProperty': LocalizedStringProperty;
         'pullerReturnedToToolboxStringProperty': LocalizedStringProperty;
+        'pullerInteractionCancelledStringProperty': LocalizedStringProperty;
       };
       'returnButton': {
         'cartReturnedToCenterStringProperty': LocalizedStringProperty;

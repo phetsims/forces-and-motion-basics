@@ -246,6 +246,9 @@
         },
         "pullerReturnedToToolbox": {
           "value": "{ a11y_netForceScreen_puller_accessibleName } returned to toolbox."
+        },
+        "pullerInteractionCancelled": {
+          "value": "{ a11y_netForceScreen_puller_accessibleName } interaction cancelled."
         }
       },
       "returnButton": {

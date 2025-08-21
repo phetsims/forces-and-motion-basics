@@ -464,7 +464,12 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             if ( currentMode.isKeyboardGrabbedOverHome() ) {
               // Drop at home (toolbox)
               newMode = PullerMode.home();
-              this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
+
+              this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
+                size: puller.size,
+                color: puller.colorProperty,
+                index: puller.descriptionIndex
+              } ) );
             }
             else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
               // Drop at knot - convert keyboard grabbed to attached
@@ -475,18 +480,31 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
                 const knot = puller.getKnot();
                 const knotDescription = knot ? this.getKnotDescription( knot ) : 'knot';
-                this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller attached to ${knotDescription}.` );
+                this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerAttachedToKnot.format( {
+                  size: puller.size,
+                  color: puller.colorProperty,
+                  knotDescription: knotDescription,
+                  index: puller.descriptionIndex
+                } ) );
               }
               else {
                 // Fallback to home
                 newMode = PullerMode.home();
-                this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
+                this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
+                  size: puller.size,
+                  color: puller.colorProperty,
+                  index: puller.descriptionIndex
+                } ) );
               }
             }
             else {
               // Fallback to home
               newMode = PullerMode.home();
-              this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
+              this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
+                size: puller.size,
+                color: puller.colorProperty,
+                index: puller.descriptionIndex
+              } ) );
             }
 
             // Clear grab origin
@@ -525,7 +543,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.cancelGrab();
 
             // Add accessibility response
-            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller interaction canceled.` );
+            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerInteractionCancelled.format( {
+              size: puller.size,
+              color: puller.colorProperty,
+              index: puller.descriptionIndex
+            } ) );
           }
         }
 
@@ -538,7 +560,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             puller.modeProperty.set( PullerMode.home() );
 
             // Add accessibility response
-            this.addAccessibleContextResponse( `${puller.size} ${this.getDynamicColorName()} puller returned to toolbox.` );
+            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
+              size: puller.size,
+              color: puller.colorProperty,
+              index: puller.descriptionIndex
+            } ) );
           }
         }
       }
@@ -640,11 +666,10 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                    ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
 
       // Use Fluent pattern with variables
-      const overKnotDescriptionProperty = ForcesAndMotionBasicsFluent.a11y.pullers.overKnotDescription.createProperty( {
+      return ForcesAndMotionBasicsFluent.a11y.pullers.overKnotDescription.format( {
         side: side,
         number: ( index + 1 ).toString()
       } );
-      return overKnotDescriptionProperty.value;
     }
   }
 

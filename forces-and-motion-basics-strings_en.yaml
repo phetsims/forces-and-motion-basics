@@ -111,8 +111,9 @@ a11y:
                        *[large] Large
                       }
     pullerResponses:
-      pullerAttachedToKnot:    '{ a11y.netForceScreen.puller.accessibleName } attached to { $knotDescription }'
-      pullerReturnedToToolbox: '{ a11y.netForceScreen.puller.accessibleName } returned to toolbox.'
+      pullerAttachedToKnot:       '{ a11y.netForceScreen.puller.accessibleName } attached to { $knotDescription }'
+      pullerReturnedToToolbox:    '{ a11y.netForceScreen.puller.accessibleName } returned to toolbox.'
+      pullerInteractionCancelled: '{ a11y.netForceScreen.puller.accessibleName } interaction cancelled.'
     returnButton:
       cartReturnedToCenter: Cart returned to center.
       accessibleName:       Return Cart Button
