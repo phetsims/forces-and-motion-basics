@@ -53,6 +53,16 @@ keyboardHelpDialog:
 
 # accessibility strings
 a11y:
+  keyboardHelpDialog:
+    fromAnywhereInSim:
+      startGameDescription:          Start tug-of-war game with Alt plus G.
+      pauseGameDescription:          Pause tug-of-war game with Alt plus P.
+      returnCartToCenterDescription: Return cart to center with Alt plus B.
+    pullerNavigation:
+      selectPullerDescription:       Select puller with Left and Right Arrow keys.
+      grabPullerDescription:         Grab selected puller with Space or Enter keys.
+      moveGrabbedPullerDescription:  Move grabbed puller with Left and Right Arrow keys.
+      dropPullerDescription:         Drop puller with Space or Enter keys.
   netForceScreen:
     colorName: |-
                { $color ->

@@ -71,6 +71,13 @@ addToMapIfDefined( 'keyboardHelpDialog_selectItem', 'keyboardHelpDialog.selectIt
 addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_returnCartToCenterDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_selectPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_grabPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_moveGrabbedPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_dropPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_teamName', 'a11y.netForceScreen.teamNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
@@ -284,6 +291,20 @@ const ForcesAndMotionBasicsFluent = {
   },
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
+    _comment_0: new FluentComment( {"comment":"keyboard help dialog strings","associatedKey":"keyboardHelpDialog"} ),
+    keyboardHelpDialog: {
+      fromAnywhereInSim: {
+        startGameDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' ) ),
+        pauseGameDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' ) ),
+        returnCartToCenterDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_returnCartToCenterDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty' ) )
+      },
+      pullerNavigation: {
+        selectPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_selectPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty' ) ),
+        grabPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_grabPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty' ) ),
+        moveGrabbedPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_moveGrabbedPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty' ) ),
+        dropPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_dropPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty' ) )
+      }
+    },
     netForceScreen: {
       colorName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_colorName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.colorNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),
       teamName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_teamName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.teamNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),

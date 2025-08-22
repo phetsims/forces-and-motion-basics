@@ -70,6 +70,19 @@ type StringsType = {
     'dropItemStringProperty': LocalizedStringProperty;
   };
   'a11y': {
+    'keyboardHelpDialog': {
+      'fromAnywhereInSim': {
+        'startGameDescriptionStringProperty': LocalizedStringProperty;
+        'pauseGameDescriptionStringProperty': LocalizedStringProperty;
+        'returnCartToCenterDescriptionStringProperty': LocalizedStringProperty;
+      };
+      'pullerNavigation': {
+        'selectPullerDescriptionStringProperty': LocalizedStringProperty;
+        'grabPullerDescriptionStringProperty': LocalizedStringProperty;
+        'moveGrabbedPullerDescriptionStringProperty': LocalizedStringProperty;
+        'dropPullerDescriptionStringProperty': LocalizedStringProperty;
+      }
+    };
     'netForceScreen': {
       'colorNameStringProperty': LocalizedStringProperty;
       'teamNameStringProperty': LocalizedStringProperty;

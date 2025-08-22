@@ -149,6 +149,33 @@
     }
   },
   "a11y": {
+    "keyboardHelpDialog": {
+      "fromAnywhereInSim": {
+        "startGameDescription": {
+          "value": "Start tug-of-war game with Alt plus G."
+        },
+        "pauseGameDescription": {
+          "value": "Pause tug-of-war game with Alt plus P."
+        },
+        "returnCartToCenterDescription": {
+          "value": "Return cart to center with Alt plus B."
+        }
+      },
+      "pullerNavigation": {
+        "selectPullerDescription": {
+          "value": "Select puller with Left and Right Arrow keys."
+        },
+        "grabPullerDescription": {
+          "value": "Grab selected puller with Space or Enter keys."
+        },
+        "moveGrabbedPullerDescription": {
+          "value": "Move grabbed puller with Left and Right Arrow keys."
+        },
+        "dropPullerDescription": {
+          "value": "Drop puller with Space or Enter keys."
+        }
+      }
+    },
     "netForceScreen": {
       "colorName": {
         "value": "{ $color ->\n    [blue]   Blue\n    [red]    Red\n    [purple] Purple\n   *[orange] Orange\n}"

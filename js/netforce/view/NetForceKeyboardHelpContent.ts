@@ -21,9 +21,15 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
 
     // Create the "From Anywhere in Sim" section
     const fromAnywhereInSimSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.fromAnywhereInSimStringProperty, [
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA ),
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PAUSE_HOTKEY_DATA ),
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.RETURN_CART_HOTKEY_DATA )
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty
+      } ),
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PAUSE_HOTKEY_DATA, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty
+      } ),
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.RETURN_CART_HOTKEY_DATA, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty
+      } )
     ] );
 
     // Create the puller navigation section
@@ -31,22 +37,34 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectPullerStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        { labelOptions: { lineWrap: 200 } }
+        { 
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty
+        }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabPullerStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
-        { labelOptions: { lineWrap: 200 } }
+        { 
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty
+        }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedPullerStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        { labelOptions: { lineWrap: 200 } }
+        { 
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty
+        }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropPullerStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
-        { labelOptions: { lineWrap: 200 } }
+        { 
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty
+        }
       )
     ] );
 
