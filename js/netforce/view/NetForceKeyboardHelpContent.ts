@@ -37,7 +37,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectPullerStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        { 
+        {
           labelOptions: { lineWrap: 200 },
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty
         }
@@ -45,7 +45,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabPullerStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
-        { 
+        {
           labelOptions: { lineWrap: 200 },
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty
         }
@@ -53,7 +53,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedPullerStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        { 
+        {
           labelOptions: { lineWrap: 200 },
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty
         }
@@ -61,7 +61,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropPullerStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
-        { 
+        {
           labelOptions: { lineWrap: 200 },
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty
         }
