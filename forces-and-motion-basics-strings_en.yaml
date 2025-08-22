@@ -55,9 +55,9 @@ keyboardHelpDialog:
 a11y:
   keyboardHelpDialog:
     fromAnywhereInSim:
-      startGameDescription:          Start tug-of-war game with Alt plus G.
-      pauseGameDescription:          Pause tug-of-war game with Alt plus P.
-      returnCartToCenterDescription: Return cart to center with Alt plus B.
+      startGameDescription:          Start tug-of-war game with { $altOrOptionKey } plus G.
+      pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P.
+      returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus B.
     pullerNavigation:
       selectPullerDescription:       Select puller with Left and Right Arrow keys.
       grabPullerDescription:         Grab selected puller with Space or Enter keys.

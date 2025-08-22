@@ -10,9 +10,11 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
+import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
 export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
@@ -22,13 +24,19 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     // Create the "From Anywhere in Sim" section
     const fromAnywhereInSimSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.fromAnywhereInSimStringProperty, [
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescription.createProperty( {
+          altOrOptionKey: TextKeyNode.getAltKeyString()
+        } )
       } ),
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PAUSE_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescription.createProperty( {
+          altOrOptionKey: TextKeyNode.getAltKeyString()
+        } )
       } ),
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.RETURN_CART_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescription.createProperty( {
+          altOrOptionKey: TextKeyNode.getAltKeyString()
+        } )
       } )
     ] );
 

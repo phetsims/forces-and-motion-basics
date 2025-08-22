@@ -294,9 +294,9 @@ const ForcesAndMotionBasicsFluent = {
     _comment_0: new FluentComment( {"comment":"keyboard help dialog strings","associatedKey":"keyboardHelpDialog"} ),
     keyboardHelpDialog: {
       fromAnywhereInSim: {
-        startGameDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' ) ),
-        pauseGameDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' ) ),
-        returnCartToCenterDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_returnCartToCenterDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty' ) )
+        startGameDescription: new FluentPattern<{ altOrOptionKey: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' ), [{"name":"altOrOptionKey"}] ),
+        pauseGameDescription: new FluentPattern<{ altOrOptionKey: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' ), [{"name":"altOrOptionKey"}] ),
+        returnCartToCenterDescription: new FluentPattern<{ altOrOptionKey: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_fromAnywhereInSim_returnCartToCenterDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty' ), [{"name":"altOrOptionKey"}] )
       },
       pullerNavigation: {
         selectPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_selectPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty' ) ),
