@@ -64,6 +64,7 @@ export default class PullerColorControl extends VBox {
 
       // pdom
       accessibleName: ForcesAndMotionBasicsFluent.netForcePullerColorsStringProperty,
+      accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty,
       tandem: tandem.createTandem( 'radioButtonGroup' )
     } );
 

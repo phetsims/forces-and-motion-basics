@@ -53,16 +53,19 @@ keyboardHelpDialog:
 
 # accessibility strings
 a11y:
+  preferences:
+    netForcePullerColors:
+      accessibleHelpText: Select team colors for tug-of-war game.
   keyboardHelpDialog:
     fromAnywhereInSim:
       startGameDescription:          Start tug-of-war game with { $altOrOptionKey } plus G.
       pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P.
       returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus B.
     pullerNavigation:
-      selectPullerDescription:       Select puller with Left and Right Arrow keys.
-      grabPullerDescription:         Grab selected puller with Space or Enter keys.
-      moveGrabbedPullerDescription:  Move grabbed puller with Left and Right Arrow keys.
-      dropPullerDescription:         Drop puller with Space or Enter keys.
+      selectPullerDescription:      Select puller with Left and Right Arrow keys.
+      grabPullerDescription:        Grab selected puller with Space or Enter keys.
+      moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys.
+      dropPullerDescription:        Drop puller with Space or Enter keys.
   netForceScreen:
     colorName: |-
                { $color ->
@@ -136,7 +139,7 @@ a11y:
         accessibleContextResponseChecked:   Speedometer shown on cart.
         accessibleContextResponseUnchecked: Speedometer hidden.
     playAreaControls:
-      accessibleHeading:  Tug-of-War Controls
+      accessibleHeading: Tug-of-War Controls
   motionScreen:
     screenSummary:
       playArea:
@@ -144,7 +147,7 @@ a11y:
         frictionDescription:     The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
         accelerationDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero.
         objectToolbox:
-          description:             Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
+          description: Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
         appliedForceControl:
           description: Use arrow keys or mouse to control the applied force. Watch how the objects move as you change the force.
       controlArea:

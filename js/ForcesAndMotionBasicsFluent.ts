@@ -71,6 +71,7 @@ addToMapIfDefined( 'keyboardHelpDialog_selectItem', 'keyboardHelpDialog.selectIt
 addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
+addToMapIfDefined( 'a11y_preferences_netForcePullerColors_accessibleHelpText', 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_returnCartToCenterDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty' );
@@ -291,6 +292,11 @@ const ForcesAndMotionBasicsFluent = {
   },
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
+    preferences: {
+      netForcePullerColors: {
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_preferences_netForcePullerColors_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' ) )
+      }
+    },
     _comment_0: new FluentComment( {"comment":"keyboard help dialog strings","associatedKey":"keyboardHelpDialog"} ),
     keyboardHelpDialog: {
       fromAnywhereInSim: {

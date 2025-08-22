@@ -70,6 +70,11 @@ type StringsType = {
     'dropItemStringProperty': LocalizedStringProperty;
   };
   'a11y': {
+    'preferences': {
+      'netForcePullerColors': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      }
+    };
     'keyboardHelpDialog': {
       'fromAnywhereInSim': {
         'startGameDescriptionStringProperty': LocalizedStringProperty;
