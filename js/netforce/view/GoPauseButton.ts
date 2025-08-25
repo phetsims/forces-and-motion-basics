@@ -77,7 +77,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     super( model.isRunningProperty, pauseText, goText, options );
 
     model.isRunningProperty.link( isRunning => {
-      this.baseColor = isRunning ? '#df1a22' : '#94b830';
+      this.baseColor = isRunning ? '#ff5500' : '#94b830';
 
       // Add accessible context response when Go is pressed
       if ( isRunning ) {
