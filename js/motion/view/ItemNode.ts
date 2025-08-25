@@ -241,8 +241,7 @@ export default class ItemNode extends Node {
       end: () => {
         // Reset mode based on where the item ends up (let setupModeCalculation handle it)
         // We'll temporarily set to a non-grabbed state to trigger the update
-        const toolboxSide = item.getToolboxSide();
-        item.modeProperty.value = toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+        item.modeProperty.value = 'inToolbox';
 
         //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
@@ -470,8 +469,7 @@ export default class ItemNode extends Node {
     if ( this.item.userControlledProperty.get() && this.originalPosition ) {
 
       // Cancel interaction and return to original position
-      const toolboxSide = this.item.getToolboxSide();
-      this.item.modeProperty.value = toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+      this.item.modeProperty.value = 'inToolbox';
       this.item.positionProperty.value = this.originalPosition;
 
       // Restore original stack state
@@ -534,8 +532,7 @@ export default class ItemNode extends Node {
       // Drop the item at current position
 
       // Reset mode to a non-grabbed state to trigger proper mode calculation
-      const toolboxSide = this.item.getToolboxSide();
-      this.item.modeProperty.value = toolboxSide === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+      this.item.modeProperty.value = 'inToolbox';
 
       // Determine drop location based on current position
       const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();

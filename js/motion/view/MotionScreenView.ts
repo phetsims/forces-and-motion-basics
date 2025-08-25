@@ -524,7 +524,7 @@ export default class MotionScreenView extends ScreenView {
             itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
           }
         }
-        else if ( mode === 'inLeftToolbox' || mode === 'inRightToolbox' ) {
+        else if ( mode === 'inToolbox' ) {
           // Item moved to toolbox - ensure it's in toolbox group and not in stack group
           // Remove from stack group if it's there
           if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {

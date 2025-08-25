@@ -7,8 +7,7 @@
  */
 
 export const InteractionModes = [
-  'inLeftToolbox',
-  'inRightToolbox',
+  'inToolbox',
   'onStack',
   'mouseGrabbed',
   'keyboardGrabbedFromToolbox',

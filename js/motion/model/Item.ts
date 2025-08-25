@@ -151,7 +151,7 @@ export default class Item extends PhetioObject {
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
     // Initialize mode property first - start in appropriate toolbox based on item type
-    const initialMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+    const initialMode = 'inToolbox';
     this.modeProperty = new StringUnionProperty<InteractionMode>( initialMode, {
       validValues: InteractionModes,
       tandem: tandem.createTandem( 'modeProperty' ),
@@ -236,7 +236,7 @@ export default class Item extends PhetioObject {
         }
         else {
           // Fallback - shouldn't happen but be safe
-          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+          newMode = 'inToolbox';
         }
       }
       else if ( inStack ) {
@@ -251,7 +251,7 @@ export default class Item extends PhetioObject {
                           currentMode === 'keyboardGrabbedFromStack';
 
         if ( !isGrabbed ) {
-          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+          newMode = 'inToolbox';
         }
         else {
           // Keep the current grabbed state
