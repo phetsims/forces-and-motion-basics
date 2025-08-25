@@ -159,13 +159,13 @@
     "keyboardHelpDialog": {
       "fromAnywhereInSim": {
         "startGameDescription": {
-          "value": "Start tug-of-war game with { $altOrOptionKey } plus G."
+          "value": "Start tug-of-war game with { $altOrOptionKey } plus G key."
         },
         "pauseGameDescription": {
-          "value": "Pause tug-of-war game with { $altOrOptionKey } plus P."
+          "value": "Pause tug-of-war game with { $altOrOptionKey } plus P key."
         },
         "returnCartToCenterDescription": {
-          "value": "Return cart to center with { $altOrOptionKey } plus B."
+          "value": "Return cart to center with { $altOrOptionKey } plus B key."
         }
       },
       "pullerNavigation": {

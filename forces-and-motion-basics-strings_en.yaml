@@ -58,9 +58,9 @@ a11y:
       accessibleHelpText: Select team colors for tug-of-war game.
   keyboardHelpDialog:
     fromAnywhereInSim:
-      startGameDescription:          Start tug-of-war game with { $altOrOptionKey } plus G.
-      pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P.
-      returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus B.
+      startGameDescription:          Start tug-of-war game with { $altOrOptionKey } plus G key.
+      pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P key.
+      returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus B key.
     pullerNavigation:
       selectPullerDescription:      Select puller with Left and Right Arrow keys.
       grabPullerDescription:        Grab selected puller with Space or Enter keys.
