@@ -19,7 +19,7 @@ export default class KnotHighlightNode extends Path {
   public constructor( knot: Knot ) {
 
     super( Shape.circle( 0, 0, knotWidth ), {
-      stroke: '#FFFF00',
+      stroke: '#000000',
       lineWidth: 4,
       visibleProperty: knot.isHighlightedProperty,
       x: knot.positionProperty.get(),
