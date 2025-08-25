@@ -23,7 +23,7 @@ export default class AccelerometerNode extends Node {
     const height = 15;
     const barWidth = 170;
     const barSideInset = 7;
-    const gradient = new LinearGradient( 0, 4, 0, height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb( 207, 208, 210 )' );
+    const gradient = new LinearGradient( 0, 4, 0, height ).addColorStop( 0, 'white' ).addColorStop( 1, 'rgb( 230, 230, 230 )' );
     const background = new Rectangle( 0 - barSideInset, 0, barWidth + barSideInset * 2, height, 10, 10, { fill: gradient } );
 
     this.addChild( background );
