@@ -109,10 +109,10 @@
       "value": "From Anywhere in Screen"
     },
     "startGame": {
-      "value": "Start game"
+      "value": "Start tug-of-war game"
     },
     "pauseGame": {
-      "value": "Pause game"
+      "value": "Pause tug-of-war game"
     },
     "returnCartToCenter": {
       "value": "Return cart to center"

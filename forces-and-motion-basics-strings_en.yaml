@@ -37,8 +37,8 @@ orangeWins:                            Orange Wins!
 # keyboard help dialog strings
 keyboardHelpDialog:
   fromAnywhereInSim:  From Anywhere in Screen
-  startGame:          Start game
-  pauseGame:          Pause game
+  startGame:          Start tug-of-war game
+  pauseGame:          Pause tug-of-war game
   returnCartToCenter: Return cart to center
   pullerNavigation:   Puller Navigation
   selectPuller:       Select puller
