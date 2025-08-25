@@ -47,7 +47,7 @@ export default class AccelerometerNode extends Node {
 
     //Show the knob, which just covers the edge of the bar
     const knobThickness = 1;
-    const knob = new Rectangle( barWidth / 2, 0, knobThickness, height, { fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(248,194,216)' ).addColorStop( 1, 'rgb(154,105,127)' ) } );
+    const knob = new Rectangle( barWidth / 2, 0, knobThickness, height, { fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(242,141,181)' ).addColorStop( 1, 'rgb(121,83,101)' ) } );
     accelerationProperty.link( acceleration => {
       const scaled = acceleration * scale;
       knob.setRect( barWidth / 2 + scaled - knobThickness / 2, 0, knobThickness, height );
