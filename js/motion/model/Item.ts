@@ -25,6 +25,7 @@ import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
+import InteractionMode, { InteractionModes } from './InteractionMode.js';
 import MotionModel from './MotionModel.js';
 
 type AnimationState = {
@@ -34,19 +35,6 @@ type AnimationState = {
   end?: null | ( () => void );
   destination?: 'home' | 'stack';
 };
-
-// Unified mode representing the complete state of an item
-export type ItemMode =
-  | 'inLeftToolbox'        // Item is resting in the left toolbox
-  | 'inRightToolbox'       // Item is resting in the right toolbox  
-  | 'onStack'              // Item is resting on the skateboard stack
-  | 'mouseGrabbed'         // Item is being dragged with mouse
-  | 'keyboardGrabbedFromLeftToolbox'   // Item grabbed from left toolbox via keyboard
-  | 'keyboardGrabbedFromRightToolbox'  // Item grabbed from right toolbox via keyboard
-  | 'keyboardGrabbedFromStack'         // Item grabbed from stack via keyboard
-  | 'animatingToLeftToolbox'   // Item is animating back to left toolbox
-  | 'animatingToRightToolbox'  // Item is animating back to right toolbox
-  | 'animatingToStack';        // Item is animating to stack
 
 export default class Item extends PhetioObject {
   public readonly name: string;
@@ -75,7 +63,7 @@ export default class Item extends PhetioObject {
   public readonly inStackProperty: BooleanProperty;
 
   // Unified mode property representing the complete state of the item
-  public readonly modeProperty: StringUnionProperty<ItemMode>;
+  public readonly modeProperty: StringUnionProperty<InteractionMode>;
 
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
   public readonly imageScale: number;
@@ -164,12 +152,8 @@ export default class Item extends PhetioObject {
 
     // Initialize mode property first - start in appropriate toolbox based on item type
     const initialMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
-    this.modeProperty = new StringUnionProperty<ItemMode>( initialMode, {
-      validValues: [
-        'inLeftToolbox', 'inRightToolbox', 'onStack',
-        'mouseGrabbed', 'keyboardGrabbedFromLeftToolbox', 'keyboardGrabbedFromRightToolbox', 'keyboardGrabbedFromStack',
-        'animatingToLeftToolbox', 'animatingToRightToolbox', 'animatingToStack'
-      ],
+    this.modeProperty = new StringUnionProperty<InteractionMode>( initialMode, {
+      validValues: InteractionModes,
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
@@ -177,11 +161,11 @@ export default class Item extends PhetioObject {
     } );
 
     // userControlledProperty is now derived from modeProperty
-    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: ItemMode ) => {
+    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: InteractionMode ) => {
+
       // Item is user controlled if it's grabbed by mouse or keyboard
       return mode === 'mouseGrabbed' ||
-             mode === 'keyboardGrabbedFromLeftToolbox' ||
-             mode === 'keyboardGrabbedFromRightToolbox' ||
+             mode === 'keyboardGrabbedFromToolbox' ||
              mode === 'keyboardGrabbedFromStack';
     } );
 
@@ -240,7 +224,7 @@ export default class Item extends PhetioObject {
       const animatingToStack = animating && this.animationStateProperty.get().destination === 'stack';
       const animatingToHome = animating && this.animationStateProperty.get().destination === 'home';
 
-      let newMode: ItemMode;
+      let newMode: InteractionMode;
 
       if ( animating ) {
         if ( animatingToStack ) {
@@ -248,7 +232,7 @@ export default class Item extends PhetioObject {
         }
         else if ( animatingToHome ) {
           // Determine which toolbox based on item type
-          newMode = this.getToolboxSide() === 'left' ? 'animatingToLeftToolbox' : 'animatingToRightToolbox';
+          newMode = 'animatingToToolbox';
         }
         else {
           // Fallback - shouldn't happen but be safe
@@ -263,8 +247,7 @@ export default class Item extends PhetioObject {
         // Keep current mode if it's a grabbed state - only update if it's not
         const currentMode = this.modeProperty.get();
         const isGrabbed = currentMode === 'mouseGrabbed' ||
-                          currentMode === 'keyboardGrabbedFromLeftToolbox' ||
-                          currentMode === 'keyboardGrabbedFromRightToolbox' ||
+                          currentMode === 'keyboardGrabbedFromToolbox' ||
                           currentMode === 'keyboardGrabbedFromStack';
 
         if ( !isGrabbed ) {
@@ -343,11 +326,8 @@ export default class Item extends PhetioObject {
    * Manually set the mode to a keyboard-grabbed state (called from view layer)
    */
   public setKeyboardGrabbedMode( fromLocation: 'leftToolbox' | 'rightToolbox' | 'stack' ): void {
-    if ( fromLocation === 'leftToolbox' ) {
-      this.modeProperty.value = 'keyboardGrabbedFromLeftToolbox';
-    }
-    else if ( fromLocation === 'rightToolbox' ) {
-      this.modeProperty.value = 'keyboardGrabbedFromRightToolbox';
+    if ( fromLocation === 'leftToolbox' || fromLocation === 'rightToolbox' ) {
+      this.modeProperty.value = 'keyboardGrabbedFromToolbox';
     }
     else {
       this.modeProperty.value = 'keyboardGrabbedFromStack';
@@ -360,8 +340,7 @@ export default class Item extends PhetioObject {
   public isGrabbed(): boolean {
     const mode = this.modeProperty.get();
     return mode === 'mouseGrabbed' ||
-           mode === 'keyboardGrabbedFromLeftToolbox' ||
-           mode === 'keyboardGrabbedFromRightToolbox' ||
+           mode === 'keyboardGrabbedFromToolbox' ||
            mode === 'keyboardGrabbedFromStack';
   }
 
@@ -370,9 +349,7 @@ export default class Item extends PhetioObject {
    */
   public isAnimating(): boolean {
     const mode = this.modeProperty.get();
-    return mode === 'animatingToLeftToolbox' ||
-           mode === 'animatingToRightToolbox' ||
-           mode === 'animatingToStack';
+    return mode === 'animatingToToolbox' || mode === 'animatingToStack';
   }
 
   /**
