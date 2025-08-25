@@ -151,8 +151,7 @@ export default class Item extends PhetioObject {
     this.pusherInsetProperty = new Property( pusherInset || 0 );
 
     // Initialize mode property first - start in appropriate toolbox based on item type
-    const initialMode = 'inToolbox';
-    this.modeProperty = new StringUnionProperty<InteractionMode>( initialMode, {
+    this.modeProperty = new StringUnionProperty<InteractionMode>( 'inToolbox', {
       validValues: InteractionModes,
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioReadOnly: true,
@@ -160,8 +159,7 @@ export default class Item extends PhetioObject {
       phetioDocumentation: 'Unified state representing the current mode and location of the item'
     } );
 
-    // userControlledProperty is now derived from modeProperty
-    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: InteractionMode ) => {
+    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], mode => {
 
       // Item is user controlled if it's grabbed by mouse or keyboard
       return mode === 'mouseGrabbed' ||
@@ -218,6 +216,7 @@ export default class Item extends PhetioObject {
       }
     } );
 
+    // TODO: Review this method. Should it be more precise or multilink? https://github.com/phetsims/forces-and-motion-basics/issues/398
     const updateMode = () => {
       const inStack = this.inStackProperty.get();
       const animating = this.animationStateProperty.get().enabled;
@@ -313,13 +312,8 @@ export default class Item extends PhetioObject {
    * Get which toolbox side this item belongs to based on its type
    */
   public getToolboxSide(): 'left' | 'right' {
-    // The fridge and the crates both go in the left toolbox
-    if ( this.name === 'fridge' || this.name === 'crate1' || this.name === 'crate2' ) {
-      return 'left';
-    }
-    else {
-      return 'right';
-    }
+    const leftToolboxItems = [ 'fridge', 'crate1', 'crate2' ];
+    return leftToolboxItems.includes( this.name ) ? 'left' : 'right';
   }
 
   /**
@@ -358,7 +352,6 @@ export default class Item extends PhetioObject {
   public reset(): void {
     this.positionProperty.reset();
     this.pusherInsetProperty.reset();
-    // userControlledProperty is derived from modeProperty, so no need to reset it
     this.directionProperty.reset();
     this.animationStateProperty.reset();
     this.inStackProperty.reset();
