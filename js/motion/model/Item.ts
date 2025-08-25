@@ -102,7 +102,7 @@ export default class Item extends PhetioObject {
    * @param pusherInset - inset value to align the item with the pusher's hands
    * @param sittingImage - image from the 'image!' plugin, representing a 'sitting' item
    * @param holdingImage - image from the 'image!' plugin, representing a 'sitting' item
-   * @param mystery      [description]
+   * @param mystery
    */
   public constructor(
     public readonly context: MotionModel, name: string | HumanTypeEnum, tandem: Tandem,
@@ -234,8 +234,54 @@ export default class Item extends PhetioObject {
       }
     } );
 
-    // Set up automatic mode calculation based on existing properties
-    this.setupModeCalculation();
+    const updateMode = () => {
+      const inStack = this.inStackProperty.get();
+      const animating = this.animationStateProperty.get().enabled;
+      const animatingToStack = animating && this.animationStateProperty.get().destination === 'stack';
+      const animatingToHome = animating && this.animationStateProperty.get().destination === 'home';
+
+      let newMode: ItemMode;
+
+      if ( animating ) {
+        if ( animatingToStack ) {
+          newMode = 'animatingToStack';
+        }
+        else if ( animatingToHome ) {
+          // Determine which toolbox based on item type
+          newMode = this.getToolboxSide() === 'left' ? 'animatingToLeftToolbox' : 'animatingToRightToolbox';
+        }
+        else {
+          // Fallback - shouldn't happen but be safe
+          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+        }
+      }
+      else if ( inStack ) {
+        newMode = 'onStack';
+      }
+      else {
+        // Item is at rest in toolbox (when not animating and not in stack)
+        // Keep current mode if it's a grabbed state - only update if it's not
+        const currentMode = this.modeProperty.get();
+        const isGrabbed = currentMode === 'mouseGrabbed' ||
+                          currentMode === 'keyboardGrabbedFromLeftToolbox' ||
+                          currentMode === 'keyboardGrabbedFromRightToolbox' ||
+                          currentMode === 'keyboardGrabbedFromStack';
+
+        if ( !isGrabbed ) {
+          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
+        }
+        else {
+          // Keep the current grabbed state
+          newMode = currentMode;
+        }
+      }
+
+      this.modeProperty.value = newMode;
+    };
+
+    // Listen to all relevant property changes (not userControlledProperty since it's derived from modeProperty)
+    this.inStackProperty.link( updateMode );
+    this.animationStateProperty.link( updateMode );
   }
 
   // Return true if the arms should be up (for a human)
@@ -294,60 +340,6 @@ export default class Item extends PhetioObject {
   }
 
   /**
-   * Set up automatic mode calculation based on changes to existing properties
-   */
-  private setupModeCalculation(): void {
-    const updateMode = () => {
-      const inStack = this.inStackProperty.get();
-      const animating = this.animationStateProperty.get().enabled;
-      const animatingToStack = animating && this.animationStateProperty.get().destination === 'stack';
-      const animatingToHome = animating && this.animationStateProperty.get().destination === 'home';
-
-      let newMode: ItemMode;
-
-      if ( animating ) {
-        if ( animatingToStack ) {
-          newMode = 'animatingToStack';
-        }
-        else if ( animatingToHome ) {
-          // Determine which toolbox based on item type
-          newMode = this.getToolboxSide() === 'left' ? 'animatingToLeftToolbox' : 'animatingToRightToolbox';
-        }
-        else {
-          // Fallback - shouldn't happen but be safe
-          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
-        }
-      }
-      else if ( inStack ) {
-        newMode = 'onStack';
-      }
-      else {
-        // Item is at rest in toolbox (when not animating and not in stack)
-        // Keep current mode if it's a grabbed state - only update if it's not
-        const currentMode = this.modeProperty.get();
-        const isGrabbed = currentMode === 'mouseGrabbed' ||
-                          currentMode === 'keyboardGrabbedFromLeftToolbox' ||
-                          currentMode === 'keyboardGrabbedFromRightToolbox' ||
-                          currentMode === 'keyboardGrabbedFromStack';
-
-        if ( !isGrabbed ) {
-          newMode = this.getToolboxSide() === 'left' ? 'inLeftToolbox' : 'inRightToolbox';
-        }
-        else {
-          // Keep the current grabbed state
-          newMode = currentMode;
-        }
-      }
-
-      this.modeProperty.value = newMode;
-    };
-
-    // Listen to all relevant property changes (not userControlledProperty since it's derived from modeProperty)
-    this.inStackProperty.link( updateMode );
-    this.animationStateProperty.link( updateMode );
-  }
-
-  /**
    * Manually set the mode to a keyboard-grabbed state (called from view layer)
    */
   public setKeyboardGrabbedMode( fromLocation: 'leftToolbox' | 'rightToolbox' | 'stack' ): void {
@@ -360,14 +352,6 @@ export default class Item extends PhetioObject {
     else {
       this.modeProperty.value = 'keyboardGrabbedFromStack';
     }
-  }
-
-  /**
-   * Convenience method to check if item is in any toolbox
-   */
-  public isInToolbox(): boolean {
-    const mode = this.modeProperty.get();
-    return mode === 'inLeftToolbox' || mode === 'inRightToolbox';
   }
 
   /**

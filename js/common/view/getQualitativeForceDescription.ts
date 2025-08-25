@@ -8,7 +8,6 @@
  */
 
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 /**
  * Returns a qualitative description string for a force magnitude.
@@ -16,7 +15,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
  * @param magnitude - The absolute value of the force
  * @returns A qualitative description string (e.g., "small", "medium", "large")
  */
-function getQualitativeForceDescription( magnitude: number ): string {
+export default function getQualitativeForceDescription( magnitude: number ): string {
   if ( magnitude < 75 ) {
     return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.smallStringProperty.value;
   }
@@ -39,7 +38,3 @@ function getQualitativeForceDescription( magnitude: number ): string {
     return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty.value;
   }
 }
-
-forcesAndMotionBasics.register( 'getQualitativeForceDescription', getQualitativeForceDescription );
-
-export default getQualitativeForceDescription;
