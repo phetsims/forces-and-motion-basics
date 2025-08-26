@@ -200,60 +200,105 @@ export default class MotionControlPanel extends Node {
       Multilink.multilinkAny( stringProperties, () => { checkboxes.centerX = checkboxesCenterX; } );
     };
 
-    // Create controls for the 'motion' screen
-    const createMotionControls = () => {
+    // Helper function to create common checkbox items
+    const createCommonCheckboxItems = ( includeForces: boolean, includeSumOfForces: boolean, includeAcceleration: boolean ) => {
+      const items = [];
 
-      // container node for checkboxes
-      const containerNode = new VBox( {
-        spacing: VBOX_SPACING
+      // Force/Forces checkbox (different labels for motion vs friction/acceleration screens)
+      if ( includeForces ) {
+        items.push( {
+          createNode: () => createLabel( model.screen === 'motion' ? forceStringProperty : forcesStringProperty, { icon: createArrowIcon() } ),
+          property: model.showForceProperty,
+          tandemName: model.screen === 'motion' ? 'forceCheckbox' : 'forcesCheckbox',
+          options: {
+            accessibleName: model.screen === 'motion' ?
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty :
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty,
+            accessibleHelpText: model.screen === 'motion' ?
+                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty :
+                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty,
+            accessibleContextResponseChecked: model.screen === 'motion' ?
+                                              ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty :
+                                              ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty,
+            accessibleContextResponseUnchecked: model.screen === 'motion' ?
+                                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty :
+                                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty
+          }
+        } );
+      }
+
+      // Sum of Forces checkbox (only for friction and acceleration screens)
+      if ( includeSumOfForces ) {
+        items.push( {
+          createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
+          property: model.showSumOfForcesProperty,
+          tandemName: 'sumOfForcesCheckbox',
+          options: {
+            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty,
+            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty,
+            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
+            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
+          }
+        } );
+      }
+
+      // Values checkbox (common to all screens)
+      items.push( {
+        createNode: () => createLabel( valuesStringProperty ),
+        property: model.showValuesProperty,
+        tandemName: 'valuesCheckbox',
+        options: {
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty,
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty,
+          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty,
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty
+        }
       } );
 
-      const items = [
-        {
-          createNode: () => createLabel( forceStringProperty, { icon: createArrowIcon() } ),
-          property: model.showForceProperty,
-          tandemName: 'forceCheckbox',
+      // Masses checkbox (common to all screens)
+      items.push( {
+        createNode: () => createLabel( massesStringProperty ),
+        property: model.showMassesProperty,
+        tandemName: 'massesCheckbox',
+        options: {
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty,
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty,
+          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty,
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty
+        }
+      } );
+
+      // Speed checkbox (common to all screens)
+      items.push( {
+        createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
+        property: model.showSpeedProperty,
+        tandemName: 'speedCheckbox',
+        options: {
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty,
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty,
+          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty,
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty
+        }
+      } );
+
+      // Acceleration checkbox (only for acceleration screen)
+      if ( includeAcceleration ) {
+        items.push( {
+          createNode: () => createLabel( accelerationStringProperty, { icon: accelerometerIcon() } ),
+          property: model.showAccelerationProperty,
+          tandemName: 'accelerationCheckbox',
           options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty
+            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty,
+            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty,
+            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty,
+            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty
           }
-        },
-        {
-          createNode: () => createLabel( valuesStringProperty ),
-          property: model.showValuesProperty,
-          tandemName: 'valuesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( massesStringProperty ),
-          property: model.showMassesProperty,
-          tandemName: 'massesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
-          property: model.showSpeedProperty,
-          tandemName: 'speedCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
+        } );
+      }
+
+      // Stopwatch checkbox (common to all screens) - always last except for acceleration screen
+      if ( !includeAcceleration ) {
+        items.push( {
           createNode: () => createLabel( stopwatchStringProperty, { icon: createStopwatchIcon() } ),
           property: model.stopwatch.isVisibleProperty,
           tandemName: 'stopwatchCheckbox',
@@ -263,8 +308,22 @@ export default class MotionControlPanel extends Node {
             accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty,
             accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty
           }
-        }
-      ];
+        } );
+      }
+
+      return items;
+    };
+
+    // Create controls for the 'motion' screen
+    const createMotionControls = () => {
+
+      // container node for checkboxes
+      const containerNode = new VBox( {
+        spacing: VBOX_SPACING
+      } );
+
+      // Motion screen: includes force, no sum of forces, no acceleration
+      const items = createCommonCheckboxItems( true, false, false );
 
       // create the checkboxes
       const checkboxGroup = new VerticalCheckboxGroup( items, {
@@ -290,74 +349,8 @@ export default class MotionControlPanel extends Node {
         spacing: VBOX_SPACING
       } );
 
-      const items = [
-        {
-          createNode: () => createLabel( forcesStringProperty, { icon: createArrowIcon() } ),
-          property: model.showForceProperty,
-          tandemName: 'forcesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
-          property: model.showSumOfForcesProperty,
-          tandemName: 'sumOfForcesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( valuesStringProperty ),
-          property: model.showValuesProperty,
-          tandemName: 'valuesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( massesStringProperty ),
-          property: model.showMassesProperty,
-          tandemName: 'massesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
-          property: model.showSpeedProperty,
-          tandemName: 'speedCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( stopwatchStringProperty, { icon: createStopwatchIcon() } ),
-          property: model.stopwatch.isVisibleProperty,
-          tandemName: 'stopwatchCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty
-          }
-        }
-      ];
+      // Friction screen: includes forces, sum of forces, no acceleration
+      const items = createCommonCheckboxItems( true, true, false );
 
       // create the checkboxes
       const checkboxGroup = new VerticalCheckboxGroup( items, {
@@ -385,74 +378,8 @@ export default class MotionControlPanel extends Node {
         spacing: VBOX_SPACING
       } );
 
-      const items = [
-        {
-          createNode: () => createLabel( forcesStringProperty, { icon: createArrowIcon() } ),
-          property: model.showForceProperty,
-          tandemName: 'forcesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( sumOfForcesStringProperty, {}, SUM_OF_FORCES_MAX_WIDTH ),
-          property: model.showSumOfForcesProperty,
-          tandemName: 'sumOfForcesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( valuesStringProperty ),
-          property: model.showValuesProperty,
-          tandemName: 'valuesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( massesStringProperty ),
-          property: model.showMassesProperty,
-          tandemName: 'massesCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( speedStringProperty, { icon: speedometerIcon() } ),
-          property: model.showSpeedProperty,
-          tandemName: 'speedCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty
-          }
-        },
-        {
-          createNode: () => createLabel( accelerationStringProperty, { icon: accelerometerIcon() } ),
-          property: model.showAccelerationProperty,
-          tandemName: 'accelerationCheckbox',
-          options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty
-          }
-        }
-      ];
+      // Acceleration screen: includes forces, sum of forces, and acceleration (no stopwatch)
+      const items = createCommonCheckboxItems( true, true, true );
 
       const checkboxGroup = new VerticalCheckboxGroup( items, {
         tandem: tandem.createTandem( 'checkboxGroup' ),
