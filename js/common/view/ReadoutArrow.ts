@@ -41,6 +41,7 @@ export default class ReadoutArrow extends Node {
   private readonly arrowNode: Path;
   private readonly valueBackgroundRectangle: Rectangle;
   private readonly valueNode: Node;
+  private readonly labelBackgroundRectangle: Rectangle;
   private readonly labelNode: Text;
 
   // if the arrow overlaps another, we change the layout of the arrow labels so none of the text overlaps each other
@@ -100,16 +101,16 @@ export default class ReadoutArrow extends Node {
       { formatNames: [ 'value' ] } );
     const valueText = new Text( valueTextPatternStringProperty, fontOptions );
     const roundedRadius = 8;
-    this.valueBackgroundRectangle = new Rectangle( 0, 0, valueText.width + roundedRadius, 0.7 * valueText.height + roundedRadius, roundedRadius, roundedRadius, {
-      fill: 'white',
-      opacity: 0.5
-    } ).mutate( { centerX: valueText.centerX, centerY: valueText.centerY } );
+    this.valueBackgroundRectangle = this.createBackgroundRectangle( valueText, roundedRadius );
     this.valueNode = new Node( {
       children: [ this.valueBackgroundRectangle, valueText ]
     } );
     this.labelNode = new Text( label, fontOptions );
+    this.labelBackgroundRectangle = this.createBackgroundRectangle( this.labelNode, roundedRadius );
+    this.labelBackgroundRectangle.visible = false;
     this.addChild( this.arrowNode );
     this.addChild( this.valueNode );
+    this.addChild( this.labelBackgroundRectangle );
     this.addChild( this.labelNode );
 
     if ( this.labelPositionOption === 'top' ) {
@@ -120,12 +121,19 @@ export default class ReadoutArrow extends Node {
       } );
     }
 
-    // Update background rectangle when the value text changes
+    // Update background rectangles when text changes
     const updateValueBackgroundRectangleWidth = () => { this.valueBackgroundRectangle.setRectWidth( valueText.width + roundedRadius ); };
+    const updateLabelBackgroundRectangleWidth = () => { this.labelBackgroundRectangle.setRectWidth( this.labelNode.width + roundedRadius ); };
 
-    // Update background rectangle width and label positions to readout arrow with dynamic locale.
+    // Update background rectangle widths and positions with dynamic locale.
     valueTextPatternStringProperty.lazyLink( () => {
       updateValueBackgroundRectangleWidth();
+      this.update();
+    } );
+
+    // Update label background rectangle when label text changes
+    label.lazyLink( () => {
+      updateLabelBackgroundRectangleWidth();
       this.update();
     } );
 
@@ -144,6 +152,14 @@ export default class ReadoutArrow extends Node {
     showValuesProperty.link( this.update.bind( this ) );
 
     this.update();
+  }
+
+  // Helper method to create background rectangles with consistent styling
+  private createBackgroundRectangle( textNode: Text, roundedRadius: number ): Rectangle {
+    return new Rectangle( 0, 0, textNode.width + roundedRadius, 0.7 * textNode.height + roundedRadius, roundedRadius, roundedRadius, {
+      fill: 'white',
+      opacity: 0.5
+    } ).mutate( { centerX: textNode.centerX, centerY: textNode.centerY } );
   }
 
   // Sets the arrow dash, which changes when the simulation starts playing
@@ -173,7 +189,9 @@ export default class ReadoutArrow extends Node {
     this.valueBackgroundRectangle.visible = false;
 
     // The label can also be hidden with a query parameter for screenshots.
-    this.labelNode.visible = !hidden && ForcesAndMotionBasicsQueryParameters.showForceArrowLabels;
+    const labelVisible = !hidden && ForcesAndMotionBasicsQueryParameters.showForceArrowLabels;
+    this.labelNode.visible = labelVisible;
+    this.labelBackgroundRectangle.visible = labelVisible;
 
     //Only change the node if visible, for performance
     if ( !hidden ) {
@@ -196,6 +214,7 @@ export default class ReadoutArrow extends Node {
           this.labelNode.right = this.arrowNode.left - 5;
         }
         this.labelNode.centerY = this.arrowNode.centerY;
+        this.labelBackgroundRectangle.center = this.labelNode.center;
 
         this.valueNode.center = this.arrowNode.center;
 
@@ -213,6 +232,7 @@ export default class ReadoutArrow extends Node {
         if ( this.labelPositionOption === 'bottom' ) {
           this.labelNode.centerX = this.arrowNode.centerX;
           this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 10 : 0;
+          this.labelBackgroundRectangle.center = this.labelNode.center;
 
           // if the arrow overlaps another or is small, we align the value readout horizontally
           // with the arrow label.
@@ -229,6 +249,7 @@ export default class ReadoutArrow extends Node {
         else {
           this.labelNode.centerX = this.tailX;
           this.labelNode.bottom = tailY - ReadoutArrow.ARROW_HEAD_WIDTH / 2 - ReadoutArrow.ARROW_LINE_WIDTH * 2;
+          this.labelBackgroundRectangle.center = this.labelNode.center;
 
           if ( this.valueNode.width + 5 > this.arrowNode.width ) {
             this.valueBackgroundRectangle.visible = true;
