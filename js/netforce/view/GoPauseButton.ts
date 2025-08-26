@@ -108,7 +108,6 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
       }
       else {
         const position = model.cart.positionProperty.value;
-        console.log( position, ' game length', model.gameLength );
         if ( Math.abs( position ) >= model.gameLength ) {
           this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartStationaryStringProperty.value );
         }
