@@ -132,10 +132,10 @@ export default class MotionModel {
    */
   public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', tandem: Tandem ) {
 
-    //Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
+    // Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
     assert && assert( screen );
 
-    //Constants
+    // Constants
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';
     const frictionValue = screen === 'motion' ? 0 : MotionConstants.MAX_FRICTION / 2;
@@ -304,7 +304,7 @@ export default class MotionModel {
 
     this.frictionNonZeroProperty = new DerivedProperty( [ this.frictionCoefficientProperty ], friction => friction !== 0 );
 
-    //Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
+    // Zero out the applied force when the last object is removed.  Necessary to remove the force applied with the slider tweaker buttons.  See #37
     this.stackedItems.lengthProperty.link( length => { if ( length === 0 ) { this.appliedForceProperty.value = 0; } } );
 
     this.stackedItems.lengthProperty.link( length => {
@@ -354,8 +354,8 @@ export default class MotionModel {
 
     this.appliedForceProperty.link( appliedForce => {
       this.directionProperty.value = appliedForce > 0 ? 'right' :
-                                  appliedForce < 0 ? 'left' :
-                                  'none';
+                                     appliedForce < 0 ? 'left' :
+                                     'none';
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
       if ( this.fallenProperty.get() && appliedForce !== 0 ) {
@@ -363,7 +363,7 @@ export default class MotionModel {
       }
     } );
 
-    //Applied force should drop to zero if max speed reached
+    // Applied force should drop to zero if max speed reached
     this.speedClassificationProperty.link( speedClassification => {
       if ( speedClassification !== 'WITHIN_ALLOWED_RANGE' ) {
         this.appliedForceProperty.value = 0;
@@ -425,7 +425,7 @@ export default class MotionModel {
       }
     }
 
-    //If the stack is emptied, stop the motion
+    // If the stack is emptied, stop the motion
     if ( this.stackedItems.length === 0 ) {
       this.velocityProperty.value = 0;
       this.accelerationProperty.value = 0;
@@ -463,20 +463,20 @@ export default class MotionModel {
 
     const frictionForceMagnitude = Math.abs( this.frictionCoefficientProperty.get() * mass * g );
 
-    //Friction force only applies above this velocity
+    // Friction force only applies above this velocity
     const velocityThreshold = 1E-12;
 
-    //Object is motionless, friction should oppose the applied force
+    // Object is motionless, friction should oppose the applied force
     if ( Math.abs( this.velocityProperty.get() ) <= velocityThreshold ) {
 
-      //the friction is higher than the applied force, so don't allow the friction force to be higher than the applied force
+      // the friction is higher than the applied force, so don't allow the friction force to be higher than the applied force
       frictionForce = frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
 
-        //Oppose the applied force
+        // Oppose the applied force
                       -this.getSign( this.appliedForceProperty.get() ) * frictionForceMagnitude;
     }
 
-    //Object is moving, so friction should oppose the velocity
+    // Object is moving, so friction should oppose the velocity
     else {
       frictionForce = -this.getSign( this.velocityProperty.get() ) * frictionForceMagnitude * 0.75;
     }
@@ -536,14 +536,14 @@ export default class MotionModel {
 
     let newVelocity = this.velocityProperty.get() + this.accelerationProperty.get() * dt;
 
-    //friction force should not be able to make the object move backwards
-    //Also make sure velocity goes exactly to zero when the pusher is pushing so that the friction force will be correctly computed
-    //Without this logic, it was causing flickering arrows because the velocity was flipping sign and the friction force was flipping direction
+    // friction force should not be able to make the object move backwards
+    // Also make sure velocity goes exactly to zero when the pusher is pushing so that the friction force will be correctly computed
+    // Without this logic, it was causing flickering arrows because the velocity was flipping sign and the friction force was flipping direction
     if ( this.changedDirection( newVelocity, this.velocityProperty.get() ) ) {
       newVelocity = 0.0;
     }
 
-    //Cap at strobe speed.  This is necessary so that a reverse applied force will take effect immediately, without these lines of code the pusher will stutter.
+    // Cap at strobe speed.  This is necessary so that a reverse applied force will take effect immediately, without these lines of code the pusher will stutter.
     if ( newVelocity > MotionConstants.MAX_SPEED ) { newVelocity = MotionConstants.MAX_SPEED; }
     if ( newVelocity < -MotionConstants.MAX_SPEED ) { newVelocity = -MotionConstants.MAX_SPEED; }
 
@@ -552,8 +552,8 @@ export default class MotionModel {
 
     this.speedProperty.value = Math.abs( this.velocityProperty.get() );
     this.speedClassificationProperty.value = this.velocityProperty.get() >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
-                                          this.velocityProperty.get() <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
-                                          'WITHIN_ALLOWED_RANGE';
+                                             this.velocityProperty.get() <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
+                                             'WITHIN_ALLOWED_RANGE';
 
     if ( this.speedClassificationProperty.get() !== 'WITHIN_ALLOWED_RANGE' ) {
       this.timeSinceFallenProperty.value = 0;
@@ -576,7 +576,7 @@ export default class MotionModel {
       }
     }
 
-    //Stand up if applying a force in the opposite direction that you fell
+    // Stand up if applying a force in the opposite direction that you fell
     if ( this.fallenProperty.get() && this.fallenDirectionProperty.get() === 'left' && this.appliedForceProperty.get() > 0 ) {
       this.fallenProperty.value = false;
     }
@@ -588,7 +588,7 @@ export default class MotionModel {
       this.speedClassificationProperty.value = this.previousSpeedClassificationProperty.get();
     }
 
-    //Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
+    // Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
     if ( this.appliedForceProperty.get() !== 0 && this.speedClassificationProperty.get() === 'WITHIN_ALLOWED_RANGE' ) {
       this.fallenProperty.value = false;
     }
@@ -677,7 +677,7 @@ export default class MotionModel {
 
     this.stackedItems.clear();
 
-    //Move the initial crate to the play area, since it resets to the toolbox, not its initial position.
+    // Move the initial crate to the play area, since it resets to the toolbox, not its initial position.
     this.viewInitialized( this.view );
 
   }

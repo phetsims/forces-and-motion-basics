@@ -205,7 +205,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     super( standImage, options );
 
-    // this.puller.node = this; //Wire up so node can be looked up by model element.
+    // this.puller.node = this; // Wire up so node can be looked up by model element.
     this.standImage = standImage;
     this.pullImage = pullImage;
     const model = puller.model;

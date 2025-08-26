@@ -21,9 +21,9 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
-//Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
-//If the node is already the largest, don't wrap it.
-//Centers all the nodes in the parent wrappers
+// Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
+// If the node is already the largest, don't wrap it.
+// Centers all the nodes in the parent wrappers
 
 type SelfOptions = EmptySelfOptions;
 type GoPauseButtonOptions = BooleanToggleNodeOptions & SelfOptions;
@@ -118,7 +118,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
       }
     } );
 
-    //Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
+    // Show the go/pause button if any pullers are attached or if the cart got started moving, and if it hasn't already finished a match, see #61
     Multilink.multilink( [ model.isRunningProperty, model.stateProperty, model.numberPullersAttachedProperty ], () => {
       this.enabled = isGoButtonEnabled();
     } );

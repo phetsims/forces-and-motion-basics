@@ -70,7 +70,7 @@ export default class FlagNode extends Node {
       this.colorWinsStringProperty.dispose();
     };
 
-    //When the clock ticks, wave the flag
+    // When the clock ticks, wave the flag
     model.timeProperty.link( update );
 
     const textNodeAlignBox = new AlignBox( textNode, {

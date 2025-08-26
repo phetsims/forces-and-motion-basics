@@ -106,7 +106,7 @@ export default class MotionControlPanel extends Node {
       return new HBox( hBoxOptions );
     };
 
-    //Icon for the forces in the control panel
+    // Icon for the forces in the control panel
     const createArrowIcon = () => new ArrowNode( 0, 0, 40, 0, {
       headHeight: 20,
       headWidth: 20,
@@ -126,7 +126,7 @@ export default class MotionControlPanel extends Node {
 
     const createFrictionSlider = () => {
 
-      //Create the friction slider and its labels.
+      // Create the friction slider and its labels.
       // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the
       // track of the slider, but this makes it work with VBox/HBox
       const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );

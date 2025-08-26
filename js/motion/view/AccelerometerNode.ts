@@ -28,10 +28,10 @@ export default class AccelerometerNode extends Node {
 
     this.addChild( background );
 
-    //Tweaked to get 10m/s/s to line up with 1st tick.
+    // Tweaked to get 10m/s/s to line up with 1st tick.
     const scale = 4.22;
 
-    //The bar that gets bigger or smaller based on the acceleration.
+    // The bar that gets bigger or smaller based on the acceleration.
     const bar = new Rectangle( barWidth / 2, 0, 25, height, { fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(218,140,180)' ).addColorStop( 1, 'rgb(130,80,100)' ) } );
     accelerationProperty.link( acceleration => {
       const scaled = acceleration * scale;
@@ -45,7 +45,7 @@ export default class AccelerometerNode extends Node {
     } );
     this.addChild( bar );
 
-    //Show the knob, which just covers the edge of the bar
+    // Show the knob, which just covers the edge of the bar
     const knobThickness = 1;
     const knob = new Rectangle( barWidth / 2, 0, knobThickness, height, { fill: new LinearGradient( 0, 5, 0, height ).addColorStop( 0, 'rgb(242,141,181)' ).addColorStop( 1, 'rgb(121,83,101)' ) } );
     accelerationProperty.link( acceleration => {
@@ -54,10 +54,10 @@ export default class AccelerometerNode extends Node {
     } );
     this.addChild( knob );
 
-    //Outline
+    // Outline
     this.addChild( new Rectangle( 0 - barSideInset, 0, barWidth + barSideInset * 2, height, 10, 10, { stroke: 'black' } ) );
 
-    //Tick marks
+    // Tick marks
     const majorTickInset = 6;
     const minorTickInset = 7;
     const line = Shape.lineSegment;

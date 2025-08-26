@@ -32,7 +32,7 @@ import MotionModel from '../model/MotionModel.js';
 import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
 import MotionScreenView from './MotionScreenView.js';
 
-//Workaround for https://github.com/phetsims/scenery/issues/108
+// Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
 /**
@@ -168,7 +168,7 @@ export default class ItemNode extends Node {
     // keep track of the sitting image to track its width for the pusher
     this.sittingImageNode = new Image( sittingImageProperty );
 
-    //When the model changes, update the image position as well as which image is shown
+    // When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
       // var centerX = normalImageNode.centerX;
       if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.inStackProperty.get() ) ) {
@@ -194,7 +194,7 @@ export default class ItemNode extends Node {
 
     model.stackedItems.lengthProperty.link( updateImage );
 
-    //When the user drags the object, start
+    // When the user drags the object, start
     const moveToStack = () => {
       item.inStackProperty.value = true;
       const imageWidth = item.getCurrentScale() * normalImageNode.width;
@@ -212,13 +212,13 @@ export default class ItemNode extends Node {
       tandem: tandem.createTandem( 'dragListener' ),
       positionProperty: item.positionProperty,
 
-      //When picking up an object, remove it from the stack.
+      // When picking up an object, remove it from the stack.
       start: () => {
         // Track original state for keyboard escape functionality
         this.wasOriginallyOnStack = item.inStackProperty.get();
         this.originalPosition = item.positionProperty.get().copy();
 
-        //Move it to front (z-order)
+        // Move it to front (z-order)
         this.moveToFront();
 
         // move the parent toolbox to the front so that items of one toolbox are not in front of another
@@ -243,7 +243,7 @@ export default class ItemNode extends Node {
         // We'll temporarily set to a non-grabbed state to trigger the update
         item.modeProperty.value = 'inToolbox';
 
-        //If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
+        // If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
 
         if ( droppedOnStack ) {
@@ -277,7 +277,7 @@ export default class ItemNode extends Node {
       }
     } );
 
-    //Label for the mass (if it is shown)
+    // Label for the mass (if it is shown)
     // Denominator empirically determined to prevent most labels from overlapping. The second value was empirically
     // determined to prevent the label from overlapping on larger images.
     const maxWidth = Math.min( normalImageNode.width / 1.7, 70 );
@@ -313,7 +313,7 @@ export default class ItemNode extends Node {
       this.updateLabelPosition();
     } );
 
-    //Update the position of the item
+    // Update the position of the item
     item.positionProperty.link( position => this.setTranslation( position ) );
 
     // When the object is scaled or change direction, update the image part

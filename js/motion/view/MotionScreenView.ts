@@ -88,15 +88,15 @@ export default class MotionScreenView extends ScreenView {
       screenSummaryContent: new MotionScreenSummaryContent( model )
     } );
 
-    //Variables for this constructor, for convenience
+    // Variables for this constructor, for convenience
     const width = this.layoutBounds.width;
     const height = this.layoutBounds.height;
 
-    //Constants
+    // Constants
     const skyHeight = 362;
     const groundHeight = height - skyHeight;
 
-    //Create the static background
+    // Create the static background
     const skyGradient = new LinearGradient( 0, 0, 0, skyHeight ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     const sky = new Rectangle( -width, -skyHeight, width * 3, skyHeight * 2, { fill: skyGradient, pickable: false } );
 
@@ -107,7 +107,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( sky );
     this.addChild( groundNode );
 
-    //Create the dynamic (moving) background
+    // Create the dynamic (moving) background
     this.addChild( new MovingBackgroundNode( model, this.layoutBounds.width / 2 ).mutate( { layerSplit: true } ) );
 
     // The pusher should be behind the skateboard
@@ -122,7 +122,7 @@ export default class MotionScreenView extends ScreenView {
       } ) );
     }
 
-    //Add toolbox backgrounds for the objects
+    // Add toolbox backgrounds for the objects
     const boxHeight = 180;
     const showItemToolboxes = ForcesAndMotionBasicsQueryParameters.showItemToolboxes;
     const fill = showItemToolboxes ? '#e7e8e9' : null;
@@ -160,7 +160,7 @@ export default class MotionScreenView extends ScreenView {
 
     this.addChild( appliedForcePlayAreaControlNode );
 
-    //Create the speedometer.  Specify the position after construction so we can set the 'top'
+    // Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
       x: 300,
       top: 8
@@ -168,7 +168,7 @@ export default class MotionScreenView extends ScreenView {
 
     this.addChild( speedometerNode );
 
-    //Create and add the control panel
+    // Create and add the control panel
     const controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
@@ -225,7 +225,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( timeControlNode );
     this.addChild( this.resetAllButton );
 
-    //Add the accelerometer, if on the final screen
+    // Add the accelerometer, if on the final screen
     if ( model.accelerometer ) {
 
       const accelerometerNode = new AccelerometerNode( model.accelerationProperty );
@@ -297,7 +297,7 @@ export default class MotionScreenView extends ScreenView {
       }
     };
 
-    //Iterate over the items in the model and create and add nodes for each one
+    // Iterate over the items in the model and create and add nodes for each one
     const leftItemLayer = new Node();
     const rightItemLayer = new Node();
     this.itemNodes = [];
@@ -317,7 +317,7 @@ export default class MotionScreenView extends ScreenView {
 
       this.itemNodes.push( itemNode );
 
-      //Provide a reference from the item model to its view so that view dimensions can be looked up easily
+      // Provide a reference from the item model to its view so that view dimensions can be looked up easily
       this.itemModelToNodeMap.set( item, itemNode );
       // Don't add to itemLayer yet - will be added to groups
     }
@@ -338,11 +338,11 @@ export default class MotionScreenView extends ScreenView {
       itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
     } );
 
-    //Add the force arrows & associated readouts in front of the items
+    // Add the force arrows & associated readouts in front of the items
     const arrowScale = 0.3;
 
-    //Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and
-    // https://github.com/phetsims/forces-and-motion-basics/issues/74
+    // Round the forces so that the sum is correct in the display, see https:// github.com/phetsims/forces-and-motion-basics/issues/72 and
+    // https:// github.com/phetsims/forces-and-motion-basics/issues/74
     const roundedAppliedForceProperty = new DerivedProperty(
       [ model.appliedForceProperty ],
       appliedForce => Utils.roundSymmetric( appliedForce ) );
@@ -350,8 +350,8 @@ export default class MotionScreenView extends ScreenView {
       [ model.frictionForceProperty ],
       frictionForce => Utils.roundSymmetric( frictionForce ) );
 
-    //Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see
-    // https://github.com/phetsims/forces-and-motion-basics/issues/83
+    // Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see
+    // https:// github.com/phetsims/forces-and-motion-basics/issues/83
     const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
       units: 'N',
@@ -378,7 +378,7 @@ export default class MotionScreenView extends ScreenView {
       yAlign: 'top'
     } );
 
-    //If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
+    // If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
       ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( 'applied', appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, 'motion', {
@@ -426,7 +426,7 @@ export default class MotionScreenView extends ScreenView {
       } );
     } );
 
-    //Whichever arrow is smaller should be in front (in z-ordering)
+    // Whichever arrow is smaller should be in front (in z-ordering)
     const frictionLargerProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
       ( roundedAppliedForce, roundedFrictionForce ) => Math.abs( roundedFrictionForce ) > Math.abs( roundedAppliedForce ) );
     frictionLargerProperty.link( frictionLarger => {
@@ -434,7 +434,7 @@ export default class MotionScreenView extends ScreenView {
       node.moveToFront();
     } );
 
-    //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
+    // On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
     Multilink.multilink( [ model.appliedForceProperty, model.frictionForceProperty ], ( appliedForce, frictionForce ) => {
       const sameDirection = ( appliedForce < 0 && frictionForce < 0 ) || ( appliedForce > 0 && frictionForce > 0 );
       this.frictionArrow.overlapsOther = sameDirection;
@@ -449,7 +449,7 @@ export default class MotionScreenView extends ScreenView {
     model.showForceProperty.linkAttribute( this.frictionArrow, 'visible' );
     model.showSumOfForcesProperty.linkAttribute( this.sumArrow, 'visible' );
 
-    //After the view is constructed, move one of the blocks to the top of the stack.
+    // After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
 
     // Set up transfer logic for keyboard groups based on item stack state

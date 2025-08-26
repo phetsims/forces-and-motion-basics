@@ -14,10 +14,10 @@ const MotionConstants = {
   // coordinates into view pixels for translating the background ground
   POSITION_SCALE: 10,
 
-  //Coefficient of friction (Friction is unitless and not bounded between 0 and 1)
+  // Coefficient of friction (Friction is unitless and not bounded between 0 and 1)
   MAX_FRICTION: 0.5,
 
-  //Maximum speed in meters/second before the pusher falls down
+  // Maximum speed in meters/second before the pusher falls down
   MAX_SPEED: 40
 };
 

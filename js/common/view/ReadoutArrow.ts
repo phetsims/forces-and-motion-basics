@@ -74,7 +74,7 @@ export default class ReadoutArrow extends Node {
     private readonly mode: 'netforce' | 'motion',
     providedOptions: ReadoutArrowOptions ) {
 
-    //Store fields
+    // Store fields
     const options = optionize<ReadoutArrowOptions, SelfOptions, NodeOptions>()( {
       labelPosition: 'top',
       arrowScale: 1,
@@ -82,12 +82,12 @@ export default class ReadoutArrow extends Node {
       pickable: false
     }, providedOptions );
 
-    //Call the super class.  Render in svg to make the text crisper on retina display.
+    // Call the super class.  Render in svg to make the text crisper on retina display.
     super( options );
     this.labelPositionOption = options.labelPosition;
     this.arrowScale = options.arrowScale;
 
-    //Create and add the children
+    // Create and add the children
     const arrowNodeOptions = combineOptions<PathOptions>( {
       fill: fill,
       stroke: '#000000',
@@ -137,7 +137,7 @@ export default class ReadoutArrow extends Node {
       this.update();
     } );
 
-    //Update when the value changes
+    // Update when the value changes
     valueProperty.link( value => {
       this.value = value;
       updateValueBackgroundRectangleWidth();
@@ -148,7 +148,7 @@ export default class ReadoutArrow extends Node {
       this.update();
     } );
 
-    //Update when the numeric readout visibility is toggled
+    // Update when the numeric readout visibility is toggled
     showValuesProperty.link( this.update.bind( this ) );
 
     this.update();
@@ -165,7 +165,7 @@ export default class ReadoutArrow extends Node {
   // Sets the arrow dash, which changes when the simulation starts playing
   public setArrowDash( lineDash: number[] ): void { this.arrowNode.lineDash = lineDash; }
 
-  //On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
+  // On the motion screens, when the 'Friction' label overlaps the force vector it should be displaced vertically
   public set labelPosition( position: string ) {
     if ( this.labelPositionOption !== position ) {
       this.labelPositionOption = position;
@@ -173,7 +173,7 @@ export default class ReadoutArrow extends Node {
     }
   }
 
-  //Get the label position
+  // Get the label position
   public get labelPosition(): string { return this.labelPositionOption; }
 
   // Update the arrow graphics and text labels
@@ -181,7 +181,7 @@ export default class ReadoutArrow extends Node {
 
     const value = this.value * ( this.arrowScale || 1 );
 
-    //Don't show it if it is too small
+    // Don't show it if it is too small
     const hidden = Math.abs( value ) < 1E-6;
     this.hidden = hidden;
     this.arrowNode.visible = !hidden;
@@ -191,19 +191,19 @@ export default class ReadoutArrow extends Node {
     // The label can also be hidden with a query parameter for screenshots.
     const labelVisible = !hidden && ForcesAndMotionBasicsQueryParameters.showForceArrowLabels;
     this.labelNode.visible = labelVisible;
-    
+
     // Only show label background for applied and friction forces, not for sum
     const showLabelBackground = labelVisible && ( this.name === 'applied' || this.name === 'friction' );
     this.labelBackgroundRectangle.visible = showLabelBackground;
 
-    //Only change the node if visible, for performance
+    // Only change the node if visible, for performance
     if ( !hidden ) {
       const tailX = this.tailX;
       const tailY = this.tailY;
       const tailWidth = ReadoutArrow.ARROW_HEAD_HEIGHT;
       const headWidth = ReadoutArrow.ARROW_HEAD_WIDTH;
 
-      //For short arrows, the head height should be half of the arrow length.  See https://github.com/phetsims/scenery-phet/issues/30
+      // For short arrows, the head height should be half of the arrow length.  See https://github.com/phetsims/scenery-phet/issues/30
       const headHeight = Math.min( Math.abs( value ) / 2, 40 );
       this.arrowNode.shape = new ArrowShape( tailX, tailY, tailX + value, tailY,
         { tailWidth: tailWidth, headWidth: headWidth, headHeight: headHeight } );
@@ -231,7 +231,7 @@ export default class ReadoutArrow extends Node {
       else {
         this.valueNode.center = this.arrowNode.center;
 
-        //Position the value and label if the label position is on the bottom
+        // Position the value and label if the label position is on the bottom
         if ( this.labelPositionOption === 'bottom' ) {
           this.labelNode.centerX = this.arrowNode.centerX;
           this.labelNode.top = isFinite( this.arrowNode.centerY ) ? this.arrowNode.centerY + this.labelNode.height + 10 : 0;
@@ -248,7 +248,7 @@ export default class ReadoutArrow extends Node {
           }
         }
 
-        //Position the value and label if the label position is on the top
+        // Position the value and label if the label position is on the top
         else {
           this.labelNode.centerX = this.tailX;
           this.labelNode.bottom = tailY - ReadoutArrow.ARROW_HEAD_WIDTH / 2 - ReadoutArrow.ARROW_LINE_WIDTH * 2;

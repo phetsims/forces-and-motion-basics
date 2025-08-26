@@ -27,7 +27,7 @@ export default class ForcesListDescription extends Node {
 
     // Update the forces list when any relevant property changes
     const updateListener = () => this.updateForcesList();
-    
+
     this.model.leftForceProperty.link( updateListener );
     this.model.rightForceProperty.link( updateListener );
     this.model.netForceProperty.link( updateListener );
@@ -79,9 +79,9 @@ export default class ForcesListDescription extends Node {
       else {
         const description = this.getForceDescription( netForce, showValues );
         const direction = netForce > 0 ?
-          ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.rightStringProperty.value :
-          ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.leftStringProperty.value;
-        
+                          ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.rightStringProperty.value :
+                          ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.leftStringProperty.value;
+
         const sumForceProperty = ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesArrow.createProperty( {
           description: description,
           direction: direction
@@ -106,7 +106,7 @@ export default class ForcesListDescription extends Node {
    */
   private getForceDescription( force: number, showValues: boolean ): string {
     const magnitude = Math.abs( force );
-    
+
     if ( showValues ) {
       // Quantitative description with newtons using Fluent pattern
       return ForcesAndMotionBasicsFluent.a11y.forces.quantitativeDescription.createProperty( {

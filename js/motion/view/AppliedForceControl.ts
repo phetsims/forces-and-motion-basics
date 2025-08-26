@@ -25,7 +25,7 @@ const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStrin
 export default class AppliedForceControl extends VBox {
   public constructor( tandem: Tandem, maxTextWidth: number, model: MotionModel ) {
 
-    //Create the slider
+    // Create the slider
     const disableText = ( node: Text ) => ( length: number ) => {node.fill = length === 0 ? 'gray' : 'black';};
 
     const appliedForceTitle = new Text( appliedForceStringProperty, {

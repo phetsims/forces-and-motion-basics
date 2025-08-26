@@ -135,7 +135,7 @@ export default class Item extends PhetioObject {
       holdingImageProperty = HumanTypeEnum.MAN.holdingImageProperty;
     }
 
-    //Non-observable properties
+    // Non-observable properties
     this.initialX = x;
     this.initialY = y;
     this.homeScale = homeScale || 1.0;
@@ -210,7 +210,7 @@ export default class Item extends PhetioObject {
 
     this.context.directionProperty.link( direction => {
 
-      //only change directions if on the board, and always choose one of left/right, and only for people
+      // only change directions if on the board, and always choose one of left/right, and only for people
       if ( this.inStackProperty.get() && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
         this.directionProperty.value = direction;
       }
@@ -288,7 +288,7 @@ export default class Item extends PhetioObject {
   // Animate the item to its original position
   public animateHome(): void {
 
-    //Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
+    // Make the characters face their original direction so that they won't be displaced within the toolbox, see #16
     this.directionProperty.value = 'left';
     this.animateTo( this.initialX, this.initialY, 'home' );
   }
@@ -371,14 +371,14 @@ export default class Item extends PhetioObject {
     if ( this.animationStateProperty.get().enabled ) {
       const destination = new Vector2( this.animationStateProperty.get().x, this.animationStateProperty.get().y );
 
-      //Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
+      // Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
       const blendAmount = Utils.clamp( 15 * dt, 0.1, 0.9 );
       this.positionProperty.value = this.positionProperty.get().blend( destination, blendAmount );
 
       const distanceToTarget = this.positionProperty.get().distance( destination );
       if ( distanceToTarget < 1 && ( this.interactionScaleProperty.get() === 1.3 || this.interactionScaleProperty.get() === this.homeScale ) ) {
 
-        //Snap to exact final destination, see #59
+        // Snap to exact final destination, see #59
         this.positionProperty.value = destination;
         if ( this.animationStateProperty.get().end ) {
           this.animationStateProperty.get().end!();

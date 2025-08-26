@@ -21,8 +21,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 
-const NUMBER_OF_DIVISIONS = 10; //e.g. divide the ruler into 1/8ths
-const NUMBER_OF_TICKS = NUMBER_OF_DIVISIONS + 1; //ticks on the end
+const NUMBER_OF_DIVISIONS = 10; // e.g. divide the ruler into 1/8ths
+const NUMBER_OF_TICKS = NUMBER_OF_DIVISIONS + 1; // ticks on the end
 
 export default class AppliedForceSlider extends HSlider {
 
@@ -107,14 +107,14 @@ export default class AppliedForceSlider extends HSlider {
       this.enabledProperty.value = enabled;
     } );
 
-    //Add ticks at regular intervals in 8 divisions
+    // Add ticks at regular intervals in 8 divisions
     const initialTickValue = range.min;
 
-    //Constants and functions for creating the ticks
+    // Constants and functions for creating the ticks
     const delta = ( range.max - range.min ) / NUMBER_OF_DIVISIONS;
     const isMajor = ( tickIndex: number ) => ( tickIndex % 5 === 0 );
 
-    //Generate each of the ticks and add to the parent
+    // Generate each of the ticks and add to the parent
     _.times( NUMBER_OF_TICKS, i => {
 
       const position = initialTickValue + i * delta;

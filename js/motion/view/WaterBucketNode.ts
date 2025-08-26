@@ -57,10 +57,10 @@ export default class WaterBucketNode extends ItemNode {
     this.addChild( waterPathNode );
     waterPathNode.moveToBack();
 
-    //Keep track of the history to show a momentum-based "sloshing" effect
+    // Keep track of the history to show a momentum-based "sloshing" effect
     const history: number[] = [];
 
-    //Metrics based on original image size of 98 pixels wide.
+    // Metrics based on original image size of 98 pixels wide.
     const padX = 4.5;
     const padY = 9;
 
@@ -73,11 +73,11 @@ export default class WaterBucketNode extends ItemNode {
     const rightLineX = ( x: number ) => linear( 1, 0, ( 87 - padX ) * s, ( 96 - padX ) * s, x );
     const rightLineY = ( x: number ) => linear( 1, 0, ( 102 - padY ) * s, ( 9 - padY ) * s, x );
 
-    const min = 0.5; //Water level when acceleration = 0
+    const min = 0.5; // Water level when acceleration = 0
 
-    //When the model steps in time, update the water shape
-    //The delta value is the critical value in determining the water shape.
-    //Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
+    // When the model steps in time, update the water shape
+    // The delta value is the critical value in determining the water shape.
+    // Compute it separately as a guard against reshaping the water bucket node when the shape hasn't really changed
     const deltaProperty = new DerivedProperty( [ model.timeProperty, item.userControlledProperty, model.accelerationProperty ], ( time, userControlled, acceleration ) => {
 
       // if the bucket is being dragged, we want delta to be zero, regardless of
@@ -88,7 +88,7 @@ export default class WaterBucketNode extends ItemNode {
 
       history.push( acceleration );
       while ( history.length > 7 ) {
-        history.shift();//remove front item
+        history.shift();// remove front item
       }
 
       let sum = 0;
@@ -100,7 +100,7 @@ export default class WaterBucketNode extends ItemNode {
       return model.isInStack( item ) ? -composite / 50 : 0;
     } );
 
-    //When the shape has really changed, update the water node
+    // When the shape has really changed, update the water node
     deltaProperty.link( delta => {
 
       const path = new Shape();

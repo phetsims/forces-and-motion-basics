@@ -46,7 +46,7 @@ export default class MovingBackgroundNode extends Node {
 
     const L = 900;
 
-    //Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
+    // Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
     const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => new Image( image, {
       scale: scale,
       x: offset,
@@ -132,10 +132,10 @@ export default class MovingBackgroundNode extends Node {
           let numGray = 0;
           let numWhite = 0;
 
-          //Create the gravel for nonzero friction.
+          // Create the gravel for nonzero friction.
           model.frictionCoefficientProperty.link( newFriction => {
 
-            //Discretize the friction so that the new nodes/images are not created at every step
+            // Discretize the friction so that the new nodes/images are not created at every step
             newFriction = newFriction * 100;
             newFriction = Utils.roundSymmetric( newFriction / 2 ) * 2;
             newFriction = newFriction / 100;

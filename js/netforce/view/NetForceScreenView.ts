@@ -83,11 +83,11 @@ export default class NetForceScreenView extends ScreenView {
       tandem: tandem,
       screenSummaryContent: new NetForceScreenSummaryContent( model )
     } );
-    //Fit to the window and render the initial scene
+    // Fit to the window and render the initial scene
     const width = this.layoutBounds.width;
     const height = this.layoutBounds.height;
 
-    //Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
+    // Create the sky and ground.  Allow the sky and ground to go off the screen in case the window is larger than the sim aspect ratio
     const skyHeight = 376;
     const grassY = 368;
     const groundHeight = height - skyHeight;
@@ -98,7 +98,7 @@ export default class NetForceScreenView extends ScreenView {
       fill: '#c59a5b'
     } ) );
 
-    //Show the grass.
+    // Show the grass.
     this.addChild( new Image( grass_png, {
       x: 13,
       y: grassY
@@ -114,7 +114,7 @@ export default class NetForceScreenView extends ScreenView {
 
     this.cartNode = new CartNode( model.cart, model.speedProperty, model.showSpeedProperty );
 
-    //Black caret below the cart
+    // Black caret below the cart
     const layoutCenterX = this.layoutBounds.width / 2;
     this.addChild( new Path( new Shape().moveTo( -10, 10 ).lineTo( 0, 0 ).lineTo( 10, 10 ), {
       stroke: '#000000',
@@ -160,12 +160,12 @@ export default class NetForceScreenView extends ScreenView {
 
     model.knots.forEach( ( knot, i ) => this.addChild( new KnotHighlightNode( knot ) ) );
 
-    //Split into another canvas to speed up rendering
+    // Split into another canvas to speed up rendering
     this.addChild( new Node( {
       layerSplit: true
     } ) );
 
-    //Create the arrow nodes
+    // Create the arrow nodes
     const opacity = 0.8;
     this.sumArrow = new ReadoutArrow( 'sum', sumOfForcesStringProperty, '#7dc673', layoutCenterX, SUM_ARROW_TAIL_Y, this.model.netForceProperty, this.model.showValuesProperty, 'netforce', {
       labelPosition: 'top', opacity: opacity,
@@ -186,7 +186,7 @@ export default class NetForceScreenView extends ScreenView {
       }
     } );
 
-    //Arrows should be dotted when the sim is paused, but solid after pressing 'go'
+    // Arrows should be dotted when the sim is paused, but solid after pressing 'go'
     this.model.isRunningProperty.link( running => {
       [ this.sumArrow, this.leftArrow, this.rightArrow ].forEach( arrow => {
         arrow.setArrowDash( running ? [] : [ 10, 5 ] );
@@ -364,7 +364,7 @@ export default class NetForceScreenView extends ScreenView {
     const golfClap = new SoundClip( golfClap_mp3 );
     soundManager.addSoundGenerator( golfClap );
 
-    //Play audio golf clap when game completed
+    // Play audio golf clap when game completed
     model.stateProperty.link( state => {
       if ( state === 'completed' ) {
         golfClap.play();
@@ -375,7 +375,7 @@ export default class NetForceScreenView extends ScreenView {
       }
     } );
 
-    //Show 'Sum of Forces = 0' when showForces is selected but the force is zero
+    // Show 'Sum of Forces = 0' when showForces is selected but the force is zero
     this.sumOfForcesText = new Text( ForcesAndMotionBasicsFluent.sumOfForcesEqualsZeroStringProperty, {
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       bottom: SUM_ARROW_TAIL_Y - ReadoutArrow.ARROW_HEAD_WIDTH / 2,
