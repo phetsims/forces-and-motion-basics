@@ -224,7 +224,7 @@ addToMapIfDefined( 'a11y_speed_accelerationDescriptions_slowingDown', 'a11y.spee
 const createFluentFile = (): string => {
   let ftl = '';
   for (const [key, stringProperty] of fluentKeyToStringPropertyMap.entries()) {
-    ftl += `${key} = ${stringProperty.value}\n`;
+    ftl += `${key} = ${stringProperty.value.replace('\n','\n ')}\n`;
   }
   return ftl;
 };
