@@ -31,7 +31,9 @@ type SelfOptions = {
   arrowScale?: number;
   arrowNodeOptions?: PathOptions;
 };
+
 type ReadoutArrowOptions = StrictOmit<NodeOptions, 'pickable' | 'tandem'> & SelfOptions;
+
 export default class ReadoutArrow extends Node {
 
   public static readonly ARROW_HEAD_WIDTH = 50;
@@ -46,7 +48,6 @@ export default class ReadoutArrow extends Node {
 
   // if the arrow overlaps another, we change the layout of the arrow labels so none of the text overlaps each other
   public overlapsOther = false;
-  private hidden!: boolean;
   private value!: number;
 
   private labelPositionOption: string;
@@ -60,7 +61,6 @@ export default class ReadoutArrow extends Node {
    * @param tailY the position of the tail in Y
    * @param valueProperty the property for the value to display
    * @param showValuesProperty whether or not to display the values
-   * @param mode whether this is for netforce or motion screen
    * @param providedOptions 'labelPosition' where the label text should be {side|top}
    */
   public constructor(
@@ -71,7 +71,6 @@ export default class ReadoutArrow extends Node {
     private readonly tailY: number,
     valueProperty: TReadOnlyProperty<number>,
     private readonly showValuesProperty: TReadOnlyProperty<boolean>,
-    private readonly mode: 'netforce' | 'motion',
     providedOptions: ReadoutArrowOptions ) {
 
     // Store fields
@@ -183,7 +182,6 @@ export default class ReadoutArrow extends Node {
 
     // Don't show it if it is too small
     const hidden = Math.abs( value ) < 1E-6;
-    this.hidden = hidden;
     this.arrowNode.visible = !hidden;
     this.valueNode.visible = !hidden && this.showValuesProperty.value;
     this.valueBackgroundRectangle.visible = false;
