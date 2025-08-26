@@ -191,7 +191,10 @@ export default class ReadoutArrow extends Node {
     // The label can also be hidden with a query parameter for screenshots.
     const labelVisible = !hidden && ForcesAndMotionBasicsQueryParameters.showForceArrowLabels;
     this.labelNode.visible = labelVisible;
-    this.labelBackgroundRectangle.visible = labelVisible;
+    
+    // Only show label background for applied and friction forces, not for sum
+    const showLabelBackground = labelVisible && ( this.name === 'applied' || this.name === 'friction' );
+    this.labelBackgroundRectangle.visible = showLabelBackground;
 
     //Only change the node if visible, for performance
     if ( !hidden ) {
