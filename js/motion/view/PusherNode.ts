@@ -8,6 +8,7 @@
 
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
@@ -253,9 +254,9 @@ export default class PusherNode extends Node {
       if ( this.model.stackedItems.length > 0 ) {
         const item = this.model.stackedItems.get( 0 );
         const itemNode = this.itemModelToNodeMap.get( item );
-        assert && assert( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
+        affirm( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
 
-        const scaledWidth = itemNode!.getScaledWidth();
+        const scaledWidth = itemNode.getScaledWidth();
         const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
 
         // Set position based on model position to move with ground
@@ -293,9 +294,9 @@ export default class PusherNode extends Node {
       if ( this.model.stackedItems.length > 0 ) {
         const item = this.model.stackedItems.get( 0 );
         const itemNode = this.itemModelToNodeMap.get( item );
-        assert && assert( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
+        affirm( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
 
-        const scaledWidth = itemNode!.getScaledWidth();
+        const scaledWidth = itemNode.getScaledWidth();
         const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
 
         // Set absolute position directly

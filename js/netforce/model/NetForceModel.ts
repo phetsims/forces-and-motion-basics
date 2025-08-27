@@ -16,6 +16,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -359,8 +360,8 @@ export default class NetForceModel extends PhetioObject {
     const filter = this.knots.filter( knot => knot.type === puller.type && this.getPuller( knot ) === null );
 
     const knot = _.minBy( filter, this.getKnotPullerDistance( puller ) );
-    assert && assert( knot, 'There should always be an open knot' );
-    return knot!;
+    affirm( knot, 'There should always be an open knot' );
+    return knot;
   }
 
   /**

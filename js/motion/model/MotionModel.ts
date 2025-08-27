@@ -132,9 +132,6 @@ export default class MotionModel {
    */
   public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', tandem: Tandem ) {
 
-    // Motion models must be constructed with a screen, which indicates 'motion'|'friction'|'acceleration'
-    assert && assert( screen );
-
     // Constants
     this.skateboard = screen === 'motion';
     this.accelerometer = screen === 'acceleration';

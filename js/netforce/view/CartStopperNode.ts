@@ -8,6 +8,7 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
@@ -31,8 +32,8 @@ export default class CartStopperNode extends Path {
     const stopperShape = new Shape().moveTo( 0, 0 ).lineTo( bottomWidth, 0 ).lineTo( topWidth, -height ).lineTo( 0, -height );
     super( stopperShape );
 
-    // flip around the y axis
-    assert && assert( _.includes( DIRECTIONS, options.direction ), 'stopper can only have directon "left" or "right"' );
+    // flip around the y-axis
+    affirm( _.includes( DIRECTIONS, options.direction ), 'stopper can only have direction "left" or "right"' );
     if ( options.direction === 'right' ) {
       this.scale( -1, 1 );
     }

@@ -15,6 +15,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -478,9 +479,8 @@ export default class MotionScreenView extends ScreenView {
     let sum = 0;
     for ( let i = 0; i < this.model.stackedItems.length; i++ ) {
       const itemNode = this.itemModelToNodeMap.get( this.model.stackedItems.get( i ) );
-
-      assert && assert( itemNode, 'itemNode should not be null' );
-      sum = sum + itemNode!.height;
+      affirm( itemNode, 'itemNode should not be null' );
+      sum = sum + itemNode.height;
     }
     return sum;
   }
@@ -495,9 +495,9 @@ export default class MotionScreenView extends ScreenView {
   public getSize( item: Item ): { width: number; height: number } {
     // get the current scale for the element and apply it to the image
     const itemNode = this.itemModelToNodeMap.get( item );
-    assert && assert( itemNode, 'itemNode should not be null' );
-    const scaledWidth = itemNode!.sittingImageNode.width * item.getCurrentScale();
-    return { width: scaledWidth, height: itemNode!.height };
+    affirm( itemNode, 'itemNode should not be null' );
+    const scaledWidth = itemNode.sittingImageNode.width * item.getCurrentScale();
+    return { width: scaledWidth, height: itemNode.height };
   }
 
   public isToolboxContainerVisible(): boolean {
