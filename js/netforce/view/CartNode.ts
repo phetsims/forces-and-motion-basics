@@ -7,7 +7,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
