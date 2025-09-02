@@ -217,6 +217,17 @@ type StringsType = {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'descriptionContentStringProperty': LocalizedStringProperty;
       };
+      'itemResponses': {
+        'overToolboxStringProperty': LocalizedStringProperty;
+        'overStackStringProperty': LocalizedStringProperty;
+        'overSkateboardStringProperty': LocalizedStringProperty;
+        'overGroundStringProperty': LocalizedStringProperty;
+        'droppedOnStackStringProperty': LocalizedStringProperty;
+        'droppedOnSkateboardStringProperty': LocalizedStringProperty;
+        'droppedOnGroundStringProperty': LocalizedStringProperty;
+        'returnedToToolboxStringProperty': LocalizedStringProperty;
+        'returnedToStackStringProperty': LocalizedStringProperty;
+      };
       'motionControlPanel': {
         'force': {
           'accessibleNameStringProperty': LocalizedStringProperty;

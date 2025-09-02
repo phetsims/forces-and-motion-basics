@@ -456,6 +456,35 @@
           "value": "Use arrow keys to navigate between stacked items, then press Space or Enter to grab"
         }
       },
+      "itemResponses": {
+        "overToolbox": {
+          "value": "Over toolbox"
+        },
+        "overStack": {
+          "value": "Over stack"
+        },
+        "overSkateboard": {
+          "value": "Over skateboard"
+        },
+        "overGround": {
+          "value": "Over ground"
+        },
+        "droppedOnStack": {
+          "value": "Dropped on stack"
+        },
+        "droppedOnSkateboard": {
+          "value": "Dropped on skateboard"
+        },
+        "droppedOnGround": {
+          "value": "Dropped on ground"
+        },
+        "returnedToToolbox": {
+          "value": "Returned to toolbox"
+        },
+        "returnedToStack": {
+          "value": "Returned to stack"
+        }
+      },
       "motionControlPanel": {
         "force": {
           "accessibleName": {

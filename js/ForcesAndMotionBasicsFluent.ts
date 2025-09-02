@@ -151,6 +151,15 @@ addToMapIfDefined( 'a11y_motionScreen_itemToolbox_accessibleName', 'a11y.motionS
 addToMapIfDefined( 'a11y_motionScreen_itemToolbox_descriptionContent', 'a11y.motionScreen.itemToolbox.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_accessibleName', 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_descriptionContent', 'a11y.motionScreen.itemStackGroup.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_overToolbox', 'a11y.motionScreen.itemResponses.overToolboxStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_overStack', 'a11y.motionScreen.itemResponses.overStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_overSkateboard', 'a11y.motionScreen.itemResponses.overSkateboardStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_overGround', 'a11y.motionScreen.itemResponses.overGroundStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnStack', 'a11y.motionScreen.itemResponses.droppedOnStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnSkateboard', 'a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnGround', 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToToolbox', 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToStack', 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleName', 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' );
@@ -449,6 +458,17 @@ const ForcesAndMotionBasicsFluent = {
         _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemStackGroup_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' ) ),
         descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemStackGroup_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemStackGroup.descriptionContentStringProperty' ) )
+      },
+      itemResponses: {
+        overToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overToolboxStringProperty' ) ),
+        overStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overStackStringProperty' ) ),
+        overSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overSkateboardStringProperty' ) ),
+        overGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overGroundStringProperty' ) ),
+        droppedOnStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnStackStringProperty' ) ),
+        droppedOnSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty' ) ),
+        droppedOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' ) ),
+        returnedToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' ) ),
+        returnedToStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' ) )
       },
       motionControlPanel: {
         force: {

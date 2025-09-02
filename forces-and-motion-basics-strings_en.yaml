@@ -36,20 +36,20 @@ orangeWins:                            Orange Wins!
 
 # keyboard help dialog strings
 keyboardHelpDialog:
-  fromAnywhereInSim:  From Anywhere in Screen
-  startGame:          Start tug-of-war game
-  pauseGame:          Pause tug-of-war game
-  returnCartToCenter: Return cart to center
-  pullerNavigation:   Puller Navigation
-  selectPuller:       Select puller
-  grabPuller:         Grab selected puller
-  moveGrabbedPuller:  Move grabbed puller
-  dropPuller:         Drop puller
-  itemNavigation:     Item Navigation
-  selectItem:         Select item
-  grabItem:           Grab selected item
-  moveGrabbedItem:    Move grabbed item
-  dropItem:           Drop item
+  fromAnywhereInSim:    From Anywhere in Screen
+  startGame:            Start tug-of-war game
+  pauseGame:            Pause tug-of-war game
+  returnCartToCenter:   Return cart to center
+  pullerNavigation:     Puller Navigation
+  selectPuller:         Select puller
+  grabPuller:           Grab selected puller
+  moveGrabbedPuller:    Move grabbed puller
+  dropPuller:           Drop puller
+  itemNavigation:       Item Navigation
+  selectItem:           Select item
+  grabItem:             Grab selected item
+  moveGrabbedItem:      Move grabbed item
+  dropItem:             Drop item
   appliedForceControls: Applied Force Controls
   zeroAppliedForce:     Zero applied force
 
@@ -198,6 +198,16 @@ a11y:
     itemStackGroup:
       accessibleName:     Items on Skateboard
       descriptionContent: Use arrow keys to navigate between stacked items, then press Space or Enter to grab
+    itemResponses:
+      overToolbox:         Over toolbox
+      overStack:           Over stack
+      overSkateboard:      Over skateboard
+      overGround:          Over ground
+      droppedOnStack:      Dropped on stack
+      droppedOnSkateboard: Dropped on skateboard
+      droppedOnGround:     Dropped on ground
+      returnedToToolbox:   Returned to toolbox
+      returnedToStack:     Returned to stack
     motionControlPanel:
       force:
         accessibleName:                     Force

@@ -247,17 +247,38 @@ export default class ItemNode extends Node {
         const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
 
         if ( droppedOnStack ) {
+          // Determine prior number of stacked items (before adding this one)
+          const priorLength = model.stackedItems.length;
           moveToStack();
 
           // if item is man or girl, rotate depending on the current model velocity and applied force
           if ( item.name === 'man' || item.name === 'girl' ) {
             this.updatePersonDirection( item );
           }
+
+          // Announce drop location
+          if ( priorLength === 0 ) {
+            this.addAccessibleContextResponse(
+              this.model.screen === 'motion' ?
+              ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty.value :
+              ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnGroundStringProperty.value
+            );
+          }
+          else {
+            this.addAccessibleContextResponse(
+              ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackStringProperty.value
+            );
+          }
         }
         else {
           // send the item home and make sure that the label is centered
           item.animateHome();
           this.labelNode.centerX = normalImageNode.centerX;
+
+          // Announce return to toolbox
+          this.addAccessibleContextResponse(
+            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
+          );
         }
 
         // Notify keyboard strategy about drop completion
@@ -418,10 +439,10 @@ export default class ItemNode extends Node {
 
     if ( strategy ) {
       // Create keyboard listener for item interactions
-      this.keyboardListener = new KeyboardListener( {
+      this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
         keys: [
           'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-          'enter', 'space', 'escape'
+          'enter', 'space', 'escape', 'delete', 'backspace'
         ],
         fireOnDown: false,
         fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
@@ -446,6 +467,11 @@ export default class ItemNode extends Node {
 
     if ( keysPressed === 'enter' || keysPressed === 'space' ) {
       this.handleSelectKey();
+      return;
+    }
+
+    if ( keysPressed === 'delete' || keysPressed === 'backspace' ) {
+      this.handleReturnToToolboxKey();
       return;
     }
 
@@ -479,11 +505,38 @@ export default class ItemNode extends Node {
         if ( !this.model.stackedItems.includes( this.item ) ) {
           this.model.stackedItems.add( this.item );
         }
+
+        // Announce returned to stack
+        this.addAccessibleContextResponse(
+          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToStackStringProperty.value
+        );
       }
       else {
         this.item.inStackProperty.value = false;
         this.item.animateHome();
+
+        // Announce returned to toolbox
+        this.addAccessibleContextResponse(
+          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
+        );
       }
+    }
+  }
+
+  /**
+   * Handle delete/backspace to return grabbed item to toolbox with announcement
+   */
+  private handleReturnToToolboxKey(): void {
+    if ( this.item.userControlledProperty.get() ) {
+      // Force return to toolbox
+      this.item.modeProperty.value = 'inToolbox';
+      this.item.inStackProperty.value = false;
+      this.item.animateHome();
+
+      // Announce returned to toolbox
+      this.addAccessibleContextResponse(
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
+      );
     }
   }
 
@@ -526,7 +579,15 @@ export default class ItemNode extends Node {
         this.item.positionProperty.value = new Vector2( stackX, stackY );
       }
 
-      this.addAccessibleContextResponse( 'grabbed' );
+      // Announce initial grabbed location
+      // If no other items in stack, prefer skateboard/ground; otherwise say stack
+      const hasOtherItems = this.model.stackedItems.length > 0;
+      const overMessage = hasOtherItems ?
+                          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty.value :
+                          ( this.model.screen === 'motion' ?
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty.value :
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty.value );
+      this.addAccessibleContextResponse( overMessage );
     }
     else {
       // Drop the item at current position
@@ -538,6 +599,8 @@ export default class ItemNode extends Node {
       const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
 
       if ( droppedOnStack ) {
+        // Determine prior number of stacked items (before adding this one)
+        const priorLength = this.model.stackedItems.length;
         // Complete the stack placement
         this.item.inStackProperty.value = true;
         const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
@@ -551,11 +614,29 @@ export default class ItemNode extends Node {
         if ( this.item.name === 'man' || this.item.name === 'girl' ) {
           this.updatePersonDirection( this.item );
         }
+        // Announce drop location
+        if ( priorLength === 0 ) {
+          this.addAccessibleContextResponse(
+            this.model.screen === 'motion' ?
+            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty.value :
+            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnGroundStringProperty.value
+          );
+        }
+        else {
+          this.addAccessibleContextResponse(
+            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackStringProperty.value
+          );
+        }
       }
       else {
         // Return to toolbox
         this.item.animateHome();
         this.labelNode.centerX = this.normalImageNode.centerX;
+
+        // Announce returned to toolbox
+        this.addAccessibleContextResponse(
+          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
+        );
       }
 
       // Handle focus management after drop
@@ -603,10 +684,24 @@ export default class ItemNode extends Node {
       const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
       const stackY = this.motionView.topOfStack - this.height;
       this.item.positionProperty.value = new Vector2( stackX, stackY );
+
+      // Announce over area: if no other items, prefer skateboard/ground; else stack
+      const hasOtherItems = this.model.stackedItems.length > 0;
+      const overMessage = hasOtherItems ?
+                          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty.value :
+                          ( this.model.screen === 'motion' ?
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty.value :
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty.value );
+      this.addAccessibleContextResponse( overMessage );
     }
     else {
       // Move back to home position
       this.item.positionProperty.value = homePosition;
+
+      // Announce over toolbox
+      this.addAccessibleContextResponse(
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty.value
+      );
     }
   }
 
