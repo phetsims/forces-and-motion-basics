@@ -8,6 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -216,54 +217,17 @@ export default class Item extends PhetioObject {
       }
     } );
 
-    // TODO: Review this method. Should it be more precise or multilink? https://github.com/phetsims/forces-and-motion-basics/issues/398
-    const updateMode = () => {
-      const inStack = this.inStackProperty.get();
-      const animating = this.animationStateProperty.get().enabled;
-      const animatingToStack = animating && this.animationStateProperty.get().destination === 'stack';
-      const animatingToHome = animating && this.animationStateProperty.get().destination === 'home';
-
-      let newMode: InteractionMode;
-
-      if ( animating ) {
-        if ( animatingToStack ) {
-          newMode = 'animatingToStack';
-        }
-        else if ( animatingToHome ) {
-          // Determine which toolbox based on item type
-          newMode = 'animatingToToolbox';
-        }
-        else {
-          // Fallback - shouldn't happen but be safe
-          newMode = 'inToolbox';
-        }
-      }
-      else if ( inStack ) {
-        newMode = 'onStack';
-      }
-      else {
-        // Item is at rest in toolbox (when not animating and not in stack)
-        // Keep current mode if it's a grabbed state - only update if it's not
-        const currentMode = this.modeProperty.get();
-        const isGrabbed = currentMode === 'mouseGrabbed' ||
-                          currentMode === 'keyboardGrabbedFromToolbox' ||
-                          currentMode === 'keyboardGrabbedFromStack';
-
-        if ( !isGrabbed ) {
-          newMode = 'inToolbox';
-        }
-        else {
-          // Keep the current grabbed state
-          newMode = currentMode;
-        }
-      }
-
-      this.modeProperty.value = newMode;
-    };
-
-    // Listen to all relevant property changes (not userControlledProperty since it's derived from modeProperty)
-    this.inStackProperty.link( updateMode );
-    this.animationStateProperty.link( updateMode );
+    // Atomically update mode when inputs change.
+    Multilink.multilink( [ this.inStackProperty, this.animationStateProperty ], ( inStack, animationState ) => {
+      const mode = this.modeProperty.value;
+      this.modeProperty.value = animationState.enabled ? animationState.destination === 'stack' ? 'animatingToStack' :
+                                                         animationState.destination === 'home' ? 'animatingToToolbox' :
+                                                         'inToolbox' :
+                                inStack ? 'onStack' : mode === 'mouseGrabbed' ? mode :
+                                                      mode === 'keyboardGrabbedFromToolbox' ? mode :
+                                                      mode === 'keyboardGrabbedFromStack' ? mode :
+                                                      'inToolbox';
+    } );
   }
 
   // Return true if the arms should be up (for a human)
