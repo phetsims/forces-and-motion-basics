@@ -30,7 +30,6 @@ export default class AppliedForceSlider extends HSlider {
    * @param model
    * @param range - the range of values for the slider
    * @param tandem
-   * @param providedOptions
    */
   public constructor( model: MotionModel, range: Range, tandem: Tandem ) {
 
