@@ -1,0 +1,34 @@
+// Copyright 2025, University of Colorado Boulder
+
+/**
+ * HotkeyData for the KeyboardListeners in the Motion screen(s).
+ *
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+
+import { TReadOnlyProperty } from '../../../axon/js/TReadOnlyProperty.js';
+import HotkeyData from '../../../scenery/js/input/HotkeyData.js';
+import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
+import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
+
+function createHotkeyData( keys: OneKeyStroke[],
+                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
+                           global = false ): HotkeyData {
+  return new HotkeyData( {
+    keys: keys,
+    repoName: forcesAndMotionBasics.name,
+    keyboardHelpDialogLabelStringProperty: keyboardHelpDialogLabelStringProperty,
+    global: global
+  } );
+}
+
+export default class MotionHotkeyData {
+  // Zero the applied force using the '0' key
+  public static readonly ZERO_APPLIED_FORCE_HOTKEY_DATA = createHotkeyData(
+    [ '0' ],
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.zeroAppliedForceStringProperty
+  );
+}
+
+forcesAndMotionBasics.register( 'MotionHotkeyData', MotionHotkeyData );

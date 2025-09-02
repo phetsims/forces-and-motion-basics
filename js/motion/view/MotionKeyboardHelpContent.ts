@@ -13,6 +13,7 @@ import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/Ke
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import MotionHotkeyData from '../MotionHotkeyData.js';
 
 export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -44,7 +45,12 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
 
     // Sections in the left column.
     const leftSections = [
-      itemNavigationSection
+      itemNavigationSection,
+      new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.appliedForceControlsStringProperty, [
+        KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA, {
+          pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty
+        } )
+      ] )
     ];
 
     // Sections in the right column.

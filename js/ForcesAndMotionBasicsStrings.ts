@@ -68,6 +68,8 @@ type StringsType = {
     'grabItemStringProperty': LocalizedStringProperty;
     'moveGrabbedItemStringProperty': LocalizedStringProperty;
     'dropItemStringProperty': LocalizedStringProperty;
+    'appliedForceControlsStringProperty': LocalizedStringProperty;
+    'zeroAppliedForceStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'preferences': {
@@ -86,6 +88,9 @@ type StringsType = {
         'grabPullerDescriptionStringProperty': LocalizedStringProperty;
         'moveGrabbedPullerDescriptionStringProperty': LocalizedStringProperty;
         'dropPullerDescriptionStringProperty': LocalizedStringProperty;
+      };
+      'appliedForceControls': {
+        'zeroAppliedForceDescriptionStringProperty': LocalizedStringProperty;
       }
     };
     'netForceScreen': {

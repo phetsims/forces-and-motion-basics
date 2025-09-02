@@ -11,12 +11,15 @@ import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
+import MotionHotkeyData from '../MotionHotkeyData.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
 
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0valueUnitsNewtonsStringProperty' ];
@@ -75,6 +78,15 @@ export default class AppliedForceControl extends VBox {
       visiblePropertyOptions: { phetioFeatured: true },
       tandem: tandem.createTandem( 'spinner' )
     } );
+    // Keyboard support: press '0' to zero the applied force (spinner is the alt-input control)
+    const spinnerKeyboardListener = new KeyboardListener( {
+      keyStringProperties: MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA.keyStringProperties,
+      fire: ( event, keysPressed ) => {
+        affirm( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA.hasKeyStroke( keysPressed ) );
+        model.appliedForceProperty.value = 0;
+      }
+    } );
+    spinner.addInputListener( spinnerKeyboardListener );
     model.fallenProperty.link( fallen => {
       fallen && spinner.interruptSubtreeInput();
     } );

@@ -50,6 +50,8 @@ keyboardHelpDialog:
   grabItem:           Grab selected item
   moveGrabbedItem:    Move grabbed item
   dropItem:           Drop item
+  appliedForceControls: Applied Force Controls
+  zeroAppliedForce:     Zero applied force
 
 # accessibility strings
 a11y:
@@ -66,6 +68,8 @@ a11y:
       grabPullerDescription:        Grab selected puller with Space or Enter keys.
       moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys.
       dropPullerDescription:        Drop puller with Space or Enter keys.
+    appliedForceControls:
+      zeroAppliedForceDescription: Zero applied force with 0 key.
   netForceScreen:
     colorName: |-
                { $color ->
