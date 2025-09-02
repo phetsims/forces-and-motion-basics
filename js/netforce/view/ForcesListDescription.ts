@@ -82,6 +82,7 @@ export default class ForcesListDescription extends Node {
                           ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.rightStringProperty.value :
                           ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.leftStringProperty.value;
 
+        // TODO: Does this need diposal? See https://github.com/phetsims/forces-and-motion-basics/issues/398
         const sumForceProperty = ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesArrow.createProperty( {
           description: description,
           direction: direction
