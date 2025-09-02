@@ -68,6 +68,7 @@ type StringsType = {
     'grabItemStringProperty': LocalizedStringProperty;
     'moveGrabbedItemStringProperty': LocalizedStringProperty;
     'dropItemStringProperty': LocalizedStringProperty;
+    'adjustAppliedForceStringProperty': LocalizedStringProperty;
     'appliedForceControlsStringProperty': LocalizedStringProperty;
     'zeroAppliedForceStringProperty': LocalizedStringProperty;
   };

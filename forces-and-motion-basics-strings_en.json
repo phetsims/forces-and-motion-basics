@@ -147,6 +147,9 @@
     "dropItem": {
       "value": "Drop item"
     },
+    "adjustAppliedForce": {
+      "value": "Adjust Applied Force"
+    },
     "appliedForceControls": {
       "value": "Applied Force Controls"
     },

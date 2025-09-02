@@ -71,6 +71,7 @@ addToMapIfDefined( 'keyboardHelpDialog_selectItem', 'keyboardHelpDialog.selectIt
 addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_adjustAppliedForce', 'keyboardHelpDialog.adjustAppliedForceStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_appliedForceControls', 'keyboardHelpDialog.appliedForceControlsStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_zeroAppliedForce', 'keyboardHelpDialog.zeroAppliedForceStringProperty' );
 addToMapIfDefined( 'a11y_preferences_netForcePullerColors_accessibleHelpText', 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' );
@@ -301,6 +302,7 @@ const ForcesAndMotionBasicsFluent = {
     grabItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabItemStringProperty' ),
     moveGrabbedItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedItemStringProperty' ),
     dropItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropItemStringProperty' ),
+    adjustAppliedForceStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.adjustAppliedForceStringProperty' ),
     appliedForceControlsStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.appliedForceControlsStringProperty' ),
     zeroAppliedForceStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.zeroAppliedForceStringProperty' )
   },

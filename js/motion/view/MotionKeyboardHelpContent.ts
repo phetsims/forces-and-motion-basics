@@ -10,6 +10,7 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
+import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
@@ -44,13 +45,20 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
     ] );
 
     // Sections in the left column.
-    const leftSections = [
-      itemNavigationSection,
-      new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.appliedForceControlsStringProperty, [
+    const adjustAppliedForceSection = new SliderControlsKeyboardHelpSection( {
+      headingStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.adjustAppliedForceStringProperty,
+      includeLargerStepsRow: true,
+      arrowKeyIconDisplay: SliderControlsKeyboardHelpSection.ArrowKeyIconDisplay.LEFT_RIGHT,
+      additionalRows: [
         KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA, {
           pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty
         } )
-      ] )
+      ]
+    } );
+
+    const leftSections = [
+      itemNavigationSection,
+      adjustAppliedForceSection
     ];
 
     // Sections in the right column.

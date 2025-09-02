@@ -50,6 +50,7 @@ keyboardHelpDialog:
   grabItem:             Grab selected item
   moveGrabbedItem:      Move grabbed item
   dropItem:             Drop item
+  adjustAppliedForce:   Adjust Applied Force
   appliedForceControls: Applied Force Controls
   zeroAppliedForce:     Zero applied force
 
