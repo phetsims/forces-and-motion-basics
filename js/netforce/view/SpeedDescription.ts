@@ -19,12 +19,12 @@ export default class SpeedDescription extends Node {
 
     const qualitativeSpeedProperty = new DerivedProperty(
       [ model.speedProperty ],
-      speed => this.getQualitativeSpeedDescription( Math.abs( speed ) )
+      speed => SpeedDescription.getQualitativeSpeedDescription( Math.abs( speed ) )
     );
 
     const accelerationDescriptionProperty = new DerivedProperty(
       [ model.netForceProperty, model.cart.velocityProperty ],
-      ( netForce, velocity ) => this.getAccelerationDescription( netForce, velocity )
+      ( netForce, velocity ) => SpeedDescription.getAccelerationDescription( netForce, velocity )
     );
 
     const cartSpeedWithAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeedWithAcceleration.createProperty( {
@@ -97,7 +97,7 @@ export default class SpeedDescription extends Node {
    * Gets the appropriate qualitative description for a speed value
    * Speed range is 0 to ~3.76215, divided into 5 gradations
    */
-  private getQualitativeSpeedDescription( speed: number ): string {
+  private static getQualitativeSpeedDescription( speed: number ): string {
     if ( speed < 0.1 ) {
       return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.stationaryStringProperty.value;
     }
@@ -121,7 +121,7 @@ export default class SpeedDescription extends Node {
    * If net force is in the same direction as velocity, the cart is speeding up.
    * If net force is opposite to velocity, the cart is slowing down.
    */
-  private getAccelerationDescription( netForce: number, velocity: number ): string {
+  private static getAccelerationDescription( netForce: number, velocity: number ): string {
     // No net force means no acceleration
     if ( Math.abs( netForce ) < 0.1 ) {
       return '';
