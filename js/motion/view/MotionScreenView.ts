@@ -51,6 +51,7 @@ import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
 import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
+import MotionScreensAccelerationDescription from './MotionScreensAccelerationDescription.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -186,6 +187,10 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( forcesListDescription );
     this.addChild( speedDescription );
 
+    // Acceleration description (visible only on acceleration screen when checkbox enabled)
+    const accelerationDescription = new MotionScreensAccelerationDescription( model );
+    this.addChild( accelerationDescription );
+
     // Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
       x: 300,
@@ -195,7 +200,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( speedometerNode );
 
     // Create and add the control panel (pass dynamic speed description for accessibility announcement)
-    const controlPanel = new MotionControlPanel( model, forcesListDescription.netForceDescriptionProperty, speedDescription.speedDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
+    const controlPanel = new MotionControlPanel( model, forcesListDescription.netForceDescriptionProperty, speedDescription.speedDescriptionProperty, accelerationDescription.accelerationDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );
@@ -500,6 +505,7 @@ export default class MotionScreenView extends ScreenView {
       // itemLayer,
       appliedForcePlayAreaControlNode,
       forcesListDescription,
+      accelerationDescription,
       speedDescription,
       this.appliedForceArrow,
       this.frictionArrow,

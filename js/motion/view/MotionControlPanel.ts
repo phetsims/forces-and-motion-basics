@@ -50,7 +50,7 @@ const SUM_OF_FORCES_MAX_WIDTH = 120;
 
 export default class MotionControlPanel extends Node {
 
-  public constructor( model: MotionModel, sumOfForcesDescriptionProperty: TReadOnlyProperty<string>, speedDescriptionProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
+  public constructor( model: MotionModel, sumOfForcesDescriptionProperty: TReadOnlyProperty<string>, speedDescriptionProperty: TReadOnlyProperty<string>, accelerationDescriptionProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
     super( {
       tandem: tandem,
       phetioFeatured: true
@@ -241,7 +241,8 @@ export default class MotionControlPanel extends Node {
           options: {
             accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty,
             accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty,
+            // Use dynamic description matching the Play Area section
+            accessibleContextResponseChecked: accelerationDescriptionProperty,
             accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty
           }
         } );

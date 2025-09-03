@@ -599,9 +599,6 @@
           "accessibleHelpText": {
             "value": "Check to show the accelerometer."
           },
-          "accessibleContextResponseChecked": {
-            "value": "Accelerometer shown."
-          },
           "accessibleContextResponseUnchecked": {
             "value": "Accelerometer hidden."
           }
@@ -760,6 +757,52 @@
         },
         "extremelyFast": {
           "value": "extremely fast"
+        }
+      }
+    },
+    "acceleration": {
+      "heading": {
+        "value": "Acceleration"
+      },
+      "accelerationOnly": {
+        "value": "The acceleration is { $accelerationDescription }."
+      },
+      "accelerationWithValue": {
+        "value": "The acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared."
+      },
+      "accelerationWithDirection": {
+        "value": "The acceleration is { $accelerationDescription } to the { $direction }."
+      },
+      "accelerationWithDirectionAndValue": {
+        "value": "The acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared."
+      },
+      "qualitativeDescriptions": {
+        "zero": {
+          "value": "zero"
+        },
+        "verySmall": {
+          "value": "very small"
+        },
+        "small": {
+          "value": "small"
+        },
+        "moderate": {
+          "value": "moderate"
+        },
+        "large": {
+          "value": "large"
+        },
+        "veryLarge": {
+          "value": "very large"
+        },
+        "extremelyLarge": {
+          "value": "extremely large"
+        },
+        "left": {
+          "value": "left"
+        },
+        "right": {
+          "value": "right"
         }
       },
       "accelerationDescriptions": {

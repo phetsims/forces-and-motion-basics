@@ -192,7 +192,6 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleH
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_accessibleHeading', 'a11y.motionScreen.playAreaControls.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_accessibleHelpText', 'a11y.motionScreen.frictionSlider.accessibleHelpTextStringProperty' );
@@ -241,6 +240,22 @@ addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_veryFast', 'a11y.speed.qu
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_extremelyFast', 'a11y.speed.qualitativeDescriptions.extremelyFastStringProperty' );
 addToMapIfDefined( 'a11y_speed_accelerationDescriptions_speedingUp', 'a11y.speed.accelerationDescriptions.speedingUpStringProperty' );
 addToMapIfDefined( 'a11y_speed_accelerationDescriptions_slowingDown', 'a11y.speed.accelerationDescriptions.slowingDownStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_heading', 'a11y.acceleration.headingStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_accelerationOnly', 'a11y.acceleration.accelerationOnlyStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_accelerationWithValue', 'a11y.acceleration.accelerationWithValueStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_accelerationWithDirection', 'a11y.acceleration.accelerationWithDirectionStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_accelerationWithDirectionAndValue', 'a11y.acceleration.accelerationWithDirectionAndValueStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_zero', 'a11y.acceleration.qualitativeDescriptions.zeroStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_verySmall', 'a11y.acceleration.qualitativeDescriptions.verySmallStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_small', 'a11y.acceleration.qualitativeDescriptions.smallStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_moderate', 'a11y.acceleration.qualitativeDescriptions.moderateStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_large', 'a11y.acceleration.qualitativeDescriptions.largeStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_veryLarge', 'a11y.acceleration.qualitativeDescriptions.veryLargeStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_extremelyLarge', 'a11y.acceleration.qualitativeDescriptions.extremelyLargeStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_left', 'a11y.acceleration.qualitativeDescriptions.leftStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_qualitativeDescriptions_right', 'a11y.acceleration.qualitativeDescriptions.rightStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_accelerationDescriptions_speedingUp', 'a11y.acceleration.accelerationDescriptions.speedingUpStringProperty' );
+addToMapIfDefined( 'a11y_acceleration_accelerationDescriptions_slowingDown', 'a11y.acceleration.accelerationDescriptions.slowingDownStringProperty' );
 
 // A function that creates contents for a new Fluent file, which will be needed if any string changes.
 const createFluentFile = (): string => {
@@ -538,7 +553,6 @@ const ForcesAndMotionBasicsFluent = {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
           accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' ) ),
           accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty' ) ),
           accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' ) )
         }
       },
@@ -610,6 +624,28 @@ const ForcesAndMotionBasicsFluent = {
       accelerationDescriptions: {
         speedingUpStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_accelerationDescriptions_speedingUp', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.accelerationDescriptions.speedingUpStringProperty' ) ),
         slowingDownStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_accelerationDescriptions_slowingDown', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.accelerationDescriptions.slowingDownStringProperty' ) )
+      }
+    },
+    acceleration: {
+      headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.headingStringProperty' ) ),
+      accelerationOnly: new FluentPattern<{ accelerationDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationOnly', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationOnlyStringProperty' ), [{"name":"accelerationDescription"}] ),
+      accelerationWithValue: new FluentPattern<{ accelerationDescription: FluentVariable, accelerationMetersPerSecondSquared: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationWithValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationWithValueStringProperty' ), [{"name":"accelerationDescription"},{"name":"accelerationMetersPerSecondSquared"}] ),
+      accelerationWithDirection: new FluentPattern<{ accelerationDescription: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationWithDirection', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationWithDirectionStringProperty' ), [{"name":"accelerationDescription"},{"name":"direction"}] ),
+      accelerationWithDirectionAndValue: new FluentPattern<{ accelerationDescription: FluentVariable, accelerationMetersPerSecondSquared: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationWithDirectionAndValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationWithDirectionAndValueStringProperty' ), [{"name":"accelerationDescription"},{"name":"accelerationMetersPerSecondSquared"},{"name":"direction"}] ),
+      qualitativeDescriptions: {
+        zeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_zero', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.zeroStringProperty' ) ),
+        verySmallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_verySmall', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.verySmallStringProperty' ) ),
+        smallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_small', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.smallStringProperty' ) ),
+        moderateStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_moderate', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.moderateStringProperty' ) ),
+        largeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_large', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.largeStringProperty' ) ),
+        veryLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_veryLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.veryLargeStringProperty' ) ),
+        extremelyLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_extremelyLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.extremelyLargeStringProperty' ) ),
+        leftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_left', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.leftStringProperty' ) ),
+        rightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_right', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.rightStringProperty' ) )
+      },
+      accelerationDescriptions: {
+        speedingUpStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationDescriptions_speedingUp', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationDescriptions.speedingUpStringProperty' ) ),
+        slowingDownStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationDescriptions_slowingDown', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationDescriptions.slowingDownStringProperty' ) )
       }
     }
   }

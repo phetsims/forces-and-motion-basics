@@ -278,7 +278,6 @@ type StringsType = {
         'acceleration': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         }
       };
@@ -346,6 +345,24 @@ type StringsType = {
         'fastStringProperty': LocalizedStringProperty;
         'veryFastStringProperty': LocalizedStringProperty;
         'extremelyFastStringProperty': LocalizedStringProperty;
+      }
+    };
+    'acceleration': {
+      'headingStringProperty': LocalizedStringProperty;
+      'accelerationOnlyStringProperty': LocalizedStringProperty;
+      'accelerationWithValueStringProperty': LocalizedStringProperty;
+      'accelerationWithDirectionStringProperty': LocalizedStringProperty;
+      'accelerationWithDirectionAndValueStringProperty': LocalizedStringProperty;
+      'qualitativeDescriptions': {
+        'zeroStringProperty': LocalizedStringProperty;
+        'verySmallStringProperty': LocalizedStringProperty;
+        'smallStringProperty': LocalizedStringProperty;
+        'moderateStringProperty': LocalizedStringProperty;
+        'largeStringProperty': LocalizedStringProperty;
+        'veryLargeStringProperty': LocalizedStringProperty;
+        'extremelyLargeStringProperty': LocalizedStringProperty;
+        'leftStringProperty': LocalizedStringProperty;
+        'rightStringProperty': LocalizedStringProperty;
       };
       'accelerationDescriptions': {
         'speedingUpStringProperty': LocalizedStringProperty;

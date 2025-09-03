@@ -250,7 +250,6 @@ a11y:
       acceleration:
         accessibleName:                     Acceleration
         accessibleHelpText:                 Check to show the accelerometer.
-        accessibleContextResponseChecked:   Accelerometer shown.
         accessibleContextResponseUnchecked: Accelerometer hidden.
     playAreaControls:
       accessibleHeading: Play Area Controls
@@ -307,6 +306,22 @@ a11y:
       fast:       fast
       veryFast:   very fast
       extremelyFast: extremely fast
+  acceleration:
+    heading:                      Acceleration
+    accelerationOnly:             'The acceleration is { $accelerationDescription }.'
+    accelerationWithValue:        'The acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    accelerationWithDirection:    'The acceleration is { $accelerationDescription } to the { $direction }.'
+    accelerationWithDirectionAndValue: 'The acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    qualitativeDescriptions:
+      zero:           zero
+      verySmall:      very small
+      small:          small
+      moderate:       moderate
+      large:          large
+      veryLarge:      very large
+      extremelyLarge: extremely large
+      left:           left
+      right:          right
     accelerationDescriptions:
       speedingUp:  'speeding up'
       slowingDown: 'slowing down'
