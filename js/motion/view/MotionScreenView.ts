@@ -214,7 +214,15 @@ export default class MotionScreenView extends ScreenView {
     model.stopwatch.positionProperty.setInitialValue( stopwatchInitialPosition );
     model.stopwatch.positionProperty.value = stopwatchInitialPosition;
 
-    this.addChild( stopwatchNode );
+    // Stopwatch Play Area section with heading, visible only when Stopwatch is checked
+    const stopwatchPlayAreaSection = new Node( {
+      tagName: 'div',
+      accessibleHeading: ForcesAndMotionBasicsFluent.stopwatchStringProperty,
+      visibleProperty: model.stopwatch.isVisibleProperty,
+      appendDescription: false,
+      children: [ stopwatchNode ]
+    } );
+    this.addChild( stopwatchPlayAreaSection );
 
     // play, step, and reset buttons in an HBox aligned left bottom under the control panel
     const playPauseVerticalOffset = 35;
@@ -495,7 +503,8 @@ export default class MotionScreenView extends ScreenView {
       this.appliedForceArrow,
       this.frictionArrow,
       this.sumArrow,
-      speedometerNode
+      speedometerNode,
+      stopwatchPlayAreaSection
     ];
 
     this.pdomControlAreaNode.pdomOrder = [
