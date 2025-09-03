@@ -50,6 +50,7 @@ import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
+import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -180,7 +181,10 @@ export default class MotionScreenView extends ScreenView {
 
     // Accessible forces list description for Motion screens
     const forcesListDescription = new MotionForcesListDescription( model );
+    // Compute dynamic speed description to announce when Speed is enabled
+    const speedDescription = new MotionScreensSpeedDescription( model );
     this.addChild( forcesListDescription );
+    this.addChild( speedDescription );
 
     // Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -190,8 +194,8 @@ export default class MotionScreenView extends ScreenView {
 
     this.addChild( speedometerNode );
 
-    // Create and add the control panel
-    const controlPanel = new MotionControlPanel( model, forcesListDescription.netForceDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
+    // Create and add the control panel (pass dynamic speed description for accessibility announcement)
+    const controlPanel = new MotionControlPanel( model, forcesListDescription.netForceDescriptionProperty, speedDescription.speedDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );
@@ -496,6 +500,7 @@ export default class MotionScreenView extends ScreenView {
       // itemLayer,
       appliedForcePlayAreaControlNode,
       forcesListDescription,
+      speedDescription,
       this.appliedForceArrow,
       this.frictionArrow,
       this.sumArrow,

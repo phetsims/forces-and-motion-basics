@@ -178,7 +178,6 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContex
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleName', 'a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleName', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty' );
@@ -231,11 +230,15 @@ addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_right', 'a11y.forces.qua
 addToMapIfDefined( 'a11y_speed_heading', 'a11y.speed.headingStringProperty' );
 addToMapIfDefined( 'a11y_speed_cartSpeed', 'a11y.speed.cartSpeedStringProperty' );
 addToMapIfDefined( 'a11y_speed_cartSpeedWithAcceleration', 'a11y.speed.cartSpeedWithAccelerationStringProperty' );
+addToMapIfDefined( 'a11y_speed_speedOnly', 'a11y.speed.speedOnlyStringProperty' );
+addToMapIfDefined( 'a11y_speed_speedWithValue', 'a11y.speed.speedWithValueStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_stationary', 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_verySlow', 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_slow', 'a11y.speed.qualitativeDescriptions.slowStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_medium', 'a11y.speed.qualitativeDescriptions.mediumStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_fast', 'a11y.speed.qualitativeDescriptions.fastStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_veryFast', 'a11y.speed.qualitativeDescriptions.veryFastStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_extremelyFast', 'a11y.speed.qualitativeDescriptions.extremelyFastStringProperty' );
 addToMapIfDefined( 'a11y_speed_accelerationDescriptions_speedingUp', 'a11y.speed.accelerationDescriptions.speedingUpStringProperty' );
 addToMapIfDefined( 'a11y_speed_accelerationDescriptions_slowingDown', 'a11y.speed.accelerationDescriptions.slowingDownStringProperty' );
 
@@ -509,7 +512,6 @@ const ForcesAndMotionBasicsFluent = {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
           accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty' ) ),
           accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty' ) ),
           accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty' ) )
         },
         stopwatch: {
@@ -594,12 +596,16 @@ const ForcesAndMotionBasicsFluent = {
       headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.headingStringProperty' ) ),
       cartSpeed: new FluentPattern<{ speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_cartSpeed', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.cartSpeedStringProperty' ), [{"name":"speedDescription"}] ),
       cartSpeedWithAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_cartSpeedWithAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.cartSpeedWithAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"}] ),
+      speedOnly: new FluentPattern<{ speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedOnly', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedOnlyStringProperty' ), [{"name":"speedDescription"}] ),
+      speedWithValue: new FluentPattern<{ speedDescription: FluentVariable, speedMetersPerSecond: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedWithValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedWithValueStringProperty' ), [{"name":"speedDescription"},{"name":"speedMetersPerSecond"}] ),
       qualitativeDescriptions: {
         stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' ) ),
         verySlowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_verySlow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' ) ),
         slowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_slow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.slowStringProperty' ) ),
         mediumStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_medium', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.mediumStringProperty' ) ),
-        fastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_fast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.fastStringProperty' ) )
+        fastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_fast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.fastStringProperty' ) ),
+        veryFastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_veryFast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.veryFastStringProperty' ) ),
+        extremelyFastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_extremelyFast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.extremelyFastStringProperty' ) )
       },
       accelerationDescriptions: {
         speedingUpStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_accelerationDescriptions_speedingUp', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.accelerationDescriptions.speedingUpStringProperty' ) ),

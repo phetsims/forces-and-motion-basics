@@ -256,7 +256,6 @@ type StringsType = {
         'speed': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
         'stopwatch': {
@@ -337,12 +336,16 @@ type StringsType = {
       'headingStringProperty': LocalizedStringProperty;
       'cartSpeedStringProperty': LocalizedStringProperty;
       'cartSpeedWithAccelerationStringProperty': LocalizedStringProperty;
+      'speedOnlyStringProperty': LocalizedStringProperty;
+      'speedWithValueStringProperty': LocalizedStringProperty;
       'qualitativeDescriptions': {
         'stationaryStringProperty': LocalizedStringProperty;
         'verySlowStringProperty': LocalizedStringProperty;
         'slowStringProperty': LocalizedStringProperty;
         'mediumStringProperty': LocalizedStringProperty;
         'fastStringProperty': LocalizedStringProperty;
+        'veryFastStringProperty': LocalizedStringProperty;
+        'extremelyFastStringProperty': LocalizedStringProperty;
       };
       'accelerationDescriptions': {
         'speedingUpStringProperty': LocalizedStringProperty;

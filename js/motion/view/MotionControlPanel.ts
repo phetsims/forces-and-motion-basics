@@ -50,7 +50,7 @@ const SUM_OF_FORCES_MAX_WIDTH = 120;
 
 export default class MotionControlPanel extends Node {
 
-  public constructor( model: MotionModel, sumOfForcesDescriptionProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
+  public constructor( model: MotionModel, sumOfForcesDescriptionProperty: TReadOnlyProperty<string>, speedDescriptionProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
     super( {
       tandem: tandem,
       phetioFeatured: true
@@ -226,7 +226,8 @@ export default class MotionControlPanel extends Node {
         options: {
           accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty,
           accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty,
-          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseCheckedStringProperty,
+          // Dynamic description like Net Force: qualitative speed with speeding up/slowing down
+          accessibleContextResponseChecked: speedDescriptionProperty,
           accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty
         }
       } );

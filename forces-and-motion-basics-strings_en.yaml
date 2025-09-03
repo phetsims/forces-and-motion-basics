@@ -232,7 +232,6 @@ a11y:
       speed:
         accessibleName:                     Speed
         accessibleHelpText:                 Check to show the speedometer.
-        accessibleContextResponseChecked:   Speedometer shown.
         accessibleContextResponseUnchecked: Speedometer hidden.
       stopwatch:
         accessibleName:                     Stopwatch
@@ -298,12 +297,16 @@ a11y:
     heading:                   Speed
     cartSpeed:                 'Cart speed is { $speedDescription }.'
     cartSpeedWithAcceleration: 'Cart speed is { $speedDescription } and { $accelerationDescription }.'
+    speedOnly:                 'The speed is { $speedDescription }.'
+    speedWithValue:            'The speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
     qualitativeDescriptions:
       stationary: zero
       verySlow:   very slow
       slow:       slow
       medium:     medium
       fast:       fast
+      veryFast:   very fast
+      extremelyFast: extremely fast
     accelerationDescriptions:
       speedingUp:  'speeding up'
       slowingDown: 'slowing down'
