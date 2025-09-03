@@ -45,13 +45,13 @@ import ItemStackGroupNode, { StackKeyboardStrategy } from './ItemStackGroupNode.
 import ItemToolboxGroupNode, { ToolboxKeyboardStrategy } from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
 import MotionForcesListDescription from './MotionForcesListDescription.js';
+import MotionScreensAccelerationDescription from './MotionScreensAccelerationDescription.js';
+import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
-import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
-import MotionScreensAccelerationDescription from './MotionScreensAccelerationDescription.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -239,6 +239,9 @@ export default class MotionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'timeControlNode' ),
       leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset ),
       playPauseStepButtonOptions: {
+        playPauseButtonOptions: {
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty
+        },
         stepForwardButtonOptions: {
           listener: () => { model.manualStep(); }
         }

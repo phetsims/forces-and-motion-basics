@@ -201,6 +201,9 @@ type StringsType = {
           'withObjectsStringProperty': LocalizedStringProperty;
         }
       };
+      'pauseButton': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      };
       'items': {
         'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;
         'massUnknownStringProperty': LocalizedStringProperty;

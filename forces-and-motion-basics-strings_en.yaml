@@ -185,6 +185,8 @@ a11y:
         noObjects:         Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion.
         noObjectsOnGround: Drag objects from the toolboxes onto the ground, then use the applied force control to create motion.
         withObjects:       Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces.
+    pauseButton:
+      accessibleHelpText: Pause sim to step through little by little and to help make precise measurements.
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
       massUnknown:                'mass unknown'
@@ -299,18 +301,18 @@ a11y:
     speedOnly:                 'The speed is { $speedDescription }.'
     speedWithValue:            'The speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
     qualitativeDescriptions:
-      stationary: zero
-      verySlow:   very slow
-      slow:       slow
-      medium:     medium
-      fast:       fast
-      veryFast:   very fast
+      stationary:    zero
+      verySlow:      very slow
+      slow:          slow
+      medium:        medium
+      fast:          fast
+      veryFast:      very fast
       extremelyFast: extremely fast
   acceleration:
-    heading:                      Acceleration
-    accelerationOnly:             'The acceleration is { $accelerationDescription }.'
-    accelerationWithValue:        'The acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
-    accelerationWithDirection:    'The acceleration is { $accelerationDescription } to the { $direction }.'
+    heading:                           Acceleration
+    accelerationOnly:                  'The acceleration is { $accelerationDescription }.'
+    accelerationWithValue:             'The acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    accelerationWithDirection:         'The acceleration is { $accelerationDescription } to the { $direction }.'
     accelerationWithDirectionAndValue: 'The acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared.'
     qualitativeDescriptions:
       zero:           zero

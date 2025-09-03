@@ -60,11 +60,7 @@ export default class SpeedDescription extends Node {
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.verySlowStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty,
-
-        // String dependencies from getAccelerationDescription
-        ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.speedingUpStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.slowingDownStringProperty
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty
       ],
       ( showSpeed, accelerationDescription, cartSpeedWithAcceleration, cartSpeed ) => {
         if ( showSpeed ) {
@@ -140,10 +136,10 @@ export default class SpeedDescription extends Node {
     const sameDirection = ( netForce > 0 && velocity > 0 ) || ( netForce < 0 && velocity < 0 );
 
     if ( sameDirection ) {
-      return ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.speedingUpStringProperty.value;
+      return ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationDescriptions.speedingUpStringProperty.value;
     }
     else {
-      return ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.slowingDownStringProperty.value;
+      return ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationDescriptions.slowingDownStringProperty.value;
     }
   }
 }
