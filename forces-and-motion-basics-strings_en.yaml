@@ -218,6 +218,8 @@ a11y:
       droppedOnGround:     Dropped on ground
       returnedToToolbox:   Returned to toolbox
       returnedToStack:     Returned to stack
+    pusherResponses:
+      fellDownAppliedForceZero: Pusher fell down, applied force now 0 newtons.
     motionControlPanel:
       force:
         accessibleName:                     Force

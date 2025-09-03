@@ -241,6 +241,9 @@ type StringsType = {
         'returnedToToolboxStringProperty': LocalizedStringProperty;
         'returnedToStackStringProperty': LocalizedStringProperty;
       };
+      'pusherResponses': {
+        'fellDownAppliedForceZeroStringProperty': LocalizedStringProperty;
+      };
       'motionControlPanel': {
         'force': {
           'accessibleNameStringProperty': LocalizedStringProperty;

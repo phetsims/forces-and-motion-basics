@@ -522,6 +522,12 @@ export default class MotionScreenView extends ScreenView {
       timeControlNode,
       this.resetAllButton
     ];
+
+    this.model.fallenProperty.lazyLink( fallen => {
+      if ( fallen ) {
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty.value );
+      }
+    } );
   }
 
   // Get the height of the objects in the stack (doesn't include skateboard)

@@ -167,6 +167,7 @@ addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnSkateboard', 'a11y.
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnGround', 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToToolbox', 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToStack', 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_pusherResponses_fellDownAppliedForceZero', 'a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleName', 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' );
@@ -506,6 +507,9 @@ const ForcesAndMotionBasicsFluent = {
         droppedOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' ) ),
         returnedToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' ) ),
         returnedToStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' ) )
+      },
+      pusherResponses: {
+        fellDownAppliedForceZeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_pusherResponses_fellDownAppliedForceZero', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty' ) )
       },
       motionControlPanel: {
         force: {
