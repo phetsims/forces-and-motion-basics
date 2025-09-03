@@ -208,6 +208,7 @@ type StringsType = {
           'manStringProperty': LocalizedStringProperty;
           'trashStringProperty': LocalizedStringProperty;
           'mysteryStringProperty': LocalizedStringProperty;
+          'bucketStringProperty': LocalizedStringProperty;
         }
       };
       'itemToolbox': {

@@ -440,6 +440,9 @@
           },
           "mystery": {
             "value": "Mystery Object"
+          },
+          "bucket": {
+            "value": "Bucket"
           }
         }
       },

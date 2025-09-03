@@ -148,6 +148,7 @@ addToMapIfDefined( 'a11y_motionScreen_items_names_girl', 'a11y.motionScreen.item
 addToMapIfDefined( 'a11y_motionScreen_items_names_man', 'a11y.motionScreen.items.names.manStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_trash', 'a11y.motionScreen.items.names.trashStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_mystery', 'a11y.motionScreen.items.names.mysteryStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_items_names_bucket', 'a11y.motionScreen.items.names.bucketStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemToolbox_accessibleName', 'a11y.motionScreen.itemToolbox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemToolbox_descriptionContent', 'a11y.motionScreen.itemToolbox.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_accessibleName', 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' );
@@ -448,7 +449,8 @@ const ForcesAndMotionBasicsFluent = {
           girlStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_girl', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.girlStringProperty' ) ),
           manStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_man', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.manStringProperty' ) ),
           trashStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_trash', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.trashStringProperty' ) ),
-          mysteryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_mystery', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.mysteryStringProperty' ) )
+          mysteryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_mystery', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.mysteryStringProperty' ) ),
+          bucketStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_bucket', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.bucketStringProperty' ) )
         }
       },
       itemToolbox: {

@@ -193,6 +193,7 @@ a11y:
         man:     Man
         trash:   Trash Can
         mystery: Mystery Object
+        bucket:  Bucket of Water
     itemToolbox:
       accessibleName:     Item Toolbox
       descriptionContent: Use arrow keys to select an item, then press Space or Enter to grab

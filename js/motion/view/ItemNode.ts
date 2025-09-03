@@ -108,7 +108,9 @@ export default class ItemNode extends Node {
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
                       holdingImageProperty: TReadOnlyProperty<ImageableImage>,
-                      showMassesProperty: TReadOnlyProperty<boolean>, itemToolbox: Node, tandem: Tandem ) {
+                      showMassesProperty: TReadOnlyProperty<boolean>,
+                      itemToolbox: Node,
+                      tandem: Tandem ) {
 
     // Set up strings for mass labels
     const unknownValueIndicatorStringProperty = ForcesAndMotionBasicsFluent.unknownValueIndicatorStringProperty;
@@ -123,7 +125,8 @@ export default class ItemNode extends Node {
                                       item.name === 'man' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty :
                                       item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
                                       item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
-                                      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty; // fallback
+                                      item.name === 'bucket' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.bucketStringProperty :
+                                      ( () => { throw new Error( `Unhandled name: ${item.name}` ); } )(); // IIFE to throw error
 
     // Create fluent property for accessible name with mass
     const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
