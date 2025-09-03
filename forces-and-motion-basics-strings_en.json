@@ -623,6 +623,22 @@
         "accessibleHeading": {
           "value": "Play Area Controls"
         }
+      },
+      "frictionSlider": {
+        "accessibleHelpText": {
+          "value": "Set static coefficient of friction."
+        },
+        "contextResponse": {
+          "smoother": {
+            "value": "Ground smoother. Value reduced, but still non-zero."
+          },
+          "rougher": {
+            "value": "Ground rougher. Value increased."
+          },
+          "icy": {
+            "value": "Ground icy. Value = 0."
+          }
+        }
       }
     },
     "objectToolboxes": {

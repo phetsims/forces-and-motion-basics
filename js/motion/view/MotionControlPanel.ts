@@ -9,9 +9,7 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
@@ -25,7 +23,6 @@ import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { rasterizeNode } from '../../../../scenery/js/util/rasterizeNode.js';
-import HSlider from '../../../../sun/js/HSlider.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -35,14 +32,12 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
+import FrictionSlider from './FrictionSlider.js';
 
 const accelerationStringProperty = ForcesAndMotionBasicsFluent.accelerationStringProperty;
 const forcesStringProperty = ForcesAndMotionBasicsFluent.forcesStringProperty;
 const forceStringProperty = ForcesAndMotionBasicsFluent.forceStringProperty;
-const frictionStringProperty = ForcesAndMotionBasicsFluent.frictionStringProperty;
-const lotsStringProperty = ForcesAndMotionBasicsFluent.lotsStringProperty;
 const massesStringProperty = ForcesAndMotionBasicsFluent.massesStringProperty;
-const noneStringProperty = ForcesAndMotionBasicsFluent.noneStringProperty;
 const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 const stopwatchStringProperty = ForcesAndMotionBasicsFluent.stopwatchStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
@@ -124,48 +119,7 @@ export default class MotionControlPanel extends Node {
       return new AccelerometerNode( accelerometerIconValueProperty ).mutate( { scale: 0.3 } );
     };
 
-    const createFrictionSlider = () => {
-
-      // Create the friction slider and its labels.
-      // Add invisible symmetric ticks + labels so the slider will be perfectly centered.  A better way to do this would be just to line things up based on the
-      // track of the slider, but this makes it work with VBox/HBox
-      const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
-      const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
-
-      const numberOfMinorTicks = 3;
-      const frictionSlider = new HSlider( model.frictionCoefficientProperty, frictionRange, {
-        trackSize: new Dimension2( 150, 6 ),
-        majorTickLength: 18,
-        tickLabelSpacing: 3,
-        valueChangeSoundGeneratorOptions: {
-          numberOfMiddleThresholds: numberOfMinorTicks
-        },
-        tandem: frictionSliderTandem
-      } );
-      const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 36 };
-      const invisibleSliderTickOptions = merge( { visible: false }, sliderTickOptions );
-
-      _.times( numberOfMinorTicks, i => {
-        frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * ( i + 1 ) );
-      } );
-
-      frictionSlider.addMajorTick( 0, new Text( noneStringProperty, sliderTickOptions ) );
-      frictionSlider.addMajorTick( 0, new Text( lotsStringProperty, invisibleSliderTickOptions ) );
-
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( lotsStringProperty, sliderTickOptions ) );
-      frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( noneStringProperty, invisibleSliderTickOptions ) );
-
-      const frictionText = new Text( frictionStringProperty, {
-        font: new PhetFont( { size: fontSize, weight: 'bold' } ),
-        maxWidth: maxTextWidth,
-        visibleProperty: frictionSlider.visibleProperty
-      } );
-
-      // Keep frictionText always centered on the frictionSlider
-      frictionStringProperty.link( () => { frictionText.centerX = frictionSlider.centerX; } );
-
-      return new VBox( { children: [ frictionText, frictionSlider ] } );
-    };
+    const createFrictionSlider = () => new FrictionSlider( model, fontSize, maxTextWidth, tandem );
 
     const createStopwatchIcon = () => {
 

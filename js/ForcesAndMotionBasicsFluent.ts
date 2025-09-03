@@ -199,6 +199,10 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessible
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_accessibleHeading', 'a11y.motionScreen.playAreaControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_frictionSlider_accessibleHelpText', 'a11y.motionScreen.frictionSlider.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_smoother', 'a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_rougher', 'a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_icy', 'a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_leftObjectToolbox', 'a11y.objectToolboxes.leftObjectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_rightObjectToolbox', 'a11y.objectToolboxes.rightObjectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_objectToolbox', 'a11y.objectToolboxes.objectToolboxStringProperty' );
@@ -544,6 +548,14 @@ const ForcesAndMotionBasicsFluent = {
       },
       playAreaControls: {
         accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.accessibleHeadingStringProperty' ) )
+      },
+      frictionSlider: {
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_frictionSlider_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.frictionSlider.accessibleHelpTextStringProperty' ) ),
+        contextResponse: {
+          smootherStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_frictionSlider_contextResponse_smoother', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty' ) ),
+          rougherStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_frictionSlider_contextResponse_rougher', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty' ) ),
+          icyStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_frictionSlider_contextResponse_icy', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty' ) )
+        }
       }
     },
     objectToolboxes: {

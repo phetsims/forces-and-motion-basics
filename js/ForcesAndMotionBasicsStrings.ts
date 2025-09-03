@@ -288,6 +288,14 @@ type StringsType = {
       };
       'playAreaControls': {
         'accessibleHeadingStringProperty': LocalizedStringProperty;
+      };
+      'frictionSlider': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'contextResponse': {
+          'smootherStringProperty': LocalizedStringProperty;
+          'rougherStringProperty': LocalizedStringProperty;
+          'icyStringProperty': LocalizedStringProperty;
+        }
       }
     };
     'objectToolboxes': {
