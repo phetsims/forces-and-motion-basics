@@ -261,9 +261,9 @@ a11y:
     frictionSlider:
       accessibleHelpText: Set static coefficient of friction.
       contextResponse:
-        smoother: Ground smoother. Value reduced, but still non-zero.
-        rougher:  Ground rougher. Value increased.
-        icy:      Ground icy. Value = 0.
+        smoother: Ground smoother.
+        rougher:  Ground rougher.
+        icy:      Ground icy.
   objectToolboxes:
     objectToolbox: Object Toolbox
     skateboard:    Skateboard
