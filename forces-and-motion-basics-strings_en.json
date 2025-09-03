@@ -158,6 +158,20 @@
     }
   },
   "a11y": {
+    "values": {
+      "checkedResponse": {
+        "value": "Numeric values shown."
+      },
+      "uncheckedResponse": {
+        "value": "Numeric values hidden."
+      },
+      "accessibleHelpText": {
+        "value": "Show or hide force and speed values."
+      },
+      "withAccelerationAccessibleHelpText": {
+        "value": "Show or hide force, speed, and acceleration values."
+      }
+    },
     "preferences": {
       "netForcePullerColors": {
         "accessibleHelpText": {
@@ -318,12 +332,6 @@
           },
           "accessibleHelpText": {
             "value": "Show or hide force values."
-          },
-          "accessibleContextResponseChecked": {
-            "value": "Force values shown."
-          },
-          "accessibleContextResponseUnchecked": {
-            "value": "Force values hidden."
           }
         },
         "speed": {
@@ -525,12 +533,6 @@
           },
           "accessibleHelpText": {
             "value": "Check to show numerical values for the forces."
-          },
-          "accessibleContextResponseChecked": {
-            "value": "Force values shown."
-          },
-          "accessibleContextResponseUnchecked": {
-            "value": "Force values hidden."
           }
         },
         "masses": {

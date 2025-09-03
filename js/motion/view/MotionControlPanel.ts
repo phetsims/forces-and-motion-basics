@@ -199,9 +199,9 @@ export default class MotionControlPanel extends Node {
         tandemName: 'valuesCheckbox',
         options: {
           accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty,
-          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty,
-          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty,
-          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty
+          accessibleHelpText: model.screen === 'acceleration' ? ForcesAndMotionBasicsFluent.a11y.values.withAccelerationAccessibleHelpTextStringProperty : ForcesAndMotionBasicsFluent.a11y.values.accessibleHelpTextStringProperty,
+          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.values.checkedResponseStringProperty,
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.values.uncheckedResponseStringProperty
         }
       } );
 

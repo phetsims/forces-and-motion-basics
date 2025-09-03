@@ -56,6 +56,11 @@ keyboardHelpDialog:
 
 # accessibility strings
 a11y:
+  values:
+    checkedResponse:                    Numeric values shown.
+    uncheckedResponse:                  Numeric values hidden.
+    accessibleHelpText:                 Show or hide force and speed values.
+    withAccelerationAccessibleHelpText: Show or hide force, speed, and acceleration values.
   preferences:
     netForcePullerColors:
       accessibleHelpText: Select team colors for tug-of-war game.
@@ -138,10 +143,8 @@ a11y:
         accessibleHelpText:                 Show or hide sum of forces arrow.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       values:
-        accessibleName:                     Values
-        accessibleHelpText:                 Show or hide force values.
-        accessibleContextResponseChecked:   Force values shown.
-        accessibleContextResponseUnchecked: Force values hidden.
+        accessibleName:     Values
+        accessibleHelpText: Show or hide force values.
       speed:
         accessibleName:                     Speed
         accessibleHelpText:                 Show or hide speedometer.
@@ -222,10 +225,8 @@ a11y:
         accessibleContextResponseChecked:   Force arrows shown.
         accessibleContextResponseUnchecked: Force arrows hidden.
       values:
-        accessibleName:                     Values
-        accessibleHelpText:                 Check to show numerical values for the forces.
-        accessibleContextResponseChecked:   Force values shown.
-        accessibleContextResponseUnchecked: Force values hidden.
+        accessibleName:     Values
+        accessibleHelpText: Check to show numerical values for the forces.
       masses:
         accessibleName:                     Masses
         accessibleHelpText:                 Check to show masses of objects.

@@ -74,6 +74,10 @@ addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemSt
 addToMapIfDefined( 'keyboardHelpDialog_adjustAppliedForce', 'keyboardHelpDialog.adjustAppliedForceStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_appliedForceControls', 'keyboardHelpDialog.appliedForceControlsStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_zeroAppliedForce', 'keyboardHelpDialog.zeroAppliedForceStringProperty' );
+addToMapIfDefined( 'a11y_values_checkedResponse', 'a11y.values.checkedResponseStringProperty' );
+addToMapIfDefined( 'a11y_values_uncheckedResponse', 'a11y.values.uncheckedResponseStringProperty' );
+addToMapIfDefined( 'a11y_values_accessibleHelpText', 'a11y.values.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_values_withAccelerationAccessibleHelpText', 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_preferences_netForcePullerColors_accessibleHelpText', 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' );
@@ -116,8 +120,6 @@ addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessi
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_values_accessibleName', 'a11y.netForceScreen.netForceControlPanel.values.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_values_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_values_accessibleContextResponseChecked', 'a11y.netForceScreen.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_values_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleName', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
@@ -171,8 +173,6 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContext
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleName', 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleName', 'a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty' );
@@ -331,6 +331,12 @@ const ForcesAndMotionBasicsFluent = {
   },
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
+    values: {
+      checkedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_checkedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.checkedResponseStringProperty' ) ),
+      uncheckedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_uncheckedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.uncheckedResponseStringProperty' ) ),
+      accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.accessibleHelpTextStringProperty' ) ),
+      withAccelerationAccessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_withAccelerationAccessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' ) )
+    },
     preferences: {
       netForcePullerColors: {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_preferences_netForcePullerColors_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' ) )
@@ -412,9 +418,7 @@ const ForcesAndMotionBasicsFluent = {
         values: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
           accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.values.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_values_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.values.accessibleContextResponseCheckedStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_values_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.values.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty' ) )
         },
         speed: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
@@ -514,9 +518,7 @@ const ForcesAndMotionBasicsFluent = {
         values: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
           accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseCheckedStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' ) )
         },
         masses: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),

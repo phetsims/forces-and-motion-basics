@@ -73,6 +73,12 @@ type StringsType = {
     'zeroAppliedForceStringProperty': LocalizedStringProperty;
   };
   'a11y': {
+    'values': {
+      'checkedResponseStringProperty': LocalizedStringProperty;
+      'uncheckedResponseStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'withAccelerationAccessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'preferences': {
       'netForcePullerColors': {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
@@ -150,8 +156,6 @@ type StringsType = {
         'values': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
         'speed': {
           'accessibleNameStringProperty': LocalizedStringProperty;
@@ -247,8 +251,6 @@ type StringsType = {
         'values': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
         'masses': {
           'accessibleNameStringProperty': LocalizedStringProperty;
