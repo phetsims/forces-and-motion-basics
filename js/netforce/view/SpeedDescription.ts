@@ -46,9 +46,12 @@ export default class SpeedDescription extends Node {
             } ).value;
           }
           else {
-            return ForcesAndMotionBasicsFluent.a11y.speed.cartSpeed.createProperty( {
+
+            // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/418
+            const cartSpeedProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeed.createProperty( {
               speedDescription: qualitativeSpeed
-            } ).value;
+            } );
+            return cartSpeedProperty.value;
           }
         }
         else {

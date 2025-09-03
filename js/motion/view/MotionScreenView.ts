@@ -371,17 +371,13 @@ export default class MotionScreenView extends ScreenView {
     // Add the force arrows & associated readouts in front of the items
     const arrowScale = 0.3;
 
-    // Round the forces so that the sum is correct in the display, see https:// github.com/phetsims/forces-and-motion-basics/issues/72 and
-    // https:// github.com/phetsims/forces-and-motion-basics/issues/74
-    const roundedAppliedForceProperty = new DerivedProperty(
-      [ model.appliedForceProperty ],
-      appliedForce => Utils.roundSymmetric( appliedForce ) );
-    const roundedFrictionForceProperty = new DerivedProperty(
-      [ model.frictionForceProperty ],
-      frictionForce => Utils.roundSymmetric( frictionForce ) );
+    // Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and
+    // https://github.com/phetsims/forces-and-motion-basics/issues/74
+    const roundedAppliedForceProperty = new DerivedProperty( [ model.appliedForceProperty ], appliedForce => Utils.roundSymmetric( appliedForce ) );
+    const roundedFrictionForceProperty = new DerivedProperty( [ model.frictionForceProperty ], frictionForce => Utils.roundSymmetric( frictionForce ) );
 
     // Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see
-    // https:// github.com/phetsims/forces-and-motion-basics/issues/83
+    // https://github.com/phetsims/forces-and-motion-basics/issues/83
     const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
       units: 'N',

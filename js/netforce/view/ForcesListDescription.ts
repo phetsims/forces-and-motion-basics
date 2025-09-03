@@ -98,7 +98,7 @@ export default class ForcesListDescription extends Node {
     const sumZeroStringProperty = ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesZeroStringProperty;
 
     const sumItemStringProperty = new DerivedProperty( [ sumIsZeroProperty, sumZeroStringProperty, sumArrowStringProperty ],
-      () => sumIsZeroProperty.value ? sumZeroStringProperty.value : sumArrowStringProperty.value );
+      ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString );
 
     // Build the AccessibleListNode once with three potential items, each with its own visibility
     this.forcesList = new AccessibleListNode( [

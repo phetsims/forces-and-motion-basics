@@ -15,7 +15,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
@@ -30,8 +30,8 @@ export default class MotionForcesListDescription extends Node {
     const THRESHOLD = 1e-6;
 
     // Rounded values to match on-screen arrow labels (see MotionScreenView implementation)
-    const roundedAppliedForceProperty = new DerivedProperty( [ model.appliedForceProperty ], f => Utils.roundSymmetric( f ) );
-    const roundedFrictionForceProperty = new DerivedProperty( [ model.frictionForceProperty ], f => Utils.roundSymmetric( f ) );
+    const roundedAppliedForceProperty = new DerivedProperty( [ model.appliedForceProperty ], f => roundSymmetric( f ) );
+    const roundedFrictionForceProperty = new DerivedProperty( [ model.frictionForceProperty ], f => roundSymmetric( f ) );
     const roundedSumProperty = new DerivedProperty( [ roundedAppliedForceProperty, roundedFrictionForceProperty ],
       ( a, b ) => a + b );
 
@@ -125,8 +125,10 @@ export default class MotionForcesListDescription extends Node {
 
     const sumZeroStringProperty = ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesZeroStringProperty;
     const sumIsZeroProperty = new DerivedProperty( [ roundedSumProperty ], sum => Math.abs( sum ) < THRESHOLD );
-    const sumItemStringProperty = new DerivedProperty( [ sumIsZeroProperty, sumZeroStringProperty, sumArrowStringProperty ],
-      () => sumIsZeroProperty.value ? sumZeroStringProperty.value : sumArrowStringProperty.value );
+    const sumItemStringProperty = new DerivedProperty(
+      [ sumIsZeroProperty, sumZeroStringProperty, sumArrowStringProperty ],
+      ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString
+    );
 
     // Build the list
     this.forcesList = new AccessibleListNode( [

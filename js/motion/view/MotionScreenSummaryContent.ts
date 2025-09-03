@@ -42,53 +42,66 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
     // Control area content
     const controlAreaContent = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.descriptionStringProperty;
 
+    const onSkateboardProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboard.createProperty( { count: model.stackedItems.lengthProperty } );
+    const onGroundProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnGround.createProperty( { count: model.stackedItems.lengthProperty } );
+
     // Dynamic current details based on objects on skateboard/ground and motion state
     const objectsDescriptionStringProperty = new DerivedProperty(
-      [ model.stackedItems.lengthProperty ],
-      ( stackLength: number ) => {
+      [ model.stackedItems.lengthProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty,
+        onSkateboardProperty,
+        onGroundProperty
+      ],
+      ( stackLength, noObjectsOnSkateboardString, noObjectsOnGroundString, onSkateboard, onGround ) => {
         if ( stackLength === 0 ) {
-          return model.screen === 'motion' ?
-                 ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty.value :
-                 ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty.value;
+          return model.screen === 'motion' ? noObjectsOnSkateboardString : noObjectsOnGroundString;
         }
         else {
-          return model.screen === 'motion' ?
-                 ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboard.format( { count: stackLength } ) :
-                 ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnGround.format( { count: stackLength } );
+          return model.screen === 'motion' ? onSkateboard : onGround;
         }
       }
     );
 
     // Motion state description based on velocity
     const motionStateStringProperty = new DerivedProperty(
-      [ model.velocityProperty ],
-      ( velocity: number ) => {
+      [
+        model.velocityProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.stationaryStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.movingRightStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.movingLeftStringProperty
+      ],
+      ( velocity, stationaryString, movingRightString, movingLeftString ) => {
         const threshold = 0.01; // Small threshold to avoid flickering between states
         if ( Math.abs( velocity ) < threshold ) {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.stationaryStringProperty.value;
+          return stationaryString;
         }
         else if ( velocity > 0 ) {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.movingRightStringProperty.value;
+          return movingRightString;
         }
         else {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.movingLeftStringProperty.value;
+          return movingLeftString;
         }
       }
     );
 
     // Applied force description
     const forceDescriptionStringProperty = new DerivedProperty(
-      [ model.appliedForceProperty ],
-      ( appliedForce: number ) => {
+      [ model.appliedForceProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.noForceStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceRightStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty
+      ],
+      ( appliedForce, noForceString, appliedForceRightString, appliedForceLeftString ) => {
         const threshold = 1; // Small threshold to avoid flickering
         if ( Math.abs( appliedForce ) < threshold ) {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.noForceStringProperty.value;
+          return noForceString;
         }
         else if ( appliedForce > 0 ) {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceRightStringProperty.value;
+          return appliedForceRightString;
         }
         else {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty.value;
+          return appliedForceLeftString;
         }
       }
     );
@@ -118,15 +131,19 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
 
     // Dynamic interaction hint based on whether objects are on the skateboard/ground
     const interactionHintContentProperty = new DerivedProperty(
-      [ model.stackedItems.lengthProperty ],
-      ( stackLength: number ) => {
+      [ model.stackedItems.lengthProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty
+      ],
+      ( stackLength, noObjectsString, noObjectsOnGroundString, withObjectsString ) => {
         if ( stackLength === 0 ) {
           return model.screen === 'motion' ?
-                 ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsStringProperty.value :
-                 ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty.value;
+                 noObjectsString :
+                 noObjectsOnGroundString;
         }
         else {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty.value;
+          return withObjectsString;
         }
       }
     );

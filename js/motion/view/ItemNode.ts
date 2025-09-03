@@ -138,7 +138,7 @@ export default class ItemNode extends Node {
     // Create a derived property that switches between plain name and name with mass
     const accessibleNameProperty = new DerivedProperty(
       [ showMassesProperty, itemAccessibleNameWithMassProperty, localizedItemNameProperty ],
-      ( showMasses: boolean, itemNameWithMass: string, localizedItemName: string ): string => {
+      ( showMasses, itemNameWithMass, localizedItemName ): string => {
         return showMasses ? itemNameWithMass : localizedItemName;
       }
     );
