@@ -8,6 +8,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
@@ -17,6 +18,7 @@ import NetForceModel from '../model/NetForceModel.js';
 
 export default class ForcesListDescription extends Node {
   private readonly forcesList: AccessibleListNode | null = null;
+  public readonly netForceDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( private readonly model: NetForceModel ) {
 
@@ -95,16 +97,16 @@ export default class ForcesListDescription extends Node {
       direction: sumDirectionProperty
     } );
 
-    const sumZeroStringProperty = ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesZeroStringProperty;
-
-    const sumItemStringProperty = new DerivedProperty( [ sumIsZeroProperty, sumZeroStringProperty, sumArrowStringProperty ],
-      ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString );
+    this.netForceDescriptionProperty = new DerivedProperty(
+      [ sumIsZeroProperty, ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesZeroStringProperty, sumArrowStringProperty ],
+      ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString
+    );
 
     // Build the AccessibleListNode once with three potential items, each with its own visibility
     this.forcesList = new AccessibleListNode( [
       { stringProperty: leftItemStringProperty, visibleProperty: leftVisibleProperty },
       { stringProperty: rightItemStringProperty, visibleProperty: rightVisibleProperty },
-      { stringProperty: sumItemStringProperty, visibleProperty: model.showSumOfForcesProperty }
+      { stringProperty: this.netForceDescriptionProperty, visibleProperty: model.showSumOfForcesProperty }
     ] );
 
     this.addChild( this.forcesList );

@@ -7,6 +7,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -32,14 +33,7 @@ export default class NetForceControlPanel extends Node {
   private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
   private readonly verticalCheckboxGroupPanel: Panel;
 
-  /**
-   * Create the NetForceControlPanel.
-   *
-   * @param model the model for this control panel
-   * @param tandem
-   * @param providedOptions
-   */
-  public constructor( model: NetForceModel, tandem: Tandem, providedOptions?: NetForceControlPanelOptions ) {
+  public constructor( model: NetForceModel, tandem: Tandem, netForceDescription: TReadOnlyProperty<string>, providedOptions?: NetForceControlPanelOptions ) {
     const options = optionize<NetForceControlPanelOptions, SelfOptions, NodeOptions>()( {
       tandem: tandem
     }, providedOptions );
@@ -63,7 +57,9 @@ export default class NetForceControlPanel extends Node {
       options: {
         accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleNameStringProperty,
         accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
+
+        // When checked, read the dynamic description of the net force which is the same as in the PDOM description, see https://github.com/phetsims/forces-and-motion-basics/issues/417
+        accessibleContextResponseChecked: netForceDescription,
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
       }
     }, {

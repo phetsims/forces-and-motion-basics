@@ -113,7 +113,6 @@ addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartStationary', 'a11y.net
 addToMapIfDefined( 'a11y_netForceScreen_goPauseButton_cartPaused', 'a11y.netForceScreen.goPauseButton.cartPausedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleName', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_values_accessibleName', 'a11y.netForceScreen.netForceControlPanel.values.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_values_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty' );
@@ -393,7 +392,6 @@ const ForcesAndMotionBasicsFluent = {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
           accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleNameStringProperty' ) ),
           accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty' ) ),
           accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_netForceControlPanel_sumOfForces_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' ) )
         },
         values: {

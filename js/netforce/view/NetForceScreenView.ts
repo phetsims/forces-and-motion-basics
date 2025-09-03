@@ -58,7 +58,6 @@ const STOPPER_HEIGHT = 24;
 const SUM_ARROW_TAIL_Y = 127;
 const BUTTON_PADDING = 7; // placement padding for the reset all button
 
-
 export default class NetForceScreenView extends ScreenView {
   private readonly cartNode: CartNode;
   private readonly ropeImageNode: Image;
@@ -73,8 +72,6 @@ export default class NetForceScreenView extends ScreenView {
   private readonly rightPullerGroup: PullerGroupNode;
   private readonly returnButton: ReturnButton;
   private readonly grabReleaseCueNode: NetForceGrabReleaseCueNode;
-
-  // private readonly pullerFocusManager: PullerFocusManager;
 
   public constructor( private readonly model: NetForceModel, tandem: Tandem ) {
 
@@ -290,8 +287,10 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.rightArrow );
     this.addChild( this.sumArrow );
 
+    const forcesListDescription = new ForcesListDescription( model );
+
     // Show the control panel
-    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ), {
+    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ), forcesListDescription.netForceDescriptionProperty, {
       visiblePropertyOptions: { phetioFeatured: true }
     } );
 
@@ -305,15 +304,6 @@ export default class NetForceScreenView extends ScreenView {
 
         // Reset the grab release cue node
         this.grabReleaseCueNode.reset();
-
-        // Reset the centralized focus management
-        // this.pullerFocusManager.reset();
-
-        // Reset the focus state of all puller groups to ensure proper keyboard navigation
-        // this.leftPullerGroup.reset();
-        // this.rightPullerGroup.reset();
-        // this.leftRopePullerGroup.reset();
-        // this.rightRopePullerGroup.reset();
       },
       radius: 23,
       tandem: tandem.createTandem( 'resetAllButton' )
@@ -396,7 +386,6 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( tugOfWarOverviewNode );
 
     // Create Forces list description node
-    const forcesListDescription = new ForcesListDescription( model );
     this.addChild( forcesListDescription );
 
     // Create Speed description node

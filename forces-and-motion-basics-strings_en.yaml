@@ -136,7 +136,6 @@ a11y:
       sumOfForces:
         accessibleName:                     Sum of Forces
         accessibleHelpText:                 Show or hide sum of forces arrow.
-        accessibleContextResponseChecked:   Sum of forces arrow shown.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       values:
         accessibleName:                     Values
