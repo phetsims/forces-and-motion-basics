@@ -77,6 +77,26 @@ export default class MotionScreenView extends ScreenView {
   private readonly itemToolboxGroup: ItemToolboxGroupNode;
   private readonly itemStackGroup: ItemStackGroupNode;
 
+  // Update PDOM order for toolbox and stack items
+  private updateItemPDOMOrder(): void {
+    // Compute desired orders
+    const toolboxItems = this.itemToolboxGroup.itemNodes
+      .slice()
+      .sort( ( a, b ) => a.centerX - b.centerX );
+
+    const stackItems = this.itemStackGroup.stackItemNodes
+      .slice()
+      .sort( ( a, b ) => a.top - b.top );
+
+    // Clear existing pdomOrder first to avoid transient duplicates across groups
+    this.itemToolboxGroup.pdomOrder = [];
+    this.itemStackGroup.pdomOrder = [];
+
+    // Apply updated orders
+    this.itemToolboxGroup.pdomOrder = toolboxItems;
+    this.itemStackGroup.pdomOrder = stackItems;
+  }
+
   /**
    * @param model model for the entire screen
    * @param tandem
@@ -404,7 +424,7 @@ export default class MotionScreenView extends ScreenView {
     this.toolboxContainer.addChild( rightItemToolboxNode );
     this.addChild( this.toolboxContainer );
 
-    // Add keyboard navigation groups to scene graph  
+    // Add keyboard navigation groups to scene graph
     this.addChild( this.itemToolboxGroup );
     this.addChild( this.itemStackGroup );
 
@@ -456,10 +476,19 @@ export default class MotionScreenView extends ScreenView {
     // Set up transfer logic for keyboard groups based on item stack state
     this.setupKeyboardGroupTransfers( model );
 
+    // Update PDOM order when items move between regions or change position
+    this.itemNodes.forEach( itemNode => {
+      itemNode.item.inStackProperty.link( () => this.updateItemPDOMOrder() );
+      itemNode.item.positionProperty.link( () => this.updateItemPDOMOrder() );
+    } );
+
+    // Initial PDOM order
+    this.updateItemPDOMOrder();
+
     this.pdomPlayAreaNode.pdomOrder = [
       this.itemToolboxGroup,
       this.itemStackGroup,
-      itemLayer,
+      // itemLayer,
       appliedForcePlayAreaControlNode,
       this.appliedForceArrow,
       this.frictionArrow,
@@ -522,6 +551,8 @@ export default class MotionScreenView extends ScreenView {
             this.itemStackGroup.addItemNode( itemNode, model );
             // Update keyboard strategy for stack navigation
             itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+            // Update PDOM order after transfer
+            this.updateItemPDOMOrder();
           }
         }
         else if ( mode === 'inToolbox' ) {
@@ -536,6 +567,8 @@ export default class MotionScreenView extends ScreenView {
             // Update keyboard strategy for toolbox navigation
             itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
           }
+          // Update PDOM order after transfer
+          this.updateItemPDOMOrder();
         }
         // Note: Animation modes are handled automatically and don't require group transfers
       }
@@ -560,6 +593,8 @@ export default class MotionScreenView extends ScreenView {
           this.itemStackGroup.removeItemNode( stackItemNode );
           this.itemStackGroup.addItemNode( stackItemNode, model );
         } );
+        // Update PDOM after re-sorting
+        this.updateItemPDOMOrder();
       }
     } );
   }
