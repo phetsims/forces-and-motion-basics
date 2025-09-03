@@ -191,6 +191,20 @@
           "value": "Drop puller with Space or Enter keys."
         }
       },
+      "itemNavigation": {
+        "selectItemDescription": {
+          "value": "Select item with Left and Right Arrow keys."
+        },
+        "grabItemDescription": {
+          "value": "Grab selected item with Space or Enter keys."
+        },
+        "moveGrabbedItemDescription": {
+          "value": "Move grabbed item with Left and Right Arrow keys."
+        },
+        "dropItemDescription": {
+          "value": "Drop item with Space or Enter keys."
+        }
+      },
       "appliedForceControls": {
         "zeroAppliedForceDescription": {
           "value": "Zero applied force with 0 key."
@@ -442,7 +456,7 @@
             "value": "Mystery Object"
           },
           "bucket": {
-            "value": "Bucket"
+            "value": "Bucket of Water"
           }
         }
       },

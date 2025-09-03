@@ -25,22 +25,34 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectItemStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        { labelOptions: { lineWrap: 200 } }
+        {
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty
+        }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabItemStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
-        { labelOptions: { lineWrap: 200 } }
+        {
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty
+        }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedItemStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        { labelOptions: { lineWrap: 200 } }
+        {
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty
+        }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropItemStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
-        { labelOptions: { lineWrap: 200 } }
+        {
+          labelOptions: { lineWrap: 200 },
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty
+        }
       )
     ] );
 

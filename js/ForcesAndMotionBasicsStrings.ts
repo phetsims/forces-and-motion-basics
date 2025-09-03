@@ -90,6 +90,12 @@ type StringsType = {
         'moveGrabbedPullerDescriptionStringProperty': LocalizedStringProperty;
         'dropPullerDescriptionStringProperty': LocalizedStringProperty;
       };
+      'itemNavigation': {
+        'selectItemDescriptionStringProperty': LocalizedStringProperty;
+        'grabItemDescriptionStringProperty': LocalizedStringProperty;
+        'moveGrabbedItemDescriptionStringProperty': LocalizedStringProperty;
+        'dropItemDescriptionStringProperty': LocalizedStringProperty;
+      };
       'appliedForceControls': {
         'zeroAppliedForceDescriptionStringProperty': LocalizedStringProperty;
       }

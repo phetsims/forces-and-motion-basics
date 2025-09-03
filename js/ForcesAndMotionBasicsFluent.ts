@@ -82,6 +82,10 @@ addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_selectPullerDescrip
 addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_grabPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_moveGrabbedPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_dropPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_selectItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_grabItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_moveGrabbedItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_dropItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_teamName', 'a11y.netForceScreen.teamNameStringProperty' );
@@ -326,6 +330,12 @@ const ForcesAndMotionBasicsFluent = {
         grabPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_grabPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty' ) ),
         moveGrabbedPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_moveGrabbedPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty' ) ),
         dropPullerDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_dropPullerDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty' ) )
+      },
+      itemNavigation: {
+        selectItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_selectItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty' ) ),
+        grabItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_grabItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty' ) ),
+        moveGrabbedItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_moveGrabbedItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty' ) ),
+        dropItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_dropItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty' ) )
       },
       appliedForceControls: {
         zeroAppliedForceDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' ) )

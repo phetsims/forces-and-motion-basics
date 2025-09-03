@@ -69,6 +69,11 @@ a11y:
       grabPullerDescription:        Grab selected puller with Space or Enter keys.
       moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys.
       dropPullerDescription:        Drop puller with Space or Enter keys.
+    itemNavigation:
+      selectItemDescription:      Select item with Left and Right Arrow keys.
+      grabItemDescription:        Grab selected item with Space or Enter keys.
+      moveGrabbedItemDescription: Move grabbed item with Left and Right Arrow keys.
+      dropItemDescription:        Drop item with Space or Enter keys.
     appliedForceControls:
       zeroAppliedForceDescription: Zero applied force with 0 key.
   netForceScreen:
