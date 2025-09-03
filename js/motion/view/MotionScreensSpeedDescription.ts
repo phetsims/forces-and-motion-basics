@@ -34,15 +34,24 @@ export default class MotionScreensSpeedDescription extends Node {
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.veryFastStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.extremelyFastStringProperty
-    ], speed => {
+    ], (
+      speed,
+      stationaryString,
+      verySlowString,
+      slowString,
+      mediumString,
+      fastString,
+      veryFastString,
+      extremelyFastString
+    ) => {
       const absSpeed = Math.abs( speed );
-      if ( absSpeed === 0 ) { return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.stationaryStringProperty.value; }
-      if ( absSpeed < 2 ) { return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.verySlowStringProperty.value; }
-      if ( absSpeed < 5 ) { return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty.value; }
-      if ( absSpeed < 10 ) { return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty.value; }
-      if ( absSpeed < 20 ) { return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty.value; }
-      if ( absSpeed < 30 ) { return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.veryFastStringProperty.value; }
-      return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.extremelyFastStringProperty.value;
+      if ( absSpeed === 0 ) { return stationaryString; }
+      if ( absSpeed < 2 ) { return verySlowString; }
+      if ( absSpeed < 5 ) { return slowString; }
+      if ( absSpeed < 10 ) { return mediumString; }
+      if ( absSpeed < 20 ) { return fastString; }
+      if ( absSpeed < 30 ) { return veryFastString; }
+      return extremelyFastString;
     } );
 
     // Numeric value (1 decimal place) as string
