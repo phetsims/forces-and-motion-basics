@@ -16,42 +16,63 @@ import NetForceModel from '../model/NetForceModel.js';
 export default class SpeedDescription extends Node {
 
   public constructor( model: NetForceModel ) {
+
+    const qualitativeSpeedProperty = new DerivedProperty(
+      [ model.speedProperty ],
+      speed => this.getQualitativeSpeedDescription( Math.abs( speed ) )
+    );
+
+    const accelerationDescriptionProperty = new DerivedProperty(
+      [ model.netForceProperty, model.cart.velocityProperty ],
+      ( netForce, velocity ) => this.getAccelerationDescription( netForce, velocity )
+    );
+
+    const cartSpeedWithAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeedWithAcceleration.createProperty( {
+      speedDescription: qualitativeSpeedProperty,
+      accelerationDescription: accelerationDescriptionProperty
+    } );
+
+    const cartSpeedProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeed.createProperty( {
+      speedDescription: qualitativeSpeedProperty
+    } );
+
     // Create a derived property for the speed description paragraph
     const speedDescriptionProperty = new DerivedProperty(
       [
-        model.speedProperty,
+
         model.showSpeedProperty,
+
+        accelerationDescriptionProperty,
+
+        cartSpeedWithAccelerationProperty,
+        cartSpeedProperty,
+        model.speedProperty,
+
         model.netForceProperty,
         model.cart.velocityProperty,
+
+        qualitativeSpeedProperty,
+
         // String dependencies from getQualitativeSpeedDescription
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.stationaryStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.verySlowStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty,
+
         // String dependencies from getAccelerationDescription
         ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.speedingUpStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.accelerationDescriptions.slowingDownStringProperty
       ],
-      ( speed, showSpeed, netForce, velocity ) => {
+      ( showSpeed, accelerationDescription, cartSpeedWithAcceleration, cartSpeed ) => {
         if ( showSpeed ) {
-          const qualitativeSpeed = this.getQualitativeSpeedDescription( Math.abs( speed ) );
-          const accelerationDescription = this.getAccelerationDescription( netForce, velocity );
 
           // Use different strings based on whether there's acceleration
           if ( accelerationDescription ) {
-            return ForcesAndMotionBasicsFluent.a11y.speed.cartSpeedWithAcceleration.createProperty( {
-              speedDescription: qualitativeSpeed,
-              accelerationDescription: accelerationDescription
-            } ).value;
+            return cartSpeedWithAcceleration;
           }
           else {
-
-            // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/418
-            const cartSpeedProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeed.createProperty( {
-              speedDescription: qualitativeSpeed
-            } );
-            return cartSpeedProperty.value;
+            return cartSpeed;
           }
         }
         else {

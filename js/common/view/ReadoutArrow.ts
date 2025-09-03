@@ -10,7 +10,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ArrowShape from '../../../../scenery-phet/js/ArrowShape.js';
@@ -96,7 +96,7 @@ export default class ReadoutArrow extends Node {
 
     const fontOptions = { font: new PhetFont( { size: 16, weight: 'bold' } ), maxWidth: 112 };
     const valueTextPatternStringProperty = new PatternStringProperty( pattern0ValueUnitsNStringProperty,
-      { value: new DerivedProperty( [ valueProperty ], value => Utils.toFixed( Math.abs( value ), 0 ) ) },
+      { value: new DerivedProperty( [ valueProperty ], value => toFixed( Math.abs( value ), 0 ) ) },
       { formatNames: [ 'value' ] } );
     const valueText = new Text( valueTextPatternStringProperty, fontOptions );
     const roundedRadius = 8;
