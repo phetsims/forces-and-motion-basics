@@ -8,12 +8,14 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
 export default class SpeedDescription extends Node {
+  public readonly speedDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: NetForceModel ) {
 
@@ -86,6 +88,8 @@ export default class SpeedDescription extends Node {
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.speed.headingStringProperty,
       accessibleParagraph: speedDescriptionProperty
     } );
+
+    this.speedDescriptionProperty = speedDescriptionProperty;
 
     // Update visibility based on showSpeedProperty
     model.showSpeedProperty.link( showSpeed => {

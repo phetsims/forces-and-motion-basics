@@ -333,9 +333,6 @@
           "accessibleHelpText": {
             "value": "Show or hide speedometer."
           },
-          "accessibleContextResponseChecked": {
-            "value": "Speedometer shown on cart."
-          },
           "accessibleContextResponseUnchecked": {
             "value": "Speedometer hidden."
           }
@@ -627,13 +624,13 @@
         },
         "contextResponse": {
           "smoother": {
-            "value": "Ground smoother. Value reduced, but still non-zero."
+            "value": "Ground smoother."
           },
           "rougher": {
-            "value": "Ground rougher. Value increased."
+            "value": "Ground rougher."
           },
           "icy": {
-            "value": "Ground icy. Value = 0."
+            "value": "Ground icy."
           }
         }
       }

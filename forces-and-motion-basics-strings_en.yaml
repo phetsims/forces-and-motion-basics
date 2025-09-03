@@ -145,7 +145,6 @@ a11y:
       speed:
         accessibleName:                     Speed
         accessibleHelpText:                 Show or hide speedometer.
-        accessibleContextResponseChecked:   Speedometer shown on cart.
         accessibleContextResponseUnchecked: Speedometer hidden.
     playAreaControls:
       accessibleHeading: Tug-of-War Controls

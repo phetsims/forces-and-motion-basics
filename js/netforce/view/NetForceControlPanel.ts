@@ -29,11 +29,18 @@ const valuesStringProperty = ForcesAndMotionBasicsFluent.valuesStringProperty;
 
 type SelfOptions = EmptySelfOptions;
 type NetForceControlPanelOptions = NodeOptions & SelfOptions;
+
 export default class NetForceControlPanel extends Node {
   private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
   private readonly verticalCheckboxGroupPanel: Panel;
 
-  public constructor( model: NetForceModel, tandem: Tandem, netForceDescription: TReadOnlyProperty<string>, providedOptions?: NetForceControlPanelOptions ) {
+  public constructor(
+    model: NetForceModel,
+    tandem: Tandem,
+    netForceDescription: TReadOnlyProperty<string>,
+    speedDescriptionProperty: TReadOnlyProperty<string>,
+    providedOptions?: NetForceControlPanelOptions
+  ) {
     const options = optionize<NetForceControlPanelOptions, SelfOptions, NodeOptions>()( {
       tandem: tandem
     }, providedOptions );
@@ -82,7 +89,7 @@ export default class NetForceControlPanel extends Node {
       options: {
         accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleNameStringProperty,
         accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseCheckedStringProperty,
+        accessibleContextResponseChecked: speedDescriptionProperty,
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty
       }
     } ], {

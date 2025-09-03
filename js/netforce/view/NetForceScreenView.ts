@@ -288,11 +288,16 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.sumArrow );
 
     const forcesListDescription = new ForcesListDescription( model );
+    const speedDescription = new SpeedDescription( model );
 
     // Show the control panel
-    this.controlPanel = new NetForceControlPanel( this.model, tandem.createTandem( 'controlPanel' ), forcesListDescription.netForceDescriptionProperty, {
-      visiblePropertyOptions: { phetioFeatured: true }
-    } );
+    this.controlPanel = new NetForceControlPanel(
+      this.model,
+      tandem.createTandem( 'controlPanel' ),
+      forcesListDescription.netForceDescriptionProperty,
+      speedDescription.speedDescriptionProperty, {
+        visiblePropertyOptions: { phetioFeatured: true }
+      } );
 
     // Create reset all button
     this.resetAllButton = new ResetAllButton( {
@@ -385,11 +390,7 @@ export default class NetForceScreenView extends ScreenView {
     const tugOfWarOverviewNode = new TugOfWarDescription( model, this.pullerNodes );
     this.addChild( tugOfWarOverviewNode );
 
-    // Create Forces list description node
     this.addChild( forcesListDescription );
-
-    // Create Speed description node
-    const speedDescription = new SpeedDescription( model );
     this.addChild( speedDescription );
 
     // Set up the pdomOrder for proper accessibility hierarchy

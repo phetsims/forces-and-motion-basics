@@ -156,7 +156,6 @@ type StringsType = {
         'speed': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         }
       };
