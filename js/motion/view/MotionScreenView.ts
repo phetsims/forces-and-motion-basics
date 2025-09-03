@@ -191,7 +191,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( speedometerNode );
 
     // Create and add the control panel
-    const controlPanel = new MotionControlPanel( model, tandem.createTandem( 'controlPanel' ) );
+    const controlPanel = new MotionControlPanel( model, forcesListDescription.netForceDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );

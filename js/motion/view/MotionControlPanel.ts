@@ -50,11 +50,7 @@ const SUM_OF_FORCES_MAX_WIDTH = 120;
 
 export default class MotionControlPanel extends Node {
 
-  /**
-   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param tandem
-   */
-  public constructor( model: MotionModel, tandem: Tandem ) {
+  public constructor( model: MotionModel, sumOfForcesDescriptionProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
     super( {
       tandem: tandem,
       phetioFeatured: true
@@ -190,7 +186,7 @@ export default class MotionControlPanel extends Node {
           options: {
             accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty,
             accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseCheckedStringProperty,
+            accessibleContextResponseChecked: sumOfForcesDescriptionProperty,
             accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
           }
         } );

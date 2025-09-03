@@ -247,7 +247,6 @@ a11y:
       sumOfForces:
         accessibleName:                     Sum of Forces
         accessibleHelpText:                 Check to show an arrow representing the sum of all forces.
-        accessibleContextResponseChecked:   Sum of forces arrow shown.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       acceleration:
         accessibleName:                     Acceleration

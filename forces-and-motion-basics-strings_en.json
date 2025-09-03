@@ -591,9 +591,6 @@
           "accessibleHelpText": {
             "value": "Check to show an arrow representing the sum of all forces."
           },
-          "accessibleContextResponseChecked": {
-            "value": "Sum of forces arrow shown."
-          },
           "accessibleContextResponseUnchecked": {
             "value": "Sum of forces arrow hidden."
           }

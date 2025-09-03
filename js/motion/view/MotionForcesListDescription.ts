@@ -15,6 +15,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -25,8 +26,9 @@ import MotionModel from '../model/MotionModel.js';
 
 export default class MotionForcesListDescription extends Node {
   private readonly forcesList: AccessibleListNode | null = null;
+  public readonly netForceDescriptionProperty: TReadOnlyProperty<string>;
 
-  public constructor( private readonly model: MotionModel ) {
+  public constructor( model: MotionModel ) {
     const THRESHOLD = 1e-6;
 
     // Rounded values to match on-screen arrow labels (see MotionScreenView implementation)
@@ -125,7 +127,7 @@ export default class MotionForcesListDescription extends Node {
 
     const sumZeroStringProperty = ForcesAndMotionBasicsFluent.a11y.forces.sumOfForcesZeroStringProperty;
     const sumIsZeroProperty = new DerivedProperty( [ roundedSumProperty ], sum => Math.abs( sum ) < THRESHOLD );
-    const sumItemStringProperty = new DerivedProperty(
+    this.netForceDescriptionProperty = new DerivedProperty(
       [ sumIsZeroProperty, sumZeroStringProperty, sumArrowStringProperty ],
       ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString
     );
@@ -134,7 +136,7 @@ export default class MotionForcesListDescription extends Node {
     this.forcesList = new AccessibleListNode( [
       { stringProperty: appliedItemStringProperty, visibleProperty: appliedVisibleProperty },
       { stringProperty: frictionItemStringProperty, visibleProperty: frictionVisibleProperty },
-      { stringProperty: sumItemStringProperty, visibleProperty: model.showSumOfForcesProperty }
+      { stringProperty: this.netForceDescriptionProperty, visibleProperty: model.showSumOfForcesProperty }
     ] );
 
     this.addChild( this.forcesList );
