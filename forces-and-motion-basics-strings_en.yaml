@@ -282,6 +282,8 @@ a11y:
     knotOccupied:    '{ $side } knot { $number }: { $pullerName }'
   forces:
     heading:                 Forces
+    appliedForceArrow:       'Applied force arrow is { $description }, pointing { $direction }'
+    frictionForceArrow:      'Friction force arrow is { $description }, pointing { $direction }'
     leftForceArrow:          'Left force arrow is { $description }'
     rightForceArrow:         'Right force arrow is { $description }'
     sumOfForcesArrow:        'Sum of forces arrow is { $description }, pointing { $direction }'

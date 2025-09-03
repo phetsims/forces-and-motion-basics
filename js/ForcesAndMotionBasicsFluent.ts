@@ -217,6 +217,8 @@ addToMapIfDefined( 'a11y_tugOfWar_heading', 'a11y.tugOfWar.headingStringProperty
 addToMapIfDefined( 'a11y_tugOfWar_noPullersOnRope', 'a11y.tugOfWar.noPullersOnRopeStringProperty' );
 addToMapIfDefined( 'a11y_tugOfWar_knotOccupied', 'a11y.tugOfWar.knotOccupiedStringProperty' );
 addToMapIfDefined( 'a11y_forces_heading', 'a11y.forces.headingStringProperty' );
+addToMapIfDefined( 'a11y_forces_appliedForceArrow', 'a11y.forces.appliedForceArrowStringProperty' );
+addToMapIfDefined( 'a11y_forces_frictionForceArrow', 'a11y.forces.frictionForceArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_leftForceArrow', 'a11y.forces.leftForceArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_rightForceArrow', 'a11y.forces.rightForceArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_sumOfForcesArrow', 'a11y.forces.sumOfForcesArrowStringProperty' );
@@ -579,6 +581,8 @@ const ForcesAndMotionBasicsFluent = {
     },
     forces: {
       headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.headingStringProperty' ) ),
+      appliedForceArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_appliedForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.appliedForceArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),
+      frictionForceArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_frictionForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.frictionForceArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),
       leftForceArrow: new FluentPattern<{ description: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_leftForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.leftForceArrowStringProperty' ), [{"name":"description"}] ),
       rightForceArrow: new FluentPattern<{ description: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_rightForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.rightForceArrowStringProperty' ), [{"name":"description"}] ),
       sumOfForcesArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_sumOfForcesArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.sumOfForcesArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),

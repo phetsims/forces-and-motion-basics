@@ -49,6 +49,7 @@ import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
+import MotionForcesListDescription from './MotionForcesListDescription.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -180,6 +181,10 @@ export default class MotionScreenView extends ScreenView {
     } );
 
     this.addChild( appliedForcePlayAreaControlNode );
+
+    // Accessible forces list description for Motion screens
+    const forcesListDescription = new MotionForcesListDescription( model );
+    this.addChild( forcesListDescription );
 
     // Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -490,6 +495,7 @@ export default class MotionScreenView extends ScreenView {
       this.itemStackGroup,
       // itemLayer,
       appliedForcePlayAreaControlNode,
+      forcesListDescription,
       this.appliedForceArrow,
       this.frictionArrow,
       this.sumArrow,

@@ -690,6 +690,12 @@
       "heading": {
         "value": "Forces"
       },
+      "appliedForceArrow": {
+        "value": "Applied force arrow is { $description }, pointing { $direction }"
+      },
+      "frictionForceArrow": {
+        "value": "Friction force arrow is { $description }, pointing { $direction }"
+      },
       "leftForceArrow": {
         "value": "Left force arrow is { $description }"
       },

@@ -319,6 +319,8 @@ type StringsType = {
     };
     'forces': {
       'headingStringProperty': LocalizedStringProperty;
+      'appliedForceArrowStringProperty': LocalizedStringProperty;
+      'frictionForceArrowStringProperty': LocalizedStringProperty;
       'leftForceArrowStringProperty': LocalizedStringProperty;
       'rightForceArrowStringProperty': LocalizedStringProperty;
       'sumOfForcesArrowStringProperty': LocalizedStringProperty;
