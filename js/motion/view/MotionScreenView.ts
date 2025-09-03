@@ -182,14 +182,15 @@ export default class MotionScreenView extends ScreenView {
 
     // Accessible forces list description for Motion screens
     const forcesListDescription = new MotionForcesListDescription( model );
-    // Compute dynamic speed description to announce when Speed is enabled
-    const speedDescription = new MotionScreensSpeedDescription( model );
     this.addChild( forcesListDescription );
-    this.addChild( speedDescription );
 
     // Acceleration description (visible only on acceleration screen when checkbox enabled)
     const accelerationDescription = new MotionScreensAccelerationDescription( model );
     this.addChild( accelerationDescription );
+
+    // Compute dynamic speed description to announce when Speed is enabled
+    const speedDescription = new MotionScreensSpeedDescription( model );
+    this.addChild( speedDescription );
 
     // Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -508,8 +509,8 @@ export default class MotionScreenView extends ScreenView {
       // itemLayer,
       appliedForcePlayAreaControlNode,
       forcesListDescription,
-      accelerationDescription,
       speedDescription,
+      accelerationDescription,
       this.appliedForceArrow,
       this.frictionArrow,
       this.sumArrow,
