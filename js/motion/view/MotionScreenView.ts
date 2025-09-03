@@ -44,12 +44,12 @@ import ItemNode from './ItemNode.js';
 import ItemStackGroupNode, { StackKeyboardStrategy } from './ItemStackGroupNode.js';
 import ItemToolboxGroupNode, { ToolboxKeyboardStrategy } from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
+import MotionForcesListDescription from './MotionForcesListDescription.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
-import MotionForcesListDescription from './MotionForcesListDescription.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -152,16 +152,12 @@ export default class MotionScreenView extends ScreenView {
     const leftItemToolboxNode = new Rectangle( 10, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
-      lineWidth: 1,
-      tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.leftObjectToolboxStringProperty
+      lineWidth: 1
     } );
     const rightItemToolboxNode = new Rectangle( width - 10 - 300, height - boxHeight - 10, 300, boxHeight, 10, 10, {
       fill: fill,
       stroke: stroke,
-      lineWidth: 1,
-      tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.rightObjectToolboxStringProperty
+      lineWidth: 1
     } );
 
     const appliedForceControl = new AppliedForceControl( tandem.createTandem( 'appliedForceControl' ), ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model );

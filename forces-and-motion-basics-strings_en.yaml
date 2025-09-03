@@ -262,13 +262,11 @@ a11y:
       accessibleHelpText: Set static coefficient of friction.
       contextResponse:
         smoother: Ground smoother. Value reduced, but still non-zero.
-        rougher: Ground rougher. Value increased.
-        icy: Ground icy. Value = 0.
+        rougher:  Ground rougher. Value increased.
+        icy:      Ground icy. Value = 0.
   objectToolboxes:
-    leftObjectToolbox:  Left Object Toolbox
-    rightObjectToolbox: Right Object Toolbox
-    objectToolbox:      Object Toolbox
-    skateboard:         Skateboard
+    objectToolbox: Object Toolbox
+    skateboard:    Skateboard
   pullers:
     pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position.
     overReturnToToolbox: Over toolbox

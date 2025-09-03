@@ -642,12 +642,6 @@
       }
     },
     "objectToolboxes": {
-      "leftObjectToolbox": {
-        "value": "Left Object Toolbox"
-      },
-      "rightObjectToolbox": {
-        "value": "Right Object Toolbox"
-      },
       "objectToolbox": {
         "value": "Object Toolbox"
       },

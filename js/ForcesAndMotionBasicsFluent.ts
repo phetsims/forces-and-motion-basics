@@ -203,8 +203,6 @@ addToMapIfDefined( 'a11y_motionScreen_frictionSlider_accessibleHelpText', 'a11y.
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_smoother', 'a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_rougher', 'a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_icy', 'a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty' );
-addToMapIfDefined( 'a11y_objectToolboxes_leftObjectToolbox', 'a11y.objectToolboxes.leftObjectToolboxStringProperty' );
-addToMapIfDefined( 'a11y_objectToolboxes_rightObjectToolbox', 'a11y.objectToolboxes.rightObjectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_objectToolbox', 'a11y.objectToolboxes.objectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_skateboard', 'a11y.objectToolboxes.skateboardStringProperty' );
 addToMapIfDefined( 'a11y_pullers_pullerInstruction', 'a11y.pullers.pullerInstructionStringProperty' );
@@ -561,8 +559,6 @@ const ForcesAndMotionBasicsFluent = {
       }
     },
     objectToolboxes: {
-      leftObjectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_leftObjectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.leftObjectToolboxStringProperty' ) ),
-      rightObjectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_rightObjectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.rightObjectToolboxStringProperty' ) ),
       objectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_objectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.objectToolboxStringProperty' ) ),
       skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.skateboardStringProperty' ) )
     },

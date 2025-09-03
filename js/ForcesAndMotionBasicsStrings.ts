@@ -299,8 +299,6 @@ type StringsType = {
       }
     };
     'objectToolboxes': {
-      'leftObjectToolboxStringProperty': LocalizedStringProperty;
-      'rightObjectToolboxStringProperty': LocalizedStringProperty;
       'objectToolboxStringProperty': LocalizedStringProperty;
       'skateboardStringProperty': LocalizedStringProperty;
     };
