@@ -309,7 +309,9 @@ a11y:
     cartSpeed:                 'Cart speed is { $speedDescription }.'
     cartSpeedWithAcceleration: 'Cart speed is { $speedDescription } and { $accelerationDescription }.'
     speedOnly:                 'The speed is { $speedDescription }.'
+    speedOnlyWithAcceleration: 'The speed is { $speedDescription } and { $accelerationDescription }.'
     speedWithValue:            'The speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
+    speedWithValueAndAcceleration: 'The speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second.'
     qualitativeDescriptions:
       stationary:    zero
       verySlow:      very slow

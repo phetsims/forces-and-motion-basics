@@ -60,22 +60,57 @@ export default class MotionScreensSpeedDescription extends Node {
     const withoutValueProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedOnly.createProperty( {
       speedDescription: qualitativeDescriptorProperty
     } );
+
+    // Build an acceleration description: '' when effectively zero or velocity ~ 0,
+    // otherwise 'speeding up' or 'slowing down' based on sign agreement
+    const accelerationDescriptionProperty = new DerivedProperty( [
+      model.accelerationProperty,
+      model.velocityProperty,
+      ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationDescriptions.speedingUpStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationDescriptions.slowingDownStringProperty
+    ], ( acceleration, velocity, speedingUpString, slowingDownString ) => {
+      const ACCEL_EPS = 0.1;
+      const VEL_EPS = 0.1;
+      if ( Math.abs( acceleration ) < ACCEL_EPS || Math.abs( velocity ) < VEL_EPS ) {
+        return '';
+      }
+      const sameDirection = ( acceleration > 0 && velocity > 0 ) || ( acceleration < 0 && velocity < 0 );
+      return sameDirection ? speedingUpString : slowingDownString;
+    } );
+
+    const withoutValueWithAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedOnlyWithAcceleration.createProperty( {
+      speedDescription: qualitativeDescriptorProperty,
+      accelerationDescription: accelerationDescriptionProperty
+    } );
     const withValueProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedWithValue.createProperty( {
       speedDescription: qualitativeDescriptorProperty,
       speedMetersPerSecond: speedMetersPerSecondTextProperty
+    } );
+
+    // Pattern with acceleration phrase and numeric value
+    const withValueAndAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedWithValueAndAcceleration.createProperty( {
+      speedDescription: qualitativeDescriptorProperty,
+      speedMetersPerSecond: speedMetersPerSecondTextProperty,
+      accelerationDescription: accelerationDescriptionProperty
     } );
 
     // Derived property for the final paragraph, empty when 'Speed' is unchecked
     const speedDescriptionProperty = new DerivedProperty( [
       model.showSpeedProperty,
       model.showValuesProperty,
-      qualitativeDescriptorProperty,
-      speedMetersPerSecondTextProperty,
       withoutValueProperty,
-      withValueProperty
-    ], ( showSpeed, showValues, _q, _n, withoutValue, withValue ) => {
+      withoutValueWithAccelerationProperty,
+      withValueProperty,
+      accelerationDescriptionProperty,
+      withValueAndAccelerationProperty,
+      qualitativeDescriptorProperty,
+      speedMetersPerSecondTextProperty
+    ], ( showSpeed, showValues, withoutValue, withoutValueWithAcceleration, withValue, accelerationDescription, withValueAndAcceleration ) => {
       if ( !showSpeed ) { return ''; }
-      return showValues ? withValue : withoutValue;
+      if ( showValues ) {
+        return accelerationDescription ? withValueAndAcceleration : withValue;
+      }
+      return accelerationDescription ? withoutValueWithAcceleration : withoutValue;
     } );
 
     super( {

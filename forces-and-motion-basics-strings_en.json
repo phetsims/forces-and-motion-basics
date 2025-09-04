@@ -764,8 +764,14 @@
       "speedOnly": {
         "value": "The speed is { $speedDescription }."
       },
+      "speedOnlyWithAcceleration": {
+        "value": "The speed is { $speedDescription } and { $accelerationDescription }."
+      },
       "speedWithValue": {
         "value": "The speed is { $speedDescription } at { $speedMetersPerSecond } meters per second."
+      },
+      "speedWithValueAndAcceleration": {
+        "value": "The speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second."
       },
       "qualitativeDescriptions": {
         "stationary": {

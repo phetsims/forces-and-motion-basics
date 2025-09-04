@@ -353,7 +353,9 @@ type StringsType = {
       'cartSpeedStringProperty': LocalizedStringProperty;
       'cartSpeedWithAccelerationStringProperty': LocalizedStringProperty;
       'speedOnlyStringProperty': LocalizedStringProperty;
+      'speedOnlyWithAccelerationStringProperty': LocalizedStringProperty;
       'speedWithValueStringProperty': LocalizedStringProperty;
+      'speedWithValueAndAccelerationStringProperty': LocalizedStringProperty;
       'qualitativeDescriptions': {
         'stationaryStringProperty': LocalizedStringProperty;
         'verySlowStringProperty': LocalizedStringProperty;

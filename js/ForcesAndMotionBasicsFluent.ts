@@ -237,7 +237,9 @@ addToMapIfDefined( 'a11y_speed_heading', 'a11y.speed.headingStringProperty' );
 addToMapIfDefined( 'a11y_speed_cartSpeed', 'a11y.speed.cartSpeedStringProperty' );
 addToMapIfDefined( 'a11y_speed_cartSpeedWithAcceleration', 'a11y.speed.cartSpeedWithAccelerationStringProperty' );
 addToMapIfDefined( 'a11y_speed_speedOnly', 'a11y.speed.speedOnlyStringProperty' );
+addToMapIfDefined( 'a11y_speed_speedOnlyWithAcceleration', 'a11y.speed.speedOnlyWithAccelerationStringProperty' );
 addToMapIfDefined( 'a11y_speed_speedWithValue', 'a11y.speed.speedWithValueStringProperty' );
+addToMapIfDefined( 'a11y_speed_speedWithValueAndAcceleration', 'a11y.speed.speedWithValueAndAccelerationStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_stationary', 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_verySlow', 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_slow', 'a11y.speed.qualitativeDescriptions.slowStringProperty' );
@@ -633,7 +635,9 @@ const ForcesAndMotionBasicsFluent = {
       cartSpeed: new FluentPattern<{ speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_cartSpeed', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.cartSpeedStringProperty' ), [{"name":"speedDescription"}] ),
       cartSpeedWithAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_cartSpeedWithAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.cartSpeedWithAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"}] ),
       speedOnly: new FluentPattern<{ speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedOnly', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedOnlyStringProperty' ), [{"name":"speedDescription"}] ),
+      speedOnlyWithAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedOnlyWithAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedOnlyWithAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"}] ),
       speedWithValue: new FluentPattern<{ speedDescription: FluentVariable, speedMetersPerSecond: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedWithValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedWithValueStringProperty' ), [{"name":"speedDescription"},{"name":"speedMetersPerSecond"}] ),
+      speedWithValueAndAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable, speedMetersPerSecond: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedWithValueAndAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedWithValueAndAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"},{"name":"speedMetersPerSecond"}] ),
       qualitativeDescriptions: {
         stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' ) ),
         verySlowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_verySlow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' ) ),
