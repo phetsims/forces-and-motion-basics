@@ -241,6 +241,14 @@ type StringsType = {
         'returnedToToolboxStringProperty': LocalizedStringProperty;
         'returnedToStackStringProperty': LocalizedStringProperty;
       };
+      'surface': {
+        'skateboardStringProperty': LocalizedStringProperty;
+        'groundStringProperty': LocalizedStringProperty;
+      };
+      'stackList': {
+        'stackedOnSurfaceStringProperty': LocalizedStringProperty;
+        'noObjectsOnSurfaceStringProperty': LocalizedStringProperty;
+      };
       'pusherResponses': {
         'fellDownAppliedForceZeroStringProperty': LocalizedStringProperty;
       };
@@ -304,6 +312,7 @@ type StringsType = {
     'objectToolboxes': {
       'objectToolboxStringProperty': LocalizedStringProperty;
       'skateboardStringProperty': LocalizedStringProperty;
+      'stackStringProperty': LocalizedStringProperty;
     };
     'pullers': {
       'pullerInstructionStringProperty': LocalizedStringProperty;

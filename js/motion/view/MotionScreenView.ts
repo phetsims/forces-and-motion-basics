@@ -48,6 +48,7 @@ import MotionForcesListDescription from './MotionForcesListDescription.js';
 import MotionScreensAccelerationDescription from './MotionScreensAccelerationDescription.js';
 import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
+import MotionStackListDescription from './MotionStackListDescription.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
@@ -371,9 +372,20 @@ export default class MotionScreenView extends ScreenView {
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty
     } );
     this.itemStackGroup = new ItemStackGroupNode( model, {
-      tandem: tandem.createTandem( 'itemStackGroup' ),
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.skateboardStringProperty
+      tandem: tandem.createTandem( 'itemStackGroup' )
     } );
+
+    // A container for the Skateboard/Stack heading, the stack description list, and the items themselves
+    const stackSection = new Node( {
+      tagName: 'div',
+      accessibleHeading: model.skateboard ? ForcesAndMotionBasicsFluent.a11y.objectToolboxes.skateboardStringProperty :
+                         ForcesAndMotionBasicsFluent.a11y.objectToolboxes.stackStringProperty
+    } );
+
+    // Add the requested list under the heading, before the objects
+    const stackListDescription = new MotionStackListDescription( model );
+    stackSection.addChild( stackListDescription );
+    stackSection.addChild( this.itemStackGroup );
 
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
@@ -444,7 +456,7 @@ export default class MotionScreenView extends ScreenView {
 
     // Add keyboard navigation groups to scene graph
     this.addChild( this.itemToolboxGroup );
-    this.addChild( this.itemStackGroup );
+    this.addChild( stackSection );
 
     // Allow moveToFront on the individual layers, while still being behind the arrows and readouts
     const itemLayer = new Node( { children: [ leftItemLayer, rightItemLayer ] } );
@@ -505,7 +517,7 @@ export default class MotionScreenView extends ScreenView {
 
     this.pdomPlayAreaNode.pdomOrder = [
       this.itemToolboxGroup,
-      this.itemStackGroup,
+      stackSection,
       // itemLayer,
       appliedForcePlayAreaControlNode,
       forcesListDescription,

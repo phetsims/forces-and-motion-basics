@@ -218,6 +218,12 @@ a11y:
       droppedOnGround:     Dropped on ground
       returnedToToolbox:   Returned to toolbox
       returnedToStack:     Returned to stack
+    surface:
+      skateboard: skateboard
+      ground:     ground
+    stackList:
+      stackedOnSurface:   'Stacked on { $surface }:'
+      noObjectsOnSurface: 'No objects on { $surface }.'
     pusherResponses:
       fellDownAppliedForceZero: Pusher fell down, applied force now 0 newtons.
     motionControlPanel:
@@ -267,6 +273,7 @@ a11y:
   objectToolboxes:
     objectToolbox: Object Toolbox
     skateboard:    Skateboard
+    stack:         Stack
   pullers:
     pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position.
     overReturnToToolbox: Over toolbox

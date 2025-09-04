@@ -167,6 +167,10 @@ addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnSkateboard', 'a11y.
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnGround', 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToToolbox', 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToStack', 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_surface_skateboard', 'a11y.motionScreen.surface.skateboardStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_surface_ground', 'a11y.motionScreen.surface.groundStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackList_stackedOnSurface', 'a11y.motionScreen.stackList.stackedOnSurfaceStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackList_noObjectsOnSurface', 'a11y.motionScreen.stackList.noObjectsOnSurfaceStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_pusherResponses_fellDownAppliedForceZero', 'a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleName', 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' );
@@ -202,6 +206,7 @@ addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_rougher', '
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_icy', 'a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_objectToolbox', 'a11y.objectToolboxes.objectToolboxStringProperty' );
 addToMapIfDefined( 'a11y_objectToolboxes_skateboard', 'a11y.objectToolboxes.skateboardStringProperty' );
+addToMapIfDefined( 'a11y_objectToolboxes_stack', 'a11y.objectToolboxes.stackStringProperty' );
 addToMapIfDefined( 'a11y_pullers_pullerInstruction', 'a11y.pullers.pullerInstructionStringProperty' );
 addToMapIfDefined( 'a11y_pullers_overReturnToToolbox', 'a11y.pullers.overReturnToToolboxStringProperty' );
 addToMapIfDefined( 'a11y_pullers_overKnotDescription', 'a11y.pullers.overKnotDescriptionStringProperty' );
@@ -508,6 +513,14 @@ const ForcesAndMotionBasicsFluent = {
         returnedToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' ) ),
         returnedToStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' ) )
       },
+      surface: {
+        skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_surface_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.surface.skateboardStringProperty' ) ),
+        groundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_surface_ground', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.surface.groundStringProperty' ) )
+      },
+      stackList: {
+        stackedOnSurface: new FluentPattern<{ surface: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_stackList_stackedOnSurface', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackList.stackedOnSurfaceStringProperty' ), [{"name":"surface"}] ),
+        noObjectsOnSurface: new FluentPattern<{ surface: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_stackList_noObjectsOnSurface', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackList.noObjectsOnSurfaceStringProperty' ), [{"name":"surface"}] )
+      },
       pusherResponses: {
         fellDownAppliedForceZeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_pusherResponses_fellDownAppliedForceZero', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty' ) )
       },
@@ -578,7 +591,8 @@ const ForcesAndMotionBasicsFluent = {
     },
     objectToolboxes: {
       objectToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_objectToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.objectToolboxStringProperty' ) ),
-      skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.skateboardStringProperty' ) )
+      skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.skateboardStringProperty' ) ),
+      stackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_objectToolboxes_stack', _.get( ForcesAndMotionBasicsStrings, 'a11y.objectToolboxes.stackStringProperty' ) )
     },
     pullers: {
       pullerInstructionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_pullers_pullerInstruction', _.get( ForcesAndMotionBasicsStrings, 'a11y.pullers.pullerInstructionStringProperty' ) ),
