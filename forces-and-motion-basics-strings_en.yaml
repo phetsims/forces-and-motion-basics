@@ -51,7 +51,7 @@ keyboardHelpDialog:
   moveGrabbedItem:      Move grabbed item
   dropItem:             Drop item
   adjustAppliedForce:   Adjust Applied Force
-  zeroAppliedForce:     Zero applied force
+  zeroAppliedForce:     Set applied force to zero
 
 # accessibility strings
 a11y:
@@ -79,7 +79,7 @@ a11y:
       moveGrabbedItemDescription: Move grabbed item with Left and Right Arrow keys.
       dropItemDescription:        Drop item with Space or Enter keys.
     appliedForceControls:
-      zeroAppliedForceDescription: Zero applied force with 0 key.
+      zeroAppliedForceDescription: Set applied force to zero with 0 key.
   netForceScreen:
     colorName: |-
                { $color ->
