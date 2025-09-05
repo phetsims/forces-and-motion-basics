@@ -51,7 +51,6 @@ keyboardHelpDialog:
   moveGrabbedItem:      Move grabbed item
   dropItem:             Drop item
   adjustAppliedForce:   Adjust Applied Force
-  appliedForceControls: Applied Force Controls
   zeroAppliedForce:     Zero applied force
 
 # accessibility strings
@@ -59,7 +58,6 @@ a11y:
   values:
     checkedResponse:                    Numeric values shown.
     uncheckedResponse:                  Numeric values hidden.
-    netForceAccessibleHelpText:         Show or hide force values.
     accessibleHelpText:                 Show or hide force and speed values.
     withAccelerationAccessibleHelpText: Show or hide force, speed, and acceleration values.
   preferences:
@@ -158,8 +156,6 @@ a11y:
         description:             The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement.
         frictionDescription:     The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
         accelerationDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero.
-        objectToolbox:
-          description: Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
         appliedForceControl:
           description: Set force applied by pusher on the stack.
       controlArea:
@@ -239,7 +235,6 @@ a11y:
         accessibleContextResponseUnchecked: Applied force arrow hidden.
       values:
         accessibleName:     Values
-        accessibleHelpText: Check to show numerical values for the forces.
       masses:
         accessibleName:                     Masses
         accessibleHelpText:                 Show or hide masses of objects.

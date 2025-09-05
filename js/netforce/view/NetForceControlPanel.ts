@@ -75,7 +75,7 @@ export default class NetForceControlPanel extends Node {
       tandemName: 'valuesCheckbox',
       options: {
         accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleNameStringProperty,
-        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.values.netForceAccessibleHelpTextStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty,
         accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.values.checkedResponseStringProperty,
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.values.uncheckedResponseStringProperty
       }

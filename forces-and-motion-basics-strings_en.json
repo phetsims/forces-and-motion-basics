@@ -150,9 +150,6 @@
     "adjustAppliedForce": {
       "value": "Adjust Applied Force"
     },
-    "appliedForceControls": {
-      "value": "Applied Force Controls"
-    },
     "zeroAppliedForce": {
       "value": "Zero applied force"
     }
@@ -164,9 +161,6 @@
       },
       "uncheckedResponse": {
         "value": "Numeric values hidden."
-      },
-      "netForceAccessibleHelpText": {
-        "value": "Show or hide force values."
       },
       "accessibleHelpText": {
         "value": "Show or hide force and speed values."
@@ -367,11 +361,6 @@
           "accelerationDescription": {
             "value": "The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero."
           },
-          "objectToolbox": {
-            "description": {
-              "value": "Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses."
-            }
-          },
           "appliedForceControl": {
             "description": {
               "value": "Set force applied by pusher on the stack."
@@ -565,9 +554,6 @@
         "values": {
           "accessibleName": {
             "value": "Values"
-          },
-          "accessibleHelpText": {
-            "value": "Check to show numerical values for the forces."
           }
         },
         "masses": {

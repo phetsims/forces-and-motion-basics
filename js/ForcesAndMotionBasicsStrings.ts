@@ -69,14 +69,12 @@ type StringsType = {
     'moveGrabbedItemStringProperty': LocalizedStringProperty;
     'dropItemStringProperty': LocalizedStringProperty;
     'adjustAppliedForceStringProperty': LocalizedStringProperty;
-    'appliedForceControlsStringProperty': LocalizedStringProperty;
     'zeroAppliedForceStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'values': {
       'checkedResponseStringProperty': LocalizedStringProperty;
       'uncheckedResponseStringProperty': LocalizedStringProperty;
-      'netForceAccessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'withAccelerationAccessibleHelpTextStringProperty': LocalizedStringProperty;
     };
@@ -174,9 +172,6 @@ type StringsType = {
           'descriptionStringProperty': LocalizedStringProperty;
           'frictionDescriptionStringProperty': LocalizedStringProperty;
           'accelerationDescriptionStringProperty': LocalizedStringProperty;
-          'objectToolbox': {
-            'descriptionStringProperty': LocalizedStringProperty;
-          };
           'appliedForceControl': {
             'descriptionStringProperty': LocalizedStringProperty;
           }
@@ -267,7 +262,6 @@ type StringsType = {
         };
         'values': {
           'accessibleNameStringProperty': LocalizedStringProperty;
-          'accessibleHelpTextStringProperty': LocalizedStringProperty;
         };
         'masses': {
           'accessibleNameStringProperty': LocalizedStringProperty;

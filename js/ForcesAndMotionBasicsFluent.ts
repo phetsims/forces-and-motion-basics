@@ -72,11 +72,9 @@ addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemSt
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_adjustAppliedForce', 'keyboardHelpDialog.adjustAppliedForceStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_appliedForceControls', 'keyboardHelpDialog.appliedForceControlsStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_zeroAppliedForce', 'keyboardHelpDialog.zeroAppliedForceStringProperty' );
 addToMapIfDefined( 'a11y_values_checkedResponse', 'a11y.values.checkedResponseStringProperty' );
 addToMapIfDefined( 'a11y_values_uncheckedResponse', 'a11y.values.uncheckedResponseStringProperty' );
-addToMapIfDefined( 'a11y_values_netForceAccessibleHelpText', 'a11y.values.netForceAccessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_values_accessibleHelpText', 'a11y.values.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_values_withAccelerationAccessibleHelpText', 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_preferences_netForcePullerColors_accessibleHelpText', 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' );
@@ -128,7 +126,6 @@ addToMapIfDefined( 'a11y_netForceScreen_playAreaControls_accessibleHeading', 'a1
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_description', 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_description', 'a11y.motionScreen.screenSummary.controlArea.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnSkateboard', 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty' );
@@ -181,7 +178,6 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleHelpTex
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleName', 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleName', 'a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty' );
@@ -338,7 +334,6 @@ const ForcesAndMotionBasicsFluent = {
     moveGrabbedItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedItemStringProperty' ),
     dropItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropItemStringProperty' ),
     adjustAppliedForceStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.adjustAppliedForceStringProperty' ),
-    appliedForceControlsStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.appliedForceControlsStringProperty' ),
     zeroAppliedForceStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.zeroAppliedForceStringProperty' )
   },
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
@@ -346,7 +341,6 @@ const ForcesAndMotionBasicsFluent = {
     values: {
       checkedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_checkedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.checkedResponseStringProperty' ) ),
       uncheckedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_uncheckedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.uncheckedResponseStringProperty' ) ),
-      netForceAccessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_netForceAccessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.netForceAccessibleHelpTextStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.accessibleHelpTextStringProperty' ) ),
       withAccelerationAccessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_withAccelerationAccessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' ) )
     },
@@ -450,9 +444,6 @@ const ForcesAndMotionBasicsFluent = {
           descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' ) ),
           frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' ) ),
           accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' ) ),
-          objectToolbox: {
-            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_objectToolbox_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.objectToolbox.descriptionStringProperty' ) )
-          },
           appliedForceControl: {
             descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' ) )
           }
@@ -546,8 +537,7 @@ const ForcesAndMotionBasicsFluent = {
         },
         values: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleHelpTextStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' ) )
         },
         masses: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
