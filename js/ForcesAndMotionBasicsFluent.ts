@@ -145,6 +145,9 @@ addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint_noObjects', 
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint_noObjectsOnGround', 'a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint_withObjects', 'a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_pauseButton_accessibleHelpText', 'a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackMovingLeft', 'a11y.motionScreen.stackMovement.stackMovingLeftStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackMovingRight', 'a11y.motionScreen.stackMovement.stackMovingRightStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackStationary', 'a11y.motionScreen.stackMovement.stackStationaryStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_itemAccessibleNameWithMass', 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_massUnknown', 'a11y.motionScreen.items.massUnknownStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_fridge', 'a11y.motionScreen.items.names.fridgeStringProperty' );
@@ -481,6 +484,11 @@ const ForcesAndMotionBasicsFluent = {
       },
       pauseButton: {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_pauseButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty' ) )
+      },
+      stackMovement: {
+        stackMovingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackMovement_stackMovingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackMovement.stackMovingLeftStringProperty' ) ),
+        stackMovingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackMovement_stackMovingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackMovement.stackMovingRightStringProperty' ) ),
+        stackStationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackMovement_stackStationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackMovement.stackStationaryStringProperty' ) )
       },
       items: {
         itemAccessibleNameWithMass: new FluentPattern<{ itemName: FluentVariable, mass: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_items_itemAccessibleNameWithMass', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' ), [{"name":"itemName"},{"name":"mass"}] ),

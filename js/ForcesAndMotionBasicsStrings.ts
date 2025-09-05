@@ -209,6 +209,11 @@ type StringsType = {
       'pauseButton': {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
       };
+      'stackMovement': {
+        'stackMovingLeftStringProperty': LocalizedStringProperty;
+        'stackMovingRightStringProperty': LocalizedStringProperty;
+        'stackStationaryStringProperty': LocalizedStringProperty;
+      };
       'items': {
         'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;
         'massUnknownStringProperty': LocalizedStringProperty;

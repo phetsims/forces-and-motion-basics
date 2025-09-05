@@ -191,6 +191,10 @@ a11y:
         withObjects:       Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces.
     pauseButton:
       accessibleHelpText: Pause sim to step through little by little and to help make precise measurements.
+    stackMovement:
+      stackMovingLeft:    Stack moving left.
+      stackMovingRight:   Stack moving right.
+      stackStationary:    Stack stationary.
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
       massUnknown:                'mass unknown'

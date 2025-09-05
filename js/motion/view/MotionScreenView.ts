@@ -387,6 +387,27 @@ export default class MotionScreenView extends ScreenView {
     stackSection.addChild( stackListDescription );
     stackSection.addChild( this.itemStackGroup );
 
+    // Announce stack movement direction changes for accessibility, driven by velocityProperty
+    const EPSILON = 1E-6;
+    model.velocityProperty.lazyLink( ( velocity, oldVelocity ) => {
+      const sign = ( v: number ) => v > EPSILON ? 1 : ( v < -EPSILON ? -1 : 0 );
+
+      // Compute previous sign; if oldVelocity is undefined, treat as no change
+      const prev = sign( oldVelocity );
+      const curr = sign( velocity );
+      if ( curr !== prev ) {
+        if ( curr > 0 ) {
+          stackSection.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackMovingRightStringProperty.value );
+        }
+        else if ( curr < 0 ) {
+          stackSection.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackMovingLeftStringProperty.value );
+        }
+        else {
+          stackSection.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty.value );
+        }
+      }
+    } );
+
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
       this.itemToolboxGroup.addItemNode( itemNode, model );

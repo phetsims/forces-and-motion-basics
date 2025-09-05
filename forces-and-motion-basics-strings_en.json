@@ -436,6 +436,17 @@
           "value": "Pause sim to step through little by little and to help make precise measurements."
         }
       },
+      "stackMovement": {
+        "stackMovingLeft": {
+          "value": "Stack moving left."
+        },
+        "stackMovingRight": {
+          "value": "Stack moving right."
+        },
+        "stackStationary": {
+          "value": "Stack stationary."
+        }
+      },
       "items": {
         "itemAccessibleNameWithMass": {
           "value": "{ $itemName }, { $mass }"
