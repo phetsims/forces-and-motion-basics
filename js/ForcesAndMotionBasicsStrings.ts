@@ -76,6 +76,7 @@ type StringsType = {
     'values': {
       'checkedResponseStringProperty': LocalizedStringProperty;
       'uncheckedResponseStringProperty': LocalizedStringProperty;
+      'netForceAccessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'withAccelerationAccessibleHelpTextStringProperty': LocalizedStringProperty;
     };

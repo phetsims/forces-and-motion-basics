@@ -165,6 +165,9 @@
       "uncheckedResponse": {
         "value": "Numeric values hidden."
       },
+      "netForceAccessibleHelpText": {
+        "value": "Show or hide force values."
+      },
       "accessibleHelpText": {
         "value": "Show or hide force and speed values."
       },

@@ -76,6 +76,7 @@ addToMapIfDefined( 'keyboardHelpDialog_appliedForceControls', 'keyboardHelpDialo
 addToMapIfDefined( 'keyboardHelpDialog_zeroAppliedForce', 'keyboardHelpDialog.zeroAppliedForceStringProperty' );
 addToMapIfDefined( 'a11y_values_checkedResponse', 'a11y.values.checkedResponseStringProperty' );
 addToMapIfDefined( 'a11y_values_uncheckedResponse', 'a11y.values.uncheckedResponseStringProperty' );
+addToMapIfDefined( 'a11y_values_netForceAccessibleHelpText', 'a11y.values.netForceAccessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_values_accessibleHelpText', 'a11y.values.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_values_withAccelerationAccessibleHelpText', 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_preferences_netForcePullerColors_accessibleHelpText', 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' );
@@ -342,6 +343,7 @@ const ForcesAndMotionBasicsFluent = {
     values: {
       checkedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_checkedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.checkedResponseStringProperty' ) ),
       uncheckedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_uncheckedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.uncheckedResponseStringProperty' ) ),
+      netForceAccessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_netForceAccessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.netForceAccessibleHelpTextStringProperty' ) ),
       accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.accessibleHelpTextStringProperty' ) ),
       withAccelerationAccessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_withAccelerationAccessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' ) )
     },
