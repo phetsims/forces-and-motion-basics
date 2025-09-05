@@ -160,7 +160,7 @@ a11y:
         objectToolbox:
           description: Drag objects from the toolboxes to place them on the skateboard. Different objects have different masses.
         appliedForceControl:
-          description: Use arrow keys or mouse to control the applied force. Watch how the objects move as you change the force.
+          description: Set force applied by pusher on the stack.
       controlArea:
         description: Use checkboxes to show or hide forces, values, masses, speed, and other measurements. Use play controls to start, pause, or reset the simulation.
       currentDetails:
@@ -204,19 +204,19 @@ a11y:
         bucket:  Bucket of Water
     itemToolbox:
       accessibleName:     Item Toolbox
-      descriptionContent: Use arrow keys to select an item, then press Space or Enter to grab
+      descriptionContent: Grab item. Once grabbed, use keyboard shortcuts to move item.
     itemStackGroup:
       accessibleName:     Items on Skateboard
-      descriptionContent: Use arrow keys to navigate between stacked items, then press Space or Enter to grab
+      descriptionContent: Grab item. Once grabbed, use keyboard shortcuts to move item.
     itemResponses:
       overToolbox:         Over toolbox
       overStack:           Over stack
       overSkateboard:      Over skateboard
       overGround:          Over ground
-      droppedOnStack:      Dropped on stack
-      droppedOnSkateboard: Dropped on skateboard
-      droppedOnGround:     Dropped on ground
-      returnedToToolbox:   Returned to toolbox
+      droppedOnStack:      Dropped on stack.
+      droppedOnSkateboard: Dropped on skateboard.
+      droppedOnGround:     Dropped on ground.
+      returnedToToolbox:   Returned to toolbox.
       returnedToStack:     Returned to stack
     surface:
       skateboard: skateboard
@@ -229,29 +229,29 @@ a11y:
     motionControlPanel:
       force:
         accessibleName:                     Force
-        accessibleHelpText:                 Explore with or without force arrows.
-        accessibleContextResponseChecked:   Force arrows shown.
-        accessibleContextResponseUnchecked: Force arrows hidden.
+        accessibleHelpText:                 Show or hide applied force arrow.
+        accessibleContextResponseChecked:   Applied force arrow shown.
+        accessibleContextResponseUnchecked: Applied force arrow hidden.
       values:
         accessibleName:     Values
         accessibleHelpText: Check to show numerical values for the forces.
       masses:
         accessibleName:                     Masses
-        accessibleHelpText:                 Check to show masses of objects.
-        accessibleContextResponseChecked:   Object masses shown.
-        accessibleContextResponseUnchecked: Object masses hidden.
+        accessibleHelpText:                 Show or hide masses of objects.
+        accessibleContextResponseChecked:   Mass values shown.
+        accessibleContextResponseUnchecked: Mass values hidden.
       speed:
         accessibleName:                     Speed
-        accessibleHelpText:                 Check to show the speedometer.
+        accessibleHelpText:                 Show or hide speedometer.
         accessibleContextResponseUnchecked: Speedometer hidden.
       stopwatch:
         accessibleName:                     Stopwatch
-        accessibleHelpText:                 Check to show the stopwatch.
-        accessibleContextResponseChecked:   Stopwatch shown.
-        accessibleContextResponseUnchecked: Stopwatch hidden.
+        accessibleHelpText:                 Show or hide stopwatch.
+        accessibleContextResponseChecked:   Stopwatch added to Play Area.
+        accessibleContextResponseUnchecked: Stopwatch removed from Play Area.
       forces:
         accessibleName:                     Forces
-        accessibleHelpText:                 Explore with or without force arrows.
+        accessibleHelpText:                 Show or hide applied force and friction force arrows.
         accessibleContextResponseChecked:   Force arrows shown.
         accessibleContextResponseUnchecked: Force arrows hidden.
       sumOfForces:
@@ -260,10 +260,10 @@ a11y:
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       acceleration:
         accessibleName:                     Acceleration
-        accessibleHelpText:                 Check to show the accelerometer.
+        accessibleHelpText:                 Show or hide accelerometer.
         accessibleContextResponseUnchecked: Accelerometer hidden.
     playAreaControls:
-      accessibleHeading: Play Area Controls
+      accessibleHeading: Applied Force Control
     frictionSlider:
       accessibleHelpText: Set static coefficient of friction.
       contextResponse:
@@ -308,10 +308,10 @@ a11y:
     heading:                   Speed
     cartSpeed:                 'Cart speed is { $speedDescription }.'
     cartSpeedWithAcceleration: 'Cart speed is { $speedDescription } and { $accelerationDescription }.'
-    speedOnly:                 'The speed is { $speedDescription }.'
-    speedOnlyWithAcceleration: 'The speed is { $speedDescription } and { $accelerationDescription }.'
-    speedWithValue:            'The speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
-    speedWithValueAndAcceleration: 'The speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second.'
+    speedOnly:                 'Speed is { $speedDescription }.'
+    speedOnlyWithAcceleration: 'Speed is { $speedDescription } and { $accelerationDescription }.'
+    speedWithValue:            'Speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
+    speedWithValueAndAcceleration: 'Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second.'
     qualitativeDescriptions:
       stationary:    zero
       verySlow:      very slow
@@ -322,10 +322,10 @@ a11y:
       extremelyFast: extremely fast
   acceleration:
     heading:                           Acceleration
-    accelerationOnly:                  'The acceleration is { $accelerationDescription }.'
-    accelerationWithValue:             'The acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
-    accelerationWithDirection:         'The acceleration is { $accelerationDescription } to the { $direction }.'
-    accelerationWithDirectionAndValue: 'The acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    accelerationOnly:                  'Acceleration is { $accelerationDescription }.'
+    accelerationWithValue:             'Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    accelerationWithDirection:         'Acceleration is { $accelerationDescription } to the { $direction }.'
+    accelerationWithDirectionAndValue: 'Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared.'
     qualitativeDescriptions:
       zero:           zero
       verySmall:      very small
