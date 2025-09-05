@@ -371,7 +371,7 @@
           },
           "appliedForceControl": {
             "description": {
-              "value": "Use arrow keys or mouse to control the applied force. Watch how the objects move as you change the force."
+              "value": "Set force applied by pusher on the stack."
             }
           }
         },
@@ -472,7 +472,7 @@
           "value": "Item Toolbox"
         },
         "descriptionContent": {
-          "value": "Use arrow keys to select an item, then press Space or Enter to grab"
+          "value": "Grab item. Once grabbed, use keyboard shortcuts to move item."
         }
       },
       "itemStackGroup": {
@@ -480,7 +480,7 @@
           "value": "Items on Skateboard"
         },
         "descriptionContent": {
-          "value": "Use arrow keys to navigate between stacked items, then press Space or Enter to grab"
+          "value": "Grab item. Once grabbed, use keyboard shortcuts to move item."
         }
       },
       "itemResponses": {
@@ -497,16 +497,16 @@
           "value": "Over ground"
         },
         "droppedOnStack": {
-          "value": "Dropped on stack"
+          "value": "Dropped on stack."
         },
         "droppedOnSkateboard": {
-          "value": "Dropped on skateboard"
+          "value": "Dropped on skateboard."
         },
         "droppedOnGround": {
-          "value": "Dropped on ground"
+          "value": "Dropped on ground."
         },
         "returnedToToolbox": {
-          "value": "Returned to toolbox"
+          "value": "Returned to toolbox."
         },
         "returnedToStack": {
           "value": "Returned to stack"
@@ -539,13 +539,13 @@
             "value": "Force"
           },
           "accessibleHelpText": {
-            "value": "Explore with or without force arrows."
+            "value": "Show or hide applied force arrow."
           },
           "accessibleContextResponseChecked": {
-            "value": "Force arrows shown."
+            "value": "Applied force arrow shown."
           },
           "accessibleContextResponseUnchecked": {
-            "value": "Force arrows hidden."
+            "value": "Applied force arrow hidden."
           }
         },
         "values": {
@@ -561,13 +561,13 @@
             "value": "Masses"
           },
           "accessibleHelpText": {
-            "value": "Check to show masses of objects."
+            "value": "Show or hide masses of objects."
           },
           "accessibleContextResponseChecked": {
-            "value": "Object masses shown."
+            "value": "Mass values shown."
           },
           "accessibleContextResponseUnchecked": {
-            "value": "Object masses hidden."
+            "value": "Mass values hidden."
           }
         },
         "speed": {
@@ -575,7 +575,7 @@
             "value": "Speed"
           },
           "accessibleHelpText": {
-            "value": "Check to show the speedometer."
+            "value": "Show or hide speedometer."
           },
           "accessibleContextResponseUnchecked": {
             "value": "Speedometer hidden."
@@ -586,13 +586,13 @@
             "value": "Stopwatch"
           },
           "accessibleHelpText": {
-            "value": "Check to show the stopwatch."
+            "value": "Show or hide stopwatch."
           },
           "accessibleContextResponseChecked": {
-            "value": "Stopwatch shown."
+            "value": "Stopwatch added to Play Area."
           },
           "accessibleContextResponseUnchecked": {
-            "value": "Stopwatch hidden."
+            "value": "Stopwatch removed from Play Area."
           }
         },
         "forces": {
@@ -600,7 +600,7 @@
             "value": "Forces"
           },
           "accessibleHelpText": {
-            "value": "Explore with or without force arrows."
+            "value": "Show or hide applied force and friction force arrows."
           },
           "accessibleContextResponseChecked": {
             "value": "Force arrows shown."
@@ -625,7 +625,7 @@
             "value": "Acceleration"
           },
           "accessibleHelpText": {
-            "value": "Check to show the accelerometer."
+            "value": "Show or hide accelerometer."
           },
           "accessibleContextResponseUnchecked": {
             "value": "Accelerometer hidden."
@@ -634,7 +634,7 @@
       },
       "playAreaControls": {
         "accessibleHeading": {
-          "value": "Play Area Controls"
+          "value": "Applied Force Control"
         }
       },
       "frictionSlider": {
@@ -762,16 +762,16 @@
         "value": "Cart speed is { $speedDescription } and { $accelerationDescription }."
       },
       "speedOnly": {
-        "value": "The speed is { $speedDescription }."
+        "value": "Speed is { $speedDescription }."
       },
       "speedOnlyWithAcceleration": {
-        "value": "The speed is { $speedDescription } and { $accelerationDescription }."
+        "value": "Speed is { $speedDescription } and { $accelerationDescription }."
       },
       "speedWithValue": {
-        "value": "The speed is { $speedDescription } at { $speedMetersPerSecond } meters per second."
+        "value": "Speed is { $speedDescription } at { $speedMetersPerSecond } meters per second."
       },
       "speedWithValueAndAcceleration": {
-        "value": "The speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second."
+        "value": "Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second."
       },
       "qualitativeDescriptions": {
         "stationary": {
@@ -802,16 +802,16 @@
         "value": "Acceleration"
       },
       "accelerationOnly": {
-        "value": "The acceleration is { $accelerationDescription }."
+        "value": "Acceleration is { $accelerationDescription }."
       },
       "accelerationWithValue": {
-        "value": "The acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared."
+        "value": "Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared."
       },
       "accelerationWithDirection": {
-        "value": "The acceleration is { $accelerationDescription } to the { $direction }."
+        "value": "Acceleration is { $accelerationDescription } to the { $direction }."
       },
       "accelerationWithDirectionAndValue": {
-        "value": "The acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared."
+        "value": "Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared."
       },
       "qualitativeDescriptions": {
         "zero": {
