@@ -241,9 +241,6 @@ export default class MotionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'timeControlNode' ),
       leftCenter: controlPanel.leftBottom.plusXY( 0, playPauseVerticalOffset ),
       playPauseStepButtonOptions: {
-        playPauseButtonOptions: {
-          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty
-        },
         stepForwardButtonOptions: {
           listener: () => { model.manualStep(); }
         }
