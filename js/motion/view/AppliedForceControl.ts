@@ -77,6 +77,9 @@ export default class AppliedForceControl extends VBox {
       spacing: 6,
       visiblePropertyOptions: { phetioFeatured: true },
       tandem: tandem.createTandem( 'spinner' ),
+
+      // When the user uses the keyboard to apply force, if it isn't enough to start the
+      // items moving, alert a message that the stack remains stationary.
       pdomCreateContextResponseAlert: newAppliedForce => {
         if ( newAppliedForce !== 0 && model.accelerationProperty.value === 0 ) {
           return ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty;
