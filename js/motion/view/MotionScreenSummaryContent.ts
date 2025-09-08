@@ -21,23 +21,9 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
    */
   public constructor( model: MotionModel ) {
 
-    // Play area content includes screen-specific description
-    const getPlayAreaDescription = () => {
-      switch( model.screen ) {
-        case 'motion':
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty;
-        case 'friction':
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty;
-        case 'acceleration':
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty;
-        default:
-          throw new Error( `Unknown screen: ${model.screen}` );
-      }
-    };
-
-    const playAreaContent = [
-      getPlayAreaDescription()
-    ];
+    const playAreaContent = model.screen === 'motion' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty :
+                            model.screen === 'friction' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty :
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty
 
     // Control area content
     const controlAreaContent = model.screen === 'motion' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty :
