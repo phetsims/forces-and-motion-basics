@@ -9,13 +9,13 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
-import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
@@ -76,7 +76,13 @@ export default class AppliedForceControl extends VBox {
       deltaCoarse: 50,
       spacing: 6,
       visiblePropertyOptions: { phetioFeatured: true },
-      tandem: tandem.createTandem( 'spinner' )
+      tandem: tandem.createTandem( 'spinner' ),
+      pdomCreateContextResponseAlert: newAppliedForce => {
+        if ( newAppliedForce !== 0 && model.accelerationProperty.value === 0 ) {
+          return ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty;
+        }
+        return null;
+      }
     } );
     // Keyboard support: press '0' to zero the applied force (spinner is the alt-input control)
     const spinnerKeyboardListener = new KeyboardListener( {
