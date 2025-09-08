@@ -130,21 +130,15 @@ addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_appliedForceControl
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_motionDescription', 'a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_frictionDescription', 'a11y.motionScreen.screenSummary.controlArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_accelerationDescription', 'a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnSkateboard', 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnGround', 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_objectsOnSkateboard', 'a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboardStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_objectsOnGround', 'a11y.motionScreen.screenSummary.currentDetails.objectsOnGroundStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_motionState_stationary', 'a11y.motionScreen.screenSummary.currentDetails.motionState.stationaryStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_motionState_movingRight', 'a11y.motionScreen.screenSummary.currentDetails.motionState.movingRightStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_motionState_movingLeft', 'a11y.motionScreen.screenSummary.currentDetails.motionState.movingLeftStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_noForce', 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.noForceStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceRight', 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceRightStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceLeft', 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_summary', 'a11y.motionScreen.screenSummary.currentDetails.summaryStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint', 'a11y.motionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_pauseButton_accessibleHelpText', 'a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackMovingLeft', 'a11y.motionScreen.stackMovement.stackMovingLeftStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackMovingRight', 'a11y.motionScreen.stackMovement.stackMovingRightStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackStationary', 'a11y.motionScreen.stackMovement.stackStationaryStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackState_stationary', 'a11y.motionScreen.stackState.stationaryStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackState_movingRight', 'a11y.motionScreen.stackState.movingRightStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_stackState_movingLeft', 'a11y.motionScreen.stackState.movingLeftStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_itemAccessibleNameWithMass', 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_massUnknown', 'a11y.motionScreen.items.massUnknownStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_items_names_fridge', 'a11y.motionScreen.items.names.fridgeStringProperty' );
@@ -454,20 +448,7 @@ const ForcesAndMotionBasicsFluent = {
           accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_controlArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty' ) )
         },
         currentDetails: {
-          noObjectsOnSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty' ) ),
-          noObjectsOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty' ) ),
-          objectsOnSkateboard: new FluentPattern<{ count: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_objectsOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboardStringProperty' ), [{"name":"count","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] ),
-          objectsOnGround: new FluentPattern<{ count: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_objectsOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.objectsOnGroundStringProperty' ), [{"name":"count","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] ),
-          motionState: {
-            stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_motionState_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.motionState.stationaryStringProperty' ) ),
-            movingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_motionState_movingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.motionState.movingRightStringProperty' ) ),
-            movingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_motionState_movingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.motionState.movingLeftStringProperty' ) )
-          },
-          forceDescription: {
-            noForceStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_noForce', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.noForceStringProperty' ) ),
-            appliedForceRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceRightStringProperty' ) ),
-            appliedForceLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty' ) )
-          }
+          summary: new FluentPattern<{ count: 0 | 1 | number | 'other' | TReadOnlyProperty<0 | 1 | number | 'other'>, motionState: FluentVariable, surface: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_summary', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.summaryStringProperty' ), [{"name":"count","variants":[0,1,{"type":"number","value":"other"}]},{"name":"motionState"},{"name":"surface"}] )
         },
         interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_interactionHint', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.interactionHintStringProperty' ) )
       },
@@ -478,6 +459,11 @@ const ForcesAndMotionBasicsFluent = {
         stackMovingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackMovement_stackMovingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackMovement.stackMovingLeftStringProperty' ) ),
         stackMovingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackMovement_stackMovingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackMovement.stackMovingRightStringProperty' ) ),
         stackStationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackMovement_stackStationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackMovement.stackStationaryStringProperty' ) )
+      },
+      stackState: {
+        stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackState_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackState.stationaryStringProperty' ) ),
+        movingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackState_movingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackState.movingRightStringProperty' ) ),
+        movingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackState_movingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackState.movingLeftStringProperty' ) )
       },
       items: {
         itemAccessibleNameWithMass: new FluentPattern<{ itemName: FluentVariable, mass: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_items_itemAccessibleNameWithMass', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' ), [{"name":"itemName"},{"name":"mass"}] ),

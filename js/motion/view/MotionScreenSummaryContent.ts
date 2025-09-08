@@ -23,41 +23,25 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
 
     const playAreaContent = model.screen === 'motion' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty :
                             model.screen === 'friction' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty :
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty;
 
     // Control area content
     const controlAreaContent = model.screen === 'motion' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty :
                                model.screen === 'friction' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.frictionDescriptionStringProperty :
                                ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty;
 
-    const onSkateboardProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboard.createProperty( { count: model.stackedItems.lengthProperty } );
-    const onGroundProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnGround.createProperty( { count: model.stackedItems.lengthProperty } );
+    // Determine surface label based on screen
+    const surfaceStringProperty = model.screen === 'motion' ?
+                                  ForcesAndMotionBasicsFluent.a11y.motionScreen.surface.skateboardStringProperty :
+                                  ForcesAndMotionBasicsFluent.a11y.motionScreen.surface.groundStringProperty;
 
-    // Dynamic current details based on objects on skateboard/ground and motion state
-    const objectsDescriptionStringProperty = new DerivedProperty(
-      [ model.stackedItems.lengthProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty,
-        onSkateboardProperty,
-        onGroundProperty
-      ],
-      ( stackLength, noObjectsOnSkateboardString, noObjectsOnGroundString, onSkateboard, onGround ) => {
-        if ( stackLength === 0 ) {
-          return model.screen === 'motion' ? noObjectsOnSkateboardString : noObjectsOnGroundString;
-        }
-        else {
-          return model.screen === 'motion' ? onSkateboard : onGround;
-        }
-      }
-    );
-
-    // Motion state description based on velocity
-    const motionStateStringProperty = new DerivedProperty(
+    // Motion state adjectives ("moving left", "moving right", "stationary") based on velocity
+    const stackStateStringProperty = new DerivedProperty(
       [
         model.velocityProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.stationaryStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.movingRightStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.motionState.movingLeftStringProperty
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.stackState.stationaryStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.stackState.movingRightStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.stackState.movingLeftStringProperty
       ],
       ( velocity, stationaryString, movingRightString, movingLeftString ) => {
         const threshold = 0.01; // Small threshold to avoid flickering between states
@@ -73,39 +57,12 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
       }
     );
 
-    // Applied force description
-    const forceDescriptionStringProperty = new DerivedProperty(
-      [ model.appliedForceProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.noForceStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceRightStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty
-      ],
-      ( appliedForce, noForceString, appliedForceRightString, appliedForceLeftString ) => {
-        const threshold = 1; // Small threshold to avoid flickering
-        if ( Math.abs( appliedForce ) < threshold ) {
-          return noForceString;
-        }
-        else if ( appliedForce > 0 ) {
-          return appliedForceRightString;
-        }
-        else {
-          return appliedForceLeftString;
-        }
-      }
-    );
-
-    // Combine all current details into a single string
-    const currentDetailsStringProperty = DerivedProperty.deriveAny(
-      [ objectsDescriptionStringProperty, motionStateStringProperty, forceDescriptionStringProperty ],
-      () => {
-        const parts = [
-          objectsDescriptionStringProperty.value,
-          motionStateStringProperty.value,
-          forceDescriptionStringProperty.value
-        ].filter( text => text.length > 0 );
-        return parts.join( ' ' );
-      }
-    );
+    // "Currently, N objects on the SURFACE. Stack is STATE." (omit second sentence when N=0)
+    const currentDetailsStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.summary.createProperty( {
+      count: model.stackedItems.lengthProperty,
+      surface: surfaceStringProperty,
+      motionState: stackStateStringProperty
+    } );
 
     // Current details node
     const currentDetailsNode = new Node( {

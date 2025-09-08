@@ -163,26 +163,12 @@ a11y:
         frictionDescription:     Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
         accelerationDescription: Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
       currentDetails:
-        noObjectsOnSkateboard: No objects are currently on the skateboard.
-        noObjectsOnGround:     No objects are currently on the ground.
-        objectsOnSkateboard:   |-
-                               { $count ->
-                                 [one] { $count } object is on the skateboard.
-                                *[other] { $count } objects are on the skateboard.
-                               }
-        objectsOnGround:       |-
-                               { $count ->
-                                 [one] { $count } object is on the ground.
-                                *[other] { $count } objects are on the ground.
-                               }
-        motionState:
-          stationary:  Objects are stationary.
-          movingRight: Objects are moving to the right.
-          movingLeft:  Objects are moving to the left.
-        forceDescription:
-          noForce:           No force is being applied.
-          appliedForceRight: Applied force is pushing objects to the right.
-          appliedForceLeft:  Applied force is pushing objects to the left.
+        summary: |-
+                 { $count ->
+                   [0]      Currently, no objects on the { $surface }.
+                   [1]      Currently, 1 object on the { $surface }. Stack is { $motionState }.
+                  *[other]  Currently, { $count } objects on the { $surface }. Stack is { $motionState }.
+                 }
       interactionHint: Create a stack of objects and give them a push.
     pauseButton:
       accessibleHelpText: Pause sim to step through little by little and to help make precise measurements.
@@ -190,6 +176,10 @@ a11y:
       stackMovingLeft:  Stack moving left.
       stackMovingRight: Stack moving right.
       stackStationary:  Stack stationary.
+    stackState:
+      stationary:  stationary
+      movingRight: moving right
+      movingLeft:  moving left
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
       massUnknown:                'mass unknown'

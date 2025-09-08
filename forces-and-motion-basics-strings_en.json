@@ -379,39 +379,8 @@
           }
         },
         "currentDetails": {
-          "noObjectsOnSkateboard": {
-            "value": "No objects are currently on the skateboard."
-          },
-          "noObjectsOnGround": {
-            "value": "No objects are currently on the ground."
-          },
-          "objectsOnSkateboard": {
-            "value": "{ $count ->\n  [one] { $count } object is on the skateboard.\n *[other] { $count } objects are on the skateboard.\n}"
-          },
-          "objectsOnGround": {
-            "value": "{ $count ->\n  [one] { $count } object is on the ground.\n *[other] { $count } objects are on the ground.\n}"
-          },
-          "motionState": {
-            "stationary": {
-              "value": "Objects are stationary."
-            },
-            "movingRight": {
-              "value": "Objects are moving to the right."
-            },
-            "movingLeft": {
-              "value": "Objects are moving to the left."
-            }
-          },
-          "forceDescription": {
-            "noForce": {
-              "value": "No force is being applied."
-            },
-            "appliedForceRight": {
-              "value": "Applied force is pushing objects to the right."
-            },
-            "appliedForceLeft": {
-              "value": "Applied force is pushing objects to the left."
-            }
+          "summary": {
+            "value": "{ $count ->\n  [0]      Currently, no objects on the { $surface }.\n  [1]      Currently, 1 object on the { $surface }. Stack is { $motionState }.\n *[other]  Currently, { $count } objects on the { $surface }. Stack is { $motionState }.\n}"
           }
         },
         "interactionHint": {
@@ -432,6 +401,17 @@
         },
         "stackStationary": {
           "value": "Stack stationary."
+        }
+      },
+      "stackState": {
+        "stationary": {
+          "value": "stationary"
+        },
+        "movingRight": {
+          "value": "moving right"
+        },
+        "movingLeft": {
+          "value": "moving left"
         }
       },
       "items": {

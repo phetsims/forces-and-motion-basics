@@ -182,20 +182,7 @@ type StringsType = {
           'accelerationDescriptionStringProperty': LocalizedStringProperty;
         };
         'currentDetails': {
-          'noObjectsOnSkateboardStringProperty': LocalizedStringProperty;
-          'noObjectsOnGroundStringProperty': LocalizedStringProperty;
-          'objectsOnSkateboardStringProperty': LocalizedStringProperty;
-          'objectsOnGroundStringProperty': LocalizedStringProperty;
-          'motionState': {
-            'stationaryStringProperty': LocalizedStringProperty;
-            'movingRightStringProperty': LocalizedStringProperty;
-            'movingLeftStringProperty': LocalizedStringProperty;
-          };
-          'forceDescription': {
-            'noForceStringProperty': LocalizedStringProperty;
-            'appliedForceRightStringProperty': LocalizedStringProperty;
-            'appliedForceLeftStringProperty': LocalizedStringProperty;
-          }
+          'summaryStringProperty': LocalizedStringProperty;
         };
         'interactionHintStringProperty': LocalizedStringProperty;
       };
@@ -206,6 +193,11 @@ type StringsType = {
         'stackMovingLeftStringProperty': LocalizedStringProperty;
         'stackMovingRightStringProperty': LocalizedStringProperty;
         'stackStationaryStringProperty': LocalizedStringProperty;
+      };
+      'stackState': {
+        'stationaryStringProperty': LocalizedStringProperty;
+        'movingRightStringProperty': LocalizedStringProperty;
+        'movingLeftStringProperty': LocalizedStringProperty;
       };
       'items': {
         'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;
