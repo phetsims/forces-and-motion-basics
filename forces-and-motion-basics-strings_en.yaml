@@ -36,22 +36,22 @@ orangeWins:                            Orange Wins!
 
 # keyboard help dialog strings
 keyboardHelpDialog:
-  fromAnywhereInSim:    From Anywhere in Screen
-  startGame:            Start tug-of-war game
-  pauseGame:            Pause tug-of-war game
-  returnCartToCenter:   Return cart to center
-  pullerNavigation:     Puller Navigation
-  selectPuller:         Select puller
-  grabPuller:           Grab selected puller
-  moveGrabbedPuller:    Move grabbed puller
-  dropPuller:           Drop puller
-  itemNavigation:       Item Navigation
-  selectItem:           Select item
-  grabItem:             Grab selected item
-  moveGrabbedItem:      Move grabbed item
-  dropItem:             Drop item
-  adjustAppliedForce:   Adjust Applied Force
-  zeroAppliedForce:     Set applied force to zero
+  fromAnywhereInSim:  From Anywhere in Screen
+  startGame:          Start tug-of-war game
+  pauseGame:          Pause tug-of-war game
+  returnCartToCenter: Return cart to center
+  pullerNavigation:   Puller Navigation
+  selectPuller:       Select puller
+  grabPuller:         Grab selected puller
+  moveGrabbedPuller:  Move grabbed puller
+  dropPuller:         Drop puller
+  itemNavigation:     Item Navigation
+  selectItem:         Select item
+  grabItem:           Grab selected item
+  moveGrabbedItem:    Move grabbed item
+  dropItem:           Drop item
+  adjustAppliedForce: Adjust Applied Force
+  zeroAppliedForce:   Set applied force to zero
 
 # accessibility strings
 a11y:
@@ -153,13 +153,15 @@ a11y:
   motionScreen:
     screenSummary:
       playArea:
-        description:             The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement.
-        frictionDescription:     The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero.
-        accelerationDescription: The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero.
+        motionDescription:       A pusher stands on the flat ground, ready to apply force to a stack of objects on a skateboard. Objects can be moved from the toolbox to the stack.
+        frictionDescription:     A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack.
+        accelerationDescription: A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack.
         appliedForceControl:
           description: Set force applied by pusher on the stack.
       controlArea:
-        description: Use checkboxes to show or hide forces, values, masses, speed, and other measurements. Use play controls to start, pause, or reset the simulation.
+        motionDescription:       Turn on forces, values, or measurement tools.
+        frictionDescription:     Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
+        accelerationDescription: Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
       currentDetails:
         noObjectsOnSkateboard: No objects are currently on the skateboard.
         noObjectsOnGround:     No objects are currently on the ground.
@@ -181,16 +183,13 @@ a11y:
           noForce:           No force is being applied.
           appliedForceRight: Applied force is pushing objects to the right.
           appliedForceLeft:  Applied force is pushing objects to the left.
-      interactionHint:
-        noObjects:         Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion.
-        noObjectsOnGround: Drag objects from the toolboxes onto the ground, then use the applied force control to create motion.
-        withObjects:       Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces.
+      interactionHint: Create a stack of objects and give them a push.
     pauseButton:
       accessibleHelpText: Pause sim to step through little by little and to help make precise measurements.
     stackMovement:
-      stackMovingLeft:    Stack moving left.
-      stackMovingRight:   Stack moving right.
-      stackStationary:    Stack stationary.
+      stackMovingLeft:  Stack moving left.
+      stackMovingRight: Stack moving right.
+      stackStationary:  Stack stationary.
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
       massUnknown:                'mass unknown'
@@ -234,7 +233,7 @@ a11y:
         accessibleContextResponseChecked:   Applied force arrow shown.
         accessibleContextResponseUnchecked: Applied force arrow hidden.
       values:
-        accessibleName:     Values
+        accessibleName: Values
       masses:
         accessibleName:                     Masses
         accessibleHelpText:                 Show or hide masses of objects.

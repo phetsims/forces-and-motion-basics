@@ -352,14 +352,14 @@
     "motionScreen": {
       "screenSummary": {
         "playArea": {
-          "description": {
-            "value": "The play area shows a horizontal surface with objects that can be moved onto a skateboard. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force and movement."
+          "motionDescription": {
+            "value": "A pusher stands on the flat ground, ready to apply force to a stack of objects on a skateboard. Objects can be moved from the toolbox to the stack."
           },
           "frictionDescription": {
-            "value": "The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, and movement. The surface turns to ice when friction is zero."
+            "value": "A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack."
           },
           "accelerationDescription": {
-            "value": "The play area shows a horizontal surface with objects that can be moved on the ground. A pusher can apply force to move objects, creating motion and demonstrating the relationship between force, friction, acceleration, and movement. The surface turns to ice when friction is zero."
+            "value": "A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack."
           },
           "appliedForceControl": {
             "description": {
@@ -368,8 +368,14 @@
           }
         },
         "controlArea": {
-          "description": {
-            "value": "Use checkboxes to show or hide forces, values, masses, speed, and other measurements. Use play controls to start, pause, or reset the simulation."
+          "motionDescription": {
+            "value": "Turn on forces, values, or measurement tools."
+          },
+          "frictionDescription": {
+            "value": "Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over."
+          },
+          "accelerationDescription": {
+            "value": "Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over."
           }
         },
         "currentDetails": {
@@ -409,15 +415,7 @@
           }
         },
         "interactionHint": {
-          "noObjects": {
-            "value": "Drag objects from the toolboxes onto the skateboard, then use the applied force control to create motion."
-          },
-          "noObjectsOnGround": {
-            "value": "Drag objects from the toolboxes onto the ground, then use the applied force control to create motion."
-          },
-          "withObjects": {
-            "value": "Use the applied force control to push the objects. Adjust checkboxes to show different measurements and forces."
-          }
+          "value": "Create a stack of objects and give them a push."
         }
       },
       "pauseButton": {

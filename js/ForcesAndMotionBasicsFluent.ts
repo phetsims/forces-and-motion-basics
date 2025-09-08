@@ -123,11 +123,13 @@ addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleNam
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_playAreaControls_accessibleHeading', 'a11y.netForceScreen.playAreaControls.accessibleHeadingStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_description', 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_motionDescription', 'a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_description', 'a11y.motionScreen.screenSummary.controlArea.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_motionDescription', 'a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_frictionDescription', 'a11y.motionScreen.screenSummary.controlArea.frictionDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_accelerationDescription', 'a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnSkateboard', 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnGround', 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnGroundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_objectsOnSkateboard', 'a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboardStringProperty' );
@@ -138,9 +140,7 @@ addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_motionState_m
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_noForce', 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.noForceStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceRight', 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceRightStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceLeft', 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint_noObjects', 'a11y.motionScreen.screenSummary.interactionHint.noObjectsStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint_noObjectsOnGround', 'a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint_withObjects', 'a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_screenSummary_interactionHint', 'a11y.motionScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_pauseButton_accessibleHelpText', 'a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackMovingLeft', 'a11y.motionScreen.stackMovement.stackMovingLeftStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackMovingRight', 'a11y.motionScreen.stackMovement.stackMovingRightStringProperty' );
@@ -441,7 +441,7 @@ const ForcesAndMotionBasicsFluent = {
     motionScreen: {
       screenSummary: {
         playArea: {
-          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.descriptionStringProperty' ) ),
+          motionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_motionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty' ) ),
           frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' ) ),
           accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' ) ),
           appliedForceControl: {
@@ -449,7 +449,9 @@ const ForcesAndMotionBasicsFluent = {
           }
         },
         controlArea: {
-          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_controlArea_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.controlArea.descriptionStringProperty' ) )
+          motionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_controlArea_motionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty' ) ),
+          frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_controlArea_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.controlArea.frictionDescriptionStringProperty' ) ),
+          accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_controlArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty' ) )
         },
         currentDetails: {
           noObjectsOnSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_noObjectsOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.noObjectsOnSkateboardStringProperty' ) ),
@@ -467,11 +469,7 @@ const ForcesAndMotionBasicsFluent = {
             appliedForceLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_currentDetails_forceDescription_appliedForceLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.currentDetails.forceDescription.appliedForceLeftStringProperty' ) )
           }
         },
-        interactionHint: {
-          noObjectsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_interactionHint_noObjects', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.interactionHint.noObjectsStringProperty' ) ),
-          noObjectsOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_interactionHint_noObjectsOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty' ) ),
-          withObjectsStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_interactionHint_withObjects', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty' ) )
-        }
+        interactionHintStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_interactionHint', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.interactionHintStringProperty' ) )
       },
       pauseButton: {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_pauseButton_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.pauseButton.accessibleHelpTextStringProperty' ) )

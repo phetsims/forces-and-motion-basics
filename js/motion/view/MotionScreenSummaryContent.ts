@@ -25,13 +25,13 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
     const getPlayAreaDescription = () => {
       switch( model.screen ) {
         case 'motion':
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.descriptionStringProperty;
+          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty;
         case 'friction':
           return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty;
         case 'acceleration':
           return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty;
         default:
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.descriptionStringProperty;
+          throw new Error( `Unknown screen: ${model.screen}` );
       }
     };
 
@@ -40,7 +40,9 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
     ];
 
     // Control area content
-    const controlAreaContent = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.descriptionStringProperty;
+    const controlAreaContent = model.screen === 'motion' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty :
+                               model.screen === 'friction' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.frictionDescriptionStringProperty :
+                               ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty;
 
     const onSkateboardProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnSkateboard.createProperty( { count: model.stackedItems.lengthProperty } );
     const onGroundProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.currentDetails.objectsOnGround.createProperty( { count: model.stackedItems.lengthProperty } );
@@ -129,32 +131,13 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
       ]
     } );
 
-    // Dynamic interaction hint based on whether objects are on the skateboard/ground
-    const interactionHintContentProperty = new DerivedProperty(
-      [ model.stackedItems.lengthProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.noObjectsOnGroundStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHint.withObjectsStringProperty
-      ],
-      ( stackLength, noObjectsString, noObjectsOnGroundString, withObjectsString ) => {
-        if ( stackLength === 0 ) {
-          return model.screen === 'motion' ?
-                 noObjectsString :
-                 noObjectsOnGroundString;
-        }
-        else {
-          return withObjectsString;
-        }
-      }
-    );
-
     super( {
       playAreaContent: playAreaContent,
       controlAreaContent: controlAreaContent,
       currentDetailsContent: {
         node: currentDetailsNode
       },
-      interactionHintContent: interactionHintContentProperty
+      interactionHintContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.interactionHintStringProperty
     } );
   }
 }
