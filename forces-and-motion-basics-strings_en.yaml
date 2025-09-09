@@ -290,10 +290,10 @@ a11y:
     sumOfForcesZero:         'Sum of forces is 0'
     quantitativeDescription: '{ $forceMagnitude } newtons'
     qualitativeDescriptions:
+      verySmall:      very small
       small:          small
       medium:         medium
-      mediumSmall:    medium small
-      mediumLarge:    medium large
+      somewhatLarge:  somewhat large
       large:          large
       veryLarge:      very large
       extremelyLarge: extremely large

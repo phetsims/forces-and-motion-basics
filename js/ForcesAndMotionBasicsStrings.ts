@@ -333,10 +333,10 @@ type StringsType = {
       'sumOfForcesZeroStringProperty': LocalizedStringProperty;
       'quantitativeDescriptionStringProperty': LocalizedStringProperty;
       'qualitativeDescriptions': {
+        'verySmallStringProperty': LocalizedStringProperty;
         'smallStringProperty': LocalizedStringProperty;
         'mediumStringProperty': LocalizedStringProperty;
-        'mediumSmallStringProperty': LocalizedStringProperty;
-        'mediumLargeStringProperty': LocalizedStringProperty;
+        'somewhatLargeStringProperty': LocalizedStringProperty;
         'largeStringProperty': LocalizedStringProperty;
         'veryLargeStringProperty': LocalizedStringProperty;
         'extremelyLargeStringProperty': LocalizedStringProperty;

@@ -224,10 +224,10 @@ addToMapIfDefined( 'a11y_forces_rightForceArrow', 'a11y.forces.rightForceArrowSt
 addToMapIfDefined( 'a11y_forces_sumOfForcesArrow', 'a11y.forces.sumOfForcesArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_sumOfForcesZero', 'a11y.forces.sumOfForcesZeroStringProperty' );
 addToMapIfDefined( 'a11y_forces_quantitativeDescription', 'a11y.forces.quantitativeDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_verySmall', 'a11y.forces.qualitativeDescriptions.verySmallStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_small', 'a11y.forces.qualitativeDescriptions.smallStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_medium', 'a11y.forces.qualitativeDescriptions.mediumStringProperty' );
-addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_mediumSmall', 'a11y.forces.qualitativeDescriptions.mediumSmallStringProperty' );
-addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_mediumLarge', 'a11y.forces.qualitativeDescriptions.mediumLargeStringProperty' );
+addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_somewhatLarge', 'a11y.forces.qualitativeDescriptions.somewhatLargeStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_large', 'a11y.forces.qualitativeDescriptions.largeStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_veryLarge', 'a11y.forces.qualitativeDescriptions.veryLargeStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_extremelyLarge', 'a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty' );
@@ -615,10 +615,10 @@ const ForcesAndMotionBasicsFluent = {
       sumOfForcesZeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_sumOfForcesZero', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.sumOfForcesZeroStringProperty' ) ),
       quantitativeDescription: new FluentPattern<{ forceMagnitude: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_quantitativeDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.quantitativeDescriptionStringProperty' ), [{"name":"forceMagnitude"}] ),
       qualitativeDescriptions: {
+        verySmallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_verySmall', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.verySmallStringProperty' ) ),
         smallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_small', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.smallStringProperty' ) ),
         mediumStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_medium', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.mediumStringProperty' ) ),
-        mediumSmallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_mediumSmall', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.mediumSmallStringProperty' ) ),
-        mediumLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_mediumLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.mediumLargeStringProperty' ) ),
+        somewhatLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_somewhatLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.somewhatLargeStringProperty' ) ),
         largeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_large', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.largeStringProperty' ) ),
         veryLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_veryLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.veryLargeStringProperty' ) ),
         extremelyLargeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_extremelyLarge', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty' ) ),

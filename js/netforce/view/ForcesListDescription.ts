@@ -39,10 +39,10 @@ export default class ForcesListDescription extends Node {
 
     // Dependencies for qualitative descriptions so language changes recompute values.
     const qualitativeStringDependencies = [
+      ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.verySmallStringProperty,
       ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.smallStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumSmallStringProperty,
       ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumLargeStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.somewhatLargeStringProperty,
       ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.largeStringProperty,
       ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.veryLargeStringProperty,
       ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.extremelyLargeStringProperty

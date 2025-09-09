@@ -17,16 +17,16 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
  */
 export default function getQualitativeForceDescription( magnitude: number ): string {
   if ( magnitude < 75 ) {
-    return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.smallStringProperty.value;
+    return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.verySmallStringProperty.value;
   }
   else if ( magnitude < 125 ) {
-    return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumSmallStringProperty.value;
+    return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.smallStringProperty.value;
   }
   else if ( magnitude < 175 ) {
     return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumStringProperty.value;
   }
   else if ( magnitude < 225 ) {
-    return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.mediumLargeStringProperty.value;
+    return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.somewhatLargeStringProperty.value;
   }
   else if ( magnitude < 275 ) {
     return ForcesAndMotionBasicsFluent.a11y.forces.qualitativeDescriptions.largeStringProperty.value;

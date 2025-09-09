@@ -718,17 +718,17 @@
         "value": "{ $forceMagnitude } newtons"
       },
       "qualitativeDescriptions": {
+        "verySmall": {
+          "value": "very small"
+        },
         "small": {
           "value": "small"
         },
         "medium": {
           "value": "medium"
         },
-        "mediumSmall": {
-          "value": "medium small"
-        },
-        "mediumLarge": {
-          "value": "medium large"
+        "somewhatLarge": {
+          "value": "somewhat large"
         },
         "large": {
           "value": "large"
