@@ -203,6 +203,7 @@ a11y:
       overStack:           Over stack
       overSkateboard:      Over skateboard
       overGround:          Over ground
+      grabbed:             Grabbed
       droppedOnStack:      Dropped on stack.
       droppedOnSkateboard: Dropped on skateboard.
       droppedOnGround:     Dropped on ground.

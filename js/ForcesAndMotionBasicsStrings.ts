@@ -226,6 +226,7 @@ type StringsType = {
         'overStackStringProperty': LocalizedStringProperty;
         'overSkateboardStringProperty': LocalizedStringProperty;
         'overGroundStringProperty': LocalizedStringProperty;
+        'grabbedStringProperty': LocalizedStringProperty;
         'droppedOnStackStringProperty': LocalizedStringProperty;
         'droppedOnSkateboardStringProperty': LocalizedStringProperty;
         'droppedOnGroundStringProperty': LocalizedStringProperty;

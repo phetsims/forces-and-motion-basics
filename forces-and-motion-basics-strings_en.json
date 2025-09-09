@@ -477,6 +477,9 @@
         "overGround": {
           "value": "Over ground"
         },
+        "grabbed": {
+          "value": "Grabbed"
+        },
         "droppedOnStack": {
           "value": "Dropped on stack."
         },

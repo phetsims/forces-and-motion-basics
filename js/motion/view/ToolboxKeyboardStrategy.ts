@@ -8,6 +8,7 @@
  */
 
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import type MotionModel from '../model/MotionModel.js';
 import type ItemNode from './ItemNode.js';
 import { ItemNodeKeyboardStrategy } from './ItemNodeKeyboardStrategy.js';
@@ -59,14 +60,12 @@ export default class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy
 
   public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'stack' | 'toolbox' ): string {
     if ( action === 'grabbed' ) {
-
-      // TODO: i18n, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-      return 'Grabbed';
+      return ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.grabbedStringProperty.value;
     }
     else {
-
-      // TODO: i18n, the values https://github.com/phetsims/forces-and-motion-basics/issues/431
-      return location === 'stack' ? 'Item moved to skateboard' : 'Item returned to toolbox';
+      return location === 'stack' ?
+             ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty.value :
+             ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value;
     }
   }
 }
