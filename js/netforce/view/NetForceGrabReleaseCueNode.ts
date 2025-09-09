@@ -33,7 +33,6 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
     this.layoutBounds = layoutBounds;
 
     // Create a property that tracks if any puller has focus
-    // TODO: assign on creation, see https://github.com/phetsims/forces-and-motion-basics/issues/431
     this.anyPullerHasFocusProperty = new BooleanProperty( false );
 
     // Update the anyPullerHasFocusProperty when any puller's focus changes
