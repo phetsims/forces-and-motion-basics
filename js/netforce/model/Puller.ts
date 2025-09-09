@@ -49,7 +49,7 @@ export default class Puller extends PhetioObject {
   // Accounts for the ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
   public readonly colorProperty: TReadOnlyProperty<LeftTeamColor | RightTeamColor>;
 
-  // TODO: Why can index be the empty string? See https://github.com/phetsims/forces-and-motion-basics/issues/431
+  // For the small pullers, there are index 1 and 2. For others, there is no suffix.
   public readonly descriptionIndex: '1' | '2' | '';
 
   /**

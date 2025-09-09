@@ -64,6 +64,8 @@ export default class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy
       return 'Grabbed';
     }
     else {
+
+      // TODO: i18n, the values https://github.com/phetsims/forces-and-motion-basics/issues/431
       return location === 'stack' ? 'Item moved to skateboard' : 'Item returned to toolbox';
     }
   }

@@ -343,7 +343,7 @@ export default class ItemNode extends Node {
     const highlightFromNode = new HighlightFromNode( this );
     this.focusHighlight = highlightFromNode;
 
-    // TODO: This focus highlight isn't showing, see https://github.com/phetsims/forces-and-motion-basics/issues/431
+    // TODO: This focus highlight isn't showing during mouse interaction, see https://github.com/phetsims/forces-and-motion-basics/issues/431
     item.modeProperty.link( mode => {
       highlightFromNode.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'mouseGrabbed' );
     } );

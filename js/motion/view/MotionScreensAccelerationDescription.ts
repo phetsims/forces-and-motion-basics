@@ -88,21 +88,18 @@ export default class MotionScreensAccelerationDescription extends Node {
       model.showAccelerationProperty,
       model.showValuesProperty,
       qualitativeDescriptorProperty,
-      accelerationMetersPerSecondSquaredTextProperty,
-      directionStringProperty,
       withoutValueProperty,
       withValueProperty,
       withDirectionProperty,
       withDirectionAndValueProperty,
-      // dependency on zero string for comparison in callback
-      ForcesAndMotionBasicsFluent.a11y.acceleration.qualitativeDescriptions.zeroStringProperty
-
-      // TODO: Move q,n to last, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-    ], ( showAcceleration, showValues, q, _n, directionText, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
+      ForcesAndMotionBasicsFluent.a11y.acceleration.qualitativeDescriptions.zeroStringProperty,
+      accelerationMetersPerSecondSquaredTextProperty,
+      directionStringProperty
+    ], ( showAcceleration, showValues, qualitativeDescriptor, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
       if ( !showAcceleration ) { return ''; }
 
       // TODO: Don't compare to the string, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-      const isZero = q === zeroString;
+      const isZero = qualitativeDescriptor === zeroString;
       if ( isZero ) {
         return showValues ? withValue : withoutValue;
       }
