@@ -40,7 +40,7 @@ export default class Puller extends PhetioObject {
   public readonly standOffsetX: number;
   public readonly forceProperty: TReadOnlyProperty<number>;
 
-  // The current mode of the puller - this is the authoritative state
+  // The current interaction mode of the puller
   public readonly modeProperty: Property<PullerMode>;
 
   // the position of this puller
@@ -52,6 +52,7 @@ export default class Puller extends PhetioObject {
   // Accounts for the ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
   public readonly colorProperty: TReadOnlyProperty<'red' | 'blue' | 'purple' | 'orange'>;
 
+  // TODO: Why can index be the empty string? See https://github.com/phetsims/forces-and-motion-basics/issues/431
   public readonly descriptionIndex: '1' | '2' | '';
 
   /**
@@ -127,6 +128,7 @@ export default class Puller extends PhetioObject {
     } );
 
     // When the knot changes, wire up as a listener to the new knot
+    // TODO: Remove unused parameter, see https://github.com/phetsims/forces-and-motion-basics/issues/431
     this.modeProperty.link( ( mode, oldMode ) => {
 
       const knot = mode.getKnot( model );
@@ -289,6 +291,7 @@ type PullerModeState = {
   knot: number | null;
 };
 
+// TODO: Move to PullerMode.ts? See https://github.com/phetsims/forces-and-motion-basics/issues/431
 const PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
   valueType: PullerMode,
   stateSchema: {

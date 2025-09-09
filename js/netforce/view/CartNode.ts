@@ -47,10 +47,10 @@ export default class CartNode extends Image {
 
       // Detect direction changes and announce them
       if ( oldVelocity < 0 && velocity > 0 ) {
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty.value );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty );
       }
       else if ( oldVelocity > 0 && velocity < 0 ) {
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty.value );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty );
       }
     } );
   }

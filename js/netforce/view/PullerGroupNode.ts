@@ -24,8 +24,11 @@ type SelfOptions = {
 type PullerGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class PullerGroupNode extends Node {
+
+  // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
   public readonly pullerNodes: PullerNode[] = [];
 
+  // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
   public constructor( model: NetForceModel, toolboxBounds: Bounds2, providedOptions: PullerGroupNodeOptions ) {
 
     const options = optionize<PullerGroupNodeOptions, SelfOptions, NodeOptions>()( {
@@ -43,8 +46,6 @@ export default class PullerGroupNode extends Node {
         innerLineWidth: 5
       } );
   }
-
 }
-
 
 forcesAndMotionBasics.register( 'PullerGroupNode', PullerGroupNode );

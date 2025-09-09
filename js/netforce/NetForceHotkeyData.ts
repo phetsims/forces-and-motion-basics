@@ -26,6 +26,7 @@ function createHotkeyData( keys: OneKeyStroke[],
 }
 
 export default class NetForceHotkeyData {
+
   // Navigation keys for moving between elements
   public static readonly NAVIGATE_LEFT: OneKeyStroke[] = [ 'arrowLeft' ];
   public static readonly NAVIGATE_RIGHT: OneKeyStroke[] = [ 'arrowRight' ];

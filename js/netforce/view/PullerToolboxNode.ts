@@ -32,6 +32,8 @@ export default class PullerToolboxNode extends Rectangle {
    * @param maxIndex
    * @param highlightColor
    * @param providedOptions
+   *
+   * // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
    */
   public constructor( model: NetForceModel, netForceScreenView: NetForceScreenView, x: number, side: string, activePullerIndex: number, minIndex: number, maxIndex: number,
                       private readonly highlightColor: string, providedOptions?: PullerToolboxNodeOptions ) {

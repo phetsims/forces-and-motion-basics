@@ -83,6 +83,7 @@ export default class MotionScreenView extends ScreenView {
 
   // Update PDOM order for toolbox and stack items
   private updateItemPDOMOrder(): void {
+
     // Compute desired orders
     const toolboxItems = this.itemToolboxGroup.itemNodes
       .slice()
@@ -536,7 +537,6 @@ export default class MotionScreenView extends ScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
       this.itemToolboxGroup,
       stackSection,
-      // itemLayer,
       appliedForcePlayAreaControlNode,
       forcesListDescription,
       speedDescription,
@@ -595,6 +595,7 @@ export default class MotionScreenView extends ScreenView {
    * Set up the transfer logic for moving items between keyboard groups based on stack state
    */
   private setupKeyboardGroupTransfers( model: MotionModel ): void {
+
     // Helper function to perform group transfer logic using unified mode property
     const performGroupTransfer = ( itemNode: ItemNode ) => {
       const mode = itemNode.item.modeProperty.get();
@@ -603,28 +604,35 @@ export default class MotionScreenView extends ScreenView {
       // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
       if ( !isGrabbed ) {
         if ( mode === 'onStack' ) {
+
           // Item moved to stack - transfer from toolbox group to stack group
           if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             this.itemToolboxGroup.removeItemNode( itemNode );
             this.itemStackGroup.addItemNode( itemNode, model );
+
             // Update keyboard strategy for stack navigation
             itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();
           }
         }
         else if ( mode === 'inToolbox' ) {
+
           // Item moved to toolbox - ensure it's in toolbox group and not in stack group
           // Remove from stack group if it's there
           if ( this.itemStackGroup.stackItemNodes.includes( itemNode ) ) {
             this.itemStackGroup.removeItemNode( itemNode );
           }
+
           // Add to toolbox group if it's not already there
           if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             this.itemToolboxGroup.addItemNode( itemNode, model );
+
             // Update keyboard strategy for toolbox navigation
             itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
           }
+
           // Update PDOM order after transfer
           this.updateItemPDOMOrder();
         }
@@ -642,15 +650,19 @@ export default class MotionScreenView extends ScreenView {
 
     // Listen to model stackedItems changes for proper ordering in stack group
     model.stackedItems.lengthProperty.link( () => {
+
       // Only re-sort when no items are being grabbed (to avoid focus loss during interaction)
       const anyItemGrabbed = this.itemNodes.some( itemNode => itemNode.item.userControlledProperty.get() );
       if ( !anyItemGrabbed ) {
+
         // Re-sort stack items when stack changes
         this.itemStackGroup.stackItemNodes.forEach( stackItemNode => {
+
           // Trigger re-sort by removing and re-adding
           this.itemStackGroup.removeItemNode( stackItemNode );
           this.itemStackGroup.addItemNode( stackItemNode, model );
         } );
+
         // Update PDOM after re-sorting
         this.updateItemPDOMOrder();
       }

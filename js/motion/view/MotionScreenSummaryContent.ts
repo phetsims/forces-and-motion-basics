@@ -16,9 +16,6 @@ import MotionModel from '../model/MotionModel.js';
 
 export default class MotionScreenSummaryContent extends ScreenSummaryContent {
 
-  /**
-   * @param model - The MotionModel for the screen
-   */
   public constructor( model: MotionModel ) {
 
     const playAreaContent = model.screen === 'motion' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty :

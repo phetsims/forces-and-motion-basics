@@ -205,7 +205,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     super( standImage, options );
 
-    // this.puller.node = this; // Wire up so node can be looked up by model element.
     this.standImage = standImage;
     this.pullImage = pullImage;
     const model = puller.model;
@@ -308,6 +307,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         ...NetForceHotkeyData.pullerNode.returnToToolbox.keyStringProperties
       ],
       fireOnDown: false,
+
+      // TODO: Closer review, see https://github.com/phetsims/forces-and-motion-basics/issues/431
       fire: ( event, keysPressed ) => {
 
         // NAVIGATION (Arrow Keys)
@@ -701,6 +702,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
   /**
    * Get the dynamic color name for this puller based on current preferences
+   * // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
    */
   private getDynamicColorName(): string {
     const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;

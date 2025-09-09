@@ -4,6 +4,7 @@
  * TugOfWarDescription provides an accessible overview of the current state of the tug-of-war rope,
  * showing which pullers are attached to which knots.
  *
+ * TODO: Check all author annotations, see https://github.com/phetsims/forces-and-motion-basics/issues/431
  * @author Claude (Anthropic)
  */
 
@@ -28,15 +29,11 @@ export default class TugOfWarDescription extends Node {
 
     // Update overview when pullers change position
     this.model.pullers.forEach( puller => {
-      puller.modeProperty.link( () => {
-        this.updateRopeOverview();
-      } );
+      puller.modeProperty.link( () => this.updateRopeOverview() );
     } );
 
     // Update overview when puller colors change
-    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => {
-      this.updateRopeOverview();
-    } );
+    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => this.updateRopeOverview() );
 
     // Initial update
     this.updateRopeOverview();
@@ -46,7 +43,7 @@ export default class TugOfWarDescription extends Node {
    * Updates the rope overview content based on current puller positions
    */
   private updateRopeOverview(): void {
-    // Remove existing content
+
     this.removeAllChildren();
 
     // Get all pullers attached to knots, sorted by position

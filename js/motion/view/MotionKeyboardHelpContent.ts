@@ -27,6 +27,8 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectItemStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
         {
+
+          // TODO: Factor out lineWrap, see https://github.com/phetsims/forces-and-motion-basics/issues/431
           labelOptions: { lineWrap: 200 },
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty
         }

@@ -76,6 +76,8 @@ export default class MotionStackListDescription extends Node {
 
     // Helper to get the accessible name (with or without mass) consistent with ItemNode
     const getAccessibleName = ( item: Item ): string => {
+
+      // TODO: Duplicated fragment, see https://github.com/phetsims/forces-and-motion-basics/issues/431
       const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
         ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
 
@@ -105,6 +107,8 @@ export default class MotionStackListDescription extends Node {
     const topStringProperty = DerivedProperty.deriveAny( [ lengthProperty, ...dependencies ], () => {
       const n = lengthProperty.value;
       if ( n === 0 ) { return ''; }
+
+      // TODO: hardcode as 2, and factor out duplicates? See https://github.com/phetsims/forces-and-motion-basics/issues/431
       const item = model.stackedItems.get( n - 1 );
       return getAccessibleName( item );
     } );

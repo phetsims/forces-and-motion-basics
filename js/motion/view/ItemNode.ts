@@ -43,8 +43,6 @@ export default class ItemNode extends Node {
   private readonly dragListener: SoundDragListener;
   private keyboardStrategy: ItemNodeKeyboardStrategy | null = null;
   private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
-  private readonly model: MotionModel;
-  private readonly motionView: MotionScreenView;
 
   // Track whether this item was originally on stack when grabbed (for focus management)
   private wasOriginallyOnStack = false;
@@ -67,8 +65,8 @@ export default class ItemNode extends Node {
    * @param itemToolbox - The toolbox that contains this item
    * @param tandem
    */
-  public constructor( model: MotionModel,
-                      motionView: MotionScreenView,
+  public constructor( public readonly model: MotionModel,
+                      public readonly motionView: MotionScreenView,
                       public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
@@ -91,9 +89,8 @@ export default class ItemNode extends Node {
                                       item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
                                       item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
                                       item.name === 'bucket' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.bucketStringProperty :
-                                      ( () => { throw new Error( `Unhandled name: ${item.name}` ); } )(); // IIFE to throw error
+                                      ( () => { throw new Error( `Unhandled name: ${item.name}` ); } )();
 
-    // Create fluent property for accessible name with mass
     const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
     const itemAccessibleNameWithMassProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
       itemName: localizedItemNameProperty,
@@ -103,7 +100,7 @@ export default class ItemNode extends Node {
     // Create a derived property that switches between plain name and name with mass
     const accessibleNameProperty = new DerivedProperty(
       [ showMassesProperty, itemAccessibleNameWithMassProperty, localizedItemNameProperty ],
-      ( showMasses, itemNameWithMass, localizedItemName ): string => {
+      ( showMasses, itemNameWithMass, localizedItemName ) => {
         return showMasses ? itemNameWithMass : localizedItemName;
       }
     );
@@ -122,9 +119,6 @@ export default class ItemNode extends Node {
       ariaRole: 'button',
       accessibleName: accessibleNameProperty
     } );
-
-    this.model = model;
-    this.motionView = motionView;
 
     // translate this node to the item's position
     this.translate( item.positionProperty.get() );
@@ -350,6 +344,8 @@ export default class ItemNode extends Node {
     this.focusHighlight = highlightFromNode;
 
     item.modeProperty.link( mode => {
+
+      // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/431 should this also be dashed on mouse interaction?
       if ( mode.startsWith( 'keyboardGrabbed' ) ) {
         highlightFromNode.setDashed( true );
       }
@@ -393,6 +389,7 @@ export default class ItemNode extends Node {
    */
   public setKeyboardStrategy( strategy: ItemNodeKeyboardStrategy | null, toolboxGroup?: ItemToolboxGroupNode ): void {
     // Remove existing keyboard listener if any
+    // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/431 can the keyboard listener be persistent?
     if ( this.keyboardListener ) {
       this.removeInputListener( this.keyboardListener );
       this.keyboardListener = null;
@@ -445,6 +442,8 @@ export default class ItemNode extends Node {
 
     // Arrow key navigation
     if ( [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ].includes( keysPressed ) ) {
+
+      // TODO: Lookup map, see https://github.com/phetsims/forces-and-motion-basics/issues/431
       const direction = keysPressed.replace( 'arrow', '' ).toLowerCase() as 'left' | 'right' | 'up' | 'down';
 
       if ( isGrabbed ) {
@@ -469,6 +468,7 @@ export default class ItemNode extends Node {
       // Restore original stack state
       if ( this.wasOriginallyOnStack ) {
         this.item.inStackProperty.value = true;
+
         // Add back to stack if it was originally there
         if ( !this.model.stackedItems.includes( this.item ) ) {
           this.model.stackedItems.add( this.item );
@@ -496,6 +496,7 @@ export default class ItemNode extends Node {
    */
   private handleReturnToToolboxKey(): void {
     if ( this.item.userControlledProperty.get() ) {
+
       // Force return to toolbox
       this.item.modeProperty.value = 'inToolbox';
       this.item.inStackProperty.value = false;
@@ -558,6 +559,7 @@ export default class ItemNode extends Node {
       this.addAccessibleContextResponse( overMessage );
     }
     else {
+
       // Drop the item at current position
 
       // Reset mode to a non-grabbed state to trigger proper mode calculation
@@ -567,8 +569,10 @@ export default class ItemNode extends Node {
       const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
 
       if ( droppedOnStack ) {
+
         // Determine prior number of stacked items (before adding this one)
         const priorLength = this.model.stackedItems.length;
+
         // Complete the stack placement
         this.item.inStackProperty.value = true;
         const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
@@ -597,6 +601,7 @@ export default class ItemNode extends Node {
         }
       }
       else {
+
         // Return to toolbox
         this.item.animateHome();
         this.labelNode.centerX = this.normalImageNode.centerX;
@@ -631,6 +636,7 @@ export default class ItemNode extends Node {
 
   /**
    * Handle navigation while item is grabbed (cycling through drop positions)
+   * TODO: parameter unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
    */
   private handleGrabbedNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
     if ( !this.originalPosition ) { return; }
@@ -694,6 +700,7 @@ export default class ItemNode extends Node {
    * Called on end drag (both mouse and keyboard)
    */
   private updatePersonDirection( person: Item ): void {
+
     // default direction is to the left
     let direction: 'left' | 'right' = 'left';
 
@@ -703,6 +710,7 @@ export default class ItemNode extends Node {
       const itemInStack = this.model.stackedItems.get( i );
 
       if ( itemInStack === person ) {
+
         // skip the person that is currently being dragged
         continue;
       }
@@ -714,6 +722,7 @@ export default class ItemNode extends Node {
       direction = personInStack.directionProperty.get();
     }
     else if ( person.context.appliedForceProperty.get() !== 0 ) {
+
       // if there is an applied force on the stack, direction should match applied force
       if ( person.context.appliedForceProperty.get() > 0 ) {
         direction = 'right';

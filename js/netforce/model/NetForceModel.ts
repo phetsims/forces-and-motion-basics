@@ -58,6 +58,8 @@ export default class NetForceModel extends PhetioObject {
   public readonly cart: Cart;
   public readonly knots: Knot[];
   public readonly pullers: Puller[];
+
+  // TODO: Type declaration for left color and right color, see https://github.com/phetsims/forces-and-motion-basics/issues/431
   public readonly leftTeamColorProperty: TReadOnlyProperty<'blue' | 'purple'>;
   public readonly rightTeamColorProperty: TReadOnlyProperty<'red' | 'orange'>;
 

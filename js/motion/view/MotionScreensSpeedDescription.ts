@@ -122,8 +122,6 @@ export default class MotionScreensSpeedDescription extends Node {
 
     this.speedDescriptionProperty = speedDescriptionProperty;
   }
-
-  // No helper methods needed; description is built inline to avoid cart-specific phrasing.
 }
 
 forcesAndMotionBasics.register( 'MotionScreensSpeedDescription', MotionScreensSpeedDescription );

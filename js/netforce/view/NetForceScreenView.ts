@@ -403,7 +403,6 @@ export default class NetForceScreenView extends ScreenView {
       speedDescription,
       playAreaControlNode,
       this.cartNode,
-      // stateDescriptionNode,
       this.leftArrow,
       this.rightArrow,
       this.sumArrow
@@ -443,6 +442,7 @@ export default class NetForceScreenView extends ScreenView {
    * then pullers in the toolbox, all ordered left to right.
    */
   private updatePullerPDOMOrder(): void {
+
     // Separate pullers into those on rope and those in toolbox
     const pullersOnRope = this.pullerNodes.filter( node => node.puller.modeProperty.value.isAttached() );
     const pullersInToolbox = this.pullerNodes.filter( node => !node.puller.modeProperty.value.isAttached() );

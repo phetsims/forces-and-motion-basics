@@ -114,6 +114,7 @@ export default class ForcesListDescription extends Node {
 
   /**
    * Gets the appropriate description for a force value based on whether values are shown
+   * TODO: This looks like memory leaks, see https://github.com/phetsims/forces-and-motion-basics/issues/431
    */
   private getForceDescription( force: number, showValues: boolean ): string {
     const magnitude = Math.abs( force );

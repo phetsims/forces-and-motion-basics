@@ -9,7 +9,7 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -18,9 +18,7 @@ import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
 import { ItemNodeKeyboardStrategy } from './ItemNodeKeyboardStrategy.js';
 
-type SelfOptions = {
-  // No specific options for now
-};
+type SelfOptions = EmptySelfOptions;
 
 type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
 
@@ -30,6 +28,7 @@ export default class ItemToolboxGroupNode extends Node {
   // Track focus listeners so we can remove them when items leave the group
   private readonly focusListeners = new Map();
 
+  // TODO: unused parameter, see https://github.com/phetsims/forces-and-motion-basics/issues/431
   public constructor( model: MotionModel, leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
     const options = optionize<ItemToolboxGroupNodeOptions, SelfOptions, NodeOptions>()( {
@@ -55,6 +54,7 @@ export default class ItemToolboxGroupNode extends Node {
    * Add an item node to this group (transferring from another parent if needed)
    */
   public addItemNode( itemNode: ItemNode, model: MotionModel ): void {
+
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
       itemNode.parent.removeChild( itemNode );
@@ -191,6 +191,7 @@ export default class ItemToolboxGroupNode extends Node {
   }
 }
 
+// TODO: Move to separate file, see https://github.com/phetsims/forces-and-motion-basics/issues/431
 /**
  * Keyboard strategy for items in the toolboxes.
  * Handles navigation between toolbox items and focus management after drops.
@@ -240,6 +241,8 @@ export class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy {
 
   public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'stack' | 'toolbox' ): string {
     if ( action === 'grabbed' ) {
+
+      // TODO: i18n, see https://github.com/phetsims/forces-and-motion-basics/issues/431
       return 'Grabbed';
     }
     else {

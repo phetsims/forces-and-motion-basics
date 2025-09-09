@@ -23,6 +23,8 @@ export default class PullerMode {
 
   private constructor(
     type: PullerModeType,
+
+    // TODO: Options type, see https://github.com/phetsims/forces-and-motion-basics/issues/431
     options?: {
       method?: GrabMethod;
       knotIndex?: number;
@@ -136,6 +138,7 @@ export default class PullerMode {
            this.overHome === other.overHome;
   }
 
+  // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/431 describe how this is used
   public toString(): string {
     if ( this.type === 'home' ) {
       return 'home';

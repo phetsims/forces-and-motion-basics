@@ -30,6 +30,7 @@ export default class ItemStackGroupNode extends Node {
   // Track focus listeners so we can remove them when items leave the group  
   private readonly focusListeners = new Map();
 
+  // TODO: unused parameter https://github.com/phetsims/forces-and-motion-basics/issues/431
   public constructor( model: MotionModel, providedOptions?: ItemStackGroupNodeOptions ) {
 
     const options = optionize<ItemStackGroupNodeOptions, SelfOptions, NodeOptions>()( {
@@ -51,8 +52,7 @@ export default class ItemStackGroupNode extends Node {
     const highlightY = 10; // Above the skateboard to encompass stacked items
 
     this.groupFocusHighlight = new GroupHighlightPath(
-      Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ),
-      {
+      Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ), {
         innerLineWidth: 5
       }
     );
@@ -62,6 +62,7 @@ export default class ItemStackGroupNode extends Node {
    * Add an item node to the stack group (transferring from another parent if needed)
    */
   public addItemNode( itemNode: ItemNode, model: MotionModel ): void {
+
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
       itemNode.parent.removeChild( itemNode );
@@ -128,11 +129,11 @@ export default class ItemStackGroupNode extends Node {
     } );
   }
 
-
   /**
    * Reset the focus state of all items in this stack group to ensure proper tab navigation after reset
    */
   public reset(): void {
+
     // Restore focusability to all stack items
     this.stackItemNodes.forEach( itemNode => {
       itemNode.focusable = true;
@@ -140,6 +141,7 @@ export default class ItemStackGroupNode extends Node {
 
     // If there are items on the stack, make the first one focusable but don't focus it
     if ( this.stackItemNodes.length > 0 ) {
+
       // Reset focus state - make first item focusable, others non-focusable initially
       this.stackItemNodes.forEach( ( itemNode, index ) => {
         itemNode.focusable = index === 0;
@@ -148,6 +150,8 @@ export default class ItemStackGroupNode extends Node {
   }
 }
 
+
+// TODO: Move to separate file, see https://github.com/phetsims/forces-and-motion-basics/issues/431
 /**
  * Keyboard strategy for items on the stack.
  * Handles navigation between stack items with up/down navigation.

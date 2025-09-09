@@ -8,6 +8,3 @@ node_modules/
 *.sublime-workspace
 .eslintcache
 
-# Playwright test artifacts
-playwright-report/
-test-results/

@@ -24,12 +24,13 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
+const THRESHOLD = 1e-6;
+
 export default class MotionForcesListDescription extends Node {
   private readonly forcesList: AccessibleListNode | null = null;
   public readonly netForceDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: MotionModel ) {
-    const THRESHOLD = 1e-6;
 
     // Rounded values to match on-screen arrow labels (see MotionScreenView implementation)
     const roundedAppliedForceProperty = new DerivedProperty( [ model.appliedForceProperty ], f => roundSymmetric( f ) );
@@ -132,7 +133,6 @@ export default class MotionForcesListDescription extends Node {
       ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString
     );
 
-    // Build the list
     this.forcesList = new AccessibleListNode( [
       { stringProperty: appliedItemStringProperty, visibleProperty: appliedVisibleProperty },
       { stringProperty: frictionItemStringProperty, visibleProperty: frictionVisibleProperty },

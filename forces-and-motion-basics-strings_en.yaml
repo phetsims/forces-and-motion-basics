@@ -182,7 +182,7 @@ a11y:
       movingLeft:  moving left
     items:
       itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
-      massUnknown:                'mass unknown'
+      massUnknown:                mass unknown
       names:
         fridge:  Fridge
         crate1:  Crate 1
@@ -326,5 +326,5 @@ a11y:
       left:           left
       right:          right
     accelerationDescriptions:
-      speedingUp:  'speeding up'
-      slowingDown: 'slowing down'
+      speedingUp:  speeding up
+      slowingDown: slowing down

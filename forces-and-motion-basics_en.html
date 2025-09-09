@@ -30,32 +30,7 @@
         "url": "https://github.com/phetsims/forces-and-motion-basics.git"
       },
       "devDependencies": {
-        "grunt": "~1.5.3",
-        "@playwright/test": "^1.40.0"
-      },
-      "scripts": {
-        "test": "playwright test",
-        "test:headed": "playwright test --headed",
-        "test:debug": "playwright test --debug",
-        "test:ui": "playwright test --ui",
-        "test:report": "playwright show-report",
-        "test:record": "playwright codegen \"http://localhost/forces-and-motion-basics/forces-and-motion-basics_en.html?brand=phet&ea&debugger&screens=1&logInteractiveDescriptionResponses\"",
-        "test:a11y": "playwright test --grep @a11y",
-        "test:keyboard": "playwright test keyboard-navigation.spec.js",
-        "test:keyboard:headed": "playwright test keyboard-navigation.spec.js --headed",
-        "test:pom": "playwright test --grep @pom",
-        "test:smoke": "playwright test --grep @smoke",
-        "test:critical": "playwright test --grep @critical",
-        "test:update-snapshots": "playwright test --update-snapshots",
-        "test:trace": "playwright test --trace on",
-        "test:list": "playwright test --list",
-        "test:slow": "SLOW_MO=100 playwright test --headed",
-        "test:chrome": "playwright test --project=chromium",
-        "test:firefox": "playwright test --project=firefox",
-        "test:webkit": "playwright test --project=webkit",
-        "test:reporter-line": "playwright test --reporter=line",
-        "test:reporter-dot": "playwright test --reporter=dot",
-        "playwright:install": "playwright install"
+        "grunt": "~1.5.3"
       },
       "phet": {
         "requirejsNamespace": "FORCES_AND_MOTION_BASICS",

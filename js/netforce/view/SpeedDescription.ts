@@ -122,6 +122,7 @@ export default class SpeedDescription extends Node {
    * If net force is opposite to velocity, the cart is slowing down.
    */
   private static getAccelerationDescription( netForce: number, velocity: number ): string {
+
     // No net force means no acceleration
     if ( Math.abs( netForce ) < 0.1 ) {
       return '';

@@ -34,6 +34,7 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
     this.layoutBounds = layoutBounds;
 
     // Create a property that tracks if any puller has focus
+    // TODO: assign on creation, see https://github.com/phetsims/forces-and-motion-basics/issues/431
     const anyPullerHasFocusProperty = new BooleanProperty( false );
     this.anyPullerHasFocusProperty = anyPullerHasFocusProperty;
 
@@ -51,6 +52,8 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
     // Visibility: only show if NOT interacted AND a puller has focus
     Multilink.multilink(
       [ this.hasInteractedProperty, this.anyPullerHasFocusProperty ],
+
+      // TODO: Remove types, see https://github.com/phetsims/forces-and-motion-basics/issues/431
       ( hasInteracted: boolean, anyPullerHasFocus: boolean ) => {
         this.visible = !hasInteracted && anyPullerHasFocus;
       }
@@ -72,10 +75,12 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
     const isLeftSide = focusedPullerNode.puller.type === 'blue';
 
     if ( isLeftSide ) {
+
       // Position over left side
       this.centerX = this.layoutBounds.width * 0.25;
     }
     else {
+
       // Position over right side  
       this.centerX = this.layoutBounds.width * 0.75;
     }
