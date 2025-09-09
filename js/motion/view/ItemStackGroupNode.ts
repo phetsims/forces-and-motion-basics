@@ -15,7 +15,8 @@ import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotion
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
-import ItemNode, { type ItemKeyboardStrategy } from './ItemNode.js';
+import ItemNode from './ItemNode.js';
+import { ItemNodeKeyboardStrategy } from './ItemNodeKeyboardStrategy.js';
 
 type SelfOptions = {
   // No specific options for now
@@ -151,7 +152,7 @@ export default class ItemStackGroupNode extends Node {
  * Keyboard strategy for items on the stack.
  * Handles navigation between stack items with up/down navigation.
  */
-export class StackKeyboardStrategy implements ItemKeyboardStrategy {
+export class StackKeyboardStrategy implements ItemNodeKeyboardStrategy {
   public constructor( private readonly groupNode: ItemStackGroupNode, private readonly model: MotionModel ) {}
 
   public navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {

@@ -15,7 +15,8 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
-import ItemNode, { type ItemKeyboardStrategy } from './ItemNode.js';
+import ItemNode from './ItemNode.js';
+import { ItemNodeKeyboardStrategy } from './ItemNodeKeyboardStrategy.js';
 
 type SelfOptions = {
   // No specific options for now
@@ -194,7 +195,7 @@ export default class ItemToolboxGroupNode extends Node {
  * Keyboard strategy for items in the toolboxes.
  * Handles navigation between toolbox items and focus management after drops.
  */
-export class ToolboxKeyboardStrategy implements ItemKeyboardStrategy {
+export class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy {
   public constructor( private readonly groupNode: ItemToolboxGroupNode, private readonly model: MotionModel ) {}
 
   public navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {

@@ -27,12 +27,6 @@ export default class FrictionControl extends VBox {
     const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
     const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
 
-    // Keep label in sync with slider position
-    const frictionText = new Text( ForcesAndMotionBasicsFluent.frictionStringProperty, {
-      font: new PhetFont( { size: fontSize, weight: 'bold' } ),
-      maxWidth: maxTextWidth
-    } );
-
     // Track the value at the start of the current interaction to classify the change at end
     const interactionStartValueProperty = new Property( model.frictionCoefficientProperty.value, { tandem: Tandem.OPT_OUT } );
 
@@ -66,24 +60,29 @@ export default class FrictionControl extends VBox {
       }
     } );
 
+    // Keep label in sync with slider position
+    const frictionText = new Text( ForcesAndMotionBasicsFluent.frictionStringProperty, {
+      font: new PhetFont( { size: fontSize, weight: 'bold' } ),
+      maxWidth: maxTextWidth,
+      visibleProperty: frictionSlider.visibleProperty
+    } );
+
     model.frictionCoefficientProperty.lazyLink( ( friction, oldFriction ) => {
+
+      // Only provide context response feedback caused by an interaction, not, say, from reset all or other programmatic causes
       if ( isInteracting ) {
         affirm( friction !== oldFriction, 'unexpected lazy link' );
         if ( friction > oldFriction ) {
-          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty.value );
+          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty );
         }
         else if ( friction === 0 ) {
-          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty.value );
+          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty );
         }
         else {
-          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty.value );
+          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty );
         }
       }
     } );
-
-    // Keep label visibility aligned to slider, and center label over slider (i18n)
-    frictionSlider.visibleProperty.linkAttribute( frictionText, 'visible' );
-    ForcesAndMotionBasicsFluent.frictionStringProperty.link( () => { frictionText.centerX = frictionSlider.centerX; } );
 
     // Add minor/major ticks and labels
     for ( let i = 0; i < numberOfMinorTicks; i++ ) {
