@@ -204,10 +204,10 @@ a11y:
       overSkateboard:      Over skateboard
       overGround:          Over ground
       grabbed:             Grabbed
-      droppedOnStack:      Dropped on stack.
-      droppedOnSkateboard: Dropped on skateboard.
-      droppedOnGround:     Dropped on ground.
-      returnedToToolbox:   Returned to toolbox.
+      droppedOnStack:      Dropped on stack
+      droppedOnSkateboard: Dropped on skateboard
+      droppedOnGround:     Dropped on ground
+      returnedToToolbox:   Returned to toolbox
       returnedToStack:     Returned to stack
     surface:
       skateboard: skateboard
