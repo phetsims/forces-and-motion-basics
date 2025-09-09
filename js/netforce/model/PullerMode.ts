@@ -8,6 +8,9 @@
  */
 
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from './Knot.js';
 import NetForceModel from './NetForceModel.js';
@@ -173,6 +176,31 @@ export default class PullerMode {
       return null;
     }
   }
+
+  public static readonly PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
+    valueType: PullerMode,
+    stateSchema: {
+      knot: NullableIO( NumberIO )
+    },
+    toStateObject: pullerMode => {
+      return {
+        knot: pullerMode.getAttachedKnotIndex()
+      };
+    },
+    fromStateObject: stateObject => {
+      if ( stateObject.knot === null ) {
+        return PullerMode.home();
+      }
+      else {
+        return PullerMode.attachedToKnot( stateObject.knot );
+      }
+    }
+  } );
 }
+
+type PullerModeState = {
+  knot: number | null;
+};
+
 
 forcesAndMotionBasics.register( 'PullerMode', PullerMode );

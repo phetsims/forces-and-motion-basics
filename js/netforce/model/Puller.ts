@@ -18,9 +18,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import IOType from '../../../../tandem/js/types/IOType.js';
-import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import Knot from './Knot.js';
@@ -102,7 +99,7 @@ export default class Puller extends PhetioObject {
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth',
-      phetioValueType: PullerModeIO,
+      phetioValueType: PullerMode.PullerModeIO,
       valueComparisonStrategy: 'equalsFunction'
     } );
 
@@ -285,30 +282,5 @@ export default class Puller extends PhetioObject {
     return this.modeProperty.value.getKnot( this.model );
   }
 }
-
-type PullerModeState = {
-  knot: number | null;
-};
-
-// TODO: Move to PullerMode.ts? See https://github.com/phetsims/forces-and-motion-basics/issues/431
-const PullerModeIO = new IOType<PullerMode, PullerModeState>( 'PullerModeIO', {
-  valueType: PullerMode,
-  stateSchema: {
-    knot: NullableIO( NumberIO )
-  },
-  toStateObject: pullerMode => {
-    return {
-      knot: pullerMode.getAttachedKnotIndex()
-    };
-  },
-  fromStateObject: stateObject => {
-    if ( stateObject.knot === null ) {
-      return PullerMode.home();
-    }
-    else {
-      return PullerMode.attachedToKnot( stateObject.knot );
-    }
-  }
-} );
 
 forcesAndMotionBasics.register( 'Puller', Puller );
