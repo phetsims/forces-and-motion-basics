@@ -290,12 +290,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     this.focusHighlight = highlightFromNode;
 
     puller.modeProperty.link( mode => {
-      if ( mode.isKeyboardGrabbed() ) {
-        highlightFromNode.setDashed( true );
-      }
-      else {
-        highlightFromNode.setDashed( false );
-      }
+      highlightFromNode.setDashed( mode.isGrabbed() );
     } );
 
     // Create a single listener that combines all hotkey data
