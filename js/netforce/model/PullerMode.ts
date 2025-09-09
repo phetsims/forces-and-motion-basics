@@ -18,22 +18,19 @@ import NetForceModel from './NetForceModel.js';
 type PullerModeType = 'home' | 'grabbed' | 'attached';
 type GrabMethod = 'pointer' | 'keyboard';
 
+type PullerModeOptions = {
+  method?: GrabMethod;
+  knotIndex?: number;
+  overHome?: boolean;
+};
+
 export default class PullerMode {
   public readonly type: PullerModeType;
   private readonly method?: GrabMethod;
   private readonly knotIndex?: number;
   private readonly overHome?: boolean;
 
-  private constructor(
-    type: PullerModeType,
-
-    // TODO: Options type, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-    options?: {
-      method?: GrabMethod;
-      knotIndex?: number;
-      overHome?: boolean;
-    }
-  ) {
+  private constructor( type: PullerModeType, options?: PullerModeOptions ) {
     this.type = type;
     this.method = options?.method;
     this.knotIndex = options?.knotIndex;
