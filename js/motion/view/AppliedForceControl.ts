@@ -87,6 +87,7 @@ export default class AppliedForceControl extends VBox {
         return null;
       }
     } );
+
     // Keyboard support: press '0' to zero the applied force (spinner is the alt-input control)
     const spinnerKeyboardListener = new KeyboardListener( {
       keyStringProperties: MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA.keyStringProperties,
@@ -96,10 +97,10 @@ export default class AppliedForceControl extends VBox {
       }
     } );
     spinner.addInputListener( spinnerKeyboardListener );
+
     model.fallenProperty.link( fallen => {
       fallen && spinner.interruptSubtreeInput();
     } );
-    // children.push( appliedForceSpinner );
 
     // force cannot be applied when there is nothing on the stack
     model.stackedItems.lengthProperty.link( size => {

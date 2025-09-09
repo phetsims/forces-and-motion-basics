@@ -32,7 +32,7 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import AccelerometerNode from './AccelerometerNode.js';
-import FrictionSlider from './FrictionSlider.js';
+import FrictionControl from './FrictionControl.js';
 
 const accelerationStringProperty = ForcesAndMotionBasicsFluent.accelerationStringProperty;
 const forcesStringProperty = ForcesAndMotionBasicsFluent.forcesStringProperty;
@@ -115,7 +115,7 @@ export default class MotionControlPanel extends Node {
       return new AccelerometerNode( accelerometerIconValueProperty ).mutate( { scale: 0.3 } );
     };
 
-    const createFrictionSlider = () => new FrictionSlider( model, fontSize, maxTextWidth, tandem );
+    const createFrictionControl = () => new FrictionControl( model, fontSize, maxTextWidth, tandem );
 
     const createStopwatchIcon = () => {
 
@@ -316,7 +316,7 @@ export default class MotionControlPanel extends Node {
         [ forcesStringProperty, sumOfForcesStringProperty, valuesStringProperty, massesStringProperty, speedStringProperty, stopwatchStringProperty ],
         checkboxGroup );
 
-      containerNode.addChild( createFrictionSlider() );
+      containerNode.addChild( createFrictionControl() );
 
       return containerNode;
     };
@@ -347,7 +347,7 @@ export default class MotionControlPanel extends Node {
         checkboxGroup );
 
       // add the slider friction slider under the checkboxes
-      containerNode.addChild( createFrictionSlider() );
+      containerNode.addChild( createFrictionControl() );
       return containerNode;
     };
 

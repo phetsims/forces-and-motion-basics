@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * FrictionSlider encapsulates the friction coefficient slider UI and accessibility.
+ * FrictionControl encapsulates the friction coefficient slider UI and accessibility.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -20,7 +20,7 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 
-export default class FrictionSlider extends VBox {
+export default class FrictionControl extends VBox {
   public constructor( model: MotionModel, fontSize: number, maxTextWidth: number, tandem: Tandem ) {
     super();
 
@@ -97,4 +97,4 @@ export default class FrictionSlider extends VBox {
   }
 }
 
-forcesAndMotionBasics.register( 'FrictionSlider', FrictionSlider );
+forcesAndMotionBasics.register( 'FrictionControl', FrictionControl );

@@ -219,7 +219,10 @@ export default class Item extends PhetioObject {
 
     // Atomically update mode when inputs change.
     Multilink.multilink( [ this.inStackProperty, this.animationStateProperty ], ( inStack, animationState ) => {
+
+      // We change the mode here, so do not make it a dependency
       const mode = this.modeProperty.value;
+
       this.modeProperty.value = animationState.enabled ? animationState.destination === 'stack' ? 'animatingToStack' :
                                                          animationState.destination === 'home' ? 'animatingToToolbox' :
                                                          'inToolbox' :

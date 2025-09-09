@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Unified mode representing the complete state of an item
+ * For alt-input/mouse interaction with items on the motion screen, keep track of the interaction mode.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
