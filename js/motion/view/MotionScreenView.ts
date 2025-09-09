@@ -365,11 +365,11 @@ export default class MotionScreenView extends ScreenView {
     }
 
     // Create keyboard navigation groups AFTER items are created
-    this.itemToolboxGroup = new ItemToolboxGroupNode( model, leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
+    this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
       tandem: tandem.createTandem( 'itemToolboxGroup' ),
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty
     } );
-    this.itemStackGroup = new ItemStackGroupNode( model, {
+    this.itemStackGroup = new ItemStackGroupNode( {
       tandem: tandem.createTandem( 'itemStackGroup' )
     } );
 

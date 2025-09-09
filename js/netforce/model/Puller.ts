@@ -128,8 +128,7 @@ export default class Puller extends PhetioObject {
     } );
 
     // When the knot changes, wire up as a listener to the new knot
-    // TODO: Remove unused parameter, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-    this.modeProperty.link( ( mode, oldMode ) => {
+    this.modeProperty.link( mode => {
 
       const knot = mode.getKnot( model );
 

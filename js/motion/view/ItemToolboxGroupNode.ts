@@ -28,8 +28,7 @@ export default class ItemToolboxGroupNode extends Node {
   // Track focus listeners so we can remove them when items leave the group
   private readonly focusListeners = new Map();
 
-  // TODO: unused parameter, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-  public constructor( model: MotionModel, leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
+  public constructor( leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
     const options = optionize<ItemToolboxGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',

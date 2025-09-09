@@ -30,8 +30,7 @@ export default class ItemStackGroupNode extends Node {
   // Track focus listeners so we can remove them when items leave the group  
   private readonly focusListeners = new Map();
 
-  // TODO: unused parameter https://github.com/phetsims/forces-and-motion-basics/issues/431
-  public constructor( model: MotionModel, providedOptions?: ItemStackGroupNodeOptions ) {
+  public constructor( providedOptions?: ItemStackGroupNodeOptions ) {
 
     const options = optionize<ItemStackGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',

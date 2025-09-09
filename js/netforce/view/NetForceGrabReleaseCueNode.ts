@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import GrabReleaseCueNode from '../../../../scenery-phet/js/accessibility/nodes/GrabReleaseCueNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -21,7 +20,7 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
   public readonly hasInteractedProperty: BooleanProperty;
   private readonly pullerNodes: PullerNode[];
   private readonly layoutBounds: Bounds2;
-  private readonly anyPullerHasFocusProperty: TReadOnlyProperty<boolean>;
+  private readonly anyPullerHasFocusProperty: BooleanProperty;
 
   public constructor( pullerNodes: PullerNode[], layoutBounds: Bounds2, tandem?: Tandem ) {
 
@@ -35,13 +34,12 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
 
     // Create a property that tracks if any puller has focus
     // TODO: assign on creation, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-    const anyPullerHasFocusProperty = new BooleanProperty( false );
-    this.anyPullerHasFocusProperty = anyPullerHasFocusProperty;
+    this.anyPullerHasFocusProperty = new BooleanProperty( false );
 
     // Update the anyPullerHasFocusProperty when any puller's focus changes
     const updateAnyPullerHasFocus = () => {
       const anyHasFocus = this.pullerNodes.some( pullerNode => pullerNode.focusedProperty.value );
-      anyPullerHasFocusProperty.value = anyHasFocus;
+      this.anyPullerHasFocusProperty.value = anyHasFocus;
     };
 
     // Listen to all puller focus changes
@@ -52,9 +50,7 @@ export default class NetForceGrabReleaseCueNode extends GrabReleaseCueNode {
     // Visibility: only show if NOT interacted AND a puller has focus
     Multilink.multilink(
       [ this.hasInteractedProperty, this.anyPullerHasFocusProperty ],
-
-      // TODO: Remove types, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-      ( hasInteracted: boolean, anyPullerHasFocus: boolean ) => {
+      ( hasInteracted, anyPullerHasFocus ) => {
         this.visible = !hasInteracted && anyPullerHasFocus;
       }
     );

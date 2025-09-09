@@ -13,8 +13,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import NetForceModel from '../model/NetForceModel.js';
-import PullerNode from './PullerNode.js';
 
 type SelfOptions = {
   // Which side this group represents
@@ -25,11 +23,7 @@ type PullerGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class PullerGroupNode extends Node {
 
-  // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-  public readonly pullerNodes: PullerNode[] = [];
-
-  // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-  public constructor( model: NetForceModel, toolboxBounds: Bounds2, providedOptions: PullerGroupNodeOptions ) {
+  public constructor( toolboxBounds: Bounds2, providedOptions: PullerGroupNodeOptions ) {
 
     const options = optionize<PullerGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',

@@ -429,11 +429,17 @@ export default class ItemNode extends Node {
     // Arrow key navigation
     if ( [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ].includes( keysPressed ) ) {
 
-      // TODO: Lookup map, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-      const direction = keysPressed.replace( 'arrow', '' ).toLowerCase() as 'left' | 'right' | 'up' | 'down';
+      // Map arrow key string to direction
+      const arrowToDirection = {
+        arrowLeft: 'left',
+        arrowRight: 'right',
+        arrowUp: 'up',
+        arrowDown: 'down'
+      } as const;
+      const direction = arrowToDirection[ keysPressed as keyof typeof arrowToDirection ];
 
       if ( isGrabbed ) {
-        this.handleGrabbedNavigation( direction );
+        this.handleGrabbedNavigation();
       }
       else {
         this.handleNormalNavigation( direction );
@@ -622,9 +628,8 @@ export default class ItemNode extends Node {
 
   /**
    * Handle navigation while item is grabbed (cycling through drop positions)
-   * TODO: parameter unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
    */
-  private handleGrabbedNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
+  private handleGrabbedNavigation(): void {
     if ( !this.originalPosition ) { return; }
 
     // For grabbed items, any arrow key cycles between home (toolbox) and stack positions

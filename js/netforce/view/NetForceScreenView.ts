@@ -232,10 +232,10 @@ export default class NetForceScreenView extends ScreenView {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
 
-    this.leftPullerGroup = new PullerGroupNode( model, leftToolbox.bounds, {
+    this.leftPullerGroup = new PullerGroupNode( leftToolbox.bounds, {
       side: 'left'
     } );
-    this.rightPullerGroup = new PullerGroupNode( model, rightToolbox.bounds, {
+    this.rightPullerGroup = new PullerGroupNode( rightToolbox.bounds, {
       side: 'right'
     } );
     this.model.pullers.forEach( puller => {

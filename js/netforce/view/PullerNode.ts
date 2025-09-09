@@ -701,17 +701,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   }
 
   /**
-   * Get the dynamic color name for this puller based on current preferences
-   * // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-   */
-  private getDynamicColorName(): string {
-    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
-    return pullerColor === 'purpleOrange' ?
-           ( this.puller.type === 'blue' ? 'purple' : 'orange' ) :
-           this.puller.type;
-  }
-
-  /**
    * Set the translation for a puller at a knot position
    * @param knot - The knot to position the puller at
    * @param offset - The horizontal offset (standOffsetX or dragOffsetX)

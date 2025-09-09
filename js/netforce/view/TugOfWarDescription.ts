@@ -4,8 +4,7 @@
  * TugOfWarDescription provides an accessible overview of the current state of the tug-of-war rope,
  * showing which pullers are attached to which knots.
  *
- * TODO: Check all author annotations, see https://github.com/phetsims/forces-and-motion-basics/issues/431
- * @author Claude (Anthropic)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 
 import StringProperty from '../../../../axon/js/StringProperty.js';
