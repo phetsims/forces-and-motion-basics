@@ -9,7 +9,6 @@
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Rectangle, { RectangleOptions } from '../../../../scenery/js/nodes/Rectangle.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import NetForceModel from '../model/NetForceModel.js';
 import NetForceScreenView from './NetForceScreenView.js';
 
 // constants
@@ -23,20 +22,11 @@ export default class PullerToolboxNode extends Rectangle {
 
   /**
    * Create toolbox backgrounds for the pullers
-   * @param model
    * @param netForceScreenView
    * @param x - the screen coordinate for the position of the toolbox
-   * @param side - 'left' | 'right'
-   * @param activePullerIndex
-   * @param minIndex
-   * @param maxIndex
-   * @param highlightColor
    * @param providedOptions
-   *
-   * // TODO: Remove unused, see https://github.com/phetsims/forces-and-motion-basics/issues/431
    */
-  public constructor( model: NetForceModel, netForceScreenView: NetForceScreenView, x: number, side: string, activePullerIndex: number, minIndex: number, maxIndex: number,
-                      private readonly highlightColor: string, providedOptions?: PullerToolboxNodeOptions ) {
+  public constructor( netForceScreenView: NetForceScreenView, x: number, providedOptions?: PullerToolboxNodeOptions ) {
 
     const toolboxHeight = 216;
 

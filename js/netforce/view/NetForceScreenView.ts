@@ -200,13 +200,13 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.cartNode );
 
     // Create the toolboxes with dynamic accessibility properties
-    const leftToolbox = new PullerToolboxNode( model, this, 25, 'left', 0, 0, 3, 'blue', {
+    const leftToolbox = new PullerToolboxNode( this, 25, {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.teamName.createProperty( {
         color: model.leftTeamColorProperty
       } )
     } );
-    const rightToolbox = new PullerToolboxNode( model, this, 630, 'right', model.pullers.length - 1, 4, model.pullers.length - 1, 'red', {
+    const rightToolbox = new PullerToolboxNode( this, 630, {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.netForceScreen.teamName.createProperty( {
         color: model.rightTeamColorProperty
