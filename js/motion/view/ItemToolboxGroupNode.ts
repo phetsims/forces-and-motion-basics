@@ -200,6 +200,7 @@ export class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy {
   public constructor( private readonly groupNode: ItemToolboxGroupNode, private readonly model: MotionModel ) {}
 
   public navigateToItem( currentItem: ItemNode, direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {
+
     // Only left/right navigation in toolboxes (unified left/right toolbox navigation)
     if ( direction === 'up' || direction === 'down' ) {
       return null;
