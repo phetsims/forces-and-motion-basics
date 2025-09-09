@@ -611,7 +611,7 @@ export default class MotionScreenView extends ScreenView {
             this.itemStackGroup.addItemNode( itemNode, model );
 
             // Update keyboard strategy for stack navigation
-            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
+            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ), null );
 
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();

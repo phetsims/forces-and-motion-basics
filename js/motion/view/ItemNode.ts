@@ -353,8 +353,18 @@ export default class ItemNode extends Node {
         highlightFromNode.setDashed( false );
       }
     } );
-  }
 
+    // Create keyboard listener for item interactions
+    this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
+      keys: [
+        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'enter', 'space', 'escape', 'delete', 'backspace'
+      ],
+      fireOnDown: false,
+      fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
+    } );
+    this.addInputListener( this.keyboardListener );
+  }
 
   /**
    * Set the label position relative to the bottom of the image.
@@ -387,33 +397,9 @@ export default class ItemNode extends Node {
    * @param strategy - The strategy to use, or null to remove keyboard handling
    * @param toolboxGroup - Optional reference to the toolbox group (used for focus management)
    */
-  public setKeyboardStrategy( strategy: ItemNodeKeyboardStrategy | null, toolboxGroup?: ItemToolboxGroupNode ): void {
-    // Remove existing keyboard listener if any
-    // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/431 can the keyboard listener be persistent?
-    if ( this.keyboardListener ) {
-      this.removeInputListener( this.keyboardListener );
-      this.keyboardListener = null;
-    }
-
+  public setKeyboardStrategy( strategy: ItemNodeKeyboardStrategy, toolboxGroup: ItemToolboxGroupNode | null ): void {
     this.keyboardStrategy = strategy;
-
-    // Store toolbox group reference if provided
-    if ( toolboxGroup ) {
-      this.toolboxGroup = toolboxGroup;
-    }
-
-    if ( strategy ) {
-      // Create keyboard listener for item interactions
-      this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
-        keys: [
-          'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-          'enter', 'space', 'escape', 'delete', 'backspace'
-        ],
-        fireOnDown: false,
-        fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
-      } );
-      this.addInputListener( this.keyboardListener );
-    }
+    this.toolboxGroup = toolboxGroup;
   }
 
   /**

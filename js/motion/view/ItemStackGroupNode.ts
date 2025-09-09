@@ -95,7 +95,7 @@ export default class ItemStackGroupNode extends Node {
     itemNode.focusedProperty.lazyLink( focusListener );
 
     // Set the keyboard strategy for stack items
-    itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this, model ) );
+    itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this, model ), null );
   }
 
   /**
