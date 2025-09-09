@@ -59,7 +59,7 @@ export default class SpeedDescription extends Node {
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.stationaryStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.verySlowStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty,
-        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.moderateStringProperty,
         ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty
       ],
       ( showSpeed, accelerationDescription, cartSpeedWithAcceleration, cartSpeed ) => {
@@ -108,7 +108,7 @@ export default class SpeedDescription extends Node {
       return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty.value;
     }
     else if ( speed < 2.5 ) {
-      return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty.value;
+      return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.moderateStringProperty.value;
     }
     else {
       return ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty.value;

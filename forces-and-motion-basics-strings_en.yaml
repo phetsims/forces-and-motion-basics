@@ -311,7 +311,7 @@ a11y:
       stationary:    zero
       verySlow:      very slow
       slow:          slow
-      medium:        medium
+      moderate:      moderate
       fast:          fast
       veryFast:      very fast
       extremelyFast: extremely fast

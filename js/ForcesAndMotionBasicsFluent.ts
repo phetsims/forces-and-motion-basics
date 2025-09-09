@@ -243,7 +243,7 @@ addToMapIfDefined( 'a11y_speed_speedWithValueAndAcceleration', 'a11y.speed.speed
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_stationary', 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_verySlow', 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_slow', 'a11y.speed.qualitativeDescriptions.slowStringProperty' );
-addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_medium', 'a11y.speed.qualitativeDescriptions.mediumStringProperty' );
+addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_moderate', 'a11y.speed.qualitativeDescriptions.moderateStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_fast', 'a11y.speed.qualitativeDescriptions.fastStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_veryFast', 'a11y.speed.qualitativeDescriptions.veryFastStringProperty' );
 addToMapIfDefined( 'a11y_speed_qualitativeDescriptions_extremelyFast', 'a11y.speed.qualitativeDescriptions.extremelyFastStringProperty' );
@@ -638,7 +638,7 @@ const ForcesAndMotionBasicsFluent = {
         stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' ) ),
         verySlowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_verySlow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.verySlowStringProperty' ) ),
         slowStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_slow', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.slowStringProperty' ) ),
-        mediumStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_medium', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.mediumStringProperty' ) ),
+        moderateStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_moderate', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.moderateStringProperty' ) ),
         fastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_fast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.fastStringProperty' ) ),
         veryFastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_veryFast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.veryFastStringProperty' ) ),
         extremelyFastStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_extremelyFast', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.extremelyFastStringProperty' ) )

@@ -30,7 +30,7 @@ export default class MotionScreensSpeedDescription extends Node {
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.stationaryStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.verySlowStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.slowStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.mediumStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.moderateStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.fastStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.veryFastStringProperty,
       ForcesAndMotionBasicsFluent.a11y.speed.qualitativeDescriptions.extremelyFastStringProperty
@@ -39,7 +39,7 @@ export default class MotionScreensSpeedDescription extends Node {
       stationaryString,
       verySlowString,
       slowString,
-      mediumString,
+      moderateString,
       fastString,
       veryFastString,
       extremelyFastString
@@ -48,7 +48,7 @@ export default class MotionScreensSpeedDescription extends Node {
       if ( absSpeed === 0 ) { return stationaryString; }
       if ( absSpeed < 2 ) { return verySlowString; }
       if ( absSpeed < 5 ) { return slowString; }
-      if ( absSpeed < 10 ) { return mediumString; }
+      if ( absSpeed < 10 ) { return moderateString; }
       if ( absSpeed < 20 ) { return fastString; }
       if ( absSpeed < 30 ) { return veryFastString; }
       return extremelyFastString;

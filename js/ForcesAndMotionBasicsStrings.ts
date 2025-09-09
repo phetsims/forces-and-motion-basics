@@ -356,7 +356,7 @@ type StringsType = {
         'stationaryStringProperty': LocalizedStringProperty;
         'verySlowStringProperty': LocalizedStringProperty;
         'slowStringProperty': LocalizedStringProperty;
-        'mediumStringProperty': LocalizedStringProperty;
+        'moderateStringProperty': LocalizedStringProperty;
         'fastStringProperty': LocalizedStringProperty;
         'veryFastStringProperty': LocalizedStringProperty;
         'extremelyFastStringProperty': LocalizedStringProperty;
