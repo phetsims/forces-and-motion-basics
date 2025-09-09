@@ -13,9 +13,12 @@ import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/Ke
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import SpinnerControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SpinnerControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
+import { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import MotionHotkeyData from '../MotionHotkeyData.js';
+
+const LABEL_OPTIONS: RichTextOptions = { lineWrap: 200 };
 
 export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -25,35 +28,29 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
     const itemNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.itemNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectItemStringProperty,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        {
-
-          // TODO: Factor out lineWrap, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-          labelOptions: { lineWrap: 200 },
+        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
+          labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabItemStringProperty,
-        KeyboardHelpIconFactory.spaceOrEnter(),
-        {
-          labelOptions: { lineWrap: 200 },
+        KeyboardHelpIconFactory.spaceOrEnter(), {
+          labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedItemStringProperty,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
-        {
-          labelOptions: { lineWrap: 200 },
+        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
+          labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropItemStringProperty,
-        KeyboardHelpIconFactory.spaceOrEnter(),
-        {
-          labelOptions: { lineWrap: 200 },
+        KeyboardHelpIconFactory.spaceOrEnter(), {
+          labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty
         }
       )
