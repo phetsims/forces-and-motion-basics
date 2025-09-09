@@ -92,6 +92,8 @@ export default class MotionStackListDescription extends Node {
                                         ( () => { throw new Error( `Unhandled name: ${item.name}` ); } )();
 
       const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
+
+      // TODO: Do not createProperty each time, see https://github.com/phetsims/forces-and-motion-basics/issues/433
       const itemAccessibleNameWithMassProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
         itemName: localizedItemNameProperty,
         mass: item.mystery ? massUnknownStringProperty : pattern0MassUnitsKilogramsStringProperty
