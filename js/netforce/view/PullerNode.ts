@@ -353,9 +353,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
             const direction = keysPressed === 'arrowLeft' ? -1 : 1;
 
-            console.log( puller.type );
-            console.log( puller.modeProperty.value.toString() );
-
             // Get available knots for this puller's type
             const availableKnots = model.knots.filter( knot =>
 

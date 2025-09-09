@@ -106,23 +106,9 @@ export default class PullerMode {
     return modeKnot === knot;
   }
 
-  public getKeyboardGrabbedKnotSide(): 'left' | 'right' | null {
-    if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined ) {
-      return this.knotIndex <= 3 ? 'left' : 'right';
-    }
-    return null;
-  }
-
   public getKeyboardGrabbedKnotIndex(): number | null {
     if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined ) {
       return this.knotIndex;
-    }
-    return null;
-  }
-
-  public getAttachedSide(): 'left' | 'right' | null {
-    if ( this.type === 'attached' && this.knotIndex !== undefined ) {
-      return this.knotIndex <= 3 ? 'left' : 'right';
     }
     return null;
   }
@@ -139,28 +125,6 @@ export default class PullerMode {
            this.method === other.method &&
            this.knotIndex === other.knotIndex &&
            this.overHome === other.overHome;
-  }
-
-  // TODO: https://github.com/phetsims/forces-and-motion-basics/issues/431 describe how this is used
-  public toString(): string {
-    if ( this.type === 'home' ) {
-      return 'home';
-    }
-    else if ( this.type === 'grabbed' && this.method === 'pointer' ) {
-      return 'pointerGrabbed';
-    }
-    else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.overHome ) {
-      return 'keyboardGrabbedOverHome';
-    }
-    else if ( this.type === 'grabbed' && this.method === 'keyboard' && this.knotIndex !== undefined ) {
-      const side = this.knotIndex <= 3 ? 'Left' : 'Right';
-      return `keyboardGrabbedOver${side}Knot${this.knotIndex}`;
-    }
-    else if ( this.type === 'attached' && this.knotIndex !== undefined ) {
-      const side = this.knotIndex <= 3 ? 'Left' : 'Right';
-      return `attachedTo${side}Knot${this.knotIndex}`;
-    }
-    return 'unknown';
   }
 
   public getKnot( model: NetForceModel ): Knot | null {
