@@ -223,6 +223,9 @@
       }
     },
     "netForceScreen": {
+      "screenButtonsHelpText": {
+        "value": "Explore net force in a tug-of-war game."
+      },
       "colorName": {
         "value": "{ $color ->\n    [blue]   Blue\n    [red]    Red\n    [purple] Purple\n   *[orange] Orange\n}"
       },
@@ -350,6 +353,15 @@
       }
     },
     "motionScreen": {
+      "motionScreenButtonsHelpText": {
+        "value": "Create a stack of objects and give them a push to explore motion."
+      },
+      "frictionScreenButtonsHelpText": {
+        "value": "Experiment with friction when pushing a stack of objects."
+      },
+      "accelerationScreenButtonsHelpText": {
+        "value": "Measure the acceleration when pushing a stack of objects."
+      },
       "screenSummary": {
         "playArea": {
           "motionDescription": {
@@ -481,16 +493,16 @@
           "value": "Grabbed"
         },
         "droppedOnStack": {
-          "value": "Dropped on stack."
+          "value": "Dropped on stack"
         },
         "droppedOnSkateboard": {
-          "value": "Dropped on skateboard."
+          "value": "Dropped on skateboard"
         },
         "droppedOnGround": {
-          "value": "Dropped on ground."
+          "value": "Dropped on ground"
         },
         "returnedToToolbox": {
-          "value": "Returned to toolbox."
+          "value": "Returned to toolbox"
         },
         "returnedToStack": {
           "value": "Returned to stack"

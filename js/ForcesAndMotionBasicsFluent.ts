@@ -90,6 +90,7 @@ addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_grabItemDescription',
 addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_moveGrabbedItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_dropItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_screenButtonsHelpText', 'a11y.netForceScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_teamName', 'a11y.netForceScreen.teamNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_playArea_description', 'a11y.netForceScreen.screenSummary.playArea.descriptionStringProperty' );
@@ -123,6 +124,9 @@ addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleNam
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleHelpText', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_netForceControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_playAreaControls_accessibleHeading', 'a11y.netForceScreen.playAreaControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionScreenButtonsHelpText', 'a11y.motionScreen.motionScreenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_frictionScreenButtonsHelpText', 'a11y.motionScreen.frictionScreenButtonsHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_accelerationScreenButtonsHelpText', 'a11y.motionScreen.accelerationScreenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_motionDescription', 'a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
@@ -368,6 +372,7 @@ const ForcesAndMotionBasicsFluent = {
       }
     },
     netForceScreen: {
+      screenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_screenButtonsHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.screenButtonsHelpTextStringProperty' ) ),
       colorName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_colorName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.colorNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),
       teamName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_teamName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.teamNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]}] ),
       screenSummary: {
@@ -434,6 +439,9 @@ const ForcesAndMotionBasicsFluent = {
       }
     },
     motionScreen: {
+      motionScreenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionScreenButtonsHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionScreenButtonsHelpTextStringProperty' ) ),
+      frictionScreenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_frictionScreenButtonsHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.frictionScreenButtonsHelpTextStringProperty' ) ),
+      accelerationScreenButtonsHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_accelerationScreenButtonsHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.accelerationScreenButtonsHelpTextStringProperty' ) ),
       screenSummary: {
         playArea: {
           motionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_motionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty' ) ),

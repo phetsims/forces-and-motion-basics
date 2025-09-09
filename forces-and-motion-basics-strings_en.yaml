@@ -81,20 +81,21 @@ a11y:
     appliedForceControls:
       zeroAppliedForceDescription: Set applied force to zero with 0 key.
   netForceScreen:
-    colorName: |-
-               { $color ->
-                   [blue]   Blue
-                   [red]    Red
-                   [purple] Purple
-                  *[orange] Orange
-               }
-    teamName:  |-
-               { $color ->
-                   [blue]   Blue Team
-                   [red]    Red Team
-                   [purple] Purple Team
-                  *[orange] Orange Team
-               }
+    screenButtonsHelpText: Explore net force in a tug-of-war game.
+    colorName:             |-
+                           { $color ->
+                               [blue]   Blue
+                               [red]    Red
+                               [purple] Purple
+                              *[orange] Orange
+                           }
+    teamName:              |-
+                           { $color ->
+                               [blue]   Blue Team
+                               [red]    Red Team
+                               [purple] Purple Team
+                              *[orange] Orange Team
+                           }
     screenSummary:
       playArea:
         description: There is a tug-of-war game between { $leftColor } and { $rightColor } teams over a wheeled cart full of candy. { $leftTeamName } pullers are on left, { $rightTeamName } pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center.
@@ -151,6 +152,9 @@ a11y:
     playAreaControls:
       accessibleHeading: Tug-of-War Controls
   motionScreen:
+    motionScreenButtonsHelpText:       Create a stack of objects and give them a push to explore motion.
+    frictionScreenButtonsHelpText:     Experiment with friction when pushing a stack of objects.
+    accelerationScreenButtonsHelpText: Measure the acceleration when pushing a stack of objects.
     screenSummary:
       playArea:
         motionDescription:       A pusher stands on the flat ground, ready to apply force to a stack of objects on a skateboard. Objects can be moved from the toolbox to the stack.

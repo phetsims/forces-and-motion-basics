@@ -63,26 +63,30 @@ simLauncher.launch( () => {
       name: ForcesAndMotionBasicsFluent.netForceStringProperty,
       homeScreenIcon: new ScreenIcon( netForceScreenIconNode, screenIconOptions ),
       createKeyboardHelpNode: () => new NetForceKeyboardHelpContent(),
-      tandem: netForceScreenTandem
+      tandem: netForceScreenTandem,
+      screenButtonsHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.screenButtonsHelpTextStringProperty
     }
   );
 
   const motionScreen = new MotionScreen( 'motion', {
     name: ForcesAndMotionBasicsFluent.motionStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( ForcesAndMotionBasicsImages.motionIconImageProperty ), screenIconOptions ),
-    tandem: motionScreenTandem
+    tandem: motionScreenTandem,
+    screenButtonsHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionScreenButtonsHelpTextStringProperty
   } );
 
   const frictionScreen = new MotionScreen( 'friction', {
     name: ForcesAndMotionBasicsFluent.frictionStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( frictionIcon_png ), screenIconOptions ),
-    tandem: frictionScreenTandem
+    tandem: frictionScreenTandem,
+    screenButtonsHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionScreenButtonsHelpTextStringProperty
   } );
 
   const accelerationScreen = new MotionScreen( 'acceleration', {
     name: ForcesAndMotionBasicsFluent.accelerationStringProperty,
     homeScreenIcon: new ScreenIcon( new Image( accelerationIcon_png ), screenIconOptions ),
-    tandem: accelerationScreenTandem
+    tandem: accelerationScreenTandem,
+    screenButtonsHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.accelerationScreenButtonsHelpTextStringProperty
   } );
 
   // Create and start the sim

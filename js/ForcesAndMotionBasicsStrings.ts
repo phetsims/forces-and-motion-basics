@@ -106,6 +106,7 @@ type StringsType = {
       }
     };
     'netForceScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
       'colorNameStringProperty': LocalizedStringProperty;
       'teamNameStringProperty': LocalizedStringProperty;
       'screenSummary': {
@@ -167,6 +168,9 @@ type StringsType = {
       }
     };
     'motionScreen': {
+      'motionScreenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'frictionScreenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'accelerationScreenButtonsHelpTextStringProperty': LocalizedStringProperty;
       'screenSummary': {
         'playArea': {
           'motionDescriptionStringProperty': LocalizedStringProperty;
