@@ -14,13 +14,13 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
+import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 
 export default class MotionStackListDescription extends Node {
 
@@ -77,27 +77,8 @@ export default class MotionStackListDescription extends Node {
     // Helper to get the accessible name (with or without mass) consistent with ItemNode
     const getAccessibleName = ( item: Item ): string => {
 
-      // TODO: Duplicated fragment, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-      const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
-        ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
-
-      const localizedItemNameProperty = item.name === 'fridge' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty :
-                                        item.name === 'crate1' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate1StringProperty :
-                                        item.name === 'crate2' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate2StringProperty :
-                                        item.name === 'girl' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.girlStringProperty :
-                                        item.name === 'man' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty :
-                                        item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
-                                        item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
-                                        item.name === 'bucket' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.bucketStringProperty :
-                                        ( () => { throw new Error( `Unhandled name: ${item.name}` ); } )();
-
-      const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
-
-      // TODO: Do not createProperty each time, see https://github.com/phetsims/forces-and-motion-basics/issues/433
-      const itemAccessibleNameWithMassProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
-        itemName: localizedItemNameProperty,
-        mass: item.mystery ? massUnknownStringProperty : pattern0MassUnitsKilogramsStringProperty
-      } );
+      const localizedItemNameProperty = getLocalizedItemNameProperty( item );
+      const itemAccessibleNameWithMassProperty = createItemAccessibleNameWithMassProperty( item );
 
       // Show mass if enabled, otherwise just the name
       return model.showMassesProperty.value ? itemAccessibleNameWithMassProperty.value : localizedItemNameProperty.value;

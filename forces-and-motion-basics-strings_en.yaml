@@ -203,16 +203,17 @@ a11y:
       accessibleName:     Items on Skateboard
       descriptionContent: Grab item. Once grabbed, use keyboard shortcuts to move item.
     itemResponses:
-      overToolbox:         Over toolbox
-      overStack:           Over stack
-      overSkateboard:      Over skateboard
-      overGround:          Over ground
-      grabbed:             Grabbed
-      droppedOnStack:      Dropped on stack
-      droppedOnSkateboard: Dropped on skateboard
-      droppedOnGround:     Dropped on ground
-      returnedToToolbox:   Returned to toolbox
-      returnedToStack:     Returned to stack
+      overToolbox:                      Over toolbox
+      overStack:                        Over stack
+      overSkateboard:                   Over skateboard
+      overGround:                       Over ground
+      grabbed:                          Grabbed
+      droppedOnStack:                   Dropped on stack
+      droppedOnStackBottomItemReturned: Dropped on stack. Bottom item returned to toolbox.
+      droppedOnSkateboard:              Dropped on skateboard
+      droppedOnGround:                  Dropped on ground
+      returnedToToolbox:                Returned to toolbox
+      returnedToStack:                  Returned to stack
     surface:
       skateboard: skateboard
       ground:     ground

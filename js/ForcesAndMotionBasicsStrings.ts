@@ -232,6 +232,7 @@ type StringsType = {
         'overGroundStringProperty': LocalizedStringProperty;
         'grabbedStringProperty': LocalizedStringProperty;
         'droppedOnStackStringProperty': LocalizedStringProperty;
+        'droppedOnStackBottomItemReturnedStringProperty': LocalizedStringProperty;
         'droppedOnSkateboardStringProperty': LocalizedStringProperty;
         'droppedOnGroundStringProperty': LocalizedStringProperty;
         'returnedToToolboxStringProperty': LocalizedStringProperty;

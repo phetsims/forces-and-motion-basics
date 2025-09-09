@@ -25,6 +25,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
@@ -80,30 +81,15 @@ export default class ItemNode extends Node {
     const pattern0MassUnitsKilogramsStringProperty = new PatternStringProperty(
       ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
 
-    // Get the localized item name
-    const localizedItemNameProperty = item.name === 'fridge' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty :
-                                      item.name === 'crate1' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate1StringProperty :
-                                      item.name === 'crate2' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate2StringProperty :
-                                      item.name === 'girl' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.girlStringProperty :
-                                      item.name === 'man' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty :
-                                      item.name === 'trash' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty :
-                                      item.name === 'mystery' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty :
-                                      item.name === 'bucket' ? ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.bucketStringProperty :
-                                      ( () => { throw new Error( `Unhandled name: ${item.name}` ); } )();
-
-    const massUnknownStringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty;
-    const itemAccessibleNameWithMassProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
-      itemName: localizedItemNameProperty,
-      mass: item.mystery ? massUnknownStringProperty : pattern0MassUnitsKilogramsStringProperty
-    } );
+    // Localized name and accessible name with mass, using shared helpers
+    const localizedItemNameProperty = getLocalizedItemNameProperty( item );
+    const itemAccessibleNameWithMassProperty = createItemAccessibleNameWithMassProperty( item );
 
     // Create a derived property that switches between plain name and name with mass
-    const accessibleNameProperty = new DerivedProperty(
+    const accessibleNameProperty = DerivedProperty.deriveAny(
       [ showMassesProperty, itemAccessibleNameWithMassProperty, localizedItemNameProperty ],
-      ( showMasses, itemNameWithMass, localizedItemName ) => {
-        return showMasses ? itemNameWithMass : localizedItemName;
-      }
-    );
+      () => showMassesProperty.value ? itemAccessibleNameWithMassProperty.value : localizedItemNameProperty.value
+    ) as TReadOnlyProperty<string>;
 
     super( {
       cursor: 'pointer',
@@ -218,19 +204,7 @@ export default class ItemNode extends Node {
             this.updatePersonDirection( item );
           }
 
-          // Announce drop location
-          if ( priorLength === 0 ) {
-            this.addAccessibleContextResponse(
-              this.model.screen === 'motion' ?
-              ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty.value :
-              ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnGroundStringProperty.value
-            );
-          }
-          else {
-            this.addAccessibleContextResponse(
-              ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackStringProperty.value
-            );
-          }
+          this.addAccessibleContextResponseForDroppedOnStack( priorLength );
         }
         else {
           // send the item home and make sure that the label is centered
@@ -572,19 +546,9 @@ export default class ItemNode extends Node {
         if ( this.item.name === 'man' || this.item.name === 'girl' ) {
           this.updatePersonDirection( this.item );
         }
-        // Announce drop location
-        if ( priorLength === 0 ) {
-          this.addAccessibleContextResponse(
-            this.model.screen === 'motion' ?
-            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty.value :
-            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnGroundStringProperty.value
-          );
-        }
-        else {
-          this.addAccessibleContextResponse(
-            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackStringProperty.value
-          );
-        }
+
+        this.addAccessibleContextResponseForDroppedOnStack( priorLength );
+
       }
       else {
 
@@ -723,6 +687,26 @@ export default class ItemNode extends Node {
       }
     }
     person.directionProperty.value = direction;
+  }
+
+  private addAccessibleContextResponseForDroppedOnStack( priorLength: number ): void {
+    if ( priorLength === 0 ) {
+      this.addAccessibleContextResponse(
+        this.model.screen === 'motion' ?
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty.value :
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnGroundStringProperty.value
+      );
+    }
+    else if ( priorLength <= 2 ) {
+      this.addAccessibleContextResponse(
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackStringProperty.value
+      );
+    }
+    else {
+      this.addAccessibleContextResponse(
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty
+      );
+    }
   }
 }
 

@@ -163,6 +163,7 @@ addToMapIfDefined( 'a11y_motionScreen_itemResponses_overSkateboard', 'a11y.motio
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_overGround', 'a11y.motionScreen.itemResponses.overGroundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_grabbed', 'a11y.motionScreen.itemResponses.grabbedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnStack', 'a11y.motionScreen.itemResponses.droppedOnStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnStackBottomItemReturned', 'a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnSkateboard', 'a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnGround', 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToToolbox', 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' );
@@ -505,6 +506,7 @@ const ForcesAndMotionBasicsFluent = {
         overGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overGroundStringProperty' ) ),
         grabbedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_grabbed', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.grabbedStringProperty' ) ),
         droppedOnStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnStackStringProperty' ) ),
+        droppedOnStackBottomItemReturnedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnStackBottomItemReturned', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty' ) ),
         droppedOnSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty' ) ),
         droppedOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' ) ),
         returnedToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' ) ),
