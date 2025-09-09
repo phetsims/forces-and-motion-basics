@@ -33,6 +33,9 @@ const KNOT_SPACING = 80;
 const BLUE_KNOT_OFFSET = 62;
 const RED_KNOT_OFFSET = 680;
 
+export type LeftTeamColor = 'blue' | 'purple';
+export type RightTeamColor = 'red' | 'orange';
+
 export default class NetForceModel extends PhetioObject {
 
   // puller game will extend to +/- this value - when the cart's wheel hits this length, the game is over
@@ -58,10 +61,8 @@ export default class NetForceModel extends PhetioObject {
   public readonly cart: Cart;
   public readonly knots: Knot[];
   public readonly pullers: Puller[];
-
-  // TODO: Type declaration for left color and right color, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-  public readonly leftTeamColorProperty: TReadOnlyProperty<'blue' | 'purple'>;
-  public readonly rightTeamColorProperty: TReadOnlyProperty<'red' | 'orange'>;
+  public readonly leftTeamColorProperty: TReadOnlyProperty<LeftTeamColor>;
+  public readonly rightTeamColorProperty: TReadOnlyProperty<RightTeamColor>;
 
   public constructor( tandem: Tandem ) {
 

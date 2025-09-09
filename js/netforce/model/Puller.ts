@@ -21,7 +21,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import Knot from './Knot.js';
-import NetForceModel from './NetForceModel.js';
+import NetForceModel, { LeftTeamColor, RightTeamColor } from './NetForceModel.js';
 
 import PullerMode from './PullerMode.js';
 
@@ -47,7 +47,7 @@ export default class Puller extends PhetioObject {
   public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>;
 
   // Accounts for the ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
-  public readonly colorProperty: TReadOnlyProperty<'red' | 'blue' | 'purple' | 'orange'>;
+  public readonly colorProperty: TReadOnlyProperty<LeftTeamColor | RightTeamColor>;
 
   // TODO: Why can index be the empty string? See https://github.com/phetsims/forces-and-motion-basics/issues/431
   public readonly descriptionIndex: '1' | '2' | '';
