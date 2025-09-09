@@ -47,7 +47,7 @@ export default class MotionScreensSpeedDescription extends Node {
       const absSpeed = Math.abs( speed );
       if ( absSpeed === 0 ) { return stationaryString; }
       if ( absSpeed < 2 ) { return verySlowString; }
-      if ( absSpeed < 5 ) { return slowString; }
+      if ( absSpeed < 6 ) { return slowString; }
       if ( absSpeed < 10 ) { return moderateString; }
       if ( absSpeed < 20 ) { return fastString; }
       if ( absSpeed < 30 ) { return veryFastString; }
