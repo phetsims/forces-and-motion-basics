@@ -55,6 +55,7 @@ import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
 import WaterBucketNode from './WaterBucketNode.js';
+import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -78,6 +79,7 @@ export default class MotionScreenView extends ScreenView {
   private readonly frictionArrow: ReadoutArrow;
   private readonly itemModelToNodeMap = new Map<Item, ItemNode>();
   private readonly toolboxContainer: Node;
+  private readonly grabReleaseCueNode: MotionGrabReleaseCueNode;
 
   // Keyboard navigation groups
   private readonly itemToolboxGroup: ItemToolboxGroupNode;
@@ -255,6 +257,7 @@ export default class MotionScreenView extends ScreenView {
       listener: () => {
         this.interruptSubtreeInput();
         model.reset();
+        this.grabReleaseCueNode.reset();
       },
       radius: 23,
       rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
@@ -489,7 +492,20 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( this.frictionArrow );
     this.addChild( sumOfForcesAlignBox );
 
-    // When a PhET-iO client hides the toolbox, hide any items that are in the toolboxes, and vice-versa.
+    // Keyboard hint: space/enter to grab (mirrors Net Force)
+    this.grabReleaseCueNode = new MotionGrabReleaseCueNode( this.itemNodes, this.layoutBounds, tandem.createTandem( 'grabReleaseCueNode' ) );
+    this.addChild( this.grabReleaseCueNode );
+
+    // Hide hint after first keyboard grab interaction
+    this.itemNodes.forEach( itemNode => {
+      itemNode.item.modeProperty.link( mode => {
+        if ( mode === 'keyboardGrabbedFromToolbox' || mode === 'keyboardGrabbedFromStack' ) {
+          this.grabReleaseCueNode.hasInteractedProperty.value = true;
+        }
+      } );
+    } );
+
+    // When a PhET-iO client hides the toolbox, hide any items that are in the toolboxes, and vice versa.
     this.toolboxContainer.visibleProperty.link( visible => {
       this.itemNodes.forEach( itemNode => {
         if ( !itemNode.item.inStackProperty.value && !itemNode.item.userControlledProperty.value ) {
