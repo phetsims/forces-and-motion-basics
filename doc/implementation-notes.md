@@ -1,12 +1,15 @@
-# Forces and Motion: Basics - Implementation Notes
+# Forces and Motion: Basics - implementation notes
 
 ## Table of Contents
 
 * [Introduction](#introduction)
+* [Terminology](#terminology)
 * [General Considerations](#general-considerations)
   * [Query Parameters](#query-parameters)
+  * [Assertions & Logging](#assertions--logging)
   * [Memory Management](#memory-management)
-  * [Coordinate Frames](#coordinate-frames)
+  * [Preferences](#preferences)
+  * [Model-View Transform](#model-view-transform)
 * [Model](#model)
   * [Net Force Screen (`NetForceModel.ts`)](#net-force-screen-netforcemodelts)
   * [Motion, Friction, and Acceleration Screens (`MotionModel.ts`)](#motion-friction-and-acceleration-screens-motionmodelts)
@@ -18,10 +21,10 @@
   * [Motion, Friction, and Acceleration Screens (`MotionScreenView.ts`)](#motion-friction-and-acceleration-screens-motionscreenviewts)
   * [Common View Elements](#common-view-elements)
 * [PhET-iO](#phet-io)
-  * [General](#general)
   * [IO Types](#io-types)
   * [Dynamic PhET-iO Elements](#dynamic-phet-io-elements)
   * [PhetioObject Subclasses](#phetioobject-subclasses)
+* [A11y](#a11y)
 
 ## Introduction
 
@@ -38,11 +41,26 @@ You are also encouraged to read:
 * [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)
 * [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md)
 
+## Terminology
+
+Most terminology (net force, applied force, friction, acceleration) is domain standard and introduced in model.md.
+Additional terms used in the implementation:
+
+- Puller: A person on the Net Force screen that can be attached to a rope knot to exert a force.
+- Knot: A discrete attachment point on the rope in the Net Force screen.
+- Cart: The object being pulled in the Net Force screen.
+- Pusher: The character that pushes the stack of items in the Motion/Friction/Acceleration screens.
+- Stack: The ordered set of items currently on (or off) the skateboard/ground being pushed.
+- Toolbox: The left/right containers that hold available items (Motion screens) or pullers (Net Force).
+
 ## General Considerations
 
 ### Query Parameters
 
 The simulation supports the following query parameters:
+
+Sim-specific query parameters are declared in
+[js/common/ForcesAndMotionBasicsQueryParameters.ts](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/common/ForcesAndMotionBasicsQueryParameters.ts).
 
 * `showItemToolboxes` (boolean, default: `true`): Allows hiding the item toolboxes in screens like Net Force, Motion,
   and Friction. When `false`, the toolboxes for items (e.g., crates, people, pucks) are not displayed.
@@ -55,6 +73,11 @@ The simulation supports the following query parameters:
 
 Running the simulation with `?log` in the URL will print all registered query parameters and their current values to the
 browser's developer console.
+
+### Assertions & Logging
+
+The sim uses assertions (e.g. `assert`, `affirm`) and logging (`phet.log`) to verify assumptions and aid debugging. If
+you are modifying the sim, enable assertions via the `ea` query parameter and consider using `?log` to inspect state.
 
 ### Memory Management
 
@@ -79,12 +102,17 @@ of. They may explicitly prevent disposal by using `Disposable.assertNotDisposabl
 `NetForceModel.ts` if more complex cleanup is needed for specific components, though this is less common for lifetime
 objects.
 
-### Coordinate Frames
+### Preferences
 
-The simulation uses the standard Scenery coordinate frame, where the origin (0,0) is at the top-left corner of the
-screen, +x values increase to the right, and +y values increase downwards. No global transformations or custom
-coordinate frames are applied at the root level of the simulation screens. All positions and transformations are
-relative to this standard Scenery coordinate system.
+Net Force team colors can be configured via the Preferences dialog. See
+[js/netforce/model/ForcesAndMotionBasicsPreferences.ts](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/model/ForcesAndMotionBasicsPreferences.ts).
+`netForcePullerColorsProperty` is initialized from the `pullerColor` query parameter and is exposed as a featured
+preference; changing it updates visuals and accessible names.
+
+### Model-View Transform
+
+All screens use scenery's standard coordinate frame, with origin at the top-left, +x to the right, and +y downward. No
+global transform utility is used; positions are handled directly in scenery coordinates.
 
 ## Model
 
@@ -97,13 +125,18 @@ differently for each screen, while the "Net Force" screen uses `NetForceModel.ts
 The `NetForceModel.ts` simulates a tug-of-war scenario. The main components of this model are:
 
 * **`Cart`**: Represents the wheeled cart that is being pulled.
-* Key properties: `positionProperty` (Vector2Property), `velocityProperty` (NumberProperty).
+* Key properties: `positionProperty` (NumberProperty), `velocityProperty` (NumberProperty).
 * **`Puller`**: Represents the figures (people) that can pull the cart from either side. Each team can have multiple
   pullers.
-* Key properties: `forceProperty` (NumberProperty, the force exerted by this puller), `knotProperty` (ObjectProperty,
-  references the `Knot` it's attached to).
+* Key properties: `forceProperty` (NumberProperty, the force exerted by this puller), `modeProperty` (authoritative
+  state including whether/where the puller is attached), `positionProperty` (Vector2Property when updating to match a
+  knot).
 * **`Knot`**: Represents the attachment points on the rope where `Puller`s connect.
-* Key properties: `positionProperty` (Vector2Property).
+* Key properties: `positionProperty` (NumberProperty for horizontal position), `isHighlightedProperty`.
+
+Puller interaction state is unified in
+[`PullerMode`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/model/PullerMode.ts), which
+encodes whether a puller is at home, pointer/keyboard grabbed, or attached to a specific knot.
 
 Other important model-level properties in `NetForceModel` include:
 
@@ -144,6 +177,11 @@ Key model-level properties in `MotionModel` include:
 * `accelerationProperty` (NumberProperty): The acceleration of the stack.
 * `stackedItems` (ObservableArrayDef of `Item`): The items currently in the pushable stack.
 * `isPlayingProperty` (BooleanProperty): True when the simulation is running (not paused).
+* Pusher/fall state: `directionProperty`, `fallenProperty`, `fallenDirectionProperty`, `timeSinceFallenProperty`, and
+  `speedClassificationProperty`. When speed thresholds are exceeded the applied force is zeroed and a fall state is
+  entered; the pusher stands after a delay or on counter-force.
+* `stopwatch` (Stopwatch): Exposed via the model and controlled by view, with visibility resetting time and running
+  state.
 
 Screen-specific behavior is controlled by constructor parameters passed to `MotionModel`:
 
@@ -181,10 +219,9 @@ MotionModel
 
 ### Other Important Model Classes
 
-* `MotionConstants.ts`: This file (located at `js/motion/MotionConstants.ts`) contains various numerical constants used
-  in the physics calculations for `MotionModel.ts`. This includes default masses, force limits, physical world
-  dimensions, and coefficients. Organizing these into a separate constants file helps in managing and adjusting the
-  simulation's behavior.
+* [`js/motion/MotionConstants.ts`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/MotionConstants.ts):
+  numerical constants used throughout the Motion screens (force limits, speed caps, friction ranges, position scale,
+  etc.).
 
 ## View
 
@@ -214,7 +251,7 @@ Key visual components in the Net Force screen include:
 * **`GoPauseButton`**: A toggle button to start ("Go!") or pause the tug-of-war simulation.
 * **`ReturnButton`**: A button to reset the cart to its starting position and return all pullers to their toolboxes.
 * **`FlagNode`**: A visual indicator (flag) that appears on the side of the winning team when the tug-of-war is
-  completed (one team pulls the cart to their side).
+  completed; also triggers a short congratulatory sound (tambo `SoundClip`).
 * **Static Elements**: The view also includes static background elements like the sky, ground, and grass, the image of
   the rope itself, and stoppers at each end of the cart's track.
 
@@ -223,28 +260,24 @@ Key visual components in the Net Force screen include:
 `MotionScreenView.ts` is a versatile view class used for the "Motion", "Friction", and "Acceleration" screens. Key
 components include:
 
-* **`ItemNode`**: The visual representation for `Item` model elements (e.g., crates, refrigerator, filing cabinet,
-  people, mystery box, water bucket). It handles displaying different images based on the item's state (e.g., a person
-  standing vs. sitting, or holding an object). Mass labels can be toggled on/off for each item.
-* **`WaterBucketNode`**: A specialized version of `ItemNode` for the water bucket, which has unique visual properties or
-  behaviors.
-* **`PusherNode`**: The visual representation of the character that pushes the stack of items. The pusher's appearance
-  changes to reflect the effort of pushing (e.g., straining at high forces) and can show the pusher falling over if the
-  applied force is removed suddenly while items are in motion.
-* **`SpeedometerNode`**: Displays the current speed of the stacked items.
-* **`AccelerometerNode`**: Specific to the "Acceleration" screen, this node displays the current acceleration of the
-  stacked items.
-* **`AppliedForceControl`**: A custom slider-like UI component that allows the user to set the magnitude of the applied
-  force by the pusher.
-* **`ReadoutArrow`**: Similar to the Net Force screen, these are used to display "Applied Force", "Friction Force",
-  and "Sum of Forces" above the items being pushed.
-* **`MovingBackgroundNode`**: Creates a parallax scrolling effect for the background (e.g., trees, clouds) as the items
-  and pusher move horizontally, enhancing the sense of motion.
-* **`MotionControlPanel`**: A panel containing checkboxes and other controls that allow the user to toggle the
-  visibility of force vectors, mass labels, speed, values, and other visual aids.
-* **`StopwatchNode`**: A draggable stopwatch that users can use to time events in the simulation.
-* **Static Elements**: Includes background elements like the sky and ground. The "Motion" screen specifically features a
-  skateboard under the items. Item toolboxes are present on the left and/or right to hold available `ItemNode`s.
+* **`ItemNode` / `WaterBucketNode`**: Visual representations for items (e.g., crates, refrigerator, people, mystery box,
+  water bucket). Standing/sitting/holding imagery is selected per item state. Keyboard navigation is organized via
+  [`ItemToolboxGroupNode`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ItemToolboxGroupNode.ts)
+  and [`ItemStackGroupNode`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ItemStackGroupNode.ts),
+  with per-item strategies
+  [`ToolboxKeyboardStrategy`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ToolboxKeyboardStrategy.ts)
+  and [`StackKeyboardStrategy`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/StackKeyboardStrategy.ts).
+* **`PusherNode`**: Visual for the pusher; pose reflects effort and fall state.
+* **`SpeedometerNode`**: Displays current speed.
+* **`AccelerometerNode`**: Acceleration display (Acceleration screen only) with value-aware label layout.
+* **`AppliedForceControl`**: Slider-like control for applied force with a11y descriptions.
+* **`ReadoutArrow`**: Applied/Friction/Sum readouts; values rounded to avoid jitter, with label repositioning when
+  arrows overlap.
+* **`MovingBackgroundNode`**: Parallax scrolling background to enhance motion.
+* **`MotionControlPanel`**: Toggles for force vectors, values, masses, speed, acceleration; emits accessible context
+  responses.
+* **`StopwatchNode`**: Draggable stopwatch; visibility controlled by the panel.
+* **Static Elements**: Sky/ground; skateboard appears on the Motion screen. Left/right toolboxes hold available items.
 
 ### Common View Elements
 
@@ -261,14 +294,8 @@ Several view components are reused or have common patterns across screens:
 
 ## PhET-iO
 
-### General
-
-The Forces and Motion: Basics simulation is instrumented for PhET-iO, allowing for rich interaction and data collection
-when used in PhET-iO compatible environments. Standard PhET-iO instrumentation practices are followed. The PhET-iO
-overrides file, `js/forces-and-motion-basics-phet-io-overrides.js`, is minimal and does not contain significant
-customization, indicating that most PhET-iO elements use default configurations or are configured inline within their
-respective classes. Many model properties and UI components are marked with `phetioFeatured: true` to expose them in the
-PhET-iO Studio.
+The simulation is instrumented for PhET-iO. Most configuration is inline; many model properties and UI components are
+marked with `phetioFeatured: true` to expose them in Studio.
 
 ### IO Types
 
@@ -284,8 +311,8 @@ The simulation defines a few custom IO Types for PhET-iO, typically for complex 
 For collections of PhET-iO elements:
 
 * **`MotionModel.stackedItems`**: This `ObservableArray` of `Item` instances is instrumented using
-  `ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )`. Each `Item` within the array is itself a `PhetioObject`
-  instrumented with `ReferenceIO( IOType.ObjectIO )`. This allows PhET-iO to manage the dynamic list of items.
+  `ObservableArrayIO( ReferenceIO( IOType.ObjectIO ) )`. Each `Item` is a `PhetioObject` instrumented with
+  `ReferenceIO( IOType.ObjectIO )`. Items are created once; the dynamic aspect is membership in the array.
 
 ### Dynamic PhET-iO Elements
 
@@ -299,10 +326,10 @@ The simulation features dynamically created and destroyed PhET-iO elements, prim
 
 In contrast:
 
-* **`NetForceModel.pullers`**: The `Puller` instances in the Net Force screen are created at startup (a fixed number for
-  each side). While their state changes (e.g., `knotProperty` linking to different `Knot`s, or `isDraggingProperty`),
-  the `Puller` `PhetioObject`s themselves are not dynamically created or destroyed during typical simulation interaction
-  after initialization.
+* **`NetForceModel.pullers`**: `Puller` instances in the Net Force screen are created at startup (a fixed number for
+  each side). While their state changes (e.g., `modeProperty` attaches/detaches to specific knots, and
+  `positionProperty` updates), `Puller` `PhetioObject`s themselves are not dynamically created or destroyed during
+  interaction.
 * **`NetForceModel.knots`**: Similar to pullers, `Knot` instances are created at startup and are not dynamically added
   or removed.
 
@@ -319,3 +346,30 @@ Other classes, like `Cart.ts` (used in `NetForceModel`) and `MotionModel.ts`, do
 Instead, they are instrumented by creating PhET-iO elements for their instances or properties within their parent
 PhET-iO contexts (e.g., `NetForceModel` instruments its `Cart` instance; each screen model instruments its `MotionModel`
 instance). `MotionModel` itself has many of its properties instrumented, making its state accessible via PhET-iO.
+
+## A11y
+
+Keyboard and assistive-technology support is extensive:
+
+- Keyboard help & hotkeys: Net Force provides a dedicated keyboard help dialog
+  ([NetForceKeyboardHelpContent](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/NetForceKeyboardHelpContent.ts))
+  and hotkey definitions ([NetForceHotkeyData](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/NetForceHotkeyData.ts)).
+- Keyboard drag strategies: Items use per-region strategies
+  ([ToolboxKeyboardStrategy](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ToolboxKeyboardStrategy.ts),
+  [StackKeyboardStrategy](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/StackKeyboardStrategy.ts))
+  plugged into `ItemNode`.
+- PDOM order: Play/control areas define explicit `pdomOrder`. Pullers on the rope are ordered first, then toolboxes,
+  left→right. Toolbox vs stack groups are likewise ordered for Motion screens.
+- Accessible headings & live responses: Sections use `tagName` and `accessibleHeading`; nodes announce state changes and
+  actions (e.g., go/pause, return cart, puller attach/detach, pusher falls, item moved to stack/toolbox, speed and
+  acceleration toggles). Examples include
+  [ForcesListDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/ForcesListDescription.ts),
+  [SpeedDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/SpeedDescription.ts),
+  [MotionForcesListDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionForcesListDescription.ts),
+  [MotionScreensSpeedDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionScreensSpeedDescription.ts),
+  [MotionScreensAccelerationDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionScreensAccelerationDescription.ts),
+  and [MotionStackListDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionStackListDescription.ts).
+- Screen summaries: Each screen type provides a summary via
+  [NetForceScreenSummaryContent](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/NetForceScreenSummaryContent.ts)
+  and
+  [MotionScreenSummaryContent](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionScreenSummaryContent.ts).
