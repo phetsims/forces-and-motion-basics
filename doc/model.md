@@ -6,7 +6,7 @@ This document is a high-level description of the model used in PhET's _Forces an
 
 ## Overview
 
-The _Forces and Motion: Basics_ simulation allows exploration of forces and motion concepts. Users can apply forces to objects and observe their motion, friction, and acceleration. The simulation includes four main screens:
+The _Forces and Motion: Basics_ simulation allows exploration of forces and motion concepts. Users can apply forces to objects and observe their motion, including speed and acceleration. The simulation includes four main screens:
 *   **Net Force:** Explore how forces combine to create a net force and affect the motion of a cart in a tug-of-war game.
 *   **Motion:** Investigate the relationship between force, mass, and acceleration by pushing objects of different masses.
 *   **Friction:** Examine the effects of friction on motion by pushing objects across a surface with adjustable friction.
@@ -30,7 +30,7 @@ The _Forces and Motion: Basics_ simulation allows exploration of forces and moti
 
 ### Physics Concepts
 
-The Tug of War screen (Net Force screen) primarily demonstrates:
+The Net Force (Tug-of-War) screen primarily demonstrates:
 
 *   **Net Force:** The core concept is how individual forces combine to produce a net force. Forces are applied by "pullers" on either side of a central cart.
 *   F_net = F_right_total + F_left_total (where F_left_total is negative).
@@ -53,11 +53,11 @@ The Tug of War screen (Net Force screen) primarily demonstrates:
 ### Net Force Calculation
 
 *   **Left Force (F_left):** The sum of forces from all pullers attached to the left (blue) rope. This value is negative as it pulls to the left.
-*   `F_left = - (sum of forces of all blue pullers)`
+    *   `F_left = - (sum of forces of all blue pullers)`
 *   **Right Force (F_right):** The sum of forces from all pullers attached to the right (red) rope. This value is positive as it pulls to the right.
-*   `F_right = sum of forces of all red pullers`
+    *   `F_right = sum of forces of all red pullers`
 *   **Net Force (F_net):** The total force acting on the cart.
-*   `F_net = F_left + F_right`
+    *    `F_net = F_left + F_right`
 *   The simulation displays these individual forces and the sum of forces (if selected via checkbox).
 
 ### Trial Mechanics
@@ -66,7 +66,7 @@ The Tug of War screen (Net Force screen) primarily demonstrates:
 *   **Motion Dynamics:**
 *   The cart's velocity is updated based on the net force using the formula: `new_velocity = old_velocity + F_net * dt`.
 *   The cart's position is updated based on this velocity: `new_position = old_position + new_velocity * dt`.
-*   **Winning Condition:** The trial ends when the cart's front wheel reaches a certain distance from the center
+*   **Winning Condition:** The trial ends when the cart's front wheel reaches a certain distance from the center, indicated by the location of the stopper.
 *   If `cart.position > NetForceModel.GAME_LENGTH`, the right team wins.
 *   If `cart.position < -NetForceModel.GAME_LENGTH`, the left team wins.
 *   **Game Over:** When the game ends, the cart stops, its velocity is set to zero, and its position is set to the maximum game length reached.
@@ -129,7 +129,7 @@ These objects can be stacked on top of each other (up to a limit of 3 items, if 
 *   **Applied Force (F_applied):** This is the force exerted by the pusher on the stack of objects. The user can control this force, typically ranging from -500 N to +500 N. The direction of the force is indicated by its sign (positive for right, negative for left).
 *   **Friction Force (F_friction):**
   *   If the object is stationary and the magnitude of the applied force is less than or equal to the maximum static friction force (μ_s * N, where μ_s is the coefficient of static friction and N is the normal force, N = mass * g), the friction force is equal and opposite to the applied force.
-  *   If the object is moving, or if the applied force exceeds the maximum static friction, kinetic friction acts in the direction opposite to the velocity. The model calculates kineti friction as 0.75 * μ_k * N (where μ_k is the coefficient of kinetic friction, assumed to be the same as the friction coefficient value, and N = mass * g). The gravitational acceleration `g` is taken as 10.0 m/s², as described in https://github.com/phetsims/forces-and-motion-basics/issues/132
+  *   If the object is moving, or if the applied force exceeds the maximum static friction, kinetic friction acts in the direction opposite to the velocity. The model calculates kineti friction as 0.75 * μ_k * N (where μ_k is the coefficient of kinetic friction, assumed to be the same as the friction coefficient value, and N = mass * g). The gravitational acceleration `g` is taken as 9.8 m/s², as described in https://github.com/phetsims/forces-and-motion-basics/issues/132
   *   The friction coefficient can be adjusted by the user in the "Friction" and "Acceleration" screens. In the "Motion" screen, friction is effectively zero (skateboard).
 *   **Sum of Forces (F_sum):** This is the net force acting on the stack of objects, calculated as F_sum = F_applied + F_friction. This net force determines the acceleration of the objects.
 
@@ -145,7 +145,7 @@ These objects can be stacked on top of each other (up to a limit of 3 items, if 
 
 ### Simplifications
 
-*   **Gravitational Acceleration (g):** Assumed to be 10.0 m/s² for simplicity in calculating normal force and friction, instead of the more precise 9.81 m/s².
+*   **Gravitational Acceleration (g):** Assumed to be 9.8 m/s².
 *   **One-Dimensional Motion:** All motion is restricted to a single horizontal dimension.
 *   **Rigid Bodies:** All objects are treated as rigid bodies that do not deform.
 *   **Pusher Behavior:** The pusher falls over if the max speed is exceeded. The pusher stands back up after a short delay (2 seconds) or if a force is applied in the opposite direction of the fall, or if the pusher is far off-screen. This is a simplified representation rather than a complex physics-based model of balance.
