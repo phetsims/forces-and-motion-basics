@@ -29,6 +29,18 @@ export default class MotionHotkeyData {
     [ '0' ],
     ForcesAndMotionBasicsStrings.keyboardHelpDialog.zeroAppliedForceStringProperty
   );
+
+  // Return grabbed item to toolbox with Delete/Backspace
+  public static readonly RETURN_ITEM_TO_TOOLBOX_HOTKEY_DATA = createHotkeyData(
+    [ 'delete', 'backspace' ],
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnToToolboxStringProperty
+  );
+
+  // Cancel and return grabbed item to where it came from with Escape
+  public static readonly CANCEL_AND_RETURN_ITEM_TO_ORIGIN_HOTKEY_DATA = createHotkeyData(
+    [ 'escape' ],
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelReturnToOriginStringProperty
+  );
 }
 
 forcesAndMotionBasics.register( 'MotionHotkeyData', MotionHotkeyData );

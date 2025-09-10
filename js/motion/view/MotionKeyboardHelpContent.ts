@@ -53,7 +53,13 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
           labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty
         }
-      )
+      ),
+      KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.RETURN_ITEM_TO_TOOLBOX_HOTKEY_DATA, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.returnToToolboxDescriptionStringProperty
+      } ),
+      KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.CANCEL_AND_RETURN_ITEM_TO_ORIGIN_HOTKEY_DATA, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.cancelReturnToOriginDescriptionStringProperty
+      } )
     ] );
 
     // Sections in the left column.

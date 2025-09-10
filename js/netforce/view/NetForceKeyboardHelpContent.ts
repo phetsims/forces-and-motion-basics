@@ -73,7 +73,13 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
           labelOptions: { lineWrap: 200 },
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty
         }
-      )
+      ),
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.pullerNode.returnToToolbox, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty
+      } ),
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.pullerNode.cancelInteraction, {
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.cancelReturnToOriginDescriptionStringProperty
+      } )
     ] );
 
     // Sections in the left column.

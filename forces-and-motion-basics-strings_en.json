@@ -152,6 +152,12 @@
     },
     "zeroAppliedForce": {
       "value": "Set applied force to zero"
+    },
+    "returnToToolbox": {
+      "value": "Return to toolbox"
+    },
+    "cancelReturnToOrigin": {
+      "value": "Cancel and return to original position"
     }
   },
   "a11y": {
@@ -200,6 +206,12 @@
         },
         "dropPullerDescription": {
           "value": "Drop puller with Space or Enter keys."
+        },
+        "returnToToolboxDescription": {
+          "value": "Return grabbed puller to toolbox with Delete or Backspace key."
+        },
+        "cancelReturnToOriginDescription": {
+          "value": "Cancel and return to original position with Escape key."
         }
       },
       "itemNavigation": {
@@ -214,6 +226,12 @@
         },
         "dropItemDescription": {
           "value": "Drop item with Space or Enter keys."
+        },
+        "returnToToolboxDescription": {
+          "value": "Return grabbed item to toolbox with Delete or Backspace key."
+        },
+        "cancelReturnToOriginDescription": {
+          "value": "Cancel and return to original position with Escape key."
         }
       },
       "appliedForceControls": {

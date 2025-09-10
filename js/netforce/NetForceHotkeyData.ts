@@ -51,12 +51,12 @@ export default class NetForceHotkeyData {
     // Cancel interaction
     cancelInteraction: createHotkeyData(
       [ 'escape' ],
-      new StringProperty( 'Cancel and return puller to original position' )
+      ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelReturnToOriginStringProperty
     ),
     // Return to toolbox
     returnToToolbox: createHotkeyData(
       [ 'delete', 'backspace' ],
-      new StringProperty( 'Return puller to toolbox' )
+      ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnToToolboxStringProperty
     )
   };
 

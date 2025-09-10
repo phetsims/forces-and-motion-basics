@@ -36,22 +36,24 @@ orangeWins:                            Orange Wins!
 
 # keyboard help dialog strings
 keyboardHelpDialog:
-  fromAnywhereInSim:  From Anywhere in Screen
-  startGame:          Start tug-of-war game
-  pauseGame:          Pause tug-of-war game
-  returnCartToCenter: Return cart to center
-  pullerNavigation:   Puller Navigation
-  selectPuller:       Select puller
-  grabPuller:         Grab selected puller
-  moveGrabbedPuller:  Move grabbed puller
-  dropPuller:         Drop puller
-  itemNavigation:     Item Navigation
-  selectItem:         Select item
-  grabItem:           Grab selected item
-  moveGrabbedItem:    Move grabbed item
-  dropItem:           Drop item
-  adjustAppliedForce: Adjust Applied Force
-  zeroAppliedForce:   Set applied force to zero
+  fromAnywhereInSim:    From Anywhere in Screen
+  startGame:            Start tug-of-war game
+  pauseGame:            Pause tug-of-war game
+  returnCartToCenter:   Return cart to center
+  pullerNavigation:     Puller Navigation
+  selectPuller:         Select puller
+  grabPuller:           Grab selected puller
+  moveGrabbedPuller:    Move grabbed puller
+  dropPuller:           Drop puller
+  itemNavigation:       Item Navigation
+  selectItem:           Select item
+  grabItem:             Grab selected item
+  moveGrabbedItem:      Move grabbed item
+  dropItem:             Drop item
+  adjustAppliedForce:   Adjust Applied Force
+  zeroAppliedForce:     Set applied force to zero
+  returnToToolbox:      Return to toolbox
+  cancelReturnToOrigin: Cancel and return to original position
 
 # accessibility strings
 a11y:
@@ -69,15 +71,19 @@ a11y:
       pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P key.
       returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus B key.
     pullerNavigation:
-      selectPullerDescription:      Select puller with Left and Right Arrow keys.
-      grabPullerDescription:        Grab selected puller with Space or Enter keys.
-      moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys.
-      dropPullerDescription:        Drop puller with Space or Enter keys.
+      selectPullerDescription:         Select puller with Left and Right Arrow keys.
+      grabPullerDescription:           Grab selected puller with Space or Enter keys.
+      moveGrabbedPullerDescription:    Move grabbed puller with Left and Right Arrow keys.
+      dropPullerDescription:           Drop puller with Space or Enter keys.
+      returnToToolboxDescription:      Return grabbed puller to toolbox with Delete or Backspace keys.
+      cancelReturnToOriginDescription: Cancel and return to original position with Escape key.
     itemNavigation:
-      selectItemDescription:      Select item with Left and Right Arrow keys.
-      grabItemDescription:        Grab selected item with Space or Enter keys.
-      moveGrabbedItemDescription: Move grabbed item with Left and Right Arrow keys.
-      dropItemDescription:        Drop item with Space or Enter keys.
+      selectItemDescription:           Select item with Left and Right Arrow keys.
+      grabItemDescription:             Grab selected item with Space or Enter keys.
+      moveGrabbedItemDescription:      Move grabbed item with Left and Right Arrow keys.
+      dropItemDescription:             Drop item with Space or Enter keys.
+      returnToToolboxDescription:      Return grabbed item to toolbox with Delete or Backspace keys.
+      cancelReturnToOriginDescription: Cancel and return to original position with Escape key.
     appliedForceControls:
       zeroAppliedForceDescription: Set applied force to zero with 0 key.
   netForceScreen:
