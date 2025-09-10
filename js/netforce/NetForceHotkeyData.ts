@@ -51,7 +51,7 @@ export default class NetForceHotkeyData {
     // Cancel interaction
     cancelInteraction: createHotkeyData(
       [ 'escape' ],
-      ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelReturnToOriginStringProperty
+      ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelMovementStringProperty
     ),
     // Return to toolbox
     returnToToolbox: createHotkeyData(

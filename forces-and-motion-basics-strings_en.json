@@ -156,8 +156,8 @@
     "returnToToolbox": {
       "value": "Return to toolbox"
     },
-    "cancelReturnToOrigin": {
-      "value": "Cancel and return to original position"
+    "cancelMovement": {
+      "value": "Cancel movement"
     }
   },
   "a11y": {
@@ -208,10 +208,10 @@
           "value": "Drop puller with Space or Enter keys."
         },
         "returnToToolboxDescription": {
-          "value": "Return grabbed puller to toolbox with Delete or Backspace key."
+          "value": "Return grabbed puller to toolbox with Delete or Backspace keys."
         },
-        "cancelReturnToOriginDescription": {
-          "value": "Cancel and return to original position with Escape key."
+        "cancelMovement": {
+          "value": "Cancel movement with Escape key."
         }
       },
       "itemNavigation": {
@@ -228,10 +228,10 @@
           "value": "Drop item with Space or Enter keys."
         },
         "returnToToolboxDescription": {
-          "value": "Return grabbed item to toolbox with Delete or Backspace key."
+          "value": "Return grabbed item to toolbox with Delete or Backspace keys."
         },
-        "cancelReturnToOriginDescription": {
-          "value": "Cancel and return to original position with Escape key."
+        "cancelMovement": {
+          "value": "Cancel movement with Escape key."
         }
       },
       "appliedForceControls": {

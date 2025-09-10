@@ -71,7 +71,7 @@ type StringsType = {
     'adjustAppliedForceStringProperty': LocalizedStringProperty;
     'zeroAppliedForceStringProperty': LocalizedStringProperty;
     'returnToToolboxStringProperty': LocalizedStringProperty;
-    'cancelReturnToOriginStringProperty': LocalizedStringProperty;
+    'cancelMovementStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'values': {
@@ -97,7 +97,7 @@ type StringsType = {
         'moveGrabbedPullerDescriptionStringProperty': LocalizedStringProperty;
         'dropPullerDescriptionStringProperty': LocalizedStringProperty;
         'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
-        'cancelReturnToOriginDescriptionStringProperty': LocalizedStringProperty;
+        'cancelMovementStringProperty': LocalizedStringProperty;
       };
       'itemNavigation': {
         'selectItemDescriptionStringProperty': LocalizedStringProperty;
@@ -105,7 +105,7 @@ type StringsType = {
         'moveGrabbedItemDescriptionStringProperty': LocalizedStringProperty;
         'dropItemDescriptionStringProperty': LocalizedStringProperty;
         'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
-        'cancelReturnToOriginDescriptionStringProperty': LocalizedStringProperty;
+        'cancelMovementStringProperty': LocalizedStringProperty;
       };
       'appliedForceControls': {
         'zeroAppliedForceDescriptionStringProperty': LocalizedStringProperty;

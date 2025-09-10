@@ -39,7 +39,7 @@ export default class MotionHotkeyData {
   // Cancel and return grabbed item to where it came from with Escape
   public static readonly CANCEL_AND_RETURN_ITEM_TO_ORIGIN_HOTKEY_DATA = createHotkeyData(
     [ 'escape' ],
-    ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelReturnToOriginStringProperty
+    ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelMovementStringProperty
   );
 }
 

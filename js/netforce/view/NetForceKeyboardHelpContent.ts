@@ -78,7 +78,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
         pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty
       } ),
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.pullerNode.cancelInteraction, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.cancelReturnToOriginDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.cancelMovementStringProperty
       } )
     ] );
 
