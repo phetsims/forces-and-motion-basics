@@ -16,7 +16,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
-import StackKeyboardStrategy from './StackKeyboardStrategy.js';
 
 type SelfOptions = {
   // No specific options for now
@@ -24,11 +23,12 @@ type SelfOptions = {
 
 type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 
+type Callback = ( focused: boolean ) => void;
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
 
   // Track focus listeners so we can remove them when items leave the group  
-  private readonly focusListeners = new Map();
+  private readonly focusListeners = new Map<ItemNode, Callback>();
 
   public constructor( providedOptions?: ItemStackGroupNodeOptions ) {
 
@@ -92,9 +92,6 @@ export default class ItemStackGroupNode extends Node {
 
     this.focusListeners.set( itemNode, focusListener );
     itemNode.focusedProperty.lazyLink( focusListener );
-
-    // Set the keyboard strategy for stack items
-    itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this, model ) );
   }
 
   /**

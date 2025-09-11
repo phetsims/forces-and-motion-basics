@@ -30,7 +30,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
-import { ItemNodeKeyboardStrategy } from './ItemNodeKeyboardStrategy.js';
 import MotionScreenView from './MotionScreenView.js';
 
 // Workaround for https://github.com/phetsims/scenery/issues/108
@@ -41,7 +40,6 @@ export default class ItemNode extends Node {
   private readonly normalImageNode: Image;
   public readonly sittingImageNode: Image;
   private readonly dragListener: SoundDragListener;
-  private keyboardStrategy: ItemNodeKeyboardStrategy | null = null;
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
 
   // Track whether this item was originally on stack when grabbed (for focus management)
@@ -178,7 +176,7 @@ export default class ItemNode extends Node {
         if ( droppedOnStack ) {
 
           // Place on stack and announce
-          const priorLength = this.placeItemOnStack_();
+          const priorLength = this.placeItemOnStack();
           this.addAccessibleContextResponseForDroppedOnStack( priorLength );
         }
         else {
@@ -191,11 +189,8 @@ export default class ItemNode extends Node {
             ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
           );
         }
-
-        // Notify keyboard strategy about drop completion
-        if ( this.keyboardStrategy ) {
-          this.keyboardStrategy.onDropComplete( this, droppedOnStack, this.wasOriginallyOnStack );
-        }
+        // Focus management after mouse drop
+        this.manageFocusAfterDrop( droppedOnStack );
       }
     } );
     this.addInputListener( this.dragListener );
@@ -334,22 +329,12 @@ export default class ItemNode extends Node {
     return scaledWidth;
   }
 
-  /**
-   * Set the keyboard navigation strategy for this item.
-   * This determines how keyboard interactions behave based on context (toolbox vs stack).
-   * @param strategy - The strategy to use, or null to remove keyboard handling
-   */
-  public setKeyboardStrategy( strategy: ItemNodeKeyboardStrategy ): void {
-    this.keyboardStrategy = strategy;
-  }
 
   /**
    * Handle keyboard input based on current state and strategy
    * @param keysPressed - The key(s) that were pressed
    */
   private handleKeyboardInput( keysPressed: string ): void {
-    if ( !this.keyboardStrategy ) { return; }
-
     const isGrabbed = this.item.userControlledProperty.value;
 
     if ( keysPressed === 'escape' ) {
@@ -409,14 +394,16 @@ export default class ItemNode extends Node {
         }
 
         // Announce returned to stack
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToStackStringProperty );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToStackStringProperty.value );
+        this.ensureFocusStable();
       }
       else {
         this.item.inStackProperty.value = false;
         this.item.animateHome();
 
         // Announce returned to toolbox
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value );
+        this.ensureFocusStable();
       }
     }
   }
@@ -436,6 +423,7 @@ export default class ItemNode extends Node {
       this.addAccessibleContextResponse(
         ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
       );
+      this.ensureFocusStable();
     }
   }
 
@@ -481,14 +469,7 @@ export default class ItemNode extends Node {
       }
 
       // Announce initial grabbed location
-      // If no other items in stack, prefer skateboard/ground; otherwise say stack
-      const hasOtherItems = this.model.stackedItems.length > 0;
-      const overMessage = hasOtherItems ?
-                          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty.value :
-                          ( this.model.screen === 'motion' ?
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty.value :
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty.value );
-      this.addAccessibleContextResponse( overMessage );
+      this.addAccessibleContextResponse( this.getOverAreaMessageForStackHover() );
     }
     else {
 
@@ -501,37 +482,16 @@ export default class ItemNode extends Node {
       const droppedOnStack = this.isOverStackArea();
 
       if ( droppedOnStack ) {
-        const priorLength = this.placeItemOnStack_();
+        const priorLength = this.placeItemOnStack();
         this.addAccessibleContextResponseForDroppedOnStack( priorLength );
       }
       else {
         this.returnItemToToolbox();
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty );
-
-        // Keyboard specific focus management when returning to toolbox
-        this.focusable = true; // ensure it is focusable after drop
-        this.focus();
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value );
       }
 
-      // Handle focus management after drop (keyboard-only behavior)
-      if ( droppedOnStack ) {
-        if ( !this.wasOriginallyOnStack ) {
-          // Item was dropped from toolbox to stack - focus next toolbox item
-          this.motionView.itemToolboxGroup.focusNextItemInToolbox( this );
-        }
-        // TODO: delete this code? see https://github.com/phetsims/forces-and-motion-basics/issues/382
-        else if ( this.wasOriginallyOnStack ) {
-          // Item was dropped back onto stack from where it came - preserve focus on this item
-          // Ensure this item remains focusable and focused after the transfer
-          this.focusable = true;
-          this.focus();
-        }
-      }
-
-      // Still notify the strategy for other handling
-      if ( this.keyboardStrategy ) {
-        this.keyboardStrategy.onDropComplete( this, droppedOnStack, this.wasOriginallyOnStack );
-      }
+      // Focus management after keyboard drop
+      this.manageFocusAfterDrop( droppedOnStack );
     }
   }
 
@@ -559,14 +519,8 @@ export default class ItemNode extends Node {
       const stackY = this.motionView.topOfStack - this.height - 20;
       this.item.positionProperty.value = new Vector2( stackX, stackY );
 
-      // Announce over area: if no other items, prefer skateboard/ground; else stack
-      const hasOtherItems = this.model.stackedItems.length > 0;
-      const overMessage = hasOtherItems ?
-                          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty :
-                          ( this.model.screen === 'motion' ?
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty :
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty );
-      this.addAccessibleContextResponse( overMessage );
+      // Announce over area
+      this.addAccessibleContextResponse( this.getOverAreaMessageForStackHover() );
     }
     else {
 
@@ -574,7 +528,7 @@ export default class ItemNode extends Node {
       this.item.positionProperty.value = homePosition;
 
       // Announce over toolbox
-      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty );
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty.value );
     }
   }
 
@@ -582,9 +536,7 @@ export default class ItemNode extends Node {
    * Handle normal navigation between items using strategy
    */
   private handleSelectionNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
-    if ( !this.keyboardStrategy ) { return; }
-
-    const nextItem = this.keyboardStrategy.navigateToItem( this, direction );
+    const nextItem = this.getNextNavigableItem( direction );
     if ( nextItem && nextItem !== this ) {
 
       // Update focus management
@@ -649,7 +601,7 @@ export default class ItemNode extends Node {
   /**
    * Place the item on the stack with animation and model updates. Returns the prior stack length.
    */
-  private placeItemOnStack_(): number {
+  private placeItemOnStack(): number {
     const priorLength = this.model.stackedItems.length;
 
     this.item.inStackProperty.value = true;
@@ -678,6 +630,76 @@ export default class ItemNode extends Node {
     this.labelNode.centerX = this.normalImageNode.centerX;
   }
 
+  /** Compute the next ItemNode to move focus to based on context and direction. */
+  private getNextNavigableItem( direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {
+
+    // If on stack, navigate within stack (up/left towards top, down/right towards bottom)
+    if ( this.item.inStackProperty.value ) {
+      const stackItems = this.motionView.itemStackGroup.stackItemNodes;
+      const currentIndex = stackItems.indexOf( this );
+      if ( currentIndex === -1 ) { return null; }
+
+      const delta = ( direction === 'up' || direction === 'left' ) ? 1 :
+                    ( direction === 'down' || direction === 'right' ) ? -1 : 0;
+      const newIndex = currentIndex + delta;
+      if ( newIndex >= 0 && newIndex < stackItems.length ) {
+        return stackItems[ newIndex ];
+      }
+      return null;
+    }
+    else {
+
+      // In toolbox, only left/right navigation between available toolbox items
+      if ( direction === 'up' || direction === 'down' ) { return null; }
+      const itemsInToolbox = this.motionView.itemToolboxGroup.itemNodes.filter( n => !n.item.inStackProperty.value );
+      const currentIndex = itemsInToolbox.indexOf( this );
+      if ( currentIndex === -1 ) { return null; }
+      const delta = ( direction === 'left' ) ? -1 : 1;
+      const newIndex = currentIndex + delta;
+      if ( newIndex >= 0 && newIndex < itemsInToolbox.length ) {
+        return itemsInToolbox[ newIndex ];
+      }
+      return null;
+    }
+  }
+
+  /** Ensure this item retains focus reliably, even across async reparenting/ordering. */
+  private ensureFocusStable(): void {
+    this.focusable = true;
+    this.focus();
+  }
+
+  /** Manage focus after a drop (mouse or keyboard). */
+  private manageFocusAfterDrop( droppedOnStack: boolean ): void {
+    if ( droppedOnStack ) {
+      if ( !this.wasOriginallyOnStack ) {
+        // Toolbox -> Stack: focus next available item in the toolbox
+        this.motionView.itemToolboxGroup.focusNextItemInToolbox( this );
+      }
+      else {
+        // Stack -> Stack: keep focus on this item on the stack
+        this.ensureFocusStable();
+      }
+    }
+    else {
+      // Returned to toolbox: keep focus on this item
+      this.ensureFocusStable();
+    }
+  }
+
+  /** Compute the proper announcement string when hovering over the stack area. */
+  private getOverAreaMessageForStackHover(): string {
+    const hasOtherItems = this.model.stackedItems.length > 0;
+    if ( hasOtherItems ) {
+      return ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty.value;
+    }
+    else {
+      return this.model.screen === 'motion' ?
+             ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty.value :
+             ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty.value;
+    }
+  }
+
   private addAccessibleContextResponseForDroppedOnStack( priorLength: number ): void {
     if ( priorLength === 0 ) {
       this.addAccessibleContextResponse(
@@ -693,7 +715,7 @@ export default class ItemNode extends Node {
     }
     else {
       this.addAccessibleContextResponse(
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty.value
       );
     }
   }

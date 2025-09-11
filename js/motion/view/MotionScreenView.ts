@@ -53,8 +53,6 @@ import MotionStackListDescription from './MotionStackListDescription.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
-import StackKeyboardStrategy from './StackKeyboardStrategy.js';
-import ToolboxKeyboardStrategy from './ToolboxKeyboardStrategy.js';
 import WaterBucketNode from './WaterBucketNode.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
@@ -83,7 +81,7 @@ export default class MotionScreenView extends ScreenView {
 
   // Keyboard navigation groups
   public readonly itemToolboxGroup: ItemToolboxGroupNode;
-  private readonly itemStackGroup: ItemStackGroupNode;
+  public readonly itemStackGroup: ItemStackGroupNode;
 
   // Update PDOM order for toolbox and stack items
   private updateItemPDOMOrder(): void {
@@ -414,7 +412,6 @@ export default class MotionScreenView extends ScreenView {
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
       this.itemToolboxGroup.addItemNode( itemNode, model );
-      itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
     } );
 
     // Add the force arrows & associated readouts in front of the items
@@ -628,9 +625,6 @@ export default class MotionScreenView extends ScreenView {
             this.itemToolboxGroup.removeItemNode( itemNode );
             this.itemStackGroup.addItemNode( itemNode, model );
 
-            // Update keyboard strategy for stack navigation
-            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
-
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();
           }
@@ -646,9 +640,6 @@ export default class MotionScreenView extends ScreenView {
           // Add to toolbox group if it's not already there
           if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             this.itemToolboxGroup.addItemNode( itemNode, model );
-
-            // Update keyboard strategy for toolbox navigation
-            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
           }
 
           // Update PDOM order after transfer

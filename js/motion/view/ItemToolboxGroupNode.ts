@@ -16,17 +16,17 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
-import ToolboxKeyboardStrategy from './ToolboxKeyboardStrategy.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
 
+type Callback = ( focused: boolean ) => void;
 export default class ItemToolboxGroupNode extends Node {
   public readonly itemNodes: ItemNode[] = [];
 
   // Track focus listeners so we can remove them when items leave the group
-  private readonly focusListeners = new Map();
+  private readonly focusListeners = new Map<ItemNode, Callback>();
 
   public constructor( leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
@@ -52,7 +52,7 @@ export default class ItemToolboxGroupNode extends Node {
   /**
    * Add an item node to this group (transferring from another parent if needed)
    */
-  public addItemNode( itemNode: ItemNode, model: MotionModel ): void {
+  public addItemNode( itemNode: ItemNode, _model: MotionModel ): void {
 
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
@@ -87,9 +87,6 @@ export default class ItemToolboxGroupNode extends Node {
 
     this.focusListeners.set( itemNode, focusListener );
     itemNode.focusedProperty.lazyLink( focusListener );
-
-    // Set the keyboard strategy for toolbox items and pass reference to this group
-    itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ) );
 
     // Ensure items added to toolbox are properly focusable for arrow navigation
     // Only make focusable if it's not on the stack
@@ -150,11 +147,9 @@ export default class ItemToolboxGroupNode extends Node {
     // Find items still in the toolboxes (not on stack)
     const itemsInToolbox = this.itemNodes.filter( itemNode => !itemNode.item.inStackProperty.value && itemNode !== droppedItemNode );
 
-    console.log( `Items remaining in toolbox: ${itemsInToolbox.map( item => item.item.name ).join( ', ' )}` );
     if ( itemsInToolbox.length > 0 ) {
       // Focus the first available item in the toolboxes
       const nextItem = itemsInToolbox[ 0 ];
-      console.log( `Focusing next item in toolbox: ${nextItem.item.name}` );
 
       // Make sure the next item is focusable and focus it
       nextItem.focusable = true;
