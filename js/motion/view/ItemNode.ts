@@ -137,20 +137,6 @@ export default class ItemNode extends Node {
 
     model.stackedItems.lengthProperty.link( updateImage );
 
-    // When the user drags the object, start
-    const moveToStack = () => {
-      item.inStackProperty.value = true;
-      const imageWidth = item.getCurrentScale() * normalImageNode.width;
-
-      // NOTE: similar to MotionModel.spliceStack
-      item.animateTo( motionView.layoutBounds.width / 2 - imageWidth / 2, motionView.topOfStack - this.height, 'stack' );
-      model.stackedItems.add( item );
-      if ( model.stackedItems.length > 3 ) {
-        model.spliceStackBottom();
-      }
-    };
-
-
     this.dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       positionProperty: item.positionProperty,
@@ -187,24 +173,18 @@ export default class ItemNode extends Node {
         item.modeProperty.value = 'inToolbox';
 
         // If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        const droppedOnStack = item.positionProperty.value.y < 350 || !motionView.isToolboxContainerVisible();
+        const droppedOnStack = this.isOverStackArea();
 
         if ( droppedOnStack ) {
-          // Determine prior number of stacked items (before adding this one)
-          const priorLength = model.stackedItems.length;
-          moveToStack();
 
-          // if item is man or girl, rotate depending on the current model velocity and applied force
-          if ( item.name === 'man' || item.name === 'girl' ) {
-            this.updatePersonDirection( item );
-          }
-
+          // Place on stack and announce
+          const priorLength = this.placeItemOnStack_();
           this.addAccessibleContextResponseForDroppedOnStack( priorLength );
         }
         else {
+
           // send the item home and make sure that the label is centered
-          item.animateHome();
-          this.labelNode.centerX = normalImageNode.centerX;
+          this.returnItemToToolbox();
 
           // Announce return to toolbox
           this.addAccessibleContextResponse(
@@ -338,8 +318,8 @@ export default class ItemNode extends Node {
   }
 
   /**
-   * Get the width of this item node, modified by the current scale factor.  If the item
-   * is using its sitting representation, use that to get the scaled width
+   * Get the width of this item node, modified by the current scale factor. If the item
+   * is using its sitting representation, use that to get the scaled width.
    */
   public getScaledWidth(): number {
 
@@ -518,58 +498,32 @@ export default class ItemNode extends Node {
       this.item.modeProperty.value = 'inToolbox';
 
       // Determine drop location based on current position
-      const droppedOnStack = this.item.positionProperty.value.y < 350 || !this.motionView.isToolboxContainerVisible();
+      const droppedOnStack = this.isOverStackArea();
 
       if ( droppedOnStack ) {
-
-        // Determine prior number of stacked items (before adding this one)
-        const priorLength = this.model.stackedItems.length;
-
-        // Complete the stack placement
-        this.item.inStackProperty.value = true;
-        const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
-        this.item.animateTo( this.motionView.layoutBounds.width / 2 - imageWidth / 2, this.motionView.topOfStack - this.height, 'stack' );
-        this.model.stackedItems.add( this.item );
-        if ( this.model.stackedItems.length > 3 ) {
-          this.model.spliceStackBottom();
-        }
-
-        // Handle person direction if needed
-        if ( this.item.name === 'man' || this.item.name === 'girl' ) {
-          this.updatePersonDirection( this.item );
-        }
-
+        const priorLength = this.placeItemOnStack_();
         this.addAccessibleContextResponseForDroppedOnStack( priorLength );
-
       }
       else {
-
-        // Return to toolbox
-        this.item.animateHome();
-        this.labelNode.centerX = this.normalImageNode.centerX;
-
-        // Announce returned to toolbox
+        this.returnItemToToolbox();
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty );
+
+        // Keyboard specific focus management when returning to toolbox
         this.focusable = true; // ensure it is focusable after drop
         this.focus();
       }
 
-      // Handle focus management after drop
+      // Handle focus management after drop (keyboard-only behavior)
       if ( droppedOnStack ) {
         if ( !this.wasOriginallyOnStack ) {
-
           // Item was dropped from toolbox to stack - focus next toolbox item
           this.motionView.itemToolboxGroup.focusNextItemInToolbox( this );
         }
-
         // TODO: delete this code? see https://github.com/phetsims/forces-and-motion-basics/issues/382
         else if ( this.wasOriginallyOnStack ) {
-
           // Item was dropped back onto stack from where it came - preserve focus on this item
           // Ensure this item remains focusable and focused after the transfer
           this.focusable = true;
-
-          // Focus will be maintained since item is staying on the stack
           this.focus();
         }
       }
@@ -683,6 +637,45 @@ export default class ItemNode extends Node {
       }
     }
     person.directionProperty.value = direction;
+  }
+
+  /**
+   * Determine if the item is positioned over the stack area.
+   */
+  private isOverStackArea(): boolean {
+    return this.item.positionProperty.value.y < 350 || !this.motionView.isToolboxContainerVisible();
+  }
+
+  /**
+   * Place the item on the stack with animation and model updates. Returns the prior stack length.
+   */
+  private placeItemOnStack_(): number {
+    const priorLength = this.model.stackedItems.length;
+
+    this.item.inStackProperty.value = true;
+    const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
+    this.item.animateTo(
+      this.motionView.layoutBounds.width / 2 - imageWidth / 2,
+      this.motionView.topOfStack - this.height,
+      'stack'
+    );
+    this.model.stackedItems.add( this.item );
+    if ( this.model.stackedItems.length > 3 ) {
+      this.model.spliceStackBottom();
+    }
+
+    // Handle person direction if needed
+    if ( this.item.name === 'man' || this.item.name === 'girl' ) {
+      this.updatePersonDirection( this.item );
+    }
+
+    return priorLength;
+  }
+
+  /** Return the item to the toolbox and ensure label alignment is restored. */
+  private returnItemToToolbox(): void {
+    this.item.animateHome();
+    this.labelNode.centerX = this.normalImageNode.centerX;
   }
 
   private addAccessibleContextResponseForDroppedOnStack( priorLength: number ): void {
