@@ -436,18 +436,14 @@ export default class ItemNode extends Node {
         }
 
         // Announce returned to stack
-        this.addAccessibleContextResponse(
-          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToStackStringProperty.value
-        );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToStackStringProperty );
       }
       else {
         this.item.inStackProperty.value = false;
         this.item.animateHome();
 
         // Announce returned to toolbox
-        this.addAccessibleContextResponse(
-          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
-        );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty );
       }
     }
   }
@@ -560,21 +556,22 @@ export default class ItemNode extends Node {
         this.labelNode.centerX = this.normalImageNode.centerX;
 
         // Announce returned to toolbox
-        this.addAccessibleContextResponse(
-          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
-        );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty );
       }
 
       // Handle focus management after drop
       if ( droppedOnStack ) {
         if ( !this.wasOriginallyOnStack && this.toolboxGroup ) {
+
           // Item was dropped from toolbox to stack - focus next toolbox item
           this.toolboxGroup.focusNextItemInToolbox( this );
         }
         else if ( this.wasOriginallyOnStack ) {
+
           // Item was dropped back onto stack from where it came - preserve focus on this item
           // Ensure this item remains focusable and focused after the transfer
           this.focusable = true;
+
           // Focus will be maintained since item is staying on the stack
           this.focus();
         }
@@ -614,10 +611,10 @@ export default class ItemNode extends Node {
       // Announce over area: if no other items, prefer skateboard/ground; else stack
       const hasOtherItems = this.model.stackedItems.length > 0;
       const overMessage = hasOtherItems ?
-                          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty.value :
+                          ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overStackStringProperty :
                           ( this.model.screen === 'motion' ?
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty.value :
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty.value );
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overSkateboardStringProperty :
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overGroundStringProperty );
       this.addAccessibleContextResponse( overMessage );
     }
     else {
@@ -626,7 +623,7 @@ export default class ItemNode extends Node {
       this.item.positionProperty.value = homePosition;
 
       // Announce over toolbox
-      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty.value );
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty );
     }
   }
 
