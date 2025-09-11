@@ -5,44 +5,26 @@
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import GrabReleaseCueNode from '../../../../scenery-phet/js/accessibility/nodes/GrabReleaseCueNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ItemNode from './ItemNode.js';
+import FocusDrivenGrabReleaseCueNode from '../../common/view/FocusDrivenGrabReleaseCueNode.js';
 
-export default class MotionGrabReleaseCueNode extends GrabReleaseCueNode {
-  public readonly hasInteractedProperty = new BooleanProperty( false );
-  private readonly anyItemHasFocusProperty = new BooleanProperty( false );
-
-  public constructor( private readonly itemNodes: ItemNode[], private readonly layoutBounds: Bounds2, tandem?: Tandem ) {
-    super();
-    const updateAnyFocus = () => {
-      this.anyItemHasFocusProperty.value = this.itemNodes.some( n => n.focusedProperty.value );
-    };
-    this.itemNodes.forEach( n => n.focusedProperty.link( updateAnyFocus ) );
-    Multilink.multilink( [ this.hasInteractedProperty, this.anyItemHasFocusProperty ], ( hasInteracted, anyFocus ) => {
-      this.visible = !hasInteracted && anyFocus;
-    } );
-    this.itemNodes.forEach( itemNode => {
-      itemNode.focusedProperty.link( isFocused => {
-        if ( isFocused && !this.hasInteractedProperty.value ) {
-          this.updatePosition( itemNode );
-        }
-      } );
-    } );
+export default class MotionGrabReleaseCueNode extends FocusDrivenGrabReleaseCueNode<ItemNode> {
+  public constructor( itemNodes: ItemNode[], layoutBounds: Bounds2, tandem?: Tandem ) {
+    super(
+      itemNodes,
+      layoutBounds,
+      ( self, focusedItemNode, bounds ) => {
+        const item = focusedItemNode.item;
+        const side = item.modeProperty.value === 'onStack' ? 'stack' : item.getToolboxSide();
+        self.centerX = side === 'stack' ? bounds.centerX : ( side === 'left' ? bounds.width * 0.25 : bounds.width * 0.75 );
+        self.top = 200;
+      },
+      tandem
+    );
   }
-
-  private updatePosition( focusedItemNode: ItemNode ): void {
-    const item = focusedItemNode.item;
-    const side = item.modeProperty.value === 'onStack' ? 'stack' : item.getToolboxSide();
-    this.centerX = side === 'stack' ? this.layoutBounds.centerX : ( side === 'left' ? this.layoutBounds.width * 0.25 : this.layoutBounds.width * 0.75 );
-    this.top = 200;
-  }
-
-  public reset(): void { this.hasInteractedProperty.reset(); }
 }
 
 forcesAndMotionBasics.register( 'MotionGrabReleaseCueNode', MotionGrabReleaseCueNode );
