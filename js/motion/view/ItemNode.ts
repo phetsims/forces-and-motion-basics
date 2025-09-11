@@ -15,7 +15,9 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
+import HighlightPath from '../../../../scenery/js/accessibility/HighlightPath.js';
+import Shape from '../../../../kite/js/Shape.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
@@ -35,7 +37,7 @@ import MotionScreenView from './MotionScreenView.js';
 // Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
-export default class ItemNode extends Node {
+export default class ItemNode extends InteractiveHighlighting( Node ) {
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
   public readonly sittingImageNode: Image;
@@ -189,6 +191,9 @@ export default class ItemNode extends Node {
             ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty.value
           );
         }
+        // Clear any locked pointer highlight before changing focus to another item
+        this.unlockHighlight();
+
         // Focus management after mouse drop
         this.manageFocusAfterDrop( droppedOnStack );
       }
@@ -284,12 +289,20 @@ export default class ItemNode extends Node {
       }
     } );
 
-    const highlightFromNode = new HighlightFromNode( this );
-    this.focusHighlight = highlightFromNode;
+    // Use a HighlightPath without a transformSourceNode to avoid DAG assertions during rapid reparenting
+    const focusHighlight = new HighlightPath( null );
+    this.focusHighlight = focusHighlight;
 
-    // TODO: This focus highlight isn't showing during mouse interaction, see https://github.com/phetsims/forces-and-motion-basics/issues/431
+    // Keep the focus highlight in sync with this node's local bounds
+    this.localBoundsProperty.link( localBounds => {
+      if ( localBounds.isFinite() ) {
+        focusHighlight.setShape( Shape.bounds( localBounds ) );
+      }
+    } );
+
+    // Keep dashed style consistent with interaction state
     item.modeProperty.link( mode => {
-      highlightFromNode.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'mouseGrabbed' );
+      focusHighlight.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'mouseGrabbed' );
     } );
 
     // Create keyboard listener for item interactions
