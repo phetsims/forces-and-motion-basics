@@ -385,7 +385,7 @@ export default class ItemNode extends Node {
     }
 
     if ( keysPressed === 'enter' || keysPressed === 'space' ) {
-      this.handleSelectKey();
+      this.handleGrabDropKey();
       return;
     }
 
@@ -473,13 +473,16 @@ export default class ItemNode extends Node {
   /**
    * Handle enter/space key to grab or drop item
    */
-  private handleSelectKey(): void {
+  private handleGrabDropKey(): void {
     const isGrabbed = this.item.userControlledProperty.value;
 
     if ( !isGrabbed ) {
+
       // Grab the item
       this.wasOriginallyOnStack = this.item.inStackProperty.value;
       this.originalPosition = this.item.positionProperty.value.copy();
+
+      this.item.interactionScaleProperty.value = 1.3;
 
       // Set keyboard grabbed mode based on current location
       if ( this.wasOriginallyOnStack ) {
@@ -503,9 +506,8 @@ export default class ItemNode extends Node {
 
       // If grabbing from toolbox, immediately move to proposed stack position
       if ( !this.wasOriginallyOnStack ) {
-        const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
-        const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
-        const stackY = this.motionView.topOfStack - this.height;
+        const stackX = this.motionView.layoutBounds.width / 2 - this.width / 2;
+        const stackY = this.motionView.topOfStack - this.height - 20;
         this.item.positionProperty.value = new Vector2( stackX, stackY );
       }
 
@@ -605,9 +607,8 @@ export default class ItemNode extends Node {
     if ( isAtHome ) {
 
       // Move to stack position
-      const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
-      const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
-      const stackY = this.motionView.topOfStack - this.height;
+      const stackX = this.motionView.layoutBounds.width / 2 - this.width / 2;
+      const stackY = this.motionView.topOfStack - this.height - 20;
       this.item.positionProperty.value = new Vector2( stackX, stackY );
 
       // Announce over area: if no other items, prefer skateboard/ground; else stack

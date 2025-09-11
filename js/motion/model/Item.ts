@@ -14,7 +14,7 @@ import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { clamp } from '../../../../dot/js/util/clamp.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
@@ -86,7 +86,7 @@ export default class Item extends PhetioObject {
    * @param mass - model mass of the item
    * @param x - home value x position for the item
    * @param y - home value y position for the item
-   * @param imageScale - base scacle of the image
+   * @param imageScale - base scale of the image
    * @param homeScale - additional scale factor for when the item is in the toolbox
    * @param pusherInset - inset value to align the item with the pusher's hands
    * @param sittingImage - image from the 'image!' plugin, representing a 'sitting' item
@@ -94,10 +94,14 @@ export default class Item extends PhetioObject {
    * @param mystery
    */
   public constructor(
-    public readonly context: MotionModel, name: string | HumanTypeEnum, tandem: Tandem,
+    public readonly context: MotionModel,
+    name: string | HumanTypeEnum,
+    tandem: Tandem,
     image: ImageableImage | undefined,
     mass: number,
-    x: number, y: number, imageScale: number,
+    x: number,
+    y: number,
+    imageScale: number,
     homeScale?: number,
     pusherInset?: number,
     sittingImage?: ImageableImage,
@@ -197,10 +201,11 @@ export default class Item extends PhetioObject {
       phetioDocumentation: 'Indicates the item is part of the experiment.'
     } );
 
-    this.imageScale = imageScale || 1.0;
+    this.imageScale = imageScale;
 
     // How much the object grows or shrinks when interacting with it
     const minValue = homeScale || 1.0;
+
     this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
       range: new Range( minValue, 1.3 ),
 
@@ -339,7 +344,7 @@ export default class Item extends PhetioObject {
       const destination = new Vector2( this.animationStateProperty.value.x, this.animationStateProperty.value.y );
 
       // Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
-      const blendAmount = Utils.clamp( 15 * dt, 0.1, 0.9 );
+      const blendAmount = clamp( 15 * dt, 0.1, 0.9 );
       this.positionProperty.value = this.positionProperty.value.blend( destination, blendAmount );
 
       const distanceToTarget = this.positionProperty.value.distance( destination );
