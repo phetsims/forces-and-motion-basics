@@ -175,7 +175,7 @@ export default class PusherNode extends Node {
       enabledProperty: model.pusherInteractionsEnabledProperty,
       drag: ( event: SceneryEvent, listener: DragListener ) => {
         if ( this.interactive ) {
-          const newAppliedForce = model.appliedForceProperty.get() + listener.modelDelta.x;
+          const newAppliedForce = model.appliedForceProperty.value + listener.modelDelta.x;
           const clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
 
           // the new force should be rounded so that applied force is not
@@ -183,7 +183,7 @@ export default class PusherNode extends Node {
           const roundedForce = roundSymmetric( clampedAppliedForce );
 
           // Only apply a force if the pusher is not fallen, see #48
-          if ( !model.fallenProperty.get() ) {
+          if ( !model.fallenProperty.value ) {
             model.appliedForceProperty.value = roundedForce;
           }
         }
@@ -239,15 +239,15 @@ export default class PusherNode extends Node {
    * This includes the image, position, scale, etc.
    */
   private updateView(): void {
-    const appliedForce = this.model.appliedForceProperty.get();
-    const fallen = this.model.fallenProperty.get();
+    const appliedForce = this.model.appliedForceProperty.value;
+    const fallen = this.model.fallenProperty.value;
 
-    const baseX = this.layoutWidth / 2 + ( this.model.pusherPositionProperty.get() - this.model.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
+    const baseX = this.layoutWidth / 2 + ( this.model.pusherPositionProperty.value - this.model.positionProperty.value ) * MotionConstants.POSITION_SCALE;
 
     // Case 1: Pusher has fallen over
     const FLOOR_VIEW_Y = 362;
     if ( fallen ) {
-      const newVisibleNode = this.model.fallenDirectionProperty.get() === 'left' ? this.fallLeftImage : this.fallRightImage;
+      const newVisibleNode = this.model.fallenDirectionProperty.value === 'left' ? this.fallLeftImage : this.fallRightImage;
       this.setVisibleNode( newVisibleNode );
 
       // Position the fallen pusher directly based on stack width and direction
@@ -257,13 +257,13 @@ export default class PusherNode extends Node {
         affirm( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
 
         const scaledWidth = itemNode.getScaledWidth();
-        const delta = scaledWidth / 2 - item.pusherInsetProperty.get() + 10;
+        const delta = scaledWidth / 2 - item.pusherInsetProperty.value + 10;
 
         // Set position based on model position to move with ground
         const posX = baseX;
 
         // Add offset based on fall direction
-        if ( this.model.fallenDirectionProperty.get() === 'right' ) {
+        if ( this.model.fallenDirectionProperty.value === 'right' ) {
           this.visibleNode.centerX = posX - delta;
         }
         else {
@@ -297,7 +297,7 @@ export default class PusherNode extends Node {
         affirm( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
 
         const scaledWidth = itemNode.getScaledWidth();
-        const delta = scaledWidth / 2 - item.pusherInsetProperty.get();
+        const delta = scaledWidth / 2 - item.pusherInsetProperty.value;
 
         // Set absolute position directly
         const offset = appliedForce > 0 ? -delta : delta;

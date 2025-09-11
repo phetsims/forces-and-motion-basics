@@ -355,8 +355,8 @@ export default class MotionModel {
                                      'none';
 
       // if the applied force changes and the pusher is fallen, stand up to push immediately
-      if ( this.fallenProperty.get() && appliedForce !== 0 ) {
-        this.fallenProperty.value = !this.fallenProperty.get();
+      if ( this.fallenProperty.value && appliedForce !== 0 ) {
+        this.fallenProperty.value = !this.fallenProperty.value;
       }
     } );
 
@@ -395,7 +395,7 @@ export default class MotionModel {
     const userControlledItems = [];
     for ( let i = 0; i < this.items.length; i++ ) {
       const item = this.items[ i ];
-      if ( item.userControlledProperty.get() ) {
+      if ( item.userControlledProperty.value ) {
         userControlledItems.push( item );
       }
     }
@@ -458,24 +458,24 @@ export default class MotionModel {
 
     const mass = this.getStackMass();
 
-    const frictionForceMagnitude = Math.abs( this.frictionCoefficientProperty.get() * mass * g );
+    const frictionForceMagnitude = Math.abs( this.frictionCoefficientProperty.value * mass * g );
 
     // Friction force only applies above this velocity
     const velocityThreshold = 1E-12;
 
     // Object is motionless, friction should oppose the applied force
-    if ( Math.abs( this.velocityProperty.get() ) <= velocityThreshold ) {
+    if ( Math.abs( this.velocityProperty.value ) <= velocityThreshold ) {
 
       // the friction is higher than the applied force, so don't allow the friction force to be higher than the applied force
       frictionForce = frictionForceMagnitude >= Math.abs( appliedForce ) ? -appliedForce :
 
         // Oppose the applied force
-                      -this.getSign( this.appliedForceProperty.get() ) * frictionForceMagnitude;
+                      -this.getSign( this.appliedForceProperty.value ) * frictionForceMagnitude;
     }
 
     // Object is moving, so friction should oppose the velocity
     else {
-      frictionForce = -this.getSign( this.velocityProperty.get() ) * frictionForceMagnitude * 0.75;
+      frictionForce = -this.getSign( this.velocityProperty.value ) * frictionForceMagnitude * 0.75;
     }
 
     // round the friction force so that one force is not more precise than another
@@ -512,7 +512,7 @@ export default class MotionModel {
 
   // get the pusher position relative to the center and layout bounds of the view
   private getRelativePusherPosition(): number {
-    return this.view.layoutBounds.width / 2 + ( this.pusherPositionProperty.get() - this.positionProperty.get() ) * MotionConstants.POSITION_SCALE;
+    return this.view.layoutBounds.width / 2 + ( this.pusherPositionProperty.value - this.positionProperty.value ) * MotionConstants.POSITION_SCALE;
   }
 
   /**
@@ -523,20 +523,20 @@ export default class MotionModel {
   private stepModel( dt: number ): void {
 
     // update the tracked time which is used by the WaterBucketNode and the Accelerometer
-    this.timeProperty.value = this.timeProperty.get() + dt;
+    this.timeProperty.value = this.timeProperty.value + dt;
 
     this.stopwatch.step( dt );
 
     // update the acceleration values
     const mass = this.getStackMass();
-    this.accelerationProperty.value = mass !== 0 ? this.sumOfForcesProperty.get() / mass : 0.0;
+    this.accelerationProperty.value = mass !== 0 ? this.sumOfForcesProperty.value / mass : 0.0;
 
-    let newVelocity = this.velocityProperty.get() + this.accelerationProperty.get() * dt;
+    let newVelocity = this.velocityProperty.value + this.accelerationProperty.value * dt;
 
     // friction force should not be able to make the object move backwards
     // Also make sure velocity goes exactly to zero when the pusher is pushing so that the friction force will be correctly computed
     // Without this logic, it was causing flickering arrows because the velocity was flipping sign and the friction force was flipping direction
-    if ( this.changedDirection( newVelocity, this.velocityProperty.get() ) ) {
+    if ( this.changedDirection( newVelocity, this.velocityProperty.value ) ) {
       newVelocity = 0.0;
     }
 
@@ -545,16 +545,16 @@ export default class MotionModel {
     if ( newVelocity < -MotionConstants.MAX_SPEED ) { newVelocity = -MotionConstants.MAX_SPEED; }
 
     this.velocityProperty.value = newVelocity;
-    this.positionProperty.value = this.positionProperty.get() + this.velocityProperty.get() * dt;
+    this.positionProperty.value = this.positionProperty.value + this.velocityProperty.value * dt;
 
-    this.speedProperty.value = Math.abs( this.velocityProperty.get() );
-    this.speedClassificationProperty.value = this.velocityProperty.get() >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
-                                             this.velocityProperty.get() <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
+    this.speedProperty.value = Math.abs( this.velocityProperty.value );
+    this.speedClassificationProperty.value = this.velocityProperty.value >= MotionConstants.MAX_SPEED ? 'RIGHT_SPEED_EXCEEDED' :
+                                             this.velocityProperty.value <= -MotionConstants.MAX_SPEED ? 'LEFT_SPEED_EXCEEDED' :
                                              'WITHIN_ALLOWED_RANGE';
 
-    if ( this.speedClassificationProperty.get() !== 'WITHIN_ALLOWED_RANGE' ) {
+    if ( this.speedClassificationProperty.value !== 'WITHIN_ALLOWED_RANGE' ) {
       this.timeSinceFallenProperty.value = 0;
-      this.fallenDirectionProperty.value = this.speedClassificationProperty.get() === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
+      this.fallenDirectionProperty.value = this.speedClassificationProperty.value === 'RIGHT_SPEED_EXCEEDED' ? 'right' : 'left';
       this.fallenProperty.value = true;
     }
     else {
@@ -565,28 +565,28 @@ export default class MotionModel {
       if ( relativePosition > 1600 || relativePosition < -600 ) {
         this.fallenProperty.value = false;
       }
-      this.timeSinceFallenProperty.value = this.timeSinceFallenProperty.get() + dt;
+      this.timeSinceFallenProperty.value = this.timeSinceFallenProperty.value + dt;
 
       // Stand up after 2 seconds
-      if ( this.timeSinceFallenProperty.get() > 2 ) {
+      if ( this.timeSinceFallenProperty.value > 2 ) {
         this.fallenProperty.value = false;
       }
     }
 
     // Stand up if applying a force in the opposite direction that you fell
-    if ( this.fallenProperty.get() && this.fallenDirectionProperty.get() === 'left' && this.appliedForceProperty.get() > 0 ) {
+    if ( this.fallenProperty.value && this.fallenDirectionProperty.value === 'left' && this.appliedForceProperty.value > 0 ) {
       this.fallenProperty.value = false;
     }
-    if ( this.fallenProperty.get() && this.fallenDirectionProperty.get() === 'right' && this.appliedForceProperty.get() < 0 ) {
+    if ( this.fallenProperty.value && this.fallenDirectionProperty.value === 'right' && this.appliedForceProperty.value < 0 ) {
       this.fallenProperty.value = false;
     }
 
-    if ( this.previousSpeedClassificationProperty.get() !== 'WITHIN_ALLOWED_RANGE' ) {
-      this.speedClassificationProperty.value = this.previousSpeedClassificationProperty.get();
+    if ( this.previousSpeedClassificationProperty.value !== 'WITHIN_ALLOWED_RANGE' ) {
+      this.speedClassificationProperty.value = this.previousSpeedClassificationProperty.value;
     }
 
     // Don't show the pusher as fallen while applying a force, see https://github.com/phetsims/forces-and-motion-basics/issues/66
-    if ( this.appliedForceProperty.get() !== 0 && this.speedClassificationProperty.get() === 'WITHIN_ALLOWED_RANGE' ) {
+    if ( this.appliedForceProperty.value !== 0 && this.speedClassificationProperty.value === 'WITHIN_ALLOWED_RANGE' ) {
       this.fallenProperty.value = false;
     }
 
@@ -600,10 +600,10 @@ export default class MotionModel {
     // Computes the new forces and sets them to the corresponding properties
     // The first part of stepInTime is to compute and set the forces.  This is factored out because the forces must
     // also be updated when the user changes the friction force or mass while the sim is paused.
-    this.frictionForceProperty.value = this.getFrictionForce( this.appliedForceProperty.get() );
-    this.sumOfForcesProperty.value = this.frictionForceProperty.get() + this.appliedForceProperty.get();
+    this.frictionForceProperty.value = this.getFrictionForce( this.appliedForceProperty.value );
+    this.sumOfForcesProperty.value = this.frictionForceProperty.value + this.appliedForceProperty.value;
 
-    if ( this.isPlayingProperty.get() ) {
+    if ( this.isPlayingProperty.value ) {
       this.stepModel( dt );
     }
 
@@ -664,7 +664,7 @@ export default class MotionModel {
 
     for ( let i = 0; i < this.items.length; i++ ) {
       // if the item is being user controlled we need to cancel the drag in ItemNode
-      if ( !this.items[ i ].userControlledProperty.get() ) {
+      if ( !this.items[ i ].userControlledProperty.value ) {
         this.items[ i ].reset();
       }
     }
@@ -686,7 +686,7 @@ export default class MotionModel {
   public viewInitialized( view: MotionScreenView ): void {
     const item = this.items[ 1 ];
     // only move item to the top of the stack if it is not being user controlled
-    if ( !item.userControlledProperty.get() ) {
+    if ( !item.userControlledProperty.value ) {
       this.view = view;
       item.inStackProperty.value = true;
 

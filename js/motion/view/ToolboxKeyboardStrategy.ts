@@ -25,7 +25,7 @@ export default class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy
     }
 
     // Get items currently in toolboxes (not on stack)
-    const itemsInToolbox = this.groupNode.itemNodes.filter( item => !item.item.inStackProperty.get() );
+    const itemsInToolbox = this.groupNode.itemNodes.filter( item => !item.item.inStackProperty.value );
     const currentIndex = itemsInToolbox.indexOf( currentItem );
     if ( currentIndex === -1 ) { return null; }
 
@@ -55,7 +55,7 @@ export default class ToolboxKeyboardStrategy implements ItemNodeKeyboardStrategy
   }
 
   public getItemGroup(): ItemNode[] {
-    return this.groupNode.itemNodes.filter( item => !item.item.inStackProperty.get() );
+    return this.groupNode.itemNodes.filter( item => !item.item.inStackProperty.value );
   }
 
   public getAccessibilityMessage( action: 'grabbed' | 'dropped', location: 'stack' | 'toolbox' ): string {

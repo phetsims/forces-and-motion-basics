@@ -22,7 +22,7 @@ export default class KnotHighlightNode extends Path {
       stroke: '#000000',
       lineWidth: 4,
       visibleProperty: knot.isHighlightedProperty,
-      x: knot.positionProperty.get(),
+      x: knot.positionProperty.value,
       y: knot.y
     } );
 

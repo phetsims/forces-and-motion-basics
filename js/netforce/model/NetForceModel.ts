@@ -264,7 +264,7 @@ export default class NetForceModel extends PhetioObject {
     // try to snap to a knot
     if ( knot ) {
 
-      puller.positionProperty.value = new Vector2( knot.positionProperty.get(), knot.y );
+      puller.positionProperty.value = new Vector2( knot.positionProperty.value, knot.y );
     }
 
     // Or go back home
@@ -353,7 +353,7 @@ export default class NetForceModel extends PhetioObject {
     // the blue pullers face to the right, so add a small correction so the distance feels more 'natural' when
     // placing the blue pullers
     const dx = puller.type === 'red' ? 0 : -40;
-    return knot => Math.sqrt( Math.pow( knot.positionProperty.get() - puller.positionProperty.get().x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.get().y, 2 ) );
+    return knot => Math.sqrt( Math.pow( knot.positionProperty.value - puller.positionProperty.value.x + dx, 2 ) + Math.pow( knot.y - puller.positionProperty.value.y, 2 ) );
   }
 
   /**
@@ -375,8 +375,8 @@ export default class NetForceModel extends PhetioObject {
     const distanceToTarget = this.getKnotPullerDistance( puller )( target );
 
     // Only accept a target knot if the puller's head is close enough to the knot
-    const threshold = puller.lastPlacementProperty.get() === 'home' ? 370 : 300;
-    return distanceToTarget < 220 && puller.positionProperty.get().y < threshold ? target : null;
+    const threshold = puller.lastPlacementProperty.value === 'home' ? 370 : 300;
+    return distanceToTarget < 220 && puller.positionProperty.value.y < threshold ? target : null;
   }
 
   // Return the cart and prepare the model for another "go" run
@@ -436,17 +436,17 @@ export default class NetForceModel extends PhetioObject {
    */
   public step( dt: number ): void {
 
-    if ( this.isRunningProperty.get() ) {
+    if ( this.isRunningProperty.value ) {
 
       // Increment tug-of-war timer
-      this.durationProperty.value = this.durationProperty.get() + dt;
+      this.durationProperty.value = this.durationProperty.value + dt;
 
       // Make the simulation run about as fast as the Java version
-      const newV = this.cart.velocityProperty.get() + this.getNetForce() * dt * 0.003;
+      const newV = this.cart.velocityProperty.value + this.getNetForce() * dt * 0.003;
       this.speedProperty.value = Math.abs( newV );
 
       // calculate new position from velocity
-      const newX = this.cart.positionProperty.get() + newV * dt * 60.0;
+      const newX = this.cart.positionProperty.value + newV * dt * 60.0;
 
       // If the cart made it to the end, then stop and signify completion
       const gameLength = this.gameLength;
@@ -457,7 +457,7 @@ export default class NetForceModel extends PhetioObject {
 
         // set cart and pullers back the to max position
         const maxLength = newX > gameLength ? gameLength : -gameLength;
-        this.updateCartAndPullers( this.speedProperty.get(), maxLength );
+        this.updateCartAndPullers( this.speedProperty.value, maxLength );
 
         // Do this after updating the cart position, since in GoPauseButton we check the cart position for the description
         this.isRunningProperty.value = false;
@@ -470,7 +470,7 @@ export default class NetForceModel extends PhetioObject {
       }
     }
 
-    this.timeProperty.value = this.timeProperty.get() + dt;
+    this.timeProperty.value = this.timeProperty.value + dt;
   }
 
   /**

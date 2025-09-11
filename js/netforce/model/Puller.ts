@@ -131,7 +131,7 @@ export default class Puller extends PhetioObject {
 
       // Synchronize our position with the knot.
       if ( knot ) {
-        this.positionProperty.value = new Vector2( knot.positionProperty.get(), knot.y );
+        this.positionProperty.value = new Vector2( knot.positionProperty.value, knot.y );
       }
 
       if ( mode.isHome() ) {
@@ -145,7 +145,7 @@ export default class Puller extends PhetioObject {
       // If attached to a knot, update position to match the knot's position
       const knot = this.getKnot();
       if ( knot ) {
-        this.positionProperty.value = new Vector2( knot.positionProperty.get(), knot.y );
+        this.positionProperty.value = new Vector2( knot.positionProperty.value, knot.y );
       }
     }
   }
@@ -186,8 +186,8 @@ export default class Puller extends PhetioObject {
    */
   public storeGrabOrigin(): void {
     this.grabOrigin = {
-      mode: this.modeProperty.get(),
-      position: this.positionProperty.get().copy()
+      mode: this.modeProperty.value,
+      position: this.positionProperty.value.copy()
     };
   }
 
@@ -218,7 +218,7 @@ export default class Puller extends PhetioObject {
    * Drop method - determine final position based on current position
    */
   public drop(): void {
-    const currentMode = this.modeProperty.get();
+    const currentMode = this.modeProperty.value;
 
     if ( currentMode.isPointerGrabbed() ) {
       // For mouse/touch drops, determine destination based on position

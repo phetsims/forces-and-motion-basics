@@ -212,7 +212,7 @@ export default class Item extends PhetioObject {
     this.context.directionProperty.link( direction => {
 
       // only change directions if on the board, and always choose one of left/right, and only for people
-      if ( this.inStackProperty.get() && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
+      if ( this.inStackProperty.value && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
         this.directionProperty.value = direction;
       }
     } );
@@ -244,7 +244,7 @@ export default class Item extends PhetioObject {
    * for transformations.
    */
   public getCurrentScale(): number {
-    return this.imageScale * this.interactionScaleProperty.get();
+    return this.imageScale * this.interactionScaleProperty.value;
   }
 
   // Animate the item to the specified position
@@ -262,12 +262,12 @@ export default class Item extends PhetioObject {
 
   // Cancel an animation when the user clicks on an item
   public cancelAnimation(): void {
-    if ( this.animationStateProperty.get().enabled ) {
-      if ( this.userControlledProperty.get() ) {
+    if ( this.animationStateProperty.value.enabled ) {
+      if ( this.userControlledProperty.value ) {
         this.interactionScaleProperty.value = 1.3;
       }
       else {
-        if ( this.animationStateProperty.get().destination === 'home' ) {
+        if ( this.animationStateProperty.value.destination === 'home' ) {
           this.interactionScaleProperty.value = this.homeScale;
         }
       }
@@ -299,7 +299,7 @@ export default class Item extends PhetioObject {
    * Convenience method to check if item is being grabbed (any method)
    */
   public isGrabbed(): boolean {
-    const mode = this.modeProperty.get();
+    const mode = this.modeProperty.value;
     return mode === 'mouseGrabbed' ||
            mode === 'keyboardGrabbedFromToolbox' ||
            mode === 'keyboardGrabbedFromStack';
@@ -309,7 +309,7 @@ export default class Item extends PhetioObject {
    * Convenience method to check if item is animating
    */
   public isAnimating(): boolean {
-    const mode = this.modeProperty.get();
+    const mode = this.modeProperty.value;
     return mode === 'animatingToToolbox' || mode === 'animatingToStack';
   }
 
@@ -328,27 +328,27 @@ export default class Item extends PhetioObject {
 
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination
   public step( dt: number ): void {
-    if ( this.userControlledProperty.get() ) {
-      this.interactionScaleProperty.value = Math.min( this.interactionScaleProperty.get() + 9 * dt, 1.3 );
+    if ( this.userControlledProperty.value ) {
+      this.interactionScaleProperty.value = Math.min( this.interactionScaleProperty.value + 9 * dt, 1.3 );
     }
-    else if ( this.animationStateProperty.get().destination === 'home' ) {
-      this.interactionScaleProperty.value = Math.max( this.interactionScaleProperty.get() - 9 * dt, this.homeScale );
+    else if ( this.animationStateProperty.value.destination === 'home' ) {
+      this.interactionScaleProperty.value = Math.max( this.interactionScaleProperty.value - 9 * dt, this.homeScale );
     }
 
-    if ( this.animationStateProperty.get().enabled ) {
-      const destination = new Vector2( this.animationStateProperty.get().x, this.animationStateProperty.get().y );
+    if ( this.animationStateProperty.value.enabled ) {
+      const destination = new Vector2( this.animationStateProperty.value.x, this.animationStateProperty.value.y );
 
       // Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
       const blendAmount = Utils.clamp( 15 * dt, 0.1, 0.9 );
-      this.positionProperty.value = this.positionProperty.get().blend( destination, blendAmount );
+      this.positionProperty.value = this.positionProperty.value.blend( destination, blendAmount );
 
-      const distanceToTarget = this.positionProperty.get().distance( destination );
-      if ( distanceToTarget < 1 && ( this.interactionScaleProperty.get() === 1.3 || this.interactionScaleProperty.get() === this.homeScale ) ) {
+      const distanceToTarget = this.positionProperty.value.distance( destination );
+      if ( distanceToTarget < 1 && ( this.interactionScaleProperty.value === 1.3 || this.interactionScaleProperty.value === this.homeScale ) ) {
 
         // Snap to exact final destination, see #59
         this.positionProperty.value = destination;
-        if ( this.animationStateProperty.get().end ) {
-          this.animationStateProperty.get().end!();
+        if ( this.animationStateProperty.value.end ) {
+          this.animationStateProperty.value.end();
         }
         this.animationStateProperty.value = { enabled: false, x: 0, y: 0, end: null };
       }

@@ -89,8 +89,8 @@ export default class FlagNode extends Node {
     const shape = new Shape();
     const maxX = 220;
     const maxY = 55;
-    const dy = ( 7 * Math.sin( this.model.timeProperty.get() * 6 ) );
-    const dx = ( 2 * Math.sin( this.model.timeProperty.get() * 5 ) ) + 10;
+    const dy = ( 7 * Math.sin( this.model.timeProperty.value * 6 ) );
+    const dx = ( 2 * Math.sin( this.model.timeProperty.value * 5 ) ) + 10;
     shape.moveTo( 0, 0 );
     shape.cubicCurveTo( maxX / 3 + dx, 25 + dy, 2 * maxX / 3 + dx, -25 - dy, maxX + dx, dy / 2 );
     shape.lineTo( maxX + dx, maxY + dy / 2 );

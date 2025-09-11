@@ -427,14 +427,14 @@ export default class MotionScreenView extends ScreenView {
 
     // Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see
     // https://github.com/phetsims/forces-and-motion-basics/issues/83
-    const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get(), {
+    const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.value + roundedFrictionForceProperty.value, {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
       units: 'N',
       phetioReadOnly: true
     } );
 
     model.stepEmitter.addListener( () => {
-      roundedSumProperty.value = roundedAppliedForceProperty.get() + roundedFrictionForceProperty.get();
+      roundedSumProperty.value = roundedAppliedForceProperty.value + roundedFrictionForceProperty.value;
     } );
 
     this.sumArrow = new ReadoutArrow( 'sum', sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
@@ -616,7 +616,7 @@ export default class MotionScreenView extends ScreenView {
 
     // Helper function to perform group transfer logic using unified mode property
     const performGroupTransfer = ( itemNode: ItemNode ) => {
-      const mode = itemNode.item.modeProperty.get();
+      const mode = itemNode.item.modeProperty.value;
       const isGrabbed = itemNode.item.isGrabbed();
 
       // Only transfer when item is not being grabbed (to avoid focus loss during interaction)
@@ -670,7 +670,7 @@ export default class MotionScreenView extends ScreenView {
     model.stackedItems.lengthProperty.link( () => {
 
       // Only re-sort when no items are being grabbed (to avoid focus loss during interaction)
-      const anyItemGrabbed = this.itemNodes.some( itemNode => itemNode.item.userControlledProperty.get() );
+      const anyItemGrabbed = this.itemNodes.some( itemNode => itemNode.item.userControlledProperty.value );
       if ( !anyItemGrabbed ) {
 
         // Re-sort stack items when stack changes

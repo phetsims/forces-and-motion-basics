@@ -72,7 +72,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     } );
 
     // boolean function to determine if the go button should be enabled based on model state.
-    const isGoButtonEnabled = () => model.stateProperty.get() !== 'completed' && ( model.numberPullersAttachedProperty.get() > 0 || model.isRunningProperty.get() );
+    const isGoButtonEnabled = () => model.stateProperty.value !== 'completed' && ( model.numberPullersAttachedProperty.value > 0 || model.isRunningProperty.value );
 
     super( model.isRunningProperty, pauseText, goText, options );
 
@@ -128,7 +128,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     KeyboardListener.createGlobal( this, {
       keyStringProperties: NetForceHotkeyData.GO_HOTKEY_DATA.keyStringProperties,
       fire: () => {
-        if ( this.enabled && !model.isRunningProperty.get() ) {
+        if ( this.enabled && !model.isRunningProperty.value ) {
           model.isRunningProperty.value = true;
         }
       }
@@ -137,7 +137,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     KeyboardListener.createGlobal( this, {
       keyStringProperties: NetForceHotkeyData.PAUSE_HOTKEY_DATA.keyStringProperties,
       fire: () => {
-        if ( this.enabled && model.isRunningProperty.get() ) {
+        if ( this.enabled && model.isRunningProperty.value ) {
           model.isRunningProperty.value = false;
         }
       }

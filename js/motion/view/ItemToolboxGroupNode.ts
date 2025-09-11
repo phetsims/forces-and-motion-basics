@@ -78,7 +78,7 @@ export default class ItemToolboxGroupNode extends Node {
         // When this item loses focus, restore focusability to all items in the toolboxes
         // (only those not on the stack)
         this.itemNodes.forEach( node => {
-          if ( !node.item.inStackProperty.get() ) {
+          if ( !node.item.inStackProperty.value ) {
             node.focusable = true;
           }
         } );
@@ -93,7 +93,7 @@ export default class ItemToolboxGroupNode extends Node {
 
     // Ensure items added to toolbox are properly focusable for arrow navigation
     // Only make focusable if it's not on the stack
-    if ( !itemNode.item.inStackProperty.get() ) {
+    if ( !itemNode.item.inStackProperty.value ) {
       itemNode.focusable = true;
     }
   }
@@ -149,7 +149,7 @@ export default class ItemToolboxGroupNode extends Node {
 
     // Find items still in the toolboxes (not on stack)
     const itemsInToolbox = this.itemNodes.filter( itemNode =>
-      !itemNode.item.inStackProperty.get() && itemNode !== droppedItemNode
+      !itemNode.item.inStackProperty.value && itemNode !== droppedItemNode
     );
 
     if ( itemsInToolbox.length > 0 ) {
@@ -171,14 +171,14 @@ export default class ItemToolboxGroupNode extends Node {
 
     // Restore focusability to all items in the toolboxes (not on stack)
     this.itemNodes.forEach( itemNode => {
-      if ( !itemNode.item.inStackProperty.get() ) {
+      if ( !itemNode.item.inStackProperty.value ) {
         itemNode.focusable = true;
       }
     } );
 
     // If there are items in the toolboxes, make the first one focusable but don't focus it
     const itemsInToolbox = this.itemNodes.filter( itemNode =>
-      !itemNode.item.inStackProperty.get()
+      !itemNode.item.inStackProperty.value
     );
 
     if ( itemsInToolbox.length > 0 ) {

@@ -107,7 +107,7 @@ export default class ItemNode extends Node {
     } );
 
     // translate this node to the item's position
-    this.translate( item.positionProperty.get() );
+    this.translate( item.positionProperty.value );
 
     // Create the node for the main graphic
     const normalImageNode = new Image( normalImageProperty );
@@ -119,10 +119,10 @@ export default class ItemNode extends Node {
     // When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
       // var centerX = normalImageNode.centerX;
-      if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.inStackProperty.get() ) ) {
+      if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.inStackProperty.value ) ) {
         normalImageNode.imageProperty = holdingImageProperty;
       }
-      else if ( item.inStackProperty.get() && typeof sittingImageProperty.value !== 'undefined' ) {
+      else if ( item.inStackProperty.value && typeof sittingImageProperty.value !== 'undefined' ) {
         normalImageNode.imageProperty = sittingImageProperty;
       }
       else {
@@ -163,8 +163,8 @@ export default class ItemNode extends Node {
       // When picking up an object, remove it from the stack.
       start: () => {
         // Track original state for keyboard escape functionality
-        this.wasOriginallyOnStack = item.inStackProperty.get();
-        this.originalPosition = item.positionProperty.get().copy();
+        this.wasOriginallyOnStack = item.inStackProperty.value;
+        this.originalPosition = item.positionProperty.value.copy();
 
         // Move it to front (z-order)
         this.moveToFront();
@@ -192,7 +192,7 @@ export default class ItemNode extends Node {
         item.modeProperty.value = 'inToolbox';
 
         // If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        const droppedOnStack = item.positionProperty.get().y < 350 || !motionView.isToolboxContainerVisible();
+        const droppedOnStack = item.positionProperty.value.y < 350 || !motionView.isToolboxContainerVisible();
 
         if ( droppedOnStack ) {
           // Determine prior number of stacked items (before adding this one)
@@ -228,7 +228,7 @@ export default class ItemNode extends Node {
     // if the item is being dragged, cancel the drag on reset
     model.resetAllEmitter.addListener( () => {
       // cancel the drag and reset item
-      if ( item.userControlledProperty.get() ) {
+      if ( item.userControlledProperty.value ) {
         this.dragListener.interrupt();
         item.reset();
       }
@@ -377,7 +377,7 @@ export default class ItemNode extends Node {
   private handleKeyboardInput( keysPressed: string ): void {
     if ( !this.keyboardStrategy ) { return; }
 
-    const isGrabbed = this.item.userControlledProperty.get();
+    const isGrabbed = this.item.userControlledProperty.value;
 
     if ( keysPressed === 'escape' ) {
       this.handleEscapeKey();
@@ -397,20 +397,21 @@ export default class ItemNode extends Node {
     // Arrow key navigation
     if ( [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ].includes( keysPressed ) ) {
 
-      // Map arrow key string to direction
-      const arrowToDirection = {
-        arrowLeft: 'left',
-        arrowRight: 'right',
-        arrowUp: 'up',
-        arrowDown: 'down'
-      } as const;
-      const direction = arrowToDirection[ keysPressed as keyof typeof arrowToDirection ];
-
       if ( isGrabbed ) {
         this.handleGrabbedNavigation();
       }
       else {
-        this.handleNormalNavigation( direction );
+
+        // Map arrow key string to direction
+        const arrowToDirection = {
+          arrowLeft: 'left',
+          arrowRight: 'right',
+          arrowUp: 'up',
+          arrowDown: 'down'
+        } as const;
+        const direction = arrowToDirection[ keysPressed as keyof typeof arrowToDirection ];
+
+        this.handleSelectionNavigation( direction );
       }
     }
   }
@@ -419,7 +420,7 @@ export default class ItemNode extends Node {
    * Handle escape key to cancel current interaction
    */
   private handleEscapeKey(): void {
-    if ( this.item.userControlledProperty.get() && this.originalPosition ) {
+    if ( this.item.userControlledProperty.value && this.originalPosition ) {
 
       // Cancel interaction and return to original position
       this.item.modeProperty.value = 'inToolbox';
@@ -455,7 +456,7 @@ export default class ItemNode extends Node {
    * Handle delete/backspace to return grabbed item to toolbox with announcement
    */
   private handleReturnToToolboxKey(): void {
-    if ( this.item.userControlledProperty.get() ) {
+    if ( this.item.userControlledProperty.value ) {
 
       // Force return to toolbox
       this.item.modeProperty.value = 'inToolbox';
@@ -473,12 +474,12 @@ export default class ItemNode extends Node {
    * Handle enter/space key to grab or drop item
    */
   private handleSelectKey(): void {
-    const isGrabbed = this.item.userControlledProperty.get();
+    const isGrabbed = this.item.userControlledProperty.value;
 
     if ( !isGrabbed ) {
       // Grab the item
-      this.wasOriginallyOnStack = this.item.inStackProperty.get();
-      this.originalPosition = this.item.positionProperty.get().copy();
+      this.wasOriginallyOnStack = this.item.inStackProperty.value;
+      this.originalPosition = this.item.positionProperty.value.copy();
 
       // Set keyboard grabbed mode based on current location
       if ( this.wasOriginallyOnStack ) {
@@ -526,7 +527,7 @@ export default class ItemNode extends Node {
       this.item.modeProperty.value = 'inToolbox';
 
       // Determine drop location based on current position
-      const droppedOnStack = this.item.positionProperty.get().y < 350 || !this.motionView.isToolboxContainerVisible();
+      const droppedOnStack = this.item.positionProperty.value.y < 350 || !this.motionView.isToolboxContainerVisible();
 
       if ( droppedOnStack ) {
 
@@ -591,7 +592,7 @@ export default class ItemNode extends Node {
     if ( !this.originalPosition ) { return; }
 
     // For grabbed items, any arrow key cycles between home (toolbox) and stack positions
-    const currentY = this.item.positionProperty.get().y;
+    const currentY = this.item.positionProperty.value.y;
 
     // Determine the home position - for items grabbed from stack, use their reset position (toolbox)
     // For items grabbed from toolbox, use their original position
@@ -602,6 +603,7 @@ export default class ItemNode extends Node {
     const isAtHome = Math.abs( currentY - homePosition.y ) < 50; // Within 50 pixels of home position
 
     if ( isAtHome ) {
+
       // Move to stack position
       const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
       const stackX = this.motionView.layoutBounds.width / 2 - imageWidth / 2;
@@ -618,24 +620,23 @@ export default class ItemNode extends Node {
       this.addAccessibleContextResponse( overMessage );
     }
     else {
+
       // Move back to home position
       this.item.positionProperty.value = homePosition;
 
       // Announce over toolbox
-      this.addAccessibleContextResponse(
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty.value
-      );
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.overToolboxStringProperty.value );
     }
   }
 
   /**
    * Handle normal navigation between items using strategy
    */
-  private handleNormalNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
+  private handleSelectionNavigation( direction: 'left' | 'right' | 'up' | 'down' ): void {
     if ( !this.keyboardStrategy ) { return; }
 
     const nextItem = this.keyboardStrategy.navigateToItem( this, direction );
-    if ( nextItem ) {
+    if ( nextItem && nextItem !== this ) {
 
       // Update focus management
       this.focusable = false;
@@ -668,12 +669,12 @@ export default class ItemNode extends Node {
       }
     }
     if ( personInStack ) {
-      direction = personInStack.directionProperty.get();
+      direction = personInStack.directionProperty.value;
     }
-    else if ( person.context.appliedForceProperty.get() !== 0 ) {
+    else if ( person.context.appliedForceProperty.value !== 0 ) {
 
       // if there is an applied force on the stack, direction should match applied force
-      if ( person.context.appliedForceProperty.get() > 0 ) {
+      if ( person.context.appliedForceProperty.value > 0 ) {
         direction = 'right';
       }
       else {
@@ -682,7 +683,7 @@ export default class ItemNode extends Node {
     }
     else {
       // if there is no applied force, check velocity for direction
-      if ( person.context.velocityProperty.get() > 0 ) {
+      if ( person.context.velocityProperty.value > 0 ) {
         direction = 'right';
       }
     }
