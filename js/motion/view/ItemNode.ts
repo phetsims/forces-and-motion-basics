@@ -31,7 +31,6 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import { ItemNodeKeyboardStrategy } from './ItemNodeKeyboardStrategy.js';
-import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
 import MotionScreenView from './MotionScreenView.js';
 
 // Workaround for https://github.com/phetsims/scenery/issues/108
@@ -43,7 +42,7 @@ export default class ItemNode extends Node {
   public readonly sittingImageNode: Image;
   private readonly dragListener: SoundDragListener;
   private keyboardStrategy: ItemNodeKeyboardStrategy | null = null;
-  private keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
+  private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
 
   // Track whether this item was originally on stack when grabbed (for focus management)
   private wasOriginallyOnStack = false;
@@ -51,11 +50,7 @@ export default class ItemNode extends Node {
   // Track original state for escape key functionality
   private originalPosition: Vector2 | null = null;
 
-  // Keep reference to the toolbox group for focus management after drops
-  private toolboxGroup: ItemToolboxGroupNode | null = null;
-
   /**
-   * Constructor for ItemNode
    * @param model the entire model for the containing screen
    * @param motionView the entire view for the containing screen
    * @param item the corresponding to this ItemNode
@@ -363,11 +358,9 @@ export default class ItemNode extends Node {
    * Set the keyboard navigation strategy for this item.
    * This determines how keyboard interactions behave based on context (toolbox vs stack).
    * @param strategy - The strategy to use, or null to remove keyboard handling
-   * @param toolboxGroup - Optional reference to the toolbox group (used for focus management)
    */
-  public setKeyboardStrategy( strategy: ItemNodeKeyboardStrategy, toolboxGroup: ItemToolboxGroupNode | null ): void {
+  public setKeyboardStrategy( strategy: ItemNodeKeyboardStrategy ): void {
     this.keyboardStrategy = strategy;
-    this.toolboxGroup = toolboxGroup;
   }
 
   /**
@@ -561,20 +554,22 @@ export default class ItemNode extends Node {
 
       // Handle focus management after drop
       if ( droppedOnStack ) {
-        if ( !this.wasOriginallyOnStack && this.toolboxGroup ) {
+        if ( !this.wasOriginallyOnStack ) {
 
           // Item was dropped from toolbox to stack - focus next toolbox item
-          this.toolboxGroup.focusNextItemInToolbox( this );
+          this.motionView.itemToolboxGroup.focusNextItemInToolbox( this );
         }
-        else if ( this.wasOriginallyOnStack ) {
 
-          // Item was dropped back onto stack from where it came - preserve focus on this item
-          // Ensure this item remains focusable and focused after the transfer
-          this.focusable = true;
-
-          // Focus will be maintained since item is staying on the stack
-          this.focus();
-        }
+        // TODO: delete this code? see https://github.com/phetsims/forces-and-motion-basics/issues/382
+        // else if ( this.wasOriginallyOnStack ) {
+        //
+        //   // Item was dropped back onto stack from where it came - preserve focus on this item
+        //   // Ensure this item remains focusable and focused after the transfer
+        //   this.focusable = true;
+        //
+        //   // Focus will be maintained since item is staying on the stack
+        //   this.focus();
+        // }
       }
 
       // Still notify the strategy for other handling

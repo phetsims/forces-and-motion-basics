@@ -42,11 +42,10 @@ import AccelerometerNode from './AccelerometerNode.js';
 import AppliedForceControl from './AppliedForceControl.js';
 import ItemNode from './ItemNode.js';
 import ItemStackGroupNode from './ItemStackGroupNode.js';
-import StackKeyboardStrategy from './StackKeyboardStrategy.js';
 import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
-import ToolboxKeyboardStrategy from './ToolboxKeyboardStrategy.js';
 import MotionControlPanel from './MotionControlPanel.js';
 import MotionForcesListDescription from './MotionForcesListDescription.js';
+import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
 import MotionScreensAccelerationDescription from './MotionScreensAccelerationDescription.js';
 import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
@@ -54,8 +53,9 @@ import MotionStackListDescription from './MotionStackListDescription.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
+import StackKeyboardStrategy from './StackKeyboardStrategy.js';
+import ToolboxKeyboardStrategy from './ToolboxKeyboardStrategy.js';
 import WaterBucketNode from './WaterBucketNode.js';
-import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
 
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
@@ -82,7 +82,7 @@ export default class MotionScreenView extends ScreenView {
   private readonly grabReleaseCueNode: MotionGrabReleaseCueNode;
 
   // Keyboard navigation groups
-  private readonly itemToolboxGroup: ItemToolboxGroupNode;
+  public readonly itemToolboxGroup: ItemToolboxGroupNode;
   private readonly itemStackGroup: ItemStackGroupNode;
 
   // Update PDOM order for toolbox and stack items
@@ -414,7 +414,7 @@ export default class MotionScreenView extends ScreenView {
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
       this.itemToolboxGroup.addItemNode( itemNode, model );
-      itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
+      itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
     } );
 
     // Add the force arrows & associated readouts in front of the items
@@ -629,7 +629,7 @@ export default class MotionScreenView extends ScreenView {
             this.itemStackGroup.addItemNode( itemNode, model );
 
             // Update keyboard strategy for stack navigation
-            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ), null );
+            itemNode.setKeyboardStrategy( new StackKeyboardStrategy( this.itemStackGroup, model ) );
 
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();
@@ -648,7 +648,7 @@ export default class MotionScreenView extends ScreenView {
             this.itemToolboxGroup.addItemNode( itemNode, model );
 
             // Update keyboard strategy for toolbox navigation
-            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ), this.itemToolboxGroup );
+            itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this.itemToolboxGroup, model ) );
           }
 
           // Update PDOM order after transfer

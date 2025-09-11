@@ -89,7 +89,7 @@ export default class ItemToolboxGroupNode extends Node {
     itemNode.focusedProperty.lazyLink( focusListener );
 
     // Set the keyboard strategy for toolbox items and pass reference to this group
-    itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ), this );
+    itemNode.setKeyboardStrategy( new ToolboxKeyboardStrategy( this, model ) );
 
     // Ensure items added to toolbox are properly focusable for arrow navigation
     // Only make focusable if it's not on the stack
@@ -148,13 +148,13 @@ export default class ItemToolboxGroupNode extends Node {
   public focusNextItemInToolbox( droppedItemNode: ItemNode ): void {
 
     // Find items still in the toolboxes (not on stack)
-    const itemsInToolbox = this.itemNodes.filter( itemNode =>
-      !itemNode.item.inStackProperty.value && itemNode !== droppedItemNode
-    );
+    const itemsInToolbox = this.itemNodes.filter( itemNode => !itemNode.item.inStackProperty.value && itemNode !== droppedItemNode );
 
+    console.log( `Items remaining in toolbox: ${itemsInToolbox.map( item => item.item.name ).join( ', ' )}` );
     if ( itemsInToolbox.length > 0 ) {
       // Focus the first available item in the toolboxes
       const nextItem = itemsInToolbox[ 0 ];
+      console.log( `Focusing next item in toolbox: ${nextItem.item.name}` );
 
       // Make sure the next item is focusable and focus it
       nextItem.focusable = true;
