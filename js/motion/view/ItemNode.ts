@@ -597,7 +597,7 @@ export default class ItemNode extends Node {
     // For items grabbed from toolbox, use their original position
     const homePosition = this.wasOriginallyOnStack ?
                          new Vector2( this.item.positionProperty.initialValue.x, this.item.positionProperty.initialValue.y ) :
-                         this.originalPosition;
+                         this.originalPosition.plusXY( 0, -40 ); // it is larger during interaction, so move even more above its home spot
 
     const isAtHome = Math.abs( currentY - homePosition.y ) < 50; // Within 50 pixels of home position
 
