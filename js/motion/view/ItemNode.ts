@@ -550,6 +550,8 @@ export default class ItemNode extends Node {
 
         // Announce returned to toolbox
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.itemResponses.returnedToToolboxStringProperty );
+        this.focusable = true; // ensure it is focusable after drop
+        this.focus();
       }
 
       // Handle focus management after drop
@@ -561,15 +563,15 @@ export default class ItemNode extends Node {
         }
 
         // TODO: delete this code? see https://github.com/phetsims/forces-and-motion-basics/issues/382
-        // else if ( this.wasOriginallyOnStack ) {
-        //
-        //   // Item was dropped back onto stack from where it came - preserve focus on this item
-        //   // Ensure this item remains focusable and focused after the transfer
-        //   this.focusable = true;
-        //
-        //   // Focus will be maintained since item is staying on the stack
-        //   this.focus();
-        // }
+        else if ( this.wasOriginallyOnStack ) {
+
+          // Item was dropped back onto stack from where it came - preserve focus on this item
+          // Ensure this item remains focusable and focused after the transfer
+          this.focusable = true;
+
+          // Focus will be maintained since item is staying on the stack
+          this.focus();
+        }
       }
 
       // Still notify the strategy for other handling
