@@ -303,7 +303,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       ],
       fireOnDown: false,
 
-      // TODO: Closer review, see https://github.com/phetsims/forces-and-motion-basics/issues/431
       fire: ( event, keysPressed ) => {
 
         // NAVIGATION (Arrow Keys)
@@ -360,8 +359,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
               knot.type === puller.type && ( model.getPuller( knot ) === null || model.getPuller( knot ) === puller )
             );
 
-            // console.log( 'puller is at knot: ' + puller.getKnot()!.tandem.name + ', availableKnots', availableKnots.map( knot => knot.tandem.name ) );
-
             // Create navigation waypoints: [knot1, knot2, ..., knotN, HOME]
             const waypoints: ( Knot | null )[] = [ ...availableKnots, null ]; // null = home position
 
@@ -390,12 +387,10 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             const targetWaypoint = waypoints[ nextIndex ];
 
             // Update puller mode based on target waypoint
-            const newMode = PullerNode.getModeForWaypoint( targetWaypoint, puller );
-            puller.modeProperty.value = newMode;
+            puller.modeProperty.value = PullerNode.getModeForWaypoint( targetWaypoint, puller );
 
             // Generate accessibility response
-            const accessibilityResponse = this.getAccessibilityResponseForWaypoint( targetWaypoint );
-            this.addAccessibleContextResponse( accessibilityResponse );
+            this.addAccessibleContextResponse( this.getAccessibilityResponseForWaypoint( targetWaypoint ) );
           }
         }
 
