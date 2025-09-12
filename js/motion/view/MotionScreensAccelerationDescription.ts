@@ -85,6 +85,7 @@ export default class MotionScreensAccelerationDescription extends Node {
 
     // Final paragraph shown when Acceleration is enabled
     const accelerationDescriptionProperty = new DerivedProperty( [
+      model.accelerationProperty,
       model.showAccelerationProperty,
       model.showValuesProperty,
       qualitativeDescriptorProperty,
@@ -95,12 +96,12 @@ export default class MotionScreensAccelerationDescription extends Node {
       ForcesAndMotionBasicsFluent.a11y.acceleration.qualitativeDescriptions.zeroStringProperty,
       accelerationMetersPerSecondSquaredTextProperty,
       directionStringProperty
-    ], ( showAcceleration, showValues, qualitativeDescriptor, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
-      if ( !showAcceleration ) { return ''; }
+    ], ( acceleration, showAcceleration, showValues, qualitativeDescriptor, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
 
-      // TODO: Don't compare to the string, see https://github.com/phetsims/forces-and-motion-basics/issues/431
-      const isZero = qualitativeDescriptor === zeroString;
-      if ( isZero ) {
+      if ( !showAcceleration ) {
+        return '';
+      }
+      else if ( acceleration === 0 ) {
         return showValues ? withValue : withoutValue;
       }
       else {
