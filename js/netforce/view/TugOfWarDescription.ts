@@ -7,7 +7,8 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -18,80 +19,68 @@ import PullerNode from './PullerNode.js';
 
 export default class TugOfWarDescription extends Node {
 
-  private ropeOverviewContent: Node | null = null;
-
   public constructor( private readonly model: NetForceModel, private readonly pullerNodes: PullerNode[] ) {
     super( {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.tugOfWar.headingStringProperty
     } );
 
-    // Update overview when pullers change position
-    this.model.pullers.forEach( puller => {
-      puller.modeProperty.link( () => this.updateRopeOverview() );
-    } );
+    // Build a single AccessibleListNode that persists for the lifetime of this view.
+    // Each knot gets a list item whose visibility reflects whether a puller is attached to that knot.
 
-    // Update overview when puller colors change
-    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.link( () => this.updateRopeOverview() );
+    const listItems = this.model.knots.map( knot => {
+      const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
+      const indexWithinSide = sameTypeKnots.indexOf( knot );
+      const numberString = ( indexWithinSide + 1 ).toString();
 
-    // Initial update
-    this.updateRopeOverview();
-  }
+      // Visible when a puller is attached to this knot
+      const visibleProperty = DerivedProperty.deriveAny( [ ...this.model.pullers.map( p => p.modeProperty ) ], () =>
+        this.model.getPuller( knot ) !== null
+      ) as TReadOnlyProperty<boolean>;
 
-  /**
-   * Updates the rope overview content based on current puller positions
-   */
-  private updateRopeOverview(): void {
+      // Content depends on locale side strings, color preference and which puller is attached
+      const contentProperty = DerivedProperty.deriveAny( [
+        ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty,
+        ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty,
+        ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty,
+        ...this.model.pullers.map( p => p.modeProperty )
+      ], () => {
+        const puller = this.model.getPuller( knot );
+        if ( !puller ) { return ''; }
 
-    this.removeAllChildren();
-
-    // Get all pullers attached to knots, sorted by position
-    const attachedPullers = this.model.pullers.filter( puller => puller.modeProperty.value.isAttached() );
-
-    if ( attachedPullers.length === 0 ) {
-      // Create simple text node for empty rope
-      this.ropeOverviewContent = new Node( {
-        tagName: 'div',
-        innerContent: ForcesAndMotionBasicsFluent.a11y.tugOfWar.noPullersOnRopeStringProperty.value
-      } );
-      this.addChild( this.ropeOverviewContent );
-    }
-    else {
-      // Sort pullers by their knot positions (left to right)
-      const sortedPullers = attachedPullers.sort( ( a, b ) => {
-        const aKnot = a.getKnot()!;
-        const bKnot = b.getKnot()!;
-        return this.model.knots.indexOf( aKnot ) - this.model.knots.indexOf( bKnot );
-      } );
-
-      // Build list of occupied knots
-      const knotDescriptions = sortedPullers.map( puller => {
-        const knot = puller.getKnot()!;
-        const sameTypeKnots = this.model.knots.filter( k => k.type === knot.type );
-        const index = sameTypeKnots.indexOf( knot );
         const side = knot.type === 'blue' ?
                      ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty.value :
                      ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
 
-        // Find the corresponding puller node to get its accessible name
-        const pullerNode = this.pullerNodes.find( node => node.puller === puller );
-        const pullerName = pullerNode ? pullerNode.accessibleName! : `${puller.size} ${puller.type} puller`;
+        // Match PullerNode's accessibleName mapping for color
+        const pullerColorPref = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+        const displayColor = pullerColorPref === 'purpleOrange' ? ( puller.type === 'blue' ? 'purple' : 'orange' ) : puller.type;
+        const pullerName = `${puller.size} ${displayColor} puller`;
 
-        // Use Fluent pattern to create knot description
-        const knotOccupiedProperty = ForcesAndMotionBasicsFluent.a11y.tugOfWar.knotOccupied.createProperty( {
+        return ForcesAndMotionBasicsFluent.a11y.tugOfWar.knotOccupied.format( {
           side: side,
-          number: ( index + 1 ).toString(),
+          number: numberString,
           pullerName: pullerName
         } );
-        return knotOccupiedProperty.value;
-      } );
+      } ) as TReadOnlyProperty<string>;
 
-      // Create AccessibleListNode for the occupied knots
-      // Convert strings to StringProperties as required by AccessibleListNode
-      const knotDescriptionProperties = knotDescriptions.map( description => new StringProperty( description ) );
-      this.ropeOverviewContent = new AccessibleListNode( knotDescriptionProperties );
-      this.addChild( this.ropeOverviewContent );
-    }
+      return { stringProperty: contentProperty, visibleProperty: visibleProperty };
+    } );
+
+    const hasItemsProperty = new DerivedProperty( [ this.model.numberPullersAttachedProperty ], n => n > 0 );
+
+    const listNode = new AccessibleListNode( listItems, {
+      visibleProperty: hasItemsProperty
+    } );
+
+    const emptyNode = new Node( {
+      tagName: 'div',
+      innerContent: ForcesAndMotionBasicsFluent.a11y.tugOfWar.noPullersOnRopeStringProperty,
+      visibleProperty: DerivedProperty.deriveAny( [ hasItemsProperty ], () => !hasItemsProperty.value ) as TReadOnlyProperty<boolean>
+    } );
+
+    this.addChild( emptyNode );
+    this.addChild( listNode );
   }
 }
 
