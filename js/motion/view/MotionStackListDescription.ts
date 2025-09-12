@@ -16,11 +16,11 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
-import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 
 export default class MotionStackListDescription extends Node {
 
@@ -55,9 +55,9 @@ export default class MotionStackListDescription extends Node {
     } );
 
     // Build three list entries (top, middle, bottom) with visibility based on stack length
-    const topVisibleProperty = new DerivedProperty( [ lengthProperty ], length => length >= 1 );
-    const middleVisibleProperty = new DerivedProperty( [ lengthProperty ], length => length === 3 );
-    const bottomVisibleProperty = new DerivedProperty( [ lengthProperty ], length => length >= 2 );
+    const topVisibleProperty = new DerivedProperty( [ lengthProperty ], length => length >= 3 );
+    const middleVisibleProperty = new DerivedProperty( [ lengthProperty ], length => length >= 2 );
+    const bottomVisibleProperty = new DerivedProperty( [ lengthProperty ], length => length >= 1 );
 
     // Dependencies that cover all possible item name/mass strings so language changes recompute correctly
     const allItemNameStringDependencies = [
@@ -88,26 +88,18 @@ export default class MotionStackListDescription extends Node {
 
     // Top/middle/bottom string properties derived from stack contents
     const topStringProperty = DerivedProperty.deriveAny( [ lengthProperty, ...dependencies ], () => {
-      const n = lengthProperty.value;
-      if ( n === 0 ) { return ''; }
-
-      // TODO: hardcode as 2, and factor out duplicates? See https://github.com/phetsims/forces-and-motion-basics/issues/431
-      const item = model.stackedItems.get( n - 1 );
-      return getAccessibleName( item );
+      const item = model.stackedItems.get( 2 );
+      return item ? getAccessibleName( item ) : ''; // top of stack, if present
     } );
 
     const middleStringProperty = DerivedProperty.deriveAny( [ lengthProperty, ...dependencies ], () => {
-      const n = lengthProperty.value;
-      if ( n !== 3 ) { return ''; }
-      const item = model.stackedItems.get( 1 ); // middle of three
-      return getAccessibleName( item );
+      const item = model.stackedItems.get( 1 );
+      return item ? getAccessibleName( item ) : ''; // middle of stack, if present
     } );
 
     const bottomStringProperty = DerivedProperty.deriveAny( [ lengthProperty, ...dependencies ], () => {
-      const n = lengthProperty.value;
-      if ( n < 2 ) { return ''; }
       const item = model.stackedItems.get( 0 );
-      return getAccessibleName( item );
+      return item ? getAccessibleName( item ) : ''; // bottom of stack, if present
     } );
 
     // The list node with leading paragraph, shown only when there are items
