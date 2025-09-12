@@ -88,7 +88,6 @@ export default class MotionScreensAccelerationDescription extends Node {
       model.accelerationProperty,
       model.showAccelerationProperty,
       model.showValuesProperty,
-      qualitativeDescriptorProperty,
       withoutValueProperty,
       withValueProperty,
       withDirectionProperty,
@@ -96,7 +95,7 @@ export default class MotionScreensAccelerationDescription extends Node {
       ForcesAndMotionBasicsFluent.a11y.acceleration.qualitativeDescriptions.zeroStringProperty,
       accelerationMetersPerSecondSquaredTextProperty,
       directionStringProperty
-    ], ( acceleration, showAcceleration, showValues, qualitativeDescriptor, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
+    ], ( acceleration, showAcceleration, showValues, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
 
       if ( !showAcceleration ) {
         return '';
