@@ -12,11 +12,11 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Shape from '../../../../kite/js/Shape.js';
 import BackgroundNode from '../../../../scenery-phet/js/BackgroundNode.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import HighlightPath from '../../../../scenery/js/accessibility/HighlightPath.js';
-import Shape from '../../../../kite/js/Shape.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
@@ -167,7 +167,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       },
 
       // End the drag
-      end: () => {
+      end: event => {
         // Reset mode based on where the item ends up (let setupModeCalculation handle it)
         // We'll temporarily set to a non-grabbed state to trigger the update
         item.modeProperty.value = 'inToolbox';
@@ -195,7 +195,9 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         this.unlockHighlight();
 
         // Focus management after mouse drop
-        this.manageFocusAfterDrop( droppedOnStack );
+        if ( event?.isFromPDOM() ) {
+          this.manageFocusAfterDrop( droppedOnStack );
+        }
       }
     } );
     this.addInputListener( this.dragListener );

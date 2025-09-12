@@ -525,7 +525,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                 this.focusable = false;
               }
             }
-
           }
         }
 
