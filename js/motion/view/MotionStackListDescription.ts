@@ -16,7 +16,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
+import { formatItemAccessibleNameWithMass, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
@@ -76,12 +76,11 @@ export default class MotionStackListDescription extends Node {
 
     // Helper to get the accessible name (with or without mass) consistent with ItemNode
     const getAccessibleName = ( item: Item ): string => {
-
-      const localizedItemNameProperty = getLocalizedItemNameProperty( item );
-      const itemAccessibleNameWithMassProperty = createItemAccessibleNameWithMassProperty( item );
-
-      // Show mass if enabled, otherwise just the name
-      return model.showMassesProperty.value ? itemAccessibleNameWithMassProperty.value : localizedItemNameProperty.value;
+      // For transient formatting here, avoid creating Properties to prevent leaks.
+      // Use the formatter when showing masses; otherwise use the plain localized name value.
+      return model.showMassesProperty.value ?
+             formatItemAccessibleNameWithMass( item ) :
+             getLocalizedItemNameProperty( item ).value;
     };
 
     const dependencies = [ model.showMassesProperty, ...allItemNameStringDependencies, ...allItemMassProperties ];

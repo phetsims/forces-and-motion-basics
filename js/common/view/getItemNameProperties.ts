@@ -10,6 +10,7 @@
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Item from '../../motion/model/Item.js';
 
 /**
@@ -44,5 +45,24 @@ export function createItemAccessibleNameWithMassProperty( item: Item ): TReadOnl
   return ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.createProperty( {
     itemName: localizedItemNameProperty,
     mass: item.mystery ? massUnknownStringProperty : pattern0MassUnitsKilogramsStringProperty
+  } );
+}
+
+/**
+ * Returns the accessible item name (including mass when known) as a formatted string without creating Properties.
+ * This is appropriate for transient uses to avoid leaking listeners. For long-lived values, prefer
+ * createItemAccessibleNameWithMassProperty above.
+ */
+export function formatItemAccessibleNameWithMass( item: Item ): string {
+  const itemName = getLocalizedItemNameProperty( item ).value;
+
+  // Mass as a plain string: either unknown or formatted with the current mass value
+  const massString = item.mystery ?
+                     ForcesAndMotionBasicsFluent.a11y.motionScreen.items.massUnknownStringProperty.value :
+                     StringUtils.format( ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ].value, item.massProperty.value );
+
+  return ForcesAndMotionBasicsFluent.a11y.motionScreen.items.itemAccessibleNameWithMass.format( {
+    itemName: itemName,
+    mass: massString
   } );
 }
