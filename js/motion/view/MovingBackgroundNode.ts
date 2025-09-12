@@ -13,7 +13,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Pattern from '../../../../scenery/js/util/Pattern.js';
 import brickTile_png from '../../../images/brickTile_png.js';
@@ -128,6 +127,7 @@ export default class MovingBackgroundNode extends Node {
 
           const gravelSource = new Node();
 
+          // Track what density we last rendered to avoid unnecessary re-rasterization.
           let numBlack = 0;
           let numGray = 0;
           let numWhite = 0;
@@ -152,57 +152,45 @@ export default class MovingBackgroundNode extends Node {
               return;
             }
 
-            while ( numBlack < desiredBlack ) {
-              gravelSource.addChild( new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'black' } ) );
-              numBlack++;
+            // Track rectangles created during this update so they can be disposed after rasterizing to an image.
+            const createdThisUpdate: Rectangle[] = [];
+
+            // Rebuild from scratch for a clean snapshot.
+            gravelSource.removeAllChildren();
+            while ( createdThisUpdate.length > 0 ) { createdThisUpdate.pop(); }
+
+            // Create rectangles to match the desired distribution.
+            for ( let b = 0; b < desiredBlack; b++ ) {
+              const r = new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'black' } );
+              gravelSource.addChild( r );
+              createdThisUpdate.push( r );
             }
 
-            while ( numGray < desiredGray ) {
-              gravelSource.addChild( new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'gray' } ) );
-              numGray++;
+            for ( let g = 0; g < desiredGray; g++ ) {
+              const r = new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'gray' } );
+              gravelSource.addChild( r );
+              createdThisUpdate.push( r );
             }
 
-            while ( numWhite < desiredWhite ) {
-              gravelSource.addChild( new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'white' } ) );
-              numWhite++;
+            for ( let w = 0; w < desiredWhite; w++ ) {
+              const r = new Rectangle( Math.floor( dotRandom.nextDouble() * ( tileWidth + 1 ) ), Math.floor( dotRandom.nextDouble() * ( height + 1 ) ), 1, 1, { fill: 'white' } );
+              gravelSource.addChild( r );
+              createdThisUpdate.push( r );
             }
+            // Snapshot and then dispose temporary rectangles to prevent leaks.
+            
+            gravelSource.toImage( image => {
+              gravel.fill = new Pattern( image );
 
-            let children;
-            let i;
-            while ( numBlack > desiredBlack ) {
-              children = gravelSource.getChildren() as Path[];
-              for ( i = children.length - 1; i >= 0; i-- ) {
-                if ( children[ i ].fill === 'black' ) {
-                  gravelSource.removeChildAt( i );
-                  break;
-                }
-              }
-              numBlack--;
-            }
+              // Dispose rectangles created for this update and clear the source so it doesn't retain Nodes.
+              createdThisUpdate.forEach( r => r.dispose() );
+              gravelSource.removeAllChildren();
 
-            while ( numGray > desiredGray ) {
-              children = gravelSource.getChildren() as Path[];
-              for ( i = children.length - 1; i >= 0; i-- ) {
-                if ( children[ i ].fill === 'gray' ) {
-                  gravelSource.removeChildAt( i );
-                  break;
-                }
-              }
-              numGray--;
-            }
-
-            while ( numWhite > desiredWhite ) {
-              children = gravelSource.getChildren() as Path[];
-              for ( i = children.length - 1; i >= 0; i-- ) {
-                if ( children[ i ].fill === 'white' ) {
-                  gravelSource.removeChildAt( i );
-                  break;
-                }
-              }
-              numWhite--;
-            }
-
-            gravelSource.toImage( image => { gravel.fill = new Pattern( image ); }, 0, 0, tileWidth, height );
+              // Record the last rendered distribution for early-out checks.
+              numBlack = desiredBlack;
+              numGray = desiredGray;
+              numWhite = desiredWhite;
+            }, 0, 0, tileWidth, height );
           } );
         }
       }, 0, 0, ground.width, ground.height );

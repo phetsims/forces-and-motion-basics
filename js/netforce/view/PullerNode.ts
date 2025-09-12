@@ -627,12 +627,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                  ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty.value :
                  ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
 
-    // Use Fluent pattern with variables
-    const knotDescriptionProperty = ForcesAndMotionBasicsFluent.a11y.pullers.knotDescription.createProperty( {
+    // Format without creating a Property to avoid leaks in transient usage
+    return ForcesAndMotionBasicsFluent.a11y.pullers.knotDescription.format( {
       side: side,
       number: ( index + 1 ).toString()
     } );
-    return knotDescriptionProperty.value;
   }
 
   /**
