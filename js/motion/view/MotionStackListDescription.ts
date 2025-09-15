@@ -61,14 +61,14 @@ export default class MotionStackListDescription extends Node {
 
     // Dependencies that cover all possible item name/mass strings so language changes recompute correctly
     const allItemNameStringDependencies = [
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.fridgeStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate1StringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.crate2StringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.girlStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.manStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.trashStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.mysteryStringProperty,
-      ForcesAndMotionBasicsFluent.a11y.motionScreen.items.names.bucketStringProperty
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.fridgeStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.crate1StringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.crate2StringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.girlStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.manStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.trashStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.mysteryStringProperty,
+      ForcesAndMotionBasicsFluent.a11y.motionScreen.objects.names.bucketStringProperty
     ];
 
     // All item mass Properties so PhET-iO changes recompute

@@ -63,11 +63,11 @@ type StringsType = {
     'grabPullerStringProperty': LocalizedStringProperty;
     'moveGrabbedPullerStringProperty': LocalizedStringProperty;
     'dropPullerStringProperty': LocalizedStringProperty;
-    'itemNavigationStringProperty': LocalizedStringProperty;
-    'selectItemStringProperty': LocalizedStringProperty;
-    'grabItemStringProperty': LocalizedStringProperty;
-    'moveGrabbedItemStringProperty': LocalizedStringProperty;
-    'dropItemStringProperty': LocalizedStringProperty;
+    'objectNavigationStringProperty': LocalizedStringProperty;
+    'selectObjectStringProperty': LocalizedStringProperty;
+    'grabObjectStringProperty': LocalizedStringProperty;
+    'moveGrabbedObjectStringProperty': LocalizedStringProperty;
+    'dropObjectStringProperty': LocalizedStringProperty;
     'adjustAppliedForceStringProperty': LocalizedStringProperty;
     'zeroAppliedForceStringProperty': LocalizedStringProperty;
     'returnToToolboxStringProperty': LocalizedStringProperty;
@@ -99,11 +99,11 @@ type StringsType = {
         'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
         'cancelMovementStringProperty': LocalizedStringProperty;
       };
-      'itemNavigation': {
-        'selectItemDescriptionStringProperty': LocalizedStringProperty;
-        'grabItemDescriptionStringProperty': LocalizedStringProperty;
-        'moveGrabbedItemDescriptionStringProperty': LocalizedStringProperty;
-        'dropItemDescriptionStringProperty': LocalizedStringProperty;
+      'objectNavigation': {
+        'selectObjectDescriptionStringProperty': LocalizedStringProperty;
+        'grabObjectDescriptionStringProperty': LocalizedStringProperty;
+        'moveGrabbedObjectDescriptionStringProperty': LocalizedStringProperty;
+        'dropObjectDescriptionStringProperty': LocalizedStringProperty;
         'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
         'cancelMovementStringProperty': LocalizedStringProperty;
       };
@@ -209,8 +209,8 @@ type StringsType = {
         'movingRightStringProperty': LocalizedStringProperty;
         'movingLeftStringProperty': LocalizedStringProperty;
       };
-      'items': {
-        'itemAccessibleNameWithMassStringProperty': LocalizedStringProperty;
+      'objects': {
+        'objectAccessibleNameWithMassStringProperty': LocalizedStringProperty;
         'massUnknownStringProperty': LocalizedStringProperty;
         'names': {
           'fridgeStringProperty': LocalizedStringProperty;
@@ -223,22 +223,22 @@ type StringsType = {
           'bucketStringProperty': LocalizedStringProperty;
         }
       };
-      'itemToolbox': {
+      'objectToolbox': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'descriptionContentStringProperty': LocalizedStringProperty;
       };
-      'itemStackGroup': {
+      'objectStackGroup': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'descriptionContentStringProperty': LocalizedStringProperty;
       };
-      'itemResponses': {
+      'objectResponses': {
         'overToolboxStringProperty': LocalizedStringProperty;
         'overStackStringProperty': LocalizedStringProperty;
         'overSkateboardStringProperty': LocalizedStringProperty;
         'overGroundStringProperty': LocalizedStringProperty;
         'grabbedStringProperty': LocalizedStringProperty;
         'droppedOnStackStringProperty': LocalizedStringProperty;
-        'droppedOnStackBottomItemReturnedStringProperty': LocalizedStringProperty;
+        'droppedOnStackBottomObjectReturnedStringProperty': LocalizedStringProperty;
         'droppedOnSkateboardStringProperty': LocalizedStringProperty;
         'droppedOnGroundStringProperty': LocalizedStringProperty;
         'returnedToToolboxStringProperty': LocalizedStringProperty;

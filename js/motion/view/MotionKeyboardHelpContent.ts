@@ -25,40 +25,40 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
   public constructor() {
 
     // Create the item navigation section
-    const itemNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.itemNavigationStringProperty, [
+    const itemNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.objectNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectItemStringProperty,
+        ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectObjectStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.selectObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabItemStringProperty,
+        ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabObjectStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(), {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.grabObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedItemStringProperty,
+        ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedObjectStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.moveGrabbedObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropItemStringProperty,
+        ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropObjectStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(), {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.dropObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.RETURN_ITEM_TO_TOOLBOX_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.returnToToolboxDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty
       } ),
       KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.CANCEL_AND_RETURN_ITEM_TO_ORIGIN_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.itemNavigation.cancelMovementStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty
       } )
     ] );
 

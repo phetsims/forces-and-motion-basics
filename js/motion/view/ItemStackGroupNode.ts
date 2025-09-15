@@ -37,8 +37,8 @@ export default class ItemStackGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'group',
-      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemStackGroup.accessibleNameStringProperty,
-      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemStackGroup.descriptionContentStringProperty
+      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.accessibleNameStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.descriptionContentStringProperty
     }, providedOptions );
 
     super( options );

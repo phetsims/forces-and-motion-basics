@@ -45,11 +45,11 @@ keyboardHelpDialog:
   grabPuller:         Grab selected puller
   moveGrabbedPuller:  Move grabbed puller
   dropPuller:         Drop puller
-  itemNavigation:     Item Navigation
-  selectItem:         Select item
-  grabItem:           Grab selected item
-  moveGrabbedItem:    Move grabbed item
-  dropItem:           Drop item
+  objectNavigation:   Object Navigation
+  selectObject:       Select object
+  grabObject:         Grab selected object
+  moveGrabbedObject:  Move grabbed object
+  dropObject:         Drop object
   adjustAppliedForce: Adjust Applied Force
   zeroAppliedForce:   Set applied force to zero
   returnToToolbox:    Return to toolbox
@@ -77,13 +77,13 @@ a11y:
       dropPullerDescription:        Drop puller with Space or Enter keys.
       returnToToolboxDescription:   Return grabbed puller to toolbox with Delete or Backspace keys.
       cancelMovement:               Cancel movement with Escape key.
-    itemNavigation:
-      selectItemDescription:      Select item with Left and Right Arrow keys.
-      grabItemDescription:        Grab selected item with Space or Enter keys.
-      moveGrabbedItemDescription: Move grabbed item with Left and Right Arrow keys.
-      dropItemDescription:        Drop item with Space or Enter keys.
-      returnToToolboxDescription: Return grabbed item to toolbox with Delete or Backspace keys.
-      cancelMovement:             Cancel movement with Escape key.
+    objectNavigation:
+      selectObjectDescription:      Select object with Left and Right Arrow keys.
+      grabObjectDescription:        Grab selected object with Space or Enter keys.
+      moveGrabbedObjectDescription: Move grabbed object with Left and Right Arrow keys.
+      dropObjectDescription:        Drop object with Space or Enter keys.
+      returnToToolboxDescription:   Return grabbed object to toolbox with Delete or Backspace keys.
+      cancelMovement:               Cancel movement with Escape key.
     appliedForceControls:
       zeroAppliedForceDescription: Set applied force to zero with 0 key.
   netForceScreen:
@@ -190,9 +190,9 @@ a11y:
       stationary:  stationary
       movingRight: moving right
       movingLeft:  moving left
-    items:
-      itemAccessibleNameWithMass: '{ $itemName }, { $mass }'
-      massUnknown:                mass unknown
+    objects:
+      objectAccessibleNameWithMass: '{ $objectName }, { $mass }'
+      massUnknown:                  mass unknown
       names:
         fridge:  Fridge
         crate1:  Crate 1
@@ -202,24 +202,24 @@ a11y:
         trash:   Trash Can
         mystery: Mystery Object
         bucket:  Bucket of Water
-    itemToolbox:
-      accessibleName:     Item Toolbox
-      descriptionContent: Grab item. Once grabbed, use keyboard shortcuts to move item.
-    itemStackGroup:
-      accessibleName:     Items on Skateboard
-      descriptionContent: Grab item. Once grabbed, use keyboard shortcuts to move item.
-    itemResponses:
-      overToolbox:                      Over toolbox
-      overStack:                        Over stack
-      overSkateboard:                   Over skateboard
-      overGround:                       Over ground
-      grabbed:                          Grabbed
-      droppedOnStack:                   Dropped on stack
-      droppedOnStackBottomItemReturned: Dropped on stack. Bottom item returned to toolbox.
-      droppedOnSkateboard:              Dropped on skateboard
-      droppedOnGround:                  Dropped on ground
-      returnedToToolbox:                Returned to toolbox
-      returnedToStack:                  Returned to stack
+    objectToolbox:
+      accessibleName:     Object Toolbox
+      descriptionContent: Grab object. Once grabbed, use keyboard shortcuts to move object.
+    objectStackGroup:
+      accessibleName:     Objects on Skateboard
+      descriptionContent: Grab object. Once grabbed, use keyboard shortcuts to move object.
+    objectResponses:
+      overToolbox:                        Over toolbox
+      overStack:                          Over stack
+      overSkateboard:                     Over skateboard
+      overGround:                         Over ground
+      grabbed:                            Grabbed
+      droppedOnStack:                     Dropped on stack
+      droppedOnStackBottomObjectReturned: Dropped on stack. Bottom object returned to toolbox.
+      droppedOnSkateboard:                Dropped on skateboard
+      droppedOnGround:                    Dropped on ground
+      returnedToToolbox:                  Returned to toolbox
+      returnedToStack:                    Returned to stack
     surface:
       skateboard: skateboard
       ground:     ground

@@ -66,11 +66,11 @@ addToMapIfDefined( 'keyboardHelpDialog_selectPuller', 'keyboardHelpDialog.select
 addToMapIfDefined( 'keyboardHelpDialog_grabPuller', 'keyboardHelpDialog.grabPullerStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedPuller', 'keyboardHelpDialog.moveGrabbedPullerStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_dropPuller', 'keyboardHelpDialog.dropPullerStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_itemNavigation', 'keyboardHelpDialog.itemNavigationStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_selectItem', 'keyboardHelpDialog.selectItemStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_grabItem', 'keyboardHelpDialog.grabItemStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedItem', 'keyboardHelpDialog.moveGrabbedItemStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_dropItem', 'keyboardHelpDialog.dropItemStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_objectNavigation', 'keyboardHelpDialog.objectNavigationStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_selectObject', 'keyboardHelpDialog.selectObjectStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_grabObject', 'keyboardHelpDialog.grabObjectStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_moveGrabbedObject', 'keyboardHelpDialog.moveGrabbedObjectStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_dropObject', 'keyboardHelpDialog.dropObjectStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_adjustAppliedForce', 'keyboardHelpDialog.adjustAppliedForceStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_zeroAppliedForce', 'keyboardHelpDialog.zeroAppliedForceStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_returnToToolbox', 'keyboardHelpDialog.returnToToolboxStringProperty' );
@@ -89,12 +89,12 @@ addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_moveGrabbedPullerDe
 addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_dropPullerDescription', 'a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_returnToToolboxDescription', 'a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_pullerNavigation_cancelMovement', 'a11y.keyboardHelpDialog.pullerNavigation.cancelMovementStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_selectItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_grabItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_moveGrabbedItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_dropItemDescription', 'a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_returnToToolboxDescription', 'a11y.keyboardHelpDialog.itemNavigation.returnToToolboxDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_itemNavigation_cancelMovement', 'a11y.keyboardHelpDialog.itemNavigation.cancelMovementStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_selectObjectDescription', 'a11y.keyboardHelpDialog.objectNavigation.selectObjectDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_grabObjectDescription', 'a11y.keyboardHelpDialog.objectNavigation.grabObjectDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_moveGrabbedObjectDescription', 'a11y.keyboardHelpDialog.objectNavigation.moveGrabbedObjectDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_dropObjectDescription', 'a11y.keyboardHelpDialog.objectNavigation.dropObjectDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_returnToToolboxDescription', 'a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_cancelMovement', 'a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenButtonsHelpText', 'a11y.netForceScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
@@ -149,31 +149,31 @@ addToMapIfDefined( 'a11y_motionScreen_stackMovement_stackStationary', 'a11y.moti
 addToMapIfDefined( 'a11y_motionScreen_stackState_stationary', 'a11y.motionScreen.stackState.stationaryStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackState_movingRight', 'a11y.motionScreen.stackState.movingRightStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackState_movingLeft', 'a11y.motionScreen.stackState.movingLeftStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_itemAccessibleNameWithMass', 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_massUnknown', 'a11y.motionScreen.items.massUnknownStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_fridge', 'a11y.motionScreen.items.names.fridgeStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_crate1', 'a11y.motionScreen.items.names.crate1StringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_crate2', 'a11y.motionScreen.items.names.crate2StringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_girl', 'a11y.motionScreen.items.names.girlStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_man', 'a11y.motionScreen.items.names.manStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_trash', 'a11y.motionScreen.items.names.trashStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_mystery', 'a11y.motionScreen.items.names.mysteryStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_items_names_bucket', 'a11y.motionScreen.items.names.bucketStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemToolbox_accessibleName', 'a11y.motionScreen.itemToolbox.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemToolbox_descriptionContent', 'a11y.motionScreen.itemToolbox.descriptionContentStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_accessibleName', 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemStackGroup_descriptionContent', 'a11y.motionScreen.itemStackGroup.descriptionContentStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_overToolbox', 'a11y.motionScreen.itemResponses.overToolboxStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_overStack', 'a11y.motionScreen.itemResponses.overStackStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_overSkateboard', 'a11y.motionScreen.itemResponses.overSkateboardStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_overGround', 'a11y.motionScreen.itemResponses.overGroundStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_grabbed', 'a11y.motionScreen.itemResponses.grabbedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnStack', 'a11y.motionScreen.itemResponses.droppedOnStackStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnStackBottomItemReturned', 'a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnSkateboard', 'a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_droppedOnGround', 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToToolbox', 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_itemResponses_returnedToStack', 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_objectAccessibleNameWithMass', 'a11y.motionScreen.objects.objectAccessibleNameWithMassStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_massUnknown', 'a11y.motionScreen.objects.massUnknownStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_fridge', 'a11y.motionScreen.objects.names.fridgeStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_crate1', 'a11y.motionScreen.objects.names.crate1StringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_crate2', 'a11y.motionScreen.objects.names.crate2StringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_girl', 'a11y.motionScreen.objects.names.girlStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_man', 'a11y.motionScreen.objects.names.manStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_trash', 'a11y.motionScreen.objects.names.trashStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_mystery', 'a11y.motionScreen.objects.names.mysteryStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objects_names_bucket', 'a11y.motionScreen.objects.names.bucketStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectToolbox_accessibleName', 'a11y.motionScreen.objectToolbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectToolbox_descriptionContent', 'a11y.motionScreen.objectToolbox.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_accessibleName', 'a11y.motionScreen.objectStackGroup.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_descriptionContent', 'a11y.motionScreen.objectStackGroup.descriptionContentStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_overToolbox', 'a11y.motionScreen.objectResponses.overToolboxStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_overStack', 'a11y.motionScreen.objectResponses.overStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_overSkateboard', 'a11y.motionScreen.objectResponses.overSkateboardStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_overGround', 'a11y.motionScreen.objectResponses.overGroundStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_grabbed', 'a11y.motionScreen.objectResponses.grabbedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_droppedOnStack', 'a11y.motionScreen.objectResponses.droppedOnStackStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_droppedOnStackBottomObjectReturned', 'a11y.motionScreen.objectResponses.droppedOnStackBottomObjectReturnedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_droppedOnSkateboard', 'a11y.motionScreen.objectResponses.droppedOnSkateboardStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_droppedOnGround', 'a11y.motionScreen.objectResponses.droppedOnGroundStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_returnedToToolbox', 'a11y.motionScreen.objectResponses.returnedToToolboxStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectResponses_returnedToStack', 'a11y.motionScreen.objectResponses.returnedToStackStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_surface_skateboard', 'a11y.motionScreen.surface.skateboardStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_surface_ground', 'a11y.motionScreen.surface.groundStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackList_stackedOnSurface', 'a11y.motionScreen.stackList.stackedOnSurfaceStringProperty' );
@@ -334,11 +334,11 @@ const ForcesAndMotionBasicsFluent = {
     grabPullerStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabPullerStringProperty' ),
     moveGrabbedPullerStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedPullerStringProperty' ),
     dropPullerStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropPullerStringProperty' ),
-    itemNavigationStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.itemNavigationStringProperty' ),
-    selectItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.selectItemStringProperty' ),
-    grabItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabItemStringProperty' ),
-    moveGrabbedItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedItemStringProperty' ),
-    dropItemStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropItemStringProperty' ),
+    objectNavigationStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.objectNavigationStringProperty' ),
+    selectObjectStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.selectObjectStringProperty' ),
+    grabObjectStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.grabObjectStringProperty' ),
+    moveGrabbedObjectStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.moveGrabbedObjectStringProperty' ),
+    dropObjectStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.dropObjectStringProperty' ),
     adjustAppliedForceStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.adjustAppliedForceStringProperty' ),
     zeroAppliedForceStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.zeroAppliedForceStringProperty' ),
     returnToToolboxStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.returnToToolboxStringProperty' ),
@@ -372,13 +372,13 @@ const ForcesAndMotionBasicsFluent = {
         returnToToolboxDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_returnToToolboxDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty' ) ),
         cancelMovementStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_pullerNavigation_cancelMovement', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.pullerNavigation.cancelMovementStringProperty' ) )
       },
-      itemNavigation: {
-        selectItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_selectItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.selectItemDescriptionStringProperty' ) ),
-        grabItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_grabItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.grabItemDescriptionStringProperty' ) ),
-        moveGrabbedItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_moveGrabbedItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.moveGrabbedItemDescriptionStringProperty' ) ),
-        dropItemDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_dropItemDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.dropItemDescriptionStringProperty' ) ),
-        returnToToolboxDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_returnToToolboxDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.returnToToolboxDescriptionStringProperty' ) ),
-        cancelMovementStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_itemNavigation_cancelMovement', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.itemNavigation.cancelMovementStringProperty' ) )
+      objectNavigation: {
+        selectObjectDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_selectObjectDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.selectObjectDescriptionStringProperty' ) ),
+        grabObjectDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_grabObjectDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.grabObjectDescriptionStringProperty' ) ),
+        moveGrabbedObjectDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_moveGrabbedObjectDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.moveGrabbedObjectDescriptionStringProperty' ) ),
+        dropObjectDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_dropObjectDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.dropObjectDescriptionStringProperty' ) ),
+        returnToToolboxDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_returnToToolboxDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty' ) ),
+        cancelMovementStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_cancelMovement', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty' ) )
       },
       appliedForceControls: {
         zeroAppliedForceDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' ) )
@@ -487,42 +487,42 @@ const ForcesAndMotionBasicsFluent = {
         movingRightStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackState_movingRight', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackState.movingRightStringProperty' ) ),
         movingLeftStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_stackState_movingLeft', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.stackState.movingLeftStringProperty' ) )
       },
-      items: {
-        itemAccessibleNameWithMass: new FluentPattern<{ itemName: FluentVariable, mass: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_items_itemAccessibleNameWithMass', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.itemAccessibleNameWithMassStringProperty' ), [{"name":"itemName"},{"name":"mass"}] ),
-        massUnknownStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_massUnknown', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.massUnknownStringProperty' ) ),
+      objects: {
+        objectAccessibleNameWithMass: new FluentPattern<{ mass: FluentVariable, objectName: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_objectAccessibleNameWithMass', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.objectAccessibleNameWithMassStringProperty' ), [{"name":"mass"},{"name":"objectName"}] ),
+        massUnknownStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_massUnknown', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.massUnknownStringProperty' ) ),
         names: {
-          fridgeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_fridge', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.fridgeStringProperty' ) ),
-          crate1StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_crate1', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.crate1StringProperty' ) ),
-          crate2StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_crate2', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.crate2StringProperty' ) ),
-          girlStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_girl', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.girlStringProperty' ) ),
-          manStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_man', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.manStringProperty' ) ),
-          trashStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_trash', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.trashStringProperty' ) ),
-          mysteryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_mystery', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.mysteryStringProperty' ) ),
-          bucketStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_items_names_bucket', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.items.names.bucketStringProperty' ) )
+          fridgeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_fridge', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.fridgeStringProperty' ) ),
+          crate1StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_crate1', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.crate1StringProperty' ) ),
+          crate2StringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_crate2', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.crate2StringProperty' ) ),
+          girlStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_girl', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.girlStringProperty' ) ),
+          manStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_man', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.manStringProperty' ) ),
+          trashStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_trash', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.trashStringProperty' ) ),
+          mysteryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_mystery', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.mysteryStringProperty' ) ),
+          bucketStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objects_names_bucket', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objects.names.bucketStringProperty' ) )
         }
       },
-      itemToolbox: {
+      objectToolbox: {
         _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemToolbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemToolbox.accessibleNameStringProperty' ) ),
-        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemToolbox_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemToolbox.descriptionContentStringProperty' ) )
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectToolbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectToolbox.accessibleNameStringProperty' ) ),
+        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectToolbox_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectToolbox.descriptionContentStringProperty' ) )
       },
-      itemStackGroup: {
+      objectStackGroup: {
         _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemStackGroup_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemStackGroup.accessibleNameStringProperty' ) ),
-        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemStackGroup_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemStackGroup.descriptionContentStringProperty' ) )
+        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.accessibleNameStringProperty' ) ),
+        descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.descriptionContentStringProperty' ) )
       },
-      itemResponses: {
-        overToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overToolboxStringProperty' ) ),
-        overStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overStackStringProperty' ) ),
-        overSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overSkateboardStringProperty' ) ),
-        overGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_overGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.overGroundStringProperty' ) ),
-        grabbedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_grabbed', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.grabbedStringProperty' ) ),
-        droppedOnStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnStackStringProperty' ) ),
-        droppedOnStackBottomItemReturnedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnStackBottomItemReturned', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnStackBottomItemReturnedStringProperty' ) ),
-        droppedOnSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnSkateboardStringProperty' ) ),
-        droppedOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_droppedOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.droppedOnGroundStringProperty' ) ),
-        returnedToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToToolboxStringProperty' ) ),
-        returnedToStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_itemResponses_returnedToStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.itemResponses.returnedToStackStringProperty' ) )
+      objectResponses: {
+        overToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_overToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.overToolboxStringProperty' ) ),
+        overStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_overStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.overStackStringProperty' ) ),
+        overSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_overSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.overSkateboardStringProperty' ) ),
+        overGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_overGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.overGroundStringProperty' ) ),
+        grabbedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_grabbed', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.grabbedStringProperty' ) ),
+        droppedOnStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_droppedOnStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.droppedOnStackStringProperty' ) ),
+        droppedOnStackBottomObjectReturnedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_droppedOnStackBottomObjectReturned', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.droppedOnStackBottomObjectReturnedStringProperty' ) ),
+        droppedOnSkateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_droppedOnSkateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.droppedOnSkateboardStringProperty' ) ),
+        droppedOnGroundStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_droppedOnGround', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.droppedOnGroundStringProperty' ) ),
+        returnedToToolboxStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_returnedToToolbox', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.returnedToToolboxStringProperty' ) ),
+        returnedToStackStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectResponses_returnedToStack', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectResponses.returnedToStackStringProperty' ) )
       },
       surface: {
         skateboardStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_surface_skateboard', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.surface.skateboardStringProperty' ) ),

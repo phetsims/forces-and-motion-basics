@@ -132,20 +132,20 @@
     "dropPuller": {
       "value": "Drop puller"
     },
-    "itemNavigation": {
-      "value": "Item Navigation"
+    "objectNavigation": {
+      "value": "Object Navigation"
     },
-    "selectItem": {
-      "value": "Select item"
+    "selectObject": {
+      "value": "Select object"
     },
-    "grabItem": {
-      "value": "Grab selected item"
+    "grabObject": {
+      "value": "Grab selected object"
     },
-    "moveGrabbedItem": {
-      "value": "Move grabbed item"
+    "moveGrabbedObject": {
+      "value": "Move grabbed object"
     },
-    "dropItem": {
-      "value": "Drop item"
+    "dropObject": {
+      "value": "Drop object"
     },
     "adjustAppliedForce": {
       "value": "Adjust Applied Force"
@@ -214,21 +214,21 @@
           "value": "Cancel movement with Escape key."
         }
       },
-      "itemNavigation": {
-        "selectItemDescription": {
-          "value": "Select item with Left and Right Arrow keys."
+      "objectNavigation": {
+        "selectObjectDescription": {
+          "value": "Select object with Left and Right Arrow keys."
         },
-        "grabItemDescription": {
-          "value": "Grab selected item with Space or Enter keys."
+        "grabObjectDescription": {
+          "value": "Grab selected object with Space or Enter keys."
         },
-        "moveGrabbedItemDescription": {
-          "value": "Move grabbed item with Left and Right Arrow keys."
+        "moveGrabbedObjectDescription": {
+          "value": "Move grabbed object with Left and Right Arrow keys."
         },
-        "dropItemDescription": {
-          "value": "Drop item with Space or Enter keys."
+        "dropObjectDescription": {
+          "value": "Drop object with Space or Enter keys."
         },
         "returnToToolboxDescription": {
-          "value": "Return grabbed item to toolbox with Delete or Backspace keys."
+          "value": "Return grabbed object to toolbox with Delete or Backspace keys."
         },
         "cancelMovement": {
           "value": "Cancel movement with Escape key."
@@ -444,9 +444,9 @@
           "value": "moving left"
         }
       },
-      "items": {
-        "itemAccessibleNameWithMass": {
-          "value": "{ $itemName }, { $mass }"
+      "objects": {
+        "objectAccessibleNameWithMass": {
+          "value": "{ $objectName }, { $mass }"
         },
         "massUnknown": {
           "value": "mass unknown"
@@ -478,23 +478,23 @@
           }
         }
       },
-      "itemToolbox": {
+      "objectToolbox": {
         "accessibleName": {
-          "value": "Item Toolbox"
+          "value": "Object Toolbox"
         },
         "descriptionContent": {
-          "value": "Grab item. Once grabbed, use keyboard shortcuts to move item."
+          "value": "Grab object. Once grabbed, use keyboard shortcuts to move object."
         }
       },
-      "itemStackGroup": {
+      "objectStackGroup": {
         "accessibleName": {
-          "value": "Items on Skateboard"
+          "value": "Objects on Skateboard"
         },
         "descriptionContent": {
-          "value": "Grab item. Once grabbed, use keyboard shortcuts to move item."
+          "value": "Grab object. Once grabbed, use keyboard shortcuts to move object."
         }
       },
-      "itemResponses": {
+      "objectResponses": {
         "overToolbox": {
           "value": "Over toolbox"
         },
@@ -513,8 +513,8 @@
         "droppedOnStack": {
           "value": "Dropped on stack"
         },
-        "droppedOnStackBottomItemReturned": {
-          "value": "Dropped on stack. Bottom item returned to toolbox."
+        "droppedOnStackBottomObjectReturned": {
+          "value": "Dropped on stack. Bottom object returned to toolbox."
         },
         "droppedOnSkateboard": {
           "value": "Dropped on skateboard"

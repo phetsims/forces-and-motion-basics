@@ -35,8 +35,8 @@ export default class ItemToolboxGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'group',
-      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemToolbox.accessibleNameStringProperty,
-      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.itemToolbox.descriptionContentStringProperty
+      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.accessibleNameStringProperty,
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.descriptionContentStringProperty
     }, providedOptions );
 
     super( options );
