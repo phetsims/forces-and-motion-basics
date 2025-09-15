@@ -53,6 +53,13 @@ Additional terms used in the implementation:
 - Stack: The ordered set of items currently on (or off) the skateboard/ground being pushed.
 - Toolbox: The left/right containers that hold available items (Motion screens) or pullers (Net Force).
 
+### Object vs Item Terminology
+
+In the Motion, Friction, and Acceleration screens, the user interface and localized strings refer to draggable pieces as
+"objects" (e.g., object toolbox, object navigation). Within the TypeScript code, those entities continue to use the
+`Item` naming (such as `ItemNode` and `MotionModel.items`). This avoids conflicts with JavaScript's global `Object`
+type while keeping the UI language aligned with the terminology presented to learners.
+
 ## General Considerations
 
 ### Query Parameters
