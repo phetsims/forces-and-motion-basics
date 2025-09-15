@@ -127,13 +127,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     // Create global keyboard listeners for Go (alt+g) and Pause (alt+p)
     KeyboardListener.createGlobal( this, {
       keyStringProperties: NetForceHotkeyData.GO_HOTKEY_DATA.keyStringProperties,
-      fire: event => {
-
-        // So that this doesn't interfere with the virtual cursor.
-        // TODO: Remove, see https://github.com/phetsims/forces-and-motion-basics/issues/443
-        event && event.preventDefault();
-        console.log( 'prevented default' );
-
+      fire: () => {
         if ( this.enabled && !model.isRunningProperty.value ) {
           model.isRunningProperty.value = true;
         }
@@ -142,13 +136,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
 
     KeyboardListener.createGlobal( this, {
       keyStringProperties: NetForceHotkeyData.PAUSE_HOTKEY_DATA.keyStringProperties,
-      fire: event => {
-
-        // So that this doesn't interfere with the virtual cursor.
-        // TODO: Remove, see https://github.com/phetsims/forces-and-motion-basics/issues/443
-        event && event.preventDefault();
-        console.log( 'prevented default' );
-
+      fire: () => {
         if ( this.enabled && model.isRunningProperty.value ) {
           model.isRunningProperty.value = false;
         }
