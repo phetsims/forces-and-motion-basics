@@ -34,7 +34,9 @@ export default class ItemToolboxGroupNode extends Node {
       tagName: 'div',
 
       // ARIA attributes for the group
-      ariaRole: 'group',
+      ariaRole: 'application',
+      accessibleRoleDescription: 'group',
+
       accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.accessibleNameStringProperty,
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.descriptionContentStringProperty
     }, providedOptions );

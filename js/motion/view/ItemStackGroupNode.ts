@@ -36,7 +36,9 @@ export default class ItemStackGroupNode extends Node {
       tagName: 'div',
 
       // ARIA attributes for the group
-      ariaRole: 'group',
+      ariaRole: 'application',
+      accessibleRoleDescription: 'group',
+
       accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.accessibleNameStringProperty,
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.descriptionContentStringProperty
     }, providedOptions );

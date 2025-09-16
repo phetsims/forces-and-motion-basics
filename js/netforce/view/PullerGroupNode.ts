@@ -29,8 +29,8 @@ export default class PullerGroupNode extends Node {
       tagName: 'div',
 
       // ARIA attributes for the group
-      ariaRole: 'group'
-      // accessibleName will be passed through providedOptions
+      ariaRole: 'application',
+      accessibleRoleDescription: 'group'
     }, providedOptions );
 
     super( options );

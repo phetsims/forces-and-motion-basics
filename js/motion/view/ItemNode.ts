@@ -95,9 +95,10 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       visiblePropertyOptions: { phetioFeatured: true },
       tagName: 'button',
 
-      // Keyboard accessibility
+      // ARIA attributes for the group
       focusable: true,
       ariaRole: 'button',
+
       accessibleName: accessibleNameProperty
     } );
 
