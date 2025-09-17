@@ -405,8 +405,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         }
 
         // Announce returned to stack
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToStackStringProperty.value );
-        this.ensureFocusStable();
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToStackStringProperty );
+        this.makeFocusableAndFocus();
       }
       else {
         this.item.modeProperty.value = 'inToolbox';
@@ -414,8 +414,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         this.item.directionProperty.value = 'left';
 
         // Announce returned to toolbox
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty.value );
-        this.ensureFocusStable();
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );
+        this.makeFocusableAndFocus();
       }
     }
   }
@@ -430,10 +430,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       this.returnItemToToolbox();
 
       // Announce returned to toolbox
-      this.addAccessibleContextResponse(
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty.value
-      );
-      this.ensureFocusStable();
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );
+      this.makeFocusableAndFocus();
     }
   }
 
@@ -491,7 +489,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       }
       else {
         this.returnItemToToolbox();
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty.value );
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );
       }
 
       // Focus management after keyboard drop
@@ -532,7 +530,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       this.item.positionProperty.value = homePosition;
 
       // Announce over toolbox
-      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overToolboxStringProperty.value );
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overToolboxStringProperty );
     }
   }
 
@@ -669,7 +667,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   }
 
   /** Ensure this item retains focus reliably, even across async reparenting/ordering. */
-  private ensureFocusStable(): void {
+  private makeFocusableAndFocus(): void {
     this.focusable = true;
     this.focus();
   }
@@ -683,12 +681,12 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       }
       else {
         // Stack -> Stack: keep focus on this item on the stack
-        this.ensureFocusStable();
+        this.makeFocusableAndFocus();
       }
     }
     else {
       // Returned to toolbox: keep focus on this item
-      this.ensureFocusStable();
+      this.makeFocusableAndFocus();
     }
   }
 
@@ -709,19 +707,15 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     if ( priorLength === 0 ) {
       this.addAccessibleContextResponse(
         this.model.screen === 'motion' ?
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnSkateboardStringProperty.value :
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnGroundStringProperty.value
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnSkateboardStringProperty :
+        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnGroundStringProperty
       );
     }
     else if ( priorLength <= 2 ) {
-      this.addAccessibleContextResponse(
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnStackStringProperty.value
-      );
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnStackStringProperty );
     }
     else {
-      this.addAccessibleContextResponse(
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnStackBottomObjectReturnedStringProperty.value
-      );
+      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnStackBottomObjectReturnedStringProperty );
     }
   }
 }
