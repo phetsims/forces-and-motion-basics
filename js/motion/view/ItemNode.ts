@@ -303,6 +303,10 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     // Keep dashed style consistent with interaction state
     item.modeProperty.link( mode => {
       focusHighlight.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'mouseGrabbed' );
+
+      if ( mode === 'onStack' ) {
+        this.focusable = true;
+      }
     } );
 
     // Create keyboard listener for item interactions
