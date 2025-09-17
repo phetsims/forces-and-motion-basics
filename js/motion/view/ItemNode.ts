@@ -666,7 +666,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     }
   }
 
-  /** Ensure this item retains focus reliably, even across async reparenting/ordering. */
   private makeFocusableAndFocus(): void {
     this.focusable = true;
     this.focus();

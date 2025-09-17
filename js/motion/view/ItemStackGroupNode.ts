@@ -126,26 +126,6 @@ export default class ItemStackGroupNode extends Node {
       return aIndex - bIndex;
     } );
   }
-
-  /**
-   * Reset the focus state of all items in this stack group to ensure proper tab navigation after reset
-   */
-  public reset(): void {
-
-    // Restore focusability to all stack items
-    this.stackItemNodes.forEach( itemNode => {
-      itemNode.focusable = true;
-    } );
-
-    // If there are items on the stack, make the first one focusable but don't focus it
-    if ( this.stackItemNodes.length > 0 ) {
-
-      // Reset focus state - make first item focusable, others non-focusable initially
-      this.stackItemNodes.forEach( ( itemNode, index ) => {
-        itemNode.focusable = index === 0;
-      } );
-    }
-  }
 }
 
 forcesAndMotionBasics.register( 'ItemStackGroupNode', ItemStackGroupNode );
