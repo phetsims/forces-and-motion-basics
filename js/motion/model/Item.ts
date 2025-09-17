@@ -18,6 +18,7 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -200,6 +201,18 @@ export default class Item extends PhetioObject {
       // only change directions if on the board, and always choose one of left/right, and only for people
       if ( this.inStackProperty.value && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
         this.directionProperty.value = direction;
+      }
+    } );
+
+    // Synchronization band-aid for when state is loaded via phet-io, to update the modeProperty based on the location of the item
+    // Solves inconsistencies in https://github.com/phetsims/forces-and-motion-basics/issues/446
+    phetioStateSetEmitter.addListener( () => {
+      if ( this.positionProperty.value.x === this.initialX && this.positionProperty.value.y === this.initialY ) {
+        this.modeProperty.value = 'inToolbox';
+        this.animationState = null;
+      }
+      else {
+        this.modeProperty.value = 'onStack';
       }
     } );
   }
