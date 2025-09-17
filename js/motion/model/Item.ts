@@ -32,7 +32,6 @@ export const ENGAGED_INTERACTION_SCALE = 1.3;
 type AnimationState = {
   targetPosition: Vector2;
   target: InteractionMode;
-  onComplete: ( () => void ) | null;
 };
 
 export default class Item extends PhetioObject {
@@ -221,12 +220,11 @@ export default class Item extends PhetioObject {
   }
 
   // Animate the item to the specified position
-  public animateTo( x: number, y: number, destination: 'home' | 'stack', onComplete?: () => void ): void {
+  public animateTo( x: number, y: number, destination: 'home' | 'stack' ): void {
     const target = destination === 'home' ? 'inToolbox' : 'onStack';
     this.animationState = {
       targetPosition: new Vector2( x, y ),
-      target: target,
-      onComplete: onComplete || null
+      target: target
     };
 
     this.modeProperty.value = destination === 'home' ? 'animatingToToolbox' : 'animatingToStack';
@@ -306,10 +304,8 @@ export default class Item extends PhetioObject {
       if ( distanceToTarget < 1 ) {
         this.positionProperty.value = destination;
         const target = this.animationState.target;
-        const onComplete = this.animationState.onComplete;
         this.animationState = null;
         this.modeProperty.value = target;
-        onComplete && onComplete();
       }
     }
   }
