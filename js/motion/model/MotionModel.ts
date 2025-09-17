@@ -327,21 +327,20 @@ export default class MotionModel {
     const itemsTandem = tandem.createTandem( 'items' );
 
     // create the items - Initial positions determined empirically
-    const fridge = new Item( this, 'fridge', itemsTandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, 1.1, 4 );
-    const crate1 = new Item( this, 'crate1', itemsTandem.createTandem( 'crate1' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5 );
-    const crate2 = new Item( this, 'crate2', itemsTandem.createTandem( 'crate2' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5 );
-    const girl = new Item( this, HumanTypeEnum.GIRL, itemsTandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, 1.0, 8.2 );
-    const man = new Item( this, HumanTypeEnum.MAN, itemsTandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, 0.92, 9.75 );
+    const fridge = new Item( this, 'fridge', itemsTandem.createTandem( 'fridge' ), fridge_svg, 200, leftmostItemXLeft, 443, 0.5, false, 1.1, 4 );
+    const crate1 = new Item( this, 'crate1', itemsTandem.createTandem( 'crate1' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing, 507, 0.5, false );
+    const crate2 = new Item( this, 'crate2', itemsTandem.createTandem( 'crate2' ), crate_svg, 50, leftmostItemXLeft + crate1Spacing + crate2Spacing, 507, 0.5, false );
+    const girl = new Item( this, HumanTypeEnum.GIRL, itemsTandem.createTandem( 'girl' ), undefined, 40, leftmostItemXRight, 465, 0.6, false, 1.0, 8.2 );
+    const man = new Item( this, HumanTypeEnum.MAN, itemsTandem.createTandem( 'man' ), undefined, 80, leftmostItemXRight + manSpacing, 428, 0.6, false, 0.92, 9.75 );
     if ( isTrashCanPresent ) {
-      trashCan = new Item( this, 'trash', itemsTandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, 1.0, 5 );
+      trashCan = new Item( this, 'trash', itemsTandem.createTandem( 'trash' ), trashCan_svg, 100, leftmostItemXRight + manSpacing + trashSpacing, 496, 0.5, false, 1.0, 5 );
     }
-    const mysteryBox = new Item( this, 'mystery', itemsTandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, 1.0, undefined, undefined, undefined, true );
+    const mysteryBox = new Item( this, 'mystery', itemsTandem.createTandem( 'mystery' ), mysteryObject01_svg, 50, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing, 513, 0.5, false, 1.0, undefined, undefined, undefined, true );
     const bucket = new Item(
       this,
       'bucket',
       screen === 'acceleration' ? itemsTandem.createTandem( 'bucket' ) : Tandem.OPT_OUT,
-      waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, 1.0, 2 );
-    bucket.bucket = true;
+      waterBucket_svg, 100, leftmostItemXRight + manSpacing + trashSpacing + mysterySpacing + bucketSpacing, 548 + -35, 0.5, true, 1.0, 2 );
 
     const itemsToAdd = this.accelerometer ? [ bucket ] : [];
     this.items = [ fridge, crate1, crate2, girl, man, mysteryBox, ...itemsToAdd ];
@@ -392,14 +391,7 @@ export default class MotionModel {
    * Get an array representing the items that are being user controlled.
    */
   public userControlledItems(): Item[] {
-    const userControlledItems = [];
-    for ( let i = 0; i < this.items.length; i++ ) {
-      const item = this.items[ i ];
-      if ( item.userControlledProperty.value ) {
-        userControlledItems.push( item );
-      }
-    }
-    return userControlledItems;
+    return this.items.filter( item => item.userControlledProperty.value );
   }
 
   /**
@@ -433,7 +425,6 @@ export default class MotionModel {
   // When a 4th item is placed on the stack, move the bottom item home and have the stack fall
   public spliceStackBottom(): void {
     const bottom = this.spliceStack( 0 );
-    bottom.inStackProperty.value = false;
     bottom.animateHome();
   }
 
@@ -688,11 +679,9 @@ export default class MotionModel {
     // only move item to the top of the stack if it is not being user controlled
     if ( !item.userControlledProperty.value ) {
       this.view = view;
-      item.inStackProperty.value = true;
-
+      item.cancelAnimation();
+      item.modeProperty.value = 'onStack';
       const itemNode = view.itemNodes[ 1 ];
-      item.animationStateProperty.value = { enabled: false, x: 0, y: 0, end: null };
-      item.interactionScaleProperty.value = 1.3;
       const scaledWidth = this.view.getSize( item ).width;
 
       item.positionProperty.value = new Vector2( view.layoutBounds.width / 2 - scaledWidth / 2, view.topOfStack - itemNode.height );

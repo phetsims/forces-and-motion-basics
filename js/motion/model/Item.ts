@@ -6,9 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -21,20 +19,20 @@ import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProp
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import ObjectLiteralIO from '../../../../tandem/js/types/ObjectLiteralIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import InteractionMode, { InteractionModes } from './InteractionMode.js';
 import MotionModel from './MotionModel.js';
 
+export const ENGAGED_INTERACTION_SCALE = 1.3;
+
 type AnimationState = {
-  enabled: boolean;
-  x: number;
-  y: number;
-  end?: null | ( () => void );
-  destination?: 'home' | 'stack';
+  targetPosition: Vector2;
+  target: InteractionMode;
+  onComplete: ( () => void ) | null;
 };
 
 export default class Item extends PhetioObject {
@@ -58,27 +56,25 @@ export default class Item extends PhetioObject {
   public readonly directionProperty: StringUnionProperty<'left' | 'right'>;
 
   // tracks the animation state of the item
-  public readonly animationStateProperty: Property<AnimationState>;
+  private animationState: AnimationState | null;
 
   // Flag for whether the item is on the skateboard
-  public readonly inStackProperty: BooleanProperty;
+  public readonly inStackProperty: TReadOnlyProperty<boolean>;
 
   // Unified mode property representing the complete state of the item
   public readonly modeProperty: StringUnionProperty<InteractionMode>;
 
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
   public readonly imageScale: number;
-  public readonly interactionScaleProperty: NumberProperty;
+  public readonly interactionScaleProperty: TReadOnlyProperty<number>;
 
   // True if and only if the item is a bucket
-  public bucket = false;
+  public readonly isBucket: boolean;
 
   // The mass is constant in the PhET brand sim, but can be edited in PhET-iO
   public readonly massProperty: NumberProperty;
 
   /**
-   * Constructor for Item
-   *
    * @param context - model context in which this item exists
    * @param name - string describing this type of item, or HumanTypeEnum of this human item
    * @param tandem
@@ -87,10 +83,12 @@ export default class Item extends PhetioObject {
    * @param x - home value x position for the item
    * @param y - home value y position for the item
    * @param imageScale - base scale of the image
+   * @param isBucket - true if and only if the item is a bucket
    * @param homeScale - additional scale factor for when the item is in the toolbox
    * @param pusherInset - inset value to align the item with the pusher's hands
    * @param sittingImage - image from the 'image!' plugin, representing a 'sitting' item
    * @param holdingImage - image from the 'image!' plugin, representing a 'sitting' item
+
    * @param mystery
    */
   public constructor(
@@ -102,6 +100,7 @@ export default class Item extends PhetioObject {
     x: number,
     y: number,
     imageScale: number,
+    isBucket: boolean,
     homeScale?: number,
     pusherInset?: number,
     sittingImage?: ImageableImage,
@@ -114,6 +113,8 @@ export default class Item extends PhetioObject {
       phetioState: false,
       phetioFeatured: true
     } );
+
+    this.isBucket = isBucket;
 
     this.massProperty = new NumberProperty( mass, {
       tandem: tandem.createTandem( 'massProperty' ),
@@ -164,9 +165,7 @@ export default class Item extends PhetioObject {
       phetioDocumentation: 'Unified state representing the current mode and location of the item'
     } );
 
-    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], mode => {
-
-      // Item is user controlled if it's grabbed by mouse or keyboard
+    this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: InteractionMode ) => {
       return mode === 'mouseGrabbed' ||
              mode === 'keyboardGrabbedFromToolbox' ||
              mode === 'keyboardGrabbedFromStack';
@@ -179,40 +178,24 @@ export default class Item extends PhetioObject {
       phetioDocumentation: 'For PhET-iO internal use only, tracks the direction of the item for state'
     } );
 
-    this.animationStateProperty = new Property<AnimationState>( {
-      enabled: false,
-      x: 0,
-      y: 0,
-      end: null,
-      destination: 'home'
-    }, {
-
-      // Instrumentation needed to get the object size correct in phet-io state
-      tandem: tandem.createTandem( 'animationStateProperty' ),
-      phetioValueType: ObjectLiteralIO,
-      phetioReadOnly: true,
-      phetioDocumentation: 'For PhET-iO internal use only, tracks the animation state of the item to get the size correct in state'
+    this.interactionScaleProperty = new DerivedProperty( [ this.modeProperty ], mode => {
+      return mode === 'inToolbox' || mode === 'animatingToToolbox' ? this.homeScale : ENGAGED_INTERACTION_SCALE;
     } );
 
-    this.inStackProperty = new BooleanProperty( false, {
+    this.animationState = null;
+
+    this.inStackProperty = new DerivedProperty( [ this.modeProperty ], mode => {
+      return mode === 'onStack' ||
+             mode === 'animatingToStack' ||
+             mode === 'keyboardGrabbedFromStack';
+    }, {
       tandem: tandem.createTandem( 'inStackProperty' ),
-      phetioReadOnly: true,
       phetioFeatured: true,
-      phetioDocumentation: 'Indicates the item is part of the experiment.'
+      phetioDocumentation: 'Indicates the item is part of the experiment.',
+      phetioValueType: BooleanIO
     } );
 
     this.imageScale = imageScale;
-
-    // How much the object grows or shrinks when interacting with it
-    const minValue = homeScale || 1.0;
-
-    this.interactionScaleProperty = new NumberProperty( homeScale || 1.0, {
-      range: new Range( minValue, 1.3 ),
-
-      // Instrumentation needed to get the object size correct in phet-io state
-      tandem: tandem.createTandem( 'interactionScaleProperty' ),
-      phetioReadOnly: true
-    } );
 
     this.context.directionProperty.link( direction => {
 
@@ -220,21 +203,6 @@ export default class Item extends PhetioObject {
       if ( this.inStackProperty.value && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
         this.directionProperty.value = direction;
       }
-    } );
-
-    // Atomically update mode when inputs change.
-    Multilink.multilink( [ this.inStackProperty, this.animationStateProperty ], ( inStack, animationState ) => {
-
-      // We change the mode here, so do not make it a dependency
-      const mode = this.modeProperty.value;
-
-      this.modeProperty.value = animationState.enabled ? animationState.destination === 'stack' ? 'animatingToStack' :
-                                                         animationState.destination === 'home' ? 'animatingToToolbox' :
-                                                         'inToolbox' :
-                                inStack ? 'onStack' : mode === 'mouseGrabbed' ? mode :
-                                                      mode === 'keyboardGrabbedFromToolbox' ? mode :
-                                                      mode === 'keyboardGrabbedFromStack' ? mode :
-                                                      'inToolbox';
     } );
   }
 
@@ -253,8 +221,15 @@ export default class Item extends PhetioObject {
   }
 
   // Animate the item to the specified position
-  public animateTo( x: number, y: number, destination: 'home' | 'stack' ): void {
-    this.animationStateProperty.value = { enabled: true, x: x, y: y, destination: destination };
+  public animateTo( x: number, y: number, destination: 'home' | 'stack', onComplete?: () => void ): void {
+    const target = destination === 'home' ? 'inToolbox' : 'onStack';
+    this.animationState = {
+      targetPosition: new Vector2( x, y ),
+      target: target,
+      onComplete: onComplete || null
+    };
+
+    this.modeProperty.value = destination === 'home' ? 'animatingToToolbox' : 'animatingToStack';
   }
 
   // Animate the item to its original position
@@ -267,17 +242,7 @@ export default class Item extends PhetioObject {
 
   // Cancel an animation when the user clicks on an item
   public cancelAnimation(): void {
-    if ( this.animationStateProperty.value.enabled ) {
-      if ( this.userControlledProperty.value ) {
-        this.interactionScaleProperty.value = 1.3;
-      }
-      else {
-        if ( this.animationStateProperty.value.destination === 'home' ) {
-          this.interactionScaleProperty.value = this.homeScale;
-        }
-      }
-      this.animationStateProperty.value = { enabled: false, x: 0, y: 0, end: null, destination: 'home' };
-    }
+    this.animationState = null;
   }
 
   /**
@@ -314,8 +279,7 @@ export default class Item extends PhetioObject {
    * Convenience method to check if item is animating
    */
   public isAnimating(): boolean {
-    const mode = this.modeProperty.value;
-    return mode === 'animatingToToolbox' || mode === 'animatingToStack';
+    return this.animationState !== null;
   }
 
   /**
@@ -325,37 +289,27 @@ export default class Item extends PhetioObject {
     this.positionProperty.reset();
     this.pusherInsetProperty.reset();
     this.directionProperty.reset();
-    this.animationStateProperty.reset();
-    this.inStackProperty.reset();
-    this.interactionScaleProperty.reset();
+    this.animationState = null;
     this.modeProperty.reset();
   }
 
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination
   public step( dt: number ): void {
-    if ( this.userControlledProperty.value ) {
-      this.interactionScaleProperty.value = Math.min( this.interactionScaleProperty.value + 9 * dt, 1.3 );
-    }
-    else if ( this.animationStateProperty.value.destination === 'home' ) {
-      this.interactionScaleProperty.value = Math.max( this.interactionScaleProperty.value - 9 * dt, this.homeScale );
-    }
 
-    if ( this.animationStateProperty.value.enabled ) {
-      const destination = new Vector2( this.animationStateProperty.value.x, this.animationStateProperty.value.y );
-
-      // Make sure not to blend outside of 0..1 or it could cause overshooting and oscillation
+    if ( this.animationState ) {
+      const destination = this.animationState.targetPosition;
       const blendAmount = clamp( 15 * dt, 0.1, 0.9 );
       this.positionProperty.value = this.positionProperty.value.blend( destination, blendAmount );
 
       const distanceToTarget = this.positionProperty.value.distance( destination );
-      if ( distanceToTarget < 1 && ( this.interactionScaleProperty.value === 1.3 || this.interactionScaleProperty.value === this.homeScale ) ) {
 
-        // Snap to exact final destination, see #59
+      if ( distanceToTarget < 1 ) {
         this.positionProperty.value = destination;
-        if ( this.animationStateProperty.value.end ) {
-          this.animationStateProperty.value.end();
-        }
-        this.animationStateProperty.value = { enabled: false, x: 0, y: 0, end: null };
+        const target = this.animationState.target;
+        const onComplete = this.animationState.onComplete;
+        this.animationState = null;
+        this.modeProperty.value = target;
+        onComplete && onComplete();
       }
     }
   }

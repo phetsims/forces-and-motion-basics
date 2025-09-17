@@ -114,7 +114,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     // When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
-      // var centerX = normalImageNode.centerX;
       if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.inStackProperty.value ) ) {
         normalImageNode.imageProperty = holdingImageProperty;
       }
@@ -161,7 +160,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         if ( index >= 0 ) {
           model.spliceStack( index );
         }
-        item.inStackProperty.value = false;
 
         // Don't allow the user to translate the object while it is animating
         item.cancelAnimation();
@@ -169,9 +167,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
       // End the drag
       end: event => {
+
         // Reset mode based on where the item ends up (let setupModeCalculation handle it)
-        // We'll temporarily set to a non-grabbed state to trigger the update
-        item.modeProperty.value = 'inToolbox';
 
         // If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
         const droppedOnStack = this.isOverStackArea();
@@ -396,13 +393,11 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   private handleEscapeKey(): void {
     if ( this.item.userControlledProperty.value && this.originalPosition ) {
 
-      // Cancel interaction and return to original position
-      this.item.modeProperty.value = 'inToolbox';
-      this.item.positionProperty.value = this.originalPosition;
+      this.item.cancelAnimation();
 
-      // Restore original stack state
       if ( this.wasOriginallyOnStack ) {
-        this.item.inStackProperty.value = true;
+        this.item.modeProperty.value = 'onStack';
+        this.item.positionProperty.value = this.originalPosition;
 
         // Add back to stack if it was originally there
         if ( !this.model.stackedItems.includes( this.item ) ) {
@@ -414,8 +409,9 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         this.ensureFocusStable();
       }
       else {
-        this.item.inStackProperty.value = false;
-        this.item.animateHome();
+        this.item.modeProperty.value = 'inToolbox';
+        this.item.positionProperty.value = this.originalPosition;
+        this.item.directionProperty.value = 'left';
 
         // Announce returned to toolbox
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty.value );
@@ -431,9 +427,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     if ( this.item.userControlledProperty.value ) {
 
       // Force return to toolbox
-      this.item.modeProperty.value = 'inToolbox';
-      this.item.inStackProperty.value = false;
-      this.item.animateHome();
+      this.returnItemToToolbox();
 
       // Announce returned to toolbox
       this.addAccessibleContextResponse(
@@ -455,8 +449,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       this.wasOriginallyOnStack = this.item.inStackProperty.value;
       this.originalPosition = this.item.positionProperty.value.copy();
 
-      this.item.interactionScaleProperty.value = 1.3;
-
       // Set keyboard grabbed mode based on current location
       if ( this.wasOriginallyOnStack ) {
         this.item.setKeyboardGrabbedMode( 'stack' );
@@ -471,7 +463,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       if ( index >= 0 ) {
         this.model.spliceStack( index );
       }
-      this.item.inStackProperty.value = false;
       this.item.cancelAnimation();
 
       // Move to front
@@ -490,9 +481,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     else {
 
       // Drop the item at current position
-
-      // Reset mode to a non-grabbed state to trigger proper mode calculation
-      this.item.modeProperty.value = 'inToolbox';
 
       // Determine drop location based on current position
       const droppedOnStack = this.isOverStackArea();
@@ -620,11 +608,12 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   private placeItemOnStack(): number {
     const priorLength = this.model.stackedItems.length;
 
-    this.item.inStackProperty.value = true;
+    const height = this.item.getCurrentScale() * this.sittingImageNode.height;
+
     const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
     this.item.animateTo(
       this.motionView.layoutBounds.width / 2 - imageWidth / 2,
-      this.motionView.topOfStack - this.height,
+      this.motionView.topOfStack - height,
       'stack'
     );
     this.model.stackedItems.add( this.item );
