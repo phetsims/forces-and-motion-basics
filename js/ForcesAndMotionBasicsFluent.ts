@@ -108,7 +108,9 @@ addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_noPullersAt
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_currentDetails_teamAttached', 'a11y.netForceScreen.screenSummary.currentDetails.teamAttachedStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenSummary_interactionHint', 'a11y.netForceScreen.screenSummary.interactionHintStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_puller_accessibleName', 'a11y.netForceScreen.puller.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_puller_accessibleRoleDescription', 'a11y.netForceScreen.puller.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_puller_size', 'a11y.netForceScreen.puller.sizeStringProperty' );
+addToMapIfDefined( 'a11y_netForceScreen_pullerGroup_accessibleRoleDescription', 'a11y.netForceScreen.pullerGroup.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_pullerResponses_pullerAttachedToKnot', 'a11y.netForceScreen.pullerResponses.pullerAttachedToKnotStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_pullerResponses_pullerReturnedToToolbox', 'a11y.netForceScreen.pullerResponses.pullerReturnedToToolboxStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_pullerResponses_pullerInteractionCancelled', 'a11y.netForceScreen.pullerResponses.pullerInteractionCancelledStringProperty' );
@@ -160,8 +162,10 @@ addToMapIfDefined( 'a11y_motionScreen_objects_names_trash', 'a11y.motionScreen.o
 addToMapIfDefined( 'a11y_motionScreen_objects_names_mystery', 'a11y.motionScreen.objects.names.mysteryStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objects_names_bucket', 'a11y.motionScreen.objects.names.bucketStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectToolbox_accessibleName', 'a11y.motionScreen.objectToolbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectToolbox_accessibleRoleDescription', 'a11y.motionScreen.objectToolbox.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectToolbox_descriptionContent', 'a11y.motionScreen.objectToolbox.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_accessibleName', 'a11y.motionScreen.objectStackGroup.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_accessibleRoleDescription', 'a11y.motionScreen.objectStackGroup.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_descriptionContent', 'a11y.motionScreen.objectStackGroup.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectResponses_overToolbox', 'a11y.motionScreen.objectResponses.overToolboxStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectResponses_overStack', 'a11y.motionScreen.objectResponses.overStackStringProperty' );
@@ -407,7 +411,11 @@ const ForcesAndMotionBasicsFluent = {
       puller: {
         _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
         accessibleName: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'>, index: FluentVariable, size: 'small' | 'medium' | 'large' | TReadOnlyProperty<'small' | 'medium' | 'large'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_puller_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.puller.accessibleNameStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]},{"name":"index"},{"name":"size","variants":["small","medium","large"]}] ),
+        accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_puller_accessibleRoleDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.puller.accessibleRoleDescriptionStringProperty' ) ),
         size: new FluentPattern<{ size: 'small' | 'medium' | 'large' | TReadOnlyProperty<'small' | 'medium' | 'large'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_puller_size', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.puller.sizeStringProperty' ), [{"name":"size","variants":["small","medium","large"]}] )
+      },
+      pullerGroup: {
+        accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_netForceScreen_pullerGroup_accessibleRoleDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.pullerGroup.accessibleRoleDescriptionStringProperty' ) )
       },
       pullerResponses: {
         pullerAttachedToKnot: new FluentPattern<{ color: 'blue' | 'red' | 'purple' | 'orange' | TReadOnlyProperty<'blue' | 'red' | 'purple' | 'orange'>, index: FluentVariable, knotDescription: FluentVariable, size: 'small' | 'medium' | 'large' | TReadOnlyProperty<'small' | 'medium' | 'large'> }>( fluentSupport.bundleProperty, 'a11y_netForceScreen_pullerResponses_pullerAttachedToKnot', _.get( ForcesAndMotionBasicsStrings, 'a11y.netForceScreen.pullerResponses.pullerAttachedToKnotStringProperty' ), [{"name":"color","variants":["blue","red","purple","orange"]},{"name":"index"},{"name":"knotDescription"},{"name":"size","variants":["small","medium","large"]}] ),
@@ -504,11 +512,13 @@ const ForcesAndMotionBasicsFluent = {
       objectToolbox: {
         _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectToolbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectToolbox.accessibleNameStringProperty' ) ),
+        accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectToolbox_accessibleRoleDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectToolbox.accessibleRoleDescriptionStringProperty' ) ),
         descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectToolbox_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectToolbox.descriptionContentStringProperty' ) )
       },
       objectStackGroup: {
         _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
         accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.accessibleNameStringProperty' ) ),
+        accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_accessibleRoleDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.accessibleRoleDescriptionStringProperty' ) ),
         descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.descriptionContentStringProperty' ) )
       },
       objectResponses: {

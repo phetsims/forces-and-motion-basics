@@ -286,8 +286,16 @@
         "accessibleName": {
           "value": "{ a11y_netForceScreen_puller_size } { a11y_netForceScreen_colorName } Puller { $index }"
         },
+        "accessibleRoleDescription": {
+          "value": "navigable"
+        },
         "size": {
           "value": "{ $size ->\n  [small] Small\n  [medium] Medium\n *[large] Large\n}"
+        }
+      },
+      "pullerGroup": {
+        "accessibleRoleDescription": {
+          "value": "group"
         }
       },
       "pullerResponses": {
@@ -482,6 +490,9 @@
         "accessibleName": {
           "value": "Object Toolbox"
         },
+        "accessibleRoleDescription": {
+          "value": "group"
+        },
         "descriptionContent": {
           "value": "Grab object. Once grabbed, use keyboard shortcuts to move object."
         }
@@ -489,6 +500,9 @@
       "objectStackGroup": {
         "accessibleName": {
           "value": "Objects on Skateboard"
+        },
+        "accessibleRoleDescription": {
+          "value": "group"
         },
         "descriptionContent": {
           "value": "Grab object. Once grabbed, use keyboard shortcuts to move object."

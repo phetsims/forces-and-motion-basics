@@ -133,7 +133,11 @@ type StringsType = {
       };
       'puller': {
         'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
         'sizeStringProperty': LocalizedStringProperty;
+      };
+      'pullerGroup': {
+        'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
       };
       'pullerResponses': {
         'pullerAttachedToKnotStringProperty': LocalizedStringProperty;
@@ -225,10 +229,12 @@ type StringsType = {
       };
       'objectToolbox': {
         'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
         'descriptionContentStringProperty': LocalizedStringProperty;
       };
       'objectStackGroup': {
         'accessibleNameStringProperty': LocalizedStringProperty;
+        'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
         'descriptionContentStringProperty': LocalizedStringProperty;
       };
       'objectResponses': {

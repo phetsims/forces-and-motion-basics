@@ -200,7 +200,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
                              puller.type;
         return `${puller.size} ${displayColor} puller`;
       } ),
-      accessibleRoleDescription: 'navigable'
+      accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleRoleDescriptionStringProperty
     }, providedOptions );
 
     super( standImage, options );

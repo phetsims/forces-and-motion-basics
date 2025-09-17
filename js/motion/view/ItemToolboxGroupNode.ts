@@ -35,7 +35,7 @@ export default class ItemToolboxGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'application',
-      accessibleRoleDescription: 'group',
+      accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.accessibleRoleDescriptionStringProperty,
 
       accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.accessibleNameStringProperty,
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.descriptionContentStringProperty

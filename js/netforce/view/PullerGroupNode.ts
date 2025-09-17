@@ -13,6 +13,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 type SelfOptions = {
   // Which side this group represents
@@ -30,7 +31,7 @@ export default class PullerGroupNode extends Node {
 
       // ARIA attributes for the group
       ariaRole: 'application',
-      accessibleRoleDescription: 'group'
+      accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerGroup.accessibleRoleDescriptionStringProperty
     }, providedOptions );
 
     super( options );

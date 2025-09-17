@@ -122,12 +122,15 @@ a11y:
     puller:
       # Note that index may be the empty string. This string will always be trimmed() removing whitespace.
       accessibleName: '{ a11y.netForceScreen.puller.size } { a11y.netForceScreen.colorName } Puller { $index }'
+      accessibleRoleDescription: navigable
       size:           |-
                       { $size ->
                         [small] Small
                         [medium] Medium
                        *[large] Large
                       }
+    pullerGroup:
+      accessibleRoleDescription: group
     pullerResponses:
       pullerAttachedToKnot:       '{ a11y.netForceScreen.puller.accessibleName } attached to { $knotDescription }.'
       pullerReturnedToToolbox:    '{ a11y.netForceScreen.puller.accessibleName } returned to toolbox.'
@@ -204,9 +207,11 @@ a11y:
         bucket:  Bucket of Water
     objectToolbox:
       accessibleName:     Object Toolbox
+      accessibleRoleDescription: group
       descriptionContent: Grab object. Once grabbed, use keyboard shortcuts to move object.
     objectStackGroup:
       accessibleName:     Objects on Skateboard
+      accessibleRoleDescription: group
       descriptionContent: Grab object. Once grabbed, use keyboard shortcuts to move object.
     objectResponses:
       overToolbox:                        Over toolbox
