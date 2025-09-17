@@ -94,6 +94,8 @@ export default class ItemToolboxGroupNode extends Node {
     // Only make focusable if it's not on the stack
     if ( !itemNode.item.inStackProperty.value ) {
       itemNode.focusable = true;
+
+      itemNode.focus();
     }
   }
 
@@ -181,7 +183,8 @@ export default class ItemToolboxGroupNode extends Node {
     if ( itemsInToolbox.length > 0 ) {
       // Reset focus state - make first item focusable, others non-focusable initially
       itemsInToolbox.forEach( ( itemNode, index ) => {
-        itemNode.focusable = index === 0;
+        const focusable = index === 0;
+        itemNode.focusable = focusable;
       } );
     }
   }

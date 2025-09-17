@@ -307,6 +307,11 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       if ( mode === 'onStack' ) {
         this.focusable = true;
       }
+
+      if ( mode === 'inToolbox' ) {
+        this.focusable = true;
+        this.focus();
+      }
     } );
 
     // Create keyboard listener for item interactions
