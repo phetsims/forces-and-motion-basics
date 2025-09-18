@@ -9,6 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -57,6 +58,9 @@ export default class FrictionControl extends VBox {
       endDrag: () => {
 
         isInteracting = false;
+      },
+      pdomCreateAriaValueText: value => {
+        return toFixed( value, 2 );
       }
     } );
 
