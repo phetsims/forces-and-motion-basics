@@ -24,13 +24,14 @@ type SelfOptions = {
 type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 
 type Callback = ( focused: boolean ) => void;
+
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
 
   // Track focus listeners so we can remove them when items leave the group  
   private readonly focusListeners = new Map<ItemNode, Callback>();
 
-  public constructor( providedOptions?: ItemStackGroupNodeOptions ) {
+  public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', providedOptions?: ItemStackGroupNodeOptions ) {
 
     const options = optionize<ItemStackGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
@@ -39,7 +40,9 @@ export default class ItemStackGroupNode extends Node {
       ariaRole: 'application',
       accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.accessibleRoleDescriptionStringProperty,
 
-      accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.accessibleNameStringProperty,
+      accessibleName: screen === 'motion' ?
+                      ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.onSkateboard.accessibleNameStringProperty :
+                      ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.onGround.accessibleNameStringProperty,
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.descriptionContentStringProperty
     }, providedOptions );
 

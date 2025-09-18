@@ -233,7 +233,12 @@ type StringsType = {
         'descriptionContentStringProperty': LocalizedStringProperty;
       };
       'objectStackGroup': {
-        'accessibleNameStringProperty': LocalizedStringProperty;
+        'onSkateboard': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+        };
+        'onGround': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+        };
         'accessibleRoleDescriptionStringProperty': LocalizedStringProperty;
         'descriptionContentStringProperty': LocalizedStringProperty;
       };

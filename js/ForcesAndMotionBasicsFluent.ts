@@ -164,7 +164,8 @@ addToMapIfDefined( 'a11y_motionScreen_objects_names_bucket', 'a11y.motionScreen.
 addToMapIfDefined( 'a11y_motionScreen_objectToolbox_accessibleName', 'a11y.motionScreen.objectToolbox.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectToolbox_accessibleRoleDescription', 'a11y.motionScreen.objectToolbox.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectToolbox_descriptionContent', 'a11y.motionScreen.objectToolbox.descriptionContentStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_accessibleName', 'a11y.motionScreen.objectStackGroup.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_onSkateboard_accessibleName', 'a11y.motionScreen.objectStackGroup.onSkateboard.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_onGround_accessibleName', 'a11y.motionScreen.objectStackGroup.onGround.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_accessibleRoleDescription', 'a11y.motionScreen.objectStackGroup.accessibleRoleDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectStackGroup_descriptionContent', 'a11y.motionScreen.objectStackGroup.descriptionContentStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_objectResponses_overToolbox', 'a11y.motionScreen.objectResponses.overToolboxStringProperty' );
@@ -516,8 +517,14 @@ const ForcesAndMotionBasicsFluent = {
         descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectToolbox_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectToolbox.descriptionContentStringProperty' ) )
       },
       objectStackGroup: {
-        _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-        accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.accessibleNameStringProperty' ) ),
+        onSkateboard: {
+          _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_onSkateboard_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.onSkateboard.accessibleNameStringProperty' ) )
+        },
+        onGround: {
+          _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_onGround_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.onGround.accessibleNameStringProperty' ) )
+        },
         accessibleRoleDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_accessibleRoleDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.accessibleRoleDescriptionStringProperty' ) ),
         descriptionContentStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_objectStackGroup_descriptionContent', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.objectStackGroup.descriptionContentStringProperty' ) )
       },

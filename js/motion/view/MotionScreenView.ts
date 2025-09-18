@@ -372,7 +372,7 @@ export default class MotionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'itemToolboxGroup' ),
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty
     } );
-    this.itemStackGroup = new ItemStackGroupNode( {
+    this.itemStackGroup = new ItemStackGroupNode( model.screen, {
       tandem: tandem.createTandem( 'itemStackGroup' )
     } );
 
