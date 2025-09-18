@@ -191,7 +191,7 @@
           "value": "Pause tug-of-war game with { $altOrOptionKey } plus P key."
         },
         "returnCartToCenterDescription": {
-          "value": "Return cart to center with { $altOrOptionKey } plus B key."
+          "value": "Return cart to center with { $altOrOptionKey } plus C key."
         }
       },
       "pullerNavigation": {

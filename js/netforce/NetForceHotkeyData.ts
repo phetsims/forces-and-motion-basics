@@ -74,7 +74,7 @@ export default class NetForceHotkeyData {
   );
 
   public static readonly RETURN_CART_HOTKEY_DATA = createHotkeyData(
-    [ 'alt+b' ],
+    [ 'alt+c' ],
     ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnCartToCenterStringProperty,
     true
   );

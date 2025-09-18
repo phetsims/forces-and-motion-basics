@@ -69,7 +69,7 @@ a11y:
     fromAnywhereInSim:
       startGameDescription:          Start tug-of-war game with { $altOrOptionKey } plus G key.
       pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P key.
-      returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus B key.
+      returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus C key.
     pullerNavigation:
       selectPullerDescription:      Select puller with Left and Right Arrow keys.
       grabPullerDescription:        Grab selected puller with Space or Enter keys.
