@@ -85,6 +85,11 @@ export default class AppliedForceControl extends VBox {
           return ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty;
         }
         return null;
+      },
+      pdomCreateAriaValueText: ( value: number ) => {
+        return ForcesAndMotionBasicsFluent.a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueText.format( {
+          value: value
+        } );
       }
     } );
 

@@ -186,9 +186,6 @@ type StringsType = {
           'motionDescriptionStringProperty': LocalizedStringProperty;
           'frictionDescriptionStringProperty': LocalizedStringProperty;
           'accelerationDescriptionStringProperty': LocalizedStringProperty;
-          'appliedForceControl': {
-            'descriptionStringProperty': LocalizedStringProperty;
-          }
         };
         'controlArea': {
           'motionDescriptionStringProperty': LocalizedStringProperty;
@@ -311,7 +308,11 @@ type StringsType = {
         }
       };
       'playAreaControls': {
-        'accessibleHeadingStringProperty': LocalizedStringProperty;
+        'appliedForceControl': {
+          'accessibleHeadingStringProperty': LocalizedStringProperty;
+          'descriptionStringProperty': LocalizedStringProperty;
+          'ariaValueTextStringProperty': LocalizedStringProperty;
+        }
       };
       'frictionSlider': {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;

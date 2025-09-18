@@ -169,8 +169,6 @@ a11y:
         motionDescription:       A pusher stands on the flat ground, ready to apply force to a stack of objects on a skateboard. Objects can be moved from the toolbox to the stack.
         frictionDescription:     A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack.
         accelerationDescription: A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack.
-        appliedForceControl:
-          description: Set force applied by pusher on the stack.
       controlArea:
         motionDescription:       Turn on forces, values, or measurement tools.
         frictionDescription:     Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
@@ -272,7 +270,10 @@ a11y:
         accessibleHelpText:                 Show or hide accelerometer.
         accessibleContextResponseUnchecked: Accelerometer hidden.
     playAreaControls:
-      accessibleHeading: Applied Force Control
+      appliedForceControl:
+        accessibleHeading: Applied Force Control
+        description:       Set force applied by pusher on the stack.
+        ariaValueText:     '{ $value } newtons'
     frictionSlider:
       accessibleHelpText: Set static coefficient of friction.
       contextResponse:

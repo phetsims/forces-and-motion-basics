@@ -138,7 +138,6 @@ addToMapIfDefined( 'a11y_motionScreen_accelerationScreenButtonsHelpText', 'a11y.
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_motionDescription', 'a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_frictionDescription', 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_motionDescription', 'a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_frictionDescription', 'a11y.motionScreen.screenSummary.controlArea.frictionDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_screenSummary_controlArea_accelerationDescription', 'a11y.motionScreen.screenSummary.controlArea.accelerationDescriptionStringProperty' );
@@ -210,7 +209,9 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleC
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_playAreaControls_accessibleHeading', 'a11y.motionScreen.playAreaControls.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_accessibleHeading', 'a11y.motionScreen.playAreaControls.appliedForceControl.accessibleHeadingStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_description', 'a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_ariaValueText', 'a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_accessibleHelpText', 'a11y.motionScreen.frictionSlider.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_smoother', 'a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_rougher', 'a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty' );
@@ -468,10 +469,7 @@ const ForcesAndMotionBasicsFluent = {
         playArea: {
           motionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_motionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.motionDescriptionStringProperty' ) ),
           frictionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_frictionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.frictionDescriptionStringProperty' ) ),
-          accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' ) ),
-          appliedForceControl: {
-            descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_appliedForceControl_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.appliedForceControl.descriptionStringProperty' ) )
-          }
+          accelerationDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_playArea_accelerationDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.playArea.accelerationDescriptionStringProperty' ) )
         },
         controlArea: {
           motionDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_screenSummary_controlArea_motionDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.screenSummary.controlArea.motionDescriptionStringProperty' ) ),
@@ -605,7 +603,11 @@ const ForcesAndMotionBasicsFluent = {
         }
       },
       playAreaControls: {
-        accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.accessibleHeadingStringProperty' ) )
+        appliedForceControl: {
+          accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.accessibleHeadingStringProperty' ) ),
+          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty' ) ),
+          ariaValueText: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_ariaValueText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueTextStringProperty' ), [{"name":"value"}] )
+        }
       },
       frictionSlider: {
         accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_frictionSlider_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.frictionSlider.accessibleHelpTextStringProperty' ) ),

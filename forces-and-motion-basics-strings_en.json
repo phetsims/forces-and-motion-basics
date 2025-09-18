@@ -398,11 +398,6 @@
           },
           "accelerationDescription": {
             "value": "A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack."
-          },
-          "appliedForceControl": {
-            "description": {
-              "value": "Set force applied by pusher on the stack."
-            }
           }
         },
         "controlArea": {
@@ -668,8 +663,16 @@
         }
       },
       "playAreaControls": {
-        "accessibleHeading": {
-          "value": "Applied Force Control"
+        "appliedForceControl": {
+          "accessibleHeading": {
+            "value": "Applied Force Control"
+          },
+          "description": {
+            "value": "Set force applied by pusher on the stack."
+          },
+          "ariaValueText": {
+            "value": "{ $value } newtons"
+          }
         }
       },
       "frictionSlider": {
