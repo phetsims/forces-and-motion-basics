@@ -74,6 +74,8 @@ type StringsType = {
     'cancelMovementStringProperty': LocalizedStringProperty;
   };
   'a11y': {
+    'navigableStringProperty': LocalizedStringProperty;
+    'sortableStringProperty': LocalizedStringProperty;
     'values': {
       'checkedResponseStringProperty': LocalizedStringProperty;
       'uncheckedResponseStringProperty': LocalizedStringProperty;

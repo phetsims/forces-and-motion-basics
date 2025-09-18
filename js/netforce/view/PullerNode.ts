@@ -291,6 +291,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     puller.modeProperty.link( mode => {
       highlightFromNode.setDashed( mode.isGrabbed() );
+
+      this.accessibleRoleDescription = mode.isGrabbed() ? ForcesAndMotionBasicsFluent.a11y.navigableStringProperty : ForcesAndMotionBasicsFluent.a11y.sortableStringProperty;
     } );
 
     // Create a single listener that combines all hotkey data

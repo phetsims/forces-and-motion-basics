@@ -97,7 +97,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
       // ARIA attributes for the group
       focusable: true,
-      ariaRole: 'button',
 
       accessibleName: accessibleNameProperty
     } );
@@ -312,6 +311,9 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         this.focusable = true;
         this.focus();
       }
+
+      this.accessibleRoleDescription = mode === 'mouseGrabbed' || mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' ?
+                                       ForcesAndMotionBasicsFluent.a11y.navigableStringProperty : ForcesAndMotionBasicsFluent.a11y.sortableStringProperty;
     } );
 
     // Create keyboard listener for item interactions

@@ -75,6 +75,8 @@ addToMapIfDefined( 'keyboardHelpDialog_adjustAppliedForce', 'keyboardHelpDialog.
 addToMapIfDefined( 'keyboardHelpDialog_zeroAppliedForce', 'keyboardHelpDialog.zeroAppliedForceStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_returnToToolbox', 'keyboardHelpDialog.returnToToolboxStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_cancelMovement', 'keyboardHelpDialog.cancelMovementStringProperty' );
+addToMapIfDefined( 'a11y_navigable', 'a11y.navigableStringProperty' );
+addToMapIfDefined( 'a11y_sortable', 'a11y.sortableStringProperty' );
 addToMapIfDefined( 'a11y_values_checkedResponse', 'a11y.values.checkedResponseStringProperty' );
 addToMapIfDefined( 'a11y_values_uncheckedResponse', 'a11y.values.uncheckedResponseStringProperty' );
 addToMapIfDefined( 'a11y_values_accessibleHelpText', 'a11y.values.accessibleHelpTextStringProperty' );
@@ -352,6 +354,8 @@ const ForcesAndMotionBasicsFluent = {
   },
   _comment_1: new FluentComment( {"comment":"accessibility strings","associatedKey":"a11y"} ),
   a11y: {
+    navigableStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_navigable', _.get( ForcesAndMotionBasicsStrings, 'a11y.navigableStringProperty' ) ),
+    sortableStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_sortable', _.get( ForcesAndMotionBasicsStrings, 'a11y.sortableStringProperty' ) ),
     values: {
       checkedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_checkedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.checkedResponseStringProperty' ) ),
       uncheckedResponseStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_uncheckedResponse', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.uncheckedResponseStringProperty' ) ),

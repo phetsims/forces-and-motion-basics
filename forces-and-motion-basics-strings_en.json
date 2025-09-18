@@ -161,6 +161,12 @@
     }
   },
   "a11y": {
+    "navigable": {
+      "value": "navigable"
+    },
+    "sortable": {
+      "value": "sortable"
+    },
     "values": {
       "checkedResponse": {
         "value": "Numeric values shown."

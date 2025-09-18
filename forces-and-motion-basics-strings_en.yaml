@@ -57,6 +57,8 @@ keyboardHelpDialog:
 
 # accessibility strings
 a11y:
+  navigable: navigable
+  sortable:  sortable
   values:
     checkedResponse:                    Numeric values shown.
     uncheckedResponse:                  Numeric values hidden.
