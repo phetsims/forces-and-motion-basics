@@ -277,7 +277,7 @@ a11y:
         description:       Set force applied by pusher on the stack.
         ariaValueText:     '{ $value } newtons'
     frictionSlider:
-      accessibleHelpText: Set static coefficient of friction.
+      accessibleHelpText: Set static coefficient of friction, ranging from none to lots.
       contextResponse:
         smoother: Ground smoother.
         rougher:  Ground rougher.

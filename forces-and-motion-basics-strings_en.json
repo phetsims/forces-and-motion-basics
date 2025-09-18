@@ -683,7 +683,7 @@
       },
       "frictionSlider": {
         "accessibleHelpText": {
-          "value": "Set static coefficient of friction."
+          "value": "Set static coefficient of friction, ranging from none to lots."
         },
         "contextResponse": {
           "smoother": {
