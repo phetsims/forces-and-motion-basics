@@ -12,6 +12,13 @@ Instructions:
 For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/blob/main/doc/release-notes.md
 -->
 
+## 2.6 (YYYY-MM-DD)
+
+### New Features
+* Alternative Input
+* Interactive Highlights: see _Preferences > Visual > Interactive Highlights_
+* Core Description
+
 ## 2.5 (2025-06-23)
 
 ### New Features
