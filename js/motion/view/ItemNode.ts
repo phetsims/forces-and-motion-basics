@@ -326,6 +326,24 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
     } );
     this.addInputListener( this.keyboardListener );
+
+    /**
+     * On focus lost, if the item is currently grabbed, return it where it came from.
+     * See https://github.com/phetsims/forces-and-motion-basics/issues/446
+     */
+    this.focusedProperty.link( focused => {
+      if ( !focused ) {
+
+        if ( this.item.modeProperty.value === 'keyboardGrabbedFromToolbox' ) {
+          this.returnItemToToolbox();
+        }
+
+        else if ( this.item.modeProperty.value === 'keyboardGrabbedFromStack' ) {
+          const priorLength = this.placeItemOnStack();
+          this.addAccessibleContextResponseForDroppedOnStack( priorLength );
+        }
+      }
+    } );
   }
 
   /**
