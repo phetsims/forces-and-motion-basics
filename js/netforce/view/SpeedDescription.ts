@@ -83,7 +83,7 @@ export default class SpeedDescription extends Node {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.speed.headingStringProperty,
       descriptionTagName: 'p',
-      descriptionContent: 'This is a string that doesnt change'
+      descriptionContent: speedDescriptionProperty
     } );
 
     this.speedDescriptionProperty = speedDescriptionProperty;
