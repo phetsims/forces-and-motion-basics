@@ -367,7 +367,7 @@ export default class MotionScreenView extends ScreenView {
       // Don't add to itemLayer yet - will be added to groups
     }
 
-    // TODO: START REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/431
+    // TODO: START REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/447
     // Create keyboard navigation groups AFTER items are created
     this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
       tandem: tandem.createTandem( 'itemToolboxGroup' ),
@@ -415,7 +415,7 @@ export default class MotionScreenView extends ScreenView {
       this.itemToolboxGroup.addItemNode( itemNode, model );
     } );
 
-    // TODO: END REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/431
+    // TODO: END REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/447
 
     // Add the force arrows & associated readouts in front of the items
     const arrowScale = 0.3;
@@ -540,7 +540,7 @@ export default class MotionScreenView extends ScreenView {
     // After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
 
-    // TODO: START REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/431
+    // TODO: START REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/447
 
     // Set up transfer logic for keyboard groups based on item stack state
     this.setupKeyboardGroupTransfers( model );
@@ -580,7 +580,7 @@ export default class MotionScreenView extends ScreenView {
       }
     } );
 
-    // TODO: END REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/431
+    // TODO: END REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/447
   }
 
   // Get the height of the objects in the stack (doesn't include skateboard)
