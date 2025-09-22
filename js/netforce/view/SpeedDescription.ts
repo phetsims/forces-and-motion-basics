@@ -82,8 +82,7 @@ export default class SpeedDescription extends Node {
     super( {
       tagName: 'div',
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.speed.headingStringProperty,
-      descriptionTagName: 'p',
-      descriptionContent: speedDescriptionProperty
+      accessibleParagraph: 'This is a string'
     } );
 
     this.speedDescriptionProperty = speedDescriptionProperty;
