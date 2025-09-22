@@ -27,11 +27,11 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
+import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from './getItemNameProperties.js';
 import MotionScreenView from './MotionScreenView.js';
 
 // Workaround for https://github.com/phetsims/scenery/issues/108

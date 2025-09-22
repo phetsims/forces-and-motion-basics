@@ -16,11 +16,11 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import { formatItemAccessibleNameWithMass, getLocalizedItemNameProperty } from '../../common/view/getItemNameProperties.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
+import { formatItemAccessibleNameWithMass, getLocalizedItemNameProperty } from './getItemNameProperties.js';
 
 export default class MotionStackListDescription extends Node {
 
