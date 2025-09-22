@@ -14,6 +14,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import GrabReleaseCueNode from '../../../../scenery-phet/js/accessibility/nodes/GrabReleaseCueNode.js';
@@ -24,29 +25,25 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 export default class FocusDrivenGrabReleaseCueNode<T extends Node> extends GrabReleaseCueNode {
 
   public readonly hasInteractedProperty = new BooleanProperty( false );
-  private readonly anyHasFocusProperty = new BooleanProperty( false );
 
-  public constructor( private readonly nodes: T[],
-                      private readonly layoutBounds: Bounds2,
-                      private readonly positioner: ( self: GrabReleaseCueNode, focusedNode: T, layoutBounds: Bounds2 ) => void,
+  public constructor( nodes: T[],
+                      layoutBounds: Bounds2,
+                      positionCueNode: ( self: GrabReleaseCueNode, focusedNode: T, layoutBounds: Bounds2 ) => void,
                       tandem?: Tandem ) {
     super( { tandem: tandem } );
 
-    // Track if any node has focus
-    this.nodes.forEach( n => n.focusedProperty.link( () => {
-      this.anyHasFocusProperty.value = this.nodes.some( n => n.focusedProperty.value );
-    } ) );
+    const anyHasFocusProperty = DerivedProperty.or( nodes.map( n => n.focusedProperty ) );
 
     // Visible only until the first interaction and while something is focused
-    Multilink.multilink( [ this.hasInteractedProperty, this.anyHasFocusProperty ], ( hasInteracted, anyFocus ) => {
+    Multilink.multilink( [ this.hasInteractedProperty, anyHasFocusProperty ], ( hasInteracted, anyFocus ) => {
       this.visible = !hasInteracted && anyFocus;
     } );
 
     // Position when a node gains focus
-    this.nodes.forEach( node => {
+    nodes.forEach( node => {
       node.focusedProperty.link( isFocused => {
         if ( isFocused && !this.hasInteractedProperty.value ) {
-          this.positioner( this, node, this.layoutBounds );
+          positionCueNode( this, node, layoutBounds );
         }
       } );
     } );
