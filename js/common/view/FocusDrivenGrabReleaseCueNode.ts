@@ -17,15 +17,11 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import GrabReleaseCueNode from '../../../../scenery-phet/js/accessibility/nodes/GrabReleaseCueNode.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
-// Minimal shape for things that expose a focus state like scenery Nodes
-type HasFocused = {
-  focusedProperty: { value: boolean; link: ( listener: ( value: boolean ) => void ) => void };
-};
-
-export default class FocusDrivenGrabReleaseCueNode<T extends HasFocused> extends GrabReleaseCueNode {
+export default class FocusDrivenGrabReleaseCueNode<T extends Node> extends GrabReleaseCueNode {
 
   public readonly hasInteractedProperty = new BooleanProperty( false );
   private readonly anyHasFocusProperty = new BooleanProperty( false );
@@ -37,10 +33,9 @@ export default class FocusDrivenGrabReleaseCueNode<T extends HasFocused> extends
     super( { tandem: tandem } );
 
     // Track if any node has focus
-    const updateAnyFocus = () => {
+    this.nodes.forEach( n => n.focusedProperty.link( () => {
       this.anyHasFocusProperty.value = this.nodes.some( n => n.focusedProperty.value );
-    };
-    this.nodes.forEach( n => n.focusedProperty.link( updateAnyFocus ) );
+    } ) );
 
     // Visible only until the first interaction and while something is focused
     Multilink.multilink( [ this.hasInteractedProperty, this.anyHasFocusProperty ], ( hasInteracted, anyFocus ) => {
