@@ -199,6 +199,7 @@ export default class NetForceScreenView extends ScreenView {
 
     this.addChild( this.cartNode );
 
+    // TODO: START REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/431
     // Create the toolboxes with dynamic accessibility properties
     const leftToolbox = new PullerToolboxNode( this, 25, {
       tagName: 'div',
@@ -462,6 +463,8 @@ export default class NetForceScreenView extends ScreenView {
     this.leftPullerGroup.pdomOrder = leftPullers;
     this.rightPullerGroup.pdomOrder = rightPullers;
   }
+
+  // TODO: END REVIEW https://github.com/phetsims/forces-and-motion-basics/issues/431
 }
 
 forcesAndMotionBasics.register( 'NetForceScreenView', NetForceScreenView );
