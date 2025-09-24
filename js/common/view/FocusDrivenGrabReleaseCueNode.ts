@@ -1,5 +1,6 @@
 // Copyright 2025, University of Colorado Boulder
 
+//REVIEW Documentation of hasInteractedProperty is misleading, makes it sound like interacting on one screen will hide cue on all screens.
 /**
  * FocusDrivenGrabReleaseCueNode factors the common logic for showing a Grab/Release cue
  * whenever one of a set of focusable nodes gains focus and the user hasn't interacted yet.
