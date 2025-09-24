@@ -616,8 +616,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     const priorLength = this.model.stackedItems.length;
 
     const height = this.item.getCurrentScale() * this.sittingImageNode.height;
+    const imageWidth = this.item.getCurrentScale() * this.sittingImageNode.width;
 
-    const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
     this.item.animateTo(
       this.motionView.layoutBounds.width / 2 - imageWidth / 2,
       this.motionView.topOfStack - height,
