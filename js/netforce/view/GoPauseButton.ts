@@ -37,6 +37,8 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
    * @param tandem
    * @param providedOptions
    */
+  //REVIEW tandem is unused, looks like you forgot to add it to options below.
+  //REVIEW Why do you have a tandem param when providedOptions includes tandem?
   public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
 
     // Create a derived property for the accessible name that updates based on the button state
@@ -76,6 +78,16 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
 
     super( model.isRunningProperty, pauseText, goText, options );
 
+    /**
+     * REVIEW:
+     * (1) I've been told to avoid adding responses in model Property listeners. Would it be better to do this in
+     *     a GoPauseButton listener callback?
+     * (2) Should this be a lazyLink? If the default state was isRunning:true, do you really want a response when the sim starts up?
+     * (3) If PhET-iO engine (or a wrapper) sets isRunningProperty, will that result in undesired messages?
+     * (4) If you're going to do this via model.isRunningProperty listener, then putting this in GoPauseButton is
+     *     misplaced responsibility. It's really not related to the button, and it makes a simple button overly-complicated.
+     *     Consider moving it to NetForceModel. Or maybe even a new class like MovementDescriber.
+     */
     model.isRunningProperty.link( isRunning => {
       this.baseColor = isRunning ? '#ff5500' : '#94b830';
 
