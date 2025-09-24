@@ -21,12 +21,8 @@ type SelfOptions = EmptySelfOptions;
 
 type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
 
-type Callback = ( focused: boolean ) => void;
 export default class ItemToolboxGroupNode extends Node {
   public readonly itemNodes: ItemNode[] = [];
-
-  // Track focus listeners so we can remove them when items leave the group
-  private readonly focusListeners = new Map<ItemNode, Callback>();
 
   public constructor( leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
@@ -67,36 +63,10 @@ export default class ItemToolboxGroupNode extends Node {
     // Sort items by side and then by position for consistent navigation order
     this.sortItems();
 
-    // Create and store the focus listener for this item
-    const focusListener = ( focused: boolean ) => {
-      if ( focused ) {
-        this.itemNodes.forEach( node => {
-          if ( node !== itemNode ) {
-            node.focusable = false; // Make other items non-focusable
-          }
-        } );
-      }
-      else {
-        // When this item loses focus, restore focusability to all items in the toolboxes
-        // (only those not on the stack)
-        this.itemNodes.forEach( node => {
-          if ( !node.item.inStackProperty.value ) {
-            node.focusable = true;
-          }
-        } );
-      }
-    };
-
-    this.focusListeners.set( itemNode, focusListener );
-    itemNode.focusedProperty.lazyLink( focusListener );
-
     // Ensure items added to toolbox are properly focusable for arrow navigation
     // Only make focusable if it's not on the stack
-    if ( !itemNode.item.inStackProperty.value ) {
-      itemNode.focusable = true;
-
-      itemNode.focus();
-    }
+    itemNode.focusable = true;
+    itemNode.focus();
   }
 
   /**
@@ -107,13 +77,6 @@ export default class ItemToolboxGroupNode extends Node {
     if ( index !== -1 ) {
       this.itemNodes.splice( index, 1 );
       this.removeChild( itemNode );
-
-      // Clean up the focus listener for this item
-      const focusListener = this.focusListeners.get( itemNode );
-      if ( focusListener ) {
-        itemNode.focusedProperty.unlink( focusListener );
-        this.focusListeners.delete( itemNode );
-      }
     }
   }
 
@@ -139,26 +102,6 @@ export default class ItemToolboxGroupNode extends Node {
       // Within same side, sort by x position
       return a.item.positionProperty.value.x - b.item.positionProperty.value.x;
     } );
-  }
-
-
-  /**
-   * After an item is successfully dropped from toolbox to stack,
-   * focus the next available item in the same toolbox
-   */
-  public focusNextItemInToolbox( droppedItemNode: ItemNode ): void {
-
-    // Find items still in the toolboxes (not on stack)
-    const itemsInToolbox = this.itemNodes.filter( itemNode => !itemNode.item.inStackProperty.value && itemNode !== droppedItemNode );
-
-    if ( itemsInToolbox.length > 0 ) {
-      // Focus the first available item in the toolboxes
-      const nextItem = itemsInToolbox[ 0 ];
-
-      // Make sure the next item is focusable and focus it
-      nextItem.focusable = true;
-      nextItem.focus();
-    }
   }
 
   /**

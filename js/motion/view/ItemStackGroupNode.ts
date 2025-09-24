@@ -8,7 +8,7 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
@@ -17,19 +17,12 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
 
-type SelfOptions = {
-  // No specific options for now
-};
+type SelfOptions = EmptySelfOptions;
 
 type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 
-type Callback = ( focused: boolean ) => void;
-
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
-
-  // Track focus listeners so we can remove them when items leave the group  
-  private readonly focusListeners = new Map<ItemNode, Callback>();
 
   public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', providedOptions?: ItemStackGroupNodeOptions ) {
 
@@ -78,25 +71,8 @@ export default class ItemStackGroupNode extends Node {
     // Sort items by their stack position (bottom to top)
     this.sortItems( model );
 
-    // Create and store the focus listener for this item
-    const focusListener = ( focused: boolean ) => {
-      if ( focused ) {
-        this.stackItemNodes.forEach( node => {
-          if ( node !== itemNode ) {
-            node.focusable = false; // Make other stack items non-focusable
-          }
-        } );
-      }
-      else {
-        // When this item loses focus, restore focusability to all stack items
-        this.stackItemNodes.forEach( node => {
-          node.focusable = true;
-        } );
-      }
-    };
-
-    this.focusListeners.set( itemNode, focusListener );
-    itemNode.focusedProperty.lazyLink( focusListener );
+    itemNode.focusable = true;
+    itemNode.focus();
   }
 
   /**
@@ -107,13 +83,6 @@ export default class ItemStackGroupNode extends Node {
     if ( index !== -1 ) {
       this.stackItemNodes.splice( index, 1 );
       this.removeChild( itemNode );
-
-      // Clean up the focus listener for this item
-      const focusListener = this.focusListeners.get( itemNode );
-      if ( focusListener ) {
-        itemNode.focusedProperty.unlink( focusListener );
-        this.focusListeners.delete( itemNode );
-      }
     }
   }
 
