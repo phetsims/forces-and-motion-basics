@@ -26,6 +26,7 @@ export default class FocusDrivenGrabReleaseCueNode<T extends Node> extends GrabR
 
   public readonly hasInteractedProperty = new BooleanProperty( false );
 
+  //REVIEW It looks like this is a base class and the constructor should be protected.
   public constructor( nodes: T[],
                       layoutBounds: Bounds2,
                       positionCueNode: ( self: GrabReleaseCueNode, focusedNode: T, layoutBounds: Bounds2 ) => void,

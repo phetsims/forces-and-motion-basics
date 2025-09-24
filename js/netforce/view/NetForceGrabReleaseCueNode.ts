@@ -1,5 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
+//REVIEW This may at one time have been "a specialized GrabReleaseCueNode" but it now extends FocusDrivenGrabReleaseCueNode.
+//REVIEW I don't understand what "It shows over the appropriate side" means.
 /**
  * NetForceGrabReleaseCueNode is a specialized GrabReleaseCueNode for the NetForce screen.
  * It shows over the appropriate side that has focus and hides after interaction.
