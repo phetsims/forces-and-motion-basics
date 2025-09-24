@@ -21,6 +21,7 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
+import { pdomFocusProperty } from '../../../../scenery/js/accessibility/pdomFocusProperty.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -95,13 +96,15 @@ export default class MotionScreenView extends ScreenView {
       .slice()
       .sort( ( a, b ) => a.top - b.top );
 
-    // Clear existing pdomOrder first to avoid transient duplicates across groups
-    this.itemToolboxGroup.pdomOrder = [];
-    this.itemStackGroup.pdomOrder = [];
-
-    // Apply updated orders
-    this.itemToolboxGroup.pdomOrder = toolboxItems;
-    this.itemStackGroup.pdomOrder = stackItems;
+    // Remove before adding, to avoid having the same focusable node appear in 2x places in the pdom
+    if ( this.itemToolboxGroup.pdomOrder === null || this.itemToolboxGroup.pdomOrder.length > toolboxItems.length ) {
+      this.itemToolboxGroup.pdomOrder = toolboxItems;
+      this.itemStackGroup.pdomOrder = stackItems;
+    }
+    else {
+      this.itemStackGroup.pdomOrder = stackItems;
+      this.itemToolboxGroup.pdomOrder = toolboxItems;
+    }
   }
 
   /**
@@ -671,16 +674,36 @@ export default class MotionScreenView extends ScreenView {
       const anyItemGrabbed = this.itemNodes.some( itemNode => itemNode.item.userControlledProperty.value );
       if ( !anyItemGrabbed ) {
 
-        // Re-sort stack items when stack changes
-        this.itemStackGroup.stackItemNodes.forEach( stackItemNode => {
-
-          // Trigger re-sort by removing and re-adding
-          this.itemStackGroup.removeItemNode( stackItemNode );
-          this.itemStackGroup.addItemNode( stackItemNode, model );
-        } );
-
         // Update PDOM after re-sorting
         this.updateItemPDOMOrder();
+      }
+    } );
+
+    /**
+     * When focus changes or when item modes change, update the focusable state of all items.
+     * Only items that are not on the same surface as the focused item should be focusable.
+     * This prevents keyboard users from tabbing to items that should only be reachable by the arrow keys.
+     */
+    Multilink.multilinkAny( [ pdomFocusProperty, ...this.itemNodes.map( itemNode => itemNode.item.modeProperty ) ], () => {
+      const focus = pdomFocusProperty.value;
+      const focusedNode = focus ? focus.trail.lastNode() : null;
+      if ( focusedNode && focusedNode instanceof ItemNode ) {
+        const focusedNodeState = focusedNode.item.modeProperty.value;
+
+        this.itemNodes.forEach( itemNode => {
+
+          if ( itemNode !== focusedNode ) {
+            const state = itemNode.item.modeProperty.value;
+
+            if ( focusedNodeState !== state ) {
+              itemNode.focusable = true;
+            }
+
+            else if ( focusedNodeState === state ) {
+              itemNode.focusable = false;
+            }
+          }
+        } );
       }
     } );
   }

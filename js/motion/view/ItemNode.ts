@@ -190,11 +190,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         }
         // Clear any locked pointer highlight before changing focus to another item
         this.unlockHighlight();
-
-        // Focus management after mouse drop
-        if ( event?.isFromPDOM() ) {
-          this.manageFocusAfterDrop( droppedOnStack );
-        }
       }
     } );
     this.addInputListener( this.dragListener );
@@ -302,15 +297,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     // Keep dashed style consistent with interaction state
     item.modeProperty.link( mode => {
       focusHighlight.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'mouseGrabbed' );
-
-      if ( mode === 'onStack' ) {
-        this.focusable = true;
-      }
-
-      if ( mode === 'inToolbox' ) {
-        this.focusable = true;
-        this.focus();
-      }
 
       this.accessibleRoleDescription = mode === 'mouseGrabbed' || mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' ?
                                        ForcesAndMotionBasicsFluent.a11y.navigableStringProperty : ForcesAndMotionBasicsFluent.a11y.sortableStringProperty;
@@ -435,7 +421,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
         // Announce returned to stack
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToStackStringProperty );
-        this.makeFocusableAndFocus();
       }
       else {
         this.item.modeProperty.value = 'inToolbox';
@@ -444,7 +429,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
         // Announce returned to toolbox
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );
-        this.makeFocusableAndFocus();
       }
     }
   }
@@ -460,7 +444,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
       // Announce returned to toolbox
       this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );
-      this.makeFocusableAndFocus();
     }
   }
 
@@ -520,9 +503,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         this.returnItemToToolbox();
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty );
       }
-
-      // Focus management after keyboard drop
-      this.manageFocusAfterDrop( droppedOnStack );
     }
   }
 
@@ -636,8 +616,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     const priorLength = this.model.stackedItems.length;
 
     const height = this.item.getCurrentScale() * this.sittingImageNode.height;
+    const imageWidth = this.item.getCurrentScale() * this.sittingImageNode.width;
 
-    const imageWidth = this.item.getCurrentScale() * this.normalImageNode.width;
     this.item.animateTo(
       this.motionView.layoutBounds.width / 2 - imageWidth / 2,
       this.motionView.topOfStack - height,
@@ -692,29 +672,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         return itemsInToolbox[ newIndex ];
       }
       return null;
-    }
-  }
-
-  private makeFocusableAndFocus(): void {
-    this.focusable = true;
-    this.focus();
-  }
-
-  /** Manage focus after a drop (mouse or keyboard). */
-  private manageFocusAfterDrop( droppedOnStack: boolean ): void {
-    if ( droppedOnStack ) {
-      if ( !this.wasOriginallyOnStack ) {
-        // Toolbox -> Stack: focus next available item in the toolbox
-        this.motionView.itemToolboxGroup.focusNextItemInToolbox( this );
-      }
-      else {
-        // Stack -> Stack: keep focus on this item on the stack
-        this.makeFocusableAndFocus();
-      }
-    }
-    else {
-      // Returned to toolbox: keep focus on this item
-      this.makeFocusableAndFocus();
     }
   }
 

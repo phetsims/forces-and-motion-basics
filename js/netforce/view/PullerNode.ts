@@ -443,13 +443,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             // Drop the grabbed puller
             const currentMode = puller.modeProperty.value;
 
-            // Check if puller was originally from home (to determine if we should auto-focus next)
-            const grabOrigin = puller.getGrabOrigin();
-            const wasFromHome = grabOrigin && grabOrigin.mode.isHome();
-
             // Determine where to drop based on current mode
             let newMode: PullerMode;
-            let droppedOnRope = false;
 
             if ( currentMode.isKeyboardGrabbedOverHome() ) {
               // Drop at home (toolbox)
@@ -466,7 +461,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
               const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
               if ( knotIndex !== null ) {
                 newMode = PullerMode.attachedToKnot( knotIndex );
-                droppedOnRope = true;
 
                 const knot = puller.getKnot();
                 const knotDescription = knot ? this.getKnotDescription( knot ) : 'knot';
@@ -502,26 +496,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
             // Update mode
             puller.modeProperty.value = newMode;
-
-            // If puller was from home and dropped on rope, autofocus next available home puller
-            if ( wasFromHome && droppedOnRope ) {
-              const availableHomePullers = this.view.pullerNodes.filter( pullerNode =>
-                pullerNode.puller.type === this.puller.type &&
-                pullerNode.puller.modeProperty.value.isHome() &&
-                pullerNode.puller !== this.puller
-              );
-
-              if ( availableHomePullers.length > 0 ) {
-                // Sort by position for consistent order
-                availableHomePullers.sort( ( a, b ) => a.centerX - b.centerX );
-
-                // Focus the first available puller
-                const nextPuller = availableHomePullers[ 0 ];
-                nextPuller.focusable = true;
-                nextPuller.focus();
-                this.focusable = false;
-              }
-            }
           }
         }
 
