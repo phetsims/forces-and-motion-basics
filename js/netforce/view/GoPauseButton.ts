@@ -80,8 +80,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
 
     /**
      * REVIEW:
-     * (1) I've been told to avoid adding responses in model Property listeners. Would it be better to do this in
-     *     a GoPauseButton listener callback?
+     * (1) I've been told to avoid adding responses in model Property listeners. But if you're going to do that...
      * (2) Should this be a lazyLink? If the default state was isRunning:true, do you really want a response when the sim starts up?
      * (3) If PhET-iO engine (or a wrapper) sets isRunningProperty, will that result in undesired messages?
      * (4) If you're going to do this via model.isRunningProperty listener, then putting this in GoPauseButton is
