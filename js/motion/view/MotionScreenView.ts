@@ -96,13 +96,15 @@ export default class MotionScreenView extends ScreenView {
       .slice()
       .sort( ( a, b ) => a.top - b.top );
 
-    // Clear existing pdomOrder first to avoid transient duplicates across groups
-    this.itemToolboxGroup.pdomOrder = [];
-    this.itemStackGroup.pdomOrder = [];
-
-    // Apply updated orders
-    this.itemToolboxGroup.pdomOrder = toolboxItems;
-    this.itemStackGroup.pdomOrder = stackItems;
+    // Remove before adding, to avoid having the same focusable node appear in 2x places in the pdom
+    if ( this.itemToolboxGroup.pdomOrder === null || this.itemToolboxGroup.pdomOrder.length > toolboxItems.length ) {
+      this.itemToolboxGroup.pdomOrder = toolboxItems;
+      this.itemStackGroup.pdomOrder = stackItems;
+    }
+    else {
+      this.itemStackGroup.pdomOrder = stackItems;
+      this.itemToolboxGroup.pdomOrder = toolboxItems;
+    }
   }
 
   /**
