@@ -219,6 +219,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       this.updateImages( standImage, pullImage );
     } );
 
+    //REVIEW Factor out PullerDragListener extends SoundDragListener
     this.dragListener = new SoundDragListener( {
         tandem: options.tandem?.createTandem( 'dragListener' ),
         allowTouchSnag: true,
@@ -296,6 +297,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     } );
 
     // Create a single listener that combines all hotkey data
+    //REVIEW Factor out PullerKeyboardListener extends KeyboardListener
     this.keyboardListener = new KeyboardListener( {
       keyStringProperties: [
         ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,

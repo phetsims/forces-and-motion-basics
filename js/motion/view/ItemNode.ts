@@ -136,6 +136,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     model.stackedItems.lengthProperty.link( updateImage );
 
+    //REVIEW Factor out ItemDragListener extends SoundDragListener
     this.dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       positionProperty: item.positionProperty,
@@ -303,6 +304,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     } );
 
     // Create keyboard listener for item interactions
+    //REVIEW Factor out ItemKeyboardListener extends KeyboardListener
     this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
       keys: [
         'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',

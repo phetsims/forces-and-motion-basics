@@ -14,6 +14,9 @@ import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
 
+//REVIEW createHotkeyData call sites obfuscate how the arguments relate to HotkeyData. This implementation would be
+//REVIEW   clearer if NetForceHotkeyData extends HotkeyData. NetForceHotkeyData would set the defaults for repoName
+//REVIEW   and global, and the call sites for the static instances would look more like HotkeyData instantiation.
 function createHotkeyData( keys: OneKeyStroke[],
                            keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
                            global = false ): HotkeyData {
@@ -28,11 +31,13 @@ function createHotkeyData( keys: OneKeyStroke[],
 export default class NetForceHotkeyData {
 
   // Navigation keys for moving between elements
+  //REVIEW Should these be private? They are not used outside NetForceHotkeyData.
   public static readonly NAVIGATE_LEFT: OneKeyStroke[] = [ 'arrowLeft' ];
   public static readonly NAVIGATE_RIGHT: OneKeyStroke[] = [ 'arrowRight' ];
   public static readonly NAVIGATE_UP: OneKeyStroke[] = [ 'arrowUp' ];
   public static readonly NAVIGATE_DOWN: OneKeyStroke[] = [ 'arrowDown' ];
 
+  //REVIEW Should pullerNode be PULLER_NODE?
   public static readonly pullerNode = {
     // Navigation between pullers and knots
     navigation: createHotkeyData( [

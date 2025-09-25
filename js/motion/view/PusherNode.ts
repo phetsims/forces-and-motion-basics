@@ -169,6 +169,7 @@ export default class PusherNode extends Node {
     this.model = model;
     this.itemModelToNodeMap = itemModelToNodeMap;
 
+    //REVIEW Factor out PusherDragListener extends SoundDragListener
     const dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,
