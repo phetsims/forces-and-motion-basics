@@ -19,6 +19,8 @@ import Cart from '../model/Cart.js';
 const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 
 export default class CartNode extends Image {
+
+  //REVIEW xPosition is private, declared and never read. Delete it?
   private readonly xPosition: number;
 
   public constructor( private readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean> ) {
