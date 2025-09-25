@@ -36,7 +36,7 @@ export default class NetForceControlPanel extends Node {
 
   public constructor(
     model: NetForceModel,
-    tandem: Tandem,
+    tandem: Tandem, //REVIEW Why is there a tandem param when providedOptions includes tandem?
     netForceDescription: TReadOnlyProperty<string>,
     speedDescriptionProperty: TReadOnlyProperty<string>,
     providedOptions?: NetForceControlPanelOptions

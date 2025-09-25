@@ -38,7 +38,7 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
    * @param providedOptions
    */
   //REVIEW tandem is unused, looks like you forgot to add it to options below.
-  //REVIEW Why do you have a tandem param when providedOptions includes tandem?
+  //REVIEW Why is there a tandem param when providedOptions includes tandem?
   public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
 
     // Create a derived property for the accessible name that updates based on the button state

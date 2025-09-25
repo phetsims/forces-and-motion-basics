@@ -66,7 +66,9 @@ export default class Puller extends PhetioObject {
                       x: number, y: number,
                       public readonly type: 'red' | 'blue',
                       public readonly size: 'small' | 'medium' | 'large',
-                      public readonly dragOffsetX: number, tandem: Tandem, providedOptions?: PullerOptions ) {
+                      public readonly dragOffsetX: number,
+                      tandem: Tandem, //REVIEW Why is there a tandem param when providedOptions includes tandem?
+                      providedOptions?: PullerOptions ) {
 
     const options = optionize<PullerOptions, SelfOptions, PhetioObjectOptions>()( {
       standOffsetX: 0,
