@@ -45,6 +45,8 @@ export default class ReturnButton extends TextPushButton {
 
     model.hasStartedProperty.linkAttribute( this, 'enabled' );
 
+    //REVIEW Doc says "alt+r", RETURN_CART_HOTKEY_DATA is "alt+c". Which is correct?
+    //REVIEW If "alt+c" is correct, I would refrain from putting the keystroke in the comment here, so it doesn't become out-of-sync with implementation.
     // Create global keyboard listener for Return (alt+r)
     KeyboardListener.createGlobal( this, {
       keyStringProperties: NetForceHotkeyData.RETURN_CART_HOTKEY_DATA.keyStringProperties,
