@@ -17,8 +17,7 @@ import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
 export default class ReturnButton extends TextPushButton {
 
-  //REVIEW Why is there a tandem param when providedOptions includes tandem?
-  //REVIEW Param options: TextPushButtonOptions violates PhET options pattern. Should be providedOptions: ReturnButtonOptions.
+  //REVIEW Delete options param. It's not used at call site. It violates PhET's options pattern. And it provides a 2nd way to pass in tandem.
   public constructor( model: NetForceModel, tandem: Tandem, options: TextPushButtonOptions ) {
 
     super( ForcesAndMotionBasicsFluent.returnStringProperty, {

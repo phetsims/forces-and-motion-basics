@@ -26,11 +26,14 @@ const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsFluent.patt
 const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStringProperty;
 
 export default class AppliedForceControl extends VBox {
+
+  //REVIEW tandem is typically the last parameter.
   public constructor( tandem: Tandem, maxTextWidth: number, model: MotionModel ) {
 
-    // Create the slider
+    //REVIEW Move closer to where it's used, which is near the end of the constructor.
     const disableText = ( node: Text ) => ( length: number ) => {node.fill = length === 0 ? 'gray' : 'black';};
 
+    // Create the slider
     const appliedForceTitle = new Text( appliedForceStringProperty, {
       font: new PhetFont( 22 ),
       maxWidth: maxTextWidth,
@@ -81,6 +84,7 @@ export default class AppliedForceControl extends VBox {
       // When the user uses the keyboard to apply force, if it isn't enough to start the
       // items moving, alert a message that the stack remains stationary.
       pdomCreateContextResponseAlert: newAppliedForce => {
+        //REVIEW 2 return statements in a function.
         if ( newAppliedForce !== 0 && model.accelerationProperty.value === 0 ) {
           return ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty;
         }
