@@ -35,6 +35,8 @@ type AnimationState = {
 };
 
 export default class Item extends PhetioObject {
+
+  //REVIEW field are not documented.
   public readonly name: string;
   private readonly initialX: number;
   private readonly initialY: number;
@@ -46,6 +48,7 @@ export default class Item extends PhetioObject {
   // the position of the item
   public readonly positionProperty: Vector2Property;
 
+  //REVIEW document
   public readonly pusherInsetProperty: Property<number>;
 
   // whether the item is being user controlled (dragged)
@@ -65,6 +68,8 @@ export default class Item extends PhetioObject {
 
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
   public readonly imageScale: number;
+
+  //REVIEW document
   public readonly interactionScaleProperty: TReadOnlyProperty<number>;
 
   // True if and only if the item is a bucket
@@ -87,10 +92,11 @@ export default class Item extends PhetioObject {
    * @param pusherInset - inset value to align the item with the pusher's hands
    * @param sittingImage - image from the 'image!' plugin, representing a 'sitting' item
    * @param holdingImage - image from the 'image!' plugin, representing a 'sitting' item
-
-   * @param mystery
+   * @param mystery REVIEW document
    */
   public constructor(
+
+    //REVIEW Consider renaming context to model, because it's nonstandard and confusing.
     public readonly context: MotionModel,
     name: string | HumanTypeEnum,
     tandem: Tandem,
@@ -104,6 +110,7 @@ export default class Item extends PhetioObject {
     pusherInset?: number,
     sittingImage?: ImageableImage,
     holdingImage?: ImageableImage,
+    //REVIEW Because this param is after optional params, and is itself optional, does this field always exist?
     public readonly mystery?: boolean ) {
 
     super( {
@@ -314,6 +321,7 @@ export default class Item extends PhetioObject {
       if ( distanceToTarget < 1 ) {
         this.positionProperty.value = destination;
         this.animationState = null;
+        //REVIEW This is odd. Why assignment to modeProperty twice?
         this.modeProperty.value = this.modeProperty.value === 'animatingToToolbox' ? 'inToolbox' : 'onStack';
       }
     }
