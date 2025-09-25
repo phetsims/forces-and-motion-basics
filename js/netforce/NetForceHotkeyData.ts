@@ -14,9 +14,17 @@ import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
 
-//REVIEW createHotkeyData call sites obfuscate how the arguments relate to HotkeyData. This implementation would be
-//REVIEW   clearer if NetForceHotkeyData extends HotkeyData. NetForceHotkeyData would set the defaults for repoName
-//REVIEW   and global, and the call sites for the static instances would look more like HotkeyData instantiation.
+/**
+ * REVIEW
+ * createHotkeyData is duplicated NetForceHotkeyData.ts and MotionHotkeyData. And the call sites obfuscate how the
+ * args relate to HotkeyData. A better implementation would be:
+ * 1. Create base class FAMBHotkeyData with protected constructor.
+ * 2. FAMBHotkeyData sets default option to global:false.
+ * 3. FAMBHotkeyDataOptions omits 'repoName' and sets it to repoName: forcesAndMotionBasics.name.
+ * 4. NetForceHotkeyData and MotionHotkeyData extend FAMBHotkeyData, with private constructors.
+ * 5. NetForceHotkeyData has public static readonly members that are instances of NetForceHotkeyData.
+ * 6. MotionHotkeyData has public static readonly members that are instances of MotionHotkeyData.
+ */
 function createHotkeyData( keys: OneKeyStroke[],
                            keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
                            global = false ): HotkeyData {

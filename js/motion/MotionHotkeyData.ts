@@ -12,6 +12,7 @@ import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
 
+//REVIEW Duplicated, see REVIEW comment in NetForceHotkeyData.ts
 function createHotkeyData( keys: OneKeyStroke[],
                            keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
                            global = false ): HotkeyData {
