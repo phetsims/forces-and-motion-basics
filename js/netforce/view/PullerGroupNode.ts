@@ -16,10 +16,12 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 type SelfOptions = {
+  //REVIEW 'left' | 'right' is duplicated in 9 places. Seems like a good candidate for enumeration pattern.
   // Which side this group represents
   side: 'left' | 'right';
 };
 
+//REVIEW Why include NodeOptions when instantiation sites only need to provide options.side?
 type PullerGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class PullerGroupNode extends Node {
@@ -36,6 +38,7 @@ export default class PullerGroupNode extends Node {
 
     super( options );
 
+    //REVIEW Why not set this via options.groupFocusHighlight?
     this.groupFocusHighlight = new GroupHighlightPath(
       Shape.bounds( new Bounds2( toolboxBounds.minX, toolboxBounds.minY, toolboxBounds.maxX, toolboxBounds.maxY ).dilated( 10 ) ), {
         innerLineWidth: 5

@@ -19,6 +19,7 @@ import ItemNode from './ItemNode.js';
 
 type SelfOptions = EmptySelfOptions;
 
+//REVIEW Why include NodeOptions, or even bother with ItemStackGroupNode, when instantiation sites only need to provide tandem?
 type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
 
 export default class ItemStackGroupNode extends Node {
