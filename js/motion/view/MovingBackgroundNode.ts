@@ -24,11 +24,15 @@ import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 
 // constants
+//REVIEW Replace deprecated Utils with imports from dot/js/util/. Recommended to do this throughout.
 const linear = Utils.linear;
 
 export default class MovingBackgroundNode extends Node {
+
+  //REVIEW Unused field, delete it.
   private lastNumSpecks = 0;
 
+  //REVIEW Vestigial JSdoc, there is no tandem param.
   /**
    * Constructor for MovingBackgroundNode
    *
@@ -36,6 +40,7 @@ export default class MovingBackgroundNode extends Node {
    * @param layoutCenterX the position where the node should be centered horizontally
    * @param tandem
    */
+  //REVIEW 'private readonly model' creates unused field 'this.model', delete 'private readonly'
   public constructor( private readonly model: MotionModel, layoutCenterX: number ) {
 
     super( {
@@ -46,6 +51,7 @@ export default class MovingBackgroundNode extends Node {
     const L = 900;
 
     // Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
+    //REVIEW param tandemName is unused, but it's provided at all 8 call sites. Is this a bug, or should param tandemName be deleted?
     const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => new Image( image, {
       scale: scale,
       x: offset,
@@ -78,7 +84,7 @@ export default class MovingBackgroundNode extends Node {
 
     const tileWidth = brickTile_png.width;
 
-    // Add the ground, offset the pattern so that the it aligns with the brick image
+    // Add the ground, offset the pattern so that it aligns with the brick image
     const tilePattern = new Pattern( brickTile_png );
     const ground = new Rectangle( 0, 0, brickTile_png.width * 14, brickTile_png.height, { fill: tilePattern } );
     const mod = ground.width / 14;
