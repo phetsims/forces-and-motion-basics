@@ -1,5 +1,6 @@
 // Copyright 2025, University of Colorado Boulder
 
+//REVIEW How does this use "the same thresholds as ReadoutArrow"? Magnitude thresholds are hard-coded herein, and I see no code sharing with ReadoutArrow.
 /**
  * Utility function to get qualitative force descriptions based on magnitude.
  * Uses the same thresholds as ReadoutArrow for consistency across the simulation.
