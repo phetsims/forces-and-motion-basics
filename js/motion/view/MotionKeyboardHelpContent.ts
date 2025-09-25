@@ -24,6 +24,8 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
 
   public constructor() {
 
+    //REVIEW Factor out ObjectNavigationKeyboardHelpSection extends KeyboardHelpSection.
+    //REVIEW Rename itemNavigationSection to objectNavigationSection to match visual UI.
     // Create the item navigation section
     const itemNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.objectNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIcon(
