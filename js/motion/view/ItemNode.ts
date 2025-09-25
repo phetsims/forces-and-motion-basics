@@ -38,6 +38,8 @@ import MotionScreenView from './MotionScreenView.js';
 const IDENTITY = Matrix3.scaling( 1, 1 );
 
 export default class ItemNode extends InteractiveHighlighting( Node ) {
+
+  //REVIEW fields are not documented.
   private readonly labelNode: Node;
   private readonly normalImageNode: Image;
   public readonly sittingImageNode: Image;
@@ -61,8 +63,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * @param itemToolbox - The toolbox that contains this item
    * @param tandem
    */
-  public constructor( public readonly model: MotionModel,
-                      public readonly motionView: MotionScreenView,
+  public constructor( public readonly model: MotionModel, //REVIEW Should be private.
+                      public readonly motionView: MotionScreenView, //REVIEW Should be private.
                       public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
@@ -285,7 +287,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     } );
 
     // Use a HighlightPath without a transformSourceNode to avoid DAG assertions during rapid reparenting
-    const focusHighlight = new HighlightPath( null );
+    const focusHighlight = new HighlightPath( null ); //REVIEW const focusHighlight is unnecessary.
     this.focusHighlight = focusHighlight;
 
     // Keep the focus highlight in sync with this node's local bounds
@@ -306,6 +308,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     // Create keyboard listener for item interactions
     //REVIEW Factor out ItemKeyboardListener extends KeyboardListener
     this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
+      //REVIEW No support for WASD?
       keys: [
         'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
         'enter', 'space', 'escape', 'delete', 'backspace'
@@ -325,7 +328,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         if ( this.item.modeProperty.value === 'keyboardGrabbedFromToolbox' ) {
           this.returnItemToToolbox();
         }
-
         else if ( this.item.modeProperty.value === 'keyboardGrabbedFromStack' ) {
           const priorLength = this.placeItemOnStack();
           this.addAccessibleContextResponseForDroppedOnStack( priorLength );
@@ -347,6 +349,9 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * is using its sitting representation, use that to get the scaled width.
    */
   public getScaledWidth(): number {
+
+    //REVIEW Duplication of this.item.getCurrentScale() in this computation. Consider:
+    //REVIEW   return ( this.sittingImageNode ? this.sittingImageNode.width : this.normalImageNode.width ) * this.item.getCurrentScale();
 
     // if the item has a sitting image, use that image for the width
     let scaledWidth;
