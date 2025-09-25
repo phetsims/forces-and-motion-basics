@@ -44,13 +44,13 @@ export default class Puller extends PhetioObject {
   public readonly positionProperty: Vector2Property;
 
   // a classified position in the play area
-  public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>;
+  public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>; //REVIEW Use enumeration pattern
 
   // Accounts for the ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
   public readonly colorProperty: TReadOnlyProperty<LeftTeamColor | RightTeamColor>;
 
   // For the small pullers, there are index 1 and 2. For others, there is no suffix.
-  public readonly descriptionIndex: '1' | '2' | '';
+  public readonly descriptionIndex: '1' | '2' | ''; //REVIEW Use enumeration pattern
 
   /**
    * @param model the NetForceModel that this puller is associated with, for context
@@ -64,8 +64,8 @@ export default class Puller extends PhetioObject {
    */
   public constructor( public readonly model: NetForceModel,
                       x: number, y: number,
-                      public readonly type: 'red' | 'blue',
-                      public readonly size: 'small' | 'medium' | 'large',
+                      public readonly type: 'red' | 'blue', //REVIEW Use enumeration pattern
+                      public readonly size: 'small' | 'medium' | 'large', //REVIEW Use enumeration pattern
                       public readonly dragOffsetX: number,
                       tandem: Tandem, //REVIEW Why is there a tandem param when providedOptions includes tandem?
                       providedOptions?: PullerOptions ) {
@@ -83,6 +83,8 @@ export default class Puller extends PhetioObject {
     this.descriptionIndex = tandem.name.includes( '1' ) ? '1' : tandem.name.includes( '2' ) ? '2' : '';
 
     this.standOffsetX = options.standOffsetX;
+
+    //REVIEW 50, 100, 150 are duplicated in the first arg and in the range option. Factor out range constants.
     this.forceProperty = new NumberProperty( this.size === 'small' ? 50 :
                                              this.size === 'medium' ? 100 :
                                              150, {
@@ -113,7 +115,7 @@ export default class Puller extends PhetioObject {
     } );
 
     this.lastPlacementProperty = new StringUnionProperty( 'home', {
-      validValues: [ 'home', 'knot' ],
+      validValues: [ 'home', 'knot' ], //REVIEW Use enumeration pattern
       tandem: tandem.createTandem( 'lastPlacementProperty' ),
       phetioDocumentation: 'For PhET-iO internal use only, tracks the last placement of the puller for purposes of determining thresholds for where it should drop',
       phetioReadOnly: true
@@ -200,6 +202,7 @@ export default class Puller extends PhetioObject {
     this.grabOrigin = null;
   }
 
+  //REVIEW This method is not used.
   /**
    * Grab method for mouse/touch interactions
    */
@@ -216,6 +219,7 @@ export default class Puller extends PhetioObject {
     // For keyboard grabs, the mode transition is handled by PullerKeyboardSupport
   }
 
+  //REVIEW This method is not used.
   /**
    * Drop method - determine final position based on current position
    */
@@ -237,6 +241,7 @@ export default class Puller extends PhetioObject {
    * Drop at a specific knot (called by mouse/touch drag listener)
    */
   public dropAtKnot( knot: Knot ): void {
+    //REVIEW newMode is redundant.
     const newMode = this.getModeForKnot( knot );
     this.modeProperty.value = newMode;
     this.lastPlacementProperty.value = 'knot';
@@ -273,6 +278,7 @@ export default class Puller extends PhetioObject {
     return this.modeProperty.value.isGrabbed();
   }
 
+  //REVIEW This method is not used.
   /**
    * Get the grab origin if it exists
    */

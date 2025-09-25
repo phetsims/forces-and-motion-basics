@@ -45,6 +45,7 @@ export default class PullerMode {
     return new PullerMode( 'home' );
   }
 
+  //REVIEW PullerMode is immutable. Whey are static methods needed that return new instances? Why can't static instances be used?
   public static pointerGrabbed(): PullerMode {
     return new PullerMode( 'grabbed', { method: 'pointer' } );
   }
