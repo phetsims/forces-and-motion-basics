@@ -23,9 +23,13 @@ import MotionConstants from '../MotionConstants.js';
 
 export default class FrictionControl extends VBox {
   public constructor( model: MotionModel, fontSize: number, maxTextWidth: number, tandem: Tandem ) {
+
+    //REVIEW tandem is never passed to super, and there's no mutate later in the constructor. Is this intentional?
     super();
 
     const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
+
+    //REVIEW Why is this const needed?
     const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
 
     // Track the value at the start of the current interaction to classify the change at end
@@ -71,6 +75,8 @@ export default class FrictionControl extends VBox {
       visibleProperty: frictionSlider.visibleProperty
     } );
 
+    //REVIEW Another model Property listener that is adding responses. It thought this was to be avoided?
+    //REVIEW Does this need to be guarded with isSettingPhetioStateProperty?
     model.frictionCoefficientProperty.lazyLink( ( friction, oldFriction ) => {
 
       // Only provide context response feedback caused by an interaction, not, say, from reset all or other programmatic causes
@@ -88,6 +94,7 @@ export default class FrictionControl extends VBox {
       }
     } );
 
+    //REVIEW This should be done immediately after frictionSlider instantiation, not after the above description code.
     // Add minor/major ticks and labels
     for ( let i = 0; i < numberOfMinorTicks; i++ ) {
       frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * ( i + 1 ) );
