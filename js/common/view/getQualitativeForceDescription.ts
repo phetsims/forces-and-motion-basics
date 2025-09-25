@@ -1,5 +1,8 @@
 // Copyright 2025, University of Colorado Boulder
 
+//REVIEW Having one function all by itself feels a little sad. Are there not other force-related description methods
+//REVIEW   that could be bundled into a ForceDescriber class?
+
 //REVIEW How does this use "the same thresholds as ReadoutArrow"? Magnitude thresholds are hard-coded herein, and I see no code sharing with ReadoutArrow.
 /**
  * Utility function to get qualitative force descriptions based on magnitude.
