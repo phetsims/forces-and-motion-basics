@@ -40,6 +40,7 @@ export default class ItemToolboxGroupNode extends Node {
 
     super( options );
 
+    //REVIEW Why not compute this earlier in the constructor, and provide via options.groupFocusHighlight?
     // Create a constant highlight region from the union of both toolbox bounds
     const unionBounds = leftToolboxBounds.union( rightToolboxBounds );
     const dilatedBounds = unionBounds.dilated( 10 );
@@ -85,7 +86,10 @@ export default class ItemToolboxGroupNode extends Node {
    * Sort items by their side (left items first) and then by position for consistent navigation
    */
   private sortItems(): void {
+    //REVIEW (a, b) violates PhET naming conventions, use (aItemNode, bItemNode).
     this.itemNodes.sort( ( a, b ) => {
+
+      //REVIEW Consider factoring this function out. It's being duplicated everytime this method is called.
       // Get item side (left vs right toolbox)
       const getSide = ( item: ItemNode ) => {
         // fridge and crates go in left toolbox, others go in right
@@ -127,7 +131,7 @@ export default class ItemToolboxGroupNode extends Node {
     if ( itemsInToolbox.length > 0 ) {
       // Reset focus state - make first item focusable, others non-focusable initially
       itemsInToolbox.forEach( ( itemNode, index ) => {
-        const focusable = index === 0;
+        const focusable = index === 0;  //REVIEW const focusable is redundant.
         itemNode.focusable = focusable;
       } );
     }
