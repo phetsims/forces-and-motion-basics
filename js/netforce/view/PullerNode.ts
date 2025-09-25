@@ -53,6 +53,10 @@ import NetForceHotkeyData from '../NetForceHotkeyData.js';
 import NetForceScreenView from './NetForceScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
+
+//REVIEW Backwards, should be SelfOptions & ImageOptions
+//REVIEW tandem should be required.
+//REVIEW The only option provided at instantiate site is tandem, so why bother with PullerNodeOptions at all?
 type PullerNodeOptions = ImageOptions & SelfOptions;
 
 // Vertical offset when keyboard grabbed to show puller is "above" and not connected
@@ -141,12 +145,14 @@ const colorMapping: ColorMap = {
 
 export default class PullerNode extends InteractiveHighlighting( Image ) {
 
+  //REVIEW All fields are undocumented.
   public standImage: ImageableImage;
   public pullImage: ImageableImage;
   private readonly dragListener: SoundDragListener;
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
   private readonly model: NetForceModel;
 
+  //REVIEW Constructor is typically the first method in a class definition. Move this method after constructor.
   /**
    * Get the appropriate puller image based on the current color preference
    * @param puller - The puller model
@@ -166,6 +172,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
   }
 
+  //REVIEW JSDoc here adds nothing, can be deleted.
   /**
    * Create a PullerNode for the specified puller
    *
@@ -195,6 +202,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       scale: 0.86,
       tagName: 'button',
       accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
+        //REVIEW Mapping 'blue'|'red' to 'purple'|'orange'? What is going on here?!?
         const displayColor = pullerColor === 'purpleOrange' ?
                              ( puller.type === 'blue' ? 'purple' : 'orange' ) :
                              puller.type;

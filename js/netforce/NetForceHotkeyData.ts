@@ -50,6 +50,7 @@ export default class NetForceHotkeyData {
   public static readonly pullerNode = {
     // Navigation between pullers and knots
     navigation: createHotkeyData( [
+      //REVIEW Is WASD not supported?
         ...NetForceHotkeyData.NAVIGATE_LEFT,
         ...NetForceHotkeyData.NAVIGATE_RIGHT,
         ...NetForceHotkeyData.NAVIGATE_UP,
