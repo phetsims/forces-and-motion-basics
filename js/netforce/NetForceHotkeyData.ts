@@ -14,6 +14,7 @@ import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
 
+//REVIEW Yes, this should move to js/netforce/view/
 /**
  * REVIEW
  * createHotkeyData is duplicated NetForceHotkeyData.ts and MotionHotkeyData. And the call sites obfuscate how the
