@@ -49,6 +49,7 @@ export default class ItemStackGroupNode extends Node {
     const highlightX = ForcesAndMotionBasicsLayoutBounds.centerX - highlightWidth / 2; // Center around x=400 (layoutBounds.width/2)
     const highlightY = 10; // Above the skateboard to encompass stacked items
 
+    //REVIEW Why not compute this earlier in the constructor, and provide via options.groupFocusHighlight?
     this.groupFocusHighlight = new GroupHighlightPath(
       Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ), {
         innerLineWidth: 5
@@ -59,6 +60,7 @@ export default class ItemStackGroupNode extends Node {
   /**
    * Add an item node to the stack group (transferring from another parent if needed)
    */
+  //REVIEW Excessive coupling to MotionModel, this.sortItems only needs stackedItems.
   public addItemNode( itemNode: ItemNode, model: MotionModel ): void {
 
     // Remove from current parent if it has one
@@ -90,6 +92,7 @@ export default class ItemStackGroupNode extends Node {
   /**
    * Sort items by their stack position (bottom to top based on model's stacked items order)
    */
+  //REVIEW Excessive coupling to MotionModel, only needs stackedItems.
   private sortItems( model: MotionModel ): void {
     this.stackItemNodes.sort( ( a, b ) => {
       const aIndex = model.stackedItems.indexOf( a.item );
