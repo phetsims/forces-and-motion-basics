@@ -1,5 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
+//REVIEW Document why a puller needs to know whether it has been grabbed by pointer vs keyboard.
+//REVIEW Document any what about other alt-input devices? Are we out of luck, have lots of work to do, etc.?
 /**
  * PullerMode represents the various states a puller can be in during the simulation.
  * This includes home position, being grabbed (by pointer or keyboard), and being attached to a knot.
@@ -25,6 +27,8 @@ type PullerModeOptions = {
 };
 
 export default class PullerMode {
+
+  //REVIEW type field should be private, according to 'grunt lint' and 'grunt type-check'
   public readonly type: PullerModeType;
   private readonly method?: GrabMethod;
   private readonly knotIndex?: number;
@@ -71,6 +75,7 @@ export default class PullerMode {
     return this.type === 'attached';
   }
 
+  //REVIEW Why not isGrabbed() to be consistent? There are only 2 uses of this method, recommended to rename.
   public isUserControlled(): boolean {
     return this.type === 'grabbed';
   }
