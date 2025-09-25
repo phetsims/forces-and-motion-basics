@@ -49,10 +49,16 @@ const VBOX_SPACING = 5;
 const SUM_OF_FORCES_MAX_WIDTH = 120;
 
 /**
+ * REVIEW This class is that it is trying really hard to be reusable across 3 screens that have different control panels.
+ * And it is consequently complicated.  Imo, this is misguided generalization. I would just have a different
+ * {{screenName}}ControlPanel class for each screen -- the duplication involved would be an acceptable trade-off for
+ * the complexity of MotionControlPanel.
+ */
+
+/**
  * REVIEW There are 11 (!) functions defined inside the constructor. Recommended to move them to private functions
- * (if they do not rely on 'this') or private methods. As is, the constructor that is unnecessarily difficult
- * to read, a copy of each function is created for each screen, and there is poor encapsulation with risk of leakage
- * via closures.
+ * (if they do not rely on 'this') or private methods. As is, the constructor is unnecessarily difficult to read,
+ * a copy of each function is created for each screen, and there is poor encapsulation with risk of leakage via closures.
  */
 export default class MotionControlPanel extends Node {
 
@@ -369,15 +375,6 @@ export default class MotionControlPanel extends Node {
       fill: '#e3e980'
     } );
     this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5, top: 5 } ) );
-    //REVIEW The above 2 statements might be a little clearer as:
-    // const panel = new Panel( contents, {
-    //  xMargin: 12,
-    //  yMargin: 7,
-    //  fill: '#e3e980',
-    //  top: 5
-    // } );
-    // panel.left = ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5;
-    // this.addChild( panel );
   }
 }
 
