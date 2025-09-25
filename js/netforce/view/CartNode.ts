@@ -45,6 +45,8 @@ export default class CartNode extends Image {
     showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
+    //REVIEW I'm concerned whenever I see a response being added in a model Property listener.
+    //REVIEW Should this be guarded with a check of isSettingPhetioStateProperty.value?
     cart.velocityProperty.lazyLink( ( velocity, oldVelocity ) => {
 
       // Detect direction changes and announce them
