@@ -319,6 +319,7 @@ export default class NetForceModel extends PhetioObject {
 
         // iterate through the pullers and see if any are grabbing or referencing this knot
         this.pullers.forEach( puller => {
+
           if ( puller.modeProperty.value.isPointerGrabbed() ) {
             const targetKnot = this.getTargetKnot( puller );
             if ( targetKnot && targetKnot === knot ) {
@@ -326,6 +327,7 @@ export default class NetForceModel extends PhetioObject {
             }
           }
 
+          //REVIEW If puller grab has already set isHighlighted to true, why check keyboard grab?
           // check if the keyboard grab is hovering over the knot
           if ( puller.modeProperty.value.isKeyboardGrabbedOverSpecificKnot( knot, this ) ) {
             isHighlighted = true;
