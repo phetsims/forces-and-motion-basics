@@ -85,6 +85,7 @@ export default class MotionScreenView extends ScreenView {
   public readonly itemStackGroup: ItemStackGroupNode;
 
   // Update PDOM order for toolbox and stack items
+  //REVIEW Constructor is typically the first method in a class definition. Move this after constructor.
   private updateItemPDOMOrder(): void {
 
     // Compute desired orders
@@ -620,6 +621,7 @@ export default class MotionScreenView extends ScreenView {
    * Set up the transfer logic for moving items between keyboard groups based on stack state
    */
   private setupKeyboardGroupTransfers( model: MotionModel ): void {
+    //REVIEW Document that this should only be called once, from constructor. Better would be to affirm that it's not called twice.
 
     // Helper function to perform group transfer logic using unified mode property
     const performGroupTransfer = ( itemNode: ItemNode ) => {
