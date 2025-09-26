@@ -84,11 +84,11 @@ export default class AppliedForceControl extends VBox {
       // When the user uses the keyboard to apply force, if it isn't enough to start the
       // items moving, alert a message that the stack remains stationary.
       pdomCreateContextResponseAlert: newAppliedForce => {
-        //REVIEW 2 return statements in a function.
+        let result = null;
         if ( newAppliedForce !== 0 && model.accelerationProperty.value === 0 ) {
-          return ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty;
+          result = ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty;
         }
-        return null;
+        return result;
       },
       pdomCreateAriaValueText: ( value: number ) => {
         return ForcesAndMotionBasicsFluent.a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueText.format( {
