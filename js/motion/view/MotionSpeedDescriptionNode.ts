@@ -19,7 +19,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
-export default class MotionSpeedDescription extends Node {
+export default class MotionSpeedDescriptionNode extends Node {
   public readonly speedDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: MotionModel ) {
@@ -124,4 +124,4 @@ export default class MotionSpeedDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'MotionSpeedDescription', MotionSpeedDescription );
+forcesAndMotionBasics.register( 'MotionSpeedDescriptionNode', MotionSpeedDescriptionNode );

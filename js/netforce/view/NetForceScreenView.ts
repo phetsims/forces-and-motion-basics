@@ -43,8 +43,8 @@ import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
-import NetForceSpeedDescription from './NetForceSpeedDescription.js';
-import TugOfWarDescription from './TugOfWarDescription.js';
+import NetForceSpeedDescriptionNode from './NetForceSpeedDescriptionNode.js';
+import TugOfWarDescriptionNode from './TugOfWarDescriptionNode.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsFluent.leftForceStringProperty;
 const rightForceStringProperty = ForcesAndMotionBasicsFluent.rightForceStringProperty;
@@ -289,14 +289,14 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.sumArrow );
 
     const forcesListDescription = new ForcesListDescription( model );
-    const netForceSpeedDescription = new NetForceSpeedDescription( model );
+    const netForceSpeedDescriptionNode = new NetForceSpeedDescriptionNode( model );
 
     // Show the control panel
     this.controlPanel = new NetForceControlPanel(
       this.model,
       tandem.createTandem( 'controlPanel' ),
       forcesListDescription.netForceDescriptionProperty,
-      netForceSpeedDescription.speedDescriptionProperty, {
+      netForceSpeedDescriptionNode.speedDescriptionProperty, {
         visiblePropertyOptions: { phetioFeatured: true }
       } );
 
@@ -388,11 +388,11 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( cursorPathNode );
 
     // Create Tug of War overview node
-    const tugOfWarOverviewNode = new TugOfWarDescription( model, this.pullerNodes );
+    const tugOfWarOverviewNode = new TugOfWarDescriptionNode( model, this.pullerNodes );
     this.addChild( tugOfWarOverviewNode );
 
     this.addChild( forcesListDescription );
-    this.addChild( netForceSpeedDescription );
+    this.addChild( netForceSpeedDescriptionNode );
 
     // Set up the pdomOrder for proper accessibility hierarchy
     // Play Area: left toolbox -> right toolbox -> tug of war overview -> forces list -> speed -> play area controls -> cart -> arrows
@@ -401,7 +401,7 @@ export default class NetForceScreenView extends ScreenView {
       rightToolbox,
       tugOfWarOverviewNode,
       forcesListDescription,
-      netForceSpeedDescription,
+      netForceSpeedDescriptionNode,
       playAreaControlNode,
       this.cartNode,
       this.leftArrow,

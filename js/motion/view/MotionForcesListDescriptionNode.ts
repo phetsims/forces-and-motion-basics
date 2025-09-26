@@ -26,7 +26,7 @@ import MotionModel from '../model/MotionModel.js';
 
 const THRESHOLD = 1e-6;
 
-export default class MotionForcesListDescription extends Node {
+export default class MotionForcesListDescriptionNode extends Node {
   private readonly forcesList: AccessibleListNode | null = null;
   public readonly netForceDescriptionProperty: TReadOnlyProperty<string>;
 
@@ -155,4 +155,4 @@ export default class MotionForcesListDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'MotionForcesListDescription', MotionForcesListDescription );
+forcesAndMotionBasics.register( 'MotionForcesListDescriptionNode', MotionForcesListDescriptionNode );

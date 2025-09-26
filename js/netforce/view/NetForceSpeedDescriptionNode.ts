@@ -14,19 +14,19 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
-export default class NetForceSpeedDescription extends Node {
+export default class NetForceSpeedDescriptionNode extends Node {
   public readonly speedDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: NetForceModel ) {
 
     const qualitativeSpeedProperty = new DerivedProperty(
       [ model.speedProperty ],
-      speed => NetForceSpeedDescription.getQualitativeSpeedDescription( Math.abs( speed ) )
+      speed => NetForceSpeedDescriptionNode.getQualitativeSpeedDescription( Math.abs( speed ) )
     );
 
     const accelerationDescriptionProperty = new DerivedProperty(
       [ model.netForceProperty, model.cart.velocityProperty ],
-      ( netForce, velocity ) => NetForceSpeedDescription.getAccelerationDescription( netForce, velocity )
+      ( netForce, velocity ) => NetForceSpeedDescriptionNode.getAccelerationDescription( netForce, velocity )
     );
 
     const cartSpeedWithAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeedWithAcceleration.createProperty( {
@@ -145,4 +145,4 @@ export default class NetForceSpeedDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'NetForceSpeedDescription', NetForceSpeedDescription );
+forcesAndMotionBasics.register( 'NetForceSpeedDescriptionNode', NetForceSpeedDescriptionNode );

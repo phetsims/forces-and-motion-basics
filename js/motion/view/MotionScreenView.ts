@@ -45,12 +45,12 @@ import ItemNode from './ItemNode.js';
 import ItemStackGroupNode from './ItemStackGroupNode.js';
 import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
-import MotionForcesListDescription from './MotionForcesListDescription.js';
+import MotionForcesListDescriptionNode from './MotionForcesListDescriptionNode.js';
 import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
-import MotionAccelerationDescription from './MotionAccelerationDescription.js';
-import MotionSpeedDescription from './MotionSpeedDescription.js';
+import MotionAccelerationDescriptionNode from './MotionAccelerationDescriptionNode.js';
+import MotionSpeedDescriptionNode from './MotionSpeedDescriptionNode.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
-import MotionStackDescription from './MotionStackDescription.js';
+import MotionStackDescriptionNode from './MotionStackDescriptionNode.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
@@ -189,16 +189,16 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( appliedForcePlayAreaControlNode );
 
     // Accessible forces list description for Motion screens
-    const forcesListDescription = new MotionForcesListDescription( model );
-    this.addChild( forcesListDescription );
+    const forcesListDescriptionNode = new MotionForcesListDescriptionNode( model );
+    this.addChild( forcesListDescriptionNode );
 
     // Acceleration description (visible only on acceleration screen when checkbox enabled)
-    const accelerationDescription = new MotionAccelerationDescription( model );
-    this.addChild( accelerationDescription );
+    const accelerationDescriptionNode = new MotionAccelerationDescriptionNode( model );
+    this.addChild( accelerationDescriptionNode );
 
     // Compute dynamic speed description to announce when Speed is enabled
-    const speedDescription = new MotionSpeedDescription( model );
-    this.addChild( speedDescription );
+    const speedDescriptionNode = new MotionSpeedDescriptionNode( model );
+    this.addChild( speedDescriptionNode );
 
     // Create the speedometer.  Specify the position after construction so we can set the 'top'
     const speedometerNode = new SpeedometerNode( model.speedProperty, model.showSpeedProperty, model.showValuesProperty, {
@@ -209,7 +209,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( speedometerNode );
 
     // Create and add the control panel (pass dynamic speed description for accessibility announcement)
-    const controlPanel = new MotionControlPanel( model, forcesListDescription.netForceDescriptionProperty, speedDescription.speedDescriptionProperty, accelerationDescription.accelerationDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
+    const controlPanel = new MotionControlPanel( model, forcesListDescriptionNode.netForceDescriptionProperty, speedDescriptionNode.speedDescriptionProperty, accelerationDescriptionNode.accelerationDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );
@@ -391,8 +391,8 @@ export default class MotionScreenView extends ScreenView {
     } );
 
     // Add the requested list under the heading, before the objects
-    const stackDescription = new MotionStackDescription( model );
-    stackSection.addChild( stackDescription );
+    const stackDescriptionNode = new MotionStackDescriptionNode( model );
+    stackSection.addChild( stackDescriptionNode );
     stackSection.addChild( this.itemStackGroup );
 
     // Announce stack movement direction changes for accessibility, driven by velocityProperty
@@ -564,9 +564,9 @@ export default class MotionScreenView extends ScreenView {
       this.itemToolboxGroup,
       stackSection,
       appliedForcePlayAreaControlNode,
-      forcesListDescription,
-      speedDescription,
-      accelerationDescription,
+      forcesListDescriptionNode,
+      speedDescriptionNode,
+      accelerationDescriptionNode,
       this.appliedForceArrow,
       this.frictionArrow,
       this.sumArrow,

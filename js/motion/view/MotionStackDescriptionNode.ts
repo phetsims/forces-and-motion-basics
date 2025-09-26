@@ -22,7 +22,7 @@ import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import { formatItemAccessibleNameWithMass, getLocalizedItemNameProperty } from './getItemNameProperties.js';
 
-export default class MotionStackDescription extends Node {
+export default class MotionStackDescriptionNode extends Node {
 
   public constructor( private readonly model: MotionModel ) {
     // Surface label used within strings
@@ -123,4 +123,4 @@ export default class MotionStackDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'MotionStackDescription', MotionStackDescription );
+forcesAndMotionBasics.register( 'MotionStackDescriptionNode', MotionStackDescriptionNode );

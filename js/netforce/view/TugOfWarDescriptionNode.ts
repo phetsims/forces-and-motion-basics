@@ -17,7 +17,7 @@ import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPref
 import NetForceModel from '../model/NetForceModel.js';
 import PullerNode from './PullerNode.js';
 
-export default class TugOfWarDescription extends Node {
+export default class TugOfWarDescriptionNode extends Node {
 
   public constructor( private readonly model: NetForceModel, private readonly pullerNodes: PullerNode[] ) {
     super( {
@@ -84,4 +84,4 @@ export default class TugOfWarDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'TugOfWarDescription', TugOfWarDescription );
+forcesAndMotionBasics.register( 'TugOfWarDescriptionNode', TugOfWarDescriptionNode );
