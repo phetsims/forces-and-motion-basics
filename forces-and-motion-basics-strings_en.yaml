@@ -237,37 +237,37 @@ a11y:
     pusherResponses:
       fellDownAppliedForceZero: Pusher fell down, applied force now 0 newtons.
     motionControlPanel:
-      force:
+      forceCheckbox:
         accessibleName:                     Force
         accessibleHelpText:                 Show or hide applied force arrow.
         accessibleContextResponseChecked:   Applied force arrow shown.
         accessibleContextResponseUnchecked: Applied force arrow hidden.
-      values:
+      valuesCheckbox:
         accessibleName: Values
-      masses:
+      massesCheckbox:
         accessibleName:                     Masses
         accessibleHelpText:                 Show or hide masses of objects.
         accessibleContextResponseChecked:   Mass values shown.
         accessibleContextResponseUnchecked: Mass values hidden.
-      speed:
+      speedCheckbox:
         accessibleName:                     Speed
         accessibleHelpText:                 Show or hide speedometer.
         accessibleContextResponseUnchecked: Speedometer hidden.
-      stopwatch:
+      stopwatchCheckbox:
         accessibleName:                     Stopwatch
         accessibleHelpText:                 Show or hide stopwatch.
         accessibleContextResponseChecked:   Stopwatch added to Play Area.
         accessibleContextResponseUnchecked: Stopwatch removed from Play Area.
-      forces:
+      forcesCheckbox:
         accessibleName:                     Forces
         accessibleHelpText:                 Show or hide applied force and friction force arrows.
         accessibleContextResponseChecked:   Force arrows shown.
         accessibleContextResponseUnchecked: Force arrows hidden.
-      sumOfForces:
+      sumOfForcesCheckbox:
         accessibleName:                     Sum of Forces
         accessibleHelpText:                 Check to show an arrow representing the sum of all forces.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
-      acceleration:
+      accelerationCheckbox:
         accessibleName:                     Acceleration
         accessibleHelpText:                 Show or hide accelerometer.
         accessibleContextResponseUnchecked: Accelerometer hidden.

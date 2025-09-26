@@ -185,32 +185,32 @@ addToMapIfDefined( 'a11y_motionScreen_surface_ground', 'a11y.motionScreen.surfac
 addToMapIfDefined( 'a11y_motionScreen_stackList_stackedOnSurface', 'a11y.motionScreen.stackList.stackedOnSurfaceStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_stackList_noObjectsOnSurface', 'a11y.motionScreen.stackList.noObjectsOnSurfaceStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_pusherResponses_fellDownAppliedForceZero', 'a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleName', 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_values_accessibleName', 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleName', 'a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleName', 'a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleName', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleName', 'a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleName', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_valuesCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.valuesCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speedCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speedCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_speedCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleContextResponseChecked', 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleContextResponseCheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForcesCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForcesCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_sumOfForcesCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleContextResponseUncheckedStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleName', 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleNameStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleHelpText', 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_accessibleHeading', 'a11y.motionScreen.playAreaControls.appliedForceControl.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_description', 'a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_ariaValueText', 'a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueTextStringProperty' );
@@ -555,55 +555,55 @@ const ForcesAndMotionBasicsFluent = {
         fellDownAppliedForceZeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_pusherResponses_fellDownAppliedForceZero', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty' ) )
       },
       motionControlPanel: {
-        force: {
+        forceCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_force_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forceCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         },
-        values: {
+        valuesCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_values_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_valuesCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.valuesCheckbox.accessibleNameStringProperty' ) )
         },
-        masses: {
+        massesCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_masses_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_massesCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         },
-        speed: {
+        speedCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speed_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speedCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speedCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_speedCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         },
-        stopwatch: {
+        stopwatchCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatch_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_stopwatchCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         },
-        forces: {
+        forcesCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forces_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseCheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleContextResponseChecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleContextResponseCheckedStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_forcesCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         },
-        sumOfForces: {
+        sumOfForcesCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForces_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForcesCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForcesCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_sumOfForcesCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         },
-        acceleration: {
+        accelerationCheckbox: {
           _comment_0: new FluentComment( {"comment":"Note that index may be the empty string. This string will always be trimmed() removing whitespace.","associatedKey":"accessibleName"} ),
-          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty' ) ),
-          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty' ) ),
-          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_acceleration_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty' ) )
+          accessibleNameStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleName', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleNameStringProperty' ) ),
+          accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleHelpTextStringProperty' ) ),
+          accessibleContextResponseUncheckedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleContextResponseUnchecked', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleContextResponseUncheckedStringProperty' ) )
         }
       },
       playAreaControls: {

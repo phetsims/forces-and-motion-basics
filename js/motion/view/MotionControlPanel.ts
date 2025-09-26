@@ -175,17 +175,17 @@ export default class MotionControlPanel extends Node {
           tandemName: model.screen === 'motion' ? 'forceCheckbox' : 'forcesCheckbox',
           options: {
             accessibleName: model.screen === 'motion' ?
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleNameStringProperty :
-                            ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleNameStringProperty,
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleNameStringProperty :
+                            ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleNameStringProperty,
             accessibleHelpText: model.screen === 'motion' ?
-                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleHelpTextStringProperty :
-                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleHelpTextStringProperty,
+                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleHelpTextStringProperty :
+                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleHelpTextStringProperty,
             accessibleContextResponseChecked: model.screen === 'motion' ?
-                                              ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleContextResponseCheckedStringProperty :
-                                              ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseCheckedStringProperty,
+                                              ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleContextResponseCheckedStringProperty :
+                                              ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleContextResponseCheckedStringProperty,
             accessibleContextResponseUnchecked: model.screen === 'motion' ?
-                                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.force.accessibleContextResponseUncheckedStringProperty :
-                                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forces.accessibleContextResponseUncheckedStringProperty
+                                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forceCheckbox.accessibleContextResponseUncheckedStringProperty :
+                                                ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.forcesCheckbox.accessibleContextResponseUncheckedStringProperty
           }
         } );
       }
@@ -197,10 +197,10 @@ export default class MotionControlPanel extends Node {
           property: model.showSumOfForcesProperty,
           tandemName: 'sumOfForcesCheckbox',
           options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleHelpTextStringProperty,
+            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleNameStringProperty,
+            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleHelpTextStringProperty,
             accessibleContextResponseChecked: sumOfForcesDescriptionProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForces.accessibleContextResponseUncheckedStringProperty
+            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.sumOfForcesCheckbox.accessibleContextResponseUncheckedStringProperty
           }
         } );
       }
@@ -211,7 +211,9 @@ export default class MotionControlPanel extends Node {
         property: model.showValuesProperty,
         tandemName: 'valuesCheckbox',
         options: {
-          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.values.accessibleNameStringProperty,
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.valuesCheckbox.accessibleNameStringProperty,
+
+          // TODO: Move these keys under valuesCheckbox? See https://github.com/phetsims/forces-and-motion-basics/issues/450
           accessibleHelpText: model.screen === 'acceleration' ? ForcesAndMotionBasicsFluent.a11y.values.withAccelerationAccessibleHelpTextStringProperty : ForcesAndMotionBasicsFluent.a11y.values.accessibleHelpTextStringProperty,
           accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.values.checkedResponseStringProperty,
           accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.values.uncheckedResponseStringProperty
@@ -224,10 +226,10 @@ export default class MotionControlPanel extends Node {
         property: model.showMassesProperty,
         tandemName: 'massesCheckbox',
         options: {
-          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleNameStringProperty,
-          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleHelpTextStringProperty,
-          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseCheckedStringProperty,
-          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.masses.accessibleContextResponseUncheckedStringProperty
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleNameStringProperty,
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleHelpTextStringProperty,
+          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleContextResponseCheckedStringProperty,
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.massesCheckbox.accessibleContextResponseUncheckedStringProperty
         }
       } );
 
@@ -237,11 +239,11 @@ export default class MotionControlPanel extends Node {
         property: model.showSpeedProperty,
         tandemName: 'speedCheckbox',
         options: {
-          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleNameStringProperty,
-          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleHelpTextStringProperty,
+          accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleNameStringProperty,
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleHelpTextStringProperty,
           // Dynamic description like Net Force: qualitative speed with speeding up/slowing down
           accessibleContextResponseChecked: speedDescriptionProperty,
-          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speed.accessibleContextResponseUncheckedStringProperty
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleContextResponseUncheckedStringProperty
         }
       } );
 
@@ -252,11 +254,11 @@ export default class MotionControlPanel extends Node {
           property: model.showAccelerationProperty,
           tandemName: 'accelerationCheckbox',
           options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleHelpTextStringProperty,
+            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleNameStringProperty,
+            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleHelpTextStringProperty,
             // Use dynamic description matching the Play Area section
             accessibleContextResponseChecked: accelerationDescriptionProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.acceleration.accessibleContextResponseUncheckedStringProperty
+            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleContextResponseUncheckedStringProperty
           }
         } );
       }
@@ -268,10 +270,10 @@ export default class MotionControlPanel extends Node {
           property: model.stopwatch.isVisibleProperty,
           tandemName: 'stopwatchCheckbox',
           options: {
-            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleNameStringProperty,
-            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleHelpTextStringProperty,
-            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseCheckedStringProperty,
-            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatch.accessibleContextResponseUncheckedStringProperty
+            accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleNameStringProperty,
+            accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleHelpTextStringProperty,
+            accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleContextResponseCheckedStringProperty,
+            accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.stopwatchCheckbox.accessibleContextResponseUncheckedStringProperty
           }
         } );
       }

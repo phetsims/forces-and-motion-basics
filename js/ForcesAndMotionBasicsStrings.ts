@@ -266,44 +266,44 @@ type StringsType = {
         'fellDownAppliedForceZeroStringProperty': LocalizedStringProperty;
       };
       'motionControlPanel': {
-        'force': {
+        'forceCheckbox': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
-        'values': {
+        'valuesCheckbox': {
           'accessibleNameStringProperty': LocalizedStringProperty;
         };
-        'masses': {
-          'accessibleNameStringProperty': LocalizedStringProperty;
-          'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-        };
-        'speed': {
-          'accessibleNameStringProperty': LocalizedStringProperty;
-          'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-        };
-        'stopwatch': {
+        'massesCheckbox': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
-        'forces': {
+        'speedCheckbox': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'stopwatchCheckbox': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
-        'sumOfForces': {
+        'forcesCheckbox': {
+          'accessibleNameStringProperty': LocalizedStringProperty;
+          'accessibleHelpTextStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+        };
+        'sumOfForcesCheckbox': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
-        'acceleration': {
+        'accelerationCheckbox': {
           'accessibleNameStringProperty': LocalizedStringProperty;
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
