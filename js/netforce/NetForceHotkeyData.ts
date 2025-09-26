@@ -3,11 +3,9 @@
 /**
  * HotkeyData for the KeyboardListeners in the Net Force screen.
  *
- *
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import StringProperty from '../../../axon/js/StringProperty.js';
 import { TReadOnlyProperty } from '../../../axon/js/TReadOnlyProperty.js';
 import HotkeyData from '../../../scenery/js/input/HotkeyData.js';
 import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
@@ -27,7 +25,7 @@ import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
  * 6. MotionHotkeyData has public static readonly members that are instances of MotionHotkeyData.
  */
 function createHotkeyData( keys: OneKeyStroke[],
-                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
+                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string> | null,
                            global = false ): HotkeyData {
   return new HotkeyData( {
     keys: keys,
@@ -50,18 +48,18 @@ export default class NetForceHotkeyData {
   public static readonly pullerNode = {
     // Navigation between pullers and knots
     navigation: createHotkeyData( [
-      //REVIEW Is WASD not supported?
+        //REVIEW Is WASD not supported?
         ...NetForceHotkeyData.NAVIGATE_LEFT,
         ...NetForceHotkeyData.NAVIGATE_RIGHT,
         ...NetForceHotkeyData.NAVIGATE_UP,
         ...NetForceHotkeyData.NAVIGATE_DOWN
       ],
-      new StringProperty( 'Navigate between pullers or knots' )
+      null
     ),
     // Grab/drop interaction
     grabOrDrop: createHotkeyData(
       [ 'enter', 'space' ],
-      new StringProperty( 'Grab or drop puller' )
+      null
     ),
     // Cancel interaction
     cancelInteraction: createHotkeyData(
