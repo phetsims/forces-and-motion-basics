@@ -29,9 +29,6 @@ export default class FrictionControl extends VBox {
 
     const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
 
-    //REVIEW Why is this const needed?
-    const frictionSliderTandem = tandem.createTandem( 'frictionSlider' );
-
     // Track the value at the start of the current interaction to classify the change at end
     const interactionStartValueProperty = new Property( model.frictionCoefficientProperty.value, { tandem: Tandem.OPT_OUT } );
 
@@ -45,7 +42,7 @@ export default class FrictionControl extends VBox {
       valueChangeSoundGeneratorOptions: {
         numberOfMiddleThresholds: numberOfMinorTicks
       },
-      tandem: frictionSliderTandem,
+      tandem: tandem.createTandem( 'frictionSlider' ),
 
       // Accessibility
       accessibleName: ForcesAndMotionBasicsFluent.frictionStringProperty,
