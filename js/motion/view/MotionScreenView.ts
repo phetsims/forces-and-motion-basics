@@ -13,7 +13,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -428,8 +428,8 @@ export default class MotionScreenView extends ScreenView {
 
     // Round the forces so that the sum is correct in the display, see https://github.com/phetsims/forces-and-motion-basics/issues/72 and
     // https://github.com/phetsims/forces-and-motion-basics/issues/74
-    const roundedAppliedForceProperty = new DerivedProperty( [ model.appliedForceProperty ], appliedForce => Utils.roundSymmetric( appliedForce ) );
-    const roundedFrictionForceProperty = new DerivedProperty( [ model.frictionForceProperty ], frictionForce => Utils.roundSymmetric( frictionForce ) );
+    const roundedAppliedForceProperty = new DerivedProperty( [ model.appliedForceProperty ], appliedForce => roundSymmetric( appliedForce ) );
+    const roundedFrictionForceProperty = new DerivedProperty( [ model.frictionForceProperty ], frictionForce => roundSymmetric( frictionForce ) );
 
     // Only update the sum force arrow after both friction and applied force changed, so we don't get partial updates, see
     // https://github.com/phetsims/forces-and-motion-basics/issues/83

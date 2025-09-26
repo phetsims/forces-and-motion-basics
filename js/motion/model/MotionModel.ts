@@ -16,7 +16,7 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -470,7 +470,7 @@ export default class MotionModel {
     }
 
     // round the friction force so that one force is not more precise than another
-    return Utils.roundSymmetric( frictionForce );
+    return roundSymmetric( frictionForce );
   }
 
   // Compute the mass of the entire stack, for purposes of momentum computation

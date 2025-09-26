@@ -9,7 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { linear } from '../../../../dot/js/util/linear.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -22,9 +22,6 @@ import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
 import MotionScreenView from './MotionScreenView.js';
-
-// constants
-const linear = Utils.linear;
 
 export default class WaterBucketNode extends ItemNode {
 

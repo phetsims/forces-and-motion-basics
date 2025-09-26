@@ -8,7 +8,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { clamp } from '../../../../dot/js/util/clamp.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -59,7 +59,7 @@ export default class AppliedForceControl extends VBox {
         // The applied force Property has a dynamic range that changes depending on whether the max speed has been
         // reached or not. Therefore, we need to ensure that the applied force value is clamped within range
         // when the range changes.
-        model.appliedForceProperty.value = Utils.clamp( model.appliedForceProperty.value, range.min, range.max );
+        model.appliedForceProperty.value = clamp( model.appliedForceProperty.value, range.min, range.max );
         model.appliedForceProperty.range = range; // This is only helpful for validating that the force is never set outside this range.
       } );
 

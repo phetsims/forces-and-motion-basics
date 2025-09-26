@@ -13,7 +13,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
@@ -53,7 +53,7 @@ export default class AppliedForceSlider extends HSlider {
       pdomVisible: false,
 
       // round so that applied force is not more precise than friction force
-      constrainValue: ( value: number ) => Utils.roundSymmetric( value ),
+      constrainValue: ( value: number ) => roundSymmetric( value ),
 
       // snap to zero on release - when the model is paused, the slider should not snap to a value so the user can set
       // up a state of forces

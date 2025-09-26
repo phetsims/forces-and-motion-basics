@@ -8,8 +8,8 @@
 
 
 import dotRandom from '../../../../dot/js/dotRandom.js';
-// modules
-import Utils from '../../../../dot/js/Utils.js';
+import { linear } from '../../../../dot/js/util/linear.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -22,10 +22,6 @@ import mountains_svg from '../../../images/mountains_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
-
-// constants
-//REVIEW Replace deprecated Utils with imports from dot/js/util/. Recommended to do this throughout.
-const linear = Utils.linear;
 
 export default class MovingBackgroundNode extends Node {
 
@@ -143,16 +139,16 @@ export default class MovingBackgroundNode extends Node {
 
             // Discretize the friction so that the new nodes/images are not created at every step
             newFriction = newFriction * 100;
-            newFriction = Utils.roundSymmetric( newFriction / 2 ) * 2;
+            newFriction = roundSymmetric( newFriction / 2 ) * 2;
             newFriction = newFriction / 100;
 
             const height = 3;
             let numSpecks = linear( MotionConstants.MAX_FRICTION * 0.1, MotionConstants.MAX_FRICTION, 0, 400, newFriction );
             numSpecks = numSpecks < 0 ? 0 : numSpecks;
 
-            const desiredBlack = Utils.roundSymmetric( numSpecks / 2 );
-            const desiredGray = Utils.roundSymmetric( numSpecks / 2 );
-            const desiredWhite = Utils.roundSymmetric( numSpecks / 10 );
+            const desiredBlack = roundSymmetric( numSpecks / 2 );
+            const desiredGray = roundSymmetric( numSpecks / 2 );
+            const desiredWhite = roundSymmetric( numSpecks / 10 );
 
             if ( desiredBlack === numBlack && desiredGray === numGray && desiredWhite === numWhite ) {
               return;
