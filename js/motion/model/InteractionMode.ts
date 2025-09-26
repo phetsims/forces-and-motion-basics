@@ -1,9 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
-//REVIEW Self-referential definition does not tell me what an 'interaction mode' is.
-//REVIEW 'alt-input/mouse' should probably be 'keyboard/pointer'.
 /**
- * For alt-input/mouse interaction with items on the Motion screen, keep track of the interaction mode.
+ * Each Item has a mode that represents its current type of interaction/animation/placement.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -13,8 +11,7 @@ export const InteractionModes = [
   'onStack',
 
   //REVIEW Why do we only need to know 'mouseGrabbed' (sic) for pointer input, but toolbox vs stack for keyboard grab?
-  //REVIEW If this is new code, recommended to rename 'mouseGrabbed' to 'pointerGrabbed'.
-  'mouseGrabbed',
+  'pointerGrabbed',
   'keyboardGrabbedFromToolbox',
   'keyboardGrabbedFromStack',
   'animatingToToolbox',

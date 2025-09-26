@@ -157,7 +157,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         itemToolbox.moveToFront();
 
         // Set mode to mouseGrabbed when dragging with mouse
-        item.modeProperty.value = 'mouseGrabbed';
+        item.modeProperty.value = 'pointerGrabbed';
         const index = model.stackedItems.indexOf( item );
         if ( index >= 0 ) {
           model.spliceStack( index );
@@ -299,9 +299,9 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     // Keep dashed style consistent with interaction state
     item.modeProperty.link( mode => {
-      focusHighlight.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'mouseGrabbed' );
+      focusHighlight.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'pointerGrabbed' );
 
-      this.accessibleRoleDescription = mode === 'mouseGrabbed' || mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' ?
+      this.accessibleRoleDescription = mode === 'pointerGrabbed' || mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' ?
                                        ForcesAndMotionBasicsFluent.a11y.navigableStringProperty : ForcesAndMotionBasicsFluent.a11y.sortableStringProperty;
     } );
 

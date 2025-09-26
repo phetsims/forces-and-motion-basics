@@ -172,7 +172,7 @@ export default class Item extends PhetioObject {
     } );
 
     this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: InteractionMode ) => {
-      return mode === 'mouseGrabbed' ||
+      return mode === 'pointerGrabbed' ||
              mode === 'keyboardGrabbedFromToolbox' ||
              mode === 'keyboardGrabbedFromStack';
     } );
@@ -285,7 +285,7 @@ export default class Item extends PhetioObject {
    */
   public isGrabbed(): boolean {
     const mode = this.modeProperty.value;
-    return mode === 'mouseGrabbed' ||
+    return mode === 'pointerGrabbed' ||
            mode === 'keyboardGrabbedFromToolbox' ||
            mode === 'keyboardGrabbedFromStack';
   }
