@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import StringProperty from '../../../axon/js/StringProperty.js';
 import { TReadOnlyProperty } from '../../../axon/js/TReadOnlyProperty.js';
 import HotkeyData from '../../../scenery/js/input/HotkeyData.js';
 import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
@@ -25,7 +26,7 @@ import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
  * 6. MotionHotkeyData has public static readonly members that are instances of MotionHotkeyData.
  */
 function createHotkeyData( keys: OneKeyStroke[],
-                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string> | null,
+                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
                            global = false ): HotkeyData {
   return new HotkeyData( {
     keys: keys,
@@ -54,12 +55,12 @@ export default class NetForceHotkeyData {
         ...NetForceHotkeyData.NAVIGATE_UP,
         ...NetForceHotkeyData.NAVIGATE_DOWN
       ],
-      null
+      new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
     ),
     // Grab/drop interaction
     grabOrDrop: createHotkeyData(
       [ 'enter', 'space' ],
-      null
+      new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
     ),
     // Cancel interaction
     cancelInteraction: createHotkeyData(
