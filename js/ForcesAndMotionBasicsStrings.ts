@@ -114,7 +114,7 @@ type StringsType = {
         'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
         'cancelMovementStringProperty': LocalizedStringProperty;
       };
-      'appliedForceControls': {
+      'adjustAppliedForce': {
         'zeroAppliedForceDescriptionStringProperty': LocalizedStringProperty;
       }
     };

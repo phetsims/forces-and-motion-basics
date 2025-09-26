@@ -90,7 +90,7 @@ a11y:
       dropObjectDescription:        Drop object with Space or Enter keys.
       returnToToolboxDescription:   Return grabbed object to toolbox with Delete or Backspace keys.
       cancelMovement:               Cancel movement with Escape key.
-    appliedForceControls:
+    adjustAppliedForce:
       zeroAppliedForceDescription: Set applied force to zero with 0 key.
   netForceScreen:
     screenButtonsHelpText: Explore net force in a tug-of-war game.

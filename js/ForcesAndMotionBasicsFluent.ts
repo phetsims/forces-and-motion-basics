@@ -100,7 +100,7 @@ addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_moveGrabbedObjectDe
 addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_dropObjectDescription', 'a11y.keyboardHelpDialog.objectNavigation.dropObjectDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_returnToToolboxDescription', 'a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_objectNavigation_cancelMovement', 'a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty' );
-addToMapIfDefined( 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' );
+addToMapIfDefined( 'a11y_keyboardHelpDialog_adjustAppliedForce_zeroAppliedForceDescription', 'a11y.keyboardHelpDialog.adjustAppliedForce.zeroAppliedForceDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_screenButtonsHelpText', 'a11y.netForceScreen.screenButtonsHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_colorName', 'a11y.netForceScreen.colorNameStringProperty' );
 addToMapIfDefined( 'a11y_netForceScreen_teamName', 'a11y.netForceScreen.teamNameStringProperty' );
@@ -382,8 +382,8 @@ const ForcesAndMotionBasicsFluent = {
         returnToToolboxDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_returnToToolboxDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty' ) ),
         cancelMovementStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_objectNavigation_cancelMovement', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty' ) )
       },
-      appliedForceControls: {
-        zeroAppliedForceDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_appliedForceControls_zeroAppliedForceDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.appliedForceControls.zeroAppliedForceDescriptionStringProperty' ) )
+      adjustAppliedForce: {
+        zeroAppliedForceDescriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_keyboardHelpDialog_adjustAppliedForce_zeroAppliedForceDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.keyboardHelpDialog.adjustAppliedForce.zeroAppliedForceDescriptionStringProperty' ) )
       }
     },
     netForceScreen: {

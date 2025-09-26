@@ -251,7 +251,7 @@
           "value": "Cancel movement with Escape key."
         }
       },
-      "appliedForceControls": {
+      "adjustAppliedForce": {
         "zeroAppliedForceDescription": {
           "value": "Set applied force to zero with 0 key."
         }
