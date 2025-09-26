@@ -79,7 +79,7 @@ export default class Item extends PhetioObject {
   public readonly massProperty: NumberProperty;
 
   /**
-   * @param context - model context in which this item exists
+   * @param model - model context in which this item exists
    * @param name - string describing this type of item, or HumanTypeEnum of this human item
    * @param tandem
    * @param image - image from the 'image!' plugin, representing the item
@@ -92,12 +92,10 @@ export default class Item extends PhetioObject {
    * @param pusherInset - inset value to align the item with the pusher's hands
    * @param sittingImage - image from the 'image!' plugin, representing a 'sitting' item
    * @param holdingImage - image from the 'image!' plugin, representing a 'sitting' item
-   * @param mystery REVIEW document
+   * @param mystery - whether the mass of this item is unknown to the user
    */
   public constructor(
-
-    //REVIEW Consider renaming context to model, because it's nonstandard and confusing.
-    public readonly context: MotionModel,
+    public readonly model: MotionModel,
     name: string | HumanTypeEnum,
     tandem: Tandem,
     image: ImageableImage | undefined,
@@ -203,7 +201,7 @@ export default class Item extends PhetioObject {
 
     this.imageScale = imageScale;
 
-    this.context.directionProperty.link( direction => {
+    this.model.directionProperty.link( direction => {
 
       // only change directions if on the board, and always choose one of left/right, and only for people
       if ( this.inStackProperty.value && direction !== 'none' && ( name === HumanTypeEnum.GIRL || name === HumanTypeEnum.MAN ) ) {
@@ -226,7 +224,7 @@ export default class Item extends PhetioObject {
 
   // Return true if the arms should be up (for a human)
   public armsUp(): boolean {
-    return this.context.userControlledItems().length > 0 || this.context.isItemStackedAbove( this );
+    return this.model.userControlledItems().length > 0 || this.model.isItemStackedAbove( this );
   }
 
   /**

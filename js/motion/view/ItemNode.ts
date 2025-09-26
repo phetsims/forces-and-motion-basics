@@ -590,10 +590,10 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     if ( personInStack ) {
       direction = personInStack.directionProperty.value;
     }
-    else if ( person.context.appliedForceProperty.value !== 0 ) {
+    else if ( person.model.appliedForceProperty.value !== 0 ) {
 
       // if there is an applied force on the stack, direction should match applied force
-      if ( person.context.appliedForceProperty.value > 0 ) {
+      if ( person.model.appliedForceProperty.value > 0 ) {
         direction = 'right';
       }
       else {
@@ -602,7 +602,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     }
     else {
       // if there is no applied force, check velocity for direction
-      if ( person.context.velocityProperty.value > 0 ) {
+      if ( person.model.velocityProperty.value > 0 ) {
         direction = 'right';
       }
     }
