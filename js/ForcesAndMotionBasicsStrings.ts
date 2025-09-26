@@ -83,6 +83,10 @@ type StringsType = {
       'accessibleHelpTextForceSpeedStringProperty': LocalizedStringProperty;
       'accessibleHelpTextForceSpeedAccelerationStringProperty': LocalizedStringProperty;
     };
+    'speedCheckbox': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
+    };
     'preferences': {
       'netForcePullerColorControl': {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
@@ -162,10 +166,6 @@ type StringsType = {
       };
       'netForceControlPanel': {
         'sumOfForces': {
-          'accessibleHelpTextStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-        };
-        'speed': {
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         }
@@ -269,10 +269,6 @@ type StringsType = {
         'massesCheckbox': {
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
-          'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-        };
-        'speedCheckbox': {
-          'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
         };
         'stopwatchCheckbox': {

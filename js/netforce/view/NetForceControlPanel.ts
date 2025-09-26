@@ -85,9 +85,9 @@ export default class NetForceControlPanel extends Node {
       property: model.showSpeedProperty,
       tandemName: 'speedCheckbox',
       options: {
-        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty,
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.speedCheckbox.accessibleHelpTextStringProperty,
         accessibleContextResponseChecked: speedDescriptionProperty,
-        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.speedCheckbox.accessibleContextResponseUncheckedStringProperty
       }
     } ], {
       tandem: verticalCheckboxGroupTandem,

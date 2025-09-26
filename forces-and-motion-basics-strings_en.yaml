@@ -65,6 +65,9 @@ a11y:
     accessibleHelpTextForce:                   Show or hide force values.
     accessibleHelpTextForceSpeed:              Show or hide force and speed values.
     accessibleHelpTextForceSpeedAcceleration:  Show or hide force, speed, and acceleration values.
+  speedCheckbox:
+    accessibleHelpText:                 Show or hide speedometer.
+    accessibleContextResponseUnchecked: Speedometer hidden.
   preferences:
     netForcePullerColorControl:
       accessibleHelpText: Select team colors for tug-of-war game.
@@ -153,9 +156,6 @@ a11y:
       sumOfForces:
         accessibleHelpText:                 Show or hide sum of forces arrow.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
-      speed:
-        accessibleHelpText:                 Show or hide speedometer.
-        accessibleContextResponseUnchecked: Speedometer hidden.
     playAreaControls:
       accessibleHeading: Tug-of-War Controls
   motionScreen:
@@ -241,9 +241,6 @@ a11y:
         accessibleHelpText:                 Show or hide masses of objects.
         accessibleContextResponseChecked:   Mass values shown.
         accessibleContextResponseUnchecked: Mass values hidden.
-      speedCheckbox:
-        accessibleHelpText:                 Show or hide speedometer.
-        accessibleContextResponseUnchecked: Speedometer hidden.
       stopwatchCheckbox:
         accessibleHelpText:                 Show or hide stopwatch.
         accessibleContextResponseChecked:   Stopwatch added to Play Area.

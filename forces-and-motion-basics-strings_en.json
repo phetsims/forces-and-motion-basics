@@ -184,6 +184,14 @@
         "value": "Show or hide force, speed, and acceleration values."
       }
     },
+    "speedCheckbox": {
+      "accessibleHelpText": {
+        "value": "Show or hide speedometer."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Speedometer hidden."
+      }
+    },
     "preferences": {
       "netForcePullerColorControl": {
         "accessibleHelpText": {
@@ -356,14 +364,6 @@
           },
           "accessibleContextResponseUnchecked": {
             "value": "Sum of forces arrow hidden."
-          }
-        },
-        "speed": {
-          "accessibleHelpText": {
-            "value": "Show or hide speedometer."
-          },
-          "accessibleContextResponseUnchecked": {
-            "value": "Speedometer hidden."
           }
         }
       },
@@ -582,14 +582,6 @@
           },
           "accessibleContextResponseUnchecked": {
             "value": "Mass values hidden."
-          }
-        },
-        "speedCheckbox": {
-          "accessibleHelpText": {
-            "value": "Show or hide speedometer."
-          },
-          "accessibleContextResponseUnchecked": {
-            "value": "Speedometer hidden."
           }
         },
         "stopwatchCheckbox": {

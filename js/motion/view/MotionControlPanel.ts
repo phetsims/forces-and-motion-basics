@@ -234,10 +234,10 @@ export default class MotionControlPanel extends Node {
         property: model.showSpeedProperty,
         tandemName: 'speedCheckbox',
         options: {
-          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleHelpTextStringProperty,
+          accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.speedCheckbox.accessibleHelpTextStringProperty,
           // Dynamic description like Net Force: qualitative speed with speeding up/slowing down
           accessibleContextResponseChecked: speedDescriptionProperty,
-          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.motionScreen.motionControlPanel.speedCheckbox.accessibleContextResponseUncheckedStringProperty
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.speedCheckbox.accessibleContextResponseUncheckedStringProperty
         }
       } );
 
