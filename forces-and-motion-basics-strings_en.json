@@ -348,9 +348,6 @@
       },
       "netForceControlPanel": {
         "sumOfForces": {
-          "accessibleName": {
-            "value": "Sum of Forces"
-          },
           "accessibleHelpText": {
             "value": "Show or hide sum of forces arrow."
           },
@@ -359,17 +356,11 @@
           }
         },
         "values": {
-          "accessibleName": {
-            "value": "Values"
-          },
           "accessibleHelpText": {
             "value": "Show or hide force values."
           }
         },
         "speed": {
-          "accessibleName": {
-            "value": "Speed"
-          },
           "accessibleHelpText": {
             "value": "Show or hide speedometer."
           },
@@ -574,9 +565,6 @@
       },
       "motionControlPanel": {
         "forceCheckbox": {
-          "accessibleName": {
-            "value": "Force"
-          },
           "accessibleHelpText": {
             "value": "Show or hide applied force arrow."
           },
@@ -587,15 +575,7 @@
             "value": "Applied force arrow hidden."
           }
         },
-        "valuesCheckbox": {
-          "accessibleName": {
-            "value": "Values"
-          }
-        },
         "massesCheckbox": {
-          "accessibleName": {
-            "value": "Masses"
-          },
           "accessibleHelpText": {
             "value": "Show or hide masses of objects."
           },
@@ -607,9 +587,6 @@
           }
         },
         "speedCheckbox": {
-          "accessibleName": {
-            "value": "Speed"
-          },
           "accessibleHelpText": {
             "value": "Show or hide speedometer."
           },
@@ -618,9 +595,6 @@
           }
         },
         "stopwatchCheckbox": {
-          "accessibleName": {
-            "value": "Stopwatch"
-          },
           "accessibleHelpText": {
             "value": "Show or hide stopwatch."
           },
@@ -632,9 +606,6 @@
           }
         },
         "forcesCheckbox": {
-          "accessibleName": {
-            "value": "Forces"
-          },
           "accessibleHelpText": {
             "value": "Show or hide applied force and friction force arrows."
           },
@@ -646,9 +617,6 @@
           }
         },
         "sumOfForcesCheckbox": {
-          "accessibleName": {
-            "value": "Sum of Forces"
-          },
           "accessibleHelpText": {
             "value": "Check to show an arrow representing the sum of all forces."
           },
@@ -657,9 +625,6 @@
           }
         },
         "accelerationCheckbox": {
-          "accessibleName": {
-            "value": "Acceleration"
-          },
           "accessibleHelpText": {
             "value": "Show or hide accelerometer."
           },

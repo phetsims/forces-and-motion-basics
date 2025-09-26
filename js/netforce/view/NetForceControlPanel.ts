@@ -62,7 +62,6 @@ export default class NetForceControlPanel extends Node {
       property: model.showSumOfForcesProperty,
       tandemName: 'sumOfForcesCheckbox',
       options: {
-        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleNameStringProperty,
         accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.sumOfForces.accessibleHelpTextStringProperty,
 
         // When checked, read the dynamic description of the net force which is the same as in the PDOM description, see https://github.com/phetsims/forces-and-motion-basics/issues/417
@@ -74,7 +73,6 @@ export default class NetForceControlPanel extends Node {
       property: model.showValuesProperty,
       tandemName: 'valuesCheckbox',
       options: {
-        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleNameStringProperty,
         accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty,
         accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.values.checkedResponseStringProperty,
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.values.uncheckedResponseStringProperty
@@ -87,7 +85,6 @@ export default class NetForceControlPanel extends Node {
       property: model.showSpeedProperty,
       tandemName: 'speedCheckbox',
       options: {
-        accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleNameStringProperty,
         accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleHelpTextStringProperty,
         accessibleContextResponseChecked: speedDescriptionProperty,
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.speed.accessibleContextResponseUncheckedStringProperty

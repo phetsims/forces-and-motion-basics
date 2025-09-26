@@ -150,14 +150,11 @@ a11y:
       cartPaused:              Cart paused.
     netForceControlPanel:
       sumOfForces:
-        accessibleName:                     Sum of Forces
         accessibleHelpText:                 Show or hide sum of forces arrow.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       values:
-        accessibleName:     Values
         accessibleHelpText: Show or hide force values.
       speed:
-        accessibleName:                     Speed
         accessibleHelpText:                 Show or hide speedometer.
         accessibleContextResponseUnchecked: Speedometer hidden.
     playAreaControls:
@@ -238,37 +235,28 @@ a11y:
       fellDownAppliedForceZero: Pusher fell down, applied force now 0 newtons.
     motionControlPanel:
       forceCheckbox:
-        accessibleName:                     Force
         accessibleHelpText:                 Show or hide applied force arrow.
         accessibleContextResponseChecked:   Applied force arrow shown.
         accessibleContextResponseUnchecked: Applied force arrow hidden.
-      valuesCheckbox:
-        accessibleName: Values
       massesCheckbox:
-        accessibleName:                     Masses
         accessibleHelpText:                 Show or hide masses of objects.
         accessibleContextResponseChecked:   Mass values shown.
         accessibleContextResponseUnchecked: Mass values hidden.
       speedCheckbox:
-        accessibleName:                     Speed
         accessibleHelpText:                 Show or hide speedometer.
         accessibleContextResponseUnchecked: Speedometer hidden.
       stopwatchCheckbox:
-        accessibleName:                     Stopwatch
         accessibleHelpText:                 Show or hide stopwatch.
         accessibleContextResponseChecked:   Stopwatch added to Play Area.
         accessibleContextResponseUnchecked: Stopwatch removed from Play Area.
       forcesCheckbox:
-        accessibleName:                     Forces
         accessibleHelpText:                 Show or hide applied force and friction force arrows.
         accessibleContextResponseChecked:   Force arrows shown.
         accessibleContextResponseUnchecked: Force arrows hidden.
       sumOfForcesCheckbox:
-        accessibleName:                     Sum of Forces
         accessibleHelpText:                 Check to show an arrow representing the sum of all forces.
         accessibleContextResponseUnchecked: Sum of forces arrow hidden.
       accelerationCheckbox:
-        accessibleName:                     Acceleration
         accessibleHelpText:                 Show or hide accelerometer.
         accessibleContextResponseUnchecked: Accelerometer hidden.
     playAreaControls:
