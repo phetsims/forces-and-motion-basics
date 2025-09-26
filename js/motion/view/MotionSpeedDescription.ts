@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * MotionScreensSpeedDescription provides an accessible description of the current stack speed
+ * MotionSpeedDescription provides an accessible description of the current stack speed
  * for the Motion, Friction, and Acceleration screens. It mirrors the Net Force screen's
  * SpeedDescription but uses MotionModel properties.
  *
@@ -19,7 +19,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
-export default class MotionScreensSpeedDescription extends Node {
+export default class MotionSpeedDescription extends Node {
   public readonly speedDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: MotionModel ) {
@@ -124,4 +124,4 @@ export default class MotionScreensSpeedDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'MotionScreensSpeedDescription', MotionScreensSpeedDescription );
+forcesAndMotionBasics.register( 'MotionSpeedDescription', MotionSpeedDescription );

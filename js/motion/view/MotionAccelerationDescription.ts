@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * MotionScreensAccelerationDescription provides an accessible description of acceleration
+ * MotionAccelerationDescription provides an accessible description of acceleration
  * for the Motion Acceleration screen. Shown under a "Acceleration" heading when the
  * Acceleration checkbox is enabled. Mirrors MotionScreensSpeedDescription patterns.
  *
@@ -16,7 +16,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
-export default class MotionScreensAccelerationDescription extends Node {
+export default class MotionAccelerationDescription extends Node {
   public readonly accelerationDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: MotionModel ) {
@@ -119,4 +119,4 @@ export default class MotionScreensAccelerationDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'MotionScreensAccelerationDescription', MotionScreensAccelerationDescription );
+forcesAndMotionBasics.register( 'MotionAccelerationDescription', MotionAccelerationDescription );

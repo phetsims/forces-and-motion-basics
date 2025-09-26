@@ -47,8 +47,8 @@ import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
 import MotionForcesListDescription from './MotionForcesListDescription.js';
 import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
-import MotionScreensAccelerationDescription from './MotionScreensAccelerationDescription.js';
-import MotionScreensSpeedDescription from './MotionScreensSpeedDescription.js';
+import MotionAccelerationDescription from './MotionAccelerationDescription.js';
+import MotionSpeedDescription from './MotionSpeedDescription.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
 import MotionStackListDescription from './MotionStackListDescription.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
@@ -193,11 +193,11 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( forcesListDescription );
 
     // Acceleration description (visible only on acceleration screen when checkbox enabled)
-    const accelerationDescription = new MotionScreensAccelerationDescription( model );
+    const accelerationDescription = new MotionAccelerationDescription( model );
     this.addChild( accelerationDescription );
 
     // Compute dynamic speed description to announce when Speed is enabled
-    const speedDescription = new MotionScreensSpeedDescription( model );
+    const speedDescription = new MotionSpeedDescription( model );
     this.addChild( speedDescription );
 
     // Create the speedometer.  Specify the position after construction so we can set the 'top'
