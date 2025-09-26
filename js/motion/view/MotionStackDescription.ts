@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * MotionStackListDescription shows an accessible list of stacked items under the Skateboard/Stack heading.
+ * MotionStackDescription shows an accessible list of stacked items under the Skateboard/Stack heading.
  *
  * Behavior:
  * - When the stack is empty: show "No objects on {surface}."
@@ -22,7 +22,7 @@ import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import { formatItemAccessibleNameWithMass, getLocalizedItemNameProperty } from './getItemNameProperties.js';
 
-export default class MotionStackListDescription extends Node {
+export default class MotionStackDescription extends Node {
 
   public constructor( private readonly model: MotionModel ) {
     // Surface label used within strings
@@ -123,4 +123,4 @@ export default class MotionStackListDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'MotionStackListDescription', MotionStackListDescription );
+forcesAndMotionBasics.register( 'MotionStackDescription', MotionStackDescription );

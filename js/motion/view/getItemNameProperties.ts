@@ -3,7 +3,7 @@
 //REVIEW Consider making these static methods of a class like ItemDescriber. And some methods in ItemNode could potentially move to ItemDescriber.
 /**
  * Shared helpers for deriving localized item names and accessible item names (optionally including mass).
- * Used by ItemNode and MotionStackListDescription to avoid duplication.
+ * Used by ItemNode and MotionStackDescription to avoid duplication.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */

@@ -50,7 +50,7 @@ import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
 import MotionAccelerationDescription from './MotionAccelerationDescription.js';
 import MotionSpeedDescription from './MotionSpeedDescription.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
-import MotionStackListDescription from './MotionStackListDescription.js';
+import MotionStackDescription from './MotionStackDescription.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
 import SpeedometerNode from './SpeedometerNode.js';
@@ -391,8 +391,8 @@ export default class MotionScreenView extends ScreenView {
     } );
 
     // Add the requested list under the heading, before the objects
-    const stackListDescription = new MotionStackListDescription( model );
-    stackSection.addChild( stackListDescription );
+    const stackDescription = new MotionStackDescription( model );
+    stackSection.addChild( stackDescription );
     stackSection.addChild( this.itemStackGroup );
 
     // Announce stack movement direction changes for accessibility, driven by velocityProperty
