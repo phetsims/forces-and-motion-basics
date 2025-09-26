@@ -54,7 +54,7 @@ type StringsType = {
   'purpleWinsStringProperty': LocalizedStringProperty;
   'orangeWinsStringProperty': LocalizedStringProperty;
   'keyboardHelpDialog': {
-    'fromAnywhereInSimStringProperty': LocalizedStringProperty;
+    'fromAnywhereInScreenStringProperty': LocalizedStringProperty;
     'startGameStringProperty': LocalizedStringProperty;
     'pauseGameStringProperty': LocalizedStringProperty;
     'returnCartToCenterStringProperty': LocalizedStringProperty;

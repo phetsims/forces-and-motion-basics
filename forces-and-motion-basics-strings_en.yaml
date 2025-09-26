@@ -36,24 +36,24 @@ orangeWins:                            Orange Wins!
 
 # keyboard help dialog strings
 keyboardHelpDialog:
-  fromAnywhereInSim:  From Anywhere in Screen
-  startGame:          Start tug-of-war game
-  pauseGame:          Pause tug-of-war game
-  returnCartToCenter: Return cart to center
-  pullerNavigation:   Puller Navigation
-  selectPuller:       Select puller
-  grabPuller:         Grab selected puller
-  moveGrabbedPuller:  Move grabbed puller
-  dropPuller:         Drop puller
-  objectNavigation:   Object Navigation
-  selectObject:       Select object
-  grabObject:         Grab selected object
-  moveGrabbedObject:  Move grabbed object
-  dropObject:         Drop object
-  adjustAppliedForce: Adjust Applied Force
-  zeroAppliedForce:   Set applied force to zero
-  returnToToolbox:    Return to toolbox
-  cancelMovement:     Cancel movement
+  fromAnywhereInScreen: From Anywhere in Screen
+  startGame:            Start tug-of-war game
+  pauseGame:            Pause tug-of-war game
+  returnCartToCenter:   Return cart to center
+  pullerNavigation:     Puller Navigation
+  selectPuller:         Select puller
+  grabPuller:           Grab selected puller
+  moveGrabbedPuller:    Move grabbed puller
+  dropPuller:           Drop puller
+  objectNavigation:     Object Navigation
+  selectObject:         Select object
+  grabObject:           Grab selected object
+  moveGrabbedObject:    Move grabbed object
+  dropObject:           Drop object
+  adjustAppliedForce:   Adjust Applied Force
+  zeroAppliedForce:     Set applied force to zero
+  returnToToolbox:      Return to toolbox
+  cancelMovement:       Cancel movement
 
 # accessibility strings
 a11y:

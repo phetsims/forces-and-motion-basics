@@ -57,7 +57,7 @@ addToMapIfDefined( 'blueAndRed', 'blueAndRedStringProperty' );
 addToMapIfDefined( 'purpleAndOrange', 'purpleAndOrangeStringProperty' );
 addToMapIfDefined( 'purpleWins', 'purpleWinsStringProperty' );
 addToMapIfDefined( 'orangeWins', 'orangeWinsStringProperty' );
-addToMapIfDefined( 'keyboardHelpDialog_fromAnywhereInSim', 'keyboardHelpDialog.fromAnywhereInSimStringProperty' );
+addToMapIfDefined( 'keyboardHelpDialog_fromAnywhereInScreen', 'keyboardHelpDialog.fromAnywhereInScreenStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_startGame', 'keyboardHelpDialog.startGameStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_pauseGame', 'keyboardHelpDialog.pauseGameStringProperty' );
 addToMapIfDefined( 'keyboardHelpDialog_returnCartToCenter', 'keyboardHelpDialog.returnCartToCenterStringProperty' );
@@ -333,7 +333,7 @@ const ForcesAndMotionBasicsFluent = {
   orangeWinsStringProperty: _.get( ForcesAndMotionBasicsStrings, 'orangeWinsStringProperty' ),
   _comment_0: new FluentComment( {"comment":"keyboard help dialog strings","associatedKey":"keyboardHelpDialog"} ),
   keyboardHelpDialog: {
-    fromAnywhereInSimStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.fromAnywhereInSimStringProperty' ),
+    fromAnywhereInScreenStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.fromAnywhereInScreenStringProperty' ),
     startGameStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.startGameStringProperty' ),
     pauseGameStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.pauseGameStringProperty' ),
     returnCartToCenterStringProperty: _.get( ForcesAndMotionBasicsStrings, 'keyboardHelpDialog.returnCartToCenterStringProperty' ),

@@ -22,10 +22,8 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
   public constructor() {
 
     //REVIEW Factor out FromAnywhereInScreenKeyboardHelpSection extends KeyboardHelpSection.
-    //REVIEW This is "From Anywere in Screen", not "Sim".
-    //REVIEW Rename fromAnywhereInSimSection to fromAnywhereInScreenSection to match visual UI.
     // Create the "From Anywhere in Sim" section
-    const fromAnywhereInSimSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.fromAnywhereInSimStringProperty, [
+    const fromAnywhereInScreenSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.fromAnywhereInScreenStringProperty, [
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA, {
         pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescription.createProperty( {
           altOrOptionKey: TextKeyNode.getAltKeyString()
@@ -88,7 +86,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
 
     // Sections in the left column.
     const leftSections = [
-      fromAnywhereInSimSection,
+      fromAnywhereInScreenSection,
       pullerNavigationSection
     ];
 
