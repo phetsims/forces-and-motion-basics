@@ -45,7 +45,7 @@ import ItemNode from './ItemNode.js';
 import ItemStackGroupNode from './ItemStackGroupNode.js';
 import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
-import MotionForcesListDescriptionNode from './MotionForcesListDescriptionNode.js';
+import MotionForcesDescriptionNode from './MotionForcesDescriptionNode.js';
 import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
 import MotionAccelerationDescriptionNode from './MotionAccelerationDescriptionNode.js';
 import MotionSpeedDescriptionNode from './MotionSpeedDescriptionNode.js';
@@ -189,8 +189,8 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( appliedForcePlayAreaControlNode );
 
     // Accessible forces list description for Motion screens
-    const forcesListDescriptionNode = new MotionForcesListDescriptionNode( model );
-    this.addChild( forcesListDescriptionNode );
+    const forcesDescriptionNode = new MotionForcesDescriptionNode( model );
+    this.addChild( forcesDescriptionNode );
 
     // Acceleration description (visible only on acceleration screen when checkbox enabled)
     const accelerationDescriptionNode = new MotionAccelerationDescriptionNode( model );
@@ -209,7 +209,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( speedometerNode );
 
     // Create and add the control panel (pass dynamic speed description for accessibility announcement)
-    const controlPanel = new MotionControlPanel( model, forcesListDescriptionNode.netForceDescriptionProperty, speedDescriptionNode.speedDescriptionProperty, accelerationDescriptionNode.accelerationDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
+    const controlPanel = new MotionControlPanel( model, forcesDescriptionNode.netForceDescriptionProperty, speedDescriptionNode.speedDescriptionProperty, accelerationDescriptionNode.accelerationDescriptionProperty, tandem.createTandem( 'controlPanel' ) );
     this.addChild( controlPanel );
 
     const stopwatchDragBounds = new Bounds2( this.layoutBounds.minX, this.layoutBounds.minY, controlPanel.left, 200 );
@@ -564,7 +564,7 @@ export default class MotionScreenView extends ScreenView {
       this.itemToolboxGroup,
       stackSection,
       appliedForcePlayAreaControlNode,
-      forcesListDescriptionNode,
+      forcesDescriptionNode,
       speedDescriptionNode,
       accelerationDescriptionNode,
       this.appliedForceArrow,
