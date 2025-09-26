@@ -10,10 +10,13 @@ export const InteractionModes = [
   'inToolbox',
   'onStack',
 
-  //REVIEW Why do we only need to know 'mouseGrabbed' (sic) for pointer input, but toolbox vs stack for keyboard grab?
-  'pointerGrabbed',
+  // Keep track of where it was grabbed from, for when escape is pressed, and it returns to its origin
   'keyboardGrabbedFromToolbox',
   'keyboardGrabbedFromStack',
+
+  // Always return to the closest point, and hence does not need to know whether it came from toolbox or stack
+  'pointerGrabbed',
+
   'animatingToToolbox',
   'animatingToStack'
 ] as const;
