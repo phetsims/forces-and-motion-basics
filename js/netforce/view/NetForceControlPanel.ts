@@ -73,9 +73,9 @@ export default class NetForceControlPanel extends Node {
       property: model.showValuesProperty,
       tandemName: 'valuesCheckbox',
       options: {
-        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.netForceControlPanel.values.accessibleHelpTextStringProperty,
-        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.values.checkedResponseStringProperty,
-        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.values.uncheckedResponseStringProperty
+        accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceStringProperty,
+        accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.checkedResponseStringProperty,
+        accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.uncheckedResponseStringProperty
       }
     }, {
       createNode: tandem => new HBox( {

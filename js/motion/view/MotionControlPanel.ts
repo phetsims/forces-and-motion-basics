@@ -208,10 +208,11 @@ export default class MotionControlPanel extends Node {
         tandemName: 'valuesCheckbox',
         options: {
 
-          // TODO: Move these keys under valuesCheckbox? See https://github.com/phetsims/forces-and-motion-basics/issues/450
-          accessibleHelpText: model.screen === 'acceleration' ? ForcesAndMotionBasicsFluent.a11y.values.withAccelerationAccessibleHelpTextStringProperty : ForcesAndMotionBasicsFluent.a11y.values.accessibleHelpTextStringProperty,
-          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.values.checkedResponseStringProperty,
-          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.values.uncheckedResponseStringProperty
+          accessibleHelpText: model.screen === 'acceleration' ?
+                               ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceSpeedAccelerationStringProperty :
+                               ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceSpeedStringProperty,
+          accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.checkedResponseStringProperty,
+          accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.uncheckedResponseStringProperty
         }
       } );
 

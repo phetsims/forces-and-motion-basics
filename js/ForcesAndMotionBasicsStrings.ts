@@ -76,11 +76,12 @@ type StringsType = {
   'a11y': {
     'navigableStringProperty': LocalizedStringProperty;
     'sortableStringProperty': LocalizedStringProperty;
-    'values': {
+    'valuesCheckbox': {
       'checkedResponseStringProperty': LocalizedStringProperty;
       'uncheckedResponseStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'withAccelerationAccessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextForceStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextForceSpeedStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextForceSpeedAccelerationStringProperty': LocalizedStringProperty;
     };
     'preferences': {
       'netForcePullerColorControl': {
@@ -163,9 +164,6 @@ type StringsType = {
         'sumOfForces': {
           'accessibleHelpTextStringProperty': LocalizedStringProperty;
           'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
-        };
-        'values': {
-          'accessibleHelpTextStringProperty': LocalizedStringProperty;
         };
         'speed': {
           'accessibleHelpTextStringProperty': LocalizedStringProperty;

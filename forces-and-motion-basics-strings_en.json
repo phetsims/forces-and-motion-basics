@@ -167,17 +167,20 @@
     "sortable": {
       "value": "sortable"
     },
-    "values": {
+    "valuesCheckbox": {
       "checkedResponse": {
         "value": "Numeric values shown."
       },
       "uncheckedResponse": {
         "value": "Numeric values hidden."
       },
-      "accessibleHelpText": {
+      "accessibleHelpTextForce": {
+        "value": "Show or hide force values."
+      },
+      "accessibleHelpTextForceSpeed": {
         "value": "Show or hide force and speed values."
       },
-      "withAccelerationAccessibleHelpText": {
+      "accessibleHelpTextForceSpeedAcceleration": {
         "value": "Show or hide force, speed, and acceleration values."
       }
     },
@@ -353,11 +356,6 @@
           },
           "accessibleContextResponseUnchecked": {
             "value": "Sum of forces arrow hidden."
-          }
-        },
-        "values": {
-          "accessibleHelpText": {
-            "value": "Show or hide force values."
           }
         },
         "speed": {
