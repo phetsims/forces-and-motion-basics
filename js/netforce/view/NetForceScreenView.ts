@@ -43,7 +43,7 @@ import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
-import SpeedDescription from './SpeedDescription.js';
+import NetForceSpeedDescription from './NetForceSpeedDescription.js';
 import TugOfWarDescription from './TugOfWarDescription.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsFluent.leftForceStringProperty;
@@ -289,14 +289,14 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( this.sumArrow );
 
     const forcesListDescription = new ForcesListDescription( model );
-    const speedDescription = new SpeedDescription( model );
+    const netForceSpeedDescription = new NetForceSpeedDescription( model );
 
     // Show the control panel
     this.controlPanel = new NetForceControlPanel(
       this.model,
       tandem.createTandem( 'controlPanel' ),
       forcesListDescription.netForceDescriptionProperty,
-      speedDescription.speedDescriptionProperty, {
+      netForceSpeedDescription.speedDescriptionProperty, {
         visiblePropertyOptions: { phetioFeatured: true }
       } );
 
@@ -392,7 +392,7 @@ export default class NetForceScreenView extends ScreenView {
     this.addChild( tugOfWarOverviewNode );
 
     this.addChild( forcesListDescription );
-    this.addChild( speedDescription );
+    this.addChild( netForceSpeedDescription );
 
     // Set up the pdomOrder for proper accessibility hierarchy
     // Play Area: left toolbox -> right toolbox -> tug of war overview -> forces list -> speed -> play area controls -> cart -> arrows
@@ -401,7 +401,7 @@ export default class NetForceScreenView extends ScreenView {
       rightToolbox,
       tugOfWarOverviewNode,
       forcesListDescription,
-      speedDescription,
+      netForceSpeedDescription,
       playAreaControlNode,
       this.cartNode,
       this.leftArrow,

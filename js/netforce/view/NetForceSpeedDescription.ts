@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * SpeedDescription provides an accessible description of the current cart speed in the Net Force screen.
+ * NetForceSpeedDescription provides an accessible description of the current cart speed in the Net Force screen.
  * This appears under a "Speed" heading and shows only when the speed checkbox is checked.
  *
  * @author Sam Reid (PhET Interactive Simulations)
@@ -14,19 +14,19 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
-export default class SpeedDescription extends Node {
+export default class NetForceSpeedDescription extends Node {
   public readonly speedDescriptionProperty: TReadOnlyProperty<string>;
 
   public constructor( model: NetForceModel ) {
 
     const qualitativeSpeedProperty = new DerivedProperty(
       [ model.speedProperty ],
-      speed => SpeedDescription.getQualitativeSpeedDescription( Math.abs( speed ) )
+      speed => NetForceSpeedDescription.getQualitativeSpeedDescription( Math.abs( speed ) )
     );
 
     const accelerationDescriptionProperty = new DerivedProperty(
       [ model.netForceProperty, model.cart.velocityProperty ],
-      ( netForce, velocity ) => SpeedDescription.getAccelerationDescription( netForce, velocity )
+      ( netForce, velocity ) => NetForceSpeedDescription.getAccelerationDescription( netForce, velocity )
     );
 
     const cartSpeedWithAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.cartSpeedWithAcceleration.createProperty( {
@@ -145,4 +145,4 @@ export default class SpeedDescription extends Node {
   }
 }
 
-forcesAndMotionBasics.register( 'SpeedDescription', SpeedDescription );
+forcesAndMotionBasics.register( 'NetForceSpeedDescription', NetForceSpeedDescription );
