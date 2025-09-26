@@ -65,7 +65,7 @@ a11y:
     accessibleHelpText:                 Show or hide force and speed values.
     withAccelerationAccessibleHelpText: Show or hide force, speed, and acceleration values.
   preferences:
-    netForcePullerColors:
+    netForcePullerColorControl:
       accessibleHelpText: Select team colors for tug-of-war game.
   keyboardHelpDialog:
     fromAnywhereInSim:

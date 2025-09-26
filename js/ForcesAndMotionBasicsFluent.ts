@@ -81,7 +81,7 @@ addToMapIfDefined( 'a11y_values_checkedResponse', 'a11y.values.checkedResponseSt
 addToMapIfDefined( 'a11y_values_uncheckedResponse', 'a11y.values.uncheckedResponseStringProperty' );
 addToMapIfDefined( 'a11y_values_accessibleHelpText', 'a11y.values.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_values_withAccelerationAccessibleHelpText', 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' );
-addToMapIfDefined( 'a11y_preferences_netForcePullerColors_accessibleHelpText', 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' );
+addToMapIfDefined( 'a11y_preferences_netForcePullerColorControl_accessibleHelpText', 'a11y.preferences.netForcePullerColorControl.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_startGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_pauseGameDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_keyboardHelpDialog_fromAnywhereInSim_returnCartToCenterDescription', 'a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescriptionStringProperty' );
@@ -352,8 +352,8 @@ const ForcesAndMotionBasicsFluent = {
       withAccelerationAccessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_values_withAccelerationAccessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.values.withAccelerationAccessibleHelpTextStringProperty' ) )
     },
     preferences: {
-      netForcePullerColors: {
-        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_preferences_netForcePullerColors_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.preferences.netForcePullerColors.accessibleHelpTextStringProperty' ) )
+      netForcePullerColorControl: {
+        accessibleHelpTextStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_preferences_netForcePullerColorControl_accessibleHelpText', _.get( ForcesAndMotionBasicsStrings, 'a11y.preferences.netForcePullerColorControl.accessibleHelpTextStringProperty' ) )
       }
     },
     _comment_0: new FluentComment( {"comment":"keyboard help dialog strings","associatedKey":"keyboardHelpDialog"} ),

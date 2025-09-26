@@ -83,7 +83,7 @@ type StringsType = {
       'withAccelerationAccessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'preferences': {
-      'netForcePullerColors': {
+      'netForcePullerColorControl': {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
       }
     };
