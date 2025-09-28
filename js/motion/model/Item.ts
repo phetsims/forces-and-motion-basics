@@ -36,19 +36,31 @@ type AnimationState = {
 
 export default class Item extends PhetioObject {
 
-  //REVIEW field are not documented.
+  // Identifier for this item, used in instrumentation and accessibility descriptions.
   public readonly name: string;
+
+  // Initial x-coordinate for reset logic.
   private readonly initialX: number;
+
+  // Initial y-coordinate for reset logic.
   private readonly initialY: number;
+
+  // Scale applied when the item sits in the toolbox.
   private readonly homeScale: number;
+
+  // Image displayed while the item is active.
   public readonly imageProperty: TReadOnlyProperty<ImageableImage> | LocalizedImageProperty;
+
+  // Image shown when the item is sitting on the skateboard stack.
   public readonly sittingImageProperty: LocalizedImageProperty | Property<ImageableImage>;
+
+  // Image shown when the item is being held.
   public readonly holdingImageProperty: LocalizedImageProperty | Property<ImageableImage>;
 
   // the position of the item
   public readonly positionProperty: Vector2Property;
 
-  //REVIEW document
+  // Horizontal offset to align the item with the pusher's hands.
   public readonly pusherInsetProperty: Property<number>;
 
   // whether the item is being user controlled (dragged)
@@ -69,7 +81,7 @@ export default class Item extends PhetioObject {
   // How much to increase/shrink the original image. Could all be set to 1.0 if images pre-scaled in an external program
   public readonly imageScale: number;
 
-  //REVIEW document
+  // Derived scale used to animate between toolbox and active states.
   public readonly interactionScaleProperty: TReadOnlyProperty<number>;
 
   // True if and only if the item is a bucket
@@ -77,6 +89,9 @@ export default class Item extends PhetioObject {
 
   // The mass is constant in the PhET brand sim, but can be edited in PhET-iO
   public readonly massProperty: NumberProperty;
+
+  // Whether the item's mass is hidden from the learner (mystery mass).
+  public readonly mystery: boolean;
 
   /**
    * @param model - model context in which this item exists
@@ -108,8 +123,7 @@ export default class Item extends PhetioObject {
     pusherInset?: number,
     sittingImage?: ImageableImage,
     holdingImage?: ImageableImage,
-    //REVIEW Because this param is after optional params, and is itself optional, does this field always exist?
-    public readonly mystery?: boolean ) {
+    mystery?: boolean ) {
 
     super( {
       tandem: tandem,
@@ -159,6 +173,8 @@ export default class Item extends PhetioObject {
     } );
 
     this.pusherInsetProperty = new Property( pusherInset || 0 );
+
+    this.mystery = mystery ?? false;
 
     // Initialize mode property first - start in appropriate toolbox based on item type
     this.modeProperty = new StringUnionProperty<InteractionMode>( 'inToolbox', {
@@ -319,8 +335,8 @@ export default class Item extends PhetioObject {
       if ( distanceToTarget < 1 ) {
         this.positionProperty.value = destination;
         this.animationState = null;
-        //REVIEW This is odd. Why assignment to modeProperty twice?
-        this.modeProperty.value = this.modeProperty.value === 'animatingToToolbox' ? 'inToolbox' : 'onStack';
+        const previousMode = this.modeProperty.value;
+        this.modeProperty.value = previousMode === 'animatingToToolbox' ? 'inToolbox' : 'onStack';
       }
     }
   }
