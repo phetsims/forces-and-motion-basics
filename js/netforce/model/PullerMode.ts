@@ -27,9 +27,7 @@ type PullerModeOptions = {
 };
 
 export default class PullerMode {
-
-  //REVIEW type field should be private, according to 'grunt lint' and 'grunt type-check'
-  public readonly type: PullerModeType;
+  private readonly type: PullerModeType;
   private readonly method?: GrabMethod;
   private readonly knotIndex?: number;
   private readonly overHome?: boolean;

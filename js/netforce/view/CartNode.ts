@@ -20,15 +20,10 @@ const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 
 export default class CartNode extends Image {
 
-  //REVIEW xPosition is private, declared and never read. Delete it?
-  private readonly xPosition: number;
-
   public constructor( private readonly cart: Cart, speedProperty: NumberProperty, showSpeedProperty: TReadOnlyProperty<boolean> ) {
     super( cart_svg, {
       y: 221
     } );
-
-    this.xPosition = this.cart.positionProperty.value;
 
     // add a speedometer to the cart
     const speedRange = new Range( 0, 6 ); // speed range of the cart in m/s

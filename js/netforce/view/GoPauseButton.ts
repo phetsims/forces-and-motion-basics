@@ -15,7 +15,6 @@ import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -34,12 +33,9 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
    *
    * @param model the NetForceModel
    * @param layoutWidth the layout width for centering the button
-   * @param tandem
    * @param providedOptions
    */
-  //REVIEW tandem is unused, looks like you forgot to add it to options below.
-  //REVIEW Why is there a tandem param when providedOptions includes tandem?
-  public constructor( model: NetForceModel, layoutWidth: number, tandem: Tandem, providedOptions?: GoPauseButtonOptions ) {
+  public constructor( model: NetForceModel, layoutWidth: number, providedOptions?: GoPauseButtonOptions ) {
 
     // Create a derived property for the accessible name that updates based on the button state
     const dynamicAccessibleNameProperty = new DerivedProperty( [

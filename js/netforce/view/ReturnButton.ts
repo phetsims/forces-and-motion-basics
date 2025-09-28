@@ -6,6 +6,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
@@ -15,40 +16,42 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceHotkeyData from '../NetForceHotkeyData.js';
 
+type SelfOptions = EmptySelfOptions;
+type ReturnButtonOptions = TextPushButtonOptions & SelfOptions;
+
 export default class ReturnButton extends TextPushButton {
 
-  //REVIEW Delete options param. It's not used at call site. It violates PhET's options pattern. And it provides a 2nd way to pass in tandem.
-  public constructor( model: NetForceModel, tandem: Tandem, options: TextPushButtonOptions ) {
+  public constructor( model: NetForceModel, providedOptions?: ReturnButtonOptions ) {
 
-    super( ForcesAndMotionBasicsFluent.returnStringProperty, {
+    const options = optionize<ReturnButtonOptions, SelfOptions, TextPushButtonOptions>()( {
       listener: () => {
         model.returnCart();
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.cartReturnedToCenterStringProperty.value );
       },
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       baseColor: 'rgb( 254, 192, 0 )',
-      tandem: tandem,
+      tandem: Tandem.OPTIONAL,
       enabledPropertyOptions: {
         phetioReadOnly: true
       },
       accessibleName: ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.accessibleNameStringProperty,
       accessibleHelpText: ForcesAndMotionBasicsFluent.a11y.netForceScreen.returnButton.accessibleHelpTextStringProperty
-    } );
+    }, providedOptions );
 
-    this.mutate( options );
+    super( ForcesAndMotionBasicsFluent.returnStringProperty, options );
+
+    const centerX = options.centerX;
 
     // Ensure return button is horizontally centered.
     ForcesAndMotionBasicsFluent.returnStringProperty.link( () => {
-      if ( options.centerX !== undefined ) {
-        this.centerX = options.centerX;
+      if ( centerX !== undefined ) {
+        this.centerX = centerX;
       }
     } );
 
     model.hasStartedProperty.linkAttribute( this, 'enabled' );
 
-    //REVIEW Doc says "alt+r", RETURN_CART_HOTKEY_DATA is "alt+c". Which is correct?
-    //REVIEW If "alt+c" is correct, I would refrain from putting the keystroke in the comment here, so it doesn't become out-of-sync with implementation.
-    // Create global keyboard listener for Return (alt+r)
+    // Create global keyboard listener that mirrors RETURN_CART_HOTKEY_DATA
     KeyboardListener.createGlobal( this, {
       keyStringProperties: NetForceHotkeyData.RETURN_CART_HOTKEY_DATA.keyStringProperties,
       fire: () => {

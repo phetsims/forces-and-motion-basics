@@ -8,14 +8,13 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionBasicsIconFactory.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -27,24 +26,19 @@ const speedStringProperty = ForcesAndMotionBasicsFluent.speedStringProperty;
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 const valuesStringProperty = ForcesAndMotionBasicsFluent.valuesStringProperty;
 
-type SelfOptions = EmptySelfOptions;
-type NetForceControlPanelOptions = NodeOptions & SelfOptions;
+type NetForceControlPanelOptions = WithRequired<NodeOptions, 'tandem'>;
 
 export default class NetForceControlPanel extends Node {
-  private readonly verticalCheckboxGroup: VerticalCheckboxGroup;
+  private readonly checkboxGroup: VerticalCheckboxGroup;
   private readonly verticalCheckboxGroupPanel: Panel;
 
   public constructor(
     model: NetForceModel,
-    tandem: Tandem, //REVIEW Why is there a tandem param when providedOptions includes tandem?
     netForceDescription: TReadOnlyProperty<string>,
     speedDescriptionProperty: TReadOnlyProperty<string>,
-    providedOptions?: NetForceControlPanelOptions
+    providedOptions: NetForceControlPanelOptions
   ) {
-    const options = optionize<NetForceControlPanelOptions, SelfOptions, NodeOptions>()( {
-      tandem: tandem
-    }, providedOptions );
-    super( options );
+    super( providedOptions );
 
     const fontOptions = { font: new PhetFont( 18 ), maxWidth: 115 };
 
@@ -56,8 +50,7 @@ export default class NetForceControlPanel extends Node {
     const speedFontOptions = { font: fontOptions.font, maxWidth: fontOptions.maxWidth - speedometerIconNode.width - speedTextAndSpeedometerIconSpacing };
     const showSpeedTextNode = new Text( speedStringProperty, speedFontOptions );
 
-    const verticalCheckboxGroupTandem = tandem.createTandem( 'checkboxGroup' );
-    this.verticalCheckboxGroup = new VerticalCheckboxGroup( [ {
+    this.checkboxGroup = new VerticalCheckboxGroup( [ {
       createNode: () => new Text( sumOfForcesStringProperty, fontOptions ),
       property: model.showSumOfForcesProperty,
       tandemName: 'sumOfForcesCheckbox',
@@ -90,11 +83,11 @@ export default class NetForceControlPanel extends Node {
         accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.speedCheckbox.accessibleContextResponseUncheckedStringProperty
       }
     } ], {
-      tandem: verticalCheckboxGroupTandem,
+      tandem: providedOptions.tandem.createTandem( 'checkboxGroup' ),
       minContentWidth: 100,
       visiblePropertyOptions: { phetioFeatured: true }
     } );
-    this.verticalCheckboxGroupPanel = new Panel( this.verticalCheckboxGroup, {
+    this.verticalCheckboxGroupPanel = new Panel( this.checkboxGroup, {
       xMargin: 10,
       yMargin: 10,
       fill: '#e3e980'

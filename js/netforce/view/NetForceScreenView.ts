@@ -268,14 +268,15 @@ export default class NetForceScreenView extends ScreenView {
 
     // i18n - ensure that the go, pause, and return buttons will fit in between the puller toolboxes
     const maxWidth = ( rightToolbox.left - leftToolbox.right ) / 2;
-    const goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, tandem.createTandem( 'goPauseButton' ), {
+    const goPauseButton = new GoPauseButton( this.model, this.layoutBounds.width, {
       maxWidth: maxWidth,
       tandem: tandem.createTandem( 'goPauseButton' )
     } );
     playAreaControlNode.addChild( goPauseButton );
 
     // Return button
-    this.returnButton = new ReturnButton( model, tandem.createTandem( 'returnButton' ), {
+    this.returnButton = new ReturnButton( model, {
+      tandem: tandem.createTandem( 'returnButton' ),
       centerX: this.layoutBounds.centerX,
       top: goPauseButton.bottom + MARGIN_FROM_LAYOUT_BOUNDS,
       maxWidth: maxWidth
@@ -293,9 +294,9 @@ export default class NetForceScreenView extends ScreenView {
     // Show the control panel
     this.controlPanel = new NetForceControlPanel(
       this.model,
-      tandem.createTandem( 'controlPanel' ),
       forcesListDescription.netForceDescriptionProperty,
       netForceSpeedDescriptionNode.speedDescriptionProperty, {
+        tandem: tandem.createTandem( 'controlPanel' ),
         visiblePropertyOptions: { phetioFeatured: true }
       } );
 
