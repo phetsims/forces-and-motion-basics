@@ -39,17 +39,15 @@ function createHotkeyData( keys: OneKeyStroke[],
 export default class NetForceHotkeyData {
 
   // Navigation keys for moving between elements
-  //REVIEW Should these be private? They are not used outside NetForceHotkeyData.
-  public static readonly NAVIGATE_LEFT: OneKeyStroke[] = [ 'arrowLeft' ];
-  public static readonly NAVIGATE_RIGHT: OneKeyStroke[] = [ 'arrowRight' ];
+  private static readonly NAVIGATE_LEFT_KEYS: OneKeyStroke[] = [ 'arrowLeft' ];
+  private static readonly NAVIGATE_RIGHT_KEYS: OneKeyStroke[] = [ 'arrowRight' ];
 
-  //REVIEW Should pullerNode be PULLER_NODE?
-  public static readonly pullerNode = {
+  public static readonly PULLER_NODE = {
     // Navigation between pullers and knots
     navigation: createHotkeyData( [
         //REVIEW Is WASD not supported?
-        ...NetForceHotkeyData.NAVIGATE_LEFT,
-        ...NetForceHotkeyData.NAVIGATE_RIGHT
+        ...NetForceHotkeyData.NAVIGATE_LEFT_KEYS,
+        ...NetForceHotkeyData.NAVIGATE_RIGHT_KEYS
       ],
       new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
     ),

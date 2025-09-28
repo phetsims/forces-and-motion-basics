@@ -1,10 +1,9 @@
 // Copyright 2025, University of Colorado Boulder
 
-//REVIEW This may at one time have been "a specialized GrabReleaseCueNode" but it now extends FocusDrivenGrabReleaseCueNode.
-//REVIEW I don't understand what "It shows over the appropriate side" means.
 /**
- * NetForceGrabReleaseCueNode is a specialized GrabReleaseCueNode for the NetForce screen.
- * It shows over the appropriate side that has focus and hides after interaction.
+ * NetForceGrabReleaseCueNode extends FocusDrivenGrabReleaseCueNode to position the cue used during grab/release
+ * interactions. It tracks the focused puller and places the cue above the corresponding side of the rope, hiding it
+ * once interaction completes.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */

@@ -308,17 +308,17 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     //REVIEW Factor out PullerKeyboardListener extends KeyboardListener
     this.keyboardListener = new KeyboardListener( {
       keyStringProperties: [
-        ...NetForceHotkeyData.pullerNode.navigation.keyStringProperties,
-        ...NetForceHotkeyData.pullerNode.grabOrDrop.keyStringProperties,
-        ...NetForceHotkeyData.pullerNode.cancelInteraction.keyStringProperties,
-        ...NetForceHotkeyData.pullerNode.returnToToolbox.keyStringProperties
+        ...NetForceHotkeyData.PULLER_NODE.navigation.keyStringProperties,
+        ...NetForceHotkeyData.PULLER_NODE.grabOrDrop.keyStringProperties,
+        ...NetForceHotkeyData.PULLER_NODE.cancelInteraction.keyStringProperties,
+        ...NetForceHotkeyData.PULLER_NODE.returnToToolbox.keyStringProperties
       ],
       fireOnDown: false,
 
       fire: ( event, keysPressed ) => {
 
         // NAVIGATION (Arrow Keys)
-        if ( NetForceHotkeyData.pullerNode.navigation.hasKeyStroke( keysPressed ) ) {
+        if ( NetForceHotkeyData.PULLER_NODE.navigation.hasKeyStroke( keysPressed ) ) {
 
           // When no puller is grabbed, select between available pullers of the same type
           if ( !puller.isGrabbed() ) {
@@ -407,7 +407,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         }
 
         // GRAB/DROP (Enter/Space)
-        if ( NetForceHotkeyData.pullerNode.grabOrDrop.hasKeyStroke( keysPressed ) ) {
+        if ( NetForceHotkeyData.PULLER_NODE.grabOrDrop.hasKeyStroke( keysPressed ) ) {
 
           // Pick up an ungrabbed puller
           if ( !puller.isGrabbed() ) {
@@ -510,7 +510,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         }
 
         // CANCEL (Escape)
-        if ( NetForceHotkeyData.pullerNode.cancelInteraction.hasKeyStroke( keysPressed ) ) {
+        if ( NetForceHotkeyData.PULLER_NODE.cancelInteraction.hasKeyStroke( keysPressed ) ) {
           if ( puller.isGrabbed() ) {
             // Cancel the grab and return to original position
             puller.cancelGrab();
@@ -525,7 +525,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         }
 
         // RETURN TO TOOLBOX (Delete/Backspace)
-        if ( NetForceHotkeyData.pullerNode.returnToToolbox.hasKeyStroke( keysPressed ) ) {
+        if ( NetForceHotkeyData.PULLER_NODE.returnToToolbox.hasKeyStroke( keysPressed ) ) {
           if ( puller.isGrabbed() ) {
             puller.clearGrabOrigin();
 

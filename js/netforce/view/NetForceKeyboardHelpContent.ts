@@ -76,10 +76,10 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty
         }
       ),
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.pullerNode.returnToToolbox, {
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PULLER_NODE.returnToToolbox, {
         pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty
       } ),
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.pullerNode.cancelInteraction, {
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PULLER_NODE.cancelInteraction, {
         pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.cancelMovementStringProperty
       } )
     ] );
