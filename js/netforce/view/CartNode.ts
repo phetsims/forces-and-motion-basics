@@ -11,6 +11,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import cart_svg from '../../../images/cart_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -40,11 +41,13 @@ export default class CartNode extends Image {
     showSpeedProperty.linkAttribute( speedometerNode, 'visible' );
     this.addChild( speedometerNode );
 
-    //REVIEW I'm concerned whenever I see a response being added in a model Property listener.
-    //REVIEW Should this be guarded with a check of isSettingPhetioStateProperty.value?
     cart.velocityProperty.lazyLink( ( velocity, oldVelocity ) => {
 
       // Detect direction changes and announce them
+      if ( isSettingPhetioStateProperty.value ) {
+        return;
+      }
+
       if ( oldVelocity < 0 && velocity > 0 ) {
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty );
       }
