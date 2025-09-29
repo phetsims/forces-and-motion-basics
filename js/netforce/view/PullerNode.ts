@@ -195,7 +195,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       this.updateImages( standImage, pullImage );
     } );
 
-    //REVIEW Factor out PullerDragListener extends SoundDragListener
+    // TODO Factor out PullerDragListener extends SoundDragListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     this.dragListener = new SoundDragListener( {
         tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
