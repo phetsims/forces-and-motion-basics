@@ -25,6 +25,7 @@ import Knot from './Knot.js';
 import NetForceModel, { LeftTeamColor, RightTeamColor } from './NetForceModel.js';
 
 import PullerMode from './PullerMode.js';
+import PullerSuffix from './PullerSuffix.js';
 
 type SelfOptions = {
   standOffsetX?: number;
@@ -51,7 +52,7 @@ export default class Puller extends PhetioObject {
   public readonly colorProperty: TReadOnlyProperty<LeftTeamColor | RightTeamColor>;
 
   // For the small pullers, there are index 1 and 2. For others, there is no suffix.
-  public readonly descriptionIndex: '1' | '2' | ''; //REVIEW Use enumeration pattern
+  public readonly descriptionIndex: PullerSuffix;
 
   /**
    * @param model the NetForceModel that this puller is associated with, for context
