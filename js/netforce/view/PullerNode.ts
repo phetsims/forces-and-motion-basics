@@ -180,7 +180,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       tagName: 'button',
       accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], colorPreference => {
 
-        // If the user has selected purple/orange in the preferences, we need to map blue->purple and red->orange for the accessible name
+        // If the user has selected purple/orange in the preferences (instead of the default which is blue/red), we need
+        // to map blue->purple and red->orange for the accessible name
         const displayColor = colorPreference === 'purpleOrange' ?
                              ( puller.type === 'blue' ? 'purple' : 'orange' ) :
                              puller.type;
