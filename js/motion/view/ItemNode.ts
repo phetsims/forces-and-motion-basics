@@ -31,7 +31,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
-import { createItemAccessibleNameWithMassProperty, getLocalizedItemNameProperty } from './getItemNameProperties.js';
+import ItemDescriber from './ItemDescriber.js';
 import MotionScreenView from './MotionScreenView.js';
 
 // Workaround for https://github.com/phetsims/scenery/issues/108
@@ -90,8 +90,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       ForcesAndMotionBasicsFluent.pattern[ '0massUnitsKilogramsStringProperty' ], { mass: item.massProperty }, { formatNames: [ 'mass' ] } );
 
     // Localized name and accessible name with mass, using shared helpers
-    const localizedItemNameProperty = getLocalizedItemNameProperty( item );
-    const itemAccessibleNameWithMassProperty = createItemAccessibleNameWithMassProperty( item );
+    const localizedItemNameProperty = ItemDescriber.getLocalizedItemNameProperty( item );
+    const itemAccessibleNameWithMassProperty = ItemDescriber.createItemAccessibleNameWithMassProperty( item );
 
     // Create a derived property that switches between plain name and name with mass
     const accessibleNameProperty = DerivedProperty.deriveAny(
@@ -190,7 +190,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
           // Place on stack and announce
           const priorLength = this.placeItemOnStack();
-          this.addAccessibleContextResponseForDroppedOnStack( priorLength );
+          this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
         }
         else {
 
@@ -341,7 +341,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
         }
         else if ( this.item.modeProperty.value === 'keyboardGrabbedFromStack' ) {
           const priorLength = this.placeItemOnStack();
-          this.addAccessibleContextResponseForDroppedOnStack( priorLength );
+          this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
         }
       }
     } );
@@ -491,7 +491,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       }
 
       // Announce initial grabbed location
-      this.addAccessibleContextResponse( this.getOverAreaMessageForStackHover() );
+      this.addAccessibleContextResponse( ItemDescriber.getOverAreaMessageForStackHover( this.model ) );
     }
     else {
 
@@ -502,7 +502,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
       if ( droppedOnStack ) {
         const priorLength = this.placeItemOnStack();
-        this.addAccessibleContextResponseForDroppedOnStack( priorLength );
+        this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
       }
       else {
         this.returnItemToToolbox();
@@ -536,7 +536,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       this.item.positionProperty.value = new Vector2( stackX, stackY );
 
       // Announce over area
-      this.addAccessibleContextResponse( this.getOverAreaMessageForStackHover() );
+      this.addAccessibleContextResponse( ItemDescriber.getOverAreaMessageForStackHover( this.model ) );
     }
     else {
 
@@ -680,34 +680,6 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     }
   }
 
-  /** Compute the proper announcement string when hovering over the stack area. */
-  private getOverAreaMessageForStackHover(): string {
-    const hasOtherItems = this.model.stackedItems.length > 0;
-    if ( hasOtherItems ) {
-      return ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overStackStringProperty.value;
-    }
-    else {
-      return this.model.screen === 'motion' ?
-             ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overSkateboardStringProperty.value :
-             ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overGroundStringProperty.value;
-    }
-  }
-
-  private addAccessibleContextResponseForDroppedOnStack( priorLength: number ): void {
-    if ( priorLength === 0 ) {
-      this.addAccessibleContextResponse(
-        this.model.screen === 'motion' ?
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnSkateboardStringProperty :
-        ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnGroundStringProperty
-      );
-    }
-    else if ( priorLength <= 2 ) {
-      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnStackStringProperty );
-    }
-    else {
-      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.droppedOnStackBottomObjectReturnedStringProperty );
-    }
-  }
 }
 
 forcesAndMotionBasics.register( 'ItemNode', ItemNode );

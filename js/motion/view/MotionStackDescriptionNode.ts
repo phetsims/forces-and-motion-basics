@@ -20,7 +20,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
-import { formatItemAccessibleNameWithMass, getLocalizedItemNameProperty } from './getItemNameProperties.js';
+import ItemDescriber from './ItemDescriber.js';
 
 export default class MotionStackDescriptionNode extends Node {
 
@@ -79,8 +79,8 @@ export default class MotionStackDescriptionNode extends Node {
       // For transient formatting here, avoid creating Properties to prevent leaks.
       // Use the formatter when showing masses; otherwise use the plain localized name value.
       return model.showMassesProperty.value ?
-             formatItemAccessibleNameWithMass( item ) :
-             getLocalizedItemNameProperty( item ).value;
+             ItemDescriber.formatItemAccessibleNameWithMass( item ) :
+             ItemDescriber.getLocalizedItemNameProperty( item ).value;
     };
 
     const dependencies = [ model.showMassesProperty, ...allItemNameStringDependencies, ...allItemMassProperties ];
