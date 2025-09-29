@@ -179,6 +179,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       scale: 0.86,
       tagName: 'button',
       accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
+
         //REVIEW Mapping 'blue'|'red' to 'purple'|'orange'? What is going on here?!?
         const displayColor = pullerColor === 'purpleOrange' ?
                              ( puller.type === 'blue' ? 'purple' : 'orange' ) :

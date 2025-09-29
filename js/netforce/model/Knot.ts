@@ -15,11 +15,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import RedOrBlue from './RedOrBlue.js';
 
 type SelfOptions = EmptySelfOptions;
 type KnotOptions = PhetioObjectOptions & SelfOptions;
 
-export type KnotType = 'blue' | 'red';
+export type KnotType = RedOrBlue;
 export default class Knot extends PhetioObject {
 
   // the 1-D x position of the knot

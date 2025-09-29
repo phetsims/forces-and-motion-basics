@@ -27,6 +27,7 @@ import Cart from './Cart.js';
 import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import Knot, { KnotType } from './Knot.js';
 import Puller from './Puller.js';
+import RedOrBlue from './RedOrBlue.js';
 
 // spacing for the knots
 const KNOT_SPACING = 80;
@@ -498,7 +499,7 @@ export default class NetForceModel extends PhetioObject {
   /**
    * Get an array of pullers of the specified type (color string)
    */
-  private getPullers( type: 'red' | 'blue' ): Puller[] {
+  private getPullers( type: RedOrBlue ): Puller[] {
     return _.filter( this.pullers, ( puller: Puller ) => puller.type === type && puller.modeProperty.value.isAttached() );
   }
 

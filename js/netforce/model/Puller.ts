@@ -26,6 +26,7 @@ import NetForceModel, { LeftTeamColor, RightTeamColor } from './NetForceModel.js
 
 import PullerMode from './PullerMode.js';
 import PullerSuffix from './PullerSuffix.js';
+import RedOrBlue from './RedOrBlue.js';
 
 type SelfOptions = {
   standOffsetX?: number;
@@ -58,7 +59,7 @@ export default class Puller extends PhetioObject {
    * @param model the NetForceModel that this puller is associated with, for context
    * @param x initial x-coordinate (in meters)
    * @param y initial y-coordinate (in meters)
-   * @param type 'red'|'blue'
+   * @param type
    * @param size 'small'|'medium'|'large'
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
    * @param tandem
@@ -66,7 +67,7 @@ export default class Puller extends PhetioObject {
    */
   public constructor( public readonly model: NetForceModel,
                       x: number, y: number,
-                      public readonly type: 'red' | 'blue', //REVIEW Use enumeration pattern
+                      public readonly type: RedOrBlue,
                       public readonly size: 'small' | 'medium' | 'large', //REVIEW Use enumeration pattern
                       public readonly dragOffsetX: number,
                       providedOptions: PullerOptions ) {
