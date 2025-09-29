@@ -169,7 +169,7 @@ export default class PusherNode extends Node {
     this.model = model;
     this.itemModelToNodeMap = itemModelToNodeMap;
 
-    //REVIEW Factor out PusherDragListener extends SoundDragListener
+    // TODO Factor out PusherDragListener extends SoundDragListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     const dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       allowTouchSnag: true,

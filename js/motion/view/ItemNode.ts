@@ -149,7 +149,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     model.stackedItems.lengthProperty.link( updateImage );
 
-    //REVIEW Factor out ItemDragListener extends SoundDragListener
+    // TODO Factor out ItemDragListener extends SoundDragListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     this.dragListener = new SoundDragListener( {
       tandem: tandem.createTandem( 'dragListener' ),
       positionProperty: item.positionProperty,
@@ -317,7 +317,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     } );
 
     // Create keyboard listener for item interactions
-    //REVIEW Factor out ItemKeyboardListener extends KeyboardListener
+    // TODO Factor out ItemKeyboardListener extends KeyboardListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
       // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/453
       keys: [

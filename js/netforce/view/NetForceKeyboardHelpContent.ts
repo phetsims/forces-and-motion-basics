@@ -21,7 +21,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
 
   public constructor() {
 
-    //REVIEW Factor out FromAnywhereInScreenKeyboardHelpSection extends KeyboardHelpSection.
+    // TODO Factor out FromAnywhereInScreenKeyboardHelpSection extends KeyboardHelpSection, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     // Create the "From Anywhere in Sim" section
     const fromAnywhereInScreenSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.fromAnywhereInScreenStringProperty, [
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA, {
@@ -41,7 +41,7 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
       } )
     ] );
 
-    //REVIEW Factor out PullerNavigationKeyboardHelpSection extends KeyboardHelpSection.
+    // TODO Factor out PullerNavigationKeyboardHelpSection extends KeyboardHelpSection, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     // Create the puller navigation section
     const pullerNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.pullerNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIcon(

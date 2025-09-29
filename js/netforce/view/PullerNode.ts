@@ -273,7 +273,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     } );
 
     // Create a single listener that combines all hotkey data
-    //REVIEW Factor out PullerKeyboardListener extends KeyboardListener
+    // TODO Factor out PullerKeyboardListener extends KeyboardListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
     this.keyboardListener = new KeyboardListener( {
       keyStringProperties: [
         ...NetForceHotkeyData.PULLER_NODE.navigation.keyStringProperties,
