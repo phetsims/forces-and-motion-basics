@@ -39,12 +39,23 @@ const IDENTITY = Matrix3.scaling( 1, 1 );
 
 export default class ItemNode extends InteractiveHighlighting( Node ) {
 
-  //REVIEW fields are not documented.
+  // Mass label that appears beneath the item's graphic.
   private readonly labelNode: Node;
+
+  // Primary image that represents the item while active.
   private readonly normalImageNode: Image;
+
+  // Alternate image used when the item is sitting in the stack.
   public readonly sittingImageNode: Image;
+
+  // Drag listener that manages pointer interactions and sound.
   private readonly dragListener: SoundDragListener;
+
+  // Keyboard listener that wires up the item interaction keys.
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
+
+  // Highlight path instance used for focus visualization.
+  private readonly focusHighlightPath: HighlightPath;
 
   // Track whether this item was originally on stack when grabbed (for focus management)
   private wasOriginallyOnStack = false;
@@ -63,8 +74,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * @param itemToolbox - The toolbox that contains this item
    * @param tandem
    */
-  public constructor( public readonly model: MotionModel, //REVIEW Should be private.
-                      public readonly motionView: MotionScreenView, //REVIEW Should be private.
+  public constructor( private readonly model: MotionModel,
+                      private readonly motionView: MotionScreenView,
                       public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
@@ -287,19 +298,19 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     } );
 
     // Use a HighlightPath without a transformSourceNode to avoid DAG assertions during rapid reparenting
-    const focusHighlight = new HighlightPath( null ); //REVIEW const focusHighlight is unnecessary.
-    this.focusHighlight = focusHighlight;
+    this.focusHighlightPath = new HighlightPath( null );
+    this.focusHighlight = this.focusHighlightPath;
 
     // Keep the focus highlight in sync with this node's local bounds
     this.localBoundsProperty.link( localBounds => {
       if ( localBounds.isFinite() ) {
-        focusHighlight.setShape( Shape.bounds( localBounds ) );
+        this.focusHighlightPath.setShape( Shape.bounds( localBounds ) );
       }
     } );
 
     // Keep dashed style consistent with interaction state
     item.modeProperty.link( mode => {
-      focusHighlight.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'pointerGrabbed' );
+      this.focusHighlightPath.setDashed( mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' || mode === 'pointerGrabbed' );
 
       this.accessibleRoleDescription = mode === 'pointerGrabbed' || mode === 'keyboardGrabbedFromStack' || mode === 'keyboardGrabbedFromToolbox' ?
                                        ForcesAndMotionBasicsFluent.a11y.navigableStringProperty : ForcesAndMotionBasicsFluent.a11y.sortableStringProperty;
