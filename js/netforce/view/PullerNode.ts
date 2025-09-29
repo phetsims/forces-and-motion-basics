@@ -178,10 +178,10 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       cursor: 'pointer',
       scale: 0.86,
       tagName: 'button',
-      accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], pullerColor => {
+      accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], colorPreference => {
 
-        //REVIEW Mapping 'blue'|'red' to 'purple'|'orange'? What is going on here?!?
-        const displayColor = pullerColor === 'purpleOrange' ?
+        // If the user has selected purple/orange in the preferences, we need to map blue->purple and red->orange for the accessible name
+        const displayColor = colorPreference === 'purpleOrange' ?
                              ( puller.type === 'blue' ? 'purple' : 'orange' ) :
                              puller.type;
         return `${puller.size} ${displayColor} puller`;
