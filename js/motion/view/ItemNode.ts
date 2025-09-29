@@ -319,7 +319,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     // Create keyboard listener for item interactions
     //REVIEW Factor out ItemKeyboardListener extends KeyboardListener
     this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
-      //REVIEW No support for WASD?
+      // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/453
       keys: [
         'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
         'enter', 'space', 'escape', 'delete', 'backspace'
