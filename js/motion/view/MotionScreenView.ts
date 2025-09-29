@@ -388,7 +388,7 @@ export default class MotionScreenView extends ScreenView {
 
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
-      this.itemToolboxGroup.addItemNode( itemNode, model );
+      this.itemToolboxGroup.addItemNode( itemNode );
     } );
 
     // Add the force arrows & associated readouts in front of the items
@@ -526,7 +526,7 @@ export default class MotionScreenView extends ScreenView {
           // Item moved to stack - transfer from toolbox group to stack group
           if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             this.itemToolboxGroup.removeItemNode( itemNode );
-            this.itemStackGroup.addItemNode( itemNode, model );
+            this.itemStackGroup.addItemNode( itemNode, model.stackedItems );
 
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();
@@ -542,7 +542,7 @@ export default class MotionScreenView extends ScreenView {
 
           // Add to toolbox group if it's not already there
           if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-            this.itemToolboxGroup.addItemNode( itemNode, model );
+            this.itemToolboxGroup.addItemNode( itemNode );
           }
 
           // Update PDOM order after transfer

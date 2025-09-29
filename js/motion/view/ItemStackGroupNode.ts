@@ -7,6 +7,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -14,7 +15,6 @@ import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotion
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
-import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
 
 export default class ItemStackGroupNode extends Node {
@@ -48,8 +48,7 @@ export default class ItemStackGroupNode extends Node {
   /**
    * Add an item node to the stack group (transferring from another parent if needed)
    */
-  //REVIEW Excessive coupling to MotionModel, this.sortItems only needs stackedItems.
-  public addItemNode( itemNode: ItemNode, model: MotionModel ): void {
+  public addItemNode( itemNode: ItemNode, stackedItems: ObservableArray<Item> ): void {
 
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
@@ -60,7 +59,7 @@ export default class ItemStackGroupNode extends Node {
     this.addChild( itemNode );
 
     // Sort items by their stack position (bottom to top)
-    this.sortItems( model.stackedItems );
+    this.sortItems( stackedItems );
 
     itemNode.focusable = true;
     itemNode.focus();

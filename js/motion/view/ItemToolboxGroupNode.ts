@@ -14,7 +14,6 @@ import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighli
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -51,7 +50,7 @@ export default class ItemToolboxGroupNode extends Node {
   /**
    * Add an item node to this group (transferring from another parent if needed)
    */
-  public addItemNode( itemNode: ItemNode, _model: MotionModel ): void {
+  public addItemNode( itemNode: ItemNode ): void {
 
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
