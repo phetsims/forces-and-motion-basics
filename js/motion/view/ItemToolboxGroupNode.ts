@@ -9,29 +9,23 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
-import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ItemNode from './ItemNode.js';
 
-type SelfOptions = EmptySelfOptions;
-
-//REVIEW Why include NodeOptions, or even bother with ItemToolboxGroupNodeOptions, when instantiation sites only need to provide tandem?
-type ItemToolboxGroupNodeOptions = SelfOptions & NodeOptions;
-
 export default class ItemToolboxGroupNode extends Node {
   public readonly itemNodes: ItemNode[] = [];
 
-  public constructor( leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
+  public constructor( leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2 ) {
 
     const unionBounds = leftToolboxBounds.union( rightToolboxBounds ).dilated( 10 );
     const defaultHighlight = new GroupHighlightPath( Shape.bounds( unionBounds ), {
       innerLineWidth: 5
     } );
 
-    const options = optionize<ItemToolboxGroupNodeOptions, SelfOptions, NodeOptions>()( {
+    super( {
       tagName: 'div',
 
       // ARIA attributes for the group
@@ -42,9 +36,7 @@ export default class ItemToolboxGroupNode extends Node {
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.descriptionContentStringProperty,
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty,
       groupFocusHighlight: defaultHighlight
-    }, providedOptions );
-
-    super( options );
+    } );
   }
 
   /**

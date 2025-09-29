@@ -348,9 +348,7 @@ export default class MotionScreenView extends ScreenView {
     }
 
     // Create keyboard navigation groups AFTER items are created
-    this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
-      tandem: tandem.createTandem( 'itemToolboxGroup' )
-    } );
+    this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds );
     this.itemStackGroup = new ItemStackGroupNode( model.screen );
 
     // A container for the Skateboard/Stack heading, the stack description list, and the items themselves
