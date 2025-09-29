@@ -25,19 +25,13 @@ import MotionConstants from '../MotionConstants.js';
 
 export default class MovingBackgroundNode extends Node {
 
-  //REVIEW Unused field, delete it.
-  private lastNumSpecks = 0;
-
-  //REVIEW Vestigial JSdoc, there is no tandem param.
   /**
    * Constructor for MovingBackgroundNode
    *
-   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
-   * @param layoutCenterX the position where the node should be centered horizontally
-   * @param tandem
+    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+    * @param layoutCenterX the position where the node should be centered horizontally
    */
-  //REVIEW 'private readonly model' creates unused field 'this.model', delete 'private readonly'
-  public constructor( private readonly model: MotionModel, layoutCenterX: number ) {
+  public constructor( model: MotionModel, layoutCenterX: number ) {
 
     super( {
       pickable: false,
@@ -47,8 +41,7 @@ export default class MovingBackgroundNode extends Node {
     const L = 900;
 
     // Add a background node at the specified X offset (pixels).  The distanceScale signifies how quickly it will scroll (mountains are far away so have a lower distanceScale)
-    //REVIEW param tandemName is unused, but it's provided at all 8 call sites. Is this a bug, or should param tandemName be deleted?
-    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number, tandemName: string ) => new Image( image, {
+    const toBackgroundImage = ( offset: number, image: ImageableImage, y: number, scale: number ) => new Image( image, {
       scale: scale,
       x: offset,
       y: y
@@ -59,12 +52,12 @@ export default class MovingBackgroundNode extends Node {
     const mountainAndCloudLayer = new Node( {
       x: layoutCenterX,
       children: [
-        toBackgroundImage( L / 2, mountains_svg, mountainY, 0.84, 'mountainImage1' ),
-        toBackgroundImage( L, mountains_svg, mountainY, 0.84, 'mountainImage2' ),
-        toBackgroundImage( -L / 3, mountains_svg, mountainY, 0.84, 'mountainImage3' ),
-        toBackgroundImage( 0, cloud1_svg, 10, 0.545, 'cloudImage1' ),
-        toBackgroundImage( L - 100, cloud1_svg, -30, 0.62, 'cloudImage2' ),
-        toBackgroundImage( -L / 3 - 100, cloud1_svg, 5, 0.78, 'cloudImage3' )
+        toBackgroundImage( L / 2, mountains_svg, mountainY, 0.84 ),
+        toBackgroundImage( L, mountains_svg, mountainY, 0.84 ),
+        toBackgroundImage( -L / 3, mountains_svg, mountainY, 0.84 ),
+        toBackgroundImage( 0, cloud1_svg, 10, 0.545 ),
+        toBackgroundImage( L - 100, cloud1_svg, -30, 0.62 ),
+        toBackgroundImage( -L / 3 - 100, cloud1_svg, 5, 0.78 )
       ]
     } );
     this.addChild( mountainAndCloudLayer );
@@ -118,8 +111,8 @@ export default class MovingBackgroundNode extends Node {
 
           const iceLayer = new Node( {
             children: [
-              toBackgroundImage( 0, icicle_png, 0, 0.8, 'iceImageNode1' ),
-              toBackgroundImage( 300, icicle_png, 0, 0.8, 'iceImageNode2' )
+              toBackgroundImage( 0, icicle_png, 0, 0.8 ),
+              toBackgroundImage( 300, icicle_png, 0, 0.8 )
             ], x: layoutCenterX, y: groundY + ground.height
           } );
           model.frictionZeroProperty.linkAttribute( iceLayer, 'visible' );
