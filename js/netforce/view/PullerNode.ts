@@ -6,17 +6,16 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import { FluentPatternDerivedProperty } from '../../../../chipper/js/browser/FluentPattern.js';
 import { clamp } from '../../../../dot/js/util/clamp.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
-import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import pull_figure_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_BLUE_0_png.js';
@@ -52,12 +51,6 @@ import Puller from '../model/Puller.js';
 import PullerMode from '../model/PullerMode.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
 import NetForceScreenView from './NetForceScreenView.js';
-
-type SelfOptions = EmptySelfOptions;
-
-//REVIEW tandem should be required.
-//REVIEW The only option provided at instantiate site is tandem, so why bother with PullerNodeOptions at all?
-type PullerNodeOptions = SelfOptions & ImageOptions;
 
 // Vertical offset when keyboard grabbed to show puller is "above" and not connected
 const KEYBOARD_GRABBED_Y_OFFSET = 20;
@@ -145,22 +138,27 @@ const colorMapping: ColorMap = {
 
 export default class PullerNode extends InteractiveHighlighting( Image ) {
 
-  /** Image displayed while the puller is waiting in the toolbox. */
+  // Image displayed while the puller is waiting in the toolbox.
   public standImage: ImageableImage;
-  /** Leaning image used when the puller is exerting force. */
+
+  // Leaning image used when the puller is exerting force.
   public pullImage: ImageableImage;
-  /** Listener coordinating drag behaviour and related audio. */
+
+  // Listener coordinating drag behaviour and related audio.
   private readonly dragListener: SoundDragListener;
-  /** Keyboard listener that wires the accessible hotkeys for the puller. */
+
+  // Keyboard listener that wires the accessible hotkeys for the puller.
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
-  /** Cached reference to the NetForce model for convenience. */
+
+  // Cached reference to the NetForce model for convenience.
   private readonly model: NetForceModel;
 
   public constructor(
     public readonly puller: Puller,
     public readonly view: NetForceScreenView,
     tandem: Tandem,
-    providedOptions?: PullerNodeOptions ) {
+    accessibleNameProperty: FluentPatternDerivedProperty
+    ) {
 
     // Get the initial images based on current color preference
     const standImage = PullerNode.getPullerImage( puller, false );
@@ -169,7 +167,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const x = puller.positionProperty.value.x;
     const y = puller.positionProperty.value.y;
 
-    const options = optionize<PullerNodeOptions, SelfOptions, ImageOptions>()( {
+    super( standImage, {
+      tandem: tandem,
       phetioInputEnabledPropertyInstrumented: true,
       phetioFeatured: true,
       visiblePropertyOptions: { phetioFeatured: true },
@@ -178,21 +177,9 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       cursor: 'pointer',
       scale: 0.86,
       tagName: 'button',
-      accessibleName: new DerivedProperty( [ ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty ], colorPreference => {
-
-        // If the user has selected purple/orange in the preferences (instead of the default which is blue/red), we need
-        // to map blue->purple and red->orange for the accessible name
-        const displayColor = colorPreference === 'purpleOrange' ?
-                             ( puller.type === 'blue' ? 'purple' : 'orange' ) :
-                             puller.type;
-        return `${puller.size} ${displayColor} puller`;
-      } ),
+      accessibleName: accessibleNameProperty,
       accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleRoleDescriptionStringProperty
-    }, providedOptions );
-
-    options.tandem = tandem;
-
-    super( standImage, options );
+    } );
 
     this.standImage = standImage;
     this.pullImage = pullImage;
@@ -210,7 +197,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     //REVIEW Factor out PullerDragListener extends SoundDragListener
     this.dragListener = new SoundDragListener( {
-        tandem: options.tandem?.createTandem( 'dragListener' ),
+        tandem: tandem.createTandem( 'dragListener' ),
         allowTouchSnag: true,
         positionProperty: puller.positionProperty,
         start: () => {

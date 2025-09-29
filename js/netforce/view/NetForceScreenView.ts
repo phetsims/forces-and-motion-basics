@@ -243,9 +243,7 @@ export default class NetForceScreenView extends ScreenView {
         index: puller.descriptionIndex
       } );
 
-      const pullerNode = new PullerNode( puller, this, pullersTandem.createTandem( `${puller.tandem.name}Node` ), {
-        accessibleName: accessibleNameProperty
-      } );
+      const pullerNode = new PullerNode( puller, this, pullersTandem.createTandem( `${puller.tandem.name}Node` ), accessibleNameProperty );
       const pullerGroup = pullerNode.puller.type === 'blue' ? this.leftPullerGroup : this.rightPullerGroup;
       pullerGroup.addChild( pullerNode );
       this.pullerNodes.push( pullerNode );

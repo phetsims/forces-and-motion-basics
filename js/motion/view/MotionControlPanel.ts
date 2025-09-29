@@ -129,34 +129,6 @@ export default class MotionControlPanel extends Node {
 
     const createFrictionControl = () => new FrictionControl( model, fontSize, maxTextWidth, tandem );
 
-    //REVIEW Move to a private function, outside constructor.
-    const createStopwatchIcon = () => {
-
-      const stopwatch = new Stopwatch( {
-        isVisible: true,
-        tandem: Tandem.OPT_OUT
-      } );
-
-      const stopwatchNode = new StopwatchNode( stopwatch, {
-        numberDisplayOptions: {
-          textOptions: {
-            maxWidth: 80
-          }
-        },
-        tandem: Tandem.OPT_OUT
-      } );
-
-      const icon = rasterizeNode( stopwatchNode, {
-        resolution: 5,
-        nodeOptions: {
-          cursor: 'pointer'
-        }
-      } );
-      icon.setScaleMagnitude( 0.3 );
-
-      return icon;
-    };
-
     // Ensure the checkboxes are centered with dynamic locale
     const layoutCheckboxes = ( stringProperties: TReadOnlyProperty<string>[], checkboxes: Node ) => {
       const checkboxesCenterX = checkboxes.centerX;
@@ -209,8 +181,8 @@ export default class MotionControlPanel extends Node {
         options: {
 
           accessibleHelpText: model.screen === 'acceleration' ?
-                               ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceSpeedAccelerationStringProperty :
-                               ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceSpeedStringProperty,
+                              ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceSpeedAccelerationStringProperty :
+                              ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.accessibleHelpTextForceSpeedStringProperty,
           accessibleContextResponseChecked: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.checkedResponseStringProperty,
           accessibleContextResponseUnchecked: ForcesAndMotionBasicsFluent.a11y.valuesCheckbox.uncheckedResponseStringProperty
         }
@@ -371,5 +343,33 @@ export default class MotionControlPanel extends Node {
     this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5, top: 5 } ) );
   }
 }
+
+const createStopwatchIcon = () => {
+
+  const stopwatch = new Stopwatch( {
+    isVisible: true,
+    tandem: Tandem.OPT_OUT
+  } );
+
+  const stopwatchNode = new StopwatchNode( stopwatch, {
+    numberDisplayOptions: {
+      textOptions: {
+        maxWidth: 80
+      }
+    },
+    tandem: Tandem.OPT_OUT
+  } );
+
+  const icon = rasterizeNode( stopwatchNode, {
+    resolution: 5,
+    nodeOptions: {
+      cursor: 'pointer'
+    }
+  } );
+  icon.setScaleMagnitude( 0.3 );
+
+  return icon;
+};
+
 
 forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );
