@@ -16,6 +16,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
@@ -24,8 +25,7 @@ import MotionConstants from '../MotionConstants.js';
 export default class FrictionControl extends VBox {
   public constructor( model: MotionModel, fontSize: number, maxTextWidth: number, tandem: Tandem ) {
 
-    //REVIEW tandem is never passed to super, and there's no mutate later in the constructor. Is this intentional?
-    super();
+    super( { tandem: tandem } );
 
     const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
 
@@ -65,6 +65,13 @@ export default class FrictionControl extends VBox {
       }
     } );
 
+    for ( let i = 0; i < numberOfMinorTicks; i++ ) {
+      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * ( i + 1 ) );
+    }
+    const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 36 };
+    frictionSlider.addMajorTick( 0, new Text( ForcesAndMotionBasicsFluent.noneStringProperty, sliderTickOptions ) );
+    frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( ForcesAndMotionBasicsFluent.lotsStringProperty, sliderTickOptions ) );
+
     // Keep label in sync with slider position
     const frictionText = new Text( ForcesAndMotionBasicsFluent.frictionStringProperty, {
       font: new PhetFont( { size: fontSize, weight: 'bold' } ),
@@ -72,12 +79,10 @@ export default class FrictionControl extends VBox {
       visibleProperty: frictionSlider.visibleProperty
     } );
 
-    //REVIEW Another model Property listener that is adding responses. It thought this was to be avoided?
-    //REVIEW Does this need to be guarded with isSettingPhetioStateProperty?
     model.frictionCoefficientProperty.lazyLink( ( friction, oldFriction ) => {
 
       // Only provide context response feedback caused by an interaction, not, say, from reset all or other programmatic causes
-      if ( isInteracting ) {
+      if ( !isSettingPhetioStateProperty.value && isInteracting ) {
         affirm( friction !== oldFriction, 'unexpected lazy link' );
         if ( friction > oldFriction ) {
           frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty );
@@ -90,15 +95,6 @@ export default class FrictionControl extends VBox {
         }
       }
     } );
-
-    //REVIEW This should be done immediately after frictionSlider instantiation, not after the above description code.
-    // Add minor/major ticks and labels
-    for ( let i = 0; i < numberOfMinorTicks; i++ ) {
-      frictionSlider.addMinorTick( MotionConstants.MAX_FRICTION / 4 * ( i + 1 ) );
-    }
-    const sliderTickOptions = { font: new PhetFont( 15 ), maxWidth: 36 };
-    frictionSlider.addMajorTick( 0, new Text( ForcesAndMotionBasicsFluent.noneStringProperty, sliderTickOptions ) );
-    frictionSlider.addMajorTick( MotionConstants.MAX_FRICTION, new Text( ForcesAndMotionBasicsFluent.lotsStringProperty, sliderTickOptions ) );
 
     this.children = [ frictionText, frictionSlider ];
   }

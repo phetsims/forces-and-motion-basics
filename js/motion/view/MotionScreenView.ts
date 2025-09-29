@@ -44,12 +44,12 @@ import AppliedForceControl from './AppliedForceControl.js';
 import ItemNode from './ItemNode.js';
 import ItemStackGroupNode from './ItemStackGroupNode.js';
 import ItemToolboxGroupNode from './ItemToolboxGroupNode.js';
+import MotionAccelerationDescriptionNode from './MotionAccelerationDescriptionNode.js';
 import MotionControlPanel from './MotionControlPanel.js';
 import MotionForcesDescriptionNode from './MotionForcesDescriptionNode.js';
 import MotionGrabReleaseCueNode from './MotionGrabReleaseCueNode.js';
-import MotionAccelerationDescriptionNode from './MotionAccelerationDescriptionNode.js';
-import MotionSpeedDescriptionNode from './MotionSpeedDescriptionNode.js';
 import MotionScreenSummaryContent from './MotionScreenSummaryContent.js';
+import MotionSpeedDescriptionNode from './MotionSpeedDescriptionNode.js';
 import MotionStackDescriptionNode from './MotionStackDescriptionNode.js';
 import MovingBackgroundNode from './MovingBackgroundNode.js';
 import PusherNode from './PusherNode.js';
@@ -83,30 +83,6 @@ export default class MotionScreenView extends ScreenView {
   // Keyboard navigation groups
   public readonly itemToolboxGroup: ItemToolboxGroupNode;
   public readonly itemStackGroup: ItemStackGroupNode;
-
-  // Update PDOM order for toolbox and stack items
-  //REVIEW Constructor is typically the first method in a class definition. Move this after constructor.
-  private updateItemPDOMOrder(): void {
-
-    // Compute desired orders
-    const toolboxItems = this.itemToolboxGroup.itemNodes
-      .slice()
-      .sort( ( a, b ) => a.centerX - b.centerX );
-
-    const stackItems = this.itemStackGroup.stackItemNodes
-      .slice()
-      .sort( ( a, b ) => a.top - b.top );
-
-    // Remove before adding, to avoid having the same focusable node appear in 2x places in the pdom
-    if ( this.itemToolboxGroup.pdomOrder === null || this.itemToolboxGroup.pdomOrder.length > toolboxItems.length ) {
-      this.itemToolboxGroup.pdomOrder = toolboxItems;
-      this.itemStackGroup.pdomOrder = stackItems;
-    }
-    else {
-      this.itemStackGroup.pdomOrder = stackItems;
-      this.itemToolboxGroup.pdomOrder = toolboxItems;
-    }
-  }
 
   /**
    * @param model model for the entire screen
@@ -170,7 +146,7 @@ export default class MotionScreenView extends ScreenView {
       lineWidth: 1
     } );
 
-    const appliedForceControl = new AppliedForceControl( tandem.createTandem( 'appliedForceControl' ), ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model );
+    const appliedForceControl = new AppliedForceControl( ( rightItemToolboxNode.left - leftItemToolboxNode.right ) - 10, model, tandem.createTandem( 'appliedForceControl' ) );
 
     const appliedForcePlayAreaControlNode = new Node( {
       tagName: 'div',
@@ -373,10 +349,7 @@ export default class MotionScreenView extends ScreenView {
 
     // Create keyboard navigation groups AFTER items are created
     this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
-      tandem: tandem.createTandem( 'itemToolboxGroup' ),
-
-      //REVIEW This is the only instantiation of ItemToolboxGroupNode, so set accessibleHeading in ItemToolboxGroupNode.
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty
+      tandem: tandem.createTandem( 'itemToolboxGroup' )
     } );
     this.itemStackGroup = new ItemStackGroupNode( model.screen, {
       tandem: tandem.createTandem( 'itemStackGroup' )
@@ -543,81 +516,6 @@ export default class MotionScreenView extends ScreenView {
     // After the view is constructed, move one of the blocks to the top of the stack.
     model.viewInitialized( this );
 
-    // Set up transfer logic for keyboard groups based on item stack state
-    this.setupKeyboardGroupTransfers( model );
-
-    // Update PDOM order when items move between regions or change position
-    this.itemNodes.forEach( itemNode => {
-      itemNode.item.inStackProperty.link( () => this.updateItemPDOMOrder() );
-      itemNode.item.positionProperty.link( () => this.updateItemPDOMOrder() );
-    } );
-
-    // Initial PDOM order
-    this.updateItemPDOMOrder();
-
-    this.pdomPlayAreaNode.pdomOrder = [
-      this.itemToolboxGroup,
-      stackSection,
-      appliedForcePlayAreaControlNode,
-      forcesDescriptionNode,
-      speedDescriptionNode,
-      accelerationDescriptionNode,
-      this.appliedForceArrow,
-      this.frictionArrow,
-      this.sumArrow,
-      speedometerNode,
-      stopwatchPlayAreaSection
-    ];
-
-    this.pdomControlAreaNode.pdomOrder = [
-      controlPanel,
-      timeControlNode,
-      this.resetAllButton
-    ];
-
-    this.model.fallenProperty.lazyLink( fallen => {
-      if ( fallen ) {
-        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty.value );
-      }
-    } );
-  }
-
-  // Get the height of the objects in the stack (doesn't include skateboard)
-  private get stackHeight(): number {
-    let sum = 0;
-    for ( let i = 0; i < this.model.stackedItems.length; i++ ) {
-      const itemNode = this.itemModelToNodeMap.get( this.model.stackedItems.get( i ) );
-      affirm( itemNode, 'itemNode should not be null' );
-      sum = sum + itemNode.height;
-    }
-    return sum;
-  }
-
-  // Find the top of the stack, so that a new object can be placed on top
-  public get topOfStack(): number {
-    const n = this.model.skateboard ? 334 : 360;
-    return n - this.stackHeight;
-  }
-
-  // Get the size of an item's image.  Dependent on the current scale of the image.
-  public getSize( item: Item ): { width: number; height: number } {
-    // get the current scale for the element and apply it to the image
-    const itemNode = this.itemModelToNodeMap.get( item );
-    affirm( itemNode, 'itemNode should not be null' );
-    const scaledWidth = itemNode.sittingImageNode.width * item.getCurrentScale();
-    return { width: scaledWidth, height: itemNode.height };
-  }
-
-  public isToolboxContainerVisible(): boolean {
-    return this.toolboxContainer.visible;
-  }
-
-  /**
-   * Set up the transfer logic for moving items between keyboard groups based on stack state
-   */
-  private setupKeyboardGroupTransfers( model: MotionModel ): void {
-    //REVIEW Document that this should only be called once, from constructor. Better would be to affirm that it's not called twice.
-
     // Helper function to perform group transfer logic using unified mode property
     const performGroupTransfer = ( itemNode: ItemNode ) => {
       const mode = itemNode.item.modeProperty.value;
@@ -703,6 +601,93 @@ export default class MotionScreenView extends ScreenView {
         } );
       }
     } );
+
+
+    // Update PDOM order when items move between regions or change position
+    this.itemNodes.forEach( itemNode => {
+      itemNode.item.inStackProperty.link( () => this.updateItemPDOMOrder() );
+      itemNode.item.positionProperty.link( () => this.updateItemPDOMOrder() );
+    } );
+
+    // Initial PDOM order
+    this.updateItemPDOMOrder();
+
+    this.pdomPlayAreaNode.pdomOrder = [
+      this.itemToolboxGroup,
+      stackSection,
+      appliedForcePlayAreaControlNode,
+      forcesDescriptionNode,
+      speedDescriptionNode,
+      accelerationDescriptionNode,
+      this.appliedForceArrow,
+      this.frictionArrow,
+      this.sumArrow,
+      speedometerNode,
+      stopwatchPlayAreaSection
+    ];
+
+    this.pdomControlAreaNode.pdomOrder = [
+      controlPanel,
+      timeControlNode,
+      this.resetAllButton
+    ];
+
+    this.model.fallenProperty.lazyLink( fallen => {
+      if ( fallen ) {
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.pusherResponses.fellDownAppliedForceZeroStringProperty.value );
+      }
+    } );
+  }
+
+  // Get the height of the objects in the stack (doesn't include skateboard)
+  private get stackHeight(): number {
+    let sum = 0;
+    for ( let i = 0; i < this.model.stackedItems.length; i++ ) {
+      const itemNode = this.itemModelToNodeMap.get( this.model.stackedItems.get( i ) );
+      affirm( itemNode, 'itemNode should not be null' );
+      sum = sum + itemNode.height;
+    }
+    return sum;
+  }
+
+  // Find the top of the stack, so that a new object can be placed on top
+  public get topOfStack(): number {
+    const n = this.model.skateboard ? 334 : 360;
+    return n - this.stackHeight;
+  }
+
+  // Get the size of an item's image.  Dependent on the current scale of the image.
+  public getSize( item: Item ): { width: number; height: number } {
+    // get the current scale for the element and apply it to the image
+    const itemNode = this.itemModelToNodeMap.get( item );
+    affirm( itemNode, 'itemNode should not be null' );
+    const scaledWidth = itemNode.sittingImageNode.width * item.getCurrentScale();
+    return { width: scaledWidth, height: itemNode.height };
+  }
+
+  public isToolboxContainerVisible(): boolean {
+    return this.toolboxContainer.visible;
+  }
+
+  // Update PDOM order for toolbox and stack items
+  private updateItemPDOMOrder(): void {
+
+    const toolboxItems = this.itemToolboxGroup.itemNodes
+      .slice()
+      .sort( ( a, b ) => a.centerX - b.centerX );
+
+    const stackItems = this.itemStackGroup.stackItemNodes
+      .slice()
+      .sort( ( a, b ) => a.top - b.top );
+
+    if ( this.itemToolboxGroup.pdomOrder === null || this.itemToolboxGroup.pdomOrder.length > toolboxItems.length ) {
+      this.itemToolboxGroup.pdomOrder = toolboxItems;
+      this.itemStackGroup.pdomOrder = stackItems;
+    }
+    else {
+      this.itemStackGroup.pdomOrder = stackItems;
+      this.itemToolboxGroup.pdomOrder = toolboxItems;
+    }
   }
 }
 

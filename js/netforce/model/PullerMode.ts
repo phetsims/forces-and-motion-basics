@@ -1,10 +1,13 @@
 // Copyright 2025, University of Colorado Boulder
 
-//REVIEW Document why a puller needs to know whether it has been grabbed by pointer vs keyboard.
-//REVIEW Document any what about other alt-input devices? Are we out of luck, have lots of work to do, etc.?
 /**
  * PullerMode represents the various states a puller can be in during the simulation.
  * This includes home position, being grabbed (by pointer or keyboard), and being attached to a knot.
+ *
+ * Tracking the grab method allows the model and view to differentiate pointer drags (continuous dragging and spatial
+ * highlighting) from keyboard grabs (focus-driven navigation and cue nodes). Additional input devices should map to one
+ * of these cases; if a unique behaviour is required, extend {@link GrabMethod} with a new entry and update the helper
+ * predicates accordingly.
  *
  * @author Sam Reid (PhET Interactive Simulations)
  */
@@ -32,6 +35,10 @@ export default class PullerMode {
   private readonly knotIndex?: number;
   private readonly overHome?: boolean;
 
+  private static readonly HOME_MODE = new PullerMode( 'home' );
+  private static readonly POINTER_GRABBED_MODE = new PullerMode( 'grabbed', { method: 'pointer' } );
+  private static readonly KEYBOARD_GRABBED_OVER_HOME_MODE = new PullerMode( 'grabbed', { method: 'keyboard', overHome: true } );
+
   private constructor( type: PullerModeType, options?: PullerModeOptions ) {
     this.type = type;
     this.method = options?.method;
@@ -40,16 +47,15 @@ export default class PullerMode {
   }
 
   public static home(): PullerMode {
-    return new PullerMode( 'home' );
+    return PullerMode.HOME_MODE;
   }
 
-  //REVIEW PullerMode is immutable. Whey are static methods needed that return new instances? Why can't static instances be used?
   public static pointerGrabbed(): PullerMode {
-    return new PullerMode( 'grabbed', { method: 'pointer' } );
+    return PullerMode.POINTER_GRABBED_MODE;
   }
 
   public static keyboardGrabbedOverHome(): PullerMode {
-    return new PullerMode( 'grabbed', { method: 'keyboard', overHome: true } );
+    return PullerMode.KEYBOARD_GRABBED_OVER_HOME_MODE;
   }
 
   public static keyboardGrabbedOverKnot( knotIndex: number ): PullerMode {
@@ -72,11 +78,6 @@ export default class PullerMode {
 
   public isAttached(): boolean {
     return this.type === 'attached';
-  }
-
-  //REVIEW Why not isGrabbed() to be consistent? There are only 2 uses of this method, recommended to rename.
-  public isUserControlled(): boolean {
-    return this.type === 'grabbed';
   }
 
   public isPointerGrabbed(): boolean {

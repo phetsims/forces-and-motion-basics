@@ -27,6 +27,11 @@ export default class ItemToolboxGroupNode extends Node {
 
   public constructor( leftToolboxBounds: Bounds2, rightToolboxBounds: Bounds2, providedOptions?: ItemToolboxGroupNodeOptions ) {
 
+    const unionBounds = leftToolboxBounds.union( rightToolboxBounds ).dilated( 10 );
+    const defaultHighlight = new GroupHighlightPath( Shape.bounds( unionBounds ), {
+      innerLineWidth: 5
+    } );
+
     const options = optionize<ItemToolboxGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
 
@@ -35,18 +40,12 @@ export default class ItemToolboxGroupNode extends Node {
       accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.accessibleRoleDescriptionStringProperty,
 
       accessibleName: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.accessibleNameStringProperty,
-      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.descriptionContentStringProperty
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectToolbox.descriptionContentStringProperty,
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.objectToolboxes.objectToolboxStringProperty,
+      groupFocusHighlight: defaultHighlight
     }, providedOptions );
 
     super( options );
-
-    //REVIEW Why not compute this earlier in the constructor, and provide via options.groupFocusHighlight?
-    // Create a constant highlight region from the union of both toolbox bounds
-    const unionBounds = leftToolboxBounds.union( rightToolboxBounds );
-    const dilatedBounds = unionBounds.dilated( 10 );
-    this.groupFocusHighlight = new GroupHighlightPath( Shape.bounds( dilatedBounds ), {
-      innerLineWidth: 5
-    } );
   }
 
   /**
@@ -86,18 +85,9 @@ export default class ItemToolboxGroupNode extends Node {
    * Sort items by their side (left items first) and then by position for consistent navigation
    */
   private sortItems(): void {
-    //REVIEW (a, b) violates PhET naming conventions, use (aItemNode, bItemNode).
-    this.itemNodes.sort( ( a, b ) => {
-
-      //REVIEW Consider factoring this function out. It's being duplicated everytime this method is called.
-      // Get item side (left vs right toolbox)
-      const getSide = ( item: ItemNode ) => {
-        // fridge and crates go in left toolbox, others go in right
-        return ( item.item.name === 'fridge' || item.item.name === 'crate1' || item.item.name === 'crate2' ) ? 'left' : 'right';
-      };
-
-      const aSide = getSide( a );
-      const bSide = getSide( b );
+    this.itemNodes.sort( ( aItemNode, bItemNode ) => {
+      const aSide = this.getToolboxSide( aItemNode );
+      const bSide = this.getToolboxSide( bItemNode );
 
       // Left items come first
       if ( aSide !== bSide ) {
@@ -105,7 +95,7 @@ export default class ItemToolboxGroupNode extends Node {
       }
 
       // Within same side, sort by x position
-      return a.item.positionProperty.value.x - b.item.positionProperty.value.x;
+      return aItemNode.item.positionProperty.value.x - bItemNode.item.positionProperty.value.x;
     } );
   }
 
@@ -131,10 +121,13 @@ export default class ItemToolboxGroupNode extends Node {
     if ( itemsInToolbox.length > 0 ) {
       // Reset focus state - make first item focusable, others non-focusable initially
       itemsInToolbox.forEach( ( itemNode, index ) => {
-        const focusable = index === 0;  //REVIEW const focusable is redundant.
-        itemNode.focusable = focusable;
+        itemNode.focusable = index === 0;
       } );
     }
+  }
+
+  private getToolboxSide( itemNode: ItemNode ): 'left' | 'right' {
+    return itemNode.item.name === 'fridge' || itemNode.item.name === 'crate1' || itemNode.item.name === 'crate2' ? 'left' : 'right';
   }
 }
 

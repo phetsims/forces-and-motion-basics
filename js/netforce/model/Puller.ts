@@ -29,7 +29,7 @@ type SelfOptions = {
   standOffsetX?: number;
   other?: string;
 };
-type PullerOptions = SelfOptions & PhetioObjectOptions;
+type PullerOptions = SelfOptions & PhetioObjectOptions & { tandem: Tandem };
 
 export default class Puller extends PhetioObject {
 
@@ -67,40 +67,44 @@ export default class Puller extends PhetioObject {
                       public readonly type: 'red' | 'blue', //REVIEW Use enumeration pattern
                       public readonly size: 'small' | 'medium' | 'large', //REVIEW Use enumeration pattern
                       public readonly dragOffsetX: number,
-                      tandem: Tandem, //REVIEW Why is there a tandem param when providedOptions includes tandem?
-                      providedOptions?: PullerOptions ) {
+                      providedOptions: PullerOptions ) {
 
     const options = optionize<PullerOptions, SelfOptions, PhetioObjectOptions>()( {
       standOffsetX: 0,
       other: '',
-      tandem: tandem,
       phetioFeatured: true,
       phetioState: false
     }, providedOptions );
 
     super( options );
 
-    this.descriptionIndex = tandem.name.includes( '1' ) ? '1' : tandem.name.includes( '2' ) ? '2' : '';
+    this.descriptionIndex = options.tandem.name.includes( '1' ) ? '1' : options.tandem.name.includes( '2' ) ? '2' : '';
 
     this.standOffsetX = options.standOffsetX;
 
-    //REVIEW 50, 100, 150 are duplicated in the first arg and in the range option. Factor out range constants.
-    this.forceProperty = new NumberProperty( this.size === 'small' ? 50 :
-                                             this.size === 'medium' ? 100 :
-                                             150, {
-      tandem: tandem.createTandem( 'forceProperty' ),
+    const forceBySize = {
+      small: 50,
+      medium: 100,
+      large: 150
+    } as const;
+    const rangeBySize = {
+      small: new Range( 1, 50 ),
+      medium: new Range( 51, 100 ),
+      large: new Range( 101, 150 )
+    } as const;
+
+    this.forceProperty = new NumberProperty( forceBySize[ this.size ], {
+      tandem: options.tandem.createTandem( 'forceProperty' ),
       phetioFeatured: true,
       numberType: 'FloatingPoint',
       units: 'N',
-      range: this.size === 'small' ? new Range( 1, 50 ) :
-             this.size === 'medium' ? new Range( 51, 100 ) :
-             new Range( 101, 150 )
+      range: rangeBySize[ this.size ]
     } );
 
     // Initialize the mode property - this is the authoritative state
     this.modeProperty = new Property<PullerMode>( PullerMode.home(), {
       valueType: PullerMode,
-      tandem: tandem.createTandem( 'modeProperty' ),
+      tandem: options.tandem.createTandem( 'modeProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth',
       phetioValueType: PullerMode.PullerModeIO,
@@ -108,7 +112,7 @@ export default class Puller extends PhetioObject {
     } );
 
     this.positionProperty = new Vector2Property( new Vector2( x, y ), {
-      tandem: tandem.createTandem( 'positionProperty' ),
+      tandem: options.tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
       valueComparisonStrategy: 'equalsFunction',
       reentrant: true
@@ -116,7 +120,7 @@ export default class Puller extends PhetioObject {
 
     this.lastPlacementProperty = new StringUnionProperty( 'home', {
       validValues: [ 'home', 'knot' ], //REVIEW Use enumeration pattern
-      tandem: tandem.createTandem( 'lastPlacementProperty' ),
+      tandem: options.tandem.createTandem( 'lastPlacementProperty' ),
       phetioDocumentation: 'For PhET-iO internal use only, tracks the last placement of the puller for purposes of determining thresholds for where it should drop',
       phetioReadOnly: true
     } );
@@ -202,48 +206,11 @@ export default class Puller extends PhetioObject {
     this.grabOrigin = null;
   }
 
-  //REVIEW This method is not used.
-  /**
-   * Grab method for mouse/touch interactions
-   */
-  public grab( dragType: 'mouse' | 'touch' | 'keyboard' ): void {
-    // Store origin for potential cancel
-    this.storeGrabOrigin();
-
-    if ( dragType === 'mouse' || dragType === 'touch' ) {
-      // For mouse/touch, set to pointerGrabbed and disconnect from knot
-      this.modeProperty.value = PullerMode.pointerGrabbed();
-
-      // The disconnect will happen in the drag listener
-    }
-    // For keyboard grabs, the mode transition is handled by PullerKeyboardSupport
-  }
-
-  //REVIEW This method is not used.
-  /**
-   * Drop method - determine final position based on current position
-   */
-  public drop(): void {
-    const currentMode = this.modeProperty.value;
-
-    if ( currentMode.isPointerGrabbed() ) {
-      // For mouse/touch drops, determine destination based on position
-      // This will be handled by the drag listener in PullerNode
-      // The drag listener will call dropAtKnot() or dropAtHome()
-      return;
-    }
-
-    // For keyboard drops, the mode is already set by PullerKeyboardSupport
-    this.clearGrabOrigin();
-  }
-
   /**
    * Drop at a specific knot (called by mouse/touch drag listener)
    */
   public dropAtKnot( knot: Knot ): void {
-    //REVIEW newMode is redundant.
-    const newMode = this.getModeForKnot( knot );
-    this.modeProperty.value = newMode;
+    this.modeProperty.value = this.getModeForKnot( knot );
     this.lastPlacementProperty.value = 'knot';
     this.clearGrabOrigin();
   }
@@ -276,14 +243,6 @@ export default class Puller extends PhetioObject {
    */
   public isGrabbed(): boolean {
     return this.modeProperty.value.isGrabbed();
-  }
-
-  //REVIEW This method is not used.
-  /**
-   * Get the grab origin if it exists
-   */
-  public getGrabOrigin(): { mode: PullerMode; position: Vector2 } | null {
-    return this.grabOrigin;
   }
 
   public getKnot(): Knot | null {

@@ -210,15 +210,15 @@ export default class NetForceModel extends PhetioObject {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
     this.pullers = [
-      new Puller( this, 38, largePullerY, 'blue', 'large', 70, pullersTandem.createTandem( 'largeLeftPuller' ), { standOffsetX: -18 } ),
-      new Puller( this, 127, mediumPullerY, 'blue', 'medium', 50, pullersTandem.createTandem( 'mediumLeftPuller' ), { standOffsetX: -5 } ),
-      new Puller( this, 208, smallPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller1' ) ),
-      new Puller( this, 278, smallPullerY, 'blue', 'small', 10, pullersTandem.createTandem( 'smallLeftPuller2' ), { other: 'other' } ),
+      new Puller( this, 38, largePullerY, 'blue', 'large', 70, { tandem: pullersTandem.createTandem( 'largeLeftPuller' ), standOffsetX: -18 } ),
+      new Puller( this, 127, mediumPullerY, 'blue', 'medium', 50, { tandem: pullersTandem.createTandem( 'mediumLeftPuller' ), standOffsetX: -5 } ),
+      new Puller( this, 208, smallPullerY, 'blue', 'small', 10, { tandem: pullersTandem.createTandem( 'smallLeftPuller1' ) } ),
+      new Puller( this, 278, smallPullerY, 'blue', 'small', 10, { tandem: pullersTandem.createTandem( 'smallLeftPuller2' ), other: 'other' } ),
 
-      new Puller( this, 648, smallPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller1' ) ),
-      new Puller( this, 717, smallPullerY, 'red', 'small', 10, pullersTandem.createTandem( 'smallRightPuller2' ), { other: 'other' } ),
-      new Puller( this, 789, mediumPullerY, 'red', 'medium', 20, pullersTandem.createTandem( 'mediumRightPuller' ) ),
-      new Puller( this, 860, largePullerY, 'red', 'large', 30, pullersTandem.createTandem( 'largeRightPuller' ) )
+      new Puller( this, 648, smallPullerY, 'red', 'small', 10, { tandem: pullersTandem.createTandem( 'smallRightPuller1' ) } ),
+      new Puller( this, 717, smallPullerY, 'red', 'small', 10, { tandem: pullersTandem.createTandem( 'smallRightPuller2' ), other: 'other' } ),
+      new Puller( this, 789, mediumPullerY, 'red', 'medium', 20, { tandem: pullersTandem.createTandem( 'mediumRightPuller' ) } ),
+      new Puller( this, 860, largePullerY, 'red', 'large', 30, { tandem: pullersTandem.createTandem( 'largeRightPuller' ) } )
     ];
 
     // When any puller is dragged or moved with phet-io, update the closest knots to be visible
@@ -419,7 +419,7 @@ export default class NetForceModel extends PhetioObject {
     this.cart.reset();
     this.pullers.forEach( puller => {
       // if the puller is being dragged, we will need to cancel the drag in PullerNode
-      if ( !puller.modeProperty.value.isUserControlled() ) {
+      if ( !puller.modeProperty.value.isGrabbed() ) {
         puller.reset();
       }
     } );

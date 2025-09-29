@@ -18,6 +18,7 @@ import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image, { ImageOptions } from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import pull_figure_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_BLUE_0_png.js';
 import pull_figure_BLUE_3_png from '../../../images/pushPullFigures/pull_figure_BLUE_3_png.js';
 import pull_figure_lrg_BLUE_0_png from '../../../images/pushPullFigures/pull_figure_lrg_BLUE_0_png.js';
@@ -54,10 +55,9 @@ import NetForceScreenView from './NetForceScreenView.js';
 
 type SelfOptions = EmptySelfOptions;
 
-//REVIEW Backwards, should be SelfOptions & ImageOptions
 //REVIEW tandem should be required.
 //REVIEW The only option provided at instantiate site is tandem, so why bother with PullerNodeOptions at all?
-type PullerNodeOptions = ImageOptions & SelfOptions;
+type PullerNodeOptions = SelfOptions & ImageOptions;
 
 // Vertical offset when keyboard grabbed to show puller is "above" and not connected
 const KEYBOARD_GRABBED_Y_OFFSET = 20;
@@ -145,44 +145,21 @@ const colorMapping: ColorMap = {
 
 export default class PullerNode extends InteractiveHighlighting( Image ) {
 
-  //REVIEW All fields are undocumented.
+  /** Image displayed while the puller is waiting in the toolbox. */
   public standImage: ImageableImage;
+  /** Leaning image used when the puller is exerting force. */
   public pullImage: ImageableImage;
+  /** Listener coordinating drag behaviour and related audio. */
   private readonly dragListener: SoundDragListener;
+  /** Keyboard listener that wires the accessible hotkeys for the puller. */
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
+  /** Cached reference to the NetForce model for convenience. */
   private readonly model: NetForceModel;
 
-  //REVIEW Constructor is typically the first method in a class definition. Move this method after constructor.
-  /**
-   * Get the appropriate puller image based on the current color preference
-   * @param puller - The puller model
-   * @param leaning - Whether the puller is leaning (pulling) or standing
-   * @returns The appropriate image for the puller
-   */
-  public static getPullerImage( puller: Puller, leaning: boolean ): ImageableImage {
-    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
-    const type = puller.type;
-    const size = puller.size;
-
-    // Map the type to the appropriate color based on the netForcePullerColorsProperty
-    const mappedType = ( type === 'blue' && pullerColor === 'purpleOrange' ) ? 'purple' :
-                       ( type === 'red' && pullerColor === 'purpleOrange' ) ? 'orange' : type;
-
-    const colorTypeSet: ColorTypeSet = colorMapping[ mappedType ];
-    return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
-  }
-
-  //REVIEW JSDoc here adds nothing, can be deleted.
-  /**
-   * Create a PullerNode for the specified puller
-   *
-   * @param puller
-   * @param view
-   * @param [providedOptions]
-   */
   public constructor(
     public readonly puller: Puller,
     public readonly view: NetForceScreenView,
+    tandem: Tandem,
     providedOptions?: PullerNodeOptions ) {
 
     // Get the initial images based on current color preference
@@ -210,6 +187,8 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       } ),
       accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleRoleDescriptionStringProperty
     }, providedOptions );
+
+    options.tandem = tandem;
 
     super( standImage, options );
 
@@ -277,7 +256,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     model.resetAllEmitter.addListener( () => {
 
       // cancel the drag
-      if ( puller.modeProperty.value.isUserControlled() ) {
+      if ( puller.modeProperty.value.isGrabbed() ) {
         this.dragListener.interrupt();
 
         puller.reset();
@@ -598,6 +577,25 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         }
       }
     } );
+  }
+
+  /**
+   * Get the appropriate puller image based on the current color preference
+   * @param puller - The puller model
+   * @param leaning - Whether the puller is leaning (pulling) or standing
+   * @returns The appropriate image for the puller
+   */
+  public static getPullerImage( puller: Puller, leaning: boolean ): ImageableImage {
+    const pullerColor = ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.value;
+    const type = puller.type;
+    const size = puller.size;
+
+    // Map the type to the appropriate color based on the netForcePullerColorsProperty
+    const mappedType = ( type === 'blue' && pullerColor === 'purpleOrange' ) ? 'purple' :
+                       ( type === 'red' && pullerColor === 'purpleOrange' ) ? 'orange' : type;
+
+    const colorTypeSet: ColorTypeSet = colorMapping[ mappedType ];
+    return colorTypeSet[ size ][ leaning ? 'leaning' : 'notLeaning' ] || null;
   }
 
   /**

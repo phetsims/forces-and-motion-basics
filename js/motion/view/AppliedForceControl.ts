@@ -27,11 +27,7 @@ const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStrin
 
 export default class AppliedForceControl extends VBox {
 
-  //REVIEW tandem is typically the last parameter.
-  public constructor( tandem: Tandem, maxTextWidth: number, model: MotionModel ) {
-
-    //REVIEW Move closer to where it's used, which is near the end of the constructor.
-    const disableText = ( node: Text ) => ( length: number ) => {node.fill = length === 0 ? 'gray' : 'black';};
+  public constructor( maxTextWidth: number, model: MotionModel, tandem: Tandem ) {
 
     // Create the slider
     const appliedForceTitle = new Text( appliedForceStringProperty, {
@@ -112,6 +108,8 @@ export default class AppliedForceControl extends VBox {
     } );
 
     // force cannot be applied when there is nothing on the stack
+    const disableText = ( node: Text ) => ( length: number ) => { node.fill = length === 0 ? 'gray' : 'black'; };
+
     model.stackedItems.lengthProperty.link( size => {
       spinner.enabled = size > 0;
     } );

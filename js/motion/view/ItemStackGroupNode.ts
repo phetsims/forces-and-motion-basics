@@ -14,8 +14,9 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
+import Item from '../model/Item.js';
+import MotionModel from '../model/MotionModel.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -27,6 +28,14 @@ export default class ItemStackGroupNode extends Node {
 
   public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', providedOptions?: ItemStackGroupNodeOptions ) {
 
+    const highlightWidth = 200;
+    const highlightHeight = 340;
+    const highlightX = ForcesAndMotionBasicsLayoutBounds.centerX - highlightWidth / 2;
+    const highlightY = 10;
+    const defaultHighlight = new GroupHighlightPath( Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ), {
+      innerLineWidth: 5
+    } );
+
     const options = optionize<ItemStackGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
 
@@ -37,24 +46,11 @@ export default class ItemStackGroupNode extends Node {
       accessibleName: screen === 'motion' ?
                       ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.onSkateboard.accessibleNameStringProperty :
                       ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.onGround.accessibleNameStringProperty,
-      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.descriptionContentStringProperty
+      descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.descriptionContentStringProperty,
+      groupFocusHighlight: defaultHighlight
     }, providedOptions );
 
     super( options );
-
-    // Create a constant highlight rectangle in the center of the play area
-    // Based on the skateboard position and typical object sizes
-    const highlightWidth = 200;
-    const highlightHeight = 340;
-    const highlightX = ForcesAndMotionBasicsLayoutBounds.centerX - highlightWidth / 2; // Center around x=400 (layoutBounds.width/2)
-    const highlightY = 10; // Above the skateboard to encompass stacked items
-
-    //REVIEW Why not compute this earlier in the constructor, and provide via options.groupFocusHighlight?
-    this.groupFocusHighlight = new GroupHighlightPath(
-      Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ), {
-        innerLineWidth: 5
-      }
-    );
   }
 
   /**
@@ -72,7 +68,7 @@ export default class ItemStackGroupNode extends Node {
     this.addChild( itemNode );
 
     // Sort items by their stack position (bottom to top)
-    this.sortItems( model );
+    this.sortItems( model.stackedItems );
 
     itemNode.focusable = true;
     itemNode.focus();
@@ -92,11 +88,10 @@ export default class ItemStackGroupNode extends Node {
   /**
    * Sort items by their stack position (bottom to top based on model's stacked items order)
    */
-  //REVIEW Excessive coupling to MotionModel, only needs stackedItems.
-  private sortItems( model: MotionModel ): void {
+  private sortItems( stackedItems: { indexOf: ( item: Item ) => number } ): void {
     this.stackItemNodes.sort( ( a, b ) => {
-      const aIndex = model.stackedItems.indexOf( a.item );
-      const bIndex = model.stackedItems.indexOf( b.item );
+      const aIndex = stackedItems.indexOf( a.item );
+      const bIndex = stackedItems.indexOf( b.item );
 
       // Items in the stacked items array should be ordered bottom to top
       return aIndex - bIndex;

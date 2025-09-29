@@ -28,21 +28,21 @@ export default class PullerGroupNode extends Node {
 
   public constructor( toolboxBounds: Bounds2, providedOptions: PullerGroupNodeOptions ) {
 
+    const highlightShape = Shape.bounds( new Bounds2( toolboxBounds.minX, toolboxBounds.minY, toolboxBounds.maxX, toolboxBounds.maxY ).dilated( 10 ) );
+    const defaultGroupHighlight = new GroupHighlightPath( highlightShape, {
+      innerLineWidth: 5
+    } );
+
     const options = optionize<PullerGroupNodeOptions, SelfOptions, NodeOptions>()( {
       tagName: 'div',
 
       // ARIA attributes for the group
       ariaRole: 'application',
-      accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerGroup.accessibleRoleDescriptionStringProperty
+      accessibleRoleDescription: ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerGroup.accessibleRoleDescriptionStringProperty,
+      groupFocusHighlight: defaultGroupHighlight
     }, providedOptions );
 
     super( options );
-
-    //REVIEW Why not set this via options.groupFocusHighlight?
-    this.groupFocusHighlight = new GroupHighlightPath(
-      Shape.bounds( new Bounds2( toolboxBounds.minX, toolboxBounds.minY, toolboxBounds.maxX, toolboxBounds.maxY ).dilated( 10 ) ), {
-        innerLineWidth: 5
-      } );
   }
 }
 
