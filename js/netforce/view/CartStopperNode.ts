@@ -16,14 +16,13 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import LeftOrRight, { leftOrRightValues } from '../model/LeftOrRight.js';
 
 type SelfOptions = {
-  direction?: LeftOrRight;
+  direction: LeftOrRight;
 };
 type CartStopperNodeOptions = StrictOmit<PathOptions, 'fill'> & SelfOptions;
 export default class CartStopperNode extends Path {
   public constructor( topWidth: number, bottomWidth: number, height: number, providedOptions?: CartStopperNodeOptions ) {
 
     const options = optionize<CartStopperNodeOptions, SelfOptions, PathOptions>()( {
-      direction: 'left',
       fill: 'grey'
     }, providedOptions );
 

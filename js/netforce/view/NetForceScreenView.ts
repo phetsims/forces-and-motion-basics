@@ -39,11 +39,11 @@ import KnotHighlightNode from './KnotHighlightNode.js';
 import NetForceControlPanel from './NetForceControlPanel.js';
 import NetForceGrabReleaseCueNode from './NetForceGrabReleaseCueNode.js';
 import NetForceScreenSummaryContent from './NetForceScreenSummaryContent.js';
+import NetForceSpeedDescriptionNode from './NetForceSpeedDescriptionNode.js';
 import PullerGroupNode from './PullerGroupNode.js';
 import PullerNode from './PullerNode.js';
 import PullerToolboxNode from './PullerToolboxNode.js';
 import ReturnButton from './ReturnButton.js';
-import NetForceSpeedDescriptionNode from './NetForceSpeedDescriptionNode.js';
 import TugOfWarDescriptionNode from './TugOfWarDescriptionNode.js';
 
 const leftForceStringProperty = ForcesAndMotionBasicsFluent.leftForceStringProperty;
@@ -131,6 +131,7 @@ export default class NetForceScreenView extends ScreenView {
     // cart stoppers that seem to stop cart motion
     const stopperY = grassY + 5; // a little lower than the grass because the grass includes some sky blue
     const rightStopper = new CartStopperNode( STOPPER_TOP_WIDTH, STOPPER_BOTTOM_WIDTH, STOPPER_HEIGHT, {
+      direction: 'left',
       left: layoutCenterX + NetForceModel.GAME_LENGTH,
       y: stopperY
     } );
@@ -232,12 +233,8 @@ export default class NetForceScreenView extends ScreenView {
 
     const pullersTandem = tandem.createTandem( 'pullers' );
 
-    this.leftPullerGroup = new PullerGroupNode( leftToolbox.bounds, {
-      side: 'left'
-    } );
-    this.rightPullerGroup = new PullerGroupNode( rightToolbox.bounds, {
-      side: 'right'
-    } );
+    this.leftPullerGroup = new PullerGroupNode( leftToolbox.bounds );
+    this.rightPullerGroup = new PullerGroupNode( rightToolbox.bounds );
     this.model.pullers.forEach( puller => {
 
       const accessibleNameProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleName.createProperty( {
