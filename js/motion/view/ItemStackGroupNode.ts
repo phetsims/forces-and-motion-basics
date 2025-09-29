@@ -8,25 +8,19 @@
  */
 
 import Shape from '../../../../kite/js/Shape.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
-import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import ItemNode from './ItemNode.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
-
-type SelfOptions = EmptySelfOptions;
-
-//REVIEW Why include NodeOptions, or even bother with ItemStackGroupNode, when instantiation sites only need to provide tandem?
-type ItemStackGroupNodeOptions = SelfOptions & NodeOptions;
+import ItemNode from './ItemNode.js';
 
 export default class ItemStackGroupNode extends Node {
   public readonly stackItemNodes: ItemNode[] = [];
 
-  public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration', providedOptions?: ItemStackGroupNodeOptions ) {
+  public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration' ) {
 
     const highlightWidth = 200;
     const highlightHeight = 340;
@@ -36,7 +30,7 @@ export default class ItemStackGroupNode extends Node {
       innerLineWidth: 5
     } );
 
-    const options = optionize<ItemStackGroupNodeOptions, SelfOptions, NodeOptions>()( {
+    super( {
       tagName: 'div',
 
       // ARIA attributes for the group
@@ -48,9 +42,7 @@ export default class ItemStackGroupNode extends Node {
                       ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.onGround.accessibleNameStringProperty,
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.objectStackGroup.descriptionContentStringProperty,
       groupFocusHighlight: defaultHighlight
-    }, providedOptions );
-
-    super( options );
+    } );
   }
 
   /**

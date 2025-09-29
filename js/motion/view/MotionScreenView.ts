@@ -351,9 +351,7 @@ export default class MotionScreenView extends ScreenView {
     this.itemToolboxGroup = new ItemToolboxGroupNode( leftItemToolboxNode.bounds, rightItemToolboxNode.bounds, {
       tandem: tandem.createTandem( 'itemToolboxGroup' )
     } );
-    this.itemStackGroup = new ItemStackGroupNode( model.screen, {
-      tandem: tandem.createTandem( 'itemStackGroup' )
-    } );
+    this.itemStackGroup = new ItemStackGroupNode( model.screen );
 
     // A container for the Skateboard/Stack heading, the stack description list, and the items themselves
     const stackSection = new Node( {
