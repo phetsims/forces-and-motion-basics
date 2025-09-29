@@ -20,6 +20,7 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
+import HomeOrKnot, { homeOrKnotValues } from './HomeOrKnot.js';
 import Knot from './Knot.js';
 import NetForceModel, { LeftTeamColor, RightTeamColor } from './NetForceModel.js';
 
@@ -44,7 +45,7 @@ export default class Puller extends PhetioObject {
   public readonly positionProperty: Vector2Property;
 
   // a classified position in the play area
-  public readonly lastPlacementProperty: StringUnionProperty<'home' | 'knot'>; //REVIEW Use enumeration pattern
+  public readonly lastPlacementProperty: StringUnionProperty<HomeOrKnot>;
 
   // Accounts for the ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
   public readonly colorProperty: TReadOnlyProperty<LeftTeamColor | RightTeamColor>;
@@ -119,7 +120,7 @@ export default class Puller extends PhetioObject {
     } );
 
     this.lastPlacementProperty = new StringUnionProperty( 'home', {
-      validValues: [ 'home', 'knot' ], //REVIEW Use enumeration pattern
+      validValues: homeOrKnotValues,
       tandem: options.tandem.createTandem( 'lastPlacementProperty' ),
       phetioDocumentation: 'For PhET-iO internal use only, tracks the last placement of the puller for purposes of determining thresholds for where it should drop',
       phetioReadOnly: true
