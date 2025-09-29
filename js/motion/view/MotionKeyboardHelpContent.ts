@@ -16,7 +16,7 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-import MotionHotkeyData from '../MotionHotkeyData.js';
+import MotionHotkeyData from './MotionHotkeyData.js';
 
 const LABEL_OPTIONS: RichTextOptions = { lineWrap: 200 };
 

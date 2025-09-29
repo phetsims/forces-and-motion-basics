@@ -19,7 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
-import MotionHotkeyData from '../MotionHotkeyData.js';
+import MotionHotkeyData from './MotionHotkeyData.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
 
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0valueUnitsNewtonsStringProperty' ];

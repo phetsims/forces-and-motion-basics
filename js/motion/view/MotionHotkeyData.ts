@@ -6,13 +6,12 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { TReadOnlyProperty } from '../../../axon/js/TReadOnlyProperty.js';
-import HotkeyData from '../../../scenery/js/input/HotkeyData.js';
-import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
-import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
+import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-//REVIEW Yes, this should move to js/motion/view/
 //REVIEW createHotkeyData is duplicated, see REVIEW comment in NetForceHotkeyData.ts
 function createHotkeyData( keys: OneKeyStroke[],
                            keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
