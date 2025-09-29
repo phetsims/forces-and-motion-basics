@@ -15,6 +15,7 @@ import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.
 import Text from '../../../../scenery/js/nodes/Text.js';
 import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -74,17 +75,17 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
 
     super( model.isRunningProperty, pauseText, goText, options );
 
-    /**
-     * REVIEW:
-     * (1) I've been told to avoid adding responses in model Property listeners. But if you're going to do that...
-     * (2) Should this be a lazyLink? If the default state was isRunning:true, do you really want a response when the sim starts up?
-     * (3) If PhET-iO engine (or a wrapper) sets isRunningProperty, will that result in undesired messages?
-     * (4) If you're going to do this via model.isRunningProperty listener, then putting this in GoPauseButton is
-     *     misplaced responsibility. It's really not related to the button, and it makes a simple button overly-complicated.
-     *     Consider moving it to NetForceModel. Or maybe even a new class like MovementDescriber.
-     */
     model.isRunningProperty.link( isRunning => {
       this.baseColor = isRunning ? '#ff5500' : '#94b830';
+    } );
+
+    // Add accessible context response when Go/Pause button is pressed. Note this only listens to the model, but we
+    // follow the precedent that description is added in the view.
+    model.isRunningProperty.lazyLink( isRunning => {
+
+      if ( isSettingPhetioStateProperty.value ) {
+        return;
+      }
 
       // Add accessible context response when Go is pressed
       if ( isRunning ) {
