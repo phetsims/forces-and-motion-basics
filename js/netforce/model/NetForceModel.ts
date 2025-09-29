@@ -328,9 +328,8 @@ export default class NetForceModel extends PhetioObject {
             }
           }
 
-          //REVIEW If puller grab has already set isHighlighted to true, why check keyboard grab?
           // check if the keyboard grab is hovering over the knot
-          if ( puller.modeProperty.value.isKeyboardGrabbedOverSpecificKnot( knot, this ) ) {
+          if ( !isHighlighted && puller.modeProperty.value.isKeyboardGrabbedOverSpecificKnot( knot, this ) ) {
             isHighlighted = true;
           }
         } );

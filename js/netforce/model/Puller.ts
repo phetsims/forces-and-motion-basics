@@ -25,6 +25,7 @@ import Knot from './Knot.js';
 import NetForceModel, { LeftTeamColor, RightTeamColor } from './NetForceModel.js';
 
 import PullerMode from './PullerMode.js';
+import PullerSize from './PullerSize.js';
 import PullerSuffix from './PullerSuffix.js';
 import RedOrBlue from './RedOrBlue.js';
 
@@ -60,15 +61,14 @@ export default class Puller extends PhetioObject {
    * @param x initial x-coordinate (in meters)
    * @param y initial y-coordinate (in meters)
    * @param type
-   * @param size 'small'|'medium'|'large'
+   * @param size
    * @param dragOffsetX horizontal offset (in stage coordinates) to offset the puller image when pulling
-   * @param tandem
    * @param providedOptions
    */
   public constructor( public readonly model: NetForceModel,
                       x: number, y: number,
                       public readonly type: RedOrBlue,
-                      public readonly size: 'small' | 'medium' | 'large', //REVIEW Use enumeration pattern
+                      public readonly size: PullerSize,
                       public readonly dragOffsetX: number,
                       providedOptions: PullerOptions ) {
 
