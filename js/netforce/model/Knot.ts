@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import { metersUnit } from '../../../../scenery-phet/js/units/metersUnit.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -52,7 +53,7 @@ export default class Knot extends PhetioObject {
 
     this.positionProperty = new NumberProperty( this.initX, {
       tandem: tandem.createTandem( 'positionProperty' ),
-      units: 'm'
+      units: metersUnit
     } );
 
     this.isHighlightedProperty = new BooleanProperty( false, {

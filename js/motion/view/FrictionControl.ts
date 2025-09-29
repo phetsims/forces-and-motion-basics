@@ -15,8 +15,8 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
@@ -25,7 +25,8 @@ import MotionConstants from '../MotionConstants.js';
 export default class FrictionControl extends VBox {
   public constructor( model: MotionModel, fontSize: number, maxTextWidth: number, tandem: Tandem ) {
 
-    super( { tandem: tandem } );
+    // For legacy compatibility, only the composite slider is instrumented
+    super( { tandem: Tandem.OPT_OUT } );
 
     const frictionRange = new Range( 0, MotionConstants.MAX_FRICTION );
 
@@ -42,7 +43,7 @@ export default class FrictionControl extends VBox {
       valueChangeSoundGeneratorOptions: {
         numberOfMiddleThresholds: numberOfMinorTicks
       },
-      tandem: tandem.createTandem( 'frictionSlider' ),
+      tandem: tandem,
 
       // Accessibility
       accessibleName: ForcesAndMotionBasicsFluent.frictionStringProperty,

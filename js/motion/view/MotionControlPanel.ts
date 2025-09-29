@@ -64,7 +64,6 @@ export default class MotionControlPanel extends Node {
   private readonly sumOfForcesDescriptionProperty: TReadOnlyProperty<string>;
   private readonly speedDescriptionProperty: TReadOnlyProperty<string>;
   private readonly accelerationDescriptionProperty: TReadOnlyProperty<string>;
-  private readonly controlPanelTandem: Tandem;
 
   public constructor( model: MotionModel, sumOfForcesDescriptionProperty: TReadOnlyProperty<string>, speedDescriptionProperty: TReadOnlyProperty<string>, accelerationDescriptionProperty: TReadOnlyProperty<string>, tandem: Tandem ) {
     super( {
@@ -76,7 +75,6 @@ export default class MotionControlPanel extends Node {
     this.sumOfForcesDescriptionProperty = sumOfForcesDescriptionProperty;
     this.speedDescriptionProperty = speedDescriptionProperty;
     this.accelerationDescriptionProperty = accelerationDescriptionProperty;
-    this.controlPanelTandem = tandem;
 
     const contents = this.model.screen === 'motion' ? this.createMotionControls() :
                      this.model.screen === 'friction' ? this.createFrictionControls() :
@@ -98,7 +96,7 @@ export default class MotionControlPanel extends Node {
     const items = this.createCommonCheckboxItems( true, false, false );
 
     const checkboxGroup = new VerticalCheckboxGroup( items, {
-      tandem: this.controlPanelTandem.createTandem( 'checkboxGroup' ),
+      tandem: this.tandem.createTandem( 'checkboxGroup' ),
       phetioFeatured: true,
       minContentWidth: MIN_MOTION_AND_FRICTION_CONTROLS_CONTENT_WIDTH
     } );
@@ -120,7 +118,7 @@ export default class MotionControlPanel extends Node {
     const items = this.createCommonCheckboxItems( true, true, false );
 
     const checkboxGroup = new VerticalCheckboxGroup( items, {
-      tandem: this.controlPanelTandem.createTandem( 'checkboxGroup' ),
+      tandem: this.tandem.createTandem( 'checkboxGroup' ),
       phetioFeatured: true,
       minContentWidth: MIN_MOTION_AND_FRICTION_CONTROLS_CONTENT_WIDTH
     } );
@@ -144,7 +142,7 @@ export default class MotionControlPanel extends Node {
     const items = this.createCommonCheckboxItems( true, true, true );
 
     const checkboxGroup = new VerticalCheckboxGroup( items, {
-      tandem: this.controlPanelTandem.createTandem( 'checkboxGroup' ),
+      tandem: this.tandem.createTandem( 'checkboxGroup' ),
       phetioFeatured: true,
 
       // set so the icons appear right-aligned
@@ -261,7 +259,7 @@ export default class MotionControlPanel extends Node {
   }
 
   private createFrictionControl(): Node {
-    return new FrictionControl( this.model, FONT_SIZE, MAX_TEXT_WIDTH, this.controlPanelTandem );
+    return new FrictionControl( this.model, FONT_SIZE, MAX_TEXT_WIDTH, this.tandem.createTandem( 'frictionSlider' ) );
   }
 
   private layoutCheckboxes( stringProperties: TReadOnlyProperty<string>[], checkboxes: Node ): void {

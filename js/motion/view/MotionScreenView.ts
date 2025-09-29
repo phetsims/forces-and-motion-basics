@@ -21,6 +21,7 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
+import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
 import { pdomFocusProperty } from '../../../../scenery/js/accessibility/pdomFocusProperty.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -401,7 +402,7 @@ export default class MotionScreenView extends ScreenView {
     // https://github.com/phetsims/forces-and-motion-basics/issues/83
     const roundedSumProperty = new NumberProperty( roundedAppliedForceProperty.value + roundedFrictionForceProperty.value, {
       tandem: tandem.createTandem( 'roundedSumProperty' ),
-      units: 'N',
+      units: newtonsUnit,
       phetioReadOnly: true
     } );
 

@@ -19,6 +19,11 @@ import Range from '../../../../dot/js/Range.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
+import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
+import { metersPerSecondPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondPerSecondUnit.js';
+import { metersUnit } from '../../../../scenery-phet/js/units/metersUnit.js';
+import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
+import { secondsUnit } from '../../../../scenery-phet/js/units/secondsUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
@@ -28,7 +33,6 @@ import mysteryObject01_svg from '../../../images/mysteryObject01_svg.js';
 import trashCan_svg from '../../../images/trashCan_svg.js';
 import waterBucket_svg from '../../../images/waterBucket_svg.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import Cart from '../../netforce/model/Cart.js';
 import MotionConstants from '../MotionConstants.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
@@ -124,7 +128,6 @@ export default class MotionModel {
 
   public readonly stopwatch: Stopwatch;
   private view!: MotionScreenView;
-  private cart!: Cart;
 
   /**
    * @param screen String that indicates which of the 3 screens this model represents
@@ -151,7 +154,7 @@ export default class MotionModel {
     this.appliedForceProperty = new NumberProperty( 0, {
       tandem: forcesTandem.createTandem( 'appliedForceProperty' ),
       phetioFeatured: true,
-      units: 'N',
+      units: newtonsUnit,
       range: new Range( -500, 500 )
     } );
 
@@ -159,7 +162,7 @@ export default class MotionModel {
       tandem: forcesTandem.createTandem( 'frictionForceProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'N'
+      units: newtonsUnit
     } );
 
     this.frictionCoefficientProperty = new NumberProperty( frictionValue, {
@@ -174,26 +177,26 @@ export default class MotionModel {
       tandem: forcesTandem.createTandem( 'sumOfForcesProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'N'
+      units: newtonsUnit
     } );
 
     this.positionProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
-      units: 'm'
+      units: metersUnit
     } );
 
     this.speedProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'speedProperty' ),
       phetioFeatured: true,
-      units: 'm/s',
+      units: metersPerSecondUnit,
       phetioReadOnly: true
     } );
 
     this.velocityProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'velocityProperty' ),
       phetioFeatured: true,
-      units: 'm/s',
+      units: metersPerSecondUnit,
       phetioReadOnly: true
     } );
 
@@ -201,7 +204,7 @@ export default class MotionModel {
       tandem: tandem.createTandem( 'accelerationProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'm/s/s'
+      units: metersPerSecondPerSecondUnit
     } );
 
     const pusherTandem = tandem.createTandem( 'pusher' );
@@ -209,7 +212,7 @@ export default class MotionModel {
     this.pusherPositionProperty = new NumberProperty( -16, {
       tandem: pusherTandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
-      units: 'm'
+      units: metersUnit
     } );
 
     this.pusherInteractionsEnabledProperty = new BooleanProperty( this.stackedItems.length > 0 );
@@ -272,7 +275,7 @@ export default class MotionModel {
 
     // Start at a value larger than the threshold so the pusher doesn't immediately fall
     this.timeSinceFallenProperty = new NumberProperty( 10, {
-      units: 's'
+      units: secondsUnit
     } );
 
     this.fallenProperty = new BooleanProperty( false, {
@@ -289,7 +292,7 @@ export default class MotionModel {
     } );
 
     this.timeProperty = new NumberProperty( 0, {
-      units: 's'
+      units: secondsUnit
     } );
 
     this.isPlayingProperty = new BooleanProperty( true, {
@@ -550,7 +553,7 @@ export default class MotionModel {
     }
     else {
 
-      // if the pusher is very far off screen, stand up immediately
+      // if the pusher is very far offscreen, stand up immediately
       // based on width of the background image, determined by visual inspection
       const relativePosition = this.getRelativePusherPosition();
       if ( relativePosition > 1600 || relativePosition < -600 ) {

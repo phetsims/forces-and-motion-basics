@@ -16,6 +16,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -100,7 +101,7 @@ export default class Puller extends PhetioObject {
       tandem: options.tandem.createTandem( 'forceProperty' ),
       phetioFeatured: true,
       numberType: 'FloatingPoint',
-      units: 'N',
+      units: newtonsUnit,
       range: rangeBySize[ this.size ]
     } );
 

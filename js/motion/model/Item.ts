@@ -27,6 +27,7 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import InteractionMode, { InteractionModes } from './InteractionMode.js';
 import MotionModel from './MotionModel.js';
+import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 
 export const ENGAGED_INTERACTION_SCALE = 1.3;
 
@@ -138,7 +139,7 @@ export default class Item extends PhetioObject {
       tandem: tandem.createTandem( 'massProperty' ),
       phetioFeatured: true,
       numberType: 'FloatingPoint',
-      units: 'kg',
+      units: kilogramsUnit,
       range: new Range( 0, 200 )
     } );
 

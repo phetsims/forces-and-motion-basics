@@ -18,6 +18,9 @@ import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
+import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
+import { secondsUnit } from '../../../../scenery-phet/js/units/secondsUnit.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -127,7 +130,7 @@ export default class NetForceModel extends PhetioObject {
       tandem: forcesTandem.createTandem( 'netForceProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'N',
+      units: newtonsUnit,
       range: new Range( -350, 350 )
     } );
 
@@ -135,7 +138,7 @@ export default class NetForceModel extends PhetioObject {
       tandem: forcesTandem.createTandem( 'leftForceProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'N',
+      units: newtonsUnit,
       range: new Range( -350, 0 )
     } );
 
@@ -143,7 +146,7 @@ export default class NetForceModel extends PhetioObject {
       tandem: forcesTandem.createTandem( 'rightForceProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'N',
+      units: newtonsUnit,
       range: new Range( 0, 350 )
     } );
 
@@ -151,7 +154,7 @@ export default class NetForceModel extends PhetioObject {
       tandem: tandem.createTandem( 'speedProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'm/s',
+      units: metersPerSecondUnit,
       range: new Range( 0, 6 )
     } );
 
@@ -159,7 +162,7 @@ export default class NetForceModel extends PhetioObject {
       tandem: tandem.createTandem( 'durationProperty' ),
       phetioDocumentation: 'Duration of the tug-of-war.',
       phetioReadOnly: true,
-      units: 's',
+      units: secondsUnit,
       range: new Range( 0, Number.POSITIVE_INFINITY )
     } );
 

@@ -8,6 +8,8 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
+import { metersUnit } from '../../../../scenery-phet/js/units/metersUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
@@ -27,7 +29,7 @@ export default class Cart {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'm',
+      units: metersUnit,
       range: new Range( -403, 403 )
     } );
 
@@ -35,7 +37,7 @@ export default class Cart {
       tandem: tandem.createTandem( 'velocityProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      units: 'm/s',
+      units: metersPerSecondUnit,
       range: new Range( -6, 6 )
     } );
   }
