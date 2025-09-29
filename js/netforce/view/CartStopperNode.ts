@@ -13,12 +13,10 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-
-// constants
-const DIRECTIONS = [ 'left', 'right' ];
+import LeftOrRight, { leftOrRightValues } from '../model/LeftOrRight.js';
 
 type SelfOptions = {
-  direction?: 'left' | 'right';
+  direction?: LeftOrRight;
 };
 type CartStopperNodeOptions = StrictOmit<PathOptions, 'fill'> & SelfOptions;
 export default class CartStopperNode extends Path {
@@ -33,7 +31,7 @@ export default class CartStopperNode extends Path {
     super( stopperShape );
 
     // flip around the y-axis
-    affirm( _.includes( DIRECTIONS, options.direction ), 'stopper can only have direction "left" or "right"' );
+    affirm( _.includes( leftOrRightValues, options.direction ), 'stopper can only have direction "left" or "right"' );
     if ( options.direction === 'right' ) {
       this.scale( -1, 1 );
     }

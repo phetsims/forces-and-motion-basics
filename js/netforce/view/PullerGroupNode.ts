@@ -14,11 +14,10 @@ import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighli
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
+import LeftOrRight from '../model/LeftOrRight.js';
 
 type SelfOptions = {
-  //REVIEW 'left' | 'right' is duplicated in 9 places. Seems like a good candidate for enumeration pattern.
-  // Which side this group represents
-  side: 'left' | 'right';
+  side: LeftOrRight; // Which side this group represents
 };
 
 //REVIEW Why include NodeOptions when instantiation sites only need to provide options.side?
