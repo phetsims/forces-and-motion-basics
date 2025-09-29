@@ -360,21 +360,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * is using its sitting representation, use that to get the scaled width.
    */
   public getScaledWidth(): number {
-
-    //REVIEW Duplication of this.item.getCurrentScale() in this computation. Consider:
-    //REVIEW   return ( this.sittingImageNode ? this.sittingImageNode.width : this.normalImageNode.width ) * this.item.getCurrentScale();
-
-    // if the item has a sitting image, use that image for the width
-    let scaledWidth;
-    if ( this.sittingImageNode ) {
-      scaledWidth = this.sittingImageNode.width * this.item.getCurrentScale();
-    }
-    else {
-      scaledWidth = this.normalImageNode.width * this.item.getCurrentScale();
-    }
-    return scaledWidth;
+    return ( this.sittingImageNode ? this.sittingImageNode.width : this.normalImageNode.width ) * this.item.getCurrentScale();
   }
-
 
   /**
    * Handle keyboard input based on current state and strategy
