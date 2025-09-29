@@ -25,9 +25,7 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
   public constructor() {
 
     // TODO Factor out ObjectNavigationKeyboardHelpSection extends KeyboardHelpSection, see https://github.com/phetsims/forces-and-motion-basics/issues/459
-    //REVIEW Rename itemNavigationSection to objectNavigationSection to match visual UI.
-    // Create the item navigation section
-    const itemNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.objectNavigationStringProperty, [
+    const objectNavigationSection = new KeyboardHelpSection( ForcesAndMotionBasicsStrings.keyboardHelpDialog.objectNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIcon(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectObjectStringProperty,
         KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
@@ -77,7 +75,7 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
     } );
 
     const leftSections = [
-      itemNavigationSection,
+      objectNavigationSection,
       adjustAppliedForceSection
     ];
 
