@@ -7,33 +7,10 @@
  */
 
 import StringProperty from '../../../../axon/js/StringProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-
-/**
- * REVIEW
- * createHotkeyData is duplicated NetForceHotkeyData.ts and MotionHotkeyData. And the call sites obfuscate how the
- * args relate to HotkeyData. A better implementation would be:
- * 1. Create base class FAMBHotkeyData with protected constructor.
- * 2. FAMBHotkeyData sets default option to global:false.
- * 3. FAMBHotkeyDataOptions omits 'repoName' and sets it to repoName: forcesAndMotionBasics.name.
- * 4. NetForceHotkeyData and MotionHotkeyData extend FAMBHotkeyData, with private constructors.
- * 5. NetForceHotkeyData has public static readonly members that are instances of NetForceHotkeyData.
- * 6. MotionHotkeyData has public static readonly members that are instances of MotionHotkeyData.
- */
-function createHotkeyData( keys: OneKeyStroke[],
-                           keyboardHelpDialogLabelStringProperty: TReadOnlyProperty<string>,
-                           global = false ): HotkeyData {
-  return new HotkeyData( {
-    keys: keys,
-    repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: keyboardHelpDialogLabelStringProperty,
-    global: global
-  } );
-}
 
 export default class NetForceHotkeyData {
 
@@ -42,49 +19,61 @@ export default class NetForceHotkeyData {
   private static readonly NAVIGATE_RIGHT_KEYS: OneKeyStroke[] = [ 'arrowRight' ];
 
   public static readonly PULLER_NODE = {
+
     // Navigation between pullers and knots
-    navigation: createHotkeyData( [
+    navigation: new HotkeyData( {
+      keys: [
         // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/453
         ...NetForceHotkeyData.NAVIGATE_LEFT_KEYS,
         ...NetForceHotkeyData.NAVIGATE_RIGHT_KEYS
       ],
-      new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
-    ),
+      repoName: forcesAndMotionBasics.name,
+      keyboardHelpDialogLabelStringProperty: new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
+    } ),
+
     // Grab/drop interaction
-    grabOrDrop: createHotkeyData(
-      [ 'enter', 'space' ],
-      new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
-    ),
+    grabOrDrop: new HotkeyData( {
+      keys: [ 'enter', 'space' ],
+      repoName: forcesAndMotionBasics.name,
+      keyboardHelpDialogLabelStringProperty: new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
+    } ),
+
     // Cancel interaction
-    cancelInteraction: createHotkeyData(
-      [ 'escape' ],
-      ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelMovementStringProperty
-    ),
+    cancelInteraction: new HotkeyData( {
+      keys: [ 'escape' ],
+      repoName: forcesAndMotionBasics.name,
+      keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelMovementStringProperty
+    } ),
+
     // Return to toolbox
-    returnToToolbox: createHotkeyData(
-      [ 'delete', 'backspace' ],
-      ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnToToolboxStringProperty
-    )
+    returnToToolbox: new HotkeyData( {
+      keys: [ 'delete', 'backspace' ],
+      repoName: forcesAndMotionBasics.name,
+      keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnToToolboxStringProperty
+    } )
   };
 
   // Global hotkeys
-  public static readonly GO_HOTKEY_DATA = createHotkeyData(
-    [ 'alt+g' ],
-    ForcesAndMotionBasicsStrings.keyboardHelpDialog.startGameStringProperty,
-    true
-  );
+  public static readonly GO_HOTKEY_DATA = new HotkeyData( {
+    keys: [ 'alt+g' ],
+    repoName: forcesAndMotionBasics.name,
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.startGameStringProperty,
+    global: true
+  } );
 
-  public static readonly PAUSE_HOTKEY_DATA = createHotkeyData(
-    [ 'alt+p' ],
-    ForcesAndMotionBasicsStrings.keyboardHelpDialog.pauseGameStringProperty,
-    true
-  );
+  public static readonly PAUSE_HOTKEY_DATA = new HotkeyData( {
+    keys: [ 'alt+p' ],
+    repoName: forcesAndMotionBasics.name,
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.pauseGameStringProperty,
+    global: true
+  } );
 
-  public static readonly RETURN_CART_HOTKEY_DATA = createHotkeyData(
-    [ 'alt+c' ],
-    ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnCartToCenterStringProperty,
-    true
-  );
+  public static readonly RETURN_CART_HOTKEY_DATA = new HotkeyData( {
+    keys: [ 'alt+c' ],
+    repoName: forcesAndMotionBasics.name,
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnCartToCenterStringProperty,
+    global: true
+  } );
 }
 
 forcesAndMotionBasics.register( 'NetForceHotkeyData', NetForceHotkeyData );
