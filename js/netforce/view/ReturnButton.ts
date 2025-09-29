@@ -14,7 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
-import NetForceHotkeyData from '../NetForceHotkeyData.js';
+import NetForceHotkeyData from './NetForceHotkeyData.js';
 
 type SelfOptions = EmptySelfOptions;
 type ReturnButtonOptions = TextPushButtonOptions & SelfOptions;

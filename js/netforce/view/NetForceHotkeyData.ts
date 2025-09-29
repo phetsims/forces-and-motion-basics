@@ -6,14 +6,13 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import StringProperty from '../../../axon/js/StringProperty.js';
-import { TReadOnlyProperty } from '../../../axon/js/TReadOnlyProperty.js';
-import HotkeyData from '../../../scenery/js/input/HotkeyData.js';
-import { OneKeyStroke } from '../../../scenery/js/input/KeyDescriptor.js';
-import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../ForcesAndMotionBasicsStrings.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
+import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 
-//REVIEW Yes, this should move to js/netforce/view/
 /**
  * REVIEW
  * createHotkeyData is duplicated NetForceHotkeyData.ts and MotionHotkeyData. And the call sites obfuscate how the

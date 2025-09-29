@@ -15,7 +15,7 @@ import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
-import NetForceHotkeyData from '../NetForceHotkeyData.js';
+import NetForceHotkeyData from './NetForceHotkeyData.js';
 
 export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 

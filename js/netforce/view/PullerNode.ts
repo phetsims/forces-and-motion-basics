@@ -50,7 +50,7 @@ import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
 import PullerMode from '../model/PullerMode.js';
-import NetForceHotkeyData from '../NetForceHotkeyData.js';
+import NetForceHotkeyData from './NetForceHotkeyData.js';
 import NetForceScreenView from './NetForceScreenView.js';
 
 type SelfOptions = EmptySelfOptions;

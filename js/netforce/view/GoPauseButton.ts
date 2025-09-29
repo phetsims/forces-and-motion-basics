@@ -18,7 +18,7 @@ import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundTog
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
-import NetForceHotkeyData from '../NetForceHotkeyData.js';
+import NetForceHotkeyData from './NetForceHotkeyData.js';
 
 // Given nodes that have possibly different sizes, wrap the specified node in a parent empty Rectangle node so the bounds will match up
 // If the node is already the largest, don't wrap it.
