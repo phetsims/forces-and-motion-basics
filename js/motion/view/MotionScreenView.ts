@@ -234,7 +234,6 @@ export default class MotionScreenView extends ScreenView {
     // Reset all button goes beneath the control panel.  Not a closure variable since API access is required.
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
-        this.interruptSubtreeInput();
         model.reset();
         this.grabReleaseCueNode.reset();
       },
