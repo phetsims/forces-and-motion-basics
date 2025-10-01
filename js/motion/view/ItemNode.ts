@@ -32,8 +32,9 @@ import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemDescriber from './ItemDescriber.js';
-import MotionScreenView from './MotionScreenView.js';
+import ItemNodeDragListener from './ItemNodeDragListener.js';
 import ItemNodeKeyboardListener from './ItemNodeKeyboardListener.js';
+import MotionScreenView from './MotionScreenView.js';
 
 // Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -59,10 +60,10 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   private readonly focusHighlightPath: HighlightPath;
 
   // Track whether this item was originally on stack when grabbed (for focus management)
-  private wasOriginallyOnStack = false;
+  public wasOriginallyOnStack = false;
 
   // Track original state for escape key functionality
-  private originalPosition: Vector2 | null = null;
+  public originalPosition: Vector2 | null = null;
 
   /**
    * @param model the entire model for the containing screen
@@ -75,14 +76,14 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * @param itemToolbox - The toolbox that contains this item
    * @param tandem
    */
-  public constructor( private readonly model: MotionModel,
+  public constructor( public readonly model: MotionModel,
                       private readonly motionView: MotionScreenView,
                       public readonly item: Item,
                       normalImageProperty: TReadOnlyProperty<ImageableImage>,
                       sittingImageProperty: TReadOnlyProperty<ImageableImage>,
                       holdingImageProperty: TReadOnlyProperty<ImageableImage>,
                       showMassesProperty: TReadOnlyProperty<boolean>,
-                      itemToolbox: Node,
+                      public readonly itemToolbox: Node,
                       tandem: Tandem ) {
 
     // Set up strings for mass labels
@@ -150,63 +151,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     model.stackedItems.lengthProperty.link( updateImage );
 
-    // TODO Factor out ItemDragListener extends SoundDragListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
-    this.dragListener = new SoundDragListener( {
-      tandem: tandem.createTandem( 'dragListener' ),
-      positionProperty: item.positionProperty,
-
-      // When picking up an object, remove it from the stack.
-      start: () => {
-        // Track original state for keyboard escape functionality
-        this.wasOriginallyOnStack = item.inStackProperty.value;
-        this.originalPosition = item.positionProperty.value.copy();
-
-        // Move it to front (z-order)
-        this.moveToFront();
-
-        // move the parent toolbox to the front so that items of one toolbox are not in front of another
-        // itemToolbox is in a container so it should not occlude other items in the screen view
-        itemToolbox.moveToFront();
-
-        // Set mode to mouseGrabbed when dragging with mouse
-        item.modeProperty.value = 'pointerGrabbed';
-        const index = model.stackedItems.indexOf( item );
-        if ( index >= 0 ) {
-          model.spliceStack( index );
-        }
-
-        // Don't allow the user to translate the object while it is animating
-        item.cancelAnimation();
-      },
-
-      // End the drag
-      end: event => {
-
-        // Reset mode based on where the item ends up (let setupModeCalculation handle it)
-
-        // If the user drops it above the ground, move to the top of the stack on the skateboard, otherwise go back to the original position.
-        const droppedOnStack = this.isOverStackArea();
-
-        if ( droppedOnStack ) {
-
-          // Place on stack and announce
-          const priorLength = this.placeItemOnStack();
-          this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
-        }
-        else {
-
-          // send the item home and make sure that the label is centered
-          this.returnItemToToolbox();
-
-          // Announce return to toolbox
-          this.addAccessibleContextResponse(
-            ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.returnedToToolboxStringProperty.value
-          );
-        }
-        // Clear any locked pointer highlight before changing focus to another item
-        this.unlockHighlight();
-      }
-    } );
+    this.dragListener = new ItemNodeDragListener( this, tandem.createTandem( 'dragListener' ) );
     this.addInputListener( this.dragListener );
 
     // if the item is being dragged, cancel the drag on reset
@@ -603,14 +548,14 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   /**
    * Determine if the item is positioned over the stack area.
    */
-  private isOverStackArea(): boolean {
+  public isOverStackArea(): boolean {
     return this.item.positionProperty.value.y < 350 || !this.motionView.isToolboxContainerVisible();
   }
 
   /**
    * Place the item on the stack with animation and model updates. Returns the prior stack length.
    */
-  private placeItemOnStack(): number {
+  public placeItemOnStack(): number {
     const priorLength = this.model.stackedItems.length;
 
     const height = this.item.getCurrentScale() * this.sittingImageNode.height;
@@ -635,7 +580,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   }
 
   /** Return the item to the toolbox and ensure label alignment is restored. */
-  private returnItemToToolbox(): void {
+  public returnItemToToolbox(): void {
     this.item.animateHome();
     this.labelNode.centerX = this.normalImageNode.centerX;
   }
