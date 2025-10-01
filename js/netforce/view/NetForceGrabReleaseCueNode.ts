@@ -21,8 +21,8 @@ export default class NetForceGrabReleaseCueNode extends FocusDrivenGrabReleaseCu
       layoutBounds,
       ( self, focusedPullerNode, bounds ) => {
         const isLeftSide = focusedPullerNode.puller.type === 'blue';
-        self.centerX = isLeftSide ? bounds.width * 0.25 : bounds.width * 0.75;
-        self.top = 200;
+        self.centerX = isLeftSide ? bounds.width * 0.2 : bounds.width * 0.8;
+        self.top = 325;
       },
       tandem
     );
