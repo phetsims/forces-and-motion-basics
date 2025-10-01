@@ -33,6 +33,7 @@ import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemDescriber from './ItemDescriber.js';
 import MotionScreenView from './MotionScreenView.js';
+import ItemNodeKeyboardListener from './ItemNodeKeyboardListener.js';
 
 // Workaround for https://github.com/phetsims/scenery/issues/108
 const IDENTITY = Matrix3.scaling( 1, 1 );
@@ -317,16 +318,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     } );
 
     // Create keyboard listener for item interactions
-    // TODO Factor out ItemKeyboardListener extends KeyboardListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
-    this.keyboardListener = new KeyboardListener<OneKeyStroke[]>( {
-      // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/453
-      keys: [
-        'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
-        'enter', 'space', 'escape', 'delete', 'backspace'
-      ],
-      fireOnDown: false,
-      fire: ( event, keysPressed ) => this.handleKeyboardInput( keysPressed )
-    } );
+    this.keyboardListener = new ItemNodeKeyboardListener( keys => this.handleKeyboardInput( keys ) );
+
     this.addInputListener( this.keyboardListener );
 
     /**
@@ -367,7 +360,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * Handle keyboard input based on current state and strategy
    * @param keysPressed - The key(s) that were pressed
    */
-  private handleKeyboardInput( keysPressed: string ): void {
+  public handleKeyboardInput( keysPressed: OneKeyStroke ): void {
     const isGrabbed = this.item.userControlledProperty.value;
 
     if ( keysPressed === 'escape' ) {
