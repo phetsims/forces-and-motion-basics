@@ -16,6 +16,7 @@ import { clamp } from '../../../../dot/js/util/clamp.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import LocalizedImageProperty from '../../../../joist/js/i18n/LocalizedImageProperty.js';
+import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
@@ -27,7 +28,6 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import InteractionMode, { InteractionModes } from './InteractionMode.js';
 import MotionModel from './MotionModel.js';
-import { kilogramsUnit } from '../../../../scenery-phet/js/units/kilogramsUnit.js';
 
 export const ENGAGED_INTERACTION_SCALE = 1.3;
 
@@ -93,6 +93,10 @@ export default class Item extends PhetioObject {
 
   // Whether the item's mass is hidden from the learner (mystery mass).
   public readonly mystery: boolean;
+
+  // tracks if the item was dismissed to home by being on the bottom of the stack when 4th item was added. In this case,
+  // do not transfer focus to the item.
+  public dismissedToHome = false;
 
   /**
    * @param model - model context in which this item exists
@@ -321,6 +325,8 @@ export default class Item extends PhetioObject {
     this.directionProperty.reset();
     this.animationState = null;
     this.modeProperty.reset();
+
+    this.dismissedToHome = false;
   }
 
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination

@@ -427,8 +427,9 @@ export default class MotionModel {
 
   // When a 4th item is placed on the stack, move the bottom item home and have the stack fall
   public spliceStackBottom(): void {
-    const bottom = this.spliceStack( 0 );
-    bottom.animateHome();
+    const bottomItem = this.spliceStack( 0 );
+    bottomItem.dismissedToHome = true;
+    bottomItem.animateHome();
   }
 
   /**

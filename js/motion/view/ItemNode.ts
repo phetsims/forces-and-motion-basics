@@ -569,6 +569,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     this.model.stackedItems.add( this.item );
     if ( this.model.stackedItems.length > 3 ) {
       this.model.spliceStackBottom();
+      this.focus();
     }
 
     // Handle person direction if needed

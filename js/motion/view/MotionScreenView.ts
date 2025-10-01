@@ -386,7 +386,7 @@ export default class MotionScreenView extends ScreenView {
 
     // Add all items to toolbox group initially and set up keyboard strategies
     this.itemNodes.forEach( itemNode => {
-      this.itemToolboxGroup.addItemNode( itemNode );
+      this.itemToolboxGroup.addItemNode( itemNode, false );
     } );
 
     // Add the force arrows & associated readouts in front of the items
@@ -513,7 +513,7 @@ export default class MotionScreenView extends ScreenView {
     model.viewInitialized( this );
 
     // Helper function to perform group transfer logic using unified mode property
-    const performGroupTransfer = ( itemNode: ItemNode ) => {
+    const performGroupTransfer = ( itemNode: ItemNode, wasUserControlled: boolean ) => {
       const mode = itemNode.item.modeProperty.value;
       const isGrabbed = itemNode.item.isGrabbed();
 
@@ -524,7 +524,7 @@ export default class MotionScreenView extends ScreenView {
           // Item moved to stack - transfer from toolbox group to stack group
           if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             this.itemToolboxGroup.removeItemNode( itemNode );
-            this.itemStackGroup.addItemNode( itemNode, model.stackedItems );
+            this.itemStackGroup.addItemNode( itemNode, model.stackedItems, wasUserControlled );
 
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();
@@ -540,7 +540,7 @@ export default class MotionScreenView extends ScreenView {
 
           // Add to toolbox group if it's not already there
           if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-            this.itemToolboxGroup.addItemNode( itemNode );
+            this.itemToolboxGroup.addItemNode( itemNode, wasUserControlled );
           }
 
           // Update PDOM order after transfer
@@ -553,8 +553,14 @@ export default class MotionScreenView extends ScreenView {
     // Listen to each item's mode property to transfer between groups
     this.itemNodes.forEach( itemNode => {
 
-      itemNode.item.modeProperty.link( () => {
-        performGroupTransfer( itemNode );
+      itemNode.item.modeProperty.lazyLink( ( newMode, oldMode ) => {
+
+        const dismissedToHome = itemNode.item.dismissedToHome;
+        performGroupTransfer( itemNode, !dismissedToHome );
+
+        if ( newMode === 'inToolbox' && dismissedToHome ) {
+          itemNode.item.dismissedToHome = false; // reset
+        }
       } );
     } );
 
