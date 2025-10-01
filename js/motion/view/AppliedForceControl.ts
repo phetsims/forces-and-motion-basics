@@ -12,6 +12,7 @@ import { clamp } from '../../../../dot/js/util/clamp.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import FineCoarseSpinner from '../../../../scenery-phet/js/FineCoarseSpinner.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import SceneryPhetFluent from '../../../../scenery-phet/js/SceneryPhetFluent.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -19,8 +20,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
-import MotionHotkeyData from './MotionHotkeyData.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
+import MotionHotkeyData from './MotionHotkeyData.js';
 
 const pattern0ValueUnitsNewtonsStringProperty = ForcesAndMotionBasicsFluent.pattern[ '0valueUnitsNewtonsStringProperty' ];
 const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStringProperty;
@@ -87,7 +88,7 @@ export default class AppliedForceControl extends VBox {
         return result;
       },
       pdomCreateAriaValueText: ( value: number ) => {
-        return ForcesAndMotionBasicsFluent.a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueText.format( {
+        return SceneryPhetFluent.a11y.units.newtons.pattern.format( {
           value: value
         } );
       }

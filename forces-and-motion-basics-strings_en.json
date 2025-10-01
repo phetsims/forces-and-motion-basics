@@ -630,9 +630,6 @@
           },
           "description": {
             "value": "Set force applied by pusher on the stack."
-          },
-          "ariaValueText": {
-            "value": "{ $value } newtons"
           }
         }
       },

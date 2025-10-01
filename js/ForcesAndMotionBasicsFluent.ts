@@ -200,7 +200,6 @@ addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_ac
 addToMapIfDefined( 'a11y_motionScreen_motionControlPanel_accelerationCheckbox_accessibleContextResponseUnchecked', 'a11y.motionScreen.motionControlPanel.accelerationCheckbox.accessibleContextResponseUncheckedStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_accessibleHeading', 'a11y.motionScreen.playAreaControls.appliedForceControl.accessibleHeadingStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_description', 'a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty' );
-addToMapIfDefined( 'a11y_motionScreen_playAreaControls_appliedForceControl_ariaValueText', 'a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_accessibleHelpText', 'a11y.motionScreen.frictionSlider.accessibleHelpTextStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_smoother', 'a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty' );
 addToMapIfDefined( 'a11y_motionScreen_frictionSlider_contextResponse_rougher', 'a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty' );
@@ -566,8 +565,7 @@ const ForcesAndMotionBasicsFluent = {
       playAreaControls: {
         appliedForceControl: {
           accessibleHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_accessibleHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.accessibleHeadingStringProperty' ) ),
-          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty' ) ),
-          ariaValueText: new FluentPattern<{ value: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_ariaValueText', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.ariaValueTextStringProperty' ), [{"name":"value"}] )
+          descriptionStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_motionScreen_playAreaControls_appliedForceControl_description', _.get( ForcesAndMotionBasicsStrings, 'a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty' ) )
         }
       },
       frictionSlider: {
@@ -605,6 +603,7 @@ const ForcesAndMotionBasicsFluent = {
       rightForceArrow: new FluentPattern<{ description: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_rightForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.rightForceArrowStringProperty' ), [{"name":"description"}] ),
       sumOfForcesArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_sumOfForcesArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.sumOfForcesArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),
       sumOfForcesZeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_sumOfForcesZero', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.sumOfForcesZeroStringProperty' ) ),
+      _comment_0: new FluentComment( {"comment":"TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458","associatedKey":"quantitativeDescription"} ),
       quantitativeDescription: new FluentPattern<{ forceMagnitude: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_quantitativeDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.quantitativeDescriptionStringProperty' ), [{"name":"forceMagnitude"}] ),
       qualitativeDescriptions: {
         verySmallStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_qualitativeDescriptions_verySmall', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.qualitativeDescriptions.verySmallStringProperty' ) ),
@@ -624,7 +623,9 @@ const ForcesAndMotionBasicsFluent = {
       cartSpeedWithAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_cartSpeedWithAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.cartSpeedWithAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"}] ),
       speedOnly: new FluentPattern<{ speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedOnly', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedOnlyStringProperty' ), [{"name":"speedDescription"}] ),
       speedOnlyWithAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedOnlyWithAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedOnlyWithAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"}] ),
+      _comment_0: new FluentComment( {"comment":"TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458","associatedKey":"speedWithValue"} ),
       speedWithValue: new FluentPattern<{ speedDescription: FluentVariable, speedMetersPerSecond: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedWithValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedWithValueStringProperty' ), [{"name":"speedDescription"},{"name":"speedMetersPerSecond"}] ),
+      _comment_1: new FluentComment( {"comment":"TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458","associatedKey":"speedWithValueAndAcceleration"} ),
       speedWithValueAndAcceleration: new FluentPattern<{ accelerationDescription: FluentVariable, speedDescription: FluentVariable, speedMetersPerSecond: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_speed_speedWithValueAndAcceleration', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.speedWithValueAndAccelerationStringProperty' ), [{"name":"accelerationDescription"},{"name":"speedDescription"},{"name":"speedMetersPerSecond"}] ),
       qualitativeDescriptions: {
         stationaryStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_speed_qualitativeDescriptions_stationary', _.get( ForcesAndMotionBasicsStrings, 'a11y.speed.qualitativeDescriptions.stationaryStringProperty' ) ),
@@ -639,8 +640,10 @@ const ForcesAndMotionBasicsFluent = {
     acceleration: {
       headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.headingStringProperty' ) ),
       accelerationOnly: new FluentPattern<{ accelerationDescription: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationOnly', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationOnlyStringProperty' ), [{"name":"accelerationDescription"}] ),
+      _comment_0: new FluentComment( {"comment":"TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458","associatedKey":"accelerationWithValue"} ),
       accelerationWithValue: new FluentPattern<{ accelerationDescription: FluentVariable, accelerationMetersPerSecondSquared: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationWithValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationWithValueStringProperty' ), [{"name":"accelerationDescription"},{"name":"accelerationMetersPerSecondSquared"}] ),
       accelerationWithDirection: new FluentPattern<{ accelerationDescription: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationWithDirection', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationWithDirectionStringProperty' ), [{"name":"accelerationDescription"},{"name":"direction"}] ),
+      _comment_1: new FluentComment( {"comment":"TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458","associatedKey":"accelerationWithDirectionAndValue"} ),
       accelerationWithDirectionAndValue: new FluentPattern<{ accelerationDescription: FluentVariable, accelerationMetersPerSecondSquared: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_acceleration_accelerationWithDirectionAndValue', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.accelerationWithDirectionAndValueStringProperty' ), [{"name":"accelerationDescription"},{"name":"accelerationMetersPerSecondSquared"},{"name":"direction"}] ),
       qualitativeDescriptions: {
         zeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_acceleration_qualitativeDescriptions_zero', _.get( ForcesAndMotionBasicsStrings, 'a11y.acceleration.qualitativeDescriptions.zeroStringProperty' ) ),

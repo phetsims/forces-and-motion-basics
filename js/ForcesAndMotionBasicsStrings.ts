@@ -294,7 +294,6 @@ type StringsType = {
         'appliedForceControl': {
           'accessibleHeadingStringProperty': LocalizedStringProperty;
           'descriptionStringProperty': LocalizedStringProperty;
-          'ariaValueTextStringProperty': LocalizedStringProperty;
         }
       };
       'frictionSlider': {

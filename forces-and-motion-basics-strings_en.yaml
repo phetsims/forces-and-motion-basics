@@ -60,11 +60,11 @@ a11y:
   navigable: navigable
   sortable:  sortable
   valuesCheckbox:
-    checkedResponse:                           Numeric values shown.
-    uncheckedResponse:                         Numeric values hidden.
-    accessibleHelpTextForce:                   Show or hide force values.
-    accessibleHelpTextForceSpeed:              Show or hide force and speed values.
-    accessibleHelpTextForceSpeedAcceleration:  Show or hide force, speed, and acceleration values.
+    checkedResponse:                          Numeric values shown.
+    uncheckedResponse:                        Numeric values hidden.
+    accessibleHelpTextForce:                  Show or hide force values.
+    accessibleHelpTextForceSpeed:             Show or hide force and speed values.
+    accessibleHelpTextForceSpeedAcceleration: Show or hide force, speed, and acceleration values.
   speedCheckbox:
     accessibleHelpText:                 Show or hide speedometer.
     accessibleContextResponseUnchecked: Speedometer hidden.
@@ -259,7 +259,6 @@ a11y:
       appliedForceControl:
         accessibleHeading: Applied Force Control
         description:       Set force applied by pusher on the stack.
-        ariaValueText:     '{ $value } newtons'
     frictionSlider:
       accessibleHelpText: Set static coefficient of friction, ranging from none to lots.
       contextResponse:
@@ -289,6 +288,8 @@ a11y:
     rightForceArrow:         'Right force arrow is { $description }'
     sumOfForcesArrow:        'Sum of forces arrow is { $description }, pointing { $direction }'
     sumOfForcesZero:         'Sum of forces is 0'
+
+    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
     quantitativeDescription: '{ $forceMagnitude } newtons'
     qualitativeDescriptions:
       verySmall:      very small
@@ -306,7 +307,11 @@ a11y:
     cartSpeedWithAcceleration:     'Cart speed is { $speedDescription } and { $accelerationDescription }.'
     speedOnly:                     'Speed is { $speedDescription }.'
     speedOnlyWithAcceleration:     'Speed is { $speedDescription } and { $accelerationDescription }.'
+
+    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
     speedWithValue:                'Speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
+
+    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
     speedWithValueAndAcceleration: 'Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second.'
     qualitativeDescriptions:
       stationary:    zero
@@ -319,8 +324,12 @@ a11y:
   acceleration:
     heading:                           Acceleration
     accelerationOnly:                  'Acceleration is { $accelerationDescription }.'
+
+    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
     accelerationWithValue:             'Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
     accelerationWithDirection:         'Acceleration is { $accelerationDescription } to the { $direction }.'
+
+    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
     accelerationWithDirectionAndValue: 'Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared.'
     qualitativeDescriptions:
       zero:           zero
