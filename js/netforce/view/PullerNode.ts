@@ -10,7 +10,6 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { FluentPatternDerivedProperty } from '../../../../chipper/js/browser/FluentPattern.js';
 import { clamp } from '../../../../dot/js/util/clamp.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
@@ -48,6 +47,7 @@ import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPref
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
+import PullerNodeDragListener from './PullerNodeDragListener.js';
 import PullerMode from '../model/PullerMode.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
 import NetForceScreenView from './NetForceScreenView.js';
@@ -145,7 +145,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   public pullImage: ImageableImage;
 
   // Listener coordinating drag behaviour and related audio.
-  private readonly dragListener: SoundDragListener;
+  private readonly dragListener: PullerNodeDragListener;
 
   // Keyboard listener that wires the accessible hotkeys for the puller.
   private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
@@ -195,51 +195,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       this.updateImages( standImage, pullImage );
     } );
 
-    // TODO Factor out PullerDragListener extends SoundDragListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
-    this.dragListener = new SoundDragListener( {
-        tandem: tandem.createTandem( 'dragListener' ),
-        allowTouchSnag: true,
-        positionProperty: puller.positionProperty,
-        start: () => {
-
-          puller.modeProperty.value = PullerMode.pointerGrabbed();
-
-          // fire updates
-          this.moveToFront();
-        },
-        end: () => {
-
-          // Determine drop location using the model's existing getTargetKnot method
-          const dropKnot = model.getTargetKnot( puller );
-
-          if ( dropKnot ) {
-            puller.dropAtKnot( dropKnot );
-          }
-          else {
-            puller.dropAtHome();
-          }
-
-          // Add accessible response
-          const knot = puller.modeProperty.value.getKnot( puller.model );
-          if ( knot ) {
-            const knotDescription = this.getKnotDescription( knot );
-            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerAttachedToKnot.format( {
-              size: puller.size,
-              color: puller.colorProperty,
-              knotDescription: knotDescription,
-              index: puller.descriptionIndex
-            } ) );
-          }
-          else {
-            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
-              size: puller.size,
-              color: puller.colorProperty,
-              index: puller.descriptionIndex
-            } ) );
-          }
-        }
-      }
-    );
+    this.dragListener = new PullerNodeDragListener( this, tandem.createTandem( 'dragListener' ) );
     this.addInputListener( this.dragListener );
 
     model.resetAllEmitter.addListener( () => {
