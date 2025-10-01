@@ -596,14 +596,11 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       const stackItems = this.motionView.itemStackGroup.stackItemNodes;
       const currentIndex = stackItems.indexOf( this );
       if ( currentIndex === -1 ) { return null; }
-
+      if ( stackItems.length <= 1 ) { return null; }
       const delta = ( direction === 'up' || direction === 'left' ) ? 1 :
                     ( direction === 'down' || direction === 'right' ) ? -1 : 0;
-      const newIndex = currentIndex + delta;
-      if ( newIndex >= 0 && newIndex < stackItems.length ) {
-        return stackItems[ newIndex ];
-      }
-      return null;
+      const newIndex = ( currentIndex + delta + stackItems.length ) % stackItems.length;
+      return stackItems[ newIndex ];
     }
     else {
 
@@ -613,11 +610,9 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       const currentIndex = itemsInToolbox.indexOf( this );
       if ( currentIndex === -1 ) { return null; }
       const delta = ( direction === 'left' ) ? -1 : 1;
-      const newIndex = currentIndex + delta;
-      if ( newIndex >= 0 && newIndex < itemsInToolbox.length ) {
-        return itemsInToolbox[ newIndex ];
-      }
-      return null;
+      if ( itemsInToolbox.length <= 1 ) { return null; }
+      const newIndex = ( currentIndex + delta + itemsInToolbox.length ) % itemsInToolbox.length;
+      return itemsInToolbox[ newIndex ];
     }
   }
 
