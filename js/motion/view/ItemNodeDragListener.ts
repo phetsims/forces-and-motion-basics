@@ -21,7 +21,7 @@ export default class ItemNodeDragListener extends SoundDragListener {
     const model = itemNode.model;
 
     super( {
-        tandem: tandem.createTandem( 'dragListener' ),
+        tandem: tandem,
         positionProperty: item.positionProperty,
 
         // When picking up an object, remove it from the stack.
