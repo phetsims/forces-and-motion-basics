@@ -42,7 +42,7 @@ export default class ItemToolboxGroupNode extends Node {
   /**
    * Add an item node to this group (transferring from another parent if needed)
    */
-  public addItemNode( itemNode: ItemNode, wasUserControlled: boolean ): void {
+  public addItemNode( itemNode: ItemNode, focusItem: boolean ): void {
 
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
@@ -57,7 +57,7 @@ export default class ItemToolboxGroupNode extends Node {
 
     // Ensure items added to toolbox are properly focusable for arrow navigation
     // Only make focusable if it's not on the stack
-    if ( wasUserControlled ) {
+    if ( focusItem ) {
       itemNode.focusable = true;
       itemNode.focus();
     }

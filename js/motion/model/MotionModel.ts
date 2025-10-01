@@ -19,8 +19,8 @@ import Range from '../../../../dot/js/Range.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Stopwatch from '../../../../scenery-phet/js/Stopwatch.js';
-import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
 import { metersPerSecondPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondPerSecondUnit.js';
+import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
 import { metersUnit } from '../../../../scenery-phet/js/units/metersUnit.js';
 import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
 import { secondsUnit } from '../../../../scenery-phet/js/units/secondsUnit.js';
@@ -426,9 +426,9 @@ export default class MotionModel {
   }
 
   // When a 4th item is placed on the stack, move the bottom item home and have the stack fall
-  public spliceStackBottom(): void {
+  public spliceStackBottom( ): void {
     const bottomItem = this.spliceStack( 0 );
-    bottomItem.dismissedToHome = true;
+    bottomItem.lastInteractionType = 'none';
     bottomItem.animateHome();
   }
 

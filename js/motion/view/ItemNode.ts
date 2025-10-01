@@ -278,7 +278,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
           this.returnItemToToolbox();
         }
         else if ( this.item.modeProperty.value === 'keyboardGrabbedFromStack' ) {
-          const priorLength = this.placeItemOnStack();
+          const priorLength = this.placeItemOnStack( true );
           this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
         }
       }
@@ -307,6 +307,8 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    */
   public handleKeyboardInput( keysPressed: OneKeyStroke ): void {
     const isGrabbed = this.item.userControlledProperty.value;
+
+    this.item.lastInteractionType = 'pdom';
 
     if ( keysPressed === 'escape' ) {
       this.handleEscapeKey();
@@ -439,7 +441,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       const droppedOnStack = this.isOverStackArea();
 
       if ( droppedOnStack ) {
-        const priorLength = this.placeItemOnStack();
+        const priorLength = this.placeItemOnStack( true );
         this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
       }
       else {
@@ -555,7 +557,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   /**
    * Place the item on the stack with animation and model updates. Returns the prior stack length.
    */
-  public placeItemOnStack(): number {
+  public placeItemOnStack( eventFromPDOM: boolean ): number {
     const priorLength = this.model.stackedItems.length;
 
     const height = this.item.getCurrentScale() * this.sittingImageNode.height;
@@ -569,7 +571,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     this.model.stackedItems.add( this.item );
     if ( this.model.stackedItems.length > 3 ) {
       this.model.spliceStackBottom();
-      this.focus();
+      eventFromPDOM && this.focus();
     }
 
     // Handle person direction if needed

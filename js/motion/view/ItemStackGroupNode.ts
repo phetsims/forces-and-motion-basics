@@ -48,7 +48,7 @@ export default class ItemStackGroupNode extends Node {
   /**
    * Add an item node to the stack group (transferring from another parent if needed)
    */
-  public addItemNode( itemNode: ItemNode, stackedItems: ObservableArray<Item>, wasUserControlled: boolean ): void {
+  public addItemNode( itemNode: ItemNode, stackedItems: ObservableArray<Item>, focusItem: boolean ): void {
 
     // Remove from current parent if it has one
     if ( itemNode.parent ) {
@@ -61,7 +61,7 @@ export default class ItemStackGroupNode extends Node {
     // Sort items by their stack position (bottom to top)
     this.sortItems( stackedItems );
 
-    if ( wasUserControlled ) {
+    if ( focusItem ) {
       itemNode.focusable = true;
       itemNode.focus();
     }

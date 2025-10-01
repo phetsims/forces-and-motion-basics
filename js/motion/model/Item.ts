@@ -94,9 +94,8 @@ export default class Item extends PhetioObject {
   // Whether the item's mass is hidden from the learner (mystery mass).
   public readonly mystery: boolean;
 
-  // tracks if the item was dismissed to home by being on the bottom of the stack when 4th item was added. In this case,
-  // do not transfer focus to the item.
-  public dismissedToHome = false;
+  // Automatically focus the item if last interaction was via keyboard
+  public lastInteractionType: 'none' | 'pointer' | 'pdom' = 'none';
 
   /**
    * @param model - model context in which this item exists
@@ -326,7 +325,7 @@ export default class Item extends PhetioObject {
     this.animationState = null;
     this.modeProperty.reset();
 
-    this.dismissedToHome = false;
+    this.lastInteractionType = 'none';
   }
 
   // Step the item in time, making it grow or shrink (if necessary), or animate to its destination

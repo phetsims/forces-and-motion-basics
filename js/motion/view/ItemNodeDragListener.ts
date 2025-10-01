@@ -27,6 +27,8 @@ export default class ItemNodeDragListener extends SoundDragListener {
         // When picking up an object, remove it from the stack.
         start: () => {
 
+          itemNode.item.lastInteractionType = 'pointer';
+
           // Track original state for keyboard escape functionality
           itemNode.wasOriginallyOnStack = item.inStackProperty.value;
           itemNode.originalPosition = item.positionProperty.value.copy();
@@ -60,7 +62,7 @@ export default class ItemNodeDragListener extends SoundDragListener {
           if ( droppedOnStack ) {
 
             // Place on stack and announce
-            const priorLength = itemNode.placeItemOnStack();
+            const priorLength = itemNode.placeItemOnStack( false );
             itemNode.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( itemNode.model, priorLength ) );
           }
           else {

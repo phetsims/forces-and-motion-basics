@@ -513,7 +513,7 @@ export default class MotionScreenView extends ScreenView {
     model.viewInitialized( this );
 
     // Helper function to perform group transfer logic using unified mode property
-    const performGroupTransfer = ( itemNode: ItemNode, wasUserControlled: boolean ) => {
+    const performGroupTransfer = ( itemNode: ItemNode, focusItem: boolean ) => {
       const mode = itemNode.item.modeProperty.value;
       const isGrabbed = itemNode.item.isGrabbed();
 
@@ -524,7 +524,7 @@ export default class MotionScreenView extends ScreenView {
           // Item moved to stack - transfer from toolbox group to stack group
           if ( this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
             this.itemToolboxGroup.removeItemNode( itemNode );
-            this.itemStackGroup.addItemNode( itemNode, model.stackedItems, wasUserControlled );
+            this.itemStackGroup.addItemNode( itemNode, model.stackedItems, focusItem );
 
             // Update PDOM order after transfer
             this.updateItemPDOMOrder();
@@ -540,7 +540,7 @@ export default class MotionScreenView extends ScreenView {
 
           // Add to toolbox group if it's not already there
           if ( !this.itemToolboxGroup.itemNodes.includes( itemNode ) ) {
-            this.itemToolboxGroup.addItemNode( itemNode, wasUserControlled );
+            this.itemToolboxGroup.addItemNode( itemNode, focusItem );
           }
 
           // Update PDOM order after transfer
@@ -555,11 +555,8 @@ export default class MotionScreenView extends ScreenView {
 
       itemNode.item.modeProperty.lazyLink( ( newMode, oldMode ) => {
 
-        const dismissedToHome = itemNode.item.dismissedToHome;
-        performGroupTransfer( itemNode, !dismissedToHome );
-
-        if ( newMode === 'inToolbox' && dismissedToHome ) {
-          itemNode.item.dismissedToHome = false; // reset
+        if ( newMode === 'onStack' || newMode === 'inToolbox' ) {
+          performGroupTransfer( itemNode, itemNode.item.lastInteractionType === 'pdom' );
         }
       } );
 
