@@ -9,9 +9,6 @@
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
@@ -54,6 +51,7 @@ import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 import ItemNode from './ItemNode.js';
+import PusherNodeDragListener from './PusherNodeDragListener.js';
 
 export default class PusherNode extends Node {
 
@@ -169,47 +167,7 @@ export default class PusherNode extends Node {
     this.model = model;
     this.itemModelToNodeMap = itemModelToNodeMap;
 
-    // TODO Factor out PusherDragListener extends SoundDragListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
-    const dragListener = new SoundDragListener( {
-      tandem: tandem.createTandem( 'dragListener' ),
-      allowTouchSnag: true,
-      enabledProperty: model.pusherInteractionsEnabledProperty,
-      drag: ( event: SceneryEvent, listener: DragListener ) => {
-        if ( this.interactive ) {
-          const newAppliedForce = model.appliedForceProperty.value + listener.modelDelta.x;
-          const clampedAppliedForce = Math.max( -500, Math.min( 500, newAppliedForce ) );
-
-          // the new force should be rounded so that applied force is not
-          // more precise than friction force, see https://github.com/phetsims/forces-and-motion-basics/issues/197
-          const roundedForce = roundSymmetric( clampedAppliedForce );
-
-          // Only apply a force if the pusher is not fallen, see #48
-          if ( !model.fallenProperty.value ) {
-            model.appliedForceProperty.value = roundedForce;
-          }
-        }
-      },
-
-      start: () => {
-        if ( this.interactive ) {
-
-          // if the user interacts with the pusher, resume model 'playing' so that the sim does not seem broken
-          if ( !model.isPlayingProperty.value ) {
-            model.isPlayingProperty.value = true;
-          }
-        }
-      },
-
-      end: () => {
-        if ( this.interactive ) {
-
-          // if the model is paused, the applied force should remain the same
-          if ( model.isPlayingProperty.value ) {
-            model.appliedForceProperty.value = 0;
-          }
-        }
-      }
-    } );
+    const dragListener = new PusherNodeDragListener( this, model, tandem.createTandem( 'dragListener' ) );
     this.addInputListener( dragListener );
 
     model.fallenProperty.link( () => this.updateView() );
@@ -332,6 +290,10 @@ export default class PusherNode extends Node {
       node.pickable = true;
       this.visibleNode = node;
     }
+  }
+
+  public isInteractive(): boolean {
+    return this.interactive;
   }
 }
 
