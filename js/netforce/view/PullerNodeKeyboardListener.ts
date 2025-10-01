@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import { clamp } from '../../../../dot/js/util/clamp.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -66,7 +65,9 @@ export default class PullerNodeKeyboardListener extends KeyboardListener<OneKeyS
               const currentIndex = availablePullers.indexOf( pullerNode );
 
               const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-              const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
+
+              // Wrap search
+              const newIndex = ( currentIndex + delta + availablePullers.length ) % availablePullers.length;
 
               if ( newIndex !== currentIndex ) {
                 const nextPuller = availablePullers[ newIndex ];
