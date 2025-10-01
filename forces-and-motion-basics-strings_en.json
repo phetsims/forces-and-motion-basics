@@ -715,7 +715,7 @@
         "value": "Sum of forces is 0"
       },
       "quantitativeDescription": {
-        "value": "{ $forceMagnitude } newtons"
+        "value": "{ $forceMagnitude ->\n  [one] { $forceMagnitude } newton\n  *[other] { $forceMagnitude } newtons\n}"
       },
       "qualitativeDescriptions": {
         "verySmall": {

@@ -289,8 +289,12 @@ a11y:
     sumOfForcesArrow:        'Sum of forces arrow is { $description }, pointing { $direction }'
     sumOfForcesZero:         'Sum of forces is 0'
 
-    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
-    quantitativeDescription: '{ $forceMagnitude } newtons'
+    # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
+    quantitativeDescription: |-
+                             { $forceMagnitude ->
+                               [one] { $forceMagnitude } newton
+                               *[other] { $forceMagnitude } newtons
+                             }
     qualitativeDescriptions:
       verySmall:      very small
       small:          small

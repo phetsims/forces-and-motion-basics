@@ -17,6 +17,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
@@ -146,7 +147,7 @@ export default class MotionForcesDescriptionNode extends Node {
     const magnitude = Math.abs( force );
     if ( showValues ) {
       return ForcesAndMotionBasicsFluent.a11y.forces.quantitativeDescription.format( {
-        forceMagnitude: magnitude.toString()
+        forceMagnitude: toFixedNumber( magnitude, 2 )
       } );
     }
     else {

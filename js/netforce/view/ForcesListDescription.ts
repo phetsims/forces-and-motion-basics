@@ -9,6 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
@@ -114,7 +115,6 @@ export default class ForcesListDescription extends Node {
 
   /**
    * Gets the appropriate description for a force value based on whether values are shown
-   * TODO: This looks like memory leaks, see https://github.com/phetsims/forces-and-motion-basics/issues/433
    */
   private getForceDescription( force: number, showValues: boolean ): string {
     const magnitude = Math.abs( force );
@@ -122,7 +122,7 @@ export default class ForcesListDescription extends Node {
     if ( showValues ) {
       // Quantitative description with newtons using Fluent pattern
       return ForcesAndMotionBasicsFluent.a11y.forces.quantitativeDescription.format( {
-        forceMagnitude: magnitude.toString()
+        forceMagnitude: toFixedNumber( magnitude, 2 )
       } );
     }
     else {
