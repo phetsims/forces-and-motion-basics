@@ -8,12 +8,9 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import { FluentPatternDerivedProperty } from '../../../../chipper/js/browser/FluentPattern.js';
-import { clamp } from '../../../../dot/js/util/clamp.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
-import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -48,8 +45,8 @@ import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
 import PullerNodeDragListener from './PullerNodeDragListener.js';
+import PullerNodeKeyboardListener from './PullerNodeKeyboardListener.js';
 import PullerMode from '../model/PullerMode.js';
-import NetForceHotkeyData from './NetForceHotkeyData.js';
 import NetForceScreenView from './NetForceScreenView.js';
 
 // Vertical offset when keyboard grabbed to show puller is "above" and not connected
@@ -148,7 +145,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   private readonly dragListener: PullerNodeDragListener;
 
   // Keyboard listener that wires the accessible hotkeys for the puller.
-  private readonly keyboardListener: KeyboardListener<OneKeyStroke[]> | null = null;
+  private readonly keyboardListener: PullerNodeKeyboardListener;
 
   // Cached reference to the NetForce model for convenience.
   private readonly model: NetForceModel;
@@ -229,243 +226,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     } );
 
     // Create a single listener that combines all hotkey data
-    // TODO Factor out PullerKeyboardListener extends KeyboardListener, see https://github.com/phetsims/forces-and-motion-basics/issues/459
-    this.keyboardListener = new KeyboardListener( {
-      keyStringProperties: [
-        ...NetForceHotkeyData.PULLER_NODE.navigation.keyStringProperties,
-        ...NetForceHotkeyData.PULLER_NODE.grabOrDrop.keyStringProperties,
-        ...NetForceHotkeyData.PULLER_NODE.cancelInteraction.keyStringProperties,
-        ...NetForceHotkeyData.PULLER_NODE.returnToToolbox.keyStringProperties
-      ],
-      fireOnDown: false,
-
-      fire: ( event, keysPressed ) => {
-
-        // NAVIGATION (Arrow Keys)
-        if ( NetForceHotkeyData.PULLER_NODE.navigation.hasKeyStroke( keysPressed ) ) {
-
-          // When no puller is grabbed, select between available pullers of the same type
-          if ( !puller.isGrabbed() ) {
-
-            // Find all pullers of the same type
-            const availablePullers = this.view.pullerNodes.filter( pullerNode => pullerNode.puller.type === this.puller.type );
-
-            if ( availablePullers.length > 1 ) {
-
-              // Sort: pullers on rope first (left to right), then pullers in toolbox (left to right)
-              availablePullers.sort( ( a, b ) => {
-                const aOnRope = a.puller.modeProperty.value.isAttached();
-                const bOnRope = b.puller.modeProperty.value.isAttached();
-
-                // If one is on rope and the other isn't, rope puller comes first
-                if ( aOnRope && !bOnRope ) {
-                  return -1;
-                }
-                if ( !aOnRope && bOnRope ) {
-                  return 1;
-                }
-
-                // If both are in same location (both on rope or both in toolbox), sort by X position
-                return a.centerX - b.centerX;
-              } );
-
-              // find our index in the list
-              const currentIndex = availablePullers.indexOf( this );
-
-              const delta = keysPressed === 'arrowLeft' ? -1 : 1;
-              const newIndex = clamp( currentIndex + delta, 0, availablePullers.length - 1 );
-
-              if ( newIndex !== currentIndex ) {
-                const nextPuller = availablePullers[ newIndex ];
-
-                nextPuller.focusable = true;
-                nextPuller.focus();
-                this.focusable = false;
-              }
-            }
-          }
-          else {
-
-            const direction = keysPressed === 'arrowLeft' ? -1 : 1;
-
-            // Get available knots for this puller's type
-            const availableKnots = model.knots.filter( knot =>
-
-              // Include the current puller's knot so we can index it, and know which is before/after
-              knot.type === puller.type && ( model.getPuller( knot ) === null || model.getPuller( knot ) === puller )
-            );
-
-            // Create navigation waypoints: [knot1, knot2, ..., knotN, HOME]
-            const waypoints: ( Knot | null )[] = [ ...availableKnots, null ]; // null = home position
-
-            if ( waypoints.length <= 1 ) {
-              return; // no navigation possible
-            }
-
-            // Find current waypoint index based on current mode
-            const currentMode = puller.modeProperty.value;
-            let currentWaypointIndex: number;
-
-            if ( currentMode.isKeyboardGrabbedOverHome() ) {
-              currentWaypointIndex = waypoints.length - 1; // Home is last waypoint
-            }
-            else {
-              // Find the knot from current mode
-              const currentKnot = puller.getKnot();
-              currentWaypointIndex = currentKnot ? availableKnots.indexOf( currentKnot ) : 0;
-              if ( currentWaypointIndex === -1 ) {
-                currentWaypointIndex = 0; // Default to first knot
-              }
-            }
-
-            // Navigate to next/previous waypoint
-            const nextIndex = ( currentWaypointIndex + direction + waypoints.length ) % waypoints.length;
-            const targetWaypoint = waypoints[ nextIndex ];
-
-            // Update puller mode based on target waypoint
-            puller.modeProperty.value = PullerNode.getModeForWaypoint( targetWaypoint, puller );
-
-            // Generate accessibility response
-            this.addAccessibleContextResponse( this.getAccessibilityResponseForWaypoint( targetWaypoint ) );
-          }
-        }
-
-        // GRAB/DROP (Enter/Space)
-        if ( NetForceHotkeyData.PULLER_NODE.grabOrDrop.hasKeyStroke( keysPressed ) ) {
-
-          // Pick up an ungrabbed puller
-          if ( !puller.isGrabbed() ) {
-
-            const wasInHome = puller.modeProperty.value.isHome();
-
-            // Store current state for potential cancel operation
-            puller.storeGrabOrigin();
-
-            // Determine initial grabbed mode based on current position
-            let newMode: PullerMode;
-
-            // Was in toolbox - start with first available knot or home
-            const availableKnots = model.knots.filter( knot =>
-              knot.type === puller.type && model.getPuller( knot ) === null
-            );
-
-            if ( availableKnots.length > 0 && wasInHome ) {
-              newMode = PullerNode.getModeForWaypoint( availableKnots[ 0 ], this.puller );
-            }
-            else if ( puller.modeProperty.value.isAttached() ) {
-              // Puller is attached to a knot - grab it over that knot
-              const currentKnot = puller.getKnot();
-              newMode = PullerNode.getModeForWaypoint( currentKnot, puller );
-            }
-            else {
-              // Fallback to keyboard grabbed over home
-              newMode = PullerMode.keyboardGrabbedOverHome();
-            }
-
-            puller.modeProperty.value = newMode;
-
-            // Announce current position when grabbed - reuse the same logic as navigation
-            const currentMode = puller.modeProperty.value;
-            const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
-            const targetWaypoint = knotIndex !== null ? model.knots[ knotIndex ] : null;
-
-            const grabAccessibilityResponse = this.getAccessibilityResponseForWaypoint( targetWaypoint );
-            this.addAccessibleContextResponse( grabAccessibilityResponse );
-          }
-          else {
-
-            // Drop the grabbed puller
-            const currentMode = puller.modeProperty.value;
-
-            // Determine where to drop based on current mode
-            let newMode: PullerMode;
-
-            if ( currentMode.isKeyboardGrabbedOverHome() ) {
-              // Drop at home (toolbox)
-              newMode = PullerMode.home();
-
-              this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
-                size: puller.size,
-                color: puller.colorProperty,
-                index: puller.descriptionIndex
-              } ) );
-            }
-            else if ( currentMode.isKeyboardGrabbedOverKnot() ) {
-              // Drop at knot - convert keyboard grabbed to attached
-              const knotIndex = currentMode.getKeyboardGrabbedKnotIndex();
-              if ( knotIndex !== null ) {
-                newMode = PullerMode.attachedToKnot( knotIndex );
-
-                const knot = puller.getKnot();
-                const knotDescription = knot ? this.getKnotDescription( knot ) : 'knot';
-                this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerAttachedToKnot.format( {
-                  size: puller.size,
-                  color: puller.colorProperty,
-                  knotDescription: knotDescription,
-                  index: puller.descriptionIndex
-                } ) );
-              }
-              else {
-                // Fallback to home
-                newMode = PullerMode.home();
-                this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
-                  size: puller.size,
-                  color: puller.colorProperty,
-                  index: puller.descriptionIndex
-                } ) );
-              }
-            }
-            else {
-              // Fallback to home
-              newMode = PullerMode.home();
-              this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
-                size: puller.size,
-                color: puller.colorProperty,
-                index: puller.descriptionIndex
-              } ) );
-            }
-
-            // Clear grab origin
-            puller.clearGrabOrigin();
-
-            // Update mode
-            puller.modeProperty.value = newMode;
-          }
-        }
-
-        // CANCEL (Escape)
-        if ( NetForceHotkeyData.PULLER_NODE.cancelInteraction.hasKeyStroke( keysPressed ) ) {
-          if ( puller.isGrabbed() ) {
-            // Cancel the grab and return to original position
-            puller.cancelGrab();
-
-            // Add accessibility response
-            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerInteractionCancelled.format( {
-              size: puller.size,
-              color: puller.colorProperty,
-              index: puller.descriptionIndex
-            } ) );
-          }
-        }
-
-        // RETURN TO TOOLBOX (Delete/Backspace)
-        if ( NetForceHotkeyData.PULLER_NODE.returnToToolbox.hasKeyStroke( keysPressed ) ) {
-          if ( puller.isGrabbed() ) {
-            puller.clearGrabOrigin();
-
-            // Move puller back to home and retain focus
-            puller.modeProperty.value = PullerMode.home();
-
-            // Add accessibility response
-            this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.pullerResponses.pullerReturnedToToolbox.format( {
-              size: puller.size,
-              color: puller.colorProperty,
-              index: puller.descriptionIndex
-            } ) );
-          }
-        }
-      }
-    } );
+    this.keyboardListener = new PullerNodeKeyboardListener( this, tandem.createTandem( 'keyboardListener' ) );
     this.addInputListener( this.keyboardListener );
 
     this.focusedProperty.lazyLink( focused => {
@@ -568,7 +329,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
    * @param waypoint - The waypoint to describe, or null for home
    * @returns The accessibility response string
    */
-  private getAccessibilityResponseForWaypoint( waypoint: Knot | null ): string {
+  public getAccessibilityResponseForWaypoint( waypoint: Knot | null ): string {
     if ( waypoint === null ) {
       return ForcesAndMotionBasicsFluent.a11y.pullers.overReturnToToolboxStringProperty.value;
     }
@@ -628,7 +389,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   /**
    * Get mode for a specific waypoint (knot or home)
    */
-  private static getModeForWaypoint( waypoint: Knot | null, puller: Puller ): PullerMode {
+  public static getModeForWaypoint( waypoint: Knot | null, puller: Puller ): PullerMode {
     if ( waypoint === null ) {
       return PullerMode.keyboardGrabbedOverHome();
     }
