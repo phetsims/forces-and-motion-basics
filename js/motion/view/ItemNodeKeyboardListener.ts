@@ -15,7 +15,7 @@ export default class ItemNodeKeyboardListener extends KeyboardListener<OneKeyStr
     super( {
       keys: [
 
-        // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/453
+        // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/466
         'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
         'enter', 'space', 'escape', 'delete', 'backspace'
       ],
