@@ -312,11 +312,19 @@ a11y:
     speedOnly:                     'Speed is { $speedDescription }.'
     speedOnlyWithAcceleration:     'Speed is { $speedDescription } and { $accelerationDescription }.'
 
-    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
-    speedWithValue:                'Speed is { $speedDescription } at { $speedMetersPerSecond } meters per second.'
+    # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
+    speedWithValue: |-
+      Speed is { $speedDescription } at { $speedMetersPerSecond ->
+        [one] { $speedMetersPerSecond } meter per second
+        *[other] { $speedMetersPerSecond } meters per second
+      }.
 
-    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
-    speedWithValueAndAcceleration: 'Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second.'
+    # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
+    speedWithValueAndAcceleration: |-
+      Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond ->
+        [one] { $speedMetersPerSecond } meter per second
+        *[other] { $speedMetersPerSecond } meters per second
+      }.
     qualitativeDescriptions:
       stationary:    zero
       verySlow:      very slow
@@ -329,12 +337,20 @@ a11y:
     heading:                           Acceleration
     accelerationOnly:                  'Acceleration is { $accelerationDescription }.'
 
-    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
-    accelerationWithValue:             'Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
+    accelerationWithValue: |-
+      Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared ->
+        [one] { $accelerationMetersPerSecondSquared } meter per second squared
+        *[other] { $accelerationMetersPerSecondSquared } meters per second squared
+      }.
     accelerationWithDirection:         'Acceleration is { $accelerationDescription } to the { $direction }.'
 
-    # TODO: Units for https://github.com/phetsims/forces-and-motion-basics/issues/458
-    accelerationWithDirectionAndValue: 'Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared.'
+    # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
+    accelerationWithDirectionAndValue: |-
+      Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared ->
+        [one] { $accelerationMetersPerSecondSquared } meter per second squared
+        *[other] { $accelerationMetersPerSecondSquared } meters per second squared
+      }.
     qualitativeDescriptions:
       zero:           zero
       verySmall:      very small

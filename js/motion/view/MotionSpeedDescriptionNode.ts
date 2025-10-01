@@ -13,7 +13,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -54,8 +54,8 @@ export default class MotionSpeedDescriptionNode extends Node {
       return extremelyFastString;
     } );
 
-    // Numeric value (1 decimal place) as string
-    const speedMetersPerSecondTextProperty = new DerivedProperty( [ model.speedProperty ], speed => toFixed( Math.abs( speed ), 1 ) );
+    // Numeric value used for pluralization and formatting (matches on-screen formatting)
+    const speedMetersPerSecondProperty = new DerivedProperty( [ model.speedProperty ], speed => toFixedNumber( Math.abs( speed ), 1 ) );
 
     const withoutValueProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedOnly.createProperty( {
       speedDescription: qualitativeDescriptorProperty
@@ -84,13 +84,13 @@ export default class MotionSpeedDescriptionNode extends Node {
     } );
     const withValueProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedWithValue.createProperty( {
       speedDescription: qualitativeDescriptorProperty,
-      speedMetersPerSecond: speedMetersPerSecondTextProperty
+      speedMetersPerSecond: speedMetersPerSecondProperty
     } );
 
     // Pattern with acceleration phrase and numeric value
     const withValueAndAccelerationProperty = ForcesAndMotionBasicsFluent.a11y.speed.speedWithValueAndAcceleration.createProperty( {
       speedDescription: qualitativeDescriptorProperty,
-      speedMetersPerSecond: speedMetersPerSecondTextProperty,
+      speedMetersPerSecond: speedMetersPerSecondProperty,
       accelerationDescription: accelerationDescriptionProperty
     } );
 
@@ -104,7 +104,7 @@ export default class MotionSpeedDescriptionNode extends Node {
       accelerationDescriptionProperty,
       withValueAndAccelerationProperty,
       qualitativeDescriptorProperty,
-      speedMetersPerSecondTextProperty
+      speedMetersPerSecondProperty
     ], ( showSpeed, showValues, withoutValue, withoutValueWithAcceleration, withValue, accelerationDescription, withValueAndAcceleration ) => {
       if ( !showSpeed ) { return ''; }
       if ( showValues ) {

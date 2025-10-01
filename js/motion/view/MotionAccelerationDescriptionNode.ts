@@ -10,7 +10,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -51,8 +51,8 @@ export default class MotionAccelerationDescriptionNode extends Node {
       return extremelyLargeString;
     } );
 
-    // Numeric value (2 decimals) as string
-    const accelerationMetersPerSecondSquaredTextProperty = new DerivedProperty( [ model.accelerationProperty ], a => toFixed( Math.abs( a ), 2 ) );
+    // Numeric value used for pluralization and formatting
+    const accelerationMetersPerSecondSquaredProperty = new DerivedProperty( [ model.accelerationProperty ], a => toFixedNumber( Math.abs( a ), 2 ) );
 
     // Direction string based on sign of acceleration
     const directionStringProperty = new DerivedProperty( [
@@ -71,7 +71,7 @@ export default class MotionAccelerationDescriptionNode extends Node {
     } );
     const withValueProperty = ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationWithValue.createProperty( {
       accelerationDescription: qualitativeDescriptorProperty,
-      accelerationMetersPerSecondSquared: accelerationMetersPerSecondSquaredTextProperty
+      accelerationMetersPerSecondSquared: accelerationMetersPerSecondSquaredProperty
     } );
     const withDirectionProperty = ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationWithDirection.createProperty( {
       accelerationDescription: qualitativeDescriptorProperty,
@@ -80,7 +80,7 @@ export default class MotionAccelerationDescriptionNode extends Node {
     const withDirectionAndValueProperty = ForcesAndMotionBasicsFluent.a11y.acceleration.accelerationWithDirectionAndValue.createProperty( {
       accelerationDescription: qualitativeDescriptorProperty,
       direction: directionStringProperty,
-      accelerationMetersPerSecondSquared: accelerationMetersPerSecondSquaredTextProperty
+      accelerationMetersPerSecondSquared: accelerationMetersPerSecondSquaredProperty
     } );
 
     // Final paragraph shown when Acceleration is enabled
@@ -93,7 +93,7 @@ export default class MotionAccelerationDescriptionNode extends Node {
       withDirectionProperty,
       withDirectionAndValueProperty,
       ForcesAndMotionBasicsFluent.a11y.acceleration.qualitativeDescriptions.zeroStringProperty,
-      accelerationMetersPerSecondSquaredTextProperty,
+      accelerationMetersPerSecondSquaredProperty,
       directionStringProperty
     ], ( acceleration, showAcceleration, showValues, withoutValue, withValue, withDirection, withDirectionAndValue, zeroString ) => {
 

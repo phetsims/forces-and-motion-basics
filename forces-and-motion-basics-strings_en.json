@@ -764,10 +764,10 @@
         "value": "Speed is { $speedDescription } and { $accelerationDescription }."
       },
       "speedWithValue": {
-        "value": "Speed is { $speedDescription } at { $speedMetersPerSecond } meters per second."
+        "value": "Speed is { $speedDescription } at { $speedMetersPerSecond ->\n  [one] { $speedMetersPerSecond } meter per second\n  *[other] { $speedMetersPerSecond } meters per second\n}."
       },
       "speedWithValueAndAcceleration": {
-        "value": "Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond } meters per second."
+        "value": "Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond ->\n  [one] { $speedMetersPerSecond } meter per second\n  *[other] { $speedMetersPerSecond } meters per second\n}."
       },
       "qualitativeDescriptions": {
         "stationary": {
@@ -801,13 +801,13 @@
         "value": "Acceleration is { $accelerationDescription }."
       },
       "accelerationWithValue": {
-        "value": "Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared } meters per second squared."
+        "value": "Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared ->\n  [one] { $accelerationMetersPerSecondSquared } meter per second squared\n  *[other] { $accelerationMetersPerSecondSquared } meters per second squared\n}."
       },
       "accelerationWithDirection": {
         "value": "Acceleration is { $accelerationDescription } to the { $direction }."
       },
       "accelerationWithDirectionAndValue": {
-        "value": "Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared } meters per second squared."
+        "value": "Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared ->\n  [one] { $accelerationMetersPerSecondSquared } meter per second squared\n  *[other] { $accelerationMetersPerSecondSquared } meters per second squared\n}."
       },
       "qualitativeDescriptions": {
         "zero": {
