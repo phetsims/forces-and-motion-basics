@@ -562,6 +562,10 @@ export default class MotionScreenView extends ScreenView {
           itemNode.item.dismissedToHome = false; // reset
         }
       } );
+
+      if ( itemNode.item.name === 'crate1' ) {
+        performGroupTransfer( itemNode, false );
+      }
     } );
 
     // Listen to model stackedItems changes for proper ordering in stack group
