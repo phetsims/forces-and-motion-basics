@@ -20,9 +20,12 @@ export default class PullerNavigationKeyboardHelpSection extends KeyboardHelpSec
 
   public constructor() {
     super( ForcesAndMotionBasicsStrings.keyboardHelpDialog.pullerNavigationStringProperty, [
-      KeyboardHelpSectionRow.labelWithIcon(
+      KeyboardHelpSectionRow.labelWithIconList(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectPullerStringProperty,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
+        [
+          KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
+          KeyboardHelpIconFactory.aDKeysRowIcon()
+        ],
         {
           labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty
@@ -36,9 +39,12 @@ export default class PullerNavigationKeyboardHelpSection extends KeyboardHelpSec
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty
         }
       ),
-      KeyboardHelpSectionRow.labelWithIcon(
+      KeyboardHelpSectionRow.labelWithIconList(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedPullerStringProperty,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
+        [
+          KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
+          KeyboardHelpIconFactory.aDKeysRowIcon()
+        ],
         {
           labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty

@@ -36,6 +36,8 @@ export default class PullerNodeKeyboardListener extends KeyboardListener<OneKeyS
         // NAVIGATION (Arrow Keys)
         if ( NetForceHotkeyData.PULLER_NODE.navigation.hasKeyStroke( keysPressed ) ) {
 
+          const isLeftNavigationKey = keysPressed === 'arrowLeft' || keysPressed === 'a';
+
           // When no puller is grabbed, select between available pullers of the same type
           if ( !puller.isGrabbed() ) {
 
@@ -64,7 +66,7 @@ export default class PullerNodeKeyboardListener extends KeyboardListener<OneKeyS
               // find our index in the list
               const currentIndex = availablePullers.indexOf( pullerNode );
 
-              const delta = keysPressed === 'arrowLeft' ? -1 : 1;
+              const delta = isLeftNavigationKey ? -1 : 1;
 
               // Wrap search
               const newIndex = ( currentIndex + delta + availablePullers.length ) % availablePullers.length;
@@ -80,7 +82,7 @@ export default class PullerNodeKeyboardListener extends KeyboardListener<OneKeyS
           }
           else {
 
-            const direction = keysPressed === 'arrowLeft' ? -1 : 1;
+            const direction = isLeftNavigationKey ? -1 : 1;
 
             // Get available knots for this puller's type
             const availableKnots = model.knots.filter( knot =>

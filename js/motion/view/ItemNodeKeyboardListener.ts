@@ -14,9 +14,8 @@ export default class ItemNodeKeyboardListener extends KeyboardListener<OneKeyStr
   public constructor( fire: ( keysPressed: OneKeyStroke ) => void ) {
     super( {
       keys: [
-
-        // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/466
         'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown',
+        'a', 'd', 'w', 's',
         'enter', 'space', 'escape', 'delete', 'backspace'
       ],
       fireOnDown: false,

@@ -77,16 +77,16 @@ a11y:
       pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P key.
       returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus C key.
     pullerNavigation:
-      selectPullerDescription:      Select puller with Left and Right Arrow keys.
+      selectPullerDescription:      Select puller with Left and Right Arrow keys or A and D keys.
       grabPullerDescription:        Grab selected puller with Space or Enter keys.
-      moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys.
+      moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys or A and D keys.
       dropPullerDescription:        Drop puller with Space or Enter keys.
       returnToToolboxDescription:   Return grabbed puller to toolbox with Delete or Backspace keys.
       cancelMovement:               Cancel movement with Escape key.
     objectNavigation:
-      selectObjectDescription:      Select object with Left and Right Arrow keys.
+      selectObjectDescription:      Select object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work.
       grabObjectDescription:        Grab selected object with Space or Enter keys.
-      moveGrabbedObjectDescription: Move grabbed object with Left and Right Arrow keys.
+      moveGrabbedObjectDescription: Move grabbed object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work.
       dropObjectDescription:        Drop object with Space or Enter keys.
       returnToToolboxDescription:   Return grabbed object to toolbox with Delete or Backspace keys.
       cancelMovement:               Cancel movement with Escape key.

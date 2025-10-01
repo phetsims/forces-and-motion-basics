@@ -20,9 +20,12 @@ export default class ObjectNavigationKeyboardHelpSection extends KeyboardHelpSec
 
   public constructor() {
     super( ForcesAndMotionBasicsStrings.keyboardHelpDialog.objectNavigationStringProperty, [
-      KeyboardHelpSectionRow.labelWithIcon(
+      KeyboardHelpSectionRow.labelWithIconList(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectObjectStringProperty,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
+        [
+          KeyboardHelpIconFactory.leftRightOrADKeysRowIcon(),
+          KeyboardHelpIconFactory.upDownOrWSKeysRowIcon()
+        ], {
           labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.selectObjectDescriptionStringProperty
         }
@@ -34,9 +37,12 @@ export default class ObjectNavigationKeyboardHelpSection extends KeyboardHelpSec
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.grabObjectDescriptionStringProperty
         }
       ),
-      KeyboardHelpSectionRow.labelWithIcon(
+      KeyboardHelpSectionRow.labelWithIconList(
         ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedObjectStringProperty,
-        KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(), {
+        [
+          KeyboardHelpIconFactory.leftRightOrADKeysRowIcon(),
+          KeyboardHelpIconFactory.upDownOrWSKeysRowIcon()
+        ], {
           labelOptions: LABEL_OPTIONS,
           labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.moveGrabbedObjectDescriptionStringProperty
         }

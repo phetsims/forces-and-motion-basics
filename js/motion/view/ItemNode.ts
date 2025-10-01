@@ -325,23 +325,26 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       return;
     }
 
-    // Arrow key navigation
-    if ( [ 'arrowLeft', 'arrowRight', 'arrowUp', 'arrowDown' ].includes( keysPressed ) ) {
+    // Arrow/WASD navigation
+    const keyToDirection = {
+      arrowLeft: 'left',
+      arrowRight: 'right',
+      arrowUp: 'up',
+      arrowDown: 'down',
+      a: 'left',
+      d: 'right',
+      w: 'up',
+      s: 'down'
+    } as const;
+
+    const direction = keyToDirection[ keysPressed as keyof typeof keyToDirection ];
+
+    if ( direction ) {
 
       if ( isGrabbed ) {
         this.handleGrabbedNavigation();
       }
       else {
-
-        // Map arrow key string to direction
-        const arrowToDirection = {
-          arrowLeft: 'left',
-          arrowRight: 'right',
-          arrowUp: 'up',
-          arrowDown: 'down'
-        } as const;
-        const direction = arrowToDirection[ keysPressed as keyof typeof arrowToDirection ];
-
         this.handleSelectionNavigation( direction );
       }
     }

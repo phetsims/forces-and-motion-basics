@@ -15,15 +15,14 @@ import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js'
 export default class NetForceHotkeyData {
 
   // Navigation keys for moving between elements
-  private static readonly NAVIGATE_LEFT_KEYS: OneKeyStroke[] = [ 'arrowLeft' ];
-  private static readonly NAVIGATE_RIGHT_KEYS: OneKeyStroke[] = [ 'arrowRight' ];
+  private static readonly NAVIGATE_LEFT_KEYS: OneKeyStroke[] = [ 'arrowLeft', 'a' ];
+  private static readonly NAVIGATE_RIGHT_KEYS: OneKeyStroke[] = [ 'arrowRight', 'd' ];
 
   public static readonly PULLER_NODE = {
 
     // Navigation between pullers and knots
     navigation: new HotkeyData( {
       keys: [
-        // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/466
         ...NetForceHotkeyData.NAVIGATE_LEFT_KEYS,
         ...NetForceHotkeyData.NAVIGATE_RIGHT_KEYS
       ],

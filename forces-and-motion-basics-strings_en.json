@@ -213,13 +213,13 @@
       },
       "pullerNavigation": {
         "selectPullerDescription": {
-          "value": "Select puller with Left and Right Arrow keys."
+          "value": "Select puller with Left and Right Arrow keys or A and D keys."
         },
         "grabPullerDescription": {
           "value": "Grab selected puller with Space or Enter keys."
         },
         "moveGrabbedPullerDescription": {
-          "value": "Move grabbed puller with Left and Right Arrow keys."
+          "value": "Move grabbed puller with Left and Right Arrow keys or A and D keys."
         },
         "dropPullerDescription": {
           "value": "Drop puller with Space or Enter keys."
@@ -233,13 +233,13 @@
       },
       "objectNavigation": {
         "selectObjectDescription": {
-          "value": "Select object with Left and Right Arrow keys."
+          "value": "Select object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work."
         },
         "grabObjectDescription": {
           "value": "Grab selected object with Space or Enter keys."
         },
         "moveGrabbedObjectDescription": {
-          "value": "Move grabbed object with Left and Right Arrow keys."
+          "value": "Move grabbed object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work."
         },
         "dropObjectDescription": {
           "value": "Drop object with Space or Enter keys."
