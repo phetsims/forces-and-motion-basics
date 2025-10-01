@@ -23,7 +23,7 @@ export default class NetForceHotkeyData {
     // Navigation between pullers and knots
     navigation: new HotkeyData( {
       keys: [
-        // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/453
+        // TODO: support wasd? See https://github.com/phetsims/forces-and-motion-basics/issues/466
         ...NetForceHotkeyData.NAVIGATE_LEFT_KEYS,
         ...NetForceHotkeyData.NAVIGATE_RIGHT_KEYS
       ],
