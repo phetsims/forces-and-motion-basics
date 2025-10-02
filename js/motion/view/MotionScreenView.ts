@@ -612,45 +612,35 @@ export default class MotionScreenView extends ScreenView {
         // if more than one itemNode in the toolbox or stack is focusable, then just choose the first one to be focusable
         const focusableToolboxItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'inToolbox' );
         if ( focusableToolboxItemNodes.length > 1 ) {
-          focusableToolboxItemNodes.forEach( ( itemNode, index ) => {
-            itemNode.focusable = index === 0;
+          const preferredItem = lastFocusedToolboxItem && focusableToolboxItemNodes.includes( lastFocusedToolboxItem ) ? lastFocusedToolboxItem : focusableToolboxItemNodes[ 0 ];
+          focusableToolboxItemNodes.forEach( itemNode => {
+            itemNode.focusable = itemNode === preferredItem;
           } );
-
-          // but if the lastFocusedToolboxItem is still in the toolbox, then make it the focusable one
-          if ( lastFocusedToolboxItem && focusableToolboxItemNodes.includes( lastFocusedToolboxItem ) ) {
-            focusableToolboxItemNodes.forEach( itemNode => {
-              itemNode.focusable = itemNode === lastFocusedToolboxItem;
-            } );
-          }
         }
 
         const focusableStackItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'onStack' );
         if ( focusableStackItemNodes.length > 1 ) {
-          focusableStackItemNodes.forEach( ( itemNode, index ) => {
-            itemNode.focusable = index === 0;
+          const preferredItem = lastFocusedStackItem && focusableStackItemNodes.includes( lastFocusedStackItem ) ? lastFocusedStackItem : focusableStackItemNodes[ 0 ];
+          focusableStackItemNodes.forEach( itemNode => {
+            itemNode.focusable = itemNode === preferredItem;
           } );
-
-          // but if the lastFocusedToolboxItem is still in the stack, then make it the focusable one
-          if ( lastFocusedStackItem && focusableStackItemNodes.includes( lastFocusedStackItem ) ) {
-            focusableStackItemNodes.forEach( itemNode => {
-              itemNode.focusable = itemNode === lastFocusedStackItem;
-            } );
-          }
         }
       }
     } );
 
     pdomFocusProperty.lazyLink( ( focus, oldFocus ) => {
 
-      if ( oldFocus?.trail.lastNode() instanceof ItemNode ) {
-        const m = oldFocus.trail.lastNode() as ItemNode;
+      if ( oldFocus ) {
+        const oldItemNode = oldFocus.trail.lastNode();
+        if ( oldItemNode instanceof ItemNode ) {
 
-        if ( m.item.modeProperty.value === 'inToolbox' ) {
-          lastFocusedToolboxItem = m;
-        }
+          if ( oldItemNode.item.modeProperty.value === 'inToolbox' ) {
+            lastFocusedToolboxItem = oldItemNode;
+          }
 
-        else if ( m.item.modeProperty.value === 'onStack' ) {
-          lastFocusedStackItem = m;
+          else if ( oldItemNode.item.modeProperty.value === 'onStack' ) {
+            lastFocusedStackItem = oldItemNode;
+          }
         }
       }
     } );
