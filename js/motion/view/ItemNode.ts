@@ -591,12 +591,15 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     this.labelNode.centerX = this.normalImageNode.centerX;
   }
 
-  /** Compute the next ItemNode to move focus to based on context and direction. */
+  /**
+   * Compute the next ItemNode to move focus to based on context and direction.
+   * Only account for visible items, since items can be hidden via phet-io.
+   */
   private getNextNavigableItem( direction: 'left' | 'right' | 'up' | 'down' ): ItemNode | null {
 
     // If on stack, navigate within stack (up/left towards top, down/right towards bottom)
     if ( this.item.inStackProperty.value ) {
-      const stackItems = this.motionView.itemStackGroup.stackItemNodes;
+      const stackItems = this.motionView.itemStackGroup.stackItemNodes.filter( itemNode => itemNode.visibleProperty.value );
       const currentIndex = stackItems.indexOf( this );
       if ( currentIndex === -1 ) { return null; }
       if ( stackItems.length <= 1 ) { return null; }
@@ -609,7 +612,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
       // In toolbox, only left/right navigation between available toolbox items
       if ( direction === 'up' || direction === 'down' ) { return null; }
-      const itemsInToolbox = this.motionView.itemToolboxGroup.itemNodes.filter( n => !n.item.inStackProperty.value );
+      const itemsInToolbox = this.motionView.itemToolboxGroup.itemNodes.filter( itemNode => !itemNode.item.inStackProperty.value && itemNode.visibleProperty.value );
       const currentIndex = itemsInToolbox.indexOf( this );
       if ( currentIndex === -1 ) { return null; }
       const delta = ( direction === 'left' ) ? -1 : 1;

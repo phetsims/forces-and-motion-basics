@@ -588,7 +588,11 @@ export default class MotionScreenView extends ScreenView {
      * Only items that are not on the same surface as the focused item should be focusable.
      * This prevents keyboard users from tabbing to items that should only be reachable by the arrow keys.
      */
-    Multilink.multilinkAny( [ pdomFocusProperty, ...this.itemNodes.map( itemNode => itemNode.item.modeProperty ) ], () => {
+    Multilink.multilinkAny( [
+      pdomFocusProperty,
+      ...this.itemNodes.map( itemNode => itemNode.item.modeProperty ),
+      ...this.itemNodes.map( itemNode => itemNode.visibleProperty )
+    ], () => {
       const focus = pdomFocusProperty.value;
       const focusedNode = focus ? focus.trail.lastNode() : null;
       if ( focusedNode && focusedNode instanceof ItemNode ) {
@@ -600,7 +604,7 @@ export default class MotionScreenView extends ScreenView {
             const state = itemNode.item.modeProperty.value;
 
             if ( focusedNodeState !== state ) {
-              itemNode.focusable = true;
+              itemNode.focusable = itemNode.visibleProperty.value; // true, but only if visible, since it can be hidden via phet-io
             }
 
             else if ( focusedNodeState === state ) {
@@ -610,7 +614,7 @@ export default class MotionScreenView extends ScreenView {
         } );
 
         // if more than one itemNode in the toolbox or stack is focusable, then just choose the first one to be focusable
-        const focusableToolboxItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'inToolbox' );
+        const focusableToolboxItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'inToolbox' && itemNode.visibleProperty.value );
         if ( focusableToolboxItemNodes.length > 1 ) {
           const preferredItem = lastFocusedToolboxItem && focusableToolboxItemNodes.includes( lastFocusedToolboxItem ) ? lastFocusedToolboxItem : focusableToolboxItemNodes[ 0 ];
           focusableToolboxItemNodes.forEach( itemNode => {
@@ -618,7 +622,7 @@ export default class MotionScreenView extends ScreenView {
           } );
         }
 
-        const focusableStackItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'onStack' );
+        const focusableStackItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'onStack' && itemNode.visibleProperty.value );
         if ( focusableStackItemNodes.length > 1 ) {
           const preferredItem = lastFocusedStackItem && focusableStackItemNodes.includes( lastFocusedStackItem ) ? lastFocusedStackItem : focusableStackItemNodes[ 0 ];
           focusableStackItemNodes.forEach( itemNode => {
