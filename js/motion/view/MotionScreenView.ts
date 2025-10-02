@@ -577,6 +577,12 @@ export default class MotionScreenView extends ScreenView {
       }
     } );
 
+    // Keep track of the last focused item in each region, so that we can restore focus to it if the user returns
+    // to that group. If that item is no longer in that region, then the first item in that region will be focused.
+    // See https://github.com/phetsims/forces-and-motion-basics/issues/464
+    let lastFocusedToolboxItem: ItemNode | null = null;
+    let lastFocusedStackItem: ItemNode | null = null;
+
     /**
      * When focus changes or when item modes change, update the focusable state of all items.
      * Only items that are not on the same surface as the focused item should be focusable.
@@ -602,9 +608,52 @@ export default class MotionScreenView extends ScreenView {
             }
           }
         } );
+
+        // if more than one itemNode in the toolbox or stack is focusable, then just choose the first one to be focusable
+        const focusableToolboxItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'inToolbox' );
+        if ( focusableToolboxItemNodes.length > 1 ) {
+          focusableToolboxItemNodes.forEach( ( itemNode, index ) => {
+            itemNode.focusable = index === 0;
+          } );
+
+          // but if the lastFocusedToolboxItem is still in the toolbox, then make it the focusable one
+          if ( lastFocusedToolboxItem && focusableToolboxItemNodes.includes( lastFocusedToolboxItem ) ) {
+            focusableToolboxItemNodes.forEach( itemNode => {
+              itemNode.focusable = itemNode === lastFocusedToolboxItem;
+            } );
+          }
+        }
+
+        const focusableStackItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'onStack' );
+        if ( focusableStackItemNodes.length > 1 ) {
+          focusableStackItemNodes.forEach( ( itemNode, index ) => {
+            itemNode.focusable = index === 0;
+          } );
+
+          // but if the lastFocusedToolboxItem is still in the stack, then make it the focusable one
+          if ( lastFocusedStackItem && focusableStackItemNodes.includes( lastFocusedStackItem ) ) {
+            focusableStackItemNodes.forEach( itemNode => {
+              itemNode.focusable = itemNode === lastFocusedStackItem;
+            } );
+          }
+        }
       }
     } );
 
+    pdomFocusProperty.lazyLink( ( focus, oldFocus ) => {
+
+      if ( oldFocus?.trail.lastNode() instanceof ItemNode ) {
+        const m = oldFocus.trail.lastNode() as ItemNode;
+
+        if ( m.item.modeProperty.value === 'inToolbox' ) {
+          lastFocusedToolboxItem = m;
+        }
+
+        else if ( m.item.modeProperty.value === 'onStack' ) {
+          lastFocusedStackItem = m;
+        }
+      }
+    } );
 
     // Update PDOM order when items move between regions or change position
     this.itemNodes.forEach( itemNode => {
