@@ -111,7 +111,8 @@ simLauncher.launch( () => {
           createContent: tandem => new ForcesAndMotionBasicsPreferencesNode( tandem )
         } ]
       }
-    } )
+    } ),
+    phetioDesigned: true
   } );
 
   sim.start();
