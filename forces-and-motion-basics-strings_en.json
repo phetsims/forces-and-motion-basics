@@ -233,13 +233,13 @@
       },
       "objectNavigation": {
         "selectObjectDescription": {
-          "value": "Select object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work."
+          "value": "Select object with Left and Right Arrow keys or A and D keys."
         },
         "grabObjectDescription": {
           "value": "Grab selected object with Space or Enter keys."
         },
         "moveGrabbedObjectDescription": {
-          "value": "Move grabbed object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work."
+          "value": "Move grabbed object with Left and Right Arrow keys or A and D keys."
         },
         "dropObjectDescription": {
           "value": "Drop object with Space or Enter keys."

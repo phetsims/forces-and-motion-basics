@@ -84,9 +84,9 @@ a11y:
       returnToToolboxDescription:   Return grabbed puller to toolbox with Delete or Backspace keys.
       cancelMovement:               Cancel movement with Escape key.
     objectNavigation:
-      selectObjectDescription:      Select object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work.
+      selectObjectDescription:      Select object with Left and Right Arrow keys or A and D keys.
       grabObjectDescription:        Grab selected object with Space or Enter keys.
-      moveGrabbedObjectDescription: Move grabbed object with Left and Right Arrow keys or A and D keys. When navigating the stack, Up and Down Arrow keys or W and S keys also work.
+      moveGrabbedObjectDescription: Move grabbed object with Left and Right Arrow keys or A and D keys.
       dropObjectDescription:        Drop object with Space or Enter keys.
       returnToToolboxDescription:   Return grabbed object to toolbox with Delete or Backspace keys.
       cancelMovement:               Cancel movement with Escape key.
