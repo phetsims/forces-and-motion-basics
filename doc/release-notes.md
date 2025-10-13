@@ -19,6 +19,9 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * Interactive Highlights: see _Preferences > Visual > Interactive Highlights_
 * Core Description
 
+### Changes
+* Improved color contrast
+
 ## 2.5 (2025-06-23)
 
 ### New Features
