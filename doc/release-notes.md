@@ -28,7 +28,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * PhET-iO support, including PhET Studio
 
 ### Changes
-* The value for gravity has been changed from 10 to 9.8 m/s^2
+* The value for gravity has been changed from 10 to 9.8 m/s<sup>2</sup>
   
 ## 2.4 (2024-12-13)
 
