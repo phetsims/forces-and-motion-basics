@@ -143,7 +143,7 @@ export default class Item extends PhetioObject {
       phetioFeatured: true,
       numberType: 'FloatingPoint',
       units: kilogramsUnit,
-      range: new Range( 0, 200 )
+      range: new Range( 1, 200 )
     } );
 
     this.name = typeof name === 'string' ? name : name.name.toLowerCase();
