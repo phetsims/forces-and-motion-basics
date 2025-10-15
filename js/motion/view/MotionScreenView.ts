@@ -30,7 +30,9 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import skateboard_svg from '../../../images/skateboard_svg.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
@@ -73,7 +75,7 @@ export default class MotionScreenView extends ScreenView {
 
   private readonly resetAllButton: ResetAllButton;
   private readonly sumArrow: ReadoutArrow;
-  private readonly sumOfForcesText: Text;
+  private readonly sumOfForcesNode: Node;
   public readonly itemNodes: ItemNode[];
   private readonly appliedForceArrow: ReadoutArrow;
   private readonly frictionArrow: ReadoutArrow;
@@ -415,14 +417,21 @@ export default class MotionScreenView extends ScreenView {
 
     this.sumArrow = new ReadoutArrow( 'sum', sumOfForcesStringProperty, '#96c83c', this.layoutBounds.width / 2, 225, roundedSumProperty, model.showValuesProperty, {
       labelPosition: 'top',
-      arrowScale: arrowScale
+      arrowScale: arrowScale,
+      screen: 'motion'
     } );
-    this.sumOfForcesText = new Text( sumOfForcesEqualsZeroStringProperty, {
+    this.sumOfForcesNode = new Panel( new Text( sumOfForcesEqualsZeroStringProperty, {
       pickable: false,
       font: new PhetFont( { size: 16, weight: 'bold' } ),
       maxWidth: 125
+    } ), {
+      xMargin: 4,
+      yMargin: 4,
+      stroke: null,
+      fill: new Color( 'white' ).withAlpha( 0.5 )
     } );
-    const sumOfForcesAlignBox = new AlignBox( this.sumOfForcesText, {
+
+    const sumOfForcesAlignBox = new AlignBox( this.sumOfForcesNode, {
       alignBounds: this.layoutBounds,
       xAlign: 'center',
       y: 195,
@@ -431,7 +440,7 @@ export default class MotionScreenView extends ScreenView {
 
     // If the (rounded) sum of forces arrow is zero, then show the text "Sum of Forces = 0", see #76
     new DerivedProperty( [ model.showSumOfForcesProperty, roundedSumProperty ],
-      ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesText, 'visible' );
+      ( showSumOfForces, sumOfForces ) => showSumOfForces && sumOfForces === 0 ).linkAttribute( this.sumOfForcesNode, 'visible' );
     this.appliedForceArrow = new ReadoutArrow( 'applied', appliedForceStringProperty, '#e66e23', this.layoutBounds.width / 2, 280, roundedAppliedForceProperty, model.showValuesProperty, {
       labelPosition: 'side',
       arrowScale: arrowScale

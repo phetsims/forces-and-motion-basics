@@ -30,6 +30,7 @@ type SelfOptions = {
   labelPosition?: 'top' | 'bottom' | 'side';
   arrowScale?: number;
   arrowNodeOptions?: PathOptions;
+  screen?: 'netForce' | 'motion';
 };
 
 type ReadoutArrowOptions = StrictOmit<NodeOptions, 'pickable' | 'tandem'> & SelfOptions;
@@ -52,6 +53,7 @@ export default class ReadoutArrow extends Node {
 
   private labelPositionOption: string;
   private readonly arrowScale: number;
+  private readonly screen: 'netForce' | 'motion';
 
   /**
    * @param name
@@ -78,7 +80,8 @@ export default class ReadoutArrow extends Node {
       labelPosition: 'top',
       arrowScale: 1,
       arrowNodeOptions: {},
-      pickable: false
+      pickable: false,
+      screen: 'netForce'
     }, providedOptions );
 
     // Call the super class.  Render in svg to make the text crisper on retina display.
@@ -143,6 +146,8 @@ export default class ReadoutArrow extends Node {
       this.update();
     } );
 
+    this.screen = options.screen;
+
     ManualConstraint.create( this, [ this.labelNode ], () => {
       this.update();
     } );
@@ -190,8 +195,8 @@ export default class ReadoutArrow extends Node {
     const labelVisible = !hidden && ForcesAndMotionBasicsQueryParameters.showForceArrowLabels;
     this.labelNode.visible = labelVisible;
 
-    // Only show label background for applied and friction forces, not for sum
-    const showLabelBackground = labelVisible && ( this.name === 'applied' || this.name === 'friction' );
+    // Only show label background for these arrows
+    const showLabelBackground = labelVisible && ( this.name === 'applied' || this.name === 'friction' || ( this.name === 'sum' && this.screen === 'motion' ) );
     this.labelBackgroundRectangle.visible = showLabelBackground;
 
     // Only change the node if visible, for performance
