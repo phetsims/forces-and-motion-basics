@@ -44,10 +44,10 @@ import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPref
 import Knot from '../model/Knot.js';
 import NetForceModel from '../model/NetForceModel.js';
 import Puller from '../model/Puller.js';
-import PullerNodeDragListener from './PullerNodeDragListener.js';
-import PullerNodeKeyboardListener from './PullerNodeKeyboardListener.js';
 import PullerMode from '../model/PullerMode.js';
 import NetForceScreenView from './NetForceScreenView.js';
+import PullerNodeDragListener from './PullerNodeDragListener.js';
+import PullerNodeKeyboardListener from './PullerNodeKeyboardListener.js';
 
 // Vertical offset when keyboard grabbed to show puller is "above" and not connected
 const KEYBOARD_GRABBED_Y_OFFSET = 20;
@@ -155,7 +155,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     public readonly view: NetForceScreenView,
     tandem: Tandem,
     accessibleNameProperty: FluentPatternDerivedProperty
-    ) {
+  ) {
 
     // Get the initial images based on current color preference
     const standImage = PullerNode.getPullerImage( puller, false );
@@ -250,7 +250,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty ], ( mode, hasStarted, position ) => {
       const knot = this.puller.getKnot();
-      const pulling = hasStarted && knot && this.puller.model.stateProperty.value !== 'completed';
+      const pulling = hasStarted && knot && this.puller.model.stateProperty.value !== 'completed' && !this.puller.modeProperty.value.isGrabbed();
       this.image = pulling ? this.pullImage : this.standImage;
 
       if ( mode.isAttached() ) {
@@ -360,7 +360,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     // Update the current displayed image based on whether the puller is pulling or standing
     const knot = this.puller.getKnot();
-    const pulling = this.model.hasStartedProperty.value && knot && this.model.stateProperty.value !== 'completed';
+    const pulling = this.model.hasStartedProperty.value && knot && this.model.stateProperty.value !== 'completed' && !this.puller.modeProperty.value.isGrabbed();
     this.image = pulling ? this.pullImage : this.standImage;
   }
 
