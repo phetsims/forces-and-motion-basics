@@ -409,7 +409,7 @@ export default class NetForceScreenView extends ScreenView {
       this.resetAllButton
     ];
 
-    this.grabReleaseCueNode = new NetForceGrabReleaseCueNode( this.pullerNodes, this.layoutBounds, tandem.createTandem( 'grabReleaseCueNode' ) );
+    this.grabReleaseCueNode = new NetForceGrabReleaseCueNode( this.pullerNodes, this.layoutBounds );
     this.addChild( this.grabReleaseCueNode );
 
     // Hide cue node after any interaction with pullers

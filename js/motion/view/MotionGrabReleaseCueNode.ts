@@ -6,13 +6,12 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FocusDrivenGrabReleaseCueNode from '../../common/view/FocusDrivenGrabReleaseCueNode.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ItemNode from './ItemNode.js';
 
 export default class MotionGrabReleaseCueNode extends FocusDrivenGrabReleaseCueNode<ItemNode> {
-  public constructor( itemNodes: ItemNode[], layoutBounds: Bounds2, tandem?: Tandem ) {
+  public constructor( itemNodes: ItemNode[], layoutBounds: Bounds2 ) {
     super(
       itemNodes,
       layoutBounds,
@@ -24,8 +23,7 @@ export default class MotionGrabReleaseCueNode extends FocusDrivenGrabReleaseCueN
         self.centerX = side === 'stack' ? bounds.centerX : ( side === 'left' ? bounds.width * sideFraction : bounds.width * ( 1 - sideFraction ) );
 
         self.top = side === 'stack' ? 185 : 314;
-      },
-      tandem
+      }
     );
   }
 }

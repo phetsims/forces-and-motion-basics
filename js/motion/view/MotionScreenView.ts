@@ -480,7 +480,7 @@ export default class MotionScreenView extends ScreenView {
     this.addChild( sumOfForcesAlignBox );
 
     // Keyboard hint: space/enter to grab (mirrors Net Force)
-    this.grabReleaseCueNode = new MotionGrabReleaseCueNode( this.itemNodes, this.layoutBounds, tandem.createTandem( 'grabReleaseCueNode' ) );
+    this.grabReleaseCueNode = new MotionGrabReleaseCueNode( this.itemNodes, this.layoutBounds );
     this.addChild( this.grabReleaseCueNode );
 
     // Hide hint after first keyboard grab interaction

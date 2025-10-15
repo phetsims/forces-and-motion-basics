@@ -9,14 +9,13 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import FocusDrivenGrabReleaseCueNode from '../../common/view/FocusDrivenGrabReleaseCueNode.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import PullerNode from './PullerNode.js';
 
 export default class NetForceGrabReleaseCueNode extends FocusDrivenGrabReleaseCueNode<PullerNode> {
-  public constructor( pullerNodes: PullerNode[], layoutBounds: Bounds2, tandem?: Tandem ) {
+  public constructor( pullerNodes: PullerNode[], layoutBounds: Bounds2 ) {
     super(
       pullerNodes,
       layoutBounds,
@@ -42,8 +41,7 @@ export default class NetForceGrabReleaseCueNode extends FocusDrivenGrabReleaseCu
           self.centerX = isLeftSide ? bounds.width * 0.2 : bounds.width * 0.8;
           self.top = 325;
         }
-      },
-      tandem
+      }
     );
   }
 }
