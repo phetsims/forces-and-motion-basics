@@ -9,6 +9,7 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import isResettingAllProperty from '../../../../scenery-phet/js/isResettingAllProperty.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -59,7 +60,11 @@ export default class ItemToolboxGroupNode extends Node {
     // Only make focusable if it's not on the stack
     if ( focusItem ) {
       itemNode.focusable = true;
-      itemNode.focus();
+
+      // Don't steal focus from the reset all button
+      if ( !isResettingAllProperty.value ) {
+        itemNode.focus();
+      }
     }
   }
 
@@ -96,27 +101,14 @@ export default class ItemToolboxGroupNode extends Node {
    * Reset the focus state of all items in this group to ensure proper tab navigation after reset
    */
   public reset(): void {
+
     // Sort items by position to ensure consistent order after reset
     this.sortItems();
 
-    // Restore focusability to all items in the toolboxes (not on stack)
-    this.itemNodes.forEach( itemNode => {
-      if ( !itemNode.item.inStackProperty.value ) {
-        itemNode.focusable = true;
-      }
+    // Reset focus state - make the first visible item focusable, and disable focus for hidden elements
+    this.itemNodes.forEach( ( itemNode, index ) => {
+      itemNode.focusable = index === 0 && itemNode.visibleProperty.value;
     } );
-
-    // If there are items in the toolboxes, make the first one focusable but don't focus it
-    const itemsInToolbox = this.itemNodes.filter( itemNode =>
-      !itemNode.item.inStackProperty.value
-    );
-
-    if ( itemsInToolbox.length > 0 ) {
-      // Reset focus state - make first item focusable, others non-focusable initially
-      itemsInToolbox.forEach( ( itemNode, index ) => {
-        itemNode.focusable = index === 0;
-      } );
-    }
   }
 
   private getToolboxSide( itemNode: ItemNode ): 'left' | 'right' {

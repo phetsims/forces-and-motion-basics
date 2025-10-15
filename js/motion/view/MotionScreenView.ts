@@ -241,7 +241,9 @@ export default class MotionScreenView extends ScreenView {
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
+
         this.grabReleaseCueNode.reset();
+        resetItemFocusState();
       },
       radius: 23,
       rightCenter: controlPanel.rightBottom.plusXY( 0, playPauseVerticalOffset ),
@@ -595,6 +597,25 @@ export default class MotionScreenView extends ScreenView {
     // See https://github.com/phetsims/forces-and-motion-basics/issues/464
     let lastFocusedToolboxItem: ItemNode | null = null;
     let lastFocusedStackItem: ItemNode | null = null;
+
+    const resetItemFocusState = (): void => {
+      this.itemToolboxGroup.reset();
+      this.itemStackGroup.reset();
+
+      const groupedNodes = new Set<ItemNode>( [
+        ...this.itemToolboxGroup.itemNodes,
+        ...this.itemStackGroup.stackItemNodes
+      ] );
+
+      this.itemNodes.forEach( itemNode => {
+        if ( !groupedNodes.has( itemNode ) ) {
+          itemNode.focusable = false;
+        }
+      } );
+
+      lastFocusedToolboxItem = this.itemToolboxGroup.itemNodes.find( itemNode => itemNode.focusable ) || null;
+      lastFocusedStackItem = this.itemStackGroup.stackItemNodes.find( itemNode => itemNode.focusable ) || null;
+    };
 
     /**
      * When focus changes or when item modes change, update the focusable state of all items.

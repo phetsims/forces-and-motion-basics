@@ -90,6 +90,12 @@ export default class ItemStackGroupNode extends Node {
       return aIndex - bIndex;
     } );
   }
+
+  public reset(): void {
+    this.stackItemNodes.forEach( ( itemNode, index ) => {
+      itemNode.focusable = index === 0 && itemNode.visibleProperty.value;
+    } );
+  }
 }
 
 forcesAndMotionBasics.register( 'ItemStackGroupNode', ItemStackGroupNode );
