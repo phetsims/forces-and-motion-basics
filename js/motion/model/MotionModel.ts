@@ -12,7 +12,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
@@ -36,6 +35,8 @@ import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
+// eslint-disable-next-line phet/no-view-imported-from-model
+import { FallenDirection } from '../view/PusherNode.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import Item from './Item.js';
 
@@ -106,7 +107,7 @@ export default class MotionModel {
   public readonly fallenProperty: BooleanProperty;
 
   // 'left'|'right', direction pusher facing when it falls over
-  public readonly fallenDirectionProperty: StringProperty;
+  public readonly fallenDirectionProperty: Property<FallenDirection>;
 
   // how long the simulation has been running
   public readonly timeProperty: NumberProperty;
@@ -426,7 +427,7 @@ export default class MotionModel {
   }
 
   // When a 4th item is placed on the stack, move the bottom item home and have the stack fall
-  public spliceStackBottom( ): void {
+  public spliceStackBottom(): void {
     const bottomItem = this.spliceStack( 0 );
     bottomItem.lastInteractionType = 'none';
     bottomItem.animateHome();

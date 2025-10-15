@@ -53,6 +53,8 @@ import MotionConstants from '../MotionConstants.js';
 import ItemNode from './ItemNode.js';
 import PusherNodeDragListener from './PusherNodeDragListener.js';
 
+export type FallenDirection = 'left' | 'right';
+
 export default class PusherNode extends Node {
 
   private interactive: boolean;
@@ -65,6 +67,8 @@ export default class PusherNode extends Node {
   private readonly layoutWidth: number;
   private readonly model: MotionModel;
   private readonly itemModelToNodeMap: Map<Item, ItemNode>;
+  private fallenAnchorOffset: number | null;
+  private fallenAnchorDirection: FallenDirection | null;
 
   /**
    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
@@ -166,6 +170,8 @@ export default class PusherNode extends Node {
     this.layoutWidth = layoutWidth;
     this.model = model;
     this.itemModelToNodeMap = itemModelToNodeMap;
+    this.fallenAnchorOffset = null;
+    this.fallenAnchorDirection = null;
 
     const dragListener = new PusherNodeDragListener( this, model, tandem.createTandem( 'dragListener' ) );
     this.addInputListener( dragListener );
@@ -208,37 +214,22 @@ export default class PusherNode extends Node {
     if ( fallen ) {
       const newVisibleNode = this.model.fallenDirectionProperty.value === 'left' ? this.fallLeftImage : this.fallRightImage;
       this.setVisibleNode( newVisibleNode );
-
-      // Position the fallen pusher directly based on stack width and direction
-      if ( this.model.stackedItems.length > 0 ) {
-        const item = this.model.stackedItems.get( 0 );
-        const itemNode = this.itemModelToNodeMap.get( item );
-        affirm( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
-
-        const scaledWidth = itemNode.getScaledWidth();
-        const delta = scaledWidth / 2 - item.pusherInsetProperty.value + 10;
-
-        // Set position based on model position to move with ground
-        const posX = baseX;
-
-        // Add offset based on fall direction
-        if ( this.model.fallenDirectionProperty.value === 'right' ) {
-          this.visibleNode.centerX = posX - delta;
-        }
-        else {
-          this.visibleNode.centerX = posX + delta;
-        }
+      const fallenDirection = this.model.fallenDirectionProperty.value;
+      if ( this.fallenAnchorOffset === null || this.fallenAnchorDirection !== fallenDirection ) {
+        this.fallenAnchorOffset = this.computeFallenAnchorOffset();
+        this.fallenAnchorDirection = fallenDirection;
       }
-      else {
-        // If no stack, position based on model position
-        this.visibleNode.centerX = baseX;
-      }
+
+      // Keep horizontal alignment consistent while fallen, even if the stack changes.
+      this.visibleNode.centerX = baseX + ( this.fallenAnchorOffset ?? 0 );
 
       // Set Y position directly
       this.visibleNode.y = FLOOR_VIEW_Y - this.visibleNode.height;
     }
     // Case 2: Pusher is applying force
     else if ( appliedForce !== 0 ) {
+      this.fallenAnchorOffset = null;
+      this.fallenAnchorDirection = null;
       // Select the correct image based on force magnitude and direction
       const index = Math.min( 30, roundSymmetric( Math.abs( appliedForce / 500 * 30 ) ) );
 
@@ -271,12 +262,28 @@ export default class PusherNode extends Node {
     }
     // Case 3: Pusher is standing (zero force)
     else {
+      this.fallenAnchorOffset = null;
+      this.fallenAnchorDirection = null;
       this.setVisibleNode( this.standingUpImageNode );
 
       // Set position directly based on model position without any deltas
       this.visibleNode.centerX = baseX;
       this.visibleNode.y = FLOOR_VIEW_Y - this.visibleNode.height;
     }
+  }
+
+  private computeFallenAnchorOffset(): number {
+    if ( this.model.stackedItems.length > 0 ) {
+      const item = this.model.stackedItems.get( 0 );
+      const itemNode = this.itemModelToNodeMap.get( item );
+      affirm( itemNode, 'itemNode is null for itemModel, item.name = ' + item.name );
+
+      const scaledWidth = itemNode.getScaledWidth();
+      const delta = scaledWidth / 2 - item.pusherInsetProperty.value + 10;
+      return this.model.fallenDirectionProperty.value === 'right' ? -delta : delta;
+    }
+
+    return 0;
   }
 
   /**
