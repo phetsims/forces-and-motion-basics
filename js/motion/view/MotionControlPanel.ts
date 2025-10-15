@@ -58,6 +58,8 @@ type LabelSelfOptions = {
 };
 type LabelOptions = StrictOmit<HBoxOptions, 'children' | 'spacing'> & LabelSelfOptions;
 
+const RIGHT_MARGIN = 10;
+
 export default class MotionControlPanel extends Node {
 
   private readonly model: MotionModel;
@@ -85,7 +87,7 @@ export default class MotionControlPanel extends Node {
       yMargin: 7,
       fill: '#e3e980'
     } );
-    this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - 5, top: 5 } ) );
+    this.addChild( panel.mutate( { left: ForcesAndMotionBasicsLayoutBounds.width - panel.width - RIGHT_MARGIN, top: 5 } ) );
   }
 
   private createMotionControls(): Node {

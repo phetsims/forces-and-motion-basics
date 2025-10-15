@@ -51,7 +51,7 @@ const rightForceStringProperty = ForcesAndMotionBasicsFluent.rightForceStringPro
 const sumOfForcesStringProperty = ForcesAndMotionBasicsFluent.sumOfForcesStringProperty;
 
 // constants
-const MARGIN_FROM_LAYOUT_BOUNDS = 5;
+const MARGIN_FROM_LAYOUT_BOUNDS = 10;
 const STOPPER_TOP_WIDTH = 11;
 const STOPPER_BOTTOM_WIDTH = 30;
 const STOPPER_HEIGHT = 24;
