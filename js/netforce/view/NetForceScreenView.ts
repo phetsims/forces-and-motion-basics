@@ -56,7 +56,7 @@ const STOPPER_TOP_WIDTH = 11;
 const STOPPER_BOTTOM_WIDTH = 30;
 const STOPPER_HEIGHT = 24;
 const SUM_ARROW_TAIL_Y = 127;
-const BUTTON_PADDING = 7; // placement padding for the reset all button
+const BUTTON_PADDING = 10; // placement padding for the reset all button
 
 export default class NetForceScreenView extends ScreenView {
   private readonly cartNode: CartNode;
