@@ -128,10 +128,11 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     // When the model changes, update the image position as well as which image is shown
     const updateImage = () => {
-      if ( ( typeof holdingImageProperty.value !== 'undefined' ) && ( item.armsUp() && item.inStackProperty.value ) ) {
+      const isGrabbed = item.isGrabbed();
+      if ( !isGrabbed && holdingImageProperty.value && item.armsUp() && item.inStackProperty.value ) {
         normalImageNode.imageProperty = holdingImageProperty;
       }
-      else if ( item.inStackProperty.value && typeof sittingImageProperty.value !== 'undefined' ) {
+      else if ( !isGrabbed && item.inStackProperty.value && typeof sittingImageProperty.value !== 'undefined' ) {
         normalImageNode.imageProperty = sittingImageProperty;
       }
       else {
