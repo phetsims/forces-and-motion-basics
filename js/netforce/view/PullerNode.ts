@@ -248,9 +248,9 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       }
     } );
 
-    Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty ], ( mode, hasStarted, position ) => {
+    Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty, this.puller.model.stateProperty ], ( mode, hasStarted, position, state ) => {
       const knot = this.puller.getKnot();
-      const pulling = hasStarted && knot && this.puller.model.stateProperty.value !== 'completed' && !this.puller.modeProperty.value.isGrabbed();
+      const pulling = hasStarted && knot && state !== 'completed' && !this.puller.modeProperty.value.isGrabbed();
       this.image = pulling ? this.pullImage : this.standImage;
 
       if ( mode.isAttached() ) {
