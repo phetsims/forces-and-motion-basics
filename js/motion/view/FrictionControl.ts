@@ -63,7 +63,8 @@ export default class FrictionControl extends VBox {
       },
       pdomCreateAriaValueText: value => {
         return toFixed( value, 2 );
-      }
+      },
+      roundToStepSize: true
     } );
 
     for ( let i = 0; i < numberOfMinorTicks; i++ ) {
