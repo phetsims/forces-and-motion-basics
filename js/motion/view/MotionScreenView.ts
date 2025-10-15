@@ -201,6 +201,10 @@ export default class MotionScreenView extends ScreenView {
         textOptions: {
           maxWidth: 80
         }
+      },
+      keyboardDragListenerOptions: {
+        dragSpeed: 300,
+        shiftDragSpeed: 20
       }
     } );
 
