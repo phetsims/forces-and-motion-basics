@@ -110,7 +110,7 @@ export default class Puller extends PhetioObject {
       valueType: PullerMode,
       tandem: options.tandem.createTandem( 'modeProperty' ),
       phetioFeatured: true,
-      phetioDocumentation: 'The current mode/state of the puller - authoritative source of truth',
+      phetioDocumentation: 'State of interaction of the puller, e.g. at home, attached to a knot, or being dragged',
       phetioValueType: PullerMode.PullerModeIO,
       valueComparisonStrategy: 'equalsFunction'
     } );

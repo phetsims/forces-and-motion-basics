@@ -186,7 +186,7 @@ export default class Item extends PhetioObject {
       tandem: tandem.createTandem( 'modeProperty' ),
       phetioReadOnly: true,
       phetioFeatured: true,
-      phetioDocumentation: 'Unified state representing the current mode and location of the item'
+      phetioDocumentation: 'Interaction state of the item, indicating whether it is in the toolbox, on the stack, animating, etc.'
     } );
 
     this.userControlledProperty = new DerivedProperty( [ this.modeProperty ], ( mode: InteractionMode ) => {
