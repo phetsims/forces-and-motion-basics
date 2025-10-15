@@ -23,9 +23,14 @@ export default class ItemStackGroupNode extends Node {
   public constructor( public readonly screen: 'motion' | 'friction' | 'acceleration' ) {
 
     const highlightWidth = 200;
-    const highlightHeight = 340;
     const highlightX = ForcesAndMotionBasicsLayoutBounds.centerX - highlightWidth / 2;
+
+    // margin from the dev bounds.
     const highlightY = 10;
+
+    // around 10px underground
+    const highlightHeight = 360;
+    
     const defaultHighlight = new GroupHighlightPath( Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ), {
       innerLineWidth: 5
     } );
