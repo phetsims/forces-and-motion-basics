@@ -42,7 +42,7 @@ export default class PullerNodeKeyboardListener extends KeyboardListener<OneKeyS
           if ( !puller.isGrabbed() ) {
 
             // Find all pullers of the same type
-            const availablePullers = pullerNode.view.pullerNodes.filter( otherPullerNode => otherPullerNode.puller.type === pullerNode.puller.type && otherPullerNode.visible );
+            const availablePullers = pullerNode.view.pullerNodes.filter( otherPullerNode => otherPullerNode.puller.type === pullerNode.puller.type && otherPullerNode.visible && otherPullerNode.inputEnabled );
 
             if ( availablePullers.length > 1 ) {
 

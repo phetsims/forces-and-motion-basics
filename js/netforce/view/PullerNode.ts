@@ -222,7 +222,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
 
     this.focusedProperty.lazyLink( focused => {
 
-      if ( focused ) {
+      if ( focused && this.inputEnabled ) {
 
         // make other members of this group unfocusable
         this.view.pullerNodes.forEach( pullerNode => {
@@ -230,6 +230,15 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
             pullerNode.focusable = false;
           }
         } );
+      }
+
+      // If focus lands on a non-input-enabled puller (e.g. in the toolbox when that type is already on the rope),
+      // move focus to the first available puller of that type
+      if ( focused && !this.inputEnabled ) {
+        const availablePullers = this.view.pullerNodes.filter( otherPullerNode => otherPullerNode.puller.type === this.puller.type && otherPullerNode.visible && otherPullerNode.inputEnabled );
+        if ( availablePullers.length > 0 ) {
+          availablePullers[ 0 ].focus();
+        }
       }
 
       if ( !focused && puller.isGrabbed() ) {
