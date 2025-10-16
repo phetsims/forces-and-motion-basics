@@ -386,7 +386,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
    * Handle delete/backspace to return grabbed item to toolbox with announcement
    */
   private handleReturnToToolboxKey(): void {
-    if ( this.item.userControlledProperty.value ) {
+    if ( this.item.userControlledProperty.value && this.motionView.isToolboxContainerVisible() ) {
 
       // Force return to toolbox
       this.returnItemToToolbox();
@@ -484,11 +484,14 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
     }
     else {
 
-      // Move back to home position
-      this.item.positionProperty.value = homePosition;
+      if ( this.motionView.isToolboxContainerVisible() ) {
 
-      // Announce over toolbox
-      this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overToolboxStringProperty );
+        // Move back to home position
+        this.item.positionProperty.value = homePosition;
+
+        // Announce over toolbox
+        this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.objectResponses.overToolboxStringProperty );
+      }
     }
   }
 
