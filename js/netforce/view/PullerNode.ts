@@ -259,7 +259,7 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       const erode = this.puller.size === 'large' ? 35 :
                     this.puller.size === 'medium' ? 25 :
                     0;
-      this.setMouseArea( this.localBounds.erodedX( pulling ? erode : 0 ) )
+      this.setMouseArea( this.localBounds.erodedX( pulling ? erode : 0 ) );
       this.setTouchArea( this.mouseArea );
 
       if ( mode.isAttached() ) {
