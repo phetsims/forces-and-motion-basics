@@ -183,15 +183,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
     const model = puller.model;
     this.model = model;
 
-    // Listen to color preference changes and update images accordingly
-    ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty.lazyLink( () => {
-
-      // Get updated images based on current color preference
-      const standImage = PullerNode.getPullerImage( this.puller, false );
-      const pullImage = PullerNode.getPullerImage( this.puller, true );
-      this.updateImages( standImage, pullImage );
-    } );
-
     this.dragListener = new PullerNodeDragListener( this, tandem.createTandem( 'dragListener' ) );
     this.addInputListener( this.dragListener );
 
@@ -248,10 +239,28 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       }
     } );
 
-    Multilink.multilink( [ this.puller.modeProperty, this.puller.model.hasStartedProperty, this.puller.positionProperty, this.puller.model.stateProperty ], ( mode, hasStarted, position, state ) => {
+    Multilink.multilink( [
+      this.puller.modeProperty,
+      this.puller.model.hasStartedProperty,
+      this.puller.positionProperty,
+      this.puller.model.stateProperty,
+      ForcesAndMotionBasicsPreferences.netForcePullerColorsProperty
+    ], ( mode, hasStarted, position, state, preference ) => {
+
+      // Get updated images based on current color preference
+      this.standImage = PullerNode.getPullerImage( this.puller, false );
+      this.pullImage = PullerNode.getPullerImage( this.puller, true );
+
+      // Update the current displayed image based on whether the puller is pulling or standing
       const knot = this.puller.getKnot();
       const pulling = hasStarted && knot && state !== 'completed' && !this.puller.modeProperty.value.isGrabbed();
       this.image = pulling ? this.pullImage : this.standImage;
+
+      const erode = this.puller.size === 'large' ? 35 :
+                    this.puller.size === 'medium' ? 25 :
+                    0;
+      this.setMouseArea( this.localBounds.erodedX( pulling ? erode : 0 ) )
+      this.setTouchArea( this.mouseArea );
 
       if ( mode.isAttached() ) {
         affirm( knot, 'PullerNode expected to have a knot when in attached mode' );
@@ -347,21 +356,6 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
         number: ( index + 1 ).toString()
       } );
     }
-  }
-
-  /**
-   * Update the puller's images when the color scheme changes
-   * @param standImage - The new standing image
-   * @param pullImage - The new pulling image
-   */
-  public updateImages( standImage: ImageableImage, pullImage: ImageableImage ): void {
-    this.standImage = standImage;
-    this.pullImage = pullImage;
-
-    // Update the current displayed image based on whether the puller is pulling or standing
-    const knot = this.puller.getKnot();
-    const pulling = this.model.hasStartedProperty.value && knot && this.model.stateProperty.value !== 'completed' && !this.puller.modeProperty.value.isGrabbed();
-    this.image = pulling ? this.pullImage : this.standImage;
   }
 
   /**
