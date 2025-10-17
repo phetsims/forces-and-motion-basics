@@ -30,7 +30,7 @@ export default class ItemStackGroupNode extends Node {
 
     // around 10px underground
     const highlightHeight = 360;
-    
+
     const defaultHighlight = new GroupHighlightPath( Shape.rectangle( highlightX, highlightY, highlightWidth, highlightHeight ), {
       innerLineWidth: 5
     } );
@@ -98,7 +98,7 @@ export default class ItemStackGroupNode extends Node {
 
   public reset(): void {
     this.stackItemNodes.forEach( ( itemNode, index ) => {
-      itemNode.focusable = index === 0 && itemNode.visibleProperty.value;
+      itemNode.focusable = index === 0 && itemNode.visibleProperty.value && itemNode.inputEnabled;
     } );
   }
 }

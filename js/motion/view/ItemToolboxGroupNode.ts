@@ -107,7 +107,7 @@ export default class ItemToolboxGroupNode extends Node {
 
     // Reset focus state - make the first visible item focusable, and disable focus for hidden elements
     this.itemNodes.forEach( ( itemNode, index ) => {
-      itemNode.focusable = index === 0 && itemNode.visibleProperty.value;
+      itemNode.focusable = index === 0 && itemNode.visibleProperty.value && itemNode.inputEnabled;
     } );
   }
 

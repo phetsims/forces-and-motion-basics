@@ -638,7 +638,7 @@ export default class MotionScreenView extends ScreenView {
             const state = itemNode.item.modeProperty.value;
 
             if ( focusedNodeState !== state ) {
-              itemNode.focusable = itemNode.visibleProperty.value; // true, but only if visible, since it can be hidden via phet-io
+              itemNode.focusable = itemNode.visibleProperty.value && itemNode.inputEnabled; // true, but only if visible, since it can be hidden via phet-io
             }
 
             else if ( focusedNodeState === state ) {
@@ -648,7 +648,7 @@ export default class MotionScreenView extends ScreenView {
         } );
 
         // if more than one itemNode in the toolbox or stack is focusable, then just choose the first one to be focusable
-        const focusableToolboxItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'inToolbox' && itemNode.visibleProperty.value );
+        const focusableToolboxItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'inToolbox' && itemNode.visibleProperty.value && itemNode.inputEnabled );
         if ( focusableToolboxItemNodes.length > 1 ) {
           const preferredItem = lastFocusedToolboxItem && focusableToolboxItemNodes.includes( lastFocusedToolboxItem ) ? lastFocusedToolboxItem : focusableToolboxItemNodes[ 0 ];
           focusableToolboxItemNodes.forEach( itemNode => {
@@ -656,7 +656,7 @@ export default class MotionScreenView extends ScreenView {
           } );
         }
 
-        const focusableStackItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'onStack' && itemNode.visibleProperty.value );
+        const focusableStackItemNodes = this.itemNodes.filter( itemNode => itemNode.focusable && itemNode.item.modeProperty.value === 'onStack' && itemNode.visibleProperty.value && itemNode.inputEnabled );
         if ( focusableStackItemNodes.length > 1 ) {
           const preferredItem = lastFocusedStackItem && focusableStackItemNodes.includes( lastFocusedStackItem ) ? lastFocusedStackItem : focusableStackItemNodes[ 0 ];
           focusableStackItemNodes.forEach( itemNode => {

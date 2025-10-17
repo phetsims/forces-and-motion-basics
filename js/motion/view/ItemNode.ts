@@ -283,6 +283,16 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
           this.addAccessibleContextResponse( ItemDescriber.getDroppedOnStackResponse( this.model, priorLength ) );
         }
       }
+      else if ( focused && !this.inputEnabled ) {
+
+        // If focus lands on a non-input enabled item, send it elsewhere, see https://github.com/phetsims/forces-and-motion-basics/issues/477
+        const availableItemNodes = this.motionView.itemNodes.filter( otherItemNode =>
+          otherItemNode.item.inStackProperty.value === this.item.inStackProperty.value &&
+          otherItemNode.visible && otherItemNode.inputEnabled );
+        if ( availableItemNodes.length > 0 ) {
+          availableItemNodes[ 0 ].focus();
+        }
+      }
     } );
   }
 
@@ -603,7 +613,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
     // If on stack, navigate within stack (up/left towards top, down/right towards bottom)
     if ( this.item.inStackProperty.value ) {
-      const stackItems = this.motionView.itemStackGroup.stackItemNodes.filter( itemNode => itemNode.visibleProperty.value );
+      const stackItems = this.motionView.itemStackGroup.stackItemNodes.filter( itemNode => itemNode.visibleProperty.value && itemNode.inputEnabled );
       const currentIndex = stackItems.indexOf( this );
       if ( currentIndex === -1 ) { return null; }
       if ( stackItems.length <= 1 ) { return null; }
@@ -616,7 +626,7 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
 
       // In toolbox, only left/right navigation between available toolbox items
       if ( direction === 'up' || direction === 'down' ) { return null; }
-      const itemsInToolbox = this.motionView.itemToolboxGroup.itemNodes.filter( itemNode => !itemNode.item.inStackProperty.value && itemNode.visibleProperty.value );
+      const itemsInToolbox = this.motionView.itemToolboxGroup.itemNodes.filter( itemNode => !itemNode.item.inStackProperty.value && itemNode.visibleProperty.value && itemNode.inputEnabled );
       const currentIndex = itemsInToolbox.indexOf( this );
       if ( currentIndex === -1 ) { return null; }
       const delta = ( direction === 'left' ) ? -1 : 1;
