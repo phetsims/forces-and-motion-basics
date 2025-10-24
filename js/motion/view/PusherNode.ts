@@ -9,6 +9,8 @@
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import HighlightFromNode from '../../../../scenery/js/accessibility/HighlightFromNode.js';
+import InteractiveHighlightingNode from '../../../../scenery/js/accessibility/voicing/nodes/InteractiveHighlightingNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
@@ -55,7 +57,7 @@ import PusherNodeDragListener from './PusherNodeDragListener.js';
 
 export type FallenDirection = 'left' | 'right';
 
-export default class PusherNode extends Node {
+export default class PusherNode extends InteractiveHighlightingNode {
 
   private interactive: boolean;
   private visibleNode: Node;
@@ -69,6 +71,7 @@ export default class PusherNode extends Node {
   private readonly itemModelToNodeMap: Map<Item, ItemNode>;
   private fallenAnchorOffset: number | null;
   private fallenAnchorDirection: FallenDirection | null;
+  private readonly highlightFromNode: HighlightFromNode;
 
   /**
    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
@@ -197,6 +200,9 @@ export default class PusherNode extends Node {
 
     // place the pusher in the correct position initially
     this.updateView();
+
+    this.highlightFromNode = new HighlightFromNode( this );
+    this.setInteractiveHighlight( this.highlightFromNode );
   }
 
   /**
@@ -270,6 +276,8 @@ export default class PusherNode extends Node {
       this.visibleNode.centerX = baseX;
       this.visibleNode.y = FLOOR_VIEW_Y - this.visibleNode.height;
     }
+
+    this.highlightFromNode && this.highlightFromNode.setShapeFromNode( this );
   }
 
   private computeFallenAnchorOffset(): number {
