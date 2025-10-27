@@ -239,7 +239,7 @@ export default class NetForceScreenView extends ScreenView {
 
       const accessibleNameProperty = ForcesAndMotionBasicsFluent.a11y.netForceScreen.puller.accessibleName.createProperty( {
         size: puller.size,
-        color: puller.type,
+        color: puller.colorProperty,
         index: puller.descriptionIndex
       } );
 
