@@ -270,7 +270,7 @@ a11y:
     skateboard:    Skateboard
     stack:         Stack
   pullers:
-    pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position.
+    pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position. Knots are numbered from left-to-right.
     overReturnToToolbox: Over toolbox
     overKnotDescription: |-
                          { $side ->
