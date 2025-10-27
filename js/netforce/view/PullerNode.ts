@@ -355,14 +355,11 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
       // Use the internationalized "Over knot description" pattern
       const sameTypeKnots = this.model.knots.filter( k => k.type === waypoint.type );
       const index = sameTypeKnots.indexOf( waypoint );
-      const side = waypoint.type === 'blue' ?
-                   ForcesAndMotionBasicsFluent.a11y.pullers.leftSideStringProperty.value :
-                   ForcesAndMotionBasicsFluent.a11y.pullers.rightSideStringProperty.value;
 
       // Use Fluent pattern with variables
       return ForcesAndMotionBasicsFluent.a11y.pullers.overKnotDescription.format( {
-        side: side,
-        number: ( index + 1 ).toString()
+        side: waypoint.type === 'blue' ? 'left' : 'right',
+        number: index + 1
       } );
     }
   }

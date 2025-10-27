@@ -272,7 +272,19 @@ a11y:
   pullers:
     pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position.
     overReturnToToolbox: Over toolbox
-    overKnotDescription: 'Over { $side } knot { $number }'
+    overKnotDescription: |-
+                         { $side ->
+                             [left] Over left knot { $number ->
+                             [1] 1, furthest from cart
+                             [4] 4, closest to cart
+                             *[other] { $number }
+                           }
+                             *[right] Over right knot { $number ->
+                             [1] 1, closest to cart
+                             [4] 4, furthest from cart
+                             *[other] { $number }
+                           }
+                         }
     knotDescription:     '{ $side } knot { $number }'
     leftSide:            Left
     rightSide:           Right
@@ -313,18 +325,18 @@ a11y:
     speedOnlyWithAcceleration:     'Speed is { $speedDescription } and { $accelerationDescription }.'
 
     # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
-    speedWithValue: |-
-      Speed is { $speedDescription } at { $speedMetersPerSecond ->
-        [one] { $speedMetersPerSecond } meter per second
-        *[other] { $speedMetersPerSecond } meters per second
-      }.
+    speedWithValue:                |-
+                                   Speed is { $speedDescription } at { $speedMetersPerSecond ->
+                                     [one] { $speedMetersPerSecond } meter per second
+                                     *[other] { $speedMetersPerSecond } meters per second
+                                   }.
 
     # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
     speedWithValueAndAcceleration: |-
-      Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond ->
-        [one] { $speedMetersPerSecond } meter per second
-        *[other] { $speedMetersPerSecond } meters per second
-      }.
+                                   Speed is { $speedDescription } and { $accelerationDescription } at { $speedMetersPerSecond ->
+                                     [one] { $speedMetersPerSecond } meter per second
+                                     *[other] { $speedMetersPerSecond } meters per second
+                                   }.
     qualitativeDescriptions:
       stationary:    zero
       verySlow:      very slow
@@ -338,19 +350,19 @@ a11y:
     accelerationOnly:                  'Acceleration is { $accelerationDescription }.'
 
     # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
-    accelerationWithValue: |-
-      Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared ->
-        [one] { $accelerationMetersPerSecondSquared } meter per second squared
-        *[other] { $accelerationMetersPerSecondSquared } meters per second squared
-      }.
+    accelerationWithValue:             |-
+                                       Acceleration is { $accelerationDescription } at { $accelerationMetersPerSecondSquared ->
+                                         [one] { $accelerationMetersPerSecondSquared } meter per second squared
+                                         *[other] { $accelerationMetersPerSecondSquared } meters per second squared
+                                       }.
     accelerationWithDirection:         'Acceleration is { $accelerationDescription } to the { $direction }.'
 
     # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
     accelerationWithDirectionAndValue: |-
-      Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared ->
-        [one] { $accelerationMetersPerSecondSquared } meter per second squared
-        *[other] { $accelerationMetersPerSecondSquared } meters per second squared
-      }.
+                                       Acceleration is { $accelerationDescription } to the { $direction } at { $accelerationMetersPerSecondSquared ->
+                                         [one] { $accelerationMetersPerSecondSquared } meter per second squared
+                                         *[other] { $accelerationMetersPerSecondSquared } meters per second squared
+                                       }.
     qualitativeDescriptions:
       zero:           zero
       verySmall:      very small
