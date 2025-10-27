@@ -663,7 +663,7 @@
     },
     "pullers": {
       "pullerInstruction": {
-        "value": "Grab puller. Once grabbed, use keyboard shortcuts to change position."
+        "value": "Grab puller. Once grabbed, use keyboard shortcuts to change position. Knots are numbered from left-to-right."
       },
       "overReturnToToolbox": {
         "value": "Over toolbox"
