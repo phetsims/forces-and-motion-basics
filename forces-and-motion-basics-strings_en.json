@@ -669,7 +669,7 @@
         "value": "Over toolbox"
       },
       "overKnotDescription": {
-        "value": "Over { $side } knot { $number }"
+        "value": "{ $side ->\n    [left] Over left knot { $number ->\n    [1] 1, furthest from cart\n    [4] 4, closest to cart\n    *[other] { $number }\n  }\n    *[right] Over right knot { $number ->\n    [1] 1, closest to cart\n    [4] 4, furthest from cart\n    *[other] { $number }\n  }\n}"
       },
       "knotDescription": {
         "value": "{ $side } knot { $number }"
