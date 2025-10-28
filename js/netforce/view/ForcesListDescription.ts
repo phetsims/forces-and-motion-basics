@@ -32,8 +32,7 @@ export default class ForcesListDescription extends Node {
 
     super( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.netForceScreenHeadingStringProperty,
-      visibleProperty: anyVisibleProperty
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.netForceScreenHeadingStringProperty
     } );
 
     // Keep disposables tied to this Node lifecycle
@@ -103,11 +102,15 @@ export default class ForcesListDescription extends Node {
       ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString
     );
 
-    // Build the AccessibleListNode once with three potential items, each with its own visibility
+    // "No forces displayed" should be visible when no other forces are visible
+    const noForcesVisibleProperty = DerivedProperty.not( anyVisibleProperty );
+
+    // Build the AccessibleListNode once with four potential items, each with its own visibility
     this.forcesList = new AccessibleListNode( [
       { stringProperty: leftItemStringProperty, visibleProperty: leftVisibleProperty },
       { stringProperty: rightItemStringProperty, visibleProperty: rightVisibleProperty },
-      { stringProperty: this.netForceDescriptionProperty, visibleProperty: model.showSumOfForcesProperty }
+      { stringProperty: this.netForceDescriptionProperty, visibleProperty: model.showSumOfForcesProperty },
+      { stringProperty: ForcesAndMotionBasicsFluent.a11y.forces.noForcesDisplayedStringProperty, visibleProperty: noForcesVisibleProperty }
     ] );
 
     this.addChild( this.forcesList );
