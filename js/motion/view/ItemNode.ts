@@ -285,11 +285,12 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       }
       else if ( focused && !this.inputEnabled ) {
 
-        // If focus lands on a non-input enabled item, send it elsewhere, see https://github.com/phetsims/forces-and-motion-basics/issues/477
+        // If focus lands on a non-input enabled item (like from initial focus from outside the sim), send it elsewhere, see https://github.com/phetsims/forces-and-motion-basics/issues/477
         const availableItemNodes = this.motionView.itemNodes.filter( otherItemNode =>
           otherItemNode.item.inStackProperty.value === this.item.inStackProperty.value &&
           otherItemNode.visible && otherItemNode.inputEnabled );
         if ( availableItemNodes.length > 0 ) {
+          availableItemNodes[ 0 ].focusable = true;
           availableItemNodes[ 0 ].focus();
         }
       }
