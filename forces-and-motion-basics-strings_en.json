@@ -550,7 +550,7 @@
       },
       "stackList": {
         "stackedOnSurface": {
-          "value": "Stacked on { $surface }:"
+          "value": "Objects on { $surface }:"
         },
         "noObjectsOnSurface": {
           "value": "No objects on { $surface }."
@@ -684,6 +684,11 @@
     "tugOfWar": {
       "heading": {
         "value": "Tug-of-War for Candy Cart"
+      },
+      "list": {
+        "leadingParagraph": {
+          "value": "Pullers attached to ropes, from left-to-right:"
+        }
       },
       "noPullersOnRope": {
         "value": "No pullers on rope"
