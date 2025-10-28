@@ -112,7 +112,7 @@ a11y:
       playArea:
         description: There is a tug-of-war game between { $leftColor } and { $rightColor } teams over a wheeled cart full of candy. { $leftTeamName } pullers are on left, { $rightTeamName } pullers are on right. Cart sits on flat surface with a rope attached to each side. Ropes have knots that pullers can grab. There are buttons to start or pause tug-of-war or return cart to center.
       controlArea:
-        description: Turn on sum of forces, values, or speed. Reset sim to start over.
+        description: You can turn on sum of forces, values, or speed. Reset sim to start over.
       currentDetails:
         accessibleNameNotStarted: Currently, tug-of-war game not started.
         accessibleNameInProgress: Currently, tug-of-war game in progress.
@@ -168,9 +168,9 @@ a11y:
         frictionDescription:     A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack.
         accelerationDescription: A pusher stands on the flat ground, ready to apply force to a stack of objects. Objects can be moved from the toolbox to the stack.
       controlArea:
-        motionDescription:       Turn on forces, values, or measurement tools.
-        frictionDescription:     Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
-        accelerationDescription: Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over.
+        motionDescription:       You can turn on forces, values, or measurement tools. Reset sim to start over.
+        frictionDescription:     You can turn on forces, values, or measurement tools. The Friction slider sets the roughness of the ground. Reset sim to start over.
+        accelerationDescription: '{ a11y.motionScreen.screenSummary.controlArea.frictionDescription }'
       currentDetails:
         summary: |-
                  { $count ->
