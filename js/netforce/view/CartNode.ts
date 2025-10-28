@@ -48,10 +48,10 @@ export default class CartNode extends Image {
         return;
       }
 
-      if ( oldVelocity < 0 && velocity > 0 ) {
+      if ( oldVelocity <= 0 && velocity > 0 ) {
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingRightStringProperty );
       }
-      else if ( oldVelocity > 0 && velocity < 0 ) {
+      else if ( oldVelocity >= 0 && velocity < 0 ) {
         this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.netForceScreen.goPauseButton.cartMovingLeftStringProperty );
       }
     } );
