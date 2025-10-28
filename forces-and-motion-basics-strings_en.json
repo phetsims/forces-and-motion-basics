@@ -275,7 +275,7 @@
         },
         "controlArea": {
           "description": {
-            "value": "Turn on sum of forces, values, or speed. Reset sim to start over."
+            "value": "You can turn on sum of forces, values, or speed. Reset sim to start over."
           }
         },
         "currentDetails": {
@@ -397,13 +397,13 @@
         },
         "controlArea": {
           "motionDescription": {
-            "value": "Turn on forces, values, or measurement tools."
+            "value": "You can turn on forces, values, or measurement tools. Reset sim to start over."
           },
           "frictionDescription": {
-            "value": "Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over."
+            "value": "You can turn on forces, values, or measurement tools. The Friction slider sets the roughness of the ground. Reset sim to start over."
           },
           "accelerationDescription": {
-            "value": "Turn on forces, values, or measurement tools. Set the roughness of the ground with the Friction slider. Reset sim to start over."
+            "value": "{ a11y_motionScreen_screenSummary_controlArea_frictionDescription }"
           }
         },
         "currentDetails": {
