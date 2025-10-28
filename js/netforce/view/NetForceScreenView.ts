@@ -391,11 +391,11 @@ export default class NetForceScreenView extends ScreenView {
     // Set up the pdomOrder for proper accessibility hierarchy
     // Play Area: left toolbox -> right toolbox -> tug of war overview -> forces list -> speed -> play area controls -> cart -> arrows
     this.pdomPlayAreaNode.pdomOrder = [
-      leftToolbox,
-      rightToolbox,
       tugOfWarOverviewNode,
       forcesListDescription,
       netForceSpeedDescriptionNode,
+      leftToolbox,
+      rightToolbox,
       playAreaControlNode,
       this.cartNode,
       this.leftArrow,
