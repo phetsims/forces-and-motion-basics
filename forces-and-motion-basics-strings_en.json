@@ -655,7 +655,7 @@
         "value": "Object Toolbox"
       },
       "skateboard": {
-        "value": "Skateboard"
+        "value": "Stack on Skateboard"
       },
       "stack": {
         "value": "Stack"
@@ -683,7 +683,7 @@
     },
     "tugOfWar": {
       "heading": {
-        "value": "Tug-of-War"
+        "value": "Tug-of-War for Candy Cart"
       },
       "noPullersOnRope": {
         "value": "No pullers on rope"
@@ -693,8 +693,11 @@
       }
     },
     "forces": {
-      "heading": {
-        "value": "Forces"
+      "netForceScreenHeading": {
+        "value": "Forces on Candy Cart"
+      },
+      "motionScreensHeading": {
+        "value": "Forces on Stack"
       },
       "appliedForceArrow": {
         "value": "Applied force arrow is { $description }, pointing { $direction }"

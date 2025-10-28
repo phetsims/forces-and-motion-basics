@@ -267,7 +267,7 @@ a11y:
         icy:      Ground icy.
   objectToolboxes:
     objectToolbox: Object Toolbox
-    skateboard:    Skateboard
+    skateboard:    Stack on Skateboard
     stack:         Stack
   pullers:
     pullerInstruction:   Grab puller. Once grabbed, use keyboard shortcuts to change position. Knots are numbered from left-to-right.
@@ -289,11 +289,12 @@ a11y:
     leftSide:            Left
     rightSide:           Right
   tugOfWar:
-    heading:         Tug-of-War
+    heading:         Tug-of-War for Candy Cart
     noPullersOnRope: No pullers on rope
     knotOccupied:    '{ $side } knot { $number }: { $pullerName }'
   forces:
-    heading:                 Forces
+    netForceScreenHeading:   Forces on Candy Cart
+    motionScreensHeading:    Forces on Stack
     appliedForceArrow:       'Applied force arrow is { $description }, pointing { $direction }'
     frictionForceArrow:      'Friction force arrow is { $description }, pointing { $direction }'
     leftForceArrow:          'Left force arrow is { $description }'
