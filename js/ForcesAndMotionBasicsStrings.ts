@@ -320,6 +320,9 @@ type StringsType = {
     };
     'tugOfWar': {
       'headingStringProperty': LocalizedStringProperty;
+      'list': {
+        'leadingParagraphStringProperty': LocalizedStringProperty;
+      };
       'noPullersOnRopeStringProperty': LocalizedStringProperty;
       'knotOccupiedStringProperty': LocalizedStringProperty;
     };

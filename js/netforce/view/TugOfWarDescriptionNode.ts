@@ -70,6 +70,7 @@ export default class TugOfWarDescriptionNode extends Node {
     const hasItemsProperty = new DerivedProperty( [ this.model.numberPullersAttachedProperty ], n => n > 0 );
 
     const listNode = new AccessibleListNode( listItems, {
+      leadingParagraphStringProperty: ForcesAndMotionBasicsFluent.a11y.tugOfWar.list.leadingParagraphStringProperty,
       visibleProperty: hasItemsProperty
     } );
 

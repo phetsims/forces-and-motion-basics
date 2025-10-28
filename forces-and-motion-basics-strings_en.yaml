@@ -228,7 +228,7 @@ a11y:
       skateboard: skateboard
       ground:     ground
     stackList:
-      stackedOnSurface:   'Stacked on { $surface }:'
+      stackedOnSurface:   'Objects on { $surface }:'
       noObjectsOnSurface: 'No objects on { $surface }.'
     pusherResponses:
       fellDownAppliedForceZero: Pusher fell down, applied force now 0 newtons.
@@ -290,6 +290,8 @@ a11y:
     rightSide:           Right
   tugOfWar:
     heading:         Tug-of-War for Candy Cart
+    list:
+      leadingParagraph: 'Pullers attached to ropes, from left-to-right:'
     noPullersOnRope: No pullers on rope
     knotOccupied:    '{ $side } knot { $number }: { $pullerName }'
   forces:

@@ -214,6 +214,7 @@ addToMapIfDefined( 'a11y_pullers_knotDescription', 'a11y.pullers.knotDescription
 addToMapIfDefined( 'a11y_pullers_leftSide', 'a11y.pullers.leftSideStringProperty' );
 addToMapIfDefined( 'a11y_pullers_rightSide', 'a11y.pullers.rightSideStringProperty' );
 addToMapIfDefined( 'a11y_tugOfWar_heading', 'a11y.tugOfWar.headingStringProperty' );
+addToMapIfDefined( 'a11y_tugOfWar_list_leadingParagraph', 'a11y.tugOfWar.list.leadingParagraphStringProperty' );
 addToMapIfDefined( 'a11y_tugOfWar_noPullersOnRope', 'a11y.tugOfWar.noPullersOnRopeStringProperty' );
 addToMapIfDefined( 'a11y_tugOfWar_knotOccupied', 'a11y.tugOfWar.knotOccupiedStringProperty' );
 addToMapIfDefined( 'a11y_forces_netForceScreenHeading', 'a11y.forces.netForceScreenHeadingStringProperty' );
@@ -594,6 +595,9 @@ const ForcesAndMotionBasicsFluent = {
     },
     tugOfWar: {
       headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_tugOfWar_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.headingStringProperty' ) ),
+      list: {
+        leadingParagraphStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_tugOfWar_list_leadingParagraph', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.list.leadingParagraphStringProperty' ) )
+      },
       noPullersOnRopeStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_tugOfWar_noPullersOnRope', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.noPullersOnRopeStringProperty' ) ),
       knotOccupied: new FluentPattern<{ number: FluentVariable, pullerName: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_tugOfWar_knotOccupied', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.knotOccupiedStringProperty' ), [{"name":"number"},{"name":"pullerName"},{"name":"side"}] )
     },
