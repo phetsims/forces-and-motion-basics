@@ -46,8 +46,7 @@ export default class MotionForcesDescriptionNode extends Node {
 
     super( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.motionScreensHeadingStringProperty,
-      visibleProperty: anyVisibleProperty
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.motionScreensHeadingStringProperty
     } );
 
     // Dependencies for qualitative descriptions so language changes recompute values
@@ -134,10 +133,14 @@ export default class MotionForcesDescriptionNode extends Node {
       ( sumIsZero, sumZeroString, sumArrowString ) => sumIsZero ? sumZeroString : sumArrowString
     );
 
+    // "No forces displayed" should be visible when no other forces are visible
+    const noForcesVisibleProperty = DerivedProperty.not( anyVisibleProperty );
+
     this.forcesList = new AccessibleListNode( [
       { stringProperty: appliedItemStringProperty, visibleProperty: appliedVisibleProperty },
       { stringProperty: frictionItemStringProperty, visibleProperty: frictionVisibleProperty },
-      { stringProperty: this.netForceDescriptionProperty, visibleProperty: model.showSumOfForcesProperty }
+      { stringProperty: this.netForceDescriptionProperty, visibleProperty: model.showSumOfForcesProperty },
+      { stringProperty: ForcesAndMotionBasicsFluent.a11y.forces.noForcesDisplayedStringProperty, visibleProperty: noForcesVisibleProperty }
     ] );
 
     this.addChild( this.forcesList );

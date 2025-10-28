@@ -301,6 +301,7 @@ a11y:
     rightForceArrow:         'Right force arrow is { $description }'
     sumOfForcesArrow:        'Sum of forces arrow is { $description }, pointing { $direction }'
     sumOfForcesZero:         'Sum of forces is 0'
+    noForcesDisplayed:       'No forces displayed.'
 
     # Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).
     quantitativeDescription: |-
