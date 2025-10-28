@@ -224,6 +224,7 @@ addToMapIfDefined( 'a11y_forces_leftForceArrow', 'a11y.forces.leftForceArrowStri
 addToMapIfDefined( 'a11y_forces_rightForceArrow', 'a11y.forces.rightForceArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_sumOfForcesArrow', 'a11y.forces.sumOfForcesArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_sumOfForcesZero', 'a11y.forces.sumOfForcesZeroStringProperty' );
+addToMapIfDefined( 'a11y_forces_noForcesDisplayed', 'a11y.forces.noForcesDisplayedStringProperty' );
 addToMapIfDefined( 'a11y_forces_quantitativeDescription', 'a11y.forces.quantitativeDescriptionStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_verySmall', 'a11y.forces.qualitativeDescriptions.verySmallStringProperty' );
 addToMapIfDefined( 'a11y_forces_qualitativeDescriptions_small', 'a11y.forces.qualitativeDescriptions.smallStringProperty' );
@@ -605,6 +606,7 @@ const ForcesAndMotionBasicsFluent = {
       rightForceArrow: new FluentPattern<{ description: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_rightForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.rightForceArrowStringProperty' ), [{"name":"description"}] ),
       sumOfForcesArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_sumOfForcesArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.sumOfForcesArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),
       sumOfForcesZeroStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_sumOfForcesZero', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.sumOfForcesZeroStringProperty' ) ),
+      noForcesDisplayedStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_noForcesDisplayed', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.noForcesDisplayedStringProperty' ) ),
       _comment_0: new FluentComment( {"comment":"Duplicated with the implementation in scenery-phet so it has the correct type signature (i.e., one numeric variable).","associatedKey":"quantitativeDescription"} ),
       quantitativeDescription: new FluentPattern<{ forceMagnitude: number | 'one' | number | 'other' | TReadOnlyProperty<number | 'one' | number | 'other'> }>( fluentSupport.bundleProperty, 'a11y_forces_quantitativeDescription', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.quantitativeDescriptionStringProperty' ), [{"name":"forceMagnitude","variants":[{"type":"number","value":"one"},{"type":"number","value":"other"}]}] ),
       qualitativeDescriptions: {

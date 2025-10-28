@@ -717,6 +717,9 @@
       "sumOfForcesZero": {
         "value": "Sum of forces is 0"
       },
+      "noForcesDisplayed": {
+        "value": "No forces displayed."
+      },
       "quantitativeDescription": {
         "value": "{ $forceMagnitude ->\n  [one] { $forceMagnitude } newton\n  *[other] { $forceMagnitude } newtons\n}"
       },
