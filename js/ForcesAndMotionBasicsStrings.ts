@@ -324,7 +324,8 @@ type StringsType = {
       'knotOccupiedStringProperty': LocalizedStringProperty;
     };
     'forces': {
-      'headingStringProperty': LocalizedStringProperty;
+      'netForceScreenHeadingStringProperty': LocalizedStringProperty;
+      'motionScreensHeadingStringProperty': LocalizedStringProperty;
       'appliedForceArrowStringProperty': LocalizedStringProperty;
       'frictionForceArrowStringProperty': LocalizedStringProperty;
       'leftForceArrowStringProperty': LocalizedStringProperty;

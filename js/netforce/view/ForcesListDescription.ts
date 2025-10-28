@@ -32,7 +32,7 @@ export default class ForcesListDescription extends Node {
 
     super( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.headingStringProperty,
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.netForceScreenHeadingStringProperty,
       visibleProperty: anyVisibleProperty
     } );
 

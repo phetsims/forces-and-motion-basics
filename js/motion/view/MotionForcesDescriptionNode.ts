@@ -46,7 +46,7 @@ export default class MotionForcesDescriptionNode extends Node {
 
     super( {
       tagName: 'div',
-      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.headingStringProperty,
+      accessibleHeading: ForcesAndMotionBasicsFluent.a11y.forces.motionScreensHeadingStringProperty,
       visibleProperty: anyVisibleProperty
     } );
 

@@ -216,7 +216,8 @@ addToMapIfDefined( 'a11y_pullers_rightSide', 'a11y.pullers.rightSideStringProper
 addToMapIfDefined( 'a11y_tugOfWar_heading', 'a11y.tugOfWar.headingStringProperty' );
 addToMapIfDefined( 'a11y_tugOfWar_noPullersOnRope', 'a11y.tugOfWar.noPullersOnRopeStringProperty' );
 addToMapIfDefined( 'a11y_tugOfWar_knotOccupied', 'a11y.tugOfWar.knotOccupiedStringProperty' );
-addToMapIfDefined( 'a11y_forces_heading', 'a11y.forces.headingStringProperty' );
+addToMapIfDefined( 'a11y_forces_netForceScreenHeading', 'a11y.forces.netForceScreenHeadingStringProperty' );
+addToMapIfDefined( 'a11y_forces_motionScreensHeading', 'a11y.forces.motionScreensHeadingStringProperty' );
 addToMapIfDefined( 'a11y_forces_appliedForceArrow', 'a11y.forces.appliedForceArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_frictionForceArrow', 'a11y.forces.frictionForceArrowStringProperty' );
 addToMapIfDefined( 'a11y_forces_leftForceArrow', 'a11y.forces.leftForceArrowStringProperty' );
@@ -596,7 +597,8 @@ const ForcesAndMotionBasicsFluent = {
       knotOccupied: new FluentPattern<{ number: FluentVariable, pullerName: FluentVariable, side: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_tugOfWar_knotOccupied', _.get( ForcesAndMotionBasicsStrings, 'a11y.tugOfWar.knotOccupiedStringProperty' ), [{"name":"number"},{"name":"pullerName"},{"name":"side"}] )
     },
     forces: {
-      headingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_heading', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.headingStringProperty' ) ),
+      netForceScreenHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_netForceScreenHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.netForceScreenHeadingStringProperty' ) ),
+      motionScreensHeadingStringProperty: new FluentConstant( fluentSupport.bundleProperty, 'a11y_forces_motionScreensHeading', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.motionScreensHeadingStringProperty' ) ),
       appliedForceArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_appliedForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.appliedForceArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),
       frictionForceArrow: new FluentPattern<{ description: FluentVariable, direction: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_frictionForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.frictionForceArrowStringProperty' ), [{"name":"description"},{"name":"direction"}] ),
       leftForceArrow: new FluentPattern<{ description: FluentVariable }>( fluentSupport.bundleProperty, 'a11y_forces_leftForceArrow', _.get( ForcesAndMotionBasicsStrings, 'a11y.forces.leftForceArrowStringProperty' ), [{"name":"description"}] ),
