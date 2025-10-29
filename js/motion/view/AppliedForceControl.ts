@@ -80,25 +80,16 @@ export default class AppliedForceControl extends VBox {
 
       // When the user uses the keyboard to apply force, if it isn't enough to start the
       // items moving, alert a message that the stack remains stationary.
-      pdomCreateContextResponseAlert: newAppliedForce => {
+      endInput: () => {
 
         // If the user has set the applied force to zero, check to see if the resulting acceleration is also zero,
         // in which case, alert that the key event had no effect.
-        if ( newAppliedForce !== 0 ) {
-
-          // console.log( 'applied force was nonzero, scheduling check for acceleration' );
+        if ( model.appliedForceProperty.value !== 0 ) {
 
           const listener = () => {
 
             if ( model.accelerationProperty.value === 0 ) {
-
-              // console.log( 'acceleration is zero, adding a11y alert for stationary stack' );
-
               this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty );
-            }
-            else {
-
-              // console.log( 'acceleration is nonzero' );
             }
 
             model.stepEmitter.removeListener( listener );
