@@ -99,7 +99,6 @@ export default class AppliedForceControl extends VBox {
           // may defer the correct value of acceleration if we check it immediately.
           model.stepEmitter.addListener( listener );
         }
-        return null;
       },
       pdomCreateAriaValueText: ( value: number ) => {
         return SceneryPhetFluent.a11y.units.newtons.pattern.format( {
