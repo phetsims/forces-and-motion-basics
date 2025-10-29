@@ -95,12 +95,13 @@ export default class AppliedForceControl extends VBox {
               // console.log( 'acceleration is zero, adding a11y alert for stationary stack' );
 
               this.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.stackMovement.stackStationaryStringProperty );
-              model.stepEmitter.removeListener( listener );
             }
             else {
 
               // console.log( 'acceleration is nonzero' );
             }
+
+            model.stepEmitter.removeListener( listener );
           };
 
           // Wait for the model to step to check the resulting acceleration, since listener order (particularly on JAWS)
