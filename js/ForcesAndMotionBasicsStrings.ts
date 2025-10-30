@@ -194,9 +194,6 @@ type StringsType = {
         };
         'interactionHintStringProperty': LocalizedStringProperty;
       };
-      'pauseButton': {
-        'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      };
       'stackMovement': {
         'stackMovingLeftStringProperty': LocalizedStringProperty;
         'stackMovingRightStringProperty': LocalizedStringProperty;
@@ -241,7 +238,6 @@ type StringsType = {
         'overStackStringProperty': LocalizedStringProperty;
         'overSkateboardStringProperty': LocalizedStringProperty;
         'overGroundStringProperty': LocalizedStringProperty;
-        'grabbedStringProperty': LocalizedStringProperty;
         'droppedOnStackStringProperty': LocalizedStringProperty;
         'droppedOnStackBottomObjectReturnedStringProperty': LocalizedStringProperty;
         'droppedOnSkateboardStringProperty': LocalizedStringProperty;

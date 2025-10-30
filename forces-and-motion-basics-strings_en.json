@@ -415,11 +415,6 @@
           "value": "Create a stack of objects and give them a push."
         }
       },
-      "pauseButton": {
-        "accessibleHelpText": {
-          "value": "Pause sim to step through little by little and to help make precise measurements."
-        }
-      },
       "stackMovement": {
         "stackMovingLeft": {
           "value": "Stack moving left."
@@ -517,9 +512,6 @@
         },
         "overGround": {
           "value": "Over ground"
-        },
-        "grabbed": {
-          "value": "Grabbed"
         },
         "droppedOnStack": {
           "value": "Dropped on stack"
