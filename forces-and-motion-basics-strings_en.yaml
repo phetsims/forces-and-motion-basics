@@ -179,8 +179,6 @@ a11y:
                   *[other]  Currently, { $count } objects on the { $surface }. Stack is { $motionState }.
                  }
       interactionHint: Create a stack of objects and give them a push.
-    pauseButton:
-      accessibleHelpText: Pause sim to step through little by little and to help make precise measurements.
     stackMovement:
       stackMovingLeft:  Stack moving left.
       stackMovingRight: Stack moving right.
@@ -217,7 +215,6 @@ a11y:
       overStack:                          Over stack
       overSkateboard:                     Over skateboard
       overGround:                         Over ground
-      grabbed:                            Grabbed
       droppedOnStack:                     Dropped on stack
       droppedOnStackBottomObjectReturned: Dropped on stack. Bottom object returned to toolbox.
       droppedOnSkateboard:                Dropped on skateboard
