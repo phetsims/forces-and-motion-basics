@@ -371,8 +371,13 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
       this.item.cancelAnimation();
 
       if ( this.wasOriginallyOnStack ) {
+
+        const height = this.item.getCurrentScale() * this.sittingImageNode.height;
+        const imageWidth = this.item.getCurrentScale() * this.sittingImageNode.width;
+        const topOfStackPosition = new Vector2( this.motionView.layoutBounds.width / 2 - imageWidth / 2, this.motionView.topOfStack - height );
+
         this.item.modeProperty.value = 'onStack';
-        this.item.positionProperty.value = this.originalPosition;
+        this.item.positionProperty.value = topOfStackPosition;
 
         // Add back to stack if it was originally there
         if ( !this.model.stackedItems.includes( this.item ) ) {
