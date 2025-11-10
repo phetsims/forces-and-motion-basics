@@ -22,6 +22,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import StopwatchNode from '../../../../scenery-phet/js/StopwatchNode.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
+import PDOMPeer from '../../../../scenery/js/accessibility/pdom/PDOMPeer.js';
 import { pdomFocusProperty } from '../../../../scenery/js/accessibility/pdomFocusProperty.js';
 import ManualConstraint from '../../../../scenery/js/layout/constraints/ManualConstraint.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -157,6 +158,18 @@ export default class MotionScreenView extends ScreenView {
       descriptionContent: ForcesAndMotionBasicsFluent.a11y.motionScreen.playAreaControls.appliedForceControl.descriptionStringProperty,
       appendDescription: false,
       children: [ appliedForceControl ]
+    } );
+
+    // The FineCoarseSpinner does not have an accessibleName. Instead, we manually create an association to the
+    // "Applied Force Control" heading.
+    appliedForceControl.spinner.addAriaLabelledbyAssociation( {
+
+      // This element's focusable element is labelled by...
+      thisElementName: PDOMPeer.PRIMARY_SIBLING,
+
+      // ...the heading of the applied force play area control node
+      otherNode: appliedForcePlayAreaControlNode,
+      otherElementName: PDOMPeer.HEADING_SIBLING
     } );
 
     const top = leftItemToolboxNode.top - 4;
