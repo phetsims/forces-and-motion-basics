@@ -28,6 +28,9 @@ const appliedForceStringProperty = ForcesAndMotionBasicsFluent.appliedForceStrin
 
 export default class AppliedForceControl extends VBox {
 
+  // For accessibility, to create an association between headings and the interactive part of the control.
+  public readonly spinner: FineCoarseSpinner;
+
   public constructor( maxTextWidth: number, model: MotionModel, tandem: Tandem ) {
 
     // Create the slider
@@ -147,6 +150,7 @@ export default class AppliedForceControl extends VBox {
     } );
 
     this.addLinkedElement( model.appliedForceProperty );
+    this.spinner = spinner;
   }
 }
 
