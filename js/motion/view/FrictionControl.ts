@@ -61,7 +61,7 @@ export default class FrictionControl extends VBox {
 
         isInteracting = false;
       },
-      pdomCreateAriaValueText: value => {
+      createAriaValueText: value => {
         return toFixed( value, 2 );
       },
       roundToStepSize: true

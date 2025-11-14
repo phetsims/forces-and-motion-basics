@@ -103,7 +103,7 @@ export default class AppliedForceControl extends VBox {
           model.stepEmitter.addListener( listener );
         }
       },
-      pdomCreateAriaValueText: ( value: number ) => {
+      createAriaValueText: ( value: number ) => {
         return SceneryPhetFluent.a11y.units.newtons.pattern.format( {
           value: value
         } );
