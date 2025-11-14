@@ -6,7 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import StringProperty from '../../../../axon/js/StringProperty.js';
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
@@ -27,14 +26,14 @@ export default class NetForceHotkeyData {
         ...NetForceHotkeyData.NAVIGATE_RIGHT_KEYS
       ],
       repoName: forcesAndMotionBasics.name,
-      keyboardHelpDialogLabelStringProperty: new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
+      binderName: 'Puller Navigation'
     } ),
 
     // Grab/drop interaction
     grabOrDrop: new HotkeyData( {
       keys: [ 'enter', 'space' ],
       repoName: forcesAndMotionBasics.name,
-      keyboardHelpDialogLabelStringProperty: new StringProperty( '' ) // Unused, label is provided separately. Yet we want to use the other infrastructure from HotkeyData
+      binderName: 'Grab/Drop Puller'
     } ),
 
     // Cancel interaction
