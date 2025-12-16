@@ -345,7 +345,7 @@ export default class NetForceScreenView extends ScreenView {
           else {
             winnerAnnouncement = x < 0 ? 'Blue wins!' : 'Red wins!';
           }
-          this.addAccessibleResponse( winnerAnnouncement );
+          this.addAccessibleContextResponse( winnerAnnouncement );
           hasAnnouncedWinner = true;
         }
       }
