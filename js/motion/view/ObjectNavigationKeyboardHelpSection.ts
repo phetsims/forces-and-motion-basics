@@ -11,7 +11,7 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionHotkeyData from './MotionHotkeyData.js';
 
 const LABEL_OPTIONS: RichTextOptions = { lineWrap: 200 };
@@ -19,44 +19,44 @@ const LABEL_OPTIONS: RichTextOptions = { lineWrap: 200 };
 export default class ObjectNavigationKeyboardHelpSection extends KeyboardHelpSection {
 
   public constructor() {
-    super( ForcesAndMotionBasicsStrings.keyboardHelpDialog.objectNavigationStringProperty, [
+    super( ForcesAndMotionBasicsFluent.keyboardHelpDialog.objectNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIconList(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectObjectStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.selectObjectStringProperty,
         [
           KeyboardHelpIconFactory.leftRightOrADKeysRowIcon()
         ], {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.selectObjectDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.objectNavigation.selectObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabObjectStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.grabObjectStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(), {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.grabObjectDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.objectNavigation.grabObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIconList(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedObjectStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.moveGrabbedObjectStringProperty,
         [
           KeyboardHelpIconFactory.leftRightOrADKeysRowIcon()
         ], {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.moveGrabbedObjectDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.objectNavigation.moveGrabbedObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropObjectStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.dropObjectStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(), {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.dropObjectDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.objectNavigation.dropObjectDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.RETURN_ITEM_TO_TOOLBOX_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.objectNavigation.returnToToolboxDescriptionStringProperty
       } ),
       KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.CANCEL_AND_RETURN_ITEM_TO_ORIGIN_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.objectNavigation.cancelMovementStringProperty
       } )
     ] );
   }

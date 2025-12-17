@@ -11,7 +11,7 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import { RichTextOptions } from '../../../../scenery/js/nodes/RichText.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
 
 const LABEL_OPTIONS: RichTextOptions = { lineWrap: 200 };
@@ -19,50 +19,50 @@ const LABEL_OPTIONS: RichTextOptions = { lineWrap: 200 };
 export default class PullerNavigationKeyboardHelpSection extends KeyboardHelpSection {
 
   public constructor() {
-    super( ForcesAndMotionBasicsStrings.keyboardHelpDialog.pullerNavigationStringProperty, [
+    super( ForcesAndMotionBasicsFluent.keyboardHelpDialog.pullerNavigationStringProperty, [
       KeyboardHelpSectionRow.labelWithIconList(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.selectPullerStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.selectPullerStringProperty,
         [
           KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
           KeyboardHelpIconFactory.aDKeysRowIcon()
         ],
         {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.pullerNavigation.selectPullerDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.grabPullerStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.grabPullerStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
         {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.pullerNavigation.grabPullerDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIconList(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.moveGrabbedPullerStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.moveGrabbedPullerStringProperty,
         [
           KeyboardHelpIconFactory.leftRightArrowKeysRowIcon(),
           KeyboardHelpIconFactory.aDKeysRowIcon()
         ],
         {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.pullerNavigation.moveGrabbedPullerDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.labelWithIcon(
-        ForcesAndMotionBasicsStrings.keyboardHelpDialog.dropPullerStringProperty,
+        ForcesAndMotionBasicsFluent.keyboardHelpDialog.dropPullerStringProperty,
         KeyboardHelpIconFactory.spaceOrEnter(),
         {
           labelOptions: LABEL_OPTIONS,
-          labelInnerContent: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty
+          labelInnerContent: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.pullerNavigation.dropPullerDescriptionStringProperty
         }
       ),
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PULLER_NODE.returnToToolbox, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.pullerNavigation.returnToToolboxDescriptionStringProperty
       } ),
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PULLER_NODE.cancelInteraction, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.pullerNavigation.cancelMovementStringProperty
+        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.pullerNavigation.cancelMovementStringProperty
       } )
     ] );
   }

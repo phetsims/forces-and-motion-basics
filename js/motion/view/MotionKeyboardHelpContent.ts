@@ -12,7 +12,7 @@ import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keybo
 import SpinnerControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SpinnerControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionHotkeyData from './MotionHotkeyData.js';
 import ObjectNavigationKeyboardHelpSection from './ObjectNavigationKeyboardHelpSection.js';
 
@@ -22,12 +22,12 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
 
     // Sections in the left column.
     const adjustAppliedForceSection = new SpinnerControlsKeyboardHelpSection( {
-      headingStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.adjustAppliedForceStringProperty,
+      headingStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.adjustAppliedForceStringProperty,
       includeLargerStepsRow: false,
       arrowKeyIconDisplay: SliderControlsKeyboardHelpSection.ArrowKeyIconDisplay.LEFT_RIGHT,
       additionalRows: [
         KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA, {
-          pdomLabelStringProperty: ForcesAndMotionBasicsStrings.a11y.keyboardHelpDialog.adjustAppliedForce.zeroAppliedForceDescriptionStringProperty
+          pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.adjustAppliedForce.zeroAppliedForceDescriptionStringProperty
         } )
       ]
     } );

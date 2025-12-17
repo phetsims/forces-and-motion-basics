@@ -9,7 +9,7 @@
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 export default class NetForceHotkeyData {
 
@@ -40,14 +40,14 @@ export default class NetForceHotkeyData {
     cancelInteraction: new HotkeyData( {
       keys: [ 'escape' ],
       repoName: forcesAndMotionBasics.name,
-      keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelMovementStringProperty
+      keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.cancelMovementStringProperty
     } ),
 
     // Return to toolbox
     returnToToolbox: new HotkeyData( {
       keys: [ 'delete', 'backspace' ],
       repoName: forcesAndMotionBasics.name,
-      keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnToToolboxStringProperty
+      keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.returnToToolboxStringProperty
     } )
   };
 
@@ -55,21 +55,21 @@ export default class NetForceHotkeyData {
   public static readonly GO_HOTKEY_DATA = new HotkeyData( {
     keys: [ 'alt+g' ],
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.startGameStringProperty,
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.startGameStringProperty,
     global: true
   } );
 
   public static readonly PAUSE_HOTKEY_DATA = new HotkeyData( {
     keys: [ 'alt+p' ],
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.pauseGameStringProperty,
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.pauseGameStringProperty,
     global: true
   } );
 
   public static readonly RETURN_CART_HOTKEY_DATA = new HotkeyData( {
     keys: [ 'alt+c' ],
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnCartToCenterStringProperty,
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.returnCartToCenterStringProperty,
     global: true
   } );
 }

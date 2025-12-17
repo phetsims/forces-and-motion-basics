@@ -11,13 +11,12 @@ import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/Ke
 import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
 
 export default class FromAnywhereInScreenKeyboardHelpSection extends KeyboardHelpSection {
 
   public constructor() {
-    super( ForcesAndMotionBasicsStrings.keyboardHelpDialog.fromAnywhereInScreenStringProperty, [
+    super( ForcesAndMotionBasicsFluent.keyboardHelpDialog.fromAnywhereInScreenStringProperty, [
       KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA, {
         pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescription.createProperty( {
           altOrOptionKey: TextKeyNode.getAltKeyString()

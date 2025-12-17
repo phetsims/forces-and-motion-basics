@@ -28,8 +28,8 @@ export default class MovingBackgroundNode extends Node {
   /**
    * Constructor for MovingBackgroundNode
    *
-    * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
-    * @param layoutCenterX the position where the node should be centered horizontally
+   * @param model the model for the entire 'motion', 'friction' or 'acceleration' screen
+   * @param layoutCenterX the position where the node should be centered horizontally
    */
   public constructor( model: MotionModel, layoutCenterX: number ) {
 
@@ -173,7 +173,7 @@ export default class MovingBackgroundNode extends Node {
               createdThisUpdate.push( r );
             }
             // Snapshot and then dispose temporary rectangles to prevent leaks.
-            
+
             gravelSource.toImage( image => {
               gravel.fill = new Pattern( image );
 

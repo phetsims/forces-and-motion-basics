@@ -10,11 +10,11 @@
 
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class ItemDescriber {
 

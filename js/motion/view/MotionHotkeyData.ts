@@ -8,28 +8,28 @@
 
 import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-import ForcesAndMotionBasicsStrings from '../../ForcesAndMotionBasicsStrings.js';
+import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 export default class MotionHotkeyData {
   // Zero the applied force using the '0' key
   public static readonly ZERO_APPLIED_FORCE_HOTKEY_DATA = new HotkeyData( {
     keys: [ '0' ],
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.zeroAppliedForceStringProperty
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.zeroAppliedForceStringProperty
   } );
 
   // Return grabbed item to toolbox with Delete/Backspace
   public static readonly RETURN_ITEM_TO_TOOLBOX_HOTKEY_DATA = new HotkeyData( {
     keys: [ 'delete', 'backspace' ],
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.returnToToolboxStringProperty
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.returnToToolboxStringProperty
   } );
 
   // Cancel and return grabbed item to where it came from with Escape
   public static readonly CANCEL_AND_RETURN_ITEM_TO_ORIGIN_HOTKEY_DATA = new HotkeyData( {
     keys: [ 'escape' ],
     repoName: forcesAndMotionBasics.name,
-    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsStrings.keyboardHelpDialog.cancelMovementStringProperty
+    keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.cancelMovementStringProperty
   } );
 }
 
