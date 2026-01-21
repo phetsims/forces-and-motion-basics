@@ -7,6 +7,7 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
@@ -86,15 +87,19 @@ export default class FrictionControl extends VBox {
       // Only provide context response feedback caused by an interaction, not, say, from reset all or other programmatic causes
       if ( !isSettingPhetioStateProperty.value && isInteracting ) {
         affirm( friction !== oldFriction, 'unexpected lazy link' );
+
+        let stringProperty: TReadOnlyProperty<string>;
         if ( friction > oldFriction ) {
-          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty );
+          stringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.rougherStringProperty;
         }
         else if ( friction === 0 ) {
-          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty );
+          stringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.icyStringProperty;
         }
         else {
-          frictionSlider.addAccessibleContextResponse( ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty );
+          stringProperty = ForcesAndMotionBasicsFluent.a11y.motionScreen.frictionSlider.contextResponse.smootherStringProperty;
         }
+
+        frictionSlider.addAccessibleContextResponse( stringProperty, { interruptible: true } );
       }
     } );
 
