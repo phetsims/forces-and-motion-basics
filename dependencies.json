@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "9b6aa4c12d9806e58707fabf7ce5496e7bd48279",
+    "sha": "1d19511249221be2616406e9f10a51a3bf852daf",
     "branch": "2.5"
   },
   "joist": {
-    "sha": "951ce217aeaec4f52631ecdd035b8a005c5b540e",
+    "sha": "e08a0ab94925bfa419d94e133bc370fc95498c79",
     "branch": "HEAD"
   },
   "kite": {
