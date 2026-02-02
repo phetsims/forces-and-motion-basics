@@ -1,5 +1,5 @@
 {
-  "comment": "# forces-and-motion-basics 2.6.1 Tue Nov 11 2025 19:22:21 GMT-0500 (Eastern Standard Time)",
+  "comment": "# forces-and-motion-basics 2.6.2-rc.1 Mon Feb 02 2026 17:44:32 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "1a4637cfff70e7e8b0844dc43848a86ae89b4cf5",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "429b403000b407f78f9bbbc987936d0e107d0b77",
+    "sha": "64582f2f7c7d2eff86ccafd5c2826205b6302e13",
     "branch": "2.6"
   },
   "joist": {
