@@ -71,27 +71,6 @@ a11y:
   preferences:
     netForcePullerColorControl:
       accessibleHelpText: Select team colors for tug-of-war game.
-  keyboardHelpDialog:
-    fromAnywhereInSim:
-      startGameDescription:          Start tug-of-war game with { $altOrOptionKey } plus G key.
-      pauseGameDescription:          Pause tug-of-war game with { $altOrOptionKey } plus P key.
-      returnCartToCenterDescription: Return cart to center with { $altOrOptionKey } plus C key.
-    pullerNavigation:
-      selectPullerDescription:      Select puller with Left and Right Arrow keys or A and D keys.
-      grabPullerDescription:        Grab selected puller with Space or Enter keys.
-      moveGrabbedPullerDescription: Move grabbed puller with Left and Right Arrow keys or A and D keys.
-      dropPullerDescription:        Drop puller with Space or Enter keys.
-      returnToToolboxDescription:   Return grabbed puller to toolbox with Delete or Backspace keys.
-      cancelMovement:               Cancel movement with Escape key.
-    objectNavigation:
-      selectObjectDescription:      Select object with Left and Right Arrow keys or A and D keys.
-      grabObjectDescription:        Grab selected object with Space or Enter keys.
-      moveGrabbedObjectDescription: Move grabbed object with Left and Right Arrow keys or A and D keys.
-      dropObjectDescription:        Drop object with Space or Enter keys.
-      returnToToolboxDescription:   Return grabbed object to toolbox with Delete or Backspace keys.
-      cancelMovement:               Cancel movement with Escape key.
-    adjustAppliedForce:
-      zeroAppliedForceDescription: Set applied force to zero with 0 key.
   netForceScreen:
     screenButtonsHelpText: Explore net force in a tug-of-war game.
     colorName:             |-

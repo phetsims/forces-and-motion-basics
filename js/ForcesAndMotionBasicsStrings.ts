@@ -92,32 +92,6 @@ type StringsType = {
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
       }
     };
-    'keyboardHelpDialog': {
-      'fromAnywhereInSim': {
-        'startGameDescriptionStringProperty': LocalizedStringProperty;
-        'pauseGameDescriptionStringProperty': LocalizedStringProperty;
-        'returnCartToCenterDescriptionStringProperty': LocalizedStringProperty;
-      };
-      'pullerNavigation': {
-        'selectPullerDescriptionStringProperty': LocalizedStringProperty;
-        'grabPullerDescriptionStringProperty': LocalizedStringProperty;
-        'moveGrabbedPullerDescriptionStringProperty': LocalizedStringProperty;
-        'dropPullerDescriptionStringProperty': LocalizedStringProperty;
-        'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
-        'cancelMovementStringProperty': LocalizedStringProperty;
-      };
-      'objectNavigation': {
-        'selectObjectDescriptionStringProperty': LocalizedStringProperty;
-        'grabObjectDescriptionStringProperty': LocalizedStringProperty;
-        'moveGrabbedObjectDescriptionStringProperty': LocalizedStringProperty;
-        'dropObjectDescriptionStringProperty': LocalizedStringProperty;
-        'returnToToolboxDescriptionStringProperty': LocalizedStringProperty;
-        'cancelMovementStringProperty': LocalizedStringProperty;
-      };
-      'adjustAppliedForce': {
-        'zeroAppliedForceDescriptionStringProperty': LocalizedStringProperty;
-      }
-    };
     'netForceScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
       'colorNameStringProperty': LocalizedStringProperty;

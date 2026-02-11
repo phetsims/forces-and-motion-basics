@@ -199,64 +199,6 @@
         }
       }
     },
-    "keyboardHelpDialog": {
-      "fromAnywhereInSim": {
-        "startGameDescription": {
-          "value": "Start tug-of-war game with { $altOrOptionKey } plus G key."
-        },
-        "pauseGameDescription": {
-          "value": "Pause tug-of-war game with { $altOrOptionKey } plus P key."
-        },
-        "returnCartToCenterDescription": {
-          "value": "Return cart to center with { $altOrOptionKey } plus C key."
-        }
-      },
-      "pullerNavigation": {
-        "selectPullerDescription": {
-          "value": "Select puller with Left and Right Arrow keys or A and D keys."
-        },
-        "grabPullerDescription": {
-          "value": "Grab selected puller with Space or Enter keys."
-        },
-        "moveGrabbedPullerDescription": {
-          "value": "Move grabbed puller with Left and Right Arrow keys or A and D keys."
-        },
-        "dropPullerDescription": {
-          "value": "Drop puller with Space or Enter keys."
-        },
-        "returnToToolboxDescription": {
-          "value": "Return grabbed puller to toolbox with Delete or Backspace keys."
-        },
-        "cancelMovement": {
-          "value": "Cancel movement with Escape key."
-        }
-      },
-      "objectNavigation": {
-        "selectObjectDescription": {
-          "value": "Select object with Left and Right Arrow keys or A and D keys."
-        },
-        "grabObjectDescription": {
-          "value": "Grab selected object with Space or Enter keys."
-        },
-        "moveGrabbedObjectDescription": {
-          "value": "Move grabbed object with Left and Right Arrow keys or A and D keys."
-        },
-        "dropObjectDescription": {
-          "value": "Drop object with Space or Enter keys."
-        },
-        "returnToToolboxDescription": {
-          "value": "Return grabbed object to toolbox with Delete or Backspace keys."
-        },
-        "cancelMovement": {
-          "value": "Cancel movement with Escape key."
-        }
-      },
-      "adjustAppliedForce": {
-        "zeroAppliedForceDescription": {
-          "value": "Set applied force to zero with 0 key."
-        }
-      }
-    },
     "netForceScreen": {
       "screenButtonsHelpText": {
         "value": "Explore net force in a tug-of-war game."

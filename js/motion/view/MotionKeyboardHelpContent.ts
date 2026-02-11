@@ -26,9 +26,7 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
       includeLargerStepsRow: false,
       arrowKeyIconDisplay: SliderControlsKeyboardHelpSection.ArrowKeyIconDisplay.LEFT_RIGHT,
       additionalRows: [
-        KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA, {
-          pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.adjustAppliedForce.zeroAppliedForceDescriptionStringProperty
-        } )
+        KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA )
       ]
     } );
 

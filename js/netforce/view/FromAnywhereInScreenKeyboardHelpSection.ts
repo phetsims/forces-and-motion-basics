@@ -8,7 +8,6 @@
 
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
-import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
@@ -17,21 +16,9 @@ export default class FromAnywhereInScreenKeyboardHelpSection extends KeyboardHel
 
   public constructor() {
     super( ForcesAndMotionBasicsFluent.keyboardHelpDialog.fromAnywhereInScreenStringProperty, [
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.startGameDescription.createProperty( {
-          altOrOptionKey: TextKeyNode.getAltKeyString()
-        } )
-      } ),
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PAUSE_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.pauseGameDescription.createProperty( {
-          altOrOptionKey: TextKeyNode.getAltKeyString()
-        } )
-      } ),
-      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.RETURN_CART_HOTKEY_DATA, {
-        pdomLabelStringProperty: ForcesAndMotionBasicsFluent.a11y.keyboardHelpDialog.fromAnywhereInSim.returnCartToCenterDescription.createProperty( {
-          altOrOptionKey: TextKeyNode.getAltKeyString()
-        } )
-      } )
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.GO_HOTKEY_DATA ),
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.PAUSE_HOTKEY_DATA ),
+      KeyboardHelpSectionRow.fromHotkeyData( NetForceHotkeyData.RETURN_CART_HOTKEY_DATA )
     ] );
   }
 }
