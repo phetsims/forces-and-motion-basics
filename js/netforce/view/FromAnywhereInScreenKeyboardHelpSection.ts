@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * FromAnywhereInScreenKeyboardHelpSection covers hotkeys available regardless of focus in the Net Force screen.

@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * MotionKeyboardHelpContent is the content for the keyboard-help dialog in the Motion screens.
