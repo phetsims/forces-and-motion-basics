@@ -9,7 +9,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
+import AccessibleList from '../../../../scenery-phet/js/accessibility/AccessibleList.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -25,7 +25,7 @@ export default class TugOfWarDescriptionNode extends Node {
       accessibleHeading: ForcesAndMotionBasicsFluent.a11y.tugOfWar.headingStringProperty
     } );
 
-    // Build a single AccessibleListNode that persists for the lifetime of this view.
+    // Build accessible list items that persist for the lifetime of this view.
     // Each knot gets a list item whose visibility reflects whether a puller is attached to that knot.
 
     const listItems = this.model.knots.map( knot => {
@@ -69,7 +69,8 @@ export default class TugOfWarDescriptionNode extends Node {
 
     const hasItemsProperty = new DerivedProperty( [ this.model.numberPullersAttachedProperty ], n => n > 0 );
 
-    const listNode = new AccessibleListNode( listItems, {
+    this.accessibleTemplate = AccessibleList.createTemplate( {
+      listItems: listItems,
       leadingParagraphStringProperty: ForcesAndMotionBasicsFluent.a11y.tugOfWar.list.leadingParagraphStringProperty,
       visibleProperty: hasItemsProperty
     } );
@@ -81,7 +82,6 @@ export default class TugOfWarDescriptionNode extends Node {
     } );
 
     this.addChild( emptyNode );
-    this.addChild( listNode );
   }
 }
 
