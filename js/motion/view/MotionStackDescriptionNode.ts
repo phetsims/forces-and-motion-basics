@@ -14,7 +14,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import AccessibleListNode from '../../../../scenery-phet/js/accessibility/AccessibleListNode.js';
+import AccessibleList from '../../../../scenery-phet/js/accessibility/AccessibleList.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
@@ -101,12 +101,13 @@ export default class MotionStackDescriptionNode extends Node {
       return item ? getAccessibleName( item ) : ''; // bottom of stack, if present
     } );
 
-    // The list node with leading paragraph, shown only when there are items
-    const listNode = new AccessibleListNode( [
-      { stringProperty: topStringProperty, visibleProperty: topVisibleProperty },
-      { stringProperty: middleStringProperty, visibleProperty: middleVisibleProperty },
-      { stringProperty: bottomStringProperty, visibleProperty: bottomVisibleProperty }
-    ], {
+    // Accessible list with leading paragraph, shown only when there are items.
+    this.accessibleTemplate = AccessibleList.createTemplate( {
+      listItems: [
+        { stringProperty: topStringProperty, visibleProperty: topVisibleProperty },
+        { stringProperty: middleStringProperty, visibleProperty: middleVisibleProperty },
+        { stringProperty: bottomStringProperty, visibleProperty: bottomVisibleProperty }
+      ],
       leadingParagraphStringProperty: leadingParagraphStringProperty,
       visibleProperty: hasItemsProperty
     } );
@@ -119,7 +120,6 @@ export default class MotionStackDescriptionNode extends Node {
     } );
 
     this.addChild( emptyNode );
-    this.addChild( listNode );
   }
 }
 
