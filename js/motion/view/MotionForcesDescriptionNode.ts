@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * MotionForcesListDescription provides an accessible list of the current force arrow values in the Motion screens.

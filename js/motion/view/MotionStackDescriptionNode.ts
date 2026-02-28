@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * MotionStackDescription shows an accessible list of stacked items under the Skateboard/Stack heading.

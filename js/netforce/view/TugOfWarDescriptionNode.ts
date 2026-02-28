@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * TugOfWarDescription provides an accessible overview of the current state of the tug-of-war rope,
