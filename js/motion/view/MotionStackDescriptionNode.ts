@@ -102,7 +102,7 @@ export default class MotionStackDescriptionNode extends Node {
     } );
 
     // Accessible list with leading paragraph, shown only when there are items.
-    this.accessibleTemplate = AccessibleList.createTemplate( {
+    this.accessibleTemplate = AccessibleList.createTemplateProperty( {
       listItems: [
         { stringProperty: topStringProperty, visibleProperty: topVisibleProperty },
         { stringProperty: middleStringProperty, visibleProperty: middleVisibleProperty },

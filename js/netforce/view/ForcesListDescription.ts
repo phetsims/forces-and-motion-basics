@@ -105,7 +105,7 @@ export default class ForcesListDescription extends Node {
     const noForcesVisibleProperty = DerivedProperty.not( anyVisibleProperty );
 
     // Build the accessible list template with four potential items, each with its own visibility.
-    this.accessibleTemplate = AccessibleList.createTemplate( {
+    this.accessibleTemplate = AccessibleList.createTemplateProperty( {
       listItems: [
         { stringProperty: leftItemStringProperty, visibleProperty: leftVisibleProperty },
         { stringProperty: rightItemStringProperty, visibleProperty: rightVisibleProperty },

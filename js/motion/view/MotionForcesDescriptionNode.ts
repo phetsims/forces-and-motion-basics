@@ -135,7 +135,7 @@ export default class MotionForcesDescriptionNode extends Node {
     // "No forces displayed" should be visible when no other forces are visible
     const noForcesVisibleProperty = DerivedProperty.not( anyVisibleProperty );
 
-    this.accessibleTemplate = AccessibleList.createTemplate( {
+    this.accessibleTemplate = AccessibleList.createTemplateProperty( {
       listItems: [
         { stringProperty: appliedItemStringProperty, visibleProperty: appliedVisibleProperty },
         { stringProperty: frictionItemStringProperty, visibleProperty: frictionVisibleProperty },
