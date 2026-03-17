@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "77e2df6406c76910ab027e5ae63d06b4f57e8526",
+    "sha": "8111e8cf4b95cb42052ca7e793fa58566ce8f95d",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "fb04f5657a3fc5463e086497acbe0519b94781b8",
+    "sha": "12dfd921d44a80430ed9a15dc61d966f8e219e03",
     "branch": "2.6"
   },
   "joist": {
