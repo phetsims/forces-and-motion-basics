@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "12dfd921d44a80430ed9a15dc61d966f8e219e03",
+    "sha": "2db70a4ffad060887e854714664d33755574e6e2",
     "branch": "2.6"
   },
   "joist": {
@@ -33,7 +33,7 @@
     "branch": "HEAD"
   },
   "perennial-alias": {
-    "sha": "b974cdfd6dc56b1283eb3feb96d6da5aaa2a70b1",
+    "sha": "05246cca064a549e8c1d9d815fb7c2c84cb983c2",
     "branch": "HEAD"
   },
   "phet-core": {
