@@ -9,7 +9,7 @@
     "branch": "HEAD"
   },
   "brand": {
-    "sha": "acbe6dcbe8f6225f77f37477739686c6d59cf98c",
+    "sha": "850ed1a10e614c63d76de30c7768555485e4314b",
     "branch": "HEAD"
   },
   "chipper": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "7d577028a01a718c60cff20cd496f13a7c206e7d",
+    "sha": "fb04f5657a3fc5463e086497acbe0519b94781b8",
     "branch": "2.6"
   },
   "joist": {
