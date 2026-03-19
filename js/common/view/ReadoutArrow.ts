@@ -20,7 +20,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsQueryParameters from '../ForcesAndMotionBasicsQueryParameters.js';
 
@@ -272,5 +271,3 @@ export default class ReadoutArrow extends Node {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'ReadoutArrow', ReadoutArrow );

@@ -8,7 +8,6 @@
 
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import PullerColorControl from './PullerColorControl.js';
 
@@ -26,5 +25,3 @@ export default class ForcesAndMotionBasicsPreferencesNode extends VBox {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'ForcesAndMotionBasicsPreferencesNode', ForcesAndMotionBasicsPreferencesNode );

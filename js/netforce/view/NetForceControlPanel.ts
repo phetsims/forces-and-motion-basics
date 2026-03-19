@@ -17,7 +17,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup from '../../../../sun/js/VerticalCheckboxGroup.js';
 import ForcesAndMotionBasicsIconFactory from '../../common/view/ForcesAndMotionBasicsIconFactory.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
@@ -100,5 +99,3 @@ export default class NetForceControlPanel extends Node {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'NetForceControlPanel', NetForceControlPanel );

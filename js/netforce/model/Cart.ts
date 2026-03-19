@@ -11,7 +11,6 @@ import Range from '../../../../dot/js/Range.js';
 import { metersPerSecondUnit } from '../../../../scenery-phet/js/units/metersPerSecondUnit.js';
 import { metersUnit } from '../../../../scenery-phet/js/units/metersUnit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class Cart {
 
@@ -50,5 +49,3 @@ export default class Cart {
     this.velocityProperty.reset();
   }
 }
-
-forcesAndMotionBasics.register( 'Cart', Cart );

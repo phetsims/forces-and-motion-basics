@@ -19,7 +19,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import GrabReleaseCueNode from '../../../../scenery-phet/js/accessibility/nodes/GrabReleaseCueNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class FocusDrivenGrabReleaseCueNode<T extends Node> extends GrabReleaseCueNode {
 
@@ -54,5 +53,3 @@ export default class FocusDrivenGrabReleaseCueNode<T extends Node> extends GrabR
     this.hasInteractedProperty.reset();
   }
 }
-
-forcesAndMotionBasics.register( 'FocusDrivenGrabReleaseCueNode', FocusDrivenGrabReleaseCueNode );

@@ -8,7 +8,6 @@
 
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ItemDescriber from './ItemDescriber.js';
 import ItemNode from './ItemNode.js';
@@ -81,5 +80,3 @@ export default class ItemNodeDragListener extends SoundDragListener {
 
   }
 }
-
-forcesAndMotionBasics.register( 'ItemNodeDragListener', ItemNodeDragListener );

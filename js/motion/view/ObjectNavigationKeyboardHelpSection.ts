@@ -10,7 +10,6 @@ import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/grab-
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionHotkeyData from './MotionHotkeyData.js';
 
@@ -47,5 +46,3 @@ export default class ObjectNavigationKeyboardHelpSection extends KeyboardHelpSec
     ] );
   }
 }
-
-forcesAndMotionBasics.register( 'ObjectNavigationKeyboardHelpSection', ObjectNavigationKeyboardHelpSection );

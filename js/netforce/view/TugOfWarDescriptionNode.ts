@@ -11,7 +11,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AccessibleList from '../../../../scenery-phet/js/accessibility/AccessibleList.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -84,5 +83,3 @@ export default class TugOfWarDescriptionNode extends Node {
     this.addChild( emptyNode );
   }
 }
-
-forcesAndMotionBasics.register( 'TugOfWarDescriptionNode', TugOfWarDescriptionNode );

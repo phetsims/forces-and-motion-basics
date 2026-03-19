@@ -39,7 +39,6 @@ import skateboard_svg from '../../../images/skateboard_svg.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
@@ -783,5 +782,3 @@ export default class MotionScreenView extends ScreenView {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'MotionScreenView', MotionScreenView );

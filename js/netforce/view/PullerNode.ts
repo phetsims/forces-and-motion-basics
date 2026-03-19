@@ -38,7 +38,6 @@ import pull_figure_small_PURPLE_0_png from '../../../images/pushPullFigures/pull
 import pull_figure_small_PURPLE_3_png from '../../../images/pushPullFigures/pull_figure_small_PURPLE_3_png.js';
 import pull_figure_small_RED_0_png from '../../../images/pushPullFigures/pull_figure_small_RED_0_png.js';
 import pull_figure_small_RED_3_png from '../../../images/pushPullFigures/pull_figure_small_RED_3_png.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import Knot from '../model/Knot.js';
@@ -402,5 +401,3 @@ export default class PullerNode extends InteractiveHighlighting( Image ) {
   }
 
 }
-
-forcesAndMotionBasics.register( 'PullerNode', PullerNode );

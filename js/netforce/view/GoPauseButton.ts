@@ -16,7 +16,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import { BooleanToggleNodeOptions } from '../../../../sun/js/BooleanToggleNode.js';
 import BooleanRoundToggleButton from '../../../../sun/js/buttons/BooleanRoundToggleButton.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
@@ -152,5 +151,3 @@ export default class GoPauseButton extends BooleanRoundToggleButton {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'GoPauseButton', GoPauseButton );

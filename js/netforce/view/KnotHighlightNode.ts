@@ -9,7 +9,6 @@
 
 import Shape from '../../../../kite/js/Shape.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Knot from '../model/Knot.js';
 
 const knotWidth = 20;
@@ -31,5 +30,3 @@ export default class KnotHighlightNode extends Path {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'KnotHighlightNode', KnotHighlightNode );

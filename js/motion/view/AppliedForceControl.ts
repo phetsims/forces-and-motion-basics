@@ -17,7 +17,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import AppliedForceSlider from './AppliedForceSlider.js';
@@ -153,5 +152,3 @@ export default class AppliedForceControl extends VBox {
     this.spinner = spinner;
   }
 }
-
-forcesAndMotionBasics.register( 'AppliedForceControl', AppliedForceControl );

@@ -18,7 +18,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 
 const NUMBER_OF_DIVISIONS = 10; // e.g. divide the ruler into 1/8ths
@@ -129,5 +128,3 @@ export default class AppliedForceSlider extends HSlider {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'AppliedForceSlider', AppliedForceSlider );

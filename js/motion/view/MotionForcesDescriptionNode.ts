@@ -21,7 +21,6 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import AccessibleList from '../../../../scenery-phet/js/accessibility/AccessibleList.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
@@ -157,5 +156,3 @@ export default class MotionForcesDescriptionNode extends Node {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'MotionForcesDescriptionNode', MotionForcesDescriptionNode );

@@ -13,7 +13,6 @@ import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import cart_svg from '../../../images/cart_svg.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Cart from '../model/Cart.js';
 
@@ -57,5 +56,3 @@ export default class CartNode extends Image {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'CartNode', CartNode );

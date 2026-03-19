@@ -9,7 +9,6 @@
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
 
@@ -49,5 +48,3 @@ export default class PullerNavigationKeyboardHelpSection extends KeyboardHelpSec
     ] );
   }
 }
-
-forcesAndMotionBasics.register( 'PullerNavigationKeyboardHelpSection', PullerNavigationKeyboardHelpSection );

@@ -11,7 +11,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 export default class PullerGroupNode extends Node {
@@ -33,5 +32,3 @@ export default class PullerGroupNode extends Node {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'PullerGroupNode', PullerGroupNode );

@@ -12,7 +12,6 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import LeftOrRight, { leftOrRightValues } from '../model/LeftOrRight.js';
 
 type SelfOptions = {
@@ -39,5 +38,3 @@ export default class CartStopperNode extends Path {
     this.mutate( options );
   }
 }
-
-forcesAndMotionBasics.register( 'CartStopperNode', CartStopperNode );

@@ -8,7 +8,6 @@
 
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
 
@@ -22,5 +21,3 @@ export default class FromAnywhereInScreenKeyboardHelpSection extends KeyboardHel
     ] );
   }
 }
-
-forcesAndMotionBasics.register( 'FromAnywhereInScreenKeyboardHelpSection', FromAnywhereInScreenKeyboardHelpSection );

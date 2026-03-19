@@ -11,7 +11,6 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import FocusDrivenGrabReleaseCueNode from '../../common/view/FocusDrivenGrabReleaseCueNode.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import PullerNode from './PullerNode.js';
 
 export default class NetForceGrabReleaseCueNode extends FocusDrivenGrabReleaseCueNode<PullerNode> {
@@ -45,5 +44,3 @@ export default class NetForceGrabReleaseCueNode extends FocusDrivenGrabReleaseCu
     );
   }
 }
-
-forcesAndMotionBasics.register( 'NetForceGrabReleaseCueNode', NetForceGrabReleaseCueNode );

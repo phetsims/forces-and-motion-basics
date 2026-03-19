@@ -11,7 +11,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import TextPushButton, { TextPushButtonOptions } from '../../../../sun/js/buttons/TextPushButton.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
@@ -63,5 +62,3 @@ export default class ReturnButton extends TextPushButton {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'ReturnButton', ReturnButton );

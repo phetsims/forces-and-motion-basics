@@ -8,7 +8,6 @@
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import FromAnywhereInScreenKeyboardHelpSection from './FromAnywhereInScreenKeyboardHelpSection.js';
 import PullerNavigationKeyboardHelpSection from './PullerNavigationKeyboardHelpSection.js';
 
@@ -34,5 +33,3 @@ export default class NetForceKeyboardHelpContent extends TwoColumnKeyboardHelpCo
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'NetForceKeyboardHelpContent', NetForceKeyboardHelpContent );

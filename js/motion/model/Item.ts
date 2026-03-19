@@ -24,7 +24,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import HumanTypeEnum from './HumanTypeEnum.js';
 import InteractionMode, { InteractionModes } from './InteractionMode.js';
 import MotionModel from './MotionModel.js';
@@ -347,5 +346,3 @@ export default class Item extends PhetioObject {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'Item', Item );

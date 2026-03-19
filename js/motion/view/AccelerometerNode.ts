@@ -12,7 +12,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 export default class AccelerometerNode extends Node {
   public readonly ticks: Node[];
@@ -79,5 +78,3 @@ export default class AccelerometerNode extends Node {
     this.ticks.push( child );
   }
 }
-
-forcesAndMotionBasics.register( 'AccelerometerNode', AccelerometerNode );

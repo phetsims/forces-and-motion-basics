@@ -17,7 +17,6 @@ import { ImageableImage } from '../../../../scenery/js/nodes/Imageable.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import ItemNode from './ItemNode.js';
@@ -111,5 +110,3 @@ export default class WaterBucketNode extends ItemNode {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'WaterBucketNode', WaterBucketNode );

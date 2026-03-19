@@ -13,7 +13,6 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import AccessibleList from '../../../../scenery-phet/js/accessibility/AccessibleList.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import getQualitativeForceDescription from '../../common/view/getQualitativeForceDescription.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
@@ -133,5 +132,3 @@ export default class ForcesListDescription extends Node {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'ForcesListDescription', ForcesListDescription );

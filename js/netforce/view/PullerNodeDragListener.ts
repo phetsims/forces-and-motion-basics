@@ -8,7 +8,6 @@
 
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import PullerMode from '../model/PullerMode.js';
 import PullerNode from './PullerNode.js';
@@ -63,5 +62,3 @@ export default class PullerNodeDragListener extends SoundDragListener {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'PullerNodeDragListener', PullerNodeDragListener );

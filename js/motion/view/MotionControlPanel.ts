@@ -28,7 +28,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import VerticalCheckboxGroup, { type VerticalCheckboxGroupItem } from '../../../../sun/js/VerticalCheckboxGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
@@ -345,6 +344,3 @@ const createStopwatchIcon = () => {
 
   return icon;
 };
-
-
-forcesAndMotionBasics.register( 'MotionControlPanel', MotionControlPanel );

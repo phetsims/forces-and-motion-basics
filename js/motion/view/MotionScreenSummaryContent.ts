@@ -10,7 +10,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
@@ -81,5 +80,3 @@ export default class MotionScreenSummaryContent extends ScreenSummaryContent {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'MotionScreenSummaryContent', MotionScreenSummaryContent );

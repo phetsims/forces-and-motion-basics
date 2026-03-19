@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import ItemNode from './ItemNode.js';
@@ -102,5 +101,3 @@ export default class ItemStackGroupNode extends Node {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'ItemStackGroupNode', ItemStackGroupNode );

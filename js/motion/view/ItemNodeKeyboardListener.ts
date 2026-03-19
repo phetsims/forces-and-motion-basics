@@ -8,8 +8,6 @@
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
-
 export default class ItemNodeKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
   public constructor( fire: ( keysPressed: OneKeyStroke ) => void ) {
     super( {
@@ -23,5 +21,3 @@ export default class ItemNodeKeyboardListener extends KeyboardListener<OneKeyStr
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'ItemNodeKeyboardListener', ItemNodeKeyboardListener );

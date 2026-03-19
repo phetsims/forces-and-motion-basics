@@ -14,7 +14,6 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -100,5 +99,3 @@ export default class FlagNode extends Node {
     this.path.shape = shape;
   }
 }
-
-forcesAndMotionBasics.register( 'FlagNode', FlagNode );

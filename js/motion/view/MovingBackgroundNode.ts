@@ -19,7 +19,6 @@ import brickTile_png from '../../../images/brickTile_png.js';
 import cloud1_svg from '../../../images/cloud1_svg.js';
 import icicle_png from '../../../images/icicle_png.js';
 import mountains_svg from '../../../images/mountains_svg.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
 
@@ -192,5 +191,3 @@ export default class MovingBackgroundNode extends Node {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'MovingBackgroundNode', MovingBackgroundNode );

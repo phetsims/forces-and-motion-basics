@@ -31,7 +31,6 @@ import fridge_svg from '../../../images/fridge_svg.js';
 import mysteryObject01_svg from '../../../images/mysteryObject01_svg.js';
 import trashCan_svg from '../../../images/trashCan_svg.js';
 import waterBucket_svg from '../../../images/waterBucket_svg.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionConstants from '../MotionConstants.js';
 // eslint-disable-next-line phet/no-view-imported-from-model
 import MotionScreenView from '../view/MotionScreenView.js';
@@ -694,5 +693,3 @@ export default class MotionModel {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'MotionModel', MotionModel );

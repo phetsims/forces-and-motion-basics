@@ -7,7 +7,6 @@
  */
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import FocusDrivenGrabReleaseCueNode from '../../common/view/FocusDrivenGrabReleaseCueNode.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ItemNode from './ItemNode.js';
 
 export default class MotionGrabReleaseCueNode extends FocusDrivenGrabReleaseCueNode<ItemNode> {
@@ -27,5 +26,3 @@ export default class MotionGrabReleaseCueNode extends FocusDrivenGrabReleaseCueN
     );
   }
 }
-
-forcesAndMotionBasics.register( 'MotionGrabReleaseCueNode', MotionGrabReleaseCueNode );

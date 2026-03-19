@@ -6,8 +6,6 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
-
 const MotionConstants = {
 
   // The scale mapping between model units (meters) and stage coordinates, How much to translate model
@@ -20,7 +18,5 @@ const MotionConstants = {
   // Maximum speed in meters/second before the pusher falls down
   MAX_SPEED: 40
 };
-
-forcesAndMotionBasics.register( 'MotionConstants', MotionConstants );
 
 export default MotionConstants;

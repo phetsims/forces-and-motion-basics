@@ -27,7 +27,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
@@ -643,5 +642,3 @@ export default class ItemNode extends InteractiveHighlighting( Node ) {
   }
 
 }
-
-forcesAndMotionBasics.register( 'ItemNode', ItemNode );

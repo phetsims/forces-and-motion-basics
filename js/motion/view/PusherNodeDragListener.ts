@@ -11,7 +11,6 @@ import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js'
 import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import MotionModel from '../model/MotionModel.js';
 import PusherNode from './PusherNode.js';
 
@@ -60,5 +59,3 @@ export default class PusherNodeDragListener extends SoundDragListener {
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'PusherNodeDragListener', PusherNodeDragListener );

@@ -15,7 +15,6 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import RedOrBlue from './RedOrBlue.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -74,5 +73,3 @@ export default class Knot extends PhetioObject {
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
 }
-
-forcesAndMotionBasics.register( 'Knot', Knot );

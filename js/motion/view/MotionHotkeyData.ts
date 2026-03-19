@@ -32,5 +32,3 @@ export default class MotionHotkeyData {
     keyboardHelpDialogLabelStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.cancelMovementStringProperty
   } );
 }
-
-forcesAndMotionBasics.register( 'MotionHotkeyData', MotionHotkeyData );

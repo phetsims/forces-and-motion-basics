@@ -102,6 +102,4 @@ const ForcesAndMotionBasicsImages = {
   } )
 };
 
-forcesAndMotionBasics.register( 'ForcesAndMotionBasicsImages', ForcesAndMotionBasicsImages );
-
 export default ForcesAndMotionBasicsImages;

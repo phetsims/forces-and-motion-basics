@@ -7,7 +7,6 @@
  */
 
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import forcesAndMotionBasics from '../forcesAndMotionBasics.js';
 
 const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
 
@@ -35,7 +34,5 @@ const ForcesAndMotionBasicsQueryParameters = QueryStringMachine.getAll( {
   }
 
 } );
-
-forcesAndMotionBasics.register( 'ForcesAndMotionBasicsQueryParameters', ForcesAndMotionBasicsQueryParameters );
 
 export default ForcesAndMotionBasicsQueryParameters;

@@ -15,7 +15,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 
 export default class PullerColorControl extends VBox {
@@ -83,5 +82,3 @@ export default class PullerColorControl extends VBox {
     this.addLinkedElement( netForcePullerColorsProperty );
   }
 }
-
-forcesAndMotionBasics.register( 'PullerColorControl', PullerColorControl );

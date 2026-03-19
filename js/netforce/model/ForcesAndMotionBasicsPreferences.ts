@@ -10,7 +10,6 @@
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ForcesAndMotionBasicsQueryParameters from '../../common/ForcesAndMotionBasicsQueryParameters.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 
 const ForcesAndMotionBasicsPreferences = {
   netForcePullerColorsProperty: new StringUnionProperty<'blueRed' | 'purpleOrange'>( ForcesAndMotionBasicsQueryParameters.pullerColor as 'blueRed' | 'purpleOrange', {
@@ -20,5 +19,4 @@ const ForcesAndMotionBasicsPreferences = {
   } )
 };
 
-forcesAndMotionBasics.register( 'ForcesAndMotionBasicsPreferences', ForcesAndMotionBasicsPreferences );
 export default ForcesAndMotionBasicsPreferences;

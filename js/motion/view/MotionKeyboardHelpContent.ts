@@ -11,7 +11,6 @@ import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/Ke
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
 import SpinnerControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SpinnerControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionHotkeyData from './MotionHotkeyData.js';
 import ObjectNavigationKeyboardHelpSection from './ObjectNavigationKeyboardHelpSection.js';
@@ -47,5 +46,3 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'MotionKeyboardHelpContent', MotionKeyboardHelpContent );

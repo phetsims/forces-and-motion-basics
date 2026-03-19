@@ -15,7 +15,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 
@@ -123,5 +122,3 @@ export default class MotionSpeedDescriptionNode extends Node {
     this.speedDescriptionProperty = speedDescriptionProperty;
   }
 }
-
-forcesAndMotionBasics.register( 'MotionSpeedDescriptionNode', MotionSpeedDescriptionNode );

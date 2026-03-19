@@ -10,7 +10,6 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import GaugeNode from '../../../../scenery-phet/js/GaugeNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionConstants from '../../motion/MotionConstants.js';
 
@@ -28,7 +27,5 @@ const ForcesAndMotionBasicsIconFactory = {
       { radius: 67, scale: 0.2, tandem: Tandem.OPT_OUT } );
   }
 };
-
-forcesAndMotionBasics.register( 'ForcesAndMotionBasicsIconFactory', ForcesAndMotionBasicsIconFactory );
 
 export default ForcesAndMotionBasicsIconFactory;

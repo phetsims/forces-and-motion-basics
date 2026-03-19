@@ -8,7 +8,6 @@
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Rectangle, { RectangleOptions } from '../../../../scenery/js/nodes/Rectangle.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import NetForceScreenView from './NetForceScreenView.js';
 
 // constants
@@ -43,5 +42,3 @@ export default class PullerToolboxNode extends Rectangle {
     super( x, toolboxY, toolboxWidth, toolboxHeight, toolboxArcWidth, toolboxArcWidth, options );
   }
 }
-
-forcesAndMotionBasics.register( 'PullerToolboxNode', PullerToolboxNode );

@@ -12,7 +12,6 @@ import Shape from '../../../../kite/js/Shape.js';
 import isResettingAllProperty from '../../../../scenery-phet/js/isResettingAllProperty.js';
 import GroupHighlightPath from '../../../../scenery/js/accessibility/GroupHighlightPath.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ItemNode from './ItemNode.js';
 
@@ -115,5 +114,3 @@ export default class ItemToolboxGroupNode extends Node {
     return itemNode.item.name === 'fridge' || itemNode.item.name === 'crate1' || itemNode.item.name === 'crate2' ? 'left' : 'right';
   }
 }
-
-forcesAndMotionBasics.register( 'ItemToolboxGroupNode', ItemToolboxGroupNode );

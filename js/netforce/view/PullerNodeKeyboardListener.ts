@@ -9,7 +9,6 @@
 import { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import PullerMode from '../model/PullerMode.js';
 import NetForceHotkeyData from './NetForceHotkeyData.js';
@@ -264,5 +263,3 @@ export default class PullerNodeKeyboardListener extends KeyboardListener<OneKeyS
     } );
   }
 }
-
-forcesAndMotionBasics.register( 'PullerNodeKeyboardListener', PullerNodeKeyboardListener );

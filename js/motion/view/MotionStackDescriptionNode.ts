@@ -16,7 +16,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import AccessibleList from '../../../../scenery-phet/js/accessibility/AccessibleList.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
@@ -122,5 +121,3 @@ export default class MotionStackDescriptionNode extends Node {
     this.addChild( emptyNode );
   }
 }
-
-forcesAndMotionBasics.register( 'MotionStackDescriptionNode', MotionStackDescriptionNode );

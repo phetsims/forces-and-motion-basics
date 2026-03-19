@@ -25,7 +25,6 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import VoidIO from '../../../../tandem/js/types/VoidIO.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Cart from './Cart.js';
 import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import Knot, { KnotType } from './Knot.js';
@@ -535,5 +534,3 @@ export default class NetForceModel extends PhetioObject {
     }
   } );
 }
-
-forcesAndMotionBasics.register( 'NetForceModel', NetForceModel );

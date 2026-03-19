@@ -73,5 +73,3 @@ export default class NetForceHotkeyData {
     global: true
   } );
 }
-
-forcesAndMotionBasics.register( 'NetForceHotkeyData', NetForceHotkeyData );

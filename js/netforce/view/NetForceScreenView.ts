@@ -26,7 +26,6 @@ import rope_png from '../../../images/rope_png.js';
 import golfClap_mp3 from '../../../sounds/golfClap_mp3.js';
 import ForcesAndMotionBasicsLayoutBounds from '../../common/view/ForcesAndMotionBasicsLayoutBounds.js';
 import ReadoutArrow from '../../common/view/ReadoutArrow.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import ForcesAndMotionBasicsPreferences from '../model/ForcesAndMotionBasicsPreferences.js';
 import NetForceModel from '../model/NetForceModel.js';
@@ -458,5 +457,3 @@ export default class NetForceScreenView extends ScreenView {
     this.rightPullerGroup.pdomOrder = rightPullers;
   }
 }
-
-forcesAndMotionBasics.register( 'NetForceScreenView', NetForceScreenView );

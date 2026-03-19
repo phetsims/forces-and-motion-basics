@@ -18,7 +18,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import HSlider from '../../../../sun/js/HSlider.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
@@ -106,5 +105,3 @@ export default class FrictionControl extends VBox {
     this.children = [ frictionText, frictionSlider ];
   }
 }
-
-forcesAndMotionBasics.register( 'FrictionControl', FrictionControl );

@@ -48,7 +48,6 @@ import pusher_8_png from '../../../images/pushPullFigures/pusher_8_png.js';
 import pusher_9_png from '../../../images/pushPullFigures/pusher_9_png.js';
 import pusher_fall_down_png from '../../../images/pushPullFigures/pusher_fall_down_png.js';
 import pusher_straight_on_png from '../../../images/pushPullFigures/pusher_straight_on_png.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import Item from '../model/Item.js';
 import MotionModel from '../model/MotionModel.js';
 import MotionConstants from '../MotionConstants.js';
@@ -311,5 +310,3 @@ export default class PusherNode extends InteractiveHighlightingNode {
     return this.interactive;
   }
 }
-
-forcesAndMotionBasics.register( 'PusherNode', PusherNode );

@@ -19,7 +19,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import { newtonsUnit } from '../../../../scenery-phet/js/units/newtonsUnit.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsPreferences from './ForcesAndMotionBasicsPreferences.js';
 import HomeOrKnot, { homeOrKnotValues } from './HomeOrKnot.js';
 import Knot from './Knot.js';
@@ -253,5 +252,3 @@ export default class Puller extends PhetioObject {
     return this.modeProperty.value.getKnot( this.model );
   }
 }
-
-forcesAndMotionBasics.register( 'Puller', Puller );

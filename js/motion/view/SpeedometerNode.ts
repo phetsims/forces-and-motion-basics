@@ -13,7 +13,6 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import ValueGaugeNode from '../../../../scenery-phet/js/ValueGaugeNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionConstants from '../MotionConstants.js';
 
@@ -64,5 +63,3 @@ export default class SpeedometerNode extends Node {
     this.mutate( options );
   }
 }
-
-forcesAndMotionBasics.register( 'SpeedometerNode', SpeedometerNode );

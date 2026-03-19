@@ -10,7 +10,6 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import forcesAndMotionBasics from '../../forcesAndMotionBasics.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import NetForceModel from '../model/NetForceModel.js';
 
@@ -144,5 +143,3 @@ export default class NetForceSpeedDescriptionNode extends Node {
     }
   }
 }
-
-forcesAndMotionBasics.register( 'NetForceSpeedDescriptionNode', NetForceSpeedDescriptionNode );
