@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "2f20421f7a20789486e9237c53daa158a5c11eac",
+    "sha": "f3d7b113c3d49b264e8428c77c5736768b44ec65",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "forces-and-motion-basics": {
-    "sha": "e0b388a7100141749f531af4b97a4b38f8ac58b4",
+    "sha": "a64feaee1428a0b6d919a6f2cfce625f23c44b71",
     "branch": "2.5"
   },
   "joist": {
@@ -33,7 +33,7 @@
     "branch": "HEAD"
   },
   "perennial-alias": {
-    "sha": "294f19097aaf534d6ef2d1d0e37034a52bd6b1f8",
+    "sha": "c52a9fb174de2ce5488d01d1e8b2b84adf8134be",
     "branch": "HEAD"
   },
   "phet-core": {
