@@ -625,3 +625,5 @@ const ForcesAndMotionBasicsFluent = {
 };
 
 export default ForcesAndMotionBasicsFluent;
+
+forcesAndMotionBasics.register('ForcesAndMotionBasicsFluent', ForcesAndMotionBasicsFluent);

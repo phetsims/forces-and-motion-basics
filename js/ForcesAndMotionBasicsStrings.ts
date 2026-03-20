@@ -364,4 +364,6 @@ type StringsType = {
 
 const ForcesAndMotionBasicsStrings = getStringModule( 'FORCES_AND_MOTION_BASICS' ) as StringsType;
 
+forcesAndMotionBasics.register( 'ForcesAndMotionBasicsStrings', ForcesAndMotionBasicsStrings );
+
 export default ForcesAndMotionBasicsStrings;
