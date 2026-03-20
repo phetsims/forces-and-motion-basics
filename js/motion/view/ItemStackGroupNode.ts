@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ItemStackGroupNode manages keyboard navigation for items that are stacked on the skateboard,

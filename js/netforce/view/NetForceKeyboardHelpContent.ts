@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * NetForceKeyboardHelpContent is the content for the keyboard-help dialog in the 'Net Force' screen.

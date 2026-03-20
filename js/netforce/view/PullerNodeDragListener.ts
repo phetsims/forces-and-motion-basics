@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * PullerNodeDragListener handles dragging PullerNodes between the toolbox and rope knots.

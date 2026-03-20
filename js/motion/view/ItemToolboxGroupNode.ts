@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * ItemToolboxGroupNode manages keyboard navigation for items in the toolboxes, treating both

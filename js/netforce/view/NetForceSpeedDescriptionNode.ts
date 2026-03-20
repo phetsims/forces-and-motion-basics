@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * NetForceSpeedDescription provides an accessible description of the current cart speed in the Net Force screen.

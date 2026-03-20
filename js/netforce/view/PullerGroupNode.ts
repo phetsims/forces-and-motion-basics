@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2025-2026, University of Colorado Boulder
 
 /**
  * PullerGroupNode manages keyboard navigation for a group of pullers, allowing them to be a single tab stop
