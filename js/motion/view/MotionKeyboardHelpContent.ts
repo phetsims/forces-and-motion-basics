@@ -22,7 +22,6 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
     // Sections in the left column.
     const adjustAppliedForceSection = new SpinnerControlsKeyboardHelpSection( {
       headingStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.adjustAppliedForceStringProperty,
-      includeLargerStepsRow: false,
       arrowKeyIconDisplay: SliderControlsKeyboardHelpSection.ArrowKeyIconDisplay.LEFT_RIGHT,
       additionalRows: [
         KeyboardHelpSectionRow.fromHotkeyData( MotionHotkeyData.ZERO_APPLIED_FORCE_HOTKEY_DATA )
