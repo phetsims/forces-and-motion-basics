@@ -7,9 +7,9 @@
  */
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
+import FineCoarseSpinnerKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/FineCoarseSpinnerKeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SliderControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SliderControlsKeyboardHelpSection.js';
-import SpinnerControlsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/SpinnerControlsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import ForcesAndMotionBasicsFluent from '../../ForcesAndMotionBasicsFluent.js';
 import MotionHotkeyData from './MotionHotkeyData.js';
@@ -20,7 +20,7 @@ export default class MotionKeyboardHelpContent extends TwoColumnKeyboardHelpCont
   public constructor() {
 
     // Sections in the left column.
-    const adjustAppliedForceSection = new SpinnerControlsKeyboardHelpSection( {
+    const adjustAppliedForceSection = new FineCoarseSpinnerKeyboardHelpSection( {
       headingStringProperty: ForcesAndMotionBasicsFluent.keyboardHelpDialog.adjustAppliedForceStringProperty,
       arrowKeyIconDisplay: SliderControlsKeyboardHelpSection.ArrowKeyIconDisplay.LEFT_RIGHT,
       additionalRows: [
