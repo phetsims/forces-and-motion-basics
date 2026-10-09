@@ -34,12 +34,12 @@ internal documentation (source code comments) and external documentation (design
 
 Before reading this document, please read:
 
-* [model.md](https://github.com/phetsims/forces-and-motion-basics/blob/main/doc/model.md)
+* [model.md](model.md)
 
 You are also encouraged to read:
 
-* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)
-* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md)
+* [PhET Development Overview](../../phet-info/doc/phet-development-overview.md)
+* [PhET Software Design Patterns](../../phet-info/doc/phet-software-design-patterns.md)
 
 ## Terminology
 
@@ -67,7 +67,7 @@ type while keeping the UI language aligned with the terminology presented to lea
 The simulation supports the following query parameters:
 
 Sim-specific query parameters are declared in
-[js/common/ForcesAndMotionBasicsQueryParameters.ts](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/common/ForcesAndMotionBasicsQueryParameters.ts).
+[js/common/ForcesAndMotionBasicsQueryParameters.ts](../js/common/ForcesAndMotionBasicsQueryParameters.ts).
 
 * `showItemToolboxes` (boolean, default: `true`): Allows hiding the item toolboxes in screens like Net Force, Motion,
   and Friction. When `false`, the toolboxes for items (e.g., crates, people, pucks) are not displayed.
@@ -112,7 +112,7 @@ objects.
 ### Preferences
 
 Net Force team colors can be configured via the Preferences dialog. See
-[js/netforce/model/ForcesAndMotionBasicsPreferences.ts](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/model/ForcesAndMotionBasicsPreferences.ts).
+[js/netforce/model/ForcesAndMotionBasicsPreferences.ts](../js/netforce/model/ForcesAndMotionBasicsPreferences.ts).
 `netForcePullerColorsProperty` is initialized from the `pullerColor` query parameter and is exposed as a featured
 preference; changing it updates visuals and accessible names.
 
@@ -142,7 +142,7 @@ The `NetForceModel.ts` simulates a tug-of-war scenario. The main components of t
 * Key properties: `positionProperty` (NumberProperty for horizontal position), `isHighlightedProperty`.
 
 Puller interaction state is unified in
-[`PullerMode`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/model/PullerMode.ts), which
+[`PullerMode`](../js/netforce/model/PullerMode.ts), which
 encodes whether a puller is at home, pointer/keyboard grabbed, or attached to a specific knot.
 
 Other important model-level properties in `NetForceModel` include:
@@ -226,7 +226,7 @@ MotionModel
 
 ### Other Important Model Classes
 
-* [`js/motion/MotionConstants.ts`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/MotionConstants.ts):
+* [`js/motion/MotionConstants.ts`](../js/motion/MotionConstants.ts):
   numerical constants used throughout the Motion screens (force limits, speed caps, friction ranges, position scale,
   etc.).
 
@@ -269,8 +269,8 @@ components include:
 
 * **`ItemNode` / `WaterBucketNode`**: Visual representations for items (e.g., crates, refrigerator, people, mystery box,
   water bucket). Standing/sitting/holding imagery is selected per item state. Keyboard navigation is organized via
-  [`ItemToolboxGroupNode`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ItemToolboxGroupNode.ts)
-  and [`ItemStackGroupNode`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ItemStackGroupNode.ts),
+  [`ItemToolboxGroupNode`](../js/motion/view/ItemToolboxGroupNode.ts)
+  and [`ItemStackGroupNode`](../js/motion/view/ItemStackGroupNode.ts),
   with per-item strategies
   [`ToolboxKeyboardStrategy`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ToolboxKeyboardStrategy.ts)
   and [`StackKeyboardStrategy`](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/StackKeyboardStrategy.ts).
@@ -359,8 +359,8 @@ instance). `MotionModel` itself has many of its properties instrumented, making 
 Keyboard and assistive-technology support is extensive:
 
 - Keyboard help & hotkeys: Net Force provides a dedicated keyboard help dialog
-  ([NetForceKeyboardHelpContent](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/NetForceKeyboardHelpContent.ts))
-  and hotkey definitions ([NetForceHotkeyData](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/NetForceHotkeyData.ts)).
+  ([NetForceKeyboardHelpContent](../js/netforce/view/NetForceKeyboardHelpContent.ts))
+  and hotkey definitions ([NetForceHotkeyData](../js/netforce/view/NetForceHotkeyData.ts)).
 - Keyboard drag strategies: Items use per-region strategies
   ([ToolboxKeyboardStrategy](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/ToolboxKeyboardStrategy.ts),
   [StackKeyboardStrategy](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/StackKeyboardStrategy.ts))
@@ -370,13 +370,13 @@ Keyboard and assistive-technology support is extensive:
 - Accessible headings & live responses: Sections use `tagName` and `accessibleHeading`; nodes announce state changes and
   actions (e.g., go/pause, return cart, puller attach/detach, pusher falls, item moved to stack/toolbox, speed and
   acceleration toggles). Examples include
-  [ForcesListDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/ForcesListDescription.ts),
+  [ForcesListDescription](../js/netforce/view/ForcesListDescription.ts),
   [SpeedDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/SpeedDescription.ts),
   [MotionForcesListDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionForcesListDescription.ts),
   [MotionScreensSpeedDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionScreensSpeedDescription.ts),
   [MotionScreensAccelerationDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionScreensAccelerationDescription.ts),
   and [MotionStackListDescription](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionStackListDescription.ts).
 - Screen summaries: Each screen type provides a summary via
-  [NetForceScreenSummaryContent](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/netforce/view/NetForceScreenSummaryContent.ts)
+  [NetForceScreenSummaryContent](../js/netforce/view/NetForceScreenSummaryContent.ts)
   and
-  [MotionScreenSummaryContent](https://github.com/phetsims/forces-and-motion-basics/blob/main/js/motion/view/MotionScreenSummaryContent.ts).
+  [MotionScreenSummaryContent](../js/motion/view/MotionScreenSummaryContent.ts).

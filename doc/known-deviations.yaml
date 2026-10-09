@@ -1,0 +1,132 @@
+# yaml-language-server: $schema=../../design-lab/schemas/known-deviations.schema.json
+#
+# Spec statements the SHIPPED Forces and Motion: Basics implementation is known to fail. Each statement still runs on
+# every spec run: its failure is reported WAIVED rather than FAIL, and its pass is reported as a stale waiver to
+# remove. This file describes only the shipped implementation, so design-lab/scripts/create-sandbox.ts scrubs it and
+# a re-inferred implementation is held to the full spec.
+
+forces-and-motion-basics/specs/net-force-description.spec.ts:
+  - statement: "Grabbing a puller says which knot it hovers over, each step names the next knot or the toolbox, and dropping it says where it was attached"
+    reason: >-
+      The shipped strings name an unnumbered puller with an empty index, leaving a double space ("Large Blue Puller
+      attached"). The design selects the unnumbered name, a string change the shipped strings file does not carry.
+  - statement: "The Play Area describes who holds which knot and lists the forces, qualitatively until Values is checked"
+    reason: >-
+      The shipped strings build each knot's entry from the puller's name, lowercased in code. The design builds it
+      from lowercase size and color messages of its own, which the shipped strings file does not carry.
+  - statement: Pressing Go! announces the cart's motion exactly once, not once for the button and again for the cart
+    reason: >-
+      The shipped Go! button speaks the cart's direction as its own context response, and the cart's direction
+      change speaks the same sentence again a moment later, so a screen reader user hears "Cart moving left."
+      twice for one press.
+
+forces-and-motion-basics/specs/motion-focus.spec.ts:
+  - statement: "Each region keeps exactly one tab stop: when the object holding it is hidden, or has its input disabled by a PhET-iO client, another object of that region takes the stop over"
+    reason: >-
+      The shipped screen re-derives the two tab stops only while some object has keyboard focus. Hiding, or disabling
+      the input of, the object that holds a region's tab stop while nothing is focused leaves that region with no
+      object in the tab order at all, so a keyboard user tabs straight past the toolbox (or the stack) until focus
+      happens to land on an object and the stops are recomputed.
+
+forces-and-motion-basics/specs/lifetime.spec.ts:
+  - statement: "The Net Force model and view, every puller and knot, and every puller picture declare that they reject disposal"
+    reason: >-
+      The shipped Net Force model is not a Disposable that declares isDisposable: false, so it does not state that it
+      lives for the life of its screen.
+  - statement: "The motion model and view, every object and every object picture declare that they reject disposal"
+    reason: >-
+      The shipped motion model does not declare isDisposable: false, so it does not state that it lives for the life
+      of its screen.
+
+forces-and-motion-basics/specs/motion-description.spec.ts:
+  - statement: "A keyboard change that balances kinetic friction, so that the stack glides on at constant speed, does not say the stack is stationary"
+    reason: >-
+      The shipped Applied Force spinner speaks "Stack stationary." whenever a keyboard change leaves the acceleration
+      at zero, without checking the speed, so a stack gliding at constant speed is announced as stationary. The design
+      corrects this: the response is for a stack at rest.
+
+forces-and-motion-basics/specs/motion-forces.spec.ts:
+  - statement: "Emptying a stack that is at the speed cap while the sim is paused lifts the cap's restriction on the applied force at once, so an object stacked afterwards can be pushed either way before a single frame plays"
+    reason: >-
+      The shipped model narrows the applied-force range at the speed cap and restores it only when a frame plays, so
+      emptying the stack while paused leaves the range at -500 to 0 until the sim steps.
+
+forces-and-motion-basics/specs/motion-readouts.spec.ts:
+  - statement: "Clouds and mountains keep entering the viewport through a minute at the speed cap in either direction, every picture in view drifts continuously with no jump when the pattern wraps, in a wide window as in the layout frame, and Reset All puts them back where they started"
+    reason: >-
+      The shipped sim's distant scenery is a finite strip, so a long run at the speed cap carries every cloud and
+      mountain out of view. The design makes the scenery repeat endlessly, a deliberate correction.
+  - statement: "On the ground, gravel lines the surface and scrolls with the bricks while there is friction; at zero friction a fixed ice sheet replaces it, with icicles beneath it that travel with the ground and repeat every layout-frame width so that one is always in view, in a wide window as in the layout frame"
+    reason: >-
+      The shipped sim draws a fixed set of icicles, so they do not repeat every layout-frame width and a wide window
+      shows none of their repeats. The design makes them repeat endlessly across any window.
+  - statement: "The world fills a window three times as wide as it is tall: the sky, the ground and the brick strip span the visible bounds edge to edge, and on ice so does the sheet"
+    reason: >-
+      The shipped ground and brick strip have a fixed width, so a window wider than the layout frame shows their ends.
+      The design makes the world span the visible bounds at any aspect ratio.
+  - statement: "Object animations run on presentation time and the experiment on physics time: while the sim is paused a dropped object still glides onto the stack, the stack physics stands still, and one press of the step button then advances the physics by exactly one frame"
+    reason: >-
+      The shipped stack moves by its end-of-step velocity, so the first step from rest carries it twice as far as the
+      design's. The design moves it by the average of the step's start and end velocity, as it does the cart.
+  - statement: "One second of steady push on frictionless ground leaves the stack in the same place and at the same speed whether it passes as sixty frames, thirty, or frames of uneven length"
+    reason: >-
+      The shipped stack moves by its end-of-step velocity, so a longer frame carries it further in the same time. The
+      design moves it by the average of the step's start and end velocity, which does not depend on the frame rate.
+  - statement: "While paused, a push from the spinner shows at once in the sum of forces, the acceleration, the accelerometer and its reading, but the stack moves only when the step button advances the physics"
+    reason: >-
+      The shipped model sets the acceleration only when the physics steps, so while paused it lags a change to the
+      forces, and a paused screen can show a sum of forces next to an acceleration of zero. The design recomputes the
+      acceleration with the forces on every frame, as F = ma requires.
+
+forces-and-motion-basics/specs/motion-stack.spec.ts:
+  - statement: "A state loaded while an object is being dragged with the pointer ends that drag: the restored object stays where the state put it as the mouse moves on, and releasing the mouse over the stack does not place it a second time"
+    reason: >-
+      Loading PhET-iO state in the shipped sim does not end a pointer drag in progress: the restored object keeps
+      following the pointer, and releasing it over the stack places it on the stack a second time.
+  - statement: "Escape returns a grabbed object to a stack that has filled to three in the meantime by evicting the bottom object home, so the stack never holds four and every object's mode, place in the list and position agree"
+    reason: >-
+      In the shipped sim, pressing the pointer on another object clears keyboard focus, which ends the keyboard grab,
+      so a keyboard-grabbed object is dropped when other objects arrive on the stack by pointer.
+  - statement: "State saved while an object is keyboard-grabbed off the stack restores that object at rest on the stack, with every object's mode, list membership and position in agreement, and a fresh grab and Escape then return it to the stack, not the toolbox"
+    reason: >-
+      The shipped sim restores an object saved in a keyboard grab without putting it back in the stack's list, so its
+      mode, the stack's list and its picture disagree after the restore.
+
+forces-and-motion-basics/specs/net-force-game.spec.ts:
+  - statement: "One second of play leaves the cart in the same place and at the same speed whether it passes as sixty frames, thirty, or frames of uneven length"
+    reason: >-
+      The shipped cart moves by its end-of-step velocity, so a longer frame carries it further in the same time. The
+      design moves it by the average of the step's start and end velocity, which does not depend on the frame rate.
+
+forces-and-motion-basics/specs/net-force-pullers.spec.ts:
+  - statement: "A knot holds one puller even when another puller takes a grabbed puller's destination meanwhile: the hover and its circle move off a knot that is taken, a drop never lands on a taken knot, and Escape sends the puller home when the knot it came from has been taken"
+    reason: >-
+      The shipped sim returns a keyboard-grabbed puller to its original knot on Escape even when another puller has
+      taken that knot meanwhile, so two pullers share one knot.
+  - statement: "A puller released just to one side of halfway between the places it would stand on two neighboring knots takes the nearer knot, on either side"
+    reason: >-
+      The shipped sim measures a left-team puller's drop distance from 40 units right of its picture's left edge,
+      short of its hands, so the choice favors the knot farther from the cart. The design measures from the puller's
+      own attached placement, so neither neighbor is favored.
+  - statement: "A puller saved while held in mid-air, away from its rope, is restored at home: drawn there, with its position set to its home, and the next grab starts from there"
+    reason: >-
+      The shipped sim restores a puller saved while held by drawing it at home but leaves its model position at the
+      saved mid-air point, so the model and the picture disagree.
+  - statement: "A puller saved while held just above where it would stand on a knot is restored on that knot, drawn there, and stays there when clicked"
+    reason: >-
+      The shipped sim restores every puller saved while held at home, even one held over its rope where a release
+      would attach it to a knot.
+  - statement: "A state loaded while a puller is being dragged with the pointer ends that drag: the restored puller stays on its knot as the mouse moves on, nothing is circled or shown as grabbed, and releasing the mouse leaves it there"
+    reason: >-
+      Loading PhET-iO state in the shipped sim does not end a pointer drag in progress, so releasing the mouse
+      afterwards drops the restored puller onto the knot under the pointer.
+  - statement: "Each team has exactly one puller in the tab order from the moment the screen opens, and still exactly one after the selection moves along the team, after a puller is dropped on a knot, and after Reset All"
+    reason: >-
+      Every puller of the shipped sim is in the tab order, rather than one per team with the arrow keys moving among
+      them.
+
+forces-and-motion-basics/specs/sky.spec.ts:
+  - statement: "In a window as tall as a phone held upright, the sky fills the space above the layout frame and is deep blue at its top"
+    reason: >-
+      The shipped sky reaches only one sky's height above the layout frame, so a window held upright shows a band of
+      the screen's background above it. The design keeps the sky deep blue up to the top of any window.

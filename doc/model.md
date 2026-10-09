@@ -65,7 +65,7 @@ The Net Force (Tug-of-War) screen primarily demonstrates:
 *   **Starting the Game:** The simulation starts (cart begins to move if there is a nonzero net force) when the "Go" button is pressed.
 *   **Motion Dynamics:**
 *   The cart's velocity is updated based on the net force using the formula: `new_velocity = old_velocity + F_net * dt`.
-*   The cart's position is updated based on this velocity: `new_position = old_position + new_velocity * dt`.
+*   The cart's position is updated by the average of its velocity at the start and end of the step: `new_position = old_position + (old_velocity + new_velocity) / 2 * dt`. The net force is constant within a step, so this is exact and does not depend on the frame rate.
 *   **Winning Condition:** The trial ends when the cart's front wheel reaches a certain distance from the center, indicated by the location of the stopper.
 *   If `cart.position > NetForceModel.GAME_LENGTH`, the right team wins.
 *   If `cart.position < -NetForceModel.GAME_LENGTH`, the left team wins.
@@ -140,7 +140,7 @@ These objects can be stacked on top of each other (up to a limit of 3 items, if 
   *   If the net force and acceleration are zero, velocity remains constant.
   *   The simulation caps the velocity at the max speed (40 m/s). If this speed is exceeded, the pusher falls over.
   *   A key aspect of the model is that if the friction force would cause the object to reverse direction, the velocity is set to zero instead. This prevents hysteresis oscillations when an object comes to rest due to friction.
-*   **Position (x):** The position of the stack of objects is updated each time step based on the velocity: x_new = x_old + v * dt.
+*   **Position (x):** The position of the stack of objects is updated each time step by the average of its velocity at the start and end of the step: x_new = x_old + (v_old + v_new) / 2 * dt. While the forces are constant this is exact, so the motion does not depend on the frame rate. In a step that stops the stack or reaches the speed cap, v_new is the stopped or capped velocity.
 *   **Speed:** The magnitude of the velocity (|v|).
 
 ### Simplifications
